@@ -1,0 +1,18 @@
+{
+  "code": "pro_monthly",
+  "interval": "monthly",
+  "charges": [
+    {
+      "charge_model": "standard",
+      "amount": 299.0,
+      "unit_amount": 299.0,
+      "aggregation_type": "count_agg"
+    },
+    {
+      "charge_model": "percentage",
+      "amount": 2.9,
+      "unit_amount": 0.029,
+      "aggregation_type": "sum_agg"
+    }
+  ]
+}

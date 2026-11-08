@@ -1,0 +1,112 @@
+{
+  "doc_type": "角色报告 · 蛙交易",
+  "title_lines": [
+    "蛙交易 · payment/refund",
+    "客户申请退款，帮我看这笔退款合不合规、能不能直接退 "
+  ],
+  "standfirst": "next=工件通过全部门禁，可进入授权与交接",
+  "meta": [
+    "角色 r14 蛙交易（交易与收入履约官）",
+    "生成日期 2026-11-07",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "4/4 项",
+      "status": "healthy"
+    },
+    {
+      "label": "next",
+      "value": "工件通过全部门禁，可进入授权与交接",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "refund_count",
+      "value": "1",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "amount",
+      "value": "29,900.00",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=工件通过全部门禁，可进入授权与交接"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "refund_count",
+      "question": "refund_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "refund_count：",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "amount",
+      "question": "amount 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "amount：",
+          "text": "29,900.00"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "refund_ratio",
+      "question": "refund_ratio 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "refund_ratio：",
+          "text": "0.29"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "narrative",
+      "question": "narrative 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "narrative：",
+          "text": "退款 29900.0（比例 0.2859）前置 succeeded"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 payment/refund 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙交易 · 交易与收入履约官",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

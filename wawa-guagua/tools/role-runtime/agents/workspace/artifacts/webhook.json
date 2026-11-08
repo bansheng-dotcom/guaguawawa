@@ -1,0 +1,16 @@
+{
+  "path": "acme-contact-form",
+  "method": "POST",
+  "trigger_type": "webhook",
+  "input_shape": "body",
+  "handlers": [
+    {
+      "match": "type=lead",
+      "node": "Create Lead"
+    },
+    {
+      "default": true,
+      "node": "Log Unhandled"
+    }
+  ]
+}

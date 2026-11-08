@@ -1,0 +1,7 @@
+{
+  "targets": [
+    {"platform": "android", "status": "success"},
+    {"platform": "ios", "status": "success"},
+    {"platform": "web", "status": "success"}
+  ]
+}

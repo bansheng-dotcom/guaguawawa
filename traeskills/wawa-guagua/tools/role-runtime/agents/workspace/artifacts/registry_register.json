@@ -1,0 +1,8 @@
+{
+  "model_name": "support-qa-assistant",
+  "version": "3",
+  "stage": "staging",
+  "source": "mlflow",
+  "run_id": "run-88213",
+  "description": "客服问答助手第 3 版候选"
+}

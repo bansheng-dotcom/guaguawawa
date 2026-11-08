@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "skill": "intent",
+  "action": "brief",
+  "checks": [
+    {
+      "ok": true,
+      "msg": "Passed"
+    }
+  ],
+  "grade": 100
+}

@@ -1,0 +1,8 @@
+{
+  "case_id": "saas-activation",
+  "display_name": "SaaS 新用户激活",
+  "description": "新用户注册后不知道如何创建首个项目，导致 7 日激活率偏低。北极星=7 日激活率，护栏=引导放弃率。",
+  "default_question": "如何提升 SaaS 新用户 7 日激活率？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience"
+}

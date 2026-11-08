@@ -1,0 +1,25 @@
+{
+  "_comment": "语义层（cases 判据化数据访问）：R04 独立验收落地页所用的实体/字段/枚举/口径。",
+  "artifact_type": {
+    "landing_html": "单文件落地页（hero/表单/追踪）"
+  },
+  "terms": {
+    "criterion": "外置验收判据（id/description/evidence/severity/partial）",
+    "claim": "生产方的完成声明（id/text/kind/evidence_refs）",
+    "keep_item": "评审标记保留的优点（id/what/why_keep/evidence）",
+    "reviewer": "独立评审官角色（不得与生产者同体）",
+    "producer": "生产方角色（R08）",
+    "evidence": "可定位证据：file:line、字段名或 verified:/not verified: 前缀"
+  },
+  "gates": [
+    {"id": "AC-01", "name": "hero 文案与定位一致", "kind": "criteria_review", "pass_rule": "有可定位 evidence 且无 issues"},
+    {"id": "AC-02", "name": "表单可投递到真实端点", "kind": "criteria_review", "pass_rule": "有可定位 evidence 且无 issues"},
+    {"id": "AC-03", "name": "移动优先布局", "kind": "criteria_review", "pass_rule": "partial=true → warn（不阻断）"},
+    {"id": "AC-04", "name": "转化追踪已接入", "kind": "criteria_review", "pass_rule": "无 evidence 即 fail"}
+  ],
+  "boundary": {
+    "in_scope": ["已存在成品的判据审查", "claims 禁词与证据链", "keep 项复评", "人工评审包与批次契约"],
+    "out_of_scope": ["代改 landing.html（修复归 R08/R09）", "生产新成品", "替用户决定文案"],
+    "never_clauses": ["评审者不得与生产者同体", "评审只记录不修复", "完成声明无证据即 FAIL"]
+  }
+}

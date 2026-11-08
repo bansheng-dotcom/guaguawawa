@@ -1,0 +1,65 @@
+{
+  "_note": "R06 的全局阈值，harness 与各技能统一引用。改这里即可调口径，不用改代码。",
+  "quality": {
+    "missing_warn_pct": 5.0,
+    "missing_fail_pct": 30.0,
+    "duplicate_critical_pct": 1.0,
+    "freshness_warn_days": 7,
+    "freshness_fail_days": 14,
+    "outlier_iqr_k": 1.5,
+    "grade_pass": 8.0,
+    "grade_warn": 5.0
+  },
+  "semantics": {
+    "tolerance": {
+      "ledger": 0.0,
+      "finance": 0.1,
+      "marketing": 1.0,
+      "product": 2.0,
+      "ml": 0.5
+    }
+  },
+  "statistics": {
+    "alpha": 0.05,
+    "srm_critical_chi2": 3.841,
+    "correlation": {"strong": 0.8, "medium": 0.5, "weak": 0.3},
+    "cohens_d": {"small": 0.2, "medium": 0.5, "large": 0.8},
+    "eta2": {"small": 0.01, "medium": 0.06, "large": 0.14},
+    "r2": {"small": 0.02, "medium": 0.13, "large": 0.26},
+    "cramers_v": {"small": 0.1, "medium": 0.3, "large": 0.5}
+  },
+  "abtest": {
+    "impact_min_pct": 3.0
+  },
+  "rootcause": {
+    "impact_min_pct": 3.0,
+    "pareto_threshold_pct": 80
+  },
+  "funnel": {
+    "drop_warn_pct": 20.0
+  },
+  "timeseries": {
+    "anomaly_sigma": 3.0,
+    "seasonality_strong": 0.6,
+    "min_points": 6
+  },
+  "segmentation": {
+    "silhouette_ok": 0.3,
+    "max_k": 8,
+    "min_segment_size": 10
+  },
+  "saas": {
+    "nrr_good_pct": 100.0,
+    "nrr_warn_pct": 90.0,
+    "churn_rate_good_pct": 5.0,
+    "churn_rate_warn_pct": 10.0,
+    "ltv_cac_good": 3.0,
+    "ltv_cac_warn": 1.0
+  },
+  "selfmedia": {
+    "fresh_days": 1,
+    "stale_days": 7,
+    "hhi_high": 0.5,
+    "hhi_extreme": 0.75
+  }
+}

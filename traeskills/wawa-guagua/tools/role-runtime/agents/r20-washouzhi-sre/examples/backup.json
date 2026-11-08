@@ -1,0 +1,8 @@
+{
+  "repo": "/backups/repo",
+  "encrypted": true,
+  "excludes": [
+    "/tmp",
+    "/cache"
+  ]
+}

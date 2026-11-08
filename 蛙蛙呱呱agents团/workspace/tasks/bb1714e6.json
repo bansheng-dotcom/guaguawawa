@@ -1,0 +1,34 @@
+{
+  "task_id": "bb1714e6",
+  "title": "t",
+  "owner": "r20",
+  "intent": "帮我看这个备份仓加密了没",
+  "inputs": [
+    {
+      "name": "D:\\一人公司\\agents\\r20-washouzhi-sre\\examples\\backup.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "backup.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "reliability_report.md",
+      "kind": "report",
+      "media_type": "text/markdown",
+      "note": ""
+    }
+  ],
+  "acceptance": [
+    "x"
+  ],
+  "deps": [],
+  "status": "done",
+  "logs": []
+}

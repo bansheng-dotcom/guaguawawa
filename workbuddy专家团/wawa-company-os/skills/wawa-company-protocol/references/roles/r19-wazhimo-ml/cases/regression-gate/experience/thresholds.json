@@ -1,0 +1,14 @@
+{
+  "_note": "regression-gate 案例阈值覆盖（在全局 experience/thresholds.json 之上合并）。只覆盖回归门禁相关键，不破坏全局键。",
+  "release": {
+    "verdicts": ["PASS", "BLOCK", "NEEDS_REVIEW"],
+    "diagnosis_layers": ["capability", "data", "routing", "instruction",
+                         "knowledge", "reward"],
+    "min_evidence_count": 1,
+    "require_regression_on_pass": true
+  },
+  "review": {
+    "fake_pass_words": ["效果不错", "看起来好", "应该没问题", "主观感觉",
+                        "凭经验判断", "直接上线", "跳过评估", "试了几个问题"]
+  }
+}

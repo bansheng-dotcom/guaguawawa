@@ -1,0 +1,20 @@
+{
+  "tables": [
+    {
+      "name": "users",
+      "columns": [{"name": "id", "type": "uuid"}, {"name": "email", "type": "string"}],
+      "primary_key": "id",
+      "indexes": [{"name": "idx_users_email", "columns": ["email"]}]
+    },
+    {
+      "name": "orders",
+      "columns": [
+        {"name": "id", "type": "uuid"},
+        {"name": "user_id", "type": "uuid"},
+        {"name": "total", "type": "float"}
+      ],
+      "primary_key": "id",
+      "indexes": [{"name": "idx_orders_user", "columns": ["user_id"]}]
+    }
+  ]
+}

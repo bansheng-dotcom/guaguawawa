@@ -1,0 +1,30 @@
+{
+  "_note": "R16「薪酬准备层」语义层。枚举口径来自 frappe__hrms（SalaryStructure.payroll_frequency；SalaryComponent.type = Earning|Deduction|Employer Contribution）。门禁与边界是对 R16 红线 1（不擅自发薪）+ L4 制度性幻觉防护的可执行化。",
+  "artifact_type": "payroll_calc",
+  "terms": [
+    {"term": "gross_pay", "meaning": "毛额 = ΣEarning 组成项，必须恒等", "source": "hrms.SalarySlip.gross_pay"},
+    {"term": "net_pay", "meaning": "净额 = 毛额 − ΣDeduction，容差 0.01", "source": "hrms.SalarySlip.net_pay"},
+    {"term": "system_field", "meaning": "制度性字段（免税额度/税率/社保基数等），必须能在输入表找到 source，否则视为制度性幻觉", "source": "R16 L4 防护"},
+    {"term": "payment_days", "meaning": "计薪天数，须 ≤ total_working_days（考勤勾稽）", "source": "hrms.SalarySlip.payment_days"},
+    {"term": "handoff", "meaning": "R16 只产出薪酬输入与核算草稿，不做税务/社保复核结论，不发薪", "source": "R16 红线 1 + 红线 3"}
+  ],
+  "gates": [
+    {"id": "G1", "when": "abs(net_pay - (ΣEarning - ΣDeduction)) > 0.01", "verdict": "BLOCKER", "action": "拒绝，净额不恒等"},
+    {"id": "G2", "when": "abs(gross_pay - ΣEarning) > 0.01", "verdict": "BLOCKER", "action": "拒绝，毛额不恒等"},
+    {"id": "G3", "when": "system_field 无 source", "verdict": "BLOCKER", "action": "拒绝，制度性字段凭空（L4 幻觉）"},
+    {"id": "G4", "when": "payment_days > total_working_days", "verdict": "BLOCKER", "action": "拒绝，计薪天数超过计薪基数"},
+    {"id": "G5", "when": "薪酬核算未声明移交 R03/外部复核", "verdict": "WARN", "action": "补声明：核算草稿非发放，须复核"}
+  ],
+  "boundary": [
+    {"out_of_scope": "实际发薪 / 代发工资 / 打款", "owner": "人工授权后执行", "r16_role": "只产出薪酬输入与核算草稿"},
+    {"out_of_scope": "个税申报与税率计算结论", "owner": "R03 财务 + 外部专业人士", "r16_role": "移交，R16 只做数量勾稽"},
+    {"out_of_scope": "社保公积金基数合规判定", "owner": "R03 财务", "r16_role": "移交"},
+    {"out_of_scope": "薪酬定档与调薪决策", "owner": "R01 决策 + R03", "r16_role": "移交"}
+  ],
+  "decision_order": [
+    "先校验净额恒等式（G1），数字不闭合直接拒绝，不进入字段讨论",
+    "再校验毛额恒等式（G2）与计薪天数勾稽（G4）",
+    "最后扫描制度性字段溯源（G3），无来源一律视为 L4 幻觉拒绝",
+    "任何真实发薪动作一律不进 R16 执行面，只产出草稿 + 移交声明"
+  ]
+}

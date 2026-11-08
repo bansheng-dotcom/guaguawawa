@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# 环境
+.env
+.venv/
+venv/
+env/
+
+# 生产输出（不上传实际写作内容）
+skills/article-director/outputs/
+skills/article-popular-science-writer/outputs/
+outputs/
+tmp/
+state/
+
+# 文章草稿（平台发布目录）
+platforms/
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# 敏感
+*.key
+secrets.json

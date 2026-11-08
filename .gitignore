@@ -1,0 +1,29 @@
+# ---- Python 缓存与虚拟环境 ----
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# ---- 运行期临时文件与产物 ----
+workspace/.events.lock
+*.tmp
+agents/workspace/reports/
+agents/workspace/artifacts/
+*.jsonl.bak
+
+# ---- 沙箱诊断残留 ----
+.dsh-acl-recovery/
+
+# ---- 第三方上游 clone / 学习仓库（体积大，不入库）----
+补充技能/
+agents/repo_python_xuexi/
+
+# ---- 编辑器 / 操作系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

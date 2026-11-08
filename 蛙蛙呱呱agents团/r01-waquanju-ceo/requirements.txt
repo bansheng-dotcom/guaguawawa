@@ -1,0 +1,7 @@
+# R01 CEO/Orchestrator Sandbox Dependencies
+# Distilled from ceo-advisor skill
+pandas>=2.0.0      # For strategic data analysis and scorecard aggregations
+pyyaml>=6.0        # For parsing company OS and strategic configs
+jsonschema>=4.17.3 # For rigorous contract validation of task cards
+requests>=2.31.0   # For real-world stakeholder artifact retrieval
+Jinja2>=3.1.2      # For rendering board memos and decision logs

@@ -1,0 +1,16 @@
+{
+  "artifact_type": "prd",
+  "model_key": "feature",
+  "terms": [
+    {"term": "问题门禁", "definition": "说清真实用户问题，而非「支持/优化某功能」"},
+    {"term": "不在范围 non_goals", "definition": "明确本文档不做什么，防止范围蔓延"},
+    {"term": "承重假设", "definition": "价值成立所依赖、可验证的关键假设，至少 3 条"},
+    {"term": "验收标准", "definition": "Given/When/Then 三段，可观察可复现，覆盖失败态"}
+  ],
+  "gates": ["problem", "user", "value", "scope", "metric", "acceptance", "risk", "read"],
+  "boundary": [
+    "PRD 不写工程实现细节（交 R09）",
+    "PRD 不做视觉稿（交 R10）",
+    "范围/取舍判断归产品，专业结论不越界"
+  ]
+}

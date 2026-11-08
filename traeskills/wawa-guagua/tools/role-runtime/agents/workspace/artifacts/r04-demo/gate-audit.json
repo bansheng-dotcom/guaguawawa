@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "评分 100（solid），error=0 warning=0",
+      "dim": "gate:score",
+      "sev": "OK"
+    }
+  ],
+  "findings": [],
+  "error_count": 0,
+  "warning_count": 0,
+  "score": 100,
+  "tier": "solid",
+  "verdict": "PASS",
+  "evaluated_patterns": [
+    {
+      "pattern": "STRENGTH-001",
+      "triggered": false,
+      "severity": "error"
+    },
+    {
+      "pattern": "STRENGTH-002",
+      "triggered": false,
+      "severity": "error"
+    },
+    {
+      "pattern": "STRENGTH-003",
+      "triggered": false,
+      "severity": "warning"
+    },
+    {
+      "pattern": "STRENGTH-004",
+      "triggered": false,
+      "severity": "error"
+    },
+    {
+      "pattern": "STRENGTH-005",
+      "triggered": false,
+      "severity": "warning"
+    },
+    {
+      "pattern": "STRENGTH-006",
+      "triggered": false,
+      "severity": "error"
+    },
+    {
+      "pattern": "STRENGTH-007",
+      "triggered": false,
+      "severity": "error"
+    }
+  ],
+  "next": "门禁强度达标，可继续放行"
+}

@@ -1,0 +1,51 @@
+{
+  "_note": "R01 蛙全局全局阈值（T9）：所有数字口径的外置真源，改口径不改技能代码。",
+  "intent": {
+    "brief_fields": ["problem", "options", "assumptions", "constraints", "impacted_roles", "success_criteria", "kill_criteria"],
+    "options_min": 2,
+    "assumptions_min": 3,
+    "clarify_questions": ["problem", "customer", "distribution", "moat", "funding", "founder_fit"],
+    "levels": ["vision", "objective", "strategy", "milestone", "phase", "task"]
+  },
+  "decompose": {
+    "taskcard_sections": ["goal", "owned_files", "requirements", "interface_contract", "acceptance", "non_goals"],
+    "acceptance_min": 1,
+    "requirements_min": 1,
+    "max_wave_depth": 6
+  },
+  "decide": {
+    "levels": ["可逆", "难逆", "不可逆"],
+    "irreversible_keywords": ["签约", "扣款", "退款", "发薪", "删库", "上线生产", "裁员", "不可逆"],
+    "hard_keywords": ["发布", "迁移", "改历史账", "解约", "大额"],
+    "reversible_keywords": ["文案", "配色", "标题", "定价实验", "小范围"],
+    "escalate_cost_months": 6,
+    "card_fields": ["topic", "reversibility", "options", "recommendation", "rationale", "rollback_plan", "success_criteria", "kill_criteria", "owner", "deadline"]
+  },
+  "redteam": {
+    "concern_levels": ["CRITICAL", "HIGH", "MEDIUM"],
+    "concerns_min": 3,
+    "verdicts": ["APPROVE", "REJECT", "DEFER"],
+    "go_approve_min": 2,
+    "stop_reject_min": 2
+  },
+  "companyos": {
+    "components": ["accountability_map", "scorecard", "meeting_cadence", "ids", "rocks", "communication"],
+    "scorecard_min": 5,
+    "scorecard_max": 15,
+    "rocks_min": 3,
+    "rocks_max": 7,
+    "ids_timebox_min": 15,
+    "freeze_days": {"fundraise": 30, "pricing": 60, "market_pivot": 90, "layoffs": 30}
+  },
+  "decisionlog": {
+    "entry_fields": ["date", "title", "decision", "owner", "deadline", "rationale", "rejected", "todos"],
+    "retro_grades": ["WIN", "PARTIAL", "LOSS", "MIXED"],
+    "retro_triggers": ["90天查点", "杀死标准触发", "决策被推翻", "季度全量"],
+    "archive_days": 90
+  },
+  "boardroom": {
+    "memo_sections": ["wins", "misses", "plan", "asks"],
+    "coach_fields": ["sticking_point", "current_approach", "alternative_views", "action_items"],
+    "alternative_views_min": 2
+  }
+}

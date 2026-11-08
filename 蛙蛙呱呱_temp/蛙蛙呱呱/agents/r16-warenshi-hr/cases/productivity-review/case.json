@@ -1,0 +1,40 @@
+{
+  "case_id": "productivity-review",
+  "display_name": "人效评估与编制决策",
+  "description": "在册 1 人、人均产值增速 4%、人力成本增速 6%，是加编还是提效？关键岗位是否单点依赖？",
+  "default_question": "在册 1 人、人均产值增速 4%、人力成本增速 6%，是加编还是提效？关键岗位是否单点依赖？",
+  "artifact_type": "roster",
+  "summary": "人效评估与编制决策",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "roster",
+    "payroll_input"
+  ],
+  "skills": [
+    "people",
+    "performance",
+    "recruit",
+    "report"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "替代业务定编制需求",
+    "替代财务算薪酬总额"
+  ],
+  "steps": [
+    {
+      "skill": "people",
+      "action": "employee",
+      "input": "examples/employee.json",
+      "expect": {
+        "employee_count": 1,
+        "status": "Active"
+      }
+    }
+  ]
+}

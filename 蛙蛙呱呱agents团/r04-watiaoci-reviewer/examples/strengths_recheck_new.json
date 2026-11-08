@@ -1,0 +1,13 @@
+{
+  "_comment": "strengths recheck 本轮批评：K1 保持保留（K2 dropped 仅记录）；NF1 落在 change 区；PF1 未重报 → PASS",
+  "keep_list": [
+    {"id": "K1", "what": "hero 三段式文案", "why_keep": "首屏转化的主承载，与定位强绑定", "evidence": "handoff/landing.md:9"}
+  ],
+  "changed": [
+    {"id": "hero-copy", "what": "hero 文案区", "changed": true},
+    {"id": "form-area", "what": "表单区", "changed": true}
+  ],
+  "findings": [
+    {"id": "NF1", "check": "form_usability", "severity": "error", "title": "表单提交按钮偏小", "changed_ref": "form-area"}
+  ]
+}

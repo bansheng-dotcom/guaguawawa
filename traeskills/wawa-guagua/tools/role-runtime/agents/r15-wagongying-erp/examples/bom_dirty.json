@@ -1,0 +1,11 @@
+{
+  "id": "BOM-002",
+  "item": "FG-001",
+  "quantity": 1,
+  "items": [
+    {
+      "item_code": "RM-001",
+      "qty": 0
+    }
+  ]
+}

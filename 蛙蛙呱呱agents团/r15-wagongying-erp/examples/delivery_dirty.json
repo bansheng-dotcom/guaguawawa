@@ -1,0 +1,12 @@
+{
+  "id": "DN-002",
+  "customer": "客户A",
+  "status": "To Bill",
+  "items": [
+    {
+      "item_code": "FG-001",
+      "qty": 15,
+      "against_qty": 10
+    }
+  ]
+}

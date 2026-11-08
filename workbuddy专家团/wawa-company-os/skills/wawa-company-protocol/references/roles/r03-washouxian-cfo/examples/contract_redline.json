@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "rule": "AUTO_RENEWAL_NOTICE",
+      "severity": "CRITICAL"
+    },
+    {
+      "rule": "UNILATERAL_PRICE_CHANGE",
+      "severity": "CRITICAL"
+    },
+    {
+      "rule": "AUTO_RENEWAL",
+      "severity": "HIGH"
+    },
+    {
+      "rule": "NET_PAYMENT_TERMS",
+      "severity": "MEDIUM"
+    }
+  ],
+  "fixes": {
+    "AUTO_RENEWAL_NOTICE": {
+      "status": "negotiated"
+    },
+    "UNILATERAL_PRICE_CHANGE": {
+      "status": "accepted_risk",
+      "approver": "CEO"
+    },
+    "AUTO_RENEWAL": {
+      "status": "removed"
+    },
+    "NET_PAYMENT_TERMS": {
+      "status": "pending"
+    }
+  }
+}

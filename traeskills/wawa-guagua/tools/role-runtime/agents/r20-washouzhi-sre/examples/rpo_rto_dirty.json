@@ -1,0 +1,6 @@
+{
+  "rpo_hours": 48,
+  "rto_hours": 100,
+  "recovery_type": "warm",
+  "rollback_plan": "切回主站并回滚配置"
+}

@@ -1,0 +1,84 @@
+{
+  "_note": "蛙守直（SRE / 稳定性）运行配置：阈值/维度/数据源外置，改规则不改代码（META-001 Stage 3）。",
+  "role": "r20",
+  "language": "zh",
+  "enable_cache": true,
+  "enable_vector": false,
+  "report": {
+    "engine": "agents/shared/report_engine.py",
+    "generator": "agents/shared/report_generator.py",
+    "doc_type": "SRE / 稳定性",
+    "formats": [
+      "html",
+      "md"
+    ],
+    "sections": [
+      "决策指令",
+      "KPI 格栅",
+      "三级归因",
+      "护栏熔断",
+      "灰度+下一步"
+    ]
+  },
+  "kpis": [
+    {
+      "id": "sla",
+      "name": "系统可用性",
+      "formula": "(总分钟 − 不可用分钟) / 总分钟",
+      "unit": "%",
+      "target": "≥ 99.95",
+      "alert": "跌出 99.95 启动 P0"
+    },
+    {
+      "id": "rto",
+      "name": "RTO 实测值",
+      "formula": "演练恢复耗时",
+      "unit": "分钟",
+      "target": "≤ 30",
+      "alert": "超时判不可恢复"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "核心路径无探活",
+      "verdict": "BLOCKER",
+      "action": "禁止上线"
+    },
+    {
+      "id": "G2",
+      "when": "备份不可验证恢复",
+      "verdict": "BLOCKER",
+      "action": "视为无备份"
+    },
+    {
+      "id": "G3",
+      "when": "RTO 超目标",
+      "verdict": "CRITICAL",
+      "action": "立项整改并压缩目标"
+    }
+  ],
+  "guardrails": [
+    {
+      "dim": "系统可用性",
+      "metric": "系统可用性",
+      "base": "≥ 99.95",
+      "threshold": "跌出 99.95 启动 P0"
+    },
+    {
+      "dim": "RTO 实测值",
+      "metric": "RTO 实测值",
+      "base": "≤ 30",
+      "threshold": "超时判不可恢复"
+    }
+  ],
+  "data_sources": [
+    {
+      "name": "examples/",
+      "type": "local_json",
+      "permission": "read_only",
+      "note": "本轮真实执行所用输入，报告页脚记录 SHA256"
+    }
+  ],
+  "case": "sla-incident"
+}

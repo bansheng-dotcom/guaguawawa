@@ -1,0 +1,16 @@
+{
+  "tests": [
+    {
+      "test_type": "unique",
+      "column": "id"
+    },
+    {
+      "test_type": "accepted_values",
+      "column": "status",
+      "values": [
+        "active",
+        "churned"
+      ]
+    }
+  ]
+}

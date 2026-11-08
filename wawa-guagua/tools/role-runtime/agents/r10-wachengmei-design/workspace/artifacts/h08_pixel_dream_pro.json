@@ -1,0 +1,7 @@
+{
+  "media": "image",
+  "style": "pixel",
+  "prompt": "16-bit retro RPG pixel art dreamscape, multiple small floating grass islands suspended in cosmic nebula background, each island pixel-perfect with 8-color limited palette per island, a glowing crystalline cherry blossom tree centered on the largest island, tree petals made of individual pixel blocks floating downward, starry pixel sky with shooting star streaks in pale pink-purple-blue gradient, pixel clouds with crisp hard edges (no anti-aliasing), Super Nintendo Chrono Trigger aesthetic, precise 16x16 pixel tile grid alignment, limited color palette of exactly 256 colors, pixel-perfect rendering with no smoothing, subtle parallax layering for depth, clean sprite-level detail, nostalgic retro game feel, pixel art tile sheet quality",
+  "negative_prompt": "photorealistic, smooth gradient, soft edges, 3D rendering, jpeg artifacts, noise, extra colors, anti-aliased, blur, motion blur, depth of field, bloom, lens flare",
+  "style_locks": ["16-bit SNES pixel art", "Chrono Trigger aesthetic", "256-color limit", "16x16 tile grid", "hard pixel edges no AA", "floating islands", "crystal cherry tree"]
+}

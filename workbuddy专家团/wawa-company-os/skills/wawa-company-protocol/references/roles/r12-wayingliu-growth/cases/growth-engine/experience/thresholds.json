@@ -1,0 +1,12 @@
+{
+  "_note": "growth-engine 案例业务阈值（覆盖全局 thresholds 的 diagnose/revops 节）。",
+  "diagnose": {
+    "funnel_stages": ["获客", "激活", "留存", "推荐", "营收"],
+    "pmf_signals": ["留存率", "复购率", "净推荐值", "自然增长占比"],
+    "ltv_cac_healthy": 3.0
+  },
+  "revops": {
+    "attribution_models": ["first_touch", "last_touch", "last_non_direct",
+                           "linear", "time_decay", "position_based", "data_driven"]
+  }
+}

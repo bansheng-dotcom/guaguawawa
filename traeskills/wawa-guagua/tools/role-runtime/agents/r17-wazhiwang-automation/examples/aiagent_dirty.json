@@ -1,0 +1,10 @@
+{
+  "ai_nodes": [
+    {
+      "name": "Classify",
+      "type": "aiAgent",
+      "purpose": "分类"
+    }
+  ],
+  "io_record": true
+}

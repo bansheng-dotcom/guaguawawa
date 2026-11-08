@@ -1,0 +1,16 @@
+{
+  "source": {"path": "补充技能/01-当前能力域/驾驭焦虑.pdf", "type": "pdf"},
+  "skill_slug": "pressfield-turning-pro",
+  "content_type": "text",
+  "chapters": [
+    {"file": "ch01-core.md", "sections": ["Core Idea", "Key Concepts", "Key Takeaways"], "tokens": 1200},
+    {"file": "ch02-practice.md", "sections": ["Core Idea", "Key Concepts", "Key Takeaways"], "tokens": 1500}
+  ],
+  "supporting_files": [
+    {"file": "glossary.md", "tokens": 1200},
+    {"file": "patterns.md", "tokens": 1800},
+    {"file": "cheatsheet.md", "tokens": 1000}
+  ],
+  "skill_md_tokens": 3500,
+  "existing_fingerprints": []
+}

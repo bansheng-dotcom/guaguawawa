@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "迁移步骤均为可逆操作",
+      "dim": "ops:irreversible",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "回滚计划 2 步",
+      "dim": "ops:rollback",
+      "sev": "OK",
+      "rollback_steps": 2
+    }
+  ],
+  "step_count": 3,
+  "irreversible_found": [],
+  "rollback_steps": 2,
+  "verdict": "PASS",
+  "next": "迁移与回滚计划合规"
+}

@@ -1,0 +1,7 @@
+{
+  "scorer_name": "answer_correctness",
+  "scorer_type": "llm_judge",
+  "target": "response",
+  "criteria": "回答是否覆盖期望事实且无编造",
+  "feedback_source": "LLM_JUDGE"
+}

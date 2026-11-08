@@ -1,0 +1,9 @@
+{
+  "widget_type": "stateless",
+  "const_constructor": false,
+  "breakpoints": {
+    "mobile": "m",
+    "tablet": "t",
+    "desktop": "d"
+  }
+}

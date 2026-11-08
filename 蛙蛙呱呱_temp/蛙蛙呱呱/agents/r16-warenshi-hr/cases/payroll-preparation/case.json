@@ -1,0 +1,10 @@
+{
+  "case_id": "payroll-preparation",
+  "display_name": "薪酬核算：净额不恒等与凭空制度字段",
+  "description": "某月薪酬核算记录中，声明的 net_pay 与 ΣEarning − ΣDeduction 对不上，且出现「免税额度」等制度性字段却没有输入表来源（L4 制度性幻觉）。需要判定：净额恒等式是否成立、制度性字段是否可溯源、计薪天数是否勾稽。本质是「薪酬准备层」的确定性处置。",
+  "default_question": "这条薪酬核算 net_pay=99999、毛额=20000、只有一个 Earning 组成项，还有『免税额度』字段没有来源，能不能过？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": ["payroll_input", "payroll_calc"],
+  "skills": ["s05_payroll"]
+}

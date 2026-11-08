@@ -1,0 +1,16 @@
+{
+  "run_id": "run-88213",
+  "experiment_id": "exp-2041",
+  "metrics": {
+    "accuracy": 0.91,
+    "latency_ms": 812,
+    "judge_score": 4.2
+  },
+  "params": {
+    "model": "gpt-4o-mini",
+    "temperature": 0.2,
+    "top_k": 5
+  },
+  "environment": "staging",
+  "narrative": "客服助手第 3 轮提示词迭代运行"
+}

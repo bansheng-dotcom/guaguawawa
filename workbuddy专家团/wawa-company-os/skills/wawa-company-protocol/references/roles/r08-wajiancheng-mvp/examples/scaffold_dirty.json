@@ -1,0 +1,16 @@
+{
+  "stack": "java-spring",
+  "tree": [
+    "main.py"
+  ],
+  "files": [
+    {
+      "path": "a",
+      "purpose": "p"
+    }
+  ],
+  "run_commands": [
+    "x"
+  ],
+  "auth": "none"
+}

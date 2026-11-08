@@ -1,0 +1,13 @@
+{
+  "table_name": "leads",
+  "columns": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "CreatedAt",
+      "type": "string"
+    }
+  ]
+}

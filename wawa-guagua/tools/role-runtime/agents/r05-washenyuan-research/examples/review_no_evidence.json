@@ -1,0 +1,10 @@
+{
+  "skill": "research",
+  "action": "ledger",
+  "result": {
+    "ok": true,
+    "verdict": "PASS",
+    "checks": [],
+    "next": "done"
+  }
+}

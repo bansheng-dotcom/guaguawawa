@@ -1,0 +1,14 @@
+{
+  "customers": [
+    {"name": "云启科技", "usage": 90, "support": 85, "voc": 88,
+     "engagement": 80, "renewal_in_days": 30},
+    {"name": "晨星零售", "usage": 70, "support": 60, "voc": 65,
+     "engagement": 55, "renewal_in_days": 60},
+    {"name": "山海物流", "usage": 40, "support": 35, "voc": 30,
+     "engagement": 25, "renewal_in_days": 20,
+     "risk_reason": "使用骤降且工单激增"},
+    {"name": "北辰教育", "usage": 85, "support": 90, "voc": 80,
+     "engagement": 75, "renewal_in_days": 120}
+  ],
+  "summary": "四名客户，健康分四维加权实算，at_risk 客户写了归因。"
+}

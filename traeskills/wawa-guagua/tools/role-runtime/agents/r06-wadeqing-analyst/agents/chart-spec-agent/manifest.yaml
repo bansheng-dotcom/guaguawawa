@@ -1,0 +1,16 @@
+name: chart-spec-agent
+version: "1.0"
+status: active
+description: 从已验证分析材料产出可执行图表规格与图表侧意见
+execution:
+  temperature: 0.0
+  node_type: agent
+  parallel: false
+prompt_ref: SKILL.md
+io:
+  inputs:
+    - analysis_material_pack
+    - chart_candidates
+  outputs:
+    - chart_spec_pack
+    - chart_opinion

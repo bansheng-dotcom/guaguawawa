@@ -1,0 +1,106 @@
+{
+  "_note": "蛙成美（Design / 创意视觉）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
+  "role": "r10",
+  "case_id": "brand-refresh",
+  "artifact_type": "visual_assets",
+  "terms": [
+    {
+      "term": "render_block",
+      "meaning": "视觉资源渲染阻滞 = 首屏视觉资源阻塞主线程时长（单位 ms，目标 ≤ 150，越界判定：> 300 优化图层）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "token_coverage",
+      "meaning": "设计 Token 覆盖率 = 使用 Token 的属性 / 总属性（单位 %，目标 100%，越界判定：< 80% 禁止交付前端）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "G1",
+      "meaning": "门禁：对比度 < 3:1 → BLOCKER，处置 判定不可用，重做配色",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G2",
+      "meaning": "门禁：渲染阻滞 > 300ms → WARN，处置 优化图层或降级素材",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G3",
+      "meaning": "门禁：Token 覆盖率 < 80% → BLOCKER，处置 禁止交付前端",
+      "source": "semantic_layer.gates"
+    }
+  ],
+  "facts": {
+    "render_block": {
+      "name": "视觉资源渲染阻滞",
+      "formula": "首屏视觉资源阻塞主线程时长",
+      "unit": "ms",
+      "target": "≤ 150",
+      "alert": "> 300 优化图层"
+    },
+    "token_coverage": {
+      "name": "设计 Token 覆盖率",
+      "formula": "使用 Token 的属性 / 总属性",
+      "unit": "%",
+      "target": "100%",
+      "alert": "< 80% 禁止交付前端"
+    }
+  },
+  "kpis": [
+    {
+      "id": "render_block",
+      "name": "视觉资源渲染阻滞",
+      "formula": "首屏视觉资源阻塞主线程时长",
+      "unit": "ms",
+      "target": "≤ 150",
+      "alert": "> 300 优化图层"
+    },
+    {
+      "id": "token_coverage",
+      "name": "设计 Token 覆盖率",
+      "formula": "使用 Token 的属性 / 总属性",
+      "unit": "%",
+      "target": "100%",
+      "alert": "< 80% 禁止交付前端"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "对比度 < 3:1",
+      "verdict": "BLOCKER",
+      "action": "判定不可用，重做配色"
+    },
+    {
+      "id": "G2",
+      "when": "渲染阻滞 > 300ms",
+      "verdict": "WARN",
+      "action": "优化图层或降级素材"
+    },
+    {
+      "id": "G3",
+      "when": "Token 覆盖率 < 80%",
+      "verdict": "BLOCKER",
+      "action": "禁止交付前端"
+    }
+  ],
+  "boundary": [
+    {
+      "out_of_scope": "替代文案定语调",
+      "owner": "R11"
+    },
+    {
+      "out_of_scope": "替代前端实现交互",
+      "owner": "R08/R09"
+    }
+  ],
+  "scope_boundary": [
+    "替代文案定语调",
+    "替代前端实现交互"
+  ],
+  "decision_order": [
+    "可读性 > 一致性 > 视觉冲击 > 文件体积",
+    "性能与美感冲突时，先保性能再降复杂度",
+    "改版验证前不删除旧素材，保留回滚"
+  ]
+}

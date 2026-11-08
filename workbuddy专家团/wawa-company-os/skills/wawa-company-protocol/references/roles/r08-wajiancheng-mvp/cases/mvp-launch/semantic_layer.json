@@ -1,0 +1,106 @@
+{
+  "_note": "蛙建成（MVP / 敏捷交付）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
+  "role": "r08",
+  "case_id": "mvp-launch",
+  "artifact_type": "mvp",
+  "terms": [
+    {
+      "term": "error_rate",
+      "meaning": "核心路径报错率 = 报错会话 / 总会话（单位 %，目标 ≤ 0.1%，越界判定：> 0.5% 回滚）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "tti",
+      "meaning": "移动端首屏可交互时间 = Performance TTI 中位数（单位 s，目标 ≤ 2，越界判定：> 3 不得放量）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "G1",
+      "meaning": "门禁：核心路径报错率 > 0.5% → BLOCKER，处置 回滚上一版本",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G2",
+      "meaning": "门禁：功能点数 > 8 → WARN，处置 退回做减法",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G3",
+      "meaning": "门禁：无可用回滚路径 → BLOCKER，处置 禁止上线",
+      "source": "semantic_layer.gates"
+    }
+  ],
+  "facts": {
+    "error_rate": {
+      "name": "核心路径报错率",
+      "formula": "报错会话 / 总会话",
+      "unit": "%",
+      "target": "≤ 0.1%",
+      "alert": "> 0.5% 回滚"
+    },
+    "tti": {
+      "name": "移动端首屏可交互时间",
+      "formula": "Performance TTI 中位数",
+      "unit": "s",
+      "target": "≤ 2",
+      "alert": "> 3 不得放量"
+    }
+  },
+  "kpis": [
+    {
+      "id": "error_rate",
+      "name": "核心路径报错率",
+      "formula": "报错会话 / 总会话",
+      "unit": "%",
+      "target": "≤ 0.1%",
+      "alert": "> 0.5% 回滚"
+    },
+    {
+      "id": "tti",
+      "name": "移动端首屏可交互时间",
+      "formula": "Performance TTI 中位数",
+      "unit": "s",
+      "target": "≤ 2",
+      "alert": "> 3 不得放量"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "核心路径报错率 > 0.5%",
+      "verdict": "BLOCKER",
+      "action": "回滚上一版本"
+    },
+    {
+      "id": "G2",
+      "when": "功能点数 > 8",
+      "verdict": "WARN",
+      "action": "退回做减法"
+    },
+    {
+      "id": "G3",
+      "when": "无可用回滚路径",
+      "verdict": "BLOCKER",
+      "action": "禁止上线"
+    }
+  ],
+  "boundary": [
+    {
+      "out_of_scope": "长期架构演进",
+      "owner": "R09"
+    },
+    {
+      "out_of_scope": "持续监控告警建设",
+      "owner": "R20"
+    }
+  ],
+  "scope_boundary": [
+    "长期架构演进",
+    "持续监控告警建设"
+  ],
+  "decision_order": [
+    "可回滚 > 稳定性 > 性能 > 功能数量",
+    "报错率破线一律先回滚再排查",
+    "首屏超标优先做减法，不加机器"
+  ]
+}

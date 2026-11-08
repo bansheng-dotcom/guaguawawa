@@ -1,0 +1,116 @@
+# [R07] 任务 6aa2e0b7 · 用户故事与PRD：prd/story/acceptance
+
+## ok
+
+```json
+true
+```
+
+## gates
+
+```json
+[
+  "problem",
+  "user",
+  "value",
+  "scope",
+  "metric",
+  "acceptance",
+  "risk",
+  "read"
+]
+```
+
+## gate_ok
+
+```json
+{
+  "problem": true,
+  "user": true,
+  "value": true,
+  "scope": true,
+  "metric": true,
+  "acceptance": true,
+  "risk": true,
+  "read": true
+}
+```
+
+## passed_gates
+
+```json
+8
+```
+
+## task_id
+
+```json
+"6aa2e0b7"
+```
+
+## skill
+
+```json
+"prd"
+```
+
+## action
+
+```json
+"prd"
+```
+
+## 门禁
+
+```json
+[
+  {
+    "ok": true,
+    "msg": "问题门禁：一句话说清真实问题",
+    "dim": "gate.problem",
+    "sev": "OK"
+  },
+  {
+    "ok": true,
+    "msg": "用户门禁：目标用户/分群",
+    "dim": "gate.user",
+    "sev": "OK"
+  },
+  {
+    "ok": true,
+    "msg": "价值门禁：价值主张（Before/How/After/Alternatives）",
+    "dim": "gate.value",
+    "sev": "OK"
+  },
+  {
+    "ok": true,
+    "msg": "范围门禁：P0 + 不在范围",
+    "dim": "gate.scope",
+    "sev": "OK"
+  },
+  {
+    "ok": true,
+    "msg": "指标门禁：指标可定义（口径/数据源/基线）",
+    "dim": "gate.metric",
+    "sev": "OK"
+  },
+  {
+    "ok": true,
+    "msg": "验收门禁：有 Given/When/Then 验收标准",
+    "dim": "gate.acceptance",
+    "sev": "OK"
+  },
+  {
+    "ok": true,
+    "msg": "风险门禁：≥3 承重假设（实际 3）",
+    "dim": "gate.risk",
+    "sev": "OK"
+  },
+  {
+    "ok": true,
+    "msg": "可读门禁：Executive Summary 先行",
+    "dim": "gate.read",
+    "sev": "OK"
+  }
+]
+```

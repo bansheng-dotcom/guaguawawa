@@ -1,0 +1,7 @@
+{
+  "employee": "EMP-0002",
+  "emergency_contacts": [
+    {"name": "", "phone": ""}
+  ],
+  "attachments": []
+}

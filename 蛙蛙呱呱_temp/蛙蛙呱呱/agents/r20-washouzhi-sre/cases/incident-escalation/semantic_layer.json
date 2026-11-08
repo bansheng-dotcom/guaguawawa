@@ -1,0 +1,33 @@
+{
+  "_note": "R20「故障通报还没写事件就升级到 CEO」语义层。枚举口径来自 louislam__uptime-kuma（通知渠道 email/webhook/slack/sms/telegram、状态页组件状态 operational/degraded/outage/maintenance、事件状态 investigating/identified/monitoring/resolved）。门禁与边界是对 R20 红线 2（不擅自改生产告警/灾难切换）与状态页「对外事实」立场的可执行化。",
+  "artifact_type": "incident_communication",
+  "terms": [
+    {"term": "severity", "meaning": "告警严重度，仅 critical/warning/info 三档", "source": "uptime-kuma.notification"},
+    {"term": "channel", "meaning": "通知渠道，仅 email/webhook/slack/sms/telegram", "source": "uptime-kuma.notification"},
+    {"term": "escalation_chain", "meaning": "值班升级链，level 必须从低到高严格单调递增", "source": "R20 升级口径"},
+    {"term": "acknowledged", "meaning": "该级升级是否已被确认，必须显式 true/false", "source": "R20 升级口径"},
+    {"term": "timeline", "meaning": "事件时间线，ts 必须单调非递减，倒挂=沟通失实", "source": "R20 状态页口径"},
+    {"term": "resolved_at", "meaning": "resolved 事件必须带结束时间", "source": "uptime-kuma.incident"}
+  ],
+  "gates": [
+    {"id": "G1", "when": "告警规则 <1 或缺 metric/condition/threshold/channel", "verdict": "BLOCKER", "action": "拒绝，告警规则不完整"},
+    {"id": "G2", "when": "severity 不在 {critical,warning,info}", "verdict": "BLOCKER", "action": "拒绝，严重度越界（如 fatal）"},
+    {"id": "G3", "when": "channel 不在白名单", "verdict": "BLOCKER", "action": "拒绝，通知渠道非法"},
+    {"id": "G4", "when": "升级链 level 非严格单调递增或跳级回退", "verdict": "BLOCKER", "action": "拒绝，升级只能从低到高逐级"},
+    {"id": "G5", "when": "升级链缺 acknowledged 或渠道不在白名单", "verdict": "BLOCKER", "action": "拒绝，升级链结构不完整"},
+    {"id": "G6", "when": "事件时间线 ts 倒挂", "verdict": "BLOCKER", "action": "拒绝，先如实记录再对外通报"},
+    {"id": "G7", "when": "末节点 resolved 但无 resolved_at", "verdict": "BLOCKER", "action": "拒绝，resolved 必须带结束时间"},
+    {"id": "G8", "when": "升级直接到 CEO 且未逐级确认", "verdict": "WARN", "action": "标记「跳级升级=沟通事故」，应逐级确认后再升级"}
+  ],
+  "boundary": [
+    {"out_of_scope": "实际发送告警通知/实际呼叫值班", "owner": "运行期动作", "r20_role": "只校验策略结构，不实际触达"},
+    {"out_of_scope": "判定故障「严重不严重」的业务影响评估", "owner": "R01/R02", "r20_role": "移交，R20 只保证对外事实如实呈现"},
+    {"out_of_scope": "直接改生产告警规则/静默生产告警", "owner": "人工授权", "r20_role": "红线 2：只出方案，不擅自改生产"}
+  ],
+  "decision_order": [
+    "先校验告警规则（≥1、字段完整、severity/channel 白名单），规则不成立直接拒绝",
+    "再校验升级链（level 严格单调、acknowledged 显式、渠道白名单），跳级回退直接拒绝",
+    "再校验事件时间线（ts 单调、resolved 带结束时间），倒挂直接拒绝",
+    "任何「实际发送/实际呼叫/改生产告警」一律不进 R20 执行面，只产出策略工件 + handoff 声明"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "monitor": {
+    "monitor_types": ["http", "tcp", "ping", "dns", "port"],
+    "methods": ["GET", "HEAD", "POST"],
+    "interval_min": 30,
+    "interval_max": 86400
+  },
+  "alert": {
+    "severities": ["critical", "warning", "info"],
+    "channels": ["email", "webhook", "slack", "sms", "telegram"]
+  },
+  "statuspage": {
+    "component_statuses": ["operational", "degraded", "outage", "maintenance"],
+    "incident_statuses": ["investigating", "identified", "monitoring", "resolved"]
+  },
+  "backup": {
+    "retention_policies": ["keep_last", "keep_hourly", "keep_daily", "keep_weekly", "keep_monthly", "keep_yearly"],
+    "min_snapshots": 1
+  },
+  "restore": {
+    "restore_targets": ["file", "directory", "snapshot", "config"]
+  },
+  "dr": {
+    "recovery_types": ["hot", "warm", "cold"],
+    "rto_max_hours": 24,
+    "rpo_max_hours": 4
+  },
+  "postmortem": {
+    "severities": ["sev1", "sev2", "sev3"],
+    "required_sections": ["timeline", "root_cause", "impact", "actions"]
+  },
+  "review": {
+    "credential_words": ["api_key", "apikey", "secret", "password", "token", "private_key", "私钥", "密钥", "密码", "restic密码", "repository_password", "access_key", "access_key_id"],
+    "execution_words": ["直接删除快照", "直接删除备份", "直接执行切换", "直接灾难切换", "直接改生产告警", "直接禁用告警", "直接清空快照", "立即切换", "未经演练切换", "未经授权切换", "直接恢复生产"],
+    "scope_terms": ["统计结论", "相关性分析", "显著性检验", "业务归因", "增长建议", "决策建议", "回归分析", "p值", "置信区间", "财务结论", "法律意见"],
+    "handoff_keys": ["handoff", "授权", "authorized", "approved_by", "approver", "移交", "交接", "复核", "审批", "演练", "drill"],
+    "concrete_keys": ["monitor_id", "monitor_count", "alert_count", "escalation_count", "channel", "component_id", "incident_id", "repo", "snapshot_id", "snapshot_count", "restore_id", "drill_id", "rpo_hours", "rto_hours", "rollback_plan", "postmortem_id", "action_count"],
+    "conclusion_keys": ["summary", "note", "next", "description", "conclusion", "recommendation", "reason", "narrative", "insight"]
+  }
+}

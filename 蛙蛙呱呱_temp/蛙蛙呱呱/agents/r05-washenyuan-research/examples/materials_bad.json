@@ -1,0 +1,8 @@
+{
+  "research": "AI 编程助手市场进入研究",
+  "items": [
+    {"path": "research_ledger.json", "required": true},
+    {"path": "missing_primary_interviews.json", "required": true},
+    {"path": "optional_notes.json", "required": false}
+  ]
+}

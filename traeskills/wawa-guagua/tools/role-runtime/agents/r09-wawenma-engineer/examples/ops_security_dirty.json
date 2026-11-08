@@ -1,0 +1,6 @@
+{
+  "dependencies": [
+    {"name": "lodash", "cves": [{"id": "CVE-2024-9999", "severity": "critical"}]}
+  ],
+  "leaked_keys": ["sk-abc123"]
+}

@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "problem": "p",
+    "solution": "s",
+    "uvp": "u",
+    "unfair_advantage": "ua",
+    "segments": "seg",
+    "channels": "c",
+    "revenue": "r",
+    "cost": "co",
+    "key_metrics": "km"
+  }
+}

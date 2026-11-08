@@ -1,0 +1,34 @@
+{
+  "_comment": "实现计划（Implementation Plan）契约：每次工程实现请求必须先输出符合此格式的计划；harness 做确定性校验（r09 实现口径，区别于 r05/r06 的分析计划）。",
+  "required_fields": [
+    "round",
+    "implementation_step",
+    "target_artifact",
+    "tech_stack",
+    "deliverables",
+    "acceptance_criteria",
+    "stop_condition"
+  ],
+  "implementation_step_enum": [
+    "spec",
+    "schema",
+    "feature",
+    "crossplatform",
+    "testing",
+    "debug",
+    "ops",
+    "special"
+  ],
+  "deliverables_required": [
+    "files",
+    "run_command"
+  ],
+  "acceptance_criteria_required": [
+    "tests_pass",
+    "no_skipped_tests"
+  ],
+  "stop_condition_required": [
+    "if_gate_fails",
+    "reason"
+  ]
+}

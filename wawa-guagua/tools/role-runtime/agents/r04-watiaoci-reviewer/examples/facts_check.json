@@ -1,0 +1,20 @@
+{
+  "_comment": "facts check 干净夹具：数字全部逐字可回溯 → 五维 0 违例 → PASS",
+  "facts": [
+    {
+      "id": "F1",
+      "claim": "专业版月费 12000 元，共 3 档",
+      "numbers": ["12000", "3"],
+      "source": "定价表 v3：专业版月费 12000 元，共 3 档（入门/专业/旗舰）",
+      "source_type": "primary",
+      "key_assertions": ["月费", "3 档"]
+    },
+    {
+      "id": "F2",
+      "claim": "落地页转化率 4.2%",
+      "numbers": ["4.2"],
+      "source": "11 月看板：落地页转化率 4.2%（120/2857）",
+      "source_type": "secondary"
+    }
+  ]
+}

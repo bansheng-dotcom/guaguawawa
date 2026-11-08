@@ -1,0 +1,16 @@
+{
+  "checks": {
+    "build": "pass"
+  },
+  "a11y_items": [
+    "a",
+    "b",
+    "c"
+  ],
+  "test_points": [
+    {
+      "name": "n",
+      "expectation": "e"
+    }
+  ]
+}

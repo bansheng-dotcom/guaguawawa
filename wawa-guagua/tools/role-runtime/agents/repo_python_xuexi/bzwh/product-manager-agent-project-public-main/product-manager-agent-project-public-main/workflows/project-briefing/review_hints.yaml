@@ -1,0 +1,23 @@
+purpose: >
+  给项目理解与汇报生成可选复核提醒，不自动触发外部 agent。
+
+optional_reviews:
+  - when: 汇报涉及架构、接口、权限或后台任务取舍
+    reviewer_type: 架构/后端角色
+    focus:
+      - 技术事实是否准确
+      - 失败兜底是否可执行
+  - when: 汇报涉及 UI 或用户体验判断
+    reviewer_type: UI/交互角色
+    focus:
+      - 信息架构
+      - 状态和入口
+  - when: 汇报依赖数据结论
+    reviewer_type: 数据分析能力
+    focus:
+      - 指标口径
+      - 数据缺口
+
+rules:
+  - 只提示复核对象，不写死本地触发机制。
+  - 推荐必须保持为推荐，不能写成用户已确认。

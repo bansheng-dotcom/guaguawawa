@@ -1,0 +1,13 @@
+{
+  "person": {
+    "name": "",
+    "lifecycle": "lead",
+    "channels": [
+      {"type": "email", "value": "x@y.com"}
+    ],
+    "timeline": [
+      {"ts": "2026-10-08", "note": "晚于前一条"},
+      {"ts": "2026-10-01", "note": "时序倒挂"}
+    ]
+  }
+}

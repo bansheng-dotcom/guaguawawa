@@ -1,0 +1,23 @@
+{
+  "year": 2026,
+  "accounts": [
+    {
+      "label": "IRA",
+      "age": 74,
+      "prior_year_dec31_balance": 850000.0,
+      "withdrawn_ytd": 32075.47
+    },
+    {
+      "label": "401k",
+      "age": 76,
+      "prior_year_dec31_balance": 246000.0,
+      "withdrawn_ytd": 0.0
+    },
+    {
+      "label": "Roth",
+      "age": 80,
+      "roth": true,
+      "prior_year_dec31_balance": 100000.0
+    }
+  ]
+}

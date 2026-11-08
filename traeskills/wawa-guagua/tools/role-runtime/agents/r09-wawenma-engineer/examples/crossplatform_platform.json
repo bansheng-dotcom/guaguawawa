@@ -1,0 +1,11 @@
+{
+  "targets": [
+    {"platform": "android", "state_management": "provider"},
+    {"platform": "ios", "state_management": "provider"},
+    {"platform": "web", "state_management": "provider"}
+  ],
+  "diffs": [
+    {"platform": "android", "note": "使用原生通知通道"},
+    {"platform": "ios", "note": "使用 APNs 推送"}
+  ]
+}

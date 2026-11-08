@@ -1,0 +1,13 @@
+{
+  "order_id": "ord_local_001",
+  "currency": "CNY",
+  "items": [
+    {"sku": "PKG-MONTHLY", "unit_price": 299.0, "quantity": 1},
+    {"sku": "PKG-SUPPORT", "unit_price": 747.0, "quantity": 1}
+  ],
+  "total": 1046.0,
+  "events": [
+    {"idempotency_key": "ord_local_001:create", "type": "order_created"},
+    {"idempotency_key": "ord_local_001:authorize", "type": "payment_authorized"}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "artifact_type": "landing",
+  "model_key": "mvp_validation",
+  "terms": [
+    {"term": "单文件落地页", "definition": "index.html 单文件承载全部结构与样式，可直接静态托管"},
+    {"term": "佐证点 proof_points", "definition": "打消访问者疑虑的客观证据，≥3 条"},
+    {"term": "技术约束", "definition": "single_file_index_html/no_js_library/form_deliverable/mobile_first/button_single_accent 五项必须全 True"},
+    {"term": "最大异议 max_objection", "definition": "必须在文案中正面回应的最强反对理由"}
+  ],
+  "gates": ["八要素非空", "proof_points ≥3", "五项技术约束全 True", "max_objection 非空"],
+  "boundary": [
+    "不替代 R09 做生产级托管/后端，只交付可演示 static MVP",
+    "不替代 R10 做视觉设计，只按 brief 落地结构",
+    "表单真实收集交 R13/R14，本案例只交付前端可提交形态"
+  ]
+}

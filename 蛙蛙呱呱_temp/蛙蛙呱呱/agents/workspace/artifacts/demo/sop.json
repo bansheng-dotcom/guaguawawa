@@ -1,0 +1,42 @@
+{
+  "process_name": "投放周报产出流程",
+  "purpose": "每周一 10:00 前产出上周分渠道投放周报",
+  "inputs": [
+    "渠道后台数据",
+    "口径表"
+  ],
+  "steps": [
+    {
+      "name": "拉数",
+      "owner": "r06",
+      "action": "按口径表拉各渠道数据",
+      "is_critical": false
+    },
+    {
+      "name": "口径校验",
+      "owner": "r06",
+      "action": "本周数据 vs 上周口径对拍",
+      "is_critical": true,
+      "control_point": "口径恒等：花费/曝光/转化率三项对拍"
+    },
+    {
+      "name": "撰写",
+      "owner": "r11",
+      "action": "按模板撰写周报",
+      "is_critical": false
+    },
+    {
+      "name": "终审发布",
+      "owner": "r01",
+      "action": "终审后发布并抄送相关方",
+      "is_critical": true,
+      "control_point": "双人复核：终审签字留痕"
+    }
+  ],
+  "outputs": [
+    "投放周报"
+  ],
+  "approvers": [
+    "r01"
+  ]
+}

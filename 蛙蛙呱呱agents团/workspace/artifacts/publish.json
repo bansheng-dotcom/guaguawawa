@@ -1,0 +1,7 @@
+{
+  "workflow_name": "acme-lead-sync",
+  "publish_requested": true,
+  "has_live_run_evidence": false,
+  "nodes_unreached": [],
+  "simulated": false
+}

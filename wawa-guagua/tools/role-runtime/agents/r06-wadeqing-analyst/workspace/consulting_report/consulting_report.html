@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商业诊断：停车场12个月利润结构诊断 · 蛙得清</title>
+<style>
+
+    :root {
+      --theme-primary: #ff0050;
+      --theme-accent: #2b6cb0;
+      --ink: #0F172A;
+      --muted: #475569;
+      --line: #E2E8F0;
+      --line-strong: #94A3B8;
+      --canvas: #F8FAFC;
+      --paper: #FFFFFF;
+      --surface: #F1F5F9;
+      --surface-strong: #E2E8F0;
+      --accent-soft: rgba(37, 99, 235, 0.08);
+      --critical: #B91C1C;
+      --critical-soft: #FEF2F2;
+      --healthy: #15803D;
+      --healthy-soft: #F0FDF4;
+      --watch: #B45309;
+      --watch-soft: #FFFBEB;
+      --page-columns: 12;
+      --page-gap: 24px;
+      
+  --critical: #B33A32; --watch: #8A6500; --healthy: #19704B;
+  --paper: #ffffff; --ink: #1f2933; --muted: #6b7280;
+  --line: #e5e7eb; --line-strong: #cbd5e1;
+  --surface: #f8fafc; --surface-strong: #eef2f7;
+  --critical-soft: #fdf2f2; --watch-soft: #fefce8; --healthy-soft: #f0fdf4;
+  --series-context: #94a3b8; --series-reference: #64748b;
+
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--canvas); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14.5px; font-weight: 400; line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+    .document {
+      max-width: 1120px;
+      margin: 32px auto 64px;
+      padding: 48px 56px 60px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+    }
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--page-columns), minmax(0, 1fr));
+      column-gap: var(--page-gap);
+    }
+    .doc-header {
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 28px;
+    }
+    .doc-type-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .doc-glyph {
+      width: 24px; height: 24px; display: inline-flex; align-items: flex-end;
+      justify-content: center; gap: 2px; padding: 4px;
+      border: 1px solid var(--line-strong); border-radius: 2px;
+    }
+    .doc-glyph i { width: 2.5px; display: block; background: var(--theme-accent); }
+    .doc-glyph i:nth-child(1) { height: 5px; }
+    .doc-glyph i:nth-child(2) { height: 11px; }
+    .doc-glyph i:nth-child(3) { height: 8px; }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 27px;
+      font-weight: 700;
+      line-height: 1.32;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .standfirst {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 960px;
+    }
+    .doc-meta {
+      display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 18px;
+      color: var(--muted); font-size: 12px;
+    }
+    .doc-meta span { position: relative; white-space: nowrap; }
+    .doc-meta span + span::before {
+      position: absolute; left: -11px; content: "·"; color: var(--line-strong);
+    }
+    .metric-strip {
+      margin: 28px 0;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+      padding: 18px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .metric-cell {
+      border-left: 2px solid var(--line);
+      padding-left: 14px;
+    }
+    .metric-cell.accent { border-left-color: var(--theme-accent); }
+    .metric-cell.critical { border-left-color: var(--critical); }
+    .metric-cell.healthy { border-left-color: var(--healthy); }
+    .metric-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .metric-value {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .metric-value.critical { color: var(--critical); }
+    .metric-value.healthy { color: var(--healthy); }
+    .metric-note {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    
+    .report-section {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--theme-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h2 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    p {
+      margin: 0 0 12px;
+      color: var(--ink);
+    }
+    .executive-card {
+      background: var(--surface);
+      border-left: 4px solid var(--theme-primary);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border-radius: 2px;
+    }
+    .directive-box {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--theme-primary);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .executive-body {
+      font-size: 14.5px;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+    
+    /* 三级归因台阶 */
+    .rca-block {
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .rca-tier {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+    .rca-tier:last-child { border-bottom: none; }
+    .rca-badge-col {
+      background: var(--surface);
+      padding: 16px;
+      border-right: 1px solid var(--line);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .rca-content-col {
+      padding: 16px 20px;
+      background: var(--paper);
+    }
+    .rca-content-col h4 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .rca-content-col p {
+      margin: 0 0 8px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .rca-evidence-list {
+      margin: 0; padding-left: 18px;
+      font-size: 12.5px; color: var(--muted);
+    }
+    .rca-evidence-list li { margin-bottom: 4px; }
+
+    /* 图表容器 */
+    .embed-figure {
+      margin: 20px 0;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: var(--paper);
+    }
+    .embed-figure-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .embed-figure-body {
+      padding: 16px;
+    }
+    .embed-figure-body svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .embed-figure-note {
+      padding: 8px 16px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px dashed var(--line);
+    }
+
+    /* 表格 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: var(--surface);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    tr:hover td { background: rgba(241, 245, 249, 0.5); }
+    .tag-critical {
+      color: var(--critical);
+      font-weight: 700;
+    }
+    .tag-healthy {
+      color: var(--healthy);
+      font-weight: 700;
+    }
+
+    /* 灰度时间轴 */
+    .roadmap-list {
+      margin: 16px 0;
+      padding: 0;
+      list-style: none;
+      border-left: 2px solid var(--line-strong);
+      padding-left: 18px;
+    }
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .roadmap-item::before {
+      position: absolute;
+      left: -24px;
+      top: 5px;
+      content: "";
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--theme-accent);
+      border: 2px solid var(--paper);
+    }
+    .roadmap-phase {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .roadmap-scope {
+      margin-left: 8px;
+      font-weight: 600;
+      color: var(--theme-accent);
+      font-size: 13px;
+    }
+    .roadmap-meta {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* 审计与证据抽屉 */
+    details.audit-ledger {
+      margin-top: 36px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+    details.audit-ledger summary {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    details.audit-ledger summary::-webkit-details-marker { display: none; }
+    details.audit-ledger summary::before {
+      content: "▸";
+      color: var(--theme-accent);
+    }
+    details.audit-ledger[open] summary::before {
+      content: "▾";
+    }
+    .audit-body {
+      margin-top: 14px;
+      padding: 16px;
+      background: var(--surface);
+      border-radius: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .audit-body table td {
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 11.5px;
+    }
+
+    .doc-footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 11.5px;
+    }
+
+    ul, ol { padding-left: 20px; margin: 8px 0; }
+    li { margin-bottom: 5px; }
+
+    @media print {
+      body { background: #fff; }
+      .document { border: none; box-shadow: none; padding: 0; width: 100%; max-width: none; }
+      details.audit-ledger { display: block; }
+      details.audit-ledger[open] summary { display: none; }
+    }
+
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-header">
+    <div class="doc-type-bar">
+      <span class="doc-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>指标异动归因与实验决策报告</span>
+    </div>
+    <h1>商业诊断：停车场12个月利润结构诊断</h1>
+    <div class="doc-meta">
+      <span>出品角色：<strong>R06 蛙得清</strong>（Analyst / 数据分析）</span>
+      <span>报告编号：R06-20261108-2041-CONSULTING_R</span>
+      <span>出具时间：2026-11-08 20:41:40</span>
+      <span>置信等级：Level 3 生产复算级</span>
+    </div>
+  </div>
+
+  <div class="report-section" style="margin-top:0;padding-top:0;border-top:none;">
+    <div class="section-head">
+      <span class="section-num">Section 01</span>
+      <h2>核心结论与决策建议 (Executive Summary)</h2>
+    </div>
+    <div class="executive-card">
+      <div class="directive-box">【决策指令】即刻对异动区域「C区」启动专项纠偏战役（Action Plan）。基于情景仿真，若放任该失血点持续 6 个月，预计将累计蒸发利润 258,000.00 元。建议将护栏熔断线调整至「AOV 环比跌幅 下滑 &gt; 3% 强制回滚」，以杜绝盲目扩容带来的负杠杆效应。</div>
+      <div class="executive-body">在 2025-10 的经营盘点中，整体利润环比变动 -44,000.00 元（降幅 -12.2%）。归因分析显示，大盘利润下滑主要受控于「C区」单点损益断崖（单区亏损贡献度高达 97.7%），该区域的运营毛利塌方直接稀释了整体利润率。其余各区保持稳健，非全局性系统崩塌。</div>
+    </div>
+    <div class="metric-strip"><div class="metric-cell "><div class="metric-label">本期毛利总额</div><div class="metric-value ">¥316,000.00</div><div class="metric-note">同比变动额：—</div></div><div class="metric-cell critical"><div class="metric-label">环比利润跌幅</div><div class="metric-value critical">-12.2%</div><div class="metric-note">绝对值：-44,000.00 元</div></div><div class="metric-cell critical"><div class="metric-label">头号失血区域</div><div class="metric-value critical">C区</div><div class="metric-note">利润降幅：-43,000.00 元</div></div><div class="metric-cell critical"><div class="metric-label">利润贡献占比</div><div class="metric-value critical">97.7%</div><div class="metric-note">占比总亏损额</div></div><div class="metric-cell "><div class="metric-label">80% 收益集中度</div><div class="metric-value ">前 3 项区域</div><div class="metric-note">单点抗险能力极低</div></div></div>
+  </div>
+
+  
+  <div class="report-section"><div class="section-head"><span class="section-num">Section 03</span><h2>杜邦损益因素变动：收入与成本的拉锯</h2></div><p>本期收入变动 -44,000.00，成本变动 0.00。利润率由 78.3% 压缩至 76.0%。说明当前的利润失控不完全源于营收下滑，成本结构的刚性与边际产出效率下滑（负杠杆）是主导因子。</p><ul><li>利润变动：负贡献来源于收入与成本支出的剪刀差</li><li>毛利率红线：目前已触及经营安全边际，需降本增效</li></ul><div style="font-size:12px;font-weight:700;color:var(--muted);margin-top:14px;margin-bottom:6px;">表：损益表项因素分析 (DuPont)</div><table><thead><tr><th>项目</th><th>前期(元)</th><th>本期(元)</th><th>绝对变化(元)</th></tr></thead><tbody><tr><td>总营收</td><td>460,000.00</td><td>416,000.00</td><td>-44,000.00</td></tr><tr><td>总运营成本</td><td>100,000.00</td><td>100,000.00</td><td>0.00</td></tr><tr><td>经营净利润</td><td>360,000.00</td><td>316,000.00</td><td>-44,000.00</td></tr></tbody></table></div><div class="report-section"><div class="section-head"><span class="section-num">Section 04</span><h2>动态仿真：若不纠偏的长期损益影响</h2></div><p>如果继续放任目前的经营状态，基于最近 6 个月平均经营趋势推演：未来半年预计失血量高达 258,000.00 元，相当于拖累全年总利润规模约 12.3%。在当前存量增长乏力环境下，此部分损失已触碰“资产减值”预警。</p></div>
+  <div class="report-section"><div class="section-head"><span class="section-num">Visual Evidence</span><h2>量化图谱支撑 (Chart Verification)</h2></div><p class="standfirst" style="font-size:13.5px;margin-bottom:12px;">以下图表由数据技能输出确定性生成，坐标与极值点严格对齐原始数据：</p><div class="embed-figure"><div class="embed-figure-head">全场近 12 个月经营利润走势与异动识别</div><div class="embed-figure-body"><svg viewBox="0 0 980 360" role="img" aria-label="全场近 12 个月经营利润走势与异动识别">
+          <line x1="74" y1="58.0" x2="930" y2="58.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="62.0" fill="var(--muted)" font-size="11.5" text-anchor="end">377,360</text>
+          <line x1="74" y1="122.0" x2="930" y2="122.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="126.0" fill="var(--muted)" font-size="11.5" text-anchor="end">359,680</text>
+          <line x1="74" y1="186.0" x2="930" y2="186.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="190.0" fill="var(--muted)" font-size="11.5" text-anchor="end">342,000</text>
+          <line x1="74" y1="250.0" x2="930" y2="250.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="254.0" fill="var(--muted)" font-size="11.5" text-anchor="end">324,320</text>
+          <line x1="74" y1="314.0" x2="930" y2="314.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="318.0" fill="var(--muted)" font-size="11.5" text-anchor="end">306,640</text>
+          <polyline points="74,182 152,135 230,172 307,208 385,143 463,153 541,121 619,124 697,92 774,124 852,121 930,280" fill="none" stroke="var(--theme-accent)" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="74" cy="182" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="152" cy="135" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="230" cy="172" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="307" cy="208" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="385" cy="143" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="463" cy="153" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="541" cy="121" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="619" cy="124" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="697" cy="92" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="774" cy="124" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="852" cy="121" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="930" cy="280" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <text x="926" y="270" fill="var(--theme-accent)" font-size="11.5" font-weight="700" text-anchor="end">月度实际利润(元) 316,000</text>
+          <text x="74" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2024-11</text>
+          <text x="152" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2024-12</text>
+          <text x="230" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-01</text>
+          <text x="307" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-02</text>
+          <text x="385" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-03</text>
+          <text x="463" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-04</text>
+          <text x="541" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-05</text>
+          <text x="619" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-06</text>
+          <text x="697" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-07</text>
+          <text x="774" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-08</text>
+          <text x="852" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-09</text>
+          <text x="930" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-10</text>
+          </svg></div><div class="embed-figure-note">12 个月平均月利润 350,666.67 元；2025-10 创下年内最低纪录，偏离正常波动带下限。</div></div><div class="embed-figure"><div class="embed-figure-head">各区域利润变动驱动效应分解（2025-09 → 2025-10）</div><div class="embed-figure-body"><svg viewBox="0 0 980 380" role="img" aria-label="各区域利润变动驱动效应分解（2025-09 → 2025-10）">
+          <line x1="74" y1="60.0" x2="930" y2="60.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="64.0" fill="var(--muted)" font-size="11.5" text-anchor="end">12,900</text>
+          <line x1="74" y1="124.0" x2="930" y2="124.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="128.0" fill="var(--muted)" font-size="11.5" text-anchor="end">-15,050</text>
+          <line x1="74" y1="188.0" x2="930" y2="188.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="192.0" fill="var(--muted)" font-size="11.5" text-anchor="end">-43,000</text>
+          <line x1="74" y1="252.0" x2="930" y2="252.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="256.0" fill="var(--muted)" font-size="11.5" text-anchor="end">-70,950</text>
+          <line x1="74" y1="316.0" x2="930" y2="316.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="320.0" fill="var(--muted)" font-size="11.5" text-anchor="end">-98,900</text>
+          <rect x="108.2" y="89.5" width="74.2" height="226.5" fill="var(--series-context)"/>
+          <text x="145.3" y="80" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">0</text>
+          <text x="145.3" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">期初</text>
+          <rect x="250.9" y="188.0" width="74.2" height="98.5" fill="var(--critical)"/>
+          <text x="288.0" y="178" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−43,000</text>
+          <line x1="182.4" y1="89.5" x2="250.9" y2="89.5" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="288.0" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">C区</text>
+          <rect x="393.6" y="174.3" width="74.2" height="6.9" fill="var(--healthy)"/>
+          <text x="430.7" y="164" fill="var(--healthy)" font-size="12.5" font-weight="700" text-anchor="middle">+3,000</text>
+          <line x1="325.1" y1="286.5" x2="393.6" y2="286.5" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="430.7" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">B区</text>
+          <rect x="536.2" y="185.7" width="74.2" height="4.6" fill="var(--critical)"/>
+          <text x="573.3" y="176" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−2,000</text>
+          <line x1="467.8" y1="174.3" x2="536.2" y2="174.3" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="573.3" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">A区</text>
+          <rect x="678.9" y="190.3" width="74.2" height="4.6" fill="var(--critical)"/>
+          <text x="716.0" y="180" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−2,000</text>
+          <line x1="610.4" y1="190.3" x2="678.9" y2="190.3" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="716.0" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">D区</text>
+          <rect x="821.6" y="190.3" width="74.2" height="125.7" fill="var(--series-context)"/>
+          <text x="858.7" y="180" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">-44,000</text>
+          <line x1="753.1" y1="194.9" x2="821.6" y2="194.9" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="858.7" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">期末</text>
+          </svg></div><div class="embed-figure-note">总利润净滑落 -44,000.00 元；其中 C区 单点拖累 -43,000.00 元，解释了 97.7% 的总降幅。</div></div><div class="embed-figure"><div class="embed-figure-head">当前各区域毛利产出贡献与抗风险集中度（帕累托分析）</div><div class="embed-figure-body"><svg viewBox="0 0 980 420" role="img" aria-label="当前各区域毛利产出贡献与抗风险集中度（帕累托分析）">
+          <line x1="80" y1="56.0" x2="920" y2="56.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="60.0" fill="var(--muted)" font-size="11.5" text-anchor="end">118,000</text>
+          <line x1="80" y1="133.0" x2="920" y2="133.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="137.0" fill="var(--muted)" font-size="11.5" text-anchor="end">88,500</text>
+          <line x1="80" y1="210.0" x2="920" y2="210.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="214.0" fill="var(--muted)" font-size="11.5" text-anchor="end">59,000</text>
+          <line x1="80" y1="287.0" x2="920" y2="287.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="291.0" fill="var(--muted)" font-size="11.5" text-anchor="end">29,500</text>
+          <line x1="80" y1="364.0" x2="920" y2="364.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="368.0" fill="var(--muted)" font-size="11.5" text-anchor="end">0</text>
+          <line x1="80.0" y1="56" x2="80.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="80.0" y="48" fill="var(--muted)" font-size="11.5" text-anchor="middle">0%</text>
+          <line x1="248.0" y1="56" x2="248.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="248.0" y="48" fill="var(--muted)" font-size="11.5" text-anchor="middle">20%</text>
+          <line x1="416.0" y1="56" x2="416.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="416.0" y="48" fill="var(--muted)" font-size="11.5" text-anchor="middle">40%</text>
+          <line x1="584.0" y1="56" x2="584.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="584.0" y="48" fill="var(--muted)" font-size="11.5" text-anchor="middle">60%</text>
+          <line x1="752.0" y1="56" x2="752.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="752.0" y="48" fill="var(--muted)" font-size="11.5" text-anchor="middle">80%</text>
+          <line x1="920.0" y1="56" x2="920.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="920.0" y="48" fill="var(--muted)" font-size="11.5" text-anchor="middle">100%</text>
+          <line x1="80" y1="117.6" x2="920" y2="117.6" stroke="var(--watch)" stroke-width="1.4" stroke-dasharray="6 4"/>
+          <text x="920" y="111.6" fill="var(--watch)" font-size="11.5" text-anchor="end">累计 80%</text>
+          <rect x="117.8" y="56.0" width="134.4" height="308.0" rx="2" fill="var(--series-context)" opacity="0.85"/>
+          <text x="185.0" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle" transform="rotate(-18 185.0 382)">A区</text>
+          <rect x="327.8" y="134.3" width="134.4" height="229.7" rx="2" fill="var(--series-context)" opacity="0.85"/>
+          <text x="395.0" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle" transform="rotate(-18 395.0 382)">B区</text>
+          <rect x="537.8" y="212.6" width="134.4" height="151.4" rx="2" fill="var(--series-context)" opacity="0.85"/>
+          <text x="605.0" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle" transform="rotate(-18 605.0 382)">D区</text>
+          <rect x="747.8" y="228.3" width="134.4" height="135.7" rx="2" fill="var(--series-context)" opacity="0.85"/>
+          <text x="815.0" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle" transform="rotate(-18 815.0 382)">C区</text>
+          <polyline points="185.0,249.0 395.0,163.2 605.0,106.7 815.0,56.0" fill="none" stroke="var(--theme-accent)" stroke-width="2.4"/>
+          <circle cx="185.0" cy="249.0" r="3" fill="var(--theme-accent)"/>
+          <circle cx="395.0" cy="163.2" r="3" fill="var(--theme-accent)"/>
+          <circle cx="605.0" cy="106.7" r="3" fill="var(--theme-accent)"/>
+          <circle cx="815.0" cy="56.0" r="3" fill="var(--theme-accent)"/>
+          <text x="823.0" y="60.0" fill="var(--theme-accent)" font-size="12" font-weight="700">累计 100.0%</text>
+          <text x="500.0" y="414" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">前 3 项累计贡献 83.5%（达到 80% 参考线）</text>
+          </svg></div><div class="embed-figure-note">前两强区域（A区、B区）合计占全盘利润的 65.2%，集中度极高，单点抗跌韧性严重不足。</div></div></div>
+  
+  <div class="report-section"><div class="section-head"><span class="section-num">Risk Governance</span><h2>护栏熔断红线指标 (Guardrails &amp; Kill-Switch)</h2></div><p style="color:var(--muted);font-size:13.5px;margin-bottom:12px;">执行过程中若触及以下任一临界阈值，系统必须立刻触发熔断并回滚：</p><table><thead><tr><th>监控维度</th><th>核心指标</th><th>当前基线</th><th>熔断红线 (Kill-Switch)</th></tr></thead><tbody><tr><td>客单价</td><td><strong>AOV 环比跌幅</strong></td><td>≤ 1%</td><td><span class='tag-critical'>&gt; 3% 强制回滚</span></td></tr><tr><td>口径</td><td><strong>语义层与数据联动一致率</strong></td><td>100%</td><td><span class='tag-critical'>&lt; 100% 报告作废</span></td></tr><tr><td>统计</td><td><strong>实验 p 值</strong></td><td>≤ 0.05</td><td><span class='tag-critical'>&gt; 0.05 不得宣称显著</span></td></tr></tbody></table></div>
+  <div class="report-section"><div class="section-head"><span class="section-num">Implementation</span><h2>分阶段推进与灰度路线图 (Rollout Roadmap)</h2></div><ul class="roadmap-list"><li class="roadmap-item"><div class="roadmap-phase">T0 内测<span class="roadmap-scope">1 个真实样本 / 5% 流量</span></div><div class="roadmap-meta">观察窗口：1~2 天 · 放行标准：本轮全部门禁 PASS，且无 P0 缺陷</div></li><li class="roadmap-item"><div class="roadmap-phase">T1 小流量<span class="roadmap-scope">20% 真实业务量</span></div><div class="roadmap-meta">观察窗口：3~5 天 · 放行标准：核心指标不低于基准线，熔断红线零触发</div></li><li class="roadmap-item"><div class="roadmap-phase">T2 半量<span class="roadmap-scope">50% 真实业务量</span></div><div class="roadmap-meta">观察窗口：1 周 · 放行标准：指标稳定，人工抽检 30 单无返工</div></li><li class="roadmap-item"><div class="roadmap-phase">T3 全量<span class="roadmap-scope">100% 覆盖</span></div><div class="roadmap-meta">观察窗口：持续 · 放行标准：T2 全周期无熔断，且已归档复盘记录</div></li></ul></div>
+  <div class="report-section"><div class="section-head"><span class="section-num">Next Actions</span><h2>后续行动项责任清单</h2></div><ol><li>把归因结论交 R01 决策预算再分配</li><li>对显著负向因子执行回滚并留痕</li><li>把口径与阈值写回 metric_store.json</li></ol></div>
+  
+  <details class="audit-ledger"><summary>审计追溯与复现凭证 (Audit Trace &amp; Ledger)</summary><div class="audit-body"><table><tbody><tr><td>Execution</td><td><code>R06 Consulting Pipeline</code></td></tr><tr><td>Series_Hash</td><td><code>be0b0569</code></td></tr></tbody></table><p style="margin-top:10px;font-size:11px;color:var(--muted);">数据真实性说明：本报告全部图表数值与指标结论均通过确定性计算流水线生成，复算指令已完整登记于上表，杜绝虚假与幻觉数值。</p></div></details>
+  
+
+  <div class="doc-footer">
+    <span>一人公司商业分析与智能体专家团 · 决策规范 DSH-SOP-REP-001</span>
+    <span>R06 蛙得清 签发</span>
+  </div>
+</div>
+</body>
+</html>

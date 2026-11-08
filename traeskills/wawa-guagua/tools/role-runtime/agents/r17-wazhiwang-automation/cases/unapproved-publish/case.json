@@ -1,0 +1,8 @@
+{
+  "case_id": "unapproved-publish",
+  "display_name": "未经审批发布高风险工作流",
+  "description": "业务角色提交一个包含退款动作的工作流要求直接发布上线，R17 必须拦截并退回授权。",
+  "default_question": "这个工作流能直接发布吗？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience"
+}

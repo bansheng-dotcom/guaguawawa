@@ -1,0 +1,87 @@
+{
+  "doc_type": "角色报告 · 蛙全局",
+  "title_lines": [
+    "蛙全局 · decide/card",
+    "自助版定价决策卡评估 "
+  ],
+  "standfirst": "门禁未通过：1/2 项检查失败。",
+  "meta": [
+    "角色 r01 蛙全局（CEO 主理人 / 编排器）",
+    "生成日期 2026-11-07",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "FAIL",
+      "note": "1/2 项",
+      "status": "critical"
+    },
+    {
+      "label": "intent",
+      "value": "自助版定价决策卡评估 ",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "门禁未通过：1/2 项检查失败。"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "intent",
+      "question": "intent 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "intent：",
+          "text": "自助版定价决策卡评估 "
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "triage",
+      "question": "triage 的判定与证据是什么？",
+      "reading": [
+        {
+          "text": "{'level': 'P1', 'domains': None, 'boardroom': None, 'next': None}"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "routing",
+      "question": "routing 的判定与证据是什么？",
+      "reading": [
+        {
+          "text": "{'roles': [], 'boardroom': False, 'next': '六问澄清先行'}"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 decide/card 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙全局 · CEO 主理人 / 编排器",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

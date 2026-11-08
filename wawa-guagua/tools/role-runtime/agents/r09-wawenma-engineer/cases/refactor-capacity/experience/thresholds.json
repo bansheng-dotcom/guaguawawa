@@ -1,0 +1,43 @@
+{
+  "_note": "refactor-capacity 案例级阈值：覆盖角色全局阈值，未列出的沿用以 experience/thresholds.json 为底。",
+  "kpis": {
+    "p99": {
+      "name": "API P99 延时",
+      "formula": "P99 响应时间（压测）",
+      "unit": "ms",
+      "target": "≤ 200",
+      "alert": "> 500 熔断降级"
+    },
+    "coverage": {
+      "name": "单元测试覆盖率",
+      "formula": "已覆盖行 / 总行",
+      "unit": "%",
+      "target": "≥ 80",
+      "alert": "< 60 禁止合并"
+    },
+    "skipped": {
+      "name": "跳过用例数",
+      "formula": "skip/xfail 计数",
+      "unit": "条",
+      "target": "0",
+      "alert": "≥ 1 判假通过"
+    }
+  },
+  "gates": {
+    "G1": {
+      "when": "存在 skip/xfail 掩盖失败",
+      "verdict": "BLOCKER",
+      "action": "判假通过，拒绝合并"
+    },
+    "G2": {
+      "when": "P99 > 500ms",
+      "verdict": "BLOCKER",
+      "action": "熔断降级，回滚变更"
+    },
+    "G3": {
+      "when": "无回滚脚本",
+      "verdict": "BLOCKER",
+      "action": "禁止发布"
+    }
+  }
+}

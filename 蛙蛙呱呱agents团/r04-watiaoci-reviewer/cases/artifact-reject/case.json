@@ -1,0 +1,40 @@
+{
+  "case_id": "artifact-reject",
+  "display_name": "交付物证据链缺失的驳回裁定",
+  "description": "两份交付工件声称已完成，但其中一处只有占位实现，L2 实质性证据不足，应判 PASS 还是有条件驳回？",
+  "default_question": "两份交付工件声称已完成，但其中一处只有占位实现，L2 实质性证据不足，应判 PASS 还是有条件驳回？",
+  "artifact_type": "pass_fail",
+  "summary": "交付物证据链缺失的驳回裁定",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "pass_fail",
+    "critique_report"
+  ],
+  "skills": [
+    "artifact",
+    "criteria",
+    "facts",
+    "quality"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "替作者改稿",
+    "代替业务方定优先级"
+  ],
+  "steps": [
+    {
+      "skill": "artifact",
+      "action": "verify",
+      "input": "examples/artifact_verify.json",
+      "expect": {
+        "verdict": "COMPLETE",
+        "artifact_count": 2
+      }
+    }
+  ]
+}

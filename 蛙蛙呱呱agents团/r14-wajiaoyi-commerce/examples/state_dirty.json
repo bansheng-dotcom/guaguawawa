@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "kind": "order",
+      "status": "completed",
+      "pending_action": "ship"
+    },
+    {
+      "kind": "payment",
+      "status": "refunded",
+      "pending_action": "recapture"
+    }
+  ]
+}

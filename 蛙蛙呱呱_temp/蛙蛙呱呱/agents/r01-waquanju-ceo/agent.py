@@ -1,0 +1,593 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""R01 蛙全局 · CEO 主理人 / 编排器 —— 本地可运行 Agent（七技能调度器 + 编排器）。
+
+两层职责：
+  1. 七个能力域技能（skills/s01..s07）：意图分级 / 跨部门拆解 / 硬决策 /
+     反方质询 / 公司OS与治理 / 决策留痕 / 高层汇报——各自确定性校验。
+  2. 编排器本体（plan/status/run）：把意图拆成公司级任务卡，指派 20 角色，
+     按依赖调度执行并独立验收（Orchestrator + Shared-State 模式）。
+
+协作契约（inputs → outputs）：
+    intent + decision_memo  →  task_cards + decision_log + board_report
+
+本地运行示例：
+    python agent.py manifest
+    python agent.py demo
+    python agent.py intent brief --input examples/brief.json
+    python agent.py decide card --input examples/decision_card.json
+    python agent.py plan --intent "分析订单数据趋势"
+    python agent.py run --all
+    python agent.py run --task <task_id>
+"""
+from __future__ import annotations
+
+# --- 运行时引导（META-001 Stage 3）：仓库根入 sys.path，修掉异构 cwd 下 ---
+# --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
+import os as _os
+import sys as _sys
+_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+if _REPO_ROOT not in _sys.path:
+    _sys.path.insert(0, _REPO_ROOT)
+
+
+import argparse
+import hashlib
+import json
+import os
+import sys
+import time
+from typing import Any, Dict, List, Optional
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_AGENTS = os.path.dirname(_HERE)
+for _p in (_HERE, _AGENTS):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+from core import protocol, registry, runner, workspace  # noqa: E402
+from agents.shared import role_runtime  # REP-001 报告引擎
+from skills import SKILLS, _common as c  # noqa: E402
+import cases  # noqa: E402
+import contracts  # noqa: E402
+import harness  # noqa: E402
+import review  # noqa: E402
+import knowledge  # noqa: E402
+
+ROLE = "r01"
+WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+ws = workspace.Workspace(WORKSPACE_ROOT)
+SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
+
+# 意图 → (技能, 动作, 默认参数)。具体关键词靠前，_route 小写不区分大小写匹配。
+_INTENT_ROUTES = [
+    (("战略简报", "简报", "brief"), "intent", "brief", {}),
+    (("澄清", "六问", "客户原话", "护城河"), "intent", "clarify", {}),
+    (("意图", "分级", "拆给谁", "boardroom"), "intent", "triage", {}),
+    (("任务卡", "分工", "wbs", "波次", "依赖图", "拆解"), "decompose", "taskcard", {}),
+    (("路由", "指派哪个角色"), "decompose", "route", {}),
+    (("决策卡", "可逆性", "硬决策", "升级人工"), "decide", "card", {}),
+    (("冷却", "freeze", "重议"), "companyos", "freeze", {}),
+    (("质询", "反方", "红队", "魔鬼代言人", "交叉评估"), "redteam", "devil", {}),
+    (("换人测试", "grove", "沉没成本"), "redteam", "grove", {}),
+    (("公司os", "公司操作系统", "六大组件", "治理成熟度"), "companyos", "os", {}),
+    (("记分卡", "指标盘点", "rocks", "ids"), "companyos", "scorecard", {}),
+    (("决策日志", "留痕", "do_not_resurface", "被否提案"), "decisionlog", "entry", {}),
+    (("复盘", "retro", "杀死标准触发"), "decisionlog", "retro", {}),
+    (("董事会", "汇报包", "board memo"), "boardroom", "memo", {}),
+    (("陪练", "卡点", "教练"), "boardroom", "coach", {}),
+    (("决策", "拍板", "定夺"), "decide", "card", {}),
+    (("战略", "方向", "愿景", "意图"), "intent", "brief", {}),
+]
+
+
+def emit_result(data: Dict[str, Any]) -> None:
+    c.emit(data)
+
+
+# --------------------------------------------------------------------------- #
+# 编排器：意图路由 → 任务卡（20 角色关键词矩阵）
+# --------------------------------------------------------------------------- #
+ROUTING: Dict[str, List[str]] = {
+    "r01": ["战略", "方向", "决策", "公司", "治理", "strategy", "vision"],
+    "r02": ["排期", "排布", "SOP", "流程", "交接", "复盘", "项目群"],
+    "r03": ["合规", "税务", "审计", "隐私", "合同", "财务红线", "risk"],
+    "r04": ["验收", "评审", "挑刺", "review", "pass/fail", "质量门"],
+    "r05": ["研究", "市场", "竞品", "行业", "规模", "research", "market"],
+    "r06": ["数据", "分析", "指标", "趋势", "漏斗", "统计", "日报", "analytics"],
+    "r07": ["产品", "PRD", "需求", "路线图", "backlog", "用户故事"],
+    "r08": ["MVP", "原型", "落地页", "H5", "跨端", "demo app"],
+    "r09": ["代码", "开发", "Bug", "接口", "部署", "CI", "后端", "前端", "engineer"],
+    "r10": ["设计", "UI", "VI", "海报", "图片", "视频", "音频", "logo"],
+    "r11": ["文案", "文章", "内容", "软文", "多平台", "翻译", "copy"],
+    "r12": ["获客", "投放", "增长", "冷启动", "CRO", "ASO", "K因子"],
+    "r13": ["客户", "CRM", "客服", "商机", "VOC", "NPS", "续约"],
+    "r14": ["订单", "支付", "账单", "签约", "预约", "订阅", "电商", "stripe"],
+    "r15": ["采购", "库存", "供应商", "履约", "ERP", "仓储"],
+    "r16": ["招聘", "考勤", "休假", "绩效", "薪酬", "人事", "HR"],
+    "r17": ["自动化", "集成", "webhook", "n8n", "工作流", "API对接"],
+    "r18": ["数仓", "ELT", "管道", "dbt", "airflow", "同步", "数据质量"],
+    "r19": ["模型", "实验", "MLflow", "评估", "训练", "A/B", "ML"],
+    "r20": ["监控", "告警", "备份", "恢复", "状态页", "SRE", "uptime"],
+}
+
+
+def route(intent: str) -> List[str]:
+    hits = [(sum(1 for k in kws if k.lower() in intent.lower()), rid)
+            for rid, kws in ROUTING.items()]
+    hits = [h for h in hits if h[0] > 0]
+    hits.sort(key=lambda x: -x[0])
+    return [rid for _, rid in hits]
+
+
+def _acceptance_for(role_id: str) -> List[str]:
+    return {
+        "r06": [
+            "产物目录存在 analysis_report.md",
+            "趋势 JSON 的 total 数值可复算",
+            "数据清洗后无整行重复",
+        ],
+    }.get(role_id, [f"{registry.by_id(role_id)['name']} 交付物可按端口验收"])
+
+
+def _make_tasks(intent: str) -> List[protocol.Task]:
+    role_ids = route(intent)
+    if not role_ids:
+        return []
+    tasks: List[protocol.Task] = []
+    prev_id: str | None = None
+    for rid in role_ids:
+        r = registry.by_id(rid)
+        t = protocol.Task(
+            title=f"{r['name']}｜{intent[:24]}",
+            owner=rid,
+            intent=intent,
+            acceptance=_acceptance_for(rid),
+        )
+        if prev_id:
+            t.deps = [prev_id]
+        # 数据类角色：接入默认示例数据 + 端口参数
+        if rid == "r06":
+            demo = os.path.join(WORKSPACE_ROOT, "artifacts", "orders.csv")
+            t.inputs = [protocol.Port(
+                "dataset", "data", media_type="text/csv",
+                note=f"input={demo},date=date,value=amount,stage=status,group=channel")]
+            t.outputs = [protocol.Port("analysis_report.md", "report", "text/markdown",
+                                       note="趋势 + 漏斗 + 报告")]
+        else:
+            t.outputs = [protocol.Port(o, "artifact") for o in r["outputs"]]
+        tasks.append(t)
+        prev_id = t.task_id
+    return tasks
+
+
+# --------------------------------------------------------------------------- #
+# 编排器：按依赖执行所有待办任务，执行后独立验收
+# --------------------------------------------------------------------------- #
+def verify_task(task: protocol.Task) -> bool:
+    out_dir = ws.artifact(task.task_id)
+    ok = any(os.path.exists(os.path.join(out_dir, p.name))
+             for p in task.outputs)
+    ws.emit(protocol.Event.now(ROLE, "verify", task.task_id,
+                               {"passed": ok, "criteria": task.acceptance}))
+    return ok
+
+
+def run_all(limit: int = 30) -> Dict[str, Any]:
+    done_ids = {t.task_id for t in ws.list_tasks("done")}
+    report = {"executed": [], "verified": [], "failed": [], "notes": []}
+
+    for _ in range(limit):
+        pending = ws.list_tasks("pending")
+        ready = [t for t in pending if set(t.deps) <= done_ids]
+        if not ready:
+            break
+        implemented = {r["id"] for r in registry.implemented()}
+        progressed = False
+        for t in ready:
+            if t.owner not in implemented:
+                ws.set_status(t.task_id, "skipped")
+                report["notes"].append(f"{t.owner} 未实现，跳过 {t.task_id}")
+                done_ids.add(t.task_id)
+                progressed = True
+                continue
+            ws.set_status(t.task_id, "assigned")
+            r = runner.invoke(t.owner, ["run", "--task", t.task_id])
+            if r.get("exit_code") == 0:
+                done_ids.add(t.task_id)
+                report["executed"].append(t.task_id)
+            else:
+                ws.set_status(t.task_id, "failed")
+                report["failed"].append({"task": t.task_id,
+                                         "stderr": r.get("stderr", "")[:200]})
+            progressed = True
+        if not progressed:
+            break
+
+    for t in ws.list_tasks("done"):
+        if verify_task(t):
+            report["verified"].append(t.task_id)
+
+    emit_result(report)
+    return report
+
+
+def status() -> Dict[str, Any]:
+    tasks = ws.list_tasks()
+    lines = [f"{t.task_id}  {t.status:<8}  {t.owner}  {t.title}  deps={t.deps}"
+             for t in tasks]
+    emit_result({"task_count": len(tasks), "tasks": lines})
+    return {"tasks": lines}
+
+
+# --------------------------------------------------------------------------- #
+# 协作入口：owner=r01 的任务卡按意图路由到技能
+# --------------------------------------------------------------------------- #
+def run_task(task_id: str) -> Dict[str, Any]:
+    task = ws.read_task(task_id)
+    if task is None:
+        return {"error": f"任务不存在: {task_id}"}
+
+    # 编排器转发：owner 不是 r01 的任务交给对应角色执行
+    if task.owner != ROLE:
+        r = runner.invoke(task.owner, ["run", "--task", task_id])
+        return {"forwarded_to": task.owner, "exit_code": r.get("exit_code"),
+                "stdout": r.get("stdout", "")[:2000]}
+
+    ws.set_status(task_id, "running")
+    ws.emit(protocol.Event.now(ROLE, "task_started", task_id))
+
+    params = _parse_port_params(task.inputs)
+    in_file = _first_input_file(task.inputs) or params.get("input")
+    intent = task.intent + " " + " ".join(params.values())
+    skill_name, action, defaults = _route(intent)
+    mod = SKILL_BY_NAME[skill_name]
+
+    out_dir = ws.artifact(task_id)
+    os.makedirs(out_dir, exist_ok=True)
+
+    if in_file and os.path.exists(in_file):
+        merged = dict(defaults)
+        merged.update(params)
+        merged["action"] = action
+        merged["input"] = in_file
+        result = mod.run(_mkns(**merged))
+    else:
+        # 无输入文件：意图分级路由也算真实产出（编排判断）
+        result = _intent_result(intent)
+
+    result["task_id"] = task_id
+    result["skill"] = skill_name
+    result["action"] = action
+
+    result_path = os.path.join(out_dir, f"{skill_name}.json")
+    with open(result_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    outputs = [protocol.Port(f"{skill_name}.json", "data")]
+
+    ports = role_runtime.emit(
+        role=ROLE, name="蛙全局", title="CEO 主理人 / 编排器",
+        result=result, skill=skill_name, action=action, intent=intent,
+        out_dir=out_dir, input_path=in_file, md_name="ceo_report")
+    outputs.extend(ports)
+
+    ws.update_task(task_id, {"outputs": [p.to_dict() for p in outputs],
+                             "status": "done"})
+    ws.emit(protocol.Event.now(ROLE, "task_finished", task_id,
+                               {"outputs": [p.name for p in outputs]}))
+    return result
+
+
+def _intent_result(intent: str) -> Dict[str, Any]:
+    """无输入文件时的兜底：意图分级（triage）真实执行。"""
+    from skills import s02_decompose
+    triage = SKILL_BY_NAME["intent"].run(
+        _mkns(action="triage", input=_tmp_intent_json(intent)))
+    routing = s02_decompose._route({"intent": intent})
+    return {"ok": bool(triage.get("ok") and routing.get("ok")),
+            "intent": intent,
+            "triage": {k: triage.get(k) for k in ("level", "domains", "boardroom", "next")},
+            "routing": {k: routing.get(k) for k in ("roles", "boardroom", "next")},
+            "checks": triage.get("checks", []) + routing.get("checks", [])}
+
+
+def _tmp_intent_json(intent: str) -> str:
+    import tempfile
+    fd, p = tempfile.mkstemp(prefix="r01_intent_", suffix=".json")
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        json.dump({"intent": intent}, f, ensure_ascii=False)
+    return p
+
+
+def _write_report(result: Dict[str, Any], title: str, path: str) -> None:
+    lines = [f"# {title}", ""]
+    for k, v in result.items():
+        if k in ("checks",):
+            continue
+        lines += [f"## {k}", "", "```json",
+                  json.dumps(v, ensure_ascii=False, indent=2), "```", ""]
+    lines += ["## 门禁", "", "```json",
+              json.dumps(result.get("checks", []), ensure_ascii=False, indent=2),
+              "```"]
+    c.write_text(path, "\n".join(lines))
+
+
+def _route(intent: str):
+    low = intent.lower()
+    for kws, skill, action, defaults in _INTENT_ROUTES:
+        if any(k.lower() in low for k in kws):
+            return skill, action, defaults
+    return "intent", "brief", {}
+
+
+def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
+    params: Dict[str, str] = {}
+    for p in ports:
+        if p.note:
+            for part in p.note.split(","):
+                if "=" in part:
+                    k, v = part.split("=", 1)
+                    params[k.strip()] = v.strip()
+    return params
+
+
+def _first_input_file(ports: List[protocol.Port]) -> Optional[str]:
+    for p in ports:
+        if p.kind == "data" and os.path.exists(p.name):
+            return p.name
+    return None
+
+
+def _mkns(**kw) -> argparse.Namespace:
+    return argparse.Namespace(**kw)
+
+
+# --------------------------------------------------------------------------- #
+# 示例工件 / manifest
+# --------------------------------------------------------------------------- #
+def make_demo(artifacts_dir: str) -> Dict[str, str]:
+    os.makedirs(artifacts_dir, exist_ok=True)
+    out: Dict[str, str] = {}
+    for name in ("brief", "taskcard", "decision_card", "redteam",
+                 "companyos", "decisionlog", "board"):
+        src = os.path.join(_HERE, "examples", f"{name}.json")
+        if os.path.exists(src):
+            dst = os.path.join(artifacts_dir, f"r01_{name}.json")
+            c.write_json(dst, c.load_json(src))
+            out[name] = dst
+    return out
+
+
+def manifest() -> Dict[str, Any]:
+    r = registry.by_id(ROLE)
+    return {"role": r["id"], "name": r["name"], "title": r["title"],
+            "capabilities": r["capabilities"],
+            "inputs": r["inputs"], "outputs": r["outputs"],
+            "skills": [{"skill": getattr(m, "NAME", ""), "description": getattr(m, "DESC", "")} for m in SKILLS],
+            "capability_status": {"local_orchestration": "real",
+                                  "external_delegation": "blocked"},
+            "orchestrator": ["plan", "status", "run --all",
+                             "run --task（owner≠r01 时转发对应角色）"]}
+
+
+# --------------------------------------------------------------------------- #
+# CLI 与分发
+# --------------------------------------------------------------------------- #
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(prog="agent.py",
+                                description="R01 蛙全局 · CEO 主理人/编排器")
+    sp = p.add_subparsers(dest="skill", required=True)
+
+    sp.add_parser("manifest", help="打印协作契约(端口/能力/技能)")
+    sp.add_parser("demo", help="生成示例决策工件（简报/决策卡/红队/OS/日志/汇报）")
+
+    # LLM 知识注入模式
+    chat_p = sp.add_parser("chat", help="LLM 对话模式：注入知识基座后返回 system prompt")
+    chat_p.add_argument("--intent", required=True, help="用户意图描述")
+    chat_p.add_argument("--domains", default=None,
+                        help="要注入的知识域（逗号分隔，如 decide,redteam），默认自动推断")
+    chat_p.add_argument("--output", default=None,
+                        help="输出 system prompt 到文件（默认打印到 stdout）")
+
+    run_p = sp.add_parser("run", help="协作入口：执行任务卡 / 按依赖执行全部")
+    run_p.add_argument("--task", default=None)
+    run_p.add_argument("--all", action="store_true")
+    run_p.add_argument("--limit", type=int, default=30)
+
+    # 编排器命令
+    pl = sp.add_parser("plan", help="把意图拆成公司级任务卡")
+    pl.add_argument("--intent", required=True)
+    sp.add_parser("status", help="查看工作区任务状态")
+
+    _register_harness(sp)
+    _register_contract(sp)
+    _register_case(sp)
+    _register_review(sp)
+
+    for m in SKILLS:
+        m.add_parser(sp)
+    return p
+
+
+def _register_harness(sp) -> None:
+    h = sp.add_parser("harness", help="确定性验证器：brief/card/crosseval/freeze 等")
+    ha = h.add_subparsers(dest="hcmd", required=True)
+    for name in harness._VALIDATORS:
+        pa = ha.add_parser(name, help=f"{name} 门禁")
+        pa.add_argument("--input", required=True)
+    v = ha.add_parser("verify", help="综合门禁（brief+card）")
+    v.add_argument("--brief", required=True)
+    v.add_argument("--card", required=True)
+    rl = ha.add_parser("runlog", help="运行可观测性：最近 N 次运行记录")
+    rl.add_argument("--n", type=int, default=10)
+
+
+def _run_harness(args) -> Dict[str, Any]:
+    if args.hcmd == "verify":
+        return harness.verify(args.brief, args.card)
+    if args.hcmd == "runlog":
+        return {"runlog": ws.runlog(args.n)}
+    return harness.run_validator(args.hcmd, args.input)
+
+
+def _register_contract(sp) -> None:
+    cp = sp.add_parser("contract", help="技能契约：list/get/validate")
+    ca = cp.add_subparsers(dest="ccmd", required=True)
+    ca.add_parser("list", help="列出所有技能及其契约动作")
+    g = ca.add_parser("get", help="输出某技能某动作的契约 schema")
+    g.add_argument("--skill", required=True, dest="contract_skill")
+    g.add_argument("--action", default=None, dest="contract_action")
+    v = ca.add_parser("validate", help="按契约校验某技能的产出 JSON")
+    v.add_argument("--skill", required=True, dest="contract_skill")
+    v.add_argument("--action", required=True, dest="contract_action")
+    v.add_argument("--output", required=True)
+
+
+def _register_case(sp) -> None:
+    cp = sp.add_parser("case", help="案例库：list/get/validate")
+    ca = cp.add_subparsers(dest="ccmd", required=True)
+    ca.add_parser("list", help="列出所有案例")
+    g = ca.add_parser("get", help="加载某案例（含语义层）")
+    g.add_argument("--case", required=True, dest="case_id")
+    v = ca.add_parser("validate", help="案例结构门禁")
+    v.add_argument("--case", required=True, dest="case_id")
+
+
+def _run_case(args) -> Dict[str, Any]:
+    if args.ccmd == "list":
+        return {"cases": cases.list_cases()}
+    if args.ccmd == "get":
+        return cases.load_case(args.case_id)
+    if args.ccmd == "validate":
+        return cases.validate_case(args.case_id)
+    return {"error": f"未知 case 命令: {args.ccmd}"}
+
+
+def _register_review(sp) -> None:
+    p = sp.add_parser("review", help="对抗评审：对技能产出做确定性挑战")
+    p.add_argument("--result", required=True)
+    p.add_argument("--skill", required=True, dest="review_skill")
+    p.add_argument("--action", required=True, dest="review_action")
+    p.add_argument("--run-id", default="")
+
+
+def _run_review(args) -> Dict[str, Any]:
+    result = c.load_json(args.result)
+    packet = {"run_id": args.run_id, "skill": args.review_skill,
+              "action": args.review_action, "result": result}
+    out = review.review_packet(packet)
+    out["exit_code"] = 0 if out["verdict"] == "PASS" else 1
+    return out
+
+
+def _run_contract(args) -> Dict[str, Any]:
+    skill = getattr(args, "contract_skill", None)
+    action = getattr(args, "contract_action", None)
+    if args.ccmd == "list":
+        return {"contracts": [
+            {"skill": s, "desc": contracts.get(s)["desc"],
+             "actions": contracts.actions(s)}
+            for s in contracts.skill_names()]}
+    if args.ccmd == "get":
+        entry = contracts.get(skill)
+        if not entry:
+            return {"error": f"未知技能: {skill}"}
+        if action:
+            return {"skill": skill, "action": action,
+                    "output_schema": entry.get("output", {}).get(action)}
+        return {"skill": skill, "desc": entry["desc"],
+                "input": entry["input"], "output_actions": list(entry["output"])}
+    if args.ccmd == "validate":
+        result = c.load_json(args.output)
+        return contracts.validate_output(skill, action, result)
+    return {"error": f"未知 contract 命令: {args.ccmd}"}
+
+
+def _input_hash(args) -> str:
+    p = getattr(args, "input", None)
+    if p and os.path.exists(p):
+        h = hashlib.md5()
+        with open(p, "rb") as f:
+            h.update(f.read())
+        return h.hexdigest()[:12]
+    return ""
+
+
+def main() -> int:
+    _meta = role_runtime.handle_meta_command(sys.argv[1:], ROLE)
+    if _meta is not None:
+        return _meta
+
+    args = build_parser().parse_args()
+
+    if args.skill == "manifest":
+        emit_result(manifest())
+        return 0
+    if args.skill == "demo":
+        artifacts = os.path.join(WORKSPACE_ROOT, "artifacts")
+        emit_result({"demo_artifacts": make_demo(artifacts)})
+        return 0
+    if args.skill == "chat":
+        domains = (args.domains.split(",") if args.domains
+                   else knowledge.get_domain_for_intent(args.intent))
+        prompt = knowledge.build_system_prompt(
+            domains=domains, task_context=args.intent)
+        if args.output:
+            c.write_text(args.output, prompt)
+            emit_result({"ok": True, "output": args.output,
+                         "domains": domains,
+                         "prompt_length": len(prompt)})
+        else:
+            print(prompt)
+        return 0
+    if args.skill == "plan":
+        tasks = _make_tasks(args.intent)
+        if not tasks:
+            emit_result({"planned": 0, "note": "未匹配到角色，请提供更具体意图"})
+            return 0
+        ids = [ws.create_task(t) for t in tasks]
+        emit_result({"planned": len(ids), "task_ids": ids,
+                     "owners": [t.owner for t in tasks]})
+        return 0
+    if args.skill == "status":
+        status()
+        return 0
+    if args.skill == "run":
+        if args.task:
+            emit_result(run_task(args.task))
+        else:
+            run_all(args.limit)
+        return 0
+    if args.skill == "harness":
+        out = _run_harness(args)
+        emit_result(out)
+        return 0 if out.get("ok", True) else 1
+    if args.skill == "contract":
+        out = _run_contract(args)
+        emit_result(out)
+        return 0 if out.get("ok", True) else 1
+    if args.skill == "case":
+        out = _run_case(args)
+        emit_result(out)
+        return 0 if args.ccmd != "validate" else (0 if out["ok"] else 1)
+    if args.skill == "review":
+        out = _run_review(args)
+        emit_result(out)
+        return 0 if out["verdict"] == "PASS" else 1
+
+    t0 = time.time()
+    result = SKILL_BY_NAME[args.skill].run(args)
+    elapsed = int((time.time() - t0) * 1000)
+    result = {"result": result} if not isinstance(result, dict) else result
+    ok = bool(result.get("ok", True))
+    ws.log_run(ROLE, {"skill": args.skill,
+                      "action": getattr(args, "action", None),
+                      "input_hash": _input_hash(args),
+                      "elapsed_ms": elapsed, "exit_code": 0 if ok else 1})
+    result.setdefault("runtime_ms", elapsed)
+    emit_result(result)
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

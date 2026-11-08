@@ -1,0 +1,11 @@
+{
+  "profile": {
+    "processes_personal_data": true,
+    "eu_data_subjects": true,
+    "enterprise_clients": true,
+    "saas_revenue": true,
+    "ai_development": true,
+    "ai_deployed": true,
+    "eu_market": true
+  }
+}

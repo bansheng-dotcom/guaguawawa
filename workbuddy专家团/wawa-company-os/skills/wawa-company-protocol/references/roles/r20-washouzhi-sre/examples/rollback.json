@@ -1,0 +1,17 @@
+{
+  "rollback_plan": "切回主站并回滚配置",
+  "steps": [
+    {
+      "step_id": "s1",
+      "action": "停新站",
+      "after": ""
+    },
+    {
+      "step_id": "s2",
+      "action": "切回主站",
+      "after": "s1"
+    }
+  ],
+  "human_decision_point": true,
+  "approver": "oncall"
+}

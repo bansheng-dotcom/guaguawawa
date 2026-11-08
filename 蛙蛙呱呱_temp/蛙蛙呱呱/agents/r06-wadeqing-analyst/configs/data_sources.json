@@ -1,0 +1,20 @@
+﻿{
+  "sources": {
+    "ods_orders": {
+      "type": "hive",
+      "path": "ods.orders",
+      "permissions": "read_only",
+      "etl_standard": "v1.0"
+    },
+    "crm_users": {
+      "type": "mysql",
+      "db": "crm",
+      "table": "users",
+      "permissions": "read_only"
+    }
+  },
+  "monitoring": {
+    "anomaly_threshold": 0.05,
+    "cron": "0 8 * * *"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "skill": "spec",
+  "action": "spec",
+  "result": {
+    "ok": true,
+    "verdict": "PASS",
+    "checks": [],
+    "next": "技术规格模块边界完整"
+  }
+}

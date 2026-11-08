@@ -1,0 +1,36 @@
+{
+  "_note": "headline-test 案例级阈值：覆盖角色全局阈值，未列出的沿用以 experience/thresholds.json 为底。",
+  "kpis": {
+    "bounce": {
+      "name": "进店后首跳跳失率",
+      "formula": "首跳离开会话 / 进店会话",
+      "unit": "%",
+      "target": "≤ 8%",
+      "alert": "> 15% 修正标题歧义"
+    },
+    "forbidden": {
+      "name": "违禁词命中数",
+      "formula": "命中平台违禁词表次数",
+      "unit": "处",
+      "target": "0",
+      "alert": "≥ 1 禁止发布"
+    }
+  },
+  "gates": {
+    "G1": {
+      "when": "违禁词命中",
+      "verdict": "BLOCKER",
+      "action": "禁止发布，改写"
+    },
+    "G2": {
+      "when": "标题承诺与正文不符",
+      "verdict": "BLOCKER",
+      "action": "判为标题党，退回重写"
+    },
+    "G3": {
+      "when": "字数超出平台区间",
+      "verdict": "WARN",
+      "action": "按平台重剪"
+    }
+  }
+}

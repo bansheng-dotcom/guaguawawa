@@ -1,0 +1,10 @@
+{
+  "conversations": [
+    {"id": "c001", "channel": "fax", "status": "resolved",
+     "first_response_minutes": 600, "resolution_hours": 100, "csat": 1},
+    {"id": "c002", "channel": "web_widget", "status": "resolved",
+     "first_response_minutes": 10, "resolution_hours": 10, "csat": 5,
+     "reopened": true}
+  ],
+  "summary": "渠道越界、首响/解决超时、CSAT 低、重开。"
+}

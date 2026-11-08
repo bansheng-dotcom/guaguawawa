@@ -1,0 +1,127 @@
+{
+  "name": "efficiency-squad",
+  "version": "1.0.0",
+  "description": "A four-member efficiency expert team with a dispatching lead covering requirement analysis, UI design, engineering with git lifecycle management, and data reporting.",
+  "author": {
+    "name": "liu",
+    "email": "liu@workbuddy.local"
+  },
+  "agents": [
+    "./agents/efficiency-squad-team-lead.md",
+    "./agents/ui-designer.md",
+    "./agents/arch-engineer.md",
+    "./agents/data-clerk.md"
+  ],
+  "expertType": "team",
+  "agentName": "efficiency-squad-team-lead",
+  "teamInfo": {
+    "leadAgent": "efficiency-squad-team-lead",
+    "memberAgents": [
+      "ui-designer",
+      "arch-engineer",
+      "data-clerk"
+    ]
+  },
+  "displayName": {
+    "en": "Efficiency Squad",
+    "zh": "效率特勤组"
+  },
+  "profession": {
+    "en": "Efficiency Squad",
+    "zh": "效率特勤组"
+  },
+  "displayDescription": {
+    "en": "Four experts under one dispatching lead: requirement clarification and task breakdown, UI planning and design, architecture with full git lifecycle management, and data reports and documents.",
+    "zh": "四人效率战队：统筹接单派单，界面规划实现，架构与Git管理，数据报表文档产出，全程留痕待确认。"
+  },
+  "avatar": "avatars/team.png",
+  "categoryId": "02-Engineering",
+  "defaultInitPrompt": {
+    "zh": "我有个想法想落地，帮我拆解并推进全程",
+    "en": "I have an idea to implement. Help me break it down and drive it end to end."
+  },
+  "plugin": "efficiency-squad",
+  "tags": [
+    {
+      "en": "Requirement Breakdown",
+      "zh": "需求拆解"
+    },
+    {
+      "en": "UI Design",
+      "zh": "界面设计"
+    },
+    {
+      "en": "Engineering & Git",
+      "zh": "架构工程"
+    }
+  ],
+  "quickPrompts": [
+    {
+      "en": "I have an idea to implement. Help me break it down and drive it end to end.",
+      "zh": "我有个想法想落地，帮我拆解并推进全程"
+    },
+    {
+      "en": "Design a page for this project, align on the design spec first.",
+      "zh": "给这个项目做一版页面设计，先对齐设计规范"
+    },
+    {
+      "en": "Analyze this data and produce a report document.",
+      "zh": "分析这份数据并产出一份报告文档"
+    }
+  ],
+  "members": [
+    {
+      "id": "efficiency-squad-team-lead",
+      "displayName": {
+        "en": "Shu Deqi",
+        "zh": "殊得起"
+      },
+      "profession": {
+        "en": "Efficiency Coordinator",
+        "zh": "效率统筹官"
+      },
+      "avatar": "avatars/efficiency-squad-team-lead.png",
+      "role": "lead"
+    },
+    {
+      "id": "ui-designer",
+      "displayName": {
+        "en": "Shu Deshuai",
+        "zh": "殊得帅"
+      },
+      "profession": {
+        "en": "UI Designer",
+        "zh": "界面设计师"
+      },
+      "avatar": "avatars/ui-designer.png",
+      "role": "member"
+    },
+    {
+      "id": "arch-engineer",
+      "displayName": {
+        "en": "Shu Dewen",
+        "zh": "殊得稳"
+      },
+      "profession": {
+        "en": "Infrastructure Engineer",
+        "zh": "架构工程师"
+      },
+      "avatar": "avatars/arch-engineer.png",
+      "role": "member"
+    },
+    {
+      "id": "data-clerk",
+      "displayName": {
+        "en": "Shu Dehao",
+        "zh": "殊得好"
+      },
+      "profession": {
+        "en": "Data & Docs Clerk",
+        "zh": "数据文书"
+      },
+      "avatar": "avatars/data-clerk.png",
+      "role": "member"
+    }
+  ],
+  "sharedBy": "159204e0-7284-42f7-a300-f82a8b0c4521"
+}

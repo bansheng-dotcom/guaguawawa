@@ -1,0 +1,86 @@
+{
+  "_comment": "R02 蛙排布全局阈值（T9 阈值外置）：改口径只改这里，不改代码",
+  "schedule": {
+    "task_kinds": ["analysis", "design", "implementation", "testing", "deployment", "documentation", "management", "maintenance"],
+    "step_min": 1,
+    "step_max": 10,
+    "cost_min": 0.05,
+    "cost_max": 3.0,
+    "max_items": 20,
+    "default_cadence": "daily",
+    "capacity_per_day_default": 2.0,
+    "cadences": ["daily", "weekly", "monthly"]
+  },
+  "capacity": {
+    "urgent_weight": 1.2,
+    "overalloc_pct": 100,
+    "single_project_cap_pct": 50,
+    "lead_time_pcts": {"development": 60, "launch": 15, "maintenance": 10, "innovation": 15}
+  },
+  "delegate": {
+    "max_task_hours": 8,
+    "max_blocked_by": 2,
+    "max_must_read": 3,
+    "min_key_results": 1
+  },
+  "handoff": {
+    "artifact_types": ["document", "code", "data", "config", "report", "dashboard", "design"],
+    "required_fields": ["process_doc", "artifact", "owner", "rev", "handoff_to"],
+    "min_repro": 1,
+    "min_downstream": 1,
+    "min_acceptance": 1,
+    "event_types": ["created", "updated", "handoff", "accepted", "rejected", "reopened", "closed"]
+  },
+  "retro": {
+    "severity_max": 5,
+    "escalation_severity": 4,
+    "escalation_within_min": 30,
+    "closure_window_days": 7,
+    "dimensions": ["目标", "计划", "执行", "复盘", "团队"]
+  },
+  "process": {
+    "min_steps": 2,
+    "control_point_min_ratio": 0.3,
+    "wait_threshold_days": 3,
+    "overprocess_step_threshold": 10,
+    "timebox_min": {"daily": 15, "weekly": 60, "monthly": 120},
+    "meeting_questions": ["blockers", "yesterday", "today"],
+    "min_action_items": 1
+  },
+  "knowledge": {
+    "supported_types": ["pdf", "epub", "docx", "txt", "md", "markdown", "rst", "adoc", "html", "htm", "rtf", "mobi", "azw3"],
+    "slug_min_segments": 2,
+    "min_sections": 3,
+    "required_sections": ["Core Idea", "Key Concepts", "Key Takeaways"],
+    "skill_md_token_max": 4000,
+    "glossary_token_max": 1500,
+    "patterns_token_max": 2000,
+    "cheatsheet_token_max": 1200,
+    "chapter_token_max": 3000,
+    "staleness_days": 90,
+    "too_large_growth_pct": 150,
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "rrf_k": 60,
+    "default_top_k": 5,
+    "staleness_penalty": 0.5
+  },
+  "portfolio": {
+    "statuses": ["on_track", "at_risk", "behind", "missed"],
+    "rag_map": {"on_track": "G", "at_risk": "A", "behind": "R", "missed": "R"},
+    "human_gate_types": ["p0_change", "funding", "redline"],
+    "wave_hours_warn": 24,
+    "confidence_types": ["EXTRACTED", "INFERRED", "AMBIGUOUS"],
+    "confidence_score": {"EXTRACTED": [1.0, 1.0], "INFERRED": [0.4, 0.9], "AMBIGUOUS": [0.1, 0.3]},
+    "god_node_pct": 0.2,
+    "god_node_min_nodes": 10,
+    "node_warn_threshold": 5000,
+    "bfs_depth_max": 3,
+    "dfs_depth_max": 6
+  },
+  "review": {
+    "vague_words": ["尽快", "持续关注", "有待进一步", "适当优化", "后续跟进", "推进中"],
+    "advice_words": ["建议", "应当", "必须", "务必"],
+    "owner_fields": ["owner", "owner_role", "actor", "dri"]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "_comment": "竞品深挖案例阈值（引用全局 thresholds.json 的 competitor 段键名，不手抄数值）。",
+  "matrix_value_types": "见 thresholds.json competitor.matrix_value_types",
+  "threat_ratio_high": 0.5,
+  "threat_ratio_critical": 0.75
+}

@@ -1,0 +1,8 @@
+{
+  "id": "pi_3abc",
+  "status": "succeeded",
+  "amount": 104600,
+  "intent_type": "payment_intent",
+  "webhook_event": "payment.succeeded",
+  "idempotency_key": "idem_001"
+}

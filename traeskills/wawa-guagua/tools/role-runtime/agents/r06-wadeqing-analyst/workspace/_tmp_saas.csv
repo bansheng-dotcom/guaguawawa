@@ -1,0 +1,8 @@
+customer_id,month,mrr,status
+c1,2024-01,100,active
+c2,2024-01,200,active
+c3,2024-01,300,active
+c1,2024-02,100,active
+c2,2024-02,250,active
+c3,2024-02,0,canceled
+c4,2024-02,150,active

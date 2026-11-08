@@ -1,0 +1,112 @@
+{
+  "doc_type": "角色报告 · 蛙织网",
+  "title_lines": [
+    "蛙织网 · integration/workflow",
+    "帮我核查这个自动化工作流的结构是否合规、能不能集成 "
+  ],
+  "standfirst": "next=自动化工件通过全部门禁，可进入发布与交接",
+  "meta": [
+    "角色 r17 蛙织网（自动化与集成工程师）",
+    "生成日期 2026-11-06",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "6/6 项",
+      "status": "healthy"
+    },
+    {
+      "label": "next",
+      "value": "自动化工件通过全部门禁，可进入发布与交接",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "node_count",
+      "value": "3",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "trigger_count",
+      "value": "1",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=自动化工件通过全部门禁，可进入发布与交接"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "node_count",
+      "question": "node_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "node_count：",
+          "text": "3"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "trigger_count",
+      "question": "trigger_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "trigger_count：",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "dangling_edges",
+      "question": "dangling_edges 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "dangling_edges：",
+          "text": "0"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "narrative",
+      "question": "narrative 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "narrative：",
+          "text": "工作流 acme-lead-sync：3 节点 / 1 触发器 / 悬空边 0"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 integration/workflow 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙织网 · 自动化与集成工程师",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

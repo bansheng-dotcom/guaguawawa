@@ -1,0 +1,36 @@
+{
+  "semantic_layer_id": "demo-orders",
+  "version": "0.1",
+  "purpose": "记录 demo orders.csv 的表头、业务含义与口径，演示语义层如何落到真实数据列。",
+  "grain": {
+    "default": "order",
+    "supported": [
+      {"name": "order", "keys": ["order_id"], "meaning": "一行一张订单。"},
+      {"name": "day_channel", "keys": ["date", "channel"], "meaning": "每天每渠道的汇总。"}
+    ]
+  },
+  "fields": {
+    "order_id": {"role": "dimension", "business_name": "订单号", "examples": ["A001"],
+                 "meaning": "订单主键，去重计订单数。"},
+    "date": {"role": "dimension", "business_name": "下单日期", "examples": ["2026-11-01"],
+             "meaning": "下单日，时间粒度 day。"},
+    "channel": {"role": "dimension", "business_name": "获客渠道",
+                "examples": ["抖音", "微信"], "meaning": "订单来源渠道，收入拆解的维度。"},
+    "status": {"role": "dimension", "business_name": "订单状态",
+               "examples": ["paid", "pending"], "meaning": "订单支付状态，只对 paid 算收入。"},
+    "user_id": {"role": "dimension", "business_name": "用户ID", "examples": ["u01"],
+                "meaning": "下单用户，去重计用户数。"},
+    "amount": {"role": "metric", "business_name": "订单金额", "unit": "元",
+               "meaning": "单笔订单金额；sum=总收入，avg=客单价。",
+               "quality_rule": "必须为数值；缺失或 99999 类哨兵值须标记不删除。"}
+  },
+  "business_terms": {
+    "总收入": "所有订单 amount 之和（脏数据先经质量门禁标记）。",
+    "客单价": "amount 均值 = sum(amount)/count(amount 非空)。",
+    "转化用户数": "user_id 去重数。"
+  },
+  "analysis_boundaries": [
+    "当前数据只有 6 列，能判断渠道/日期的收入结构与脏数据，不能判断渠道获客成本与利润。",
+    "金额含 99999 哨兵值时，先标记离群，不能直接用于结论。"
+  ]
+}

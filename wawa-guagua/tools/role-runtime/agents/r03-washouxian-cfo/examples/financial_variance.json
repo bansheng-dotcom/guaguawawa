@@ -1,0 +1,23 @@
+{
+  "budget_by_account": {
+    "revenue": 25000.0,
+    "cash": 60000.0,
+    "marketing": 20000.0
+  },
+  "variances": [
+    {
+      "account": "revenue",
+      "variance": 800.0,
+      "driver": "大客户 9 月续约提前确认，量增 12%"
+    },
+    {
+      "account": "cash",
+      "variance": -2000.0,
+      "driver": "供应商账期从 net30 延至 net45，付款递延"
+    },
+    {
+      "account": "marketing",
+      "variance": 4000.0
+    }
+  ]
+}

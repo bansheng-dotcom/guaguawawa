@@ -1,0 +1,42 @@
+{
+  "case": "kyc-onboarding",
+  "story": "KYC 尽调",
+  "symptom": "PEP 关联申请人材料不全",
+  "phenomenon": "KYC 尽调：PEP 因子命中且两份必备文档缺失，同日现金拆分触发结构化红旗",
+  "baseline": "处置未知（材料未齐）",
+  "gate": "评级≤medium 且文档齐备 且无升级规则命中 才可 clear",
+  "open_question": "处置应为补件还是升级 EDD？同日拆分是否构成 SAR 报告义务？",
+  "scenario": "给定申请人风险因子与缺失文档 当我评级 risk.kyc 则风险分 5（high）且处置为 escalate-edd 当我监测关联流水 risk.aml 则同日拆分现金触发结构化红旗",
+  "steps": [
+    {"skill": "risk", "action": "kyc",
+     "expect": {"risk_score": 5, "rating": "high",
+                "disposition": ["request-docs", "escalate-edd"]}},
+    {"skill": "risk", "action": "aml",
+     "expect": {"alerts.0.type": "structuring"}}
+  ],
+  "fact": {
+    "asserts": [
+      "风险分 = jurisdiction 1 + pep 3 + sof 1 = 5 → high",
+      "PEP 因子 3 ≥ 3 触发升级规则（处置不为 clear）",
+      "identity/tax_id 缺失 → 处置至少 request-docs",
+      "同日 2 笔现金（5,500 + 4,200 = 9,700 ≥ 9,000）且单笔 < 10,000 → 结构化拆分红旗",
+      "approved == False（本 agent 永不直接批准开户）"
+    ]
+  },
+  "cartridges": {
+    "kyc": {
+      "applicant": {
+        "risk_factors": {"jurisdiction": 1, "pep": 3, "source_of_funds": 1},
+        "documents": {"identity": "received", "address": "received", "tax_id": "missing", "sof": "missing"},
+        "beneficial_owners": [{"name": "张三", "ownership_pct": 60, "verified": true}]
+      }
+    },
+    "aml": {
+      "transactions": [
+        {"id": "x1", "date": "2026-10-05", "type": "cash", "amount": 5500.0},
+        {"id": "x2", "date": "2026-10-05", "type": "cash", "amount": 4200.0}
+      ]
+    }
+  },
+  "metadata": {"owner": "R03 蛙守线", "banyan_version": "0.22.0"}
+}

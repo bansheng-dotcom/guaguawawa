@@ -1,0 +1,7 @@
+{
+  "aha_moment": "新用户 24 小时内完成首次内容收藏",
+  "time_to_value": "注册后 10 分钟内看到第一篇定制内容",
+  "funnel": "注册 → 引导 → 首收藏 → 回访",
+  "churn_warning_days": 14,
+  "recall_channels": ["邮件", "短信", "推送"]
+}

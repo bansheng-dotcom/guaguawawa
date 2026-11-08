@@ -1,0 +1,17 @@
+{
+  "executions": [
+    {
+      "execution_id": "e1",
+      "status": "exploded",
+      "trigger": "webhook",
+      "input": {
+        "payload": {}
+      },
+      "execution": "wf_main",
+      "output": {
+        "result": {}
+      },
+      "operator": "r17"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "media": "poster",
+  "style": "3d",
+  "prompt": "Ultra-luxury perfume bottle suspended in negative space, thick lead crystal glass vessel containing gradient amber-to-gold perfume liquid with visible convection currents inside, complex light refraction creating rainbow caustic patterns on the glass facets and projected outward, brushed gunmetal metallic cap with microscopic brushed texture detail, studio still life photography with Rembrandt lighting setup (one strong key light from upper right creating triangle shadow, subtle fill light from lower left, soft rim light outlining the bottle silhouette), shot on Phase One IQ4 medium format with 120mm macro lens, f/4 aperture for subtle foreground blur, neutral warm beige seamless backdrop with gentle light falloff, floating soft shadow below, Octane Render 2024 rendering with global illumination, subsurface scattering on amber liquid, iridescent rainbow diffraction on glass edges, commercial high-end fragrance campaign shot",
+  "negative_prompt": "blurry, low resolution, cheap plastic, distorted shape, liquid spilling outside bottle, cluttered background, text, logo, watermark, people, hands, scratches, fingerprints, too many colors, neon colors",
+  "style_locks": ["lead crystal glass with caustics", "amber convection liquid", "Rembrandt three-point lighting", "Phase One medium format", "Octane Render GI", "subsurface scattering on amber", "warm beige seamless backdrop"]
+}

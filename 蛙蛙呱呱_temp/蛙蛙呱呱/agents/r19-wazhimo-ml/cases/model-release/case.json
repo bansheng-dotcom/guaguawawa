@@ -1,0 +1,10 @@
+{
+  "case_id": "model-release",
+  "display_name": "模型卡没写限制就想交付",
+  "description": "交付方提交了 support-qa-assistant 的模型卡，用途写「什么都能答」、限制为空、风险分层填 none、许可填「免费随便用」；资产清单里的路径是「on desktop」且没有 run_id 绑定。需要判定：模型卡五要素（用途/限制/风险/许可/已知偏差）是否齐备、资产证据是否可追溯到产生它的运行。本质是「不完整模型卡 + 无溯源资产」的确定性处置。",
+  "default_question": "我要把这个客服模型交付给下游团队，模型卡和资产就这样提交行不行？如果不行，缺了什么？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": ["modelcard_card", "modelcard_asset", "registry_register"],
+  "skills": ["s07_modelcard", "s02_registry"]
+}

@@ -1,0 +1,41 @@
+{
+  "ok": false,
+  "skill": "prd",
+  "action": "prd",
+  "checks": [
+    {
+      "ok": false,
+      "msg": "PRD 缺少必填板块: problem"
+    },
+    {
+      "ok": false,
+      "msg": "PRD 缺少必填板块: stories"
+    },
+    {
+      "ok": false,
+      "msg": "PRD 缺少必填板块: rules"
+    },
+    {
+      "ok": false,
+      "msg": "PRD 缺少必填板块: out_of_scope"
+    },
+    {
+      "ok": false,
+      "msg": "PRD 缺少必填板块: assumptions"
+    },
+    {
+      "ok": false,
+      "msg": "PRD 缺少必填板块: acceptance"
+    },
+    {
+      "ok": false,
+      "msg": "PRD 缺少必填板块: telemetry"
+    },
+    {
+      "ok": false,
+      "msg": "PRD 承重假设数量不足，要求至少3个，实际 0 个"
+    }
+  ],
+  "grade": 0,
+  "passed_gates": 1
+}

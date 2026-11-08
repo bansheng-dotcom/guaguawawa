@@ -1,0 +1,8 @@
+{
+  "project": "全栈交付闭环",
+  "items": [
+    {"path": "spec_spec.json", "required": true},
+    {"path": "testing_suites.json", "required": true},
+    {"path": "ops_migration.json", "required": true}
+  ]
+}

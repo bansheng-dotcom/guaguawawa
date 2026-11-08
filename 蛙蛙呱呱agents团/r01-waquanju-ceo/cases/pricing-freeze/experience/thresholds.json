@@ -1,0 +1,5 @@
+{
+  "_note": "案例级覆盖：定价决策走 60 天冷却锁（对齐 companyos.freeze_days.pricing）。",
+  "companyos": {"freeze_days": {"pricing": 60}},
+  "decide": {"escalate_cost_months": 6}
+}

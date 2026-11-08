@@ -1,0 +1,18 @@
+{
+  "round": 1,
+  "implementation_step": "feature",
+  "target_artifact": "checkout 功能切片",
+  "tech_stack": "Next.js + PostgreSQL",
+  "deliverables": {
+    "files": ["src/checkout.tsx", "src/api/checkout.ts"],
+    "run_command": "npm test"
+  },
+  "acceptance_criteria": {
+    "tests_pass": true,
+    "no_skipped_tests": true
+  },
+  "stop_condition": {
+    "if_gate_fails": "停止并返回 harness 失败",
+    "reason": "门禁不过不允许交付"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "suppliers": [
+    {
+      "supplier_name": "华东原料供应商",
+      "supplier_type": "Company",
+      "payment_terms_days": 30,
+      "status": "Active"
+    },
+    {
+      "supplier_name": "个体工坊李",
+      "supplier_type": "Individual",
+      "payment_terms_days": 15,
+      "status": "Active"
+    }
+  ]
+}

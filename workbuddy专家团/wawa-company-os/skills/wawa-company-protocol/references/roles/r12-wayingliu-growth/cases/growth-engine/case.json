@@ -1,0 +1,8 @@
+{
+  "case_id": "growth-engine",
+  "display_name": "增长引擎搭建",
+  "description": "给一人公司从零搭建一套可量化、可归因、可循环的增长系统：北极星指标、单位经济、增长循环、归因口径与停止条件，最终产出可执行的 growth_plan。",
+  "default_question": "帮我搭一套可量化的增长系统。",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience"
+}

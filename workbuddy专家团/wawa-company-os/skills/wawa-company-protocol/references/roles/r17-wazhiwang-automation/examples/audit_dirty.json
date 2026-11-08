@@ -1,0 +1,16 @@
+{
+  "records": [
+    {
+      "execution_id": "e1",
+      "status": "success",
+      "trigger": "webhook",
+      "input": {
+        "lead_id": 1
+      },
+      "execution": "wf_main",
+      "output": {
+        "ok": true
+      }
+    }
+  ]
+}

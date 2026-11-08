@@ -1,0 +1,1 @@
+{"power": {"mode": "proportion", "baseline": 0.15, "mde": 0.03, "expected_rate_treatment": 0.18, "alpha": 0.05, "target_power": 0.8, "required_n_per_group": 2402, "required_n_total": 4804, "achieved_power_at_n": 0.8005, "formula": "双比例 z 检验正态近似（statsmodels NormalIndPower 同口径）", "note": "每组至少 2402 个样本才能以 80% 功效检出 0.0300 的绝对提升；低于该样本量的实验只能给出方向，不能承诺检验结论。"}, "runtime_ms": 0}

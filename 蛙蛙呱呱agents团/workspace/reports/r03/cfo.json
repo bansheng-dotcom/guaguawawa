@@ -1,0 +1,89 @@
+{
+  "ok": false,
+  "checks": [
+    {
+      "ok": false,
+      "msg": "模拟期现金耗尽于第 5 个月",
+      "dim": "cash_out",
+      "sev": "CRITICAL",
+      "cash_out_month": 5
+    },
+    {
+      "ok": false,
+      "msg": "触发器 ['start_fundraising@M1', 'cost_reduction@M1', 'execute_cuts@M1', 'emergency@M2']",
+      "dim": "triggers",
+      "sev": "HIGH"
+    },
+    {
+      "ok": false,
+      "msg": "burn multiple 5.03x（≤ 2.0x）",
+      "dim": "burn_multiple",
+      "sev": "HIGH"
+    }
+  ],
+  "rows": [
+    {
+      "month": 1,
+      "mrr": 51000.0,
+      "net_burn": 64300.0,
+      "cash_end": 235700.0,
+      "runway_months": 3.7
+    },
+    {
+      "month": 2,
+      "mrr": 52020.0,
+      "net_burn": 63586.0,
+      "cash_end": 172114.0,
+      "runway_months": 2.7
+    },
+    {
+      "month": 3,
+      "mrr": 53060.0,
+      "net_burn": 62858.0,
+      "cash_end": 109256.0,
+      "runway_months": 1.7
+    },
+    {
+      "month": 4,
+      "mrr": 54122.0,
+      "net_burn": 62115.0,
+      "cash_end": 47141.0,
+      "runway_months": 0.8
+    },
+    {
+      "month": 5,
+      "mrr": 55204.0,
+      "net_burn": 61357.0,
+      "cash_end": -14216.0,
+      "runway_months": -0.2
+    }
+  ],
+  "trigger_count": 4,
+  "triggers": [
+    {
+      "month": 1,
+      "trigger": "start_fundraising",
+      "runway_months": 3.7
+    },
+    {
+      "month": 1,
+      "trigger": "cost_reduction",
+      "runway_months": 3.7
+    },
+    {
+      "month": 1,
+      "trigger": "execute_cuts",
+      "runway_months": 3.7
+    },
+    {
+      "month": 2,
+      "trigger": "emergency",
+      "runway_months": 2.7
+    }
+  ],
+  "burn_multiple": 5.03,
+  "cash_out_month": 5,
+  "next": "触发器命中即启动融资/降本预案（决策交 R01）",
+  "skill": "cfo",
+  "action": "runway"
+}

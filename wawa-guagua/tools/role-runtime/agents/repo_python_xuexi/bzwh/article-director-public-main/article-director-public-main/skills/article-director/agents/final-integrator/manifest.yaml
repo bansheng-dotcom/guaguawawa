@@ -1,0 +1,30 @@
+# manifest.yaml — 整稿收口
+name: "final-integrator"
+version: "1.0"
+status: "active"
+description: "全文风格、连贯性、结构保真和终稿收口"
+
+io:
+  inputs:
+    - "tmp/{topic_id}-draft.md"
+    - "section-manifest.json"
+    - "style references"
+  outputs:
+    - "final-integrator-01/output.md"
+
+execution:
+  temperature: 0.20
+  node_type: "agent"
+  parallel: false
+
+prompt_ref: "prompts.yaml#agents.final-integrator"
+
+dependencies:
+  agents: []
+  scripts:
+    - "scripts/validate_style_harmonizer_output.py"
+    - "scripts/finalize_draft.py"
+  references:
+    - "style-profiles/style-guide.md"
+    - "style-profiles/cognitive-style-guide.md"
+    - "style-profiles/author-soul.md"

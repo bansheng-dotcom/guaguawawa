@@ -1,0 +1,6 @@
+{
+  "modules": [
+    {"name": "auth", "inputs": ["credential"], "outputs": ["token"]},
+    {"name": "billing", "inputs": ["token"], "outputs": ["invoice"]}
+  ]
+}

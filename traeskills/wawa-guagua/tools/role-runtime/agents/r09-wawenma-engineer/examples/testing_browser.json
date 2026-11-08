@@ -1,0 +1,8 @@
+{
+  "flows": [
+    {"name": "signup", "result": "passed"},
+    {"name": "checkout", "result": "passed"},
+    {"name": "login", "result": "passed"}
+  ],
+  "playwright_trace": "artifacts/traces/2026-11-04.zip"
+}

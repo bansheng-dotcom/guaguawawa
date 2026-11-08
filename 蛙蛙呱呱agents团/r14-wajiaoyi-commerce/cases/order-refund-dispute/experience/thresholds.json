@@ -1,0 +1,18 @@
+{
+  "_note": "「履约后退款争议」案例级阈值覆盖。仅覆盖本案例与全局不同的口径；未出现键沿用 experience/thresholds.json 全局值。",
+  "payment": {
+    "refund_ratio_max": 1.0,
+    "refund_required": ["payment_intent", "amount", "original_amount", "prior_status"]
+  },
+  "order": {
+    "dispute_fulfillment_statuses": ["shipped", "partially_delivered", "delivered"],
+    "refund_requires_authorization_ratio": 0.2
+  },
+  "event": {
+    "refund_event_type": "refund.created"
+  },
+  "review": {
+    "conclusion_keys": ["summary", "note", "next", "description",
+                        "conclusion", "recommendation", "reason"]
+  }
+}

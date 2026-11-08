@@ -1,0 +1,11 @@
+{
+  "employee_id": "E-001",
+  "applicant_name": "张三",
+  "applicant_email": "zhangsan@example.com",
+  "payroll": {
+    "gross": 18600.0,
+    "currency": "CNY",
+    "source": "local_attendance_export",
+    "period": "2026-11"
+  }
+}

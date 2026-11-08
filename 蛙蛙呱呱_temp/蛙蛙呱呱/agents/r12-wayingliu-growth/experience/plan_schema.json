@@ -1,0 +1,8 @@
+{
+  "_note": "R12 增长计划契约：harness.validate_plan 引用。增长计划 = 增长阶段 + 指标口径 + 实验计划 + 停止条件。",
+  "required_fields": ["growth_stage", "metrics", "experiments", "stop_condition"],
+  "growth_stage_enum": ["种子期", "成长期", "扩张期", "成熟期"],
+  "metrics_required": ["northstar", "ltv", "cac", "payback_months"],
+  "experiments_required": ["hypothesis", "metric", "significance"],
+  "stop_condition_required": ["kill_criteria", "guardrail", "owner"]
+}

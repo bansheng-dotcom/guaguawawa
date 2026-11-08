@@ -1,0 +1,20 @@
+{
+  "goal": "收集目标用户邮箱验证需求",
+  "headline": "10 分钟上线你的第一个落地页",
+  "subhead": "无需写代码，模板即开即用",
+  "proof_points": [
+    "已有 300+ 创作者使用",
+    "平均 3 分钟完成上线",
+    "免费开始"
+  ],
+  "form": "邮箱订阅表单",
+  "button": "立即开始",
+  "faq": "常见问题解答",
+  "post_submit": "提交后跳转感谢页",
+  "single_file_index_html": true,
+  "no_js_library": true,
+  "form_deliverable": true,
+  "mobile_first": true,
+  "button_single_accent": true,
+  "max_objection": "是否要绑定信用卡"
+}

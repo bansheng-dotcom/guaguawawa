@@ -1,0 +1,33 @@
+{
+  "_note": "R14「履约后退款争议」语义层。枚举口径来自 medusajs__medusa（OrderStatus/PaymentStatus/FulfillmentStatus）与 stripe__stripe-node（PaymentIntent.status）。门禁与边界是对 R14 红线（不擅自扣款/退款）的可执行化。",
+  "artifact_type": "order",
+  "terms": [
+    {"term": "captured", "meaning": "支付已真实入账，退款需要走退款通道而非取消授权", "source": "medusa.PaymentStatus"},
+    {"term": "fulfillment_status", "meaning": "履约进度；一旦 shipped/delivered 表示实物或服务已交付，退款属于争议而非撤单", "source": "medusa.FulfillmentStatus"},
+    {"term": "partially_refunded", "meaning": "部分退款后的支付状态，仍属已支付族，可继续退剩余额度", "source": "medusa.PaymentStatus"},
+    {"term": "refund_ratio", "meaning": "退款金额 / 原支付金额，必须 ≤ 1.0（不允许超额退款）", "source": "stripe.Refund"},
+    {"term": "prior_status", "meaning": "退款前置状态，只有 succeeded/partially_refunded 的支付意图可退", "source": "stripe.PaymentIntent.status"},
+    {"term": "handoff", "meaning": "R14 不得自行扣款/退款，必须声明人工授权后由人执行", "source": "R14 红线"}
+  ],
+  "gates": [
+    {"id": "G1", "when": "refund.amount / refund.original_amount > 1.0", "verdict": "BLOCKER", "action": "拒绝，退回补正额度"},
+    {"id": "G2", "when": "refund.prior_status not in [succeeded, partially_refunded]", "verdict": "BLOCKER", "action": "拒绝，支付意图不可退"},
+    {"id": "G3", "when": "order.fulfillment_status in [shipped, delivered] 且申请整单退款", "verdict": "WARN", "action": "标记为争议退款，需人工授权 + 退货/服务未交付证据"},
+    {"id": "G4", "when": "order.payment_status == captured 且 order.status == canceled", "verdict": "BLOCKER", "action": "状态矛盾：已捕获支付不能直接取消订单，须先退款再取消"},
+    {"id": "G5", "when": "退款发生后未登记 refund.created 事件", "verdict": "WARN", "action": "补登事件表，保证收入口径可对账"},
+    {"id": "G6", "when": "订单状态迁移跳过 refunded 直接到 completed", "verdict": "BLOCKER", "action": "非法迁移，拒绝"}
+  ],
+  "boundary": [
+    {"out_of_scope": "实际发起退款（调用真实网关）", "owner": "人工授权后执行", "r14_role": "只输出退款请求工件 + 处置建议"},
+    {"out_of_scope": "退款是否构成财务报表调整", "owner": "R03 财务", "r14_role": "移交，不在本文给出财报口径"},
+    {"out_of_scope": "退款涉及的税务处理（跨境/发票红冲）", "owner": "R03 财务", "r14_role": "移交"},
+    {"out_of_scope": "合同条款是否允许此类退款（合同效力解释）", "owner": "R03 财务", "r14_role": "移交，R14 只做状态与额度确定性校验"},
+    {"out_of_scope": "实物退货入库与库存恢复", "owner": "R15 库存", "r14_role": "移交"}
+  ],
+  "decision_order": [
+    "先校验额度恒等式（refund_ratio ≤ 1.0），额度不合法直接拒绝，不进入争议讨论",
+    "再校验支付前置状态（prior_status），不可退的支付意图直接拒绝",
+    "最后判定履约进度：未发货=常规退款；已发货/已交付=争议退款，升级人工授权",
+    "任何向真实网关发起的动作一律不进 R14 执行面，只产出请求工件"
+  ]
+}

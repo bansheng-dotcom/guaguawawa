@@ -1,0 +1,62 @@
+id: experience-rag
+display_name: 经验 RAG 与沉淀
+status: draft
+priority: P0
+purpose: >
+  在产品判断、提问前、重任务入口和纠错前先经过 RAG Gate；
+  只有命中高相关经验或进入重任务时才打开 experience 经验卡；
+  在任务后把高复用经验提炼成经验卡、项目索引或候选经验。
+
+triggers:
+  - 准备向用户追问、质问、grill 或确认方向
+  - 用户要求产品判断、PRD、项目汇报、需求分析、范围取舍
+  - 任务将产出汇报、需求文档、PRD、竞品分析、技术翻译报告、指标/验收文档或正式需求包
+  - 用户说听不懂、不对、不是我要的、下次要这样
+  - 任务需要正式开发输入、需求卡、下游文件或协作复核
+  - 同一项目继续推进，可能受历史偏好、纠错或决策影响
+
+inputs:
+  required:
+    - user_request
+  optional:
+    - rag_mode
+    - project_name
+    - workflow_id
+    - artifact_type
+    - decision_point
+    - product_area
+
+outputs:
+  - rag_gate_decision
+  - rag_level
+  - retrieval_query
+  - selected_experience_cards
+  - applicability_judgment
+  - applied_rules
+  - experience_brief
+  - scenario_memory_summary
+  - question_guidance_if_pre_question
+  - heavy_thinking_constraints_if_heavy_task
+  - new_experience_candidate_if_needed
+
+owned_references:
+  - references/experience-rag-guide.md
+  - ../HEAVY_TASK_RAG_RULES.md
+  - ../../experience/RAG_MODEL.md
+  - ../../experience/RAG_RULES.md
+  - ../../experience/EXPERIENCE_INDEX.md
+
+templates:
+  - ../../experience/templates/experience-card-template.md
+
+prompt:
+  current: prompts/current.md
+
+runner: runner.md
+topology: topology.md
+review_hints: review_hints.yaml
+
+version:
+  current: 0.3
+  updated_at: 2026-07-01
+  notes: 将强制检索改为分层 RAG Gate；pre-question 默认 L1，heavy-task 生成可复用 experience_brief。

@@ -1,0 +1,19 @@
+{
+  "main": "void main() => runApp(App());",
+  "app": "MaterialApp 根组件",
+  "core": "主题与导航配置",
+  "features": [
+    {
+      "name": "登录",
+      "layers": {
+        "data": "登录 API 数据源",
+        "domain": "登录用例",
+        "presentation": "登录页 UI",
+        "providers": "登录状态管理"
+      }
+    }
+  ],
+  "shared_widgets": ["主按钮", "输入框"],
+  "router": "路由表",
+  "platforms": ["android", "ios", "web"]
+}

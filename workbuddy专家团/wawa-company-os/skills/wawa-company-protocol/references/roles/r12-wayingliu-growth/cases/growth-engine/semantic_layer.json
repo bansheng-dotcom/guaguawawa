@@ -1,0 +1,21 @@
+{
+  "artifact_type": "growth_plan",
+  "terms": [
+    {"term": "北极星", "meaning": "增长主指标 primary + 辅指标 secondary，一主一辅齐备"},
+    {"term": "单位经济", "meaning": "LTV=ARPA×GM/churn、CAC=花费/新客、回收期=CAC/月毛利，可复算"},
+    {"term": "增长循环", "meaning": "飞轮五环（获客→激活→留存→推荐→营收）+ 循环要素齐备"},
+    {"term": "归因口径", "meaning": "归因模型枚举 + 单一真源去重，不跨平台求和"},
+    {"term": "停止条件", "meaning": "kill_criteria + guardrail + owner，实验不可无限期跑"}
+  ],
+  "gates": [
+    "北极星一主一辅齐备",
+    "LTV/CAC/回收期算术实算且 LTV:CAC≥3.0",
+    "归因模型在白名单且声明单一真源",
+    "停止条件三件套齐备"
+  ],
+  "boundary": [
+    "只产出增长计划与口径，不真调 API / 不真投广告",
+    "不刷单、不伪造评价、不未经授权采集个人信息",
+    "CRM 商机 / 续约 / 客服归 R13，本角色只负责获客与培育线索"
+  ]
+}

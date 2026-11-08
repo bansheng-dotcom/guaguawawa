@@ -1,0 +1,14 @@
+{
+  "approvals": [
+    {
+      "action": "email_notify",
+      "risk_level": "low"
+    },
+    {
+      "action": "publish",
+      "risk_level": "high",
+      "approver": "biz-owner@acme.com",
+      "authorization": "审批单 #123"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "transport": "grpc",
+  "tools": [{"name": "a"}],
+  "manifest": {"tools": ["a", "b"]}
+}

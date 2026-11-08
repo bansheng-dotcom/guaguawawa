@@ -1,0 +1,7 @@
+{
+  "media": "image",
+  "style": "isometric",
+  "prompt": "Professional isometric axonometric concept art of a futuristic cyberpunk megacity, precise 45-degree isometric projection with parallel lines perfectly preserved, neon-lit glass skyscrapers in varying heights arranged in a layered depth composition, flying hovercars with glowing thrusters weaving between rooftops at multiple altitude levels, magenta-cyan-amber neon color palette with consistent temperature throughout, glowing energy grid lines embedded in streets glowing under translucent road surfaces, clean pure white void background, Studio Ghibli x Blame! style fusion, cel-shaded rendering with subtle ambient occlusion shadows, volumetric neon glow halos around all light sources, game concept sheet quality with clean linework underpainting, 8K, production-ready game asset reference",
+  "negative_prompt": "perspective distortion, vanishing point perspective, blurry, low detail, photorealistic photo, human faces, messy background, text, logo, watermark, extra limbs, inconsistent scale",
+  "style_locks": ["45-degree isometric axonometric", "magenta-cyan-amber neon", "flying hovercars at multiple altitudes", "cel-shaded with AO", "white void background", "game concept art quality", "Studio Ghibli x Blame fusion"]
+}

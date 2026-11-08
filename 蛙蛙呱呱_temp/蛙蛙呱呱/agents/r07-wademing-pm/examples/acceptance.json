@@ -1,0 +1,9 @@
+{
+  "acceptance_criteria": [
+    {
+      "given": "g",
+      "when": "w",
+      "then": "t"
+    }
+  ]
+}

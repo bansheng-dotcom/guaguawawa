@@ -1,0 +1,16 @@
+{
+  "artifact_type": "market_entry_research",
+  "terms": {
+    "双口径互证": "TAM_top（自上而下加总）与 TAM_bottom（自下而上乘法链）取均值，方差 <0.3 才可信",
+    "覆盖缺口": "计划研究问题未被任何 completed run 覆盖的集合，必须显式列出"
+  },
+  "gates": [
+    "claims 必须挂 sources，orphan_claims 必须为空",
+    "双口径方差 ≥0.5 即 CRITICAL 失败",
+    "高风险失效场景必须带 mitigation 与 early_warning"
+  ],
+  "boundary": [
+    "R05 只呈现证据与选项，不替老板决策",
+    "市场规模测算依赖公开假设，无来源数字须标待核实"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "ok": false,
+  "checks": [
+    {
+      "ok": false,
+      "msg": "支付意图号非空",
+      "dim": "payment.id",
+      "sev": "BLOCKER"
+    },
+    {
+      "ok": false,
+      "msg": "意图状态=None 在白名单",
+      "dim": "payment.status",
+      "sev": "BLOCKER"
+    },
+    {
+      "ok": true,
+      "msg": "意图类型='payment_intent' 在白名单",
+      "dim": "payment.type",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "金额=29900.0 ≥ 最低 50",
+      "dim": "payment.amount",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "None 非终态，回调可选",
+      "dim": "payment.webhook",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "FAIL",
+  "next": "存在未通过门禁，按 checks 修复后重验",
+  "payment_count": 1,
+  "status": null,
+  "amount": 29900.0,
+  "narrative": "支付意图 （None）金额 29900.0",
+  "task_id": "737c4262",
+  "skill": "payment",
+  "action": "payment_intent"
+}

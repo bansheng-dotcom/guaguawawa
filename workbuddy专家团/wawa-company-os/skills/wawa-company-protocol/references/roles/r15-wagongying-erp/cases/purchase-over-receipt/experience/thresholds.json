@@ -1,0 +1,14 @@
+{
+  "_note": "「采购超收争议」案例级阈值覆盖。仅覆盖本案例与全局不同的口径；未出现键沿用 experience/thresholds.json 全局值。",
+  "procurement": {
+    "over_receipt_tolerance": 0.02,
+    "receipt_required": ["supplier", "items", "handoff"]
+  },
+  "inventory": {
+    "allow_negative_stock": false
+  },
+  "review": {
+    "conclusion_keys": ["summary", "note", "next", "description",
+                        "conclusion", "recommendation", "reason"]
+  }
+}

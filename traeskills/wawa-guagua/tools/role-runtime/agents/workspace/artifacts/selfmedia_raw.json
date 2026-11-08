@@ -1,0 +1,9 @@
+{
+  "platforms": {
+    "小红书": {"date": "2026-11-03", "fans": 12000, "new_fans": 320, "revenue": 1500, "posts": 6, "updated_at": "2026-11-03"},
+    "抖音": {"date": "2026-11-03", "fans": 50000, "new_fans": 1200, "revenue": 0, "posts": 12, "updated_at": "2026-11-02"},
+    "知乎": {"date": "2026-11-02", "fans": 8000, "new_fans": 90, "revenue": 0, "posts": 3, "updated_at": "2026-10-28"},
+    "B站": {"date": "2026-11-03", "fans": 20000, "new_fans": 450, "revenue": 2200, "posts": 8, "updated_at": "2026-11-03"},
+    "公众号": {"date": "2026-11-01", "fans": 15000, "new_fans": 60, "revenue": 800, "posts": 2, "updated_at": "2026-10-20"}
+  }
+}

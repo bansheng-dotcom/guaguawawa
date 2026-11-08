@@ -1,0 +1,8 @@
+{
+  "model_name": "support-qa-assistant",
+  "versions": [
+    {"version": "3", "stage": "production"},
+    {"version": "4", "stage": "production"},
+    {"version": "5", "stage": "shadow"}
+  ]
+}

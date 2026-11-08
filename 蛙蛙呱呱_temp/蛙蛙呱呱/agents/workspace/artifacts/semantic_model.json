@@ -1,0 +1,123 @@
+{
+  "semantic_models": [
+    {
+      "name": "orders",
+      "model": "fct_orders",
+      "description": "订单级分析语义模型（对应 demo orders.csv）",
+      "entities": [
+        {
+          "name": "order",
+          "type": "primary",
+          "expr": "order_id",
+          "description": "订单主键"
+        },
+        {
+          "name": "customer",
+          "type": "foreign",
+          "expr": "user_id",
+          "description": "用户外键"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "channel",
+          "type": "categorical",
+          "expr": "channel",
+          "description": "获客渠道"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "expr": "status",
+          "description": "订单状态"
+        },
+        {
+          "name": "created_date",
+          "type": "time",
+          "expr": "date",
+          "description": "下单日期",
+          "type_params": {
+            "time_granularity": "day"
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "total_amount",
+          "agg": "sum",
+          "expr": "amount",
+          "description": "订单总金额",
+          "unit": "元"
+        },
+        {
+          "name": "avg_amount",
+          "agg": "avg",
+          "expr": "amount",
+          "description": "平均客单价",
+          "unit": "元"
+        },
+        {
+          "name": "order_count",
+          "agg": "count_distinct",
+          "expr": "order_id",
+          "description": "订单数",
+          "unit": "单"
+        },
+        {
+          "name": "user_count",
+          "agg": "count_distinct",
+          "expr": "user_id",
+          "description": "去重用户数",
+          "unit": "人"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "name": "monthly_revenue",
+      "label": "月度收入",
+      "description": "当月订单总金额",
+      "type": "simple",
+      "type_params": {
+        "measure": {
+          "name": "total_amount"
+        }
+      }
+    },
+    {
+      "name": "avg_order_value",
+      "label": "平均客单价",
+      "type": "simple",
+      "type_params": {
+        "measure": {
+          "name": "avg_amount"
+        }
+      }
+    },
+    {
+      "name": "cumulative_revenue",
+      "label": "累计收入",
+      "type": "cumulative",
+      "type_params": {
+        "measure": {
+          "name": "total_amount"
+        },
+        "window": "all_time"
+      }
+    },
+    {
+      "name": "orders_per_user",
+      "label": "人均订单数",
+      "type": "ratio",
+      "type_params": {
+        "numerator": {
+          "name": "order_count"
+        },
+        "denominator": {
+          "name": "user_count"
+        }
+      }
+    }
+  ]
+}

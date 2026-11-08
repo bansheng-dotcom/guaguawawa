@@ -1,0 +1,90 @@
+{
+  "doc_type": "角色报告 · 蛙织网",
+  "title_lines": [
+    "蛙织网 · approval/publish",
+    "这个工作流要发布上线，帮我查下发布前门禁是否通过 "
+  ],
+  "standfirst": "next=自动化工件通过全部门禁，可进入发布与交接",
+  "meta": [
+    "角色 r17 蛙织网（自动化与集成工程师）",
+    "生成日期 2026-11-06",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "3/3 项",
+      "status": "healthy"
+    },
+    {
+      "label": "next",
+      "value": "自动化工件通过全部门禁，可进入发布与交接",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "publish_ready",
+      "value": "是",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "narrative",
+      "value": "发布门禁 acme-lead-sync：可发布",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=自动化工件通过全部门禁，可进入发布与交接"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "publish_ready",
+      "question": "publish_ready 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "publish_ready：",
+          "text": "是"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "narrative",
+      "question": "narrative 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "narrative：",
+          "text": "发布门禁 acme-lead-sync：可发布"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 approval/publish 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙织网 · 自动化与集成工程师",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

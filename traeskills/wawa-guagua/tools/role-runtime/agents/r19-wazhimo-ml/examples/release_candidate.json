@@ -1,0 +1,10 @@
+{
+  "candidate_id": "cand-2041-3",
+  "verdict": "PASS",
+  "evidence": [
+    "eval-support-qa-v1 正确率 0.91 → 0.95",
+    "回归 cand-2041-3 fail-before/pass-after 通过",
+    "既有 28 项测试全绿"
+  ],
+  "regression_id": "reg-2041-3"
+}

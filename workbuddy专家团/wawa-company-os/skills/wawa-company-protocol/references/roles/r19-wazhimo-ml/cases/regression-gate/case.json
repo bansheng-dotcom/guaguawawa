@@ -1,0 +1,10 @@
+{
+  "case_id": "regression-gate",
+  "display_name": "「效果看起来不错」就想上线",
+  "description": "候选模型 cand-2041-4 的评估者说「新版效果不错，直接上线吧」，但没有回归报告、没有 fail-before/pass-after 证据、也没挂证据链。需要判定：回归报告是否证明「旧版失败、新版通过」、发布候选三裁决是否成立、是否凭主观感受绕过评估关卡。本质是「无回归证据 + 主观放行」的确定性处置。",
+  "default_question": "新版客服助手我试了几个问题效果不错，直接上线吧？如果不能，上线前必须先补齐什么？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": ["release_regression", "release_candidate", "evaluation_scorer"],
+  "skills": ["s05_release", "s03_evaluation"]
+}

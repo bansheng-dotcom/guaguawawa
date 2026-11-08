@@ -1,0 +1,9 @@
+{
+  "product_judgment": 1,
+  "execution_spec": 1,
+  "decision_gate": {
+    "success": "s",
+    "non_goals": "n",
+    "stop_condition": "stop"
+  }
+}

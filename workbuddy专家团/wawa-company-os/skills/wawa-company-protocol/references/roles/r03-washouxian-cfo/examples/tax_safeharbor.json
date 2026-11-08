@@ -1,0 +1,13 @@
+{
+  "current_year_tax": 50000.0,
+  "prior_year_tax": 40000.0,
+  "prior_year_agi": 120000.0,
+  "withholding_and_estimates_paid": 40000.0,
+  "rsu_vests": [
+    {
+      "shares": 10000,
+      "vest_fmv": 40.0,
+      "marginal_rate": 0.35
+    }
+  ]
+}

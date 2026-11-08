@@ -1,0 +1,40 @@
+{
+  "case_id": "churn-warning",
+  "display_name": "高净值客户流失预警与挽回",
+  "description": "4 名客户平均健康分 66.4、1 名 at_risk、NDR 94%，是否启动专项挽回？先救谁？",
+  "default_question": "4 名客户平均健康分 66.4、1 名 at_risk、NDR 94%，是否启动专项挽回？先救谁？",
+  "artifact_type": "crm_record",
+  "summary": "高净值客户流失预警与挽回",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "crm_record",
+    "voc"
+  ],
+  "skills": [
+    "health",
+    "voc",
+    "support",
+    "pipeline"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "承诺产品功能排期",
+    "承诺价格折扣"
+  ],
+  "steps": [
+    {
+      "skill": "health",
+      "action": "health",
+      "input": "examples/health.json",
+      "expect": {
+        "avg_health": 66.4,
+        "at_risk_count": 1
+      }
+    }
+  ]
+}

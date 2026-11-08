@@ -1,0 +1,50 @@
+{
+  "_comment": "human ingest 干净夹具：批次契约合规 → applied_plan 生成（after 逐字回填）",
+  "status": "feedback",
+  "pages": [
+    {
+      "file": "landing.html",
+      "edits_saved": true,
+      "comments": [
+        {
+          "id": "c1",
+          "kind": "selection",
+          "quote": "一键启动你的一人公司",
+          "anchor": {"prefix": "<h1>", "quote": "一键启动你的一人公司", "suffix": "</h1>"},
+          "feedback": "主标语改为行动导向"
+        },
+        {
+          "id": "c2",
+          "kind": "element",
+          "quote": "form.lead-form",
+          "feedback": "按钮文案统一"
+        }
+      ],
+      "edits": [
+        {
+          "label": "hero 段",
+          "kind": "edited",
+          "before": "旧文案：了解我们",
+          "after": "新文案：现在就启动",
+          "truncated": false
+        },
+        {
+          "label": "冗余 FAQ 块",
+          "kind": "deleted",
+          "before": "<section id=\"faq\">…</section>"
+        },
+        {
+          "label": "价格表块",
+          "kind": "moved",
+          "before": "<section id=\"pricing\">…</section>",
+          "moved_after": "hero 段之后",
+          "moved_before": "页脚之前"
+        }
+      ]
+    }
+  ],
+  "staged_assets": [
+    {"path": "staged/screenshot.png", "copied": true}
+  ],
+  "overall_note": "整体文案偏弱，转化路径可用"
+}

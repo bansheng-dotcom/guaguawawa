@@ -1,0 +1,37 @@
+{
+    "base":  {
+                 "accounts":  [
+                                  {
+                                      "account":  "cash",
+                                      "opening":  50000.0,
+                                      "additions":  12500.0,
+                                      "accruals":  0.0,
+                                      "reversals":  0.0,
+                                      "payments":  3000.0,
+                                      "reclass":  0.0,
+                                      "fx":  0.0,
+                                      "closing":  60000.0
+                                  },
+                                  {
+                                      "account":  "accrued_liabilities",
+                                      "opening":  2400.0,
+                                      "additions":  0.0,
+                                      "accruals":  0.0,
+                                      "reversals":  0.0,
+                                      "payments":  0.0,
+                                      "reclass":  0.0,
+                                      "fx":  0.0,
+                                      "closing":  2400.0
+                                  }
+                              ]
+             },
+    "runway":  {
+                   "starting_cash":  300000.0,
+                   "starting_mrr":  50000.0,
+                   "monthly_headcount_cost":  60000.0,
+                   "monthly_other_opex":  40000.0,
+                   "gross_margin_pct":  0.7,
+                   "mrr_growth_rate":  0.02,
+                   "model_months":  24
+               }
+}

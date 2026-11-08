@@ -1,0 +1,43 @@
+{
+  "_note": "runway-crisis 案例级阈值：覆盖角色全局阈值，未列出的沿用以 experience/thresholds.json 为底。",
+  "kpis": {
+    "runway": {
+      "name": "现金可支撑月数",
+      "formula": "期末现金 / 月均净烧钱",
+      "unit": "月",
+      "target": "≥ 9",
+      "alert": "< 4 启动止损预案"
+    },
+    "burn_multiple": {
+      "name": "烧钱倍数",
+      "formula": "净烧钱 / 净新增 ARR",
+      "unit": "×",
+      "target": "≤ 2.0",
+      "alert": "> 3.0 冻结扩张"
+    },
+    "cac_payback": {
+      "name": "CAC 回收期",
+      "formula": "CAC / 月毛利/客户",
+      "unit": "天",
+      "target": "≤ 30",
+      "alert": "> 45 暂停该渠道"
+    }
+  },
+  "gates": {
+    "G1": {
+      "when": "跨表勾稽差异率 > 0.1%",
+      "verdict": "BLOCKER",
+      "action": "阻断结账，先查差异"
+    },
+    "G2": {
+      "when": "现金流安全月数 < 4",
+      "verdict": "BLOCKER",
+      "action": "启动止损预案并上报 R01"
+    },
+    "G3": {
+      "when": "报告出现未标注模拟的财务数字",
+      "verdict": "BLOCKER",
+      "action": "作废并重出，标注数据来源"
+    }
+  }
+}

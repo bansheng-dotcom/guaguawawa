@@ -1,0 +1,103 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "top_down 含 3 个互斥分项",
+      "dim": "sizing:components",
+      "sev": "OK",
+      "components": 3
+    },
+    {
+      "ok": true,
+      "msg": "bottom_up.customer_count=200",
+      "dim": "sizing:bottom_up",
+      "sev": "OK",
+      "field": "customer_count"
+    },
+    {
+      "ok": true,
+      "msg": "bottom_up.addressable_fraction=0.5",
+      "dim": "sizing:bottom_up",
+      "sev": "OK",
+      "field": "addressable_fraction"
+    },
+    {
+      "ok": true,
+      "msg": "bottom_up.annual_quantity=1",
+      "dim": "sizing:bottom_up",
+      "sev": "OK",
+      "field": "annual_quantity"
+    },
+    {
+      "ok": true,
+      "msg": "bottom_up.price_per_unit=1.2",
+      "dim": "sizing:bottom_up",
+      "sev": "OK",
+      "field": "price_per_unit"
+    },
+    {
+      "ok": true,
+      "msg": "addressable_fraction=0.5 在 [0,1]",
+      "dim": "sizing:fraction_range",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "双口径方差 0.0 在容差内（<0.3）",
+      "dim": "sizing:variance",
+      "sev": "OK",
+      "variance": 0.0
+    },
+    {
+      "ok": true,
+      "msg": "scenario 'downside'：SAM=36.0 SOM=1.8",
+      "dim": "sizing:scenario",
+      "sev": "OK",
+      "scenario": "downside"
+    },
+    {
+      "ok": true,
+      "msg": "scenario 'base'：SAM=48.0 SOM=4.8",
+      "dim": "sizing:scenario",
+      "sev": "OK",
+      "scenario": "base"
+    },
+    {
+      "ok": true,
+      "msg": "scenario 'upside'：SAM=60.0 SOM=9.0",
+      "dim": "sizing:scenario",
+      "sev": "OK",
+      "scenario": "upside"
+    }
+  ],
+  "tam": 120.0,
+  "tam_top": 120.0,
+  "tam_bottom": 120.0,
+  "variance": 0.0,
+  "by_scenario": [
+    {
+      "scenario": "downside",
+      "serviceable_fraction": 0.3,
+      "obtainable_share": 0.05,
+      "sam": 36.0,
+      "som": 1.8
+    },
+    {
+      "scenario": "base",
+      "serviceable_fraction": 0.4,
+      "obtainable_share": 0.1,
+      "sam": 48.0,
+      "som": 4.8
+    },
+    {
+      "scenario": "upside",
+      "serviceable_fraction": 0.5,
+      "obtainable_share": 0.15,
+      "sam": 60.0,
+      "som": 9.0
+    }
+  ],
+  "verdict": "PASS",
+  "next": "市场规模测算双口径互证通过"
+}

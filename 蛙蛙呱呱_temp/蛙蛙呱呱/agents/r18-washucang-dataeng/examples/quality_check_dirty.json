@@ -1,0 +1,14 @@
+{
+  "table": "orders",
+  "row_count": 1000,
+  "null_ratio": 0.5,
+  "dup_ratio": 0.01,
+  "invalid_count": 0,
+  "checks": [
+    {
+      "name": "order_id_not_null",
+      "passed": true,
+      "value": 1000
+    }
+  ]
+}

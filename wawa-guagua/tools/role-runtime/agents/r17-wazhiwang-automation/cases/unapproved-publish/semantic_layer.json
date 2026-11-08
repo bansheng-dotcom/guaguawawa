@@ -1,0 +1,46 @@
+{
+  "artifact_type": "publish_gate",
+  "terms": [
+    {
+      "term": "发布",
+      "meaning": "把 draft 工作流激活为 live，属高风险动作",
+      "source": "n8n publishing skill"
+    },
+    {
+      "term": "live run 证据",
+      "meaning": "工作流在实际数据上跑通过的证据",
+      "source": "n8n progressive-building"
+    },
+    {
+      "term": "HITL 审批",
+      "meaning": "Human-in-the-loop，高风险动作前的人工确认",
+      "source": "n8n instance-ai"
+    }
+  ],
+  "gates": [
+    {
+      "id": "g1",
+      "when": "workflow 含退款/扣款/删除动作",
+      "verdict": "BLOCKER",
+      "action": "要求审批人授权后才可发布"
+    },
+    {
+      "id": "g2",
+      "when": "publish_requested 且无 live run 证据",
+      "verdict": "WARN",
+      "action": "要求补 live run 证据或显式披露"
+    }
+  ],
+  "boundary": [
+    {
+      "out_of_scope": "业务角色自己决定退款规则",
+      "owner": "业务角色",
+      "r17_role": "只校验审批是否齐备，不发明规则"
+    }
+  ],
+  "decision_order": [
+    "先查高危动作",
+    "再查审批授权",
+    "最后查 live run 证据"
+  ]
+}

@@ -1,0 +1,5 @@
+# Python 3.8+ required
+# normalize 脚本和 build_attribution.py 需要第三方包：
+
+pandas>=2.0.0
+openpyxl>=3.1.0

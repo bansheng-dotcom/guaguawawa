@@ -1,0 +1,15 @@
+{
+  "connection_id": "conn-001",
+  "sync_mode": "full_refresh",
+  "streams": [
+    {
+      "name": "orders",
+      "cursor_field": "updated_at"
+    },
+    {
+      "name": "customers",
+      "cursor_field": "updated_at"
+    }
+  ],
+  "schedule": "0 2 * * *"
+}

@@ -1,0 +1,58 @@
+{
+  "title": "2026Q4 董事会材料",
+  "period": "2026Q4",
+  "wins": [
+    {
+      "title": "MRR 创新高",
+      "detail": "环比 +18%",
+      "metric": "MRR"
+    }
+  ],
+  "misses": [
+    {
+      "title": "新客转化率下滑",
+      "detail": "0.08 → 0.06",
+      "metric": "新客转化率",
+      "root_cause": "定价页改版后信任要素缺失，已定位到三处"
+    }
+  ],
+  "plan": "Q1：定价页信任要素回滚实验 + 自助版 onboarding 重做",
+  "asks": [
+    {
+      "from": "董事会",
+      "what": "批准定价 129 灰度延至 Q1 末"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "MRR",
+      "target": 120000,
+      "actual": 141600,
+      "status": "green"
+    },
+    {
+      "name": "新客转化率",
+      "target": 0.08,
+      "actual": 0.06,
+      "status": "red"
+    },
+    {
+      "name": "NPS",
+      "target": 45,
+      "actual": 48,
+      "status": "green"
+    },
+    {
+      "name": "交付准时率",
+      "target": 0.95,
+      "actual": 0.96,
+      "status": "green"
+    },
+    {
+      "name": "月活",
+      "target": 5000,
+      "actual": 5300,
+      "status": "green"
+    }
+  ]
+}

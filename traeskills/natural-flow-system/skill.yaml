@@ -1,0 +1,404 @@
+# ============================================
+# 自然流·全体系 v1.0 — 核心路由入口
+# 融合 9 套情感 skill，主线为 Mikey 自然流
+# ============================================
+name: 自然流全体系
+version: "2.10.10"
+description: >
+  自然流·全体系 —— 以 Mikey 自然流为主线的完整恋爱/两性操作系统。
+  融合 Mikey 自然流 + Tankman 两性博弈 + 兔导 10 公理 + 情场高手四层分析 +
+  追爱军师信号/危机 + 童锦程心法 + 展示面/约会SOP + 安全边界。
+source: 集成自 game-skill / tdskill / tong-jincheng-skill / simp-skill / dating-master-skill / qingsheng-skill / guanxi-skills / dating-coach-skill / relationship-training-skill
+generated: 2026-10-18
+
+# ---- Trigger System ----
+trigger:
+  keywords:
+    - 搭讪
+    - 约会
+    - 把妹
+    - 撩妹
+    - 怎么追
+    - 怎么约
+    - 怎么聊
+    - 怎么收尾
+    - 框架
+    - 行为线索
+    - 御姐
+    - 绿茶
+    - 社恐女
+    - 女生类型
+    - PUA
+    - Game
+    - 两性博弈
+    - 怎么吸引
+    - 隐形支配
+    - 松弛感
+    - 废物测试
+    - 女本位
+    - 供养者
+    - 阿尔法
+    - NPC觉醒
+    - 情场高手
+    - 帮我看看
+    - 分析一下
+    - 这段感情怎么办
+    - 追爱军师
+    - 心上人
+    - 表白
+    - 危机
+    - 情话
+    - 情圣
+    - 她这话什么意思
+    - 我该怎么回
+    - 聊天截图
+    - 她对我有意思吗
+    - 该约她了吗
+    - 冷场
+    - 已读不回
+    - 成人关系
+    - 恋爱策略
+    - 聊天回复
+    - 暧昧
+    - 相亲
+    - 长期关系
+    - 分手
+    - 挽回
+    - 展示面
+    - 人设
+    - AI展示面
+    - 约会SOP
+    - 复盘
+    - 童锦程
+    - 深情祖师爷
+    - 景辰
+    - 怎么回
+    - 这条要不要回
+    - 怎么约她
+  exclude:
+    - 怎么谈恋爱
+    - 怎么追女生
+
+# ---- Intent Routing Table ----
+intents:
+  # === 一手教材知识库（自然流·救赎之道 原书，Mikey 方法论的最详细来源） ===
+  - id: book_knowledge
+    label: 自然流原书知识库（语义索引）
+    module: references/book/TOPICS.md
+    module2: references/book/INDEX.md
+    triggers: [自然流, 神圣教学, 救赎之道, 三伪神, 行为线索, 奖品性, 不反应, 一致性, 情景价值, Mikey教材, 原书, 教材, 深度解析, 底层逻辑, 全书, 第几章]
+    priority: 11
+
+  # === 案例库 / 课程原文（迷男方法、寒江雪邮件、技法库、课程转写） ===
+  - id: case_library
+    label: 案例库与课程原文
+    module: references/cases/README.md
+    module2: references/materials/README.md
+    triggers: [迷男方法, 寒江雪, 技法库, 打压, 推拉, 合理推诿, 进挪, 课程原文, 原始素材, 邮件, 案例库, 经典教材]
+    priority: 8
+
+  # === 术与技术层（操作手册） ===
+  - id: techniques
+    label: 术与技术层操作
+    module: modules/p_techniques.md
+    triggers: [垂直聊天法, 聊她聊我聊我们, 搭讪SOP, 三秒法则, 假定时间限制, 即时约会, 展示面, 朋友圈, 隐形支配, 转场三步, 冷读, 声音调情, 做局法, 真假窗口, 冷冻, 见缝插针, 电话五步, 筛选地图, 社交上钩点, 性上钩点, 男女框架, 具体邀约, 怎么聊, 怎么搭讪, 怎么约会, 怎么收尾, 技术, 操作, 怎么做, 主战场, 选战场, 目标具象化, 搭讪前准备, 开场白话术, 搭讪心态, 浅沟通, 强行为线索, 五维度, 坚定感, 假定熟悉度, 销售气场, 四信号, 废号, 特殊场景, 地铁搭讪, 夜店搭讪, 闺蜜挡屌, 僚机, 已婚, 特殊类型, 约会选址, 肢体进挪, 进挪阶梯, 阴阳理论, 舒适感, 私密空间, 氛围打造, 去敏感化, 看破不说破, 反荡妇机制, 赋予资格, 赋格, 可得性, 外卖, 想象力制造, 便利店思维, 站着把妹, 深夜激活, 邀约锁定, 手机号锁定, 跨省外卖, 零成本外卖, 邻居外卖, 夜店外卖, 叫车, 假意撤退, 放鸽子, 避孕套, 收尾后]
+
+    priority: 10
+
+  # === 外卖方法（反追，让她自己来） ===
+  - id: delivery_method
+    label: 外卖方法（想象力制造+便利店思维+四段流水线）
+    module: modules/p_techniques.md
+    triggers: [外卖, 外卖方法, 让她自己来, 反追, 想象力, 便利店思维, 前期热, 中期冷, 确定后热, 深夜激活, 邀约锁定, 跨省外卖, 零成本外卖, 邻居外卖, 夜店外卖, 千里送, 让她来找我, 怎么让她主动来, 异地, 叫车, 手机号]
+    priority: 11
+
+  # === ASD 破解 + 赋予资格（私密空间最后一道门） ===
+  - id: asd_qualification
+    label: ASD破解 + 赋予资格 + 私密空间
+    module: modules/p_techniques.md
+    triggers: [ASD, 反荡妇机制, 荡妇机制, 她说不行, 她说太快, 第一次见面就, 太亲密了, 赋予资格, 赋格, 唯一特殊性, 私密空间, 带到家之后, 进门之后, 氛围, 灯光, 音乐, 酒精, 第二天早上, 事后, 她后悔了, 来都来了, 给台阶, 可得性]
+    priority: 11
+
+  # === 松弛感 / 焚决 / 浅沟通（搭讪心态与状态） ===
+  - id: relaxation_mindset
+    label: 松弛感 / 焚决 / 浅沟通 / 坚定感
+    module: modules/p_techniques.md
+    triggers: [松弛感, 焚决, 罪恶感, 心理扭力, 边界感, 玩家心态, 去魅, 女人也要拉屎, 浅沟通, 坚定感, 假定熟悉度, 一致性悖论, 学生vsMike, 销售气场, 做因不要做果, 走直线, S曲线, 三秒启动, 拒绝脱敏, 意图清晰, 踩油门, NPC理论, 主战场, 选战场, 搭讪前准备, 目标具象化]
+    priority: 11
+
+  # === Mikey 理论体系总纲 ===
+  - id: mikey_theory
+    label: Mikey 理论体系
+    module: modules/o_mikey_theory.md
+    triggers: [理论, 内核, 术和道, 道层面, 真内核, 假内核, 核心自信, 情景自信, 引导投资, 逆向合理化, 赋予资格, 自然流定义, 为什么学PUA变傻逼, 聊天目的是什么, 行为线索, 三伪神, 奖品性, 不反应, 一致性, NPC, 底层逻辑, 价值真相, 情绪价值是误区, 矩阵, 规则骗局, 女本位, 自信公式, 知行合一, 有效行动率, 结果公式, 边界感, 框架, 谁主张谁举证, 自我价值评判体系, 没有失败只有反馈, 先相信后看见, 相由心生, 本自具足, 恐惧驱动, 意图清晰, 可得性, 内驱力, 原生家庭, 五个支柱, 价值不等于价值感, 德不配位]
+    priority: 11
+
+  # === Mikey 人格扮演模式 ===
+  - id: mikey_persona
+    label: Mikey 本人第一人称
+    module: modules/n_mikey_persona.md
+    triggers: [/mikey, 用Mikey的方式, Mikey本人, 让Mikey回答, 我是Mike, 以Mikey第一人称]
+    priority: 13
+
+  # === 快捷指令 / 主动诊断 ===
+  - id: quick_diagnose
+    label: 主动诊断工作流
+    module: modules/e_axioms.md
+    triggers: [/诊断, 我追不到女生, 不知道哪里出了问题, 我该怎么做, 诊断一下, 帮我定位]
+    priority: 10
+
+  - id: quick_newbie
+    label: 新手学习路径
+    module: references/book/chapters/ch69.md
+    triggers: [/新手, 从哪开始学, 学习路径, 系统学一遍, 怎么入门]
+    priority: 8
+
+  # === 安全边界（最高优先，涉及越界信号时强制先读） ===
+  - id: safety_boundary
+    label: 安全边界与同意
+    module: modules/l_safety_boundaries.md
+    triggers: [未成年, 醉酒, 意识不清, 下药, 胁迫, 威胁, 跟踪, 骚扰, 偷拍, 传播隐私, 明确拒绝, 纠缠, 权力差, 报复, 伤害, 操控, 煤气灯, 情感虐待, 物化]
+    priority: 12
+
+  # === 女生类型（精确匹配） ===
+  - id: girl_type_advice
+    label: 女生类型处理
+    module: modules/c_girl_types.md
+    triggers: [女生类型, 御姐, 绿茶, 小骚, 社恐, 内向, 保守, 传统, 白富美, 富家女, 女拳, 女权, 留学生, 外籍, 模特, 捞女, 拜金, 独立女性, 事业型, 闷骚, 反差, 初恋, 纯情, 网红, 女主播, 学霸, 高知, 空姐, 服务行业, 富婆, 年上, 空虚女, 情感缺失, 高冷]
+    priority: 15
+
+  # === 聊天记录分析（贴记录/截图/帮我看看） ===
+  - id: chat_analysis
+    label: 聊天记录分析
+    module: modules/g_analysis_framework.md
+    module2: modules/j_chat_analysis.md
+    triggers: [帮我看看, 分析一下, 聊天记录, 截图, 她这话什么意思, 我该怎么回, 这条什么意思, 她对我有意思吗, 帮我分析, ta什么意思, 帮我解读, 复盘聊天]
+    priority: 9
+
+  # === Mikey 自然流体系 ===
+  - id: approach_technique
+    label: 搭讪实战技术
+    module: modules/a_mikey_system.md
+    triggers: [搭讪, 开场白, 3秒法则, 怎么认识, 怎么加微信, 街头搭讪, 眼神漂移, 松弛感, 坚定感, 私密距离, 亲和力, 怎么开场, 迈步]
+    context_section: A1
+    priority: 10
+
+  - id: date_process
+    label: 约会全流程
+    module: modules/a_mikey_system.md
+    triggers: [约会流程, 转场, 带回家, 私密空间, ASD, 隐形支配, 冷场, 冷读术, 声音调情, 前30分钟, 支配游戏, 怎么收尾, 转场技巧]
+    context_section: A2
+    priority: 10
+
+  - id: chat_skills
+    label: 网聊技巧
+    module: modules/a_mikey_system.md
+    triggers: [微信聊天, 不回消息, 电话邀约, 筛选聊天, 冷淡反制, 查户口, 秒回, 外卖聊天, 发照片筛选, 怎么聊, 她不回消息]
+    context_section: A3
+    priority: 10
+
+  - id: mindset_core
+    label: 心态与内核
+    module: modules/a_mikey_system.md
+    triggers: [玩家心态, 内核, 自信, 恐惧, NPC理论, 多线并存, 拒绝脱敏, 主角心态, 21天觉醒, 恐惧等级, NPC觉醒, 怎么克服搭讪恐惧]
+    context_section: A4
+    priority: 10
+
+  - id: attraction_framework
+    label: 吸引/框架/个性样本
+    module: modules/a_mikey_system.md
+    triggers: [吸引, 行为线索, 个性样本, 框架主导, 性张力, 五样全可, 盘驴邓小闲, 强行为线索, 怎么吸引, 怎么保持框架]
+    context_section: A5
+    priority: 10
+
+  - id: social_critique
+    label: 社会观察/女本位理论
+    module: modules/a_mikey_system.md
+    triggers: [女本位社会, 矩阵, Matrix, 社会底层代码, 女性社会, 性别政治, 女本位, 供养者, 阿尔法]
+    context_section: A6
+    priority: 5
+
+  - id: teaching_cases
+    label: 教学复盘案例
+    module: modules/a_mikey_system.md
+    triggers: [教学案例, 复盘, 工程师案例, 女同事三角, 理论中毒, 实战复盘]
+    context_section: A7
+    priority: 5
+
+  # === Tankman 两性博弈 ===
+  - id: tankman_relationship
+    label: 两性关系/约会 (Tankman)
+    module: modules/b_tankman_system.md
+    triggers: [两性博弈, 筛选追选, 价值匹配, 做局法, 真假窗口, 直觉流判断, 反向筛选, 价值展示降维, 怎么判断她对我有没有意思]
+    context_section: B1
+    priority: 10
+
+  - id: tankman_appearance
+    label: 审美/形象 (Tankman)
+    module: modules/b_tankman_system.md
+    triggers: [穿搭, 审美, 形象, 健身, 微调, 增高鞋, 氛围感, 皮肤管理, 体味, 三重审美, 穿搭减法, 怎么穿]
+    context_section: B2
+    priority: 10
+
+  - id: tankman_growth
+    label: 男性成长 (Tankman)
+    module: modules/b_tankman_system.md
+    triggers: [男性成长, 三线全修, 认知破局, 四阶蜕变, 自信积累, 男性魅力, 城市降维, 男性魅力四层]
+    context_section: B3
+    priority: 10
+
+  - id: tankman_career
+    label: 赚钱/事业 (Tankman)
+    module: modules/b_tankman_system.md
+    triggers: [赚钱, 事业, 信息差, 流量思维, 认知变现, 执行力, 创业, 个人IP, 低成本试错, 时间杠杆]
+    context_section: B4
+    priority: 5
+
+  - id: tankman_society
+    label: 社会观察/心态 (Tankman)
+    module: modules/b_tankman_system.md
+    triggers: [灰度认知, 向阳而生, 情绪止损, 底层代码解码, 自我觉醒]
+    context_section: B5
+    priority: 5
+
+  # === 兔导 10 公理底层认知 ===
+  - id: axioms
+    label: 底层认知/红丸理论
+    module: modules/e_axioms.md
+    triggers: [吸引力不够, 我不懂女人, 为什么她不喜欢我, 红丸, 底层认知, 需求感, 框架决定地位, 慕强, 公理, 认知诊断, 价值传递, 怎么提升吸引力]
+    priority: 10
+
+  # === 情场高手四层分析框架 ===
+  - id: analysis_framework
+    label: 情场高手四层分析
+    module: modules/g_analysis_framework.md
+    triggers: [情场高手, 语义还原, 关系动态, 信号质量, costly signal, 依恋风格, 追逃动态, 投入比, 上帝视角, 帮我判断]
+    priority: 9
+
+  # === 追爱军师信号 + 阶段 ===
+  - id: signal_system
+    label: 信号解读/追求阶段
+    module: modules/h_signal_system.md
+    triggers: [信号, 绿灯, 黄灯, 红灯, 友谊区, 破冰, 升温, 暧昧期, 表白前, 她对我什么意思, 有没有戏, 阶段判断]
+    priority: 6
+
+  - id: crisis_handbook
+    label: 危机处理
+    module: modules/i_crisis_handbook.md
+    triggers: [被拒, 被冷落, 疏远, 友谊区, 竞争对手, 说错话, 翻车, 危机, 吵架, 分手, 挽回, 怎么破]
+    priority: 6
+
+  # === 展示面 / 约会 SOP ===
+  - id: display
+    label: 展示面/AI展示面
+    module: modules/k_display_date_sop.md
+    triggers: [展示面, 人设, 朋友圈, 头像, 拍照, AI展示面, 写真, 头像怎么拍, 朋友圈怎么发, 形象包装]
+    priority: 10
+
+  - id: date_sop
+    label: 约会SOP
+    module: modules/k_display_date_sop.md
+    triggers: [约会SOP, 约会流程, 见面, 破冰, 约会地点, 邀约, 约会方案, 约会话题, 流量排查]
+    priority: 10
+
+  # === 表达风格 / 心法 / 情话 ===
+  - id: expression_style
+    label: 表达风格/情话
+    module: modules/m_expression_style.md
+    triggers: [情话, 表白词, 怎么写, 表达, 童锦程, 深情祖师爷, 景辰, 心法, 给台阶, 三层表达, 怎么夸她]
+    priority: 5
+
+  # === 错误检查 ===
+  - id: error_check
+    label: 常见错误检查
+    module: modules/d_error_ledger.md
+    triggers: [错误, 注意事项, 不要, 避免, 正确做法, 怎么改, 认知错误, 搭讪错误, 约会错误, 聊天错误, 心态错误, 常见错误]
+    priority: 10
+
+  # === 金句 ===
+  - id: golden_quotes
+    label: 金句引用
+    module: modules/f_golden_quotes.md
+    triggers: [金句, 原文引用, Mikey说, 凡公子说, 经典语录, 名人名言, 金句录]
+    priority: 3
+
+  # === 决策树 ===
+  - id: approach_decision
+    label: 搭讪场景决策
+    module: decision_trees/approach_flow.md
+    triggers: [什么场景搭讪, 怎么开场合适, 搭讪决策, 场景判断, 搭讪场景]
+    priority: 8
+
+  - id: date_decision
+    label: 约会转场决策
+    module: decision_trees/date_flow.md
+    triggers: [什么时候转场, 约会到哪步了, 转场决策, 私密空间时机, 约会决策]
+    priority: 8
+
+  # === 话术模板 ===
+  - id: script_template
+    label: 话术模板
+    module: templates/scripts.json
+    triggers: [开场白模板, 邀约模板, 怎么说, 话术, 回复模板, 台词, 帮我回复]
+    priority: 8
+
+  # === 交叉对照 ===
+  - id: cross_reference
+    label: 双导师交叉对照
+    module: index/cross_mapping.csv
+    triggers: [Mikey和Tankman对比, 两种方法哪个好, 综合观点, 交叉对照, 双视角, 对比]
+    priority: 7
+
+# ---- Module Registry ----
+modules:
+  book_knowledge:
+    path: references/book/TOPICS.md
+    description: 《自然流·救赎之道》原书语义索引（主题分类 + 问题反向映射，Mikey 自然流一手教材）
+  a_mikey_system:
+    path: modules/a_mikey_system.md
+    description: Mikey 自然流搭讪学完整体系 (A1-A7)
+  b_tankman_system:
+    path: modules/b_tankman_system.md
+    description: Tankman 两性博弈完整体系 (B1-B5)
+  c_girl_types:
+    path: modules/c_girl_types.md
+    description: 17 种女生类型处理策略
+  d_error_ledger:
+    path: modules/d_error_ledger.md
+    description: 常见错误大全
+  e_axioms:
+    path: modules/e_axioms.md
+    description: 兔导 10 公理·底层认知
+  f_golden_quotes:
+    path: modules/f_golden_quotes.md
+    description: 原文金句录
+  g_analysis_framework:
+    path: modules/g_analysis_framework.md
+    description: 情场高手四层分析框架（语用学/依恋/信号博弈论）
+  h_signal_system:
+    path: modules/h_signal_system.md
+    description: 追爱军师信号分级 + 追求阶段
+  i_crisis_handbook:
+    path: modules/i_crisis_handbook.md
+    description: 危机处理手册
+  j_chat_analysis:
+    path: modules/j_chat_analysis.md
+    description: 聊天记录分析（截图/时间线/角色区分）
+  k_display_date_sop:
+    path: modules/k_display_date_sop.md
+    description: 展示面 / AI展示面 / 约会SOP / 流量排查
+  l_safety_boundaries:
+    path: modules/l_safety_boundaries.md
+    description: 安全边界 / 同意 / 反操控
+  m_expression_style:
+    path: modules/m_expression_style.md
+    description: 表达风格 + 心法 + 情话生成
+  n_mikey_persona:
+    path: modules/n_mikey_persona.md
+    description: Mikey 人格蒸馏（191 篇案例字幕 + 7 篇直播逐字提炼，第一人称扮演模式）
+  o_mikey_theory:
+    path: modules/o_mikey_theory.md
+    description: Mikey 理论体系总纲（底层认知/自然流总则/互动目的论/心态内核/心智模型清单）
+  p_techniques:
+    path: modules/p_techniques.md
+    description: 术与技术层操作手册（展示面/网聊/搭讪/约会/收尾/关系，六阶段打法+具体技术）

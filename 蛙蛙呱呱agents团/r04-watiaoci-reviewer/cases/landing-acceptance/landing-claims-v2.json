@@ -1,0 +1,6 @@
+{
+  "claims": [
+    {"id": "C2", "text": "核心表单 3 个用例通过", "kind": "completion", "evidence_refs": ["tests/landing.md:8"]},
+    {"id": "C3", "text": "转化追踪已接入并回传 1 条测试事件", "kind": "completion", "evidence_refs": ["landing.html:52 转化追踪已接入", "tests/landing.md:12"]}
+  ]
+}

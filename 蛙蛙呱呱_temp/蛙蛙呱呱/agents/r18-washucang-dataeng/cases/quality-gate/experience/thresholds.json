@@ -1,0 +1,12 @@
+{
+  "_note": "「脏数据 + 过期数据」案例级阈值覆盖。仅覆盖本案例与全局不同的口径；未出现键沿用 experience/thresholds.json 全局值。",
+  "quality": {
+    "default_max_null_ratio": 0.1,
+    "default_max_dup_ratio": 0.05,
+    "default_max_age_hours": 24
+  },
+  "review": {
+    "conclusion_keys": ["summary", "note", "next", "description",
+                        "conclusion", "recommendation", "reason", "narrative"]
+  }
+}

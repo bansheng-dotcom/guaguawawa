@@ -1,0 +1,14 @@
+{
+  "_note": "「招聘管道跃迁前置」案例级阈值覆盖。仅覆盖本案例与全局不同的口径；未出现键沿用 experience/thresholds.json 全局值。",
+  "offer": {
+    "accept_prior_statuses": ["Shortlisted", "Accepted"],
+    "required": ["applicant_name", "applicant_email", "offer_date", "designation"]
+  },
+  "applicant": {
+    "statuses": ["Open", "Replied", "Shortlisted", "Rejected", "Hold", "Accepted"]
+  },
+  "review": {
+    "conclusion_keys": ["summary", "note", "next", "description",
+                        "conclusion", "recommendation", "reason", "narrative"]
+  }
+}

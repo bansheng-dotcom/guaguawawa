@@ -1,0 +1,14 @@
+{
+  "task_id": "2b3a5251",
+  "title": "R01｜定价决策卡",
+  "owner": "r01",
+  "intent": "自助版定价决策卡评估",
+  "inputs": [],
+  "outputs": [],
+  "acceptance": [
+    "决策卡门禁通过"
+  ],
+  "deps": [],
+  "status": "running",
+  "logs": []
+}

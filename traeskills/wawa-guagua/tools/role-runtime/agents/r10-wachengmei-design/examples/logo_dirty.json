@@ -1,0 +1,7 @@
+{
+  "mark_type": "star",
+  "concepts": [{"name": "只有一个"}],
+  "tests": {"one_color": {"readable": false}},
+  "trademark_check": [],
+  "colors": {"primary": "blue", "secondary": "yellow"}
+}

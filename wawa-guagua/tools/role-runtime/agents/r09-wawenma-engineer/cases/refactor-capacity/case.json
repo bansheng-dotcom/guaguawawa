@@ -1,0 +1,40 @@
+{
+  "case_id": "refactor-capacity",
+  "display_name": "核心系统重构的容量与测试覆盖门禁",
+  "description": "重构后单测覆盖率 87%、跳过 0 条，但 P99 从 180ms 涨到 420ms，能否合并主干并扩容上线？",
+  "default_question": "重构后单测覆盖率 87%、跳过 0 条，但 P99 从 180ms 涨到 420ms，能否合并主干并扩容上线？",
+  "artifact_type": "production_code",
+  "summary": "核心系统重构的容量与测试覆盖门禁",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "production_code",
+    "test_report"
+  ],
+  "skills": [
+    "testing",
+    "debug",
+    "ops",
+    "spec"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "线上持续监控与告警",
+    "快速原型验证"
+  ],
+  "steps": [
+    {
+      "skill": "testing",
+      "action": "suites",
+      "input": "examples/testing_suites.json",
+      "expect": {
+        "coverage": 0.87,
+        "skipped": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "topic": "自助版定价 99→149 上调",
+  "reversibility": "难逆",
+  "options": [
+    {"label": "上调至 149", "summary": "提价 51%"},
+    {"label": "维持 99", "summary": "什么都不做"},
+    {"label": "新档 129", "summary": "折中"}
+  ],
+  "recommendation": "新档 129 灰度 30 天",
+  "rationale": "相对直接 149：保留 70% 提价空间同时把转化弹性风险减半；相对维持 99：不放弃本季 MRR 增量目标。竞品 159 提供锚点。",
+  "rollback_plan": "30 天内转化率较基线跌 >20% 即回滚 99，触发自动告警",
+  "success_criteria": [
+    {"metric": "自助版 MRR", "threshold": "+10%", "deadline": "灰度后 60 天"}
+  ],
+  "kill_criteria": [
+    {"metric": "新客转化率", "threshold": "跌幅 >20%", "deadline": "灰度后 30 天"}
+  ],
+  "owner": "创始人",
+  "deadline": "2026-11-20",
+  "announcement_draft": "我们做这个决定是因为自助版 NPS 连续两季 45+、竞品同级已到 159，且 129 灰度保留了 30 天快速回滚通道。"
+}

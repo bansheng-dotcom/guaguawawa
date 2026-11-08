@@ -1,0 +1,7 @@
+{
+  "claims": [
+    {"id": "C1", "text": "落地页单文件交付完成", "kind": "completion", "evidence_refs": ["handoff/landing.md:3"]},
+    {"id": "C2", "text": "全部测试完美通过", "kind": "completion", "evidence_refs": []},
+    {"id": "C3", "text": "转化追踪应该已经接入", "kind": "completion", "evidence_refs": []}
+  ]
+}

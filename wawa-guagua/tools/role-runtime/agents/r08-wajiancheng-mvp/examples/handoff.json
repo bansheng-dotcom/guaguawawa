@@ -1,0 +1,13 @@
+{
+  "artifacts": [
+    "index.html",
+    "mvp_report.md"
+  ],
+  "run_commands": [
+    "npx serve ."
+  ],
+  "acceptance": [
+    "邮箱可提交"
+  ],
+  "owner": "r09"
+}

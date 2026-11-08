@@ -1,0 +1,15 @@
+{
+  "skill": "research",
+  "action": "ledger",
+  "result": {
+    "ok": true,
+    "verdict": "PASS",
+    "claims": [{"id": "C1", "source_ids": ["S1"]}],
+    "sources": [{"id": "S1", "title": "行业报告", "type": "industry_report"}],
+    "orphan_claims": [],
+    "coverage_gaps": [],
+    "coverage_rate": 1.0,
+    "checks": [],
+    "next": "证据台账完整"
+  }
+}

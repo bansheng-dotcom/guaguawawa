@@ -1,0 +1,16 @@
+{
+  "employee": "EMP-0001",
+  "approval_status": "Approved",
+  "status": "Submitted",
+  "total_claimed_amount": 350.0,
+  "expense_details": [
+    {
+      "expense_type": "出差交通",
+      "amount": 200.0
+    },
+    {
+      "expense_type": "住宿",
+      "amount": 150.0
+    }
+  ]
+}

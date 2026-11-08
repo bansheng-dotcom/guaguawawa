@@ -1,0 +1,95 @@
+{
+  "case_id": "landing-acceptance",
+  "display_name": "落地页交付独立验收",
+  "description": "R08（建成 MVP）交付 solo-launch 落地页后，R04 蛙挑刺以独立评审官身份做外置判据审查、工作质量批评、人工评审包与修复后复评的完整闭环。",
+  "default_question": "R08 交付的落地页能否通过独立验收？",
+  "owner_role": "r04",
+  "inputs": {
+    "producer_role": "r08",
+    "artifact": "landing.html",
+    "iteration": "第 2 轮（修复后复评）"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "skill": "criteria",
+      "action": "review",
+      "desc": "对 4 条外置验收判据出三态判定",
+      "expect": {
+        "counts": {"pass": 2, "warn": 1, "fail": 1},
+        "verdict": "FAIL",
+        "ac-04_reason": "no_evidence"
+      }
+    },
+    {
+      "step": 2,
+      "skill": "quality",
+      "action": "critique",
+      "desc": "对 R08 的 3 条完成声明做禁词/证据链/绝对词三查",
+      "expect": {
+        "claims_total": 3,
+        "verified_count": 1,
+        "error_count": 4,
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "step": 3,
+      "skill": "human",
+      "action": "package",
+      "desc": "生成人工评审包，核验 reviewer≠producer 身份红线",
+      "expect": {
+        "self_review_blocked": false,
+        "package_valid": true,
+        "producer": "r08",
+        "reviewer": "r04"
+      }
+    },
+    {
+      "step": 4,
+      "skill": "quality",
+      "action": "critique",
+      "desc": "R08 修复后复评（补证据、去禁词与绝对词）",
+      "expect": {
+        "claims_total": 2,
+        "verified_count": 2,
+        "error_count": 0,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "step": 5,
+      "skill": "quality",
+      "action": "converge",
+      "desc": "对照两轮 findings 总数判断收敛",
+      "expect": {
+        "v1_count": 4,
+        "v2_count": 0,
+        "converged": false,
+        "verdict": "ITERATING"
+      }
+    },
+    {
+      "step": 6,
+      "skill": "strengths",
+      "action": "recheck",
+      "desc": "复评本轮修改：keep 项未被降级，新增 0 fail",
+      "expect": {
+        "recheck_verdict": "PASS",
+        "downgrades_count": 0,
+        "untraceable_count": 0
+      }
+    }
+  ],
+  "cartridges": [
+    {"name": "landing-criteria-v1.json", "for": "criteria.review 第 1 轮判据"},
+    {"name": "landing-claims-v1.json", "for": "quality.critique 第 1 轮完成声明"},
+    {"name": "landing-package-request.json", "for": "human.package 评审包请求"},
+    {"name": "landing-claims-v2.json", "for": "quality.critique 修复后声明"},
+    {"name": "landing-findings-v1.json", "for": "quality.converge 第 1 轮 findings"},
+    {"name": "landing-findings-v2.json", "for": "quality.converge 第 2 轮 findings"},
+    {"name": "landing-prev-critique.json", "for": "strengths.recheck 上一轮批评"},
+    {"name": "landing-recheck-new.json", "for": "strengths.recheck 本轮批评（含 changed 区）"}
+  ],
+  "verified_numbers_note": "所有 expect 数字为手工算闭环后回填（counts 2/1/1、error_count 4、converge 4→0 ITERATING），跑通后以 run_tests 实测对拍。"
+}

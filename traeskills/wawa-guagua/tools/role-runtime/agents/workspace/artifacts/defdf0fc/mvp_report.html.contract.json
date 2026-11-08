@@ -1,0 +1,73 @@
+{
+  "doc_type": "角色报告 · 蛙建成",
+  "title_lines": [
+    "蛙建成 · slice/mvp",
+    "验证一个 MVP 假设 "
+  ],
+  "standfirst": "next=实现工件通过全部门禁，可进入质量验证与交接",
+  "meta": [
+    "角色 r08 蛙建成（产品实现官 (MVP)）",
+    "生成日期 2026-11-06",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "8/8 项",
+      "status": "healthy"
+    },
+    {
+      "label": "next",
+      "value": "实现工件通过全部门禁，可进入质量验证与交接",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "passed_gates",
+      "value": "5",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=实现工件通过全部门禁，可进入质量验证与交接"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "passed_gates",
+      "question": "passed_gates 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "passed_gates：",
+          "text": "5"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 slice/mvp 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙建成 · 产品实现官 (MVP)",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

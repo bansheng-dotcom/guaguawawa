@@ -1,0 +1,11 @@
+﻿--- PROTOCOL.md (Original)
++++ PROTOCOL.md (Updated)
+@@ -8,8 +8,10 @@
+ ## 〇、总原则
+ 
+-1. **编排器必须瘦**：R01 只做四件事——加载上下文、派发正确角色、回收结果、更新状态。
++1. **编排器必须是大脑 (Mission Control)**：R01 不仅是转发器，在下发任务前，必须调用 dynamic_orchestrator 输出确定的【作战阵型】：
++   - 圈定哪几个 Agent 参与。
++   - 明确步骤是并行 (parallel) 还是串行 (sequential)。
++   - **强制约定产物 (Expected Outcomes)**：每个参与的 Agent 必须返回什么格式、什么文件名的内容。若未按约定返回，门禁直接拒绝。
+ 2. **上下文隔离**：Agent 之间不共享内存，只通过「子进程边界 + 共享工作区」协作。

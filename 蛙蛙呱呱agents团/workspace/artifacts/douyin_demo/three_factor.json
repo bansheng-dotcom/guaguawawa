@@ -1,0 +1,62 @@
+[
+  {
+    "channel": "直播",
+    "revenue_before": 45000.0,
+    "revenue_after": 30000.0,
+    "delta": -15000.0,
+    "visitors_before": 50000,
+    "visitors_after": 50000,
+    "conv_before_pct": 2.0,
+    "conv_after_pct": 1.33,
+    "aov_before": 45.0,
+    "aov_after": 45.05,
+    "contrib_visit": 0.0,
+    "contrib_conv": -15030.0,
+    "contrib_aov": 45.05
+  },
+  {
+    "channel": "短视频",
+    "revenue_before": 25000.0,
+    "revenue_after": 25000.0,
+    "delta": 0.0,
+    "visitors_before": 40000,
+    "visitors_after": 40000,
+    "conv_before_pct": 1.56,
+    "conv_after_pct": 1.56,
+    "aov_before": 40.0,
+    "aov_after": 40.0,
+    "contrib_visit": 0.0,
+    "contrib_conv": 0.0,
+    "contrib_aov": 0.0
+  },
+  {
+    "channel": "商品卡",
+    "revenue_before": 20000.0,
+    "revenue_after": 20000.0,
+    "delta": 0.0,
+    "visitors_before": 50000,
+    "visitors_after": 50000,
+    "conv_before_pct": 1.0,
+    "conv_after_pct": 1.0,
+    "aov_before": 40.0,
+    "aov_after": 40.0,
+    "contrib_visit": 0.0,
+    "contrib_conv": 0.0,
+    "contrib_aov": 0.0
+  },
+  {
+    "channel": "达人",
+    "revenue_before": 10000.0,
+    "revenue_after": 15000.0,
+    "delta": 5000.0,
+    "visitors_before": 20000,
+    "visitors_after": 30000,
+    "conv_before_pct": 1.0,
+    "conv_after_pct": 1.0,
+    "aov_before": 50.0,
+    "aov_after": 50.0,
+    "contrib_visit": 5000.0,
+    "contrib_conv": 0.0,
+    "contrib_aov": 0.0
+  }
+]

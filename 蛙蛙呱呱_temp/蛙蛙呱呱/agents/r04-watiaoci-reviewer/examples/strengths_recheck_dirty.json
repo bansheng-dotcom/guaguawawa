@@ -1,0 +1,9 @@
+{
+  "_comment": "strengths recheck 脏夹具（上一轮）：K1 保留优点；PF1 已 resolved",
+  "keep_list": [
+    {"id": "K1", "what": "hero 三段式文案", "why_keep": "首屏转化的主承载", "evidence": "handoff/landing.md:9"}
+  ],
+  "findings": [
+    {"id": "PF1", "check": "contrast", "severity": "error", "title": "旧按钮对比度不足", "resolved": true}
+  ]
+}

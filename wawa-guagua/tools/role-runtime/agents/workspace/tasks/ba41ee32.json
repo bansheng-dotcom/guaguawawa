@@ -1,0 +1,46 @@
+{
+  "task_id": "ba41ee32",
+  "title": "看一下销售管道健康度",
+  "owner": "r13",
+  "intent": "帮我看一下销售管道，哪些商机停滞了、加权预测多少",
+  "inputs": [
+    {
+      "name": "D:\\一人公司\\agents\\r13-wakecheng-csm\\examples\\pipeline.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "pipeline.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "csm_report.md",
+      "kind": "report",
+      "media_type": "text/markdown",
+      "note": ""
+    },
+    {
+      "name": "csm_report.html",
+      "kind": "report",
+      "media_type": "text/html",
+      "note": ""
+    },
+    {
+      "name": "csm_report.pdf",
+      "kind": "report",
+      "media_type": "application/pdf",
+      "note": "{\"ok\": true, \"status\": \"created\", \"output\": \"D:\\\\一人公司\\\\agents\\\\workspace\\\\artifacts\\\\ba41ee32\\\\csm_report.pdf\", \"errors\": []}"
+    }
+  ],
+  "acceptance": [
+    "pipeline 门禁通过"
+  ],
+  "deps": [],
+  "status": "done",
+  "logs": []
+}

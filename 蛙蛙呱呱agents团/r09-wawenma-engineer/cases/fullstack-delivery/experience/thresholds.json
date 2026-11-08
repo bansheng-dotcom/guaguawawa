@@ -1,0 +1,9 @@
+{
+  "_comment": "全栈交付闭环案例阈值（引用全局 thresholds.json 键名，不手抄数值）。",
+  "min_modules": "见 thresholds.json spec.min_modules",
+  "module_required": "见 thresholds.json spec.module_required",
+  "column_types": "见 thresholds.json data_api.column_types",
+  "min_components": "见 thresholds.json fullstack.min_components",
+  "min_services": "见 thresholds.json fullstack.min_services",
+  "irreversible_ops": "见 thresholds.json ops.irreversible_ops"
+}

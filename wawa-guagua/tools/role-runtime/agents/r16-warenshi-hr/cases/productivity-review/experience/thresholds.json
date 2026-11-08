@@ -1,0 +1,36 @@
+{
+  "_note": "productivity-review 案例级阈值：覆盖角色全局阈值，未列出的沿用以 experience/thresholds.json 为底。",
+  "kpis": {
+    "productivity_gap": {
+      "name": "人均产值增速差",
+      "formula": "人均产值增速 − 人力成本增速",
+      "unit": "个百分点",
+      "target": "≥ 0",
+      "alert": "转负触发预警"
+    },
+    "single_point": {
+      "name": "关键岗位单点依赖数",
+      "formula": "无备份人选的 key role 数",
+      "unit": "个",
+      "target": "0",
+      "alert": "≥ 1 立即补备份"
+    }
+  },
+  "gates": {
+    "G1": {
+      "when": "合同/证照到期未续",
+      "verdict": "BLOCKER",
+      "action": "立即整改"
+    },
+    "G2": {
+      "when": "薪酬核算差错",
+      "verdict": "BLOCKER",
+      "action": "48h 内全量复核"
+    },
+    "G3": {
+      "when": "人效增速差转负",
+      "verdict": "WARN",
+      "action": "冻结新增编制"
+    }
+  }
+}

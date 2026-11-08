@@ -1,0 +1,6 @@
+{
+  "endpoints": [
+    {"method": "GET", "path": "/x", "error_codes": []},
+    {"method": "FOO", "path": "/x", "error_codes": ["500"]}
+  ]
+}

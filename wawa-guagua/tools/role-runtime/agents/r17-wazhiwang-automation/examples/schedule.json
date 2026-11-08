@@ -1,0 +1,7 @@
+{
+  "schedule_type": "cron",
+  "cron": "0 9 * * 1-5",
+  "timezone": "Asia/Shanghai",
+  "kind": "daily",
+  "read_back": true
+}

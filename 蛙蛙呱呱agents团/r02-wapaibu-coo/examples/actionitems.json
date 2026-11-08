@@ -1,0 +1,7 @@
+{
+  "today": "2026-11-04",
+  "items": [
+    {"action": "上线双源热备", "owner": "r08", "due": "2026-11-10", "status": "planned"},
+    {"action": "收紧告警阈值", "owner": "r06", "due": "2026-10-24", "status": "done"}
+  ]
+}

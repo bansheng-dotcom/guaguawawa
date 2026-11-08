@@ -1,0 +1,8 @@
+{
+  "model_name": "local-answer-scorer",
+  "rows": [
+    {"case_id": "q1", "expected": "停车费", "actual": "停车费"},
+    {"case_id": "q2", "expected": "月卡", "actual": "包月"},
+    {"case_id": "q3", "expected": "退款政策", "actual": "退款政策"}
+  ]
+}

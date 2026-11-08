@@ -1,0 +1,36 @@
+{
+  "_note": "sla-incident 案例级阈值：覆盖角色全局阈值，未列出的沿用以 experience/thresholds.json 为底。",
+  "kpis": {
+    "sla": {
+      "name": "系统可用性",
+      "formula": "(总分钟 − 不可用分钟) / 总分钟",
+      "unit": "%",
+      "target": "≥ 99.95",
+      "alert": "跌出 99.95 启动 P0"
+    },
+    "rto": {
+      "name": "RTO 实测值",
+      "formula": "演练恢复耗时",
+      "unit": "分钟",
+      "target": "≤ 30",
+      "alert": "超时判不可恢复"
+    }
+  },
+  "gates": {
+    "G1": {
+      "when": "核心路径无探活",
+      "verdict": "BLOCKER",
+      "action": "禁止上线"
+    },
+    "G2": {
+      "when": "备份不可验证恢复",
+      "verdict": "BLOCKER",
+      "action": "视为无备份"
+    },
+    "G3": {
+      "when": "RTO 超目标",
+      "verdict": "CRITICAL",
+      "action": "立项整改并压缩目标"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "rules": [
+    {
+      "metric": "row_count",
+      "condition": "< 100",
+      "channel": "slack",
+      "severity": "warning"
+    }
+  ]
+}

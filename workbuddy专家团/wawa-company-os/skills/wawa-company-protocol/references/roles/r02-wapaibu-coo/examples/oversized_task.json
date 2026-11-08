@@ -1,0 +1,10 @@
+{
+  "task": {
+    "name": "双11大促全链路压测",
+    "hours": 20,
+    "owner": "r08",
+    "required_skills": ["压测"],
+    "must_read": ["压测剧本.md"],
+    "key_results": ["峰值 5000 QPS 稳定", "错误率 < 0.1%"]
+  }
+}

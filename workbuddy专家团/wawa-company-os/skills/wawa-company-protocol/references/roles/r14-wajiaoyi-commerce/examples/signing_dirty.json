@@ -1,0 +1,10 @@
+{
+  "status": "COMPLETED",
+  "recipients": [
+    {
+      "email": "zhang@example.com",
+      "role": "SIGNER",
+      "signing_status": "NOT_SIGNED"
+    }
+  ]
+}

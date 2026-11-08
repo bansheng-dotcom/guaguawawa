@@ -1,0 +1,19 @@
+{
+  "layer": "approved",
+  "date": "2026-11-04",
+  "title": "自助版定价调整",
+  "decision": "新档 129 元/月灰度 30 天，老客锁价 6 个月",
+  "owner": "创始人",
+  "deadline": "2026-11-20",
+  "rationale": "相对直接 149 保留 70% 提价空间且把转化弹性风险减半；相对维持 99 不放弃本季 MRR 增量；竞品 159 提供锚点。为何胜过替代：129 灰度是唯一可 30 天内回滚的路径。",
+  "rejected": [
+    {"proposal": "直接上调至 149", "reason": "一次性 51% 涨价历史客诉风险不可控",
+     "do_not_resurface": true},
+    {"proposal": "维持 99 不变", "reason": "放弃本季 MRR 目标", "do_not_resurface": false}
+  ],
+  "todos": [
+    {"item": "老客锁价邮件公告", "owner": "r11", "due": "2026-11-10", "review": "2026-11-12"},
+    {"item": "灰度首周竞品价格盯盘", "owner": "r05", "due": "2026-11-25", "review": "2026-11-26"}
+  ],
+  "supersedes": null
+}

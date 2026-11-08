@@ -1,0 +1,50 @@
+{
+  "ok": false,
+  "risk_types": [
+    "value",
+    "usability",
+    "viability",
+    "feasibility",
+    "ethics",
+    "gtm",
+    "strategy",
+    "team"
+  ],
+  "assumption_count": 0,
+  "validation_count": 0,
+  "checks": [
+    {
+      "ok": false,
+      "msg": "含 problem",
+      "dim": "discover.problem",
+      "sev": "BLOCKER"
+    },
+    {
+      "ok": false,
+      "msg": "含 segment",
+      "dim": "discover.segment",
+      "sev": "BLOCKER"
+    },
+    {
+      "ok": false,
+      "msg": "含 why_now",
+      "dim": "discover.why_now",
+      "sev": "BLOCKER"
+    },
+    {
+      "ok": false,
+      "msg": "至少 1 条假设（实际 0）",
+      "dim": "discover.assumptions",
+      "sev": "BLOCKER"
+    },
+    {
+      "ok": false,
+      "msg": "至少 1 项验证实验",
+      "dim": "discover.validation_plan",
+      "sev": "BLOCKER"
+    }
+  ],
+  "task_id": "7c564dd0",
+  "skill": "discover",
+  "action": "discover"
+}

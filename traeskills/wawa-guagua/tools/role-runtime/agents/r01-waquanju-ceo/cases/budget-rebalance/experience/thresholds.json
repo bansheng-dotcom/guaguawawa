@@ -1,0 +1,36 @@
+{
+  "_note": "budget-rebalance 案例级阈值：覆盖角色全局阈值，未列出的沿用以 experience/thresholds.json 为底。",
+  "kpis": {
+    "fcf_month": {
+      "name": "自由现金流安全月数",
+      "formula": "期末现金 / 近 3 月平均净流出",
+      "unit": "月",
+      "target": "≥ 6",
+      "alert": "< 4 立即熔断"
+    },
+    "single_source_share": {
+      "name": "单一营收来源占比",
+      "formula": "最大营收线收入 / 总营收",
+      "unit": "%",
+      "target": "≤ 70%",
+      "alert": "> 70% 强制第二曲线议题"
+    }
+  },
+  "gates": {
+    "G1": {
+      "when": "不可逆动作（签约/扣款/裁员）缺人类签字",
+      "verdict": "BLOCKER",
+      "action": "拒绝执行，退回补授权"
+    },
+    "G2": {
+      "when": "自由现金流安全月数 < 4",
+      "verdict": "BLOCKER",
+      "action": "冻结一切新增开支，先出止损方案"
+    },
+    "G3": {
+      "when": "决策未写成功标准与杀死标准",
+      "verdict": "WARN",
+      "action": "退回补齐标准后再拍板"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "rollback_plan": "",
+  "steps": [
+    {
+      "step_id": "s1",
+      "action": "停新站"
+    }
+  ],
+  "human_decision_point": false
+}

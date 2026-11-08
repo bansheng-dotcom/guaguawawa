@@ -1,0 +1,392 @@
+{
+    "schema_id":  "bzwh.ai-data-visualization-prompts.v1",
+    "language":  "zh-CN",
+    "version":  "1.0.0",
+    "prompt_count":  48,
+    "items":  [
+                  {
+                      "id":  "viz-01",
+                      "number":  1,
+                      "title":  "怎么让 AI 制作一张专业的纵向柱状图",
+                      "level":  "quick",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "01-vertical-bar-chart.md"
+                  },
+                  {
+                      "id":  "viz-02",
+                      "number":  2,
+                      "title":  "怎么让 AI 制作一张清晰的排名横条图",
+                      "level":  "quick",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "02-horizontal-ranking-bar-chart.md"
+                  },
+                  {
+                      "id":  "viz-03",
+                      "number":  3,
+                      "title":  "怎么让 AI 制作一张专业的分组柱状图",
+                      "level":  "quick",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "03-grouped-bar-chart.md"
+                  },
+                  {
+                      "id":  "viz-04",
+                      "number":  4,
+                      "title":  "怎么让 AI 制作一张同时展示总量和构成的堆叠柱状图",
+                      "level":  "guided",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "04-stacked-bar-chart.md"
+                  },
+                  {
+                      "id":  "viz-05",
+                      "number":  5,
+                      "title":  "怎么让 AI 制作一张专业的百分比堆叠条形图",
+                      "level":  "guided",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "05-100-percent-stacked-bar-chart.md"
+                  },
+                  {
+                      "id":  "viz-06",
+                      "number":  6,
+                      "title":  "怎么让 AI 制作一张突出趋势和拐点的折线图",
+                      "level":  "quick",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "06-line-chart.md"
+                  },
+                  {
+                      "id":  "viz-07",
+                      "number":  7,
+                      "title":  "怎么让 AI 制作一张强调量级变化的面积图",
+                      "level":  "guided",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "07-area-chart.md"
+                  },
+                  {
+                      "id":  "viz-08",
+                      "number":  8,
+                      "title":  "怎么让 AI 制作一张克制而清晰的饼图",
+                      "level":  "quick",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "08-pie-chart.md"
+                  },
+                  {
+                      "id":  "viz-09",
+                      "number":  9,
+                      "title":  "怎么让 AI 制作一张带中心指标的环形图",
+                      "level":  "quick",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "09-donut-chart.md"
+                  },
+                  {
+                      "id":  "viz-10",
+                      "number":  10,
+                      "title":  "怎么让 AI 制作一张能够解释分布的直方图",
+                      "level":  "guided",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "10-histogram.md"
+                  },
+                  {
+                      "id":  "viz-11",
+                      "number":  11,
+                      "title":  "怎么让 AI 制作一张展示两期变化的斜率图",
+                      "level":  "guided",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "11-slope-chart.md"
+                  },
+                  {
+                      "id":  "viz-12",
+                      "number":  12,
+                      "title":  "怎么让 AI 制作一张突出两组差异的哑铃图",
+                      "level":  "guided",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "12-dumbbell-chart.md"
+                  },
+                  {
+                      "id":  "viz-13",
+                      "number":  13,
+                      "title":  "怎么让 AI 制作一张轻量而精确的点图",
+                      "level":  "quick",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "13-dot-plot.md"
+                  },
+                  {
+                      "id":  "viz-14",
+                      "number":  14,
+                      "title":  "怎么让 AI 制作一张适合排名的棒棒糖图",
+                      "level":  "quick",
+                      "group":  "基础比较、趋势与构成",
+                      "file":  "14-lollipop-chart.md"
+                  },
+                  {
+                      "id":  "viz-15",
+                      "number":  15,
+                      "title":  "怎么让 AI 制作一张直观的方格占比图",
+                      "level":  "quick",
+                      "group":  "分布、关系与统计",
+                      "file":  "15-waffle-chart.md"
+                  },
+                  {
+                      "id":  "viz-16",
+                      "number":  16,
+                      "title":  "怎么让 AI 制作一张可解释的箱线图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "16-boxplot.md"
+                  },
+                  {
+                      "id":  "viz-17",
+                      "number":  17,
+                      "title":  "怎么让 AI 制作一张专业的散点关系图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "17-scatter-plot.md"
+                  },
+                  {
+                      "id":  "viz-18",
+                      "number":  18,
+                      "title":  "怎么让 AI 制作一张三变量气泡图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "18-bubble-chart.md"
+                  },
+                  {
+                      "id":  "viz-19",
+                      "number":  19,
+                      "title":  "怎么让 AI 制作一张可读的热力矩阵图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "19-heatmap.md"
+                  },
+                  {
+                      "id":  "viz-20",
+                      "number":  20,
+                      "title":  "怎么让 AI 制作一张不误导的雷达图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "20-radar-chart.md"
+                  },
+                  {
+                      "id":  "viz-21",
+                      "number":  21,
+                      "title":  "怎么让 AI 制作一张展示完整分布形态的小提琴图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "21-violin-plot.md"
+                  },
+                  {
+                      "id":  "viz-22",
+                      "number":  22,
+                      "title":  "怎么让 AI 制作一张比较多组分布的山脊图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "22-ridgeline-plot.md"
+                  },
+                  {
+                      "id":  "viz-23",
+                      "number":  23,
+                      "title":  "怎么让 AI 制作一张可读的平行坐标图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "23-parallel-coordinates.md"
+                  },
+                  {
+                      "id":  "viz-24",
+                      "number":  24,
+                      "title":  "怎么让 AI 制作一张说明不确定性的误差线图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "24-error-bar-chart.md"
+                  },
+                  {
+                      "id":  "viz-25",
+                      "number":  25,
+                      "title":  "怎么让 AI 制作一张规范的森林图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "25-forest-plot.md"
+                  },
+                  {
+                      "id":  "viz-26",
+                      "number":  26,
+                      "title":  "怎么让 AI 制作一张用于过程监控的控制图",
+                      "level":  "guided",
+                      "group":  "分布、关系与统计",
+                      "file":  "26-control-chart.md"
+                  },
+                  {
+                      "id":  "viz-27",
+                      "number":  27,
+                      "title":  "怎么让 AI 制作一张解释增减贡献的瀑布图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "27-waterfall-chart.md"
+                  },
+                  {
+                      "id":  "viz-28",
+                      "number":  28,
+                      "title":  "怎么让 AI 制作一张帕累托主因图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "28-pareto-chart.md"
+                  },
+                  {
+                      "id":  "viz-29",
+                      "number":  29,
+                      "title":  "怎么让 AI 制作一张标出主要流失点的漏斗图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "29-funnel-chart.md"
+                  },
+                  {
+                      "id":  "viz-30",
+                      "number":  30,
+                      "title":  "怎么让 AI 制作一张实际与目标对比的子弹图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "30-bullet-chart.md"
+                  },
+                  {
+                      "id":  "viz-31",
+                      "number":  31,
+                      "title":  "怎么让 AI 制作一张克制的单指标仪表盘",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "31-gauge-chart.md"
+                  },
+                  {
+                      "id":  "viz-32",
+                      "number":  32,
+                      "title":  "怎么让 AI 制作一张日历热力图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "32-calendar-heatmap.md"
+                  },
+                  {
+                      "id":  "viz-33",
+                      "number":  33,
+                      "title":  "怎么让 AI 制作一张清晰的甘特图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "33-gantt-chart.md"
+                  },
+                  {
+                      "id":  "viz-34",
+                      "number":  34,
+                      "title":  "怎么让 AI 制作一张规范的蜡烛图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "34-candlestick-chart.md"
+                  },
+                  {
+                      "id":  "viz-35",
+                      "number":  35,
+                      "title":  "怎么让 AI 制作一张可读的桑基流向图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "35-sankey-chart.md"
+                  },
+                  {
+                      "id":  "viz-36",
+                      "number":  36,
+                      "title":  "怎么让 AI 制作一张主题河流图",
+                      "level":  "guided",
+                      "group":  "业务过程、贡献与时间",
+                      "file":  "36-streamgraph.md"
+                  },
+                  {
+                      "id":  "viz-37",
+                      "number":  37,
+                      "title":  "怎么让 AI 制作一张层级清楚的矩形树图",
+                      "level":  "guided",
+                      "group":  "层级、空间、网络与特殊图",
+                      "file":  "37-treemap.md"
+                  },
+                  {
+                      "id":  "viz-38",
+                      "number":  38,
+                      "title":  "怎么让 AI 制作一张多层级旭日图",
+                      "level":  "guided",
+                      "group":  "层级、空间、网络与特殊图",
+                      "file":  "38-sunburst-chart.md"
+                  },
+                  {
+                      "id":  "viz-39",
+                      "number":  39,
+                      "title":  "怎么让 AI 制作一张区域分级设色地图",
+                      "level":  "guided",
+                      "group":  "层级、空间、网络与特殊图",
+                      "file":  "39-choropleth-map.md"
+                  },
+                  {
+                      "id":  "viz-40",
+                      "number":  40,
+                      "title":  "怎么让 AI 制作一张比例符号地图",
+                      "level":  "guided",
+                      "group":  "层级、空间、网络与特殊图",
+                      "file":  "40-symbol-map.md"
+                  },
+                  {
+                      "id":  "viz-41",
+                      "number":  41,
+                      "title":  "怎么让 AI 制作一张地理流向图",
+                      "level":  "guided",
+                      "group":  "层级、空间、网络与特殊图",
+                      "file":  "41-geographic-flow-map.md"
+                  },
+                  {
+                      "id":  "viz-42",
+                      "number":  42,
+                      "title":  "怎么让 AI 制作一张可读的关系网络图",
+                      "level":  "guided",
+                      "group":  "层级、空间、网络与特殊图",
+                      "file":  "42-network-chart.md"
+                  },
+                  {
+                      "id":  "viz-43",
+                      "number":  43,
+                      "title":  "怎么让 AI 制作一张南丁格尔玫瑰图",
+                      "level":  "guided",
+                      "group":  "层级、空间、网络与特殊图",
+                      "file":  "43-rose-chart.md"
+                  },
+                  {
+                      "id":  "viz-44",
+                      "number":  44,
+                      "title":  "怎么让 AI 制作一张柱线目标带综合图",
+                      "level":  "guided",
+                      "group":  "复杂组合图",
+                      "file":  "44-bar-line-target-band.md"
+                  },
+                  {
+                      "id":  "viz-45",
+                      "number":  45,
+                      "title":  "怎么让 AI 制作一张贡献桥接综合图",
+                      "level":  "guided",
+                      "group":  "复杂组合图",
+                      "file":  "45-contribution-bridge.md"
+                  },
+                  {
+                      "id":  "viz-46",
+                      "number":  46,
+                      "title":  "怎么让 AI 制作一张谨慎使用的双轴柱线图",
+                      "level":  "guided",
+                      "group":  "复杂组合图",
+                      "file":  "46-dual-axis-bar-line.md"
+                  },
+                  {
+                      "id":  "viz-47",
+                      "number":  47,
+                      "title":  "怎么让 AI 制作一页 KPI、趋势和驱动拆解综合图",
+                      "level":  "guided",
+                      "group":  "复杂组合图",
+                      "file":  "47-kpi-trend-breakdown.md"
+                  },
+                  {
+                      "id":  "viz-48",
+                      "number":  48,
+                      "title":  "怎么让 AI 制作一组同尺度小多图",
+                      "level":  "guided",
+                      "group":  "复杂组合图",
+                      "file":  "48-small-multiples.md"
+                  }
+              ]
+}

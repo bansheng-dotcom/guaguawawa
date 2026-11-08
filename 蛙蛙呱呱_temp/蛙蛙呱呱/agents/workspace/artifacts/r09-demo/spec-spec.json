@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "模块 'auth' 字段齐备",
+      "dim": "spec:module_fields",
+      "sev": "OK",
+      "name": "auth"
+    },
+    {
+      "ok": true,
+      "msg": "模块 'billing' 字段齐备",
+      "dim": "spec:module_fields",
+      "sev": "OK",
+      "name": "billing"
+    }
+  ],
+  "module_count": 2,
+  "boundary_ok": true,
+  "verdict": "PASS",
+  "next": "技术规格模块边界完整"
+}

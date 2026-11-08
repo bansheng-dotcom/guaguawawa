@@ -1,0 +1,106 @@
+{
+  "_note": "蛙深远（Research / 商业研究）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
+  "role": "r05",
+  "case_id": "market-sizing",
+  "artifact_type": "research_report",
+  "terms": [
+    {
+      "term": "ci_width",
+      "meaning": "市场空间置信区间宽度 = (上限 − 下限) / 中值（单位 %，目标 ≤ 40%，越界判定：> 40% 只出方向性结论）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "source_coverage",
+      "meaning": "结论带来源比例 = 有来源结论数 / 结论总数（单位 %，目标 100%，越界判定：< 100% 作废）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "G1",
+      "meaning": "门禁：双口径互证偏离 > 40% → WARN，处置 降级为方向性结论，不出具体数字",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G2",
+      "meaning": "门禁：竞品覆盖 < 3 家 → BLOCKER，处置 不得出竞品结论",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G3",
+      "meaning": "门禁：结论无来源 → BLOCKER，处置 作废重写",
+      "source": "semantic_layer.gates"
+    }
+  ],
+  "facts": {
+    "ci_width": {
+      "name": "市场空间置信区间宽度",
+      "formula": "(上限 − 下限) / 中值",
+      "unit": "%",
+      "target": "≤ 40%",
+      "alert": "> 40% 只出方向性结论"
+    },
+    "source_coverage": {
+      "name": "结论带来源比例",
+      "formula": "有来源结论数 / 结论总数",
+      "unit": "%",
+      "target": "100%",
+      "alert": "< 100% 作废"
+    }
+  },
+  "kpis": [
+    {
+      "id": "ci_width",
+      "name": "市场空间置信区间宽度",
+      "formula": "(上限 − 下限) / 中值",
+      "unit": "%",
+      "target": "≤ 40%",
+      "alert": "> 40% 只出方向性结论"
+    },
+    {
+      "id": "source_coverage",
+      "name": "结论带来源比例",
+      "formula": "有来源结论数 / 结论总数",
+      "unit": "%",
+      "target": "100%",
+      "alert": "< 100% 作废"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "双口径互证偏离 > 40%",
+      "verdict": "WARN",
+      "action": "降级为方向性结论，不出具体数字"
+    },
+    {
+      "id": "G2",
+      "when": "竞品覆盖 < 3 家",
+      "verdict": "BLOCKER",
+      "action": "不得出竞品结论"
+    },
+    {
+      "id": "G3",
+      "when": "结论无来源",
+      "verdict": "BLOCKER",
+      "action": "作废重写"
+    }
+  ],
+  "boundary": [
+    {
+      "out_of_scope": "替产品定需求",
+      "owner": "R07"
+    },
+    {
+      "out_of_scope": "替增长定投放预算",
+      "owner": "R12"
+    }
+  ],
+  "scope_boundary": [
+    "替产品定需求",
+    "替增长定投放预算"
+  ],
+  "decision_order": [
+    "来源可追溯 > 覆盖面 > 结论锐度",
+    "置信区间过宽时只给方向，不给数字",
+    "结论冲突时，以更保守口径对外"
+  ]
+}

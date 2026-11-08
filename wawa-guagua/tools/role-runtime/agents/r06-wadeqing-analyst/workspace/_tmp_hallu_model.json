@@ -1,0 +1,1 @@
+{"semantic_models": [{"name": "m", "entities": [{"name": "orders", "expr": "not_a_real_table"}], "dimensions": [{"name": "ghost", "expr": "no_such_column"}], "measures": [{"name": "amt", "expr": "amount"}]}], "metrics": []}

@@ -1,0 +1,47 @@
+workflow_id: metrics-framework
+version: "0.1"
+type: optional_review_hints
+
+purpose: >
+  给指标框架作者生成“后续可能需要谁复核”的提醒。这里不是触发图，
+  不写死本地 agent 路径，也不自动分派任务。
+
+rules:
+  - 指标框架本身不依赖这些提醒才能完成。
+  - 提醒使用角色类型，不使用本机路径。
+  - 真实取数、归因和图表渲染不在本 workflow 内执行。
+
+review_hints:
+  data_reviewer:
+    remind_when:
+      - 指标依赖真实数据源、口径、样本或分组
+      - 需要基线、目标值或趋势判断
+    ask_them_to_check:
+      - 指标口径是否可执行
+      - 数据源是否存在
+      - 样本、分组、时间窗是否足够
+      - 是否存在平均数、比例或渠道误导
+
+  experiment_reviewer:
+    remind_when:
+      - 指标用于 MVP、实验、假门或 A/B 测试
+    ask_them_to_check:
+      - 成功标准是否能判断假设
+      - 样本量和观察周期是否合理
+      - 失败后是否有停止或转向标准
+
+  technical_reviewer:
+    remind_when:
+      - 指标采集依赖埋点、日志、后台任务或权限
+    ask_them_to_check:
+      - 数据采集是否可实现
+      - 事件、状态和权限是否定义清楚
+      - 是否会引入额外成本或隐私风险
+
+  test_reviewer:
+    remind_when:
+      - 指标将成为上线门禁或验收条件
+    ask_them_to_check:
+      - 指标是否能复现检查
+      - 通过/失败标准是否明确
+      - 是否需要回归或监控项

@@ -1,0 +1,12 @@
+{
+  "topic": "AI 编程助手市场",
+  "sources": [
+    {"id": "S1", "title": "2025 中国 AI 编程工具行业报告", "type": "industry_report", "date": "2025-06"},
+    {"id": "S2", "title": "GitHub Octoverse 2025", "type": "news", "date": "2025-01"}
+  ],
+  "claims": [
+    {"id": "C1", "text": "2024 年中国 AI 编程工具市场规模 120 亿元", "kind": "fact", "source_ids": ["S1"]},
+    {"id": "C2", "text": "全球开发者 AI 工具渗透率约 30%", "kind": "estimate", "source_ids": ["S1", "S2"]},
+    {"id": "C3", "text": "头部厂商市占率合计超过 60%", "kind": "fact", "source_ids": ["S2"]}
+  ]
+}

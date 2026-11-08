@@ -1,0 +1,10 @@
+{
+  "templates": [
+    {
+      "name": "w",
+      "subject": "s",
+      "body": "b"
+    }
+  ],
+  "preview_text": "p"
+}

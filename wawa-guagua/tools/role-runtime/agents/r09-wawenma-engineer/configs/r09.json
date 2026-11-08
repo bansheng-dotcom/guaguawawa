@@ -1,0 +1,98 @@
+{
+  "_note": "蛙稳码（Engineer / 架构工程）运行配置：阈值/维度/数据源外置，改规则不改代码（META-001 Stage 3）。",
+  "role": "r09",
+  "language": "zh",
+  "enable_cache": true,
+  "enable_vector": false,
+  "report": {
+    "engine": "agents/shared/report_engine.py",
+    "generator": "agents/shared/report_generator.py",
+    "doc_type": "Engineer / 架构工程",
+    "formats": [
+      "html",
+      "md"
+    ],
+    "sections": [
+      "决策指令",
+      "KPI 格栅",
+      "三级归因",
+      "护栏熔断",
+      "灰度+下一步"
+    ]
+  },
+  "kpis": [
+    {
+      "id": "p99",
+      "name": "API P99 延时",
+      "formula": "P99 响应时间（压测）",
+      "unit": "ms",
+      "target": "≤ 200",
+      "alert": "> 500 熔断降级"
+    },
+    {
+      "id": "coverage",
+      "name": "单元测试覆盖率",
+      "formula": "已覆盖行 / 总行",
+      "unit": "%",
+      "target": "≥ 80",
+      "alert": "< 60 禁止合并"
+    },
+    {
+      "id": "skipped",
+      "name": "跳过用例数",
+      "formula": "skip/xfail 计数",
+      "unit": "条",
+      "target": "0",
+      "alert": "≥ 1 判假通过"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "存在 skip/xfail 掩盖失败",
+      "verdict": "BLOCKER",
+      "action": "判假通过，拒绝合并"
+    },
+    {
+      "id": "G2",
+      "when": "P99 > 500ms",
+      "verdict": "BLOCKER",
+      "action": "熔断降级，回滚变更"
+    },
+    {
+      "id": "G3",
+      "when": "无回滚脚本",
+      "verdict": "BLOCKER",
+      "action": "禁止发布"
+    }
+  ],
+  "guardrails": [
+    {
+      "dim": "API P99 延时",
+      "metric": "API P99 延时",
+      "base": "≤ 200",
+      "threshold": "> 500 熔断降级"
+    },
+    {
+      "dim": "单元测试覆盖率",
+      "metric": "单元测试覆盖率",
+      "base": "≥ 80",
+      "threshold": "< 60 禁止合并"
+    },
+    {
+      "dim": "跳过用例数",
+      "metric": "跳过用例数",
+      "base": "0",
+      "threshold": "≥ 1 判假通过"
+    }
+  ],
+  "data_sources": [
+    {
+      "name": "examples/",
+      "type": "local_json",
+      "permission": "read_only",
+      "note": "本轮真实执行所用输入，报告页脚记录 SHA256"
+    }
+  ],
+  "case": "refactor-capacity"
+}

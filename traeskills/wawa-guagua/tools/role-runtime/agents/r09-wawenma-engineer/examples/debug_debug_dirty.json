@@ -1,0 +1,6 @@
+{
+  "symptom": "登录后偶发 500",
+  "repro_steps": [],
+  "root_cause": "",
+  "fix": "打个补丁"
+}

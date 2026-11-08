@@ -1,0 +1,34 @@
+{
+  "ad": {
+    "text": "策略 A 过去五年年化净收益 12.4%，历史业绩不代表未来",
+    "retail_recipients_30d": 100,
+    "pre_approval": false,
+    "performance_claims": [
+      {
+        "label": "claim-1",
+        "gross_return": 0.15,
+        "net_return": 0.124,
+        "period_years": 5
+      },
+      {
+        "label": "claim-2",
+        "gross_return": 0.2,
+        "period_years": 3,
+        "hypothetical": true,
+        "labeled": false
+      }
+    ],
+    "testimonials": [
+      {
+        "label": "t-1",
+        "client_identity": "客户 A（已授权）",
+        "compensation": "无补偿",
+        "conflicts": "无"
+      },
+      {
+        "label": "t-2",
+        "client_identity": "客户 B"
+      }
+    ]
+  }
+}

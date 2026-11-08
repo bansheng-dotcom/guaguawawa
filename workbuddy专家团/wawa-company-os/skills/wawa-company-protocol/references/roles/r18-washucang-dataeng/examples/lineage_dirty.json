@@ -1,0 +1,16 @@
+{
+  "tables": [
+    "stg_orders",
+    "fct_orders"
+  ],
+  "edges": [
+    [
+      "stg_orders",
+      "fct_orders"
+    ],
+    [
+      "ghost",
+      "fct_orders"
+    ]
+  ]
+}

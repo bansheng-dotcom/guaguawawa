@@ -1,0 +1,112 @@
+{
+  "doc_type": "角色报告 · 蛙数仓",
+  "title_lines": [
+    "蛙数仓 · quality/check",
+    "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 "
+  ],
+  "standfirst": "next=数据管道工件通过全部门禁，可进入授权与交接",
+  "meta": [
+    "角色 r18 蛙数仓（数据工程与管道官）",
+    "生成日期 2026-11-06",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "6/6 项",
+      "status": "healthy"
+    },
+    {
+      "label": "next",
+      "value": "数据管道工件通过全部门禁，可进入授权与交接",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "table",
+      "value": "orders",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "check_count",
+      "value": "1",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=数据管道工件通过全部门禁，可进入授权与交接"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "table",
+      "question": "table 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "table：",
+          "text": "orders"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "check_count",
+      "question": "check_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "check_count：",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "row_count",
+      "question": "row_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "row_count：",
+          "text": "1000"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "narrative",
+      "question": "narrative 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "narrative：",
+          "text": "质量门禁 orders：1 项检查"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 quality/check 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙数仓 · 数据工程与管道官",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "C1: verified",
+      "dim": "quality:C1",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "C2: verified",
+      "dim": "quality:C2",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "C3: verified",
+      "dim": "quality:C3",
+      "sev": "OK"
+    }
+  ],
+  "claims_checked": [
+    {
+      "id": "C1",
+      "text": "落地页 hero 标题已按定位改写",
+      "kind": "completion",
+      "evidence_refs": [
+        "landing.html:12"
+      ],
+      "status": "verified",
+      "problems": []
+    },
+    {
+      "id": "C2",
+      "text": "表单提交经端到端验证",
+      "kind": "completion",
+      "evidence_refs": [
+        "handoff/lead-form.md:5"
+      ],
+      "status": "verified",
+      "problems": []
+    },
+    {
+      "id": "C3",
+      "text": "字体加载存在性能风险",
+      "kind": "risk",
+      "evidence_refs": [],
+      "status": "verified",
+      "problems": []
+    }
+  ],
+  "findings": [],
+  "error_count": 0,
+  "warning_count": 0,
+  "verdict": "PASS",
+  "next": "0 error：可签发"
+}

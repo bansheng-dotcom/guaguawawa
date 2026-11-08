@@ -1,0 +1,8 @@
+{
+  "tasks": [
+    {"id": "t1", "name": "落地页开发", "duration_days": 2, "depends_on": []},
+    {"id": "t2", "name": "素材拍摄", "duration_days": 3, "depends_on": []},
+    {"id": "t3", "name": "页面组装", "duration_days": 4, "depends_on": ["t1", "t2"]},
+    {"id": "t4", "name": "全链路压测", "duration_days": 1, "depends_on": ["t3"]}
+  ]
+}

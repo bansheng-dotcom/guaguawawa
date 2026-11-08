@@ -1,0 +1,31 @@
+{
+  "title": "R06｜订单数据月度趋势分析",
+  "owners": [
+    "r06"
+  ],
+  "goal": "产出 12 个月订单趋势与异常月判定报告，支撑季度经营复盘",
+  "owned_files": [
+    "workspace/artifacts/{task}/analysis_report.md"
+  ],
+  "requirements": [
+    "12 个月订单量/金额趋势",
+    "异常月统计判定（双口径互证）"
+  ],
+  "interface_contract": {
+    "exports": [
+      "analysis_report.md",
+      "trend.json"
+    ],
+    "imports": [
+      "orders.csv（date/date, amount/value, stage/status, group/channel）"
+    ]
+  },
+  "acceptance": [
+    "趋势 JSON 的 total 数值可复算",
+    "数据清洗后无整行重复",
+    "异常月结论带双口径证据"
+  ],
+  "non_goals": [
+    "不做归因到渠道的因果结论（另起任务）"
+  ]
+}

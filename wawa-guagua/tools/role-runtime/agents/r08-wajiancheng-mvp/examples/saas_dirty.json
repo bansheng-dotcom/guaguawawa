@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "/"
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "page": "home"
+    }
+  ],
+  "auth": "none",
+  "entry_point": "app.py"
+}

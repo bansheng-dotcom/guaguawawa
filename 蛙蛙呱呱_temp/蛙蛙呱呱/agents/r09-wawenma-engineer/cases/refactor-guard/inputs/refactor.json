@@ -1,0 +1,10 @@
+{
+  "hotspots": [
+    {"name": "billing-list-query", "before_ms": 2000, "after_ms": 180},
+    {"name": "order-preload", "before_ms": 900, "after_ms": 120}
+  ],
+  "regression_tests": [
+    {"name": "billing-list-loads", "status": "passed"},
+    {"name": "billing-list-pagination", "status": "passed"}
+  ]
+}

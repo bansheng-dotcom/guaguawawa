@@ -1,0 +1,9 @@
+{
+  "demand_id": "D1",
+  "problem": "p",
+  "scope": "s",
+  "non_goals": "n",
+  "success_metric": "m",
+  "acceptance": "a",
+  "review_status": "已复核"
+}

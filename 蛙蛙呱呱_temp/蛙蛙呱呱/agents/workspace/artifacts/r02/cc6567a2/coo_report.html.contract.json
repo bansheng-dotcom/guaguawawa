@@ -1,0 +1,66 @@
+{
+  "doc_type": "角色报告 · 蛙排布",
+  "title_lines": [
+    "蛙排布 · schedule/run",
+    "双 11 冲刺排期：WBS+容量+派工"
+  ],
+  "standfirst": "conclusion=技能 schedule 未执行（缺参数），已记录路由与闭环。",
+  "meta": [
+    "角色 r02 蛙排布（首席运营官（COO））",
+    "生成日期 2026-11-06",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "FAIL",
+      "note": "0/0 项",
+      "status": "critical"
+    },
+    {
+      "label": "conclusion",
+      "value": "技能 schedule 未执行（缺参数），已记录路由与闭环。",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "conclusion=技能 schedule 未执行（缺参数），已记录路由与闭环。"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "执行结果",
+      "question": "本次技能执行的判定与证据是什么？",
+      "reading": [
+        {
+          "text": "conclusion=技能 schedule 未执行（缺参数），已记录路由与闭环。"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 schedule/run 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙排布 · 首席运营官（COO）",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

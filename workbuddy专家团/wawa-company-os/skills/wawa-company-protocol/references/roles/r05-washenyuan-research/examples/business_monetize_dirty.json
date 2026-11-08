@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "INVALID_TYPE",
+    "pricing_tiers": [],
+    "unit_economics": {"price": 1200, "cogs": 300, "cac": 5000, "ltv": 1000}
+  }
+}

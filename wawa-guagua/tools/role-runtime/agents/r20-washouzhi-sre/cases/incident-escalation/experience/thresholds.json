@@ -1,0 +1,14 @@
+{
+  "_note": "「故障通报还没写事件就升级到 CEO」案例级阈值覆盖。仅覆盖本案例与全局不同的口径；未出现键沿用 experience/thresholds.json 全局值。",
+  "alert": {
+    "severities": ["critical", "warning", "info"],
+    "channels": ["email", "webhook", "slack", "sms", "telegram"]
+  },
+  "statuspage": {
+    "component_statuses": ["operational", "degraded", "outage", "maintenance"],
+    "incident_statuses": ["investigating", "identified", "monitoring", "resolved"]
+  },
+  "review": {
+    "conclusion_keys": ["summary", "note", "next", "description", "conclusion", "recommendation", "reason", "narrative"]
+  }
+}

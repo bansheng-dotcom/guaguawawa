@@ -1,0 +1,11 @@
+{
+  "meeting_type": "daily",
+  "duration_min": 10,
+  "items": [
+    {"speaker": "r06", "blockers": "无", "yesterday": "完成口径对拍", "today": "拉双11首日数据"},
+    {"speaker": "r08", "blockers": "等 CDN 配置", "yesterday": "发布检查单更新", "today": "预发环境验证"}
+  ],
+  "action_items": [
+    {"action": "CDN 配置今天 14:00 前完成", "owner": "r08", "due": "2026-11-04"}
+  ]
+}

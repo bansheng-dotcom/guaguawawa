@@ -1,0 +1,37 @@
+{
+  "_note": "R14「订阅用量账单争议」语义层。聚合类型/计费模型/周期/账单状态口径来自 getlago__lago（AGGREGATION_TYPES/CHARGE_MODELS/INTERVALS/Invoice STATUS）。门禁把「账单金额恒等式」与「用量口径可复现」变成可执行校验。",
+  "artifact_type": "invoice",
+  "terms": [
+    {"term": "aggregation_type", "meaning": "用量聚合方式，决定「用了多少」的定义", "source": "lago.AGGREGATION_TYPES"},
+    {"term": "count_agg", "meaning": "按事件条数聚合（如 API 调用次数），最易发生重复计数争议", "source": "lago.AGGREGATION_TYPES"},
+    {"term": "sum_agg", "meaning": "按数值求和聚合（如 token 总量），需注意单位口径", "source": "lago.AGGREGATION_TYPES"},
+    {"term": "custom_agg", "meaning": "自定义表达式聚合，必须显式声明表达式，否则不可复现", "source": "lago.AGGREGATION_TYPES"},
+    {"term": "charge_model", "meaning": "计费模型：standard 定量、graduated 阶梯、package 打包、percentage 比例、volume 总量、graduated_percentage 阶梯比例", "source": "lago.CHARGE_MODELS"},
+    {"term": "interval", "meaning": "计费周期：weekly/monthly/quarterly/yearly", "source": "lago.INTERVALS"},
+    {"term": "invoice.status", "meaning": "账单状态：draft/finalized/voided/failed/pending；finalized 后才对外呈现", "source": "lago.Invoice.status"},
+    {"term": "unit_amount", "meaning": "单价，用于复算：amount ≈ quantity × unit_amount（standard 模型）", "source": "lago.Charge"}
+  ],
+  "gates": [
+    {"id": "H1", "when": "invoice.total != Σ(line_items.amount)", "verdict": "BLOCKER", "action": "拒绝，账单恒等式不成立"},
+    {"id": "H2", "when": "usage.metric_code 为空或 quantity < 0", "verdict": "BLOCKER", "action": "拒绝，用量记录不合法"},
+    {"id": "H3", "when": "aggregation_type not in AGGREGATION_TYPES", "verdict": "BLOCKER", "action": "拒绝，聚合口径未知"},
+    {"id": "H4", "when": "aggregation_type == custom_agg 且未声明 custom_expression", "verdict": "BLOCKER", "action": "拒绝，自定义聚合不可复现"},
+    {"id": "H5", "when": "charge_model not in CHARGE_MODELS", "verdict": "BLOCKER", "action": "拒绝，计费模型未知"},
+    {"id": "H6", "when": "plan.interval not in INTERVALS", "verdict": "BLOCKER", "action": "拒绝，周期口径未知"},
+    {"id": "H7", "when": "invoice.status == finalized 且对应 usage 段缺失", "verdict": "WARN", "action": "标记：已定稿账单无可复现用量依据，要求补用量快照"},
+    {"id": "H8", "when": "客户主张用量 < 系统记录用量", "verdict": "WARN", "action": "要求提供事件明细抽样；不得直接调账"}
+  ],
+  "boundary": [
+    {"out_of_scope": "是否给客户免单/减免形成的财务影响", "owner": "R03 财务", "r14_role": "只给用量核验结果与调账建议工件，不出财报口径"},
+    {"out_of_scope": "发票红冲与税务处理", "owner": "R03 财务", "r14_role": "移交"},
+    {"out_of_scope": "合同约定的计费条款解释（合同效力）", "owner": "R03 财务", "r14_role": "移交，R14 只做数值与枚举确定性校验"},
+    {"out_of_scope": "账单异议是否构成法律纠纷", "owner": "R03 财务", "r14_role": "移交"},
+    {"out_of_scope": "实际发起调账/收款动作", "owner": "人工授权后执行", "r14_role": "只产出调账请求工件"}
+  ],
+  "decision_order": [
+    "先算恒等式：Σ(line_items.amount) == invoice.total，不成立直接 BLOCKER，争议无从谈起",
+    "再验口径合法性：aggregation_type / charge_model / interval 三枚举，任一非法即拒绝",
+    "然后做用量复现：按 charge_model 复算 amount，与账单行项目比对",
+    "最后处理客户主张：差异只作为「待人工核对」条目输出，R14 不直接调账"
+  ]
+}

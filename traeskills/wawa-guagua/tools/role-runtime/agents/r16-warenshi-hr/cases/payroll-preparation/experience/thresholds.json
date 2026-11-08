@@ -1,0 +1,14 @@
+{
+  "_note": "「薪酬准备层」案例级阈值覆盖。仅覆盖本案例与全局不同的口径；未出现键沿用 experience/thresholds.json 全局值。",
+  "payroll": {
+    "frequencies": ["Monthly", "Fortnightly", "Bimonthly", "Weekly", "Daily"],
+    "component_types": ["Earning", "Deduction", "Employer Contribution"],
+    "tolerance": 0.01
+  },
+  "review": {
+    "unauthorized_hr_words": ["直接招聘", "直接解雇", "直接辞退", "直接发薪",
+                              "代发工资", "打款", "立即入职", "单方解除"],
+    "scope_terms": ["劳动仲裁", "竞业协议效力", "个税申报", "社保合规",
+                    "法律意见", "税务结论", "劳动合同效力"]
+  }
+}

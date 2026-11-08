@@ -1,0 +1,7 @@
+{
+  "flows": [
+    {"name": "signup", "result": "passed"},
+    {"name": "checkout", "result": "flaky"}
+  ],
+  "playwright_trace": ""
+}

@@ -1,0 +1,46 @@
+{
+  "desired_outcome": "更快完成首个项目",
+  "opportunities": [
+    {
+      "selected": true,
+      "solutions": [
+        {
+          "experiments": [
+            {
+              "hypothesis": "h",
+              "method": "A/B"
+            }
+          ]
+        },
+        {
+          "experiments": []
+        },
+        {
+          "experiments": []
+        }
+      ]
+    },
+    {
+      "selected": true,
+      "solutions": [
+        {
+          "experiments": []
+        },
+        {
+          "experiments": []
+        },
+        {
+          "experiments": []
+        }
+      ]
+    },
+    {
+      "selected": false,
+      "solutions": []
+    }
+  ],
+  "focus": [
+    "opp0",
+    "opp1"
+  ]
+}

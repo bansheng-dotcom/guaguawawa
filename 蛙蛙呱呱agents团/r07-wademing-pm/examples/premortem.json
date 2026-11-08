@@ -1,0 +1,13 @@
+{
+  "tigers": [
+    "上线即崩"
+  ],
+  "action_plans": [
+    {
+      "risk": "崩溃",
+      "mitigation": "灰度",
+      "owner": "r09",
+      "due_date": "day-3"
+    }
+  ]
+}

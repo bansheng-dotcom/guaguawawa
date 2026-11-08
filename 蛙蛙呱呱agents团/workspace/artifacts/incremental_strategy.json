@@ -1,0 +1,8 @@
+{
+  "stream": "orders",
+  "mode": "incremental",
+  "partition": "daily",
+  "watermark_field": "updated_at",
+  "idempotency_key": "order_id",
+  "late_arrival_days": 1
+}

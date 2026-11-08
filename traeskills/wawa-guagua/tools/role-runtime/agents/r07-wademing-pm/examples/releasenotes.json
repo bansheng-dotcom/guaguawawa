@@ -1,0 +1,20 @@
+{
+  "title": "X v1.0",
+  "sections": {
+    "New Features": [
+      "- item"
+    ],
+    "Improvements": [
+      "- item"
+    ],
+    "Bug Fixes": [
+      "- item"
+    ],
+    "Breaking Changes": [
+      "- item"
+    ],
+    "Deprecations": [
+      "- item"
+    ]
+  }
+}

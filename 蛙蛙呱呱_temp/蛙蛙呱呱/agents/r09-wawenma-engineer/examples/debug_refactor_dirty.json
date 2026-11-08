@@ -1,0 +1,6 @@
+{
+  "hotspots": [
+    {"name": "render-loop", "before_ms": 60, "after_ms": 240}
+  ],
+  "regression_tests": []
+}

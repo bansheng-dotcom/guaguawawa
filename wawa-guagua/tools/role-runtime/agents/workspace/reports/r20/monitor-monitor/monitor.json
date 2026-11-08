@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "监控项 ID 非空",
+      "dim": "monitor.id",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "监控类型='http' 在白名单 ['http', 'tcp', 'ping', 'dns', 'port']",
+      "dim": "monitor.type",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "监控目标非空（URL/主机/端口）",
+      "dim": "monitor.target",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "心跳间隔 60 秒 ∈ [30,86400]",
+      "dim": "monitor.interval",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "重试次数 3 ≥ 0",
+      "dim": "monitor.retries",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "HTTP method='GET' 在白名单 ['GET', 'HEAD', 'POST']",
+      "dim": "monitor.method",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "可靠性工件通过全部门禁，可进入授权与交接",
+  "monitor_id": "mon-http-api",
+  "monitor_count": 1,
+  "monitor_type": "http",
+  "narrative": "监控项 mon-http-api：类型 http，目标 https://api.example.com/health",
+  "skill": "monitor",
+  "action": "monitor"
+}

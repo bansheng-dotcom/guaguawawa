@@ -1,0 +1,56 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="640" fill="#101318"/>
+  <rect x="0" y="0" width="1280" height="6" fill="#2563EB"/>
+  <rect x="0" y="6" width="1280" height="3" fill="#F59E0B"/>
+
+  <text x="72" y="96" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" fill="#93C5FD">ARTICLE DIRECTOR · LEAN-V1</text>
+  <text x="72" y="178" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="700" fill="#F8FAFC">Multi-agent writing</text>
+  <text x="72" y="246" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="700" fill="#F59E0B">with visible gates</text>
+  <text x="72" y="304" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22" fill="#CBD5E1">大纲细纲 · 候选写作 · 审查吸收 · 段落重写 · 人工终审</text>
+
+  <line x1="72" y1="350" x2="588" y2="350" stroke="#334155" stroke-width="1"/>
+
+  <rect x="72" y="382" width="126" height="34" rx="6" fill="#1E293B" stroke="#475569"/>
+  <text x="135" y="404" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14" fill="#E2E8F0" text-anchor="middle">topic-first</text>
+
+  <rect x="214" y="382" width="150" height="34" rx="6" fill="#1E293B" stroke="#475569"/>
+  <text x="289" y="404" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14" fill="#E2E8F0" text-anchor="middle">candidate gate</text>
+
+  <rect x="380" y="382" width="150" height="34" rx="6" fill="#1E293B" stroke="#475569"/>
+  <text x="455" y="404" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14" fill="#E2E8F0" text-anchor="middle">AI-tone audit</text>
+
+  <rect x="72" y="438" width="194" height="34" rx="6" fill="#1E293B" stroke="#475569"/>
+  <text x="169" y="460" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14" fill="#E2E8F0" text-anchor="middle">paragraph designer</text>
+
+  <rect x="282" y="438" width="166" height="34" rx="6" fill="#1E293B" stroke="#475569"/>
+  <text x="365" y="460" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14" fill="#E2E8F0" text-anchor="middle">human approval</text>
+
+  <g transform="translate(660 84)">
+    <rect x="0" y="0" width="456" height="72" rx="10" fill="#172033" stroke="#2563EB" stroke-width="2"/>
+    <text x="228" y="31" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" fill="#DBEAFE" text-anchor="middle" font-weight="700">topic-architect</text>
+    <text x="228" y="54" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#93C5FD" text-anchor="middle">读者卡点 / 知识上下游 / prompt 示例</text>
+
+    <path d="M228 82V108" stroke="#64748B" stroke-width="2"/>
+    <polygon points="228,118 220,106 236,106" fill="#64748B"/>
+
+    <rect x="0" y="128" width="456" height="80" rx="10" fill="#18241F" stroke="#0F766E" stroke-width="2"/>
+    <text x="228" y="160" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" fill="#CCFBF1" text-anchor="middle" font-weight="700">section-writer</text>
+    <text x="228" y="184" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#99F6E4" text-anchor="middle">语义单元候选 · 删除公共轨道 · 评分选择</text>
+
+    <path d="M228 218V244" stroke="#64748B" stroke-width="2"/>
+    <polygon points="228,254 220,242 236,242" fill="#64748B"/>
+
+    <rect x="0" y="264" width="456" height="86" rx="10" fill="#221B32" stroke="#7C3AED" stroke-width="2"/>
+    <text x="228" y="296" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" fill="#EDE9FE" text-anchor="middle" font-weight="700">review fan-out → rewrite designer → rewriter</text>
+    <text x="228" y="320" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#C4B5FD" text-anchor="middle">五路审查只提意见，designer 选稿，rewriter 合稿</text>
+
+    <path d="M228 360V386" stroke="#64748B" stroke-width="2"/>
+    <polygon points="228,396 220,384 236,384" fill="#64748B"/>
+
+    <rect x="0" y="406" width="456" height="80" rx="10" fill="#2A2117" stroke="#F59E0B" stroke-width="2"/>
+    <text x="228" y="438" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" fill="#FEF3C7" text-anchor="middle" font-weight="700">final gates</text>
+    <text x="228" y="462" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#FDE68A" text-anchor="middle">AI 味回归 · 论证流 · code-check · 人工终审</text>
+  </g>
+
+  <text x="72" y="584" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#64748B">github.com/bzwh321/article-director-public · github.com/bzwh321/article-director</text>
+</svg>

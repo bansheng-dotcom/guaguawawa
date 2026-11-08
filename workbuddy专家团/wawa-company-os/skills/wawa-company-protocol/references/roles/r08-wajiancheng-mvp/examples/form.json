@@ -1,0 +1,9 @@
+{
+  "formspree_endpoint": "https://formspree.io/f/x",
+  "fields": [
+    {
+      "name": "email",
+      "label": "邮箱"
+    }
+  ]
+}

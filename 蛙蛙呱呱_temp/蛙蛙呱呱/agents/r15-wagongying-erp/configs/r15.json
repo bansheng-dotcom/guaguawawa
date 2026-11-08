@@ -1,0 +1,84 @@
+{
+  "_note": "蛙供应（ERP / 供应链）运行配置：阈值/维度/数据源外置，改规则不改代码（META-001 Stage 3）。",
+  "role": "r15",
+  "language": "zh",
+  "enable_cache": true,
+  "enable_vector": false,
+  "report": {
+    "engine": "agents/shared/report_engine.py",
+    "generator": "agents/shared/report_generator.py",
+    "doc_type": "ERP / 供应链",
+    "formats": [
+      "html",
+      "md"
+    ],
+    "sections": [
+      "决策指令",
+      "KPI 格栅",
+      "三级归因",
+      "护栏熔断",
+      "灰度+下一步"
+    ]
+  },
+  "kpis": [
+    {
+      "id": "safety_days",
+      "name": "安全库存天数",
+      "formula": "可用库存 / 日均消耗",
+      "unit": "天",
+      "target": "≥ 14",
+      "alert": "< 7 紧急补货"
+    },
+    {
+      "id": "turnover",
+      "name": "库存周转天数",
+      "formula": "平均库存 / 日均销货成本",
+      "unit": "天",
+      "target": "≤ 45",
+      "alert": "> 60 清库"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "安全库存 < 7 天",
+      "verdict": "BLOCKER",
+      "action": "当日下补货单"
+    },
+    {
+      "id": "G2",
+      "when": "三单匹配率 < 95%",
+      "verdict": "BLOCKER",
+      "action": "暂停付款"
+    },
+    {
+      "id": "G3",
+      "when": "周转 > 60 天",
+      "verdict": "WARN",
+      "action": "启动清库与促销"
+    }
+  ],
+  "guardrails": [
+    {
+      "dim": "安全库存天数",
+      "metric": "安全库存天数",
+      "base": "≥ 14",
+      "threshold": "< 7 紧急补货"
+    },
+    {
+      "dim": "库存周转天数",
+      "metric": "库存周转天数",
+      "base": "≤ 45",
+      "threshold": "> 60 清库"
+    }
+  ],
+  "data_sources": [
+    {
+      "name": "examples/",
+      "type": "local_json",
+      "permission": "read_only",
+      "note": "本轮真实执行所用输入，报告页脚记录 SHA256"
+    }
+  ],
+  "case": "stockout-risk"
+}

@@ -1,0 +1,11 @@
+{
+  "project_config": {"name": "demo", "main_scene": "res://main.tscn"},
+  "scenes": [
+    {"path": "res://main.tscn", "script": "res://main.gd"},
+    {"path": "res://ui/hud.tscn", "script": "res://ui/hud.gd"}
+  ],
+  "scripts": [
+    {"path": "res://main.gd"},
+    {"path": "res://ui/hud.gd"}
+  ]
+}

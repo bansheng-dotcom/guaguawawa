@@ -1,0 +1,15 @@
+{
+  "id": "SO-2026-002",
+  "customer": "客户A",
+  "status": "To Deliver",
+  "delivery_status": "Not Delivered",
+  "billing_status": "Not Billed",
+  "items": [
+    {
+      "item_code": "FG-001",
+      "qty": 10,
+      "rate": 88.0
+    }
+  ],
+  "grand_total": 999.0
+}

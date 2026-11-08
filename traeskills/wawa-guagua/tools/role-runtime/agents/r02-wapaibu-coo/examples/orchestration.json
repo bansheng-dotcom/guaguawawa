@@ -1,0 +1,12 @@
+{
+  "tasks": [
+    {"id": "t1", "owner_role": "r06", "depends_on": [], "est_hours": 6},
+    {"id": "t2", "owner_role": "r07", "depends_on": ["t1"], "est_hours": 8},
+    {"id": "t3", "owner_role": "r08", "depends_on": ["t1"], "est_hours": 8},
+    {"id": "t4", "owner_role": "r09", "depends_on": ["t2", "t3"], "est_hours": 6}
+  ],
+  "gates": [
+    {"name": "素材文案红线评审", "type": "redline", "blocks": ["t2"], "approved": true},
+    {"name": "周例会同步", "type": "normal", "blocks": ["t4"], "approved": true}
+  ]
+}

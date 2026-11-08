@@ -1,0 +1,23 @@
+{
+  "main": "void main() => runApp(App());",
+  "app": "MaterialApp 根组件",
+  "core": "主题与导航配置",
+  "features": [
+    {
+      "name": "登录",
+      "layers": {
+        "data": "d",
+        "domain": "d",
+        "presentation": "p",
+        "providers": "p"
+      }
+    }
+  ],
+  "shared_widgets": [
+    "主按钮"
+  ],
+  "router": "路由表",
+  "platforms": [
+    "harmonyos"
+  ]
+}

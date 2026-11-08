@@ -1,0 +1,9 @@
+{
+  "_comment": "human package 脏夹具：reviewer==producer（r08 自评）→ 身份红线 BLOCKED",
+  "artifact": "landing.html",
+  "review_dimensions": ["文案"],
+  "criteria_ref": "criteria/landing-acceptance.json",
+  "producer": "r08",
+  "reviewer": "r08",
+  "deadline": "2026-11-06"
+}

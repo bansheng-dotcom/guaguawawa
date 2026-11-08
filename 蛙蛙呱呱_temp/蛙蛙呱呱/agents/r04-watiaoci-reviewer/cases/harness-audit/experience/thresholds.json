@@ -1,0 +1,15 @@
+{
+  "_comment": "harness-audit 案例阈值（引用主 thresholds.json 键名，案例侧只放本案例独有口径）",
+  "case": {
+    "dirty_errors": 2,
+    "dirty_score": 70,
+    "clean_score": 100
+  },
+  "shared_threshold_refs": {
+    "patterns": "strength.patterns（见 experience/thresholds.json）",
+    "error_penalty": "strength.error_penalty（见 experience/thresholds.json）",
+    "warning_penalty": "strength.warning_penalty（见 experience/thresholds.json）",
+    "solid_min": "strength.solid_min（见 experience/thresholds.json）",
+    "at_risk_min": "strength.at_risk_min（见 experience/thresholds.json）"
+  }
+}

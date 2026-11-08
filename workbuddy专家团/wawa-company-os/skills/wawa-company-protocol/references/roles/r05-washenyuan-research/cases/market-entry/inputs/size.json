@@ -1,0 +1,21 @@
+{
+  "market": "中国 AI 编程助手（亿元）",
+  "top_down": {
+    "components": [
+      {"name": "IDE插件", "value": 80},
+      {"name": "独立IDE", "value": 30},
+      {"name": "企业私有化", "value": 10}
+    ]
+  },
+  "bottom_up": {
+    "customer_count": 200,
+    "addressable_fraction": 0.5,
+    "annual_quantity": 1,
+    "price_per_unit": 1.2
+  },
+  "scenarios": [
+    {"name": "downside", "serviceable_fraction": 0.3, "obtainable_share": 0.05},
+    {"name": "base", "serviceable_fraction": 0.4, "obtainable_share": 0.1},
+    {"name": "upside", "serviceable_fraction": 0.5, "obtainable_share": 0.15}
+  ]
+}

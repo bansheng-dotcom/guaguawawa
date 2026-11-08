@@ -1,0 +1,11 @@
+{
+  "model_name": "dim_customer",
+  "materialized": "view_plus",
+  "depends_on": [
+    "stg_customer"
+  ],
+  "all_models": [
+    "stg_customer",
+    "dim_customer"
+  ]
+}

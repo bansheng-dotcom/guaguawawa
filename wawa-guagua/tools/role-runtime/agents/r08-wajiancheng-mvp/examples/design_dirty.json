@@ -1,0 +1,26 @@
+{
+  "tokens": {
+    "color": [],
+    "typography": [
+      {
+        "name": "h1",
+        "value": "24px"
+      }
+    ],
+    "spacing": [
+      {
+        "name": "g",
+        "value": "8px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "B",
+      "platform": "web",
+      "states": [
+        "d"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "RFQ-2026-001",
+  "status": "Submitted",
+  "required_by": "2026-12-15",
+  "suppliers": [
+    {
+      "supplier": "A"
+    },
+    {
+      "supplier": "B"
+    },
+    {
+      "supplier": "C"
+    }
+  ],
+  "items": [
+    {
+      "item_code": "RM-001",
+      "qty": 100
+    }
+  ]
+}

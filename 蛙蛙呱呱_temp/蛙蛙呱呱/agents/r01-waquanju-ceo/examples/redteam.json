@@ -1,0 +1,11 @@
+{
+  "plan": "自助版定价 99→149 上调（推荐新档 129 灰度）",
+  "concerns": [
+    {"level": "CRITICAL", "issue": "历史客户对涨价的愤怒集中在无预告，而非幅度",
+     "mitigation": "提前 30 天邮件公告 + 老客锁价 6 个月（owner: r11，due: 11-10）"},
+    {"level": "HIGH", "issue": "竞品 159 可能在我们调价同期降价搅局",
+     "mitigation": "灰度首周每日盯竞品价格页，触发即暂停 rollout"},
+    {"level": "MEDIUM", "issue": "129 与 149 两档并存会让定价页复杂化",
+     "mitigation": "定价页只露 129 一档，149 走销售通道"}
+  ]
+}

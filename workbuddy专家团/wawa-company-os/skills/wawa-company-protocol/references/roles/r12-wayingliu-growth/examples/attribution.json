@@ -1,0 +1,5 @@
+{
+  "model": "last_non_direct",
+  "dedup_source": "以用户首次注册来源为单一真源，不跨平台求和",
+  "tracking_fields": ["event_name", "utm_source", "utm_medium", "utm_campaign", "user_id", "timestamp"]
+}

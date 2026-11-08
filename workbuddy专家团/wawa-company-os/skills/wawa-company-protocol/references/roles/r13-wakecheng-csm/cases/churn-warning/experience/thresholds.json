@@ -1,0 +1,36 @@
+{
+  "_note": "churn-warning 案例级阈值：覆盖角色全局阈值，未列出的沿用以 experience/thresholds.json 为底。",
+  "kpis": {
+    "ndr": {
+      "name": "月度活跃净留存",
+      "formula": "(期初 MRR + 扩张 − 流失 − 降级) / 期初 MRR",
+      "unit": "%",
+      "target": "≥ 100",
+      "alert": "< 95 启动挽回"
+    },
+    "health": {
+      "name": "平均健康分",
+      "formula": "加权（使用频次/工单/续约意愿）",
+      "unit": "分",
+      "target": "≥ 70",
+      "alert": "< 60 全量排查"
+    }
+  },
+  "gates": {
+    "G1": {
+      "when": "NDR < 95%",
+      "verdict": "BLOCKER",
+      "action": "启动专项挽回并上报 R01"
+    },
+    "G2": {
+      "when": "P1 工单首响 > 8h",
+      "verdict": "WARN",
+      "action": "升级值班，补 SLA"
+    },
+    "G3": {
+      "when": "续约前 30 天无触达记录",
+      "verdict": "WARN",
+      "action": "强制排期触达"
+    }
+  }
+}

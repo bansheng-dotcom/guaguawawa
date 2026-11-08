@@ -1,0 +1,10 @@
+﻿{
+    "jtbd":  {
+                 "scenario":  "collaboration",
+                 "user_need":  "auto-dispatch"
+             },
+    "opportunity":  {
+                        "target_market":  "saas",
+                        "growth_potential":  "high"
+                    }
+}

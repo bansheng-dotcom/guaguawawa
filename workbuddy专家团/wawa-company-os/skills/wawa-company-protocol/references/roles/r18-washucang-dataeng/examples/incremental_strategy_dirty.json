@@ -1,0 +1,6 @@
+{
+  "stream": "orders",
+  "mode": "incremental",
+  "partition": "daily",
+  "late_arrival_days": 1
+}

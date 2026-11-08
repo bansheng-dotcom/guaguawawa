@@ -1,0 +1,36 @@
+{
+  "dimension": "channel",
+  "total": 13441.73,
+  "items": [
+    {
+      "segment": "抖音",
+      "value": 4663.41,
+      "share_pct": 34.69,
+      "cum_share_pct": 34.69,
+      "rank": 1
+    },
+    {
+      "segment": "微信",
+      "value": 3567.54,
+      "share_pct": 26.54,
+      "cum_share_pct": 61.23,
+      "rank": 2
+    },
+    {
+      "segment": "知乎",
+      "value": 3124.76,
+      "share_pct": 23.25,
+      "cum_share_pct": 84.48,
+      "rank": 3
+    },
+    {
+      "segment": "小红书",
+      "value": 2086.02,
+      "share_pct": 15.52,
+      "cum_share_pct": 100.0,
+      "rank": 4
+    }
+  ],
+  "pareto_top_n_for_80pct": 3,
+  "pareto_threshold_pct": 80
+}

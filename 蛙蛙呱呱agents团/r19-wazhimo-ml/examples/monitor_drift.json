@@ -1,0 +1,8 @@
+{
+  "metric": "answer_relevance",
+  "threshold": "均值 < 3.5 持续 1 小时",
+  "threshold_value": 3.5,
+  "channel": "值班群 + 邮件",
+  "owner": "R20 蛙值守",
+  "narrative": "质量指标下滑告警需求，交由 R20 持续观察"
+}

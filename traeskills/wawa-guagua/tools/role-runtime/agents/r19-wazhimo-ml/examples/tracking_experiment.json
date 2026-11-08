@@ -1,0 +1,8 @@
+{
+  "experiment_id": "exp-2041",
+  "name": "客服问答助手评估",
+  "use_case": "genai",
+  "experiment_kind": "genai_development",
+  "tracking_uri": "http://mlflow.internal:5000",
+  "description": "客服问答助手提示词迭代与评估实验"
+}

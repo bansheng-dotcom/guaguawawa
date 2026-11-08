@@ -1,0 +1,46 @@
+{
+  "sent_count": 50,
+  "responses": [
+    {
+      "nps_score": 9,
+      "open_text": "响应速度很快，界面也很清晰，响应速度令人满意"
+    },
+    {
+      "nps_score": 10,
+      "open_text": "功能齐全，客户成功团队响应及时"
+    },
+    {
+      "nps_score": 8,
+      "open_text": "整体不错，响应速度可以"
+    },
+    {
+      "nps_score": 6,
+      "open_text": "客服回复有点慢，界面有点卡"
+    },
+    {
+      "nps_score": 4,
+      "open_text": "客服回复太慢，界面卡顿严重"
+    },
+    {
+      "nps_score": 3,
+      "open_text": "界面卡顿，客服回复慢"
+    },
+    {
+      "nps_score": 9,
+      "open_text": "很好用，客服响应速度一流"
+    },
+    {
+      "nps_score": 10,
+      "open_text": "推荐，响应速度非常快"
+    },
+    {
+      "nps_score": 7,
+      "open_text": "中规中矩，界面清晰"
+    },
+    {
+      "nps_score": 10,
+      "open_text": "客服响应速度没得说"
+    }
+  ],
+  "summary": "50 发 10 回收，NPS 由推荐者/贬损者三桶实算。"
+}

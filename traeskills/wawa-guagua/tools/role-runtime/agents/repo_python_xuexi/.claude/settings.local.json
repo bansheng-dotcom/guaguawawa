@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python gen.py)",
+      "Bash(rm -f gen.py)",
+      "Bash(python -c \"import json; nb=json.load\\(open\\(r'拓展_W1D6_快达出行_异动分析深度.ipynb','r',encoding='utf-8'\\)\\); codes=[c for c in nb['cells'] if c['cell_type']=='code']; print\\(f'OK: {len\\(nb[\\\\\"cells\\\\\"]\\)} cells, {len\\(codes\\)} code cells'\\)\")",
+      "Bash(pip list *)",
+      "Bash(where jupyter *)",
+      "Bash(jupyter nbconvert *)",
+      "Bash(where wkhtmltopdf *)",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import playwright; print\\('playwright version:', playwright.__version__\\)\")",
+      "Bash(playwright install *)"
+    ]
+  }
+}

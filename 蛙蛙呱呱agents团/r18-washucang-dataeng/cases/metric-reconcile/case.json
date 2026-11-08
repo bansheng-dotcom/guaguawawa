@@ -1,0 +1,40 @@
+{
+  "case_id": "metric-reconcile",
+  "display_name": "跨表口径对账与数据资产健康度",
+  "description": "orders 表 1000 行质量检查通过，但与上游对账差异 0.12%，下游看板是否必须阻断？",
+  "default_question": "orders 表 1000 行质量检查通过，但与上游对账差异 0.12%，下游看板是否必须阻断？",
+  "artifact_type": "dataset",
+  "summary": "跨表口径对账与数据资产健康度",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "dataset",
+    "data_catalog"
+  ],
+  "skills": [
+    "quality",
+    "transform",
+    "pipeline",
+    "catalog"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "业务口径定义权",
+    "看板呈现设计"
+  ],
+  "steps": [
+    {
+      "skill": "quality",
+      "action": "check",
+      "input": "examples/quality_check.json",
+      "expect": {
+        "verdict": "PASS",
+        "row_count": 1000
+      }
+    }
+  ]
+}

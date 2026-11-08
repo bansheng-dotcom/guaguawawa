@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "opening": {
+      "minutes": 2
+    },
+    "warmup": {
+      "minutes": 5
+    },
+    "core": {
+      "minutes": 18
+    },
+    "wrapup": {
+      "minutes": 4
+    }
+  },
+  "mom_test_rules": {
+    "no_pitching": true,
+    "listen_ratio_80_20": true,
+    "ask_why_deep": true
+  },
+  "note_fields": [
+    "participant",
+    "biggest_pain",
+    "desired_outcome",
+    "willingness_to_pay"
+  ]
+}

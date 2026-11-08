@@ -1,0 +1,10 @@
+{
+  "artifact_type": "landing",
+  "slices": [
+    {
+      "name": "单页落地页收集邮箱",
+      "testable_hypothesis": "目标用户看到价值主张后愿意留下邮箱",
+      "success_criterion": "3 天内 100 次访问获 10 个邮箱提交"
+    }
+  ]
+}

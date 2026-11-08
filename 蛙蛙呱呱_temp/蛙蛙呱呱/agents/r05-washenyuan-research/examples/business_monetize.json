@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "subscription",
+    "pricing_tiers": [
+      {"tier": "团队版", "price": 500, "unit": "人/年"},
+      {"tier": "企业版", "price": 1200, "unit": "人/年"}
+    ],
+    "unit_economics": {"price": 1200, "cogs": 300, "cac": 800, "ltv": 4800}
+  }
+}

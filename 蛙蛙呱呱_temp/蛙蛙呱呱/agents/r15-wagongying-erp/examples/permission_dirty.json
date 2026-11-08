@@ -1,0 +1,14 @@
+{
+  "matrix": [
+    {
+      "role": "buyer",
+      "doctype": "Purchase Order",
+      "action": "create"
+    },
+    {
+      "role": "buyer",
+      "doctype": "Purchase Order",
+      "action": "delete"
+    }
+  ]
+}

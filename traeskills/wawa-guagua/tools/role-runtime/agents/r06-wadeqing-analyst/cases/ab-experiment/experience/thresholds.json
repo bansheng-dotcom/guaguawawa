@@ -1,0 +1,6 @@
+{
+  "alpha": 0.05,
+  "srm_critical_chi2": 3.841,
+  "impact_min_pct": 3.0,
+  "cohens_d": {"small": 0.2, "medium": 0.5, "large": 0.8}
+}

@@ -1,0 +1,4 @@
+{
+  "_comment": "测试保护重构案例阈值（引用全局 thresholds.json 键名，不手抄数值）。",
+  "min_repro_steps": "见 thresholds.json debug.min_repro_steps"
+}

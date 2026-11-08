@@ -1,0 +1,12 @@
+{
+  "personality": "playful",
+  "duration_ms": 220,
+  "easing": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+  "acceleration": {"enter": "decelerate", "exit": "accelerate"},
+  "reduced_motion": true,
+  "layers": {
+    "primary": "徽标弹入",
+    "secondary": "卡片淡入",
+    "ambient": "背景粒子缓漂"
+  }
+}

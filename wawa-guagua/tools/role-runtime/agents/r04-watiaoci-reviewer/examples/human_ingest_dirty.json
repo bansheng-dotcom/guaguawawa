@@ -1,0 +1,21 @@
+{
+  "_comment": "human ingest 脏夹具：非法 comment.kind / selection 缺 anchor / 非法 edit.kind / edited 缺 after / moved 缺定位 → 5 违例",
+  "status": "feedback",
+  "pages": [
+    {
+      "file": "landing.html",
+      "edits_saved": false,
+      "comments": [
+        {"id": "c1", "kind": "inline", "quote": "任意", "feedback": "非法 kind"},
+        {"id": "c2", "kind": "selection", "quote": "一键启动", "feedback": "缺 anchor"}
+      ],
+      "edits": [
+        {"label": "e1", "kind": "replaced"},
+        {"label": "e2", "kind": "edited", "before": "旧文案", "after": ""},
+        {"label": "e3", "kind": "moved", "before": "块内容"}
+      ]
+    }
+  ],
+  "staged_assets": [],
+  "overall_note": ""
+}

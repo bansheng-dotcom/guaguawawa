@@ -1,0 +1,8 @@
+{
+  "case_id": "credential-leak",
+  "display_name": "凭据明文写入工作流",
+  "description": "集成工程师在调试时把 api_key 明文写进工作流参数，R17 必须拦截并退回脱敏。",
+  "default_question": "这个工作流参数里能直接放 api_key 吗？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience"
+}

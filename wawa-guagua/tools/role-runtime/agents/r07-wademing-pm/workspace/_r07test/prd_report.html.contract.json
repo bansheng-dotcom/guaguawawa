@@ -1,0 +1,310 @@
+{
+  "doc_type": "产品需求报告 · 蛙得明",
+  "title_lines": [
+    "蛙得明 · PRD",
+    "新用户注册后 7 天内不知道如何创建第一个项目，导致激活率偏低"
+  ],
+  "standfirst": "给新用户分步引导，让其 10 分钟完成首个项目，目标 7 日激活率从 12% 提升到 20%",
+  "meta": [
+    "角色 r07 蛙得明（产品经理）",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "8/8 门禁",
+      "status": "healthy"
+    },
+    {
+      "label": "北极星",
+      "value": "7 日激活率",
+      "note": "NSM",
+      "status": "accent"
+    },
+    {
+      "label": "基线",
+      "value": "12%",
+      "note": "现状",
+      "status": "none"
+    },
+    {
+      "label": "目标",
+      "value": "20%",
+      "note": "预期",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "给新用户分步引导，让其 10 分钟完成首个项目，目标 7 日激活率从 12% 提升到 20%"
+    },
+    {
+      "label": "承重：",
+      "text": "3 项承重假设待验证，未验证前方案仍处假设态。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "问题与用户",
+      "question": "要解决谁的真实问题？",
+      "reading": [
+        {
+          "strong": "问题：",
+          "text": "新用户注册后 7 天内不知道如何创建第一个项目，导致激活率偏低"
+        },
+        {
+          "strong": "用户：",
+          "text": "SaaS 试用新用户（注册后首次登录）"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "价值主张与范围",
+      "question": "怎么做、做到什么边界？",
+      "reading": [
+        {
+          "strong": "Before：",
+          "text": "无引导，全凭新用户自己摸索"
+        },
+        {
+          "strong": "How：",
+          "text": "分步新手引导"
+        },
+        {
+          "strong": "After：",
+          "text": "10 分钟完成首个项目"
+        },
+        {
+          "strong": "P0：",
+          "text": "分步引导流程"
+        },
+        {
+          "strong": "不做：",
+          "text": "不做自动创建项目、不做个性化推荐"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "指标与验收",
+      "question": "怎么算成功？验收标准是什么？",
+      "reading": [
+        {
+          "strong": "北极星：",
+          "text": "7 日激活率"
+        },
+        {
+          "strong": "基线 → 目标：",
+          "text": "12% → 20%"
+        },
+        {
+          "strong": "护栏：",
+          "text": "引导中途放弃率"
+        }
+      ],
+      "table": {
+        "caption": "验收准则（Given/When/Then）",
+        "columns": [
+          {
+            "text": "Given"
+          },
+          {
+            "text": "When"
+          },
+          {
+            "text": "Then"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "新用户完成注册"
+            },
+            {
+              "text": "首次进入工作台"
+            },
+            {
+              "text": "出现分步引导"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "title": "承重假设",
+      "question": "哪些假设不成立会让方案崩塌？",
+      "table": {
+        "caption": "风险假设与验证方式",
+        "columns": [
+          {
+            "text": "假设"
+          },
+          {
+            "text": "验证方式"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "用户愿意跟随引导"
+            },
+            {
+              "text": "小流量实验"
+            }
+          ],
+          [
+            {
+              "text": "引导不打断核心任务"
+            },
+            {
+              "text": "可用性测试"
+            }
+          ],
+          [
+            {
+              "text": "引导能提升激活率"
+            },
+            {
+              "text": "A/B 实验"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "title": "门禁结果",
+      "question": "PRD 八门禁是否全部通过？",
+      "table": {
+        "caption": "门禁检查明细",
+        "columns": [
+          {
+            "text": "维度"
+          },
+          {
+            "text": "判定"
+          },
+          {
+            "text": "说明"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "gate.problem"
+            },
+            {
+              "text": "✓"
+            },
+            {
+              "text": "问题门禁：一句话说清真实问题"
+            }
+          ],
+          [
+            {
+              "text": "gate.user"
+            },
+            {
+              "text": "✓"
+            },
+            {
+              "text": "用户门禁：目标用户/分群"
+            }
+          ],
+          [
+            {
+              "text": "gate.value"
+            },
+            {
+              "text": "✓"
+            },
+            {
+              "text": "价值门禁：价值主张（Before/How/After/Alternatives）"
+            }
+          ],
+          [
+            {
+              "text": "gate.scope"
+            },
+            {
+              "text": "✓"
+            },
+            {
+              "text": "范围门禁：P0 + 不在范围"
+            }
+          ],
+          [
+            {
+              "text": "gate.metric"
+            },
+            {
+              "text": "✓"
+            },
+            {
+              "text": "指标门禁：指标可定义（口径/数据源/基线）"
+            }
+          ],
+          [
+            {
+              "text": "gate.acceptance"
+            },
+            {
+              "text": "✓"
+            },
+            {
+              "text": "验收门禁：有 Given/When/Then 验收标准"
+            }
+          ],
+          [
+            {
+              "text": "gate.risk"
+            },
+            {
+              "text": "✓"
+            },
+            {
+              "text": "风险门禁：≥3 承重假设（实际 3）"
+            }
+          ],
+          [
+            {
+              "text": "gate.read"
+            },
+            {
+              "text": "✓"
+            },
+            {
+              "text": "可读门禁：Executive Summary 先行"
+            }
+          ]
+        ]
+      },
+      "boundary": {
+        "title": "证据边界",
+        "text": "PRD 门禁只校验结构完整性与口径可定义，不评估方案优劣。"
+      }
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "R07 skills/s03_prd.py 门禁 + PRD 输入 JSON。"
+      },
+      {
+        "label": "边界：",
+        "text": "PRD 是需求假设，非数据结论；需 R06 验证、R04 评审。"
+      }
+    ]
+  },
+  "footer": [
+    "R07 蛙得明 · 产品经理",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

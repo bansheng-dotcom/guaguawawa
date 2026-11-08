@@ -1,0 +1,69 @@
+workflow_id: ui-brief
+display_name: UI Brief 与页面产品说明工作流
+status: draft
+owner: 产品管理
+priority: P1
+purpose: >
+  将需求或 PRD 翻译成页面目标、信息架构、用户动作、状态清单和 UI 审查重点。
+  这个 workflow 负责 PM 侧低保真产品说明，不负责高保真设计或视觉系统。
+
+trigger_signals:
+  - 页面怎么设计
+  - UI brief
+  - 页面目标
+  - 信息架构
+  - 交互状态
+  - 前端页面说明
+
+entry_policy:
+  before_entering:
+    - 如果本轮要产出正式 UI brief，按重任务处理，先读 `workflows/HEAVY_TASK_RAG_RULES.md`
+    - 重任务先执行 `workflows/experience-rag/workflow.yaml` 的 `heavy-task` 模式；内部追问默认复用 `experience_brief`，关键维度变化才执行 `pre-question` L1
+    - 先确认页面服务哪个用户任务
+    - 如果需求未成立，先回 requirement-report
+    - 如果需要高保真视觉，先产出 PM 本地 brief，再给可选视觉设计能力提醒
+  can_start_when:
+    - 有需求、PRD 或清晰页面问题
+    - 能说明用户来到页面要完成什么
+  must_not_start_when:
+    - 用户要求直接做高保真设计稿
+    - 页面目标和用户任务完全不清楚
+
+required_inputs:
+  - requirement_or_prd
+  - target_user_task
+  - page_or_flow_context
+  - constraints
+
+outputs:
+  - ui_brief
+  - page_goal
+  - information_architecture
+  - user_action_map
+  - state_inventory
+  - optional_review_hints
+  - next_workflow_suggestion
+
+managed_files:
+  topology: workflows/ui-brief/topology.md
+  quality_guide: workflows/ui-brief/references/ui-brief-guide.md
+  review_hints: workflows/ui-brief/review_hints.yaml
+  runner: workflows/ui-brief/runner.md
+  prompt_current: workflows/ui-brief/prompts/current.md
+  prompt_changelog: workflows/ui-brief/prompts/CHANGELOG.md
+  heavy_task_rules: workflows/HEAVY_TASK_RAG_RULES.md
+
+validation_gates:
+  - gate: task_gate
+    pass_standard: 页面目标和用户任务清楚
+  - gate: hierarchy_gate
+    pass_standard: 信息优先级服务用户动作
+  - gate: state_gate
+    pass_standard: 空态、加载、成功、失败、权限状态覆盖
+  - gate: handoff_hint_gate
+    pass_standard: 只给可选 UI/前端复核提醒，不自动触发
+
+version:
+  prompt: "0.4"
+  workflow: "0.4"
+  updated_at: "2026-07-01"

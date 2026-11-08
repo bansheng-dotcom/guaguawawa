@@ -1,0 +1,11 @@
+{
+  "media": "illustration",
+  "style": "line-art",
+  "prompt": "一只戴眼镜的青蛙坐在数据看板前，科普数据分析如何用根因树定位异常",
+  "negative_prompt": "3D, 照片, 背景渐变, 非黑白黄三色",
+  "style_locks": [
+    "线稿手绘",
+    "纯白背景",
+    "#111111/#FFC21A 双色"
+  ]
+}

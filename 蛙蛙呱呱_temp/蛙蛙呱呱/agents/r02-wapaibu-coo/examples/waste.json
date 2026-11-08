@@ -1,0 +1,9 @@
+{
+  "steps": [
+    {"name": "需求评审", "owner": "r07", "wait_days": 0, "rework": false, "is_control_point": true},
+    {"name": "素材初稿", "owner": "r10", "wait_days": 0, "rework": false, "is_control_point": false},
+    {"name": "素材返工", "owner": "r10", "wait_days": 0, "rework": true, "is_control_point": false},
+    {"name": "等设计终稿", "owner": "r10", "wait_days": 5, "rework": false, "is_control_point": false},
+    {"name": "开发联调", "owner": "r09", "wait_days": 1, "rework": false, "is_control_point": true}
+  ]
+}

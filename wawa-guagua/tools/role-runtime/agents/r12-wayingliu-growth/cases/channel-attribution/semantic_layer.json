@@ -1,0 +1,126 @@
+{
+  "_note": "蛙引流（Growth / 增长黑客）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
+  "role": "r12",
+  "case_id": "channel-attribution",
+  "artifact_type": "growth_plan",
+  "terms": [
+    {
+      "term": "fake_ratio",
+      "meaning": "伪泛粉占比 = 无效互动用户 / 新增用户（单位 %，目标 ≤ 20%，越界判定：> 40% 立即调整定向）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "roi",
+      "meaning": "渠道 ROI = 渠道毛利 / 渠道花费（单位 ×，目标 ≥ 2，越界判定：< 1.5 连续 3 天停投）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "d1",
+      "meaning": "次留率 = 次日回访用户 / 新增用户（单位 %，目标 ≥ 25，越界判定：< 15 判定渠道无效）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "G1",
+      "meaning": "门禁：伪泛粉 > 40% → BLOCKER，处置 停机复审定向",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G2",
+      "meaning": "门禁：归因窗口不一致 → WARN，处置 统一归因口径后再比较",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G3",
+      "meaning": "门禁：单位经济为负仍加投 → BLOCKER，处置 立即停投",
+      "source": "semantic_layer.gates"
+    }
+  ],
+  "facts": {
+    "fake_ratio": {
+      "name": "伪泛粉占比",
+      "formula": "无效互动用户 / 新增用户",
+      "unit": "%",
+      "target": "≤ 20%",
+      "alert": "> 40% 立即调整定向"
+    },
+    "roi": {
+      "name": "渠道 ROI",
+      "formula": "渠道毛利 / 渠道花费",
+      "unit": "×",
+      "target": "≥ 2",
+      "alert": "< 1.5 连续 3 天停投"
+    },
+    "d1": {
+      "name": "次留率",
+      "formula": "次日回访用户 / 新增用户",
+      "unit": "%",
+      "target": "≥ 25",
+      "alert": "< 15 判定渠道无效"
+    }
+  },
+  "kpis": [
+    {
+      "id": "fake_ratio",
+      "name": "伪泛粉占比",
+      "formula": "无效互动用户 / 新增用户",
+      "unit": "%",
+      "target": "≤ 20%",
+      "alert": "> 40% 立即调整定向"
+    },
+    {
+      "id": "roi",
+      "name": "渠道 ROI",
+      "formula": "渠道毛利 / 渠道花费",
+      "unit": "×",
+      "target": "≥ 2",
+      "alert": "< 1.5 连续 3 天停投"
+    },
+    {
+      "id": "d1",
+      "name": "次留率",
+      "formula": "次日回访用户 / 新增用户",
+      "unit": "%",
+      "target": "≥ 25",
+      "alert": "< 15 判定渠道无效"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "伪泛粉 > 40%",
+      "verdict": "BLOCKER",
+      "action": "停机复审定向"
+    },
+    {
+      "id": "G2",
+      "when": "归因窗口不一致",
+      "verdict": "WARN",
+      "action": "统一归因口径后再比较"
+    },
+    {
+      "id": "G3",
+      "when": "单位经济为负仍加投",
+      "verdict": "BLOCKER",
+      "action": "立即停投"
+    }
+  ],
+  "boundary": [
+    {
+      "out_of_scope": "替代财务算毛利",
+      "owner": "R03"
+    },
+    {
+      "out_of_scope": "替代产品改承接页",
+      "owner": "R07/R08"
+    }
+  ],
+  "scope_boundary": [
+    "替代财务算毛利",
+    "替代产品改承接页"
+  ],
+  "decision_order": [
+    "单位经济为正 > 留存质量 > 规模速度",
+    "伪泛粉破线时先停投再谈优化",
+    "多渠冲突时按「回收期 × 次留」综合排序"
+  ]
+}

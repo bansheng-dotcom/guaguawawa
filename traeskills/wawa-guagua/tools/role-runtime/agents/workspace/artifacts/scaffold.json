@@ -1,0 +1,28 @@
+{
+  "stack": "vite-html",
+  "tree": [
+    "index.html",
+    "styles.css",
+    "main.js"
+  ],
+  "files": [
+    {
+      "path": "index.html",
+      "purpose": "落地页单文件入口"
+    },
+    {
+      "path": "main.js",
+      "purpose": "表单提交逻辑"
+    }
+  ],
+  "run_commands": [
+    "npx serve ."
+  ],
+  "auth": "none",
+  "env_vars": [
+    {
+      "name": "FORMSPREE_ENDPOINT",
+      "description": "表单提交端点"
+    }
+  ]
+}

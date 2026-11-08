@@ -1,0 +1,5 @@
+{
+  "operations": ["explode"],
+  "source": "hero.psd",
+  "overwrite": "always"
+}

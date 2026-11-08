@@ -1,0 +1,13 @@
+{
+  "warehouses": [
+    {
+      "warehouse_name": "华东总仓",
+      "is_group": true
+    },
+    {
+      "warehouse_name": "华东原料库",
+      "parent_warehouse": "华东总仓",
+      "is_rejected_warehouse": false
+    }
+  ]
+}

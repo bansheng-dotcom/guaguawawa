@@ -1,0 +1,19 @@
+{
+  "incident": {
+    "title": "双11预售页宕机 30 分钟",
+    "severity": 3,
+    "urgency": 4,
+    "detected_at": "2026-10-20T10:05:00"
+  },
+  "timeline": [
+    {"ts": "2026-10-20T10:05:00", "event": "告警触发：预售页 5xx 飙升"},
+    {"ts": "2026-10-20T10:12:00", "event": "定位 CDN 回源超时"},
+    {"ts": "2026-10-20T10:35:00", "event": "切备用源恢复，服务全量恢复"}
+  ],
+  "root_cause": "CDN 供应商单节点故障且未自动摘除，回源超时无熔断",
+  "contributing_factors": ["无多供应商热备", "告警阈值过宽"],
+  "action_items": [
+    {"action": "上线双源热备", "owner": "r08", "due": "2026-10-27", "status": "planned"},
+    {"action": "收紧告警阈值", "owner": "r06", "due": "2026-10-24", "status": "done"}
+  ]
+}

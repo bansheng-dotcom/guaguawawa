@@ -1,0 +1,8 @@
+{
+  "_comment": "gate run 干净夹具：2 过 + 1 SKIPPED(NONE) → overall PASS",
+  "gates": [
+    {"name": "py-version", "command": "python --version"},
+    {"name": "math-check", "command": "python -c \"print(6*7)\""},
+    {"name": "no-gate", "command": "NONE"}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "_comment": "demo-orders 业务阈值，用于 demo 数据门禁演示。",
+  "amount": {
+    "outlier_sentinel": 50000.0,
+    "desc": "金额>50000 视为哨兵值离群，标记不删除，不进入结论"
+  },
+  "impact_min_pct": 3.0,
+  "desc": "渠道下钻贡献<3% 停止该分支"
+}

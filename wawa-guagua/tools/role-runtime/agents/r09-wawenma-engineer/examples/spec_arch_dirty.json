@@ -1,0 +1,10 @@
+{
+  "topology": "mono",
+  "services": [
+    {"name": "a", "dependencies": []},
+    {"name": "b", "dependencies": []}
+  ],
+  "edges": [
+    {"from": "a", "to": "c"}
+  ]
+}

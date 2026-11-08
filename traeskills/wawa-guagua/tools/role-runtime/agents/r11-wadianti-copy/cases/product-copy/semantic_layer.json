@@ -1,0 +1,21 @@
+{
+  "artifact_type": "ad_copy",
+  "terms": [
+    {"term": "广告三件套", "meaning": "headline/benefit/cta 三字段，cta 在白名单内"},
+    {"term": "绝对化禁词", "meaning": "最/第一/绝对/保证/百分百 等广告法红线词"},
+    {"term": "品牌语调指南", "meaning": "audience/tone/terms/forbidden/grammar 六维齐备"},
+    {"term": "多平台改写", "meaning": "按 platform/length_limit/tone_shift/hashtags 出平台版本"},
+    {"term": "发布授权", "meaning": "发布清单逐条 authorized=true 才可对外发出"}
+  ],
+  "gates": [
+    "广告三件套齐备且 cta 在白名单",
+    "headline/benefit 无绝对化禁词",
+    "品牌语调指南六维覆盖≥4",
+    "发布清单逐条 authorized=true"
+  ],
+  "boundary": [
+    "不编造产品数据与来源",
+    "绝对化用语一律拦截，无论主观觉得多合理",
+    "对外发布需授权与合规检查，不替读者做消费决策"
+  ]
+}

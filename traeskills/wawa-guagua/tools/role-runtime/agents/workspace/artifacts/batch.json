@@ -1,0 +1,14 @@
+{
+  "batches": [
+    {
+      "batch_id": "b1",
+      "item_count": 50,
+      "status": "succeeded"
+    },
+    {
+      "batch_id": "b2",
+      "item_count": 30,
+      "status": "succeeded"
+    }
+  ]
+}

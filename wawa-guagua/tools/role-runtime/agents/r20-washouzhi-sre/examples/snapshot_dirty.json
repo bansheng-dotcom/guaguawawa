@@ -1,0 +1,12 @@
+{
+  "repo": "/backups/repo",
+  "snapshots": [
+    {
+      "snapshot_id": "snap-001"
+    },
+    {
+      "snapshot_id": "snap-001"
+    }
+  ],
+  "retention_policy": "keep_daily"
+}

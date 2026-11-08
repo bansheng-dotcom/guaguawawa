@@ -1,0 +1,26 @@
+{
+  "artifact_type": "pipeline_view",
+  "terms": [
+    {"term": "阶段枚举", "meaning": "NEW/SCREENING/MEETING/PROPOSAL/NEGOTIATION/WON/LOST，口径来自 twenty 的标准阶段，不得自造中文阶段名"},
+    {"term": "开放阶段", "meaning": "NEW/SCREENING/MEETING/PROPOSAL/NEGOTIATION；WON/LOST 是封闭阶段，不进加权池"},
+    {"term": "加权管道值", "meaning": "Σ(amount × stage_probability)，只对开放阶段求和，避免已赢的单重复计入预测"},
+    {"term": "停滞商机", "meaning": "开放阶段且 days_in_stage > stall_days_max，必须写 stall_reason，否则不可交付"},
+    {"term": "集中度 HHI", "meaning": "按客户汇总开放管道金额的赫芬达尔指数；>0.5 表示单一客户占比过高，收入结构不可接受"},
+    {"term": "下一步", "meaning": "每条开放商机必须有 next_step 与 owner，空着就等于无人负责"}
+  ],
+  "gates": [
+    "全部商机 stage 在七阶段白名单内",
+    "全部商机 amount > 0 且为数值",
+    "开放商机均有 next_step 与 owner",
+    "停滞商机均写 stall_reason",
+    "停滞占比 ≤ 案例阈值 0.2",
+    "客户集中度 HHI ≤ 0.5",
+    "加权值由阶段概率确定性复算，口径可核对"
+  ],
+  "boundary": [
+    "只做管道口径与抢救动作，不替 R12 定投放策略、不替 R07 决定路线图优先级",
+    "不擅自向客户承诺折扣、退款或合同条件——涉及让价必须标 handoff 交 R03/R02",
+    "不替销售个人揽责：停滞归因写「事实 + 待确认项」，不写主观评价",
+    "数据来源必须是 CRM 导出，不接受「凭印象」的金额与阶段"
+  ]
+}

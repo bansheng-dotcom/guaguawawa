@@ -1,0 +1,10 @@
+{
+  "trace_id": "tr-77a2",
+  "state": "ERROR",
+  "spans": [
+    {"span_id": "s0", "parent_span_id": "", "name": "agent", "type": "AGENT",
+     "status": "STATUS_CODE_OK"},
+    {"span_id": "s1", "parent_span_id": "sX", "name": "retrieve", "type": "VECTOR_DB",
+     "status": "STATUS_CODE_OK"}
+  ]
+}

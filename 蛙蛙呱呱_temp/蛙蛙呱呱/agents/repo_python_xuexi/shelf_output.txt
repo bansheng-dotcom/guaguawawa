@@ -1,0 +1,2689 @@
+Total: 1344 (books=1343 albums=0 mp=1)
+Public: 572 | Secret: 772
+
+   1. [b] 利用Python进行数据分析（原书第2版） - 韦斯·麦金尼 | 2026-07-23 
+      https://weread.qq.com/book-detail?type=1&v=75b321f0715afbc075b7c2c
+   2. [b] SQL必知必会（第5版） - 本·福达 | 2026-07-22 
+      https://weread.qq.com/book-detail?type=1&v=f7632a30720befadf7636bb
+   3. [b] 用Python动手学统计学 - 马场真哉 | 2026-07-22 
+      https://weread.qq.com/book-detail?type=1&v=b7d3215072807bddb7d2854
+   4. [b] 自卑与超越（完整全译本） - 阿尔弗雷德·阿德勒 | 2026-07-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=cb13259071c935e6cb13a8e
+   5. [b] CDA一级认证教材:商业数据分析（第4版） - CDA数据科学研究院 | 2026-07-12 
+      https://weread.qq.com/book-detail?type=1&v=bd132c30813aba89ag010299
+   6. [b] 证券分析（全新升级版） - [美]本杰明·格雷厄姆  [美]戴维·多德 | 2026-07-12 
+      https://weread.qq.com/book-detail?type=1&v=89c32460813aba25fg01310e
+   7. [b] 模型思维：数学模型解构大模型黑箱 - [美]斯科特·佩奇 | 2026-07-10 
+      https://weread.qq.com/book-detail?type=1&v=dc73272071a03c59dc77187
+   8. [b] 《SQL进阶教程》高清中文版 -  | 2026-07-08 [S]
+      https://weread.qq.com/book-detail?type=1&v=09942a43643425f43614833724e337068474666367662367853324d53385a7236c
+   9. [b] 成人ADHD全方位自助手册 - [美]J. 罗素·拉姆齐 [美]安东尼·L. 罗斯坦 | 2026-07-08 
+      https://weread.qq.com/book-detail?type=1&v=058325f0813abbaecg013922
+  10. [b] 自然流·救赎之道_完整版 -  | 2026-07-08 [S]
+      https://weread.qq.com/book-detail?type=1&v=827423e3643425f437432434d30434b39445832373457373567394858316f66843
+  11. [b] 精益数据分析 - 阿利斯泰尔·克罗尔 本杰明·尤科维奇 | 2026-07-06 
+      https://weread.qq.com/book-detail?type=1&v=ec332e805dd9f3ec333cba8
+  12. [b] 贫穷的本质：我们为什么摆脱不了贫穷（修订版） - [美]阿比吉特·班纳吉 [法]埃斯特·迪弗洛 | 2026-07-06 
+      https://weread.qq.com/book-detail?type=1&v=9b932ce071726c119b94961
+  13. [b] 赤裸裸的统计学：除去大数据的枯燥外衣，呈现真实的数字之美 - [美]查尔斯·惠伦 | 2026-07-02 
+      https://weread.qq.com/book-detail?type=1&v=7dc32220813ab885dg013f54
+  14. [b] 深入浅出统计学 - （美）格里菲思著 | 2026-07-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=5a042f93643425f397961453958455938477167376677373142396548396458f8d
+  15. [b] 小岛经济学 - [美]彼得·希夫,安德鲁·希夫 | 2026-07-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=082425a3643425f337865464d38303147464f43374c4a37356331344f357147eca
+  16. [b] 这世界既残酷也温柔 - 孙宇晨 | 2026-07-01 
+      https://weread.qq.com/book-detail?type=1&v=c7f32200813abb18ag0101be
+  17. [b] 世界观：现代人必须要懂的科学哲学和科学史（原书第3版） - 理查德·德威特 | 2026-06-30 
+      https://weread.qq.com/book-detail?type=1&v=61f322a071fac4b261f20c8
+  18. [b] 查拉图斯特拉如是说 - [德]弗里德里希·威廉·尼采 | 2026-06-30 
+      https://weread.qq.com/book-detail?type=1&v=ef332700813abb73fg0171fd
+  19. [b] 毛泽东选集1 - 毛泽东 | 2026-06-28 [S]
+      https://weread.qq.com/book-detail?type=1&v=a6542523643425f457447416430416250447a7037304837316236366b346a6843f
+  20. [b] 会聊天的人都这么聊 - [日]五百田达成 | 2026-06-26 
+      https://weread.qq.com/book-detail?type=1&v=52e32fe0813ab7a88g014294
+  21. [b] 噪声：《思考快与慢》作者全新力作 - [美]丹尼尔·卡尼曼 [法]奥利维耶·西博尼 [美]卡斯·R.桑斯坦 | 2026-06-26 
+      https://weread.qq.com/book-detail?type=1&v=d33327e0726c18a9d335459
+  22. [b] 面向数据科学家的实用统计学 - 彼得·布鲁斯 安德鲁·布鲁斯 | 2026-06-26 
+      https://weread.qq.com/book-detail?type=1&v=4483221071a122cb448ddfc
+  23. [b] 第8章_不反应——所有技术的神经基础 -  | 2026-06-25 [S]
+      https://weread.qq.com/book-detail?type=1&v=41d42a83643425f33677744506d445056445832373457373567423172375963257
+  24. [b] 第6章_自我——把女主角换成你自己的名字 -  | 2026-06-24 [S]
+      https://weread.qq.com/book-detail?type=1&v=1cc424c3643425f324d41445061445056445832373457373567443345396d44ae0
+  25. [b] 约会技巧（完） -  | 2026-06-22 [S]
+      https://weread.qq.com/book-detail?type=1&v=a7642a93643425f34766e474a72474c37427344366b48366b74395069426659778
+  26. [b] Chapter 4 情景价值：沙漠里的水和城市里的水 -  | 2026-06-22 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=7f1424a3643425f315130445045445056445832373457373567316c64353474707
+  27. [b] 第3章_价值的真相 -  | 2026-06-22 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=7ab421f3643425f306b6744504344505644583237345737356741696a32337083d
+  28. [b] 啊？我被美女包围了 -  | 2026-06-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=654424c3643425f35383434343034364843584c366b37366b743362704733500ac
+  29. [b] 支配游戏 - Mikey | 2026-06-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=96742f13643425f374769417267417244446239373456373567356c70316243a20
+  30. [b] Game神圣 - Mikey | 2026-06-20 [S]
+      https://weread.qq.com/book-detail?type=1&v=f2a42633643425f36624f41726541724444623937345637356731766d4644480ad
+  31. [b] Chapter 22 垂直聊天法：她·我·我们 -  | 2026-06-20 [S]
+      https://weread.qq.com/book-detail?type=1&v=561420e3643425f473630445171445056445832373457373567306664433862453
+  32. [b] Chapter 24 公式化聊天 + 只撩不攻 -  | 2026-06-20 [S]
+      https://weread.qq.com/book-detail?type=1&v=a0e42d33643425f387547445232445056445832373457373567316e6941704284e
+  33. [b] 附录A_话术模板 -  | 2026-06-20 [S]
+      https://weread.qq.com/book-detail?type=1&v=c98427d3643425f47556b44557744546544583237345737356733614b30546bb20
+  34. [b] 第2章_行为线索：女人真正在看的到底是什么 -  | 2026-06-20 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=15042b33643425f306b67445043445056445832373457373567345653394e543cc
+  35. [b] 第58章_长期框架与关系管理 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=69c42963643425f46357244556c445465445832373457373567395941304745acb
+  36. [b] 第66章_学员蜕变——他们可以你也可以 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=96d42113643425f466838445573445465445832373457373567413770366c37c92
+  37. [b] 第64章_全流程案例集 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=e0342bf3643425f4659714455714454654458323734573735673450724356580e4
+  38. [b] Ch63 标杆案例七：月入4000+有钱人困境 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=c2642aa3643425f46745444557044546544583237345737356737324335794cc06
+  39. [b] 附录C：复盘模板与自测表 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=59b42353643425f475164445578445465445832373457373567464b4147503313c
+  40. [b] 第70章_全书终章——救赎之道，就在其中 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=b2c42273643425f474d5344557544546544583237345737356743596f454141023
+  41. [b] 第69章_推荐学习路径 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=47c42bf3643425f46643144557444546544583237345737356747494b3662555e6
+  42. [b] 附录D_资源索引 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=0e442703643425f47516444557844546544583237345737356733493834454e6d6
+  43. [b] 附录B_废测标准应答 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=d8842123643425f47556b445577445465445832373457373567463935466a6d1f5
+  44. [b] 第67章_术语词典 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=97142203643425f46683844557344546544583237345737356744687332473982c
+  45. [b] 第68章_FAQ_Top60 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=c4f42463643425f466838445573445465445832373457373567323678303033854
+  46. [b] 第62章_保守女与闺蜜处理 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=72c425b3643425f46786144556f44546544583237345737356732396f43583928e
+  47. [b] 第65章_反面教材_失败案例汇编 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=93f42033643425f46556a445572445465445832373457373567305564354674ff4
+  48. [b] Ch61 标杆案例三与四：阴阳双案+高冷破冰 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=60242e83643425f466c4244556e4454654458323734573735674667633633589e3
+  49. [b] 第60章_假兴趣女与网红支配 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=8bc42f53643425f46704944556d445465445832373457373567356d6d374672698
+  50. [b] 第59章_五项社交基础——贯穿互动全程 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=2de42f33643425f46357244556c44546544583237345737356738515330484e5d6
+  51. [b] Ch57 红绿灯系统 + 电话技术 + 筛选地图 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=7d342fc3643425f46397944556b445465445832373457373567317372336a37475
+  52. [b] 第54章_去魅身份剥夺与资格赋予 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=c2842483643425f46316744556944546544583237345737356743386e447279c80
+  53. [b] 第51章_什么是框架——现实感的定义权 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f0d42293643425f464d4a44556844546544583237345737356734514c376e507a9
+  54. [b] 第53章_框架博弈技术 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=de942633643425f464d4a445568445465445832373457373567334e543339461a2
+  55. [b] 第56章_猫线理论——吸引力的操作手册 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=fe0426e3643425f45785a44556a44546544583237345737356731623547664f2d7
+  56. [b] 第55章_框架的长期修炼 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f7c429e3643425f45785a44556a445465445832373457373567436658333546760
+  57. [b] 第52章_废测——她为什么测试你，怎么通过 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=6eb42673643425f464d4a44556844546544583237345737356733786735687a898
+  58. [b] Ch50 外卖中的特殊问题与极端案例 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=11a42c33643425f4649384455654454654458323734573735674567413977453ae
+  59. [b] 第49章_外卖的四大变体 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=ca042ee3643425f31703044546144546544583237345737356744346939466973a
+  60. [b] 第47章_外卖方法的核心理念 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=71b42eb3643425f313138445447445465445832373457373567426e4f395472459
+  61. [b] 第44章_特殊类型女生约会策略大全 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=4f0426a3643425f37385944536f4454654458323734573735674559543852557a6
+  62. [b] Ch48 外卖执行完整流程 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=5b142723643425f31513044544d445465445832373457373567343572474350d97
+  63. [b] 第45章_ASD完全破解——她脑子里最后一道门 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=d7742fe3643425f3044574454434454654458323734573735674245334339467ef
+  64. [b] 第46章_赋予资格——让她觉得跟你睡是合理的 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=52042293643425f307371445445445465445832373457373567423439474265db1
+  65. [b] 第43章_私密空间——到了这一步反而最危险 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=50d421c3643425f37304744536d44546544583237345737356735684a304b63262
+  66. [b] 第37章_舒适感vs吸引力——约会中的反直觉真理 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=8d042e03643425f3543464453464454654458323734573735673873793753312b1
+  67. [b] Ch42 转场与收尾：从公共空间到私密空间 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=03e42113643425f374769445369445465445832373457373567314342325750364
+  68. [b] 第41章_肢体进挪-触碰的阶梯 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=bd242393643425f36624f44536744546544583237345737356745576634644eee6
+  69. [b] 第40章_阴阳理论——两种吸引状态 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f0d42373643425f355834445351445465445832373457373567476a683353372e1
+  70. [b] Chapter 36 约会中的强行为线索 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=69e42303643425f35383444534344546544583237345737356736625835676ec52
+  71. [b] 第39章_约会四阶段框架——马术富家女核心技法 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=568423c3643425f347a75445349445465445832373457373567325937385278367
+  72. [b] Ch38 约会结构。从开场到收尾的完整弧线 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f2a42373643425f347263445347445465445832373457373567314639317267867
+  73. [b] 第35章_特殊场景搭讪 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f8342e93643425f427a34445275445056445832373457373567353466377a48c9a
+  74. [b] 第30章_搭讪SOP——新手无脑执行手册 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=c6e42533643425f414e61445257445056445832373457373567434e6336776ca77
+  75. [b] Chapter 32 浅沟通在搭讪中的实战 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=aaa425d3643425f41756b44526544505644583237345737356746487138306338b
+  76. [b] Chapter 34 常见搭讪问题诊断 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=08742023643425f434657445271445056445832373457373567307566424937597
+  77. [b] 第33章_松弛感_高手搭讪的秘密武器 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=a89422a3643425f42527544526d44505644583237345737356742766a394d41840
+  78. [b] 第31章_个性样本——搭讪中怎么让她记住你 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=5f2426d3643425f423275445259445056445832373457373567384368475a394ae
+  79. [b] 第29章_搭讪心态——焚决 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f1042993643425f41464944525544505644583237345737356733564b327177fe0
+  80. [b] 第28章_开场即吸引——三秒原则与眼神 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=35a422e3643425f41566b445251445056445832373457373567417454313373d14
+  81. [b] 第25章_网聊实战。各类女性原型与应对 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=71a42093643425f393259445234445056445832373457373567387541364d4ee41
+  82. [b] 第27章_搭讪前准备——选对你的战场 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=05b42b83643425f395a6944524344505644583237345737356738744146414d103
+  83. [b] Chapter 23 投资节奏系统-聊天中的"项链" -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=20342fd3643425f476441445179445056445832373457373567454c70466333634
+  84. [b] 第26章_电话——被低估的核武器 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=58042c93643425f386d36445238445056445832373457373567425433474664c55
+  85. [b] Chapter 21 聊天的底层逻辑：吸引不是聊出来的 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=b7442db3643425f46643144516c44505644583237345737356747536a37626f8bc
+  86. [b] Chapter 20 网聊中的价值传递 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=415422f3643425f465971445169445056445832373457373567475544397068cc2
+  87. [b] Chapter 19 网聊基本认知: 聊天不是为了聊天 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=34442cd3643425f467861445167445056445832373457373567456f4945336385e
+  88. [b] Chapter 18 网聊人设: 在这个世界上你可以成为任何人 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=c0442c33643425f46704944516544505644583237345737356738325931336907e
+  89. [b] Chapter 17 资源获取三通道 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=14642013643425f45636f445155445056445832373457373567467344457738f93
+  90. [b] 第16章_审美——如何判断一张照片好不好 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=9ad420e3643425f456b7944514f44505644583237345737356747724337483352f
+  91. [b] Chapter 11 玩家心态：从"被玩"到"玩" -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=46b42ef3643425f33704d4450774450564458323734573735674246513144371ec
+  92. [b] 第14章_没有展示面就没有约会 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f6342ee3643425f454d36445149445056445832373457373567477374385848c25
+  93. [b] 第15章_朋友圈发布技术手册 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f0242b63643425f44784d44514b445056445832373457373567306f63356e79c4b
+  94. [b] 第13章_边界感——为什么女人不尊重你 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=2a242e93643425f446765445138445056445832373457373567467771316471636
+  95. [b] 第10章_一致性——你装不了，女人能闻出来 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=81d427e3643425f335155445071445056445832373457373567326255366167b5e
+  96. [b] Chapter 12 社交动态校准：不看剧本看现场 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=20b428e3643425f3378654450794450564458323734573735674657414562531a6
+  97. [b] 第9章_结果是怎么来的——行动×时间×有效行动率 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=fc0427a3643425f33494344506f44505644583237345737356736484a377763f08
+  98. [b] 第7章_奖品性——你喜欢我说明你有眼光 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=879427d3643425f333155445063445056445832373457373567426363327043d38
+  99. [b] 第5章_PUA解毒——你为什么越学越不会把妹 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=67342773643425f31594944504744505644583237345737356737697a354c59100
+ 100. [b] 第1章_三伪神：这个世界束缚你的三尊伪神 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=b6142603643425f306b6744504344505644583237345737356732724b427879f1e
+ 101. [b] 附录D_资源索引 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=b2042523643425f41367344457744444b445832373457373567334879424832c9f
+ 102. [b] 附录C：复盘模板与自测表 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=b00426b3643425f394a4744457344444b445832373457373567336e34446c4cc5c
+ 103. [b] 附录A_话术模板 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=abc42e63643425f386d3644456b44444b445832373457373567423859465252a23
+ 104. [b] 附录B_废测标准应答 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=05942c03643425f394e4a44456e44444b4458323734573735673157584770622f4
+ 105. [b] 第70章_全书终章——救赎之道，就在其中 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=b6f42ff3643425f39325944456744444b445832373457373567394942395774c5d
+ 106. [b] 第69章_推荐学习路径 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=24742d03643425f48317544455944444b445832373457373567324a79354475a37
+ 107. [b] 第68章_FAQ_Top60 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=7fc422f3643425f47454944455544444b44583237345737356747784334426fd62
+ 108. [b] 第66章_学员蜕变——他们可以你也可以 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=cd842863643425f46493844453844444b445832373457373567386e4145784815b
+ 109. [b] 第64章_全流程案例集 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=85f42023643425f45677244453144444b445832373457373567476c4245556752a
+ 110. [b] 第65章_反面教材_失败案例汇编 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=7dd42b93643425f45515044453544444b445832373457373567473251454158c46
+ 111. [b] 第67章_术语词典 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=e5442f13643425f46515144454144444b445832373457373567456276416434b33
+ 112. [b] Ch63 标杆案例七：月入4000+有钱人困境 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=9f142913643425f454d3644447544444b44583237345737356742674d374475353
+ 113. [b] 第62章_保守女与闺蜜处理 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=abf42633643425f34356f44445544444b4458323734573735673134663350521c1
+ 114. [b] Ch61 标杆案例三与四：阴阳双案+高冷破冰 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=38a420b3643425f33596544444d44444b445832373457373567425879424848d6f
+ 115. [b] 第60章_假兴趣女与网红支配 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=98542233643425f32744b44444b44444b4458323734573735674832564462321d1
+ 116. [b] 第59章_五项社交基础——贯穿互动全程 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=0c842c33643425f33396d44444744444b445832373457373567353854377333451
+ 117. [b] Ch57 红绿灯系统 + 电话技术 + 筛选地图 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=adf42f83643425f31703044443444444b445832373457373567457038347878770
+ 118. [b] 第58章_长期框架与关系管理 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f3d42883643425f32636344443844444b4458323734573735673835473245451f7
+ 119. [b] 第55章_框架的长期修炼 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=bf242ed3643425f31487144437744444b44583237345737356731315339546b291
+ 120. [b] Ch56 猫线理论：吸引力的操作手册 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=796426f3643425f31784144437944444b445832373457373567397558387532baa
+ 121. [b] 第54章_去魅身份剥夺与资格赋予 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=6ca42cb3643425f31395944437544444b445832373457373567453252315048905
+ 122. [b] 第53章_框架博弈技术 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=cd442f43643425f31313844436b44444b445832373457373567305252354d46fbe
+ 123. [b] 第52章_废测——她为什么测试你，怎么通过 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=deb42d13643425f30737144436944444b44583237345737356733524f33574ab67
+ 124. [b] 第51章_什么是框架——现实感的定义权 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=7e442723643425f30547944436344444b445832373457373567356e6f36665846b
+ 125. [b] Ch50 外卖中的特殊问题与极端案例 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=43942b03643425f38346144435744444b4458323734573735674651453967774a4
+ 126. [b] Ch49 外卖的四大变体 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=d9142633643425f38544b44435544444b44583237345737356732715a324459a17
+ 127. [b] Ch48 外卖执行完整流程 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=16f426f3643425f37774144434d44444b4458323734573735674659624143370b1
+ 128. [b] 第47章_外卖方法的核心理念 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=3b442c33643425f376e7344434b44444b445832373457373567424d7945714d199
+ 129. [b] Ch44 特殊类型女生约会策略大全 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=3ef42523643425f35537844427644444b4458323734573735673753643952529dd
+ 130. [b] Ch42 转场与收尾：从公共空间到私密空间 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=687420e3643425f356e5744427144444b44583237345737356733314841626da2f
+ 131. [b] 第46章_赋予资格——让她觉得跟你睡是合理的 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=0c742da3643425f36727144433644444b4458323734573735674234423666303f1
+ 132. [b] 第45章_ASD完全破解——她脑子里最后一道门 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=81b42843643425f36475a44427a44444b445832373457373567324a49357639a86
+ 133. [b] 第43章_私密空间——到了这一步反而最危险 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=1fd420a3643425f354f6d44427344444b4458323734573735674339794378480e7
+ 134. [b] 第41章_肢体进挪-触碰的阶梯 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=dc542463643425f35474d44426944444b445832373457373567435868365a598af
+ 135. [b] 第40章_阴阳理论——两种吸引状态 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=23342193643425f346a4344426144444b44583237345737356736546735715a02c
+ 136. [b] 第39章_约会四阶段框架——马术富家女核心技法 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=43a42213643425f34617544425944444b445832373457373567355a6c335462263
+ 137. [b] 第37章_舒适感vs吸引力——约会中的反直觉真理 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=2ef42f13643425f425275444247443942445832373457373567455370444b68569
+ 138. [b] 第25章_网聊实战。各类女性原型与应对 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=61f42143643425f466838444145443942445832373457373567367a38477233c86
+ 139. [b] Chapter 36 约会中的强行为线索 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=aeb420c3643425f424a634442454439424458323734573735674136754477530eb
+ 140. [b] Ch38 约会结构。从开场到收尾的完整弧线 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=47b42233643425f42716d44424d443942445832373457373567435258416371d8e
+ 141. [b] 第35章_特殊场景搭讪 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=116427b3643425f42613444424144394244583237345737356741354b47614c8c8
+ 142. [b] 第33章_松弛感_高手搭讪的秘密武器 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=d5e42853643425f41566b44417544394244583237345737356741536f324c521ee
+ 143. [b] Chapter 34 常见搭讪问题诊断 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=e4b42413643425f41464944417944394244583237345737356731396f34505791c
+ 144. [b] Chapter 32 浅沟通在搭讪中的实战 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=cbf42293643425f39715144417344394244583237345737356731464a46395936c
+ 145. [b] 第31章_个性样本——搭讪中怎么让她记住你 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=9b3421e3643425f396938444171443942445832373457373567436e4b343268cf9
+ 146. [b] 第30章_搭讪SOP——新手无脑执行手册 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=58342db3643425f39755444416e443942445832373457373567435035477950004
+ 147. [b] 第29章_搭讪心态——焚决 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=2c842ba3643425f386d36444163443942445832373457373567323831395a677e8
+ 148. [b] 第28章_开场即吸引——三秒原则与眼神 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=12b42513643425f476c5344415544394244583237345737356731576b337059a4f
+ 149. [b] Chapter 26 电话: 被低估的核武器 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=d68425b3643425f47363044414b443942445832373457373567427438323330edc
+ 150. [b] 第27章_搭讪前准备——选对你的战场 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=21c42b23643425f483175444151443942445832373457373567356138434b54039
+ 151. [b] 第6章_自我——把女主角换成你自己的名字 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=73342443643425f30634f443865443942445832373457373567374c6e4542535c6
+ 152. [b] Chapter 24 公式化聊天 + 只撩不攻 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=84942d13643425f46597144414344394244583237345737356736634d474d58307
+ 153. [b] Chapter 23 投资节奏系统-聊天中的"项链" -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=7ae422b3643425f4670494441384439424458323734573735674744554457381ff
+ 154. [b] Chapter 22 垂直聊天法：她·我·我们 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=eb942923643425f46316744413444394244583237345737356747683130695820b
+ 155. [b] Chapter 18 网聊人设: 在这个世界上你可以成为任何人 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=46f42223643425f45446f44396b44394244583237345737356736746b453158bbd
+ 156. [b] Chapter 4 情景价值：沙漠里的水和城市里的水 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=68442af3643425f30737144386144394244583237345737356736364732536113e
+ 157. [b] 第21章_聊天的底层逻辑——吸引不是聊出来的 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=49142303643425f4535654439714439424458323734573735673030743333675a6
+ 158. [b] 第20章_网聊中的价值传递 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=50442d63643425f44784d44396f443942445832373457373567456361414a660f2
+ 159. [b] Chapter 19 网聊基本认知: 聊天不是为了聊天 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=e2b42793643425f454d3644396d4439424458323734573735674173543344362dd
+ 160. [b] Chapter 17 资源获取三通道 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=76e42153643425f44595544396944394244583237345737356743457543364e65d
+ 161. [b] 第15章_朋友圈发布技术手册 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=f6e42e53643425f33704d44395144394244583237345737356742695443354a985
+ 162. [b] Chapter 16 审美：如何判断一张照片好不好 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=40242643643425f3378654439534439424458323734573735674130674766482f6
+ 163. [b] 第14章_没有展示面就没有约会 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=c0842023643425f34453644394f443942445832373457373567376c554367342ae
+ 164. [b] Chapter 12 社交动态校准：不看剧本看现场 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=ad3424b3643425f33515544394b443942445832373457373567424b69347470d36
+ 165. [b] 第13章_边界感——为什么女人不尊重你 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=12042e93643425f34356f44394d443942445832373457373567365271356166f9c
+ 166. [b] 第11章_玩家心态——从被玩到玩 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=45542663643425f333155443936443942445832373457373567354839414742cc1
+ 167. [b] 第10章_一致性——你装不了，女人能闻出来 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=5bc42de3643425f324d41443934443942445832373457373567433676374a772f6
+ 168. [b] 第9章_结果是怎么来的——行动×时间×有效行动率 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=2bd42f23643425f324473443932443942445832373457373567373767427a30a89
+ 169. [b] 第8章_不反应——所有技术的神经基础 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=7fc42dd3643425f326363443930443942445832373457373567347a58376253070
+ 170. [b] 第7章_奖品性——你喜欢我说明你有眼光 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=2e342b13643425f32554b443879443942445832373457373567466a4f3359554b9
+ 171. [b] 第5章_PUA解毒——你为什么越学越不会把妹 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=6cc429f3643425f31313844386344394244583237345737356737706c44326bb30
+ 172. [b] 第3章_价值的真相 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=73642943643425f30445744385944394244583237345737356742714c41464b5a4
+ 173. [b] 第2章_行为线索：女人真正在看的到底是什么 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=33c42de3643425f303545443857443942445832373457373567456f53325450b07
+ 174. [b] 第1章_三伪神：这个世界束缚你的三尊伪神 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=3a842b13643425f424a63443736443532445832373457373567396866386435ca7
+ 175. [b] 自然流·救赎之道_完整版 -  | 2026-06-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=1b8424d3643425f316769434845434730445832373457373567396d323539710d4
+ 176. [b] 纳瓦尔智慧全书 - 肖客 | 2026-06-19 
+      https://weread.qq.com/book-detail?type=1&v=6ff32ff0813abb2e1g011bae
+ 177. [b] ​自然流 - 自然流 | 2026-06-09 [S]
+      https://weread.qq.com/book-detail?type=1&v=24442a03643425f323553426f49426e46424c4a366b50366b7434735944647a189
+ 178. [b] 如何和女人见面与沟通 - 杂耍人 - Administrator | 2026-06-09 [S]
+      https://weread.qq.com/book-detail?type=1&v=b5b42ea3643425f376669426e69426e46424c4a366b50366b74384154374233fbf
+ 179. [b] 蓝图解码 - Real Social Dynamics - USER | 2026-06-09 [S]
+      https://weread.qq.com/book-detail?type=1&v=61b42023643425f356645426e36426e46424c4a366b50366b74326d7738544672b
+ 180. [b] 富在术数 | AI极简致富术：年入百万创业项目实战拆解 - 临在书院 | 2026-06-09 
+      https://weread.qq.com/book-detail?type=1&v=9aa32920813abb305g019e69
+ 181. [b] 现实世界的诱惑术 - Swinggcat -  | 2026-06-09 [S]
+      https://weread.qq.com/book-detail?type=1&v=cae42df3643425f397961426d34426a36424c4a366b50366b743839744672414c3
+ 182. [b] Vibe Coding：AI 编程时代的认知重构 - 张昕东 | 2026-06-08 
+      https://weread.qq.com/book-detail?type=1&v=47932570813abb024g01529d
+ 183. [b] 箭术与禅心：一位西方哲学家的禅悟实录 - [德]奥根·赫立格尔 | 2026-05-31 
+      https://weread.qq.com/book-detail?type=1&v=aa232350813ab9011g016d99
+ 184. [b] Python编程：从入门到实践 - 埃里克·马瑟斯 | 2026-05-29 
+      https://weread.qq.com/book-detail?type=1&v=19532980715c01921954a54
+ 185. [b] Python编程快速上手——让烦琐工作自动化（第3版） - [美]阿尔·斯维加特 | 2026-05-25 
+      https://weread.qq.com/book-detail?type=1&v=5ed323b0813abb002g016233
+ 186. [b] Claude Code橙皮书：从入门到精通（微信读书特别版） - 花叔 | 2026-05-25 
+      https://weread.qq.com/book-detail?type=1&v=870320d0813abb494g0113ca
+ 187. [b] 剑来 - 烽火戏诸侯 | 2026-05-12 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=8e5326b07153adcf8e53d42
+ 188. [b] 数据分析咖哥十话 从思维到实践促进运营增长 - 黄佳 | 2026-05-11 
+      https://weread.qq.com/book-detail?type=1&v=e7b32bd0813ab9726g010e5a
+ 189. [b] 神秘复苏 - 佛前献花 | 2026-04-27 
+      https://weread.qq.com/book-detail?type=1&v=13c32bb071589b2f13c7bba
+ 190. [b] 你就是困住自己的那座山 - KnowYourself 汤落雁 | 2026-03-20 
+      https://weread.qq.com/book-detail?type=1&v=35e32f80813aba3b5g018952
+ 191. [b] 深度学习入门：基于Python的理论与实现 - [日]斋藤康毅 | 2026-03-06 
+      https://weread.qq.com/book-detail?type=1&v=b6032660813ab90ebg010b40
+ 192. [b] 深度学习：基础与概念 - [英]克里斯托弗·M. 毕晓普  [英]休·毕晓普 | 2026-03-06 
+      https://weread.qq.com/book-detail?type=1&v=987323b0813abaf2dg01153d
+ 193. [b] 机器学习实战：基于Scikit-Learn、Keras和TensorFlow（原书第2版） - [法]奥雷利安·杰龙 | 2026-03-06 
+      https://weread.qq.com/book-detail?type=1&v=e8e327a07208f4d1e8ec475
+ 194. [b] 龙族（1-4合集｜同名动画原著） - 江南 | 2026-03-05 [S]
+      https://weread.qq.com/book-detail?type=1&v=05e329405e3dd605ee04cec
+ 195. [b] 知乎神贴：人世真相 - 玄谷 | 2026-02-26 
+      https://weread.qq.com/book-detail?type=1&v=f92321d0813abb031g012734
+ 196. [b] 段永平投资问答录：大道至简的财富逻辑 - 马小奔 | 2026-02-25 
+      https://weread.qq.com/book-detail?type=1&v=775325b0813abb201g016463
+ 197. [b] 中国骗术大全 - 张奎衷 | 2026-02-25 
+      https://weread.qq.com/book-detail?type=1&v=39032b00813abad41g011126
+ 198. [b] 真想让我爱的人读读这本书 - [英]菲利帕·佩里 | 2026-02-25 
+      https://weread.qq.com/book-detail?type=1&v=d1132330813ab8b52g011082
+ 199. [b] 富在术数丨Ai极简致富术：100个真实年入百万创业赚钱项目拆解 - 临在书院 | 2026-02-25 
+      https://weread.qq.com/book-detail?type=1&v=96c327a0813abb265g014222
+ 200. [b] 第一性原理 - 萧亮 | 2026-02-25 
+      https://weread.qq.com/book-detail?type=1&v=91632f10813abb027g011b2c
+ 201. [b] 破维：查理·芒格100个思维模型 - 张君归 | 2026-02-25 
+      https://weread.qq.com/book-detail?type=1&v=c9d329a0813abad11g013667
+ 202. [b] 思考致富Think and Grow Rich（英文版，巴菲特：它重塑了我对财富的认知） - [美] 拿破仑·希尔 | 2026-02-25 
+      https://weread.qq.com/book-detail?type=1&v=9ab326a0813abb314g014561
+ 203. [b] Python数据分析师成长之路 - 熊松 | 2026-02-25 
+      https://weread.qq.com/book-detail?type=1&v=c9432300813abb084g0169e3
+ 204. [b] 关键迭代：可信赖的线上对照实验_ -  | 2026-02-09 [S]
+      https://weread.qq.com/book-detail?type=1&v=813424f3643425f324933354c7a354f4b37785937316b37316232586731507219f
+ 205. [b] AB实验：科学归因与增长的利器 - 刘玉凤 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=0cf32300813ab6eafg0191af
+ 206. [b] 数据分析：企业的贤内助 - 陈哲 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=a3932500597c92a398fb9e1
+ 207. [b] 白话强化学习与PyTorch - 高扬 叶振斌 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=e7d327c071a74bf4e7d0dfb
+ 208. [b] A/B 测试：创新始于试验 - 王晔 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=39d3265071973d7339db6c7
+ 209. [b] 数据科学工程实践：用户行为分析与建模、A/B实验、SQLFlow - 谢梁 缪莹莹 高梓尧 王子玲 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=d9d32e9072517cc1d9d826e
+ 210. [b] 用户行为分析：如何用数据驱动增长 - 张溪梦 邢昊 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=caa32d40813ab73a8g016400
+ 211. [b] 用户增长实战笔记：腾讯、滴滴、字节跳动这样做 - 金磊 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=c4232ca0720ea743c423d43
+ 212. [b] 电商流量数据化运营（数据分析与决策技术丛书） - 宋天龙 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=59532c30726e823b595c907
+ 213. [b] Python广告数据挖掘与分析实战 - 杨游云 周健 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=5e532bf0723773315e5f30f
+ 214. [b] Python数据分析与数据化运营 - 宋天龙 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=2ba32db05e0b5c2ba903e6d
+ 215. [b] 广告数据定量分析：如何成为一位厉害的广告优化师 - 齐云涧 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=1a632050718bd7941a69609
+ 216. [b] 商业模式新生代（经典重译版） - [瑞士]亚历山大·奥斯特瓦德 [比利时]伊夫·皮尼厄 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=5c1324d0813ab6cf2g01739a
+ 217. [b] 34招精通商业智能数据分析：Power BI和Tableau进阶实战 - 雷元 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=2c9323b071d3800b2c9fbe7
+ 218. [b] 策略产品经理：模型与方法论 - 青十五 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=4de32800813ab98d5g01286b
+ 219. [b] 事实（比尔·盖茨推荐） - 汉斯·罗斯林 欧拉·罗斯林 安娜·罗斯林·罗朗德 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=14b3246071831d1514b1198
+ 220. [b] 营销管理（第16版·精简版） - [美]菲利普·科特勒 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=dd332b80813ab9b89g012936
+ 221. [b] 直到山河尽头：到底有多少万种死法？ - 牟森 | 2026-02-08 
+      https://weread.qq.com/book-detail?type=1&v=4ee32070813aba80cg0132d5
+ 222. [b] 邻家的百万富翁（实现财务自由的致富指南） - [美]托马斯•斯坦利 威廉•丹科 | 2026-02-07 
+      https://weread.qq.com/book-detail?type=1&v=26532c00813ab83dbg0183ba
+ 223. [b] 不属于我的城市 - 寂地 | 2026-02-07 
+      https://weread.qq.com/book-detail?type=1&v=34b32bb0813ab7e7dg012b2e
+ 224. [b] 穷查理宝典：查理·芒格智慧箴言录（全新增订本） - 彼得·考夫曼 | 2026-01-18 
+      https://weread.qq.com/book-detail?type=1&v=2e0320e05cc92c2e0796c5a
+ 225. [b] 巴菲特教你读财报 - 玛丽·巴菲特 戴维·克拉克 | 2026-01-11 
+      https://weread.qq.com/book-detail?type=1&v=2a4325c0813ab820ag011183
+ 226. [b] 精益创业 - 埃里克·莱斯 | 2026-01-11 
+      https://weread.qq.com/book-detail?type=1&v=b2632d7058c218b269e80c0
+ 227. [b] 被拒绝的勇气 - 岸见一郎 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=6ca32d7071d292ac6caf51b
+ 228. [b] 你陪我长大，我陪你变老 - [日]岸见一郎 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=b5f32640813ab95abg0174fe
+ 229. [b] 不逃避的勇气：“自我启发之父”阿德勒的人生课 - [日]岸见一郎 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=7f032010813ab9886g012fa9
+ 230. [b] 更好的初老人生：《被讨厌的勇气》作者岸见一郎新作 - [日]岸见一郎 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=f8632900813ab9901g014916
+ 231. [b] 你们聊，我听听 - [日]岸见一郎 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=4af327d0813ab9c72g018d7c
+ 232. [b] 被孤立的勇气 - [日]岸见一郎 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=d4f32f20813aba6a9g013307
+ 233. [b] 改变人生的勇气 - [日]岸见一郎 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=f1c32880813abaf97g018fb5
+ 234. [b] 沃伦·巴菲特：从投资家到企业家 - [美]托德·A. 芬克尔 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=65932970813aba25eg018dd9
+ 235. [b] 大道无形：段永平 - 刘若愚 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=3dd323e0813ab8b2fg0196ef
+ 236. [b] 巴菲特致股东的信. 投资原则篇 - 杰里米·米勒 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=d6232430716aec97d620a10
+ 237. [b] 价值投资：从格雷厄姆到巴菲特（第2版） - [美]布鲁斯·C.格林沃尔德 [美]贾德·卡恩 [美]艾琳·贝利西莫 [美]马克·A.库珀 [美]塔诺·桑托斯 | 2026-01-08 
+      https://weread.qq.com/book-detail?type=1&v=4f632770813ab90a0g01524b
+ 238. [b] 玄鉴仙族 - 季越人 | 2026-01-06 
+      https://weread.qq.com/book-detail?type=1&v=29f32aa072b511ba29f196f
+ 239. [b] 段永平投资问答录（全两册） - 孙力科 | 2026-01-05 
+      https://weread.qq.com/book-detail?type=1&v=38e32c00813ab9f99g0102af
+ 240. [b] 企业经营数据分析——思路、方法、应用与工具 - 赵兴峰 | 2026-01-04 
+      https://weread.qq.com/book-detail?type=1&v=f6632c10813ab7c2dg019f66
+ 241. [b] 沃伦·巴菲特如是说 - [美]珍妮特·洛 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=8c932000715a4f288c91527
+ 242. [b] 巴菲特的财富美学 - 巴菲特 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=b16326d05c8851b16d5fdd2
+ 243. [b] 巴菲特的护城河 - [美]帕特·多尔西 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=f90326d0723bdc49f905db3
+ 244. [b] 巴菲特之道（原书第3版)（典藏版) - 罗伯特·哈格斯特朗 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=ebd32ad0721b58baebd296b
+ 245. [b] 巴菲特的投资组合（珍藏版） - 罗伯特·哈格斯特朗 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=fbc3293071eeef4ffbc78a8
+ 246. [b] 巴菲特的嘉年华：伯克希尔股东大会的故事 - 劳伦斯·A.坎宁安 斯蒂芬妮·库珀 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=7733206072462611773b710
+ 247. [b] 巴菲特的投资组合（典藏版） - 罗伯特·哈格斯特朗 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=8ec32160721a48bc8ec3410
+ 248. [b] 查理·芒格的投资思想 - 戴维·克拉克 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=72732d40717dd553727b883
+ 249. [b] 查理·芒格的原则 - 特兰·格里芬 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=7b0322b05e12617b0198c43
+ 250. [b] 像查理·芒格一样投资 - 吕长顺 王圣雄 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=7ae32e507277b1917ae0f53
+ 251. [b] 跟巴菲特学投资理念：巴菲特最有价值的8条投资法则 - 崔智东编著 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=f63323605e1fb7f635ed969
+ 252. [b] 沃伦·巴菲特的CEO们：伯克希尔经理人的经营秘诀 - 罗伯特·迈尔斯 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=0bb3252071f8f0e50bb6d65
+ 253. [b] 查理·芒格致股东的信 - 李永宁编著 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=23c32480729e576c23cfc03
+ 254. [b] 查理·芒格的投资逻辑 - 林汶奎 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=afc321a0717c0f55afc35c6
+ 255. [b] 巴菲特的财富金律 - 德群 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=01e32030718f987601e70c6
+ 256. [b] 巴菲特传 - 李永宁 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=b7b327d05df6dbb7bac95a2
+ 257. [b] 巴菲特内部讲话 - 孙力科 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=c84326e0720876c3c84b7b4
+ 258. [b] 巴菲特最有价值的投资策略 - 吕叔春 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=922325f053b2f99220773bf
+ 259. [b] 人间词话 - [清]王国维 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=97f32cc05c6d4f97f65e89c
+ 260. [b] 巴菲特投资哲学 - 凯斯·阿什沃斯-罗德 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=b02322c05e49eab02275ef5
+ 261. [b] 红与黑（经典译林） - [法]斯丹达尔 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=76932f005d0fd5769161489
+ 262. [b] 巴菲特投资之道 - [美]沃伦·巴菲特 [美]查理·芒格 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=8fe321a0813ab73d8g01264a
+ 263. [b] 小王子 - [法]安托万·德·圣埃克苏佩里著 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=04e32e30534c9404e504598
+ 264. [b] 巴菲特高收益投资策略 - 吉瓦·拉玛斯瓦米 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=a533226059b3c6a53e7d460
+ 265. [b] 悲惨世界（全集）（经典译林） - [法]雨果 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=199322705d0fe71990398ab
+ 266. [b] 巴菲特投资思想大全集 - 梁素娟 王艳明 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=24a32bc05c2e2924ab4e1a2
+ 267. [b] 人性的弱点 - 卡耐基 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=304322205d047d30496ddca
+ 268. [b] 跟巴菲特学投资 - 毛定娟 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=b7432fd0520b93b74b2fe06
+ 269. [b] 孔子传 - 钱穆 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=b96323a0813ab83d2g01934d
+ 270. [b] 中信十年人物经典：赢+赢的答案+巴菲特传+滚雪球上+滚雪球下（套装共5册） - 罗杰·洛温斯坦 杰克·韦尔奇 艾丽斯·施罗德 苏茜·韦尔奇 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=5ac32a405dd9425acc8c08b
+ 271. [b] 风雨哈佛路（同名电影原著） - 莉丝·默里 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=45632020813ab6d61g0128a4
+ 272. [b] 跳着踢踏舞去上班 - 卡萝尔·卢米斯 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=20932580715608ef2094493
+ 273. [b] 宽容（经典译林） - 房龙 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=199327f05de1c7199d37cff
+ 274. [b] 滚雪球：巴菲特和他的财富人生（下） - 艾丽斯·施罗德 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=526322905ddb7852693279c
+ 275. [b] 第二性（合卷本） - [法]西蒙娜·德·波伏瓦 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=808323705e41e180800ee85
+ 276. [b] 滚雪球：巴菲特和他的财富人生（套装共2册） - 艾丽斯·施罗德 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=75d327605dd94175d0ee94a
+ 277. [b] 梦的解析 - 弗洛伊德 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=0e932e505cafd20e9c71607
+ 278. [b] 巴菲特忠告中国股民 - 严行方 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=4cf32430813ab775ag015cb6
+ 279. [b] 影响力（湛庐经典） - [美]罗伯特·西奥迪尼 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=f5e32d805c9082f5e041522
+ 280. [b] 巴菲特人生哲学 - 李问渠 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=32c326407164987032c1bb6
+ 281. [b] 心理学与生活（第19版，中文版） - [美]理查德•格里格 [美]菲利普•津巴多 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=a6c32000813ab6c04g013ced
+ 282. [b] 巴菲特：做你最仰慕的人 - 王楠 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=841329305cb50e84125f668
+ 283. [b] 乌合之众：大众心理研究 - [法]勒庞 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=9c7320905c494a9c7a16f5f
+ 284. [b] 滚雪球：巴菲特和他的财富人生（上） - 艾丽斯·施罗德 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=5c732b505ddb775c722728a
+ 285. [b] 西方的没落：斯宾格勒精粹 - 奥斯瓦尔德·斯宾格勒 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=19932c305d0479199afe0d8
+ 286. [b] 巴菲特投资学大全集（超值白金版） - 傅瑾 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=c13329f071728cd3c1357bf
+ 287. [b] 文艺复兴是什么（文艺复兴的故事01） - 盐野七生 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=a9c325505c85e4a9c91a1c6
+ 288. [b] 股神：沃伦·巴菲特的股票投资忠告 - 戴永良 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=e803224054d97ce804ad5f9
+ 289. [b] 我们仨 - 杨绛 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=fb232f205d1a02fb2f5ae3b
+ 290. [b] 芒格之道——查理·芒格股东会讲话1987-2022 - 查理·芒格 芒格书院 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=88132470813ab7eeag012b8d
+ 291. [b] 史蒂夫·乔布斯传（修订版） - 沃尔特·艾萨克森 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=a5132d4059b34aa51b14735
+ 292. [b] 查理·芒格投资精要 - 罗尔夫·莫里安 海因茨·温克劳 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=54532bb0813ab7ca8g0146a4
+ 293. [b] 人类简史：从动物到上帝 - 尤瓦尔·赫拉利 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=62232b3059b398622aae683
+ 294. [b] 父亲巴菲特教我的事 - 彼得·巴菲特 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=95232e80813ab7a8eg014169
+ 295. [b] 成吉思汗：意志征服世界（全新修订版） - 度阴山 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=40432350590f13404604202
+ 296. [b] 巴菲特的选股真经 - [美]路易斯·纳维里尔 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=77332540813ab6c13g019d19
+ 297. [b] 富兰克林自传 - [美]富兰克林 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=c8b320d05dd65fc8bb0693a
+ 298. [b] 巴菲特最推崇的8大企业家特质 - 威廉·桑代克 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=d4332e10813ab738dg010bd4
+ 299. [b] 我父亲是恐怖分子（TED 思想的力量系列） - 扎克·易卜拉欣 杰夫·盖尔斯 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=33d329605cb46433de640fd
+ 300. [b] 巴菲特投资精要 - 罗尔夫·莫里安 海因茨·温克劳 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=dbe321c0813ab7f84g010a0e
+ 301. [b] 历史研究（上、下） - [英]阿诺德·汤因比 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=4a932c50813ab8233g01380f
+ 302. [b] 论美国的民主 - [法]托克维尔 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=1d932ec0524eeb1d92bf4ec
+ 303. [b] 策略思维：商界、政界及日常生活中的策略竞争 - 阿维纳什·K·迪克西特 巴里·J·奈尔伯夫著 王则柯校 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=11532c605cd23f1158a41ae
+ 304. [b] 战争论（经典译林） - [德]克劳塞维茨 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=feb32ed05d102cfeb6dbf85
+ 305. [b] 社会契约论 - [法]卢梭 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=ef8324d0524eedef870b3e1
+ 306. [b] 论法的精神 - [法]孟德斯鸠 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=30f32ea07159ee2830f8e6c
+ 307. [b] 伦理学知性改进论 - 斯宾诺莎 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=52f32d7058a87252fe04fec
+ 308. [b] 生命是什么 - 埃尔温·薛定谔 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=26f32230594bfd26f9b9984
+ 309. [b] 政府论 - [英]约翰·洛克 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=92c32840524eee92cb1bd36
+ 310. [b] 人的潜能和价值 - 亚伯拉罕·马斯洛等 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=04b32ca0729cabdd04bb2cb
+ 311. [b] 设计心理学1：日常的设计（增订版） - 唐纳德·A·诺曼 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=7d1327605cb9857d18702ad
+ 312. [b] 长尾理论 - 克里斯·安德森 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=0af329e059b3180af9d489c
+ 313. [b] 伟大的人物 - 卡耐基 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=2d132b505c14d92d19ec49f
+ 314. [b] 光荣与梦想（全四册） - [美]威廉·曼彻斯特 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=7d03234059b3ef7d008dc6c
+ 315. [b] 理想国 - [古希腊]柏拉图 | 2026-01-03 [S]
+      https://weread.qq.com/book-detail?type=1&v=810324b05e0f7381080a72e
+ 316. [b] 只有偏执狂才能生存 - 安迪·格鲁夫 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=faf32320597c65faf1d56e6
+ 317. [b] 谈判力 - [美]费希尔 尤里 [英]巴顿 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=f97320c05c31c7f9702aa7a
+ 318. [b] 国富国穷 - 戴维·S·兰德斯 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=08632b30813ab6c3fg0127e7
+ 319. [b] 生活在极限之内（睿文馆） - 加勒特·哈丁 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=cc4322207182db17cc4a8f9
+ 320. [b] 第三种黑猩猩：人类的身世与未来（简明版） - 贾雷德·戴蒙德著 丽贝卡·斯黛芙奥夫改写 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=3a6326c05d05493a6e790f6
+ 321. [b] 深奥的简洁 - 约翰·格里宾 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=589328f0813ab6cb0g018c3f
+ 322. [b] 大清相国 - 王跃文 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=40e32ec05c839840ef6754f
+ 323. [b] 旧制度与大革命 - [法]托克维尔 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=8c3322d05c49228c31ec607
+ 324. [b] 复利：全球顶尖投资者的31节认知与决策思维课 - [美]高塔姆·拜德 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=f7d32730813ab9423g0162bb
+ 325. [b] 金钱心理学：财富、人性和幸福的永恒真相 - 摩根·豪泽尔 | 2026-01-03 
+      https://weread.qq.com/book-detail?type=1&v=6ab326d0813ab7f97g014662
+ 326. [b] 哈耶克：通往奴役之路 - 殷海光 | 2026-01-02 
+      https://weread.qq.com/book-detail?type=1&v=73432cc0813aba53ag0136da
+ 327. [b] 彼得·林奇的成功投资（典藏版） - [美]彼得·林奇 [美]约翰·罗瑟查尔德 | 2026-01-02 
+      https://weread.qq.com/book-detail?type=1&v=cd632df05e4e8acd67586ab
+ 328. [b] 巴菲特致股东的信：投资者和公司高管教程（原书第4版） - 沃伦E.巴菲特 劳伦斯A.坎宁安 | 2026-01-02 
+      https://weread.qq.com/book-detail?type=1&v=8cb322605e2c008cb4c4217
+ 329. [b] 资本论（超值白金版） - 马克思 | 2026-01-02 
+      https://weread.qq.com/book-detail?type=1&v=f1c32f005e0d6bf1c506c79
+ 330. [b] 半小时漫画经济学3：金融危机完结篇 - 陈磊·半小时漫画团队 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=77d3264071c7696977d74b7
+ 331. [b] 半小时漫画经济学2：金融危机篇 - 陈磊·半小时漫画团队 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=b9e3291071979abab9e96e9
+ 332. [b] 魔鬼经济学4：用“有色眼镜”看清世界（第二版） - 史蒂芬·列维特 史蒂芬·都伯纳 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=7b432510726c18807b441de
+ 333. [b] 魔鬼经济学3：用反常思维解决问题（第二版） - 史蒂芬·列维特 史蒂芬·都伯纳 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=52232830726c1882522fcef
+ 334. [b] 魔鬼经济学2：拥有清晰思维的艺术（第二版） - 史蒂芬·列维特 史蒂芬·都伯纳 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=ba632f80726c1884ba65117
+ 335. [b] 魔鬼经济学1：揭示隐藏在表象之下的真实世界（第二版） - 史蒂芬·列维特 史蒂芬·都伯纳 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=88432de0726c1886884ee7d
+ 336. [b] 牛奶可乐经济学4 - 罗伯特·弗兰克 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=8793280071db4abf87975a5
+ 337. [b] 牛奶可乐经济学3 - 罗伯特·弗兰克 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=4023224059e9804027164a5
+ 338. [b] 牛奶可乐经济学（文津奖图书） - 罗伯特·弗兰克 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=b5e32e005ab39eb5e5240d7
+ 339. [b] 反套路经济学（套装共四本） - [美]史蒂夫•兰兹伯格 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=39932d80813ab8ed5g016c4e
+ 340. [b] 好的经济学（独家定制版） - [美]阿比吉特·班纳吉 [法]埃斯特·迪弗洛 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=7af32a1071d370d97af04ed
+ 341. [b] 宏观经济学（微课版） - 邓晓锋 刘艳 黄荣斌 丘丽云 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=3bf32ca0721249e73bf8857
+ 342. [b] 微观经济学（微课版） - 刘艳 丘丽云 邓晓锋 黄荣斌 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=d04326b071eefe70d04fe0a
+ 343. [b] 经济学基础（微课版） - 丘丽云 黄荣斌 刘艳 邓晓锋 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=b62326e0717d31e7b62e685
+ 344. [b] 读透经济学的8对关键词 - 向松祚 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=94532e50813ab7785g01207a
+ 345. [b] 新经济学 - 向松祚 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=bd932c2071adc3bfbd996ba
+ 346. [b] 21世纪资本论 - 托马斯·皮凯蒂 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=7e932d4058c2417e9d91f1a
+ 347. [b] “错误”的行为：行为经济学的形成 - 理查德·塞勒 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=0ba32b205e3cbe0ba63a747
+ 348. [b] 经济学思维50讲：做一个理性的行动人 - 亮叔 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=75432800813ab7667g01429a
+ 349. [b] 财富从哪来 - 鹤老师  | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=28a32260813ab71f5g013d4e
+ 350. [b] 鹤老师说经济：揭开财富自由的底层逻辑 - 鹤老师 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=ced322f07275fd31ced8b47
+ 351. [b] 鹤老师说经济系列（全二册） - 鹤老师 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=9dd32cb0813aba75fg014fa2
+ 352. [b] 认知世界的经济学 - 珍大户 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=8d2328f07294672a8d2b455
+ 353. [b] 国富策：读《管子》知天下财富 - 翟玉忠 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=8a2328d0717281538a2d77b
+ 354. [b] 国富论 - 亚当·斯密 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=6c4324d059eee96c43a4b3e
+ 355. [b] 财富的起源：探讨关税对财富根源的作用 - 埃里克·拜因霍克 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=d14328d07195f90bd148088
+ 356. [b] AI经济：机器人时代的工作、财富和社会福利 - 罗杰·布特尔 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=653320207247558b65332f5
+ 357. [b] 复杂经济学：以复杂视角解关税影响 - 布莱恩·阿瑟 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=19932f00716980251993466
+ 358. [b] 复杂经济学：经济思想的新框架（新版） - 布莱恩·阿瑟 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=84d32480813ab7f7fg019b1e
+ 359. [b] 链接：商业、科学与生活的新思维（10周年纪念版） - 艾伯特·拉斯洛·巴拉巴西 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=ea432e905ae26aea4513256
+ 360. [b] 新经济，新规则：网络经济的十种策略 - 凯文·凯利 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=09532cf058b1a209558017b
+ 361. [b] 规模 - 杰弗里·韦斯特 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=11e32230715554c811e0e9f
+ 362. [b] 技术的本质（经典版） - 布莱恩·阿瑟 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=4d83260071c034e34d8523f
+ 363. [b] 技术的本质：技术是什么，它是如何进化的 - 布莱恩·阿瑟 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=7eb32c30813ab7f7fg018028
+ 364. [b] 重塑：信息经济的结构 - 张翼成 吕琳媛 周涛 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=1d232b60716980521d2d721
+ 365. [b] 财富之眼：用经济思维看清世界 - 汤山老王 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=bf932530813ab7716g011e2d
+ 366. [b] 这才是经济学的思维方式：看穿被谬误掩盖的经济学真相（第2版） - 托马斯·索维尔 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=9f132f30813ab6ee3g010bea
+ 367. [b] 长得好看能当饭吃吗：提升认知的33个经济学常识 - 谢宗博 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=79232860813ab705bg010e68
+ 368. [b] 就业、利息和货币通论 - 凯恩斯 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=62e3282071728b9062ea4bd
+ 369. [b] 凯恩斯、拉斯基、哈耶克：经济思想如何影响世界 - 肯尼斯·R.胡佛 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=63432880813ab8db9g0174bb
+ 370. [b] 十位伟大的经济学家：从马克思到凯恩斯（熊彼特著作集） - 熊彼特 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=c0c320f0813ab7f89g01652a
+ 371. [b] 熊彼特文集(第3卷)：从马克思到凯恩斯十大经济学家 - 约瑟夫·熊彼特 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=c1432a60813ab7c1bg018227
+ 372. [b] 经济学通识课 - 尼尔·基什特尼 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=f6b32dd05e22acf6b9e55c9
+ 373. [b] 经济学原理 - 张维迎 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=93232ec05d16b3932f6a89b
+ 374. [b] 一本书读懂30部经济学经典 - 郭泽德 宋义平 关佳佳 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=4fb322f0813ab7badg0144b0
+ 375. [b] 经济学的思维方式（全集） - 托马斯·索维尔 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=25a324307171203b25a7ca5
+ 376. [b] 经济学：第18版（翻译版） - 〔美〕保罗·萨缪尔森 威廉·诺德豪斯著 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=38e32a80813ab6c04g010d5e
+ 377. [b] 经济学家到底在想什么：从亚当·斯密到凯恩斯 - [美]罗伯特·L.海尔布罗纳 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=3b232920813ab9348g0199bf
+ 378. [b] 经济学思想史讲义 - 汪丁丁 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=fe732be058a8affe798cb2b
+ 379. [b] 政治经济学批判 - 马克思 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=edc320d0813ab7071g018b15
+ 380. [b] 雇佣劳动与资本 - 马克思 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=3e832740813ab7071g0190c5
+ 381. [b] 《路德维希·费尔巴哈和德国古典哲学的终结》导读 - 周强 孙厚权编著 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=35432370718b6f19354b67a
+ 382. [b] 祖上三代皆经商，闲谈未来二十年中国的商机-公子镔 - philips | 2025-12-28 [S]
+      https://weread.qq.com/book-detail?type=1&v=469423c3643425f36384841663341656d344a4c36687a36676b306466316e6b6d2
+ 383. [b] 如何成为一个运营大牛 - 黄致远 | 2025-12-28 
+      https://weread.qq.com/book-detail?type=1&v=043326a071919cc1043fda1
+ 384. [b] 我就是你啊：走进他人内心的7项修炼 - [法]皮埃尔·佩利西耶 | 2025-12-27 
+      https://weread.qq.com/book-detail?type=1&v=6e032890813ab6b7ag0171a5
+ 385. [b] 思考致富 - 拿破仑·希尔 | 2025-12-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=0cc32c40599ab00cc3b986f
+ 386. [b] 十年f梦——黄jh回忆录 - Administrator | 2025-12-05 [S]
+      https://weread.qq.com/book-detail?type=1&v=9d2421d3643425f376e73474b4f474c37446e5537304b373162364f77464a445e3
+ 387. [b] 毛泽东选集（全四卷） -  | 2025-12-04 [S]
+      https://weread.qq.com/book-detail?type=1&v=2bb32ff0813ab6ffcg014315
+ 388. [b] 从共和国建国后的战争看透今天的大国博弈！-关外李员外 - philips | 2025-12-04 [S]
+      https://weread.qq.com/book-detail?type=1&v=dbc420a3643425f39755441693141656d344a4c36687a36676b43466347415a72d
+ 389. [b] 中国近代史 - 蒋廷黻 | 2025-12-04 
+      https://weread.qq.com/book-detail?type=1&v=d77324305de0dbd77b05264
+ 390. [b] 毛泽东选集5 - 毛泽东 | 2025-12-03 [S]
+      https://weread.qq.com/book-detail?type=1&v=ccf42943643425f387547416463416250447a7037304837316238756c33434874f
+ 391. [b] 被讨厌的勇气：“自我启发之父”阿德勒的哲学课 - 岸见一郎 古贺史健 | 2025-12-02 [P]
+      https://weread.qq.com/book-detail?type=1&v=8b9329607186dc198b9bdab
+ 392. [b] 毛泽东选集4 - 毛泽东 | 2025-12-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=80d42e43643425f477463416455416250447a7037304837316232563347536eaff
+ 393. [b] 毛泽东选集3 - 毛泽东 | 2025-12-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=6f042f93643425f46683841644b416250447a7037304837316237314231414848a
+ 394. [b] 毛泽东选集2 - 毛泽东 | 2025-12-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=c0942f93643425f463167416441416250447a7037304837316238564c333163c7e
+ 395. [b] 牧羊少年奇幻之旅 - 保罗•柯艾略 | 2025-11-29 
+      https://weread.qq.com/book-detail?type=1&v=7c932dd05b71537c9f3404d
+ 396. [b] 《蛊真人》 -  | 2025-11-29 [S]
+      https://weread.qq.com/book-detail?type=1&v=98542e83643425f33555841395241384f33527336694336676b317548435159b77
+ 397. [b] 数据可视化分析：Tableau原理与实践（全彩） - 喜乐君 | 2025-11-09 
+      https://weread.qq.com/book-detail?type=1&v=34f32ed071f02f4934f4f1f
+ 398. [b] 运营之光：我的互联网运营方法论与自白2.0 - 黄有璨 | 2025-11-03 
+      https://weread.qq.com/book-detail?type=1&v=7dd32d007159f0cb7dd1beb
+ 399. [b] 追问 - 丁捷 | 2025-10-28 
+      https://weread.qq.com/book-detail?type=1&v=e7b322705d0e04e7b85e068
+ 400. [b] Tableau数据可视化从入门到精通 - 王国平 | 2025-10-23 
+      https://weread.qq.com/book-detail?type=1&v=80832230719b20728085f76
+ 401. [b] 数据可视化分析（第2版）：分析原理和Tableau、SQL实践（全彩） - 喜乐君 | 2025-10-23 
+      https://weread.qq.com/book-detail?type=1&v=7ce32880813ab93aeg017d3a
+ 402. [b] 三国争霸（全三册） - 渤海小吏 | 2025-10-11 
+      https://weread.qq.com/book-detail?type=1&v=ff932010813ab7bdfg012f80
+ 403. [b] 龙族Ⅴ：悼亡者的归来 - 江南 | 2025-09-28 
+      https://weread.qq.com/book-detail?type=1&v=069322605e3dd7069795739
+ 404. [b] 渤海小吏 - 公众号 | 2025-09-20 
+      https://weread.qq.com/book-detail?type=1&v=c1142a3224d505f5758535f3335323335323733383657b
+ 405. [b] 哈利波特完整系列（全七册） - [英]J.K.罗琳 | 2025-09-17 
+      https://weread.qq.com/book-detail?type=1&v=88a322005cba2388ae991a5
+ 406. [b] 蛙【中国诺奖得主代表作】 - 莫言 | 2025-09-16 
+      https://weread.qq.com/book-detail?type=1&v=f5432d3071935f5df546a42
+ 407. [b] 深入浅出数据分析 - Michael Milton | 2025-09-08 
+      https://weread.qq.com/book-detail?type=1&v=d9632db0813ab6d11g017194
+ 408. [b] 大唐气象（全三册） - 渤海小吏 | 2025-08-13 
+      https://weread.qq.com/book-detail?type=1&v=c79326b0813ab9f22g017f54
+ 409. [b] 两晋悲歌（全三册） - 渤海小吏 | 2025-08-13 
+      https://weread.qq.com/book-detail?type=1&v=65132520813ab9339g0117bf
+ 410. [b] 南北归一（全三册） - 渤海小吏 | 2025-08-13 
+      https://weread.qq.com/book-detail?type=1&v=47e32340813ab9339g0123d7
+ 411. [b] 两汉风云（套装共3册） - 渤海小吏 | 2025-08-13 
+      https://weread.qq.com/book-detail?type=1&v=4b4329d0813ab86deg0158c5
+ 412. [b] 走向辛亥：从孙文崛起看晚清日落 - 陈舜臣 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d6c3278071e36e9ed6cabc7
+ 413. [b] 洪宪帝制外交 - 唐启华 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=6ce325e07156d8ef6ce654e
+ 414. [b] 五四的另一面：“社会”观念的形成与新型组织的诞生 - 杨念群 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=5a0323e07181e65f5a03462
+ 415. [b] 剑桥中华民国史（1912-1949年）（合集） - 费正清 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=4b1325805d116c4b14ac069
+ 416. [b] 日暮乾清门：近代的世运与人物 - 李文杰 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=99f321507200ecba99fa8c2
+ 417. [b] 叶落知秋：清末民初的史事和人物 - 张仲民 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=a7d32e507200ecaea7d411c
+ 418. [b] 新文化运动百年祭 - 邓秉元 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=407328b071bf49924078fab
+ 419. [b] 科举停废与近代中国社会（修订版） - 关晓红 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=fe1323d0715932dcfe1bb03
+ 420. [b] 地方督抚与清末新政：晚清权力格局再研究（增订版） - 李细珠 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=6ec328b07166b6756ecc1b3
+ 421. [b] 被“废除不平等条约”遮蔽的北洋修约史（1912～1928）（修订本） - 唐启华 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=96032a207191a11a9608fea
+ 422. [b] 转型时期的社会与国家：以近代中国商会为主体的历史透视（修订本） - 朱英 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=2eb327c07191a12f2eb1b97
+ 423. [b] 宋案重审 - 尚小明 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=5bc3206071598d0d5bc31db
+ 424. [b] 荣禄与晚清政局 - 马忠文 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=558320f07169235f5583a25
+ 425. [b] 晚清人物与史事 - 马忠文 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=70032070719204f37008b4d
+ 426. [b] 衰世与西法：晚清中国的旧邦新命和社会脱榫 - 杨国强 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=c46320f071898733c46248e
+ 427. [b] 庚子救援研究 - 冯志阳 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f0f328607192049af0f9823
+ 428. [b] 天国之痒 - 李洁非 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=7bc320507190f9587bc9027
+ 429. [b] 革命与历史：中国马克思主义历史学的起源（1919-1937） - 阿里夫·德里克 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d49328507239f7bcd497c5e
+ 430. [b] 激荡：晚清二十年 - 马勇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=25c32af07247ba9525c3b35
+ 431. [b] 元周记 - 杨早 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=2393273072449b07239850b
+ 432. [b] 晚清中兴名臣（套装共六册） - 张鸿福 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=63932300720a2e486391baa
+ 433. [b] 五四运动史：现代中国的知识革命 - 周策纵 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=c0c32de0719875b1c0c3029
+ 434. [b] 重说中国近代史 - 张鸣 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=1c432470537b7c1c4c8932c
+ 435. [b] 张鸣说历史：大国的虚与实 - 张鸣 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=99532e905c5eaa99554e6ae
+ 436. [b] 追寻现代中国 - 史景迁 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=6a132fd071a626dc6a1a479
+ 437. [b] 亦云回忆 - 沈亦云 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f1a322b05e2af6f1a7091d2
+ 438. [b] 近代中国八十年 - 陈旭麓 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f96321807200ec90f960e70
+ 439. [b] 紫禁城的黄昏 - 庄士敦 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=7c432d107261577c7c4dfd9
+ 440. [b] 近代中国的乡土意识：清末民初的地方领导阶层与地域社会 - 佐藤仁史 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d0732570719204a8d078e0f
+ 441. [b] 中国近代通史·第一卷：近代中国历史进程 - 张海鹏 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=14432d6059c74114456b2fe
+ 442. [b] 戊戌时期康有为、梁启超的思想 - 茅海建 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=1e9327907273eac01e9397d
+ 443. [b] 国家干预经济与中日近代化：轮船招商局与三菱·日本邮船会社的比较研究（修订本） - 朱荫贵 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=371323a07156d7603716a53
+ 444. [b] 龙旗飘扬的舰队：中国近代海军兴衰史（插图典藏本）（全2册） - 姜鸣 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=25332b507276212e253dc07
+ 445. [b] 最初的国会：晚清精英救国之谋1910-1911 - 李德林 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=efb32f20727abdb7efbc107
+ 446. [b] 改革现场：晚清经济改革始末 - 李德林 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=97632540727abdb3976376b
+ 447. [b] 帝国经济风暴：大清帝国最后70年 - 张昕冉 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=69232160727ac05a692eb22
+ 448. [b] 北洋军阀史话（全四册） - 丁中江 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=80732020727c8fea807d870
+ 449. [b] 血路：革命中国中的沈定一（玄庐）传奇 - 萧邦奇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=da7328007239f7d0da7af48
+ 450. [b] 激进之踵：戊戌变法反思录 - 羽戈 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=e3c32cf0813ab6835g0109ee
+ 451. [b] 天公不语对枯棋：晚清的政局和人物 - 姜鸣 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=466322e071822e7546657b3
+ 452. [b] 晚清人物丛考（采铜文丛） - 戴海斌 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=bf032f307189b898bf09a44
+ 453. [b] 天下为学说裂：清末民初的思想革命与文化运动 - 瞿骏 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=b59327a07156da75b590fa6
+ 454. [b] 梁启超启蒙思想的东学背景 - 郑匡民 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=66732c90727d80886678bc0
+ 455. [b] 中华民国专题史第三卷 北京政府时期的政治与外交 - 马振犊 唐启华 蒋耘 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=ec932df071f0140bec9159a
+ 456. [b] 海洋史上的近代中国：福建人的活动与英国、清朝的因应 - 村上卫 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=75832e50715998f27589c6b
+ 457. [b] 帝国的崩塌：从甲午海战到辛亥革命（经纬度丛书） - 徐飞 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=8a132f90813ab6e5ag010c8a
+ 458. [b] 近代史思辨录 - 陈旭麓 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=8cb323d0813ab6fabg011783
+ 459. [b] 大学问·笔醒山河：中国近代启蒙人严复 - 黄克武 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=20332cf0813ab704ag013a4e
+ 460. [b] 公众舆论与北洋外交 - 应俊豪 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=84432d10813ab7061g016e9b
+ 461. [b] 中美相遇：大国外交与晚清兴衰（1784–1911） - 王元崇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=531326e0813ab70b0g015991
+ 462. [b] 鸦片战争（插图珍藏版） - 蓝诗玲 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=847323a0723fa7d08474f1f
+ 463. [b] 末代王朝与近代中国：清末·中华民国 - 菊池秀明 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=65132520715b20896518475
+ 464. [b] 东北博弈：环境与地缘政治1910-1911 - 威廉·萨默斯 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=7a532270813ab73dfg012885
+ 465. [b] 大变局下的文化相遇 - 吴义雄 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d983285071898786d9817b0
+ 466. [b] 中国近代社会生活史 - 李长莉等 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=9e2325f0717e610f9e2e633
+ 467. [b] 近代的尺度：两次鸦片战争军事与外交 - 茅海建 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=0c7322d0718db0260c7fd0c
+ 468. [b] 巴黎和会与中国外交 - 唐启华 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=dc832ea07166ba05dc883aa
+ 469. [b] 治史理念与方法：基于中国近现代史的讨论 - 李金铮 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=c7d320a0813ab72e6g0139e2
+ 470. [b] 中国近代史稿 - 戴逸 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=33d322c07192cde833d23f1
+ 471. [b] 世纪之交的晚清社会 - 李文海 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=13832eb0813ab7447g0175ee
+ 472. [b] 晚清海关再研究：以二元体制为中心 - 任智勇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=ca43287071907107ca44381
+ 473. [b] 百年乱世中的至乱之人：杨度 - 唐浩明 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=b9832310721cec61b98f69c
+ 474. [b] 大门口的陌生人：1839—1861年中国南方的社会动乱 - 魏斐德 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=23032c90813ab7516g018b6c
+ 475. [b] 遗失在西方的中国史：《伦敦新闻画报》记录的晚清（1842—1873） - 沈弘编译 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=9e8328d0729f65989e810e6
+ 476. [b] 泰恩河上的黄龙旗：阿姆斯特朗公司与中国近代海军 - 张黎源 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d81327207237164bd81823e
+ 477. [b] 清季民国时期的“思想界”（典藏版） - 章清 著 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=1fd32d20813ab7550g016a45
+ 478. [b] 洋务与赈务：盛宣怀的晚清四十年（当代中国人文大系） - 朱浒 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=df3324a0813ab75c2g019af7
+ 479. [b] 宗室王公与清末新政 - 周增光 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f5f3248072a595e9f5fbc0f
+ 480. [b] 茶叶战争 - 周重林 太俊林 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=085322b0813ab6d07g010404
+ 481. [b] 茶叶与鸦片：十九世纪经济全球化中的中国 - 仲伟民著 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=3bf32c40813ab74ffg014440
+ 482. [b] 辛亥革命（政协文史“亲历、亲见、亲闻”文库） - 《“三亲文库”》编纂工作委员会 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f9c32d20813ab7813g0183d4
+ 483. [b] 以公理争强权：顾维钧传 - 金光耀 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=66d32ee0813ab8169g014be9
+ 484. [b] 大学问·大清宪法案 - 北鬼三郎 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=bc232570813ab7c9dg0138c2
+ 485. [b] 一个民族的远航 - 关河五十州 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=76632970813ab73a8g01950e
+ 486. [b] 天义·衡报（清史研究丛书）（全2册） - 万仕国 刘禾 校注 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=62932980813ab7ae3g018979
+ 487. [b] 义和团运动的起源 - 周锡瑞 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=b6232b50813ab7bd6g013ee1
+ 488. [b] 危险的愉悦：20世纪上海的娼妓问题与现代性 - 贺萧 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=9933214071a2c37f9936996
+ 489. [b] 中国的变法：黄遵宪与日本模式 - 蒲地典子 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=78432940813ab7cc7g012453
+ 490. [b] 再造“病人”——中西医冲突下的空间政治（1832-1985）（第2版）（当代中国人文大系） - 杨念群 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=b6432fd07192b5c1b64eb2a
+ 491. [b] 铁路与中国转型 - 柯丽莎 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=4d2328b0813ab7e30g01262b
+ 492. [b] 卫生的现代性：中国通商口岸健康与疾病的意义（第二版） - 罗芙芸 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=08932f00813ab7cbdg013158
+ 493. [b] 清朝最后的120天 - 刘江华 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=621321a07299bf5b6216475
+ 494. [b] 天国的陨落：太平天国宗教再研究（增订版） - 夏春涛 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=069329d07190746106987e7
+ 495. [b] 幻灭：晚清洋务运动兴衰记 - 吕舒怀 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=b89320f0813ab7cefg0192e8
+ 496. [b] 艰难转型：人物与近代中国 - 迟云飞著 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=82632830813ab751eg0125f1
+ 497. [b] 从甲午到戊戌：康有为《我史》鉴注 - 茅海建 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=33632af0718db03033669c1
+ 498. [b] 清后期史 - 戴逸 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=4ba327507192cf3f4bae106
+ 499. [b] 戊戌变法的另面：“张之洞档案”阅读笔记 - 茅海建 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=c6c32ef07299bf59c6c5f53
+ 500. [b] 晚清“三集团”关系及走势研究 - 董丛林 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=2d532f00813ab72e1g014db3
+ 501. [b] E考据故事集：从清初到民国 - 艾俊川  | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=b8532db0813ab7c03g01131f
+ 502. [b] 近代中外条约关系通史 - 李育民 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=abe32f20813ab798fg013183
+ 503. [b] 晚清日记中的世情、人物与文学 - 张剑 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=dc932350813ab7d53g015a0d
+ 504. [b] 楚汉双雄 - 渤海小吏 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d03320f07228ea96d03ca21
+ 505. [b] 衰世与西法 - 杨国强 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=b8a32050813ab6d63g017457
+ 506. [b] 舍不得看完的中国史 - 渤海小吏 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=e2032280720f5b4ee20baf0
+ 507. [b] 坚守与突围：李鸿章与大清帝国 - 凤凰书品 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=13a322c07212b5de13ac98c
+ 508. [b] 中国近代社会文化史研究 - 王先明 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=eae32c70813ab7d22g01722e
+ 509. [b] 近代中国的多元审视 - 崔志海 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=47c32c60813ab7d23g01120b
+ 510. [b] 清季州县改制与地方社会 - 刘伟 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=aeb32b90719204c9aeb56a8
+ 511. [b] 权力与媒介：近代中国的政治与传播 - 马建标 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=12e32460719204cd12ea6a7
+ 512. [b] 太平天国与晚清社会 - 夏春涛 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=efb324b0719204e9efb48c3
+ 513. [b] 晚清民初的知识转型与知识传播 - 张寿安 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=57432290719204f15748c4b
+ 514. [b] 新政、立宪与革命：清末民初政治转型研究 - 李细珠 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=e16324f071920510e16d50f
+ 515. [b] 乘桴新获：从戊戌到辛亥 - 汤志钧 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=17132a90719204841719972
+ 516. [b] 走进共和：日记所见政权更替时期亲历者的心路历程（1911-1913） - 桑兵 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=1b732df07192052c1b75095
+ 517. [b] 孙中山的活动与思想 - 桑兵 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=7a332bf0719204e77a3a756
+ 518. [b] 中国文明的历史（十）：东亚的开国 - 波多野善大编著 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=feb32fe0729fa8b1febc78b
+ 519. [b] 近代中国：地域秩序与社会变迁 - 王元周 徐鹏 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=46032e50813ab6b29g013921
+ 520. [b] 甲午战争前后之晚清政局 - 石泉 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=34c320e0813ab7ed5g018759
+ 521. [b] 天朝的崩溃：鸦片战争再研究（修订版） - 茅海建 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=68c32bf05e22aa68c605298
+ 522. [b] 中国近百年政治史 - 李剑农 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=119323b05e194d119595936
+ 523. [b] 剑桥中国晚清史（1800-1911年）（全集） - 费正清 刘广京 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=339326705d0b85339b6bc38
+ 524. [b] 简明中国近代史读本 - 张海鹏 翟金懿 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=fed321805e2b50fed4f746a
+ 525. [b] 中国近代通史（全10册） - 中国社会科学院近代史研究所 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=aad32d80813ab6afbg0194ca
+ 526. [b] 中国近代史 - 陈恭禄 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=1af328b071a0f6a31afc8af
+ 527. [b] 中国近代史 - 蒋廷黻 沈渭滨导读 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=95d32c4071c69cfc95d6a8b
+ 528. [b] 中国近代史 - 蒋廷黻 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=c81329b0813ab769dg0111c3
+ 529. [b] 苦命天子 - 茅海建 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=92532e00813ab7de1g0197e0
+ 530. [b] 陆征祥评传（启微）【民国首任外交总长陆征祥传奇一生】 - 唐启华 著 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=89032bd0813ab87c9g01447a
+ 531. [b] 李鸿章的洋顾问：德璀琳与汉纳根（启微） - 张畅  刘悦 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=7c432a20813ab8b14g014a43
+ 532. [b] 广雅·由画入史：第二次鸦片战争世界书报刊图叙 - 宋玉武 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=b5232060813ab7c99g0117de
+ 533. [b] 近代中国军政关系与“军阀”话语研究（增订本） - 徐勇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=7b732d80813ab7e15g017579
+ 534. [b] 天朝梦碎——鸦片战争前后的中西大碰撞 - 覃仕勇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=01f320f0813ab7e5cg01941b
+ 535. [b] 察势观风：近代中国的记忆、舆论与社会 - 谭徐锋 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=5f032e807200ecbe5f0ad66
+ 536. [b] 辨色视朝：晚清的朝会、文书与政治决策 - 李文杰 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=04a322307225316e04a1619
+ 537. [b] 变风变雅：清季民初的诗文、学术与政教 - 陆胤 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=8d7320f07295bfb78d7b555
+ 538. [b] 近代中国断章 - 原岛春雄 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=e0a32b30813ab7938g016ab0
+ 539. [b] 从书籍到报刊：晚清文人的书写转型研究 - 褚金勇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=de032250813ab7353g014d6f
+ 540. [b] 太平天国革命运动史 - 简又文 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=fb832210813ab7ee5g012556
+ 541. [b] 驼背将军 - 陈丹 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f5d32090813ab7f23g010288
+ 542. [b] 太后西奔：帝国晚期的仓皇与激荡 - 谭木声 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=4f3328c0813ab8131g010241
+ 543. [b] 新编历史小丛书：谭嗣同 - 王克骏 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=31232340719c031e3120950
+ 544. [b] 辛亥革命 - 吴玉章 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=7d6327407212b3927d62371
+ 545. [b] 清季上海的美国人（1898~1905） - 王慧颖 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=53d329d0813ab816bg015692
+ 546. [b] 梁启超：亡命（1898—1903） - 许知远 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=7eb32910813ab8a1fg0158e4
+ 547. [b] 年代记忆：中国近代意识的形塑 - 李天纲 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=a8d32bd0813ab8081g0100fa
+ 548. [b] 商会与近代中国的社团网络革命 - 陈忠平 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=5f732e30813ab8605g019887
+ 549. [b] 简明中国近代史知识手册 - 张海鹏 翟金懿 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=019328d0813ab72d6g010567
+ 550. [b] 治学的门径与取法：晚清民国研究的史料与史学（典藏版）（鸣沙）【中国近代史研究入门必读书目】 - 桑兵 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f95321f0813ab8169g0170f2
+ 551. [b] 晚清官场镜像：杜凤治日记研究 - 邱捷 著 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d2132580813ab757ag011ce2
+ 552. [b] 荣禄与晚清政局（典藏版）（鸣沙） - 马忠文 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=9ad324e0813ab816ag016b16
+ 553. [b] 重审中国的“近代”：在思想与社会之间（学科、知识与近代中国研究书系） - 孙江 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=8eb32c50813ab816ag013a41
+ 554. [b] 天局：太平天国文化与中国近代史的开端 - 吴国瑛 吴国璋 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=46b32670813ab813fg011863
+ 555. [b] 宋案重审（修订本）（社科文献学术文库·文史哲研究系列） - 尚小明 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=c7232a10813ab816ag010955
+ 556. [b] 实说太平天国（增订本） - 盛巽昌 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=81f32200813ab807eg012253
+ 557. [b] 宋氏家族 - 斯特林·西格雷夫 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=11532530813ab8209g015cf5
+ 558. [b] 改良与革命：辛亥革命在两湖 - 周锡瑞 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d3332a50813ab81afg0172b7
+ 559. [b] 大变局：晚清改革五十年（经纬度丛书）（俞敏洪、罗振宇推荐） - 谌旭彬 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=93332c50813ab84d4g011d3f
+ 560. [b] 中国近代外交官群体的形成（1861-1911） - 李文杰 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=41032e80717d277e410327c
+ 561. [b] 溃败的前夜：从甲申到甲午（东方历史评论11） - 许知远 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=799320107157b0467992aea
+ 562. [b] 美孚石油公司与中国政府（1870～1953）（凹阅读） - 陈礼军 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=94d32740813ab8b17g015a7e
+ 563. [b] 甲午战争史 - 戚其章 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=c2e3259071df7729c2e3b74
+ 564. [b] 风雅 - 马勇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d82329f0813ab8d20g01677c
+ 565. [b] 湖南人与现代中国（甲骨文系列） - 裴士锋 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f0a329e0716832caf0a1f41
+ 566. [b] 中国的军阀政治（1916—1928） - [美]齐锡生 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=54732740813ab8db9g015a92
+ 567. [b] 吾志所向：孙中山与现代中国 - 赵立彬 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f4d32b50813ab8d0bg010467
+ 568. [b] 戊戌变法史事考初集 - 茅海建 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=32732580718db02c327d776
+ 569. [b] 戊戌变法史事考二集 - 茅海建 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=45032a20718db02e450e297
+ 570. [b] 帝国的切口：近代中国口岸的冲突与交流 - [英]毕可思 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=79d32d10813ab9550g0113d2
+ 571. [b] 段祺瑞政权：民国史军阀篇 - 唐德刚 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=513320c05c928d513fb5dd6
+ 572. [b] 晚清六十年的革命与改良（1851-1912） - 李晓鹏 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=4b632430813ab8bcfg018dc3
+ 573. [b] 失去的三百年：地理大发现之后中国的开放与封闭（1516—1840）（经纬度丛书） - 郭建龙 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=96632200813ab94f8g016077
+ 574. [b] 沉没的甲午：北洋悲歌与晚清大败局 - 陈悦 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d5a32a00813ab9521g01090c
+ 575. [b] 失败：1891—1900 清王朝的变革、战争与排外 - 李礼 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=3c832400813ab9c1fg014bb2
+ 576. [b] 鼎革：南北议和与清帝退位（鸣沙）【著名历史学家尚小明全新力作，全景讲述武昌首义到清帝退位期间的每一天】 - 尚小明 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=43132de0813ab97d3g0185ac
+ 577. [b] 大学问·实践社会科学系列·现代中国的形成（1600—1949） - 李怀印 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=6ec32c50813ab704cg010728
+ 578. [b] 第二卷 近代中国的开端:1840—1864 - 张海鹏 姜涛 卞修跃 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=aac32a30813ab9a07g010585
+ 579. [b] 第三卷 早期现代化的尝试:1865—1895 - 张海鹏 虞和平 谢放 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f78323f0813ab9997g01617f
+ 580. [b] 第四卷 从戊戌维新到义和团:1895—1900 - 张海鹏 马勇 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=bd132640813ab9a05g011081
+ 581. [b] 第五卷 新政、立宪与辛亥革命:1901—1912 - 张海鹏 张海鹏 李细珠 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=d3132c80813ab9999g0138c6
+ 582. [b] 第六卷 民国的初建:1912—1923 - 张海鹏 汪朝光 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=12232f60813ab9a05g019297
+ 583. [b] 第七卷 国共合作与国民革命:1924—1927 - 张海鹏 王奇生 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=f3932490813ab9a07g014835
+ 584. [b] 第九卷 抗日战争:1937—1945 - 张海鹏 曾景忠 王建朗 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=3ba32120813ab9a06g01719e
+ 585. [b] 第十卷 中国命运的决战:1945—1949 - 张海鹏 汪朝光 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=4bc32dd0813ab9a06g013e76
+ 586. [b] 夹缝中的总督：曾国藩的五次生死局 - 鞠海 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=3a132180813ab9affg019ed0
+ 587. [b] 纷纭万端：近代中国的思想与社会 - 沈松侨 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=57f32cd0813ab9b03g019198
+ 588. [b] 天京之围（谭伯牛代表作，看晚清大变局下湘军崛起的政治智慧） - 谭伯牛 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=e8332410813ab9b6ag016e61
+ 589. [b] 甲午海战 - 陈悦著 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=6c332960813ab9c16g019d9f
+ 590. [b] 中国的现代化：1850年以来的历史轨迹 - [美]李怀印 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=16132d60813ab9c10g0160ff
+ 591. [b] 中国记事（1912—1928） - 王笛 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=75c32f70813ab9e11g01795a
+ 592. [b] 派系分合与晚清政治（1885—1898）：以“帝后党争”为中心的探讨 - 林文仁 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=38a32430813ab9b04g011d75
+ 593. [b] 南北之争与晚清政局（1861—1884）：以军机处汉大臣为核心的探讨 - 林文仁 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=e38325a0813ab9b04g010afa
+ 594. [b] 从鸦片战争到五四运动 - 胡绳 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=24732e50813aba049g0110ea
+ 595. [b] 财与兵：中国近代化与晚清政治博弈（经纬度丛书） - 刘刚  李冬君 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=cc932a10813aba2b1g0197be
+ 596. [b] 转型中的地方政府：官员激励与治理(第二版) - 周黎安 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=4e732b3071cd7c794e71c25
+ 597. [b] 小镇喧嚣：一个乡镇政治运作的演绎与阐释 - 吴毅 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=59432150813ab6e36g011e75
+ 598. [b] 置身事内：中国政府与经济发展 - 兰小欢 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=2a332d10726332f72a34943
+ 599. [b] 枢纽：3000年的中国（新版增订4万字） - 施展 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=3ee32110717e5b2f3eedab0
+ 600. [b] 破茧 - 施展 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=5b3322a0723379e55b397d5
+ 601. [b] 理解中国产业政策 - 江飞涛等 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=5b0328c07247cc585b01f3e
+ 602. [b] 结构性改革 - 黄奇帆 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=bd43298071fd1081bd4cb34
+ 603. [b] 城乡中国（修订版） - 周其仁 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=63b324905e0d2263b04bad7
+ 604. [b] 土地制度与中国发展 - 刘守英 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=91a32db07192cd6491a2ab8
+ 605. [b] 大国大城：当代中国的统一、发展与平衡 - 陆铭 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=480328505d095c4808beaf4
+ 606. [b] 改革的逻辑（修订版） - 周其仁 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=5ae32eb05e127b5ae6114ab
+ 607. [b] 解构现代化：温铁军演讲录 - 温铁军 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=8fc32570813ab81bfg017f7e
+ 608. [b] 告别百年激进 - 温铁军 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=346321705ced11346f47b2a
+ 609. [b] 县乡中国：县域治理现代化 - 杨华 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=3cf32a00813ab6ee2g016266
+ 610. [b] 贫困的终结 - 李小云 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=36a329e072452d7736a5c2d
+ 611. [b] 儒法道：早期中国的政治想象 - 包刚升 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=056324e0813ab9de8g0173ba
+ 612. [b] 邓小平文选（全三卷） - 邓小平 | 2025-07-29 
+      https://weread.qq.com/book-detail?type=1&v=6fc320f0813ab737bg019bd7
+ 613. [b] 用数据讲故事（修订版） - [美]科尔·努斯鲍默·纳福利克 | 2025-07-20 
+      https://weread.qq.com/book-detail?type=1&v=6dd322a0813ab77d2g012e0c
+ 614. [b] 数据分析思维：分析方法和业务知识 - 猴子·数据分析学院 | 2025-07-20 
+      https://weread.qq.com/book-detail?type=1&v=1e832470721bc5751e84806
+ 615. [b] 竞速聊X -  | 2025-07-02 [S]
+      https://weread.qq.com/book-detail?type=1&v=82142a23643425f38504445384a45394d42626c366b4c366b74324b4a414e71ad7
+ 616. [b] Power BI智能数据分析与可视化从入门到精通 - 牟恩静 李杰臣 | 2025-07-01 
+      https://weread.qq.com/book-detail?type=1&v=e25323807185cc96e2533f8
+ 617. [b] Power BI数据可视化从入门到实战 - 袁佳林 | 2025-06-26 
+      https://weread.qq.com/book-detail?type=1&v=b4132640813ab6e1bg013694
+ 618. [b] Power Query：基于Excel 和 Power BI的M函数详解及应用 - 李小涛 | 2025-06-26 
+      https://weread.qq.com/book-detail?type=1&v=aac321f0718487a2aac97cc
+ 619. [b] 从数据到Excel自动化报表：Power Query和Power Pivot实战 - 黄海剑 | 2025-06-22 
+      https://weread.qq.com/book-detail?type=1&v=d1c325b071845523d1c542d
+ 620. [b] Power Query：用Excel玩转商业智能数据处理 - 朱仕平 | 2025-06-19 
+      https://weread.qq.com/book-detail?type=1&v=39132920813ab7c34g014fb4
+ 621. [b] Power BI商业数据分析 - 胡永胜编著 | 2025-06-19 
+      https://weread.qq.com/book-detail?type=1&v=71a327e07233d34871a1b3e
+ 622. [b] 05年的周公子大战易烨卿 - 嘟嘟飞到家 | 2025-06-12 [S]
+      https://weread.qq.com/book-detail?type=1&v=8e442a43643425f356237415766415847344a4c36687a36676b42616631424cdd7
+ 623. [b] 增长黑客 - 肖恩·埃利斯 摩根·布朗 | 2025-06-06 
+      https://weread.qq.com/book-detail?type=1&v=0c8326e05e12740c876a134
+ 624. [b] 数据分析方法论和业务实战（全彩） - 陈友洋 | 2025-05-29 
+      https://weread.qq.com/book-detail?type=1&v=7c7327b0813ab6ff9g0104c4
+ 625. [b] 隐性潜能：“自我启发之父”阿德勒的性格心理学 - [日]岸见一郎 | 2025-05-08 
+      https://weread.qq.com/book-detail?type=1&v=21a32a50813ab9eb7g010516
+ 626. [b] 一千零一夜 - 郅溥浩译 | 2025-05-08 
+      https://weread.qq.com/book-detail?type=1&v=85a32ce05c6d6885a9102c0
+ 627. [b] 电商数据分析与数据化运营 - 刘振华 | 2025-04-25 
+      https://weread.qq.com/book-detail?type=1&v=c22320507155b844c2207dd
+ 628. [b] 采购与供应链管理：一个实践者的角度（第3版） - 刘宝红 | 2025-04-23 
+      https://weread.qq.com/book-detail?type=1&v=bfe32cb07171204dbfe1955
+ 629. [b] 我为什么给你OFFER：跟着名企HR找工作 - 夏云 | 2025-04-13 
+      https://weread.qq.com/book-detail?type=1&v=a8332520813ab6fe0g0133ee
+ 630. [b] 百年孤独 - [哥]加西亚•马尔克斯 | 2025-01-24 
+      https://weread.qq.com/book-detail?type=1&v=8bc329705e46708bcb0c164
+ 631. [b] 数据分析师典型面试题精讲 - 数据蛙 | 2025-01-10 
+      https://weread.qq.com/book-detail?type=1&v=60032dc0813ab7af5g019c76
+ 632. [b] 认知觉醒：开启自我改变的原动力 - 周岭 | 2025-01-07 
+      https://weread.qq.com/book-detail?type=1&v=6a732ce07201202c6a7b30a
+ 633. [b] 勇气两部曲：“自我启发之父”阿德勒的哲学课纪念套装（共2册） - 岸见一郎 古贺史健 | 2024-12-30 [P]
+      https://weread.qq.com/book-detail?type=1&v=ec73249072054fb6ec77894
+ 634. [b] 乌合之众（果麦经典） - 居斯塔夫·勒庞 | 2024-12-26 
+      https://weread.qq.com/book-detail?type=1&v=5ee3227059f2cb5eebe8904
+ 635. [b] 来吧！带你玩转Excel VBA - 罗刚君 杨嘉恺编著 | 2024-12-24 
+      https://weread.qq.com/book-detail?type=1&v=712322905a018d7125a4378
+ 636. [b] 第一性原理：21堂科学通识课 - [英]马库斯·乔恩 | 2024-12-22 
+      https://weread.qq.com/book-detail?type=1&v=a1c32030813ab96d8g0171b2
+ 637. [b] 30天精学Excel：从菜鸟到数据分析高手 - 金桥 周奎奎 | 2024-12-02 
+      https://weread.qq.com/book-detail?type=1&v=b1232d20721a124cb12a057
+ 638. [b] 会做图表的人显得特别牛 - 桐山岳宽  | 2024-11-27 
+      https://weread.qq.com/book-detail?type=1&v=69c32ff0813ab7257g013f70
+ 639. [b] Tableau数据可视化分析从新手到高手 - 宋翔 | 2024-11-21 
+      https://weread.qq.com/book-detail?type=1&v=5a432940813ab8769g019fca
+ 640. [b] 左手Excel右手Tableau数据分析可视化入门案例视频精讲 - 韩小良 | 2024-11-20 
+      https://weread.qq.com/book-detail?type=1&v=fbd32850813ab7dceg015f11
+ 641. [b] SQL面试宝典：图解数据库求职题（全彩） - 猴子 | 2024-11-20 
+      https://weread.qq.com/book-detail?type=1&v=ae632370813ab853eg017de4
+ 642. [b] 俞军产品方法论 - 俞军等 | 2024-11-07 
+      https://weread.qq.com/book-detail?type=1&v=1cc3252071adc3b11cc0162
+ 643. [b] 幕后产品：打造突破式产品思维（全彩） - 王诗沐 | 2024-11-04 
+      https://weread.qq.com/book-detail?type=1&v=e9c326407187b524e9c1560
+ 644. [b] 世纪大赌局第三季天道法眼——经济真相与财富人生的终极密码 -  | 2024-10-16 [S]
+      https://weread.qq.com/book-detail?type=1&v=be142763643425f37544a415437415437344a4c36687a36676b39677443696f077
+ 645. [b] 人，应该怎么活？应该怎么赚钱？ - Administrator | 2024-10-16 [S]
+      https://weread.qq.com/book-detail?type=1&v=c5342433643425f36624f415373415437344a4c36687a36676b474355305043117
+ 646. [b] -职业如何规划？大城市，小城市，如何抉择？我来说说我的个人经历和思考-鸟树下睡懒觉的猪 -  | 2024-10-16 [S]
+      https://weread.qq.com/book-detail?type=1&v=fb542b93643425f363848415366415437344a4c36687a36676b31664137547ad8d
+ 647. [b] 因为贱-所以生活艰辛!说出真相-底层会更绝望-大鹏金翅明王 - 微软用户 | 2024-10-16 [S]
+      https://weread.qq.com/book-detail?type=1&v=0f342e03643425f305948415456415437344a4c36687a36676b344a4243424aa7a
+ 648. [b] 创业36条军规 - 孙陶然 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=011329f052b38b0117bce88
+ 649. [b] 第五项修炼：变革篇（下） - 彼得·圣吉 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=0f432d1059b35d0f4677c3c
+ 650. [b] 第五项修炼：变革篇（上） - 彼得·圣吉 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=e18324d059b352e18aa8e90
+ 651. [b] 德鲁克管理思想精要 - 彼得·德鲁克 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=eaf320c0593237eaf8b3347
+ 652. [b] 新零售：低价高效的数据赋能之路 - 刘润 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=f9232d607166cd7df924a74
+ 653. [b] 定位：争夺用户心智的战争（经典重译版） - 特劳特 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=74b321a05df57c74b8fb154
+ 654. [b] 华杉讲透《孙子兵法》（精装版） - 华杉 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=eee32c405c864eeee186f6e
+ 655. [b] 大败局（修订版）（套装共2册） - 吴晓波 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=d8a32040717c4fe3d8a713e
+ 656. [b] 无价：洞悉大众心理玩转价格游戏 - 威廉·庞德斯通 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=c95324f0597e20c95aba9da
+ 657. [b] 史蒂夫·乔布斯传 - 沃尔特·艾萨克森 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=3b4321905350ef3b4f14672
+ 658. [b] 集装箱改变世界（修订版） - 马克·莱文森 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=41132c305934ef4114c338d
+ 659. [b] 乌合之众：大众心理研究 - [法]勒庞 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=fbf32b105cc590fbfdc7ea2
+ 660. [b] 峰值体验：影响用户决策的关键时刻 - 汪志谦 朱海蓓 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=a53320d07222a6e3a535d97
+ 661. [b] 人类简史：从动物到上帝 - 尤瓦尔·赫拉利 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=d4a322a05d0f04d4a01f0d6
+ 662. [b] 麦肯锡方法 - [美]艾森·拉塞尔 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=6e332f8071f077b86e3be0b
+ 663. [b] 系统之美(湛庐经典） - 德内拉·梅多斯 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=73232d007165ecc9732b6ee
+ 664. [b] 认知盈余（经典版） - 克莱·舍基 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=9eb328405ae2909eb6c8ddf
+ 665. [b] 失控 - 凯文·凯利 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=8333202058318c833b4a523
+ 666. [b] 管理者14天看懂财务报表 - 闫静 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=3603277071efb5413606d43
+ 667. [b] 管理的常识：让管理发挥绩效的8个基本概念（修订版） - 陈春花 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=53b32d205d098653bb74953
+ 668. [b] 卓有成效的管理者 - 彼得·德鲁克 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=65832ed0717f792e6582b00
+ 669. [b] 创新与企业家精神 - 彼得·德鲁克 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=09a32a207169840f09a372b
+ 670. [b] 平台战略：正在席卷全球的商业模式革命（精编图文版） - 陈威如 余卓轩 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=6823288059b4646821635b9
+ 671. [b] 第三次工业革命 - 杰里米·里夫金 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=6a832a2052c74c6a87876a9
+ 672. [b] 创新者的窘境 - 克莱顿·克里斯坦森 | 2024-10-11 
+      https://weread.qq.com/book-detail?type=1&v=7d532f107193a88f7d5ffeb
+ 673. [b] 数据可视化（第2版） - 陈为 沈则潜 陶煜波等编著 | 2024-10-08 
+      https://weread.qq.com/book-detail?type=1&v=fd8323407184553afd86a78
+ 674. [b] 产品经理方法论——构建完整的产品知识体系（第2版） - 赵丹阳 | 2024-10-08 
+      https://weread.qq.com/book-detail?type=1&v=f3832c60813ab8a65g0118a7
+ 675. [b] 结构化工作法：让目标高效落地，完美达成 - 李忠秋 齐海林 | 2024-10-08 
+      https://weread.qq.com/book-detail?type=1&v=54832800813ab7716g01493d
+ 676. [b] 运营之路：数据分析+数据运营+用户增长 - 徐小磊 | 2024-10-08 
+      https://weread.qq.com/book-detail?type=1&v=4ad32d30813ab718eg019416
+ 677. [b] 精通Excel数据统计与分析 - 蒲括 邵朋编著 | 2024-10-08 
+      https://weread.qq.com/book-detail?type=1&v=7d432340715a38947d4c4d4
+ 678. [b] 追问 (实体书扫描版 内容完整，小白不要说 资源不完整 退款 ) - 丁捷 | 2024-09-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=59d42773643425f43743236596d365a75434774366b42366b74385948444a587e8
+ 679. [b] 半小时漫画经济学（第1册生活常识篇） - 陈磊·半小时漫画团队 | 2024-09-13 [S]
+      https://weread.qq.com/book-detail?type=1&v=bbe32350719217ccbbeaa5c
+ 680. [b] 少年白马醉春风（同名电视剧原著） - 周木楠 | 2024-07-30 
+      https://weread.qq.com/book-detail?type=1&v=f4432320813ab673eg016c9d
+ 681. [b] 零基础学python - Golden Looly | 2024-07-22 [S]
+      https://weread.qq.com/book-detail?type=1&v=94a422d3643425f426d66476d4c476a6a43584c366f46366f793363383862351c6
+ 682. [b] Python项目开发实战 第2版 -  | 2024-07-22 [S]
+      https://weread.qq.com/book-detail?type=1&v=46942933643425f394179415659415437434c30366f49366f79394944446c55f4e
+ 683. [b] 法律的悖论 - 罗翔 | 2024-07-13 
+      https://weread.qq.com/book-detail?type=1&v=48032000813ab8616g0176c9
+ 684. [b] 岸见一郎解读沉思录：生而为人的勇气 - [日]岸见一郎 | 2024-07-13 
+      https://weread.qq.com/book-detail?type=1&v=0da32e40813ab8c38g0142cb
+ 685. [b] 从此刻开始幸福：阿德勒的心理哲学课 - [日]岸见一郎 | 2024-07-13 
+      https://weread.qq.com/book-detail?type=1&v=39a32040813ab8e61g017a2f
+ 686. [b] 甘于平凡的勇气：阿德勒心理学入门 - [日]岸见一郎 | 2024-07-13 
+      https://weread.qq.com/book-detail?type=1&v=b1532290813ab8ed7g016140
+ 687. [b] 我们必须工作吗？ - [日]岸见一郎 | 2024-07-13 
+      https://weread.qq.com/book-detail?type=1&v=e3932d20813ab8ed8g018149
+ 688. [b] 运营之光：我的互联网运营方法论与自白 - 黄有璨 | 2024-07-01 
+      https://weread.qq.com/book-detail?type=1&v=46d326605cfbcd46d2139a2
+ 689. [b] 英语词根与单词的说文解字（新版） - 李平武 | 2024-07-01 
+      https://weread.qq.com/book-detail?type=1&v=0bd32f10813ab84aeg015c75
+ 690. [b] 猫和狗的生活哲学 - 简单心理 | 2024-06-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=06f32040813ab6d07g018ea7
+ 691. [b] 一句顶一万句（2022新版） - 刘震云 | 2024-06-21 
+      https://weread.qq.com/book-detail?type=1&v=3de32670813ab703eg013597
+ 692. [b] 存在主义心理治疗 - [美]亚隆 | 2024-06-12 
+      https://weread.qq.com/book-detail?type=1&v=538320a0813ab83e4g01836b
+ 693. [b] 聊聊中国社会现状-大江宁静 - philips | 2024-06-07 [S]
+      https://weread.qq.com/book-detail?type=1&v=06e42fe3643425f365436415371415437344a4c36687a36676b304a68446b52d74
+ 694. [b] [MySQL.Cookbook(第2版)].(美)迪布瓦.中文版.扫描版 -  | 2024-05-15 [S]
+      https://weread.qq.com/book-detail?type=1&v=c2642763643425f354346476d68476e7343584c366f46366f7933427132635a0b9
+ 695. [b] CherryPy Essentials - Rapid Python Web Application Development[Packt](200703) -  | 2024-05-15 [S]
+      https://weread.qq.com/book-detail?type=1&v=96042d33643425f355834476d73476e7343584c366f46366f79384f35444f45698
+ 696. [b] 数据科学入门 -  | 2024-05-15 [S]
+      https://weread.qq.com/book-detail?type=1&v=a3c42183643425f46515137706937716643584c366f46366f7930645538434e0fb
+ 697. [b] 常用数据挖掘算法总结及Python实现 - Allen | 2024-05-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=d0a42b23643425f44635837704a37716643584c366f46366f79315a5533386cb46
+ 698. [b] PYTHON数据可视化编程实战 - Igor Milovanovic | 2024-05-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=b6f427d3643425f44354e37704237716643584c366f46366f7941456131615635f
+ 699. [b] Python数据科学手册 - [美] Jake VanderPlas | 2024-05-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=ee042c53643425f33704d37703637716643584c366f46366f7946526b315167dbc
+ 700. [b] 数据分析师手记——数据分析72个核心问题精解 - 刘林 李朝成 饼干哥哥 | 2024-05-14 
+      https://weread.qq.com/book-detail?type=1&v=21832e40813ab7dcdg019efc
+ 701. [b] Python数据分析与数据化运营 - 宋天龙 | 2024-05-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=a2c42a43643425f34316837703337716643584c366f46366f7943673444417918f
+ 702. [b] Python数据处理 -  | 2024-05-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=af342cd3643425f41526437716237716643584c366f46366f794777504757525f7
+ 703. [b] Python数据分析基础 -  | 2024-05-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=bc142c63643425f416d5337716d37716643584c366f46366f7943314c383554767
+ 704. [b] Head_First_Python（中文版） - Administrator | 2024-05-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=75e428e3643425f47317437713137716643584c366f46366f79446932367467a35
+ 705. [b] 矿物与岩石完全图鉴 - 陈长伟 | 2024-04-18 
+      https://weread.qq.com/book-detail?type=1&v=f0b322b0813ab7b2cg011bec
+ 706. [b] 矿物与岩石图鉴 - 陈长伟 | 2024-04-18 
+      https://weread.qq.com/book-detail?type=1&v=178326707198e47e1788d97
+ 707. [b] 冰鉴大全集（超值金版） - [清]曾国藩著 雅瑟主编 | 2024-04-07 
+      https://weread.qq.com/book-detail?type=1&v=f9b3273054db7ff9b7cc5b4
+ 708. [b] 考研阅读句句讲（英语一） - 颉斌斌 | 2024-03-31 
+      https://weread.qq.com/book-detail?type=1&v=b2a32e80813ab75c9g017ff4
+ 709. [b] 我们生活在巨大的差距里 - 余华 | 2024-03-17 
+      https://weread.qq.com/book-detail?type=1&v=286329405b40f728668c477
+ 710. [b] 《我做老千的那些年》 -  | 2024-03-12 [S]
+      https://weread.qq.com/book-detail?type=1&v=f3642693643425f35474d397247397334354e39366c72366b7431753745677acc6
+ 711. [b] 100天后会死的鳄鱼君 - 菊池祐纪 | 2024-02-27 [S]
+      https://weread.qq.com/book-detail?type=1&v=46832af0813ab6e18g011743
+ 712. [b] 亲密关系（第6版） - [美]罗兰·米勒 | 2024-01-28 
+      https://weread.qq.com/book-detail?type=1&v=515320a0813ab6c04g014eb6
+ 713. [b] 说话之道 ：好好接话 - 山口拓朗 | 2024-01-06 
+      https://weread.qq.com/book-detail?type=1&v=97a32d00813ab6de7g013bbe
+ 714. [b] 曾仕强经典语录 - 罗浮山国学院 | 2024-01-05 
+      https://weread.qq.com/book-detail?type=1&v=701327e071a4b4ac701f723
+ 715. [b] 明朝那些事儿（全集） - 当年明月 | 2023-12-17 
+      https://weread.qq.com/book-detail?type=1&v=a57325c05c8ed3a57224187
+ 716. [b] 天空的城：我的26岁女房客 - 超级大坦克科比 | 2023-12-15 
+      https://weread.qq.com/book-detail?type=1&v=6dc32200813ab7ed4g01138b
+ 717. [b] 素书全鉴（典藏诵读版） - [秦汉]黄石公 | 2023-12-15 
+      https://weread.qq.com/book-detail?type=1&v=496324307186034a496a64f
+ 718. [b] 让人拍案叫绝的中国史（套装共2册） - 渤海小吏 | 2023-12-15 
+      https://weread.qq.com/book-detail?type=1&v=d8532f107228ea9cd85e4d8
+ 719. [b] 自然吸引 -  | 2023-12-05 [S]
+      https://weread.qq.com/book-detail?type=1&v=aa642263643425f375851416a6341697643436d366b43366b7441346c30796279d
+ 720. [b] 《重世之门》——大学生易凡在上古蛮荒神话中的离奇遭遇 - philips | 2023-12-04 [S]
+      https://weread.qq.com/book-detail?type=1&v=00342ae3643425f34536b415755415847344a4c36687a36676b4475513574502d1
+ 721. [b] 半小时漫画科普系列（共7册） - 陈磊•半小时漫画团队 | 2023-11-27 [S]
+      https://weread.qq.com/book-detail?type=1&v=d1b32b60813ab73e8g0182ae
+ 722. [b] 1_1_红丸觉醒第三版.pdf -  | 2023-11-27 [S]
+      https://weread.qq.com/book-detail?type=1&v=b7742d33643425f37476944434344444b32574936695136676b465435396d4ddd1
+ 723. [b] 社会心理学（第11版） - [美]戴维·迈尔斯 | 2023-11-26 
+      https://weread.qq.com/book-detail?type=1&v=71e32c00813ab7be9g013f0e
+ 724. [b] 松弛感 - 范俊娟 | 2023-11-23 
+      https://weread.qq.com/book-detail?type=1&v=87632480813ab7e4eg0178ab
+ 725. [b] 谜男方法 - 谜男 -  | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=86a42b13643425f344f6433343333363642774b366b47366b7445553942514d5fb
+ 726. [b] ​da3f04db5097083dd2d3f9dc03532068.jpg - da3f04db5097083dd2d3f9dc03532068.jpg | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=e5242b83643425f316769426f4b426e46424c4a366b50366b74376344445330798
+ 727. [b] 五步陷阱技术深度解剖 - Jacob - User | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=baf429b3643425f395a69426c79426a36424c4a366b50366b74334d72364d5604c
+ 728. [b] 神撩术 - 欧阳浮夸 -  | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=21842a33643425f38544b426e6d426e46424c4a366b50366b7437673430427746f
+ 729. [b] 叔叔教你护妹子 - 刘毓卿 - 帝都才俊刘叔叔 | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=81c42403643425f393259426c71426a36424c4a366b50366b7430674b473236d01
+ 730. [b] 绝密话术 - 浪迹团队 - 3.14 | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=d5742053643425f347a75426e34426e46424c4a366b50366b74304d39467772c30
+ 731. [b] 正妹心理学 - 郑匡宇 -  | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=ac2425f3643425f416d53426d4f426a36424c4a366b50366b74455663364462695
+ 732. [b] 惯例军火库 -  | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=f63420c3643425f346175426d71426e46424c4a366b50366b7434477a474f71206
+ 733. [b] ​决胜网络把妹 - 决胜网络把妹 | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=52f42423643425f335965426f65426e46424c4a366b50366b74325730465470fef
+ 734. [b] 自然道作品集 - Administrator | 2023-11-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=565421d3643425f426134426d53426a36424c4a366b50366b74393277366270fdd
+ 735. [b] ​坏男人：女人无法抵御的诱惑、历经与冒险 - 坏男人：女人无法抵御的诱惑、历经与冒险 | 2023-11-20 [S]
+      https://weread.qq.com/book-detail?type=1&v=ef442fb3643425f324d41426f55426e46424c4a366b50366b74367845357856446
+ 736. [b] (2nd) Mystery Erik Von Markovik - The Original Mystery Method _ Venusian Arts Handbook 2nd Edition.pdf -  | 2023-11-19 [S]
+      https://weread.qq.com/book-detail?type=1&v=859424b3643425f43574545654d45633742626c366b4c366b74476a5544344df41
+ 737. [b] 晚熟青年杂译集 -  | 2023-11-18 [S]
+      https://weread.qq.com/book-detail?type=1&v=7d442d83643425f386d36426c75426a36424c4a366b50366b74396545357453964
+ 738. [b] 聊天话术终极指南 - 浪迹团队 - YCanPDF | 2023-11-17 [S]
+      https://weread.qq.com/book-detail?type=1&v=ca0425e3643425f36434f426e45426e46424c4a366b50366b74396174435856a4e
+ 739. [b] 极限话术 -  | 2023-11-17 [S]
+      https://weread.qq.com/book-detail?type=1&v=6c9425f3643425f33396d426f59426e46424c4a366b50366b74466f793839468c2
+ 740. [b] 女性分类课程笔记 - 但丁Law - Administrator | 2023-11-16 [S]
+      https://weread.qq.com/book-detail?type=1&v=15b42073643425f36624f426e53426e46424c4a366b50366b74344873333336987
+ 741. [b] 冷眼观爱 - 冷爱 | 2023-11-16 [S]
+      https://weread.qq.com/book-detail?type=1&v=fab42053643425f334943426f69426e46424c4a366b50366b7437696d43535201e
+ 742. [b] 自私的基因（40周年增订版） - 理查德·道金斯 | 2023-11-13 
+      https://weread.qq.com/book-detail?type=1&v=fb732f6071691b6efb7de4b
+ 743. [b] 自我 - 巴里·丹顿 | 2023-11-10 
+      https://weread.qq.com/book-detail?type=1&v=bb4321e0727a95e1bb4623f
+ 744. [b] 情绪之书 - [英]蒂凡尼·瓦特·史密斯 | 2023-11-01 
+      https://weread.qq.com/book-detail?type=1&v=df2324a0813ab7958g0170b9
+ 745. [b] 自然社交，让情绪不再敏感 - 陌川 | 2023-11-01 
+      https://weread.qq.com/book-detail?type=1&v=9dc32460726813f69dcdab6
+ 746. [b] 职场的逻辑：打工人如何体面地升职加薪（一本书看懂职场的底层逻辑，30万打工人拍手称赞的职场自我提升指南） - 格总 | 2023-11-01 
+      https://weread.qq.com/book-detail?type=1&v=21232b80813ab7f9dg018749
+ 747. [b] 说话的技术 - 冈本纯子 | 2023-10-31 
+      https://weread.qq.com/book-detail?type=1&v=04c32640813ab7c9eg0133e7
+ 748. [b] 洞察：精确观察和有效沟通的艺术 - 艾美·赫曼 | 2023-10-31 
+      https://weread.qq.com/book-detail?type=1&v=53932be05e24f55391e0425
+ 749. [b] 蛤蟆先生去看心理医生 - 罗伯特·戴博德 | 2023-10-30 [S]
+      https://weread.qq.com/book-detail?type=1&v=66832530721e777066806c9
+ 750. [b] 高情商修炼手册 - 陈江 | 2023-10-30 [S]
+      https://weread.qq.com/book-detail?type=1&v=b9632d405e08f1b96f099d3
+ 751. [b] 经济学的思维方式：第13版 - [美]保罗·海恩 [美]彼得·勃特克 [美]大卫·普雷契特科 | 2023-10-13 
+      https://weread.qq.com/book-detail?type=1&v=8c332830813ab7ebdg013f1c
+ 752. [b] 社会不教，精英不讲，坎儿还得自己过（揭秘人才成长规律） - philips | 2023-10-08 [S]
+      https://weread.qq.com/book-detail?type=1&v=f0b42143643425f373452415431415437344a4c36687a36676b4751614154704fe
+ 753. [b] 思维的囚徒 - 亚历克斯·佩塔克斯 伊莱恩·丹顿 | 2023-09-18 [S]
+      https://weread.qq.com/book-detail?type=1&v=fc232440718caa25fc2e16f
+ 754. [b] 禅与摩托车维修艺术 - 罗伯特·M.波西格 | 2023-09-18 
+      https://weread.qq.com/book-detail?type=1&v=3a332f307203e7b43a34b29
+ 755. [b] 当尼采哭泣 - [美]欧文·亚隆 | 2023-09-17 
+      https://weread.qq.com/book-detail?type=1&v=a7f32c505d0ef7a7f4f3839
+ 756. [b] 人生海海 - 麦家 | 2023-08-23 [OK]
+      https://weread.qq.com/book-detail?type=1&v=63932e60717f7af46396445
+ 757. [b] 阅读是一座随身携带的避难所：毛姆读书随笔 - 毛姆 | 2023-08-08 [S]
+      https://weread.qq.com/book-detail?type=1&v=27532ae05defa7275c63f9d
+ 758. [b] 霍乱时期的爱情 - [哥]加西亚•马尔克斯 | 2023-08-04 [S]
+      https://weread.qq.com/book-detail?type=1&v=99632b00719376c6996d2d2
+ 759. [b] 法治的细节 - 罗翔 | 2023-08-04 
+      https://weread.qq.com/book-detail?type=1&v=be832770813ab6b8eg01004a
+ 760. [b] 55-我是一个DNA鉴定师，八一八我遇到的那些人那些事-小鉴定师大宝 - philips | 2023-07-28 [S]
+      https://weread.qq.com/book-detail?type=1&v=85442593643425f47786e417076416e34344a4c36687a36676b435476464162d26
+ 761. [b] 寒门难再出贵子 -  | 2023-07-26 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=b6d42e23643425f354f6d354b65354f4b344a4c36687a36676b457556423534b93
+ 762. [b] 大家都说说小时候的很奇怪的记忆和遇到的很奇怪的东西 - philips | 2023-07-25 [S]
+      https://weread.qq.com/book-detail?type=1&v=063424c3643425f45446f416c36416976344a4c36687a36676b304e79315173697
+ 763. [b] 一个潜水多年的体制内的生意人来实际谈谈老百姓该怎么办？ - philips | 2023-07-25 [S]
+      https://weread.qq.com/book-detail?type=1&v=2c442563643425f30445741544f415437344a4c36687a36676b436649464c666d8
+ 764. [b] 7-《冷案重启》：扒一扒那些悬而未决的陈年旧案 - Administrator | 2023-07-25 [S]
+      https://weread.qq.com/book-detail?type=1&v=bb642823643425f414a54417156416e34344a4c36687a36676b38517147437283d
+ 765. [b] 珠玉词 - [北宋]晏殊 | 2023-07-20 [S]
+      https://weread.qq.com/book-detail?type=1&v=47732e707188d7c24776236
+ 766. [b] 东京八平米 - 吉井忍 | 2023-07-20 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=c4332ab0813ab7f5cg017038
+ 767. [b] 人生设计课：如何设计充实且快乐的人生 - 比尔·博内特 戴夫·伊万斯 | 2023-07-17 [S]
+      https://weread.qq.com/book-detail?type=1&v=e2d32d30729ac30be2d4be9
+ 768. [b] 查拉图斯特拉如是说（果麦经典） - 尼采 | 2023-07-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=d5632b5071a6840bd56401b
+ 769. [b] 看你一眼就会笑 - 丘汉林 | 2023-07-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=514327107273b69f514757e
+ 770. [b] 圆圈正义：作为自由前提的信念 - 罗翔 | 2023-06-23 [S]
+      https://weread.qq.com/book-detail?type=1&v=739322a07269560473951d3
+ 771. [b] 给青年的十二封信 - 朱光潜 | 2023-06-22 [S]
+      https://weread.qq.com/book-detail?type=1&v=e21324505e4881e21783eed
+ 772. [b] 全球通史 - 乔治·威尔斯 卡尔顿·海斯 | 2023-06-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=aa532a205cf92daa5a4e44d
+ 773. [b] 大学（国学大书院） - [春秋]曾参 | 2023-06-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=714329907198e1c3714ed05
+ 774. [b] 小王子（三部曲|读客三个圈经典文库） - [法]圣·埃克苏佩里 | 2023-05-21 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=772321b05e37c0772fa8814
+ 775. [b] 你今天真好看 - 莉兹·克里莫 | 2023-04-30 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=660324505ccd7466038022a
+ 776. [b] 故事：材质、结构、风格和银幕剧作的原理 - 罗伯特·麦基 | 2023-04-20 
+      https://weread.qq.com/book-detail?type=1&v=0473270058addd047f1f76a
+ 777. [b] 溶于雾中 - 笹泽左保 | 2023-04-16 
+      https://weread.qq.com/book-detail?type=1&v=9ce323a0813ab7bc4g0188ec
+ 778. [b] 不能承受的生命之轻（米兰·昆德拉作品系列·2022版） - [法]米兰·昆德拉 | 2023-04-06 [S]
+      https://weread.qq.com/book-detail?type=1&v=d9f32bf0729dcf98d9fccdb
+ 779. [b] 素书 - [秦汉]黄石公 | 2023-03-19 
+      https://weread.qq.com/book-detail?type=1&v=125321605c5ae912535dd77
+ 780. [b] 你以为你以为的就是你以为的吗？（经典版） - 朱利安·巴吉尼 | 2023-03-16 [S]
+      https://weread.qq.com/book-detail?type=1&v=fa73296071a74dc7fa7f2cd
+ 781. [b] 上下五千年（珍藏版）（套装共3册） - 林汉达 曹余章 | 2023-03-02 [S]
+      https://weread.qq.com/book-detail?type=1&v=48d3294071bf494b48d5e6b
+ 782. [b] 大明王朝1566（全集） - 刘和平 | 2023-02-27 [S]
+      https://weread.qq.com/book-detail?type=1&v=31732f305cedce317fc3b6a
+ 783. [b] 中国教育史（第四版） - 孙培青主编 | 2023-02-03 [S]
+      https://weread.qq.com/book-detail?type=1&v=d5c320b0719af925d5c71c7
+ 784. [b] 蔡志忠漫画古代小说经典：西游记 - 蔡志忠编绘 | 2023-01-25 [S]
+      https://weread.qq.com/book-detail?type=1&v=df5327a0729aa24adf56664
+ 785. [b] 拿起手机，人人都是摄影师：卷毛佟的手机摄影笔记 - 卷毛佟 | 2023-01-15 [S]
+      https://weread.qq.com/book-detail?type=1&v=d9232bc0718b72eed925504
+ 786. [b] 苏菲的世界 - 乔斯坦·贾德 | 2023-01-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=9ef32b805abab59ef601a6c
+ 787. [b] 曾国藩的正面与侧面 - 张宏杰 | 2023-01-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=85832630721b9190858ebf5
+ 788. [b] 二次成长（成人人格修补手册，B站人气UP主“安慰记心理小店”作品） - 王瑞 | 2023-01-14 [S]
+      https://weread.qq.com/book-detail?type=1&v=b4e32da07151f23db4ec0d2
+ 789. [b] 戴老师魔性诗词课 - 戴建业 | 2023-01-12 [S]
+      https://weread.qq.com/book-detail?type=1&v=8803286071dc8a998808c47
+ 790. [b] 怪诞行为学系列（套装共6册） - 丹·艾瑞里 | 2023-01-12 [S]
+      https://weread.qq.com/book-detail?type=1&v=2af3243071a178dd2af9412
+ 791. [b] 温暖的怪兽 - 物久保 | 2023-01-11 [S]
+      https://weread.qq.com/book-detail?type=1&v=a2b329307260a98ba2b7541
+ 792. [b] 自然箫声的微笑：《庄子》解密 - 蔡志忠 | 2023-01-11 [S]
+      https://weread.qq.com/book-detail?type=1&v=046323705c9510046d2b81a
+ 793. [b] 仁者的微笑：《论语》解密 - 蔡志忠 | 2023-01-11 [S]
+      https://weread.qq.com/book-detail?type=1&v=794320005c950f7944bd5e8
+ 794. [b] 作家榜名著：父与子全集 - 埃·奥·卜劳恩 | 2023-01-08 [S]
+      https://weread.qq.com/book-detail?type=1&v=4d932e105e13534d9251f96
+ 795. [b] 半小时漫画大套装（套装共16册） - 陈磊·半小时漫画团队  | 2023-01-07 [S]
+      https://weread.qq.com/book-detail?type=1&v=19932c50813ab6ba7g010b72
+ 796. [b] 认知觉醒：伴随一生的学习方法论（青少年学习版） - 周岭 | 2023-01-03 [S]
+      https://weread.qq.com/book-detail?type=1&v=0a332e00813ab7400g010246
+ 797. [b] 涂乐 - 姜末 | 2023-01-03 [S]
+      https://weread.qq.com/book-detail?type=1&v=db53239071e5d400db53a57
+ 798. [b] 半小时漫画中国史番外篇：中国传统节日 - 陈磊·半小时漫画团队 | 2023-01-03 [S][OK]
+      https://weread.qq.com/book-detail?type=1&v=b4132bb0719db176b41f10e
+ 799. [b] 世说新语（全集） - [南朝宋]刘义庆 | 2022-12-31 [S]
+      https://weread.qq.com/book-detail?type=1&v=645328e071b1426864542b5
+ 800. [b] 半小时漫画中国哲学史（套装全2册） - 陈磊·半小时漫画团队 | 2022-12-31 [S]
+      https://weread.qq.com/book-detail?type=1&v=e4a32890723bd3eae4a0868
+ 801. [b] 道德经（无障碍阅读插图本） - [春秋]老子 | 2022-12-26 [S]
+      https://weread.qq.com/book-detail?type=1&v=bed321c07208c7f5bed3841
+ 802. [b] 道德经：百万读者，过万好评（全注全译典藏版） - [春秋]老子 李若水译评 | 2022-12-26 [S]
+      https://weread.qq.com/book-detail?type=1&v=d81323305cb226d8152b3d7
+ 803. [b] 大学中庸（跟名家读经典） - 钱逊 | 2022-12-26 [S]
+      https://weread.qq.com/book-detail?type=1&v=8d232840717c3dd88d2fdd4
+ 804. [b] 古人比你更会玩1 - 黄桑 | 2022-12-26 [S]
+      https://weread.qq.com/book-detail?type=1&v=42c327d07247092342c3474
+ 805. [b] 你应该熟读的中国古文 - 陈引驰 | 2022-12-26 [S]
+      https://weread.qq.com/book-detail?type=1&v=212326b05d211921261391a
+ 806. [b] 你来人间一趟，你要看看太阳 - 海子 | 2022-12-25 [S]
+      https://weread.qq.com/book-detail?type=1&v=b5c3233071844104b5ccfaa
+ 807. [b] 人性的弱点（大全集） - 卡耐基 | 2022-12-24 [S]
+      https://weread.qq.com/book-detail?type=1&v=4d1324e054d5034d1b10369
+ 808. [b] 爱是什么 - 芭芭拉·弗雷德里克森 | 2022-12-24 [S]
+      https://weread.qq.com/book-detail?type=1&v=0e232ec071bd7f810e2c11c
+ 809. [b] 半小时漫画中国史大全集（共7册） - 陈磊·半小时漫画团队 | 2022-12-23 [S]
+      https://weread.qq.com/book-detail?type=1&v=643324f0813ab71abg016637
+ 810. [b] 唐诗里的烟火人间 - 温伯陵 | 2022-12-23 [S]
+      https://weread.qq.com/book-detail?type=1&v=0fc3222072007d0b0fcc1af
+ 811. [b] 少年歌行（热血武侠影视原著） - 周木楠 | 2022-12-23 [S]
+      https://weread.qq.com/book-detail?type=1&v=d9e32e10727f9448d9e6105
+ 812. [b] 中国式人情关系作品集（套装共2册） - 浮石  | 2022-12-23 [S]
+      https://weread.qq.com/book-detail?type=1&v=b1132360813ab6fffg017ada
+ 813. [b] 表象与本质：类比，思考之源和思维之火 - [美]侯世达 [法]桑德尔 | 2022-12-22 [S]
+      https://weread.qq.com/book-detail?type=1&v=44332da07181ed92443ef71
+ 814. [b] 三体全集（全三册） - 刘慈欣 | 2022-12-22 [S]
+      https://weread.qq.com/book-detail?type=1&v=ce032b305a9bc1ce0b0dd2a
+ 815. [b] 底层逻辑2：理解商业世界的本质 - 刘润 | 2022-12-11 [S]
+      https://weread.qq.com/book-detail?type=1&v=0b0322e0813ab7435g0197d8
+ 816. [b] 情到深处人孤独：纳兰容若词传 - 慕容素衣 | 2022-11-26 [S]
+      https://weread.qq.com/book-detail?type=1&v=78f32f20718a6c0678f056f
+ 817. [b] 半小时漫画中国史：经济篇 - 陈磊·半小时漫画团队 | 2022-11-09 [S]
+      https://weread.qq.com/book-detail?type=1&v=dde32660720abf48dde7280
+ 818. [b] 作家榜名著：夜航船 年轻人要熟知的4248个文化常识！ - [明]张岱 | 2022-11-08 [S]
+      https://weread.qq.com/book-detail?type=1&v=b663244071800ceab665e0f
+ 819. [b] 教父三部曲 - 马里奥·普佐 | 2022-11-08 [S]
+      https://weread.qq.com/book-detail?type=1&v=357328a0813ab6a93g014c77
+ 820. [b] 知行合一：国学大师讲透阳明心学 - 冯友兰等 | 2022-11-08 [S]
+      https://weread.qq.com/book-detail?type=1&v=1aa323805d1a811aaf0deb1
+ 821. [b] 中国最美古诗词：你应该熟读的中国古诗+你应该熟读的中国古词+你应该熟读的中国古文（全集） - 陈引驰编著 | 2022-10-01 [S]
+      https://weread.qq.com/book-detail?type=1&v=b19324207167030eb195ab1
+ 822. [b] 枕上诗书：一本书读懂最美古诗词 - 徐若央 | 2022-09-28 [S]
+      https://weread.qq.com/book-detail?type=1&v=b6132de0813ab6e44g0146c2
+ 823. [b] 半小时漫画世界史 - 陈磊 | 2022-09-27 [S]
+      https://weread.qq.com/book-detail?type=1&v=ce632a705e2ff6ce6f6a7c2
+ 824. [b] 社会工程：安全体系中的人性漏洞 - 海德纳吉 | 2022-09-24 [S]
+      https://weread.qq.com/book-detail?type=1&v=e9432870715c01ade947384
+ 825. [b] 见信如面 - 鲁迅等 | 2022-07-06 [S]
+      https://weread.qq.com/book-detail?type=1&v=1ab3221072901ee41abf251
+ 826. [b] 文化伟人代表作图释书系：资本论 - [德]卡尔·马克思 | 2022-01-05 [S]
+      https://weread.qq.com/book-detail?type=1&v=64e325b0724ff25c64eeff7
+ 827. [b] 小狗钱钱2 - [德]博多·舍费尔 | 2021-08-09 [S]
+      https://weread.qq.com/book-detail?type=1&v=591324805c4d845919cce6a
+ 828. [b] 天才在左 疯子在右 - 高铭 | 2021-07-03 [S]
+      https://weread.qq.com/book-detail?type=1&v=3db327d0718bed623dbd101
+ 829. [b] 我离开之后 - 苏西·霍普金斯著 哈莉·贝特曼绘 | 2021-07-03 [S]
+      https://weread.qq.com/book-detail?type=1&v=2b532060720582f72b54f27
+ 830. [b] 猫咪家庭医学大百科（全新修订版） - 林政毅 陈千雯 | 2021-05-21 [S]
+      https://weread.qq.com/book-detail?type=1&v=9a9320b0723b09cb9a98c46
+ 831. [b] flask-docs -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=af942af3643425f366a59476e32476e7343584c366f46366f7945616b31367881e
+ 832. [b] PythonCodingRule - kimhung | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=56342ee3643425f34356f476b4b476a6a43584c366f46366f7931684a35796a143
+ 833. [b] 像计算机科学家那样思考 Python中文版第二版 - dgz | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=776422d3643425f344b53476d61476e7343584c366f46366f7946544a31425149e
+ 834. [b] 轻量级Django_，Julia_Elman_，P218_，2016.10 - Julia Elman，Mark Lavin著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b4b429c3643425f434e77476d53476a6a43584c366f46366f79466e55374d79b61
+ 835. [b] Rapid+GUI+Programming+with+Python+and+Qt -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d2f42a03643425f483175476c4f476a6a43584c366f46366f7942765534624e052
+ 836. [b] Python精要参考(第二版)_翻译 - chris | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=36f42063643425f44784d476b6d476a6a43584c366f46366f7935566233656d354
+ 837. [b] Python_Testing_Cookbook -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fe8425e3643425f336370476b46476a6a43584c366f46366f7931644a453249c5b
+ 838. [b] 《python开发技术详解》.(周伟,宗杰) - 周伟著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d8642363643425f356645476d6d476e7343584c366f46366f79334473424677244
+ 839. [b] matplotlib_users_guide_0.90.0 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fb442ef3643425f313138476a61476a6a43584c366f46366f79367133363967de0
+ 840. [b] Head First Python（中文版） - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8aa42253643425f305479476a53476a6a43584c366f46366f7944503046376f8e1
+ 841. [b] Qt5_Python_GUI_Programming_Cookbook -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=18542353643425f474549476c4b476a6a43584c366f46366f7941736931544d70d
+ 842. [b] 《Python标准库》中文版 - ken | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1b4420c3643425f347263476d69476e7343584c366f46366f79343546454351af5
+ 843. [b] 机器学习实践指南++案例应用解析+麦好 - 麦好著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8b842833643425f414a54476c7a476a6a43584c366f46366f79446c73477953a0b
+ 844. [b] 机器学习在量化投资中的应用研究_汤凌冰著_北京：电子工业出版社_2014.11_13662591_P157 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=16e420c3643425f423735476d33476a6a43584c366f46366f79336a73364d6f931
+ 845. [b] Python开发实战 - 日本BePROUD股份有限公司著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=29342f53643425f464d4a476c31476a6a43584c366f46366f7946764845746e9a2
+ 846. [b] 可爱的Python(哲思社区.插图版_文字版) - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=24742a73643425f424a63476d43476a6a43584c366f46366f79374f4746656a001
+ 847. [b] Python科学计算(#) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=61142863643425f463979476c34476a6a43584c366f46366f79346263417768a30
+ 848. [b] Beautiful_Soup中文文档 - JUNLONG LI | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ea042e83643425f356e57476d6f476e7343584c366f46366f79475332347439785
+ 849. [b] New Riders -- The Zope Book -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=56942c13643425f306b67476a65476a6a43584c366f46366f79354973357a344ae
+ 850. [b] Machine Learning A Probabilistic Perspective(1) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bb442553643425f304457476a57476a6a43584c366f46366f7943485344594433d
+ 851. [b] NumPy_1_5_Beginner__039_s_Guide -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1b8425a3643425f315130476a67476a6a43584c366f46366f7947554e434e55b2a
+ 852. [b] Python学习路线图(3)(35) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=52142243643425f36773937773537797843584c366f46366f79415a56424b55bbd
+ 853. [b] 码农 第6期 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=75742193643425f436d67476d51476a6a43584c366f46366f79445653304f356e7
+ 854. [b] think-python - Freddy Yu | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=74f42663643425f394179476c67476a6a43584c366f46366f79345172325748e19
+ 855. [b] Python技术参考大全 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2f742bd3643425f445955476b67476a6a43584c366f46366f79446e43353077255
+ 856. [b] Python高级编程（清华） - （美）Luke Sneeringer著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=53c42ca3643425f44354e476b54476a6a43584c366f46366f7932634e3145680f4
+ 857. [b] Python源码剖析-深度探索动态语言核心技术 - 陈儒著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=28a42073643425f473174476c4a476a6a43584c366f46366f79346c3946706d21b
+ 858. [b] [Building.Machine.Learning.Systems.with.Pytho -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=3b0423f3643425f353834476d65476e7343584c366f46366f79385a6f364f4ff04
+ 859. [b] The Twisted Documentation -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b93423b3643425f395a69476c65476a6a43584c366f46366f79355372337035a33
+ 860. [b] Python编程入门经典 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c5d42193643425f39367237715037716643584c366f46366f7938556d344a554ad
+ 861. [b] The Elements of Statistical Learning -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0e842343643425f394e4a476c64476a6a43584c366f46366f79315658356b45387
+ 862. [b] Python技术手册(第2版) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=46442733643425f453968476b6a476a6a43584c366f46366f7931554d4163355ab
+ 863. [b] 利用Python进行数据分析 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=32e42763643425f45356537705737716643584c366f46366f79386f67306e74c09
+ 864. [b] Python金融大数据分析 - （德）希尔皮斯科著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7d7423f3643425f37585137774337797843584c366f46366f79396354446c726a1
+ 865. [b] 从Excel到Python——数据分析进阶指南 - 王彦平(蓝鲸) | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1ec42613643425f44514337704d37716643584c366f46366f79304931444c6b5be
+ 866. [b] PYTHONWang-Luo-Bian-Cheng-Ji-Chu---(Mei-)Gao-Sen-Zhu--Mo-Chi-Deng-Yi - （美）高森著 莫迟等译 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=65a42573643425f34397a476b4e476a6a43584c366f46366f79393930476e6351a
+ 867. [b] Python网络数据采集 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bd9424c3643425f43743237704537716643584c366f46366f79304476354259a30
+ 868. [b] 量化投资以Python为工具 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=538428d3643425f42716d476d4b476a6a43584c366f46366f79395956426c41a23
+ 869. [b] 笨办法学Python（第四版） - 承德-至阳整理 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c97427d3643425f396938476c6f476a6a43584c366f46366f79434d71416c79390
+ 870. [b] python核心笔记 - 阿King | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4c8421a3643425f376669476a47476a6a43584c366f46366f7945753945536bd09
+ 871. [b] 码农 第5期 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=77a42803643425f43654f476d4f476a6a43584c366f46366f7935476831476f374
+ 872. [b] Python数据分析基础教程：NumPy学习指南（第2版） - Ivan Idris | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c6f42913643425f41694c37716e37716643584c366f46366f79413645387a61374
+ 873. [b] Python爬虫开发与项目实战 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b24425c3643425f41566b37716137716643584c366f46366f7945705637623323f
+ 874. [b] Python核心编程（第3版）PDF高清晰完整中文版 - Python核心编程（第3版） | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ab742333643425f446b70476b64476a6a43584c366f46366f79336c52356363531
+ 875. [b] 用Python写网络爬虫 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eb6424b3643425f46786137707137716643584c366f46366f79447441396e4a6f4
+ 876. [b] Phthon编程金典 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a4042263643425f313959476a6b476a6a43584c366f46366f79426653325051ae3
+ 877. [b] 网络爬虫－Python和数据分析 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e3042ea3643425f464d4a37706a37716643584c366f46366f7936586b373657df2
+ 878. [b] Python语言及其应用 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cd942a33643425f47556b476c47476a6a43584c366f46366f79365364315a68a9e
+ 879. [b] 看漫画学Python：有趣、有料、好玩、好用 - 关东升 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ab242863643425f384776476a4a476a6a43584c366f46366f79306948315a59020
+ 880. [b] Mastering Machine Learning With scikit-learn -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d7642eb3643425f307371476a59476a6a43584c366f46366f79425174387239536
+ 881. [b] 凸优化 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=47742193643425f346a43476d59476e7343584c366f46366f7942434f425348092
+ 882. [b] Python编程初学者指南 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=46b422c3643425f38754737714337716643584c366f46366f7934303531727173c
+ 883. [b] Excel+Python：飞速搞定数据分析与处理 - 费利克斯·朱姆斯坦 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=5da32a207297e7b05da4cdd
+ 884. [b] 如何用数据解决实际问题 - [日]柏木吉基 著；赵媛 译 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a0142433643425f45703937706237716643584c366f46366f7934614c3853518f2
+ 885. [b] Python3网络爬虫数据采集 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ad642e33643425f47317437713137716643584c366f46366f7933615035766db36
+ 886. [b] 利用Python进行数据分析 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=14542023643425f37345237773737797843584c366f46366f79475039463049756
+ 887. [b] Beginning Python：Using Python 2.6 and Python 3.1 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=9d9428d3643425f354f6d476d71476e7343584c366f46366f7938453135534a33b
+ 888. [b] 深度学习-无水印-中文版 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b3842743643425f435745476d55476a6a43584c366f46366f79474459376a6c1be
+ 889. [b] Effective+Python.编写高质量Python代码的59个有效方法.Brett+Slatkin - （美）斯拉特金著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4a142d73643425f36475a476d78476e7343584c366f46366f79353346413577513
+ 890. [b] Python 2.7 Tutorial 中文版 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=18e42fd3643425f317030476a75476a6a43584c366f46366f79356e30316369612
+ 891. [b] python标准库 - ken | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0ff42e63643425f394a4737715137716643584c366f46366f79366d664439357c4
+ 892. [b] Python数据分析实战_2016版 - （意）内利著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=24742253643425f334d4e37703137716643584c366f46366f79395170354e6ea23
+ 893. [b] Pro Android Python with SL4A - Paul Ferrill | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ac1429f3643425f316769476a73476a6a43584c366f46366f79397a58387630d71
+ 894. [b] 精通Python设计模式_带索引书签目录 - [荷] Sakis Kasampalis | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=52a42da3643425f426546476d42476a6a43584c366f46366f79333839344134cee
+ 895. [b] Python基础教程(第3版).[挪]Magnus Lie Hetland(书签 ) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e57420f3643425f445143476b65476a6a43584c366f46366f79456e4931565752f
+ 896. [b] Python.Cookbook(第2版) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8a642233643425f326776476b39476a6a43584c366f46366f79327a74466969333
+ 897. [b] Flask Web开发 基于Python的Web应用开发实战  -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b4d429b3643425f363445476e30476e7343584c366f46366f79346c7a303467fcb
+ 898. [b] Python 学习笔记 第二版 - Q.yuhen | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e76428b3643425f33396d476b36476a6a43584c366f46366f79306957375a4ec23
+ 899. [b] Python进阶（Intermediate_Python）_中文PDF彩色版 - Unknown | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b0642c33643425f45487a476b6c476a6a43584c366f46366f7941746f387641ca5
+ 900. [b] PRML -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=37542b83643425f317841476a6f476a6a43584c366f46366f79377137356d5a58d
+ 901. [b] Python Programming - An Introduction To Computer Science -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=af642c13643425f324473476b30476a6a43584c366f46366f79446d70316d645a0
+ 902. [b] Python_qr - Steve | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0cb42f13643425f335965476b43476a6a43584c366f46366f7941375145344a549
+ 903. [b] Expert_Python_Programming -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=edd42193643425f357677476d79476e7343584c366f46366f79304d58427833913
+ 904. [b] 用Python写网络爬虫 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d2b422b3643425f34536b476d63476e7343584c366f46366f79456245336444428
+ 905. [b] OReilly Mining the Social Web 2nd Edition Oct - Matthew A. Russell | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a3042f33643425f315949476a69476a6a43584c366f46366f7942487a424c74e83
+ 906. [b] Learning From Data 2nd Ed (Wiley,2007) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b8f42f53643425f303545476a55476a6a43584c366f46366f79435855446853455
+ 907. [b] pil-handbook - anonymous | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=92242643643425f314871476a6d476a6a43584c366f46366f7945596a3446691bd
+ 908. [b] 集体智慧编程-python算法应用 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c9442b73643425f417164476d37476a6a43584c366f46366f7930647435484e03f
+ 909. [b] Python数据分析与挖掘实战 - 张良均 等著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b9742043643425f33704d37703637716643584c366f46366f79314f3543336d6cf
+ 910. [b] Python编程快速上手—让繁琐工作自动化_PDF中文高清晰完整版 - Python编程快速上手—让繁琐工作自动化 PDF中文高清晰完整版 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=38842f73643425f33704d476b4f476a6a43584c366f46366f7932646d3332377a9
+ 911. [b] Python编程实战__运用设计模式、并发和程序库创建高质量程序_PDF电子书下载_带书签目录_完整版 - （美）MarkSummerfield著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=62e423c3643425f337458476b52476a6a43584c366f46366f79327538377755117
+ 912. [b] Python高性能编程 - cmm09a | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=71c426d3643425f44314b476b59476a6a43584c366f46366f7942664e475346011
+ 913. [b] Python100经典练习题 - hongbaoshu.net | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a1642b13643425f335155476b49476a6a43584c366f46366f7941696242476bfc2
+ 914. [b] 大数据：互联网大规模数据挖掘与分布式处理 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c3542b33643425f416532476c75476a6a43584c366f46366f79323437364b76127
+ 915. [b] Python高级编程第2版_张亮 阿信（译）_人民邮电出版社_2017-10_v2_完整版 - （波）贾沃斯基；（法）莱德著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=22b42033643425f437432476b57476a6a43584c366f46366f79314268346d6e0d9
+ 916. [b] The Django Book 2.0中文译本 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eed42583643425f386d36476c61476a6a43584c366f46366f79334172373547066
+ 917. [b] Developing MeeGo apps with Python and QML - Thomas Perl | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1ce42c63643425f36434f476d75476e7343584c366f46366f794368673163384a7
+ 918. [b] Python Cookbook（第3版）中文版 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4b742723643425f325144476a78476a6a43584c366f46366f79474c44366b5aae8
+ 919. [b] 百面机器学习：算法工程师带你去面试 - 诸葛越 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1ae42843643425f397554476c6c476a6a43584c366f46366f79425946303765663
+ 920. [b] 机器学习numpy和pandas基础 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=68542e83643425f45446f37705137716643584c366f46366f79376d35375744c5c
+ 921. [b] PRML中文版 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ee642783643425f323553476a71476a6a43584c366f46366f79436e6d357843edf
+ 922. [b] quantsp研究计划书 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7c142c83643425f477463476c4d476a6a43584c366f46366f7947494d44346ec60
+ 923. [b] ZOPE 2 教程 - jzx | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=05142563643425f394a47476c69476a6a43584c366f46366f79304351334a4fc23
+ 924. [b] Python入门指南 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7b342363643425f375851476a45476a6a43584c366f46366f793646423068455bd
+ 925. [b] PYTHON面向对象编程指南 [（美）STEVEN F.LOTT著；张心韬，兰亮译][人民邮电出版 - Steven F. Lott 洛特 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f7742cc3643425f466c42476c37476a6a43584c366f46366f79326b50307570d93
+ 926. [b] Natural Language Processing with Python - Steven Bird | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=97142e53643425f30634f476a63476a6a43584c366f46366f79477a53387734b18
+ 927. [b] Python数据可视化实战 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e7f42b93643425f466838476c43476a6a43584c366f46366f79473552393632864
+ 928. [b] 基于Python实现的微信好友数据分析 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c3642ea3643425f416d53476d34476a6a43584c366f46366f79367a45416a33af8
+ 929. [b] SciPy Reference Guide -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5ef42393643425f476441476c51476a6a43584c366f46366f79423142364a342f5
+ 930. [b] Foundations of Python 3 Network Programming, Second Edition -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=39b42f03643425f304c67476a51476a6a43584c366f46366f79316751476b4e704
+ 931. [b] Python开发技术详解 - 周伟著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=85842db3643425f464531476b7a476a6a43584c366f46366f7939597832364f867
+ 932. [b] PYTHON QT GUI快速编程 PYQT编程指南 - （英）马克?萨默菲尔德（Mark Summerfield）著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=265420d3643425f333155476b34476a6a43584c366f46366f79394f7341713486d
+ 933. [b] 贝叶斯思维统计建模的PYTHON学习法 - [美]Allen B.Downey | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ea242fd3643425f41326c476c6e476a6a43584c366f46366f79374330424e6611e
+ 934. [b] Tensorflow 实战Google深度学习框架 - 顾思宇 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1a242513643425f387547476c55476a6a43584c366f46366f79304a723061385c5
+ 935. [b] The Definitive Guide to Pylons -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0b5426a3643425f38646f476c59476a6a43584c366f46366f7936634c314f665e5
+ 936. [b] 机器学习实战 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=399421f3643425f423275476d30476a6a43584c366f46366f79416e684767538e1
+ 937. [b] 人物：文本、舞台、银幕角色与卡司设计的艺术 - 罗伯特·麦基 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=1ca327b0813ab7580g011934
+ 938. [b] 设计心理学（1-4册） - 唐纳德·A·诺曼 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=ad932ca05d1509ad998f4ff
+ 939. [b] 理想国（汉译世界学术名著丛书） - [古希腊]柏拉图 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=40a32b8072051bdb40a6b87
+ 940. [b] 帝国的兴起（知汉系列） - 戴波 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8df32c20722538088df03d5
+ 941. [b] 文白对照 古今善书之王：太上感应篇汇编+安士全书（套装六册） - 周安士著 曾琦云译著 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=931322d0721d126b9310c98
+ 942. [b] 菩提树下的微笑：《金刚经》解密 - 蔡志忠 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b32328205cc703b3221e727
+ 943. [b] 悲剧的诞生：尼采美学文选 - 尼采 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6cd324405e0b936cdc3e181
+ 944. [b] 人性的弱点（果麦经典） - 卡耐基 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a233272057f7dda23713095
+ 945. [b] 历史的温度5：那些博弈、较量与人性 - 张玮 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d0632a7072169cb0d0631d1
+ 946. [b] 中国人的德行 - 明恩溥 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4fa3209071a0ffb44faca1c
+ 947. [b] 我在精神病院抗抑郁 - 左灯 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f63320e0717d4595f637836
+ 948. [b] 也许你该找个人聊聊 - 洛莉·戈特利布 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=16832d80726d70b6168b11e
+ 949. [b] 做出好选择 - 马华兴 王鹏 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2dd32ca0721a53b92dd0cf6
+ 950. [b] 纸牌的秘密 - 乔斯坦·贾德 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0bd32480813ab6e16g017025
+ 951. [b] 自卑与超越2 - 阿尔弗雷德·阿德勒 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=91b32f80717de79691b8d0c
+ 952. [b] 不要挑战人性 - 潘楷文 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=01f32e20813ab6d8ag012e3e
+ 953. [b] 人性的枷锁（果麦经典） - 毛姆 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6ac32f705c99516acb94d54
+ 954. [b] 洞察人性 - 阿尔弗雷德·阿德勒 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=aa932bd0726dffb1aa99994
+ 955. [b] 心智突围 - Windy Liu | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f9632c707239e763f964b22
+ 956. [b] 红与黑（果麦经典） - [法]司汤达 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=059321805ce5f8059ee6699
+ 957. [b] 一生的远行（精装珍藏版） - 季羡林 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f7e32fe05c5e0bf7ed58891
+ 958. [b] 33-李幺傻江湖故事之《戚绝书》（那些湮没在岁月深处的江湖往事）-我是骗子他祖宗 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a4b42e43643425f446358417037416e34344a4c36687a36676b324f6243647425a
+ 959. [b] 34-历史并未终结——在新加坡漫谈中国崛起 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1e4428a3643425f445143417041416e34344a4c36687a36676b33595735497561b
+ 960. [b] 41-如是我观（关注探讨的一些话题）-北京毛毛 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=63442d33643425f44744641704a416e34344a4c36687a36676b305661477a6aed5
+ 961. [b] 12-【天涯头条】中国式骗局大全-我是骗子他祖宗 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=22142363643425f314c74416f44416e34344a4c36687a36676b37304338706dd80
+ 962. [b] 42-三年挣850万，你也可以复制！现在新书已出版，书名《我把一切告诉你》 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5d942293643425f456b7941704d416e34344a4c36687a36676b446139365449a50
+ 963. [b] 44-社会不教，精英不讲，坎儿还得自己过（揭秘人才成长规律） - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d1d42d23643425f457039417050416e34344a4c36687a36676b356764477779429
+ 964. [b] 62-一个潜水多年的体制内的生意人来实际谈谈老百姓该怎么办？ - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c7b42f03643425f397554417148416e34344a4c36687a36676b365976416b59dfc
+ 965. [b] 45-生死百家乐，拔一拔澳门赌徒的奇葩人生 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=31342173643425f45636f417053416e34344a4c36687a36676b31495545534199a
+ 966. [b] 47-说说我身边三十年未破的悬案 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1ec42f43643425f463167417059416e34344a4c36687a36676b467142476d34781
+ 967. [b] 26-烽烟四起，中美对决 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=76642693643425f334535416f6e416e34344a4c36687a36676b327878337444600
+ 968. [b] 5-《蜂麻燕雀》——你不了解的民国江湖，揭秘污脏骗 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=51042b43643425f46643141706a416e34344a4c36687a36676b31767242714ec4b
+ 969. [b] 23-赌坛风云-还你一个真实的老千世界-揭育润 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=09d42353643425f326776416f66416e34344a4c36687a36676b37777a34786593a
+ 970. [b] 46-生在南北朝你就死定了_浮生若梦87 - 副本 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a4142613643425f464531417056416e34344a4c36687a36676b42464746614799e
+ 971. [b] 2-“苦望”愿您能被这故事感动 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7e442ac3643425f324473416f57416e34344a4c36687a36676b324c68436773695
+ 972. [b] 57-我这里外来务工人员回家了。一到晚上街上很安静，就像过年那几天一样安静-而立中大 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5db42e33643425f387139417131416e34344a4c36687a36676b416355307463352
+ 973. [b] 14-〖天涯头条〗 惊天骗局（一位在职高级招商主管的自白） - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e73426c3643425f313552416f48416e34344a4c36687a36676b347572444a37631
+ 974. [b] 6-《覆帝记》鲜于冶銋原创长篇：天下巨变时，那些人经历的波澜诡谲事 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=55642753643425f395a69417141416e34344a4c36687a36676b30444b386a6284b
+ 975. [b] 寒门难再出贵子 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=57742643643425f41694c417162416e34344a4c36687a36676b397978326e6a5e6
+ 976. [b] 31-开悟其实很简单 — 人人都可以轻轻-松松开悟 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4f042fb3643425f44314b417034416e34344a4c36687a36676b396f6b38776bad2
+ 977. [b] 9-《十宗罪5》-中国十大恐怖凶杀案》--蜘蛛 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e0242283643425f42373541715a416e34344a4c36687a36676b3651714641599df
+ 978. [b] 63-一个十年检察官所经历的无数奇葩案件 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=719426d3643425f41326c41714a416e34344a4c36687a36676b396938336f7131a
+ 979. [b] 4-《二战秘史》——纵论二战全史——邀你一起与真相贴身肉搏 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fbc42243643425f45487a417048416e34344a4c36687a36676b366d4b305072eba
+ 980. [b] 48-死刑犯——死刑犯行刑前的不眠夜[已出版]_无水 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=47d42a23643425f463572417062416e34344a4c36687a36676b4642703546763ac
+ 981. [b] 30-蒋介石为什么失掉大陆：1945——1949-flp713 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=76b42f03643425f44354e416f7a416e34344a4c36687a36676b364d76447765148
+ 982. [b] 15-〖天涯头条〗狐狸精修炼秘笈－－-幸福女人必读 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=34b42083643425f317841416f4b416e34344a4c36687a36676b447952426d69059
+ 983. [b] 19-川帮（原川帮太和，已出版） - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bbf42f43643425f325144416f54416e34344a4c36687a36676b435a66445a4a6fb
+ 984. [b] 20-从共和国建国后的战争看透今天的大国博弈！-关外李员外 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=31442853643425f324933416f5a416e34344a4c36687a36676b41754232556172d
+ 985. [b] 1-(长篇)女性秘史◆那些风华绝代、风情万种的女人，为你打开女人的所有秘密 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=56642223643425f307831416f37416e34344a4c36687a36676b306d7a37544e331
+ 986. [b] 58-西方社会心态变化 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eaf42d33643425f386d36417136416e34344a4c36687a36676b327352336948b2c
+ 987. [b] 24-放眼2023~2024，慢慢写我的见闻 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=41c42d33643425f327044416f68416e34344a4c36687a36676b394578355078267
+ 988. [b] 3-《赌场二年》（记录赌场里真实的人和事） -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c29427d3643425f336c46416f76416e34344a4c36687a36676b3079393835753db
+ 989. [b] 17-办公室实用暴力美学——用《资治通鉴》的智慧打造职场金饭碗 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2a642693643425f316769416f4f416e34344a4c36687a36676b437232335978eae
+ 990. [b] 43-沙梨熊全集 - 张帅 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5c242433643425f45744741704f416e34344a4c36687a36676b355134346832360
+ 991. [b] 11-【天涯头条】回首细数旧中国 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8ef42da3643425f30675a416f42416e34344a4c36687a36676b356975456d37cf1
+ 992. [b] 38-七年了，我还是很想你 - 嘟嘟飞到家 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8cf42cb3643425f453968417046416e34344a4c36687a36676b377776394a44dab
+ 993. [b] 25-风云(中国第一本企业家自传) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cb7429d3643425f336777416f6b416e34344a4c36687a36676b46436231485190f
+ 994. [b] 22-地缘看世界——欧洲部分-温骏轩 - Unknown | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b1842973643425f33396d416f63416e34344a4c36687a36676b44464d387635980
+ 995. [b] 这个时代”寒门再难出贵子”——永乐大帝二世 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=06642fa3643425f306f6a416f35416e34344a4c36687a36676b324941413051080
+ 996. [b] 51-桃花读水浒：凛冬将至，暗夜无边，末世穷途，无路可逃 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fed42223643425f47556b41706d416e34344a4c36687a36676b314e614350585db
+ 997. [b] 10-《心理大师》：我是心理医生，818最近的变态病人-沈非 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a9b42f93643425f305948416f39416e34344a4c36687a36676b436f7a454a4ad2f
+ 998. [b] 54-网管 - 嘟嘟飞到家 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a56428f3643425f474142417072416e34344a4c36687a36676b32566b443065013
+ 999. [b] 18-宝钗比黛玉大八岁！重解红楼全部诗词！血泪文字逐段解释！所有谜团完整公开！ - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1f0422e3643425f316b74416f52416e34344a4c36687a36676b463744447564544
+1000. [b] 61-一百元人民币在泰国能做什么－感受泰国人民的生活和物价-骑白马的农民 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f0b42053643425f394639417146416e34344a4c36687a36676b46477a46454eb46
+1001. [b] 56-我月初预测的英国退欧已经成真，其他结论也将一一兑现，敬请关注 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f6d42693643425f476c53417079416e34344a4c36687a36676b464a72375547d42
+1002. [b] 13-〖天涯头条〗 记生意场上接触过的有能力的女人们 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c6142c93643425f315542416f46416e34344a4c36687a36676b46414f32706e681
+1003. [b] 69-中国VS美国：决定世界命运的博弈 -不要二分法 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ac642ae3643425f414242417154416e34344a4c36687a36676b32616d4832641f0
+1004. [b] 60-小张和小丽三部曲 - 嘟嘟飞到家 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f63427f3643425f393672417144416e34344a4c36687a36676b313438423953cf5
+1005. [b] 66-英雄末路：历史上那些大人物之死 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2b942df3643425f396d4a41714e416e34344a4c36687a36676b37564847306199b
+1006. [b] 68-长篇小说《烟云》_赵明 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=20342983643425f416532417151416e34344a4c36687a36676b3871584562683fd
+1007. [b] 67-长岛的雪 - 嘟嘟飞到家 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=29d42cc3643425f415264417150416e34344a4c36687a36676b42795546526ede4
+1008. [b] 28-关于时代发展中的几个基本问题_ - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5ad42473643425f343168416f72416e34344a4c36687a36676b476f39477a66955
+1009. [b] 8-《内参记者》一名“非传统”记者颠覆你三观的采访实录-有骨难画 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=060429c3643425f41796e417158416e34344a4c36687a36676b476a62313454ced
+1010. [b] 65-因为贱-所以生活艰辛!说出真相-底层会更绝望-大鹏金翅明王 - 微软用户 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c3f425a3643425f39653141714c416e34344a4c36687a36676b45554c397562d58
+1011. [b] 37-南韩往事——华人黑帮回忆录 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=48642f63643425f44554e417044416e34344a4c36687a36676b346849474b7aba4
+1012. [b] 四海一生踏歌行：苏轼词传 - 仗剑天涯 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=9603218071954f24960fc44
+1013. [b] 漱玉词 - [宋]李清照 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=653326607188d7be6538ce6
+1014. [b] 六祖坛经解读 - 比尔·波特 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=603325f05c44be603ee8220
+1015. [b] 落字成暖，一生念安 - 季羡林 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=63d32980723ecec863d8a7d
+1016. [b] 人间词话（浪漫古典行·唯美卷） - [清]王国维 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=181324007183b786181c213
+1017. [b] 古文观止译注 - [清]吴楚材 [清]吴调侯编选 李梦生等译注 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=dfa324a071e1e00bdfad576
+1018. [b] 人间有味是清欢：苏东坡的诗词人生 - 吕远洋 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=92e32f807161ffdd92e27a2
+1019. [b] 中国通史 - 钱穆讲授 叶龙记录整理 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=840322807167549784061bc
+1020. [b] 人间词话精读 - 苏缨 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7df32ec071ede8317df0f70
+1021. [b] 人间词话 - [清]王国维 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=54e32b60717128db54ee9f8
+1022. [b] 你应该熟读的中国古诗 - 陈引驰 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4f132ea05d21184f1b19748
+1023. [b] 阳春集 - 冯延巳 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bf6321107188d7c4bf68888
+1024. [b] 道德经（中华国学经典精粹） - [春秋]老子 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e7d32910718443dde7d8d46
+1025. [b] 不安的哲学 - 岸见一郎 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=45f320a0813ab866dg01014f
+1026. [b] 博弈论 - 翟文明 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=86a32490718ea51d86a0045
+1027. [b] 女性心理学 - 侯典牧 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=0ae321b0719a17cc0aed12a
+1028. [b] 人的自我寻求（2023版） - 罗洛·梅 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=600326d0813ab7a2cg017197
+1029. [b] 自信的觉醒：从自卑走向自信的必修课 - R法 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=fb432230813ab6f9eg015787
+1030. [b] 原子光谱分析技术及应用 - 降升平主编 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=54932f30727ded7054948a4
+1031. [b] 史蒂芬·平克“语言与人性”五部曲 - [美]史蒂芬·平克 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=4e332f50720f099c4e3758c
+1032. [b] 兄弟 - 余华 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=b0f32f805cbba2b0f901ea8
+1033. [b] 老去的勇气 - 岸见一郎 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=ce43284071c9c3a5ce4a0f0
+1034. [b] 地缘看世界——欧洲部分-温骏轩 - Unknown | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=85a42c83643425f41566b41693841656d344a4c36687a36676b47463534494e95a
+1035. [b] 现代金融经济的眼重看历史-谁是谁非任评说 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=29042303643425f353834416975416976344a4c36687a36676b32475a304661756
+1036. [b] 英雄末路：历史上那些大人物之死 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=59342e83643425f36475a416a44416976344a4c36687a36676b4652793357362f7
+1037. [b] 办公室实用暴力美学——用《资治通鉴》的智慧打造职场金饭碗 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a4242303643425f39525141687341656d344a4c36687a36676b334368444272648
+1038. [b] 铁血雄兵川军团 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=44642643643425f436d6741696741656d344a4c36687a36676b41337143504f3cf
+1039. [b] 从内斗的华夏到固化的中国 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=92f42463643425f39653141693541656d344a4c36687a36676b42574e385a66741
+1040. [b] 沙梨熊全集 - 张帅 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=15942e03643425f41796e41694841656d344a4c36687a36676b365470444c4a894
+1041. [b] 生在南北朝你就死定了_浮生若梦87  - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b0b424b3643425f41694c41694c41656d344a4c36687a36676b43415234533012d
+1042. [b] (长篇)女性秘史◆那些风华绝代、风情万种的女人，为你打开女人的所有秘密 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=17742253643425f46556a41685241656d344a4c36687a36676b334151367a496df
+1043. [b] 太平洋战争 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e1e423c3643425f42654641695241656d344a4c36687a36676b35577a384a6c9d0
+1044. [b] 正面抗日战争-关河五十州 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7cb42f73643425f39325941686d41656d344a4c36687a36676b454568304a424c5
+1045. [b] 蒋介石为什么失掉大陆：1945——1949-flp713 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e6442f93643425f41424241694441656d344a4c36687a36676b314d4133514318e
+1046. [b] 桃花读水浒：凛冬将至，暗夜无边，末世穷途，无路可逃 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6d0420c3643425f43425041695a41656d344a4c36687a36676b31544b3038782fd
+1047. [b] 《覆帝记》鲜于冶銋原创长篇：天下巨变时，那些人经历的波澜诡谲事 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0a8426c3643425f385a6841687041656d344a4c36687a36676b4371464749389da
+1048. [b] 风云百年——中国1908-2008 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eb242f53643425f41464941694341656d344a4c36687a36676b31796d454178791
+1049. [b] 宝钗比黛玉大八岁！重解红楼全部诗词！血泪文字逐段解释！所有谜团完整公开！ - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d1f428f3643425f394a4741687941656d344a4c36687a36676b387153434536c13
+1050. [b] 《二战秘史》——纵论二战全史——邀你一起与真相贴身肉搏 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=dcb426b3643425f38646f41686f41656d344a4c36687a36676b356768426832df9
+1051. [b] 暗海沉沙 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2ef42163643425f356a50415768415847344a4c36687a36676b4535554565561d6
+1052. [b] 风云(中国第一本企业家自传) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7f0425e3643425f36434f41576d415847344a4c36687a36676b44484d354d48825
+1053. [b] 闲来8一下自己幽暗的成长经历-风雪漫千山 - 嘟嘟飞到家 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=dc842093643425f304457415857415847344a4c36687a36676b3267763572511de
+1054. [b] 浩瀚的大洋是赌场-俞天任 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d2842ac3643425f36384841576e415847344a4c36687a36676b39674741467385c
+1055. [b] 来818天涯中有炒作嫌疑，至今尚未定论或者已经定论的热帖！！！！！！！！ - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4fb42a93643425f36475a415770415847344a4c36687a36676b343676344737bbf
+1056. [b] 川帮（原川帮太和，已出版） - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=21842a83643425f354f6d415769415847344a4c36687a36676b434a344831347a8
+1057. [b] 我这里外来务工人员回家了。一到晚上街上很安静，就像过年那几天一样安静-而立中大 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=aef42693643425f305072415854415847344a4c36687a36676b396a3134326c554
+1058. [b] 李幺傻江湖故事之《戚绝书》（那些湮没在岁月深处的江湖往事）-我是骗子他祖宗 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a8642973643425f357677415771415847344a4c36687a36676b46527633464a6af
+1059. [b] 六相十年浩劫中的灵异往事，颍水尸媾，太湖獭淫，开封鬼谷，山东杀坑-御风楼主人 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=658425e3643425f363445415773415847344a4c36687a36676b364171464878da9
+1060. [b] 我是一个DNA鉴定师，八一八我遇到的那些人那些事-小鉴定师大宝 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=515422a3643425f304c67415851415847344a4c36687a36676b4765364444656f2
+1061. [b] 我在考古系所看到的那些诡异事 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a7742523643425f305479415853415847344a4c36687a36676b413153375841f41
+1062. [b] 听雷[我在091气象所工作的那段岁月] - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8de429b3643425f38477641584a415847344a4c36687a36676b447862443356baa
+1063. [b] 异人启示录-佩伭 - xiaoc | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=26b424f3643425f307831415862415847344a4c36687a36676b427842466a4be07
+1064. [b] 《冷案重启》：扒一扒那些悬而未决的陈年旧案 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=95642da3643425f434a7041574c415437344a4c36687a36676b36494134426bb7e
+1065. [b] 〖天涯头条〗我是一名警察，说说我多年来破案遇到的灵异事件 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ed0429a3643425f34766e415764415847344a4c36687a36676b436f37465271e01
+1066. [b] “苦望”愿您能被这故事感动。 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=3e342993643425f42716d415743415437344a4c36687a36676b33626647714c1f6
+1067. [b] 惊悚灵异《青囊尸衣》（斑竹推荐）-鲁班尺 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cb942143643425f366a59415775415847344a4c36687a36676b476972416835a86
+1068. [b] 天涯帖 我只是一个杀手仅此而已 - 嘟嘟飞到家 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=43b42213643425f376262415848415847344a4c36687a36676b365354446169723
+1069. [b] 巍巍大汉：英雄的时代-上医治国1984 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1a842bc3643425f38504441584c415847344a4c36687a36676b447839464349bb2
+1070. [b] 《十宗罪5》-中国十大恐怖凶杀案》--蜘蛛 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=9cb42943643425f346635415752415847344a4c36687a36676b416b51424731b0e
+1071. [b] 阴阳眼（1976年江汉轶事） - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cd342af3643425f306b67415865415847344a4c36687a36676b356f5a41417a1c9
+1072. [b] 【天涯头条】中国式骗局大全-我是骗子他祖宗 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=80542aa3643425f344f64415756415847344a4c36687a36676b3567763362540ab
+1073. [b] 长篇小说《烟云》_赵明 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e8d42283643425f434657415741415437344a4c36687a36676b377468426c75e25
+1074. [b] 〖天涯头条〗 惊天骗局（一位在职高级招商主管的自白） - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8bc428f3643425f35434641575a415847344a4c36687a36676b37454e47714161f
+1075. [b] 《慧商学院》，一部小说，通俗易懂讲解营销体系，喜欢学习请打开 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ef542103643425f43695a41574a415437344a4c36687a36676b44553638585490d
+1076. [b] 〖天涯头条〗狐狸精修炼秘笈－－-幸福女人必读 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=63b425b3643425f347263415761415847344a4c36687a36676b35354437644d8e2
+1077. [b] 死刑犯——死刑犯行刑前的不眠夜[已出版] - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7c442133643425f375851415845415847344a4c36687a36676b30756944783602e
+1078. [b] 〖天涯头条〗 记生意场上接触过的有能力的女人们 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=83c42d13643425f353378415758415847344a4c36687a36676b37336731346552a
+1079. [b] 冒死记录中国神秘事件（真全本） - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c9742fe3643425f367271415777415847344a4c36687a36676b395975356175ef1
+1080. [b] 目睹殡仪馆之奇闻怪事 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7d142063643425f374362415833415847344a4c36687a36676b33373944704a428
+1081. [b] 《采药师》-上医医国，中医医人，下医医病，弘扬传统文化，提升素质教育 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=54742073643425f427a34415745415437344a4c36687a36676b396370315830cdf
+1082. [b] 《内参记者》一名“非传统”记者颠覆你三观的采访实录-有骨难画 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=924429e3643425f43533741574e415437344a4c36687a36676b464f4632326a6a6
+1083. [b] 《盛世狂歌》：文字版大明清明上河图，盛世江湖中的刀剑杀伐！-合欢教主 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d41421a3643425f34576e415750415847344a4c36687a36676b3965574737573b9
+1084. [b] 《蜂麻燕雀》——你不了解的民国江湖，揭秘污脏骗 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=16842873643425f436d67415749415437344a4c36687a36676b446a66353441375
+1085. [b] 青囊尸衣3《残眼》——鲁班尺 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ae842473643425f373859415838415847344a4c36687a36676b356d33456d76b8b
+1086. [b] 赌坛风云-还你一个真实的老千世界-揭育润 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=32342753643425f35583441576b415847344a4c36687a36676b43654139505ae1e
+1087. [b] 南韩往事——华人黑帮回忆录 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=3b742523643425f374b74415835415847344a4c36687a36676b304274354d629e3
+1088. [b] 说说我身边三十年未破的悬案 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e3442473643425f377741415843415847344a4c36687a36676b38396b41566fa24
+1089. [b] 密道追踪（簋心风水陵里的阴兵虎符——宜昌之外鬼事 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=24a42153643425f36624f415830415847344a4c36687a36676b4778313271469d7
+1090. [b] 《赌场二年》（记录赌场里真实的人和事） - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a4d42d63643425f43654f415747415437344a4c36687a36676b42554742486b36e
+1091. [b] 我当道士那些年 - 嘟嘟飞到家 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=81c42ec3643425f38305441584e415847344a4c36687a36676b3346413839622e4
+1092. [b] 五大贼王-天下贼术，皆出五行！-老夜 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=79c42ea3643425f303137415856415847344a4c36687a36676b436172323669ea2
+1093. [b] 青囊尸衣2《鬼壶》—鲁班尺 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a8c422d3643425f373047415836415847344a4c36687a36676b3170514733689c8
+1094. [b] 他手机里有爱人，有秘密，有感情 - 嘟嘟飞到家 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=3e042a33643425f37544a415846415847344a4c36687a36676b395267304c559b8
+1095. [b] 宜昌鬼事 （三峡地区巫鬼轶事记录整理） - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=aa242833643425f313138415861415847344a4c36687a36676b455054307a55254
+1096. [b] 一个十年检察官所经历的无数奇葩案件 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=12f421d3643425f307371415859415847344a4c36687a36676b424147417863e1a
+1097. [b] 我家做殡葬行业的，见谁都得先说句升官发财 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2a242753643425f38437341584f415847344a4c36687a36676b336a52314c5ab66
+1098. [b] 阴阳眼（1976年江汉轶事）x - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=37b42253643425f30675a415866415847344a4c36687a36676b30316a39446965a
+1099. [b] 《心理大师》：我是心理医生，818最近的变态病人-沈非 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ee442283643425f344b53415753415847344a4c36687a36676b34356b4245539b7
+1100. [b] 民调局异闻录-儿东水寿 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cc642433643425f365848415831415847344a4c36687a36676b326c65395257013
+1101. [b] 〖天涯头条〗天津刑警奇闻录 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=96342c03643425f347a75415763415847344a4c36687a36676b355838374d72adb
+1102. [b] 生死百家乐，拔一拔澳门赌徒的奇葩人生 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c5542b83643425f376e73415841415847344a4c36687a36676b30725a364d68a4e
+1103. [b] 每夜一个鬼故事(连续更新)不好看你砸我 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8f042ef3643425f365436415779415847344a4c36687a36676b39446f42316feb1
+1104. [b] 国家是怎样炼成的 - 赛雷 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fd0320a07161fdfdfd08ef5
+1105. [b] 黄同学漫画二战史（全4册） - 那个黄同学编绘 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=abf32690726172e6abfebfe
+1106. [b] 半小时漫画宋词 - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fb1325c071cacd2cfb1c557
+1107. [b] 半小时漫画古诗词系列全集（全5册） - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=766321e071957a867662b85
+1108. [b] 黄同学漫画中国史：清末民初那些年 - 那个黄同学 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b5332c60717e764ab53d3d2
+1109. [b] 简读中国史（漫画版） - 张宏杰 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=17b32e00813ab6d8ag019bcb
+1110. [b] 半小时漫画《三国演义》 - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f4d327c07275223ff4d5532
+1111. [b] 半小时漫画必背古诗词 - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b6632be0723987b6b66d56d
+1112. [b] 半小时漫画经济学系列（共4册） - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=04932040719656cc0493372
+1113. [b] 赛雷三分钟漫画三国演义8 - 赛雷 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a33326e0813ab6be4g014121
+1114. [b] 半小时漫画世界史2 - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c7b32360724628d7c7b20c2
+1115. [b] 半小时漫画中国史0 - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8e532c40813ab7106g01079c
+1116. [b] 半小时漫画宋词2 - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7cf32de071f5b2d17cf1377
+1117. [b] 半小时漫画宋词（全2册） - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7e132a8071f5b2cf7e16cf9
+1118. [b] 半小时漫画中国史+世界史（套装共4册） - 二混子 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=3dd32ab07162962b3dd3d2f
+1119. [b] 半小时漫画世界名著 - 陈磊·半小时漫画团队  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5bf324b0813ab6e2cg0162c8
+1120. [b] 半小时漫画历史系列（共7册）（中国史1-5+世界史1-2） - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5c832be07254c98f5c8923d
+1121. [b] 半小时漫画《论语》 - 陈磊·半小时漫画团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7b432410727328647b4c333
+1122. [b] 明朝那些事儿 : 漫画版. 4 - 当年明月 狐周周 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=51a32c1071984b9151abf5f
+1123. [b] 半小时漫画中国史（全新修订版） - 二混子 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a42322705d0f55a42863810
+1124. [b] 明朝那些事儿 : 漫画版1 - 当年明月著 狐周周绘 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ba032a6059c841ba0989e40
+1125. [b] 半小时漫画中国史4 - 二混子 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ac232840719870f0ac259be
+1126. [b] 明朝那些事儿 : 漫画版. 1（升级版） - 当年明月 狐周周 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=97a320907197bd1597a26cc
+1127. [b] 《伏羲密码》解开华夏始祖遗留的上古谜团：我们从哪来，要到哪里去…… - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d9d42e63643425f446b70416c31416976344a4c36687a36676b46614e416b570bd
+1128. [b] 写在脸上的风水2-禅海商道 - lenovo | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=15142ba3643425f446358416b7a416976344a4c36687a36676b39417944664f5f0
+1129. [b] 拨开迷雾看未来 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=69e420b3643425f444d35416c33416976344a4c36687a36676b44707a3874312f9
+1130. [b] 谶纬、民谣、推背图-大江宁静 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6ca42b93643425f445955416c34416976344a4c36687a36676b344479445961fdf
+1131. [b] 改过命的玄教弟子帮你断别你的网名吉凶-大雨小水 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=88942ea3643425f45487a416c39416976344a4c36687a36676b44516c357533727
+1132. [b] 揭秘玄学各大预测术根源之——真传一句话，假传万卷书-乾鹿丰 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f3442b53643425f447446416c42416976344a4c36687a36676b473262317457eb2
+1133. [b] 请块所谓的“开光”玉，不如养活的灵宠！ -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=49942e73643425f453158416c44416976344a4c36687a36676b356c76354344a69
+1134. [b] 写在脸上的风水1-禅海商道 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eb6426e3643425f456772416c46416976344a4c36687a36676b38706336784b906
+1135. [b] 一本书让你快速变身性爱高手 第二版 (橙人之秘)  -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=03a42b53643425f416d53317649317557424435366b52366b7435664c476464f96
+1136. [b] 3_萌版52式讲解(170) -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=21a42ab3643425f34397a324546324554424435366b52366b74424f4344476cea9
+1137. [b] 情狼日记 - 海兵 - oldma | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=85442463643425f377741426e65426e46424c4a366b50366b74466465327639191
+1138. [b] 把妹那些事 - Jacob - User | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6b142a93643425f434657426d63426a36424c4a366b50366b7439314d34534e22a
+1139. [b] ​十五步让你成为诱惑大师 - 十五步让你成为诱惑大师 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ebc426b3643425f307371426f30426e46424c4a366b50366b74347133365272a4f
+1140. [b] 泡妞实战速查手册 - 泡学爱好者 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8fb42333643425f303545426e77426e46424c4a366b50366b74304165426b579f8
+1141. [b] 把妹达人圣经 - 尼尔 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8be42e93643425f32554b426f4f426e46424c4a366b50366b7444515a36615adf0
+1142. [b] 指男针 - 老岸 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7c2428a3643425f41756b426d51426a36424c4a366b50366b7430706b307279878
+1143. [b] 约会倍增术 - 大卫D -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ba1421f3643425f346e5633343933363642774b366b47366b7436776247794428f
+1144. [b] 逗女人笑 - Martin Merrill - 微软用户 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=43642473643425f434e77426d6d426a36424c4a366b50366b74433662316f43c90
+1145. [b] 吸引不是选择 - 大卫D -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=804421d3643425f394a47426d32426a36424c4a366b50366b74336655314a356c2
+1146. [b] 筛选的101种方式 - Adam Lyons -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=3b842453643425f384c32426e6b426e46424c4a366b50366b74455374334d41cc6
+1147. [b] ​骄傲与风趣指南 - 骄傲与风趣指南 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e4f42473643425f326c32426f61426e46424c4a366b50366b7434564d346559559
+1148. [b] 灵丹妙药 - 恋爱体系 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e63423e3643425f364b67426e47426e46424c4a366b50366b7436344f385956d0e
+1149. [b] 海蒂性学报告 - 男人篇 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=431422c3643425f344b53426d75426e46424c4a366b50366b7446634a39624f923
+1150. [b] ​迷上我 - 迷上我 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=92742c33643425f383461426e6f426e46424c4a366b50366b7438474333453251c
+1151. [b] ​精品泡学译文集 - 精品泡学译文集 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2bf421b3643425f32744b426f63426e46424c4a366b50366b74413856314c4f5a1
+1152. [b] ​电击开场 - 电击开场 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=69942443643425f324473426f53426e46424c4a366b50366b7439444642324280d
+1153. [b] 话术惯例大全（完美扫描版）- 浪迹团队 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=04f423b3643425f353834426d79426e46424c4a366b50366b7445646f46397496a
+1154. [b] 婚恋中男人不能犯的100个错误 - 廖康强 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=974422c3643425f333155426f57426e46424c4a366b50366b74314670337648e54
+1155. [b] 杂耍人方法 - 杂耍人 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=33f42923643425f424243426d4d426a36424c4a366b50366b74425649354d54589
+1156. [b] 消除搭讪焦虑 - 晚熟青年 - 晚熟青年 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0db42e83643425f35337833343533363642774b366b47366b74414f4e327931414
+1157. [b] 米豪方法 - 米豪 - 米豪方法 - 米豪 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f0d42323643425f366a59426e4d426e46424c4a366b50366b7430647143735555b
+1158. [b] 谜男启示录 - 谜男 - Christopher Wu | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=96b42903643425f363445426e4b426e46424c4a366b50366b74366c3746394f2e0
+1159. [b] 搭讪圣经 - 郑匡宇 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c4542453643425f326363426f51426e46424c4a366b50366b74354f4432346e08f
+1160. [b] 冷读术 - 石井裕之 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bce423a3643425f356e57426e38426e46424c4a366b50366b7436643837365a85b
+1161. [b] 阴阳 - 海兵 - oldma | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a6e42d43643425f397151426d41426a36424c4a366b50366b7445796b44696d7da
+1162. [b] 潘多拉魔盒 - 迪卡洛 - 蟋蟀团队 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=dca42ec3643425f374769426e55426e46424c4a366b50366b74364748315542968
+1163. [b] 冷眼观爱2 - 冷爱 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=586423a3643425f354f6d426e41426e46424c4a366b50366b74444653435550a32
+1164. [b] 泡秘 - 华山论剑 - Jen | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=92042ea3643425f373047426e59426e46424c4a366b50366b74464a38377164b89
+1165. [b] 坏蛋之道 - 约书亚·佩雷斯 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=16142443643425f35623733344433363642774b366b47366b74476241376451c3d
+1166. [b] 大卫X方法 - 大卫X -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=10742d33643425f34766e33344233363642774b366b47366b74317734455153023
+1167. [b] 精通社交圈游戏 - Solievil - Solievil（所依华） | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f9c42833643425f347263426e32426e46424c4a366b50366b7439563141587769f
+1168. [b] 打破和谐感的81种方法 - Adam Lyons -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d2442fd3643425f43654f426d69426a36424c4a366b50366b743661693576389b9
+1169. [b] 吸引力原理 - Adam Lyons | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=08942be3643425f306b67426f36426e46424c4a366b50366b74347956344872880
+1170. [b] 五步陷阱课件 - 死囚漫步 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=27142c83643425f394179426d30426a36424c4a366b50366b74473155364b39ce6
+1171. [b] 读书笔记——迷男方法(实战中的废物测试 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=69d42d83643425f35434633343733363642774b366b47366b74377555477175667
+1172. [b] 属性 - PUANEY -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e9a42943643425f38646f426c73426a36424c4a366b50366b7431544a3047458fc
+1173. [b] 惯例手册 - 爱情体系 - ZJY | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=52c42953643425f346a43426d73426e46424c4a366b50366b74306d7239636340d
+1174. [b] 游戏加速论 - 万恶 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=42942ec3643425f416532426d45426a36424c4a366b50366b74463558325879428
+1175. [b] 泡丁解妞 - 斑马 - User | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6a242063643425f375030426e57426e46424c4a366b50366b7432756f396b54cfa
+1176. [b] 魔鬼约会学 - 阮琦 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6ca42683643425f304c67426e73426e46424c4a366b50366b7431397436545874b
+1177. [b] 白天约会宝典 - Jeremy Soul -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=48142363643425f42716d426d65426a36424c4a366b50366b7442364e37306b25a
+1178. [b] 校园情圣 - 马克·雷德曼 - USER | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=73e42523643425f413673426d36426a36424c4a366b50366b7430643447344a220
+1179. [b] 十月男人 - IN10SE -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=79f42c03643425f387547426c6f426a36424c4a366b50366b74375033313152e36
+1180. [b] 三十三条雄性领袖法诱惑美女法则 - 史蒂夫·斯科特 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e3342473643425f304457426e79426e46424c4a366b50366b74455737336b78173
+1181. [b] 短信和电话把妹游戏之终极指南 - 爱情体系 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ac042d93643425f435745426d6f426a36424c4a366b50366b74463036376531cdc
+1182. [b] 诱惑艺术 - 谜男 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b99429d3643425f414649426d47426a36424c4a366b50366b74373677394e636fe
+1183. [b] 情绪流方法论 - 损友 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=71e42693643425f375851426e67426e46424c4a366b50366b74443033475272a10
+1184. [b] 游戏 - IN10SE -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e8242af3643425f41566b426d43426a36424c4a366b50366b74454b50307955a16
+1185. [b] ​懒汉把妹 - 懒汉把妹 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bd242323643425f336777426f67426e46424c4a366b50366b7443384a375434ed0
+1186. [b] alpha阿尔法吸引——把妹制胜的33条规则 - Steve Scott -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=96d42603643425f42694d426d55426a36424c4a366b50366b74357963376339b12
+1187. [b] ​杂耍人文集及语录 - 杂耍人文集及语录 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a2142e13643425f314871426f45426e46424c4a366b50366b74477043415248a24
+1188. [b] PUA玩家手册（完整版）- 康纳 - connor | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e09425e3643425f425275426d59426a36424c4a366b50366b74394a69316a461a1
+1189. [b] 超级吸引力 - Jacob - User | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bb642ef3643425f427a34426d67426a36424c4a366b50366b74465941366e48ae9
+1190. [b] ​魅力学堂 - 魅力学堂 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=028423c3643425f335155426f6b426e46424c4a366b50366b7447776d475930a09
+1191. [b] 诱惑的艺术 - 罗伯特·格林 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=548420d3643425f315949426f41426e46424c4a366b50366b7439457a466830d19
+1192. [b] 前线笔记 - 尼尔 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4df42153643425f373859426e61426e46424c4a366b50366b74436f4b413748e57
+1193. [b] 枪巫方法 - Gunwitch -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1cd42053643425f376e73426e63426e46424c4a366b50366b744742344738322a4
+1194. [b] 言情恋爱话术惯例 - 乌鸦救赎 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f2c42ed3643425f396938426d38426a36424c4a366b50366b74474d6437554d21d
+1195. [b] ​完美约会计划 - 完美约会计划 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=26a42c93643425f313138426f32426e46424c4a366b50366b74424553445968e04
+1196. [b] 泡妞必杀技 - 爱情体系 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=99a42be3643425f305479426e75426e46424c4a366b50366b74316958367655dfa
+1197. [b] ​杂耍人方法精义 - 杂耍人方法精义 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f9b426f3643425f313959426f43426e46424c4a366b50366b7432554e383056daa
+1198. [b] ​中国把妹达人 - 中国把妹达人 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e0142c13643425f317841426f47426e46424c4a366b50366b74397751443332f5f
+1199. [b] 五步陷阱 - 死囚漫步 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b4142453643425f30634f426f34426e46424c4a366b50366b74466d58464b753fc
+1200. [b] 把妹达人 - 尼尔 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=15842353643425f433745426d61426a36424c4a366b50366b743368424679722c1
+1201. [b] 约会密码 - 海兵 - dong ma | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7bc42353643425f423275426d4b426a36424c4a366b50366b74446d4d353854967
+1202. [b] 黑洞吸引 - 无念团队 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2c542823643425f34536b426d77426e46424c4a366b50366b74385162414573bdd
+1203. [b] 墨攻 - 黑子 - User | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f6f422d3643425f367271426e4f426e46424c4a366b50366b74436843473777008
+1204. [b] 逆向恋爱术 - 蓝冰 - 雨林木风 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c4542b13643425f365436426e51426e46424c4a366b50366b74316237344a34b9b
+1205. [b] 野兽绅士（单身男士必备撩妹宝典。坏男孩创始人、教父Tango终极力作！汇集超人气恋爱社区「坏男孩」中超经典追女生技巧和领悟。无数情感导师的必修教材！亚洲一线追女社区「坏男孩」指导思想精华提炼。让你喜欢的女孩喜欢上你！） - 巫家民（Tango） | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=63d42043643425f315130426f38426e46424c4a366b50366b7433574844616ffe7
+1206. [b] ​MACK把妹方法 - MACK把妹方法 | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=af542213643425f317030426f4d426e46424c4a366b50366b7441347539766bca9
+1207. [b] Brad P 时尚圣经 - Usuario de Windows | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a1242723643425f424a63426d57426a36424c4a366b50366b743275793054640d8
+1208. [b] 互联网“裁员”大潮将起：离开的不只是马云 可能还有你 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cab42883643425f36344541536b415437344a4c36687a36676b45335637696eca9
+1209. [b] 大江宁静，小小茶馆-大江宁静 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=dea42283643425f36475a415368415437344a4c36687a36676b304e6b324b7ae59
+1210. [b] 周期的尾声来袭，这是百年一遇的机会，房多、傻空、骗子也可以进来受教 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=97842b93643425f355378415364415437344a4c36687a36676b447851366839cf6
+1211. [b] 三年挣850万，你也可以复制！现在新书已出版，书名《我把一切告诉你》 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=75842343643425f375030415377415437344a4c36687a36676b41334a464453431
+1212. [b] 解密社会中升官发财的经济学规律-屠龙有术 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bee42dd3643425f366a5941536d415437344a4c36687a36676b32486a317867d10
+1213. [b] 房奴十年（每日更新，直至房贷结束）-房奴十年 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cde42513643425f325956416337416250344a4c36687a36676b466645363268061
+1214. [b] 久违了-七剑战歌之风月 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eb9429d3643425f44784d416375416250344a4c36687a36676b44507a396c4309e
+1215. [b] 恶性通缩下的大萧条-七剑战歌之风月 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=13242353643425f307371416267416250344a4c36687a36676b376441333558645
+1216. [b] 中国会跟随美联储加息吗？ - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8ac42013643425f35664541657541656d344a4c36687a36676b476d42336e59a90
+1217. [b] 从身边最简单的经济现象判断房价走势-招招是道 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b1a42cf3643425f37585141624d416250344a4c36687a36676b314b533443356e3
+1218. [b] 两次杠杆做到5000万股灾被强平的投机之路-南侠1987  - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b3e421d3643425f467049416445416250344a4c36687a36676b37495a443138412
+1219. [b] 咀嚼人民币：品尝亦升值亦贬值的中国味道！-辉煌的泡沫 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=25042d23643425f453565416377416250344a4c36687a36676b373338373463d1d
+1220. [b] 来经济论坛一看，这里怎么又被房多们占领了-七剑战歌之风月 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1ca42a13643425f457447416430416250344a4c36687a36676b42694d446854f22
+1221. [b] 看一个穷人怎样拥有多套房产的？－财富可以这样成长。-晋朝人 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d4a42953643425f464938416436416250344a4c36687a36676b30714544424fbb8
+1222. [b] 继2016年初20个帖子呼吁买房正当时后，今天我再次警告，现在不买房三年又白忙！-老农去哪了 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8bc42ef3643425f33637041634e416250344a4c36687a36676b376c50397a6c54f
+1223. [b] 参考消息-时隔多年，说几个观点 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fad42833643425f384776416252416250344a4c36687a36676b446855463247397
+1224. [b] 老黄第六季-证券市场与公司研究-黄汉升1 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2a942693643425f455968416435416250344a4c36687a36676b416a6e377a749b0
+1225. [b] 【楼主版】全面阐述降低房价的四项基本原则[已扎口] - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=24542483643425f353378416166416250344a4c36687a36676b387338364433159
+1226. [b] 2019趋势预测及机会分析-老江南 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7b3428f3643425f366652416233416250344a4c36687a36676b41684e454f4dba0
+1227. [b] 雨夜谈经 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=09d42e93643425f35337841656e41656d344a4c36687a36676b44326e346337e72
+1228. [b] 聊一聊中国房地产！-恶趣味之奴 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a8742023643425f467454416448416250344a4c36687a36676b36424c35376bd2c
+1229. [b] 〖天涯头条〗剖析国有银行基层经营，管窥中国金融乱象 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cf842e83643425f356e5741616f416250344a4c36687a36676b36776f305862b3d
+1230. [b] 【楼主版】中国楼市2005及2006年楼市之展望 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=86242fd3643425f34766e41616c416250344a4c36687a36676b356754354931d0f
+1231. [b] 把握经济大势和个人财运必须读懂钱 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0c7420e3643425f364f7a416237416250344a4c36687a36676b457a55446754d54
+1232. [b] 说说石油下跌的事-kulese  - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f2142743643425f38646f416467416250344a4c36687a36676b425162425641c38
+1233. [b] 我月初预测的英国退欧已经成真，其他结论也将一一兑现，敬请关注 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=95742713643425f396531416478416250344a4c36687a36676b465433396f31387
+1234. [b] 房地产投资依然无忧，逆向思维让你找到真实 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b4f42663643425f30594841626c416250344a4c36687a36676b414f39386a6935b
+1235. [b] 我做了3年房地产了，我告诉你2014年房价会不会降-茶香竹韵 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=62642bc3643425f41326c416476416250344a4c36687a36676b314633454b38d6f
+1236. [b] 揭开达芬奇密码：房价十年暴涨为那番，未来暴跌到几时。 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ae1425c3643425f344536416355416250344a4c36687a36676b323967473138349
+1237. [b] 2013-2017的大框架-第三元 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2ae42653643425f354f6d416171416250344a4c36687a36676b35737942667408f
+1238. [b] 大神预言神准-大文豪曼因斯坦 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d7a42753643425f305479416261416250344a4c36687a36676b36545043694a804
+1239. [b] 【完整版】“征税加息降房价”－－荒谬的理论、恐怖的圈套 - xiaoc | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c1942713643425f346e5641616a416250344a4c36687a36676b44723844586520d
+1240. [b] 我回来几天先谈谈当前中国经济的战略走向！ -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c0442343643425f397554416474416250344a4c36687a36676b3758763961779b8
+1241. [b] 赚未来十年的钱-王海滨 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5ab42703643425f354b6641657a41656d344a4c36687a36676b416f6b424164e60
+1242. [b] 房地产暴涨的推手：调控的反市场经济学分析-mini_hostess - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=e2f42d23643425f313138416269416250344a4c36687a36676b32373841735177e
+1243. [b] 凛冬将至-大江宁静 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=60b42d53643425f46556a41644a416250344a4c36687a36676b364c72357334e25
+1244. [b] 所有跌入中等收入陷阱的国家都源自持续性的贬值本币！ - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a9f42b73643425f386d36416469416250344a4c36687a36676b37524b434d5a059
+1245. [b] 面对可能要到来的可怕滞涨，我们该怎么办？ - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1b042653643425f47556b41644f416250344a4c36687a36676b44544734624e5bb
+1246. [b] 今年，我什么都不再预测。这只是本人去年的长贴。准确率仅也就100%。--exposurejingdong_nowatermark - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d8d426f3643425f44314b416367416250344a4c36687a36676b436c7a334f713ea
+1247. [b] 没有永远的造富奇迹 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ab242de3643425f474d5341644d416250344a4c36687a36676b397a53466f56c62
+1248. [b] 纯预测贴，向底层的劳苦大众们献礼-系统方法论 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=665420b3643425f37774141624b416250344a4c36687a36676b337759396e31d50
+1249. [b] 短线的最高境界是不停的追逐涨停  -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=bc1423a3643425f303137416264416250344a4c36687a36676b3443494342467c5
+1250. [b] 被抑制的通胀能捂多久 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=32d42c43643425f367739416246416250344a4c36687a36676b334f6646334b604
+1251. [b] 中国VS美国：决定世界命运的博弈 -不要二分法  -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=058426e3643425f356e5741657741656d344a4c36687a36676b31424e3938768dd
+1252. [b] 经济的逻辑-flp713 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eec42123643425f444d3541636e416250344a4c36687a36676b364179364e645f8
+1253. [b] 把握经济大势和个人财运必须读懂钱-现代金钱的魔幻之力 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eaa42ba3643425f366e6a416235416250344a4c36687a36676b434772466a49584
+1254. [b] 烽烟四起，中美对决 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5d7426b3643425f31446a416276416250344a4c36687a36676b45305238686b629
+1255. [b] 关于时代发展中的几个基本问题 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c5d424c3643425f317030416332416250344a4c36687a36676b315338353454d1b
+1256. [b] 2016，2017才是G点，崩溃论者耐心点。-疑议 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1cc42243643425f363848416176416250344a4c36687a36676b423475426867893
+1257. [b] 2018年经济数据解读 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fa642aa3643425f363445416230416250344a4c36687a36676b3279393935344ca
+1258. [b] 放眼2023~2024，慢慢写我的见闻。 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d4842223643425f315542416272416250344a4c36687a36676b463444334e53e90
+1259. [b] 市场心理研究----贪嗔痴慢疑的那些事儿，顺便分析分析当前市场 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=72f42193643425f387952416466416250344a4c36687a36676b33474944334aed1
+1260. [b] 论房产的获得与坚守 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=43242d93643425f46643141644c416250344a4c36687a36676b306a7631676380b
+1261. [b] 2018-2019，实现个人财富飞跃的重要关口 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f9e42503643425f364b67416177416250344a4c36687a36676b36784c3538521b2
+1262. [b] 现代金融的本质以及房价-curgdbd - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=42042c63643425f43374541654f416250344a4c36687a36676b35327436424e0b8
+1263. [b] 百年未有之大变局，世界将走向何方？ - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=fc6428b3643425f36624f416238416250344a4c36687a36676b36726741666b581
+1264. [b] 对当前房地产形势的判断和对一些现象的解释-loujinjing - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f2c424d3643425f303950416266416250344a4c36687a36676b42317345434db2f
+1265. [b] 2019年汇率破7的可能性99.99% - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2b742623643425f366a59416232416250344a4c36687a36676b366e434359763e7
+1266. [b] 一百元人民币在泰国能做什么－感受泰国人民的生活和物价-骑白马的农民 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a9e42303643425f344f6441656c41656d344a4c36687a36676b42536733494eab7
+1267. [b] 历史并未终结——在新加坡漫谈中国崛起 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=26d42583643425f45785a416442416250344a4c36687a36676b43383531724e572
+1268. [b] 2018年底-2022年十大经济预言-江南季子2016  - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d9942833643425f357677416179416250344a4c36687a36676b31614f39494f0a9
+1269. [b] 最后的救市-换入大城市房子的最后时刻-鹏程蛇口 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=13d42b43643425f34663541615a416250344a4c36687a36676b31594647474bc47
+1270. [b] 天涯头条-你所不知道的冰冷的经济真相-flp713 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=2df424a3643425f39566241646e416250344a4c36687a36676b46507945714b268
+1271. [b] 经济模式和社会根源随想 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=db342693643425f44554e416370416250344a4c36687a36676b30727445707016f
+1272. [b] 商业筹码狙击战：中国商企密谋与诡道竞争【已出版】-xiaozhu909 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cd542d53643425f47684c416462416250344a4c36687a36676b396a49385076438
+1273. [b] 形势转变中，未来哪些行业有前景 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=8b7427a3643425f436d67416559416250344a4c36687a36676b44516741514251b
+1274. [b] 【天涯头条】沉浮房产十余载，谈房市心得 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=45442903643425f354346416168416250344a4c36687a36676b45594245645700c
+1275. [b] 《空》-以期货实盘交易讲解什么是_道_-- 一生二，二生三，三生万物-peterwind_PhDing -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0cc42803643425f34536b416163416250344a4c36687a36676b39497132594a7d5
+1276. [b] 千万不要错过中国崛起的机会！！！-邹艺湘 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=64942873643425f473630416451416250344a4c36687a36676b437759347344245
+1277. [b] [经济专栏]朴实的预言1——房价10年内都不会跌-经济分析终结者 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=5fd42a13643425f344b53416161416250344a4c36687a36676b454b7a463033688
+1278. [b] 周五之前应该有一次降准，最晚4月15日之前，最佳日期4月9日。-80后60岁走遍全球 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c8c420a3643425f356a5041657841656d344a4c36687a36676b394646333666c1e
+1279. [b] 北京十年房子故事-看西山的子房 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=31442623643425f374769416241416250344a4c36687a36676b357450427048cea
+1280. [b] 债务转移到全民的进程已基本完成...多快好省的进入收尾阶段 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4c8423f3643425f35474d41656f41656d344a4c36687a36676b3872744158654c8
+1281. [b] 神话的破灭-flp713 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6de42313643425f387139416464416250344a4c36687a36676b32664146427a448
+1282. [b] 【经济专栏】赚未来十年的钱【已出版】-海边的老王 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=19842bf3643425f353834416165416250344a4c36687a36676b33573947515416f
+1283. [b] 金融幻象-对现实经济的真实剖析 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6b542853643425f44635841636a416250344a4c36687a36676b434834446444210
+1284. [b] 清晰的画面（全新版）-waxz1314 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b8542fb3643425f473174416452416250344a4c36687a36676b353449366343cf0
+1285. [b] 商业筹码狙击战：中国商企密谋与诡道竞争(独家首发)-xiaozhu909 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=21b428d3643425f475a3341645a416250344a4c36687a36676b474641414942472
+1286. [b] 谈经济离不开政治，谈政治离不开哲学-九一隐士 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=4f842f33643425f39525141646b416250344a4c36687a36676b374b71446e67b1b
+1287. [b] 寻找朝阳行业，为下一个五年、十年做储备 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=d4e427a3643425f346a4341656741656d344a4c36687a36676b336b37476b54137
+1288. [b] 整个全球经济的怪现象 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=a8542c33643425f34726341657141656d344a4c36687a36676b44564e37527380a
+1289. [b] 大江论经济-大江宁静 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=11a42b13643425f304c67416259416250344a4c36687a36676b30384a354e42673
+1290. [b] 大格局：未来一年与十年！-老仇乱侃 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=41042313643425f383054416256416250344a4c36687a36676b42584f385446e13
+1291. [b] 未来5-10年，一线城市的房租将涨到你怀疑人生！-不炒不热闹 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7a742a83643425f394a47416471416250344a4c36687a36676b354d4335437594a
+1292. [b] 天涯神贴：一个炒房人的终极预测——调控将撤底失败 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1fe423a3643425f394e4a41646c416250344a4c36687a36676b444f41453879532
+1293. [b] 解构地产经济-财富中国Z - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ecc428e3643425f44354e416362416250344a4c36687a36676b43556541735203f
+1294. [b] 中国的房价将在不断上涨中完成腰斩-小恶魔兰尼特斯 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7c142843643425f347a7541657341656d344a4c36687a36676b30556243577ae7a
+1295. [b] 资产价格极度扭曲，金融市场必有大事发生！-邹艺湘 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=40e42933643425f35537841663141656d344a4c36687a36676b304d33426a50649
+1296. [b] 大道至简，金融战并不复杂。道理和在县城开一个赌场一样。容我慢慢道来-战略定力 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=da542343643425f385044416254416250344a4c36687a36676b315a6b44314721f
+1297. [b] 全球经济大循环下的中国房地产-winnerby - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=50c42693643425f474142416454416250344a4c36687a36676b425642447969490
+1298. [b] 三十三岁，16年股龄，记录自己的心情 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=69c42713643425f47786e416458416250344a4c36687a36676b326e32424a5439a
+1299. [b] 危机十年轮回，新一轮危机悄悄来临-gz111678 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f2442443643425f393672416470416250344a4c36687a36676b35666f3566538e8
+1300. [b] 经济大周期_踩准节拍再投资（高清）--海宁 -  | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=9db423b3643425f446b7041636c416250344a4c36687a36676b436f6a337654eb0
+1301. [b] 写在2019年房价大幅上涨之前！-笑沧海2018 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=b5c424a3643425f42694d416549416250344a4c36687a36676b396a523978550ab
+1302. [b] 野牛杂谈-野牛先生 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=351420a3643425f34474c41656a41656d344a4c36687a36676b3050433142544f2
+1303. [b] 虚拟货币的秘密，兼谈比特币的未来和各国的战略布局 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=7fe42413643425f435337416564416250344a4c36687a36676b435a55336d37023
+1304. [b] 形势分析2018-将进雪 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f8942403643425f426d66416554416250344a4c36687a36676b417543443876a62
+1305. [b] 财经时事 各抒己见-yyttff1981 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=52242413643425f376e73416249416250344a4c36687a36676b4571413646550ea
+1306. [b] 老公坚持房价会跌，我现在一看房价就满嘴吐血。-爱死小肥羊 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=c13427e3643425f455150416433416250344a4c36687a36676b394d4843324882e
+1307. [b] 如是我观（关注探讨的一些话题）-北京毛毛 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=51f428c3643425f477056416456416250344a4c36687a36676b465733464e415ff
+1308. [b] 限购下卖房买房，我被中介撞了一下腰-dindindanglaile  - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=db842b33643425f423735416542416250344a4c36687a36676b41547839723396a
+1309. [b] 戏说牛市合适崩盘-kulese - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=eea42903643425f415264416531416250344a4c36687a36676b366a75334e6fa28
+1310. [b] 西方社会心态变化 - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=0c342783643425f396d4a41647a416250344a4c36687a36676b476c47475647234
+1311. [b] 现在房产投资绝对是个技术活-海男的故事 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=f2842cc3643425f414e61416536416250344a4c36687a36676b35757144444e585
+1312. [b] 看图说话-从开发商的角度-闲聊神州房市走势与“鬼城”的产生 - zlw | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1f0428a3643425f456b79416379416250344a4c36687a36676b32355442364f875
+1313. [b] 黄金价格这么个玩法，意味着国际性大通胀时代的降临 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=6f2424f3643425f324933416342416250344a4c36687a36676b384c51337373a1b
+1314. [b] 北望帝都-房价长期预测专贴：十年内北京四环内的均价会达到八万 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=da642263643425f375030416243416250344a4c36687a36676b41586946356e0ec
+1315. [b] 【完整版】全面阐述降低房价的四项基本原则[已扎口] - Administrator | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ea6421a3643425f355378416174416250344a4c36687a36676b4351303071446ca
+1316. [b] 货币政策开始加码 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=1b942113643425f333566416346416250344a4c36687a36676b47713131734b762
+1317. [b] 理性探讨楼市趋势，以政策为依据，以数据为论据，以事实为佐证，不多不空-熊鞍 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=3fd42933643425f463572416444416250344a4c36687a36676b3372634730624c4
+1318. [b] 理性分析通胀与经济形势，理性预测楼市下跌时间表-海宁的马甲 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=cbe42dc3643425f464d4a416439416250344a4c36687a36676b394f6e466d66b19
+1319. [b] 理性分析今后几年房价的走势-光脚穿草鞋 - philips | no-date [S]
+      https://weread.qq.com/book-detail?type=1&v=ed642323643425f465151416438416250344a4c36687a36676b465141467853ede
+1320. [b] 像阿德勒一样思考和生活 - 岸见一郎 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=830328f0813ab7907g010adb
+1321. [b] 博弈论的诡计：日常生活中的博弈策略 - 王春永 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=a3b320807187b502a3b801c
+1322. [b] 复盘：对过去的事情做思维演练（实践版） - 陈中 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=0473298071916d74047a9aa
+1323. [b] 行为心理学：一个伟大心理学家的思想精华 - 约翰·华生 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=c77327705d18fac774e4a05
+1324. [b] 社会性动物（第12版） - 艾略特·阿伦森 乔舒亚·阿伦森 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=fcb322c071f3f438fcb5e8c
+1325. [b] 厉害的人，早已戒掉了情绪 - MISS蔷薇 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=9e63220072169baf9e629e0
+1326. [b] 熵增定律 - 何圣君 王怡 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=7e232ed0724d0d907e20866
+1327. [b] 读透王阳明：心学教你内心强大的智慧 - 冷湖 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=07332a505c8859073fb788b
+1328. [b] 我预判了你的预判：逻辑判断力 - 约翰·亚岱尔 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=c8f32f00813ab77f6g016817
+1329. [b] 降维沟通：成为社牛的说话之道 - 何圣君 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=d2832bc0813ab8149g015234
+1330. [b] 认知税：为什么智商高的人也会做蠢事 - 水木然 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=22a323207279545222a8c7e
+1331. [b] 戒了吧，拖延症（写给年轻人的拖延心理学） - 辰格编著 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=73b32df0718c774773bd2c4
+1332. [b] 自卑与超越（经典全译本） - 阿尔弗雷德·阿德勒 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=70132500718c781f70187b9
+1333. [b] 底层逻辑：看清这个世界的底牌 - 刘润 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=73132fa0813ab6b0ag012a5b
+1334. [b] 刻意练习：如何从新手到大师 - [美]安德斯·艾利克森 [英]罗伯特·普尔 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=2e932c005cdec82e9a0e3e8
+1335. [b] 终身成长（全新修订版） - 卡罗尔·德韦克 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=b0e327605df8bab0e873984
+1336. [b] 理解了别人的情绪，沟通就成功了一半 - 果冻 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=7d132b6071f3a37e7d19c76
+1337. [b] 自醒：从被动努力到主动进步的转变 - 凤红邪 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=f5332910718c7821f53ceb8
+1338. [b] 活出必要的锋芒 - 丁锐 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=ee0326607294a627ee05024
+1339. [b] 情感盲区：弥补我们缺失的爱 - 周丽瑗 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=66732f2072289f0f6676d33
+1340. [b] 每天微躺10分钟：一本神奇的自我疗愈书 - 风墟 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=62932b107279544b629592e
+1341. [b] 丛林法则（人人要懂的竞争逻辑，字字入骨的生存策略） - 徐志晶 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=a78321e072289f0da78f32a
+1342. [b] 如何成为聊天高手 - 李溪亭 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=bc0325b072a874bbbc001a5
+1343. [b] 复利思维 - 王智远 | no-date 
+      https://weread.qq.com/book-detail?type=1&v=99832ef0727954419983f27

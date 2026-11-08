@@ -1,0 +1,8 @@
+{
+  "approvals": [
+    {
+      "action": "refund",
+      "risk_level": "critical"
+    }
+  ]
+}

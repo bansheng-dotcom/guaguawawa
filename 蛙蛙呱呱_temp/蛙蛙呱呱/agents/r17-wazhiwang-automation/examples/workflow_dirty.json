@@ -1,0 +1,26 @@
+{
+  "name": "broken-flow",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "webhook"
+    },
+    {
+      "name": "Map Fields",
+      "type": "set"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Ghost Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

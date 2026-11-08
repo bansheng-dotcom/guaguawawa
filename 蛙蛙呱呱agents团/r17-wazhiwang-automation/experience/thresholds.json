@@ -1,0 +1,103 @@
+{
+  "integration": {
+    "trigger_types": [
+      "manualTrigger", "webhook", "formTrigger", "scheduleTrigger",
+      "chatTrigger", "executeWorkflowTrigger", "gmailTrigger",
+      "slackTrigger", "telegramTrigger"
+    ],
+    "node_required": ["name", "type"],
+    "credential_secret_keys": [
+      "api_key", "apikey", "apiKey", "secret", "token", "password", "passwd",
+      "bearer", "private_key", "privateKey", "access_token", "client_secret",
+      "auth_token"
+    ],
+    "max_nodes": 200
+  },
+  "webhook": {
+    "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    "path_min_len": 3,
+    "trigger_input_shapes": {
+      "webhook": "body",
+      "formTrigger": "flat",
+      "chatTrigger": "chatInput",
+      "scheduleTrigger": "none",
+      "manualTrigger": "none"
+    },
+    "event_types": [
+      "created", "updated", "deleted", "submitted", "approved", "rejected",
+      "paid", "shipped", "signed", "completed", "failed", "retried"
+    ]
+  },
+  "mapping": {
+    "column_types": ["string", "number", "boolean", "date"],
+    "reserved_columns": ["id", "created_at", "updated_at", "createdAt",
+                         "updatedAt", "deleted_at"],
+    "column_pattern": "^[a-z][a-z0-9_]*$",
+    "primary_key_required": ["entity", "key_field"]
+  },
+  "schedule": {
+    "schedule_types": ["cron", "interval", "manual"],
+    "min_interval_minutes": 1,
+    "summary_types": ["daily", "digest", "reminder", "report"],
+    "read_back_required_for": ["daily", "digest", "report"]
+  },
+  "approval": {
+    "risk_levels": ["low", "medium", "high", "critical"],
+    "high_risk_actions": [
+      "publish", "deploy", "refund", "delete", "drop", "payout",
+      "contract_sign", "send_pii", "wire_transfer", "revoke_access"
+    ],
+    "approval_required_levels": ["high", "critical"]
+  },
+  "retry": {
+    "write_ops": [
+      "create", "update", "insert", "upsert", "send", "delete", "post",
+      "put", "patch", "charge", "refund", "publish"
+    ],
+    "max_retries_cap": 10,
+    "min_timeout_s": 1,
+    "statuses": ["pending", "running", "succeeded", "failed", "partial",
+                 "dead_letter", "retrying"]
+  },
+  "aiworkflow": {
+    "anchors": ["agent", "workflow"],
+    "risk_levels": ["low", "medium", "high"],
+    "model_required": ["model", "purpose"],
+    "node_types": ["aiAgent", "chainLlm", "basicChainLlm", "toolCode",
+                   "toolHttpRequest", "lmChatOpenAi"]
+  },
+  "audit": {
+    "required": ["trigger", "input", "execution", "output", "operator"],
+    "statuses": ["success", "error", "crashed", "waiting", "running", "canceled"],
+    "evidence_fields": ["trigger", "input", "execution", "output", "error",
+                        "operator", "ts"]
+  },
+  "review": {
+    "execution_words": ["直接发布", "直接上线", "直接执行", "绕过审批", "跳过审批",
+                        "无需审批", "自动扣款", "自动退款", "自动删除", "免审批",
+                        "强行发布", "直接打款"],
+    "credential_words": ["写死密钥", "硬编码密钥", "明文密钥", "明文密码",
+                         "api_key=", "token=", "写进工作流", "写进文档",
+                         "公开凭据", "暴露密钥", "泄露密钥"],
+    "scope_terms": ["业务规则", "替业务决定", "代替业务", "财务结论", "税务结论",
+                    "合同效力", "法律意见", "支付扣款", "GMP 合规", "医疗诊断"],
+    "handoff_keys": ["handoff", "授权", "authorized", "移交", "交接",
+                     "approved_by", "复核"],
+    "concrete_keys": ["node_count", "trigger_count", "webhook_count",
+                      "event_count", "mapping_count", "column_count",
+                      "schedule_type", "batch_count", "approval_count",
+                      "publish_ready", "retry_count", "errorflow_count",
+                      "ai_count", "audit_count", "credential_count",
+                      "workflow_count", "gap_count", "execution_count",
+                      "failed_count", "success_rate"],
+    "conclusion_keys": ["summary", "note", "next", "description", "conclusion",
+                        "recommendation", "reason", "narrative", "insight"],
+    "evidence_keys": ["node_count", "trigger_count", "webhook_count",
+                      "event_count", "mapping_count", "column_count",
+                      "batch_count", "approval_count", "retry_count",
+                      "errorflow_count", "ai_count", "audit_count",
+                      "credential_count", "workflow_count", "gap_count",
+                      "execution_count", "failed_count", "success_rate",
+                      "dangling_edges", "unresolved_count"]
+  }
+}

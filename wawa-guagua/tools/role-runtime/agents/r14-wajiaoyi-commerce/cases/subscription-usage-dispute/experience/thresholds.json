@@ -1,0 +1,15 @@
+{
+  "_note": "「订阅用量账单争议」案例级阈值覆盖。未出现的键沿用 experience/thresholds.json 全局值。",
+  "billing": {
+    "invoice_status": ["draft", "finalized", "voided", "failed", "pending"],
+    "usage_required": ["metric_code", "quantity", "aggregation_type"],
+    "charge_required": ["charge_model", "amount", "unit_amount"]
+  },
+  "event": {
+    "usage_dispute_event_type": "invoice.finalized"
+  },
+  "review": {
+    "evidence_keys": ["invoice_count", "usage_count", "charge_count",
+                      "aggregation_count", "total_amount"]
+  }
+}

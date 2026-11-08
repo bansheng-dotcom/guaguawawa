@@ -1,0 +1,8 @@
+{
+  "checks": [
+    {
+      "name": "security",
+      "status": "block"
+    }
+  ]
+}

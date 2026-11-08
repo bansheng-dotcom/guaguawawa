@@ -1,0 +1,109 @@
+{
+  "name": "qiuqiu-fullstack-team",
+  "version": "1.0.0",
+  "description": "A full-stack operation team that turns business questions into decision-ready product, data, visualization, content, and self-media operation deliverables.",
+  "author": {
+    "name": "WorkBuddy User",
+    "email": "user@local"
+  },
+  "agents": [
+    "./agents/qiuqiu-fullstack-team-team-lead.md",
+    "./agents/product-strategist.md",
+    "./agents/data-insight-analyst.md",
+    "./agents/data-visualization-designer.md",
+    "./agents/content-director.md",
+    "./agents/media-ops-operator.md"
+  ],
+  "skills": [
+    "./skills/qiuqiu-product",
+    "./skills/qiuqiu-data-analysis",
+    "./skills/qiuqiu-data-viz",
+    "./skills/qiuqiu-content",
+    "./skills/qiuqiu-media-ops"
+  ],
+  "expertType": "team",
+  "agentName": "qiuqiu-fullstack-team-team-lead",
+  "teamInfo": {
+    "leadAgent": "qiuqiu-fullstack-team-team-lead",
+    "memberAgents": [
+      "product-strategist",
+      "data-insight-analyst",
+      "data-visualization-designer",
+      "content-director",
+      "media-ops-operator"
+    ]
+  },
+  "displayName": {
+    "en": "Elegant Elite Squad",
+    "zh": "高雅人士天团"
+  },
+  "profession": {
+    "en": "Elegant Elite Squad",
+    "zh": "高雅人士天团"
+  },
+  "displayDescription": {
+    "en": "A cross-functional team that turns business questions into product judgment, data insight, visual storytelling, content production, and self-media operation deliverables.",
+    "zh": "从产品判断、数据洞察、图表表达、内容生产到自媒体运营，把经营问题做成可决策、可复盘的成果。"
+  },
+  "avatar": "avatars/team.png",
+  "categoryId": "12-IndustryConsultant",
+  "defaultInitPrompt": {
+    "en": "Turn my business question into a full-stack plan covering product, data, content, and operations.",
+    "zh": "请把我的经营问题拆成产品判断、数据分析、内容与运营的完整方案。"
+  },
+  "plugin": "qiuqiu-fullstack-team",
+  "tags": [
+    { "en": "Full-Stack Operation", "zh": "全链路经营" },
+    { "en": "Data Insight", "zh": "数据洞察" },
+    { "en": "Content Production", "zh": "内容生产" }
+  ],
+  "quickPrompts": [
+    { "en": "Turn my business question into a full-stack plan covering product, data, content, and operations.", "zh": "请把我的经营问题拆成产品判断、数据分析、内容与运营的完整方案。" },
+    { "en": "Find the growth drivers in my data and turn them into report-ready charts and a narrative.", "zh": "帮我从数据里找到增长原因，并做成能直接汇报的图表和报告。" },
+    { "en": "Write a knowledge-popularization article and plan multi-platform publishing with data review.", "zh": "帮我写一篇知识科普文章，并规划多平台发布与数据复盘。" }
+  ],
+  "members": [
+    {
+      "id": "qiuqiu-fullstack-team-team-lead",
+      "displayName": { "en": "Wei Lingling", "zh": "渭领领" },
+      "profession": { "en": "Full-Stack Operator", "zh": "全链路操盘手" },
+      "avatar": "avatars/qiuqiu-fullstack-team-team-lead.png",
+      "role": "lead"
+    },
+    {
+      "id": "product-strategist",
+      "displayName": { "en": "Wei Chanpin", "zh": "渭产品" },
+      "profession": { "en": "Product Strategy Consultant", "zh": "产品策略顾问" },
+      "avatar": "avatars/product-strategist.jpg",
+      "role": "member"
+    },
+    {
+      "id": "data-insight-analyst",
+      "displayName": { "en": "Wei Fenxi", "zh": "渭分析" },
+      "profession": { "en": "Data Insight Analyst", "zh": "数据洞察分析师" },
+      "avatar": "avatars/data-insight-analyst.png",
+      "role": "member"
+    },
+    {
+      "id": "data-visualization-designer",
+      "displayName": { "en": "Wei Zuotu", "zh": "渭作图" },
+      "profession": { "en": "Data Visualization Designer", "zh": "数据可视化设计师" },
+      "avatar": "avatars/data-visualization-designer.jpg",
+      "role": "member"
+    },
+    {
+      "id": "content-director",
+      "displayName": { "en": "Wei Bianbian", "zh": "渭编编" },
+      "profession": { "en": "Content Production Editor", "zh": "内容生产主编" },
+      "avatar": "avatars/content-director.jpg",
+      "role": "member"
+    },
+    {
+      "id": "media-ops-operator",
+      "displayName": { "en": "Wei Meiti", "zh": "渭媒体" },
+      "profession": { "en": "Self-Media Operations Specialist", "zh": "自媒体运营师" },
+      "avatar": "avatars/media-ops-operator.jpg",
+      "role": "member"
+    }
+  ]
+}

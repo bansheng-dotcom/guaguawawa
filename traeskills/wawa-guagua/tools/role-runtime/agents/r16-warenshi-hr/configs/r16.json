@@ -1,0 +1,84 @@
+{
+  "_note": "蛙人事（HR / 组织赋能）运行配置：阈值/维度/数据源外置，改规则不改代码（META-001 Stage 3）。",
+  "role": "r16",
+  "language": "zh",
+  "enable_cache": true,
+  "enable_vector": false,
+  "report": {
+    "engine": "agents/shared/report_engine.py",
+    "generator": "agents/shared/report_generator.py",
+    "doc_type": "HR / 组织赋能",
+    "formats": [
+      "html",
+      "md"
+    ],
+    "sections": [
+      "决策指令",
+      "KPI 格栅",
+      "三级归因",
+      "护栏熔断",
+      "灰度+下一步"
+    ]
+  },
+  "kpis": [
+    {
+      "id": "productivity_gap",
+      "name": "人均产值增速差",
+      "formula": "人均产值增速 − 人力成本增速",
+      "unit": "个百分点",
+      "target": "≥ 0",
+      "alert": "转负触发预警"
+    },
+    {
+      "id": "single_point",
+      "name": "关键岗位单点依赖数",
+      "formula": "无备份人选的 key role 数",
+      "unit": "个",
+      "target": "0",
+      "alert": "≥ 1 立即补备份"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "合同/证照到期未续",
+      "verdict": "BLOCKER",
+      "action": "立即整改"
+    },
+    {
+      "id": "G2",
+      "when": "薪酬核算差错",
+      "verdict": "BLOCKER",
+      "action": "48h 内全量复核"
+    },
+    {
+      "id": "G3",
+      "when": "人效增速差转负",
+      "verdict": "WARN",
+      "action": "冻结新增编制"
+    }
+  ],
+  "guardrails": [
+    {
+      "dim": "人均产值增速差",
+      "metric": "人均产值增速差",
+      "base": "≥ 0",
+      "threshold": "转负触发预警"
+    },
+    {
+      "dim": "关键岗位单点依赖数",
+      "metric": "关键岗位单点依赖数",
+      "base": "0",
+      "threshold": "≥ 1 立即补备份"
+    }
+  ],
+  "data_sources": [
+    {
+      "name": "examples/",
+      "type": "local_json",
+      "permission": "read_only",
+      "note": "本轮真实执行所用输入，报告页脚记录 SHA256"
+    }
+  ],
+  "case": "productivity-review"
+}

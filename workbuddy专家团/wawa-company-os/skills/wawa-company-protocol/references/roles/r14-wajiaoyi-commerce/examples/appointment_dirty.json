@@ -1,0 +1,8 @@
+{
+  "customer_id": "",
+  "provider_id": 2,
+  "service_id": 6,
+  "start_datetime": "2026-11-10 10:00",
+  "end_datetime": "2026-11-10 09:00",
+  "status": "bogus"
+}

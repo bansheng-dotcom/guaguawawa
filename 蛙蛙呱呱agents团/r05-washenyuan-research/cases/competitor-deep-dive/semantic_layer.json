@@ -1,0 +1,16 @@
+{
+  "artifact_type": "competitor_research",
+  "terms": {
+    "矩阵取值": "yes / no / partial / unknown，来自 experience/thresholds.json 的 competitor.matrix_value_types",
+    "威胁定级": "critical / high / medium / low，按 strengths 占比（≥0.75 critical，≥0.5 high，≥0.25 medium，否则 low）"
+  },
+  "gates": [
+    "每个竞品必须覆盖全部 features，缺格即 FAIL",
+    "矩阵取值不得超出白名单",
+    "battlecard 五段（positioning/strengths/weaknesses/strategy/pricing）必须齐备"
+  ],
+  "boundary": [
+    "矩阵只陈述事实，哪个功能要不要做不在此拍板",
+    "数据口径冲突交 R06，正式法务判断交 R03"
+  ]
+}

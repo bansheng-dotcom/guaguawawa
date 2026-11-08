@@ -1,0 +1,8 @@
+{
+  "_comment": "criteria review 脏夹具：无证据判据 + 不可定位的含糊证据 → 2 fail → FAIL",
+  "criteria": [
+    {"id": "AC-01", "description": "Hero 文案与定位一致", "evidence": "landing.html:12 主标语含定位语", "severity": "critical"},
+    {"id": "AC-02", "description": "转化追踪已接入", "evidence": "", "severity": "critical"},
+    {"id": "AC-03", "description": "表单可投递", "evidence": "看起来问题不大", "severity": "major"}
+  ]
+}

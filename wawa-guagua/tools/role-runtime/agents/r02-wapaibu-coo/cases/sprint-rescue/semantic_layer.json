@@ -1,0 +1,21 @@
+{
+  "case_id": "sprint-rescue",
+  "facts": {
+    "WBS_TOTAL_COST_DAYS": {"desc": "WBS 合计人日", "value": 4.0},
+    "SPRINT_WORKDAYS": {"desc": "按容量填充的排期工作日数", "value": 2},
+    "URGENT_WEIGHT": {"desc": "紧急任务权重", "value": 1.2},
+    "SINGLE_PROJECT_CAP_PCT": {"desc": "单项目容量红线百分比", "value": 50},
+    "MAX_TASK_HOURS": {"desc": "委派任务工时上限（小时）", "value": 8},
+    "SPLIT_SUBTASKS": {"desc": "20h 任务拆分后的子任务数", "value": 3},
+    "SPLIT_SUM_HOURS": {"desc": "拆分后子任务工时合计（口径恒等）", "value": 20.0}
+  },
+  "terms": {
+    "WBS": "工作分解结构：八类任务（analysis/design/implementation/testing/deployment/documentation/management/maintenance）+ step 1-10 + 0.05-3.0 人日估算",
+    "关键路径": "依赖图上浮动为 0 的最长链，决定总工期；非关键任务可并行",
+    "过载": "加权负载（承诺+紧急×1.2）超过周工时 100%，CRITICAL 拦截",
+    "单阻塞规则": "派工包 blocked_by ≤2，多阻塞先解耦再委派",
+    "最小必要上下文": "must_read ≤3，防上下文淹没",
+    "口径恒等": "拆分/汇总的数学恒等式（Σ子任务=原任务），机器校验不许漂",
+    "派工包": "task+owner+hours+blocked_by+must_read+key_results 的最小委派单元"
+  }
+}

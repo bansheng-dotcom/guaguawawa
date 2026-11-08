@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "order.completed",
+      "entity_id": "ord_001",
+      "amount": 104600,
+      "ts": "2026-11-05T09:00:00"
+    },
+    {
+      "type": "payment.succeeded",
+      "entity_id": "pi_3abc",
+      "amount": 104600,
+      "ts": "2026-11-05T09:01:00"
+    },
+    {
+      "type": "invoice.finalized",
+      "entity_id": "inv_001",
+      "amount": 104600,
+      "ts": "2026-11-05T09:02:00"
+    }
+  ]
+}

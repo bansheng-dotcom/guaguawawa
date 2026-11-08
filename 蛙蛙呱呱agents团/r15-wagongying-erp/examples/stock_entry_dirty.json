@@ -1,0 +1,11 @@
+{
+  "id": "STE-002",
+  "purpose": "Unknown",
+  "to_warehouse": "华东原料库",
+  "items": [
+    {
+      "item_code": "RM-001",
+      "qty": 100
+    }
+  ]
+}

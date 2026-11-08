@@ -1,0 +1,7 @@
+{
+  "base_value": 120,
+  "drivers": [
+    {"name": "可服务比例", "base_value": 0.4, "low": 0.5, "high": 0.3},
+    {"name": "单价", "base_value": 1200, "low": 1000, "high": 1500}
+  ]
+}

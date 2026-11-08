@@ -1,0 +1,40 @@
+{
+  "case_id": "workflow-reliability",
+  "display_name": "自动化流水线吞吐与异常自愈",
+  "description": "线索同步工作流 3 节点 1 触发器、悬空边 0，但死信重试已达 3 次，是否继续放量？",
+  "default_question": "线索同步工作流 3 节点 1 触发器、悬空边 0，但死信重试已达 3 次，是否继续放量？",
+  "artifact_type": "workflow",
+  "summary": "自动化流水线吞吐与异常自愈",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "workflow",
+    "audit_log"
+  ],
+  "skills": [
+    "integration",
+    "webhook",
+    "retry",
+    "audit"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "线上告警与值守",
+    "业务规则定义"
+  ],
+  "steps": [
+    {
+      "skill": "integration",
+      "action": "workflow",
+      "input": "examples/workflow.json",
+      "expect": {
+        "dangling_edges": 0,
+        "node_count": 3
+      }
+    }
+  ]
+}

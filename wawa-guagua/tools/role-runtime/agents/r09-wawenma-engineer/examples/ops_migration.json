@@ -1,0 +1,9 @@
+{
+  "steps": [
+    {"operation": "add_column users.status"},
+    {"operation": "backfill users.status"},
+    {"operation": "create_index users(status)"}
+  ],
+  "rollback_plan": ["drop index", "drop column"],
+  "authorization": true
+}

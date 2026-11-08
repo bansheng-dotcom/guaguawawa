@@ -1,0 +1,9 @@
+{
+  "employee": "EMP-0002",
+  "approval_status": "Bogus",
+  "status": "Paid",
+  "total_claimed_amount": 999.0,
+  "expense_details": [
+    {"expense_type": "出差交通", "amount": 200.0}
+  ]
+}

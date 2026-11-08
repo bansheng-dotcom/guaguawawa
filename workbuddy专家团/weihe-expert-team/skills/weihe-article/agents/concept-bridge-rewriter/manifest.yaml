@@ -1,0 +1,24 @@
+﻿# manifest.yaml — 概念桥接改写
+name: "concept-bridge-rewriter"
+version: "1.0"
+status: "active"
+description: "概念桥接改写"
+
+io:
+  inputs:
+    - "primer-writer output"
+  outputs:
+    - "revised package Markdown"
+
+execution:
+  temperature: null
+  node_type: "agent"
+  parallel: false
+
+prompt_ref: "prompts.yaml#agents.concept-bridge-rewriter"
+
+dependencies:
+  agents: ['primer-writer']
+  scripts: []
+  references: []
+

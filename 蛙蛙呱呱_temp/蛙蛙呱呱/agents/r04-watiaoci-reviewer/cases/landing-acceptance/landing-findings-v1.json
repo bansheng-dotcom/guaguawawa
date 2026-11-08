@@ -1,0 +1,9 @@
+{
+  "_comment": "第 1 轮批评 findings（4 条，与 landing-claims-v1 对拍）",
+  "findings": [
+    {"id": "Q-001", "check": "completion_without_evidence", "severity": "error", "title": "完成声明无证据"},
+    {"id": "Q-002", "check": "absolutist_without_evidence", "severity": "error", "title": "绝对词无证据支撑"},
+    {"id": "Q-003", "check": "hedge_language", "severity": "error", "title": "使用推测措辞"},
+    {"id": "Q-004", "check": "completion_without_evidence", "severity": "error", "title": "完成声明无证据"}
+  ]
+}

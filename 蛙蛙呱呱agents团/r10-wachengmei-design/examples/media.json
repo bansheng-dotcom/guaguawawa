@@ -1,0 +1,7 @@
+{
+  "operations": ["transcode", "scale"],
+  "source": "input.mov",
+  "target": {"container": "mp4", "audio": "aac"},
+  "scale": {"width": 1920, "height": 1080},
+  "overwrite": "suffix"
+}

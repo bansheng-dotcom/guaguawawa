@@ -1,0 +1,20 @@
+{
+  "artifact_type": "vi",
+  "terms": [
+    {"term": "Stylescape", "meaning": "Chris Do 三方向视觉寻路法：每个方向有 name/palette/typography/imagery/narrative"},
+    {"term": "完整状态集", "meaning": "normal/loading/empty/error/disabled 五态必须覆盖"},
+    {"term": "动效人格", "meaning": "playful/premium/corporate/energetic 四选一，时长区间随之确定"},
+    {"term": "reduced_motion", "meaning": "减少动效必须支持（无障碍底线）"}
+  ],
+  "gates": [
+    "directions ≥3 且各五要素齐备",
+    "narrative 无陈词滥调（「因为蓝色代表信任」等）",
+    "voice 四维齐备（tone/word_choice/cadence/forbidden）",
+    "屏幕 goal+success_criteria+分区≥3+组件带状态+a11y 三底线"
+  ],
+  "boundary": [
+    "只产出视觉身份与设计规格，不代写前端代码",
+    "发布前需 R04 独立验收 + R03 广告合规复核",
+    "真实用户数据与埋点交 R06/R17"
+  ]
+}

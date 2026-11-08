@@ -1,0 +1,47 @@
+{
+  "okr_sets": [
+    {
+      "objective": "O",
+      "key_results": [
+        {
+          "metric": "m1"
+        },
+        {
+          "metric": "m2"
+        },
+        {
+          "metric": "m3"
+        }
+      ]
+    },
+    {
+      "objective": "O",
+      "key_results": [
+        {
+          "metric": "m1"
+        },
+        {
+          "metric": "m2"
+        },
+        {
+          "metric": "m3"
+        }
+      ]
+    },
+    {
+      "objective": "O",
+      "key_results": [
+        {
+          "metric": "m1"
+        },
+        {
+          "metric": "m2"
+        },
+        {
+          "metric": "m3"
+        }
+      ]
+    }
+  ],
+  "confidence": 65
+}

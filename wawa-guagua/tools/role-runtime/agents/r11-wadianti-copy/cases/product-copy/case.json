@@ -1,0 +1,8 @@
+{
+  "case_id": "product-copy",
+  "display_name": "产品文案与发布",
+  "description": "给一个 SaaS 产品写对外文案：从品牌语调指南、广告文案（三件套 + 绝对化禁词）到多平台改写与发布清单，最终产出可直接进入发布授权环节的文案包。",
+  "default_question": "给我的产品写一套广告文案并准备发布清单。",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience"
+}

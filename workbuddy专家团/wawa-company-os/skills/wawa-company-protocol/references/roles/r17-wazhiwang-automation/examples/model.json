@@ -1,0 +1,5 @@
+{
+  "anchor": "workflow",
+  "model": "claude-sonnet-5",
+  "purpose": "字段抽取"
+}

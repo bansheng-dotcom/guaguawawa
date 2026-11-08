@@ -1,0 +1,8 @@
+{
+  "_note": "pipeline-rescue 案例业务阈值：比全局更严的停滞口径（14 天 → 10 天），因为本案例面向『抢救』而非常规周报。",
+  "pipeline": {
+    "stall_days_max": 10,
+    "stale_ratio_max": 0.2,
+    "concentration_hhi_max": 0.5
+  }
+}

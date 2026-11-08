@@ -1,0 +1,21 @@
+{
+  "rpo_hours": 1,
+  "rto_hours": 4,
+  "recovery_type": "warm",
+  "dependencies": [
+    "db",
+    "app",
+    "cdn"
+  ],
+  "dependency_edges": [
+    [
+      "db",
+      "app"
+    ],
+    [
+      "app",
+      "cdn"
+    ]
+  ],
+  "rollback_plan": "切回主站并回滚配置"
+}

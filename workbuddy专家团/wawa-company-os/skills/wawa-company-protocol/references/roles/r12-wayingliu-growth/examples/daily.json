@@ -1,0 +1,9 @@
+{
+  "date": "2026-11-05",
+  "platform_summary": [
+    {"platform": "公众号", "month_net_followers": 120, "month_net_revenue": 800.0, "month_content_count": 6, "month_views": 15000},
+    {"platform": "B站", "month_net_followers": 300, "month_net_revenue": 0.0, "month_content_count": 4, "month_views": 22000},
+    {"platform": "小红书", "month_net_followers": 85, "month_net_revenue": 0.0, "month_content_count": 10, "month_views": 9000}
+  ],
+  "conclusion": "公众号内容获客稳定，B 站自然增长最快，建议下周加大 B 站视频投入。"
+}

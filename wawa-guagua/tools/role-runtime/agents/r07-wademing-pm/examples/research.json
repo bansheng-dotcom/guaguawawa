@@ -1,0 +1,17 @@
+{
+  "interview_notes": {
+    "participant": "p",
+    "date": "2026-11-01",
+    "key_jobs": "k",
+    "current_solution": "c",
+    "biggest_pain": "b",
+    "desired_outcome": "d",
+    "willingness_to_pay": "w"
+  },
+  "feature_requests": [
+    {
+      "source": "工单",
+      "frequency": "高频"
+    }
+  ]
+}

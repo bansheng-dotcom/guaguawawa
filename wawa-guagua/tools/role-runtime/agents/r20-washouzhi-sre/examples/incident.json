@@ -1,0 +1,18 @@
+{
+  "incident_id": "inc-001",
+  "timeline": [
+    {
+      "ts": "2026-11-05T10:00:00Z",
+      "status": "investigating"
+    },
+    {
+      "ts": "2026-11-05T10:30:00Z",
+      "status": "identified"
+    },
+    {
+      "ts": "2026-11-05T11:00:00Z",
+      "status": "resolved"
+    }
+  ],
+  "resolved_at": "2026-11-05T11:00:00Z"
+}

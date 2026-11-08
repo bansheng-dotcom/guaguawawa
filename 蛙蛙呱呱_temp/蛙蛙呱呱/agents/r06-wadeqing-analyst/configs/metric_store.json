@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "metrics": {
+    "gmv": {
+      "name": "总交易额",
+      "formula": "traffic * conversion_rate * aov",
+      "dimensions": ["channel", "os", "region"]
+    },
+    "conversion_rate": {
+      "name": "整体转化率",
+      "formula": "orders / traffic",
+      "dimensions": ["channel", "os", "user_segment"],
+      "alert_threshold": 0.05
+    }
+  },
+  "business_hierarchy": {
+    "core_drivers": ["channel", "conversion_rate", "aov"]
+  }
+}

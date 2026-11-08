@@ -1,0 +1,10 @@
+{
+  "_note": "renewal-health 案例业务阈值：续约窗口收紧到 60 天，健康分门槛提高到 75，对应『只谈高把握续约』的打法。",
+  "health": {
+    "weights": {"usage": 30, "support": 25, "voc": 25, "engagement": 20},
+    "risk_bands": {"healthy": 75, "watch": 50, "at_risk": 0},
+    "renewal_window_days": 60,
+    "renewal_score_min": 75,
+    "low_csat_max": 3
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "project_config": {},
+  "scenes": [{"path": "res://main.tscn", "script": "res://missing.gd"}],
+  "scripts": []
+}

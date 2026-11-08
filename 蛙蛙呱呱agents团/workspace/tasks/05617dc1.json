@@ -1,0 +1,34 @@
+{
+  "task_id": "05617dc1",
+  "title": "写新手引导 PRD",
+  "owner": "r07",
+  "intent": "需求 PRD 分析",
+  "inputs": [
+    {
+      "name": "C:\\Users\\18238\\AppData\\Local\\Temp\\r07_harness_jcyi7loc\\prd.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "prd.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "prd_report.md",
+      "kind": "report",
+      "media_type": "text/markdown",
+      "note": ""
+    }
+  ],
+  "acceptance": [
+    "prd 八门禁通过"
+  ],
+  "deps": [],
+  "status": "done",
+  "logs": []
+}

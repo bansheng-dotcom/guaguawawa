@@ -1,0 +1,27 @@
+{
+  "exercises": [
+    {
+      "label": "iso-2023",
+      "grant_date": "2023-01-10",
+      "exercise_date": "2025-06-01",
+      "sale_date": "2026-06-15",
+      "shares": 1000,
+      "strike": 10.0,
+      "exercise_fmv": 50.0,
+      "grant_fmv": 20.0
+    },
+    {
+      "label": "iso-2025",
+      "grant_date": "2025-01-01",
+      "exercise_date": "2026-01-15",
+      "sale_date": "2026-06-01",
+      "shares": 500,
+      "strike": 8.0,
+      "exercise_fmv": 30.0,
+      "grant_fmv": 25.0
+    }
+  ],
+  "regular_income": 250000.0,
+  "regular_tax": 60000.0,
+  "amt_budget": 0.0
+}

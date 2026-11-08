@@ -1,0 +1,60 @@
+{
+  "plan_id": "99ce2898",
+  "intent": "智能停车场：闲置时段车位利用率与整体营收最大化方案",
+  "team_required": [
+    "r07(产品)",
+    "r06(数据)",
+    "r12(增长)",
+    "r20(运维)",
+    "r04(评审)"
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "type": "parallel",
+      "agents": [
+        {
+          "role": "r07",
+          "action": "设计峰谷动态定价与无感支付流程",
+          "expected_output": [
+            "prd.md"
+          ]
+        },
+        {
+          "role": "r06",
+          "action": "分析 24 小时车位占用率",
+          "expected_output": [
+            "occupancy_data.json"
+          ]
+        },
+        {
+          "role": "r12",
+          "action": "设计周边商圈异业合作(停车券抵扣)",
+          "expected_output": [
+            "growth_strategy.md"
+          ]
+        },
+        {
+          "role": "r20",
+          "action": "车牌识别与道闸高可用保障",
+          "expected_output": [
+            "sla_report.md"
+          ]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "type": "gate",
+      "agents": [
+        {
+          "role": "r04",
+          "action": "整体合规与业务逻辑硬门禁复核",
+          "expected_output": [
+            "final_verdict.json"
+          ]
+        }
+      ]
+    }
+  ]
+}

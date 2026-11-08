@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "type": "created",
+      "entity_id": 1001,
+      "ts": 1700000000
+    },
+    {
+      "type": "updated",
+      "entity_id": 1001,
+      "ts": 1700000001
+    }
+  ],
+  "routes": [
+    {
+      "type": "created",
+      "node": "Create"
+    },
+    {
+      "type": "updated",
+      "node": "Update"
+    }
+  ],
+  "dead_letter": false
+}

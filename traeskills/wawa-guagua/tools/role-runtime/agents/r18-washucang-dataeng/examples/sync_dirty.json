@@ -1,0 +1,10 @@
+{
+  "connection_id": "conn-001",
+  "sync_mode": "incremental_dedup",
+  "streams": [
+    {
+      "name": "orders"
+    }
+  ],
+  "schedule": "0 2 * * *"
+}

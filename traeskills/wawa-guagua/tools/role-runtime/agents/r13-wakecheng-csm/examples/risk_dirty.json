@@ -1,0 +1,6 @@
+{
+  "name": "山海物流",
+  "usage": 100, "support": 100, "voc": 100, "engagement": 0,
+  "renewal_in_days": 10,
+  "summary": "四维加权 80 分判 healthy，但 engagement=0 单维崩坏。"
+}

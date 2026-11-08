@@ -1,0 +1,132 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "三级全过：src/login.py（referenced_by:1）",
+      "dim": "artifact:verify",
+      "sev": "OK",
+      "path": "src/login.py",
+      "wired_reason": "referenced_by:1"
+    },
+    {
+      "ok": true,
+      "msg": "三级全过：src/main.py（entry_point）",
+      "dim": "artifact:verify",
+      "sev": "OK",
+      "path": "src/main.py",
+      "wired_reason": "entry_point"
+    }
+  ],
+  "level_results": {
+    "L1_EXISTS": {
+      "per_artifact": {
+        "src/login.py": {
+          "ok": true,
+          "size_bytes": 55,
+          "exists": true
+        },
+        "src/main.py": {
+          "ok": true,
+          "size_bytes": 20,
+          "exists": true
+        }
+      },
+      "failed": []
+    },
+    "L2_SUBSTANTIVE": {
+      "per_artifact": {
+        "src/login.py": {
+          "ok": true,
+          "stub_hits": []
+        },
+        "src/main.py": {
+          "ok": true,
+          "stub_hits": []
+        }
+      },
+      "failed": []
+    },
+    "L3_WIRED": {
+      "per_artifact": {
+        "src/login.py": {
+          "ok": true,
+          "reason": "referenced_by:1",
+          "references": [
+            "src/app.py"
+          ],
+          "tested": [
+            "tests/test_login.py"
+          ],
+          "entry_point": false
+        },
+        "src/main.py": {
+          "ok": true,
+          "reason": "entry_point",
+          "references": [],
+          "tested": [],
+          "entry_point": true
+        }
+      },
+      "failed": []
+    }
+  },
+  "per_artifact": {
+    "src/login.py": {
+      "path": "src/login.py",
+      "type": "code",
+      "entry_point": false,
+      "l1_exists": {
+        "ok": true,
+        "size_bytes": 55,
+        "exists": true
+      },
+      "l2_substantive": {
+        "ok": true,
+        "stub_hits": []
+      },
+      "l3_wired": {
+        "ok": true,
+        "reason": "referenced_by:1",
+        "references": [
+          "src/app.py"
+        ],
+        "tested": [
+          "tests/test_login.py"
+        ],
+        "entry_point": false
+      },
+      "passed": true
+    },
+    "src/main.py": {
+      "path": "src/main.py",
+      "type": "code",
+      "entry_point": true,
+      "l1_exists": {
+        "ok": true,
+        "size_bytes": 20,
+        "exists": true
+      },
+      "l2_substantive": {
+        "ok": true,
+        "stub_hits": []
+      },
+      "l3_wired": {
+        "ok": true,
+        "reason": "entry_point",
+        "references": [],
+        "tested": [],
+        "entry_point": true
+      },
+      "passed": true
+    }
+  },
+  "artifact_count": 2,
+  "passed_count": 2,
+  "stub_hit_count": 0,
+  "gaps": [],
+  "verdict": "COMPLETE",
+  "next": "工件链完整，可出核验结论",
+  "skill": "artifact",
+  "action": "verify"
+}

@@ -1,0 +1,39 @@
+{
+  "case_id": "stockout-risk",
+  "display_name": "核心品类安全库存与断货预警",
+  "description": "核心物料再订货点 120、在库 90、在途 40，周转天数 62 天，是先补货还是先清库？",
+  "default_question": "核心物料再订货点 120、在库 90、在途 40，周转天数 62 天，是先补货还是先清库？",
+  "artifact_type": "purchase_order",
+  "summary": "核心品类安全库存与断货预警",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "purchase_order",
+    "inventory_ledger"
+  ],
+  "skills": [
+    "inventory",
+    "procurement",
+    "fulfillment",
+    "report"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "资金审批",
+    "定价与促销策略"
+  ],
+  "steps": [
+    {
+      "skill": "inventory",
+      "action": "item",
+      "input": "examples/item.json",
+      "expect": {
+        "verdict": "PASS"
+      }
+    }
+  ]
+}

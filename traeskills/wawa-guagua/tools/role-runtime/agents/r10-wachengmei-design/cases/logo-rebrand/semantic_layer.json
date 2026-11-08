@@ -1,0 +1,22 @@
+{
+  "artifact_type": "logo",
+  "terms": [
+    {"term": "mark_type", "meaning": "logo 标记类型：wordmark/monogram/letterform/pictorial/abstract/emblem/mascot/combination"},
+    {"term": "单色测试", "meaning": "logo 在单一黑色下仍可读（one_color.readable）"},
+    {"term": "16px 底线", "meaning": "logo 缩到 16px 仍可辨识（tests.16px.legible=true）"},
+    {"term": "对比度", "meaning": "主/次色 WCAG 对比度 ≥3.0（图形可辨）"},
+    {"term": "商标排查", "meaning": "trademark_check 至少 1 条筛查记录，避免撞标"}
+  ],
+  "gates": [
+    "mark_type 在白名单",
+    "concepts ≥3 且各有 name+idea",
+    "尺寸测试覆盖 16/32/64",
+    "单色可读 + 16px 可辨识",
+    "主/次色 hex 合法且对比度达标"
+  ],
+  "boundary": [
+    "只交付视觉与图标变体，不代申请商标注册",
+    "字体/肖像授权需单独确认",
+    "不替 R04 做独立验收，不替 R09 做代码实现"
+  ]
+}

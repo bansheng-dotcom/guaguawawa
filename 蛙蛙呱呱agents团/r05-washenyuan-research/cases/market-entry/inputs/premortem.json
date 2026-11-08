@@ -1,0 +1,8 @@
+{
+  "venture": "企业 AI 编程平台",
+  "scenarios": [
+    {"name": "巨头碾压", "desc": "头部厂商推出同质私有化方案", "probability": "high", "impact": "high", "risk_level": "critical", "mitigation": "深耕垂直行业", "early_warning": "巨头发布私有化 beta"},
+    {"name": "预算冻结", "desc": "经济下行企业 IT 预算冻结", "probability": "medium", "impact": "medium", "risk_level": "medium", "mitigation": "按效果付费模式", "early_warning": "续约率跌破 80%"},
+    {"name": "合规收紧", "desc": "备案要求提高交付变慢", "probability": "low", "impact": "medium", "risk_level": "low", "mitigation": "预审合规清单", "early_warning": "新规征求意见稿"}
+  ]
+}

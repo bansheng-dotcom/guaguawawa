@@ -1,0 +1,11 @@
+{
+  "_comment": "本轮批评：K1 保留未降级；本轮 changed 区为 tracking/hero-copy；无新增 fail",
+  "keep_list": [
+    {"id": "K1", "what": "hero 三段式文案", "why_keep": "首屏转化的主承载，与定位强绑定", "evidence": "handoff/landing.md:9 文案三段式说明"}
+  ],
+  "changed": [
+    {"id": "tracking", "what": "转化追踪接入", "changed": true},
+    {"id": "hero-copy", "what": "hero 文案区", "changed": true}
+  ],
+  "findings": []
+}

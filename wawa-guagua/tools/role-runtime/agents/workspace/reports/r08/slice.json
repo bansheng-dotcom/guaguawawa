@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "artifact_type ∈ ['cli', 'tool', 'web', 'landing', 'saas', 'email', 'app']",
+      "dim": "slice.artifact_type",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "slices ≥1（实际 1）",
+      "dim": "slice.count",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "实现工件通过全部门禁，可进入质量验证与交接",
+  "artifact_type": "landing",
+  "slice_count": 1,
+  "skill": "slice",
+  "action": "slice"
+}

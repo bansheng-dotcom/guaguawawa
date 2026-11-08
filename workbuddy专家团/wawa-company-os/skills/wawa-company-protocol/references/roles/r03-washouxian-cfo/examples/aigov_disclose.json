@@ -1,0 +1,9 @@
+{
+  "disclosure": {
+    "disclose_interaction": true,
+    "label_generated_content": true,
+    "human_oversight_point": "高风险决策前人工复核",
+    "complaint_channel": "compliance@example.com",
+    "disclose_at_start": true
+  }
+}

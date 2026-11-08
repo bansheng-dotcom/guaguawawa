@@ -1,0 +1,8 @@
+{
+  "severity_max": 5,
+  "escalation_severity": 4,
+  "escalation_within_min": 30,
+  "closure_window_days": 7,
+  "retro_dimensions": ["目标", "计划", "执行", "复盘", "团队"],
+  "postmortem_deadline_hours": 24
+}

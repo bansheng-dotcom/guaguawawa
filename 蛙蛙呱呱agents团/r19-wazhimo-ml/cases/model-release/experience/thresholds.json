@@ -1,0 +1,12 @@
+{
+  "_note": "model-release 案例阈值覆盖（在全局 experience/thresholds.json 之上合并）。只覆盖模型卡/资产相关键，不破坏全局键。",
+  "modelcard": {
+    "risk_tiers": ["low", "medium", "high"],
+    "license_types": ["proprietary", "open_source", "research_only"],
+    "asset_types": ["model_file", "eval_report", "chart", "dataset_snapshot", "config"]
+  },
+  "registry": {
+    "stages": ["none", "staging", "production", "archived"],
+    "model_sources": ["mlflow", "dspy", "litellm", "custom"]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "dataset_id": "eval-support-qa-v1",
+  "records": [
+    {
+      "inputs": {
+        "question": "如何重置密码？"
+      },
+      "expectations": {
+        "expected_facts": [
+          "设置页",
+          "重置链接"
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "question": "发票怎么开？"
+      },
+      "expectations": {
+        "expected_facts": [
+          "发票入口",
+          "抬头信息"
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "question": "退货期限多久？"
+      },
+      "expectations": {
+        "expected_facts": [
+          "7 天",
+          "无理由"
+        ]
+      }
+    }
+  ]
+}

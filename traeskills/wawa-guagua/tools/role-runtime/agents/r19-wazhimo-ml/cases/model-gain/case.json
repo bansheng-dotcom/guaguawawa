@@ -1,0 +1,40 @@
+{
+  "case_id": "model-gain",
+  "display_name": "推荐模型增益评估与多样性守护",
+  "description": "新召回模型离线 AUC +0.8%，但推荐多样性下降 12%，是否推全量？",
+  "default_question": "新召回模型离线 AUC +0.8%，但推荐多样性下降 12%，是否推全量？",
+  "artifact_type": "experiment_log",
+  "summary": "推荐模型增益评估与多样性守护",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "experiment_log",
+    "evaluation"
+  ],
+  "skills": [
+    "tracking",
+    "evaluation",
+    "release",
+    "monitor"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "业务指标口径定义",
+    "线上容量与稳定性"
+  ],
+  "steps": [
+    {
+      "skill": "tracking",
+      "action": "run",
+      "input": "examples/tracking_run.json",
+      "expect": {
+        "metric_count": 3,
+        "param_count": 3
+      }
+    }
+  ]
+}

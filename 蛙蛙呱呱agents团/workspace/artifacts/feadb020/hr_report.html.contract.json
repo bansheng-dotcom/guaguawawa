@@ -1,0 +1,101 @@
+{
+  "doc_type": "角色报告 · 蛙人事",
+  "title_lines": [
+    "蛙人事 · recruit/offer",
+    "帮我看这份录用通知能不能发，候选人前置状态合不合法 "
+  ],
+  "standfirst": "next=工件通过全部门禁，可进入授权与交接",
+  "meta": [
+    "角色 r16 蛙人事（人员与组织运营官）",
+    "生成日期 2026-11-07",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "4/4 项",
+      "status": "healthy"
+    },
+    {
+      "label": "next",
+      "value": "工件通过全部门禁，可进入授权与交接",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "offer_count",
+      "value": "1",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "status",
+      "value": "Accepted",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=工件通过全部门禁，可进入授权与交接"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "offer_count",
+      "question": "offer_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "offer_count：",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "status",
+      "question": "status 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "status：",
+          "text": "Accepted"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "narrative",
+      "question": "narrative 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "narrative：",
+          "text": "录用 张三（Accepted）职位 R9 代码工程官"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 recruit/offer 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙人事 · 人员与组织运营官",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

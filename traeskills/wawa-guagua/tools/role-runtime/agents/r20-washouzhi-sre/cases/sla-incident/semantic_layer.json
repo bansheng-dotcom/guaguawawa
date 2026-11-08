@@ -1,0 +1,106 @@
+{
+  "_note": "蛙守直（SRE / 稳定性）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
+  "role": "r20",
+  "case_id": "sla-incident",
+  "artifact_type": "monitor_config",
+  "terms": [
+    {
+      "term": "sla",
+      "meaning": "系统可用性 = (总分钟 − 不可用分钟) / 总分钟（单位 %，目标 ≥ 99.95，越界判定：跌出 99.95 启动 P0）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "rto",
+      "meaning": "RTO 实测值 = 演练恢复耗时（单位 分钟，目标 ≤ 30，越界判定：超时判不可恢复）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "G1",
+      "meaning": "门禁：核心路径无探活 → BLOCKER，处置 禁止上线",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G2",
+      "meaning": "门禁：备份不可验证恢复 → BLOCKER，处置 视为无备份",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G3",
+      "meaning": "门禁：RTO 超目标 → CRITICAL，处置 立项整改并压缩目标",
+      "source": "semantic_layer.gates"
+    }
+  ],
+  "facts": {
+    "sla": {
+      "name": "系统可用性",
+      "formula": "(总分钟 − 不可用分钟) / 总分钟",
+      "unit": "%",
+      "target": "≥ 99.95",
+      "alert": "跌出 99.95 启动 P0"
+    },
+    "rto": {
+      "name": "RTO 实测值",
+      "formula": "演练恢复耗时",
+      "unit": "分钟",
+      "target": "≤ 30",
+      "alert": "超时判不可恢复"
+    }
+  },
+  "kpis": [
+    {
+      "id": "sla",
+      "name": "系统可用性",
+      "formula": "(总分钟 − 不可用分钟) / 总分钟",
+      "unit": "%",
+      "target": "≥ 99.95",
+      "alert": "跌出 99.95 启动 P0"
+    },
+    {
+      "id": "rto",
+      "name": "RTO 实测值",
+      "formula": "演练恢复耗时",
+      "unit": "分钟",
+      "target": "≤ 30",
+      "alert": "超时判不可恢复"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "核心路径无探活",
+      "verdict": "BLOCKER",
+      "action": "禁止上线"
+    },
+    {
+      "id": "G2",
+      "when": "备份不可验证恢复",
+      "verdict": "BLOCKER",
+      "action": "视为无备份"
+    },
+    {
+      "id": "G3",
+      "when": "RTO 超目标",
+      "verdict": "CRITICAL",
+      "action": "立项整改并压缩目标"
+    }
+  ],
+  "boundary": [
+    {
+      "out_of_scope": "业务功能实现",
+      "owner": "R09/R08"
+    },
+    {
+      "out_of_scope": "发布决策",
+      "owner": "R01"
+    }
+  ],
+  "scope_boundary": [
+    "业务功能实现",
+    "发布决策"
+  ],
+  "decision_order": [
+    "可用性 > 恢复速度 > 成本",
+    "SLA 破线立即 P0，先止血再复盘",
+    "演练发现的问题优先于新功能"
+  ]
+}

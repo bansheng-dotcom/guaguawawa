@@ -1,0 +1,7 @@
+# R07 Product Manager Sandbox Dependencies
+# Distilled from product-manager skill
+pandas>=2.0.0      # For RICE scoring, impact analysis, metrics calculation
+pyyaml>=6.0        # For parsing PM rule configs
+jsonschema>=4.17.3 # For rigorous contract validation
+requests>=2.31.0   # For real-world artifact retrieval/RAG
+Jinja2>=3.1.2      # For HTML/Markdown PM report rendering

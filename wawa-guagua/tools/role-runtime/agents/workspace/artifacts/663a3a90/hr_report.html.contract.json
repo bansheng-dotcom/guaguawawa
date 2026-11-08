@@ -1,0 +1,112 @@
+{
+  "doc_type": "角色报告 · 蛙人事",
+  "title_lines": [
+    "蛙人事 · attendance/leave",
+    "员工申请年假三天，帮我看天数对不对、额度够不够 "
+  ],
+  "standfirst": "next=人事工件通过全部门禁，可进入授权与交接",
+  "meta": [
+    "角色 r16 蛙人事（人员与组织运营官）",
+    "生成日期 2026-11-06",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "8/8 项",
+      "status": "healthy"
+    },
+    {
+      "label": "next",
+      "value": "人事工件通过全部门禁，可进入授权与交接",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "leave_count",
+      "value": "1",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "status",
+      "value": "Approved",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=人事工件通过全部门禁，可进入授权与交接"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "leave_count",
+      "question": "leave_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "leave_count：",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "status",
+      "question": "status 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "status：",
+          "text": "Approved"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "overlap_count",
+      "question": "overlap_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "overlap_count：",
+          "text": "0"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "narrative",
+      "question": "narrative 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "narrative：",
+          "text": "请假 EMP-0001（Approved）2026-11-20 → 2026-11-22"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 attendance/leave 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙人事 · 人员与组织运营官",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

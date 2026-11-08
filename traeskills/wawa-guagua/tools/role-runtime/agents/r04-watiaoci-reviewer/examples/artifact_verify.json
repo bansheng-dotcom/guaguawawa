@@ -1,0 +1,19 @@
+{
+  "_comment": "artifact verify 干净夹具：2 个工件全过三级证据链 → verdict COMPLETE",
+  "artifacts": [
+    {
+      "path": "src/login.py",
+      "type": "code",
+      "content": "def login(user, pwd):\n    return auth_check(user, pwd)\n",
+      "references": ["src/app.py"],
+      "tested": ["tests/test_login.py"],
+      "entry_point": false
+    },
+    {
+      "path": "src/main.py",
+      "type": "code",
+      "content": "print('main entry')\n",
+      "entry_point": true
+    }
+  ]
+}

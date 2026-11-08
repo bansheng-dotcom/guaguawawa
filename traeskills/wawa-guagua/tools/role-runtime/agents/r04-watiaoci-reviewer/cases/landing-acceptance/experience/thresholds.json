@@ -1,0 +1,20 @@
+{
+  "_comment": "landing-acceptance 案例阈值（引用主 thresholds.json 键名，案例侧只放本案例独有口径）",
+  "case": {
+    "producer": "r08",
+    "reviewer": "r04",
+    "criteria_total": 4,
+    "claims_round1": 3,
+    "claims_round2": 2,
+    "round1_errors": 4,
+    "round2_errors": 0,
+    "v1_findings": 4,
+    "v2_findings": 0
+  },
+  "shared_threshold_refs": {
+    "hedge_words": "quality.hedge_words（见 experience/thresholds.json）",
+    "absolutist_words": "quality.absolutist_words（见 experience/thresholds.json）",
+    "package_required_fields": "human.package_required_fields（见 experience/thresholds.json）",
+    "statuses": "criteria.statuses（见 experience/thresholds.json）"
+  }
+}

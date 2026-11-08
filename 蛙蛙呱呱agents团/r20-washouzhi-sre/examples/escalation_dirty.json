@@ -1,0 +1,16 @@
+{
+  "chain": [
+    {
+      "level": 2,
+      "role": "sre-lead",
+      "channel": "sms",
+      "acknowledged": false
+    },
+    {
+      "level": 1,
+      "role": "oncall",
+      "channel": "slack",
+      "acknowledged": false
+    }
+  ]
+}

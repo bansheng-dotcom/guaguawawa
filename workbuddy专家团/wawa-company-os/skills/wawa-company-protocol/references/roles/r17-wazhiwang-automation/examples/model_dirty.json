@@ -1,0 +1,5 @@
+{
+  "anchor": "agent",
+  "model": "claude-sonnet-5",
+  "purpose": "动态决策"
+}

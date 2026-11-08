@@ -1,0 +1,11 @@
+{
+  "observation": "贵司博客最近在讲一人公司的增长方法，读者正好是我的目标用户。",
+  "problem": "这类读者缺一套可量化的获客口径，常在渠道间反复试错。",
+  "proof": "我已把获客口径沉淀成一套可复现的单位经济模板，覆盖 CAC/LTV/回收期。",
+  "ask": "能否本周四约 20 分钟，我把模板发你看看是否值得合作。",
+  "compliance": {
+    "secondary_domain": "growth.example.com",
+    "opt_out": "如不感兴趣，回复 unsubscribe 即可退订",
+    "postal_address": "上海市浦东新区示例路 1 号"
+  }
+}

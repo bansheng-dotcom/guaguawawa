@@ -1,0 +1,13 @@
+{
+  "company": {
+    "name": "云启科技",
+    "people": [
+      {"name": "张伟", "role": "CTO"},
+      {"name": "李娜", "role": "采购负责人"}
+    ],
+    "opportunities": [
+      {"name": "CRM 平台迁移", "stage": "PROPOSAL", "amount": 600000}
+    ]
+  },
+  "summary": "公司档案完整，关联人员 2 名，商机 1 个。"
+}

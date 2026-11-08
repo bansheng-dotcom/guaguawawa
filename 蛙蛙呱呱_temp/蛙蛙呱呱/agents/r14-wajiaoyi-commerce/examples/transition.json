@@ -1,0 +1,5 @@
+{
+  "kind": "payment",
+  "from_status": "processing",
+  "to_status": "succeeded"
+}

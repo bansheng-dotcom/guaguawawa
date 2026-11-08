@@ -1,0 +1,13 @@
+{
+  "page_goal": "g",
+  "ia": "i",
+  "user_actions": "a",
+  "review_focus": "r",
+  "states": {
+    "empty": 1,
+    "loading": 1,
+    "success": 1,
+    "failure": 1,
+    "permission": 1
+  }
+}

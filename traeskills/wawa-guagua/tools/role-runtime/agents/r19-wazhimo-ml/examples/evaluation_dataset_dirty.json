@@ -1,0 +1,7 @@
+{
+  "dataset_id": "eval-support-qa-v1",
+  "records": [
+    {"inputs": {"question": "如何重置密码？"}, "expectations": {}},
+    {"inputs": {}, "expectations": {"expected_facts": ["7 天"]}}
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "doc_type": "数据结论报告 · 蛙得清",
+  "title_lines": [
+    "蛙得清 · rootcause/decompose",
+    "营收下降归因"
+  ],
+  "standfirst": "贡献分解",
+  "meta": [
+    "角色 r06 蛙得清（数据分析师）",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "总变化",
+      "value": "1,669.6",
+      "note": "delta",
+      "status": "accent"
+    },
+    {
+      "label": "维度",
+      "value": "channel",
+      "note": "分解轴",
+      "status": "none"
+    },
+    {
+      "label": "分支数",
+      "value": "4",
+      "note": "贡献项",
+      "status": "none"
+    },
+    {
+      "label": "影响下限",
+      "value": "3.0%",
+      "note": "minor 阈值",
+      "status": "watch"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "贡献分解"
+    },
+    {
+      "label": "说明：",
+      "text": "由技能真实运行结果确定性生成，数字可回溯。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "贡献分解",
+      "question": "总变化 1,669.6 由哪些维度贡献？",
+      "chart": {
+        "type": "hbar",
+        "title": "贡献分解（channel）",
+        "unit_meta": "贡献 delta",
+        "source": "rootcause decompose（确定性计算）",
+        "bars": [
+          {
+            "label": "抖音",
+            "value": 472.0,
+            "value_label": "472.0",
+            "sub": "28.3%",
+            "weight": "context"
+          },
+          {
+            "label": "知乎",
+            "value": 453.5,
+            "value_label": "453.5",
+            "sub": "27.2%",
+            "weight": "context"
+          },
+          {
+            "label": "小红书",
+            "value": 435.0,
+            "value_label": "435.0",
+            "sub": "26.1%",
+            "weight": "context"
+          },
+          {
+            "label": "微信",
+            "value": 309.1,
+            "value_label": "309.1",
+            "sub": "18.5%",
+            "weight": "context"
+          }
+        ]
+      },
+      "reading": [
+        {
+          "strong": "总变化：",
+          "text": "1,669.6"
+        },
+        {
+          "strong": "影响下限：",
+          "text": "3.0%"
+        }
+      ],
+      "table": {
+        "caption": "贡献明细",
+        "columns": [
+          {
+            "text": "维度"
+          },
+          {
+            "text": "before"
+          },
+          {
+            "text": "after"
+          },
+          {
+            "text": "delta"
+          },
+          {
+            "text": "贡献占比"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "抖音"
+            },
+            {
+              "text": "0.0"
+            },
+            {
+              "text": "472.0"
+            },
+            {
+              "text": "472.0"
+            },
+            {
+              "text": "28.3%"
+            }
+          ],
+          [
+            {
+              "text": "知乎"
+            },
+            {
+              "text": "0.0"
+            },
+            {
+              "text": "453.5"
+            },
+            {
+              "text": "453.5"
+            },
+            {
+              "text": "27.2%"
+            }
+          ],
+          [
+            {
+              "text": "小红书"
+            },
+            {
+              "text": "0.0"
+            },
+            {
+              "text": "435.0"
+            },
+            {
+              "text": "435.0"
+            },
+            {
+              "text": "26.1%"
+            }
+          ],
+          [
+            {
+              "text": "微信"
+            },
+            {
+              "text": "53.7"
+            },
+            {
+              "text": "362.8"
+            },
+            {
+              "text": "309.1"
+            },
+            {
+              "text": "18.5%"
+            }
+          ]
+        ]
+      },
+      "boundary": {
+        "title": "证据边界",
+        "text": "贡献分解是算术归因，不等同于因果；未观测混杂未消除。"
+      }
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "R06 skills 的 rootcause/decompose 动作（确定性计算，无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅对本次输入成立；未观测混杂未消除。"
+      }
+    ]
+  },
+  "footer": [
+    "R06 蛙得清 · 数据分析师",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "employee": "EMP-0001",
+  "leave_type": "Annual Leave",
+  "from_date": "2026-11-20",
+  "to_date": "2026-11-22",
+  "total_leave_days": 3,
+  "balance_days": 10,
+  "status": "Approved",
+  "other_leaves": [
+    {"id": "LA-0007", "from_date": "2026-12-01", "to_date": "2026-12-03"}
+  ]
+}

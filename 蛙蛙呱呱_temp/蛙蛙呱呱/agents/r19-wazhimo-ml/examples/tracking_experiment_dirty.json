@@ -1,0 +1,7 @@
+{
+  "experiment_id": "exp-2041",
+  "name": "客服问答助手-未知场景实验",
+  "use_case": "code_review",
+  "experiment_kind": "genai_development",
+  "tracking_uri": "http://mlflow.internal:5000"
+}

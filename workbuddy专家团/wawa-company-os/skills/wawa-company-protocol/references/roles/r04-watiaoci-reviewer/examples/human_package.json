@@ -1,0 +1,9 @@
+{
+  "_comment": "human package 干净夹具：producer=r08 ≠ reviewer=r04 → 身份核验通过",
+  "artifact": "landing.html",
+  "review_dimensions": ["文案", "转化路径", "移动端"],
+  "criteria_ref": "criteria/landing-acceptance.json",
+  "producer": "r08",
+  "reviewer": "r04",
+  "deadline": "2026-11-06"
+}

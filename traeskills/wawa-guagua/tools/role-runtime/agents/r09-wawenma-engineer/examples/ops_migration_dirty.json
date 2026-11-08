@@ -1,0 +1,8 @@
+{
+  "steps": [
+    {"operation": "drop table users"},
+    {"operation": "truncate orders"}
+  ],
+  "rollback_plan": [],
+  "authorization": false
+}

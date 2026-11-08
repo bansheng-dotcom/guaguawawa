@@ -1,0 +1,34 @@
+{
+  "task_id": "506cbf8e",
+  "title": "切片一个 MVP",
+  "owner": "r08",
+  "intent": "做一个 MVP 验证落地页",
+  "inputs": [
+    {
+      "name": "C:\\Users\\18238\\AppData\\Local\\Temp\\r08_harness_m_qlku3k\\mvp_input.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "landing.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "mvp_report.md",
+      "kind": "report",
+      "media_type": "text/markdown",
+      "note": ""
+    }
+  ],
+  "acceptance": [
+    "五门禁通过"
+  ],
+  "deps": [],
+  "status": "done",
+  "logs": []
+}

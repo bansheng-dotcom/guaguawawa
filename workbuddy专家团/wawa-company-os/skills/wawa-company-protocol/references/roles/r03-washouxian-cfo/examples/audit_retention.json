@@ -1,0 +1,35 @@
+{
+  "records": [
+    {
+      "type": "general_ledger",
+      "age_years": 1,
+      "retained_years": 6,
+      "readily_accessible": true,
+      "electronic": true,
+      "electronic_storage": "worm"
+    },
+    {
+      "type": "communications",
+      "age_years": 1,
+      "retained_years": 2,
+      "readily_accessible": true,
+      "electronic": true,
+      "electronic_storage": "usb"
+    },
+    {
+      "type": "charter_documents",
+      "age_years": 5,
+      "retained_years": 3,
+      "ongoing": true,
+      "readily_accessible": true
+    },
+    {
+      "type": "customer_account_records",
+      "age_years": 0.5,
+      "retained_years": 6,
+      "readily_accessible": false,
+      "electronic": true,
+      "electronic_storage": "audit_trail"
+    }
+  ]
+}

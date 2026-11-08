@@ -1,0 +1,112 @@
+{
+  "doc_type": "角色报告 · 蛙交易",
+  "title_lines": [
+    "蛙交易 · signature/document",
+    "帮我看看这份电子签合同签完了没，有没有人没签 "
+  ],
+  "standfirst": "next=存在未通过门禁，按 checks 修复后重验",
+  "meta": [
+    "角色 r14 蛙交易（交易与收入履约官）",
+    "生成日期 2026-11-06",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "FAIL",
+      "note": "4/5 项",
+      "status": "critical"
+    },
+    {
+      "label": "next",
+      "value": "存在未通过门禁，按 checks 修复后重验",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "document_count",
+      "value": "1",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "recipient_count",
+      "value": "2",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=存在未通过门禁，按 checks 修复后重验"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "document_count",
+      "question": "document_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "document_count：",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "recipient_count",
+      "question": "recipient_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "recipient_count：",
+          "text": "2"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "status",
+      "question": "status 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "status：",
+          "text": "COMPLETED"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "narrative",
+      "question": "narrative 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "narrative：",
+          "text": "文件 （COMPLETED）签署人 2 名"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 signature/document 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙交易 · 交易与收入履约官",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

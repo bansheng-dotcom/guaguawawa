@@ -1,0 +1,5 @@
+{
+  "_note": "案例级覆盖：董事会汇报口径（对齐 companyos 记分卡边界）。",
+  "companyos": {"scorecard_min": 5, "scorecard_max": 15},
+  "boardroom": {"alternative_views_min": 2}
+}

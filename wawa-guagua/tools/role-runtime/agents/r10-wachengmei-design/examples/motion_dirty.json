@@ -1,0 +1,8 @@
+{
+  "personality": "violent",
+  "duration_ms": 9999,
+  "easing": "",
+  "acceleration": {"enter": "accelerate", "exit": "decelerate"},
+  "reduced_motion": false,
+  "layers": {"primary": "x"}
+}

@@ -1,0 +1,106 @@
+{
+  "_note": "蛙挑刺（Reviewer / 对抗质检）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
+  "role": "r04",
+  "case_id": "artifact-reject",
+  "artifact_type": "pass_fail",
+  "terms": [
+    {
+      "term": "l2_completeness",
+      "meaning": "L2 实质性证据完备度 = 已提供实质证据条目 / 应提供条目（单位 %，目标 100%，越界判定：< 100% 即刻驳回）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "stub_hits",
+      "meaning": "占位实现命中数 = stub/TODO/NotImplemented 出现次数（单位 处，目标 0，越界判定：≥ 1 判不通过）",
+      "source": "configs/ 阈值外置定义"
+    },
+    {
+      "term": "G1",
+      "meaning": "门禁：L1 存在性通过但 L2 实质性为空 → BLOCKER，处置 判 REJECT，退回补证",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G2",
+      "meaning": "门禁：发现 stub/TODO 占位实现 → BLOCKER，处置 判不通过，不得进入下游",
+      "source": "semantic_layer.gates"
+    },
+    {
+      "term": "G3",
+      "meaning": "门禁：结论无来源引用 → BLOCKER，处置 驳回并要求标注来源",
+      "source": "semantic_layer.gates"
+    }
+  ],
+  "facts": {
+    "l2_completeness": {
+      "name": "L2 实质性证据完备度",
+      "formula": "已提供实质证据条目 / 应提供条目",
+      "unit": "%",
+      "target": "100%",
+      "alert": "< 100% 即刻驳回"
+    },
+    "stub_hits": {
+      "name": "占位实现命中数",
+      "formula": "stub/TODO/NotImplemented 出现次数",
+      "unit": "处",
+      "target": "0",
+      "alert": "≥ 1 判不通过"
+    }
+  },
+  "kpis": [
+    {
+      "id": "l2_completeness",
+      "name": "L2 实质性证据完备度",
+      "formula": "已提供实质证据条目 / 应提供条目",
+      "unit": "%",
+      "target": "100%",
+      "alert": "< 100% 即刻驳回"
+    },
+    {
+      "id": "stub_hits",
+      "name": "占位实现命中数",
+      "formula": "stub/TODO/NotImplemented 出现次数",
+      "unit": "处",
+      "target": "0",
+      "alert": "≥ 1 判不通过"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "L1 存在性通过但 L2 实质性为空",
+      "verdict": "BLOCKER",
+      "action": "判 REJECT，退回补证"
+    },
+    {
+      "id": "G2",
+      "when": "发现 stub/TODO 占位实现",
+      "verdict": "BLOCKER",
+      "action": "判不通过，不得进入下游"
+    },
+    {
+      "id": "G3",
+      "when": "结论无来源引用",
+      "verdict": "BLOCKER",
+      "action": "驳回并要求标注来源"
+    }
+  ],
+  "boundary": [
+    {
+      "out_of_scope": "替作者改稿",
+      "owner": "原作者"
+    },
+    {
+      "out_of_scope": "代替业务方定优先级",
+      "owner": "R07/R01"
+    }
+  ],
+  "scope_boundary": [
+    "替作者改稿",
+    "代替业务方定优先级"
+  ],
+  "decision_order": [
+    "证据链完整性 > 表达质量 > 交付速度",
+    "L2 实质性缺失一律驳回，不接受「先过再补」",
+    "多处缺口并存时，先驳硬阻断，再列改进项"
+  ]
+}

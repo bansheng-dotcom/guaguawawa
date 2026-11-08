@@ -1,0 +1,17 @@
+{
+  "_comment": "human ack 干净夹具：staged_assets 全部 copied:true → ACKED",
+  "status": "feedback",
+  "pages": [
+    {
+      "file": "landing.html",
+      "edits_saved": true,
+      "comments": [],
+      "edits": []
+    }
+  ],
+  "staged_assets": [
+    {"path": "staged/screenshot.png", "copied": true},
+    {"path": "staged/annotated.html", "copied": true}
+  ],
+  "overall_note": "已批注完毕"
+}

@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "scenario '巨头碾压' risk_score=9 tier=critical",
+      "dim": "scenario:risk_score",
+      "sev": "OK",
+      "scenario": "巨头碾压",
+      "risk_score": 9
+    },
+    {
+      "ok": true,
+      "msg": "scenario '预算冻结' risk_score=4 tier=medium",
+      "dim": "scenario:risk_score",
+      "sev": "OK",
+      "scenario": "预算冻结",
+      "risk_score": 4
+    },
+    {
+      "ok": true,
+      "msg": "scenario '合规收紧' risk_score=2 tier=low",
+      "dim": "scenario:risk_score",
+      "sev": "OK",
+      "scenario": "合规收紧",
+      "risk_score": 2
+    }
+  ],
+  "scenario_count": 3,
+  "risk_ranking": [
+    {
+      "scenario": "巨头碾压",
+      "risk_score": 9,
+      "risk_tier": "critical"
+    },
+    {
+      "scenario": "预算冻结",
+      "risk_score": 4,
+      "risk_tier": "medium"
+    },
+    {
+      "scenario": "合规收紧",
+      "risk_score": 2,
+      "risk_tier": "low"
+    }
+  ],
+  "highest_risk": {
+    "scenario": "巨头碾压",
+    "risk_score": 9,
+    "risk_tier": "critical"
+  },
+  "verdict": "PASS",
+  "next": "失效推演完成，最高风险已定位"
+}

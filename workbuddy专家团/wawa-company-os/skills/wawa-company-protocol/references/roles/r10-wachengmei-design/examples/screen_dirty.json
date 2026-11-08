@@ -1,0 +1,7 @@
+{
+  "goal": "",
+  "success_criteria": "",
+  "zones": ["a"],
+  "components": [],
+  "a11y": {"keyboard_operable": false}
+}

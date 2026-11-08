@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "订单号非空",
+      "dim": "order.id",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "订单状态='completed' 在白名单",
+      "dim": "order.status",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "支付状态='captured' 在白名单",
+      "dim": "order.payment_status",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "履约状态='delivered' 在白名单",
+      "dim": "order.fulfillment_status",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "支付状态与订单状态一致",
+      "dim": "order.consistency",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "订单总额=1046.0 为正",
+      "dim": "order.total",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "工件通过全部门禁，可进入授权与交接",
+  "order_count": 1,
+  "status": "completed",
+  "payment_status": "captured",
+  "fulfillment_status": "delivered",
+  "total": 1046.0,
+  "narrative": "订单 ord_20261105_001：状态 completed、支付 captured、履约 delivered、总额 1046.0",
+  "skill": "order",
+  "action": "order"
+}

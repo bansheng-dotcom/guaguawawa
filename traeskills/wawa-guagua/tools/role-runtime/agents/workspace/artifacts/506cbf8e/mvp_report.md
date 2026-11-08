@@ -1,0 +1,128 @@
+# [R08] 任务 506cbf8e · 落地页与H5：landing/form
+
+## ok
+
+```json
+false
+```
+
+## proof_count
+
+```json
+0
+```
+
+## task_id
+
+```json
+"506cbf8e"
+```
+
+## skill
+
+```json
+"landing"
+```
+
+## action
+
+```json
+"landing"
+```
+
+## 门禁
+
+```json
+[
+  {
+    "ok": false,
+    "msg": "goal 缺失或为空",
+    "dim": "landing.goal",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "headline 缺失或为空",
+    "dim": "landing.headline",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "subhead 缺失或为空",
+    "dim": "landing.subhead",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "proof_points 缺失或为空",
+    "dim": "landing.proof_points",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "form 缺失或为空",
+    "dim": "landing.form",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "button 缺失或为空",
+    "dim": "landing.button",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "faq 缺失或为空",
+    "dim": "landing.faq",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "post_submit 缺失或为空",
+    "dim": "landing.post_submit",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "proof_points ≥3（实际 0）",
+    "dim": "landing.proof",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "技术约束 single_file_index_html 缺失或非 True",
+    "dim": "landing.single_file_index_html",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "技术约束 no_js_library 缺失或非 True",
+    "dim": "landing.no_js_library",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "技术约束 form_deliverable 缺失或非 True",
+    "dim": "landing.form_deliverable",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "技术约束 mobile_first 缺失或非 True",
+    "dim": "landing.mobile_first",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "技术约束 button_single_accent 缺失或非 True",
+    "dim": "landing.button_single_accent",
+    "sev": "BLOCKER"
+  },
+  {
+    "ok": false,
+    "msg": "max_objection 缺失",
+    "dim": "landing.max_objection",
+    "sev": "BLOCKER"
+  }
+]
+```

@@ -1,0 +1,9 @@
+{
+  "case_id": "ab-experiment",
+  "display_name": "A/B 实验转化分析",
+  "description": "对照组 vs 实验组的转化率/均值差异，含 SRM 样本失配检测与 lift 决策。源自 data-analytics-skills 的 ab-test-analysis + DoWhy 随机化检验。",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "data_input": "orders.csv",
+  "default_question": "实验组相对对照组的转化提升是否显著，能否放量？"
+}

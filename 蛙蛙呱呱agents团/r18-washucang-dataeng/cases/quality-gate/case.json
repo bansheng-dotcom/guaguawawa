@@ -1,0 +1,10 @@
+{
+  "case_id": "quality-gate",
+  "display_name": "脏数据想绕过质量门禁进分析层",
+  "description": "一批 orders 数据 null_ratio 高达 0.5（远超 0.1 上限），且数据年龄 30 小时（超 24 小时上限），却想直接进入分析环境。需要判定：质量门禁是否放行、新鲜度是否达标、阻断后是否该走删除（不可逆动作）。本质是「脏数据 + 过期数据」的确定性阻断。",
+  "default_question": "这批 orders 数据空值率有点高、也是昨天的了，我直接删了重新拉一份行不行？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": ["quality_check", "quality_fresh"],
+  "skills": ["s04_quality"]
+}

@@ -1,0 +1,11 @@
+{
+  "integration": {
+    "credential_secret_keys": [
+      "api_key",
+      "secret",
+      "token",
+      "password",
+      "apiKey"
+    ]
+  }
+}

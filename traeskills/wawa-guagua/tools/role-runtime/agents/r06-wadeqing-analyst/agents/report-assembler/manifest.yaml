@@ -1,0 +1,16 @@
+name: report-assembler
+version: "1.0"
+status: active
+description: 仲裁 text-chart 关系、绑定稳定 ID、路由失败、产出渲染交接
+execution:
+  temperature: 0.0
+  node_type: agent
+  parallel: false
+prompt_ref: SKILL.md
+io:
+  inputs:
+    - report_text_pack
+    - chart_spec_pack
+    - analysis_material_pack_index
+  outputs:
+    - assembly_pack

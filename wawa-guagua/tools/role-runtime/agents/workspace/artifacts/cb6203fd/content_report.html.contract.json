@@ -1,0 +1,123 @@
+{
+  "doc_type": "角色报告 · 蛙点题",
+  "title_lines": [
+    "蛙点题 · copy/article",
+    "写一篇关于内容复利的科普文章 "
+  ],
+  "standfirst": "next=工件通过全部门禁，可进入授权与交接",
+  "meta": [
+    "角色 r11 蛙点题（内容主笔）",
+    "生成日期 2026-11-07",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "5/5 项",
+      "status": "healthy"
+    },
+    {
+      "label": "next",
+      "value": "工件通过全部门禁，可进入授权与交接",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "char_count",
+      "value": "896",
+      "note": "输出字段",
+      "status": "none"
+    },
+    {
+      "label": "profile",
+      "value": "article",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next=工件通过全部门禁，可进入授权与交接"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "char_count",
+      "question": "char_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "char_count：",
+          "text": "896"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "profile",
+      "question": "profile 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "profile：",
+          "text": "article"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "forbidden_count",
+      "question": "forbidden_count 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "forbidden_count：",
+          "text": "0"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "capability_status",
+      "question": "capability_status 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "capability_status：",
+          "text": "real"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "capability_evidence",
+      "question": "capability_evidence 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "capability_evidence：",
+          "text": "local text inspected"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 copy/article 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙点题 · 内容主笔",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

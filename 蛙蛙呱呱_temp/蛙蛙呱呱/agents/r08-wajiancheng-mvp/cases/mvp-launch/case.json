@@ -1,0 +1,40 @@
+{
+  "case_id": "mvp-launch",
+  "display_name": "MVP 切片上线与首屏性能权衡",
+  "description": "落地页切片已可用，但首屏 3.2s、核心路径报错率 0.6%，要不要先上线再优化？",
+  "default_question": "落地页切片已可用，但首屏 3.2s、核心路径报错率 0.6%，要不要先上线再优化？",
+  "artifact_type": "mvp",
+  "summary": "MVP 切片上线与首屏性能权衡",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "mvp",
+    "page_assets"
+  ],
+  "skills": [
+    "slice",
+    "landing",
+    "prototype",
+    "qa"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "长期架构演进",
+    "持续监控告警建设"
+  ],
+  "steps": [
+    {
+      "skill": "slice",
+      "action": "slice",
+      "input": "examples/slice.json",
+      "expect": {
+        "verdict": "PASS",
+        "artifact_type": "landing"
+      }
+    }
+  ]
+}

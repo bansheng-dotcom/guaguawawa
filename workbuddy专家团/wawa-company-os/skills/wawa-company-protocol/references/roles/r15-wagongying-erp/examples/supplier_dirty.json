@@ -1,0 +1,10 @@
+{
+  "suppliers": [
+    {
+      "supplier_name": "违规供应商",
+      "supplier_type": "Government",
+      "payment_terms_days": 999,
+      "status": "Active"
+    }
+  ]
+}

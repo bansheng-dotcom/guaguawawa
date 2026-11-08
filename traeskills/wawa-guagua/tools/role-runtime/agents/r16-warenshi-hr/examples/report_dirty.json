@@ -1,0 +1,9 @@
+{
+  "metrics": {
+    "headcount": -5,
+    "turnover_rate": 0.9,
+    "unknown_metric": 3
+  },
+  "period_starts": 5,
+  "period_exits": 1
+}

@@ -1,0 +1,46 @@
+{
+  "task_id": "1110b7ba",
+  "title": "验证能否恢复",
+  "owner": "r20",
+  "intent": "帮我做一次恢复演练，看看能不能真恢复出来",
+  "inputs": [
+    {
+      "name": "D:\\一人公司\\agents\\r20-washouzhi-sre\\examples\\drill.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "restore.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "reliability_report.md",
+      "kind": "report",
+      "media_type": "text/markdown",
+      "note": ""
+    },
+    {
+      "name": "reliability_report.html",
+      "kind": "report",
+      "media_type": "text/html",
+      "note": ""
+    },
+    {
+      "name": "reliability_report.pdf",
+      "kind": "report",
+      "media_type": "application/pdf",
+      "note": "{\"ok\": true, \"status\": \"created\", \"output\": \"D:\\\\一人公司\\\\agents\\\\workspace\\\\artifacts\\\\1110b7ba\\\\reliability_report.pdf\", \"errors\": []}"
+    }
+  ],
+  "acceptance": [
+    "drill 门禁通过"
+  ],
+  "deps": [],
+  "status": "done",
+  "logs": []
+}
