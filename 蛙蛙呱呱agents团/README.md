@@ -473,6 +473,8 @@ python guagua.py call r08 scaffold scaffold --input examples/scaffold.json
 python guagua.py call r08 landing landing --input examples/landing.json
 python guagua.py call r08 prototype prototype --input examples/prototype.json
 python guagua.py call r08 qa handoff --input examples/handoff.json
+# 直接吃 R10 落盘的品牌 DESIGN.md，转成设计令牌并过本角色门禁
+python guagua.py call r08 design from-md --input DESIGNS/linear/DESIGN.md --out DESIGNS/linear/design_tokens.json
 ```
 
 **协作位置**：R07 → R08；需要生产级质量时交 R09；需要视觉资产时接 R10；交付前可送 R04 验收。
@@ -507,7 +509,7 @@ python guagua.py call r09 local-verify --project . --kind unittest --command pyt
 
 **定位**：把品牌简报和内容变成可交付的视觉规范、Logo/VI、UI/UX、动效、图片/视频处理任务单。
 
-**核心能力**：AI 生图插画 · Logo 图标 VI · 产品 UI/UX · 交互原型动效 · 修图图像工程 · 视频音频处理 · 转写字幕 · 数据视觉营销物料
+**核心能力**：AI 生图插画 · Logo 图标 VI · 产品 UI/UX · 交互原型动效 · 修图图像工程 · 视频音频处理 · 转写字幕 · 数据视觉营销物料 · **品牌设计系统库（31 套 DESIGN.md）**
 
 **契约**：`brand_brief` + `content` → `visual_assets` + `vi`
 
@@ -518,7 +520,23 @@ python guagua.py call r10 logo logo --input examples/logo.json
 python guagua.py call r10 uiux screen --input examples/screen.json
 python guagua.py call r10 brand vi --input examples/vi.json
 python guagua.py call r10 render poster --input examples/poster.json
+# 设计系统库：查库 → 推荐 → 落盘 → 门禁
+python guagua.py call r10 designsys list --category devtools
+python guagua.py call r10 designsys recommend --project ai
+python guagua.py call r10 designsys show --brand linear.app
+python guagua.py call r10 designsys apply --brand linear.app --out DESIGNS/linear
+python guagua.py call r10 designsys audit --brand claude
 ```
+
+**设计系统库归属**（31 套品牌规范，来源见 `r10-wachengmei-design/references/design-systems/README.md`）：
+
+| 角色 | 用法 |
+|---|---|
+| **R10 蛙成美** | 主用：`designsys` 检索 / 推荐 / 落盘 `DESIGN.md` + `design_tokens.json` / 九段式门禁 |
+| **R08 蛙建成** | 消费：`design from-md` 把 `DESIGN.md` 转成组件与令牌契约，直接过 R08 门禁 |
+| **R09 蛙稳码** | 消费：拿 `design_tokens.json` 落生产前端，颜色/字阶/间距不再自造 |
+| R11 蛙点题 | 参考：内容页的配色与版式语气对齐品牌规范 |
+| R07 蛙得明 | 参考：PRD 的 UI Brief 直接引用某个设计系统 slug，避免"看着办" |
 
 **协作位置**：R11 文案 → R10 配图/视觉；R08/R09 实现时使用 R10 的设计令牌与组件规格；品牌决策升级创始人。
 
@@ -913,6 +931,15 @@ python verify_loop.py
 ---
 
 ## 十、版本与更新记录
+
+### v2.0.3（2026-11-11）
+
+- 新增 **设计系统库**：31 套品牌 DESIGN.md 落入 [`r10-wachengmei-design/references/design-systems/`](蛙蛙呱呱agents团/r10-wachengmei-design/references/design-systems/)，
+  解析/门禁/令牌转换在 [`shared/design_systems.py`](蛙蛙呱呱agents团/shared/design_systems.py)（纯标准库）。
+- R10 新增 `designsys` 技能（`list/recommend/show/apply/audit`）：按分类或项目类型选基线，
+  落盘 `DESIGN.md` + `design_tokens.json`，九段式门禁 31/31 PASS；契约与 `run_tests` 同步到 10 技能。
+- R08 新增 `design from-md`：直接吃 R10 落盘的品牌 DESIGN.md → 令牌契约 → 过组件/令牌门禁。
+- 新增 `tests/test_design_systems.py`（7 例，含 R10→R08 跨角色接力）；README 增补「设计系统库归属」表。
 
 ### v2.0.2（2026-11-10）
 

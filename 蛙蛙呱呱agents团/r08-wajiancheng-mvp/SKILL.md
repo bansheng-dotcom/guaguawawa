@@ -30,6 +30,7 @@ python agent.py prototype prototype --input examples/prototype.json  # S05 跨�
 python agent.py prototype screen --input screen.json         # S05 单屏
 python agent.py design design --input design.json            # S06 设计系统
 python agent.py design token --input token.json              # S06 Token
+python agent.py design from-md --input DESIGN.md --out design_tokens.json  # S06 品牌 DESIGN.md → 令牌
 python agent.py qa qa --input qa.json                        # S07 质量验证
 python agent.py qa handoff --input handoff.json              # S07 交接
 
@@ -53,7 +54,7 @@ python agent.py local-check --input scaffold_inventory.json # 只读验收本地
 | S03 | 落地页H5 | `landing landing/form` | 八要素 + 佐证≥3 + 五项技术约束 + 表单端点 | makerskills |
 | S04 | SaaS邮件脚手架 | `saas saas/email` | 页面≥2 路由 + 鉴权 + 邮件模板/退订 | makerskills |
 | S05 | 跨平台原型 | `prototype prototype/screen` | 六结构键 + feature 四层 + 平台白名单 + 单屏三件套 | flutter |
-| S06 | 组件设计实现 | `design design/token` | tokens 三分类 + components 状态 + 主色/scale | makerskills |
+| S06 | 组件设计实现 | `design design/token/from-md` | tokens 三分类 + components 状态 + 主色/scale；`from-md` 直接吃 R10 落盘的品牌 DESIGN.md | makerskills |
 | S07 | 质量验证交接 | `qa qa/handoff` | 五检查状态 + 无障碍 + 交接四要素 | makerskills |
 
 ## 协作契约

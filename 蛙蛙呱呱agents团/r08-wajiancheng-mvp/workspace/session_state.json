@@ -395,7 +395,21 @@
       "data": {
         "layout": "flex"
       }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794329844.4758933,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794329844.4789002,
+      "data": {
+        "layout": "flex"
+      }
     }
   ],
-  "updated_at": 1794319088.573485
+  "updated_at": 1794329844.4804134
 }

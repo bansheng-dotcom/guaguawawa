@@ -215,6 +215,23 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "theme": _out(["themes"]),
         },
     },
+    "designsys": {
+        "desc": "品牌设计系统库：list/recommend/show/apply/audit",
+        "input": {
+            "list": _REQ({"category": _STR, "q": _STR}, []),
+            "recommend": _REQ({"project": _STR}, ["project"]),
+            "show": _REQ({"brand": _STR}, ["brand"]),
+            "apply": _REQ({"brand": _STR, "out": _STR}, ["brand"]),
+            "audit": _REQ({"input": _STR, "brand": _STR}, []),
+        },
+        "output": {
+            "list": _out(["count"]),
+            "recommend": _out(["brands"]),
+            "show": _out(["brand"]),
+            "apply": _out(["written"]),
+            "audit": _out([]),
+        },
+    },
 }
 
 

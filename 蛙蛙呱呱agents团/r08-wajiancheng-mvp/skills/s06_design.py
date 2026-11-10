@@ -12,12 +12,23 @@ primary/secondary 主色 + scale 阶梯。
 """
 from __future__ import annotations
 
+import json
+import os
+import sys
 from typing import Any, Dict, List
 
 from . import _common as c
 
+try:  # 由 agent.py 把仓库根放进 sys.path；单文件运行时兜底
+    from shared import design_systems as ds
+except ImportError:  # pragma: no cover
+    _ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    if _ROOT not in sys.path:
+        sys.path.insert(0, _ROOT)
+    from shared import design_systems as ds
+
 NAME = "design"
-DESC = "组件与设计实现：design/token"
+DESC = "组件与设计实现：design/token/from-md"
 
 
 def _ck(ok: bool, msg: str, dim: str = "") -> Dict[str, Any]:
@@ -31,15 +42,44 @@ def add_parser(sp) -> None:
     d.add_argument("--input", required=True)
     t = act.add_parser("token", help="校验单套 token")
     t.add_argument("--input", required=True)
+    f = act.add_parser("from-md", help="把 DESIGN.md 转成设计令牌契约（对接 R10 设计系统库）")
+    f.add_argument("--input", required=True, help="DESIGN.md 路径")
+    f.add_argument("--out", default=None, help="可选：写出 design_tokens.json")
+    f.add_argument("--brand", default=None, help="可选：品牌 slug（用于溯源，如 linear.app）")
 
 
 def run(args) -> Dict[str, Any]:
+    if args.action == "from-md":
+        return _from_design_md(args)
     data = c.load_json(args.input)
     if args.action == "design":
         return _validate_design(data)
     if args.action == "token":
         return _validate_token(data)
     return {"error": f"未知动作: {args.action}"}
+
+
+# --------------------------------------------------------------------------- #
+def _from_design_md(args) -> Dict[str, Any]:
+    """DESIGN.md → {tokens:{color,typography,spacing}, components}，并过本角色门禁。"""
+    with open(args.input, encoding="utf-8") as fh:
+        text = fh.read()
+    parsed = ds.parse(text)
+    slug = args.brand or ""
+    bundle = ds.tokens(parsed, slug)
+    if args.out:
+        path = args.out
+        d = os.path.dirname(os.path.abspath(path))
+        if d:
+            os.makedirs(d, exist_ok=True)
+        with open(path, "w", encoding="utf-8", newline="\n") as fh:
+            json.dump(bundle, fh, ensure_ascii=False, indent=2)
+    gate = _validate_design(bundle)
+    gate["source"] = {"input": args.input, "brand": slug or None,
+                      "out": args.out, "palette_count": len(parsed["palette"])}
+    gate["next"] = ("设计令牌已可交给 R09 实现前端，或继续用 components 字段做组件库切分"
+                    if gate.get("ok") else "DESIGN.md 解析出的令牌不足，按 checks 修复")
+    return gate
 
 
 # --------------------------------------------------------------------------- #

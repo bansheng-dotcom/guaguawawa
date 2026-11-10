@@ -27,3 +27,4 @@
 {"trace_id": "b770309aa9973a878df4f5c9878bda60", "span_id": "6f80dcd540771192", "name": "r08_test_span", "timestamp": 1794318209.6843483, "duration_ms": 12.5, "status": "SUCCESS", "payload_sha256": "N/A", "metadata": {}}
 {"trace_id": "5cf80398aa0c597d418e25cb8168e404", "span_id": "00d78235d3a1357f", "name": "r08_test_span", "timestamp": 1794318481.774938, "duration_ms": 12.5, "status": "SUCCESS", "payload_sha256": "N/A", "metadata": {}}
 {"trace_id": "58e86345b480cb7a48c753897830cac9", "span_id": "3b2d20b9f6fa01f3", "name": "r08_test_span", "timestamp": 1794319088.5761683, "duration_ms": 12.5, "status": "SUCCESS", "payload_sha256": "N/A", "metadata": {}}
+{"trace_id": "05603ddadad693bf8c1301759e2106d0", "span_id": "541f4cdc63309161", "name": "r08_test_span", "timestamp": 1794329844.4814126, "duration_ms": 12.5, "status": "SUCCESS", "payload_sha256": "N/A", "metadata": {}}

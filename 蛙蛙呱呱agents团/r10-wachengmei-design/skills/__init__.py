@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from . import (s01_imagegen, s02_logo, s03_uiux, s04_brand,
                s05_motion, s06_imaging, s07_media, s08_transcribe,
-               s09_render)
+               s09_render, s11_designsys)
 
 SKILLS = [
     s01_imagegen,
@@ -27,6 +27,7 @@ SKILLS = [
     s07_media,
     s08_transcribe,
     s09_render,
+    s11_designsys,
 ]
 
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}

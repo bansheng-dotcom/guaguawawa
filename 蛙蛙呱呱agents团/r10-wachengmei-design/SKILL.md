@@ -38,6 +38,11 @@ python agent.py transcribe transcribe --input examples/transcribe.json  # S08 �
 python agent.py transcribe probe                              # S08 faster-whisper 探测
 python agent.py render poster --input examples/poster.json    # S09 宣传图契约 → SVG
 python agent.py render theme --name tech-blue                 # S09 主题色板
+python agent.py designsys list --category devtools            # S11 设计系统库：按分类查
+python agent.py designsys recommend --project ai              # S11 按项目类型推荐 3~5 套
+python agent.py designsys show --brand linear.app             # S11 看色板/字体/组件
+python agent.py designsys apply --brand linear.app --out DESIGNS/linear  # S11 落盘
+python agent.py designsys audit --brand claude                # S11 九段式门禁
 
 python agent.py contract list                               # T6 8 技能机器可读契约
 python agent.py contract validate --skill logo --action logo --output r.json
@@ -62,6 +67,7 @@ python agent.py run --task <task_id>                        # 协作入口
 | S07 | 视频音频处理 | `media media/probe` | 容器/音频白名单 + 缩放偶数 + ffmpeg 探测 | FFmpeg |
 | S08 | 转写字幕 | `transcribe transcribe/probe` | 模型尺寸白名单 + 段列表 + faster-whisper 探测 | SYSTRAN faster-whisper |
 | S09 | 数据视觉营销物料 | `render poster/theme` | 宣传图契约 → 确定性 SVG（主题色板 + 参数化几何体） | 生成层（对齐第九节「LLM 生成，Python 关笼子」） |
+| S11 | 品牌设计系统库 | `designsys list/recommend/show/apply/audit` | 31 套品牌 DESIGN.md：检索 → 按项目类型推荐 → 落盘 DESIGN.md + design_tokens.json → 九段式门禁 | awesome-design-md（Google Stitch DESIGN.md 格式） |
 
 ## 协作契约
 
@@ -96,7 +102,7 @@ R10 产出视觉资产与设计规格；真实前端代码实现交 R09；数据
 模型生成。两条路各司其职：`render` 出「版式正确但不真实」的矢量稿，`imagegen prompt`
 出「能直投模型」的提示词。
 
-## 详细参考（8 个模块）
+## 详细参考（9 个模块）
 
 - [模块A AI 生图与插画](references/01-imagegen.md)
 - [模块B Logo 与图标](references/02-logo.md)
@@ -104,5 +110,6 @@ R10 产出视觉资产与设计规格；真实前端代码实现交 R09；数据
 - [模块D 品牌 VI 与设计令牌](references/04-brand-token.md)
 - [模块E 交互原型与动效](references/05-motion.md)
 - [模块F 修图与图像工程](references/06-imaging.md)
+- [模块I 品牌设计系统库（31 套 DESIGN.md）](references/09-design-systems.md)
 - [模块G 视频与音频处理](references/07-media.md)
 - [模块H 转写与字幕](references/08-transcribe.md)
