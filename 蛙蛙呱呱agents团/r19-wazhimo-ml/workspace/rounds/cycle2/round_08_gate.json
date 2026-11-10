@@ -1,0 +1,58 @@
+{
+  "cycle": 2,
+  "round": 8,
+  "layer": "L08",
+  "stage": 3,
+  "sop_round": 3,
+  "name": "差量安全 II（逆 Patch 回滚 + 漂移冲突 + Patch 压缩）",
+  "audit": "cycle 1 只会正向 apply：打错补丁无法回滚；基线已漂移时冲突被掩盖或抛裸异常；同一路径多次 replace 与冗余 test 不去重，Patch 体积膨胀。",
+  "benchmark": "RFC 6902 inverse · jsonpatch conflict detection · google/diff-match-patch",
+  "engine_module": "engines/diff_patch_engine.py",
+  "capabilities": [
+    "Patch 逆运算回滚（逐 op 旧值快照 + 反向应用）",
+    "基线漂移冲突检测（逐 op 定位 index/path/reason）",
+    "Patch 压缩合并（去冗余/同路径归一 + 缩减率）"
+  ],
+  "capability_count": 3,
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r19-wazhimo-ml\\agent.py",
+    "evolve",
+    "patch2",
+    "--out",
+    "workspace/rounds/cycle2/L08_patch2.json"
+  ],
+  "probe_stdout": "{\"ok\": true, \"engine\": \"R19DiffPatchEngine\", \"layer\": \"L08\", \"diff\": {\"ok\": true, \"engine\": \"R19DiffPatchEngine\", \"layer\": \"L08\", \"patch_count\": 6, \"patches\": [{\"op\": \"replace\", \"path\": \"/confusion/tp\", \"value\": 2}, {\"op\": \"replace\", \"path\": \"/confusion/fp\", \"value\": 0}, {\"op\": \"replace\", \"path\": \"/accuracy\", \"value\": 0.75}, {\"op\": \"remove\", \"path\": \"/precision\"}, {\"op\": \"remove\", \"path\": \"/recall\"}, {\"op\": \"remove\", \"path\": \"/f1\"}], \"changed_paths\": [\"accuracy\", \"confusion\", \"f1\", \"precision\", \"recall\"], \"gates_affected\": [\"GATE-01\"], \"applied\": {\"n\": 4, \"confusion\": {\"tp\": 2, \"fp\": 0, \"tn\": 1, \"fn\": 1}, \"accuracy\": 0.75, \"precision\": 1.0, \"recall\": 0.6667, \"f1\": 0.8, \"is_conserved\": true, \"recomputed\": true}, \"conservation\": [{\"ok\": true, \"msg\": \"混淆计数守恒 4\", \"dim\": \"patch.count\"}, {\"ok\": true, \"msg\": \"accuracy 重算 0.75\", \"dim\": \"patch.accuracy\"}], \"recomputed\": true, \"inverse_patch\": [{\"op\": \"add\", \"path\": \"/f1\", \"value\": 0.5}, {\"op\": \"add\", \"path\": \"/recall\", \"value\": 0.5}, {\"op\": \"add\", \"path\": \"/precision\", \"value\": 0.5}, {\"op\": \"replace\", \"path\": \"/accuracy\", \"value\": 0.5}, {\"op\": \"replace\", \"path\": \"/confusion/fp\", \"value\": 1}, {\"op\": \"replace\", \"path\": \"/confusion/tp\", \"value\": 1}], \"inverse_count\": 6, \"rollback_ok\": true, \"conflicts\": {\"ok\": true, \"conflicts\": [], \"conflict_count\": 0, \"applied\": 6, \"total\": 6}, \"compacted\": {\"ok\": true, \"patches\": [{\"op\": \"replace\", \"path\": \"/confusion/tp\", \"value\": 2}, {\"op\": \"replace\", \"path\": \"/confusion/fp\", \"value\": 0}, {\"op\": \"replace\", \"path\": \"/accuracy\", \"value\": 0.75}, {\"op\": \"remove\", \"path\": \"/precision\"}, {\"op\": \"remove\", \"path\": \"/recall\"}, {\"op\": \"remove\", \"path\": \"/f1\"}], \"before\": 6, \"after\": 6, \"removed\": 0, \"reduction_ratio\": 0.0}, \"capabilities\": [\"RFC 6902 递归 diff (add/remove/replace + ~0/~1 指针转义)\", \"apply_patch 深拷贝无损应用 + test/remove/add/replace 语义\", \"评估指标增量重算 + 守恒校验 + 8 维门禁影响面定位\", \"[C2] Patch 逆运算回滚 (inverse patch, 逐 op 旧值快照)\", \"[C2] 基线漂移冲突检测 (逐 op 定位 index/path/reason)\", \"[C2] Patch 压缩合并 (去冗余/同路径归一 + 体积缩减率)\"], \"timestamp\": \"2026-11-10T18:55:27\"}, \"drift_conflicts\": {\"ok\": false, \"conflicts\": [{\"index\": 0, \"op\": \"replace\", \"path\": \"/missing_field\", \"reason\": \"路径不存在: '/missing_field'（缺 'missing_field'）\"}, {\"index\": 1, \"op\": \"test\", \"path\": \"/n\", \"reason\": \"test 失败: 期望 999 实际 4\"}], \"conflict_count\": 2, \"applied\": 0, \"total\": 2}, \"compacted\": {\"ok\": true, \"patches\": [{\"op\": \"replace\", \"path\": \"/accuracy\", \"value\": 0.75}, {\"op\": \"remove\", \"path\": \"/precision\"}], \"before\": 4, \"after\": 2, \"removed\": 2, \"reduction_ratio\": 0.5}, \"capabilities\": [\"RFC 6902 递归 diff (add/remove/replace + ~0/~1 指针转义)\", \"apply_patch 深拷贝无损应用 + test/remove/add/replace 语义\", \"评估指标增量重算 + 守恒校验 + 8 维门禁影响面定位\", \"[C2] Patch 逆运算回滚 (inverse patch, 逐 op 旧值快照)\", \"[C2] 基线漂移冲突检测 (逐 op 定位 index/path/reason)\", \"[C2] Patch 压缩合并 (去冗余/同路径归一 + 体积缩减率)\"], \"engine_layer\": \"L08\"}",
+  "artifacts": [
+    {
+      "path": "workspace/rounds/cycle2/L08_patch2.json",
+      "bytes": 4778,
+      "sha256": "5f60954c7e461853d0e8663c1fcb382d27a8fa5e442114ee6dbd2ce17e6af618"
+    }
+  ],
+  "regression": {
+    "baseline": {
+      "passed": 149,
+      "total": 149,
+      "ratio": 1.0
+    },
+    "evolution_modules": {
+      "tests.test_evolution_l01_l10": {
+        "tests": 11,
+        "ok": true
+      },
+      "tests.test_evolution_cycle2": {
+        "tests": 20,
+        "ok": true
+      }
+    },
+    "evolution": {
+      "tests": 31,
+      "ok": true,
+      "modules": 2
+    },
+    "all_green": true
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:55:36"
+}

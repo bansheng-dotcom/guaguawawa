@@ -1,7 +1,0 @@
-{
-  "dependencies": [
-    {"name": "lodash", "cves": [{"id": "CVE-2024-1001", "severity": "medium"}]},
-    {"name": "express", "cves": []}
-  ],
-  "leaked_keys": []
-}

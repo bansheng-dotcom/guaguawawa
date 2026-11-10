@@ -1,0 +1,61 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "gate assumption 非空",
+      "dim": "mvp.assumption",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "gate mvp 非空",
+      "dim": "mvp.mvp",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "gate experiment 非空",
+      "dim": "mvp.experiment",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "gate criteria 非空",
+      "dim": "mvp.criteria",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "gate handoff 非空",
+      "dim": "mvp.handoff",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "assumption.risk_type=value",
+      "dim": "mvp.risk_type",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "criteria.success 非空",
+      "dim": "mvp.criteria",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "criteria.fail 非空",
+      "dim": "mvp.criteria",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "实现工件通过全部门禁，可进入质量验证与交接",
+  "passed_gates": 5,
+  "capability_status": "real",
+  "capability_evidence": "local input inspected",
+  "task_id": "f2251534",
+  "skill": "slice",
+  "action": "mvp"
+}

@@ -1,9 +1,0 @@
-{
-  "source": "zh-CN",
-  "target": "en",
-  "glossary": [
-    {"source": "内容主笔", "target": "Content Lead"},
-    {"source": "门禁", "target": "Gate"},
-    {"source": "交接", "target": "Handoff"}
-  ]
-}

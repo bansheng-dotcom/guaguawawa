@@ -1,0 +1,101 @@
+{
+  "scenarios": [
+    {
+      "id": "scenario_conservative",
+      "name": "保守防御型 (Downside)",
+      "assumption": "宏观承压、大厂挤压、获客转化取行业低位",
+      "serviceable_fraction": 0.25,
+      "obtainable_share": 0.03,
+      "tam": 96.0,
+      "sam": 24.0,
+      "som": 0.72,
+      "target_margin": "60%",
+      "action_priority": "控制研发开支，聚焦高价值粘性 KA 客户",
+      "roi": 191.26,
+      "ltv_cac_ratio": 34.95,
+      "payback_months": 4.12,
+      "cost_score": 76.25,
+      "speed_score": 83.52,
+      "dimension_scores": {
+        "market_upside": 5.13,
+        "margin": 70.0,
+        "cost_risk": 76.25,
+        "speed": 83.52
+      },
+      "score": 50.57
+    },
+    {
+      "id": "scenario_benchmark",
+      "name": "基准稳健型 (Base)",
+      "assumption": "行业正常增速发展，保持差异化产品力",
+      "serviceable_fraction": 0.4,
+      "obtainable_share": 0.08,
+      "tam": 120.0,
+      "sam": 48.0,
+      "som": 3.84,
+      "target_margin": "75%",
+      "action_priority": "推进 MVP 快速验证，平衡 LTV/CAC 在 3.0 以上",
+      "roi": 177.78,
+      "ltv_cac_ratio": 33.33,
+      "payback_months": 4.32,
+      "cost_score": 75.0,
+      "speed_score": 82.72,
+      "dimension_scores": {
+        "market_upside": 27.35,
+        "margin": 75.0,
+        "cost_risk": 75.0,
+        "speed": 82.72
+      },
+      "score": 59.48
+    },
+    {
+      "id": "scenario_aggressive",
+      "name": "乐观突击型 (Upside)",
+      "assumption": "迎来技术红利或网络效应爆发，产品快速出圈",
+      "serviceable_fraction": 0.6,
+      "obtainable_share": 0.15,
+      "tam": 156.0,
+      "sam": 93.6,
+      "som": 14.04,
+      "target_margin": "85%",
+      "action_priority": "扩大渠道投放，建立生态壁垒加速规模化",
+      "roi": 160.87,
+      "ltv_cac_ratio": 31.3,
+      "payback_months": 4.6,
+      "cost_score": 73.75,
+      "speed_score": 81.6,
+      "dimension_scores": {
+        "market_upside": 100.0,
+        "margin": 80.0,
+        "cost_risk": 73.75,
+        "speed": 81.6
+      },
+      "score": 85.99
+    }
+  ],
+  "weights": {
+    "market_upside": 0.35,
+    "margin": 0.3,
+    "cost_risk": 0.2,
+    "speed": 0.15
+  },
+  "ranking": [
+    {
+      "name": "乐观突击型 (Upside)",
+      "score": 85.99,
+      "roi": 160.87
+    },
+    {
+      "name": "基准稳健型 (Base)",
+      "score": 59.48,
+      "roi": 177.78
+    },
+    {
+      "name": "保守防御型 (Downside)",
+      "score": 50.57,
+      "roi": 191.26
+    }
+  ],
+  "recommended": "乐观突击型 (Upside)",
+  "board_markdown": "# 战略研究三维情景横向比选看板 (Strategic Scenario Matrix)\n\n| 决策维度 | 保守防御型 (Downside) | 基准稳健型 (Base) | 乐观突击型 (Upside) |\n| :--- | :--- | :--- | :--- |\n| **前置假设** | 宏观承压、大厂挤压、获客转化取行业低位 | 行业正常增速发展，保持差异化产品力 | 迎来技术红利或网络效应爆发，产品快速出圈 |\n| **测算 TAM** | 96.0 亿 | 120.0 亿 | 156.0 亿 |\n| **服务 SAM** | 24.0 亿 | 48.0 亿 | 93.6 亿 |\n| **可获 SOM** | 0.72 亿 | 3.84 亿 | 14.04 亿 |\n| **可获份额** | 3.00% | 8.00% | 15.00% |\n| **毛利率预期** | 60% | 75% | 85% |\n| **ROI（%）** | 191.26% | 177.78% | 160.87% |\n| **LTV / CAC（倍）** | 34.95× | 33.33× | 31.30× |\n| **回收期（月）** | 4.12 个月 | 4.32 个月 | 4.60 个月 |\n| **MCDA 综合评分（0~100）** | 50.57 | 59.48 | 85.99 |\n| **首选推进动作** | 控制研发开支，聚焦高价值粘性 KA 客户 | 推进 MVP 快速验证，平衡 LTV/CAC 在 3.0 以上 | 扩大渠道投放，建立生态壁垒加速规模化 |\n\n## 多维 ROI 权衡矩阵\n\n| MCDA 维度 | 权重 | 保守防御型 (Downside) | 基准稳健型 (Base) | 乐观突击型 (Upside) |\n| :--- | :---: | :---: | :---: | :---: |\n| 市场空间 (market_upside) | 35% | 5.13 | 27.35 | 100.00 |\n| 毛利质量 (margin) | 30% | 70.00 | 75.00 | 80.00 |\n| 成本韧性 (cost_risk) | 20% | 76.25 | 75.00 | 73.75 |\n| 回收速度 (speed) | 15% | 83.52 | 82.72 | 81.60 |\n| **加权综合评分** | 100% | 50.57 | 59.48 | 85.99 |\n\n> **推荐结论**：综合 MCDA 加权评分，推荐【乐观突击型 (Upside)】作为首选情景；横向排序为：乐观突击型 (Upside)（85.99 分 / ROI 160.87%） → 基准稳健型 (Base)（59.48 分 / ROI 177.78%） → 保守防御型 (Downside)（50.57 分 / ROI 191.26%）。\n> **R05 研报权衡建议**：不替决策层直接拍板。以推荐情景作为资源配置主路径，同时保留保守情景止损线与乐观情景加速探针，按季度用真实 CAC（当前测算口径 max 约 345.00 元）复算 ROI 并滚动修正。"
+}

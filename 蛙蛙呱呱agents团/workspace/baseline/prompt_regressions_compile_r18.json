@@ -1,0 +1,335 @@
+{
+  "mode": "compile",
+  "summary": {
+    "cases": 20,
+    "route": 13,
+    "clarify": 7,
+    "silent_default": 0,
+    "expect_match": 20,
+    "bare_clarify": 0,
+    "confidence_values": [
+      0.0,
+      1.0
+    ]
+  },
+  "results": [
+    {
+      "id": "r18-01",
+      "role": "r18",
+      "intent": "数据质量怎么样",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dataset"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r18-02",
+      "role": "r18",
+      "intent": "配个告警",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r18-03",
+      "role": "r18",
+      "intent": "帮我搞下数据管道",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r18-04",
+      "role": "r18",
+      "intent": "检查 orders 表的空值率",
+      "expect": "route",
+      "expect_action": "quality.check",
+      "actual": "quality.check",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-05",
+      "role": "r18",
+      "intent": "orders 表新鲜度看一下",
+      "expect": "route",
+      "expect_action": "quality.fresh",
+      "actual": "quality.fresh",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-06",
+      "role": "r18",
+      "intent": "近7天数据回填",
+      "expect": "route",
+      "expect_action": "incremental.backfill",
+      "actual": "incremental.backfill",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-07",
+      "role": "r18",
+      "intent": "排个调度DAG",
+      "expect": "route",
+      "expect_action": "pipeline.dag",
+      "actual": "pipeline.dag",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "scope"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-08",
+      "role": "r18",
+      "intent": "orders 表的血缘在哪",
+      "expect": "route",
+      "expect_action": "catalog.lineage",
+      "actual": "catalog.lineage",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-09",
+      "role": "r18",
+      "intent": "把告警阈值设成空值率",
+      "expect": "route",
+      "expect_action": "ops.alert",
+      "actual": "ops.alert",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-10",
+      "role": "r18",
+      "intent": "orders 表做个dbt模型",
+      "expect": "route",
+      "expect_action": "transform.model",
+      "actual": "transform.model",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-11",
+      "role": "r18",
+      "intent": "同步 orders 表",
+      "expect": "route",
+      "expect_action": "elt.sync",
+      "actual": "elt.sync",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-12",
+      "role": "r18",
+      "intent": "数据同步怎么配",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dataset"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r18-13",
+      "role": "r18",
+      "intent": "跑一下 orders 表的空值率检查",
+      "expect": "route",
+      "expect_action": "quality.check",
+      "actual": "quality.check",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-14",
+      "role": "r18",
+      "intent": "早上报表没更新，orders 表的新鲜度帮忙查下",
+      "expect": "route",
+      "expect_action": "quality.fresh",
+      "actual": "quality.fresh",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-15",
+      "role": "r18",
+      "intent": "上周的数据有问题，需要重跑补数",
+      "expect": "route",
+      "expect_action": "incremental.backfill",
+      "actual": "incremental.backfill",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-16",
+      "role": "r18",
+      "intent": "把这些任务按依赖关系编排成 DAG",
+      "expect": "route",
+      "expect_action": "pipeline.dag",
+      "actual": "pipeline.dag",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "scope"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-17",
+      "role": "r18",
+      "intent": "orders 表的上游血缘帮我理一下",
+      "expect": "route",
+      "expect_action": "catalog.lineage",
+      "actual": "catalog.lineage",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r18-18",
+      "role": "r18",
+      "intent": "最近数据质量不太稳定",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dataset"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r18-19",
+      "role": "r18",
+      "intent": "管道这块想搭起来，还没想好从哪下手",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r18-20",
+      "role": "r18",
+      "intent": "同步的方案还没定，先别动",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dataset"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    }
+  ]
+}

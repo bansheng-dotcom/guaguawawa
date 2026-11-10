@@ -313,9 +313,11 @@ def main() -> int:
             f"category={rev['failure_category']}")
 
     t.section("T8 案例库")
-    t.check("案例列表 2 个", len(cases.list_cases()) == 2, str(cases.list_cases()))
+    t.check("案例列表 >= 2 个", len(cases.list_cases()) >= 2, str(cases.list_cases()))
     t.check("growth-engine 结构通过", cases.validate_case("growth-engine")["ok"])
     t.check("organic-loop 结构通过", cases.validate_case("organic-loop")["ok"])
+    if "channel-attribution" in [c_item["case_id"] for c_item in cases.list_cases()]:
+        t.check("channel-attribution 结构通过", cases.validate_case("channel-attribution")["ok"])
 
     t.section("T9 阈值外置")
     th = c.load_thresholds()

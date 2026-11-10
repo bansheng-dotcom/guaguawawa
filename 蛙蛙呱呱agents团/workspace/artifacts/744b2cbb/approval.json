@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "workflow_name 非空",
+      "dim": "publish.name",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "发布有显式请求或 live run 证据（requested=True, evidence=False）",
+      "dim": "publish.gate",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "未验证节点已披露或不存在",
+      "dim": "publish.disclosure",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "工件通过全部门禁，可进入授权与交接",
+  "publish_ready": true,
+  "narrative": "发布门禁 acme-lead-sync：可发布",
+  "task_id": "744b2cbb",
+  "skill": "approval",
+  "action": "publish"
+}

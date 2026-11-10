@@ -11,7 +11,7 @@ def generate_heavy_prd_report():
     print("🚀 正在生成带完整业务规则、验收标准、错误态定义的重度产品需求文档...")
     print("==================================================")
     
-    out_dir = Path("D:/一人公司/深度专项报告")
+    out_dir = Path(__file__).resolve().parents[1] / "workspace" / "artifacts" / "深度专项报告"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     full_html = f'''<!DOCTYPE html>

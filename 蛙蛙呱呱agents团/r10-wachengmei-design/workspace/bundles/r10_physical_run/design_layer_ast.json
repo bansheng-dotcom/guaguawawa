@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "canvas": {
+    "width": 1024,
+    "height": 1024
+  },
+  "layers": [
+    {
+      "id": "bg_layer",
+      "type": "background_image",
+      "z_index": 0
+    },
+    {
+      "id": "title_layer",
+      "type": "text",
+      "z_index": 1,
+      "text": "商业主视觉",
+      "font_size": 64
+    },
+    {
+      "id": "cta_badge",
+      "type": "component",
+      "z_index": 2,
+      "text": "立即探索",
+      "anchor": "bottom-right"
+    }
+  ],
+  "safe_margins": {
+    "top": "25%",
+    "bottom": "20%"
+  },
+  "exported_at": "2026-11-10T02:01:22.338350"
+}

@@ -1,0 +1,69 @@
+{
+  "role": "r20",
+  "sop_version": "13.0",
+  "current_round": 3,
+  "rounds": {
+    "1": {
+      "round": 1,
+      "title": "第一轮 · 工具实体 / 意图解构 / 自愈反思",
+      "decision": "PASS",
+      "completed_at": "2026-11-10T19:06:34",
+      "gate": "workspace\\rounds\\round1\\gate.json",
+      "stages": {
+        "L01": "PASS",
+        "L02": "PASS",
+        "L03": "PASS"
+      },
+      "legacy": {
+        "passed": 123,
+        "total": 123
+      },
+      "evolution": {
+        "passed": 45,
+        "total": 45
+      }
+    },
+    "2": {
+      "round": 2,
+      "title": "第二轮 · 领域账本 / 质感去劣化 / 横向决策",
+      "decision": "PASS",
+      "completed_at": "2026-11-10T19:06:04",
+      "gate": "workspace\\rounds\\round2\\gate.json",
+      "stages": {
+        "L04": "PASS",
+        "L05": "PASS",
+        "L06": "PASS"
+      },
+      "legacy": {
+        "passed": 123,
+        "total": 123
+      },
+      "evolution": {
+        "passed": 45,
+        "total": 45
+      }
+    },
+    "3": {
+      "round": 3,
+      "title": "第三轮 · 伴生消费 / 局部差量 / 会话记忆 / 工业容灾",
+      "decision": "PASS",
+      "completed_at": "2026-11-10T19:06:16",
+      "gate": "workspace\\rounds\\round3\\gate.json",
+      "stages": {
+        "L07": "PASS",
+        "L08": "PASS",
+        "L09": "PASS",
+        "L10": "PASS"
+      },
+      "legacy": {
+        "passed": 123,
+        "total": 123
+      },
+      "evolution": {
+        "passed": 45,
+        "total": 45
+      }
+    }
+  },
+  "updated_at": "2026-11-10T19:06:34"
+}

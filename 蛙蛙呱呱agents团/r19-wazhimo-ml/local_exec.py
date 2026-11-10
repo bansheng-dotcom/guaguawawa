@@ -27,7 +27,7 @@ def execute(payload: Any, model_name: str = "local-model") -> Dict[str, Any]:
     scored = []
     for index, row in enumerate(rows):
         expected = row.get("expected", row.get("y_true", row.get("label")))
-        actual = row.get("actual", row.get("y_pred", row.get("prediction")))
+        actual = row.get("actual", row.get("predicted", row.get("y_pred", row.get("prediction"))))
         if expected is None or actual is None:
             return {"ok": False, "capability_status": "blocked",
                     "reason": f"row {index} missing expected/actual",

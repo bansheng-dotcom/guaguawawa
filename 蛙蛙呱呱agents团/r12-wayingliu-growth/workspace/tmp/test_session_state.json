@@ -1,0 +1,951 @@
+{
+  "session_id": "r12_growth_session",
+  "version": "1.0.0",
+  "slots": {
+    "north_star": "WAU",
+    "target_channel": "小红书",
+    "budget": 30000.0,
+    "target_cac": 120.0,
+    "k_factor": 1.15,
+    "scenario": "steady_lean",
+    "audience": "高潜核心付费开发者",
+    "extra_slots": {}
+  },
+  "turn_count": 38,
+  "current_snapshot_id": "snap_1794319100065",
+  "history": [
+    {
+      "turn_id": "turn_001",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:18:52"
+    },
+    {
+      "turn_id": "turn_002",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:18:52"
+    },
+    {
+      "turn_id": "turn_003",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:19:17"
+    },
+    {
+      "turn_id": "turn_004",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:19:17"
+    },
+    {
+      "turn_id": "turn_005",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:19:24"
+    },
+    {
+      "turn_id": "turn_006",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:19:24"
+    },
+    {
+      "turn_id": "turn_007",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:19:31"
+    },
+    {
+      "turn_id": "turn_008",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:19:31"
+    },
+    {
+      "turn_id": "turn_009",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:19:39"
+    },
+    {
+      "turn_id": "turn_010",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:19:39"
+    },
+    {
+      "turn_id": "turn_011",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:19:47"
+    },
+    {
+      "turn_id": "turn_012",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:19:47"
+    },
+    {
+      "turn_id": "turn_013",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:19:54"
+    },
+    {
+      "turn_id": "turn_014",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:19:54"
+    },
+    {
+      "turn_id": "turn_015",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:20:02"
+    },
+    {
+      "turn_id": "turn_016",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:20:02"
+    },
+    {
+      "turn_id": "turn_017",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:20:10"
+    },
+    {
+      "turn_id": "turn_018",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:20:10"
+    },
+    {
+      "turn_id": "turn_019",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:20:18"
+    },
+    {
+      "turn_id": "turn_020",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:20:18"
+    },
+    {
+      "turn_id": "turn_021",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:20:29"
+    },
+    {
+      "turn_id": "turn_022",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:20:29"
+    },
+    {
+      "turn_id": "turn_023",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:20:52"
+    },
+    {
+      "turn_id": "turn_024",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:20:52"
+    },
+    {
+      "turn_id": "turn_025",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T12:21:50"
+    },
+    {
+      "turn_id": "turn_026",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T12:21:50"
+    },
+    {
+      "turn_id": "turn_027",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T20:49:23"
+    },
+    {
+      "turn_id": "turn_028",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T20:49:23"
+    },
+    {
+      "turn_id": "turn_029",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T21:27:42"
+    },
+    {
+      "turn_id": "turn_030",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T21:27:42"
+    },
+    {
+      "turn_id": "turn_031",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T21:36:36"
+    },
+    {
+      "turn_id": "turn_032",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T21:36:36"
+    },
+    {
+      "turn_id": "turn_033",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T21:40:16"
+    },
+    {
+      "turn_id": "turn_034",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T21:40:16"
+    },
+    {
+      "turn_id": "turn_035",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T21:48:12"
+    },
+    {
+      "turn_id": "turn_036",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T21:48:12"
+    },
+    {
+      "turn_id": "turn_037",
+      "query": "设计一套小红书获客方案",
+      "updated_slots": {
+        "target_channel": "小红书",
+        "budget": 30000.0
+      },
+      "timestamp": "2026-11-10T21:58:20"
+    },
+    {
+      "turn_id": "turn_038",
+      "query": "切换到微信公众号全量投放",
+      "updated_slots": {
+        "target_channel": "微信公众号"
+      },
+      "timestamp": "2026-11-10T21:58:20"
+    }
+  ],
+  "snapshots": {
+    "snap_1794284332534": {
+      "snapshot_id": "snap_1794284332534",
+      "turn_id": "turn_001",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:18:52",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284332535": {
+      "snapshot_id": "snap_1794284332535",
+      "turn_id": "turn_002",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:18:52",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284357302": {
+      "snapshot_id": "snap_1794284357302",
+      "turn_id": "turn_003",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:17",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284357305": {
+      "snapshot_id": "snap_1794284357305",
+      "turn_id": "turn_004",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:17",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284364603": {
+      "snapshot_id": "snap_1794284364603",
+      "turn_id": "turn_005",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:24",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284364605": {
+      "snapshot_id": "snap_1794284364605",
+      "turn_id": "turn_006",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:24",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284371975": {
+      "snapshot_id": "snap_1794284371975",
+      "turn_id": "turn_007",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:31",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284371976": {
+      "snapshot_id": "snap_1794284371976",
+      "turn_id": "turn_008",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:31",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284379379": {
+      "snapshot_id": "snap_1794284379379",
+      "turn_id": "turn_009",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:39",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284379382": {
+      "snapshot_id": "snap_1794284379382",
+      "turn_id": "turn_010",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:39",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284387041": {
+      "snapshot_id": "snap_1794284387041",
+      "turn_id": "turn_011",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:47",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284387043": {
+      "snapshot_id": "snap_1794284387043",
+      "turn_id": "turn_012",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:47",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284394973": {
+      "snapshot_id": "snap_1794284394973",
+      "turn_id": "turn_013",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:54",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284394975": {
+      "snapshot_id": "snap_1794284394975",
+      "turn_id": "turn_014",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:19:54",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284402444": {
+      "snapshot_id": "snap_1794284402444",
+      "turn_id": "turn_015",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:02",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284402445": {
+      "snapshot_id": "snap_1794284402445",
+      "turn_id": "turn_016",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:02",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284410288": {
+      "snapshot_id": "snap_1794284410288",
+      "turn_id": "turn_017",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:10",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284410291": {
+      "snapshot_id": "snap_1794284410291",
+      "turn_id": "turn_018",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:10",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284418771": {
+      "snapshot_id": "snap_1794284418771",
+      "turn_id": "turn_019",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:18",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284418773": {
+      "snapshot_id": "snap_1794284418773",
+      "turn_id": "turn_020",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:18",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284429160": {
+      "snapshot_id": "snap_1794284429160",
+      "turn_id": "turn_021",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:29",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284429162": {
+      "snapshot_id": "snap_1794284429162",
+      "turn_id": "turn_022",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:29",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284452584": {
+      "snapshot_id": "snap_1794284452584",
+      "turn_id": "turn_023",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:52",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284452587": {
+      "snapshot_id": "snap_1794284452587",
+      "turn_id": "turn_024",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:20:52",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794284510397": {
+      "snapshot_id": "snap_1794284510397",
+      "turn_id": "turn_025",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:21:50",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794284510400": {
+      "snapshot_id": "snap_1794284510400",
+      "turn_id": "turn_026",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T12:21:50",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794314963661": {
+      "snapshot_id": "snap_1794314963661",
+      "turn_id": "turn_027",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T20:49:23",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794314963664": {
+      "snapshot_id": "snap_1794314963664",
+      "turn_id": "turn_028",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T20:49:23",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794317262784": {
+      "snapshot_id": "snap_1794317262784",
+      "turn_id": "turn_029",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:27:42",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794317262785": {
+      "snapshot_id": "snap_1794317262785",
+      "turn_id": "turn_030",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:27:42",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794317796177": {
+      "snapshot_id": "snap_1794317796177",
+      "turn_id": "turn_031",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:36:36",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794317796180": {
+      "snapshot_id": "snap_1794317796180",
+      "turn_id": "turn_032",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:36:36",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794318016667": {
+      "snapshot_id": "snap_1794318016667",
+      "turn_id": "turn_033",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:40:16",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794318016669": {
+      "snapshot_id": "snap_1794318016669",
+      "turn_id": "turn_034",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:40:16",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794318492691": {
+      "snapshot_id": "snap_1794318492691",
+      "turn_id": "turn_035",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:48:12",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794318492694": {
+      "snapshot_id": "snap_1794318492694",
+      "turn_id": "turn_036",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:48:12",
+      "query": "切换到微信公众号全量投放"
+    },
+    "snap_1794319100065": {
+      "snapshot_id": "snap_1794319100065",
+      "turn_id": "turn_037",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "小红书",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:58:20",
+      "query": "设计一套小红书获客方案"
+    },
+    "snap_1794319100069": {
+      "snapshot_id": "snap_1794319100069",
+      "turn_id": "turn_038",
+      "slots": {
+        "north_star": "WAU",
+        "target_channel": "微信公众号",
+        "budget": 30000.0,
+        "target_cac": 120.0,
+        "k_factor": 1.15,
+        "scenario": "steady_lean",
+        "audience": "高潜核心付费开发者",
+        "extra_slots": {}
+      },
+      "timestamp": "2026-11-10T21:58:20",
+      "query": "切换到微信公众号全量投放"
+    }
+  }
+}

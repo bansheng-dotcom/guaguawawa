@@ -1,8 +1,0 @@
-{
-  "model_name": "support-qa-assistant",
-  "intended_use": "客服一线问答辅助，答案需人工复核后发出",
-  "limitations": "不覆盖退款金额计算与法律咨询；不应用于自动对客发送",
-  "risk_tier": "medium",
-  "license": "proprietary",
-  "known_bias": "对非中文提问的回答质量下降；长尾政策问题覆盖不足"
-}

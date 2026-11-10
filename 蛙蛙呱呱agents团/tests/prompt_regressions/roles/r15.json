@@ -1,0 +1,27 @@
+{
+  "r15": {
+    "role_dir": "r15-wagongying-erp",
+    "cases": [
+      {"id": "r15-01", "intent": "帮我看看供应链情况", "expect": "clarify"},
+      {"id": "r15-02", "intent": "帮我询价", "expect": "clarify"},
+      {"id": "r15-03", "intent": "这批货怎么样", "expect": "clarify"},
+      {"id": "r15-04", "intent": "向供应商询价", "expect": "route", "expect_action": "procurement.rfq"},
+      {"id": "r15-05", "intent": "帮我做个报价", "expect": "route", "expect_action": "procurement.quotation"},
+      {"id": "r15-06", "intent": "下采购订单", "expect": "route", "expect_action": "procurement.purchase_order"},
+      {"id": "r15-07", "intent": "今天收货", "expect": "route", "expect_action": "procurement.receipt"},
+      {"id": "r15-08", "intent": "看仓库的库存明细", "expect": "route", "expect_action": "inventory.bin"},
+      {"id": "r15-09", "intent": "本月的出入库", "expect": "route", "expect_action": "inventory.stock_entry"},
+      {"id": "r15-10", "intent": "开张发票", "expect": "route", "expect_action": "finance.invoice"},
+      {"id": "r15-11", "intent": "查近7天的销售订单", "expect": "route", "expect_action": "fulfillment.sales_order"},
+      {"id": "r15-12", "intent": "BOM 怎么维护", "expect": "clarify"},
+      {"id": "r15-13", "intent": "先向供应商询价，看看哪家便宜", "expect": "route", "expect_action": "procurement.rfq"},
+      {"id": "r15-14", "intent": "客户催着要报价，帮我出个报价单", "expect": "route", "expect_action": "procurement.quotation"},
+      {"id": "r15-15", "intent": "这批物料走采购订单流程，今天下单", "expect": "route", "expect_action": "procurement.purchase_order"},
+      {"id": "r15-16", "intent": "供应商的货今天到了，安排收货", "expect": "route", "expect_action": "procurement.receipt"},
+      {"id": "r15-17", "intent": "查一下仓库的库位和库存明细", "expect": "route", "expect_action": "inventory.bin"},
+      {"id": "r15-18", "intent": "这批货的供应商靠不靠谱", "expect": "clarify"},
+      {"id": "r15-19", "intent": "仓库那边最近总是对不上", "expect": "clarify"},
+      {"id": "r15-20", "intent": "询价的事我先问问，还没定", "expect": "clarify"}
+    ]
+  }
+}

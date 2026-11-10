@@ -1,0 +1,25 @@
+{
+  "service": "支付服务",
+  "availability": 0.9995,
+  "slo": 0.999,
+  "monitor_id": "mon-pay-01",
+  "alert_count": 3,
+  "escalation_count": 2,
+  "owner": "蛙值守",
+  "telemetry": {
+    "trace_id": "tr-demo-0001"
+  },
+  "handoff": "R01 审批",
+  "checks": [
+    {
+      "ok": true,
+      "dim": "monitor",
+      "msg": "探测通过"
+    },
+    {
+      "ok": true,
+      "dim": "alert",
+      "msg": "告警链路可用"
+    }
+  ]
+}

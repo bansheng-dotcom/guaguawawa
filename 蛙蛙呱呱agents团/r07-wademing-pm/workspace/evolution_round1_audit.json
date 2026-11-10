@@ -1,0 +1,131 @@
+{
+  "round": 1,
+  "verdict": "PASS",
+  "commands": [
+    {
+      "cmd": "python auto_evolve_runner.py --status",
+      "rc": 0,
+      "summary": "看板 10/10 轮 PASSED（Round 07 [L07] 伴生消费层 PASSED），三批次 3/3、3/3、4/4；仅只读渲染，无副作用。"
+    },
+    {
+      "cmd": "python auto_evolve_runner.py --round 7",
+      "rc": 0,
+      "summary": "五步齐全：步骤1 源码校验 engines/asset_bundle.py (318 行)；步骤2 标杆引用 {sarif-tools:True, vega-lite:True}；步骤3 引擎装配成功；步骤4 探针 rc=0 + 4 工件；步骤5 legacy/pytest/closed-loop 三门禁全绿，输出『第 07 轮（L07）五步闭环全绿』并落盘状态机。"
+    },
+    {
+      "cmd": "python -m pytest tests -q",
+      "rc": 0,
+      "summary": "47 passed in 1.48s（较上轮 42 passed 新增 5 条，含 L07 SARIF/manifest 强断言）"
+    },
+    {
+      "cmd": "python run_tests.py",
+      "rc": 0,
+      "summary": "通过 56 / 56，全绿 · R07 端到端验收通过"
+    },
+    {
+      "cmd": "python verify_loop.py",
+      "rc": 0,
+      "summary": "total=58 passed=58 failed=0 verdict=PASS（29 干净 ok=True/exit=0 + 29 脏 ok=False/exit=1）"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\bundles\\prd_bundle.json",
+      "exists": true,
+      "bytes": 1596,
+      "sha256": "1dfc0302799154e5e05d7149e83ad0593a385373005bf75f375541c63872d304",
+      "note": "schema=pm.prd.bundle/v1，generated_at=2026-11-10T19:42:19，summary ok=true / passed_gates=8 / checks_total=20 / checks_failed=0 / sarif_results=0；artifacts 只含 3 件子工件，无自指条目。"
+    },
+    {
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\bundles\\artifact_manifest.json",
+      "exists": true,
+      "bytes": 1140,
+      "sha256": "7230c72f8bce5456a47ab6f57db850c2bb7851fc8807a76a2f85d10fc628cc2d",
+      "note": "schema=pm.prd.manifest/v1，bundle 条目登记 prd_bundle.json 的 sha256=1dfc0302…（与磁盘字节一致），artifacts 登记 prd_ast / prd_audit_sarif / prd_gates_chart 三件，逐件 sha256+bytes 均可重算。"
+    },
+    {
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\bundles\\prd_ast.json",
+      "exists": true,
+      "bytes": 5703,
+      "sha256": "7354266ad43dc074714f46329fdefc29ffd00b1219d7270ead794047b7335108",
+      "note": "schema=pm.prd.ast/v1；8 个 GATE 节点全 PASS（PM001–PM008），sections 8/8 present，ast_sha256=1c045d3e… 按规范序列化重算一致，source_sha256 与 prd_bundle.source.prd_sha256、examples/prd.json 实算哈希三者相同。"
+    },
+    {
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\bundles\\prd_audit.sarif.json",
+      "exists": true,
+      "bytes": 2806,
+      "sha256": "7cda99a0784c53c621cb3aa4cf967f5fd642ab37fa1cc6a1d0b26eeebbdcc5c9",
+      "note": "SARIF 2.1.0；driver.rules 声明 9 条（PM000 汇总 + PM001–PM008）；干净 PRD results=[]，invocations.exitCode=0、executionSuccessful=true。"
+    },
+    {
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\bundles\\prd_gates_chart.vega.json",
+      "exists": true,
+      "bytes": 1610,
+      "sha256": "d644f76449f626ae2da58aa3786e6e3b849828bbb1ef47f271d8ccd936115b2f",
+      "note": "vega-lite v5 schema，8 个 gate 数据点 pass 合计 8/8，title.subtitle=passed 8/8，与 bundle/AST 结论一致。"
+    }
+  ],
+  "audit_findings": [
+    {
+      "severity": "OK",
+      "finding": "五件 L07 工件齐备、非空、本轮新生成（19:42:19），且内部结论互相自洽",
+      "evidence": "prd_bundle.json 1596B / artifact_manifest.json 1140B / prd_ast.json 5703B / prd_audit.sarif.json 2806B / prd_gates_chart.vega.json 1610B，mtime 均为本轮 --round 7 执行时刻；bundle(8/8、20 checks 0 失败)、AST(8 gate 全 PASS)、Vega(pass 合计 8/8)、SARIF(results=0 且 checksFailed=0)四处口径一致。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(a) 已关闭：prd_bundle 不再自指陈旧哈希，改由 artifact_manifest.json 登记，全部 SHA256 可重算",
+      "evidence": "bundle.artifacts 仅 3 条子工件（无 name=prd_bundle 自指）；manifest 的 bundle.sha256=1dfc0302… 与磁盘 prd_bundle.json 实算一致；对 manifest 登记的 4 件逐件 hashlib.sha256 重算全部命中且 bytes 与 os.path.getsize 相等（脏目录另测一轮同样 4/4 命中）。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(b) 已关闭：AssetBundleExporter 暴露真实 gate_ok，脏 PRD 的 agent.py evolve bundle 退出码为 1",
+      "evidence": "engines/asset_bundle.py:300 返回 gate_ok=bool(result['ok'])，agent.py:500 以 out['ok'] and out['gate_ok'] 决定进程码；实测 examples/prd_dirty.json 输出 gate_ok=false、passed_gates=0、sarif_results=14、rc=1，而 examples/prd.json 为 gate_ok=true、rc=0。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(c) 已关闭：失败项 ruleId 全部已声明（含 PM000 汇总规则），ruleIndex 与声明序一致",
+      "evidence": "driver.rules 顺序为 PM000…PM008；脏 PRD 14 条 results 用的正是 PM000–PM008 全覆盖，undeclared=[]，ruleIndex 逐一等于 declared.index(ruleId)（range 0–8），无上轮 PM999 越界；summary 维度在 asset_bundle.py:147 回退到已声明的 PM000。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(d) 已关闭：SARIF 不再伪造源码行号，仅含 artifactLocation + logicalLocations",
+      "evidence": "脏 PRD 14 条结果遍历 locations 序列化检索，含 region 的定位为 0 条；每条 physicalLocation 只有 artifactLocation(uri=examples/prd_dirty.json, uriBaseId=SRCROOT)，并附 logicalLocations[kind=gate, fullyQualifiedName=prd.gate.<dim>]，与引擎「不解析源文件」的真实能力相符。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(e) 已关闭：runner 步骤 1/2 是真实校验（源码行数 + 源码内标杆引用），非恒 true 常量",
+      "evidence": "auto_evolve_runner.py:304-326 的 _audit_gate/_benchmark_gate 真实 find_spec+读文件并比对 token；负控实测 fake 模块→audit_ok=False、错 token→bench_ok=False、空 token→False；10 轮实测行数 89–450 真实统计且全 pass，L07 命中 sarif-tools/vega-lite。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "步骤 2 标杆校验可被纯注释满足，无法区分真实实现与文档引用",
+      "evidence": "L07 的两个命中 token 位于 engines/asset_bundle.py 第 5–6 行模块 docstring（第 12/198 行亦为注释性文字），删除实现逻辑仍可通过；建议改为校验非注释区的可执行引用（import/常量/接口）。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "步骤 1「非空壳」判据仅为非空行数≥50 的启发式，无法拦截 50 行样板 + 空实现",
+      "evidence": "checks['engine_lines_ge_50']=len([ln for ln in source.splitlines() if ln.strip()])>=50；本轮 L06 引擎仅 89 行、L05 122 行已贴近下限，若有人补注释凑行数即可过闸，缺少 AST/symbol 级存在性校验。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "步骤 1/2 的修复与 CLI 非零退出契约均缺自动化回归保护",
+      "evidence": "tests/ 下 grep 无 _audit_gate/_benchmark_gate 引用，也无对 agent.py evolve bundle 子进程 rc 的断言（test_l07_refuses_dirty_gate_silently 只断言 exporter 层 out['gate_ok'] is False）；verify_loop.py 29×2 动作矩阵不含 evolve 子命令。一旦有人把步骤 1/2 改回常量，pytest 仍会全绿——本轮结论靠我的手工负控与手工 CLI 探针兜住。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "第 7 轮 runner 的 artifacts 验收清单漏掉第 5 件工件 artifact_manifest.json",
+      "evidence": "EVOLUTION_STAGES[6]['artifacts'] 只列 prd_bundle/prd_ast/prd_audit.sarif/prd_gates_chart 四件，_check_artifacts 不校验 manifest 存在性；本轮 manifest 齐全仅因 CLI 探针 rc=0 间接兜住，若导出逻辑漏写 manifest 而 4 件仍生成，该轮仍会判绿。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "workspace/tmp 残留一次性改源码脚本 patch_runner_tokens.py，可被误跑且污染运行产物目录",
+      "evidence": "文件 1566B、mtime 19:35:50，内容为对 auto_evolve_runner.py 的字符串替换并 io.open(p,'w') 覆写（还含一处「MISS:」容错分支）；本轮审计未执行它，但它与 l09/l10 运行产物混放于 workspace/tmp，属升级过程卫生问题。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "prd_bundle.json 的 generated_at 未纳入内容寻址口径，跨秒重导字节即变（确定性仅在注入时间戳后成立）",
+      "evidence": "同目录同参数连导两次（不注入时间戳）prd_bundle.json 的 sha256 由 1dfc0302… 变为 95eb3a8b…，而 prd_ast/prd_audit.sarif/prd_gates_chart 三件字节级完全一致；下游若要「幂等装配」必须忽略 generated_at 或要求上游注入固定时间戳。"
+    }
+  ],
+  "evidence": "五条必跑命令全部 rc=0：--status 显示 10/10 轮 PASSED，--round 7 五步闭环全绿（步骤1 读到 engines/asset_bundle.py 318 行、步骤2 token 命中、步骤4 探针 rc=0 且 4 工件新生成、步骤5 三门禁全绿），pytest 47 passed、run_tests 56/56、verify_loop 58/58。上轮 5 项 MAJOR 经取证全部关闭：manifest 登记的 4 件 SHA256 逐件按磁盘字节重算命中、脏 PRD 的 evolve bundle 实测 rc=1 且 gate_ok=false、脏 SARIF 14 条 results 的 ruleId 全已声明且 ruleIndex 与声明序一致（含 PM000）、0 条伪造 region、步骤 1/2 三组负控均返回 False。剩余 6 条 MINOR 均为护栏/卫生类，不阻断本轮判绿，但建议补步骤 1/2 与 CLI rc 的回归测试，并把 artifact_manifest.json 纳入 runner 工件验收清单。"
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "pm.prd.patch/v1",
+  "generated_at": "2026-11-10T21:58:05",
+  "rfc": "RFC 6902 (JSON Patch) / RFC 6901 (JSON Pointer)",
+  "source_sha256": "086d8b436779be6661e5f4a6f9f9d0a9acfc7fb3f6943e3ad8358575bbd8f123",
+  "patched_sha256": "f54c066709a378e3c855a6522b9b6d4926a45fd222abc7d975e6acef1e4a509c",
+  "operations": [
+    {
+      "op": "test",
+      "path": "/metrics/north_star",
+      "value": "7 日激活率"
+    },
+    {
+      "op": "replace",
+      "path": "/acceptance_criteria/0/then",
+      "value": "出现分步引导，并在 24 小时内完成首项目创建"
+    },
+    {
+      "op": "add",
+      "path": "/acceptance_criteria/-",
+      "value": {
+        "given": "用户在引导第 2 步点击跳过",
+        "when": "30 天后再次进入工作台",
+        "then": "底部保留引导入口且不计入放弃率"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/telemetry",
+      "value": [
+        "guide_step_view",
+        "guide_step_complete",
+        "guide_skip_click"
+      ]
+    }
+  ],
+  "operation_log": [
+    {
+      "index": 0,
+      "op": "test",
+      "path": "/metrics/north_star",
+      "ok": true
+    },
+    {
+      "index": 1,
+      "op": "replace",
+      "path": "/acceptance_criteria/0/then",
+      "ok": true
+    },
+    {
+      "index": 2,
+      "op": "add",
+      "path": "/acceptance_criteria/-",
+      "ok": true
+    },
+    {
+      "index": 3,
+      "op": "add",
+      "path": "/telemetry",
+      "ok": true
+    }
+  ],
+  "stats": {
+    "operations": 4,
+    "touched_paths": [
+      "/acceptance_criteria/-",
+      "/acceptance_criteria/0/then",
+      "/telemetry"
+    ],
+    "changed_paths": 3,
+    "common_leaves": 29,
+    "changed_common_leaves": [
+      "/acceptance_criteria/0/then"
+    ],
+    "added_leaves": 6,
+    "removed_leaves": 0,
+    "untouched_drift": [],
+    "untouched_drift_count": 0,
+    "untouched_ratio": 0.9655,
+    "unaffected_ratio": 0.9143,
+    "patch_bytes": 524,
+    "full_document_bytes": 1570,
+    "bytes_saved_ratio": 0.6662
+  },
+  "gate_after_patch": {
+    "ok": true,
+    "passed_gates": 8,
+    "failed_checks": []
+  },
+  "patch_sha256": "eb0c349588733f7bf5d233f21be1b76d2a58d753f03ec7e9c195790a746bacc4"
+}

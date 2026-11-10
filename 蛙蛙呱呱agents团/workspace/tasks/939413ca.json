@@ -1,0 +1,21 @@
+{
+  "task_id": "939413ca",
+  "title": "库存台账核查",
+  "owner": "r15",
+  "intent": "帮我看下当前库存明细，有没有负库存",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r15-wagongying-erp\\examples\\bin.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "bin 门禁通过"
+  ],
+  "deps": [],
+  "status": "pending",
+  "logs": []
+}

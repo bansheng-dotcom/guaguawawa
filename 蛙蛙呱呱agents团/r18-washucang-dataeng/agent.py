@@ -23,9 +23,14 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_HERE_BOOT = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS_BOOT = _os.path.dirname(_HERE_BOOT)
+_REPO_ROOT = _os.path.dirname(_AGENTS_BOOT)
+# 动态防爆探测（SOP §5.9）：自身目录 / agents 集合目录 / 仓库根同时入 PATH，
+# 任何一层写错都不会再退化成 `ModuleNotFoundError: No module named 'agents'`。
+for _p in (_HERE_BOOT, _AGENTS_BOOT, _REPO_ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 
 import argparse
@@ -44,6 +49,7 @@ for _p in (_HERE, _AGENTS):
         sys.path.insert(0, _p)
 
 from core import protocol, registry, workspace  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
@@ -84,8 +90,6 @@ _INTENT_ROUTES = [
     (("告警", "报警", "通知", "阈值告警", "alert"), "ops", "alert", {}),
 ]
 
-_DEFAULT_ROUTE = ("quality", "check", {})
-
 
 def emit_result(data: Dict[str, Any]) -> None:
     c.emit(data)
@@ -104,7 +108,10 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例数据管道工件")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
+    _register_evolve(sp)
+    _register_patch(sp)
     _register_harness(sp)
     _register_contract(sp)
     _register_case(sp)
@@ -113,6 +120,47 @@ def build_parser() -> argparse.ArgumentParser:
     for m in SKILLS:
         m.add_parser(sp)
     return p
+
+
+def _register_patch(sp) -> None:
+    """L08 主链路入口：局部差量热修（RFC 6902）+ 增量门禁影响面。"""
+    p = sp.add_parser("patch", help="局部差量：应用 JSON Patch 并给出受影响门禁")
+    p.add_argument("--base", required=True)
+    p.add_argument("--patch", required=True)
+    p.add_argument("--out", default="")
+
+
+def _run_patch(args) -> Dict[str, Any]:
+    from engines import DataEngDiffPatchEngine
+    base = c.load_json(args.base)
+    patch = c.load_json(args.patch)
+    out = DataEngDiffPatchEngine().apply_and_plan(base, patch)
+    if getattr(args, "out", ""):
+        c.write_json(args.out, out)
+    return out
+
+
+def _register_evolve(sp) -> None:
+    """十维演进入口：委托自动演进状态机执行器（SOP §七 Golden Standard）。"""
+    ev = sp.add_parser("evolve", help="十维演进状态机：--status/--stage/--round/--run-all")
+    ev.add_argument("--status", action="store_true", dest="evolve_status")
+    ev.add_argument("--stage", type=int, choices=[1, 2, 3], dest="evolve_stage")
+    ev.add_argument("--round", type=int, dest="evolve_round")
+    ev.add_argument("--run-all", action="store_true", dest="evolve_run_all")
+
+
+def _run_evolve(args) -> int:
+    import auto_evolve_runner as runner
+    argv: List[str] = []
+    if getattr(args, "evolve_status", False):
+        argv.append("--status")
+    if getattr(args, "evolve_stage", None):
+        argv += ["--stage", str(args.evolve_stage)]
+    if getattr(args, "evolve_round", None):
+        argv += ["--round", str(args.evolve_round)]
+    if getattr(args, "evolve_run_all", False):
+        argv.append("--run-all")
+    return runner.main(argv)
 
 
 def _register_harness(sp) -> None:
@@ -230,6 +278,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -240,10 +297,134 @@ def run_task(task_id: str) -> Dict[str, Any]:
     merged["action"] = action
     merged["input"] = in_file
 
-    result = mod.run(_mkns(**merged))
+    # --- L10 主链路接入：技能执行过看门狗（重试 + 熔断 + 遥测留痕） ---
+    from engines import DataEngTelemetryWatchdog
+    watchdog = DataEngTelemetryWatchdog(workspace_dir=os.path.join(_HERE, "workspace"))
+    outcome = watchdog.execute_with_resilience(
+        lambda: mod.run(_mkns(**merged)), retries=2,
+        name=f"{skill_name}/{action}")
+    if outcome.get("ok"):
+        result = outcome["result"] if isinstance(outcome.get("result"), dict) else {}
+    else:
+        result = {"ok": False, "checks": [],
+                  "error": f"技能执行失败：{outcome.get('error')}"}
+    result["trace"] = {"trace_id": outcome.get("trace_id"),
+                       "attempts": outcome.get("attempts"),
+                       "status": outcome.get("status")}
     result["task_id"] = task_id
     result["skill"] = skill_name
     result["action"] = action
+
+    # --- L09 主链路接入：跨轮会话记忆（代词消歧 + 槽位落盘） ---
+    from engines import DataEngSessionMemory
+    memory = DataEngSessionMemory(
+        workspace_dir=os.path.join(_HERE, "workspace", "state"),
+        session_id="r18-main")
+    resolved = memory.disambiguate(intent)
+    memory.remember_turn(task.intent, f"{skill_name}/{action}",
+                         {"task_id": task_id, "resolved": resolved})
+    result["memory"] = {"resolved": resolved.get("resolved"),
+                        "kind": resolved.get("kind"),
+                        "slots": memory.history_digest()["slots"]}
+
+    # --- L02 主链路接入：把自然语言任务编译成 5 阶段 Kahn 交付 DAG 并落盘 ---
+    from engines import (DataEngIntentCompiler, DataEngReflexiveHealer,
+                         DataEngScenarioMatrix, DataEngSlopGuard, DataEngSpecLedger)
+    dag = DataEngIntentCompiler().compile_intent(intent)
+    dag_path = os.path.join(out_dir, "delivery_dag.json")
+    c.write_json(dag_path, dag)
+    result["delivery_dag"] = {
+        "dag_id": dag["intent_id"],
+        "stage_count": dag["stage_count"],
+        "topological_order": dag["topological_order"],
+        "total_effort_h": dag["total_effort_h"],
+        "total_man_days": dag["total_man_days"],
+        "critical_path_h": dag["critical_path_h"],
+        "parallel_levels": dag["parallel_levels"],
+        "path": dag_path,
+    }
+
+    # --- L04 主链路接入：运行时加载领域账本 SSOT，口径不达标即暴露 ---
+    try:
+        spec = DataEngSpecLedger().load_spec()
+        result["spec_ref"] = {"version": spec["version"],
+                              "gates_count": spec["gates_count"],
+                              "metrics_count": spec["metrics_count"],
+                              "dri": spec["dri"],
+                              "thresholds_source": "DATAENG_SPEC.md"}
+    except Exception as exc:  # noqa: BLE001 - 账本缺失必须显式暴露，不静默
+        result["spec_ref"] = {"error": str(exc)}
+
+    # --- L06 主链路接入：按任务上下文生成三维方案，并落盘供人类横向决策 ---
+    ctx = {}
+    sla = dag["entities"].get("sla_hours")
+    if sla is not None:
+        ctx["sla_hours"] = sla
+    if any(k in intent for k in ("强一致", "财务", "合规", "对账")):
+        ctx["strict_consistency"] = True
+    matrix = DataEngScenarioMatrix().generate(ctx)
+    matrix_path = os.path.join(out_dir, "scenario_matrix.json")
+    c.write_json(matrix_path, matrix)
+    result["scenario_matrix"] = {
+        "context": ctx,
+        "recommended_id": matrix["recommended_id"],
+        "recommended_name": matrix["recommended_name"],
+        "ranking": [{"id": r["id"], "name": r["name"], "score": r["total_score"],
+                     "roi_ratio": r["roi_ratio"]} for r in matrix["scenarios"]],
+        "path": matrix_path,
+    }
+
+    # --- L05 主链路接入：全部结论键过反套话清洗（不只 narrative） ---
+    guard = DataEngSlopGuard()
+    measured = result.get("measured") if isinstance(result.get("measured"), dict) else {}
+    facts = {"measured": measured} if measured else {}
+    slop_audit: Dict[str, Any] = {}
+    for key in c.load_thresholds().get("review", {}).get("conclusion_keys", ["narrative"]):
+        val = result.get(key)
+        if isinstance(val, str) and val:
+            cleaned = guard.clean(val, facts=facts)
+            result[key] = cleaned["cleaned"]
+            slop_audit[key] = {"before": cleaned["before"], "after": cleaned["after"]}
+    result["slop_audit"] = slop_audit
+
+    # --- L03 主链路接入：emit 前对结论文本强制过四条红线，命中即硬阻断 ---
+    conclusion = " ".join(str(result.get(k, "")) for k in ("narrative", "summary", "next"))
+    hits = DataEngReflexiveHealer().scan_redlines(conclusion)
+    result["redline_scan"] = {"hits": hits, "blocked": bool(hits),
+                              "scanned_keys": ["narrative", "summary", "next"]}
+    if hits:
+        result["ok"] = False
+        result["verdict"] = "FAIL"
+        result["redline_blocked"] = hits[0]
+        result["next"] = (f"{hits[0]['rule_id']} {hits[0]['name']}：强制移交 "
+                          f"{hits[0]['handoff']}；{hits[0]['fix']}")
+
+    # --- L07 主链路接入：伴生导出 SARIF/Vega/血缘 AST/bundle，下游可机器消费 ---
+    from engines import DataEngAssetBundle
+    gate_passed = bool(result.get("ok", True))
+    spec_gates = []
+    if isinstance(result.get("spec_ref"), dict) and "gates_count" in result["spec_ref"]:
+        try:
+            gates = DataEngSpecLedger().load_spec()["gates"]
+            spec_gates = [{**g, "ok": gate_passed} for g in gates]
+        except Exception:  # noqa: BLE001
+            spec_gates = []
+    exported = DataEngAssetBundle().export(
+        task_id,
+        {"pipeline": {"skill": skill_name, "action": action, "intent": intent},
+         "gates": spec_gates, "checks": result.get("checks", []),
+         "delivery_dag": dag, "artifact_uri": f"{skill_name}.json"},
+        out_dir=os.path.join(out_dir, "bundles"))
+    bundle_check = DataEngAssetBundle().validate_export(exported)
+    result["asset_bundle"] = {
+        "dir": exported["bundle"].rsplit(os.sep, 1)[0],
+        "bundle": os.path.basename(exported["bundle"]),
+        "sarif": os.path.basename(exported["sarif"]),
+        "vega": os.path.basename(exported["vega"]),
+        "ast": os.path.basename(exported["ast"]),
+        "sarif_results": exported["sarif_results"],
+        "validation": bundle_check["grade"],
+    }
 
     outputs: List[protocol.Port] = []
     result_path = os.path.join(out_dir, f"{skill_name}.json")
@@ -257,10 +438,12 @@ def run_task(task_id: str) -> Dict[str, Any]:
         out_dir=out_dir, input_path=in_file, md_name="data_report")
     outputs.extend(ports)
 
+    task_ok = bool(result.get("ok", True))
     ws.update_task(task_id, {"outputs": [p.to_dict() for p in outputs],
-                             "status": "done"})
-    ws.emit(protocol.Event.now(ROLE, "task_finished", task_id,
-                               {"outputs": [p.name for p in outputs]}))
+                             "status": "done" if task_ok else "failed"})
+    ws.emit(protocol.Event.now(ROLE, "task_finished" if task_ok else "task_failed",
+                               task_id, {"outputs": [p.name for p in outputs],
+                                         "redline_blocked": result["redline_scan"]["blocked"]}))
     return result
 
 
@@ -281,7 +464,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return _DEFAULT_ROUTE
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -348,6 +532,12 @@ def main() -> int:
     if args.skill == "manifest":
         emit_result(manifest())
         return 0
+    if args.skill == "evolve":
+        return _run_evolve(args)
+    if args.skill == "patch":
+        out = _run_patch(args)
+        emit_result(out)
+        return 0 if out.get("ok") else 1
     if args.skill == "local":
         out = local_exec.execute(c.load_json(args.input)); emit_result(out)
         return 0 if out["ok"] else 1
@@ -358,6 +548,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "harness":
         out = _run_harness(args)
         emit_result(out)

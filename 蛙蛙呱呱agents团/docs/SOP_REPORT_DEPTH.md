@@ -67,8 +67,8 @@
 ## 四、复现命令
 
 ```powershell
-cd D:\一人公司\agents\r06-wadeqing-analyst
-$env:PYTHONPATH = "D:\一人公司"
+cd <repo>/r06-wadeqing-analyst
+$env:PYTHONPATH = "<repo>"
 python deep_report.py --input workspace\parking_profit_12m.csv `
   --decompose-input workspace\parking_profit.csv `
   --value profit --date month --dim zone --period month `

@@ -23,9 +23,12 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_HERE)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in (_HERE, _AGENTS, _REPO_ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 
 import argparse
@@ -44,6 +47,7 @@ for _p in (_HERE, _AGENTS):
         sys.path.insert(0, _p)
 
 from core import protocol, registry, workspace  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
@@ -78,8 +82,6 @@ _INTENT_ROUTES = [
     (("组织运营", "运营指标", "指标", "metric"), "report", "report", {}),
 ]
 
-_DEFAULT_ROUTE = ("report", "headcount", {})
-
 
 def emit_result(data: Dict[str, Any]) -> None:
     c.emit(data)
@@ -98,11 +100,13 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例人事工件")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
     _register_harness(sp)
     _register_contract(sp)
     _register_case(sp)
     _register_review(sp)
+    _register_evolve(sp)
 
     for m in SKILLS:
         m.add_parser(sp)
@@ -170,6 +174,41 @@ def _register_review(sp) -> None:
     p.add_argument("--run-id", default="")
 
 
+def _register_evolve(sp) -> None:
+    ev_p = sp.add_parser("evolve", help="十维演进元模型核心引擎调度 (L01~L10)")
+    ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
+    ev_sub.add_parser("probe", help="L01: 探测人事计算沙箱与健康状态")
+
+    dec_p = ev_sub.add_parser("decompile", help="L02: 意图解构与 Kahn 拓扑 DAG 编排")
+    dec_p.add_argument("--query", required=True, help="招聘/调薪/人事综合诉求")
+
+    heal_p = ev_sub.add_parser("heal", help="L03: 自愈反思与红线审判")
+    heal_p.add_argument("--action", default="代发工资", help="待审判的动作或策略")
+
+    spec_p = ev_sub.add_parser("spec", help="L04: 领域规格账本加载与合规校验")
+    spec_p.add_argument("--input", default=None, help="人事数据 JSON 或留空加载 Spec")
+
+    slop_p = ev_sub.add_parser("slop", help="L05: 质感去劣化与 Anti-Slop 显著性校验")
+    slop_p.add_argument("--text", default=None, help="待审查文本")
+
+    sc_p = ev_sub.add_parser("scenario", help="L06: 多维人事编制与招聘策略看板裂变")
+    sc_p.add_argument("--role-name", default="资深架构师", help="招聘岗位名称")
+    sc_p.add_argument("--headcount", type=int, default=3, help="招聘人数")
+
+    b_p = ev_sub.add_parser("bundle", help="L07: 伴生消费资产包与 SARIF/Vega 导出")
+    b_p.add_argument("--run-id", default="demo_run_01", help="运行标识")
+    b_p.add_argument("--input", default=None, help="人事工件 JSON")
+
+    p_p = ev_sub.add_parser("patch", help="L08: RFC 6902 局部差量补丁与热修")
+    p_p.add_argument("--old", required=True, help="旧状态 JSON")
+    p_p.add_argument("--new", required=True, help="新状态 JSON")
+
+    mem_p = ev_sub.add_parser("memory", help="L09: 会话记忆与代词消歧测试")
+    mem_p.add_argument("--query", required=True, help="自然语言查询")
+
+    ev_sub.add_parser("watchdog", help="L10: 看门狗熔断器与遥测探测")
+
+
 def _run_review(args) -> Dict[str, Any]:
     result = c.load_json(args.result)
     packet = {"run_id": args.run_id, "skill": args.review_skill,
@@ -224,6 +263,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -275,7 +323,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return _DEFAULT_ROUTE
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -333,9 +382,13 @@ def _input_hash(args) -> str:
 
 
 def main() -> int:
-    _meta = role_runtime.handle_meta_command(sys.argv[1:], ROLE)
-    if _meta is not None:
-        return _meta
+    # 避让：R16 自身拥有名为 `report` 的技能 (s07_report)。
+    # 当 CLI 传入 `report headcount ...` 或 `report report ...` 时属于 R16 自身技能调用，交由技能解析器处理；
+    # 仅当入参为元命令（如 report recruit offer 等）才交由公共 meta_command。
+    if not (len(sys.argv) > 2 and sys.argv[1] == "report" and sys.argv[2] in ("headcount", "report")):
+        _meta = role_runtime.handle_meta_command(sys.argv[1:], ROLE)
+        if _meta is not None:
+            return _meta
 
     args = build_parser().parse_args()
 
@@ -352,6 +405,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "harness":
         out = _run_harness(args)
         emit_result(out)
@@ -368,6 +423,80 @@ def main() -> int:
         out = _run_review(args)
         emit_result(out)
         return 0 if out["verdict"] == "PASS" else 1
+    if args.skill == "evolve":
+        from engines import (
+            HRRuntimeEngine,
+            HRIntentCompiler,
+            HRReflexiveHealer,
+            HRSpecLedger,
+            HRSlopGuard,
+            HRScenarioMatrix,
+            HRAssetBundle,
+            HRDiffPatchEngine,
+            HRSessionMemory,
+            HRTelemetryWatchdog,
+        )
+        if args.subcmd == "probe":
+            eng = HRRuntimeEngine()
+            out = eng.probe_health()
+            emit_result(out)
+            return 0 if str(out.get("status", "")).upper() == "HEALTHY" else 1
+        elif args.subcmd == "decompile":
+            comp = HRIntentCompiler()
+            stages = comp.compile_intent(args.query)
+            out = {"stages": stages, "summary": comp.evaluate_budget_and_schedule(stages)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "heal":
+            healer = HRReflexiveHealer()
+            try:
+                res = healer.audit_redlines(args.action)
+                out = {"blocked": False, "action": args.action, "result": res}
+            except ValueError as e:
+                out = {"blocked": True, "action": args.action, "reason": str(e)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "spec":
+            ledger = HRSpecLedger()
+            out = ledger.load_spec()
+            emit_result(out)
+            return 0
+        elif args.subcmd == "slop":
+            guard = HRSlopGuard()
+            raw_text = args.text or "整体表现良好，相关细节待定，基本符合要求"
+            audit_res = guard.audit(raw_text)
+            emit_result(audit_res)
+            return 0
+        elif args.subcmd == "scenario":
+            sc = HRScenarioMatrix()
+            scenarios = sc.generate(role_title=getattr(args, "role_name", "资深架构师"), headcount=getattr(args, "headcount", 3))
+            out = {"scenarios": scenarios, "markdown_table": sc.render_markdown(scenarios)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "bundle":
+            bundle_eng = HRAssetBundle()
+            input_data = c.load_json(args.input) if getattr(args, "input", None) else None
+            paths = bundle_eng.compile_and_save(args.run_id, artifact_data=input_data)
+            emit_result({"ok": True, "run_id": args.run_id, "paths": paths})
+            return 0
+        elif args.subcmd == "patch":
+            diff_eng = HRDiffPatchEngine()
+            old_doc = json.loads(args.old) if str(args.old).strip().startswith("{") else c.load_json(args.old)
+            new_doc = json.loads(args.new) if str(args.new).strip().startswith("{") else c.load_json(args.new)
+            patch_ops = diff_eng.create_patch(old_doc, new_doc)
+            applied = diff_eng.apply_patch(old_doc, patch_ops)
+            emit_result({"patch_ops": patch_ops, "applied": applied})
+            return 0
+        elif args.subcmd == "memory":
+            mem = HRSessionMemory()
+            res = mem.disambiguate_query(args.query)
+            emit_result(res)
+            return 0
+        elif args.subcmd == "watchdog":
+            wd = HRTelemetryWatchdog()
+            out = wd.probe_health()
+            emit_result(out)
+            return 0
 
     t0 = time.time()
     result = SKILL_BY_NAME[args.skill].run(args)

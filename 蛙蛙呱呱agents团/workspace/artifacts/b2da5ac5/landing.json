@@ -1,0 +1,103 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "goal 非空",
+      "dim": "landing.goal",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "headline 非空",
+      "dim": "landing.headline",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "subhead 非空",
+      "dim": "landing.subhead",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "proof_points 非空",
+      "dim": "landing.proof_points",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "form 非空",
+      "dim": "landing.form",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "button 非空",
+      "dim": "landing.button",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "faq 非空",
+      "dim": "landing.faq",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "post_submit 非空",
+      "dim": "landing.post_submit",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "proof_points ≥3（实际 3）",
+      "dim": "landing.proof",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "技术约束 single_file_index_html=true",
+      "dim": "landing.single_file_index_html",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "技术约束 no_js_library=true",
+      "dim": "landing.no_js_library",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "技术约束 form_deliverable=true",
+      "dim": "landing.form_deliverable",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "技术约束 mobile_first=true",
+      "dim": "landing.mobile_first",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "技术约束 button_single_accent=true",
+      "dim": "landing.button_single_accent",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "max_objection 非空",
+      "dim": "landing.max_objection",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "实现工件通过全部门禁，可进入质量验证与交接",
+  "proof_count": 3,
+  "capability_status": "real",
+  "capability_evidence": "local input inspected",
+  "task_id": "b2da5ac5",
+  "skill": "landing",
+  "action": "landing"
+}

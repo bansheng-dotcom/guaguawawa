@@ -1,0 +1,1 @@
+{"trace_id": "493997669dde461c", "span_id": "23c706bcb41a47ad", "parent_span_id": null, "action": "research:probe", "timestamp": "2026-11-10T19:37:32.464", "duration_ms": 1.107, "status": "SUCCESS", "sha256_16": "8afd4d0ed177f7c1", "details": {"payload": {"tam": 120.0}}}

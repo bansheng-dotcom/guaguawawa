@@ -1,0 +1,29 @@
+{
+  "task_id": "077715e2",
+  "title": "蛙得明｜分析订单数据趋势，输出产品方案并做验收评审",
+  "owner": "r07",
+  "intent": "分析订单数据趋势，输出产品方案并做验收评审",
+  "inputs": [],
+  "outputs": [
+    {
+      "name": "prd",
+      "kind": "artifact",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "backlog",
+      "kind": "artifact",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "acceptance": [
+    "蛙得明 交付物可按端口验收"
+  ],
+  "deps": [
+    "37efbfca"
+  ],
+  "status": "failed",
+  "logs": []
+}

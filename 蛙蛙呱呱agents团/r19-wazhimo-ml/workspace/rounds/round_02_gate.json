@@ -1,0 +1,55 @@
+{
+  "round": 2,
+  "layer": "L02",
+  "stage": 1,
+  "sop_round": 1,
+  "name": "意图解构层（复合诉求 → 5 阶段 Kahn 交付 DAG + 工时预算）",
+  "audit": "意图路由只有 14 条关键词硬匹配，只能回答「调哪个技能」，答不出动几个阶段、几步、几天、谁先谁后、瓶颈在哪；无拓扑排序、无环检测。",
+  "benchmark": "stanfordnlp/dspy (>17k) · ray-project/ray (>33k) · apache/airflow (>36k)",
+  "engine_module": "engines/intent_compiler.py",
+  "capabilities": [
+    "复合诉求实体抽取 (模型/数据集/指标阈值/延迟预算/截止/风险)",
+    "5 阶段 Kahn 拓扑 DAG 编译 (stages/deps/工时/责任人/交付物)",
+    "拓扑排序 + 并行波次 + 关键路径 + 环路检测与工时预算"
+  ],
+  "capability_count": 3,
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r19-wazhimo-ml\\agent.py",
+    "evolve",
+    "decompile",
+    "--text",
+    "紧急评估客服助手模型，准确率>=0.9，P95<200ms，明天发布，500条样本",
+    "--out",
+    "workspace/rounds/L02_dag.json",
+    "--md",
+    "workspace/rounds/L02_dag.md"
+  ],
+  "probe_stdout": "{\"ok\": true, \"engine\": \"R19IntentCompiler\", \"layer\": \"L02\", \"entities\": {\"model_name\": \"\", \"dataset\": \"\", \"metric_targets\": {\"accuracy\": 0.9}, \"latency_p95_ms\": 200.0, \"deadline_hours\": null, \"sample_size\": 500, \"is_urgent\": true, \"risk_tier\": \"medium\", \"intent_text\": \"紧急评估客服助手模型，准确率>=0.9，P95<200ms，明天发布，500条样本\", \"text_length\": 41}, \"stages\": [{\"id\": \"audit\", \"name\": \"实验登记\", \"skill\": \"tracking/experiment\", \"deps\": [], \"estimated_hours\": 1.2, \"owner\": \"R19 蛙智模\", \"deliverable\": \"experiment_id + tracking_uri + 实验类型\"}, {\"id\": \"track\", \"name\": \"运行追踪\", \"skill\": \"tracking/run\", \"deps\": [\"audit\"], \"estimated_hours\": 0.8, \"owner\": \"R19 蛙智模\", \"deliverable\": \"run_id + 指标/参数/环境快照\"}, {\"id\": \"evaluate\", \"name\": \"评估评分\", \"skill\": \"evaluation/scorer\", \"deps\": [\"track\"], \"estimated_hours\": 2.1, \"owner\": \"R19 蛙智模\", \"deliverable\": \"评估集 + 评分器 + accuracy/F1 精算\"}, {\"id\": \"regression\", \"name\": \"回归验证\", \"skill\": \"release/regression\", \"deps\": [\"track\"], \"estimated_hours\": 2.0, \"owner\": \"R19 蛙智模\", \"deliverable\": \"fail-before/pass-after/existing_green 回归证据\"}, {\"id\": \"decide\", \"name\": \"发布裁决\", \"skill\": \"release/candidate\", \"deps\": [\"evaluate\", \"regression\"], \"estimated_hours\": 0.4, \"owner\": \"R19 蛙智模\", \"deliverable\": \"PASS/BLOCK/NEEDS_REVIEW 三裁决 + 证据链\"}], \"summary\": {\"is_dag_valid\": true, \"topological_sequence\": [\"audit\", \"track\", \"evaluate\", \"regression\", \"decide\"], \"waves\": [[\"audit\"], [\"track\"], [\"evaluate\", \"regression\"], [\"decide\"]], \"wave_count\": 4, \"critical_path\": [\"audit\", \"track\", \"evaluate\", \"decide\"], \"critical_path_hours\": 4.5, \"total_estimated_hours\": 6.5, \"parallel_gain_hours\": 2.0, \"stage_count\": 5, \"cycle_nodes\": [], \"unknown_deps\": []}, \"capabilities\": [\"复合诉求实体抽取 (模型/数据集/指标阈值/延迟预算/截止/风险)\", \"5 阶段 Kahn 拓扑 DAG 编译 (stages/deps/工时/责任人/交付物)\", \"拓扑排序 + 并行波次 + 关键路径 + 环路检测与工时预算\"], \"verdict\": \"PASS\", \"timestamp\": \"2026-11-10T18:18:16\", \"engine_layer\": \"L02\"}",
+  "artifacts": [
+    {
+      "path": "workspace/rounds/L02_dag.json",
+      "bytes": 2928,
+      "sha256": "ead9fba0ca3728b6bfc5c542827a0b492c5173e66bf8e75dfffd3581ac74863c"
+    },
+    {
+      "path": "workspace/rounds/L02_dag.md",
+      "bytes": 1110,
+      "sha256": "528d393a568753d04fcc942f6f3855f0ae1c774a901800e317bddaa1e7581da7"
+    }
+  ],
+  "regression": {
+    "baseline": {
+      "passed": 149,
+      "total": 149,
+      "ratio": 1.0
+    },
+    "evolution": {
+      "tests": 11,
+      "ok": true
+    },
+    "all_green": true
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:18:23"
+}

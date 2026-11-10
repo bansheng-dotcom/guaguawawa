@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "run_unit_test",
+  "exported_at": "2026-11-10T21:58:18",
+  "title": "测试文案资产",
+  "content": "测试正文长文内容",
+  "metrics": {},
+  "channels": [
+    "微信公众号",
+    "小红书笔记"
+  ],
+  "tags": [
+    "#测试",
+    "#运营"
+  ]
+}

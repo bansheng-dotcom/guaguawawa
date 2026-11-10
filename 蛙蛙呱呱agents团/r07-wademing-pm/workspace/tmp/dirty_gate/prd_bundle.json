@@ -1,0 +1,51 @@
+{
+  "schema": "pm.prd.bundle/v1",
+  "generated_at": "2026-11-10T19:36:53",
+  "role": "r07-wademing-pm",
+  "source": {
+    "artifact_uri": "examples/prd_dirty.json",
+    "prd_sha256": "40e169dde584c43551cf4ac036a83b4885c36c0475dd9a00797debd287db1643"
+  },
+  "summary": {
+    "ok": false,
+    "passed_gates": 0,
+    "total_gates": 8,
+    "checks_total": 20,
+    "checks_failed": 14,
+    "sarif_results": 14
+  },
+  "handoff": {
+    "downstream": [
+      "r08-wajiancheng-mvp",
+      "r09-wawenma-engineer",
+      "r04-watiaoci-reviewer"
+    ],
+    "contracts": {
+      "prd_bundle": "pm.prd.bundle/v1",
+      "prd_ast": "pm.prd.ast/v1",
+      "audit": "SARIF 2.1.0",
+      "chart": "vega-lite v5"
+    },
+    "notes": "下游按 artifact_manifest.json 的 sha256 做内容寻址与幂等装配"
+  },
+  "artifacts": [
+    {
+      "name": "prd_ast",
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\tmp\\dirty_gate\\prd_ast.json",
+      "sha256": "1c1a0f35c958f664ede79743bd7a15c305479909caa079d287968686e22df569",
+      "bytes": 5715
+    },
+    {
+      "name": "prd_audit_sarif",
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\tmp\\dirty_gate\\prd_audit.sarif.json",
+      "sha256": "9795b052a2806287c22643c3f3ecea9f6a6ef72298643a76b2bd7f111290eb7d",
+      "bytes": 13852
+    },
+    {
+      "name": "prd_gates_chart",
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\tmp\\dirty_gate\\prd_gates_chart.vega.json",
+      "sha256": "3d602b4d71230e10da4c97c09b0705f591f0e39164552d814506ad97b075851e",
+      "bytes": 1610
+    }
+  ]
+}

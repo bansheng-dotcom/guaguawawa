@@ -1,0 +1,31 @@
+{
+  "directions": [
+    {
+      "name": "清朗数据",
+      "palette": "#1E3A5F 深蓝为主，辅以冷灰",
+      "typography": "无衬线几何体",
+      "imagery": "数据看板插画",
+      "narrative": "以冷静的深蓝承载理性，用黄色高亮关键数据点"
+    },
+    {
+      "name": "活力增长",
+      "palette": "#FFC21A 明黄为主，辅以暖橙",
+      "typography": "圆润现代体",
+      "imagery": "折线上升插画",
+      "narrative": "以明快黄橙传递增长动能，用曲线引导视线走向"
+    },
+    {
+      "name": "可信专业",
+      "palette": "#F2E9DC 米白为主，辅以深墨",
+      "typography": "稳重的衬线标题",
+      "imagery": "极简几何图形",
+      "narrative": "以留白与秩序传达专业可信，克制而清晰"
+    }
+  ],
+  "voice": {
+    "tone": "专业而不失温度",
+    "word_choice": "准确、避免黑话",
+    "cadence": "短句为主",
+    "forbidden": "不夸大、不承诺收益"
+  }
+}

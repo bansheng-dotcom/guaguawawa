@@ -1,0 +1,10 @@
+{
+  "schema_version": "v13.0",
+  "run_id": "test_hr_bundle_001",
+  "exported_at": "2026-11-10T22:01:14.821962",
+  "role": "r16-warenshi-hr",
+  "payload": {
+    "run_id": "test_hr_bundle_001",
+    "summary": "HR 数据导出"
+  }
+}

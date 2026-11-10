@@ -1,0 +1,552 @@
+{
+  "role": "r19-wazhimo-ml",
+  "name": "R19 蛙智模 · 模型工程与 AI 评估官",
+  "sop_version": "v13.0",
+  "runner_version": "13.0",
+  "cycle": 2,
+  "current_round": 10,
+  "overall_status": "ALL_GREEN",
+  "rounds_passed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "layers_passed": [
+    "L01",
+    "L02",
+    "L03",
+    "L04",
+    "L05",
+    "L06",
+    "L07",
+    "L08",
+    "L09",
+    "L10"
+  ],
+  "history": [
+    {
+      "cycle": 2,
+      "round": 1,
+      "layer": "L01",
+      "stage": 1,
+      "sop_round": 1,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:54:21",
+      "engine_module": "engines/runtime_engine.py",
+      "capabilities": [
+        "多分类混淆矩阵 + macro/micro/weighted P/R/F1（sklearn 同口径）",
+        "Cohen's kappa / MCC / 平衡准确率（机会校正 + 不均衡鲁棒）"
+      ],
+      "capability_count": 2,
+      "artifacts": [
+        "workspace/rounds/cycle2/L01_probe2.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_01_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 2,
+      "layer": "L02",
+      "stage": 1,
+      "sop_round": 1,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:54:31",
+      "engine_module": "engines/intent_compiler.py",
+      "capabilities": [
+        "CPM 正逆推 ES/EF/LS/LF + 总浮时/自由浮时 + 近关键任务",
+        "截止期可行性裁决 + 关键路径赶工压缩建议 (crash plan)"
+      ],
+      "capability_count": 2,
+      "artifacts": [
+        "workspace/rounds/cycle2/L02_cpm.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_02_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 3,
+      "layer": "L03",
+      "stage": 1,
+      "sop_round": 1,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:54:41",
+      "engine_module": "engines/reflexive_healer.py",
+      "capabilities": [
+        "分诊式修复计划（问题→动作→责任人→严重度，阻断优先）",
+        "20 条红线回归语料自评测（召回/误报/逐码覆盖）",
+        "自愈幂等性校验（二次修复不动点）"
+      ],
+      "capability_count": 3,
+      "artifacts": [
+        "workspace/rounds/cycle2/L03_heal2.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_03_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 4,
+      "layer": "L04",
+      "stage": 2,
+      "sop_round": 2,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:54:54",
+      "engine_module": "engines/spec_ledger.py",
+      "capabilities": [
+        "账本版本差量 diff（门禁/KPI 增删改 + 阈值变更影响面）",
+        "账本自洽 Lint（重复门禁/空阈值/空公式/指纹缺失/口径漂移）"
+      ],
+      "capability_count": 2,
+      "artifacts": [
+        "workspace/rounds/cycle2/L04_spec2.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_04_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 5,
+      "layer": "L05",
+      "stage": 2,
+      "sop_round": 2,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:55:04",
+      "engine_module": "engines/slop_guard.py",
+      "capabilities": [
+        "正则族模糊限定词/英文套话检测（中英双语，非精确词）",
+        "证据密度指标（每百字可复算数字数 + 声明/证据比）"
+      ],
+      "capability_count": 2,
+      "artifacts": [
+        "workspace/rounds/cycle2/L05_slop2.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_05_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 6,
+      "layer": "L06",
+      "stage": 2,
+      "sop_round": 2,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:55:14",
+      "engine_module": "engines/scenario_matrix.py",
+      "capabilities": [
+        "TOPSIS 相对贴近度排序（向量归一 + 正负理想解）",
+        "Pareto 非支配前沿识别",
+        "Minimax Regret 最坏后悔值稳健裁决"
+      ],
+      "capability_count": 3,
+      "artifacts": [
+        "workspace/rounds/cycle2/L06_mcda2.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_06_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 7,
+      "layer": "L07",
+      "stage": 3,
+      "sop_round": 3,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:55:27",
+      "engine_module": "engines/asset_bundle.py",
+      "capabilities": [
+        "SARIF baselineState/suppressions + 规则 help/helpUri/tags",
+        "JUnit XML 导出（CI 直接消费）+ Merkle 内容寻址根",
+        "Bundle schema 自校验（必填字段/血缘完整性）"
+      ],
+      "capability_count": 3,
+      "artifacts": [
+        "workspace/rounds/cycle2/L07_bundle2.json",
+        "workspace/bundles/cycle2/ml_bundle_C2.json",
+        "workspace/bundles/cycle2/ml_junit_C2.xml"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_07_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 8,
+      "layer": "L08",
+      "stage": 3,
+      "sop_round": 3,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:55:36",
+      "engine_module": "engines/diff_patch_engine.py",
+      "capabilities": [
+        "Patch 逆运算回滚（逐 op 旧值快照 + 反向应用）",
+        "基线漂移冲突检测（逐 op 定位 index/path/reason）",
+        "Patch 压缩合并（去冗余/同路径归一 + 缩减率）"
+      ],
+      "capability_count": 3,
+      "artifacts": [
+        "workspace/rounds/cycle2/L08_patch2.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_08_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 9,
+      "layer": "L09",
+      "stage": 3,
+      "sop_round": 3,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:55:46",
+      "engine_module": "engines/session_memory.py",
+      "capabilities": [
+        "快照差量 diff（新增/删除/变更槽位）",
+        "多轮指代冲突消解（后写胜出 + provenance 溯源）",
+        "槽位 TTL 过期 + 快照 LRU 压缩"
+      ],
+      "capability_count": 3,
+      "artifacts": [
+        "workspace/rounds/cycle2/L09_memory2.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_09_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    },
+    {
+      "cycle": 2,
+      "round": 10,
+      "layer": "L10",
+      "stage": 3,
+      "sop_round": 3,
+      "status": "PASS",
+      "timestamp": "2026-11-10T18:55:57",
+      "engine_module": "engines/telemetry_watchdog.py",
+      "capabilities": [
+        "滑动窗口失败率熔断 + 半开探测配额",
+        "遥测聚合（p50/p95/p99、错误率、分 span 统计）",
+        "Trace 重建（按 trace_id 还原 span 序列与总耗时）"
+      ],
+      "capability_count": 3,
+      "artifacts": [
+        "workspace/rounds/cycle2/L10_telemetry2.json"
+      ],
+      "gate_record": "workspace\\rounds\\cycle2\\round_10_gate.json",
+      "regression": {
+        "baseline": {
+          "passed": 149,
+          "total": 149,
+          "ratio": 1.0
+        },
+        "evolution_modules": {
+          "tests.test_evolution_l01_l10": {
+            "tests": 11,
+            "ok": true
+          },
+          "tests.test_evolution_cycle2": {
+            "tests": 20,
+            "ok": true
+          }
+        },
+        "evolution": {
+          "tests": 31,
+          "ok": true,
+          "modules": 2
+        },
+        "all_green": true
+      }
+    }
+  ],
+  "sop_round_count": 3,
+  "sop_rounds": [
+    {
+      "cycle": 2,
+      "round_index": 1,
+      "stage": 1,
+      "stage_name": "执行基石阶段 (L01~L03)",
+      "layers": [
+        "L01",
+        "L02",
+        "L03"
+      ],
+      "rounds": [
+        1,
+        2,
+        3
+      ],
+      "started_at": "2026-11-10T18:54:10",
+      "finished_at": "2026-11-10T18:54:41",
+      "capability_upgrades": 7,
+      "dual_regression": "ALL_GREEN_100_PASS",
+      "status": "PASS"
+    },
+    {
+      "cycle": 2,
+      "round_index": 2,
+      "stage": 2,
+      "stage_name": "专业深度阶段 (L04~L06)",
+      "layers": [
+        "L04",
+        "L05",
+        "L06"
+      ],
+      "rounds": [
+        4,
+        5,
+        6
+      ],
+      "started_at": "2026-11-10T18:54:45",
+      "finished_at": "2026-11-10T18:55:14",
+      "capability_upgrades": 7,
+      "dual_regression": "ALL_GREEN_100_PASS",
+      "status": "PASS"
+    },
+    {
+      "cycle": 2,
+      "round_index": 3,
+      "stage": 3,
+      "stage_name": "工业交付阶段 (L07~L10)",
+      "layers": [
+        "L07",
+        "L08",
+        "L09",
+        "L10"
+      ],
+      "rounds": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "started_at": "2026-11-10T18:55:17",
+      "finished_at": "2026-11-10T18:55:57",
+      "capability_upgrades": 12,
+      "dual_regression": "ALL_GREEN_100_PASS",
+      "status": "PASS"
+    }
+  ],
+  "previous_cycles": [
+    {
+      "cycle": 1,
+      "overall_status": "ALL_GREEN",
+      "layers_passed": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05",
+        "L06",
+        "L07",
+        "L08",
+        "L09",
+        "L10"
+      ],
+      "sop_round_count": 3,
+      "archived_state": "workspace\\evolution_state_cycle1.json"
+    }
+  ],
+  "updated_at": "2026-11-10T18:55:57"
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R15-SupplyChain-Auditor",
+          "semanticVersion": "12.0.0",
+          "informationUri": "https://github.com/wawa-guagua/r15-wagongying-erp",
+          "rules": [
+            {
+              "id": "GATE-01",
+              "shortDescription": {
+                "text": "预计量守恒门禁"
+              }
+            },
+            {
+              "id": "GATE-02",
+              "shortDescription": {
+                "text": "负库存刚性拦截门禁"
+              }
+            },
+            {
+              "id": "GATE-03",
+              "shortDescription": {
+                "text": "采购超收容差门禁"
+              }
+            },
+            {
+              "id": "GATE-04",
+              "shortDescription": {
+                "text": "BOM配方有效性门禁"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2026-11-10T06:30:57.913903+00:00"
+        }
+      ],
+      "results": []
+    }
+  ]
+}

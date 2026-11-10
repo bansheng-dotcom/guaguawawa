@@ -1,0 +1,36 @@
+{
+  "round": 3,
+  "layer": "L03",
+  "stage": 1,
+  "name": "自愈反思层（Reflexion 有界重试 + 四条角色红线刚性审判）",
+  "audit": "缺字段/别名漂移直接 KeyError 崩溃；凭据、擅自回填、越界统计结论、越权资金四条红线只写在 SKILL.md 文字里，代码层零拦截。",
+  "benchmark": "noahshinn/reflexion(>3k) · microsoft/autogen(>42k) · Significant-Gravitas/AutoGPT(>165k)",
+  "engine_module": "engines/reflexive_healer.py",
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "-m",
+    "engines.reflexive_healer",
+    "--artifact",
+    "examples/connection.json",
+    "--out",
+    "workspace/rounds/L03_heal.json"
+  ],
+  "probe_stdout": "__AGENT_RESULT__ {\"ok\": true, \"healed\": {\"ok\": true, \"healed\": true, \"artifact\": {\"connection_id\": \"conn-001\", \"source_connector\": \"source-postgres\", \"destination_connector\": \"destination-snowflake\", \"owner\": \"蛙数仓（R18）\", \"gate_version\": \"DATAENG-SPEC v1.0\", \"handoff\": \"R01 人工审批（高风险动作）\", \"rollback\": \"回滚到上一版 dbt manifest / 上一批次分区快照\", \"checks\": []}, \"filled\": [\"owner\", \"gate_version\", \"handoff\", \"rollback\", \"checks\"], \"mapped\": [], \"missing\": [], \"reflections\": [{\"dim\": \"skeleton\", \"issue\": \"缺 owner\", \"fix\": \"补齐骨架字段 owner（元信息，不含数字）\"}, {\"dim\": \"skeleton\", \"issue\": \"缺 gate_version\", \"fix\": \"补齐骨架字段 gate_version（元信息，不含数字）\"}, {\"dim\": \"skeleton\", \"issue\": \"缺 handoff\", \"fix\": \"补齐骨架字段 handoff（元信息，不含数字）\"}, {\"dim\": \"skeleton\", \"issue\": \"缺 rollback\", \"fix\": \"补齐骨架字段 rollback（元信息，不含数字）\"}, {\"dim\": \"skeleton\", \"issue\": \"缺 checks\", \"fix\": \"补齐骨架字段 checks（元信息，不含数字）\"}], \"needs_revalidation\": true}, \"out\": \"workspace/rounds/L03_heal.json\"}",
+  "artifact": {
+    "path": "workspace/rounds/L03_heal.json",
+    "bytes": 1297,
+    "sha256": "e38c4f1bc8ac7f7809f5e00c69c60870fe9c5db6ce93f632317bc417b029400c"
+  },
+  "regression": {
+    "baseline": {
+      "passed": 133,
+      "total": 133
+    },
+    "evolution": {
+      "tests": 75,
+      "ok": true
+    }
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:30:42"
+}

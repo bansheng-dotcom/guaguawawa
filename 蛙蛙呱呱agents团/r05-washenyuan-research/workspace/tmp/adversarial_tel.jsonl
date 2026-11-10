@@ -1,0 +1,2 @@
+{"trace_id": "791fbf4753ca4e5e", "span_id": "6ab58a1e14e44a51", "parent_span_id": "d5f446cb965b4ef0", "action": "inner", "timestamp": "2026-11-10T19:38:10.976", "duration_ms": 0.002, "status": "SUCCESS", "sha256_16": "c9c8e4e6e918f06a", "details": {"payload": {"k": 1}}}
+{"trace_id": "791fbf4753ca4e5e", "span_id": "d5f446cb965b4ef0", "parent_span_id": null, "action": "outer", "timestamp": "2026-11-10T19:38:10.976", "duration_ms": 0.769, "status": "SUCCESS", "sha256_16": "d74c9bc25209d808", "details": {"payload": null}}

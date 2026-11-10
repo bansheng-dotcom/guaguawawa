@@ -48,13 +48,16 @@ def review_packet(packet: Dict[str, Any]) -> Dict[str, Any]:
     issues: List[str] = []
 
     # 1. contract（T6）
+    # L10 硬教训：这里是历史 fail-open 点（except → contracted=True 把校验器崩溃
+    # 伪装成「契约符合」）。改为 fail-closed：契约无法确认即视为不符，由人类复核。
     contracted = True
     if skill and action:
         try:
             import contracts
             contracted = contracts.validate_output(skill, action, result)["ok"]
-        except Exception:
-            contracted = True
+        except Exception as exc:  # noqa: BLE001 - 契约校验器故障必须阻断而非放行
+            contracted = False
+            issues.append(f"契约校验器异常（fail-closed）：{exc}")
     if not contracted:
         issues.append("契约不符（JSON Schema）")
     checks.append(c.ck(contracted, "契约符合（JSON Schema）", "review:contract"))

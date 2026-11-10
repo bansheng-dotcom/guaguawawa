@@ -19,13 +19,27 @@
 """
 from __future__ import annotations
 
-# --- 运行时引导（META-001 Stage 3）：仓库根入 sys.path，修掉异构 cwd 下 ---
-# --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
+# --- 运行时引导（META-001 Stage 3）：统一安全引导，注入 sys.path 与 utf-8 编码 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+
+if hasattr(_sys.stdout, "reconfigure"):
+    try:
+        _sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+if hasattr(_sys.stderr, "reconfigure"):
+    try:
+        _sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_HERE)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in (_HERE, _AGENTS, _REPO_ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 
 import argparse
@@ -44,6 +58,7 @@ for _p in (_HERE, _AGENTS):
         sys.path.insert(0, _p)
 
 from core import protocol, registry, workspace  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
@@ -97,6 +112,7 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例实现工件（slice/scaffold/landing/prototype）")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
     _register_harness(sp)
     _register_contract(sp)
@@ -104,6 +120,21 @@ def build_parser() -> argparse.ArgumentParser:
     _register_review(sp)
     la = sp.add_parser("local-check", help="本地项目文件/骨架验收")
     la.add_argument("--input", required=True)
+
+    ev_p = sp.add_parser("evolve", help="十维演进元模型引擎调度 (L01~L10)")
+    ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
+    ev_sub.add_parser("probe", help="L01: 探测引擎健康状态")
+    dec_p = ev_sub.add_parser("decompile", help="L02: 意图解构与DAG编排")
+    dec_p.add_argument("--query", required=True, help="交付诉求自然语言")
+    heal_p = ev_sub.add_parser("heal", help="L03: 自愈反思与红线审判")
+    heal_p.add_argument("--type", default="mvp", dest="heal_type")
+    heal_p.add_argument("--input", required=True)
+    spec_p = ev_sub.add_parser("spec-tokens", help="L04: 领域规格与令牌导出")
+    spec_p.add_argument("--format", default="css", choices=["css", "flutter", "json"])
+    slop_p = ev_sub.add_parser("slopguard", help="L05: 原型质感去劣与占位驱除")
+    slop_p.add_argument("--text", required=True)
+    scen_p = ev_sub.add_parser("scenario", help="L06: 裂变横向决策看板")
+    scen_p.add_argument("--project", default="MVP交付项目")
 
     for m in SKILLS:
         m.add_parser(sp)
@@ -242,6 +273,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -295,7 +335,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return "slice", "mvp", {}
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -390,6 +431,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "local-check":
         from local_actions import inspect_scaffold
         source = c.load_json(args.input)
@@ -412,6 +455,48 @@ def main() -> int:
         out = _run_review(args)
         emit_result(out)
         return 0 if out["verdict"] == "PASS" else 1
+    if args.skill == "evolve":
+        from engines import (
+            PrototypeRuntimeEngine,
+            IntentCompiler,
+            PrototypeReflexiveHealer,
+        )
+        if args.subcmd == "probe":
+            eng = PrototypeRuntimeEngine()
+            out = eng.probe_health()
+            emit_result(out)
+            return 0 if out.get("status") == "healthy" else 1
+        elif args.subcmd == "decompile":
+            comp = IntentCompiler()
+            out = comp.decompile(args.query)
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "heal":
+            healer = PrototypeReflexiveHealer()
+            in_data = c.load_json(args.input)
+            out = healer.audit_and_heal(args.heal_type, in_data)
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "spec-tokens":
+            from engines.tech_spec_ledger import TechSpecLedger
+            ledger = TechSpecLedger()
+            if args.format == "css":
+                emit_result({"css": ledger.export_css_variables()})
+            elif args.format == "flutter":
+                emit_result({"flutter": ledger.export_flutter_theme()})
+            else:
+                emit_result(ledger.load_spec())
+            return 0
+        elif args.subcmd == "slopguard":
+            from engines.prototype_slop_guard import PrototypeSlopGuard
+            guard = PrototypeSlopGuard()
+            emit_result(guard.audit_text(args.text))
+            return 0
+        elif args.subcmd == "scenario":
+            from engines.scenario_matrix import ScenarioMatrix
+            mat = ScenarioMatrix()
+            emit_result(mat.generate_matrix(args.project))
+            return 0
 
     t0 = time.time()
     result = SKILL_BY_NAME[args.skill].run(args)

@@ -1,0 +1,335 @@
+{
+  "mode": "compile",
+  "summary": {
+    "cases": 20,
+    "route": 13,
+    "clarify": 7,
+    "silent_default": 0,
+    "expect_match": 20,
+    "bare_clarify": 0,
+    "confidence_values": [
+      0.0,
+      1.0
+    ]
+  },
+  "results": [
+    {
+      "id": "r16-01",
+      "role": "r16",
+      "intent": "帮我招个人",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r16-02",
+      "role": "r16",
+      "intent": "看看团队状态",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r16-03",
+      "role": "r16",
+      "intent": "这个怎么办",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r16-04",
+      "role": "r16",
+      "intent": "这个月请假",
+      "expect": "route",
+      "expect_action": "attendance.leave",
+      "actual": "attendance.leave",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-05",
+      "role": "r16",
+      "intent": "统计一下考勤",
+      "expect": "route",
+      "expect_action": "attendance.attendance",
+      "actual": "attendance.attendance",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "time_window"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-06",
+      "role": "r16",
+      "intent": "算这个月的工资",
+      "expect": "route",
+      "expect_action": "payroll.calc",
+      "actual": "payroll.calc",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-07",
+      "role": "r16",
+      "intent": "部门绩效评估",
+      "expect": "route",
+      "expect_action": "performance.appraisal",
+      "actual": "performance.appraisal",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-08",
+      "role": "r16",
+      "intent": "提交报销",
+      "expect": "route",
+      "expect_action": "expense.claim",
+      "actual": "expense.claim",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "time_window"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-09",
+      "role": "r16",
+      "intent": "拉个部门花名册",
+      "expect": "route",
+      "expect_action": "report.headcount",
+      "actual": "report.headcount",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-10",
+      "role": "r16",
+      "intent": "给部门发候选人名单",
+      "expect": "route",
+      "expect_action": "recruit.offer",
+      "actual": "recruit.offer",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-11",
+      "role": "r16",
+      "intent": "按部门筛选简历",
+      "expect": "route",
+      "expect_action": "recruit.applicant",
+      "actual": "recruit.applicant",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-12",
+      "role": "r16",
+      "intent": "目标设定怎么弄",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dimension"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r16-13",
+      "role": "r16",
+      "intent": "这个月打算请两天年假",
+      "expect": "route",
+      "expect_action": "attendance.leave",
+      "actual": "attendance.leave",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-14",
+      "role": "r16",
+      "intent": "上个月的打卡记录帮我统计一下",
+      "expect": "route",
+      "expect_action": "attendance.attendance",
+      "actual": "attendance.attendance",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-15",
+      "role": "r16",
+      "intent": "月底了，这个月的工资要核算出来发给大家",
+      "expect": "route",
+      "expect_action": "payroll.calc",
+      "actual": "payroll.calc",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-16",
+      "role": "r16",
+      "intent": "季度末给部门同事做一次绩效评估",
+      "expect": "route",
+      "expect_action": "performance.appraisal",
+      "actual": "performance.appraisal",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-17",
+      "role": "r16",
+      "intent": "上个月出差的费用还没报，帮我提交报销",
+      "expect": "route",
+      "expect_action": "expense.claim",
+      "actual": "expense.claim",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r16-18",
+      "role": "r16",
+      "intent": "团队最近缺人，得想想怎么补",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r16-19",
+      "role": "r16",
+      "intent": "最近团队氛围不太对，你先看看",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r16-20",
+      "role": "r16",
+      "intent": "OKR 该怎么定，我还没头绪",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dimension"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    }
+  ]
+}

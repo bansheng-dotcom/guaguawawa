@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "rb",
+  "version": 4,
+  "slots": {
+    "sla_hours": 2
+  },
+  "active": {
+    "sla_hours": 2
+  },
+  "history": [],
+  "snapshots": {
+    "before": {
+      "version": 1,
+      "captured_at": "2026-11-10T22:01:19",
+      "slots": {
+        "sla_hours": 2
+      },
+      "active": {
+        "sla_hours": 2
+      }
+    }
+  },
+  "matrix": {},
+  "updated_at": "2026-11-10T22:01:19",
+  "active_sla_hours": 2
+}

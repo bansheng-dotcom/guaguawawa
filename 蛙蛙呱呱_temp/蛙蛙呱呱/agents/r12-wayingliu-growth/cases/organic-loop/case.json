@@ -1,8 +1,0 @@
-{
-  "case_id": "organic-loop",
-  "display_name": "自然获客循环",
-  "description": "给一人公司建立不依赖付费投放的自然获客循环：增长飞轮五环闭环、内容获客渠道白名单、红人合作与推荐机制，最终产出可持续的 channel_assets。",
-  "default_question": "帮我搭一套自然获客的增长循环。",
-  "semantic_layer": "semantic_layer.json",
-  "experience_dir": "experience"
-}

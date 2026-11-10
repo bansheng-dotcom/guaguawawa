@@ -12,17 +12,29 @@
 | ③ 可视化/实现 | R08 蛙建成（MVP/可视化） | HTML 方案报告 / 落地页 | `html_report` |
 | ④ 评审 | R04 蛙挑刺（评审官） | pass/fail + 门禁复核 | `critique_report` |
 
-## 编排（R01 的 run_task 路由）
+## 编排（R01 的 plan / run）
 
+```bash
+# 1) 生成任务卡：命中「营收/收入/利润 + 最大化/优化/提升」时走四段场景链
+python r01-waquanju-ceo/agent.py plan --intent "停车场一年营收最大化"
+# → {"planned": 4, "owners": ["r07", "r06", "r08", "r04"]}
+
+# 2) 按依赖执行：自动交接上游产物 + 逐卡验收
+python r01-waquanju-ceo/agent.py run --all
+# 或单卡执行（owner 非 r01 时自动转发给对应角色）
+python r01-waquanju-ceo/agent.py run --task <task_id>
 ```
-意图「停车场一年营收最大化」
-  → R01 拆解：
-      1. R07 出策略假设（定价/套餐/时段/会员）
-      2. R06 用历史数据 + A/B 验证假设 → 产出 analysis_material_pack
-      3. R08 组装成 HTML 方案报告
-      4. R04 复核门禁
-  → 产物回 workspace/artifacts/{task_id}/
-```
+
+| 机制 | 行为 |
+|---|---|
+| `plan` | 普通意图按 `skills/s02_decompose.py::ROUTE_MATRIX` 关键词矩阵打分，按命中数排成依赖链；命中业务优化场景时改用 R07→R06→R08→R04 四段链，并为每段挂 `examples/` 示例输入，保证可直接 `run` 演示 |
+| `run --all` | 只执行 `deps` 全部 done 的待办卡；执行前 `_hydrate_inputs` 把上游产物目录（`artifacts/{id}`、`artifacts/run-{id}`）里的 json/md/html/csv/txt 追加进下游 `inputs` |
+| 显式输入优先 | 任务卡已用 `note="input=<path>"` 钉住输入时不再自动追加，避免上游文件抢在显式输入前面 |
+| 状态判定 | 子进程退出码不可靠（缺输入/需澄清时可能仍为 0），编排器以任务卡最终 `status` 为准；failed 会阻断下游依赖 |
+| 验收 | 每张 done 卡独立跑 `verify_task`，产物存在即通过 |
+| 异构交接边界 | 自动交接只“搬文件”，不转换 schema。评审判据包、PRD→实现规格这类结构化交接，需要在任务卡里显式提供，或由适配器转换（示例链中 R04 用 `examples/criteria_review.json` 做外置判据演示） |
+
+端到端实战演示（不依赖 LLM、确定性产出 HTML）：`python scripts/run_parking_lot_case.py`。
 
 ## 关键约束
 

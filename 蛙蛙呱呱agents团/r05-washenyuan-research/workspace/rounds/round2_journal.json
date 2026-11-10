@@ -1,0 +1,301 @@
+{
+  "round": 2,
+  "title": "专业深度阶段 (L04~L06)",
+  "started_at": "2026-11-10T19:36:53",
+  "steps": {
+    "audit": {
+      "round": 2,
+      "stage": 2,
+      "title": "专业深度阶段 (L04~L06)",
+      "timestamp": "2026-11-10T19:36:53",
+      "method": "静态扫描 engines/ 与 RESEARCH_SPEC.md 真实工件，逐层定位断点（非套模板）",
+      "breakpoints": [
+        {
+          "layer": "L04",
+          "file": "engines/ledger.py",
+          "severity": "high",
+          "finding": "RESEARCH_SPEC.md 是纯散文；ledger.py 的 HHI/TAM 方差/证据等级阈值全部硬编码在 Python 字典里，改文档不影响运行；没有 8 维发布门禁，也没有可落盘的 spec 快照，多轮/多 Agent 口径必然漂移。"
+        },
+        {
+          "layer": "L05",
+          "file": "engines/slop_guard.py",
+          "severity": "high",
+          "finding": "只有 5 条正则与按次扣 10 分的粗评分；没有量化证据密度、行动力与 A/B/C/D 分级；无法阻断'相关细节待定'占位与无 DRI 的报告，清洗后也不校验是否仍有硬伤。"
+        },
+        {
+          "layer": "L06",
+          "file": "engines/scenario_matrix.py",
+          "severity": "medium",
+          "finding": "三档情景的服务份额/可获份额/毛利率全部写死；没有 MCDA 权重、ROI 矩阵、评分排序与推荐结论，人类拿到的是三张静态数字表，无法横向权衡。"
+        }
+      ],
+      "scanned_files": [
+        {
+          "layer": "L04",
+          "file": "engines/ledger.py",
+          "exists": true,
+          "path": "engines/ledger.py",
+          "bytes": 2443,
+          "sha256": "876ce9f8532b8c23e9a11af66219083dd76343af13462fc02d762b31bb6ab4cd",
+          "line_count": 66
+        },
+        {
+          "layer": "L05",
+          "file": "engines/slop_guard.py",
+          "exists": true,
+          "path": "engines/slop_guard.py",
+          "bytes": 8491,
+          "sha256": "6f11ed70c4214deb460160dd53cfdd28c86bf1fa6d133a37aba49097c407fc04",
+          "line_count": 178
+        },
+        {
+          "layer": "L06",
+          "file": "engines/scenario_matrix.py",
+          "exists": true,
+          "path": "engines/scenario_matrix.py",
+          "bytes": 11771,
+          "sha256": "aef2c55d584d709925a0d01dc251b54090f941e0c4ee35dad684315944e2522d",
+          "line_count": 241
+        }
+      ],
+      "hard_gate": "无体检结论禁止进入步骤 2"
+    },
+    "benchmark": {
+      "round": 2,
+      "timestamp": "2026-11-10T19:36:53",
+      "benchmarks": [
+        {
+          "project": "dbt-labs/dbt-core",
+          "stars": 9500,
+          "url": "https://github.com/dbt-labs/dbt-core",
+          "absorbed": "语义层单一信任源（SSOT）：指标与阈值集中声明、机器可读消费"
+        },
+        {
+          "project": "great-expectations/great_expectations",
+          "stars": 9800,
+          "url": "https://github.com/great-expectations/great_expectations",
+          "absorbed": "声明式 Expectation Suite + 加权门禁评分"
+        },
+        {
+          "project": "errata-ai/vale",
+          "stars": 4500,
+          "url": "https://github.com/errata-ai/vale",
+          "absorbed": "词库驱动 Lint：告警分级、可配置规则与退出码"
+        },
+        {
+          "project": "reviewdog/reviewdog",
+          "stars": 7500,
+          "url": "https://github.com/reviewdog/reviewdog",
+          "absorbed": "门禁式审查结果回写（阻断/建议分级）"
+        },
+        {
+          "project": "apache/superset",
+          "stars": 62000,
+          "url": "https://github.com/apache/superset",
+          "absorbed": "多维评分决策看板与 ROI 可视化矩阵"
+        },
+        {
+          "project": "vega/vega-lite",
+          "stars": 4600,
+          "url": "https://github.com/vega/vega-lite",
+          "absorbed": "声明式图表描述（下游 R06 直接渲染）"
+        }
+      ],
+      "absorbed_mechanisms": [
+        "语义层单一信任源（SSOT）：指标与阈值集中声明、机器可读消费",
+        "声明式 Expectation Suite + 加权门禁评分",
+        "词库驱动 Lint：告警分级、可配置规则与退出码",
+        "门禁式审查结果回写（阻断/建议分级）",
+        "多维评分决策看板与 ROI 可视化矩阵",
+        "声明式图表描述（下游 R06 直接渲染）"
+      ],
+      "policy": "每个标杆必须说明被吸收的具体机制，禁止只贴 star 数"
+    },
+    "upgrade": {
+      "upgrades": [
+        {
+          "layer": "L04",
+          "item": "RESEARCH_SPEC.md v2.0.0 内置 ```json 机器可读 SSOT 块（version/tam_variance_max/hhi/evidence_tiers/north_star/8 gates）",
+          "file": "RESEARCH_SPEC.md"
+        },
+        {
+          "layer": "L04",
+          "item": "ResearchSpecLedger：动态解析 SSOT（非硬编码）、8 维加权门禁 evaluate()、export_json() 快照",
+          "file": "engines/spec_ledger.py"
+        },
+        {
+          "layer": "L05",
+          "item": "SlopGuard v2：40+ 套话词库、证据密度/行动力/等级评分、占位与无证据阻断、DRI 强制注入",
+          "file": "engines/slop_guard.py"
+        },
+        {
+          "layer": "L06",
+          "item": "ScenarioMatrix v2：MCDA 四维权重（和=1）、ROI 矩阵、评分排序与推荐情景、输入驱动份额",
+          "file": "engines/scenario_matrix.py"
+        }
+      ],
+      "probes": [
+        {
+          "id": "L04.machine_readable_spec",
+          "ok": true,
+          "detail": "version=2.0.0, tam_var=0.3"
+        },
+        {
+          "id": "L04.eight_weighted_gates",
+          "ok": true,
+          "detail": "evidence_coverage,tier0_free,tam_convergence,hhi_declared,scenario_three,redline_clean,slop_score,bundle_manifest"
+        },
+        {
+          "id": "L04.spec_snapshot_export",
+          "ok": true,
+          "detail": "workspace/tmp/layer_probe/l04_spec_snapshot.json"
+        },
+        {
+          "id": "L05.quality_dimensions",
+          "ok": true,
+          "detail": "score=90.0, grade=A"
+        },
+        {
+          "id": "L05.enforce_blocks_placeholder",
+          "ok": true,
+          "detail": "PENDING_PLACEHOLDER,NO_QUANTIFIED_EVIDENCE"
+        },
+        {
+          "id": "L06.mcda_roi_matrix",
+          "ok": true,
+          "detail": "recommended=乐观突击型 (Upside)"
+        },
+        {
+          "id": "L06.ranking",
+          "ok": true,
+          "detail": "乐观突击型 (Upside) → 基准稳健型 (Base) → 保守防御型 (Downside)"
+        }
+      ]
+    },
+    "artifacts": {
+      "cli": [
+        {
+          "argv": [
+            "D:\\anaconda3\\python.exe",
+            "agent.py",
+            "evolution",
+            "slopguard",
+            "--text",
+            "市场整体良好，相关细节待定。",
+            "--polish"
+          ],
+          "returncode": 0,
+          "stdout": "__AGENT_RESULT__ {\"ok\": true, \"score\": 84.0, \"audit\": {\"score\": 84.0, \"is_clean\": false, \"findings_count\": 2, \"findings\": [{\"pattern\": \"整体良好\", \"count\": 1, \"samples\": [\"整体良好\"], \"replacement\": \"核心指标同比保持增长\"}, {\"pattern\": \"相关细节待定\", \"count\": 1, \"samples\": [\"相关细节待定\"], \"replacement\": \"相关细节将在下一里程碑补齐量化口径\"}], \"slop_hits\": 2, \"quantified_mentions\": 0, \"evidence_density\": 0.0, \"actionability\": 20.0, \"grade\": \"B\"}, \"polished_text\": \"市场核心指标同比保持增长，相关细节将在下一里程碑补齐量化口径。\", \"replaced_count\": 2, \"quality_ok\": false, \"blocking_issues\": [\"PENDING_PLACEHOLDER\", \"NO_QUANTIFIED_EVIDENCE\"], \"dri\": \"蛙深远\"}\n",
+          "stderr": "",
+          "duration_sec": 0.213
+        },
+        {
+          "argv": [
+            "D:\\anaconda3\\python.exe",
+            "agent.py",
+            "evolution",
+            "explore",
+            "--output",
+            "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r05-washenyuan-research\\artifacts\\evolve\\round2\\cli_scenario_board.md"
+          ],
+          "returncode": 0,
+          "stdout": "__AGENT_RESULT__ {\"ok\": true, \"matrix\": {\"scenarios\": [{\"id\": \"scenario_conservative\", \"name\": \"保守防御型 (Downside)\", \"assumption\": \"宏观承压、大厂挤压、获客转化取行业低位\", \"serviceable_fraction\": 0.25, \"obtainable_share\": 0.03, \"tam\": 96.0, \"sam\": 24.0, \"som\": 0.72, \"target_margin\": \"60%\", \"action_priority\": \"控制研发开支，聚焦高价值粘性 KA 客户\", \"roi\": 191.26, \"ltv_cac_ratio\": 34.95, \"payback_months\": 4.12, \"cost_score\": 76.25, \"speed_score\": 83.52, \"dimension_scores\": {\"market_upside\": 5.13, \"margin\": 70.0, \"cost_risk\": 76.25, \"speed\": 83.52}, \"score\": 50.57}, {\"id\": \"scenario_benchmark\", \"name\": \"基准稳健型 (Base)\", \"assumption\": \"行业正常增速发展，保持差异化产品力\", \"serviceable_fraction\": 0.4, \"obtainable_share\": 0.08, \"tam\": 120.0, \"sam\": 48.0, \"som\": 3.84, \"target_margin\": \"75%\", \"action_priority\": \"推进 MVP 快速验证，平衡 LTV/CAC 在 3.0 以上\", \"roi\": 177.78, \"ltv_cac_ratio\": 33.33, \"payback_months\": 4.32, \"cost_score\": 75.0, \"speed_score\": 82.72, \"dimension_scores\": {\"market_upside\": 27.35, \"margin\": 75.0, \"cost_risk\": 75.0, \"speed\": 82.72}, \"score\": 59.48}, {\"id\": \"scenario_aggressive\", \"name\": \"乐观突击型 (Upside)\", \"assumption\": \"迎来技术红利或网络效应爆发，产品快速出圈\", \"serviceable_fraction\": 0.6, \"obtainable_share\": 0.15, \"tam\": 156.0, \"sam\": 93.6, \"som\": 14.04, \"target_margin\": \"85%\", \"action_priority\": \"扩大渠道投放，建立生态壁垒加速规模化\", \"roi\": 160.87, \"ltv_cac_ratio\": 31.3, \"payback_months\": 4.6, \"cost_score\": 73.75, \"speed_score\": 81.6, \"dimension_scores\": {\"market_upside\": 100.0, \"margin\": 80.0, \"cost_risk\": 73.75, \"speed\": 81.6}, \"score\": 85.99}], \"weights\": {\"market_upside\": 0.35, \"margin\": 0.3, \"cost_risk\": 0.2, \"speed\": 0.15}, \"ranking\": [{\"name\": \"乐观突击型 (Upside)\", \"score\": 85.99, \"roi\": 160.87}, {\"name\": \"基准稳健型 (Base)\", \"score\": 59.48, \"roi\": 177.78}, {\"name\": \"保守防御型 (Downside)\", \"score\": 50.57, \"roi\": 191.26}], \"recommended\": \"乐观突击型 (Upside)\", \"board_markdown\": \"# 战略研究三维情景横向比选看板 (Strategic Scenario Matrix)\\n\\n| 决策维度 | 保守防御型 (Downside) | 基准稳健型 (Base) | 乐观突击型 (Upside) |\\n| :--- | :--- | :--- | :--- |\\n| **前置假设** | 宏观承压、大厂挤压、获客转化取行业低位 | 行业正常增速发展，保持差异化产品力 | 迎来技术红利或网络效应爆发，产品快速出圈 |\\n| **测算 TAM** | 96.0 亿 | 120.0 亿 | 156.0 亿 |\\n| **服务 SAM** | 24.0 亿 | 48.0 亿 | 93.6 亿 |\\n| **可获 SOM** | 0.72 亿 | 3.84 亿 | 14.04 亿 |\\n| **可获份额** | 3.00% | 8.00% | 15.00% |\\n| **毛利率预期** | 60% | 75% | 85% |\\n| **ROI（%）** | 191.26% | 177.78% | 160.87% |\\n| **LTV / CAC（倍）** | 34.95× | 33.33× | 31.30× |\\n| **回收期（月）** | 4.12 个月 | 4.32 个月 | 4.60 个月 |\\n| **MCDA 综合评分（0~100）** | 50.57 | 59.48 | 85.99 |\\n| **首选推进动作** | 控制研发开支，聚焦高价值粘性 KA 客户 | 推进 MVP 快速验证，平衡 LTV/CAC 在 3.0 以上 | 扩大渠道投放，建立生态壁垒加速规模化 |\\n\\n## 多维 ROI 权衡矩阵\\n\\n| MCDA 维度 | 权重 | 保守防御型 (Downside) | 基准稳健型 (Base) | 乐观突击型 (Upside) |\\n| :--- | :---: | :---: | :---: | :---: |\\n| 市场空间 (market_upside) | 35% | 5.13 | 27.35 | 100.00 |\\n| 毛利质量 (margin) | 30% | 70.00 | 75.00 | 80.00 |\\n| 成本韧性 (cost_risk) | 20% | 76.25 | 75.00 | 73.75 |\\n| 回收速度 (speed) | 15% | 83.52 | 82.72 | 81.60 |\\n| **加权综合评分** | 100% | 50.57 | 59.48 | 85.99 |\\n\\n> **推荐结论**：综合 MCDA 加权评分，推荐【乐观突击型 (Upside)】作为首选情景；横向排序为：乐观突击型 (Upside)（85.99 分 / ROI 160.87%） → 基准稳健型 (Base)（59.48 分 / ROI 177.78%） → 保守防御型 (Downside)（50.57 分 / ROI 191.26%）。\\n> **R05 研报权衡建议**：不替决策层直接拍板。以推荐情景作为资源配置主路径，同时保留保守情景止损线与乐观情景加速探针，按季度用真实 CAC（当前测算口径 max 约 345.00 元）复算 ROI 并滚动修正。\"}, \"output\": \"D:\\\\蛙蛙呱呱\\\\蛙蛙呱呱agents团\\\\r05-washenyuan-research\\\\artifacts\\\\evolve\\\\round2\\\\cli_scenario_board.md\"}\n",
+          "stderr": "",
+          "duration_sec": 0.205
+        }
+      ],
+      "manifest": {
+        "round": 2,
+        "generated_at": "2026-11-10T19:36:53",
+        "cli_commands": [
+          {
+            "argv": [
+              "D:\\anaconda3\\python.exe",
+              "agent.py",
+              "evolution",
+              "slopguard",
+              "--text",
+              "市场整体良好，相关细节待定。",
+              "--polish"
+            ],
+            "returncode": 0,
+            "duration_sec": 0.213
+          },
+          {
+            "argv": [
+              "D:\\anaconda3\\python.exe",
+              "agent.py",
+              "evolution",
+              "explore",
+              "--output",
+              "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r05-washenyuan-research\\artifacts\\evolve\\round2\\cli_scenario_board.md"
+            ],
+            "returncode": 0,
+            "duration_sec": 0.205
+          }
+        ],
+        "artifacts": [
+          {
+            "path": "artifacts/evolve/round2/l04_spec_snapshot.json",
+            "bytes": 2736,
+            "sha256": "d230a531379af7f919d3dfe935c6758d46f207d6e58c594d604fd581d1ae5c53"
+          },
+          {
+            "path": "artifacts/evolve/round2/l04_gate_evaluate.json",
+            "bytes": 3922,
+            "sha256": "6568261c5e7d274b36ca7f5ac2153ad04091902ae4aa677833256220da634514"
+          },
+          {
+            "path": "artifacts/evolve/round2/l05_slop_enforce.json",
+            "bytes": 504,
+            "sha256": "8682d40c805f3296c7ab3123f989e81e764fc9c4ea9e7221d2e28ef935e01c37"
+          },
+          {
+            "path": "artifacts/evolve/round2/l06_scenario_matrix.json",
+            "bytes": 4863,
+            "sha256": "99be7a5678b2726b6c595f90eca26eaff6637b5fcc33a71cad122199ffab1d62"
+          },
+          {
+            "path": "artifacts/evolve/round2/l06_scenario_board.md",
+            "bytes": 2134,
+            "sha256": "71983d38b834330dc0a547d0e658006348a54507386c5161c2c57977cd897aca"
+          }
+        ]
+      }
+    },
+    "regression": {
+      "ok": true,
+      "tracks": {
+        "baseline_63": {
+          "returncode": 0,
+          "tests": 63,
+          "status": "PASS",
+          "tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"top_down 含 3 个互斥分项\", \"dim\": \"sizing:components\", \"sev\": \"OK\", \"components\": 3}, {\"ok\": true, \"msg\": \"bottom_up.customer_count=200\", \"dim\": \"sizing:bottom_up\", \"sev\": \"OK\", \"field\": \"customer_count\"}, {\"ok\": true, \"msg\": \"bottom_up.addressable_fraction=0.5\", \"dim\": \"sizing:bottom_up\", \"sev\": \"OK\", \"field\": \"addressable_fraction\"}, {\"ok\": true, \"msg\": \"bottom_up.annual_quantity=1\", \"dim\": \"sizing:bottom_up\", \"sev\": \"OK\", \"field\": \"annual_quantity\"}, {\"ok\": true, \"msg\": \"bottom_up.price_per_unit=1.2\", \"dim\": \"sizing:bottom_up\", \"sev\": \"OK\", \"field\": \"price_per_unit\"}, {\"ok\": true, \"msg\": \"addressable_fraction=0.5 在 [0,1]\", \"dim\": \"sizing:fraction_range\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"双口径方差 0.0 在容差内（<0.3）\", \"dim\": \"sizing:variance\", \"sev\": \"OK\", \"variance\": 0.0}, {\"ok\": true, \"msg\": \"scenario 'downside'：SAM=36.0 SOM=1.8\", \"dim\": \"sizing:scenario\", \"sev\": \"OK\", \"scenario\": \"downside\"}, {\"ok\": true, \"msg\": \"scenario 'base'：SAM=48.0 SOM=4.8\", \"dim\": \"sizing:scenario\", \"sev\": \"OK\", \"scenario\": \"base\"}, {\"ok\": true, \"msg\": \"scenario 'upside'：SAM=60.0 SOM=9.0\", \"dim\": \"sizing:scenario\", \"sev\": \"OK\", \"scenario\": \"upside\"}], \"tam\": 120.0, \"tam_top\": 120.0, \"tam_bottom\": 120.0, \"variance\": 0.0, \"by_scenario\": [{\"scenario\": \"downside\", \"serviceable_fraction\": 0.3, \"obtainable_share\": 0.05, \"sam\": 36.0, \"som\": 1.8}, {\"scenario\": \"base\", \"serviceable_fraction\": 0.4, \"obtainable_share\": 0.1, \"sam\": 48.0, \"som\": 4.8}, {\"scenario\": \"upside\", \"serviceable_fraction\": 0.5, \"obtainable_share\": 0.15, \"sam\": 60.0, \"som\": 9.0}], \"verdict\": \"PASS\", \"next\": \"市场规模测算双口径互证通过\"}\n__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"scenario '巨头碾压' risk_score=9 tier=critical\", \"dim\": \"scenario:risk_score\", \"sev\": \"OK\", \"scenario\": \"巨头碾压\", \"risk_score\": 9}, {\"ok\": true, \"msg\": \"scenario '预算冻结' risk_score=4 tier=medium\", \"dim\": \"scenario:risk_score\", \"sev\": \"OK\", \"scenario\": \"预算冻结\", \"risk_score\": 4}, {\"ok\": true, \"msg\": \"scenario '合规收紧' risk_score=2 tier=low\", \"dim\": \"scenario:risk_score\", \"sev\": \"OK\", \"scenario\": \"合规收紧\", \"risk_score\": 2}], \"scenario_count\": 3, \"risk_ranking\": [{\"scenario\": \"巨头碾压\", \"risk_score\": 9, \"risk_tier\": \"critical\"}, {\"scenario\": \"预算冻结\", \"risk_score\": 4, \"risk_tier\": \"medium\"}, {\"scenario\": \"合规收紧\", \"risk_score\": 2, \"risk_tier\": \"low\"}], \"highest_risk\": {\"scenario\": \"巨头碾压\", \"risk_score\": 9, \"risk_tier\": \"critical\"}, \"verdict\": \"PASS\", \"next\": \"失效推演完成，最高风险已定位\"}\n__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"全部 3 个计划问题已被完成运行覆盖\", \"dim\": \"auto:coverage_gaps\", \"sev\": \"OK\"}], \"run_count\": 4, \"completed_runs\": 3, \"completion_rate\": 0.75, \"coverage_gaps\": [], \"verdict\": \"PASS\", \"next\": \"研究运行追踪完成\"}"
+        },
+        "evolution_l01_l10": {
+          "returncode": 0,
+          "tests": 10,
+          "status": "PASS",
+          "tail": ""
+        },
+        "round_contract": {
+          "returncode": 0,
+          "tests": 11,
+          "file": "tests/test_round2_depth.py",
+          "status": "PASS",
+          "tail": "...........                                                              [100%]\n11 passed in 0.04s"
+        },
+        "full_pytest": {
+          "returncode": 0,
+          "tests": 46,
+          "status": "PASS",
+          "tail": "..............................................                           [100%]\n46 passed in 0.51s"
+        }
+      },
+      "duration_sec": 18.59
+    }
+  },
+  "finished_at": "2026-11-10T19:37:12",
+  "duration_sec": 19.04,
+  "status": "PASS"
+}

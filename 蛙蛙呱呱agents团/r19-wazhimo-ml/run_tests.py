@@ -322,10 +322,18 @@ def main() -> int:
     # ------------------------------------------------------------------ #
     t.section("T8 案例库")
     lst = cases.list_cases()
-    t.check("案例列表 2 个", len(lst) == 2, str([x["case_id"] for x in lst]))
+    # SOP §5.10 历史契约超集兼容：案例库可扩容，判据用「>=2 + 原案例存在」，
+    # 不再硬编码 ==2（model-gain 案例接入后旧断言会误伤）。
+    t.check("案例列表 ≥2（严格超集）", len(lst) >= 2,
+            str([x["case_id"] for x in lst]))
     for cid in ("regression-gate", "model-release"):
+        t.check(f"原案例 {cid} 仍在库中", any(x["case_id"] == cid for x in lst))
         vc = cases.validate_case(cid)
         t.check(f"{cid} 结构通过", vc["ok"],
+                str([x["msg"] for x in vc["checks"] if not x["ok"]]))
+    for item in lst:
+        vc = cases.validate_case(item["case_id"])
+        t.check(f"案例 {item['case_id']} 结构通过", vc["ok"],
                 str([x["msg"] for x in vc["checks"] if not x["ok"]]))
     merged = cases.resolve_thresholds("regression-gate")
     t.check("案例阈值可覆盖全局",
@@ -427,6 +435,41 @@ def main() -> int:
     code, res3 = run_agent("run", "--task", task3.task_id)
     t.check("意图路由 模型卡→modelcard", res3.get("skill") == "modelcard",
             str(res3.get("skill")))
+
+    # ------------------------------------------------------------------ #
+    t.section("十维演进引擎装配 (L01~L10)")
+    # SOP v13.0 三轮演进后的严格超集门禁：既有契约不删，新增引擎必须可装配。
+    try:
+        from engines import (R19RuntimeEngine, R19IntentCompiler,  # noqa: F401
+                             R19ReflexiveHealer, R19SpecLedger, MLSlopGuard,
+                             R19ScenarioMatrix, R19AssetBundle,
+                             R19DiffPatchEngine, R19SessionMemory,
+                             R19TelemetryWatchdog)
+        engine_ok = True
+        engine_err = ""
+    except Exception as exc:  # pragma: no cover - 装配失败即红
+        engine_ok = False
+        engine_err = repr(exc)
+    t.check("10 个演进引擎可导入", engine_ok, engine_err)
+    if engine_ok:
+        probe = R19RuntimeEngine().probe_health()
+        t.check("L01 评估精算沙箱 HEALTHY", probe["status"] == "HEALTHY",
+                str(probe.get("status")))
+        spec = R19SpecLedger().load_spec()
+        t.check("L04 ML_SPEC 8 门禁 + 5 KPI",
+                spec["gates_count"] == 8 and len(spec["north_star_kpis"]) == 5,
+                f"gates={spec['gates_count']} kpis={len(spec['north_star_kpis'])}")
+        t.check("L04 账本单一信任源落盘",
+                os.path.exists(os.path.join(HERE, "ML_SPEC.md")))
+        tmp_evo = os.path.join(HERE, "workspace", "tmp")
+        os.makedirs(tmp_evo, exist_ok=True)
+        evo_dir = tempfile.mkdtemp(prefix="r19_evo_", dir=tmp_evo)
+        evo_out = os.path.join(evo_dir, "probe.json")
+        code, ev = run_agent("evolve", "probe", "--out", evo_out)
+        t.check("evolve CLI probe 真实落盘", code == 0 and os.path.exists(evo_out),
+                str(ev)[:200])
+        t.check("evolve probe 结论 HEALTHY", ev.get("status") == "HEALTHY",
+                str(ev.get("status")))
 
     # ------------------------------------------------------------------ #
     t.section("T15 verify_loop 闭环矩阵")

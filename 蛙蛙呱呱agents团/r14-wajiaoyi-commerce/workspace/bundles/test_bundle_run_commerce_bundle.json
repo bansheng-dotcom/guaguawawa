@@ -1,0 +1,12 @@
+{
+  "run_id": "test_bundle_run",
+  "agent": "r14-wajiaoyi-commerce",
+  "exported_at": "2026-11-10T13:51:47.403916",
+  "order_meta": {
+    "order_id": "ORD_001",
+    "total": 50000.0,
+    "currency": "CNY",
+    "status": "paid"
+  },
+  "status": "COMPLETED"
+}

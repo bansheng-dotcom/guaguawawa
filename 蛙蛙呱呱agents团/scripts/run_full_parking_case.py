@@ -7,7 +7,8 @@ import datetime
 sys.stdout.reconfigure(encoding='utf-8')
 
 # 引入刚刚创建的多模态渲染器
-sys.path.append('D:/一人公司/agents')
+_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, _REPO)
 from core.enhanced_report_renderer import render_multimodal_html
 
 def run_full_force_parking_case():
@@ -164,7 +165,9 @@ def run_full_force_parking_case():
         mermaid_logic=mermaid_logic
     )
     
-    out_path = "D:/一人公司/全量20智能体停车场实战推演.html"
+    out_dir = os.path.join(_REPO, "workspace", "artifacts")
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, "全量20智能体停车场实战推演.html")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(final_html)
         

@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "engine": "R20AssetBundle",
+  "layer": "L07",
+  "run_id": "L07",
+  "files": [
+    "sre_bundle_L07.json",
+    "sre_audit_L07.sarif.json",
+    "sre_reliability_chart_L07.vega.json"
+  ],
+  "paths": {
+    "bundle": "workspace/bundles\\sre_bundle_L07.json",
+    "sarif": "workspace/bundles\\sre_audit_L07.sarif.json",
+    "vega": "workspace/bundles\\sre_reliability_chart_L07.vega.json"
+  },
+  "fingerprints": {
+    "bundle": "2f5eec22bd7aa75ed9ab63ae7949fe41550801dfce2302e2783fe36a8cf1eb36",
+    "sarif": "3914ee76ac88ba7a82f498037d9d279bc4ab2599a3ba4b174b9be65a65fa4374",
+    "vega": "3a5130f2d0ebee98682b07b4ff87df779e054ff77f6daf94533a3499941620b3"
+  },
+  "capabilities": [
+    "Bundle 工件清单 + 逐文件 SHA256 指纹 + 阶段血缘",
+    "OASIS SARIF v2.1.0 审计结果 (tool/rules/results/invocations)",
+    "Vega-Lite v5 可用率趋势图规格，供前端图表引擎直接渲染"
+  ]
+}

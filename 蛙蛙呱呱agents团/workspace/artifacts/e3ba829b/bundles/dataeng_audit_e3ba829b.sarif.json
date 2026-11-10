@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R18-Washucang-DataEng",
+          "semanticVersion": "13.0.0",
+          "rules": [
+            {
+              "id": "G1",
+              "name": "结构门禁",
+              "shortDescription": {
+                "text": "DAG 无环（Kahn 全序）+ 依赖边无悬空 + 任务名唯一"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G2",
+              "name": "连接门禁",
+              "shortDescription": {
+                "text": "connector 命名 `source-`/`destination-` 前缀 + 来源≠目的地 + 零凭据字段"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G3",
+              "name": "转换门禁",
+              "shortDescription": {
+                "text": "物化方式 4 枚举 + `ref()` 引用完整 + 不自引用 + incremental 有 unique_key"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G4",
+              "name": "质量门禁",
+              "shortDescription": {
+                "text": "行数>0 + 空值率≤0.10 + 重复率≤0.05 + 越界行数=0（须实测）"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G5",
+              "name": "新鲜度门禁",
+              "shortDescription": {
+                "text": "age_hours ≤ SLA（默认 24h）+ 声明 loaded_at / snapshotted_at"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G6",
+              "name": "增量门禁",
+              "shortDescription": {
+                "text": "模式 4 枚举 + 分区 4 枚举 + 增量/cdc 须 watermark + 幂等键 + 增量守恒"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G7",
+              "name": "目录门禁",
+              "shortDescription": {
+                "text": "owner/updated_at 非空 + 字段类型 7 枚举 + 字段名唯一 + 血缘无环"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G8",
+              "name": "发布门禁",
+              "shortDescription": {
+                "text": "bundle/SARIF/血缘 AST 落盘 + handoff 声明 + DRI=蛙数仓"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "properties": {
+            "runId": "e3ba829b"
+          }
+        }
+      ],
+      "results": []
+    }
+  ]
+}

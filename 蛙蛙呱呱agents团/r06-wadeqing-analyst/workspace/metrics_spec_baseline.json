@@ -1,0 +1,13 @@
+{
+  "spec_sha256": "5925751e43c69055783a1791390b9c5ab8ded1d5b442ca3e011613927db4615f",
+  "thresholds": {
+    "stat_thresholds.alpha": 0.05,
+    "stat_thresholds.power_min": 0.8,
+    "stat_thresholds.srm_alpha": 0.001,
+    "hhi_thresholds.competitive_max": 1500.0,
+    "hhi_thresholds.moderate_max": 2500.0,
+    "tam_variance_max": 0.3,
+    "reconciliation_tolerance": 0.01
+  },
+  "created_at": "2026-11-10T17:51:53"
+}

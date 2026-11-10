@@ -4,8 +4,9 @@ import os
 import markdown
 import sys
 
-# 将 core 目录加入路径以导入模块
-sys.path.append('D:/一人公司/agents')
+# 将仓库根加入路径以导入模块
+_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, _REPO)
 from core.dynamic_orchestrator import MissionControl
 from core.enhanced_report_renderer import render_multimodal_html
 
@@ -109,7 +110,9 @@ def run_parking_case():
         mermaid_logic=mermaid_logic
     )
     
-    out_path = "D:/一人公司/智能停车场商业优化方案.html"
+    out_dir = os.path.join(_REPO, "workspace", "artifacts")
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, "智能停车场商业优化方案.html")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(final_html)
     

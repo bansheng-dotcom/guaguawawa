@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "build": "pass",
+    "typecheck": "pass",
+    "screenshot": "pass",
+    "design_qa": "pass",
+    "a11y": "pass"
+  },
+  "a11y_items": [
+    "对比度",
+    "语义标签",
+    "键盘可达"
+  ],
+  "test_points": [
+    {
+      "name": "提交表单",
+      "expectation": "收到邮箱并跳转"
+    }
+  ]
+}

@@ -108,3 +108,35 @@ python run_tests.py                                               # 一键验收
    R16 拦发薪、R18 拦回填）。
 4. **宁可拦错，不可放过**：评估误报只是多一步人工确认；放过"无回归的 PASS"
    或"无溯源的资产"，会把未验证的模型或来源不明的产物漏进生产。
+
+## 十维演进（SOP v13.0 · 已 10/10 全绿）
+
+本角色已按《Universal Agent 10-Stage Evolution SOP v13.0》完成三轮渐进式演进，
+核心能力沉淀在解耦的 `engines/` 包中；`agent.py evolve` 提供逐层 CLI 探针，
+`auto_evolve_runner.py` 提供十轮状态机与双轨回归门禁。
+
+| 阶梯 | 引擎模块 | 核心能力 |
+|---|---|---|
+| L01 工具实体 | `engines/runtime_engine.py` | 确定性分类指标（accuracy/precision/recall/F1）、混淆守恒（容差 0.00）、延迟 p50/p95/p99、资产 SHA256 取证 |
+| L02 意图解构 | `engines/intent_compiler.py` | 复合诉求实体抽取 → 5 阶段 Kahn DAG（实验登记/运行追踪/评估评分/回归验证/发布裁决）+ 工时与关键路径 |
+| L03 自愈反思 | `engines/reflexive_healer.py` | 五条红线 `[REDLINE BLOCKED]` RL-01..RL-05、枚举/字段别名归一、Reflexion 有界闭环 |
+| L04 领域账本 | `engines/spec_ledger.py` + `ML_SPEC.md` | 5 北极星 KPI（ERA/GGR/ATR/CLR/BTA）+ 8 维发布硬门禁统一裁决 + 账本 SHA256 指纹 |
+| L05 质感去劣化 | `engines/slop_guard.py` | 28 条假大空词库物理替换、量化证据门禁、DRI 注入与行动力评分 |
+| L06 横向决策 | `engines/scenario_matrix.py` | 极速轻量 / 稳健基准 / 严苛高保障三维方案 + MCDA ROI + ±20% 敏感性 |
+| L07 伴生消费 | `engines/asset_bundle.py` | `ml_bundle.json` + OASIS SARIF v2.1.0 + Vega-Lite v5 + 逐文件 SHA256 |
+| L08 局部差量 | `engines/diff_patch_engine.py` | RFC 6902 JSON Patch、指标增量重算、8 维门禁影响面 |
+| L09 会话记忆 | `engines/session_memory.py` | `session_state.json` 记忆池、代词/序数/增量消歧、快照回滚 |
+| L10 工业容灾 | `engines/telemetry_watchdog.py` | CLOSED/OPEN/HALF_OPEN 三态熔断、指数退避 Full Jitter、`telemetry.jsonl` 遥测 |
+
+```bash
+python auto_evolve_runner.py --status          # 十轮演进看板
+python auto_evolve_runner.py --sop-round 1     # 一次完整 SOP = 一轮（1/2/3）
+python auto_evolve_runner.py --run-all         # 连续推进 3 轮 / 10 层
+python agent.py evolve probe                   # L01 探针（decompile/heal/spec/slop/scenario/bundle/patch/memory/watchdog 同理）
+python -m unittest tests.test_evolution_l01_l10 -v   # 十维集成测试（11 项）
+```
+
+- 状态机：`workspace/evolution_state.json`（`rounds_passed=1..10`，`sop_round_count=3`）
+- 打卡记录：`workspace/rounds/round_01..10_gate.json`（探针输出 + 工件 SHA256 + 双轨回归数字）
+- 终验报告：`EVOLUTION_REPORT.md`
+- 双轨门禁：`run_tests.py` **149/149 PASS** + 十维集成 **11/11 OK**，任一失败即熔断。

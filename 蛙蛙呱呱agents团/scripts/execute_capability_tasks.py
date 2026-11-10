@@ -13,7 +13,7 @@ import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-AGENTS_ROOT = r"D:\一人公司\agents"
+AGENTS_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORKSPACE_ROOT = os.path.join(AGENTS_ROOT, "workspace")
 OUTPUT_DIR = os.path.join(WORKSPACE_ROOT, "ai_capability_outputs")
 PYTHON_EXE = sys.executable

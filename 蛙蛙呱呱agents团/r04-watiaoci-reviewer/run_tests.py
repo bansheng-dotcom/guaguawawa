@@ -206,7 +206,8 @@ class T01(unittest.TestCase):
             ("staged 资产确认", "human", "ack"),
             ("批次校验", "human", "ingest"),
             ("发起人工评审", "human", "package"),
-            ("完全无关的意图", "criteria", "review"),
+            # P2.1：关键词全未命中不再静默落到 criteria/review，交 L02 内核澄清
+            ("完全无关的意图", "__clarify__", "clarify"),
         ]
         for text, skill, action in routes:
             with self.subTest(text):

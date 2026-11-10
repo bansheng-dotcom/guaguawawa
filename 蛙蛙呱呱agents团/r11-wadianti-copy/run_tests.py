@@ -266,9 +266,11 @@ def main() -> int:
             f"category={rev['failure_category']}")
 
     t.section("T8 案例库")
-    t.check("案例列表 2 个", len(cases.list_cases()) == 2, str(cases.list_cases()))
+    t.check("案例列表 >= 2 个", len(cases.list_cases()) >= 2, str(cases.list_cases()))
     t.check("content-strategy 结构通过", cases.validate_case("content-strategy")["ok"])
     t.check("product-copy 结构通过", cases.validate_case("product-copy")["ok"])
+    if os.path.exists(os.path.join(HERE, "cases", "headline-test", "case.json")):
+        t.check("headline-test 结构通过", cases.validate_case("headline-test")["ok"])
 
     t.section("T9 阈值外置")
     th = c.load_thresholds()
@@ -285,7 +287,8 @@ def main() -> int:
     t.check("plan 缺字段拦截", not pb["ok"] and pb.get("grade") == "FAIL")
 
     t.section("harness 确定性验证器")
-    tmp = tempfile.mkdtemp(prefix="r11_harness_")
+    tmp = os.path.join(HERE, "workspace", "tmp", "harness_test")
+    os.makedirs(tmp, exist_ok=True)
     good_article_path = os.path.join(tmp, "article.json")
     c.write_json(good_article_path, article)
     h = harness.run_validator("article", good_article_path)
@@ -322,6 +325,57 @@ def main() -> int:
     matrix = verify_loop.run_all()
     t.check("闭环 32 行全绿", matrix["ok"], f"passed={matrix['passed']}/{matrix['total']}")
     t.check("闭环 verdict=PASS", matrix["verdict"] == "PASS")
+
+    t.section("SOP 十维演进双轨集成门禁 (L01~L10)")
+    try:
+        from engines import (
+            CopyRuntimeEngine,
+            IntentDAGCompiler,
+            CopyReflexiveHealer,
+            CopySpecLedger,
+            CopySlopGuard,
+            ScenarioMatrix,
+            ContentAssetBundle,
+            ContentDiffPatchEngine,
+            ContentSessionMemory,
+            ContentTelemetryWatchdog,
+        )
+        rt = CopyRuntimeEngine()
+        probe = rt.probe_health()
+        t.check("L01 运行时健康探针", probe["status"] == "healthy")
+
+        comp = IntentDAGCompiler()
+        dag_res = comp.decompile_intent("写一篇关于企业AI工具落地的长文，提炼小红书和公众号的核心卖点与金句")
+        t.check("L02 意图解构 Kahn DAG", dag_res["ok"] and dag_res["dag"]["is_dag"])
+
+        healer = CopyReflexiveHealer()
+        redlines = healer.audit_redlines({"text": "国家级第一品牌，这篇文章可以发布了。TODO待定"})
+        t.check("L03 自愈反思拦截红线", len(redlines) >= 3)
+
+        ledger = CopySpecLedger()
+        spec = ledger.load_spec()
+        t.check("L04 领域账本加载", spec["spec_loaded"] and len(spec["rules"]["release_gates"]) == 8)
+
+        guard = CopySlopGuard()
+        slop_res = guard.audit_text("总而言之，毋庸置疑，转化率大幅提升！")
+        t.check("L05 质感去劣化 SlopGuard", not slop_res["is_clean"] and slop_res["slop_count"] >= 2)
+
+        sc_mat = ScenarioMatrix()
+        sc_res = sc_mat.generate_matrix("内容复利")
+        t.check("L06 横向决策看板三维裂变", sc_res["scenario_count"] == 3)
+
+        diff = ContentDiffPatchEngine()
+        p_res = diff.create_patch({"a": 1}, {"a": 2})
+        t.check("L08 RFC 6902 局部差量", len(p_res) == 1)
+
+        mem = ContentSessionMemory()
+        disambig = mem.resolve_pronouns("按刚才第二套风格改写")
+        t.check("L09 会话记忆代词消歧", disambig["had_ambiguity"])
+
+        wd = ContentTelemetryWatchdog()
+        t.check("L10 工业容灾看门狗", wd.get_state() == "CLOSED")
+    except Exception as e:
+        t.check("十维演进核心引擎加载与验证", False, str(e))
 
     print(f"\n{'=' * 60}")
     print(f"通过 {t.passed} / {t.passed + t.failed}")

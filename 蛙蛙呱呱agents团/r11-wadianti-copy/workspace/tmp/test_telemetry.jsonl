@@ -1,0 +1,60 @@
+{"trace_id": "trace_01cba6d3", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:41:17", "metadata": {}}
+{"trace_id": "trace_5d52a2d7", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:41:17", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_f268011d", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:41:17", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_4fa1956d", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:44:14", "metadata": {}}
+{"trace_id": "trace_acff0516", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:44:14", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_702b0c9c", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:44:14", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_d59cb98e", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:44:21", "metadata": {}}
+{"trace_id": "trace_d13aa3df", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:44:21", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_57a714f3", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:44:21", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_72b67575", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:44:28", "metadata": {}}
+{"trace_id": "trace_fdbf4bc7", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:44:28", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_801a5403", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:44:28", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_1dcfc919", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:45:41", "metadata": {}}
+{"trace_id": "trace_910e3611", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:45:41", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_ad1595e0", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:45:41", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_1cff34b7", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:46:40", "metadata": {}}
+{"trace_id": "trace_852955f4", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:46:40", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_ff14622c", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:46:40", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_a1889b3f", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:46:46", "metadata": {}}
+{"trace_id": "trace_8c3939f7", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:46:46", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_c051b030", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:46:46", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_336ee996", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:46:53", "metadata": {}}
+{"trace_id": "trace_4e2b479c", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:46:53", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_84f51d85", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:46:53", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_df4404a8", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:47:21", "metadata": {}}
+{"trace_id": "trace_792f2dc9", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:47:21", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_079bc2fc", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:47:21", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_223ca591", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:51:38", "metadata": {}}
+{"trace_id": "trace_33b4a8b7", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:51:38", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_416393b5", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:51:38", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_ad1a72a0", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:51:45", "metadata": {}}
+{"trace_id": "trace_958f92a4", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:51:45", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_d0110ae6", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:51:45", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_b229de3b", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:51:51", "metadata": {}}
+{"trace_id": "trace_b6dbc431", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:51:51", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_049bed5f", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:51:51", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_53d768e2", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:51:58", "metadata": {}}
+{"trace_id": "trace_10df1c84", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:51:58", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_7469b8c2", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:51:58", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_97592927", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T02:52:49", "metadata": {}}
+{"trace_id": "trace_3ac9a376", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:52:49", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_d2aa51f7", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T02:52:49", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_9276fe32", "span_name": "normal_task", "latency_ms": 0.02, "status": "SUCCESS", "timestamp": "2026-11-10T20:49:22", "metadata": {}}
+{"trace_id": "trace_629962a0", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T20:49:22", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_4bfc44e3", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T20:49:22", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_79df6d13", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T21:27:41", "metadata": {}}
+{"trace_id": "trace_191935d0", "span_name": "broken_task", "latency_ms": 0.02, "status": "FAILED", "timestamp": "2026-11-10T21:27:41", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_b9f52847", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T21:27:41", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_0426ef36", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T21:36:34", "metadata": {}}
+{"trace_id": "trace_78b672b8", "span_name": "broken_task", "latency_ms": 0.02, "status": "FAILED", "timestamp": "2026-11-10T21:36:34", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_dd962229", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T21:36:34", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_6d25d356", "span_name": "normal_task", "latency_ms": 0.01, "status": "SUCCESS", "timestamp": "2026-11-10T21:40:15", "metadata": {}}
+{"trace_id": "trace_40265c98", "span_name": "broken_task", "latency_ms": 0.02, "status": "FAILED", "timestamp": "2026-11-10T21:40:15", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_232637ef", "span_name": "broken_task", "latency_ms": 0.01, "status": "FAILED", "timestamp": "2026-11-10T21:40:15", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_0032aeac", "span_name": "normal_task", "latency_ms": 0.02, "status": "SUCCESS", "timestamp": "2026-11-10T21:48:11", "metadata": {}}
+{"trace_id": "trace_7a318483", "span_name": "broken_task", "latency_ms": 0.02, "status": "FAILED", "timestamp": "2026-11-10T21:48:11", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_6905dcdd", "span_name": "broken_task", "latency_ms": 0.02, "status": "FAILED", "timestamp": "2026-11-10T21:48:11", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_d7e99852", "span_name": "normal_task", "latency_ms": 0.02, "status": "SUCCESS", "timestamp": "2026-11-10T21:58:18", "metadata": {}}
+{"trace_id": "trace_599ea03f", "span_name": "broken_task", "latency_ms": 0.02, "status": "FAILED", "timestamp": "2026-11-10T21:58:18", "metadata": {"error": "下游接口故障"}}
+{"trace_id": "trace_d5b7dbfd", "span_name": "broken_task", "latency_ms": 0.02, "status": "FAILED", "timestamp": "2026-11-10T21:58:18", "metadata": {"error": "下游接口故障"}}

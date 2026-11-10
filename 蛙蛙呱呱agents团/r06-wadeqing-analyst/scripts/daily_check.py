@@ -12,7 +12,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _AGENT = os.path.dirname(_HERE)
-_WORKSPACE = os.path.dirname(os.path.dirname(_AGENT)) # 指向 D:\一人公司
+_WORKSPACE = os.path.dirname(_AGENT)  # 指向仓库根目录
 CONFIG_PATH = os.path.join(_AGENT, "configs", "data_sources.json")
 AGENT_PY = os.path.join(_AGENT, "agent.py")
 

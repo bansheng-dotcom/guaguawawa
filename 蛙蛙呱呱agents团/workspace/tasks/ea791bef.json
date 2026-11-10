@@ -1,0 +1,21 @@
+{
+  "task_id": "ea791bef",
+  "title": "smoke-clarify-r17b",
+  "owner": "r17",
+  "intent": "帮我弄个自动化",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r17-wazhiwang-automation\\examples\\workflow.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "澄清"
+  ],
+  "deps": [],
+  "status": "failed",
+  "logs": []
+}

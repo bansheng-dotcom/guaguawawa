@@ -205,7 +205,7 @@ REQUIRED_SECTION = ["index","title","question"]
 对每个接线后的角色跑一遍：
 
 ```bash
-cd d:/一人公司/agents/<role>
+cd <repo>/<role>
 export PYTHONUTF8=1
 
 # ① 冒烟：manifest 不报错

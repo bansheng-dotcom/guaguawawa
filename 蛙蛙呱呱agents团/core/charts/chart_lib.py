@@ -166,7 +166,7 @@ def line_chart(chart: Dict[str, Any]) -> str:
     vmax, vmin = vmax + pad, vmin - pad
     plot_h = H - TOP - BOT
     n = len(xlabels)
-    def X(i: int) -> float: return L + (R - L) * i / (n - 1)
+    def X(i: int) -> float: return L + (R - L) * i / max(n - 1, 1)
     def Y(v: float) -> float: return TOP + plot_h * (1 - (v - vmin) / (vmax - vmin))
     out = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{chart["title"]}">']
     # 弱网格线 + 刻度
@@ -364,7 +364,7 @@ def control_chart(chart: Dict[str, Any]) -> str:
     hi = max(max(vals), ucl) * 1.015
     plot_h = H - TOP - BOT
     n = len(vals)
-    def X(i: int) -> float: return L + (R - L) * i / (n - 1)
+    def X(i: int) -> float: return L + (R - L) * i / max(n - 1, 1)
     def Y(v: float) -> float: return TOP + plot_h * (1 - (v - lo) / (hi - lo))
     out = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{chart["title"]}">']
     # 控制带底色

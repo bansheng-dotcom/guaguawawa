@@ -1,0 +1,27 @@
+{
+  "r16": {
+    "role_dir": "r16-warenshi-hr",
+    "cases": [
+      {"id": "r16-01", "intent": "帮我招个人", "expect": "clarify"},
+      {"id": "r16-02", "intent": "看看团队状态", "expect": "clarify"},
+      {"id": "r16-03", "intent": "这个怎么办", "expect": "clarify"},
+      {"id": "r16-04", "intent": "这个月请假", "expect": "route", "expect_action": "attendance.leave"},
+      {"id": "r16-05", "intent": "统计一下考勤", "expect": "route", "expect_action": "attendance.attendance"},
+      {"id": "r16-06", "intent": "算这个月的工资", "expect": "route", "expect_action": "payroll.calc"},
+      {"id": "r16-07", "intent": "部门绩效评估", "expect": "route", "expect_action": "performance.appraisal"},
+      {"id": "r16-08", "intent": "提交报销", "expect": "route", "expect_action": "expense.claim"},
+      {"id": "r16-09", "intent": "拉个部门花名册", "expect": "route", "expect_action": "report.headcount"},
+      {"id": "r16-10", "intent": "给部门发候选人名单", "expect": "route", "expect_action": "recruit.offer"},
+      {"id": "r16-11", "intent": "按部门筛选简历", "expect": "route", "expect_action": "recruit.applicant"},
+      {"id": "r16-12", "intent": "目标设定怎么弄", "expect": "clarify"},
+      {"id": "r16-13", "intent": "这个月打算请两天年假", "expect": "route", "expect_action": "attendance.leave"},
+      {"id": "r16-14", "intent": "上个月的打卡记录帮我统计一下", "expect": "route", "expect_action": "attendance.attendance"},
+      {"id": "r16-15", "intent": "月底了，这个月的工资要核算出来发给大家", "expect": "route", "expect_action": "payroll.calc"},
+      {"id": "r16-16", "intent": "季度末给部门同事做一次绩效评估", "expect": "route", "expect_action": "performance.appraisal"},
+      {"id": "r16-17", "intent": "上个月出差的费用还没报，帮我提交报销", "expect": "route", "expect_action": "expense.claim"},
+      {"id": "r16-18", "intent": "团队最近缺人，得想想怎么补", "expect": "clarify"},
+      {"id": "r16-19", "intent": "最近团队氛围不太对，你先看看", "expect": "clarify"},
+      {"id": "r16-20", "intent": "OKR 该怎么定，我还没头绪", "expect": "clarify"}
+    ]
+  }
+}

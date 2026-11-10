@@ -1,10 +1,11 @@
 ﻿import json
 import os
 
-_AGENT = r'D:\一人公司\agents\r06-wadeqing-analyst'
+_AGENT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_REPO = os.path.dirname(_AGENT)
 template_path = os.path.join(_AGENT, "templates", "business_report_template.html")
-res_path = os.path.join(_AGENT, "workspace", "artifacts", "ab_test_decision.json")
-out_html_path = os.path.join(_AGENT, "workspace", "artifacts", "Final_Business_Report.html")
+res_path = os.path.join(_REPO, "workspace", "artifacts", "ab_test_decision.json")
+out_html_path = os.path.join(_REPO, "workspace", "artifacts", "Final_Business_Report.html")
 
 with open(template_path, 'r', encoding='utf-8') as f:
     template = f.read()

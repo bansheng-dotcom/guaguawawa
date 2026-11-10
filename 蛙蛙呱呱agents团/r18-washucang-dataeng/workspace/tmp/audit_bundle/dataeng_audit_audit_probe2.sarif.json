@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R18-Washucang-DataEng",
+          "semanticVersion": "13.0.0",
+          "rules": []
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "properties": {
+            "runId": "audit_probe2"
+          }
+        }
+      ],
+      "results": []
+    }
+  ]
+}

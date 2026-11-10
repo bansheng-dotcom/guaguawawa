@@ -26,17 +26,38 @@ import hashlib
 import json
 import os
 import sys
-from agents.shared.chat_cli import add_chat_parser, handle_chat
 import time
 from typing import Any, Dict, List, Optional
 
+# Windows 终端 Unicode 编码安全防御
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+if hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _AGENTS = os.path.dirname(_HERE)
+_ROOT = os.path.dirname(_AGENTS)
 # 48 型图表库已上收为全角色共享（core/charts），角色不再保留私有副本。
 CHART_DIR = os.path.join(_AGENTS, "core", "charts")
-for _p in (_HERE, _AGENTS, CHART_DIR):
+for _p in (_HERE, _AGENTS, _ROOT, CHART_DIR):
     if _p not in sys.path:
         sys.path.insert(0, _p)
+
+try:
+    from agents.shared.chat_cli import add_chat_parser, handle_chat
+except ImportError:
+    try:
+        from shared.chat_cli import add_chat_parser, handle_chat
+    except ImportError:
+        def add_chat_parser(p): pass
+        def handle_chat(args): pass
 
 from core import protocol, registry, workspace  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
@@ -45,6 +66,7 @@ import contracts  # noqa: E402
 import harness  # noqa: E402
 import review  # noqa: E402
 from core import report_bridge  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 import report_contract  # noqa: E402
 
 ROLE = "r06"
@@ -92,6 +114,7 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例订单数据 + 语义模型")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
     
     # 注入测试与诊断命令
     sp.add_parser("test", help="运行工程化测试")
@@ -112,6 +135,41 @@ def build_parser() -> argparse.ArgumentParser:
     qa.add_argument("--input", required=True)
     qa.add_argument("--pk", default=None)
     qa.add_argument("--date_col", default=None)
+
+    # 注入十维演进引擎调度命令 (L01~L10)
+    ev_p = sp.add_parser("evolve", help="十维演进元模型引擎调度 (L01~L10)")
+    ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
+    ev_sub.add_parser("probe", help="L01: 探测引擎健康状态")
+    sql_p = ev_sub.add_parser("sql", help="L01: DuckDB 嵌入式 SQL 沙箱真实执行")
+    sql_p.add_argument("--sql", default="SELECT channel, SUM(amount) AS total FROM demo_orders GROUP BY 1 ORDER BY 2 DESC")
+    sql_p.add_argument("--csv", default=None, help="可选：注册真实 CSV 为 t 表")
+    dec_p = ev_sub.add_parser("decompile", help="L02: 意图解构与DAG编排")
+    dec_p.add_argument("--query", required=True, help="分析诉求自然语言")
+    plan_p = ev_sub.add_parser("plan", help="L02: Kahn 拓扑DAG编译与工时预算")
+    plan_p.add_argument("--query", required=True, help="分析诉求自然语言")
+    plan_p.add_argument("--rows", type=int, default=0, help="数据行数（用于工时体量因子）")
+    heal_p = ev_sub.add_parser("heal", help="L03: Reflexion 审计-自愈-复审闭环")
+    heal_p.add_argument("--payload", default=None, help="待审校 JSON 字符串；缺省使用内置脏样例")
+    ev_sub.add_parser("spec", help="L04: 账本完整性/漂移门禁/规则包导出")
+    ev_sub.add_parser("slop", help="L05: 假大空/数字幻觉/归因完整性审计")
+    sc_p = ev_sub.add_parser("scenario", help="L06: 裂变横向决策看板")
+    sc_p.add_argument("--base", type=float, default=10000.0, help="基准数值")
+    sc_p.add_argument("--growth", type=float, default=0.15, help="预期增速")
+    bun_p = ev_sub.add_parser("bundle", help="L07: 导出下游伴生消费资产包")
+    bun_p.add_argument("--run-id", default="run_cli_01", help="运行标识")
+    vb_p = ev_sub.add_parser("verify-bundle", help="L07: 校验 Bundle 指纹完整性")
+    vb_p.add_argument("--run-id", default="run_cli_01", help="运行标识")
+    ev_sub.add_parser("patch", help="L08: RFC6901/6902 差量补丁与逆补丁回放")
+    mem_p = ev_sub.add_parser("memory", help="L09: 会话记忆与代词消歧调度")
+    mem_p.add_argument("--query", default=None, help="输入需要消歧的对话文本")
+    mem_p.add_argument("--rollback", default=None, help="回滚至快照 ID (如 snap_v1)")
+    mem_p.add_argument("--list", action="store_true", help="列出快照列表与当前槽位状态")
+    tel_p = ev_sub.add_parser("telemetry", help="L10: 看门狗熔断与全链路遥测追踪调度")
+    tel_p.add_argument("--action-name", default="cli_probe", help="遥测动作名称")
+    tel_p.add_argument("--duration-ms", type=float, default=12.5, help="模拟耗时毫秒")
+    tel_p.add_argument("--status", default="SUCCESS", help="执行状态")
+    tel_p.add_argument("--alert-threshold", type=float, default=100.0, help="异常离群耗时告警阈值(ms)")
+    tel_p.add_argument("--recent", type=int, default=0, help="查看最近 N 条遥测记录")
 
     _register_harness(sp)
     _register_contract(sp)
@@ -271,6 +329,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -315,8 +382,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k in intent for k in kws):
             return skill, action, defaults
-    # 缺省：数据质量审计（最安全的门禁动作）
-    return "quality", "audit", {}
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -341,6 +408,33 @@ def _first_input_file(ports: List[protocol.Port]) -> Optional[str]:
 # 示例数据 / manifest
 # --------------------------------------------------------------------------- #
 DEMO_HEADERS = ["order_id", "date", "channel", "amount", "status", "user_id"]
+
+
+def _demo_records() -> List[Dict[str, Any]]:
+    """确定性演示数据（供 DuckDB 沙箱真实 SQL 执行）。"""
+    channels = ["抖音", "小红书", "知乎", "微信"]
+    base = [120.5, 88.0, 45.25, 210.75]
+    rows = []
+    for i in range(12):
+        rows.append({
+            "order_id": f"O{i:04d}",
+            "date": f"2026-11-{1 + i:02d}",
+            "channel": channels[i % 4],
+            "amount": base[i % 4] + i,
+            "status": "支付" if i % 3 else "浏览",
+        })
+    return rows
+
+
+def _dirty_payload() -> Dict[str, Any]:
+    """内置脏样例：越权拍板 + 份额未归一 + 缺失置信区间 + 嵌套 NaN。"""
+    return {
+        "conclusion": "数据表现优异，必须立即拍板决定全量上线！",
+        "shares": [30.0, 20.0],
+        "p_value": 0.03,
+        "detail": {"segments": [{"name": "抖音", "variance": float("nan")}]},
+    }
+
 
 
 def make_demo(path: str, n: int = 60) -> str:
@@ -400,6 +494,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "harness":
         out = _run_harness(args)
         emit_result(out)
@@ -482,6 +578,202 @@ def main() -> int:
         result = adapter.run_pipeline(df, pk=args.pk, date_col=args.date_col)
         emit_result(result)
         return 0 if result.get("ok") else 1
+
+    # 演进引擎命令分发
+    if args.skill == "evolve":
+        from engines import (
+            AnalysisEngineManager,
+            AnalysisIntentDecompiler,
+            AnalysisReflexiveHealer,
+            ScenarioComparativeMatrix,
+            AnalysisAssetBundle,
+        )
+        if args.subcmd == "probe":
+            mgr = AnalysisEngineManager()
+            probe = mgr.probe_all()
+            emit_result(probe)
+            return 0 if probe["all_healthy"] else 1
+        elif args.subcmd == "sql":
+            mgr = AnalysisEngineManager()
+            if not mgr.has_sql_engine():
+                emit_result({"ok": False, "error": "DuckDB engine unavailable"})
+                return 1
+            sandbox = mgr.get_sql_sandbox()
+            if args.csv:
+                rows = sandbox.register_csv("t", args.csv)
+                sql = args.sql.replace("demo_orders", "t")
+            else:
+                rows = sandbox.register_records("demo_orders", _demo_records())
+                sql = args.sql
+            res = sandbox.execute(sql)
+            artifact = os.path.join(_HERE, "workspace", "evolve_l01_sql.json")
+            c.write_json(artifact, {"sql": sql, "rows_registered": rows,
+                                    "ok": res.ok, "error": res.error,
+                                    "result": res.data})
+            out = {"ok": res.ok, "rows_registered": rows, "row_count": res.data.get("row_count", 0),
+                   "execution_time_ms": res.execution_time_ms, "artifact": artifact}
+            emit_result(out)
+            return 0 if res.ok else 1
+        elif args.subcmd == "plan":
+            dec = AnalysisIntentDecompiler()
+            res = dec.compile_intent(args.query, data_rows=args.rows)
+            artifact = os.path.join(_HERE, "workspace", "evolve_l02_dag.json")
+            c.write_json(artifact, res)
+            out = {"ok": res["dag_validation"]["valid"],
+                   "step_count": res["step_count"],
+                   "execution_order": res["execution_order"],
+                   "waves": res["execution_waves"],
+                   "total_hours": res["effort_budget"]["total_hours"],
+                   "artifact": artifact}
+            emit_result(out)
+            return 0 if out["ok"] else 1
+        elif args.subcmd == "heal":
+            healer = AnalysisReflexiveHealer()
+            payload = c.load_json(args.payload) if args.payload else _dirty_payload()
+            healed = healer.reflect_and_heal(payload, max_rounds=3)
+            artifact = os.path.join(_HERE, "workspace", "evolve_l03_heal.json")
+            c.write_json(artifact, healed)
+            out = {"ok": healed["_reflection_converged"],
+                   "attempts": healed["_reflection_attempts"],
+                   "lesson_count": healed["_lesson_count"],
+                   "conclusion": healed["conclusion"],
+                   "artifact": artifact}
+            emit_result(out)
+            return 0 if out["ok"] else 1
+        elif args.subcmd == "decompile":
+            dec = AnalysisIntentDecompiler()
+            res = dec.compile_intent(args.query)
+            emit_result(res)
+            return 0
+        elif args.subcmd == "scenario":
+            mat = ScenarioComparativeMatrix()
+            sc = mat.generate_scenarios(args.base, args.growth)
+            artifact = os.path.join(_HERE, "workspace", "evolve_l06_scenario.json")
+            c.write_json(artifact, sc)
+            emit_result({"recommended": sc["recommended"],
+                         "ranking_stable": sc["sensitivity"]["ranking_stable"],
+                         "top_score": sc["scenarios"][0]["weighted_score"],
+                         "artifact": artifact})
+            return 0
+        elif args.subcmd == "spec":
+            from engines import MetricsSpecLedgerParser
+            ledger = MetricsSpecLedgerParser()
+            spec = ledger.parse()
+            drift = ledger.detect_drift(spec)
+            bundle_path = ledger.export_rule_bundle()
+            out = {
+                "rules_loaded": spec["rules_loaded"],
+                "schema_valid": spec["schema"]["valid"],
+                "severity_sha256": spec["integrity"]["sha256"][:16],
+                "alpha": spec["stat_thresholds"]["alpha"],
+                "drift": drift["drift"],
+                "baseline_created": drift["baseline_created"],
+                "rule_bundle": bundle_path,
+            }
+            artifact = os.path.join(_HERE, "workspace", "evolve_l04_spec.json")
+            c.write_json(artifact, out)
+            emit_result(out)
+            return 0 if spec["schema"]["valid"] and drift["within_tolerance"] else 1
+        elif args.subcmd == "slop":
+            from engines import DataSlopGuard
+            guard = DataSlopGuard()
+            raw = ("行业前景极其广阔，转化率大幅爆发，毫无疑问应当加大投入。"
+                   "渠道A贡献了-1200元，占总跌幅65%，同比基准-2.1pp。")
+            report = guard.audit_report(raw, known_numbers=[-1200, 65, -2.1])
+            polished, replaced = guard.polish(raw)
+            out = {
+                "score": report["score"],
+                "grade": report["grade"],
+                "is_clean": report["is_clean"],
+                "attribution": report["attribution"],
+                "traceability": report["traceability"],
+                "replaced_count": replaced,
+                "polished": guard.inject_dri(polished, action="下钻抖音渠道素材与出价"),
+            }
+            artifact = os.path.join(_HERE, "workspace", "evolve_l05_slop.json")
+            c.write_json(artifact, out)
+            emit_result(out)
+            return 0 if report["attribution"]["complete"] and report["traceability"]["hallucination_free"] else 1
+        elif args.subcmd == "bundle":
+            bundle_mgr = AnalysisAssetBundle()
+            demo_report = {
+                "title": "CLI Demo",
+                "engine": "analysis_engine_manager",
+                "spec_version": "1.0.0",
+                "query": "demo query",
+                "issues": ["data quality blocker: 缺失 rate 12%",
+                           "anomaly: 抖音渠道 GMV 暴跌 35%",
+                           "spec: 口径未对齐"],
+            }
+            paths = bundle_mgr.export_bundle(args.run_id, demo_report)
+            emit_result(paths)
+            return 0
+        elif args.subcmd == "verify-bundle":
+            bundle_mgr = AnalysisAssetBundle()
+            result = bundle_mgr.verify_bundle(args.run_id)
+            emit_result(result)
+            return 0 if result["ok"] else 1
+        elif args.subcmd == "patch":
+            from engines import AnalysisDiffPatchEngine
+            engine = AnalysisDiffPatchEngine()
+            old_state = {"kpi": {"gmv": 100.0, "channels": ["抖音", "知乎"]}, "note": "v1"}
+            new_state = {"kpi": {"gmv": 130.0, "channels": ["抖音", "知乎", "小红书"]}, "note": "v2"}
+            patches = engine.create_patch(old_state, new_state)
+            proof = engine.apply_and_verify(old_state, patches)
+            out = {
+                "patches": patches,
+                "ops_count": proof["ops_count"],
+                "roundtrip_exact": proof["roundtrip_exact"],
+                "new_state": proof["new_state"],
+                "inverse_patch": proof["inverse_patch"],
+            }
+            artifact = os.path.join(_HERE, "workspace", "evolve_l08_patch.json")
+            c.write_json(artifact, out)
+            emit_result(out)
+            return 0 if proof["roundtrip_exact"] and proof["new_state"] == new_state else 1
+        elif args.subcmd == "memory":
+            from engines import AnalysisSessionMemoryPool
+            mem = AnalysisSessionMemoryPool()
+            if args.rollback:
+                ok = mem.rollback_to(args.rollback)
+                emit_result({"rollback_success": ok, "current_snapshot": mem.current_state.get("current_snapshot_id"), "slots": mem.current_state.get("slots")})
+                return 0 if ok else 1
+            elif args.query:
+                resolved = mem.resolve_pronouns(args.query)
+                emit_result(resolved)
+                return 0
+            else:
+                mem.save()
+                emit_result({
+                    "summary": mem.get_slot_summary(),
+                    "snapshots": mem.list_snapshots()[-10:],
+                    "state_file": mem.state_file,
+                })
+                return 0
+        elif args.subcmd == "telemetry":
+            from engines import AnalysisTelemetryTracer
+            tracer = AnalysisTelemetryTracer(latency_alert_threshold_ms=args.alert_threshold)
+            if args.recent > 0:
+                recent_spans = tracer.get_recent_spans(limit=args.recent)
+                if not recent_spans:
+                    tracer.record_span("cli_bootstrap", 8.0, "SUCCESS",
+                                       {"source": "cli_evolve_telemetry"})
+                    recent_spans = tracer.get_recent_spans(limit=args.recent)
+                emit_result({
+                    "recent_spans": recent_spans,
+                    "total": len(recent_spans),
+                    "aggregate": tracer.aggregate_metrics(),
+                    "log_path": tracer.log_path,
+                })
+                return 0
+            rec = tracer.record_span(
+                action_name=args.action_name,
+                duration_ms=args.duration_ms,
+                status=args.status,
+                details={"source": "cli_evolve_telemetry"},
+            )
+            emit_result({"recorded": rec, "log_path": tracer.log_path})
+            return 0
 
     t0 = time.time()
     result = SKILL_BY_NAME[args.skill].run(args)

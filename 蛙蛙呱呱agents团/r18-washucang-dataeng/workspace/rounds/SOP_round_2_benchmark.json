@@ -1,0 +1,51 @@
+{
+  "round": 2,
+  "layers": [
+    {
+      "layer": "L04",
+      "repos": "dbt-labs/dbt（约 14,139★，Apache-2.0） · OAI/OpenAPI-Specification（约 31,311★，Apache-2.0） · dbt-labs/metricflow（约 1,868★，Apache-2.0）",
+      "license_note": "三者均为 Apache-2.0 宽松许可（含专利授权），允许商用闭源衍生与再分发；star/许可证经 GitHub REST API（api.github.com/repos/...）于 2026-11-10 实测，非二手转述。",
+      "absorbed": "①dbt 的「声明式口径 + generic tests」机制：把指标目标/阈值从 Python 常量上移为 DATAENG_SPEC.md 文档，再由导出器编译成下游可执行测试；②OpenAPI 的「机器可读契约即单一信任源 + fail-closed 校验」机制：spec_path 唯一入口，缺版本号/缺门禁/缺阈值一律抛错而非降级；③MetricFlow 的「指标 = 名称 + 公式 + 目标 + 过滤器」四段式建模，指标定义可复算、可判达标。",
+      "landing": "DataEngSpecLedger.load_spec（解析 8 指标/8 门禁/4 红线，_EXPECTED_* 数量校验 + 缺失即 ValueError 的 fail-closed）；DataEngSpecLedger.evaluate 与 evaluate_gates（按容差做 ≥/≤/= 确定性判定、BLOCKER 任一不过即整单阻断）；DataEngSpecLedger.export（编译 dataeng_spec.json + dataeng_gates.sql DDL CHECK + dbt_schema.yml generic tests）。",
+      "is_real": true,
+      "assertion": "python -c \"from engines import DataEngSpecLedger; s=DataEngSpecLedger().load_spec(); print(s['metrics_count'],s['gates_count'],s['redlines_count'])\" → 实测输出「8 8 4」，即 8 北极星指标 / 8 维门禁 / 4 条红线全部由真实 Markdown 解析得出，非空壳常量。"
+    },
+    {
+      "layer": "L05",
+      "repos": "reviewdog/reviewdog（约 9,736★，MIT） · vale-cli/vale（约 6,365★，MIT；原 errata-ai/vale 已重定向至该组织） · textlint/textlint（约 3,207★，MIT）",
+      "license_note": "三者均为 MIT 许可，仅需保留版权与许可声明，可自由嵌入本仓库引擎；star/许可证经 GitHub REST API 于 2026-11-10 实测，errata-ai/vale 现 302 至 vale-cli/vale（同一仓库 id 81020247），引用时以 vale-cli/vale 为准。",
+      "absorbed": "①reviewdog 的「lint 结果 → 结构化诊断 → CI 可阻断」机制：审计产出带 dim/ok/sev 的 checks[]，上层据此直接判定是否阻断交付；②vale 的「可配置文风规则包 + 词表级替换」机制：SLOP_TERMS 采用 term→dim→replacement 三字段规则表，每条套话自带量化替换文本，可增删规则而不改引擎；③textlint 的「规则驱动 + 精确定位 + fixer」机制：命中项给出 index/line/severity，且长词优先覆盖、重叠区间不重复计数，clean 做真实物理替换并复检零残留。",
+      "landing": "DataEngSlopGuard.audit（SLOP_TERMS 长词优先扫描 → hits[{term,dim,index,line,severity}] + checks[] + actionability_score）；DataEngSlopGuard.clean（按规则表物理替换为「量化指标 + DRI + 截止期」，残留则追加量化兜底句，after.has_slop 必须为 False）；DataEngSlopGuard.actionability_score（无数字 −20、无 DRI −15、每个套话 −12，限幅 0~100，阈值 70）。",
+      "is_real": true,
+      "assertion": "python -c \"from engines import DataEngSlopGuard; g=DataEngSlopGuard(); print(g.audit('整体良好，按需采购')['has_slop'], g.clean('整体良好，按需采购')['after']['has_slop'])\" → 实测输出「True False」，证明清洗前确能识别套话、清洗后零套话残留，能力非空壳。"
+    },
+    {
+      "layer": "L06",
+      "repos": "dbt-labs/dbt（约 14,139★，Apache-2.0） · optuna/optuna（约 15,027★，MIT） · the-dual-space/pymoo（约 2,994★，Apache-2.0）",
+      "license_note": "dbt/pymoo 为 Apache-2.0、optuna 为 MIT，均允许商用；star/许可证经 GitHub REST API 于 2026-11-10 实测。原候选 huashu-design/Stylescapes 经 API 复核返回 HTTP 404（仓库不存在），属错引，已剔除且未计入任何一层；pymoo 现归属 the-dual-space/pymoo（原 anyoptimization/pymoo 重定向，仓库 id 104132965）。",
+      "absorbed": "①dbt 的 incremental 策略谱系（append / merge / insert_overwrite / delete+insert）作为三档工艺术语，把「快/稳/强一致」映射为可替换的物化策略而非口号；②optuna 的多目标优化「只返回 Pareto 前沿与权衡关系、取舍交人类」机制：本层仅输出 recommended_id + note，明确不写「已决定」，把选择权交还人类；③pymoo 的 NSGA-II/III 式 0~1 归一化 + 权重加权求和机制：五维分量先归一化再加权，全程确定性可复算。",
+      "landing": "SCENARIOS（三套固定方案：fast 极速增量 / balanced 稳健批流 / strict 强一致重算，各带 stack、best_for、tradeoff）；DataEngScenarioMatrix._score_components（5 维 0~1 归一化 + WEIGHTS 加权 + 上下文确定性修正，无随机数）；DataEngScenarioMatrix.generate（排序、rank、recommended_id + 「最终选型由人类决策」note）；render_markdown（权衡矩阵看板）。",
+      "is_real": true,
+      "assertion": "python -c \"from engines import DataEngScenarioMatrix; m=DataEngScenarioMatrix().generate(); print(m['scenario_count'], m['recommended_id'], [(r['id'],r['total_score']) for r in m['scenarios']])\" → 实测输出「3 balanced [('balanced', 68.0), ('fast', 64.1), ('strict', 45.0)]」，三方案真实裂变、加权得分可复算且排序确定；追加 generate({'strict_consistency': True}) 实测 recommended_id 翻转为「strict」，证明上下文修正真的参与打分而非写死推荐。"
+    }
+  ],
+  "sources": [
+    "https://github.com/dbt-labs/dbt",
+    "https://github.com/OAI/OpenAPI-Specification",
+    "https://github.com/dbt-labs/metricflow",
+    "https://github.com/reviewdog/reviewdog",
+    "https://github.com/vale-cli/vale",
+    "https://github.com/textlint/textlint",
+    "https://github.com/optuna/optuna",
+    "https://github.com/the-dual-space/pymoo",
+    "https://api.github.com/repos/dbt-labs/dbt",
+    "https://api.github.com/repos/OAI/OpenAPI-Specification",
+    "https://api.github.com/repos/dbt-labs/metricflow",
+    "https://api.github.com/repos/reviewdog/reviewdog",
+    "https://api.github.com/repos/vale-cli/vale",
+    "https://api.github.com/repos/textlint/textlint",
+    "https://api.github.com/repos/optuna/optuna",
+    "https://api.github.com/repos/the-dual-space/pymoo"
+  ],
+  "verdict": "OK"
+}

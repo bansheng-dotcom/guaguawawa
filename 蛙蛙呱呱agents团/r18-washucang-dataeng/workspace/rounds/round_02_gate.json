@@ -1,0 +1,38 @@
+{
+  "round": 2,
+  "layer": "L02",
+  "stage": 1,
+  "name": "意图解构层（自然语言 → 5 阶段 Kahn 交付 DAG + 工时预算）",
+  "audit": "意图路由只有 14 条关键词硬匹配，只能回答「调哪个技能」，答不出动几张表、要多久、依赖先后、瓶颈在哪。",
+  "benchmark": "stanfordnlp/dspy(>17k) · ray-project/ray(>33k) · apache/airflow(>36k)",
+  "engine_module": "engines/intent_compiler.py",
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "-m",
+    "engines.intent_compiler",
+    "--text",
+    "把 orders 和 dwd_orders 最近30天的增量数据做成看板，2小时内要新鲜，空值率不超过0.05",
+    "--out",
+    "workspace/rounds/L02_dag.json",
+    "--md",
+    "workspace/rounds/L02_dag.md"
+  ],
+  "probe_stdout": "__AGENT_RESULT__ {\"ok\": true, \"intent_id\": \"68e72e43966b\", \"stage_count\": 5, \"topological_order\": [\"01_profile\", \"02_model\", \"03_orchestrate\", \"04_gate\", \"05_publish\"], \"total_effort_h\": 35.7, \"critical_path\": [\"01_profile\", \"02_model\", \"03_orchestrate\", \"04_gate\", \"05_publish\"], \"out\": \"workspace/rounds/L02_dag.json\", \"md\": \"workspace/rounds/L02_dag.md\"}",
+  "artifact": {
+    "path": "workspace/rounds/L02_dag.json",
+    "bytes": 2984,
+    "sha256": "d9670e58e2f0dda1d0ea06dffa9bfc1db98968da9b1fa3f36b340ddaff38e37c"
+  },
+  "regression": {
+    "baseline": {
+      "passed": 133,
+      "total": 133
+    },
+    "evolution": {
+      "tests": 75,
+      "ok": true
+    }
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:30:35"
+}

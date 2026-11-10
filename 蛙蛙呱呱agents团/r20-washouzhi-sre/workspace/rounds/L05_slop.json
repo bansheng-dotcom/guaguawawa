@@ -1,0 +1,106 @@
+{
+  "ok": true,
+  "engine": "SreSlopGuard",
+  "layer": "L05",
+  "before": {
+    "ok": true,
+    "engine": "SreSlopGuard",
+    "layer": "L05",
+    "text": "整体稳定，运行正常，持续关注，视情况而定，相关细节待定，基本可用",
+    "hits": [
+      {
+        "word": "整体稳定",
+        "category": "vague_status",
+        "index": 0,
+        "replacement": "可用率 99.9%（近 30 天 9995/10000 探测成功）"
+      },
+      {
+        "word": "运行正常",
+        "category": "vague_status",
+        "index": 5,
+        "replacement": "探测成功率与错误预算余量"
+      },
+      {
+        "word": "持续关注",
+        "category": "no_action",
+        "index": 10,
+        "replacement": "值班负责人 蛙值守，24h 内提交 RCA"
+      },
+      {
+        "word": "视情况而定",
+        "category": "no_criteria",
+        "index": 15,
+        "replacement": "按 SLO 99.9% 与错误预算燃烧率判定"
+      },
+      {
+        "word": "相关细节待定",
+        "category": "placeholder",
+        "index": 21,
+        "replacement": "缺失项清单 + 补齐负责人 + 截止时间"
+      },
+      {
+        "word": "细节待定",
+        "category": "placeholder",
+        "index": 23,
+        "replacement": "缺失项清单 + 补齐负责人 + 截止时间"
+      },
+      {
+        "word": "基本可用",
+        "category": "vague_status",
+        "index": 28,
+        "replacement": "可用率低于 99.9% 即判不可用"
+      }
+    ],
+    "hit_count": 7,
+    "has_slop": true,
+    "categories": [
+      "no_action",
+      "no_criteria",
+      "placeholder",
+      "vague_status"
+    ],
+    "quantified_evidence": [],
+    "has_quantified_evidence": false,
+    "has_dri": false,
+    "has_deadline": false,
+    "actionability": 10,
+    "verdict": "FAIL",
+    "capabilities": [
+      "SRE 假大空词库 (16 条) 物理替换与命中定位",
+      "量化证据门禁 (可用率/错误预算/MTTR/RTO 可复算数字) 强制绑定",
+      "DRI 注入 + 截止期 + Actionability 行动力评分 (0~100)"
+    ]
+  },
+  "after": {
+    "ok": true,
+    "engine": "SreSlopGuard",
+    "layer": "L05",
+    "text": "可用率 99.9%（近 30 天 9995/10000 探测成功），探测成功率与错误预算余量，值班负责人 蛙值守，24h 内提交 RCA，按 SLO 99.9% 与错误预算燃烧率判定，缺失项清单 + 补齐负责人 + 截止时间单 + 补齐负责人 + 截止时间，可用率低于 99.9% 即判不可用（责任人：蛙值守）（证据：可用率 99.9%，错误预算余量 0.001）",
+    "hits": [],
+    "hit_count": 0,
+    "has_slop": false,
+    "categories": [],
+    "quantified_evidence": [
+      "99.9%",
+      "30 天",
+      "24h",
+      "99.9%",
+      "99.9%",
+      "99.9%"
+    ],
+    "has_quantified_evidence": true,
+    "has_dri": true,
+    "has_deadline": true,
+    "actionability": 100,
+    "verdict": "PASS",
+    "capabilities": [
+      "SRE 假大空词库 (16 条) 物理替换与命中定位",
+      "量化证据门禁 (可用率/错误预算/MTTR/RTO 可复算数字) 强制绑定",
+      "DRI 注入 + 截止期 + Actionability 行动力评分 (0~100)"
+    ]
+  },
+  "cleaned_text": "可用率 99.9%（近 30 天 9995/10000 探测成功），探测成功率与错误预算余量，值班负责人 蛙值守，24h 内提交 RCA，按 SLO 99.9% 与错误预算燃烧率判定，缺失项清单 + 补齐负责人 + 截止时间单 + 补齐负责人 + 截止时间，可用率低于 99.9% 即判不可用（责任人：蛙值守）（证据：可用率 99.9%，错误预算余量 0.001）",
+  "removed_hits": 7,
+  "actionability_gain": 90,
+  "generated_at": "2026-11-10T19:03:29"
+}

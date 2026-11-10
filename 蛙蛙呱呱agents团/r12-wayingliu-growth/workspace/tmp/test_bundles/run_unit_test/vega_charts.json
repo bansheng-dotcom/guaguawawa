@@ -1,0 +1,51 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "增长漏斗转化全景看板 (run_unit_test)",
+  "description": "基于 Vega-Lite v5 规范的可交互增长转化漏斗图",
+  "data": {
+    "values": [
+      {
+        "stage": "曝光",
+        "count": 1000
+      },
+      {
+        "stage": "转化",
+        "count": 100
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "stage",
+      "type": "nominal",
+      "sort": null,
+      "title": "转化漏斗阶段"
+    },
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "转化用户数"
+    },
+    "color": {
+      "field": "count",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "tealblues"
+      },
+      "legend": null
+    },
+    "tooltip": [
+      {
+        "field": "stage",
+        "type": "nominal",
+        "title": "阶段"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "人数"
+      }
+    ]
+  }
+}

@@ -2,9 +2,10 @@
 import os
 from datetime import datetime
 
-_AGENT = r'D:\一人公司\agents\r06-wadeqing-analyst'
-res_path = os.path.join(_AGENT, "workspace", "artifacts", "ab_test_decision.json")
-out_html_path = os.path.join(_AGENT, "workspace", "artifacts", "AB_Test_Report.html")
+_AGENT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_REPO = os.path.dirname(_AGENT)
+res_path = os.path.join(_REPO, "workspace", "artifacts", "ab_test_decision.json")
+out_html_path = os.path.join(_REPO, "workspace", "artifacts", "AB_Test_Report.html")
 
 # 读取刚才 A/B 测试生成的 JSON 结果
 with open(res_path, 'r', encoding='utf-8') as f:

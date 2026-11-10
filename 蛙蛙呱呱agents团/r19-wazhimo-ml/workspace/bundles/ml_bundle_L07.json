@@ -1,0 +1,92 @@
+{
+  "schema": "r19.ml_bundle.v1",
+  "run_id": "L07",
+  "role": "R19 蛙智模 · 模型工程与 AI 评估官",
+  "generated_at": "2026-11-10T18:19:21",
+  "metrics": {
+    "ok": true,
+    "n": 4,
+    "skipped": 0,
+    "positive_label": "pass",
+    "confusion": {
+      "tp": 2,
+      "fp": 1,
+      "tn": 1,
+      "fn": 0
+    },
+    "accuracy": 0.75,
+    "precision": 0.6667,
+    "recall": 1.0,
+    "f1": 0.8,
+    "is_conserved": true,
+    "conservation": {
+      "lhs": 4,
+      "rhs": 4,
+      "delta": 0.0
+    }
+  },
+  "latency": {
+    "count": 5,
+    "mean": 214.0,
+    "p50": 180.0,
+    "p95": 364.0,
+    "p99": 392.8,
+    "min": 120.0,
+    "max": 400.0,
+    "unit": "ms"
+  },
+  "gate_summary": {
+    "total": 3,
+    "passed": 3,
+    "verdict": "PASS"
+  },
+  "lineage": {
+    "nodes": [
+      "audit",
+      "track",
+      "evaluate",
+      "regression",
+      "decide"
+    ],
+    "edges": [
+      [
+        "audit",
+        "track"
+      ],
+      [
+        "track",
+        "evaluate"
+      ],
+      [
+        "track",
+        "regression"
+      ],
+      [
+        "evaluate",
+        "decide"
+      ],
+      [
+        "regression",
+        "decide"
+      ]
+    ],
+    "artifact_type": "model_engineering"
+  },
+  "artifacts": [
+    {
+      "name": "ml_bundle_L07.json",
+      "sha256": "88b8e1927e201e466dc4976d14424d9df9550f94d7761a118884ae95e3fb98e7",
+      "bytes": 1291
+    },
+    {
+      "name": "ml_audit_L07.sarif.json",
+      "sha256": "70f94210594dec05498309a86bb656c64895be7bb6105fc95c867a03ea485c86",
+      "bytes": 2968
+    },
+    {
+      "name": "ml_eval_chart_L07.vega.json",
+      "sha256": "07992891926d8b42457e0a1c9cc57365305d2c3880925ea9c7591e0488d6c296",
+      "bytes": 966
+    }
+  ]
+}

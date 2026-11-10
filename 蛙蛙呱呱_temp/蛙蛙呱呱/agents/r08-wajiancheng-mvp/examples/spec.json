@@ -1,6 +1,0 @@
-{
-  "trigger": "转脚手架",
-  "stack": "vite-html",
-  "delivery": "单文件",
-  "auth": "none"
-}

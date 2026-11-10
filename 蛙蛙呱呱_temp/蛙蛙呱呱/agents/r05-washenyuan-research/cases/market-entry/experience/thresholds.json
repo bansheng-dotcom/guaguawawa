@@ -1,6 +1,0 @@
-{
-  "_comment": "新市场进入研究案例阈值（引用全局 thresholds.json 键名，不手抄数值）。",
-  "variance_warning_pct": "见 thresholds.json sizing.variance_warning_pct",
-  "variance_critical_pct": "见 thresholds.json sizing.variance_critical_pct",
-  "risk_thresholds": "见 thresholds.json scenario.risk_thresholds"
-}

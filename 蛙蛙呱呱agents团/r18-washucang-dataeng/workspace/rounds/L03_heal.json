@@ -1,0 +1,48 @@
+{
+  "connection_id": "conn-001",
+  "source_connector": "source-postgres",
+  "destination_connector": "destination-snowflake",
+  "owner": "蛙数仓（R18）",
+  "gate_version": "DATAENG-SPEC v1.0",
+  "handoff": "R01 人工审批（高风险动作）",
+  "rollback": "回滚到上一版 dbt manifest / 上一批次分区快照",
+  "checks": [],
+  "healed": true,
+  "reflections": [
+    {
+      "dim": "skeleton",
+      "issue": "缺 owner",
+      "fix": "补齐骨架字段 owner（元信息，不含数字）"
+    },
+    {
+      "dim": "skeleton",
+      "issue": "缺 gate_version",
+      "fix": "补齐骨架字段 gate_version（元信息，不含数字）"
+    },
+    {
+      "dim": "skeleton",
+      "issue": "缺 handoff",
+      "fix": "补齐骨架字段 handoff（元信息，不含数字）"
+    },
+    {
+      "dim": "skeleton",
+      "issue": "缺 rollback",
+      "fix": "补齐骨架字段 rollback（元信息，不含数字）"
+    },
+    {
+      "dim": "skeleton",
+      "issue": "缺 checks",
+      "fix": "补齐骨架字段 checks（元信息，不含数字）"
+    }
+  ],
+  "filled": [
+    "owner",
+    "gate_version",
+    "handoff",
+    "rollback",
+    "checks"
+  ],
+  "mapped": [],
+  "missing": [],
+  "needs_revalidation": true
+}

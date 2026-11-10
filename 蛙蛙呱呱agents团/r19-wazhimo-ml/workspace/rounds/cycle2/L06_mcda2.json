@@ -1,0 +1,108 @@
+{
+  "ok": true,
+  "engine": "R19ScenarioMatrix",
+  "layer": "L06",
+  "recommended": "SCN_B_STEADY",
+  "topsis": {
+    "ok": true,
+    "weights": {
+      "speed": 0.2,
+      "evidence": 0.35,
+      "risk": 0.3,
+      "cost": 0.15
+    },
+    "ranking": [
+      "SCN_B_STEADY",
+      "SCN_C_STRICT",
+      "SCN_A_QUICK"
+    ],
+    "rows": [
+      {
+        "id": "SCN_B_STEADY",
+        "d_best": 0.06511,
+        "d_worst": 0.14445,
+        "closeness": 0.6893,
+        "rank": 1
+      },
+      {
+        "id": "SCN_C_STRICT",
+        "d_best": 0.131144,
+        "d_worst": 0.148904,
+        "closeness": 0.5317,
+        "rank": 2
+      },
+      {
+        "id": "SCN_A_QUICK",
+        "d_best": 0.148904,
+        "d_worst": 0.131144,
+        "closeness": 0.4683,
+        "rank": 3
+      }
+    ],
+    "winner": "SCN_B_STEADY"
+  },
+  "pareto": {
+    "ok": true,
+    "frontier": [
+      "SCN_A_QUICK",
+      "SCN_B_STEADY",
+      "SCN_C_STRICT"
+    ],
+    "dominated": [],
+    "frontier_size": 3
+  },
+  "minimax_regret": {
+    "ok": true,
+    "rows": [
+      {
+        "id": "SCN_A_QUICK",
+        "regrets": {
+          "speed": 0.0,
+          "evidence": 4.5,
+          "risk": 5.0,
+          "cost": 0.0
+        },
+        "max_regret": 5.0,
+        "weighted_regret": 3.075
+      },
+      {
+        "id": "SCN_B_STEADY",
+        "regrets": {
+          "speed": 3.0,
+          "evidence": 0.5,
+          "risk": 1.0,
+          "cost": 3.0
+        },
+        "max_regret": 3.0,
+        "weighted_regret": 1.525
+      },
+      {
+        "id": "SCN_C_STRICT",
+        "regrets": {
+          "speed": 6.5,
+          "evidence": 0.0,
+          "risk": 0.0,
+          "cost": 6.5
+        },
+        "max_regret": 6.5,
+        "weighted_regret": 2.275
+      }
+    ],
+    "winner": "SCN_B_STEADY",
+    "ranking": [
+      "SCN_B_STEADY",
+      "SCN_A_QUICK",
+      "SCN_C_STRICT"
+    ],
+    "worst_case_regret": 3.0
+  },
+  "capabilities": [
+    "三维方案裂变 (SCN_A_QUICK / SCN_B_STEADY / SCN_C_STRICT)",
+    "四准则加权 MCDA 打分 (speed/evidence/risk/cost) 与推荐判定",
+    "±20% 权重敏感性分析 + Markdown 决策看板渲染",
+    "[C2] TOPSIS 相对贴近度排序 (向量归一 + 正负理想解)",
+    "[C2] Pareto 非支配前沿识别",
+    "[C2] Minimax Regret 最坏后悔值稳健裁决"
+  ],
+  "engine_layer": "L06"
+}

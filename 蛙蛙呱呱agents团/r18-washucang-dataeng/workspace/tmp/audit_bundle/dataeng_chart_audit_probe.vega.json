@@ -1,0 +1,37 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "R18 8 维发布门禁通过情况 · audit_probe",
+  "data": {
+    "values": [
+      {
+        "gate": "no_gate",
+        "status": 0,
+        "label": "N/A"
+      }
+    ]
+  },
+  "mark": {
+    "type": "bar",
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "gate",
+      "type": "nominal",
+      "axis": {
+        "title": "门禁"
+      }
+    },
+    "y": {
+      "field": "status",
+      "type": "quantitative",
+      "axis": {
+        "title": "通过=1/未过=0"
+      }
+    },
+    "color": {
+      "field": "label",
+      "type": "nominal"
+    }
+  }
+}

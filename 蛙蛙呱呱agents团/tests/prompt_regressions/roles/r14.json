@@ -1,0 +1,27 @@
+{
+  "r14": {
+    "role_dir": "r14-wajiaoyi-commerce",
+    "cases": [
+      {"id": "r14-01", "intent": "处理一下退款", "expect": "clarify"},
+      {"id": "r14-02", "intent": "帮我看看交易数据", "expect": "clarify"},
+      {"id": "r14-03", "intent": "订阅这块怎么弄", "expect": "clarify"},
+      {"id": "r14-04", "intent": "微信支付回调失败", "expect": "route", "expect_action": "payment.payment_intent"},
+      {"id": "r14-05", "intent": "开一张上个月的发票", "expect": "route", "expect_action": "billing.invoice"},
+      {"id": "r14-06", "intent": "电子签署合同", "expect": "route", "expect_action": "signature.document"},
+      {"id": "r14-07", "intent": "看看订阅的MRR", "expect": "route", "expect_action": "billing.plan"},
+      {"id": "r14-08", "intent": "微信退款", "expect": "route", "expect_action": "payment.refund"},
+      {"id": "r14-09", "intent": "订单状态怎么流转", "expect": "route", "expect_action": "workflow.state"},
+      {"id": "r14-10", "intent": "上周的收入事件表", "expect": "route", "expect_action": "revenue.events"},
+      {"id": "r14-11", "intent": "看下本月的用量计量", "expect": "route", "expect_action": "billing.usage"},
+      {"id": "r14-12", "intent": "计量口径怎么定", "expect": "clarify"},
+      {"id": "r14-13", "intent": "昨天开始微信支付回调一直失败，麻烦排查", "expect": "route", "expect_action": "payment.payment_intent"},
+      {"id": "r14-14", "intent": "上个月的账单需要开张发票给客户", "expect": "route", "expect_action": "billing.invoice"},
+      {"id": "r14-15", "intent": "这份合同要走电子签署流程", "expect": "route", "expect_action": "signature.document"},
+      {"id": "r14-16", "intent": "订阅业务的 MRR 现在是多少", "expect": "route", "expect_action": "billing.plan"},
+      {"id": "r14-17", "intent": "微信上有一笔要退钱给用户", "expect": "route", "expect_action": "payment.refund"},
+      {"id": "r14-18", "intent": "有个客户说钱付了但没到账，在闹", "expect": "clarify"},
+      {"id": "r14-19", "intent": "订阅的套餐想调整下，还没想好怎么动", "expect": "clarify"},
+      {"id": "r14-20", "intent": "计量口径这块还没和财务对齐", "expect": "clarify"}
+    ]
+  }
+}

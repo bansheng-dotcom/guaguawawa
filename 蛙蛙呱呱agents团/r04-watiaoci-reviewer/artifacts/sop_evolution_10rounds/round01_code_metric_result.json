@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "filename": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r04-watiaoci-reviewer\\agent.py",
+  "loc": 354,
+  "sloc": 293,
+  "comments": 18,
+  "functions_count": 8,
+  "complexity_by_func": {
+    "route_intent": 5,
+    "build_parser": 2,
+    "make_manifest": 1,
+    "_run_demo": 5,
+    "_first_input_file": 5,
+    "_mkns": 1,
+    "run_task": 8,
+    "main": 19
+  },
+  "avg_complexity": 5.75,
+  "max_complexity": 19,
+  "maintainability_index": 57.15,
+  "smells": []
+}

@@ -1,0 +1,21 @@
+{
+  "task_id": "1d9db6cd",
+  "title": "发布前门禁核查",
+  "owner": "r17",
+  "intent": "这个工作流要发布上线，帮我查下发布前门禁是否通过",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r17-wazhiwang-automation\\examples\\publish.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "publish 门禁通过"
+  ],
+  "deps": [],
+  "status": "pending",
+  "logs": []
+}

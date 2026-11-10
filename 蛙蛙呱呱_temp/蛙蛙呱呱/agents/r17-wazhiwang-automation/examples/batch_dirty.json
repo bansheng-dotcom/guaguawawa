@@ -1,9 +1,0 @@
-{
-  "batches": [
-    {
-      "batch_id": "b1",
-      "item_count": 50,
-      "status": "failed"
-    }
-  ]
-}

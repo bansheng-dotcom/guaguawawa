@@ -1,0 +1,22 @@
+{
+  "session_id": "test_sess",
+  "turn": 1,
+  "current_findings": [],
+  "current_verdict": "PASS",
+  "last_inspected_target": "agent.py",
+  "active_scenario": "balanced",
+  "history_snapshots": [
+    {
+      "version": 1,
+      "timestamp": 1794225626.2265975,
+      "description": "Round 1 init",
+      "turn": 1,
+      "state_copy": {
+        "current_findings": [],
+        "current_verdict": "PASS",
+        "last_inspected_target": "agent.py",
+        "active_scenario": "balanced"
+      }
+    }
+  ]
+}

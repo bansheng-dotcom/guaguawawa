@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "raw_intent": "对项目做成品盘点、三级证据链核验、门禁审计并生成人工评审包",
+  "nodes": {
+    "artifact_inventory": {
+      "node_id": "artifact_inventory",
+      "skill": "artifact",
+      "action": "inventory",
+      "params": {},
+      "deps": []
+    },
+    "artifact_verify": {
+      "node_id": "artifact_verify",
+      "skill": "artifact",
+      "action": "verify",
+      "params": {},
+      "deps": [
+        "artifact_inventory"
+      ]
+    },
+    "human_package": {
+      "node_id": "human_package",
+      "skill": "human",
+      "action": "package",
+      "params": {},
+      "deps": [
+        "artifact_inventory",
+        "artifact_verify"
+      ]
+    }
+  },
+  "execution_order": [
+    "artifact_inventory",
+    "artifact_verify",
+    "human_package"
+  ],
+  "has_cycle": false,
+  "parallel_stages": [
+    [
+      "artifact_inventory"
+    ],
+    [
+      "artifact_verify"
+    ],
+    [
+      "human_package"
+    ]
+  ]
+}

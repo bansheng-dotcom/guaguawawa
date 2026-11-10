@@ -1,0 +1,36 @@
+{
+  "round": 5,
+  "layer": "L05",
+  "stage": 2,
+  "name": "质感去劣化（DataEngSlopGuard 物理清洗假大空）",
+  "audit": "交付报告充斥「整体良好 / 按需采购 / 视情况而定 / 相关细节待定」，无量化值、无 DRI、无截止期，人类无法据此行动。",
+  "benchmark": "reviewdog/reviewdog(9736★/MIT) · vale-cli/vale(6364★/MIT) · textlint/textlint(3207★/MIT)",
+  "engine_module": "engines/slop_guard.py",
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "-m",
+    "engines.slop_guard",
+    "--text",
+    "数据管道整体良好，按需采购，视情况而定，相关细节待定，持续关注",
+    "--out",
+    "workspace/rounds/L05_slop.json"
+  ],
+  "probe_stdout": "__AGENT_RESULT__ {\"ok\": false, \"has_slop\": true, \"terms_found\": [\"持续关注\", \"按需采购\", \"整体良好\", \"相关细节待定\", \"视情况而定\"], \"actionability_score\": 5, \"out\": \"workspace/rounds/L05_slop.json\"}",
+  "artifact": {
+    "path": "workspace/rounds/L05_slop.json",
+    "bytes": 1381,
+    "sha256": "f02885b9461211202c09eead0147fa04b0b22ac21e033630a4510ca9523ddaa4"
+  },
+  "regression": {
+    "baseline": {
+      "passed": 133,
+      "total": 133
+    },
+    "evolution": {
+      "tests": 75,
+      "ok": true
+    }
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:30:58"
+}

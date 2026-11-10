@@ -1,0 +1,20 @@
+{
+  "schema": "pm.session/v1",
+  "agent": "r07-wademing-pm",
+  "created_at": "2026-11-10T21:58:05",
+  "updated_at": "2026-11-10T21:58:05",
+  "turn": 0,
+  "slots": {
+    "scenarios": [
+      "lean_mvp",
+      "commercial_standard",
+      "enterprise_flagship"
+    ],
+    "current_scenario": "enterprise_flagship"
+  },
+  "entities": {},
+  "interactions": [],
+  "snapshots": [],
+  "current_snapshot": 0,
+  "current_scenario": "enterprise_flagship"
+}

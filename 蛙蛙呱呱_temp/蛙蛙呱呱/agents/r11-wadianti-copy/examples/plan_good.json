@@ -1,9 +1,0 @@
-{
-  "round": 1,
-  "content_step": "copy",
-  "target_artifact": "内容复利主题成稿",
-  "stance": "内容生产是纪律问题；只提供方法与判据，不替读者拍板经营决策",
-  "deliverables": {"artifact_type": "article", "file_path": "artifacts/article.md"},
-  "acceptance_criteria": {"min_gates": 5, "all_gates_pass": true},
-  "stop_condition": {"if_gate_fails": "按 checks 修复后重验", "reason": "不交付未过门禁的成稿"}
-}

@@ -1,0 +1,108 @@
+{
+  "round": 10,
+  "verdict": "PASS",
+  "commands": [
+    {
+      "cmd": "python auto_evolve_runner.py --status",
+      "rc": 0,
+      "summary": "当前轮次 Round 10/10，completed_rounds=[1..10]，批次 3 完成 4/4，十行均 PASSED"
+    },
+    {
+      "cmd": "python auto_evolve_runner.py --round 10",
+      "rc": 0,
+      "summary": "五步闭环全绿：源码 450 行 / 对标 3 命中 / 引擎装配 / 探针 rc=0 且工件 1 项 / 三门禁 rc=0；重跑把 round10 时间戳从 19:41:49 更新为 19:52:43，未新增重复历史"
+    },
+    {
+      "cmd": "python -m pytest tests -q",
+      "rc": 0,
+      "summary": "47 passed in 1.59s"
+    },
+    {
+      "cmd": "python run_tests.py",
+      "rc": 0,
+      "summary": "通过 56 / 56，全绿 · R07 端到端验收通过"
+    },
+    {
+      "cmd": "python verify_loop.py",
+      "rc": 0,
+      "summary": "total=58 passed=58 failed=0 verdict=PASS（29 干净行 + 29 脏行负向对照）"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\telemetry.jsonl",
+      "exists": true,
+      "bytes": 3562,
+      "contract": "9 行 JSONL，schema=pm.telemetry/v1；3 个 trace、9 个唯一 span；trace_id=32/span_id=16/sha256=64 hex；父 span 同 trace 可解析、无重复；全部 status=OK，与三门禁 rc=0 一致，无明文 payload 字段"
+    },
+    {
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\evolution_state.json",
+      "exists": true,
+      "bytes": 5506,
+      "contract": "current_round=10、completed_rounds=[1..10]、round_history 10 条均 PASSED 且 round 唯一；L10 artifacts 指向 workspace/telemetry.jsonl，last_updated_at=19:52:43"
+    }
+  ],
+  "audit_findings": [
+    {
+      "severity": "OK",
+      "finding": "复核项(a) 关闭：telemetry span status 由真实探针/门禁结论推导，仓库内已无写死 legacy/evolution=pass。",
+      "evidence": "engines/telemetry_watchdog.py:424/427/431 用 retry/breaker/isolated 的真实结果做条件；auto_evolve_runner.py:483-484 用 gate 的 rc 结果 info['ok'] 生成状态。独立注入 regression.ok=False 后实测 gate.legacy_run_tests=ERROR、gate.evolution_pytest=OK、evolve.round.persisted=ERROR；全仓 grep 已无 gate.regression 与 'legacy':'pass'。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(b) 前半关闭：trace_id/span_id 混入进程级随机盐，不再是可预测的纯 seq 哈希。",
+      "evidence": "engines/telemetry_watchdog.py:229 salt=os.urandom(8).hex()，:233-240 的哈希串含 salt。两个独立 tracer 在 seq 相同的情况下实测 trace_id 分别为 1707c8… 与 e550c1…，且均不等于 sha256('r07-wademing-pm:trace:1')[:32]；长度 32/16 hex。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(b) 后半关闭：verify_chain 已校验父 span 引用存在性与重复 span，并把结论纳入 ok。",
+      "evidence": "engines/telemetry_watchdog.py:337-344 计算 dangling_parents/duplicate_spans。注入重复 span 行实测 duplicate_spans=True，注入未知 parent 实测 dangling 非空；真实 9 行工件 parent_same_trace=True、unique_spans=9、必需键齐全、sha256=64 hex。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "verify_chain 的父引用完整性只判断 parent_span_id 是否在全文件出现，不校验父子属同一 trace、也不排除自引用，跨 trace 的脏记录仍判 ok=True。",
+      "evidence": "telemetry_watchdog.py:338 以全文件 set(spans) 匹配；构造 trace=t 的 parent 与 trace=u 的 child 两行文件，verify_chain 返回 ok=True、dangling=[]。建议按 trace 建索引并断言 child.parent 的 trace_id 等于 child.trace_id 且 parent != self。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(c) 关闭：telemetry 不落 payload 明文，仅写 SHA256 与字节数；随机 marker 实测未泄漏。",
+      "evidence": "telemetry_watchdog.py:251-267 只输出 sha256/bytes/attributes/error，没有 payload 字段。独立探针把随机 marker 放进 payload 后 marker_leaked=False，记录 sha256=64 hex；真实 9 行工件均无 payload 键。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "敏感载荷保护只覆盖 payload 通道：attributes 与 error 原样落盘，随机 marker 在这两个字段实测可明文泄漏。",
+      "evidence": "telemetry_watchdog.py:264-265 直接写入 attributes/error，无脱敏或白名单。独立探针把随机 marker 分别放入 attributes 与 error 后，两串均出现在 telemetry.jsonl；当前调用方只传 round/batch 与非敏感错误，尚无实际泄漏。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(d) 关闭：七判据逐条显式命名，nsm_criteria 与失败维度对齐，无 zip 截断或标签错位。",
+      "evidence": "skills/s06_metrics.py:44-66 每条判据以 (name, cond, msg) 生成 check，nsm_criteria 只收集 cond=True 的名称。对 7 个维度逐一构造单点失败，failed_dims 恰为 [该维度]、nsm_criteria 恰为其余 6 条；全通过时 7 条；CLI 实测虚荣指标 rc=1 且 non_vanity=BLOCKER。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "旧 s06 MINOR 仅部分关闭：判据口径与文档七判据仍不一致，『可行动/团队可控』无独立判据，不可量化北极星仍可全绿；_NSM_CRITERIA 已成为死代码。",
+      "evidence": "s06_metrics.py:4-5 宣称可衡量/先导性/可行动/团队可控/非虚荣/有基线目标/有数据源，实现维度却是 is_metric_not_activity 等另一组名称；:22 的 _NSM_CRITERIA 无任何引用。实测 north_star='让用户更满意' 时 7/7 通过；experience/thresholds.json 的 metrics.nsm_criteria=7 也未被读取（T9 阈值外置失效）。"
+    },
+    {
+      "severity": "OK",
+      "finding": "复核项(e) 关闭：十轮状态机 10/10 PASSED，round_history 10 条无重复。",
+      "evidence": "--status 输出 completed_rounds=[1..10]、批次 3/3 与 4/4；evolution_state.json 10 条历史 round 唯一且全 PASSED。重跑 --round 10 前快照 round10.completed_at=19:41:49，重跑后=19:52:43，round 1~9 记录逐字段不变，未新增重复条目。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "状态机自愈会把缺失 status 的历史条目默认补成 PASSED，且 --round 可直接完成第 10 轮、不校验前置轮次，仍有无证据补绿与乱序打卡的口子。",
+      "evidence": "auto_evolve_runner.py:249 item.setdefault('status','PASSED')；:561-563 对任意 --round 不做前置校验。重跑前快照的 round_history 顺序为 [1..8,10,9]（第 10 轮记录先于第 9 轮），目前仅靠 load_state:253 排序纠正。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "假绿防护仍有缺口：TelemetryTracer.log 的 status 默认 'OK'、span 上下文无异常即写 OK，且 runner 状态机与遥测写入路径在 tests/ 中零引用，负向推导无回归用例。",
+      "evidence": "telemetry_watchdog.py:271 status 默认 'OK'、:302-305 无异常固定 emit OK；直接以 regression.ok=False 调用 _emit_round_telemetry 实测父 span evolve.round.10=OK 而子 gate.legacy_run_tests=ERROR，父子状态矛盾。tests/ 全目录 grep auto_evolve_runner/_emit_round_telemetry 为 0 命中，本次只能靠审计脚本注入验证。"
+    },
+    {
+      "severity": "MINOR",
+      "finding": "探针每次执行先清空 telemetry.jsonl，工件只保留本轮 9 行，十轮历史 span 不可复核，遥测不具备 append-only/留存能力。",
+      "evidence": "telemetry_watchdog.py:355-358 以 'w' 模式 truncate 后再写入；当前工件仅 probe 4 行 + gate 3 行 + round/persisted 2 行，round 1~9 无任何 span 留存。建议按轮次分文件或改为只追加，避免审计证据被下一次探针擦除。"
+    }
+  ],
+  "evidence": "五条必跑命令 rc 全为 0：pytest 47 passed、legacy 56/56、闭环 58/58，第 10 轮五步闭环探针 rc=0 且工件项通过。两个必检工件非空且可解析：telemetry.jsonl 9 行、3 个 trace、9 个唯一 span、父子同 trace、全部 status=OK 且与 rc=0 门禁一致；evolution_state.json 10 条 round_history 唯一、全 PASSED、completed_rounds=[1..10]。旧审计中与本轮相关的 1 条 MAJOR（gate.regression 写死 pass）与 5 条 MINOR（可预测 ID、verify_chain 弱校验、payload 代理断言、早期步骤叙事化、重复历史）经独立注入实测关闭；s06 判据 MINOR 仅部分关闭（zip 错位已修，但可行动/团队可控仍无独立判据且 _NSM_CRITERIA 成死代码）。剩余 MINOR 为契约外加固缺口，生产路径未发现假绿，故 verdict=PASS。"
+}

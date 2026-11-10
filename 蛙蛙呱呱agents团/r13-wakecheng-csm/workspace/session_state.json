@@ -1,0 +1,290 @@
+{
+  "current_client": "甲骨文软件",
+  "active_scenario": "steady_standard",
+  "recent_clients": [
+    "新客B",
+    "甲骨文软件",
+    "A公司",
+    "B网络科技",
+    "C制造集团"
+  ],
+  "slots": {
+    "health_score": 82.5,
+    "nps": 35.0,
+    "risk_level": "LOW",
+    "last_selected_scenario": "稳健运营型 (推荐)"
+  },
+  "history": [],
+  "snapshots": [
+    {
+      "snapshot_id": "snap_20261110_131941",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:19:41.880887",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132118",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:21:18.728517",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132127",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:21:27.510217",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132137",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:21:37.822186",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132156",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:21:56.929958",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132204",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:22:04.971160",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132213",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:22:13.369722",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132234",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:22:34.940029",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132243",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:22:43.462303",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132252",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:22:52.013681",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132300",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:23:00.407429",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_132325",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T13:23:25.149373",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_204925",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T20:49:25.306085",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_212744",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T21:27:44.414792",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_213637",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T21:36:37.638038",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_214018",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T21:40:18.265402",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_214814",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T21:48:14.265901",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    },
+    {
+      "snapshot_id": "snap_20261110_215821",
+      "label": "test_checkpoint",
+      "created_at": "2026-11-10T21:58:21.840900",
+      "data": {
+        "current_client": "甲骨文软件",
+        "active_scenario": "steady_standard",
+        "slots": {
+          "health_score": 82.5,
+          "nps": 35.0,
+          "risk_level": "LOW",
+          "last_selected_scenario": "稳健运营型 (推荐)"
+        }
+      }
+    }
+  ]
+}

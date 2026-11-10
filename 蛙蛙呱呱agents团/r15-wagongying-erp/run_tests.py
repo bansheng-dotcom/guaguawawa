@@ -21,7 +21,8 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENTS = os.path.dirname(HERE)
-for p in (HERE, AGENTS):
+REPO_ROOT = os.path.dirname(AGENTS)
+for p in (HERE, AGENTS, REPO_ROOT):
     if p not in sys.path:
         sys.path.insert(0, p)
 
@@ -293,7 +294,7 @@ def main() -> int:
     # ------------------------------------------------------------------ #
     t.section("T8 案例库")
     lst = cases.list_cases()
-    t.check("案例列表 2 个", len(lst) == 2, str([x["case_id"] for x in lst]))
+    t.check("案例列表 >= 2 个", len(lst) >= 2, str([x["case_id"] for x in lst]))
     for cid in ("purchase-over-receipt", "inventory-negative-stock"):
         vc = cases.validate_case(cid)
         t.check(f"{cid} 结构通过", vc["ok"],

@@ -1,0 +1,21 @@
+{
+  "task_id": "d6a2ac87",
+  "title": "录用候选人",
+  "owner": "r16",
+  "intent": "帮我看这份录用通知能不能发，候选人前置状态合不合法",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r16-warenshi-hr\\examples\\offer.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "recruit 门禁通过"
+  ],
+  "deps": [],
+  "status": "pending",
+  "logs": []
+}

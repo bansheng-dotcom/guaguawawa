@@ -1,0 +1,1722 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "r18-main",
+  "version": 114,
+  "slots": {},
+  "active": {},
+  "history": [
+    {
+      "turn": 1,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "21fce892",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:05"
+    },
+    {
+      "turn": 2,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "83acd994",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:10"
+    },
+    {
+      "turn": 3,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "57db5679",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:10"
+    },
+    {
+      "turn": 4,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "e802bb28",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:10"
+    },
+    {
+      "turn": 5,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "5a9d75d0",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:15"
+    },
+    {
+      "turn": 6,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "077ae43a",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:21"
+    },
+    {
+      "turn": 7,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "b206b083",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:21"
+    },
+    {
+      "turn": 8,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "14b9fcd1",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:21"
+    },
+    {
+      "turn": 9,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "eef86f48",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:26"
+    },
+    {
+      "turn": 10,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "07574ff1",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:27"
+    },
+    {
+      "turn": 11,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "576baf55",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:29"
+    },
+    {
+      "turn": 12,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "952bc85f",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:29"
+    },
+    {
+      "turn": 13,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "cc240149",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:29"
+    },
+    {
+      "turn": 14,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "e66f7e1f",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:34"
+    },
+    {
+      "turn": 15,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "936388b0",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:35"
+    },
+    {
+      "turn": 16,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "4de2a20f",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:36"
+    },
+    {
+      "turn": 17,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "37fa68e8",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:36"
+    },
+    {
+      "turn": 18,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "78fac756",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:36"
+    },
+    {
+      "turn": 19,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "de68e321",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:41"
+    },
+    {
+      "turn": 20,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "2a37d220",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:42"
+    },
+    {
+      "turn": 21,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "4b63919b",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:44"
+    },
+    {
+      "turn": 22,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "c417e44d",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:44"
+    },
+    {
+      "turn": 23,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "48273895",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:44"
+    },
+    {
+      "turn": 24,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "83b99582",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:49"
+    },
+    {
+      "turn": 25,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "4cb6d002",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:50"
+    },
+    {
+      "turn": 26,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "7fef3c78",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:51"
+    },
+    {
+      "turn": 27,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "b361b21b",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:51"
+    },
+    {
+      "turn": 28,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "c29ea865",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:52"
+    },
+    {
+      "turn": 29,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "5c380701",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:57"
+    },
+    {
+      "turn": 30,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "debf2ede",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:58"
+    },
+    {
+      "turn": 31,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "ddba0223",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:59"
+    },
+    {
+      "turn": 32,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "8cd2deb3",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:59"
+    },
+    {
+      "turn": 33,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "636c7e86",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:30:59"
+    },
+    {
+      "turn": 34,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "6e929390",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:05"
+    },
+    {
+      "turn": 35,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "de2bc998",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:06"
+    },
+    {
+      "turn": 36,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "812159b1",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:07"
+    },
+    {
+      "turn": 37,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "bc4804be",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:07"
+    },
+    {
+      "turn": 38,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "9ebb36fb",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:08"
+    },
+    {
+      "turn": 39,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "c4749eff",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:13"
+    },
+    {
+      "turn": 40,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "fa457e81",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:13"
+    },
+    {
+      "turn": 41,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "79441a69",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:15"
+    },
+    {
+      "turn": 42,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "d19e76e5",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:15"
+    },
+    {
+      "turn": 43,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "077eabcd",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:15"
+    },
+    {
+      "turn": 44,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "61d96e41",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:20"
+    },
+    {
+      "turn": 45,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "5fe771b2",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:21"
+    },
+    {
+      "turn": 46,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "8f6daa60",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:22"
+    },
+    {
+      "turn": 47,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "26bd77d9",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:23"
+    },
+    {
+      "turn": 48,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "525e9082",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:23"
+    },
+    {
+      "turn": 49,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "dcd3341b",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:28"
+    },
+    {
+      "turn": 50,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "63667416",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:29"
+    },
+    {
+      "turn": 51,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "35cfcc63",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:30"
+    },
+    {
+      "turn": 52,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "42213a7e",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:30"
+    },
+    {
+      "turn": 53,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "cd0c7a39",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:30"
+    },
+    {
+      "turn": 54,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "a6f215d0",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:35"
+    },
+    {
+      "turn": 55,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "e3ba829b",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:31:36"
+    },
+    {
+      "turn": 56,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "d1fa144d",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:32:35"
+    },
+    {
+      "turn": 57,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "1d96d272",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:32:35"
+    },
+    {
+      "turn": 58,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "6a188dac",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:32:35"
+    },
+    {
+      "turn": 59,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "0df5e985",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:32:41"
+    },
+    {
+      "turn": 60,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "847b49c2",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T18:32:41"
+    },
+    {
+      "turn": 61,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "b7baec2c",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:25:57"
+    },
+    {
+      "turn": 62,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "c49c86b2",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:25:57"
+    },
+    {
+      "turn": 63,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "e80b1865",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:25:57"
+    },
+    {
+      "turn": 64,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "abb21998",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:26:05"
+    },
+    {
+      "turn": 65,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "936f257c",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:34:19"
+    },
+    {
+      "turn": 66,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "c73a2e27",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:34:20"
+    },
+    {
+      "turn": 67,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "6354b892",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:34:20"
+    },
+    {
+      "turn": 68,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "d484f825",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:34:28"
+    },
+    {
+      "turn": 69,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "0a13b6df",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:35:25"
+    },
+    {
+      "turn": 70,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "046ac1d5",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:35:25"
+    },
+    {
+      "turn": 71,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "4c170988",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:35:25"
+    },
+    {
+      "turn": 72,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "12510f14",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:35:35"
+    },
+    {
+      "turn": 73,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "a4351e3c",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:39:56"
+    },
+    {
+      "turn": 74,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "bc4b3fbf",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:39:56"
+    },
+    {
+      "turn": 75,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "d7f31693",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:39:56"
+    },
+    {
+      "turn": 76,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "fa8c0c91",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:40:04"
+    },
+    {
+      "turn": 77,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "2593708b",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:44:14"
+    },
+    {
+      "turn": 78,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "48c12993",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:44:14"
+    },
+    {
+      "turn": 79,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "3eb626e8",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:44:14"
+    },
+    {
+      "turn": 80,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "268cae7c",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:44:20"
+    },
+    {
+      "turn": 81,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "9773dc5b",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:56:30"
+    },
+    {
+      "turn": 82,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "81173a46",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:56:30"
+    },
+    {
+      "turn": 83,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "0703c257",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:56:30"
+    },
+    {
+      "turn": 84,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "509bb320",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T19:56:38"
+    },
+    {
+      "turn": 85,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "1612ee76",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:00:35"
+    },
+    {
+      "turn": 86,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "e3a15cf1",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:00:36"
+    },
+    {
+      "turn": 87,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "81bc7498",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:00:36"
+    },
+    {
+      "turn": 88,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "70604d85",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:00:46"
+    },
+    {
+      "turn": 89,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "ce93877b",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:01:32"
+    },
+    {
+      "turn": 90,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "4e0dc95e",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:01:32"
+    },
+    {
+      "turn": 91,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "8eb5fbd2",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:01:33"
+    },
+    {
+      "turn": 92,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "36620e7d",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:01:45"
+    },
+    {
+      "turn": 93,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "e0d69c86",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:11:01"
+    },
+    {
+      "turn": 94,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "7e90a09d",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:11:02"
+    },
+    {
+      "turn": 95,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "3f21c8d6",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:11:02"
+    },
+    {
+      "turn": 96,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "d80a5c33",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:11:09"
+    },
+    {
+      "turn": 97,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "419ce7d6",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:34:06"
+    },
+    {
+      "turn": 98,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "05c075f2",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:34:06"
+    },
+    {
+      "turn": 99,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "6537c8ce",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:34:06"
+    },
+    {
+      "turn": 100,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "ae7a21ae",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:34:13"
+    },
+    {
+      "turn": 101,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "ce5ae699",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:45:38"
+    },
+    {
+      "turn": 102,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "c1a84858",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:45:39"
+    },
+    {
+      "turn": 103,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "947c0bde",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:45:39"
+    },
+    {
+      "turn": 104,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "0d55847c",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:45:46"
+    },
+    {
+      "turn": 105,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "99bbcaeb",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T20:49:37"
+    },
+    {
+      "turn": 106,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "bffacfdf",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T21:28:01"
+    },
+    {
+      "turn": 107,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "7e1ad3d6",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T21:37:01"
+    },
+    {
+      "turn": 108,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "e7c0b99c",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T21:41:00"
+    },
+    {
+      "turn": 109,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "161fa46f",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T21:45:02"
+    },
+    {
+      "turn": 110,
+      "user": "这个回填方案能不能批，区间对不对授权有没有",
+      "assistant": "incremental/backfill",
+      "context": {
+        "task_id": "47097db9",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "这个回填方案能不能批，区间对不对授权有没有 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T21:45:03"
+    },
+    {
+      "turn": 111,
+      "user": "帮我看这份血缘表引用全不全、有没有断链",
+      "assistant": "catalog/lineage",
+      "context": {
+        "task_id": "a1d7e0cf",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看这份血缘表引用全不全、有没有断链 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T21:45:03"
+    },
+    {
+      "turn": 112,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "4c1c281a",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T21:45:10"
+    },
+    {
+      "turn": 113,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "cc0bca85",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T21:49:38"
+    },
+    {
+      "turn": 114,
+      "user": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超",
+      "assistant": "quality/check",
+      "context": {
+        "task_id": "bc9babd2",
+        "resolved": {
+          "resolved": false,
+          "kind": "unknown",
+          "text": "帮我看看这批 orders 数据质量达不达标，空值率重复率有没有超 ",
+          "reason": "无可用槽位/矩阵上下文，须人类补全指代"
+        }
+      },
+      "ts": "2026-11-10T22:01:19"
+    }
+  ],
+  "snapshots": {},
+  "matrix": {},
+  "updated_at": "2026-11-10T22:01:19"
+}

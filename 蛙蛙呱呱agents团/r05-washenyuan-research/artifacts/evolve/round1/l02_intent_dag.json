@@ -1,0 +1,150 @@
+{
+  "query": "调研海外AI协同SaaS市场，预算500万人民币，对比3家竞品并给出TAM与进入情景",
+  "stage_count": 5,
+  "stages": [
+    {
+      "stage": "audit",
+      "name": "审计立项",
+      "tasks": [
+        "锁定研究问题与决策用途",
+        "确认交付口径与验收标准",
+        "登记合规与红线边界"
+      ],
+      "task_count": 3,
+      "hours": 9.58,
+      "predecessors": []
+    },
+    {
+      "stage": "sourcing",
+      "name": "证据寻源",
+      "tasks": [
+        "检索一手数据与权威研报",
+        "标注来源等级与发布日期",
+        "记录数据缺口与替代口径"
+      ],
+      "task_count": 3,
+      "hours": 19.16,
+      "predecessors": [
+        "audit"
+      ]
+    },
+    {
+      "stage": "analysis",
+      "name": "分析建模",
+      "tasks": [
+        "拆解市场结构与集中度",
+        "构建双口径规模测算",
+        "推演单位经济与敏感性",
+        "双口径 TAM/SAM/SOM 三角测量",
+        "竞品战斗卡与对标矩阵"
+      ],
+      "task_count": 5,
+      "hours": 29.14,
+      "predecessors": [
+        "sourcing",
+        "audit"
+      ]
+    },
+    {
+      "stage": "validation",
+      "name": "验证压测",
+      "tasks": [
+        "交叉验证关键断言",
+        "复核 Tier0 断言与来源链",
+        "压力测试极端情景",
+        "三档情景推演与事前尸检"
+      ],
+      "task_count": 4,
+      "hours": 11.38,
+      "predecessors": [
+        "analysis",
+        "sourcing"
+      ]
+    },
+    {
+      "stage": "delivery",
+      "name": "交付落地",
+      "tasks": [
+        "输出结论与行动选项",
+        "生成情景比选看板",
+        "落盘证据清单与复现口径"
+      ],
+      "task_count": 3,
+      "hours": 6.39,
+      "predecessors": [
+        "validation",
+        "analysis"
+      ]
+    }
+  ],
+  "dag_edges": [
+    {
+      "from": "audit",
+      "to": "sourcing"
+    },
+    {
+      "from": "sourcing",
+      "to": "analysis"
+    },
+    {
+      "from": "analysis",
+      "to": "validation"
+    },
+    {
+      "from": "validation",
+      "to": "delivery"
+    },
+    {
+      "from": "audit",
+      "to": "analysis"
+    },
+    {
+      "from": "sourcing",
+      "to": "validation"
+    },
+    {
+      "from": "analysis",
+      "to": "delivery"
+    }
+  ],
+  "topological_order": [
+    "audit",
+    "sourcing",
+    "analysis",
+    "validation",
+    "delivery"
+  ],
+  "cycle_detected": false,
+  "estimated_hours": 75.65,
+  "estimated_person_days": 9.46,
+  "matched_domains": [
+    "sizing",
+    "competitor",
+    "scenario"
+  ],
+  "entities": {
+    "figures": [
+      {
+        "raw": "500万人民币",
+        "value": 500.0,
+        "unit": "万",
+        "currency": "CNY",
+        "normalized": 5000000.0,
+        "span": [
+          17,
+          24
+        ]
+      }
+    ],
+    "ratios": [],
+    "markets": [
+      "海外AI协同SaaS市场"
+    ],
+    "geos": [
+      "海外"
+    ]
+  },
+  "complexity": "high",
+  "complexity_score": 5.25,
+  "research_standard": "五阶段研究标准（审计→寻源→分析→验证→交付）"
+}

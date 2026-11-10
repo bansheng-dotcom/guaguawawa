@@ -1,5 +1,0 @@
-{
-  "kind": "payment",
-  "from_status": "refunded",
-  "to_status": "captured"
-}

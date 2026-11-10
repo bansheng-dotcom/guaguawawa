@@ -1,0 +1,21 @@
+{
+  "task_id": "80ee504f",
+  "title": "薪酬核算",
+  "owner": "r16",
+  "intent": "帮我核算这个月工资，净额对不对",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r16-warenshi-hr\\examples\\payroll_calc.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "payroll 门禁通过"
+  ],
+  "deps": [],
+  "status": "pending",
+  "logs": []
+}

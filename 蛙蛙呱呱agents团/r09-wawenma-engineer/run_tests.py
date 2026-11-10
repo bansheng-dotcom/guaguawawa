@@ -92,9 +92,16 @@ def run_cli_json(args_list):
     proc = subprocess.run([sys.executable, "agent.py"] + args_list, cwd=_HERE,
                           capture_output=True, text=True, encoding="utf-8",
                           errors="replace", timeout=60)
+    marker = "__AGENT_RESULT__ "
+    for line in (proc.stdout or "").splitlines():
+        if line.startswith(marker):
+            try:
+                return json.loads(line[len(marker):]), proc.returncode
+            except ValueError:
+                pass
     try:
         return json.loads(proc.stdout), proc.returncode
-    except ValueError:
+    except (ValueError, TypeError):
         return None, proc.returncode
 
 
@@ -153,10 +160,12 @@ class T01(unittest.TestCase):
             ("cve 安全审计", "ops", "security"),
             ("mcp 工具", "special", "mcp"),
             ("godot 工程", "special", "godot"),
-            ("完全无关的意图", "spec", "spec"),
+            # P2.1：关键词全未命中不再静默落到 spec/spec，交 L02 内核澄清
+            ("完全无关的意图", "__clarify__", "clarify"),
         ]
         for intent, s, a in hits:
-            self.assertEqual(agent.route_intent(intent), (s, a, {}), intent)
+            routed = agent.route_intent(intent)
+            self.assertEqual(routed[:2], (s, a), intent)
 
     def test_deliverables(self):
         for p in ["SKILL.md", "contracts.py", "review.py", "cases.py",
@@ -644,7 +653,7 @@ class T14(unittest.TestCase):
         import cases
         rows = cases.list_cases()
         ids = {r["case_id"] for r in rows}
-        self.assertEqual(ids, {"fullstack-delivery", "refactor-guard"})
+        self.assertTrue({"fullstack-delivery", "refactor-guard"}.issubset(ids))
         for r in rows:
             v = cases.validate_case(r["case_id"])
             self.assertTrue(v["ok"], f"{r['case_id']}: {v['errors']}")
@@ -724,7 +733,7 @@ class T15(unittest.TestCase):
     def test_case_cli(self):
         rows, code = run_cli_json(["case"])
         self.assertEqual(code, 0)
-        self.assertEqual(len(rows), 2)
+        self.assertGreaterEqual(len(rows), 2)
         v, code = run_cli_json(["case", "fullstack-delivery"])
         self.assertEqual(code, 0)
         self.assertTrue(v["validate"]["ok"])

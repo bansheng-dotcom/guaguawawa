@@ -1,0 +1,575 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "r07-pm-gate",
+          "version": "1.0.0",
+          "informationUri": "https://github.com/microsoft/sarif-tools",
+          "rules": [
+            {
+              "id": "PM001",
+              "name": "Problem",
+              "shortDescription": {
+                "text": "问题与场景"
+              },
+              "helpUri": "PM_SPEC.md#gates"
+            },
+            {
+              "id": "PM002",
+              "name": "User",
+              "shortDescription": {
+                "text": "目标用户"
+              },
+              "helpUri": "PM_SPEC.md#gates"
+            },
+            {
+              "id": "PM003",
+              "name": "Value",
+              "shortDescription": {
+                "text": "价值主张"
+              },
+              "helpUri": "PM_SPEC.md#gates"
+            },
+            {
+              "id": "PM004",
+              "name": "Scope",
+              "shortDescription": {
+                "text": "范围与不做"
+              },
+              "helpUri": "PM_SPEC.md#gates"
+            },
+            {
+              "id": "PM005",
+              "name": "Metric",
+              "shortDescription": {
+                "text": "指标与口径"
+              },
+              "helpUri": "PM_SPEC.md#gates"
+            },
+            {
+              "id": "PM006",
+              "name": "Acceptance",
+              "shortDescription": {
+                "text": "验收标准"
+              },
+              "helpUri": "PM_SPEC.md#gates"
+            },
+            {
+              "id": "PM007",
+              "name": "Risk",
+              "shortDescription": {
+                "text": "承重假设"
+              },
+              "helpUri": "PM_SPEC.md#gates"
+            },
+            {
+              "id": "PM008",
+              "name": "Read",
+              "shortDescription": {
+                "text": "结论可读性"
+              },
+              "helpUri": "PM_SPEC.md#gates"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": false,
+          "exitCode": 1,
+          "properties": {
+            "checksTotal": 20,
+            "checksFailed": 14
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "PM001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "问题描述过短（5 < 10 字符）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "problem",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "problem",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM002",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "缺少目标用户（users）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 1,
+                  "endLine": 4,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "user",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "user",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM003",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "价值主张缺 before/how/after 三段对比"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 1,
+                  "endLine": 7,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "value",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "value",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM004",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "P0 范围为空（scope.p0）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "scope",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "scope",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM004",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "缺少不做清单（scope.non_goals）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "scope",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "scope",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM005",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "缺少北极星指标（metrics.north_star）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 1,
+                  "endLine": 10,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "metric",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "metric",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM005",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "缺少基线与目标口径（baseline / target）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 1,
+                  "endLine": 11,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "metric",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "metric",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM005",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "缺少护栏指标（metrics.guardrail）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 1,
+                  "endLine": 12,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "metric",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "metric",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM006",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "缺少验收标准（acceptance_criteria）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 1,
+                  "endLine": 13,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "acceptance",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "acceptance",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM006",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "验收标准未按 Given/When/Then 结构化"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "endLine": 14,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "acceptance",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "acceptance",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM007",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "承重假设 0 条 < 3 条硬底线"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 1,
+                  "endLine": 15,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "risk",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "risk",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM008",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "缺少结论摘要（executive_summary）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 1,
+                  "endLine": 18,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "read",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "read",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM008",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "结论摘要过短，不具可读性"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 1,
+                  "endLine": 19,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "read",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "read",
+            "severity": "BLOCKER"
+          }
+        },
+        {
+          "ruleId": "PM999",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "PRD 八门禁通过 0/8，未达全通过"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/prd_dirty.json",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 1,
+                  "endLine": 20,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "summary",
+                  "kind": "gate"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "gate": "summary",
+            "severity": "BLOCKER"
+          }
+        }
+      ],
+      "properties": {
+        "passedGates": 0,
+        "totalGates": 8,
+        "role": "r07-wademing-pm",
+        "gateEngine": "r07-pm-gate"
+      }
+    }
+  ]
+}

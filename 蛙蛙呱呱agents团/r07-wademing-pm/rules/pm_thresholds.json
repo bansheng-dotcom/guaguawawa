@@ -1,4 +1,6 @@
 {
+  "_note": "历史阈值别名文件（保留向后兼容）。R07 的唯一 SSOT 是 experience/thresholds.json；本文件仅供旧调用方读取，prd.required_sections 已对齐 PM_SPEC.md 八门禁 ID，禁止再写 stories/rules/out_of_scope 等旧键名。",
+  "_superseded_by": "experience/thresholds.json",
   "priority": {
     "rice_min_score": 50,
     "rice_effort_min": 0.1,
@@ -7,14 +9,14 @@
   "prd": {
     "min_assumptions": 3,
     "required_sections": [
-      "metrics",
       "problem",
-      "stories",
-      "rules",
-      "out_of_scope",
-      "assumptions",
+      "user",
+      "value",
+      "scope",
+      "metric",
       "acceptance",
-      "telemetry"
+      "risk",
+      "read"
     ]
   },
   "metrics": {

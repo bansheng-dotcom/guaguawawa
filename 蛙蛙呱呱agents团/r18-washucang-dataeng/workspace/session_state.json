@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "r18-demo",
+  "version": 36,
+  "slots": {
+    "current_pipeline": "orders_daily_dashboard",
+    "current_scenario_id": "fast",
+    "current_scenario_name": "极速增量版 (Incremental Fast)",
+    "sla_hours": 2.0
+  },
+  "active": {
+    "current_pipeline": "orders_daily_dashboard",
+    "current_scenario_id": "fast",
+    "current_scenario_name": "极速增量版 (Incremental Fast)",
+    "sla_hours": 2.0
+  },
+  "history": [
+    {
+      "turn": 1,
+      "user": "把 orders 最近30天增量做成看板，2小时内要新鲜",
+      "assistant": "已裂变 3 套方案，推荐 稳健批流版 (Batch+Stream Balanced)",
+      "context": {},
+      "ts": "2026-11-10T18:22:24"
+    },
+    {
+      "turn": 2,
+      "user": "把 orders 最近30天增量做成看板，2小时内要新鲜",
+      "assistant": "已裂变 3 套方案，推荐 稳健批流版 (Batch+Stream Balanced)",
+      "context": {},
+      "ts": "2026-11-10T18:27:27"
+    },
+    {
+      "turn": 3,
+      "user": "把 orders 最近30天增量做成看板，2小时内要新鲜",
+      "assistant": "已裂变 3 套方案，推荐 稳健批流版 (Batch+Stream Balanced)",
+      "context": {},
+      "ts": "2026-11-10T18:28:32"
+    },
+    {
+      "turn": 4,
+      "user": "把 orders 最近30天增量做成看板，2小时内要新鲜",
+      "assistant": "已裂变 3 套方案，推荐 稳健批流版 (Batch+Stream Balanced)",
+      "context": {},
+      "ts": "2026-11-10T18:31:21"
+    }
+  ],
+  "snapshots": {
+    "before-sla-change": {
+      "version": 33,
+      "captured_at": "2026-11-10T18:31:21",
+      "slots": {
+        "current_pipeline": "orders_daily_dashboard",
+        "current_scenario_id": "fast",
+        "current_scenario_name": "极速增量版 (Incremental Fast)",
+        "sla_hours": 2.0
+      },
+      "active": {
+        "current_pipeline": "orders_daily_dashboard",
+        "current_scenario_id": "fast",
+        "current_scenario_name": "极速增量版 (Incremental Fast)",
+        "sla_hours": 2.0
+      }
+    }
+  },
+  "matrix": {
+    "recommended_id": "balanced",
+    "scenarios": [
+      {
+        "id": "balanced",
+        "name": "稳健批流版 (Batch+Stream Balanced)",
+        "rank": 1,
+        "score": 68.0
+      },
+      {
+        "id": "fast",
+        "name": "极速增量版 (Incremental Fast)",
+        "rank": 2,
+        "score": 64.1
+      },
+      {
+        "id": "strict",
+        "name": "强一致重算版 (Full Recompute Consistency)",
+        "rank": 3,
+        "score": 45.0
+      }
+    ]
+  },
+  "updated_at": "2026-11-10T18:31:21",
+  "active_current_pipeline": "orders_daily_dashboard",
+  "active_current_scenario_id": "fast",
+  "active_current_scenario_name": "极速增量版 (Incremental Fast)",
+  "active_sla_hours": 2.0
+}

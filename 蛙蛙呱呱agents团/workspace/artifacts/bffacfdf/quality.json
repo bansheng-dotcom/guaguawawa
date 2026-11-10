@@ -1,0 +1,173 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "表名非空",
+      "dim": "quality.table",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "行数 1000 > 0",
+      "dim": "quality.row_count",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "空值率 0.02 ≤ 0.1",
+      "dim": "quality.null_ratio",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "重复率 0.01 ≤ 0.05",
+      "dim": "quality.dup_ratio",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "无效值 0 = 0",
+      "dim": "quality.invalid",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "检查条目全通过且带实测值（未过 无）",
+      "dim": "quality.items",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "工件通过全部门禁，可进入授权与交接（DRI：蛙数仓（R18））",
+  "table": "orders",
+  "check_count": 1,
+  "row_count": 1000,
+  "measured_by": null,
+  "measured": null,
+  "narrative": "质量门禁 orders：1 项检查（自报口径）（DRI：蛙数仓（R18））",
+  "trace": {
+    "trace_id": "c96e95dbee4641ad",
+    "attempts": 1,
+    "status": "OK"
+  },
+  "task_id": "bffacfdf",
+  "skill": "quality",
+  "action": "check",
+  "memory": {
+    "resolved": false,
+    "kind": "unknown",
+    "slots": {}
+  },
+  "delivery_dag": {
+    "dag_id": "96ae43f65dca",
+    "stage_count": 5,
+    "topological_order": [
+      "01_profile",
+      "02_model",
+      "03_orchestrate",
+      "04_gate",
+      "05_publish"
+    ],
+    "total_effort_h": 18.7,
+    "total_man_days": 2.34,
+    "critical_path_h": 18.7,
+    "parallel_levels": [
+      [
+        "01_profile"
+      ],
+      [
+        "02_model"
+      ],
+      [
+        "03_orchestrate"
+      ],
+      [
+        "04_gate"
+      ],
+      [
+        "05_publish"
+      ]
+    ],
+    "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\workspace\\artifacts\\bffacfdf\\delivery_dag.json"
+  },
+  "spec_ref": {
+    "version": "v1.0",
+    "gates_count": 8,
+    "metrics_count": 8,
+    "dri": "蛙数仓（R18）",
+    "thresholds_source": "DATAENG_SPEC.md"
+  },
+  "scenario_matrix": {
+    "context": {},
+    "recommended_id": "balanced",
+    "recommended_name": "稳健批流版 (Batch+Stream Balanced)",
+    "ranking": [
+      {
+        "id": "balanced",
+        "name": "稳健批流版 (Batch+Stream Balanced)",
+        "score": 68.0,
+        "roi_ratio": 1.4697
+      },
+      {
+        "id": "fast",
+        "name": "极速增量版 (Incremental Fast)",
+        "score": 64.1,
+        "roi_ratio": 0.8232
+      },
+      {
+        "id": "strict",
+        "name": "强一致重算版 (Full Recompute Consistency)",
+        "score": 45.0,
+        "roi_ratio": 5.0
+      }
+    ],
+    "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\workspace\\artifacts\\bffacfdf\\scenario_matrix.json"
+  },
+  "slop_audit": {
+    "next": {
+      "before": {
+        "has_slop": false,
+        "actionability_score": 65,
+        "terms_found": []
+      },
+      "after": {
+        "has_slop": false,
+        "actionability_score": 100,
+        "terms_found": [],
+        "has_dri": true
+      }
+    },
+    "narrative": {
+      "before": {
+        "has_slop": false,
+        "actionability_score": 85,
+        "terms_found": []
+      },
+      "after": {
+        "has_slop": false,
+        "actionability_score": 100,
+        "terms_found": [],
+        "has_dri": true
+      }
+    }
+  },
+  "redline_scan": {
+    "hits": [],
+    "blocked": false,
+    "scanned_keys": [
+      "narrative",
+      "summary",
+      "next"
+    ]
+  },
+  "asset_bundle": {
+    "dir": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\workspace\\artifacts\\bffacfdf\\bundles",
+    "bundle": "dataeng_bundle_bffacfdf.json",
+    "sarif": "dataeng_audit_bffacfdf.sarif.json",
+    "vega": "dataeng_chart_bffacfdf.vega.json",
+    "ast": "dataeng_lineage_bffacfdf.ast.json",
+    "sarif_results": 0,
+    "validation": "PASS"
+  }
+}

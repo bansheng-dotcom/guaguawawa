@@ -19,7 +19,7 @@ retries/backfill）。
 | 数据连接 ELT | `elt` | `connection` / `sync` | 连接器命名 `source-`/`destination-` 前缀 + 来源≠目的地 + **无凭据字段**；sync mode 3 枚举 + streams≥1 + **增量须 cursor_field** |
 | 数仓转换 | `transform` | `model` / `test` | materialized 4 枚举 + **ref 引用完整**（不悬空）+ **不自引用** + incremental 须 unique_key；测试类型 4 枚举 + 绑定列 + accepted_values 带值 |
 | 管道调度 | `pipeline` | `dag` / `run` | **DAG 无环（Kahn）** + 依赖边完整 + 任务名唯一；task 状态 6 枚举 + **无 failed/upstream_failed** + 重试≤3 |
-| 数据质量门禁 | `quality` | `check` / `fresh` | row_count>0 + 空值率≤0.1 + 重复率≤0.05 + 越界数=0 + 条目带实测值；**数据年龄≤24h** + 声明 loaded_at/snapshotted_at |
+| 数据质量门禁 | `quality` | `check` / `fresh` | 行数>0 + 空值率≤0.10 + 重复率≤0.05 + 越界数=0 + 条目带实测值；**数据年龄≤24h** + 声明 loaded_at/snapshotted_at（阈值以 `DATAENG_SPEC.md` 为单一信任源；输入含 `rows` 时由嵌入式 SQL 引擎实测，自报值与实测不符直接阻断） |
 | 批流增量 | `incremental` | `strategy` / `backfill` | 模式 4 枚举 + 分区 4 枚举 + **增量/cdc 须 watermark+幂等键** + 迟到≥0；回填区间有序 + 幂等键 + **authorized=true + 审批人** |
 | 数据目录 | `catalog` | `entry` / `lineage` | owner/updated_at 非空 + 字段类型 7 枚举 + 字段名唯一；**血缘引用完整** + 无环 + 表名唯一 |
 | 人工审批运维 | `ops` | `request` / `alert` | 操作 4 白名单 + **authorization∈{authorized,approved}** + 审批人/手册/回滚非空；告警四要素 + 严重度 3 枚举 |
@@ -55,8 +55,32 @@ python agent.py harness quality_check --input examples/quality_check.json
 python agent.py contract list
 python agent.py case list
 python verify_loop.py                                           # 28 行闭环矩阵
-python run_tests.py                                             # 一键验收，期望 ALL GREEN
+python run_tests.py                                             # 双轨验收（基准 + 演进集成），期望 ALL GREEN
+
+# 十维演进引擎（解耦在 engines/，不进主流程也可以单独验收）
+python -m engines.runtime_engine --probe --out workspace/rounds/L01_probe.json
+python -m engines.intent_compiler --text "把 orders 最近3天增量做成看板，2小时内要新鲜"
+python -m engines.spec_ledger --out workspace/rounds/L04_spec.json --export-dir workspace/spec_exports
+python -m engines.asset_bundle --run-id demo
+python auto_evolve_runner.py --status                           # 十轮演进看板
+python auto_evolve_runner.py --stage 1|2|3                      # 三大批次演进
+python agent.py evolve --run-all                                # 等价入口
 ```
+
+## 十维演进引擎与领域账本（SOP v13.0）
+
+- **单一信任源**：`DATAENG_SPEC.md` 定义 8 个北极星指标（PSR/FSR/DQR/LCR/BCR/MTTD/DMR/ORT）、
+  8 维发布门禁（G1~G8）与阈值；`skills/_common.load_thresholds()` 运行时以账本覆盖
+  `experience/thresholds.json`（后者降级为兜底），改口径只需改账本 + 升版本号。
+- **engines/ 逐层解耦**：L01 `runtime_engine`（嵌入式 DuckDB/SQLite 真实执行、SQL 聚合
+  空值/重复、增量守恒容差 0）、L02 `intent_compiler`（5 阶段 Kahn DAG + 工时/关键路径）、
+  L03 `reflexive_healer`（四条红线 + 反思重试）、L04 `spec_ledger`、L05 `slop_guard`
+  （反套话只做可行动重述，**不得伪造实测值**）、L06 `scenario_matrix`（三维方案 + MCDA/ROI）、
+  L07 `asset_bundle`、L08 `diff_patch_engine`、L09 `session_memory`、L10 `telemetry_watchdog`。
+- **主链路接入**：`run_task` 会产出 `delivery_dag` / `spec_ref` / `scenario_matrix.json` /
+  `slop_audit` / `redline_scan`；红线命中即 `ok=false`、`verdict=FAIL` 并强制移交。
+- **双轨门禁**：`run_tests.py` 第一轨为历史 133 项基准，第二轨调用
+  `tests/test_evolution_l01_l10.py`；任一轨挂红即判升级失败。
 
 ## 边界（角色分工与红线）
 
@@ -86,8 +110,8 @@ python run_tests.py                                             # 一键验收�
   （凭据入工件 / 擅自动作 / 越界统计）或 controller（无工件 / 无价值），
   类别为 `credential_gate` / `execution_gate` / `scope_overlap` /
   `artifact_not_concrete` / `no_report_value`。
-- 阈值全部外置在 `experience/thresholds.json`，改口径不改代码；案例可再覆盖
-  （如 `pipeline-recovery` 补充失败阻断状态、`quality-gate` 补充阻断≠删除口径）。
+- 质量/门禁阈值以 `DATAENG_SPEC.md` 为单一信任源，`experience/thresholds.json` 仅兜底；
+  案例可再覆盖（如 `pipeline-recovery` 补充失败阻断状态、`quality-gate` 补充阻断≠删除口径）。
 - Windows GBK 控制台：所有输出经 UTF-8 重配置，verify_loop 使用 `[OK]` / `[XX]` ASCII 标记。
 
 ## 「稳定到达 vs 数字解释」的分工哲学（本角色新经验）

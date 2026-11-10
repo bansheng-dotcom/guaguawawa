@@ -1,0 +1,53 @@
+{
+  "round": 9,
+  "layer": "L09",
+  "stage": 3,
+  "sop_round": 3,
+  "name": "会话记忆层（持久化记忆池 + 代词消歧 + 快照回滚）",
+  "audit": "第二轮对话彻底失忆：「按刚才第二套方案调整」「把上次那个模型的阈值调高 0.05」「换成上次的评估集」无法解析；无持久化记忆池，进程退出即丢；无回滚。",
+  "benchmark": "MemGPT/letta (>15k) · langchain-ai/langgraph (>10k)",
+  "engine_module": "engines/session_memory.py",
+  "capabilities": [
+    "持久化 session_state.json 记忆池 + slots/entities 双向同步 (SOP §5.14)",
+    "自然语言代词消歧 (第二套方案 / 上次那个模型 / 阈值调高 0.05)",
+    "历史版本快照树 + 一键回滚 (rollback)"
+  ],
+  "capability_count": 3,
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r19-wazhimo-ml\\agent.py",
+    "evolve",
+    "memory",
+    "--query",
+    "按刚才第二套方案调整，把上次那个模型的阈值调高0.05",
+    "--out",
+    "workspace/rounds/L09_session.json"
+  ],
+  "probe_stdout": "{\"ok\": true, \"engine\": \"R19SessionMemory\", \"layer\": \"L09\", \"query\": \"按刚才第二套方案调整，把上次那个模型的阈值调高0.05\", \"disambiguated\": \"[scenario=SCN_B_STEADY] 按刚才第二套方案调整，把客服助手的阈值调高0.05 [threshold=0.95]\", \"references\": [{\"type\": \"scenario_ordinal\", \"token\": \"第二套\", \"value\": \"SCN_B_STEADY\"}, {\"type\": \"model_pronoun\", \"token\": \"上次那个模型\", \"value\": \"客服助手\"}, {\"type\": \"threshold_delta\", \"token\": \"阈值调高0.05\", \"value\": 0.95, \"delta\": 0.05}], \"reference_count\": 3, \"referenced_context\": {\"selected_scenario\": \"SCN_B_STEADY\", \"model_name\": \"客服助手\", \"threshold_delta\": 0.05, \"threshold\": 0.95, \"threshold_base\": 0.9}, \"confidence\": 1.0, \"state_file\": \"D:\\\\蛙蛙呱呱\\\\蛙蛙呱呱agents团\\\\r19-wazhimo-ml\\\\workspace\\\\session_state.json\", \"capabilities\": [\"持久化 session_state.json 记忆池 + slots/entities 双向同步 (SOP §5.14)\", \"自然语言代词消歧 (第二套方案 / 上次那个模型 / 阈值调高 0.05)\", \"历史版本快照树 + 一键回滚 (rollback)\"], \"timestamp\": \"2026-11-10T18:19:34\", \"engine_layer\": \"L09\"}",
+  "artifacts": [
+    {
+      "path": "workspace/rounds/L09_session.json",
+      "bytes": 1343,
+      "sha256": "58c74dd7ea4a03883b96f6cf46b3991d9d2c521acfedd36a55bd624279c7cf07"
+    },
+    {
+      "path": "workspace/session_state.json",
+      "bytes": 2157,
+      "sha256": "b333bea4b9f9af73e2a328bde2c4d7d814e03785a11286dbf9d7efa6d71dc944"
+    }
+  ],
+  "regression": {
+    "baseline": {
+      "passed": 149,
+      "total": 149,
+      "ratio": 1.0
+    },
+    "evolution": {
+      "tests": 11,
+      "ok": true
+    },
+    "all_green": true
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:19:41"
+}

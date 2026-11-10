@@ -1,7 +1,0 @@
-{
-  "fresh_days": 1,
-  "stale_days": 7,
-  "hhi_high": 0.5,
-  "hhi_extreme": 0.75,
-  "impact_min_pct": 3.0
-}

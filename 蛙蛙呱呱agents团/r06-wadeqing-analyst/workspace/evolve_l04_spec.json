@@ -1,0 +1,9 @@
+{
+  "rules_loaded": true,
+  "schema_valid": true,
+  "severity_sha256": "5925751e43c69055",
+  "alpha": 0.05,
+  "drift": [],
+  "baseline_created": false,
+  "rule_bundle": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r06-wadeqing-analyst\\workspace\\bundles\\metrics_rules.json"
+}

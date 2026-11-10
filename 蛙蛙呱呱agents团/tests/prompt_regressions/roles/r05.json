@@ -1,0 +1,27 @@
+{
+  "r05": {
+    "role_dir": "r05-washenyuan-research",
+    "cases": [
+      {"id": "r05-01", "intent": "帮我研究一下这个东西", "expect": "clarify"},
+      {"id": "r05-02", "intent": "做个行业地图", "expect": "clarify"},
+      {"id": "r05-03", "intent": "做张竞品矩阵", "expect": "clarify"},
+      {"id": "r05-04", "intent": "估算一下市场规模", "expect": "clarify"},
+      {"id": "r05-05", "intent": "做一份行业地图，看国内市场", "expect": "route", "expect_action": "industry.landscape"},
+      {"id": "r05-06", "intent": "对比直接竞品，做张竞品矩阵", "expect": "route", "expect_action": "competitor.matrix"},
+      {"id": "r05-07", "intent": "写一份研究报告", "expect": "route", "expect_action": "research.report"},
+      {"id": "r05-08", "intent": "整理证据台账", "expect": "route", "expect_action": "research.ledger"},
+      {"id": "r05-09", "intent": "画个商业模式画布", "expect": "route", "expect_action": "business.canvas"},
+      {"id": "r05-10", "intent": "做份事前尸检，看上线前的风险", "expect": "route", "expect_action": "scenario.premortem"},
+      {"id": "r05-11", "intent": "做份pestel，看国内市场", "expect": "route", "expect_action": "scenario.pestel"},
+      {"id": "r05-12", "intent": "做一下敏感性分析", "expect": "clarify"},
+      {"id": "r05-13", "intent": "把国内这条产业链梳理成一张行业地图", "expect": "route", "expect_action": "industry.landscape"},
+      {"id": "r05-14", "intent": "我们和主要竞品做个功能对比，拉一张竞品矩阵", "expect": "route", "expect_action": "competitor.matrix"},
+      {"id": "r05-15", "intent": "围绕新能源出海写一份带引用覆盖的研究报告", "expect": "route", "expect_action": "research.report"},
+      {"id": "r05-16", "intent": "帮我把这门生意的九宫格和商业模式画一张出来", "expect": "route", "expect_action": "business.canvas"},
+      {"id": "r05-17", "intent": "分析一下国内市场的宏观环境和政策环境", "expect": "route", "expect_action": "scenario.pestel"},
+      {"id": "r05-18", "intent": "帮我看看这个行业", "expect": "clarify"},
+      {"id": "r05-19", "intent": "算一下这个盘子到底有多大", "expect": "clarify"},
+      {"id": "r05-20", "intent": "做下敏感性分析，看看价格弹性", "expect": "clarify"}
+    ]
+  }
+}

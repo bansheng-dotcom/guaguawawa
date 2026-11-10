@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "engine": "R19TelemetryWatchdog",
+  "layer": "L10",
+  "status": "healthy",
+  "log_path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r19-wazhimo-ml\\workspace\\telemetry.jsonl",
+  "log_exists": true,
+  "breaker_state": "CLOSED",
+  "trace_id": "7fd99b1e37ad4d3fbfc7a1d505997c95",
+  "capabilities": [
+    "CLOSED/OPEN/HALF_OPEN 三态熔断器与恢复窗口",
+    "指数退避 + Full Jitter 重试 (可注入 RNG，确定性可测)",
+    "telemetry.jsonl 全链路遥测 (TraceID/SpanID/SHA256/耗时/状态)"
+  ],
+  "checks": [
+    {
+      "ok": true,
+      "msg": "遥测写入成功",
+      "dim": "L10.telemetry",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "熔断器初始闭合",
+      "dim": "L10.breaker",
+      "sev": "OK"
+    }
+  ],
+  "timestamp": "2026-11-10T18:19:41",
+  "resilience_demo": {
+    "ok": true,
+    "attempts": 1,
+    "trace_id": "813fb52399cc41f5aafc40461f5992d1",
+    "breaker_state": "CLOSED",
+    "trace": [
+      {
+        "attempt": 1,
+        "status": "OK",
+        "duration_ms": 0.0
+      }
+    ],
+    "engine": "R19TelemetryWatchdog"
+  },
+  "engine_layer": "L10"
+}

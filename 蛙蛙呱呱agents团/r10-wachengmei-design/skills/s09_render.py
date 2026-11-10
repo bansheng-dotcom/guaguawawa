@@ -18,6 +18,8 @@ R10 的**确定性生成层**（第九节「LLM 生成，Python 关笼子」的�
 """
 from __future__ import annotations
 
+import os
+import json
 from typing import Any, Dict, List
 
 from . import _common as c
@@ -174,7 +176,6 @@ def render_poster(data: Dict[str, Any]) -> str:
     subject = data.get("subject", "mouse")
     pts = data.get("selling_points", [])
 
-    # 12 栏网格：胶囊 3 个，每个跨 3 栏（268px），槽 38px
     pills = ""
     x0 = 150
     for pt in pts[:3]:
@@ -243,3 +244,44 @@ def render_poster(data: Dict[str, Any]) -> str:
   </g>
 </svg>
 """
+
+
+# --------------------------------------------------------------------------- #
+# 商用排版器扩展 (CommercialCompositor)
+# --------------------------------------------------------------------------- #
+class CommercialCompositor:
+    def __init__(self, spec_path: str = "experience/poster_commercial.json"):
+        if os.path.exists(spec_path):
+            with open(spec_path, 'r', encoding='utf-8') as f:
+                self.spec = json.load(f).get("poster_commercial", {})
+        else:
+            self.spec = {}
+
+    def create_poster(self, product_path: str, category: str, price: str, output_path: str) -> str:
+        try:
+            from PIL import Image, ImageDraw, ImageFont
+        except ImportError:
+            return ""
+
+        cat_themes = self.spec.get("category_themes", {})
+        theme = cat_themes.get(category, cat_themes.get("chicken", {"bg_color": "#111827", "text_color": "#FFFFFF"}))
+        bg_color = theme.get("bg_color", "#111827")
+
+        bg = Image.new("RGBA", (1080, 1920), color=bg_color)
+        if os.path.exists(product_path):
+            product = Image.open(product_path).convert("RGBA")
+            w, h = product.size
+            scale = 800 / w if w else 1
+            product = product.resize((800, int(h * scale)))
+            bg.paste(product, (140, 500), product)
+
+        draw = ImageDraw.Draw(bg)
+        try:
+            font = ImageFont.truetype("arial.ttf", 100)
+        except Exception:
+            font = ImageFont.load_default()
+
+        draw.text((100, 200), f"{category.upper()} PROMOTION", fill=theme.get("text_color", "#FFFFFF"), font=font)
+        draw.text((100, 1600), f"¥{price}", fill="#FFC21A", font=font)
+        bg.convert("RGB").save(output_path)
+        return output_path

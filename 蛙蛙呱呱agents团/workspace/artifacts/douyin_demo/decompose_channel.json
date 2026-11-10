@@ -1,38 +1,38 @@
 {
-  "total_change": -10000.0,
+  "total_change": 13.95,
   "dimension": "channel",
   "segments": [
     {
-      "segment": "直播",
-      "before": 45000.0,
-      "after": 30000.0,
-      "delta": -15000.0,
-      "contribution_pct": 150.0,
+      "segment": "抖音",
+      "before": 1562.81,
+      "after": 3100.6,
+      "delta": 1537.79,
+      "contribution_pct": 11023.58,
       "below_impact_min": false
     },
     {
-      "segment": "达人",
-      "before": 10000.0,
-      "after": 15000.0,
-      "delta": 5000.0,
-      "contribution_pct": -50.0,
+      "segment": "微信",
+      "before": 2118.62,
+      "after": 1448.92,
+      "delta": -669.7,
+      "contribution_pct": -4800.72,
       "below_impact_min": false
     },
     {
-      "segment": "短视频",
-      "before": 25000.0,
-      "after": 25000.0,
-      "delta": 0.0,
-      "contribution_pct": -0.0,
-      "below_impact_min": true
+      "segment": "小红书",
+      "before": 1262.04,
+      "after": 823.98,
+      "delta": -438.06,
+      "contribution_pct": -3140.22,
+      "below_impact_min": false
     },
     {
-      "segment": "商品卡",
-      "before": 20000.0,
-      "after": 20000.0,
-      "delta": 0.0,
-      "contribution_pct": -0.0,
-      "below_impact_min": true
+      "segment": "知乎",
+      "before": 1770.42,
+      "after": 1354.34,
+      "delta": -416.08,
+      "contribution_pct": -2982.65,
+      "below_impact_min": false
     }
   ],
   "impact_min_pct": 3.0,

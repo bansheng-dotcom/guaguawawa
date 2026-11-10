@@ -1,0 +1,23 @@
+{
+  "audit_result": {
+    "text": "整体良好，建议进一步加强异常捕获",
+    "is_slop": true,
+    "slop_hits": [
+      "整体(?:表现|来看)?(?:良好|不错|尚可)",
+      "建议(?:进一步)?(?:加强|优化|提升|完善)"
+    ],
+    "has_line": false,
+    "line_number": null,
+    "file_anchor": null,
+    "has_action": true,
+    "actionability_score": 15,
+    "actionable": false
+  },
+  "polished_sample": {
+    "raw": "整体良好，建议进一步加强异常捕获",
+    "file_path": "agent.py",
+    "line": 42,
+    "concrete_fix": "替换裸 except 为具体 Exception 捕获",
+    "polished_message": "[agent.py:42] 缺陷发现：异常捕获。处置动作：替换裸 except 为具体 Exception 捕获"
+  }
+}

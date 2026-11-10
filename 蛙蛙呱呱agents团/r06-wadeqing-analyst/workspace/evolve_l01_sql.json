@@ -1,0 +1,31 @@
+{
+  "sql": "SELECT channel, SUM(amount) AS total FROM demo_orders GROUP BY 1 ORDER BY 2 DESC",
+  "rows_registered": 12,
+  "ok": true,
+  "error": null,
+  "result": {
+    "columns": [
+      "channel",
+      "total"
+    ],
+    "rows": [
+      {
+        "channel": "微信",
+        "total": 653.25
+      },
+      {
+        "channel": "抖音",
+        "total": 373.5
+      },
+      {
+        "channel": "小红书",
+        "total": 279.0
+      },
+      {
+        "channel": "知乎",
+        "total": 153.75
+      }
+    ],
+    "row_count": 4
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "r19.session_state.v1",
+  "agent": "r19",
+  "slots": {
+    "selected_scenario": "SCN_B_STEADY",
+    "current_model": "客服助手",
+    "current_dataset": "客服对话评估集",
+    "threshold": 0.95
+  },
+  "entities": {
+    "selected_scenario": "SCN_B_STEADY",
+    "current_model": "客服助手",
+    "current_dataset": "客服对话评估集",
+    "threshold": 0.95
+  },
+  "snapshots": {
+    "snap_001_20261110180834": {
+      "label": "initial_model",
+      "value": {
+        "current_model": "客服助手",
+        "threshold": 0.8
+      },
+      "ts": "2026-11-10T18:08:34"
+    },
+    "snap_002_20261110180851": {
+      "label": "initial_model",
+      "value": {
+        "current_model": "客服助手",
+        "threshold": 0.8
+      },
+      "ts": "2026-11-10T18:08:51"
+    }
+  },
+  "snapshot_order": [
+    "snap_001_20261110180834",
+    "snap_002_20261110180851"
+  ],
+  "history": [
+    {
+      "ts": "2026-11-10T18:08:34",
+      "op": "record_snapshot",
+      "snap_id": "snap_001_20261110180834",
+      "label": "initial_model"
+    },
+    {
+      "ts": "2026-11-10T18:08:34",
+      "op": "update_slot",
+      "slot": "selected_scenario",
+      "value": "SCN_B_STEADY"
+    },
+    {
+      "ts": "2026-11-10T18:08:34",
+      "op": "update_slot",
+      "slot": "threshold",
+      "value": 0.85
+    },
+    {
+      "ts": "2026-11-10T18:08:51",
+      "op": "record_snapshot",
+      "snap_id": "snap_002_20261110180851",
+      "label": "initial_model"
+    },
+    {
+      "ts": "2026-11-10T18:08:51",
+      "op": "update_slot",
+      "slot": "selected_scenario",
+      "value": "SCN_B_STEADY"
+    },
+    {
+      "ts": "2026-11-10T18:08:51",
+      "op": "update_slot",
+      "slot": "threshold",
+      "value": 0.9
+    },
+    {
+      "ts": "2026-11-10T18:19:34",
+      "op": "update_slot",
+      "slot": "selected_scenario",
+      "value": "SCN_B_STEADY"
+    },
+    {
+      "ts": "2026-11-10T18:19:34",
+      "op": "update_slot",
+      "slot": "threshold",
+      "value": 0.95
+    }
+  ],
+  "selected_scenario": "SCN_B_STEADY",
+  "threshold": 0.95
+}

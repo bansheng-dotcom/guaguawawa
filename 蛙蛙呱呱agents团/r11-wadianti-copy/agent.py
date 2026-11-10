@@ -23,28 +23,37 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
-
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_HERE)
+_ROOT = _os.path.dirname(_AGENTS)
+for _p in (_HERE, _AGENTS, _ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 import argparse
 import hashlib
 import json
 import os
 import sys
-from agents.shared.chat_cli import add_chat_parser, handle_chat
+try:
+    from agents.shared.chat_cli import add_chat_parser, handle_chat
+except ImportError:
+    try:
+        from shared.chat_cli import add_chat_parser, handle_chat
+    except ImportError:
+        def add_chat_parser(p): pass
+        def handle_chat(args): pass
+try:
+    from agents.shared import role_runtime
+except ImportError:
+    try:
+        from shared import role_runtime
+    except ImportError:
+        role_runtime = None
 import time
 from typing import Any, Dict, List, Optional
-
-_HERE = os.path.dirname(os.path.abspath(__file__))
-_AGENTS = os.path.dirname(_HERE)
-for _p in (_HERE, _AGENTS):
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
 from core import protocol, registry, workspace  # noqa: E402
-from agents.shared import role_runtime  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
 import contracts  # noqa: E402
@@ -94,11 +103,13 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例内容工件")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
     _register_harness(sp)
     _register_contract(sp)
     _register_case(sp)
     _register_review(sp)
+    _register_evolve(sp)
     la = sp.add_parser("local-text-check", help="本地文本格式、字数与平台长度检查")
     la.add_argument("--text", required=True)
     la.add_argument("--platform", default="")
@@ -196,6 +207,44 @@ def _run_review(args) -> Dict[str, Any]:
     return out
 
 
+def _register_evolve(sp) -> None:
+    ev_p = sp.add_parser("evolve", help="十维演进元模型核心引擎调度 (L01~L10)")
+    ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
+    ev_sub.add_parser("probe", help="L01: 探测文案运行时引擎健康状态与计算沙箱")
+
+    dec_p = ev_sub.add_parser("decompile", help="L02: 意图解构与 Kahn 拓扑 DAG 编排")
+    dec_p.add_argument("--query", required=True, help="文案或运营需求自然语言")
+
+    heal_p = ev_sub.add_parser("heal", help="L03: 自愈反思与红线审判")
+    heal_p.add_argument("--type", default="article", help="工件类型 (article/copy/ad)")
+    heal_p.add_argument("--input", required=True, help="待检测内容 JSON 文件")
+
+    spec_p = ev_sub.add_parser("spec", help="L04: 领域规格账本加载与合规校验")
+    spec_p.add_argument("--channel", default="微信公众号", help="分发渠道")
+    spec_p.add_argument("--input", default=None, help="文案 JSON 或留空加载 Spec")
+
+    slop_p = ev_sub.add_parser("slop", help="L05: 质感去劣化与 Anti-Slop 物理精修")
+    slop_p.add_argument("--text", default=None, help="待审查文本")
+    slop_p.add_argument("--input", default=None, help="包含文本的 JSON 文件")
+
+    sc_p = ev_sub.add_parser("scenario", help="L06: 多维风格情景决策看板裂变")
+    sc_p.add_argument("--topic", default="内容复利与自动化运营", help="核心主题")
+
+    b_p = ev_sub.add_parser("bundle", help="L07: 伴生消费资产包与 SARIF 导出")
+    b_p.add_argument("--run-id", default="demo_run_01", help="运行标识")
+    b_p.add_argument("--input", default=None, help="文案工件 JSON")
+
+    p_p = ev_sub.add_parser("patch", help="L08: RFC 6902 局部差量补丁与热修")
+    p_p.add_argument("--old", required=True, help="旧状态 JSON")
+    p_p.add_argument("--new", required=True, help="新状态 JSON")
+
+    mem_p = ev_sub.add_parser("memory", help="L09: 会话记忆与代词消歧测试")
+    mem_p.add_argument("--query", required=True, help="自然语言查询")
+
+    ev_sub.add_parser("watchdog", help="L10: 看门狗熔断器与遥测探测")
+
+
+
 def _run_contract(args) -> Dict[str, Any]:
     skill = getattr(args, "contract_skill", None)
     action = getattr(args, "contract_action", None)
@@ -241,6 +290,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -294,7 +352,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return "copy", "article", {}
+    # 关键词未命中：交给共享 L02 内核；不再静默落到 copy.article。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -364,6 +423,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "local-text-check":
         from local_actions import check_text
         out = check_text(args.text, args.platform, args.min_chars)
@@ -385,6 +446,90 @@ def main() -> int:
         out = _run_review(args)
         emit_result(out)
         return 0 if out["verdict"] == "PASS" else 1
+
+    if args.skill == "evolve":
+        from engines import (
+            CopyRuntimeEngine,
+            IntentDAGCompiler,
+            CopyReflexiveHealer,
+            CopySpecLedger,
+            CopySlopGuard,
+            ScenarioMatrix,
+            ContentAssetBundle,
+            ContentDiffPatchEngine,
+            ContentSessionMemory,
+            ContentTelemetryWatchdog,
+        )
+        if args.subcmd == "probe":
+            eng = CopyRuntimeEngine()
+            out = eng.probe_health()
+            emit_result(out)
+            return 0 if out.get("status") == "healthy" else 1
+        elif args.subcmd == "decompile":
+            comp = IntentDAGCompiler()
+            out = comp.decompile_intent(args.query)
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "heal":
+            healer = CopyReflexiveHealer()
+            in_data = c.load_json(args.input)
+            out = healer.audit_and_heal(args.type, in_data)
+            emit_result(out)
+            return 0
+        elif args.subcmd == "spec":
+            ledger = CopySpecLedger()
+            if args.input:
+                in_data = c.load_json(args.input)
+                content = in_data.get("content", in_data.get("text", ""))
+                title = in_data.get("title", "")
+                out = ledger.validate_content(content, title, args.channel)
+            else:
+                out = ledger.load_spec()
+            emit_result(out)
+            return 0
+        elif args.subcmd == "slop":
+            guard = CopySlopGuard()
+            raw_text = args.text
+            if not raw_text and args.input:
+                in_data = c.load_json(args.input)
+                raw_text = in_data.get("content", in_data.get("text", ""))
+            raw_text = raw_text or "总而言之，毫无疑问，随着科技的飞速发展..."
+            audit = guard.audit_text(raw_text)
+            polished, count = guard.polish(raw_text)
+            out = {"audit": audit, "polished": polished, "replacement_count": count}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "scenario":
+            sc = ScenarioMatrix()
+            out = sc.generate_matrix(args.topic)
+            emit_result(out)
+            return 0
+        elif args.subcmd == "bundle":
+            bundle_eng = ContentAssetBundle()
+            in_data = c.load_json(args.input) if args.input else {"title": "测试文案", "content": "测试正文"}
+            out = bundle_eng.export_bundle(args.run_id, in_data)
+            emit_result(out)
+            return 0
+        elif args.subcmd == "patch":
+            diff_eng = ContentDiffPatchEngine()
+            old_data = c.load_json(args.old)
+            new_data = c.load_json(args.new)
+            patches = diff_eng.create_patch(old_data, new_data)
+            applied = diff_eng.apply_patch(old_data, patches)
+            out = {"patches": patches, "applied": applied}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "memory":
+            mem = ContentSessionMemory()
+            out = mem.resolve_pronouns(args.query)
+            emit_result(out)
+            return 0
+        elif args.subcmd == "watchdog":
+            wd = ContentTelemetryWatchdog()
+            st = wd.get_state()
+            out = {"status": "ok", "breaker_state": st}
+            emit_result(out)
+            return 0
 
     t0 = time.time()
     result = SKILL_BY_NAME[args.skill].run(args)

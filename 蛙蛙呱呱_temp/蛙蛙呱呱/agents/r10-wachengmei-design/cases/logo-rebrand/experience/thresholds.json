@@ -1,8 +1,0 @@
-{
-  "_note": "logo-rebrand 案例业务阈值（覆盖全局 thresholds 的 logo 节）。",
-  "logo": {
-    "concepts_min": 3,
-    "contrast_min": 3.0,
-    "test_ladders": [16, 32, 64]
-  }
-}

@@ -1,0 +1,30 @@
+{
+  "ok": false,
+  "intent": "自助版定价决策卡评估 ",
+  "triage": {
+    "level": "strategy",
+    "domains": [],
+    "boardroom": null,
+    "next": null
+  },
+  "routing": {
+    "roles": [],
+    "boardroom": false,
+    "next": "六问澄清先行"
+  },
+  "checks": [
+    {
+      "ok": true,
+      "msg": "Passed"
+    },
+    {
+      "ok": false,
+      "msg": "无法命中任何角色 → 先六问澄清再路由",
+      "dim": "route.match",
+      "sev": "BLOCKER"
+    }
+  ],
+  "task_id": "05bc7dc8",
+  "skill": "decide",
+  "action": "card"
+}

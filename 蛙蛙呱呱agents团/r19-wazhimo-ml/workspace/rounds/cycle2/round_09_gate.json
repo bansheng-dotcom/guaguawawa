@@ -1,0 +1,58 @@
+{
+  "cycle": 2,
+  "round": 9,
+  "layer": "L09",
+  "stage": 3,
+  "sop_round": 3,
+  "name": "记忆治理 II（快照 diff + 多轮冲突消解 + TTL/LRU）",
+  "audit": "cycle 1 有快照但无法比较两次差异；多轮改口「调高再调低」没有 provenance 与冲突台账；槽位与快照无限增长，进程长期驻留必然膨胀。",
+  "benchmark": "MemGPT/letta memory eviction · langgraph checkpoint diff · Redis TTL/LRU",
+  "engine_module": "engines/session_memory.py",
+  "capabilities": [
+    "快照差量 diff（新增/删除/变更槽位）",
+    "多轮指代冲突消解（后写胜出 + provenance 溯源）",
+    "槽位 TTL 过期 + 快照 LRU 压缩"
+  ],
+  "capability_count": 3,
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r19-wazhimo-ml\\agent.py",
+    "evolve",
+    "memory2",
+    "--out",
+    "workspace/rounds/cycle2/L09_memory2.json"
+  ],
+  "probe_stdout": "{\"ok\": true, \"engine\": \"R19SessionMemory\", \"layer\": \"L09\", \"snapshot_diff\": {\"ok\": true, \"added\": [\"current_dataset\"], \"removed\": [], \"changed\": [{\"slot\": \"threshold\", \"old\": 0.8, \"new\": 0.85}], \"change_count\": 2}, \"multi_turn\": {\"ok\": true, \"turn_count\": 3, \"slots\": {\"selected_scenario\": \"SCN_A_QUICK\", \"threshold\": 0.88}, \"provenance\": {\"selected_scenario\": {\"value\": \"SCN_A_QUICK\", \"turn\": 0, \"query\": \"按第一套方案调整\"}, \"threshold\": {\"value\": 0.88, \"turn\": 2, \"query\": \"把阈值调低0.02\"}}, \"conflicts\": [{\"turn\": 2, \"slot\": \"threshold\", \"old\": 0.9, \"new\": 0.88}], \"conflict_count\": 1, \"policy\": \"last_write_wins\", \"resolutions\": [{\"turn\": 0, \"query\": \"按第一套方案调整\", \"writes\": {\"selected_scenario\": \"SCN_A_QUICK\"}, \"confidence\": 0.7}, {\"turn\": 1, \"query\": \"把阈值调高0.05\", \"writes\": {\"threshold\": 0.9}, \"confidence\": 0.7}, {\"turn\": 2, \"query\": \"把阈值调低0.02\", \"writes\": {\"threshold\": 0.88}, \"confidence\": 0.7}]}, \"compaction\": {\"ok\": true, \"pruned\": [\"snap_001_20261110185536\", \"snap_002_20261110185536\", \"snap_003_20261110185536\", \"snap_004_20261110185536\", \"snap_005_20261110185536\", \"snap_006_20261110185536\"], \"pruned_count\": 6, \"remaining\": 3, \"policy\": \"keep_recent\"}, \"ttl_purge\": {\"ok\": true, \"expired\": [\"temp_slot\"], \"expired_count\": 1}, \"capabilities\": [\"持久化 session_state.json 记忆池 + slots/entities 双向同步 (SOP §5.14)\", \"自然语言代词消歧 (第二套方案 / 上次那个模型 / 阈值调高 0.05)\", \"历史版本快照树 + 一键回滚 (rollback)\", \"[C2] 快照差量 diff (新增/删除/变更槽位)\", \"[C2] 多轮指代冲突消解 (后写胜出 + provenance 溯源)\", \"[C2] 槽位 TTL 过期 + 快照 LRU 压缩\"], \"engine_layer\": \"L09\"}",
+  "artifacts": [
+    {
+      "path": "workspace/rounds/cycle2/L09_memory2.json",
+      "bytes": 2443,
+      "sha256": "b209489ae7e4e0c82526d4acee605d5f65d6ec54fe549615c6a63a47f0b928a9"
+    }
+  ],
+  "regression": {
+    "baseline": {
+      "passed": 149,
+      "total": 149,
+      "ratio": 1.0
+    },
+    "evolution_modules": {
+      "tests.test_evolution_l01_l10": {
+        "tests": 11,
+        "ok": true
+      },
+      "tests.test_evolution_cycle2": {
+        "tests": 20,
+        "ok": true
+      }
+    },
+    "evolution": {
+      "tests": 31,
+      "ok": true,
+      "modules": 2
+    },
+    "all_green": true
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:55:46"
+}

@@ -270,7 +270,7 @@ def generate_professional_report(
     if figures:
         body = "".join(_figure_html(f) for f in figures)
         figures_block = (
-            '<div class="card"><h2>📈 图表证据区（全部由技能结果确定性渲染）</h2>'
+            '<div class="card"><h2>📈 量化图谱支撑 · 图表证据区（全部由技能结果确定性渲染）</h2>'
             '<p class="hint">下列图表坐标与数值均来自本次真实执行的结果 JSON；'
             "渲染器为 core/charts 的 48 型 SVG 图谱，可打印、无前端依赖。</p>"
             f"{body}</div>")

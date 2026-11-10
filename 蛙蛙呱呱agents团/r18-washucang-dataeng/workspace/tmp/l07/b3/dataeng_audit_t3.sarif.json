@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R18-Washucang-DataEng",
+          "semanticVersion": "13.0.0",
+          "rules": [
+            {
+              "id": "G1",
+              "name": "结构门禁",
+              "shortDescription": {
+                "text": "结构门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G2",
+              "name": "连接门禁",
+              "shortDescription": {
+                "text": "连接门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G3",
+              "name": "转换门禁",
+              "shortDescription": {
+                "text": "转换门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "G4",
+              "name": "质量门禁",
+              "shortDescription": {
+                "text": "质量门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": false,
+          "properties": {
+            "runId": "t3"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "G4",
+          "level": "error",
+          "message": {
+            "text": "空值率 0.12 > 0.10"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "workspace/rounds/L02_dag.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

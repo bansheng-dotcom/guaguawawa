@@ -1,0 +1,27 @@
+{
+  "r19": {
+    "role_dir": "r19-wazhimo-ml",
+    "cases": [
+      {"id": "r19-01", "intent": "帮我看看模型怎么样", "expect": "clarify"},
+      {"id": "r19-02", "intent": "把模型注册一下", "expect": "clarify"},
+      {"id": "r19-03", "intent": "看一下这个模型的表现", "expect": "clarify"},
+      {"id": "r19-04", "intent": "准备评估集和标注", "expect": "route", "expect_action": "evaluation.dataset"},
+      {"id": "r19-05", "intent": "评估一下新版本的回答质量", "expect": "route", "expect_action": "evaluation.scorer"},
+      {"id": "r19-06", "intent": "做一道新旧版本对比的回归测试", "expect": "route", "expect_action": "release.regression"},
+      {"id": "r19-07", "intent": "把模型注册到生产环境", "expect": "route", "expect_action": "registry.register"},
+      {"id": "r19-08", "intent": "配置漂移监控告警", "expect": "route", "expect_action": "monitor.drift"},
+      {"id": "r19-09", "intent": "写一份模型卡，说明用途限制", "expect": "route", "expect_action": "modelcard.card"},
+      {"id": "r19-10", "intent": "分析这条链路追踪，找出错误定位", "expect": "route", "expect_action": "trace.analyze"},
+      {"id": "r19-11", "intent": "给生产环境加个监控看板", "expect": "route", "expect_action": "monitor.metrics"},
+      {"id": "r19-12", "intent": "整理一下运行记录", "expect": "clarify"},
+      {"id": "r19-13", "intent": "把评测集、数据集和标注集这三样都准备好", "expect": "route", "expect_action": "evaluation.dataset"},
+      {"id": "r19-14", "intent": "给新模型的回答逐条打分，看看质量", "expect": "route", "expect_action": "evaluation.scorer"},
+      {"id": "r19-15", "intent": "把v2模型注册进预发环境", "expect": "route", "expect_action": "registry.register"},
+      {"id": "r19-16", "intent": "跑一遍新旧版本对比的回归测试", "expect": "route", "expect_action": "release.regression"},
+      {"id": "r19-17", "intent": "写一份model card把用途限制讲清楚", "expect": "route", "expect_action": "modelcard.card"},
+      {"id": "r19-18", "intent": "这个模型到底行不行", "expect": "clarify"},
+      {"id": "r19-19", "intent": "新的模型版本要入库", "expect": "clarify"},
+      {"id": "r19-20", "intent": "把之前的运行记录都归到一处", "expect": "clarify"}
+    ]
+  }
+}

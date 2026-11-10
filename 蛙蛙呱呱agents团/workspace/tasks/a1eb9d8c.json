@@ -1,0 +1,21 @@
+{
+  "task_id": "a1eb9d8c",
+  "title": "员工请假三天",
+  "owner": "r16",
+  "intent": "员工申请年假三天，帮我看天数对不对、额度够不够",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r16-warenshi-hr\\examples\\leave.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "leave 门禁通过"
+  ],
+  "deps": [],
+  "status": "pending",
+  "logs": []
+}

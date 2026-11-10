@@ -1,0 +1,102 @@
+{
+  "base_metric": 200000.0,
+  "scenario_count": 3,
+  "criteria_weights": {
+    "growth": 0.25,
+    "roi": 0.3,
+    "risk": 0.25,
+    "cost": 0.2
+  },
+  "scenarios": [
+    {
+      "type": "conservative",
+      "label": "保守紧缩型",
+      "forecast_value": 216000.0,
+      "growth_rate_pct": 8.0,
+      "budget_required": 10000.0,
+      "risk_profile": "极低 (稳守现有客群与渠道)",
+      "roi_expected": 1.6,
+      "forecast_low": 212000.0,
+      "forecast_high": 220000.0,
+      "risk_adjusted_value": 194400.0,
+      "mcda_scores": {
+        "growth": 0.0,
+        "roi": 100.0,
+        "risk": 100.0,
+        "cost": 100.0
+      },
+      "weighted_score": 75.0,
+      "rank": 1
+    },
+    {
+      "type": "baseline",
+      "label": "基准稳健型",
+      "forecast_value": 240000.0,
+      "growth_rate_pct": 20.0,
+      "budget_required": 30000.0,
+      "risk_profile": "中等 (按计划推进常规运营迭代)",
+      "roi_expected": 1.33,
+      "forecast_low": 230000.0,
+      "forecast_high": 250000.0,
+      "risk_adjusted_value": 156000.0,
+      "mcda_scores": {
+        "growth": 42.9,
+        "roi": 52.6,
+        "risk": 54.5,
+        "cost": 66.7
+      },
+      "weighted_score": 53.5,
+      "rank": 2
+    },
+    {
+      "type": "aggressive",
+      "label": "进取扩张型",
+      "forecast_value": 272000.0,
+      "growth_rate_pct": 36.0,
+      "budget_required": 70000.0,
+      "risk_profile": "较高 (多渠道高频拉新，需严密监控ROI)",
+      "roi_expected": 1.03,
+      "forecast_low": 254000.0,
+      "forecast_high": 290000.0,
+      "risk_adjusted_value": 95200.0,
+      "mcda_scores": {
+        "growth": 100.0,
+        "roi": 0.0,
+        "risk": 0.0,
+        "cost": 0.0
+      },
+      "weighted_score": 25.0,
+      "rank": 3
+    }
+  ],
+  "recommended": "保守紧缩型",
+  "comparison_matrix_md": "| 排名 | 情景类型 | 预测产出值 | 置信区间 | 预期增速 | 预算需求 | 风险等级 | 预估 ROI | MCDA 得分 |\n| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |\n| 1 | **保守紧缩型** | 216000.0 | [212000.0, 220000.0] | 8.0% | 10000.0 | 极低 (稳守现有客群与渠道) | 1.6x | 75.0 |\n| 2 | **基准稳健型** | 240000.0 | [230000.0, 250000.0] | 20.0% | 30000.0 | 中等 (按计划推进常规运营迭代) | 1.33x | 53.5 |\n| 3 | **进取扩张型** | 272000.0 | [254000.0, 290000.0] | 36.0% | 70000.0 | 较高 (多渠道高频拉新，需严密监控ROI) | 1.03x | 25.0 |",
+  "recommendation_criteria": "按 MCDA 加权(增长25%/ROI30%/风险25%/成本20%)，保守紧缩型 得分 75.0 居首；扰动后排名稳健；预算需求 10000.0，风险调整后价值 194400.0。",
+  "sensitivity": {
+    "base_winner": "conservative",
+    "scenarios": [
+      {
+        "driver": "growth",
+        "delta_pct": -20.0,
+        "winner": "conservative"
+      },
+      {
+        "driver": "budget",
+        "delta_pct": -20.0,
+        "winner": "conservative"
+      },
+      {
+        "driver": "growth",
+        "delta_pct": 20.0,
+        "winner": "conservative"
+      },
+      {
+        "driver": "budget",
+        "delta_pct": 20.0,
+        "winner": "conservative"
+      }
+    ],
+    "ranking_stable": true,
+    "perturbation": "growth/budget ±20%"
+  }
+}

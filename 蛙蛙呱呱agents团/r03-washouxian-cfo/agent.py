@@ -17,9 +17,17 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_AGENT_DIR = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_AGENT_DIR)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in [_AGENT_DIR, _AGENTS, _REPO_ROOT]:
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
+
+if hasattr(_sys.stdout, "reconfigure"):
+    _sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(_sys.stderr, "reconfigure"):
+    _sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 
 from agents.shared import role_runtime
@@ -34,6 +42,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from skills import SKILLS  # noqa: E402
 from skills import _common as c  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 
 ROLE = "r03"
 
@@ -62,69 +71,49 @@ def emit_manifest() -> None:
 
 TOOL_PATH = os.path.abspath(__file__)
 
-INTENTS = {
-    "月结": "financial",
-    "关账": "financial",
-    "对账": "financial",
-    "调节表": "financial",
-    "差异": "financial",
-    "roll": "financial",
-    "财报": "financial",
-    "报表": "financial",
-    "烧钱": "cfo",
-    "跑道": "cfo",
-    "runway": "cfo",
-    "现金": "cfo",
-    "单位经济": "cfo",
-    "ltv": "cfo",
-    "cac": "cfo",
-    "勾稽": "cfo",
-    "预算": "cfo",
-    "税": "tax",
-    "iso": "tax",
-    "amt": "tax",
-    "rmd": "tax",
-    "退休": "tax",
-    "预扣": "tax",
-    "预估税": "tax",
-    "合同": "contract",
-    "条款": "contract",
-    "政策": "contract",
-    "redline": "contract",
-    "隐私": "privacy",
-    "数据安全": "privacy",
-    "泄露": "privacy",
-    "dsr": "privacy",
-    "gdpr": "privacy",
-    "数据流": "privacy",
-    "ai": "aigov",
-    "ai治理": "aigov",
-    "框架": "aigov",
-    "分级": "aigov",
-    "披露": "aigov",
-    "审计": "audit",
-    "留存": "audit",
-    "证据": "audit",
-    "soc": "audit",
-    "mock": "audit",
-    "kyc": "risk",
-    "aml": "risk",
-    "反洗钱": "risk",
-    "广告": "risk",
-    "制裁": "risk",
-    "pep": "risk",
-    "尽调": "risk",
-}
+# 意图 → (技能, 动作, 默认参数)。供 probe/run_task 把意图确定性路由到技能。
+# 顺序即优先级：更具体的关键词靠前，route 用小写不区分大小写匹配。
+_INTENT_ROUTES = [
+    (("对账", "银行对账", "调节表", "reconcile"), "financial", "recon",
+     {"period": "monthly"}),
+    (("月结", "关账", "滚调", "rollforward"), "financial", "rollforward",
+     {"period": "monthly"}),
+    (("预算差异", "差异", "偏差", "variance"), "financial", "variance",
+     {"period": "monthly"}),
+    (("跑道", "烧钱", "runway", "现金能撑"), "cfo", "runway",
+     {"period": "monthly"}),
+    (("单位经济", "ltv", "cac"), "cfo", "unitecon", {"metric": "ltv"}),
+    (("体检", "健康度", "财务健康", "healthcheck"), "cfo", "healthcheck", {}),
+    (("iso", "行权", "amt", "期权"), "tax", "iso", {}),
+    (("rmd", "退休", "最低提取"), "tax", "rmd", {}),
+    (("预扣", "预缴税", "safe harbor"), "tax", "safeharbor", {}),
+    (("合同", "条款", "自动续约"), "contract", "scan", {}),
+    (("红线", "redline", "改条款"), "contract", "redline", {}),
+    (("隐私", "数据流", "数据地图"), "privacy", "map", {}),
+    (("dsr", "gdpr", "数据主体"), "privacy", "dsr", {}),
+    (("最小化", "minimize", "只留必要"), "privacy", "minimize", {}),
+    (("ai治理", "ai 治理", "治理", "框架", "选型"), "aigov", "frameworks", {}),
+    (("分级", "aiclassify", "风险等级"), "aigov", "aiclassify", {}),
+    (("披露", "disclose"), "aigov", "disclose", {}),
+    (("留存", "保留", "retention"), "audit", "retention", {}),
+    (("模拟审计", "mock", "mockaudit"), "audit", "mockaudit", {}),
+    (("审计", "证据", "soc"), "audit", "evidence", {}),
+    (("kyc", "尽调"), "risk", "kyc", {}),
+    (("aml", "反洗钱"), "risk", "aml", {}),
+    (("广告", "adreview", "广告审核"), "risk", "adreview", {}),
+]
 
 
-def route(text: str) -> str:
-    """意图路由（确定性关键词匹配）：中文/英文关键词 → 技能名。"""
+def route(text: str):
+    """意图路由（确定性关键词匹配）：中文/英文关键词 → (技能, 动作, 默认参数)。
+
+    旧实现未命中即静默落到 financial；现在未命中交给共享 L02 内核澄清。
+    """
     t = (text or "").lower()
-    best, best_len = "financial", 0  # 缺省走财务（月结对账是最常见诉求）
-    for kw, skill in INTENTS.items():
-        if kw in t and len(kw) > best_len:
-            best, best_len = skill, len(kw)
-    return best
+    for kws, skill, action, defaults in _INTENT_ROUTES:
+        if any(k in t for k in kws):
+            return skill, action, defaults
+    return fallback_route(ROLE, text)
 
 
 def dispatch(skill: str, action: str, input_path: str) -> Dict[str, Any]:
@@ -154,6 +143,7 @@ def agent_description() -> Dict[str, Any]:
 def _register_parsers() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="r03-washouxian-cfo")
     sub = parser.add_subparsers(dest="skill", required=True)
+    add_clarify_parser(sub)
     for m in SKILLS:
         m.add_parser(sub)
     _register_case(sub)
@@ -268,6 +258,8 @@ def main(argv=None) -> int:
         return 0
     parser = _register_parsers()
     args = parser.parse_args(argv)
+    if getattr(args, "skill", None) == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if getattr(args, "skill", None) == "case":
         return _run_case_cli(args)
     if getattr(args, "skill", None) == "deep":

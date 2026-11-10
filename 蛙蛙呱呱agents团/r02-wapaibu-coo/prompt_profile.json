@@ -1,0 +1,395 @@
+{
+  "role_id": "r02",
+  "domain": "运营编排与项目交付",
+  "max_questions": 2,
+  "execution_inputs": {
+    "input": {
+      "resolve": "task_port",
+      "question": "排期/容量/交接的输入文件在哪？"
+    }
+  },
+  "lexicon": {
+    "scope": {
+      "project": [
+        "项目",
+        "这条线"
+      ],
+      "team": [
+        "团队",
+        "小组",
+        "部门"
+      ],
+      "portfolio": [
+        "项目群",
+        "多项目",
+        "组合"
+      ]
+    },
+    "owner": {
+      "pm": [
+        "项目经理",
+        "PM",
+        "负责人"
+      ],
+      "lead": [
+        "组长",
+        "技术负责人"
+      ],
+      "agent": [
+        "agent",
+        "机器人",
+        "执行角色"
+      ]
+    },
+    "deadline": {
+      "sprint": [
+        "本冲刺",
+        "这周",
+        "两周"
+      ],
+      "month": [
+        "本月",
+        "30天"
+      ],
+      "quarter": [
+        "本季度",
+        "季度末"
+      ]
+    },
+    "artifact": {
+      "incident": [
+        "事故报告",
+        "incident"
+      ],
+      "sop": [
+        "sop",
+        "流程文档"
+      ],
+      "wbs": [
+        "分解表",
+        "工作包"
+      ]
+    }
+  },
+  "assumptions": {},
+  "assumption_reason": {},
+  "questions": {
+    "action": {
+      "question": "你要 COO 做哪一类运营动作？",
+      "options": [
+        {
+          "value": "sprint",
+          "label": "冲刺排期"
+        },
+        {
+          "value": "wbs",
+          "label": "工作分解"
+        },
+        {
+          "value": "check",
+          "label": "容量检查"
+        },
+        {
+          "value": "package",
+          "label": "交接包"
+        },
+        {
+          "value": "postmortem",
+          "label": "事故复盘"
+        },
+        {
+          "value": "sop",
+          "label": "流程固化"
+        },
+        {
+          "value": "status",
+          "label": "项目群状态"
+        }
+      ]
+    },
+    "scope": {
+      "question": "这次覆盖的范围是什么？",
+      "options": [
+        {
+          "value": "project",
+          "label": "单项目"
+        },
+        {
+          "value": "team",
+          "label": "一个团队/部门"
+        },
+        {
+          "value": "portfolio",
+          "label": "多个项目（项目群）"
+        }
+      ]
+    },
+    "owner": {
+      "question": "谁是责任人或执行方？",
+      "options": [
+        {
+          "value": "pm",
+          "label": "项目经理"
+        },
+        {
+          "value": "lead",
+          "label": "技术负责人"
+        },
+        {
+          "value": "agent",
+          "label": "Agent/执行角色"
+        }
+      ]
+    },
+    "deadline": {
+      "question": "截止时间的要求是什么？",
+      "options": [
+        {
+          "value": "sprint",
+          "label": "本冲刺/这周"
+        },
+        {
+          "value": "month",
+          "label": "本月内"
+        },
+        {
+          "value": "quarter",
+          "label": "本季度"
+        }
+      ]
+    },
+    "artifact": {
+      "question": "要产出或依据哪类工件？",
+      "options": [
+        {
+          "value": "incident",
+          "label": "事故报告"
+        },
+        {
+          "value": "sop",
+          "label": "SOP/流程文档"
+        },
+        {
+          "value": "wbs",
+          "label": "工作分解表"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "schedule",
+      "action": "sprint",
+      "label": "冲刺排期",
+      "when": [
+        "排期",
+        "冲刺",
+        "sprint",
+        "工期",
+        "排产"
+      ],
+      "requires": [
+        "deadline"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "schedule",
+      "action": "wbs",
+      "label": "工作分解",
+      "when": [
+        "wbs",
+        "工作分解",
+        "拆工作"
+      ],
+      "requires": [
+        "scope"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "capacity",
+      "action": "check",
+      "label": "容量检查与派工",
+      "when": [
+        "容量",
+        "过载",
+        "负载",
+        "人日"
+      ],
+      "requires": [
+        "scope",
+        "owner"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "handoff",
+      "action": "package",
+      "label": "交接包与验收移交",
+      "when": [
+        "交接",
+        "handoff",
+        "交接包",
+        "工单"
+      ],
+      "requires": [
+        "owner"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "retro",
+      "action": "postmortem",
+      "label": "事故复盘",
+      "when": [
+        "复盘",
+        "事故",
+        "postmortem",
+        "根因"
+      ],
+      "requires": [
+        "artifact"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "process",
+      "action": "sop",
+      "label": "流程固化 SOP",
+      "when": [
+        "sop",
+        "流程",
+        "标准化",
+        "固化"
+      ],
+      "requires": [
+        "artifact",
+        "owner"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "portfolio",
+      "action": "status",
+      "label": "项目群状态汇总",
+      "when": [
+        "项目群",
+        "编排",
+        "状态汇总",
+        "portfolio"
+      ],
+      "requires": [
+        "scope"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "schedule",
+      "action": "critpath",
+      "label": "关键路径与浮动时间计算",
+      "when": [
+        "关键路径",
+        "浮动时间",
+        "依赖环"
+      ],
+      "requires": [
+        "scope",
+        "deadline"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "capacity",
+      "action": "delegate",
+      "label": "派工包生成",
+      "when": [
+        "派工",
+        "最小上下文",
+        "派活"
+      ],
+      "requires": [
+        "owner"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "handoff",
+      "action": "accept",
+      "label": "交付验收判定",
+      "when": [
+        "验收判定",
+        "逐条验收",
+        "退回条件"
+      ],
+      "requires": [
+        "owner"
+      ],
+      "params": {}
+    }
+  ],
+  "semantic_fields": {
+    "capacity.split": [
+      "owner",
+      "deadline"
+    ],
+    "handoff.trace": [
+      "artifact",
+      "owner"
+    ],
+    "retro.grade": [
+      "artifact",
+      "owner"
+    ],
+    "retro.action": [
+      "owner",
+      "deadline"
+    ],
+    "process.waste": [
+      "scope",
+      "artifact"
+    ],
+    "process.meeting": [
+      "scope",
+      "artifact"
+    ],
+    "knowledge.digest": [
+      "artifact",
+      "owner"
+    ],
+    "knowledge.entry": [
+      "artifact",
+      "owner"
+    ],
+    "knowledge.search": [
+      "scope"
+    ],
+    "portfolio.plan": [
+      "owner",
+      "deadline"
+    ],
+    "portfolio.graph": [
+      "artifact",
+      "owner"
+    ]
+  },
+  "l2_prompt_blocks": [
+    {
+      "name": "容量硬约束",
+      "template": "排期必须给出任务人日总量与可用容量对照（deadline={deadline}）；总量超容量即判 warn，禁止四舍五入掩盖缺口。"
+    },
+    {
+      "name": "交接三件套",
+      "template": "每个交接包必须写清验收人（owner={owner}）、验收标准、回滚点三项，缺任一项即判 fail，不得先交接后补。"
+    }
+  ],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "排期/交付范围",
+      "责任人与验收人",
+      "容量与风险",
+      "阻塞与升级路径"
+    ]
+  }
+}

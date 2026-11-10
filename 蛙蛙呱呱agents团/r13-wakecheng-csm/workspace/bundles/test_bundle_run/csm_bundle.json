@@ -1,0 +1,16 @@
+{
+  "run_id": "test_bundle_run",
+  "exported_at": "2026-11-10T13:22:27.382324",
+  "agent": "r13-wakecheng-csm",
+  "client_data": {
+    "company_name": "A公司",
+    "health_score": 82.5,
+    "health_breakdown": {
+      "usage": 88,
+      "quality": 82,
+      "relationship": 80,
+      "commercial": 80
+    }
+  },
+  "manifest_version": "v11.0"
+}

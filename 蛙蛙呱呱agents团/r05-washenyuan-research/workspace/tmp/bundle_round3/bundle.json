@@ -1,0 +1,25 @@
+{
+  "bundle_version": "1.0.0",
+  "producer": "r05-washenyuan-research",
+  "generated_at": "2026-11-10T21:57:59",
+  "artifacts": [
+    {
+      "path": "research_spec.json",
+      "bytes": 729,
+      "sha256": "73a241e8ee1d4255928c91f65b05d839daea639d968e8668d722a9c12ea35154",
+      "media_type": "application/json"
+    },
+    {
+      "path": "research_chart_spec.json",
+      "bytes": 590,
+      "sha256": "eb3a916de5127b91a4fd5ef3a866ebff4114044d9ecb65a776d01c8ba1997e43",
+      "media_type": "application/json"
+    },
+    {
+      "path": "research_result.sarif.json",
+      "bytes": 4511,
+      "sha256": "d5a959046e7ede93f2419abdae02ede43b21f7cbfa34c4ad610f86a6c99371cb",
+      "media_type": "application/json"
+    }
+  ]
+}

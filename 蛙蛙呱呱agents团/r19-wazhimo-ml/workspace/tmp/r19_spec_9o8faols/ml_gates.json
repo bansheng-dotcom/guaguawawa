@@ -1,0 +1,136 @@
+{
+  "schema": "r19.ml_gates.v1",
+  "spec": {
+    "role": "R19 蛙智模 · 模型工程与 AI 评估官",
+    "version": "v13.0",
+    "source": "ML_SPEC.md",
+    "spec_hash": "ea0523c4dcd46b4f79bd1d8147256bab43fc5be8db9d18c43fbd271721a3c154",
+    "parse_ok": true,
+    "gates_count": 8,
+    "north_star_kpis": {
+      "ERA": {
+        "name": "评估可复算率",
+        "target": "100.0%",
+        "formula": "confusion(tp+fp+tn+fn)=n 且 accuracy=(tp+tn)/n，容差 0.00"
+      },
+      "GGR": {
+        "name": "回归门禁通过率",
+        "target": "100.0%",
+        "formula": "PASS ⇒ regression_id ∧ fail_before ∧ pass_after ∧ existing_green"
+      },
+      "ATR": {
+        "name": "资产可溯源率",
+        "target": "100.0%",
+        "formula": "assets[].path ∧ run_id ∧ sha256"
+      },
+      "CLR": {
+        "name": "凭据零泄露率",
+        "target": "100.0%",
+        "formula": "credential_hits = 0"
+      },
+      "BTA": {
+        "name": "勾稽容差绝对值",
+        "target": "0.00",
+        "formula": "|delta| <= 1e-9"
+      }
+    },
+    "kpi_codes": [
+      "ERA",
+      "GGR",
+      "ATR",
+      "CLR",
+      "BTA"
+    ],
+    "gates": {
+      "GATE-01": {
+        "name": "评估指标可复算门禁",
+        "dim": "metric_recomputability",
+        "threshold": "记录含 expected/predicted 且混淆计数守恒",
+        "action": "评估报告作废"
+      },
+      "GATE-02": {
+        "name": "证据链完整门禁",
+        "dim": "evidence_chain",
+        "threshold": "verdict=PASS ⇒ evidence ≥ 1",
+        "action": "降级 NEEDS_REVIEW"
+      },
+      "GATE-03": {
+        "name": "回归门禁",
+        "dim": "regression",
+        "threshold": "PASS ⇒ regression_id + fail_before/pass_after/existing_green",
+        "action": "退回补回归"
+      },
+      "GATE-04": {
+        "name": "资产可溯源门禁",
+        "dim": "artifact_traceability",
+        "threshold": "path 非空 + run_id 绑定 + sha256 可校验",
+        "action": "禁止入库"
+      },
+      "GATE-05": {
+        "name": "凭据零泄露门禁",
+        "dim": "credential_zero",
+        "threshold": "凭据词命中数 = 0",
+        "action": "退回密钥管理"
+      },
+      "GATE-06": {
+        "name": "阶段唯一性门禁",
+        "dim": "stage_uniqueness",
+        "threshold": "production 版本数 ≤ 1",
+        "action": "回滚多余版本"
+      },
+      "GATE-07": {
+        "name": "枚举合规门禁",
+        "dim": "enum_compliance",
+        "threshold": "verdict/stage/risk_tier/license 白名单",
+        "action": "按白名单归一"
+      },
+      "GATE-08": {
+        "name": "越权移交门禁",
+        "dim": "publication_handoff",
+        "threshold": "发布动作声明 handoff / authorized_by",
+        "action": "[REDLINE BLOCKED]"
+      }
+    },
+    "gate_ids": [
+      "GATE-01",
+      "GATE-02",
+      "GATE-03",
+      "GATE-04",
+      "GATE-05",
+      "GATE-06",
+      "GATE-07",
+      "GATE-08"
+    ],
+    "missing_gates": [],
+    "enums": {
+      "stage": [
+        "none",
+        "staging",
+        "production",
+        "archived"
+      ],
+      "verdict": [
+        "PASS",
+        "BLOCK",
+        "NEEDS_REVIEW"
+      ],
+      "risk_tier": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "license": [
+        "proprietary",
+        "open_source",
+        "research_only"
+      ],
+      "feedback_source": [
+        "HUMAN",
+        "LLM_JUDGE",
+        "CODE",
+        "WEBHOOK"
+      ]
+    }
+  },
+  "exported_at": "2026-11-10T21:41:02"
+}

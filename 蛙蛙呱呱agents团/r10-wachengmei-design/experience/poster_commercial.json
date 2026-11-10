@@ -1,0 +1,14 @@
+{
+  "poster_commercial": {
+    "specs": {
+      "product_layer": { "min_scale": 0.4, "max_scale": 0.6, "shadow_intensity": 0.7 },
+      "layout_grid": { "title_position": [50, 50], "price_tag_position": [600, 50] },
+      "typography": { "title_font_size": 80, "primary_color": "#FF4500" }
+    },
+    "category_themes": {
+      "chicken": { "bg_color": "#FFF5EE", "text_color": "#8B0000", "theme": "促销红" },
+      "shrimp": { "bg_color": "#E0FFFF", "text_color": "#00008B", "theme": "冰鲜蓝" },
+      "pork": { "bg_color": "#FFE4E1", "text_color": "#A52A2A", "theme": "生鲜粉" }
+    }
+  }
+}

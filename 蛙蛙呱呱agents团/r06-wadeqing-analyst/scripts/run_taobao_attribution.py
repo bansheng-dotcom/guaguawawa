@@ -8,9 +8,10 @@ import sys
 import json
 from datetime import datetime
 
-_AGENTS = r"D:\一人公司\agents"
-_R06 = os.path.join(_AGENTS, "r06-wadeqing-analyst")
-_OUT_DIR = os.path.join(_R06, "workspace", "artifacts")
+_AGENT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_R06 = _AGENT
+_REPO = os.path.dirname(_AGENT)
+_OUT_DIR = os.path.join(_REPO, "workspace", "artifacts")
 os.makedirs(_OUT_DIR, exist_ok=True)
 
 # 1. 模拟核心指标数据（基准月 vs 上月）
@@ -500,7 +501,7 @@ html_content += f"""
     <!-- 底部版权与智能体署名 -->
     <footer>
         <p>一人公司智能体专家团 · <strong>R06 蛙得清 (Data Analyst Agent)</strong> 确定性分析流水线出具</p>
-        <p style="font-size: 11px; margin-top: 4px;">报告产物路径: D:\一人公司\agents\r06-wadeqing-analyst\workspace\artifacts\taobao_shop_decline_attribution_report.html</p>
+        <p style="font-size: 11px; margin-top: 4px;">报告产物路径: workspace/artifacts/taobao_shop_decline_attribution_report.html</p>
     </footer>
 </div>
 

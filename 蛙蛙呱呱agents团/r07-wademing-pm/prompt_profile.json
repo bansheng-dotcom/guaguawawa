@@ -1,0 +1,443 @@
+{
+  "role_id": "r07",
+  "domain": "产品管理",
+  "max_questions": 3,
+  "execution_inputs": {
+    "input": {
+      "resolve": "task_port",
+      "question": "需求/JTBD/Backlog 输入文件在哪？"
+    }
+  },
+  "lexicon": {
+    "topic": {
+      "*": [
+        "*"
+      ]
+    },
+    "audience": {
+      "b2b": [
+        "B端",
+        "企业",
+        "商家",
+        "SaaS"
+      ],
+      "b2c": [
+        "C端",
+        "消费者",
+        "普通用户"
+      ],
+      "internal": [
+        "内部",
+        "员工",
+        "管理层"
+      ]
+    },
+    "objective": {
+      "growth": [
+        "增长",
+        "拉新",
+        "转化"
+      ],
+      "retention": [
+        "留存",
+        "复购",
+        "粘性"
+      ],
+      "efficiency": [
+        "效率",
+        "降本",
+        "成本"
+      ],
+      "launch": [
+        "上线",
+        "发布",
+        "交付"
+      ]
+    },
+    "horizon": {
+      "this_quarter": [
+        "本季度",
+        "这季度"
+      ],
+      "next_quarter": [
+        "下季度",
+        "下个季度"
+      ],
+      "half_year": [
+        "半年",
+        "下半年"
+      ]
+    },
+    "evidence": {
+      "voc": [
+        "访谈",
+        "用户反馈",
+        "VOC",
+        "调研"
+      ],
+      "data": [
+        "数据",
+        "埋点",
+        "指标"
+      ],
+      "none": [
+        "暂无",
+        "没数据"
+      ]
+    }
+  },
+  "assumptions": {
+    "horizon": "this_quarter"
+  },
+  "assumption_reason": {
+    "horizon": "未指定周期，按本季度口径，已在产物首段标注"
+  },
+  "questions": {
+    "action": {
+      "question": "你想做哪类产品工作？",
+      "options": [
+        {
+          "value": "discover",
+          "label": "用户调研"
+        },
+        {
+          "value": "ost",
+          "label": "机会树"
+        },
+        {
+          "value": "prd",
+          "label": "PRD"
+        },
+        {
+          "value": "priority",
+          "label": "优先级排序"
+        },
+        {
+          "value": "roadmap",
+          "label": "路线图"
+        }
+      ]
+    },
+    "topic": {
+      "question": "具体是哪个产品/功能/问题？",
+      "options": []
+    },
+    "audience": {
+      "question": "面向谁？",
+      "options": [
+        {
+          "value": "b2b",
+          "label": "B端企业"
+        },
+        {
+          "value": "b2c",
+          "label": "C端消费者"
+        },
+        {
+          "value": "internal",
+          "label": "内部用户"
+        }
+      ]
+    },
+    "objective": {
+      "question": "要达成什么业务目标？",
+      "options": [
+        {
+          "value": "growth",
+          "label": "增长"
+        },
+        {
+          "value": "retention",
+          "label": "留存"
+        },
+        {
+          "value": "efficiency",
+          "label": "效率"
+        },
+        {
+          "value": "launch",
+          "label": "上线交付"
+        }
+      ]
+    },
+    "evidence": {
+      "question": "有哪类证据可用？",
+      "options": [
+        {
+          "value": "voc",
+          "label": "访谈/用户反馈"
+        },
+        {
+          "value": "data",
+          "label": "数据/埋点"
+        },
+        {
+          "value": "none",
+          "label": "暂时没有"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "discover",
+      "action": "discover",
+      "label": "用户调研与需求发现",
+      "when": [
+        "调研",
+        "访谈",
+        "用户反馈",
+        "voc",
+        "需求挖掘",
+        "了解用户"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "ost",
+      "action": "ost",
+      "label": "机会解决方案树",
+      "when": [
+        "机会树",
+        "机会",
+        "ost",
+        "方案空间"
+      ],
+      "requires": [
+        "topic",
+        "objective"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "prd",
+      "action": "prd",
+      "label": "PRD 撰写",
+      "when": [
+        "prd",
+        "需求文档",
+        "需求说明",
+        "写需求",
+        "产品文档"
+      ],
+      "requires": [
+        "topic",
+        "audience"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "prd",
+      "action": "story",
+      "label": "用户故事与验收",
+      "when": [
+        "用户故事",
+        "story",
+        "验收标准",
+        "故事"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "priority",
+      "action": "rice",
+      "label": "优先级排序",
+      "when": [
+        "优先级",
+        "排期",
+        "排序",
+        "rice",
+        "先做哪个",
+        "backlog"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "roadmap",
+      "action": "roadmap",
+      "label": "路线图规划",
+      "when": [
+        "路线图",
+        "roadmap",
+        "版本规划",
+        "发布计划"
+      ],
+      "requires": [
+        "topic",
+        "horizon"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "metrics",
+      "action": "northstar",
+      "label": "北极星指标",
+      "when": [
+        "北极星",
+        "northstar",
+        "核心指标",
+        "指标树"
+      ],
+      "requires": [
+        "objective"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "decision",
+      "action": "decision",
+      "label": "决策汇报",
+      "when": [
+        "决策",
+        "汇报",
+        "拍板",
+        "评审结论",
+        "取舍"
+      ],
+      "requires": [
+        "topic",
+        "evidence"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "discover",
+      "action": "jobstory",
+      "label": "用户情境故事（Job Story）",
+      "when": [
+        "jobstory",
+        "job story",
+        "用户情境"
+      ],
+      "requires": [
+        "topic",
+        "audience"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "metrics",
+      "action": "okr",
+      "label": "OKR 目标拆解",
+      "when": [
+        "okr",
+        "关键结果",
+        "目标对齐"
+      ],
+      "requires": [
+        "objective"
+      ],
+      "params": {}
+    }
+  ],
+  "semantic_fields": {
+    "discover.interview": [
+      "topic",
+      "audience"
+    ],
+    "ost.poc": [
+      "topic",
+      "evidence"
+    ],
+    "ost.assumption": [
+      "topic",
+      "evidence"
+    ],
+    "ost.research": [
+      "topic",
+      "evidence"
+    ],
+    "prd.acceptance": [
+      "topic",
+      "audience"
+    ],
+    "priority.opportunity": [
+      "objective",
+      "topic"
+    ],
+    "priority.ice": [
+      "objective",
+      "topic"
+    ],
+    "priority.backlog": [
+      "objective",
+      "topic"
+    ],
+    "roadmap.releasenotes": [
+      "topic",
+      "audience"
+    ],
+    "roadmap.premortem": [
+      "horizon",
+      "topic"
+    ],
+    "metrics.metrics": [
+      "objective",
+      "topic"
+    ],
+    "metrics.vision": [
+      "objective",
+      "audience"
+    ],
+    "metrics.canvas": [
+      "objective",
+      "topic"
+    ],
+    "techbrief.techbrief": [
+      "topic",
+      "audience"
+    ],
+    "techbrief.uibrief": [
+      "topic",
+      "audience"
+    ],
+    "techbrief.codetoprd": [
+      "input",
+      "topic"
+    ],
+    "techbrief.releasegate": [
+      "topic",
+      "evidence"
+    ],
+    "decision.demand": [
+      "objective",
+      "evidence"
+    ],
+    "decision.experience": [
+      "audience",
+      "evidence"
+    ]
+  },
+  "l2_prompt_blocks": [
+    {
+      "name": "需求边界",
+      "template": "目标用户：{audience}；业务目标：{objective}；周期：{horizon}。三者未确认前不得扩写范围。"
+    },
+    {
+      "name": "反塑料自检",
+      "template": "每条断言必须绑定用户证据（访谈原话/数据/竞品事实）；禁止使用“赋能、闭环、抓手、打造”。"
+    },
+    {
+      "name": "交付物自检",
+      "template": "输出前核对：用户问题、目标指标、非目标、验收标准、依赖、风险、灰度、回滚八项是否齐备。"
+    }
+  ],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "用户问题",
+      "目标指标",
+      "非目标",
+      "验收标准"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "R06 Auto-Generated Analysis Visual Specification",
+  "data": {
+    "values": [
+      {
+        "x": "W1",
+        "y": 10
+      },
+      {
+        "x": "W2",
+        "y": 25
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "x",
+      "type": "nominal",
+      "axis": {
+        "title": "x"
+      }
+    },
+    "y": {
+      "field": "y",
+      "type": "quantitative",
+      "axis": {
+        "title": "y"
+      }
+    }
+  },
+  "usermeta": {
+    "validation": {
+      "valid": true,
+      "errors": []
+    }
+  }
+}

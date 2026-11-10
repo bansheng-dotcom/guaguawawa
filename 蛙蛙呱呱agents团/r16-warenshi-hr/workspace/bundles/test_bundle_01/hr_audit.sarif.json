@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R16-HR-Auditor",
+          "semanticVersion": "13.0.0",
+          "rules": [
+            {
+              "id": "GATE-HR-01",
+              "shortDescription": {
+                "text": "薪酬总额校验"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2026-11-10T07:25:44.744540+00:00"
+        }
+      ],
+      "results": []
+    }
+  ]
+}

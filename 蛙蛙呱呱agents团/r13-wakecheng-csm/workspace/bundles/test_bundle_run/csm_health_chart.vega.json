@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "客户四维健康度评分分布",
+  "data": {
+    "values": [
+      {
+        "dimension": "使用度 (Usage)",
+        "score": 88
+      },
+      {
+        "dimension": "系统质量 (Quality)",
+        "score": 82
+      },
+      {
+        "dimension": "客情关系 (Relationship)",
+        "score": 80
+      },
+      {
+        "dimension": "商业健康 (Commercial)",
+        "score": 80
+      }
+    ]
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadius": 4
+  },
+  "encoding": {
+    "x": {
+      "field": "dimension",
+      "type": "nominal",
+      "axis": {
+        "title": "健康维度"
+      }
+    },
+    "y": {
+      "field": "score",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          100
+        ]
+      },
+      "axis": {
+        "title": "得分"
+      }
+    },
+    "color": {
+      "field": "score",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "greens"
+      },
+      "legend": null
+    }
+  }
+}

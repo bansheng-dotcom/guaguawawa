@@ -1,0 +1,333 @@
+{
+  "mode": "compile",
+  "summary": {
+    "cases": 20,
+    "route": 13,
+    "clarify": 7,
+    "silent_default": 0,
+    "expect_match": 20,
+    "bare_clarify": 0,
+    "confidence_values": [
+      0.0,
+      1.0
+    ]
+  },
+  "results": [
+    {
+      "id": "r14-01",
+      "role": "r14",
+      "intent": "处理一下退款",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "channel"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r14-02",
+      "role": "r14",
+      "intent": "帮我看看交易数据",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r14-03",
+      "role": "r14",
+      "intent": "订阅这块怎么弄",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r14-04",
+      "role": "r14",
+      "intent": "微信支付回调失败",
+      "expect": "route",
+      "expect_action": "payment.payment_intent",
+      "actual": "payment.payment_intent",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-05",
+      "role": "r14",
+      "intent": "开一张上个月的发票",
+      "expect": "route",
+      "expect_action": "billing.invoice",
+      "actual": "billing.invoice",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-06",
+      "role": "r14",
+      "intent": "电子签署合同",
+      "expect": "route",
+      "expect_action": "signature.document",
+      "actual": "signature.document",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-07",
+      "role": "r14",
+      "intent": "看看订阅的MRR",
+      "expect": "route",
+      "expect_action": "billing.plan",
+      "actual": "billing.plan",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-08",
+      "role": "r14",
+      "intent": "微信退款",
+      "expect": "route",
+      "expect_action": "payment.refund",
+      "actual": "payment.refund",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-09",
+      "role": "r14",
+      "intent": "订单状态怎么流转",
+      "expect": "route",
+      "expect_action": "workflow.state",
+      "actual": "workflow.state",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "scope"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-10",
+      "role": "r14",
+      "intent": "上周的收入事件表",
+      "expect": "route",
+      "expect_action": "revenue.events",
+      "actual": "revenue.events",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-11",
+      "role": "r14",
+      "intent": "看下本月的用量计量",
+      "expect": "route",
+      "expect_action": "billing.usage",
+      "actual": "billing.usage",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-12",
+      "role": "r14",
+      "intent": "计量口径怎么定",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r14-13",
+      "role": "r14",
+      "intent": "昨天开始微信支付回调一直失败，麻烦排查",
+      "expect": "route",
+      "expect_action": "payment.payment_intent",
+      "actual": "payment.payment_intent",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-14",
+      "role": "r14",
+      "intent": "上个月的账单需要开张发票给客户",
+      "expect": "route",
+      "expect_action": "billing.invoice",
+      "actual": "billing.invoice",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-15",
+      "role": "r14",
+      "intent": "这份合同要走电子签署流程",
+      "expect": "route",
+      "expect_action": "signature.document",
+      "actual": "signature.document",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-16",
+      "role": "r14",
+      "intent": "订阅业务的 MRR 现在是多少",
+      "expect": "route",
+      "expect_action": "billing.plan",
+      "actual": "billing.plan",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-17",
+      "role": "r14",
+      "intent": "微信上有一笔要退钱给用户",
+      "expect": "route",
+      "expect_action": "payment.refund",
+      "actual": "payment.refund",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r14-18",
+      "role": "r14",
+      "intent": "有个客户说钱付了但没到账，在闹",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r14-19",
+      "role": "r14",
+      "intent": "订阅的套餐想调整下，还没想好怎么动",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r14-20",
+      "role": "r14",
+      "intent": "计量口径这块还没和财务对齐",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    }
+  ]
+}

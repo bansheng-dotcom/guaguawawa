@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R20-蛙值守",
+          "informationUri": "https://example.local/r20-sre",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "SRE-G1",
+              "name": "StructureIntegrity",
+              "shortDescription": {
+                "text": "工件结构完整且 checks 非空"
+              },
+              "helpUri": "SRE_SPEC.md#G1"
+            },
+            {
+              "id": "SRE-G2",
+              "name": "SloConsistency",
+              "shortDescription": {
+                "text": "可靠性指标符合 SLO 口径"
+              },
+              "helpUri": "SRE_SPEC.md#G2"
+            },
+            {
+              "id": "SRE-G8",
+              "name": "Hygiene",
+              "shortDescription": {
+                "text": "无凭据明文与占位"
+              },
+              "helpUri": "SRE_SPEC.md#G8"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "startTimeUtc": "2026-11-10T11:06:08Z",
+          "commandLine": "agent.py evolve bundle"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SRE-G1",
+          "level": "note",
+          "message": {
+            "text": "结构完整性通过：3 条判据"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sre_bundle_R20-R3.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SRE-G2",
+          "level": "note",
+          "message": {
+            "text": "SLO 口径一致：availability=0.9995 ≥ 0.999"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sre_bundle_R20-R3.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SRE-G8",
+          "level": "note",
+          "message": {
+            "text": "卫生检查通过：无凭据明文"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sre_bundle_R20-R3.json"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "sre_bundle_R20-R3.json"
+          }
+        }
+      ]
+    }
+  ]
+}

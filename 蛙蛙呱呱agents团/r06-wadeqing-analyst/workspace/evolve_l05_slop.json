@@ -1,0 +1,20 @@
+{
+  "score": 55,
+  "grade": "C",
+  "is_clean": false,
+  "attribution": {
+    "has_driver": true,
+    "has_contribution": true,
+    "has_comparison": true,
+    "missing": [],
+    "complete": true
+  },
+  "traceability": {
+    "checked_numbers": 3,
+    "known_numbers": 3,
+    "unsourced_numbers": [],
+    "hallucination_free": true
+  },
+  "replaced_count": 3,
+  "polished": "行业市场容量与复合增速保持，转化率呈现量化变动，在给定置信区间内应当加大投入。渠道A贡献了-1200元，占总跌幅65%，同比基准-2.1pp。 [DRI：蛙得清 (R06 数据分析) | 动作：下钻抖音渠道素材与出价 | 截止：T+3 个工作日]"
+}

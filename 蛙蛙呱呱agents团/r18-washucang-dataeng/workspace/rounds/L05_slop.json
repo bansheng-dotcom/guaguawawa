@@ -1,0 +1,71 @@
+{
+  "ok": false,
+  "has_slop": true,
+  "hits": [
+    {
+      "term": "整体良好",
+      "dim": "empty_judgement",
+      "index": 4,
+      "line": 1,
+      "severity": "HIGH"
+    },
+    {
+      "term": "按需采购",
+      "dim": "no_policy",
+      "index": 9,
+      "line": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "term": "视情况而定",
+      "dim": "no_criteria",
+      "index": 14,
+      "line": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "term": "相关细节待定",
+      "dim": "placeholder",
+      "index": 20,
+      "line": 1,
+      "severity": "HIGH"
+    },
+    {
+      "term": "持续关注",
+      "dim": "no_action",
+      "index": 27,
+      "line": 1,
+      "severity": "MEDIUM"
+    }
+  ],
+  "terms_found": [
+    "持续关注",
+    "按需采购",
+    "整体良好",
+    "相关细节待定",
+    "视情况而定"
+  ],
+  "actionability_score": 5,
+  "has_dri": false,
+  "grade": "FAIL",
+  "checks": [
+    {
+      "ok": false,
+      "dim": "slop.terms",
+      "msg": "套话命中 5 处",
+      "sev": "HIGH"
+    },
+    {
+      "ok": false,
+      "dim": "slop.actionability",
+      "msg": "行动力分值 5 >= 70",
+      "sev": "HIGH"
+    },
+    {
+      "ok": false,
+      "dim": "slop.dri",
+      "msg": "缺 DRI（谁负责不明确）",
+      "sev": "MEDIUM"
+    }
+  ]
+}

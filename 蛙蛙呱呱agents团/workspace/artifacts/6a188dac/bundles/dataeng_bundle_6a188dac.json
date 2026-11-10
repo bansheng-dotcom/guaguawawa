@@ -1,0 +1,241 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "dataeng_delivery_bundle",
+  "run_id": "6a188dac",
+  "exported_at": "2026-11-10T18:32:35",
+  "producer": {
+    "role": "r18",
+    "name": "蛙数仓",
+    "tool": "R18-Washucang-DataEng",
+    "version": "13.0.0"
+  },
+  "pipeline": {
+    "skill": "catalog",
+    "action": "lineage",
+    "intent": "帮我看这份血缘表引用全不全、有没有断链 "
+  },
+  "spec": {
+    "source": "DATAENG_SPEC.md"
+  },
+  "gates": [
+    {
+      "id": "G1",
+      "name": "结构门禁",
+      "criteria": "DAG 无环（Kahn 全序）+ 依赖边无悬空 + 任务名唯一",
+      "blocking": true,
+      "ok": true
+    },
+    {
+      "id": "G2",
+      "name": "连接门禁",
+      "criteria": "connector 命名 `source-`/`destination-` 前缀 + 来源≠目的地 + 零凭据字段",
+      "blocking": true,
+      "ok": true
+    },
+    {
+      "id": "G3",
+      "name": "转换门禁",
+      "criteria": "物化方式 4 枚举 + `ref()` 引用完整 + 不自引用 + incremental 有 unique_key",
+      "blocking": true,
+      "ok": true
+    },
+    {
+      "id": "G4",
+      "name": "质量门禁",
+      "criteria": "行数>0 + 空值率≤0.10 + 重复率≤0.05 + 越界行数=0（须实测）",
+      "blocking": true,
+      "ok": true
+    },
+    {
+      "id": "G5",
+      "name": "新鲜度门禁",
+      "criteria": "age_hours ≤ SLA（默认 24h）+ 声明 loaded_at / snapshotted_at",
+      "blocking": true,
+      "ok": true
+    },
+    {
+      "id": "G6",
+      "name": "增量门禁",
+      "criteria": "模式 4 枚举 + 分区 4 枚举 + 增量/cdc 须 watermark + 幂等键 + 增量守恒",
+      "blocking": true,
+      "ok": true
+    },
+    {
+      "id": "G7",
+      "name": "目录门禁",
+      "criteria": "owner/updated_at 非空 + 字段类型 7 枚举 + 字段名唯一 + 血缘无环",
+      "blocking": true,
+      "ok": true
+    },
+    {
+      "id": "G8",
+      "name": "发布门禁",
+      "criteria": "bundle/SARIF/血缘 AST 落盘 + handoff 声明 + DRI=蛙数仓",
+      "blocking": true,
+      "ok": true
+    }
+  ],
+  "metrics": {},
+  "checks": [
+    {
+      "ok": true,
+      "msg": "表 ≥1（实际 3）",
+      "dim": "lineage.tables",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "表名唯一",
+      "dim": "lineage.unique_tables",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "血缘引用完整（悬空 无）",
+      "dim": "lineage.ref_integrity",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "血缘无环",
+      "dim": "lineage.acyclic",
+      "sev": "OK"
+    }
+  ],
+  "delivery_dag": {
+    "ok": true,
+    "intent_id": "91ef2f4c0eb1",
+    "raw_intent": "帮我看这份血缘表引用全不全、有没有断链 ",
+    "entities": {
+      "tables": [],
+      "table_count": 0,
+      "window_days": null,
+      "window_source": "",
+      "sla_hours": null,
+      "mode": "unspecified",
+      "destination": "table",
+      "thresholds": {},
+      "warnings": [
+        "未识别到源表标识符，需人工确认 source（不猜表名）",
+        "未显式声明增量/全量/cdc 模式，按 unspecified 输出待人工确认"
+      ]
+    },
+    "nodes": [
+      {
+        "id": "01_profile",
+        "stage": "audit",
+        "title": "数据探查与审计",
+        "owner": "蛙数仓",
+        "gate": "源表可达 + 字段画像 + 空值/重复基线",
+        "effort_h": 2.2
+      },
+      {
+        "id": "02_model",
+        "stage": "transform",
+        "title": "建模与转换",
+        "owner": "蛙数仓",
+        "gate": "物化方式合法 + ref 不悬空 + 不自引用",
+        "effort_h": 6.6
+      },
+      {
+        "id": "03_orchestrate",
+        "stage": "schedule",
+        "title": "编排与调度",
+        "owner": "蛙数仓",
+        "gate": "DAG 无环 + 任务状态无 failed + 重试≤3",
+        "effort_h": 4.4
+      },
+      {
+        "id": "04_gate",
+        "stage": "quality",
+        "title": "质量门禁",
+        "owner": "蛙数仓",
+        "gate": "空值率≤0.10 + 重复率≤0.05 + 新鲜度≤SLA",
+        "effort_h": 3.3
+      },
+      {
+        "id": "05_publish",
+        "stage": "publish",
+        "title": "发布与交付",
+        "owner": "蛙数仓",
+        "gate": "伴生 bundle/SARIF 落盘 + handoff 声明",
+        "effort_h": 2.2
+      }
+    ],
+    "edges": [
+      {
+        "from": "01_profile",
+        "to": "02_model",
+        "reason": "源表画像决定建模口径"
+      },
+      {
+        "from": "01_profile",
+        "to": "03_orchestrate",
+        "reason": "源表分区字段决定调度窗口"
+      },
+      {
+        "from": "02_model",
+        "to": "03_orchestrate",
+        "reason": "编排依赖模型产物"
+      },
+      {
+        "from": "02_model",
+        "to": "04_gate",
+        "reason": "门禁绑定模型输出列"
+      },
+      {
+        "from": "03_orchestrate",
+        "to": "04_gate",
+        "reason": "门禁需在调度后按批次执行"
+      },
+      {
+        "from": "04_gate",
+        "to": "05_publish",
+        "reason": "门禁不过不得发布"
+      }
+    ],
+    "topological_order": [
+      "01_profile",
+      "02_model",
+      "03_orchestrate",
+      "04_gate",
+      "05_publish"
+    ],
+    "acyclic": true,
+    "parallel_levels": [
+      [
+        "01_profile"
+      ],
+      [
+        "02_model"
+      ],
+      [
+        "03_orchestrate"
+      ],
+      [
+        "04_gate"
+      ],
+      [
+        "05_publish"
+      ]
+    ],
+    "critical_path": [
+      "01_profile",
+      "02_model",
+      "03_orchestrate",
+      "04_gate",
+      "05_publish"
+    ],
+    "critical_path_h": 18.7,
+    "total_effort_h": 18.7,
+    "total_man_days": 2.34,
+    "stage_count": 5,
+    "warnings": [
+      "未识别到源表标识符，需人工确认 source（不猜表名）",
+      "未显式声明增量/全量/cdc 模式，按 unspecified 输出待人工确认",
+      "未识别到新鲜度 SLA，按经验值 24h 兜底（须人工确认）"
+    ]
+  },
+  "scenarios": [],
+  "artifacts": []
+}

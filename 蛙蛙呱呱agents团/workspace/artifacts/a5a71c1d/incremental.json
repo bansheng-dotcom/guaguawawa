@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "操作='backfill' 为回填",
+      "dim": "backfill.operation",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "回填区间起止非空",
+      "dim": "backfill.range",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "区间顺序 2026-01-01 ≤ 2026-01-31",
+      "dim": "backfill.order",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "回填声明 idempotency_key",
+      "dim": "backfill.idempotency",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "回填已授权（authorized=True）",
+      "dim": "backfill.authorized",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "声明审批人",
+      "dim": "backfill.approver",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "工件通过全部门禁，可进入授权与交接",
+  "operation": "backfill",
+  "authorized": true,
+  "narrative": "回填方案 2026-01-01~2026-01-31（授权=True）",
+  "task_id": "a5a71c1d",
+  "skill": "incremental",
+  "action": "backfill"
+}

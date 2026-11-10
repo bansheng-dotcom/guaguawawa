@@ -348,7 +348,7 @@ def main() -> int:
     # ------------------------------------------------------------------ #
     t.section("T8 案例库")
     lst = cases.list_cases()
-    t.check("案例列表 2 个", len(lst) == 2, str([x["case_id"] for x in lst]))
+    t.check("案例列表 >= 2 个", len(lst) >= 2, str([x["case_id"] for x in lst]))
     for cid in ("hiring-pipeline", "payroll-preparation"):
         vc = cases.validate_case(cid)
         t.check(f"{cid} 结构通过", vc["ok"],

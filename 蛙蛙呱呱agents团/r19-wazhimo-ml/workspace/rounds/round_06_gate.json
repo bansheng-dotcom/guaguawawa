@@ -1,0 +1,57 @@
+{
+  "round": 6,
+  "layer": "L06",
+  "stage": 2,
+  "sop_round": 2,
+  "name": "横向决策层（三维发布方案裂变 + MCDA ROI 权衡矩阵）",
+  "audit": "发布只有「放行/驳回」一个开关，一锤子买卖；没有快而轻/稳而全/严而保三种成本-风险偏好的横向对比，无 MCDA 打分、无敏感性分析。",
+  "benchmark": "Scenario Planning / MCDA · huashu-design/Stylescapes (>1k)",
+  "engine_module": "engines/scenario_matrix.py",
+  "capabilities": [
+    "三维方案裂变 (SCN_A_QUICK / SCN_B_STEADY / SCN_C_STRICT)",
+    "四准则加权 MCDA 打分 (speed/evidence/risk/cost) 与推荐判定",
+    "±20% 权重敏感性分析 + Markdown 决策看板渲染"
+  ],
+  "capability_count": 3,
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r19-wazhimo-ml\\agent.py",
+    "evolve",
+    "scenario",
+    "--model-name",
+    "客服助手",
+    "--dataset-size",
+    "500",
+    "--out",
+    "workspace/rounds/L06_scenarios.json",
+    "--md",
+    "workspace/rounds/L06_scenarios.md"
+  ],
+  "probe_stdout": "{\"ok\": true, \"engine\": \"R19ScenarioMatrix\", \"layer\": \"L06\", \"weights\": {\"speed\": 0.2, \"evidence\": 0.35, \"risk\": 0.3, \"cost\": 0.15}, \"scenarios\": [{\"id\": \"SCN_A_QUICK\", \"name\": \"极速轻量实验版 (Quick Experiment)\", \"summary\": \"小样本快速试跑，只过 3 维门禁，适合探索期与内部实验\", \"days\": 0.5, \"sample_size\": 100, \"gate_count\": 3, \"risk_level\": \"medium\", \"cost_level\": \"low\", \"scores\": {\"speed\": 10.0, \"evidence\": 5.5, \"risk\": 5.0, \"cost\": 9.5}, \"deliverables\": [\"experiment_log\", \"evaluation(小样本)\", \"exploratory_report\"], \"model_name\": \"客服助手\", \"target_metric\": \"accuracy\", \"risk_tier_hint\": \"medium\", \"roi_score\": 6.85, \"is_recommended\": false}, {\"id\": \"SCN_B_STEADY\", \"name\": \"稳健基准发布版 (Steady Release)\", \"summary\": \"全量评估 + fail-before/pass-after 回归 + 8 维门禁，适合正式发布\", \"days\": 1.5, \"sample_size\": 500, \"gate_count\": 8, \"risk_level\": \"low\", \"cost_level\": \"medium\", \"scores\": {\"speed\": 7.0, \"evidence\": 9.5, \"risk\": 9.0, \"cost\": 6.5}, \"deliverables\": [\"evaluation\", \"regression_report\", \"release_candidate\", \"ml_bundle + SARIF\", \"modelcard\"], \"model_name\": \"客服助手\", \"target_metric\": \"accuracy\", \"risk_tier_hint\": \"medium\", \"roi_score\": 8.4, \"is_recommended\": true}, {\"id\": \"SCN_C_STRICT\", \"name\": \"严苛高保障版 (Strict Assurance)\", \"summary\": \"双倍样本 + 红队复核 + 人工签核，适合高风险/金融医疗场景\", \"days\": 3.0, \"sample_size\": 1000, \"gate_count\": 8, \"risk_level\": \"low\", \"cost_level\": \"high\", \"scores\": {\"speed\": 3.5, \"evidence\": 10.0, \"risk\": 10.0, \"cost\": 3.0}, \"deliverables\": [\"evaluation(双倍样本)\", \"regression_report\", \"redteam_review\", \"release_candidate\", \"human_signoff\", \"modelcard\"], \"model_name\": \"客服助手\", \"target_metric\": \"accuracy\", \"risk_tier_hint\": \"medium\", \"roi_score\": 7.65, \"is_recommended\": false}], \"recommended\": \"SCN_B_STEADY\", \"recommended_name\": \"稳健基准发布版 (Steady Release)\", \"sensitivity\": {\"base_ranking\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"], \"perturbations\": {\"speed_up\": {\"SCN_A_QUICK\": 6.97, \"SCN_B_STEADY\": 8.35, \"SCN_C_STRICT\": 7.49}, \"speed_down\": {\"SCN_A_QUICK\": 6.72, \"SCN_B_STEADY\": 8.46, \"SCN_C_STRICT\": 7.82}, \"evidence_up\": {\"SCN_A_QUICK\": 6.76, \"SCN_B_STEADY\": 8.47, \"SCN_C_STRICT\": 7.8}, \"evidence_down\": {\"SCN_A_QUICK\": 6.95, \"SCN_B_STEADY\": 8.32, \"SCN_C_STRICT\": 7.47}, \"risk_up\": {\"SCN_A_QUICK\": 6.75, \"SCN_B_STEADY\": 8.43, \"SCN_C_STRICT\": 7.78}, \"risk_down\": {\"SCN_A_QUICK\": 6.97, \"SCN_B_STEADY\": 8.36, \"SCN_C_STRICT\": 7.5}, \"cost_up\": {\"SCN_A_QUICK\": 6.93, \"SCN_B_STEADY\": 8.34, \"SCN_C_STRICT\": 7.51}, \"cost_down\": {\"SCN_A_QUICK\": 6.77, \"SCN_B_STEADY\": 8.46, \"SCN_C_STRICT\": 7.79}}, \"rankings\": {\"speed_up\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"], \"speed_down\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"], \"evidence_up\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"], \"evidence_down\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"], \"risk_up\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"], \"risk_down\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"], \"cost_up\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"], \"cost_down\": [\"SCN_B_STEADY\", \"SCN_C_STRICT\", \"SCN_A_QUICK\"]}, \"delta\": 0.2, \"ranking_stable\": true}, \"capabilities\": [\"三维方案裂变 (SCN_A_QUICK / SCN_B_STEADY / SCN_C_STRICT)\", \"四准则加权 MCDA 打分 (speed/evidence/risk/cost) 与推荐判定\", \"±20% 权重敏感性分析 + Markdown 决策看板渲染\"], \"timestamp\": \"2026-11-10T18:18:58\", \"engine_layer\": \"L06\"}",
+  "artifacts": [
+    {
+      "path": "workspace/rounds/L06_scenarios.json",
+      "bytes": 5005,
+      "sha256": "3b8b292a2d9c122bcaeb4e517a774f84ede307e51dd3cbe9d8fd9714f026c8ae"
+    },
+    {
+      "path": "workspace/rounds/L06_scenarios.md",
+      "bytes": 1475,
+      "sha256": "849a99f4fdbe934e507cfca1968fa66b8672a179f58deb63fe62d53639d6df7e"
+    }
+  ],
+  "regression": {
+    "baseline": {
+      "passed": 149,
+      "total": 149,
+      "ratio": 1.0
+    },
+    "evolution": {
+      "tests": 11,
+      "ok": true
+    },
+    "all_green": true
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:19:05"
+}

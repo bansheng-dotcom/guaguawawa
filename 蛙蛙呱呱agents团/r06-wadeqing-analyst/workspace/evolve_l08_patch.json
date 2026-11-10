@@ -1,0 +1,48 @@
+{
+  "patches": [
+    {
+      "op": "replace",
+      "path": "/kpi/gmv",
+      "value": 130.0
+    },
+    {
+      "op": "add",
+      "path": "/kpi/channels/-",
+      "value": "小红书"
+    },
+    {
+      "op": "replace",
+      "path": "/note",
+      "value": "v2"
+    }
+  ],
+  "ops_count": 3,
+  "roundtrip_exact": true,
+  "new_state": {
+    "kpi": {
+      "gmv": 130.0,
+      "channels": [
+        "抖音",
+        "知乎",
+        "小红书"
+      ]
+    },
+    "note": "v2"
+  },
+  "inverse_patch": [
+    {
+      "op": "replace",
+      "path": "/note",
+      "value": "v1"
+    },
+    {
+      "op": "remove",
+      "path": "/kpi/channels/2"
+    },
+    {
+      "op": "replace",
+      "path": "/kpi/gmv",
+      "value": 100.0
+    }
+  ]
+}

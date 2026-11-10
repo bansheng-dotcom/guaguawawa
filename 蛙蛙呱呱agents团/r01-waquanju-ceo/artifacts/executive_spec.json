@@ -1,0 +1,54 @@
+{
+  "$schema": "https://wawaguagua.ai/schemas/executive-spec.v1.json",
+  "version": "1.0.0",
+  "metadata": {
+    "role": "r01",
+    "role_title": "蛙全局 · CEO 主理人",
+    "topic": "自助版定价 99→149 上调",
+    "timestamp": "2026-11-09T16:00:00Z"
+  },
+  "governance_ast": {
+    "decision_node": {
+      "id": "dec_root",
+      "type": "strategic_commitment",
+      "owner": "创始人",
+      "reversibility": "难逆",
+      "rollback_cost_months": 1
+    },
+    "guardrails": {
+      "kill_criteria": [
+        {
+          "metric": "新客转化率",
+          "threshold": "跌幅 >20%",
+          "deadline": "灰度后 30 天"
+        }
+      ],
+      "success_criteria": [
+        {
+          "metric": "自助版 MRR",
+          "threshold": "+10%",
+          "deadline": "灰度后 60 天"
+        }
+      ],
+      "freeze_days": 30
+    },
+    "downstream_delegations": [
+      {
+        "role": "r02",
+        "scope": "排期编制与工时分解",
+        "action": "wbs_generation"
+      },
+      {
+        "role": "r06",
+        "scope": "指标监控与杀死标准探针",
+        "action": "metric_watchdog"
+      },
+      {
+        "role": "r07",
+        "scope": "产品路线图与需求重构",
+        "action": "backlog_alignment"
+      }
+    ]
+  },
+  "candidate_branches": []
+}

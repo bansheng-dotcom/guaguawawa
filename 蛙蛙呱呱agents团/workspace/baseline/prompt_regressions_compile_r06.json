@@ -1,0 +1,348 @@
+{
+  "mode": "compile",
+  "summary": {
+    "cases": 20,
+    "route": 11,
+    "clarify": 9,
+    "silent_default": 0,
+    "expect_match": 20,
+    "bare_clarify": 0,
+    "confidence_values": [
+      0.0,
+      0.5,
+      1.0
+    ]
+  },
+  "results": [
+    {
+      "id": "r06-01",
+      "role": "r06",
+      "intent": "看看这数据怎么样",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [
+        "time_window"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "r06-02",
+      "role": "r06",
+      "intent": "最近生意不太行",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r06-03",
+      "role": "r06",
+      "intent": "帮我分析下渠道",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [
+        "time_window"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "r06-04",
+      "role": "r06",
+      "intent": "上周销售额趋势",
+      "expect": "route",
+      "expect_action": "explore.trend",
+      "actual": "explore.trend",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-05",
+      "role": "r06",
+      "intent": "各城市的订单量对比",
+      "expect": "route",
+      "expect_action": "explore.groupby",
+      "actual": "explore.groupby",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-06",
+      "role": "r06",
+      "intent": "为什么上个月收入下降了",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dimension"
+      ],
+      "assumptions": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "r06-07",
+      "role": "r06",
+      "intent": "转化漏斗怎么样",
+      "expect": "route",
+      "expect_action": "explore.funnel",
+      "actual": "explore.funnel",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-08",
+      "role": "r06",
+      "intent": "数据有没有脏的",
+      "expect": "route",
+      "expect_action": "quality.audit",
+      "actual": "quality.audit",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-09",
+      "role": "r06",
+      "intent": "帮我看看",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [
+        "time_window"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "r06-10",
+      "role": "r06",
+      "intent": "退款率按平台拆一下，最近30天",
+      "expect": "route",
+      "expect_action": "explore.groupby",
+      "actual": "explore.groupby",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-11",
+      "role": "r06",
+      "intent": "看看最近的留存队列",
+      "expect": "route",
+      "expect_action": "explore.cohort",
+      "actual": "explore.cohort",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "time_window"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-12",
+      "role": "r06",
+      "intent": "帮我做个客群细分",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dimension",
+        "metric"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r06-13",
+      "role": "r06",
+      "intent": "近7天客单价的走势给我画出来",
+      "expect": "route",
+      "expect_action": "explore.trend",
+      "actual": "explore.trend",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-14",
+      "role": "r06",
+      "intent": "把成本按品类做个排名",
+      "expect": "route",
+      "expect_action": "explore.groupby",
+      "actual": "explore.groupby",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-15",
+      "role": "r06",
+      "intent": "用户从访问到下单的转化流失在哪个步骤",
+      "expect": "route",
+      "expect_action": "explore.funnel",
+      "actual": "explore.funnel",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-16",
+      "role": "r06",
+      "intent": "这批订单数据里有没有重复和缺失",
+      "expect": "route",
+      "expect_action": "quality.audit",
+      "actual": "quality.audit",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-17",
+      "role": "r06",
+      "intent": "近30天新用户留存队列的回访情况",
+      "expect": "route",
+      "expect_action": "explore.cohort",
+      "actual": "explore.cohort",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r06-18",
+      "role": "r06",
+      "intent": "这段时间整体表现是不是变差了",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [
+        "time_window"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "r06-19",
+      "role": "r06",
+      "intent": "为什么这个月单量掉了",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dimension"
+      ],
+      "assumptions": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "r06-20",
+      "role": "r06",
+      "intent": "给我做个客户分群",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "dimension",
+        "metric"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    }
+  ]
+}

@@ -9,7 +9,8 @@ import json
 import os
 import sys
 
-_AGENTS = r"D:\一人公司\agents"
+_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_AGENTS = _REPO
 _R06 = os.path.join(_AGENTS, "r06-wadeqing-analyst")
 for _p in (_R06, _AGENTS):
     if _p not in sys.path:

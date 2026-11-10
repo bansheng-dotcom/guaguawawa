@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "engine": "R19SessionMemory",
+  "layer": "L09",
+  "query": "按刚才第二套方案调整，把上次那个模型的阈值调高0.05",
+  "disambiguated": "[scenario=SCN_B_STEADY] 按刚才第二套方案调整，把客服助手的阈值调高0.05 [threshold=0.95]",
+  "references": [
+    {
+      "type": "scenario_ordinal",
+      "token": "第二套",
+      "value": "SCN_B_STEADY"
+    },
+    {
+      "type": "model_pronoun",
+      "token": "上次那个模型",
+      "value": "客服助手"
+    },
+    {
+      "type": "threshold_delta",
+      "token": "阈值调高0.05",
+      "value": 0.95,
+      "delta": 0.05
+    }
+  ],
+  "reference_count": 3,
+  "referenced_context": {
+    "selected_scenario": "SCN_B_STEADY",
+    "model_name": "客服助手",
+    "threshold_delta": 0.05,
+    "threshold": 0.95,
+    "threshold_base": 0.9
+  },
+  "confidence": 1.0,
+  "state_file": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r19-wazhimo-ml\\workspace\\session_state.json",
+  "capabilities": [
+    "持久化 session_state.json 记忆池 + slots/entities 双向同步 (SOP §5.14)",
+    "自然语言代词消歧 (第二套方案 / 上次那个模型 / 阈值调高 0.05)",
+    "历史版本快照树 + 一键回滚 (rollback)"
+  ],
+  "timestamp": "2026-11-10T18:19:34",
+  "engine_layer": "L09"
+}

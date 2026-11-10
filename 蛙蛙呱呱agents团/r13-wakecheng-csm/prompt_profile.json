@@ -1,0 +1,296 @@
+{
+  "role_id": "r13",
+  "domain": "客户成功与销售运营",
+  "max_questions": 3,
+  "execution_inputs": {
+    "input": {
+      "resolve": "task_port",
+      "question": "客户/工单/CRM 数据文件在哪？"
+    }
+  },
+  "lexicon": {
+    "topic": {
+      "*": [
+        "*"
+      ]
+    },
+    "channel": {
+      "email": [
+        "邮件"
+      ],
+      "wechat": [
+        "微信",
+        "企业微信"
+      ],
+      "phone": [
+        "电话",
+        "外呼"
+      ],
+      "online": [
+        "在线客服",
+        "网页客服"
+      ]
+    }
+  },
+  "assumptions": {},
+  "assumption_reason": {},
+  "questions": {
+    "action": {
+      "question": "你想处理哪类客户运营工作？",
+      "options": [
+        {
+          "value": "person",
+          "label": "客户档案"
+        },
+        {
+          "value": "company",
+          "label": "公司档案"
+        },
+        {
+          "value": "pipeline",
+          "label": "销售管道"
+        },
+        {
+          "value": "activity",
+          "label": "跟进记录"
+        },
+        {
+          "value": "inbox",
+          "label": "客服工单"
+        },
+        {
+          "value": "voc",
+          "label": "客户之声"
+        },
+        {
+          "value": "health",
+          "label": "健康与续约"
+        },
+        {
+          "value": "faq",
+          "label": "知识库 FAQ"
+        }
+      ]
+    },
+    "topic": {
+      "question": "具体是哪个客户/团队/问题？",
+      "options": []
+    },
+    "channel": {
+      "question": "走哪个服务渠道？",
+      "options": [
+        {
+          "value": "email",
+          "label": "邮件"
+        },
+        {
+          "value": "wechat",
+          "label": "微信/企业微信"
+        },
+        {
+          "value": "phone",
+          "label": "电话/外呼"
+        },
+        {
+          "value": "online",
+          "label": "在线客服"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "crm",
+      "action": "person",
+      "label": "客户档案",
+      "when": [
+        "客户档案",
+        "联系人",
+        "crm"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "crm",
+      "action": "company",
+      "label": "公司档案",
+      "when": [
+        "公司档案",
+        "企业档案",
+        "客户公司"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "pipeline",
+      "action": "pipeline",
+      "label": "销售管道",
+      "when": [
+        "管道",
+        "商机",
+        "销售管道"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "activity",
+      "action": "activity",
+      "label": "客户活动记录",
+      "when": [
+        "跟进",
+        "拜访",
+        "活动记录"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "support",
+      "action": "inbox",
+      "label": "客服收件箱",
+      "when": [
+        "客服",
+        "工单",
+        "收件箱",
+        "首响"
+      ],
+      "requires": [
+        "topic",
+        "channel"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "voc",
+      "action": "voc",
+      "label": "客户之声调研",
+      "when": [
+        "nps",
+        "问卷",
+        "满意度",
+        "voc"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "health",
+      "action": "health",
+      "label": "客户健康与续约",
+      "when": [
+        "健康分",
+        "续约",
+        "流失风险",
+        "客户健康"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "knowledge",
+      "action": "faq",
+      "label": "知识库与 FAQ",
+      "when": [
+        "faq",
+        "知识库",
+        "sop",
+        "问题沉淀"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "support",
+      "action": "ticket",
+      "label": "工单升级与缺陷",
+      "when": [
+        "ticket",
+        "bug单",
+        "缺陷单"
+      ],
+      "requires": [
+        "topic",
+        "channel"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "health",
+      "action": "risk",
+      "label": "流失预警与续约风险",
+      "when": [
+        "流失预警",
+        "续约风险",
+        "掉签",
+        "churn风险"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    }
+  ],
+  "semantic_fields": {
+    "pipeline.opp": [
+      "topic",
+      "input"
+    ],
+    "activity.log": [
+      "topic",
+      "channel"
+    ],
+    "voc.survey": [
+      "topic",
+      "channel"
+    ],
+    "knowledge.escalation": [
+      "topic",
+      "input"
+    ],
+    "automation.automation": [
+      "topic",
+      "channel"
+    ],
+    "automation.probe": []
+  },
+  "l2_prompt_blocks": [
+    {
+      "name": "客户视角",
+      "template": "对象：{topic}；渠道：{channel}。所有建议必须落到客户可感知的动作与时点，禁止只写内部流程。"
+    },
+    {
+      "name": "证据与分层",
+      "template": "引用真实会话/工单/CRM 字段；按客户分层（ARR、活跃度、风险）给差异化动作，不得一视同仁。"
+    },
+    {
+      "name": "禁用词与反例",
+      "template": "禁止「赋能、闭环、抓手、客户至上」等空话；禁止承诺未确认的折扣、功能与交付时间。"
+    }
+  ],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "客户现状",
+      "分层与优先级",
+      "下一步动作与时点",
+      "风险与升级路径"
+    ]
+  }
+}

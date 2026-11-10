@@ -1,0 +1,401 @@
+{
+  "current_context": {
+    "layout": "grid"
+  },
+  "recent_scenarios": [],
+  "snapshots": [
+    {
+      "version": "v1.0",
+      "timestamp": 1794230391.0083938,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230391.0083938,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794230409.703174,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230409.7067091,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794230414.2972186,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230414.3002803,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794230418.848741,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230418.8500345,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794230459.7571125,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230459.7591572,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794230656.886364,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230656.888796,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794230837.7945557,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230837.7966733,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794230881.4587884,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230881.4607897,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794230886.551015,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794230886.552082,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794234512.0891292,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794234512.0913875,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794237560.1336274,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794237560.13561,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794309868.2084923,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794309868.21047,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794310363.1280553,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794310363.1295946,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794310426.3143504,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794310426.3163562,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794310703.6925795,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794310703.69456,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794310968.8608134,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794310968.8633142,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794312042.7999306,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794312042.8038185,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794312189.401125,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794312189.405361,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794312572.5880337,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794312572.5900276,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794313968.192001,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794313968.1940732,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794314658.9071002,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794314658.9081025,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794314952.9129746,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794314952.915511,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794317251.8334954,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794317251.835606,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794317785.8702147,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794317785.8714635,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794318006.1163228,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794318006.118283,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794318209.679585,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794318209.6810915,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794318481.768115,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794318481.770672,
+      "data": {
+        "layout": "flex"
+      }
+    },
+    {
+      "version": "v1.0",
+      "timestamp": 1794319088.5702627,
+      "data": {
+        "layout": "grid"
+      }
+    },
+    {
+      "version": "v2.0",
+      "timestamp": 1794319088.5724323,
+      "data": {
+        "layout": "flex"
+      }
+    }
+  ],
+  "updated_at": 1794319088.573485
+}

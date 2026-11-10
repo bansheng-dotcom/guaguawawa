@@ -117,17 +117,3 @@ def main(argv=None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-
-def run_strict_validation(input_data):
-    """
-    补厚的确定性门禁逻辑：对齐 R06/R09 规格。
-    1. 校验必填字段
-    2. 校验边界约束
-    3. 校验产出物格式是否满足下游要求
-    """
-    errors = []
-    if not input_data:
-        errors.append("Input data is empty")
-    # 占位补充...
-    return {"ok": len(errors) == 0, "errors": errors}

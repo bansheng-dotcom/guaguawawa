@@ -1,0 +1,45 @@
+{
+  "session_id": "r05_session_2b38cd12",
+  "version": 1,
+  "current_focus": "T1",
+  "slots": {},
+  "entities": {
+    "last_topic": "T1"
+  },
+  "history": [
+    {
+      "turn_id": 1,
+      "user": "q",
+      "agent": {
+        "scenarios": [
+          {
+            "name": "A"
+          },
+          {
+            "name": "B"
+          },
+          {
+            "name": "C"
+          }
+        ]
+      },
+      "topic": "T1",
+      "at": "2026-11-10T19:38:10.925"
+    }
+  ],
+  "snapshots": [
+    {
+      "version": 0,
+      "reason": "record_turn",
+      "at": "2026-11-10T19:38:10.925",
+      "state": {
+        "session_id": "r05_session_2b38cd12",
+        "version": 0,
+        "current_focus": null,
+        "slots": {},
+        "entities": {},
+        "history": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,379 @@
+{
+  "role_id": "r14",
+  "domain": "交易与收入履约",
+  "max_questions": 2,
+  "execution_inputs": {
+    "transactions": {
+      "resolve": "task_port",
+      "question": "交易数据文件在哪？",
+      "default": "workspace/artifacts/transactions.csv"
+    }
+  },
+  "lexicon": {
+    "metric": {
+      "gmv": [
+        "gmv",
+        "成交额",
+        "销售额"
+      ],
+      "aov": [
+        "客单价",
+        "aov"
+      ],
+      "refund_rate": [
+        "退款率",
+        "退货率"
+      ],
+      "mrr": [
+        "mrr",
+        "月经常性收入"
+      ],
+      "usage": [
+        "用量",
+        "usage"
+      ]
+    },
+    "time_window": {
+      "today": [
+        "今天",
+        "当日"
+      ],
+      "last_7d": [
+        "近7天",
+        "上周",
+        "近一周",
+        "最近7天"
+      ],
+      "last_30d": [
+        "近30天",
+        "上个月",
+        "近一个月",
+        "最近30天"
+      ]
+    },
+    "channel": {
+      "wechat": [
+        "微信",
+        "wechat"
+      ],
+      "alipay": [
+        "支付宝",
+        "alipay"
+      ],
+      "card": [
+        "银行卡",
+        "信用卡"
+      ],
+      "stripe": [
+        "stripe"
+      ]
+    },
+    "scope": {
+      "all": [
+        "全量",
+        "全部",
+        "批量"
+      ],
+      "single": [
+        "单笔",
+        "单个订单"
+      ]
+    }
+  },
+  "assumptions": {
+    "time_window": "last_30d",
+    "scope": "all"
+  },
+  "assumption_reason": {
+    "time_window": "未指定时间窗，按近30天口径，结论首行标注",
+    "scope": "未指定处理范围，按全量口径"
+  },
+  "questions": {
+    "action": {
+      "question": "你想处理哪类交易事项？",
+      "options": [
+        {
+          "value": "invoice",
+          "label": "开票账单"
+        },
+        {
+          "value": "refund",
+          "label": "退款"
+        },
+        {
+          "value": "payment_intent",
+          "label": "支付回调"
+        },
+        {
+          "value": "plan",
+          "label": "订阅计费"
+        }
+      ]
+    },
+    "time_window": {
+      "question": "看哪个时间窗？",
+      "options": [
+        {
+          "value": "today",
+          "label": "今天"
+        },
+        {
+          "value": "last_7d",
+          "label": "近7天"
+        },
+        {
+          "value": "last_30d",
+          "label": "近30天"
+        }
+      ]
+    },
+    "channel": {
+      "question": "走哪个支付渠道？",
+      "options": [
+        {
+          "value": "wechat",
+          "label": "微信"
+        },
+        {
+          "value": "alipay",
+          "label": "支付宝"
+        },
+        {
+          "value": "card",
+          "label": "银行卡"
+        }
+      ]
+    },
+    "metric": {
+      "question": "看哪个收入指标？",
+      "options": [
+        {
+          "value": "gmv",
+          "label": "成交额"
+        },
+        {
+          "value": "mrr",
+          "label": "MRR"
+        },
+        {
+          "value": "usage",
+          "label": "用量"
+        }
+      ]
+    },
+    "scope": {
+      "question": "处理范围是？",
+      "options": [
+        {
+          "value": "all",
+          "label": "全量"
+        },
+        {
+          "value": "single",
+          "label": "单笔"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "billing",
+      "action": "invoice",
+      "label": "开票账单",
+      "when": [
+        "开票",
+        "发票",
+        "账单",
+        "invoice"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "payment",
+      "action": "refund",
+      "label": "退款",
+      "when": [
+        "退款",
+        "退钱",
+        "退单",
+        "refund"
+      ],
+      "requires": [
+        "channel"
+      ],
+      "params": {
+        "channel": "$channel"
+      }
+    },
+    {
+      "skill": "payment",
+      "action": "payment_intent",
+      "label": "支付回调",
+      "when": [
+        "支付",
+        "扣款",
+        "payment",
+        "回调"
+      ],
+      "requires": [
+        "channel"
+      ],
+      "params": {
+        "channel": "$channel"
+      }
+    },
+    {
+      "skill": "billing",
+      "action": "plan",
+      "label": "订阅计费",
+      "when": [
+        "订阅",
+        "套餐",
+        "计费",
+        "plan"
+      ],
+      "requires": [
+        "metric"
+      ],
+      "params": {
+        "metric": "$metric"
+      }
+    },
+    {
+      "skill": "signature",
+      "action": "document",
+      "label": "电子签署",
+      "when": [
+        "签署",
+        "签名",
+        "电子签",
+        "documenso"
+      ],
+      "requires": [],
+      "params": {}
+    },
+    {
+      "skill": "workflow",
+      "action": "state",
+      "label": "订单状态机",
+      "when": [
+        "状态机",
+        "状态迁移",
+        "订单状态",
+        "履约状态"
+      ],
+      "requires": [
+        "scope"
+      ],
+      "params": {
+        "scope": "$scope"
+      }
+    },
+    {
+      "skill": "revenue",
+      "action": "events",
+      "label": "收入事件",
+      "when": [
+        "收入事件",
+        "事件表",
+        "对账",
+        "webhook",
+        "交易事件"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "order",
+      "action": "cart",
+      "label": "购物车",
+      "when": [
+        "购物车",
+        "加购",
+        "shopping cart"
+      ],
+      "requires": [
+        "scope"
+      ],
+      "params": {
+        "scope": "$scope"
+      }
+    },
+    {
+      "skill": "billing",
+      "action": "usage",
+      "label": "用量计费",
+      "when": [
+        "用量计量",
+        "计量口径",
+        "metered billing"
+      ],
+      "requires": [
+        "metric"
+      ],
+      "params": {
+        "metric": "$metric"
+      }
+    },
+    {
+      "skill": "revenue",
+      "action": "webhook",
+      "label": "事件重放",
+      "when": [
+        "事件重放",
+        "重放",
+        "replay"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    }
+  ],
+  "semantic_fields": {
+    "catalog.product": [
+      "channel"
+    ],
+    "catalog.price": [
+      "channel"
+    ],
+    "order.order": [
+      "channel",
+      "time_window"
+    ],
+    "signature.signing": [
+      "transactions"
+    ],
+    "appointment.appointment": [
+      "time_window"
+    ],
+    "appointment.calendar": [
+      "time_window"
+    ],
+    "workflow.transition": [
+      "scope"
+    ]
+  },
+  "l2_prompt_blocks": [],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "交易口径",
+      "时间窗",
+      "支付渠道",
+      "结论",
+      "异常单号"
+    ]
+  }
+}

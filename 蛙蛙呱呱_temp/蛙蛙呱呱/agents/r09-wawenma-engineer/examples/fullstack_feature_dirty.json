@@ -1,5 +1,0 @@
-{
-  "frontend": [{"name": "a"}],
-  "backend": [{"name": "svc1"}, {"name": "svc2"}],
-  "wiring": [{"component": "a", "service": "svc1"}]
-}

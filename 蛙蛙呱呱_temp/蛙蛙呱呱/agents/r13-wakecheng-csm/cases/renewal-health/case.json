@@ -1,8 +1,0 @@
-{
-  "case_id": "renewal-health",
-  "display_name": "续约健康评估",
-  "description": "续约窗口前做客户健康评估：四维加权健康分（使用/支持/反馈/互动）实算、风险分带、at_risk 归因、续约候选筛选，最终产出可交付的续约动作清单与风险名单。",
-  "default_question": "这个季度哪些客户有流失风险？哪些该优先谈续约？",
-  "semantic_layer": "semantic_layer.json",
-  "experience_dir": "experience"
-}

@@ -1,0 +1,118 @@
+{
+  "ok": true,
+  "engine": "R20DiffPatchEngine",
+  "layer": "L08",
+  "kind": "alert",
+  "patch": [
+    {
+      "op": "add",
+      "path": "/monitors/2",
+      "value": {
+        "id": "mon-db-01",
+        "interval_seconds": 15
+      }
+    },
+    {
+      "op": "replace",
+      "path": "/rules/0/threshold",
+      "value": 0.98
+    }
+  ],
+  "op_count": 2,
+  "applied_equals_new": true,
+  "applied": {
+    "monitors": [
+      {
+        "id": "mon-pay-01",
+        "interval_seconds": 60
+      },
+      {
+        "id": "mon-order-01",
+        "interval_seconds": 30
+      },
+      {
+        "id": "mon-db-01",
+        "interval_seconds": 15
+      }
+    ],
+    "rules": [
+      {
+        "id": "r1",
+        "severity": "critical",
+        "threshold": 0.98
+      },
+      {
+        "id": "r2",
+        "severity": "warning",
+        "threshold": 0.9
+      }
+    ],
+    "escalation": [
+      {
+        "level": 1,
+        "to": "值班"
+      },
+      {
+        "level": 2,
+        "to": "R20"
+      },
+      {
+        "level": 3,
+        "to": "R01"
+      }
+    ]
+  },
+  "invariants_before": {
+    "ok": true,
+    "checks": [
+      {
+        "ok": true,
+        "msg": "严重度白名单违规=[]",
+        "dim": "invariant.alert.severity"
+      },
+      {
+        "ok": true,
+        "msg": "升级链单调递增 levels=[1, 2, 3]",
+        "dim": "invariant.alert.escalation"
+      }
+    ],
+    "kind": "alert"
+  },
+  "invariants_after": {
+    "ok": true,
+    "checks": [
+      {
+        "ok": true,
+        "msg": "严重度白名单违规=[]",
+        "dim": "invariant.alert.severity"
+      },
+      {
+        "ok": true,
+        "msg": "升级链单调递增 levels=[1, 2, 3]",
+        "dim": "invariant.alert.escalation"
+      }
+    ],
+    "kind": "alert"
+  },
+  "capabilities": [
+    "RFC 6902 递归 diff (add/remove/replace + ~0/~1 指针转义)",
+    "apply_patch 深拷贝无损应用 (test/remove/add/replace 语义)",
+    "SRE 配置不变量复核 (严重度白名单/升级链单调/监控唯一/间隔下限)"
+  ],
+  "monitor_invariants": {
+    "ok": true,
+    "checks": [
+      {
+        "ok": true,
+        "msg": "监控 ID 唯一 ids=['mon-pay-01', 'mon-order-01', 'mon-db-01']",
+        "dim": "invariant.monitor.unique"
+      },
+      {
+        "ok": true,
+        "msg": "探测间隔 >= 10s 违规=[]",
+        "dim": "invariant.monitor.interval"
+      }
+    ],
+    "kind": "monitor"
+  }
+}

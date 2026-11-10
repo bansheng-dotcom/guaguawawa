@@ -37,9 +37,12 @@ ACTIONS = [
 
 
 def _cli(skill, action, input_path):
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
     p = subprocess.run([sys.executable, TOOL, skill, action,
                         "--input", input_path],
-                       capture_output=True, text=True, encoding="utf-8",
+                       capture_output=True, text=True, encoding="utf-8", errors="replace",
+                       env=env,
                        timeout=120)
     for line in (p.stdout or "").splitlines():
         if line.startswith(RESULT_MARK):

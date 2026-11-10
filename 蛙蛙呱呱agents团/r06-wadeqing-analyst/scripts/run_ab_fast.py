@@ -49,8 +49,8 @@ if __name__ == "__main__":
     
     res = run_ab_test(args.input, args.group, args.control, args.treatment, args.metric)
     
-    _AGENT = r'D:\一人公司\agents\r06-wadeqing-analyst'
-    report_path = os.path.join(_AGENT, "workspace", "artifacts", "ab_test_decision.json")
+    _REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    report_path = os.path.join(_REPO, "workspace", "artifacts", "ab_test_decision.json")
     with open(report_path, 'w', encoding='utf-8') as f:
         json.dump(res, f, ensure_ascii=False, indent=2)
         

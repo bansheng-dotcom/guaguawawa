@@ -1,0 +1,187 @@
+{
+  "ok": true,
+  "spec_path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r18-washucang-dataeng\\DATAENG_SPEC.md",
+  "version": "v1.0",
+  "dri": "蛙数仓（R18）",
+  "metrics": {
+    "PSR": {
+      "code": "PSR",
+      "name": "管道成功率",
+      "definition": "成功批次 / 总批次（按调度批次计）",
+      "target": {
+        "op": "≥",
+        "value": 99.5,
+        "unit": "%",
+        "raw": "≥ 99.5%"
+      },
+      "tolerance": 0.005
+    },
+    "FSR": {
+      "code": "FSR",
+      "name": "新鲜度达标率",
+      "definition": "age_hours ≤ SLA 的批次 / 总批次",
+      "target": {
+        "op": "≥",
+        "value": 99.0,
+        "unit": "%",
+        "raw": "≥ 99.0%"
+      },
+      "tolerance": 0.01
+    },
+    "DQR": {
+      "code": "DQR",
+      "name": "质量合格率",
+      "definition": "通过质量门禁的表数 / 纳管表数",
+      "target": {
+        "op": "≥",
+        "value": 98.0,
+        "unit": "%",
+        "raw": "≥ 98.0%"
+      },
+      "tolerance": 0.02
+    },
+    "LCR": {
+      "code": "LCR",
+      "name": "血缘覆盖率",
+      "definition": "上下游完整登记的表 / 纳管表数",
+      "target": {
+        "op": "=",
+        "value": 100.0,
+        "unit": "%",
+        "raw": "= 100%"
+      },
+      "tolerance": 0.0
+    },
+    "BCR": {
+      "code": "BCR",
+      "name": "回填合规率",
+      "definition": "带审批凭据的回填 / 总回填",
+      "target": {
+        "op": "=",
+        "value": 100.0,
+        "unit": "%",
+        "raw": "= 100%"
+      },
+      "tolerance": 0.0
+    },
+    "MTTD": {
+      "code": "MTTD",
+      "name": "故障发现时延",
+      "definition": "从异常发生到告警触发的分钟数",
+      "target": {
+        "op": "≤",
+        "value": 15.0,
+        "unit": "min",
+        "raw": "≤ 15 min"
+      },
+      "tolerance": 1.0
+    },
+    "DMR": {
+      "code": "DMR",
+      "name": "重复率上限",
+      "definition": "去重后行数 / 总行数的补数",
+      "target": {
+        "op": "≤",
+        "value": 5.0,
+        "unit": "%",
+        "raw": "≤ 5.0%"
+      },
+      "tolerance": 0.005
+    },
+    "ORT": {
+      "code": "ORT",
+      "name": "越界行数",
+      "definition": "数值列超出声明区间的行数",
+      "target": {
+        "op": "=",
+        "value": 0.0,
+        "unit": "",
+        "raw": "= 0"
+      },
+      "tolerance": 0.0
+    }
+  },
+  "metrics_count": 8,
+  "gates": [
+    {
+      "id": "G1",
+      "name": "结构门禁",
+      "criteria": "DAG 无环（Kahn 全序）+ 依赖边无悬空 + 任务名唯一",
+      "blocking": true
+    },
+    {
+      "id": "G2",
+      "name": "连接门禁",
+      "criteria": "connector 命名 `source-`/`destination-` 前缀 + 来源≠目的地 + 零凭据字段",
+      "blocking": true
+    },
+    {
+      "id": "G3",
+      "name": "转换门禁",
+      "criteria": "物化方式 4 枚举 + `ref()` 引用完整 + 不自引用 + incremental 有 unique_key",
+      "blocking": true
+    },
+    {
+      "id": "G4",
+      "name": "质量门禁",
+      "criteria": "行数>0 + 空值率≤0.10 + 重复率≤0.05 + 越界行数=0（须实测）",
+      "blocking": true
+    },
+    {
+      "id": "G5",
+      "name": "新鲜度门禁",
+      "criteria": "age_hours ≤ SLA（默认 24h）+ 声明 loaded_at / snapshotted_at",
+      "blocking": true
+    },
+    {
+      "id": "G6",
+      "name": "增量门禁",
+      "criteria": "模式 4 枚举 + 分区 4 枚举 + 增量/cdc 须 watermark + 幂等键 + 增量守恒",
+      "blocking": true
+    },
+    {
+      "id": "G7",
+      "name": "目录门禁",
+      "criteria": "owner/updated_at 非空 + 字段类型 7 枚举 + 字段名唯一 + 血缘无环",
+      "blocking": true
+    },
+    {
+      "id": "G8",
+      "name": "发布门禁",
+      "criteria": "bundle/SARIF/血缘 AST 落盘 + handoff 声明 + DRI=蛙数仓",
+      "blocking": true
+    }
+  ],
+  "gates_count": 8,
+  "thresholds": {
+    "max_null_ratio": 0.1,
+    "max_dup_ratio": 0.05,
+    "max_age_hours": 24.0,
+    "min_row_count": 1.0,
+    "conservation_tolerance": 0.0,
+    "over_receipt_tolerance": 0.0
+  },
+  "redlines": [
+    {
+      "id": "R18-RL-01",
+      "rule": "凭据（api_key/secret/password/token/连接串）不得出现在任何工件",
+      "handoff": "R20 蛙值守"
+    },
+    {
+      "id": "R18-RL-02",
+      "rule": "不得擅自回填 / 删除 / 外发 / 迁移 / 改生产",
+      "handoff": "R01 人工审批"
+    },
+    {
+      "id": "R18-RL-03",
+      "rule": "不得输出统计结论 / 归因 / 显著性 / 决策建议",
+      "handoff": "R06 蛙得清"
+    },
+    {
+      "id": "R18-RL-04",
+      "rule": "不得执行或承诺代付款 / 发薪 / 直接退款打款",
+      "handoff": "R03 蛙守线"
+    }
+  ],
+  "redlines_count": 4
+}

@@ -1,0 +1,40 @@
+{
+  "task_id": "22c280de",
+  "title": "合同签署审计",
+  "owner": "r14",
+  "intent": "帮我看看这份电子签合同签完了没，有没有人没签",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r14-wajiaoyi-commerce\\examples\\signing.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "signature.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "commerce_report.md",
+      "kind": "report",
+      "media_type": "text/markdown",
+      "note": ""
+    },
+    {
+      "name": "commerce_report.html",
+      "kind": "report",
+      "media_type": "text/html",
+      "note": ""
+    }
+  ],
+  "acceptance": [
+    "signature 门禁通过"
+  ],
+  "deps": [],
+  "status": "done",
+  "logs": []
+}

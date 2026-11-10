@@ -1,0 +1,93 @@
+{
+  "ok": true,
+  "engine": "R19RuntimeEngine",
+  "layer": "L01",
+  "status": "HEALTHY",
+  "metric_sandbox": "OK",
+  "latency_sandbox": "OK",
+  "artifact_sandbox": "OK",
+  "python": "3.12.7",
+  "checks": [
+    {
+      "ok": true,
+      "msg": "分类指标沙箱 2x2 黄金样例可复算",
+      "dim": "L01.metric_sandbox",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "延迟分位精算 p50/p95/p99 线性插值正确",
+      "dim": "L01.latency_sandbox",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "物理资产取证 (magic/bytes/SHA256) 可用",
+      "dim": "L01.artifact_sandbox",
+      "sev": "OK"
+    }
+  ],
+  "capabilities": [
+    "确定性分类指标沙箱 (confusion_matrix / accuracy / precision / recall / f1)",
+    "混淆计数守恒校验 (tp+fp+tn+fn == n，容差 0.00) 与零除安全",
+    "延迟分位精算 p50/p95/p99 与物理资产取证 (magic / bytes / SHA256)",
+    "[C2] 多分类混淆矩阵 + macro/micro/weighted P/R/F1 (sklearn 同口径)",
+    "[C2] Cohen's kappa / MCC / 平衡准确率等一致性指标"
+  ],
+  "golden_metrics": {
+    "ok": true,
+    "n": 4,
+    "skipped": 0,
+    "positive_label": "pass",
+    "confusion": {
+      "tp": 1,
+      "fp": 1,
+      "tn": 1,
+      "fn": 1
+    },
+    "accuracy": 0.5,
+    "precision": 0.5,
+    "recall": 0.5,
+    "f1": 0.5,
+    "is_conserved": true,
+    "conservation": {
+      "lhs": 4,
+      "rhs": 4,
+      "delta": 0.0
+    }
+  },
+  "golden_latency": {
+    "count": 5,
+    "mean": 40.0,
+    "p50": 30.0,
+    "p95": 88.0,
+    "p99": 97.6,
+    "min": 10.0,
+    "max": 100.0,
+    "unit": "ms"
+  },
+  "timestamp": "2026-11-10T19:34:30",
+  "demo_metrics": {
+    "ok": true,
+    "n": 2,
+    "skipped": 0,
+    "positive_label": "pass",
+    "confusion": {
+      "tp": 1,
+      "fp": 0,
+      "tn": 1,
+      "fn": 0
+    },
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "is_conserved": true,
+    "conservation": {
+      "lhs": 2,
+      "rhs": 2,
+      "delta": 0.0
+    }
+  },
+  "engine_layer": "L01"
+}

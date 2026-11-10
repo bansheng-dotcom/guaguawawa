@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "AC-01 pass：landing.html:12 主标语含定位语",
+      "dim": "criteria:AC-01",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "AC-02 pass：landing.html:47 form action 指向 /api/lead",
+      "dim": "criteria:AC-02",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "AC-03 warn（带证据部分达标，不阻断）",
+      "dim": "criteria:AC-03",
+      "sev": "INFO",
+      "status": "warn"
+    },
+    {
+      "ok": true,
+      "msg": "AC-04 pass：landing.html:52 转化追踪事件回传",
+      "dim": "criteria:AC-04",
+      "sev": "OK"
+    }
+  ],
+  "criteria_results": [
+    {
+      "id": "AC-01",
+      "description": "Hero 文案与定位一致",
+      "severity": "critical",
+      "status": "pass",
+      "reason": "evidence_specific",
+      "evidence": "landing.html:12 主标语含定位语",
+      "issues": []
+    },
+    {
+      "id": "AC-02",
+      "description": "表单可投递到真实端点",
+      "severity": "critical",
+      "status": "pass",
+      "reason": "evidence_specific",
+      "evidence": "landing.html:47 form action 指向 /api/lead",
+      "issues": []
+    },
+    {
+      "id": "AC-03",
+      "description": "移动优先布局",
+      "severity": "major",
+      "status": "warn",
+      "reason": "partial_with_evidence",
+      "evidence": "landing.html:8 viewport meta 存在",
+      "issues": []
+    },
+    {
+      "id": "AC-04",
+      "description": "转化追踪已接入",
+      "severity": "major",
+      "status": "pass",
+      "reason": "evidence_specific",
+      "evidence": "landing.html:52 转化追踪事件回传",
+      "issues": []
+    }
+  ],
+  "counts": {
+    "pass": 3,
+    "warn": 1,
+    "fail": 0
+  },
+  "verdict": "PASS",
+  "next": "0 fail：可出具验收通过结论"
+}

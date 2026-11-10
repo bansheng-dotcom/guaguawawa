@@ -1,0 +1,29 @@
+{
+  "task_id": "37efbfca",
+  "title": "蛙挑刺｜分析订单数据趋势，输出产品方案并做验收评审",
+  "owner": "r04",
+  "intent": "分析订单数据趋势，输出产品方案并做验收评审",
+  "inputs": [],
+  "outputs": [
+    {
+      "name": "pass_fail",
+      "kind": "artifact",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "critique_report",
+      "kind": "artifact",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "acceptance": [
+    "蛙挑刺 交付物可按端口验收"
+  ],
+  "deps": [
+    "d8ea517b"
+  ],
+  "status": "failed",
+  "logs": []
+}

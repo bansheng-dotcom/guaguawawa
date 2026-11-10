@@ -21,9 +21,12 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_AGENT_DIR = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_AGENT_DIR)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in [_AGENT_DIR, _AGENTS, _REPO_ROOT]:
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 
 import argparse
@@ -38,6 +41,7 @@ AGENTS = os.path.dirname(AGENT_DIR)
 sys.path.insert(0, AGENTS)
 
 from core import workspace
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route
 from agents.shared import role_runtime  # REP-001 报告引擎
 from core import protocol
 from skills import SKILLS
@@ -148,6 +152,7 @@ def run_cli(argv: List[str]) -> int:
     h_sub.add_argument("--input")
     run_sub = sub.add_parser("run", help="处理路由给我的任务")
     run_sub.add_argument("--task")
+    add_clarify_parser(sub)
     args = ap.parse_args(argv)
 
 
@@ -164,6 +169,8 @@ def run_cli(argv: List[str]) -> int:
         return 0
     if args.cmd == "run":
         return run_task(args, ws)
+    if args.cmd == "clarify":
+        return clarify_cli(ROLE, args.intent)
     for s in SKILLS:
         if args.cmd == s.NAME:
             result = s.run(args)
@@ -252,22 +259,26 @@ def run_cli(argv: List[str]) -> int:
 # --------------------------------------------------------------------------- #
 # run_task：处理路由给 r02 的任务
 # --------------------------------------------------------------------------- #
-def _route(intent: str) -> str:
+# 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
+# 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
+_INTENT_ROUTES = [
+    (("wbs", "工作分解", "拆工作"), "schedule", "wbs", {}),
+    (("排期", "冲刺", "sprint", "工期", "排产"), "schedule", "sprint", {}),
+    (("容量", "过载", "负载", "人日"), "capacity", "check", {}),
+    (("交接", "handoff", "交接包", "工单"), "handoff", "package", {}),
+    (("复盘", "事故", "postmortem", "根因"), "retro", "postmortem", {}),
+    (("流程", "sop", "标准化", "固化"), "process", "sop", {}),
+    (("项目群", "编排", "状态汇总", "portfolio"), "portfolio", "status", {}),
+]
+
+
+def _route(intent: str):
     t = intent.lower()
-    specific = [
-        ("schedule", ["排期", "冲刺", "关键路径", "依赖图", "wbs", "工期"]),
-        ("capacity", ["容量", "过载", "负载", "委派", "派工", "人日"]),
-        ("handoff", ["交接", "验收", "审计", "工单"]),
-        ("retro", ["复盘", "事故", "postmortem", "行动项", "根因"]),
-        ("process", ["流程", "sop", "会议", "站会", "浪费"]),
-        ("knowledge", ["知识", "检索", "沉淀", "技能化", "书"]),
-        ("portfolio", ["项目群", "编排", "审批门", "图谱", "状态汇总"]),
-    ]
-    for sk, kws in specific:
-        if any(k in t for k in kws):
-            return sk
-    # 编排兜底：既定路由没命中时，运营长职能兜 status
-    return "portfolio"
+    for kws, skill, action, defaults in _INTENT_ROUTES:
+        if any(k.lower() in t for k in kws):
+            return skill, action, defaults
+    # 关键词未命中：交给共享 L02 内核；不再静默落到 portfolio.status。
+    return fallback_route(ROLE, intent)
 
 
 _ACTION_HINT = {
@@ -293,7 +304,15 @@ def run_task(args, ws) -> int:
         print(json.dumps({"error": f"任务 owner={t.owner} 非 {ROLE}"},
                          ensure_ascii=False))
         return 1
-    skill = _route(t.intent)
+    skill, action, defaults = _route(t.intent)
+    if skill == "__clarify__":
+        ws.set_status(args.task, "failed")
+        payload = {"error": "needs_clarification",
+                   "questions": defaults.get("questions", []),
+                   "assumptions": defaults.get("assumptions", []),
+                   "plan": defaults.get("plan")}
+        print(json.dumps(payload, ensure_ascii=False))
+        return 2
     title, note = _ACTION_HINT[skill]
     out_dir = os.path.join(ws.artifacts_dir, ROLE, t.task_id)
     os.makedirs(out_dir, exist_ok=True)
@@ -308,16 +327,26 @@ def run_task(args, ws) -> int:
             break
     if mod is not None:
         try:
-            ns = argparse.Namespace(action="run", input=None, task=t.task_id)
+            ns = argparse.Namespace(action=action, input=None, task=t.task_id)
             out = mod.run(ns)
             if isinstance(out, dict):
                 result = out
                 result.setdefault("skill", skill)
-                result.setdefault("action", "run")
+                result.setdefault("action", action)
         except Exception as e:  # noqa: BLE001  技能缺参时降级为编排记录
-            result = {"ok": False, "skill": skill, "action": "run",
+            result = {"ok": False, "skill": skill, "action": action,
                       "error": f"{type(e).__name__}: {e}",
                       "conclusion": f"技能 {skill} 未执行（缺参数），已记录路由与闭环。"}
+
+    in_file = None
+    if t.inputs:
+        for inp in t.inputs:
+            if isinstance(inp, protocol.Port) and inp.path:
+                in_file = inp.path
+                break
+            elif isinstance(inp, dict) and inp.get("path"):
+                in_file = inp["path"]
+                break
 
     result["task_id"] = t.task_id
     ports: List[protocol.Port] = []

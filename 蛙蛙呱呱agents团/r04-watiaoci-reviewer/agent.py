@@ -12,13 +12,16 @@
 """
 from __future__ import annotations
 
-# --- 运行时引导（META-001 Stage 3）：仓库根入 sys.path，修掉异构 cwd 下 ---
-# --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
+# --- 运行时引导（META-001 Stage 3）：agents/ 所在根入 sys.path ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS_ROOT = _os.path.dirname(_HERE)
+_WORKSPACE_ROOT = _os.path.dirname(_AGENTS_ROOT)
+for _p in (_AGENTS_ROOT, _WORKSPACE_ROOT, _HERE):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
+
 
 
 import argparse
@@ -42,6 +45,7 @@ import review as review_lib                                        # noqa: E402
 import harness as harness_lib                                       # noqa: E402
 
 from core import protocol, workspace                 # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # REP-001 报告引擎
 
 ws = workspace.Workspace(os.path.join(_ROOT, "workspace"))
@@ -66,6 +70,8 @@ _INTENT_ROUTES: List[Tuple[Tuple[str, ...], str, str, Dict[str, str]]] = [
      "criteria", "delta",
      {"state": os.path.join(_HERE, "examples", "criteria_delta_state.json")}),
     (("外置判据", "验收判据", "判据审查", "acceptance", "criteria review"),
+     "criteria", "review", {}),
+    (("验收", "评审", "验收评审", "人工评审"),
      "criteria", "review", {}),
     (("收敛", "converge", "不再下降"),
      "quality", "converge",
@@ -98,7 +104,8 @@ def route_intent(intent: str) -> Tuple[str, str, Dict[str, str]]:
         for k in keys:
             if k.lower() in low:
                 return skill, action, extra
-    return _DEFAULT_ROUTE[0], _DEFAULT_ROUTE[1], _DEFAULT_ROUTE[2]
+    # 关键词未命中：交给共享 L02 内核；不再静默落到 criteria.review。
+    return fallback_route(ROLE, intent)
 
 
 # ---------------------------------------------------------------------------
@@ -113,6 +120,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     rp = sub.add_parser("run", help="按 task 卡执行一次评审任务")
     rp.add_argument("--task", required=True, help="task id（workspace 协议）")
+    add_clarify_parser(sub)
 
     cp = sub.add_parser("contract", help="技能契约登记表")
     csub = cp.add_subparsers(dest="ccmd", required=True)
@@ -235,6 +243,16 @@ def run_task(task_id: str) -> int:
 
     intent = str(task.intent or "")
     skill, action, extra = route_intent(intent)
+    if skill == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": extra.get("questions", [])}))
+        print(json.dumps({"error": "needs_clarification",
+                          "questions": extra.get("questions", []),
+                          "assumptions": extra.get("assumptions", []),
+                          "plan": extra.get("plan")}, ensure_ascii=False))
+        return 2
     input_path = _first_input_file(task.inputs) or extra.get("input") or ""
     if not input_path or not os.path.isfile(input_path):
         ws.set_status(task_id, "failed")
@@ -290,6 +308,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         return _run_demo()
     if cmd == "run":
         return run_task(args.task)
+    if cmd == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if cmd == "contract":
         if args.ccmd == "list":
             rows = [f"{s}/{a}" for s in contracts.skill_names()

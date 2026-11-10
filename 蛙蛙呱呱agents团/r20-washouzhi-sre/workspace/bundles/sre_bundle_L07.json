@@ -1,0 +1,64 @@
+{
+  "schema": "r20.sre.bundle/v1",
+  "run_id": "L07",
+  "generated_at": "2026-11-10T19:03:36",
+  "lineage": [
+    "L01",
+    "L03",
+    "L04",
+    "L06"
+  ],
+  "payload": {
+    "service": "支付服务",
+    "availability": 0.9995,
+    "slo": 0.999,
+    "error_budget_remaining": 5,
+    "mttr_minutes": 30,
+    "rto_hours": 2.0,
+    "rpo_hours": 0.5,
+    "owner": "蛙值守",
+    "checks": [
+      {
+        "ok": true,
+        "dim": "L01.sli",
+        "msg": "可用率 0.9995 ≥ SLO 0.999"
+      },
+      {
+        "ok": true,
+        "dim": "L01.mttr",
+        "msg": "MTTR 30min ≤ 30min"
+      },
+      {
+        "ok": true,
+        "dim": "L04.gate",
+        "msg": "8 维门禁全通过"
+      }
+    ],
+    "lineage": [
+      "L01",
+      "L03",
+      "L04",
+      "L06"
+    ]
+  },
+  "files": [
+    {
+      "path": "sre_bundle_L07.json",
+      "role": "bundle",
+      "bytes": 783,
+      "sha256": "01162c38d48c078137bc23302049e25e1c29de83075d9ef6673e2851cbc27cd0"
+    },
+    {
+      "path": "sre_audit_L07.sarif.json",
+      "role": "sarif",
+      "bytes": 2717,
+      "sha256": "3914ee76ac88ba7a82f498037d9d279bc4ab2599a3ba4b174b9be65a65fa4374"
+    },
+    {
+      "path": "sre_reliability_chart_L07.vega.json",
+      "role": "vega",
+      "bytes": 1515,
+      "sha256": "3a5130f2d0ebee98682b07b4ff87df779e054ff77f6daf94533a3499941620b3"
+    }
+  ]
+}

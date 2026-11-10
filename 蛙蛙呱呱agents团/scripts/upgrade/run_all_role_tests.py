@@ -17,7 +17,7 @@ import subprocess
 import sys
 
 AGENTS = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SKIP = {"r06-wadeqing-analyst"}
+SKIP = set()
 
 
 def role_dirs():

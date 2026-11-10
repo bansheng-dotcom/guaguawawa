@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R19-ML-Auditor",
+          "version": "13.0",
+          "informationUri": "https://github.com/mlflow/mlflow",
+          "rules": [
+            {
+              "id": "R19-GATE-01",
+              "name": "GATE-01",
+              "shortDescription": {
+                "text": "R19 模型工程发布门禁"
+              },
+              "fullDescription": {
+                "text": "R19 蛙智模 8 维发布门禁之一，用于模型工程交付前的硬性合规裁决"
+              },
+              "help": {
+                "text": "修复方式：补齐证据链并重跑回归门禁。",
+                "markdown": "见 `ML_SPEC.md` 门禁矩阵"
+              },
+              "helpUri": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/",
+              "properties": {
+                "tags": [
+                  "model-engineering",
+                  "r19",
+                  "gate"
+                ]
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "R19-GATE-02",
+              "name": "GATE-02",
+              "shortDescription": {
+                "text": "R19 模型工程发布门禁"
+              },
+              "fullDescription": {
+                "text": "R19 蛙智模 8 维发布门禁之一，用于模型工程交付前的硬性合规裁决"
+              },
+              "help": {
+                "text": "修复方式：补齐证据链并重跑回归门禁。",
+                "markdown": "见 `ML_SPEC.md` 门禁矩阵"
+              },
+              "helpUri": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/",
+              "properties": {
+                "tags": [
+                  "model-engineering",
+                  "r19",
+                  "gate"
+                ]
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "R19-GATE-03",
+              "name": "GATE-03",
+              "shortDescription": {
+                "text": "R19 模型工程发布门禁"
+              },
+              "fullDescription": {
+                "text": "R19 蛙智模 8 维发布门禁之一，用于模型工程交付前的硬性合规裁决"
+              },
+              "help": {
+                "text": "修复方式：补齐证据链并重跑回归门禁。",
+                "markdown": "见 `ML_SPEC.md` 门禁矩阵"
+              },
+              "helpUri": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/",
+              "properties": {
+                "tags": [
+                  "model-engineering",
+                  "r19",
+                  "gate"
+                ]
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2026-11-10T18:55:17Z"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "R19-GATE-01",
+          "level": "note",
+          "message": {
+            "text": "指标可复算"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ml_bundle.json"
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "r19Gate/v1": "3895d9ae778db814"
+          },
+          "baselineState": "new",
+          "properties": {
+            "gate": "GATE-01",
+            "ok": true
+          }
+        },
+        {
+          "ruleId": "R19-GATE-02",
+          "level": "note",
+          "message": {
+            "text": "证据链完整"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ml_bundle.json"
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "r19Gate/v1": "f53722e3ac41d94d"
+          },
+          "baselineState": "new",
+          "properties": {
+            "gate": "GATE-02",
+            "ok": true
+          }
+        },
+        {
+          "ruleId": "R19-GATE-03",
+          "level": "note",
+          "message": {
+            "text": "回归门禁齐备"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ml_bundle.json"
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "r19Gate/v1": "969c8217032e0287"
+          },
+          "baselineState": "new",
+          "properties": {
+            "gate": "GATE-03",
+            "ok": true
+          }
+        }
+      ],
+      "properties": {
+        "run_id": "C2",
+        "role": "r19"
+      }
+    }
+  ]
+}

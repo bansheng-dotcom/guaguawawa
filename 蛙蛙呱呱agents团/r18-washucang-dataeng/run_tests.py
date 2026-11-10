@@ -298,8 +298,14 @@ def main() -> int:
     # ------------------------------------------------------------------ #
     t.section("T8 案例库")
     lst = cases.list_cases()
-    t.check("案例列表 2 个", len(lst) == 2, str([x["case_id"] for x in lst]))
-    for cid in ("pipeline-recovery", "quality-gate"):
+    # SOP §5.10：案例库支持平滑扩容，契约用严格超集判据（>=2）+ 新案例存在性校验，
+    # 禁止再把案例数写死成 ==2（否则新增 metric-reconcile 就挂红）。
+    t.check("案例列表 >= 2 个（严格超集）", len(lst) >= 2,
+            str([x["case_id"] for x in lst]))
+    for cid in ("pipeline-recovery", "quality-gate", "metric-reconcile"):
+        t.check(f"案例 {cid} 仍在库（不丢失）",
+                cid in {x["case_id"] for x in lst}, str(lst))
+    for cid in ("pipeline-recovery", "quality-gate", "metric-reconcile"):
         vc = cases.validate_case(cid)
         t.check(f"{cid} 结构通过", vc["ok"],
                 str([x["msg"] for x in vc["checks"] if not x["ok"]]))
@@ -336,7 +342,10 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("harness 确定性验证器")
-    tmp = tempfile.mkdtemp(prefix="r18_harness_")
+    # SOP §5.7：临时目录显式约束在 workspace/tmp，禁止依赖系统全局 tempfile 死循环陷阱。
+    tmp_root = os.path.join(HERE, "workspace", "tmp")
+    os.makedirs(tmp_root, exist_ok=True)
+    tmp = tempfile.mkdtemp(prefix="r18_harness_", dir=tmp_root)
     good_path = os.path.join(tmp, "quality_check.json")
     c.write_json(good_path, c.load_json(_ex("quality_check.json")))
     h = harness.run_validator("quality_check", good_path)
@@ -414,6 +423,28 @@ def main() -> int:
     n_dirty = sum(1 for r in matrix["matrix"] if not r["expect_ok"])
     t.check("闭环 14 干净 + 14 脏", n_clean == 14 and n_dirty == 14,
             f"clean={n_clean} dirty={n_dirty}")
+
+    # ------------------------------------------------------------------ #
+    # 第二轨：十维演进集成测试（SOP §六.4 双轨零破坏门禁）
+    # ------------------------------------------------------------------ #
+    t.section("T16 十维演进集成测试（第二轨）")
+    evo_env = dict(os.environ)
+    evo_env["PYTHONIOENCODING"] = "utf-8"
+    evo = subprocess.run(
+        [sys.executable, "-m", "unittest", "tests.test_evolution_l01_l10"],
+        cwd=HERE, capture_output=True, text=True, encoding="utf-8",
+        errors="replace", env=evo_env)
+    evo_tail = ((evo.stdout or "") + (evo.stderr or ""))[-600:]
+    t.check("演进集成测试 ALL GREEN", evo.returncode == 0, evo_tail)
+    try:
+        from engines import available_layers
+        layers = available_layers()
+    except Exception as exc:  # noqa: BLE001
+        layers = []
+        t.check("engines 包可导入", False, str(exc))
+    t.check("引擎层逐级落地（>=3 且不倒退）", len(layers) >= 3, str(layers))
+    t.check("十轮演进执行器存在",
+            os.path.exists(os.path.join(HERE, "auto_evolve_runner.py")))
 
     print(f"\n{'=' * 60}")
     print(f"通过 {t.passed} / {t.passed + t.failed}")

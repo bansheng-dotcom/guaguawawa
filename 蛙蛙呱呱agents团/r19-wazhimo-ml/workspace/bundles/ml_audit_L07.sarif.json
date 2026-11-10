@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R19-ML-Auditor",
+          "version": "13.0",
+          "informationUri": "https://github.com/mlflow/mlflow",
+          "rules": [
+            {
+              "id": "R19-GATE-01",
+              "name": "GATE-01",
+              "shortDescription": {
+                "text": "R19 模型工程发布门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "R19-GATE-02",
+              "name": "GATE-02",
+              "shortDescription": {
+                "text": "R19 模型工程发布门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "R19-GATE-03",
+              "name": "GATE-03",
+              "shortDescription": {
+                "text": "R19 模型工程发布门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2026-11-10T18:19:21Z"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "R19-GATE-01",
+          "level": "note",
+          "message": {
+            "text": "指标可复算"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ml_bundle.json"
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "r19Gate/v1": "2a15e94259e6844d"
+          }
+        },
+        {
+          "ruleId": "R19-GATE-02",
+          "level": "note",
+          "message": {
+            "text": "证据链完整"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ml_bundle.json"
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "r19Gate/v1": "16087d992f211bfe"
+          }
+        },
+        {
+          "ruleId": "R19-GATE-03",
+          "level": "note",
+          "message": {
+            "text": "回归门禁齐备"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ml_bundle.json"
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "r19Gate/v1": "9966ef363903601a"
+          }
+        }
+      ],
+      "properties": {
+        "run_id": "L07",
+        "role": "r19"
+      }
+    }
+  ]
+}

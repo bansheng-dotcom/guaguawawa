@@ -4,6 +4,15 @@ import argparse
 import importlib
 import json
 import os
+import sys
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_ROLE_DIR = os.path.dirname(_HERE)
+_AGENTS = os.path.dirname(_ROLE_DIR)
+_REPO = os.path.dirname(_AGENTS)
+for _p in (_ROLE_DIR, _AGENTS, _REPO):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 from agents.shared.report_engine import build_report_spec, derive_verdict
 from agents.shared.report_generator import validate_spec

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R12-GrowthAuditEngine",
+          "version": "1.0.0",
+          "informationUri": "https://github.com/wawaguagua/r12-wayingliu-growth",
+          "rules": [
+            {
+              "id": "R12-GROWTH-GATE-001",
+              "shortDescription": {
+                "text": "北极星指标对齐门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "R12-GROWTH-GATE-002",
+              "shortDescription": {
+                "text": "统计显著性与置信度门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "R12-GROWTH-GATE-003",
+              "shortDescription": {
+                "text": "LTV/CAC及单位经济学门禁"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "R12-GROWTH-GATE-001",
+          "level": "warning",
+          "message": {
+            "text": "建议扩大样本量"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "growth_bundle.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

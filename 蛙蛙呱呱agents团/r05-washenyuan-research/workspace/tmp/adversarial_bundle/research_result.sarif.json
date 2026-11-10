@@ -1,0 +1,125 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "r05-washenyuan-research",
+          "version": "2.0.0",
+          "informationUri": "https://wawaguagua.com/roles/r05",
+          "rules": [
+            {
+              "id": "R05-EVIDENCE-GAP",
+              "name": "EvidenceGap",
+              "shortDescription": {
+                "text": "断言缺失可追溯证据来源"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://wawaguagua.com/rules/r05-evidence-gap"
+            },
+            {
+              "id": "R05-TAM-VARIANCE",
+              "name": "TamVariance",
+              "shortDescription": {
+                "text": "TAM 自上而下/自下而上双口径偏差超容差"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://wawaguagua.com/rules/r05-tam-variance"
+            },
+            {
+              "id": "R05-TIER0",
+              "name": "Tier0Claim",
+              "shortDescription": {
+                "text": "出现不可采信的 tier_0 断言"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://wawaguagua.com/rules/r05-tier0"
+            },
+            {
+              "id": "R05-SCENARIO-GAP",
+              "name": "ScenarioGap",
+              "shortDescription": {
+                "text": "缺少保守/基准/乐观三情景"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://wawaguagua.com/rules/r05-scenario-gap"
+            },
+            {
+              "id": "R05-HHI-MISSING",
+              "name": "HhiMissing",
+              "shortDescription": {
+                "text": "未声明 HHI 市场集中度"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://wawaguagua.com/rules/r05-hhi-missing"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "R05-EVIDENCE-GAP",
+          "level": "warning",
+          "message": {
+            "text": "断言 x 无 sources 证据来源，需补 tier_1/tier_2 出处"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "research_spec.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "claim_id": "x",
+            "index": 0
+          }
+        },
+        {
+          "ruleId": "R05-SCENARIO-GAP",
+          "level": "note",
+          "message": {
+            "text": "仅 0 套情景，低于要求的 3 套（保守/基准/乐观）"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "research_spec.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "scenario_count": 0,
+            "required": 3
+          }
+        }
+      ],
+      "properties": {
+        "producer": "r05-washenyuan-research",
+        "artifact": "research_spec.json",
+        "finding_count": 2
+      }
+    }
+  ]
+}

@@ -2,8 +2,9 @@
 import numpy as np
 import os
 
-_AGENT = r'D:\一人公司\agents\r06-wadeqing-analyst'
-out_path = os.path.join(_AGENT, "workspace", "artifacts", "douyin_ab_data.csv")
+_AGENT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_REPO = os.path.dirname(_AGENT)
+out_path = os.path.join(_REPO, "workspace", "artifacts", "douyin_ab_data.csv")
 
 np.random.seed(42)
 n_control = 1000

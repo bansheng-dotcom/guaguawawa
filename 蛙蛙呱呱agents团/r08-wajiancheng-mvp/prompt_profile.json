@@ -1,0 +1,316 @@
+{
+  "role_id": "r08",
+  "domain": "产品实现（MVP 交付）",
+  "max_questions": 3,
+  "execution_inputs": {
+    "input": {
+      "resolve": "task_port",
+      "question": "需求/切片输入文件在哪？"
+    }
+  },
+  "lexicon": {
+    "topic": {
+      "*": [
+        "*"
+      ]
+    },
+    "platform": {
+      "web": [
+        "网页",
+        "web",
+        "浏览器",
+        "h5"
+      ],
+      "mobile": [
+        "移动端",
+        "手机",
+        "app",
+        "小程序"
+      ],
+      "desktop": [
+        "桌面",
+        "客户端"
+      ]
+    },
+    "stack": {
+      "python": [
+        "python"
+      ],
+      "node": [
+        "node",
+        "npm"
+      ],
+      "react": [
+        "react",
+        "next.js"
+      ]
+    }
+  },
+  "assumptions": {},
+  "assumption_reason": {},
+  "questions": {
+    "action": {
+      "question": "你想交付哪类实现物料？",
+      "options": [
+        {
+          "value": "mvp",
+          "label": "MVP 切片"
+        },
+        {
+          "value": "slice",
+          "label": "最小切片"
+        },
+        {
+          "value": "landing",
+          "label": "落地页"
+        },
+        {
+          "value": "form",
+          "label": "表单/线索收集"
+        },
+        {
+          "value": "scaffold",
+          "label": "仓库脚手架"
+        },
+        {
+          "value": "design",
+          "label": "设计系统"
+        },
+        {
+          "value": "prototype",
+          "label": "高保真原型"
+        },
+        {
+          "value": "qa",
+          "label": "验收与交接"
+        }
+      ]
+    },
+    "topic": {
+      "question": "要做的是哪个产品/功能？",
+      "options": []
+    },
+    "platform": {
+      "question": "目标平台是哪个？",
+      "options": [
+        {
+          "value": "web",
+          "label": "网页/H5"
+        },
+        {
+          "value": "mobile",
+          "label": "移动端/小程序"
+        },
+        {
+          "value": "desktop",
+          "label": "桌面客户端"
+        }
+      ]
+    },
+    "stack": {
+      "question": "用哪套技术栈？",
+      "options": [
+        {
+          "value": "python",
+          "label": "Python"
+        },
+        {
+          "value": "node",
+          "label": "Node.js"
+        },
+        {
+          "value": "react",
+          "label": "React/Next.js"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "slice",
+      "action": "mvp",
+      "label": "MVP 切片与五门禁",
+      "when": [
+        "mvp",
+        "最小可行",
+        "五门禁"
+      ],
+      "requires": [
+        "topic",
+        "platform"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "slice",
+      "action": "slice",
+      "label": "最小切片",
+      "when": [
+        "切片",
+        "形态切片",
+        "先做哪块"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "landing",
+      "action": "landing",
+      "label": "落地页",
+      "when": [
+        "落地页",
+        "landing",
+        "单页站"
+      ],
+      "requires": [
+        "topic",
+        "platform"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "landing",
+      "action": "form",
+      "label": "表单与线索收集",
+      "when": [
+        "表单",
+        "收集邮箱",
+        "waitlist"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "scaffold",
+      "action": "scaffold",
+      "label": "仓库脚手架",
+      "when": [
+        "脚手架",
+        "仓库骨架",
+        "目录树"
+      ],
+      "requires": [
+        "topic",
+        "stack"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "design",
+      "action": "design",
+      "label": "设计系统",
+      "when": [
+        "设计系统",
+        "组件库",
+        "设计稿"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "prototype",
+      "action": "prototype",
+      "label": "高保真原型",
+      "when": [
+        "原型",
+        "可交互原型",
+        "demo原型"
+      ],
+      "requires": [
+        "topic",
+        "platform"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "qa",
+      "action": "qa",
+      "label": "验收与交接",
+      "when": [
+        "验收",
+        "交接",
+        "截图验收",
+        "无障碍检查"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "prototype",
+      "action": "screen",
+      "label": "页面拆解与线框",
+      "when": [
+        "页面拆解",
+        "线框图",
+        "逐屏设计"
+      ],
+      "requires": [
+        "topic",
+        "platform"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "qa",
+      "action": "handoff",
+      "label": "开发交付说明",
+      "when": [
+        "handoff",
+        "交付说明",
+        "开发对接"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    }
+  ],
+  "semantic_fields": {
+    "scaffold.spec": [
+      "stack",
+      "platform"
+    ],
+    "saas.saas": [
+      "platform",
+      "stack"
+    ],
+    "saas.email": [
+      "topic"
+    ],
+    "design.token": [
+      "topic",
+      "platform"
+    ]
+  },
+  "l2_prompt_blocks": [
+    {
+      "name": "切片边界",
+      "template": "只交付一条可跑通的最小主路径（目标平台：{platform}），范围外需求一律写入「不做清单」，不得扩写成全家桶。"
+    },
+    {
+      "name": "五门禁自检",
+      "template": "交付前逐项核对：假设明确、范围最小、可本地运行、有验收脚本、有回滚/关闭开关；缺一项即视为未完成。"
+    },
+    {
+      "name": "禁用词与反例",
+      "template": "禁止「赋能、闭环、抓手、生态化」等空话；禁止只给目录树不给可执行文件，禁止把 TODO 当交付。"
+    }
+  ],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "MVP 假设",
+      "范围与不做清单",
+      "运行方式",
+      "验收步骤"
+    ]
+  }
+}

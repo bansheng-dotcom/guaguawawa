@@ -74,8 +74,10 @@ MATRIX: List[Dict[str, Any]] = (
 
 def _run_subprocess(skill: str, action: str, input_path: str):
     cmd = [sys.executable, "agent.py", skill, action, "--input", input_path]
+    env = dict(os.environ)
+    env["PYTHONIOENCODING"] = "utf-8"
     proc = subprocess.run(cmd, cwd=_HERE, capture_output=True, text=True,
-                          encoding="utf-8", errors="replace", timeout=60)
+                          encoding="utf-8", errors="replace", timeout=60, env=env)
     result = None
     for line in (proc.stdout or "").splitlines():
         if line.startswith("__AGENT_RESULT__ "):

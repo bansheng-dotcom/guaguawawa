@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R06-Wadeqing-Analyst",
+          "semanticVersion": "8.0.0",
+          "rules": [
+            {
+              "id": "R06-DQ-001",
+              "shortDescription": {
+                "text": "Data quality blocker"
+              }
+            },
+            {
+              "id": "R06-ANOM-002",
+              "shortDescription": {
+                "text": "Metric anomaly or outlier"
+              }
+            },
+            {
+              "id": "R06-SPEC-003",
+              "shortDescription": {
+                "text": "Metric ledger / spec violation"
+              }
+            },
+            {
+              "id": "R06-GEN-004",
+              "shortDescription": {
+                "text": "General analysis finding"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2026-11-10T13:58:03Z",
+          "workingDirectory": {
+            "uri": "."
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "R06-GEN-004",
+          "level": "note",
+          "message": {
+            "text": "Warning: Conversion dropped in weekend"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "dataset/test_run_01.csv"
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "d75dc39e0ddbbb056ec8c3a780d0e8b5"
+          }
+        }
+      ]
+    }
+  ]
+}

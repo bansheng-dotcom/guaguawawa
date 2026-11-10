@@ -1,0 +1,31 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "R05 战略研究格局与规模图表描述符",
+  "data": {
+    "values": [
+      {
+        "category": "TAM",
+        "value": 200.0
+      },
+      {
+        "category": "SAM",
+        "value": 80.0
+      },
+      {
+        "category": "SOM",
+        "value": 8.0
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "category",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "value",
+      "type": "quantitative"
+    }
+  }
+} 

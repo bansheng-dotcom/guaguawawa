@@ -1,0 +1,17 @@
+{
+  "current_state": {
+    "note": "初始战略版本"
+  },
+  "history": [
+    {
+      "version": 1,
+      "timestamp": 1794211127.2327044,
+      "action": "manual_commit",
+      "prompt": "",
+      "artifact": {
+        "note": "初始战略版本"
+      }
+    }
+  ],
+  "updated_at": 1794211127.2336779
+}

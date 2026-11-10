@@ -4,6 +4,9 @@ import json
 import os
 from typing import List, Dict, Any
 
+_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_PLANS_DIR = os.path.join(_REPO, "workspace", "plans")
+
 class MissionControl:
     '''
     动态任务规划与协作中枢 (Mission Control) MVP。
@@ -93,8 +96,8 @@ class MissionControl:
             "team_required": self.team_roster,
             "workflow": self.execution_plan
         }
-        os.makedirs("D:/一人公司/agents/workspace/plans", exist_ok=True)
-        with open(f"D:/一人公司/agents/workspace/plans/{self.plan_id}.json", "w", encoding="utf-8") as f:
+        os.makedirs(_PLANS_DIR, exist_ok=True)
+        with open(os.path.join(_PLANS_DIR, f"{self.plan_id}.json"), "w", encoding="utf-8") as f:
             json.dump(plan, f, ensure_ascii=False, indent=2)
         return plan
 

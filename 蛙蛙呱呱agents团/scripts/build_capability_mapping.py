@@ -9,7 +9,7 @@ import os
 import re
 from typing import Any, Dict, List
 
-AGENTS_ROOT = r"D:\一人公司\agents"
+AGENTS_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # AI主题任务模板 - 按能力域定制
 AI_TASK_TEMPLATES = {

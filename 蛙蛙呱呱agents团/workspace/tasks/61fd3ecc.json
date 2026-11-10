@@ -1,0 +1,21 @@
+{
+  "task_id": "61fd3ecc",
+  "title": "smoke-clarify-r01",
+  "owner": "r01",
+  "intent": "帮我看看这事",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r01-waquanju-ceo\\examples\\brief.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "澄清"
+  ],
+  "deps": [],
+  "status": "failed",
+  "logs": []
+}

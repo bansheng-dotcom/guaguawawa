@@ -1,0 +1,27 @@
+{
+  "r18": {
+    "role_dir": "r18-washucang-dataeng",
+    "cases": [
+      {"id": "r18-01", "intent": "数据质量怎么样", "expect": "clarify"},
+      {"id": "r18-02", "intent": "配个告警", "expect": "clarify"},
+      {"id": "r18-03", "intent": "帮我搞下数据管道", "expect": "clarify"},
+      {"id": "r18-04", "intent": "检查 orders 表的空值率", "expect": "route", "expect_action": "quality.check"},
+      {"id": "r18-05", "intent": "orders 表新鲜度看一下", "expect": "route", "expect_action": "quality.fresh"},
+      {"id": "r18-06", "intent": "近7天数据回填", "expect": "route", "expect_action": "incremental.backfill"},
+      {"id": "r18-07", "intent": "排个调度DAG", "expect": "route", "expect_action": "pipeline.dag"},
+      {"id": "r18-08", "intent": "orders 表的血缘在哪", "expect": "route", "expect_action": "catalog.lineage"},
+      {"id": "r18-09", "intent": "把告警阈值设成空值率", "expect": "route", "expect_action": "ops.alert"},
+      {"id": "r18-10", "intent": "orders 表做个dbt模型", "expect": "route", "expect_action": "transform.model"},
+      {"id": "r18-11", "intent": "同步 orders 表", "expect": "route", "expect_action": "elt.sync"},
+      {"id": "r18-12", "intent": "数据同步怎么配", "expect": "clarify"},
+      {"id": "r18-13", "intent": "跑一下 orders 表的空值率检查", "expect": "route", "expect_action": "quality.check"},
+      {"id": "r18-14", "intent": "早上报表没更新，orders 表的新鲜度帮忙查下", "expect": "route", "expect_action": "quality.fresh"},
+      {"id": "r18-15", "intent": "上周的数据有问题，需要重跑补数", "expect": "route", "expect_action": "incremental.backfill"},
+      {"id": "r18-16", "intent": "把这些任务按依赖关系编排成 DAG", "expect": "route", "expect_action": "pipeline.dag"},
+      {"id": "r18-17", "intent": "orders 表的上游血缘帮我理一下", "expect": "route", "expect_action": "catalog.lineage"},
+      {"id": "r18-18", "intent": "最近数据质量不太稳定", "expect": "clarify"},
+      {"id": "r18-19", "intent": "管道这块想搭起来，还没想好从哪下手", "expect": "clarify"},
+      {"id": "r18-20", "intent": "同步的方案还没定，先别动", "expect": "clarify"}
+    ]
+  }
+}

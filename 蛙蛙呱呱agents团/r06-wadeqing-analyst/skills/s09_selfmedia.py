@@ -18,6 +18,19 @@ NAME = "selfmedia"
 DESC = "自媒体数据运营：normalize / dashboard / report"
 
 PLATFORMS = ["小红书", "抖音", "知乎", "B站", "公众号"]
+PLATFORM_ALIASES = {
+    "douyin": "抖音",
+    "xiaohongshu": "小红书",
+    "zhihu": "知乎",
+    "bilibili": "B站",
+    "b站": "B站",
+    "wechat": "公众号",
+    "gzh": "公众号",
+    "公众号": "公众号",
+    "抖音": "抖音",
+    "小红书": "小红书",
+    "知乎": "知乎",
+}
 # 统一字段 schema（对齐工作台 DAILY_FIELDS / SNAPSHOT_FIELDS）
 UNIFIED_FIELDS = ["platform", "date", "fans", "new_fans", "revenue", "posts"]
 
@@ -54,18 +67,25 @@ def run(args) -> Dict[str, Any]:
 def _normalize(raw: Any, out: str) -> Dict[str, Any]:
     platforms = raw.get("platforms", {}) if isinstance(raw, dict) else {}
     records: List[Dict[str, Any]] = []
+
+    norm_inputs: Dict[str, Any] = {}
+    for k, v in platforms.items():
+        std_k = PLATFORM_ALIASES.get(k.lower(), k)
+        norm_inputs[std_k] = v
+
     for p in PLATFORMS:
-        if p not in platforms:
+        if p not in norm_inputs:
             continue
-        src = platforms[p] or {}
+        src = norm_inputs[p] or {}
+        upd = str(src.get("updated_at") or src.get("last_update") or src.get("date") or "")
         records.append({
             "platform": p,
-            "date": str(src.get("date", "")),
+            "date": str(src.get("date", upd[:10])),
             "fans": float(src.get("fans", 0) or 0),          # 快照，取最新
             "new_fans": float(src.get("new_fans", 0) or 0),  # 增长，求和
             "revenue": float(src.get("revenue", 0) or 0),
             "posts": int(src.get("posts", 0) or 0),
-            "updated_at": str(src.get("updated_at", "")),
+            "updated_at": upd,
         })
     c.write_json(out, {"normalized_at": _ts(), "records": records})
     return {"normalized_path": out, "platform_count": len(records),
@@ -130,7 +150,13 @@ def _report(dash: Dict[str, Any], out: str) -> Dict[str, Any]:
               "`failed`=无数据。",
               "- 新鲜度门禁：updated_at 距今 >1 天标 stale、>7 天标 missing。", ""]
     c.write_text(out, "\n".join(lines))
-    return {"report_path": out, "status": dash.get("status")}
+    return {
+        "report_path": out,
+        "status": dash.get("status"),
+        "platform_count": len(dash.get("by_platform", [])),
+        "total_fans": dash.get("total_fans", 0),
+        "total_revenue": dash.get("total_revenue", 0),
+    }
 
 
 def _hhi_grade(hhi: float) -> str:

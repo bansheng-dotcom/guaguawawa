@@ -1,0 +1,351 @@
+{
+  "mode": "compile",
+  "summary": {
+    "cases": 20,
+    "route": 14,
+    "clarify": 6,
+    "silent_default": 0,
+    "expect_match": 20,
+    "bare_clarify": 0,
+    "confidence_values": [
+      0.0,
+      0.5,
+      0.67,
+      1.0
+    ]
+  },
+  "results": [
+    {
+      "id": "r11-01",
+      "role": "r11",
+      "intent": "帮我写篇能爆的",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "platform"
+      ],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 0.67
+    },
+    {
+      "id": "r11-02",
+      "role": "r11",
+      "intent": "写一篇关于AI工具的文章",
+      "expect": "route",
+      "expect_action": "copy.article",
+      "actual": "copy.article",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-03",
+      "role": "r11",
+      "intent": "改成小红书风格",
+      "expect": "route",
+      "expect_action": "platform.adapt",
+      "actual": "platform.adapt",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-04",
+      "role": "r11",
+      "intent": "起个标题",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "platform"
+      ],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 0.67
+    },
+    {
+      "id": "r11-05",
+      "role": "r11",
+      "intent": "来个60秒口播脚本",
+      "expect": "route",
+      "expect_action": "copy.script",
+      "actual": "copy.script",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-06",
+      "role": "r11",
+      "intent": "这个内容帮我优化一下",
+      "expect": "route",
+      "expect_action": "voice.edit",
+      "actual": "voice.edit",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-07",
+      "role": "r11",
+      "intent": "写个公众号文章，专业点",
+      "expect": "route",
+      "expect_action": "copy.article",
+      "actual": "copy.article",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-08",
+      "role": "r11",
+      "intent": "抖音文案，要犀利",
+      "expect": "route",
+      "expect_action": "platform.adapt",
+      "actual": "platform.adapt",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-09",
+      "role": "r11",
+      "intent": "列个提纲",
+      "expect": "route",
+      "expect_action": "hook.outline",
+      "actual": "hook.outline",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-10",
+      "role": "r11",
+      "intent": "翻译成英文",
+      "expect": "route",
+      "expect_action": "localize.term",
+      "actual": "localize.term",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-11",
+      "role": "r11",
+      "intent": "帮我挖点长尾关键词",
+      "expect": "route",
+      "expect_action": "seo.keyword",
+      "actual": "seo.keyword",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-12",
+      "role": "r11",
+      "intent": "帮我做个seo诊断",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "platform"
+      ],
+      "assumptions": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "r11-13",
+      "role": "r11",
+      "intent": "围绕远程办公写一篇两千字左右的长文",
+      "expect": "route",
+      "expect_action": "copy.article",
+      "actual": "copy.article",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-14",
+      "role": "r11",
+      "intent": "把这段内容改成知乎那种风格的版本",
+      "expect": "route",
+      "expect_action": "platform.adapt",
+      "actual": "platform.adapt",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-15",
+      "role": "r11",
+      "intent": "给我准备一段30秒的口播稿",
+      "expect": "route",
+      "expect_action": "copy.script",
+      "actual": "copy.script",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-16",
+      "role": "r11",
+      "intent": "先把这篇文章的大纲和结构理出来",
+      "expect": "route",
+      "expect_action": "hook.outline",
+      "actual": "hook.outline",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-17",
+      "role": "r11",
+      "intent": "把产品说明翻译成日语",
+      "expect": "route",
+      "expect_action": "localize.term",
+      "actual": "localize.term",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r11-18",
+      "role": "r11",
+      "intent": "最近想搞点内容，但不知道从哪下手",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r11-19",
+      "role": "r11",
+      "intent": "帮我起个吸引人的标题",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "platform"
+      ],
+      "assumptions": [
+        "voice"
+      ],
+      "confidence": 0.67
+    },
+    {
+      "id": "r11-20",
+      "role": "r11",
+      "intent": "这条内容适合放到哪个平台",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "current_session": "default",
+  "history": [
+    {
+      "ts": 1794209714.6991925,
+      "key": "last_plan_id",
+      "snapshot": "PLAN-2026-X"
+    },
+    {
+      "ts": 1794211570.4101598,
+      "key": "last_plan_id",
+      "snapshot": "PLAN-2026-X"
+    },
+    {
+      "ts": 1794211676.9931362,
+      "key": "last_plan_id",
+      "snapshot": "PLAN-2026-X"
+    },
+    {
+      "ts": 1794220026.2260113,
+      "key": "last_plan_id",
+      "snapshot": "PLAN-2026-X"
+    },
+    {
+      "ts": 1794220397.1096568,
+      "key": "last_plan_id",
+      "snapshot": "PLAN-2026-X"
+    }
+  ],
+  "context": {
+    "last_plan_id": "PLAN-2026-X"
+  }
+}

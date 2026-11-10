@@ -1,7 +1,0 @@
-{
-  "model_name": "support-qa-assistant",
-  "version": "3",
-  "stage": "live",
-  "source": "huggingface_hub",
-  "run_id": "run-88213"
-}

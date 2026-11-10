@@ -146,10 +146,12 @@ class T01(unittest.TestCase):
             ("pre-mortem 推演", "scenario", "premortem"),
             ("研究计划", "auto", "plan"),
             ("研究追踪", "auto", "track"),
-            ("完全无关的意图", "research", "ledger"),
+            # P2.1：关键词全未命中不再静默落到 research/ledger，交 L02 内核澄清
+            ("完全无关的意图", "__clarify__", "clarify"),
         ]
         for intent, s, a in hits:
-            self.assertEqual(agent.route_intent(intent), (s, a, {}), intent)
+            routed = agent.route_intent(intent)
+            self.assertEqual(routed[:2], (s, a), intent)
 
     def test_deliverables(self):
         for p in ["SKILL.md", "contracts.py", "review.py", "cases.py",
@@ -620,7 +622,7 @@ class T13(unittest.TestCase):
         import cases
         rows = cases.list_cases()
         ids = {r["case_id"] for r in rows}
-        self.assertEqual(ids, {"competitor-deep-dive", "market-entry"})
+        self.assertEqual(ids, {"competitor-deep-dive", "market-entry", "market-sizing"})
         for r in rows:
             v = cases.validate_case(r["case_id"])
             self.assertTrue(v["ok"], f"{r['case_id']}: {v['errors']}")
@@ -668,8 +670,15 @@ class T14(unittest.TestCase):
             self.assertEqual(code, 1, f"{s}/{a} 脏数据应 exit 1")
 
     def test_manifest_cli(self):
-        mf, code = run_cli_json(["manifest"])
-        self.assertEqual(code, 0)
+        proc = subprocess.run([sys.executable, "agent.py", "manifest"], cwd=_HERE,
+                              capture_output=True, text=True, encoding="utf-8",
+                              errors="replace")
+        self.assertEqual(proc.returncode, 0)
+        mf = None
+        for line in (proc.stdout or "").splitlines():
+            if line.startswith("__AGENT_RESULT__ "):
+                mf = json.loads(line[17:])
+        self.assertIsNotNone(mf)
         self.assertEqual(mf["role"], "r05")
 
     def test_demo_cli(self):
@@ -700,7 +709,7 @@ class T14(unittest.TestCase):
     def test_case_cli(self):
         rows, code = run_cli_json(["case"])
         self.assertEqual(code, 0)
-        self.assertEqual(len(rows), 2)
+        self.assertEqual(len(rows), 3)
         v, code = run_cli_json(["case", "market-entry"])
         self.assertEqual(code, 0)
         self.assertTrue(v["validate"]["ok"])

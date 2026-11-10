@@ -26,8 +26,10 @@ if _CHART_DIR not in sys.path:
 
 
 def run(argv):
+    env = dict(os.environ)
+    env["PYTHONIOENCODING"] = "utf-8"
     r = subprocess.run([sys.executable, "agent.py", *argv], cwd=HERE,
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", env=env)
     return r.returncode, r.stdout, r.stderr
 
 
@@ -559,6 +561,24 @@ def main():
         print(f"  [{'ok' if ok else 'FAIL'}] {name}"
               f"  contract={'OK' if r.get('contract_ok') else 'X'}"
               f"  review={r.get('review_verdict')}")
+
+    # 7) 十维演进集成回归套件 (L01~L10)
+    print("\n== 7) 十维演进元模型集成测试套件 (L01~L10 Dual Zero-Regression Gate) ==")
+    import unittest
+    import tests.test_engines_l01_l10 as t_l10
+    import tests.test_evolution_cycle2 as t_c2
+    loader = unittest.TestLoader()
+    suite = loader.loadTestsFromTestCase(t_l10.TestR06EvolutionSuite)
+    for case_name in ("TestRound1ToolsIntentHeal", "TestRound2SpecSlopScenario",
+                      "TestRound3BundlePatchMemoryResilience"):
+        case = getattr(t_c2, case_name, None)
+        if case is not None:
+            suite.addTests(loader.loadTestsFromTestCase(case))
+    runner = unittest.TextTestRunner(verbosity=0)
+    res = runner.run(suite)
+    l10_ok = res.wasSuccessful()
+    (PASS if l10_ok else FAIL).append("metamodel.10stages.l01_to_l10")
+    print(f"  [{'ok' if l10_ok else 'FAIL'}] metamodel.10stages.l01_to_l10 (ran {res.testsRun} tests)")
 
     print("\n================ 验收结果 ================")
     print(f"  PASS {len(PASS)} / {len(PASS)+len(FAIL)}")

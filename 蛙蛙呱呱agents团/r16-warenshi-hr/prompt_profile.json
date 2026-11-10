@@ -1,0 +1,328 @@
+{
+  "role_id": "r16",
+  "domain": "人员与组织运营",
+  "max_questions": 2,
+  "execution_inputs": {
+    "hr_data": {
+      "resolve": "task_port",
+      "question": "人事数据文件在哪？",
+      "default": "workspace/artifacts/hr.csv"
+    }
+  },
+  "lexicon": {
+    "time_window": {
+      "this_month": [
+        "本月",
+        "这个月",
+        "当月"
+      ],
+      "last_month": [
+        "上月",
+        "上个月"
+      ],
+      "quarter": [
+        "本季度",
+        "这季度"
+      ]
+    },
+    "dimension": {
+      "dept": [
+        "部门"
+      ],
+      "team": [
+        "团队",
+        "小组"
+      ],
+      "level": [
+        "职级",
+        "级别"
+      ],
+      "location": [
+        "城市",
+        "base地"
+      ]
+    },
+    "metric": {
+      "headcount": [
+        "人数",
+        "编制"
+      ],
+      "turnover": [
+        "流动率",
+        "离职率"
+      ],
+      "payroll_total": [
+        "薪酬总额",
+        "工资总额"
+      ]
+    }
+  },
+  "assumptions": {
+    "time_window": "this_month"
+  },
+  "assumption_reason": {
+    "time_window": "未指定时间窗，按本月口径，结论首行标注"
+  },
+  "questions": {
+    "action": {
+      "question": "你想处理哪类人事事项？",
+      "options": [
+        {
+          "value": "offer",
+          "label": "招聘录用"
+        },
+        {
+          "value": "leave",
+          "label": "请假休假"
+        },
+        {
+          "value": "appraisal",
+          "label": "绩效评估"
+        },
+        {
+          "value": "calc",
+          "label": "薪酬核算"
+        }
+      ]
+    },
+    "dimension": {
+      "question": "按哪个组织维度看？",
+      "options": [
+        {
+          "value": "dept",
+          "label": "部门"
+        },
+        {
+          "value": "team",
+          "label": "团队"
+        },
+        {
+          "value": "level",
+          "label": "职级"
+        },
+        {
+          "value": "location",
+          "label": "城市"
+        }
+      ]
+    },
+    "time_window": {
+      "question": "看哪个时间窗？",
+      "options": [
+        {
+          "value": "this_month",
+          "label": "本月"
+        },
+        {
+          "value": "last_month",
+          "label": "上月"
+        },
+        {
+          "value": "quarter",
+          "label": "本季度"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "recruit",
+      "action": "offer",
+      "label": "招聘录用",
+      "when": [
+        "招聘",
+        "候选人",
+        "offer",
+        "录用",
+        "入职",
+        "招人"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    },
+    {
+      "skill": "attendance",
+      "action": "leave",
+      "label": "请假休假",
+      "when": [
+        "请假",
+        "休假",
+        "年假",
+        "调休"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "attendance",
+      "action": "attendance",
+      "label": "考勤统计",
+      "when": [
+        "考勤",
+        "打卡",
+        "出勤"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "performance",
+      "action": "appraisal",
+      "label": "绩效评估",
+      "when": [
+        "绩效",
+        "考核",
+        "评估"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    },
+    {
+      "skill": "payroll",
+      "action": "calc",
+      "label": "薪酬核算",
+      "when": [
+        "薪酬",
+        "工资",
+        "薪资",
+        "payroll"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "expense",
+      "action": "claim",
+      "label": "费用报销",
+      "when": [
+        "报销",
+        "费用",
+        "claim"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "report",
+      "action": "headcount",
+      "label": "编制花名册",
+      "when": [
+        "花名册",
+        "人效",
+        "headcount",
+        "流动率"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    },
+    {
+      "skill": "recruit",
+      "action": "applicant",
+      "label": "候选人筛选",
+      "when": [
+        "简历",
+        "投递",
+        "applicant"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    },
+    {
+      "skill": "people",
+      "action": "employee",
+      "label": "员工档案",
+      "when": [
+        "员工档案",
+        "入职资料",
+        "employee"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    },
+    {
+      "skill": "performance",
+      "action": "goal",
+      "label": "目标设定",
+      "when": [
+        "目标设定",
+        "okr",
+        "关键结果"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    }
+  ],
+  "semantic_fields": {
+    "recruit.opening": [
+      "dimension"
+    ],
+    "people.profile": [
+      "hr_data",
+      "dimension"
+    ],
+    "people.contract": [
+      "time_window"
+    ],
+    "payroll.input": [
+      "time_window"
+    ],
+    "expense.benefit": [
+      "time_window"
+    ],
+    "report.report": [
+      "metric",
+      "time_window"
+    ]
+  },
+  "l2_prompt_blocks": [],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "统计口径",
+      "时间窗",
+      "组织维度",
+      "结论",
+      "PII 脱敏说明"
+    ]
+  }
+}

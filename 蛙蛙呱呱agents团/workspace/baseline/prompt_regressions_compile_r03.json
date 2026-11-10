@@ -1,0 +1,337 @@
+{
+  "mode": "compile",
+  "summary": {
+    "cases": 20,
+    "route": 12,
+    "clarify": 8,
+    "silent_default": 0,
+    "expect_match": 20,
+    "bare_clarify": 0,
+    "confidence_values": [
+      0.0,
+      1.0
+    ]
+  },
+  "results": [
+    {
+      "id": "r03-01",
+      "role": "r03",
+      "intent": "帮我看看这些数字",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r03-02",
+      "role": "r03",
+      "intent": "这季度的财务情况帮我看看",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r03-03",
+      "role": "r03",
+      "intent": "算算单位经济",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "metric"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r03-04",
+      "role": "r03",
+      "intent": "税务上有什么要注意的",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r03-05",
+      "role": "r03",
+      "intent": "帮我做本月的银行对账",
+      "expect": "route",
+      "expect_action": "financial.recon",
+      "actual": "financial.recon",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-06",
+      "role": "r03",
+      "intent": "这个月月结关账",
+      "expect": "route",
+      "expect_action": "financial.rollforward",
+      "actual": "financial.rollforward",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-07",
+      "role": "r03",
+      "intent": "预算差异分析",
+      "expect": "route",
+      "expect_action": "financial.variance",
+      "actual": "financial.variance",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "period"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-08",
+      "role": "r03",
+      "intent": "现金跑道还剩几个月",
+      "expect": "route",
+      "expect_action": "cfo.runway",
+      "actual": "cfo.runway",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-09",
+      "role": "r03",
+      "intent": "财务健康体检",
+      "expect": "route",
+      "expect_action": "cfo.healthcheck",
+      "actual": "cfo.healthcheck",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-10",
+      "role": "r03",
+      "intent": "算一下LTV和CAC",
+      "expect": "route",
+      "expect_action": "cfo.unitecon",
+      "actual": "cfo.unitecon",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-11",
+      "role": "r03",
+      "intent": "这个月最低提取怎么算",
+      "expect": "route",
+      "expect_action": "tax.rmd",
+      "actual": "tax.rmd",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-12",
+      "role": "r03",
+      "intent": "合同风险怎么看",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r03-13",
+      "role": "r03",
+      "intent": "季度末了，麻烦把银行对账这本账理清楚",
+      "expect": "route",
+      "expect_action": "financial.recon",
+      "actual": "financial.recon",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-14",
+      "role": "r03",
+      "intent": "本季度实际花销和预算差得有点多，做份差异分析",
+      "expect": "route",
+      "expect_action": "financial.variance",
+      "actual": "financial.variance",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-15",
+      "role": "r03",
+      "intent": "照现在这个烧钱速度，账上的钱还能撑多久",
+      "expect": "route",
+      "expect_action": "cfo.runway",
+      "actual": "cfo.runway",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [
+        "period"
+      ],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-16",
+      "role": "r03",
+      "intent": "把 LTV 和获客成本放一起算算",
+      "expect": "route",
+      "expect_action": "cfo.unitecon",
+      "actual": "cfo.unitecon",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-17",
+      "role": "r03",
+      "intent": "给公司做一次财务健康度评估",
+      "expect": "route",
+      "expect_action": "cfo.healthcheck",
+      "actual": "cfo.healthcheck",
+      "kind": "route",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 0,
+      "questions": [],
+      "assumptions": [],
+      "confidence": 1.0
+    },
+    {
+      "id": "r03-18",
+      "role": "r03",
+      "intent": "这几张报表数字对不上，我有点懵",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r03-19",
+      "role": "r03",
+      "intent": "老板让我整理点财务材料，还没说清要哪块",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    },
+    {
+      "id": "r03-20",
+      "role": "r03",
+      "intent": "公司现在经营得健不健康，我也说不好",
+      "expect": "clarify",
+      "expect_action": null,
+      "actual": "clarify",
+      "kind": "clarify",
+      "silent_default": false,
+      "expect_match": true,
+      "rc": 2,
+      "questions": [
+        "action"
+      ],
+      "assumptions": [],
+      "confidence": 0.0
+    }
+  ]
+}

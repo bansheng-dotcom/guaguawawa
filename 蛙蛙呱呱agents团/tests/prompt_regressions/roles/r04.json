@@ -1,0 +1,27 @@
+{
+  "r04": {
+    "role_dir": "r04-watiaoci-reviewer",
+    "cases": [
+      {"id": "r04-01", "intent": "帮我看看这个", "expect": "clarify"},
+      {"id": "r04-02", "intent": "帮我评审一下", "expect": "clarify"},
+      {"id": "r04-03", "intent": "做一下证据链核验", "expect": "clarify"},
+      {"id": "r04-04", "intent": "标记一下保留优点", "expect": "clarify"},
+      {"id": "r04-05", "intent": "做证据链核验，针对这份成品", "expect": "route", "expect_action": "artifact.verify"},
+      {"id": "r04-06", "intent": "按外置判据审查这份报告，目标是打回", "expect": "route", "expect_action": "criteria.review"},
+      {"id": "r04-07", "intent": "跑一遍门禁审计，看这份成品", "expect": "route", "expect_action": "gate.audit"},
+      {"id": "r04-08", "intent": "对这份报告做质量批评", "expect": "route", "expect_action": "quality.critique"},
+      {"id": "r04-09", "intent": "核查一下数字幻觉，来源是什么", "expect": "route", "expect_action": "facts.check"},
+      {"id": "r04-10", "intent": "发起人工评审，把成品交给老板", "expect": "route", "expect_action": "human.package"},
+      {"id": "r04-11", "intent": "先做工件清单盘点，针对这批成品", "expect": "route", "expect_action": "artifact.inventory"},
+      {"id": "r04-12", "intent": "帮我做评审收敛", "expect": "clarify"},
+      {"id": "r04-13", "intent": "这批交付物按三级证据链重查一遍，看有没有孤岛工件", "expect": "route", "expect_action": "artifact.verify"},
+      {"id": "r04-14", "intent": "这份报告跟上轮做版本对比，看差值在哪", "expect": "route", "expect_action": "criteria.delta"},
+      {"id": "r04-15", "intent": "这份交付物里做得好的地方要用优点标记留成 keep_list", "expect": "route", "expect_action": "strengths.mark"},
+      {"id": "r04-16", "intent": "上线前跑个形式门禁，这份工件必须过门禁审计", "expect": "route", "expect_action": "gate.audit"},
+      {"id": "r04-17", "intent": "这份 prd 的完成声明太满，帮我做禁词扫描和质量批评", "expect": "route", "expect_action": "quality.critique"},
+      {"id": "r04-18", "intent": "这份东西质量怎么样", "expect": "clarify"},
+      {"id": "r04-19", "intent": "评审结果什么时候能给我", "expect": "clarify"},
+      {"id": "r04-20", "intent": "这份文档要不要打回", "expect": "clarify"}
+    ]
+  }
+}

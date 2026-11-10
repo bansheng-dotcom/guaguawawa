@@ -23,9 +23,12 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_HERE)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in (_HERE, _AGENTS, _REPO_ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 
 import argparse
@@ -38,13 +41,8 @@ from typing import Any, Dict, List, Optional
 
 from agents.shared.chat_cli import add_chat_parser, handle_chat
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
-_AGENTS = os.path.dirname(_HERE)
-for _p in (_HERE, _AGENTS):
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
 from core import protocol, registry, workspace  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
@@ -98,11 +96,13 @@ def build_parser() -> argparse.ArgumentParser:
     add_chat_parser(sp)
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
     _register_harness(sp)
     _register_contract(sp)
     _register_case(sp)
     _register_review(sp)
+    _register_evolve(sp)
     la = sp.add_parser("local-crm-csv", help="本地 CRM 导出 CSV 清洗、去重与漏斗")
     la.add_argument("--input", required=True)
     la.add_argument("--id-column", default="email")
@@ -213,6 +213,42 @@ def _run_contract(args) -> Dict[str, Any]:
     return {"error": f"未知 contract 命令: {args.ccmd}"}
 
 
+def _register_evolve(sp) -> None:
+    ev_p = sp.add_parser("evolve", help="十维演进元模型核心引擎调度 (L01~L10)")
+    ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
+    ev_sub.add_parser("probe", help="L01: 探测客户成功运行时引擎健康状态与计算沙箱")
+
+    dec_p = ev_sub.add_parser("decompile", help="L02: 意图解构与 Kahn 拓扑 DAG 编排")
+    dec_p.add_argument("--query", required=True, help="客户成功或续约挽留需求自然语言")
+
+    heal_p = ev_sub.add_parser("heal", help="L03: 自愈反思与红线审判")
+    heal_p.add_argument("--action", default="refund customer fee", help="待审判的动作或策略")
+
+    spec_p = ev_sub.add_parser("spec", help="L04: 领域规格账本加载与合规校验")
+    spec_p.add_argument("--input", default=None, help="客户度量 JSON 或留空加载 Spec")
+
+    slop_p = ev_sub.add_parser("slop", help="L05: 质感去劣化与 Anti-Slop 显著性校验")
+    slop_p.add_argument("--text", default=None, help="待审查文本")
+
+    sc_p = ev_sub.add_parser("scenario", help="L06: 多维挽留方案看板裂变")
+    sc_p.add_argument("--topic", default="客户续约与流失挽留", help="核心主题")
+    sc_p.add_argument("--client", default="重点客户", help="客户名称")
+    sc_p.add_argument("--arr", type=float, default=200000.0, help="ARR金额")
+
+    b_p = ev_sub.add_parser("bundle", help="L07: 伴生消费资产包与 SARIF/Vega 导出")
+    b_p.add_argument("--run-id", default="demo_run_01", help="运行标识")
+    b_p.add_argument("--input", default=None, help="客户运营工件 JSON")
+
+    p_p = ev_sub.add_parser("patch", help="L08: RFC 6902 局部差量补丁与热修")
+    p_p.add_argument("--old", required=True, help="旧状态 JSON")
+    p_p.add_argument("--new", required=True, help="新状态 JSON")
+
+    mem_p = ev_sub.add_parser("memory", help="L09: 会话记忆与代词消歧测试")
+    mem_p.add_argument("--query", required=True, help="自然语言查询")
+
+    ev_sub.add_parser("watchdog", help="L10: 看门狗熔断器与遥测探测")
+
+
 # --------------------------------------------------------------------------- #
 # 协作入口
 # --------------------------------------------------------------------------- #
@@ -235,6 +271,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -288,7 +333,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return "crm", "person", {}
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -361,6 +407,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "local-crm-csv":
         from local_actions import clean_csv
         out = clean_csv(args.input, args.id_column, args.stage_column)
@@ -382,6 +430,82 @@ def main() -> int:
         out = _run_review(args)
         emit_result(out)
         return 0 if out["verdict"] == "PASS" else 1
+    if args.skill == "evolve":
+        from engines import (
+            CsmRuntimeEngine,
+            IntentCompiler,
+            ReflexiveHealer,
+            SpecLedger,
+            SlopGuard,
+            ScenarioMatrix,
+            CsmAssetBundle,
+            CsmDiffPatchEngine,
+            CsmSessionMemory,
+            CsmTelemetryWatchdog,
+        )
+        if args.subcmd == "probe":
+            eng = CsmRuntimeEngine()
+            out = eng.probe_health()
+            emit_result(out)
+            return 0 if out.get("status") == "healthy" else 1
+        elif args.subcmd == "decompile":
+            comp = IntentCompiler()
+            stages = comp.compile_intent(args.query)
+            out = {"stages": stages, "summary": comp.get_dag_summary(stages)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "heal":
+            healer = ReflexiveHealer()
+            try:
+                res = healer.check_redlines(args.action)
+                out = {"blocked": False, "action": args.action, "result": res}
+            except ValueError as e:
+                out = {"blocked": True, "action": args.action, "reason": str(e)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "spec":
+            ledger = SpecLedger()
+            out = ledger.load_spec()
+            emit_result(out)
+            return 0
+        elif args.subcmd == "slop":
+            guard = SlopGuard()
+            raw_text = args.text or "客户关系整体良好，值得重点关注，服务体验稳步提升"
+            audit_res = guard.audit(raw_text)
+            emit_result(audit_res)
+            return 0
+        elif args.subcmd == "scenario":
+            sc = ScenarioMatrix()
+            scenarios = sc.generate(client_name=getattr(args, "client", "重点客户"), arr_value=getattr(args, "arr", 200000.0))
+            out = {"scenarios": scenarios, "markdown_table": sc.render_markdown_matrix(scenarios)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "bundle":
+            bundle_eng = CsmAssetBundle()
+            in_data = c.load_json(args.input) if args.input else {"company_name": "A公司", "health_score": 82.5, "health_breakdown": {"usage": 88, "quality": 82, "relationship": 80, "commercial": 80}}
+            out = bundle_eng.export_bundle(args.run_id, in_data)
+            emit_result(out)
+            return 0
+        elif args.subcmd == "patch":
+            diff_eng = CsmDiffPatchEngine()
+            old_data = json.loads(args.old) if isinstance(args.old, str) and args.old.startswith("{") else c.load_json(args.old)
+            new_data = json.loads(args.new) if isinstance(args.new, str) and args.new.startswith("{") else c.load_json(args.new)
+            patch = diff_eng.create_patch(old_data, new_data)
+            applied = diff_eng.apply_patch(old_data, patch)
+            out = {"patch": patch, "applied": applied}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "memory":
+            mem = CsmSessionMemory()
+            out = mem.resolve_pronouns(args.query)
+            emit_result(out)
+            return 0
+        elif args.subcmd == "watchdog":
+            wd = CsmTelemetryWatchdog()
+            entry = wd.tracer.record_span("probe_watchdog", 12.5, "OK", {"component": "csm_watchdog"})
+            out = {"status": "operational", "circuit_breaker": wd.breaker.state, "sample_telemetry": entry}
+            emit_result(out)
+            return 0
 
     t0 = time.time()
     result = SKILL_BY_NAME[args.skill].run(args)

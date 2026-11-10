@@ -1,0 +1,30 @@
+{
+  "schema": "pm.prd.manifest/v1",
+  "generated_at": "2026-11-10T21:58:05",
+  "bundle": {
+    "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\tmp\\l07_bundle\\prd_bundle.json",
+    "sha256": "91e41b0cd7e014a7a04c3ec27da2626cc593d880c364628d63ae2a244be3dcd9",
+    "bytes": 1620,
+    "name": "prd_bundle"
+  },
+  "artifacts": [
+    {
+      "name": "prd_ast",
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\tmp\\l07_bundle\\prd_ast.json",
+      "sha256": "7354266ad43dc074714f46329fdefc29ffd00b1219d7270ead794047b7335108",
+      "bytes": 5703
+    },
+    {
+      "name": "prd_audit_sarif",
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\tmp\\l07_bundle\\prd_audit.sarif.json",
+      "sha256": "7cda99a0784c53c621cb3aa4cf967f5fd642ab37fa1cc6a1d0b26eeebbdcc5c9",
+      "bytes": 2806
+    },
+    {
+      "name": "prd_gates_chart",
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\workspace\\tmp\\l07_bundle\\prd_gates_chart.vega.json",
+      "sha256": "d644f76449f626ae2da58aa3786e6e3b849828bbb1ef47f271d8ccd936115b2f",
+      "bytes": 1610
+    }
+  ]
+}

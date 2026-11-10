@@ -1,0 +1,21 @@
+{
+  "task_id": "5ab995e3",
+  "title": "登记数据血缘",
+  "owner": "r18",
+  "intent": "帮我看这份血缘表引用全不全、有没有断链",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r18-washucang-dataeng\\examples\\lineage.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "lineage 门禁通过"
+  ],
+  "deps": [],
+  "status": "pending",
+  "logs": []
+}

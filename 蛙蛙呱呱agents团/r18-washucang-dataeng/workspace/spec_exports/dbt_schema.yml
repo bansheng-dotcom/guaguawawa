@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: dataeng_pipeline_contract
+    description: "R18 DATAENG_SPEC v1.0 自动编译"
+    tests:
+      - dbt_utils.expression_is_true:  # G1 结构门禁
+          expression: "/* DAG 无环（Kahn 全序）+ 依赖边无悬空 + 任务名唯一 */ 1 = 1"
+      - dbt_utils.expression_is_true:  # G2 连接门禁
+          expression: "/* connector 命名 `source-`/`destination-` 前缀 + 来源≠目的地 + 零凭据字段 */ 1 = 1"
+      - dbt_utils.expression_is_true:  # G3 转换门禁
+          expression: "/* 物化方式 4 枚举 + `ref()` 引用完整 + 不自引用 + incremental 有 unique_key */ 1 = 1"
+      - dbt_utils.expression_is_true:  # G4 质量门禁
+          expression: "/* 行数>0 + 空值率≤0.10 + 重复率≤0.05 + 越界行数=0（须实测） */ 1 = 1"
+      - dbt_utils.expression_is_true:  # G5 新鲜度门禁
+          expression: "/* age_hours ≤ SLA（默认 24h）+ 声明 loaded_at / snapshotted_at */ 1 = 1"
+      - dbt_utils.expression_is_true:  # G6 增量门禁
+          expression: "/* 模式 4 枚举 + 分区 4 枚举 + 增量/cdc 须 watermark + 幂等键 + 增量守恒 */ 1 = 1"
+      - dbt_utils.expression_is_true:  # G7 目录门禁
+          expression: "/* owner/updated_at 非空 + 字段类型 7 枚举 + 字段名唯一 + 血缘无环 */ 1 = 1"
+      - dbt_utils.expression_is_true:  # G8 发布门禁
+          expression: "/* bundle/SARIF/血缘 AST 落盘 + handoff 声明 + DRI=蛙数仓 */ 1 = 1"
+    columns:
+      - name: null_ratio
+        tests:
+          - dbt_utils.accepted_range:
+              max_value: 0.1
+      - name: dup_ratio
+        tests:
+          - dbt_utils.accepted_range:
+              max_value: 0.05

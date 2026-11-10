@@ -1,8 +1,0 @@
-{
-  "case_id": "content-strategy",
-  "display_name": "内容策略选题流水线",
-  "description": "给一人公司建立从选题卡到内容规划再到多平台发布的完整内容流水线：选题卡必填字段、渠道白名单、内容规划条目与状态枚举，最终产出可发布的成稿清单。",
-  "default_question": "帮我建立一套内容选题到发布的流水线。",
-  "semantic_layer": "semantic_layer.json",
-  "experience_dir": "experience"
-}

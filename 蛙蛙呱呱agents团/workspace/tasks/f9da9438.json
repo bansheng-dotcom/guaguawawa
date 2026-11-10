@@ -1,0 +1,40 @@
+{
+  "task_id": "f9da9438",
+  "title": "登记模型卡",
+  "owner": "r19",
+  "intent": "帮我看这份模型卡用途限制风险分层许可全不全",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r19-wazhimo-ml\\examples\\modelcard_card.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "modelcard.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "model_report.md",
+      "kind": "report",
+      "media_type": "text/markdown",
+      "note": ""
+    },
+    {
+      "name": "model_report.html",
+      "kind": "report",
+      "media_type": "text/html",
+      "note": ""
+    }
+  ],
+  "acceptance": [
+    "modelcard 门禁通过"
+  ],
+  "deps": [],
+  "status": "done",
+  "logs": []
+}

@@ -1,0 +1,21 @@
+{
+  "task_id": "7ec9ee35",
+  "title": "写新手引导 PRD",
+  "owner": "r07",
+  "intent": "需求 PRD 分析",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r07-wademing-pm\\_test_tmp\\prd.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "prd 八门禁通过"
+  ],
+  "deps": [],
+  "status": "running",
+  "logs": []
+}

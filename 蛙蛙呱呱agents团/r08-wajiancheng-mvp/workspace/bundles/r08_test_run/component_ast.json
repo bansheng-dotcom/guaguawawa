@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "schema": "https://wawa-guagua.internal/schemas/component-ast.json",
+  "extracted_at": 1794230455.0109236,
+  "component_count": 3,
+  "components": [
+    {
+      "name": "HeroSection",
+      "type": "container",
+      "children": [
+        "Headline",
+        "CTAButton"
+      ]
+    },
+    {
+      "name": "CTAButton",
+      "type": "interactive",
+      "props": {
+        "variant": "primary",
+        "size": "lg"
+      }
+    },
+    {
+      "name": "EmailForm",
+      "type": "form",
+      "endpoint": "https://formspree.io/f/xyz"
+    }
+  ]
+}

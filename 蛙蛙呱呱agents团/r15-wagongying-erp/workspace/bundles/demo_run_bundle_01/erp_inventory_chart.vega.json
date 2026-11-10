@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "物料 ITEM_ERP_001 库存四维预计量守恒图谱",
+  "description": "actual + ordered + planned - reserved = projected_available",
+  "data": {
+    "values": [
+      {
+        "category": "现存在库 (Actual)",
+        "quantity": 500.0,
+        "type": "asset"
+      },
+      {
+        "category": "采购在途 (Ordered)",
+        "quantity": 200.0,
+        "type": "inflow"
+      },
+      {
+        "category": "生产计划 (Planned)",
+        "quantity": 100.0,
+        "type": "inflow"
+      },
+      {
+        "category": "销售锁定 (Reserved)",
+        "quantity": -150.0,
+        "type": "outflow"
+      },
+      {
+        "category": "预计可用 (Projected)",
+        "quantity": 650.0,
+        "type": "net_available"
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "category",
+      "type": "nominal",
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "quantity",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "type",
+      "type": "nominal"
+    }
+  }
+}

@@ -2,8 +2,9 @@
 import os
 from datetime import datetime
 
-_AGENT = r'D:\一人公司\agents\r06-wadeqing-analyst'
-out_html_path = os.path.join(_AGENT, "workspace", "artifacts", "Professional_Business_Report.html")
+_AGENT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_REPO = os.path.dirname(_AGENT)
+out_html_path = os.path.join(_REPO, "workspace", "artifacts", "Professional_Business_Report.html")
 
 html_content = f"""
 <!DOCTYPE html>

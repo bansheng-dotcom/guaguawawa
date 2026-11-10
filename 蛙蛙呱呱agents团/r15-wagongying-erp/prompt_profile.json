@@ -1,0 +1,352 @@
+{
+  "role_id": "r15",
+  "domain": "ERP 与供应链运营",
+  "max_questions": 2,
+  "execution_inputs": {
+    "erp_data": {
+      "resolve": "task_port",
+      "question": "ERP 数据文件在哪？",
+      "default": "workspace/artifacts/erp.csv"
+    }
+  },
+  "lexicon": {
+    "dimension": {
+      "supplier": [
+        "供应商"
+      ],
+      "warehouse": [
+        "仓库",
+        "库房"
+      ],
+      "sku": [
+        "sku",
+        "物料",
+        "品号"
+      ]
+    },
+    "time_window": {
+      "today": [
+        "今天",
+        "当日"
+      ],
+      "last_7d": [
+        "近7天",
+        "上周",
+        "近一周"
+      ],
+      "last_30d": [
+        "近30天",
+        "本月",
+        "上个月",
+        "近一个月"
+      ]
+    },
+    "scope": {
+      "all": [
+        "全量",
+        "全部",
+        "批量"
+      ],
+      "single": [
+        "单笔",
+        "单张"
+      ]
+    },
+    "metric": {
+      "stock_value": [
+        "库存金额",
+        "库存现值"
+      ],
+      "fill_rate": [
+        "满足率",
+        "履约率"
+      ],
+      "turnover": [
+        "周转率",
+        "周转天数"
+      ]
+    }
+  },
+  "assumptions": {
+    "scope": "all",
+    "time_window": "last_30d"
+  },
+  "assumption_reason": {
+    "scope": "未指定处理范围，按全量口径",
+    "time_window": "未指定时间窗，按近30天口径，结论首行标注"
+  },
+  "questions": {
+    "action": {
+      "question": "你想处理哪类供应链事项？",
+      "options": [
+        {
+          "value": "quotation",
+          "label": "报价比价"
+        },
+        {
+          "value": "rfq",
+          "label": "询价"
+        },
+        {
+          "value": "purchase_order",
+          "label": "采购订单"
+        },
+        {
+          "value": "bin",
+          "label": "库存明细"
+        }
+      ]
+    },
+    "dimension": {
+      "question": "按哪个对象口径看？",
+      "options": [
+        {
+          "value": "supplier",
+          "label": "供应商"
+        },
+        {
+          "value": "warehouse",
+          "label": "仓库"
+        },
+        {
+          "value": "sku",
+          "label": "物料"
+        }
+      ]
+    },
+    "time_window": {
+      "question": "看哪个时间窗？",
+      "options": [
+        {
+          "value": "today",
+          "label": "今天"
+        },
+        {
+          "value": "last_7d",
+          "label": "近7天"
+        },
+        {
+          "value": "last_30d",
+          "label": "近30天"
+        }
+      ]
+    },
+    "scope": {
+      "question": "处理范围是？",
+      "options": [
+        {
+          "value": "all",
+          "label": "全量"
+        },
+        {
+          "value": "single",
+          "label": "单笔"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "procurement",
+      "action": "quotation",
+      "label": "报价比价",
+      "when": [
+        "报价",
+        "比价",
+        "quotation",
+        "询比价"
+      ],
+      "requires": [
+        "scope"
+      ],
+      "params": {
+        "scope": "$scope"
+      }
+    },
+    {
+      "skill": "procurement",
+      "action": "rfq",
+      "label": "询价",
+      "when": [
+        "询价",
+        "rfq",
+        "招标"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    },
+    {
+      "skill": "procurement",
+      "action": "purchase_order",
+      "label": "采购订单",
+      "when": [
+        "采购订单",
+        "下单采购",
+        "purchase order",
+        "po单"
+      ],
+      "requires": [
+        "scope"
+      ],
+      "params": {
+        "scope": "$scope"
+      }
+    },
+    {
+      "skill": "procurement",
+      "action": "receipt",
+      "label": "收货入库",
+      "when": [
+        "收货",
+        "到货",
+        "入库单",
+        "purchase receipt"
+      ],
+      "requires": [],
+      "params": {}
+    },
+    {
+      "skill": "inventory",
+      "action": "bin",
+      "label": "库存明细",
+      "when": [
+        "库存明细",
+        "库位",
+        "bin",
+        "库存台账"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    },
+    {
+      "skill": "inventory",
+      "action": "stock_entry",
+      "label": "出入库",
+      "when": [
+        "出入库",
+        "调拨",
+        "盘点",
+        "stock entry"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "finance",
+      "action": "invoice",
+      "label": "发票处理",
+      "when": [
+        "发票",
+        "开票",
+        "应付",
+        "应收",
+        "invoice"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "fulfillment",
+      "action": "sales_order",
+      "label": "销售订单",
+      "when": [
+        "销售订单",
+        "销售单",
+        "sales order"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "production",
+      "action": "bom",
+      "label": "物料清单",
+      "when": [
+        "物料清单",
+        "bom",
+        "配方"
+      ],
+      "requires": [
+        "dimension"
+      ],
+      "params": {
+        "dimension": "$dimension"
+      }
+    },
+    {
+      "skill": "finance",
+      "action": "payment",
+      "label": "付款处理",
+      "when": [
+        "付款",
+        "付汇",
+        "payment"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    }
+  ],
+  "semantic_fields": {
+    "procurement.supplier": [
+      "dimension"
+    ],
+    "inventory.item": [
+      "dimension"
+    ],
+    "inventory.warehouse": [
+      "dimension"
+    ],
+    "fulfillment.delivery": [
+      "time_window",
+      "scope"
+    ],
+    "production.material_request": [
+      "time_window"
+    ],
+    "masterdata.master_data": [
+      "dimension"
+    ],
+    "masterdata.permission": [
+      "scope"
+    ],
+    "report.report": [
+      "metric",
+      "time_window"
+    ]
+  },
+  "l2_prompt_blocks": [],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "业务口径",
+      "时间窗",
+      "对象维度",
+      "结论",
+      "单据号"
+    ]
+  }
+}

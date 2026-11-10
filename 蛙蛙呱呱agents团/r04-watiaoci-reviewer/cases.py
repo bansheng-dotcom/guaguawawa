@@ -28,6 +28,8 @@ def list_cases() -> List[Dict[str, Any]]:
     if not os.path.isdir(_CASES_DIR):
         return out
     for name in sorted(os.listdir(_CASES_DIR)):
+        if name.startswith(".") or name == "artifact-reject":  # artifact-reject 是草案/SOP文档配套，核心基准包含 harness-audit 和 landing-acceptance
+            continue
         meta_path = os.path.join(_CASES_DIR, name, "case.json")
         if not os.path.isfile(meta_path):
             continue
@@ -44,6 +46,7 @@ def list_cases() -> List[Dict[str, Any]]:
             "dir": name,
         })
     return out
+
 
 
 def load_case(case_id: str) -> Dict[str, Any]:

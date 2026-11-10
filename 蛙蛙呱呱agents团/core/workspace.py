@@ -142,8 +142,11 @@ class Workspace:
     def log_run(self, agent: str, entry: Dict[str, Any]) -> None:
         path = os.path.join(self.root, "runlog.jsonl")
         entry["ts"] = time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime())
-        with self._lock(self, "runlog"):
-            _append_utf8(path, json.dumps(entry, ensure_ascii=False) + "\n")
+        try:
+            with self._lock(self, "runlog"):
+                _append_utf8(path, json.dumps(entry, ensure_ascii=False) + "\n")
+        except (PermissionError, OSError):
+            pass
 
     def runlog(self, n: int = 10) -> List[Dict[str, Any]]:
         path = os.path.join(self.root, "runlog.jsonl")
@@ -177,6 +180,8 @@ class Workspace:
                     if time.time() > deadline:
                         raise TimeoutError(f"等待锁超时: {self.path}")
                     time.sleep(0.05)
+                except (PermissionError, OSError):
+                    return self
 
         def __exit__(self, *exc):
             try:

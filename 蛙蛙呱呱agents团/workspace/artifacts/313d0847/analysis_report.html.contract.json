@@ -1,0 +1,77 @@
+{
+  "doc_type": "角色报告 · 蛙得清",
+  "title_lines": [
+    "蛙得清 · explore/trend",
+    "用历史订单数据验证策略假设（趋势与渠道拆解） D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\workspace\\artifacts\\orders.csv date amount status channel"
+  ],
+  "standfirst": "门禁通过：0/0 项检查全部通过，可交付。",
+  "meta": [
+    "角色 r06 蛙得清（数据分析师）",
+    "生成日期 2026-11-10",
+    "渲染器 core/report_renderer.py"
+  ],
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "PASS",
+      "note": "0/0 项",
+      "status": "healthy"
+    },
+    {
+      "label": "total",
+      "value": "0",
+      "note": "输出字段",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "门禁通过：0/0 项检查全部通过，可交付。"
+    },
+    {
+      "label": "说明：",
+      "text": "本报告由一次技能真实运行结果确定性生成；每个数字可回溯到 result JSON。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "series",
+      "question": "series 的判定与证据是什么？",
+      "reading": [
+        {
+          "text": "[]"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "total",
+      "question": "total 的判定与证据是什么？",
+      "reading": [
+        {
+          "strong": "total：",
+          "text": "0"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "技能 explore/trend 的确定性输出（无 LLM）。"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅基于本次输入的产出；未纳入的输入不参与判断。"
+      }
+    ]
+  },
+  "footer": [
+    "蛙得清 · 数据分析师",
+    "core/report_renderer.py 确定性渲染"
+  ]
+}

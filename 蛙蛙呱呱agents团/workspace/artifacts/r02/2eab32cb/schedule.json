@@ -1,0 +1,8 @@
+{
+  "ok": false,
+  "skill": "schedule",
+  "action": "wbs",
+  "error": "TypeError: expected str, bytes or os.PathLike object, not NoneType",
+  "conclusion": "技能 schedule 未执行（缺参数），已记录路由与闭环。",
+  "task_id": "2eab32cb"
+}

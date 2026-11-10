@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "converged": true,
+  "rounds": 1,
+  "trail": [
+    {
+      "round": 1,
+      "notes": [
+        "severity P1 -> critical",
+        "status 进行中 -> investigating",
+        "补 owner=蛙值守",
+        "补 capability_status=real"
+      ],
+      "blocked": false,
+      "violations": []
+    }
+  ],
+  "final": {
+    "severity": "critical",
+    "status": "investigating",
+    "summary": "支付服务告警抖动，需生成恢复计划",
+    "checks": [
+      {
+        "ok": true,
+        "dim": "alert",
+        "msg": "告警已触发"
+      }
+    ],
+    "owner": "蛙值守",
+    "capability_status": "real"
+  },
+  "audit": {
+    "blocked": false,
+    "violations": [],
+    "violation_count": 0,
+    "verdict": "CLEAN",
+    "banner": "[CLEAN]",
+    "handoff_required": [],
+    "redlines": [
+      {
+        "code": "RL-01",
+        "name": "未授权生产恢复/切换",
+        "desc": "无授权或演练凭据时直接恢复生产、切换流量"
+      },
+      {
+        "code": "RL-02",
+        "name": "凭据泄露",
+        "desc": "工件或说明中出现密码/密钥/token 明文"
+      },
+      {
+        "code": "RL-03",
+        "name": "擅自删除/清空快照",
+        "desc": "未走授权交接即删除快照或清空备份仓"
+      },
+      {
+        "code": "RL-04",
+        "name": "越权给出财务/统计/法律结论",
+        "desc": "以可靠性角色身份输出财务、显著性、法律意见"
+      },
+      {
+        "code": "RL-05",
+        "name": "假演练/未演练即宣称可恢复",
+        "desc": "声称演练通过但无 restored_count/校验证据"
+      }
+    ]
+  },
+  "engine": "R20ReflexiveHealer",
+  "layer": "L03",
+  "capabilities": [
+    "枚举/字段别名归一 (P0→critical / 进行中→investigating / 缺省补齐)",
+    "五条 R20 红线刚性审判 ([REDLINE BLOCKED] RL-01..RL-05)",
+    "Reflexion 有界反思闭环 (审计→自愈→复审, 最多 3 轮) 与幂等复核"
+  ],
+  "generated_at": "2026-11-10T19:06:25"
+}

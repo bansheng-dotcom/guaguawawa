@@ -4,7 +4,8 @@ import datetime
 from pathlib import Path
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
-sys.path.append('D:/一人公司/agents')
+_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, _REPO)
 from core.enhanced_report_renderer import render_multimodal_html
 
 def generate_individual_reports():
@@ -13,7 +14,7 @@ def generate_individual_reports():
     print("🚀 为核心 Agent 生成带有专业深度与专属交互组件的独立报告...")
     print("==================================================")
     
-    out_dir = Path("D:/一人公司/停车场各部门专项报告")
+    out_dir = Path(_REPO) / "workspace" / "artifacts" / "停车场各部门专项报告"
     out_dir.mkdir(parents=True, exist_ok=True)
     
     import markdown

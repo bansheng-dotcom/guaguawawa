@@ -1,0 +1,52 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "R10-DesignSlopGuard",
+          "semanticVersion": "9.0.0",
+          "rules": [
+            {
+              "id": "R10-GATE-01",
+              "shortDescription": {
+                "text": "饱和度与高光塑料感硬门禁"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "R10-GATE-02",
+              "shortDescription": {
+                "text": "安全留白与文字防重叠门禁"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "R10-GATE-01",
+          "level": "note",
+          "message": {
+            "text": "画面微反差与色彩饱和度检验 100% 达标，无塑料高光伪影。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "workspace/bundles/r10_physical_run/design_bundle.json"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -9,6 +9,8 @@ venv/
 
 # ---- 运行期临时文件与产物 ----
 workspace/.events.lock
+# 单个文件约 966 MB，超过 GitHub 100 MB 限制，且为可再生成状态
+蛙蛙呱呱agents团/r14-wajiaoyi-commerce/workspace/session_state.json
 *.tmp
 agents/workspace/reports/
 agents/workspace/artifacts/

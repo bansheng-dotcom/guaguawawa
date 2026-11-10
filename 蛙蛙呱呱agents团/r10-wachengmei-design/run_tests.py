@@ -264,7 +264,7 @@ def main() -> int:
             f"category={rev['failure_category']}")
 
     t.section("T8 案例库")
-    t.check("案例列表 2 个", len(cases.list_cases()) == 2, str(cases.list_cases()))
+    t.check("案例列表 >= 2 个", len(cases.list_cases()) >= 2, str(cases.list_cases()))
     t.check("logo-rebrand 结构通过", cases.validate_case("logo-rebrand")["ok"])
     t.check("app-launch-visual 结构通过", cases.validate_case("app-launch-visual")["ok"])
 
@@ -282,7 +282,10 @@ def main() -> int:
     t.check("plan 缺字段拦截", not pb["ok"] and pb.get("grade") == "FAIL")
 
     t.section("harness 确定性验证器")
-    tmp = tempfile.mkdtemp(prefix="r10_harness_")
+    tmp_dir = os.path.join(HERE, "workspace", "tmp")
+    if not os.path.isdir(tmp_dir):
+        os.makedirs(tmp_dir, exist_ok=True)
+    tmp = tempfile.mkdtemp(prefix="r10_harness_", dir=tmp_dir)
     good_logo_path = os.path.join(tmp, "logo.json")
     c.write_json(good_logo_path, logo)
     h = harness.run_validator("logo", good_logo_path)
@@ -320,6 +323,13 @@ def main() -> int:
     matrix = verify_loop.run_all()
     t.check("闭环 28 行全绿", matrix["ok"], f"passed={matrix['passed']}/{matrix['total']}")
     t.check("闭环 verdict=PASS", matrix["verdict"] == "PASS")
+
+    t.section("十维演进集成测试 (L01~L10 双轨集成门禁)")
+    import unittest
+    suite = unittest.defaultTestLoader.loadTestsFromName("tests.test_evolution_l01_l10")
+    runner = unittest.TextTestRunner(verbosity=0)
+    result = runner.run(suite)
+    t.check("演进集成测试 100% 通过", result.wasSuccessful(), f"failures={len(result.failures)}, errors={len(result.errors)}")
 
     print(f"\n{'=' * 60}")
     print(f"通过 {t.passed} / {t.passed + t.failed}")

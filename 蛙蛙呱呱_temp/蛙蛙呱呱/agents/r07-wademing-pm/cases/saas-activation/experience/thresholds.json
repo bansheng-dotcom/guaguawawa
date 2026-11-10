@@ -1,7 +1,0 @@
-{
-  "metrics": {
-    "input_metrics_min": 3,
-    "input_metrics_max": 5,
-    "nsm_criteria": 7
-  }
-}

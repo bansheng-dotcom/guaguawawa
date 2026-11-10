@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "采购订单必填齐备（缺 无）",
+      "dim": "po.required",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "采购订单状态='To Receive' 在白名单",
+      "dim": "po.status",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "采购订单行项目 2 条",
+      "dim": "po.items",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "行数 2 ≤ 200",
+      "dim": "po.line_count",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "行项目必填齐备（缺 无）",
+      "dim": "po.item_required",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "行项目单价为正（异常 无）",
+      "dim": "po.item_rate",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "订单恒等式：声明 700.0 = Σ(qty×rate) 700.0",
+      "dim": "po.grand_total",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "交货日期 2026-12-05 ≥ 下单日期 2026-11-05",
+      "dim": "po.date_order",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "工件通过全部门禁，可进入授权与交接",
+  "po_count": 1,
+  "total": 700.0,
+  "line_item_count": 2,
+  "narrative": "采购订单 PO-2026-001（华东原料供应商）：To Receive、2 行、合计 700.0",
+  "task_id": "119c1e11",
+  "skill": "procurement",
+  "action": "purchase_order"
+}

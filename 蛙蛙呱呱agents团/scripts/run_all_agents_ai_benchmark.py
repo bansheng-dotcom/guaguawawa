@@ -15,7 +15,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 # 配置
-AGENTS_ROOT = r"D:\一人公司\agents"
+AGENTS_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORKSPACE_ROOT = os.path.join(AGENTS_ROOT, "workspace")
 REPORT_DIR = os.path.join(WORKSPACE_ROOT, "ai_benchmark_reports")
 PYTHON_EXE = sys.executable

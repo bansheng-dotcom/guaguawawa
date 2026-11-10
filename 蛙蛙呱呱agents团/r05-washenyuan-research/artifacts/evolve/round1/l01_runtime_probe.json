@@ -1,0 +1,144 @@
+{
+  "operators": [
+    "calc_hhi",
+    "verify_tam_variance",
+    "evidence_chain",
+    "unit_economics",
+    "sensitivity_swing",
+    "tam_triangulate"
+  ],
+  "probe": {
+    "available": true,
+    "details": {
+      "operator_count": 6,
+      "operators": [
+        "calc_hhi",
+        "verify_tam_variance",
+        "evidence_chain",
+        "unit_economics",
+        "sensitivity_swing",
+        "tam_triangulate"
+      ],
+      "math_core": "python_native",
+      "precision": "IEEE754_double",
+      "evidence_tier_gate": "active",
+      "tier_min_confidence": {
+        "tier_1": 0.9,
+        "tier_2": 0.75,
+        "tier_3": 0.6,
+        "tier_0": 0.0
+      },
+      "hhi_thresholds": {
+        "competitive_max": 1500.0,
+        "moderate_max": 2500.0
+      },
+      "tam_variance_tolerance": 0.3
+    }
+  },
+  "evidence_chain": {
+    "tier_distribution": {
+      "tier_0": 1,
+      "tier_1": 1,
+      "tier_2": 0,
+      "tier_3": 1
+    },
+    "tier0_blocked": [
+      "c3"
+    ],
+    "orphan_claims": [
+      "c3"
+    ],
+    "low_confidence": [
+      "c2"
+    ],
+    "invalid_kind": [
+      "c3"
+    ],
+    "coverage_rate": 0.3333,
+    "qualified_count": 1,
+    "claim_count": 3,
+    "gate_ok": false,
+    "violations": [
+      {
+        "claim_id": "c2",
+        "code": "LOW_CONFIDENCE",
+        "severity": "warning",
+        "message": "断言 [c2] 置信度 0.55 低于 tier_3 门槛 0.6"
+      },
+      {
+        "claim_id": "c3",
+        "code": "TIER0_BLOCKED",
+        "severity": "critical",
+        "message": "Tier0 断言 [c3] 必须拦截，禁止进入研究结论"
+      },
+      {
+        "claim_id": "c3",
+        "code": "ORPHAN_CLAIM",
+        "severity": "warning",
+        "message": "断言 [c3] 无 sources/evidence_refs，属孤立断言"
+      },
+      {
+        "claim_id": "c3",
+        "code": "INVALID_KIND",
+        "severity": "warning",
+        "message": "断言 [c3] 类型 rumor 不在 ['fact', 'estimate', 'opinion'] 内"
+      }
+    ]
+  },
+  "unit_economics": {
+    "arpu": 99.99,
+    "gross_margin": 0.8,
+    "churn_rate": 0.02,
+    "cac": 300.0,
+    "gross_profit_per_user": 79.99,
+    "ltv": 3999.5,
+    "ltv_cac_ratio": 13.33,
+    "payback_months": 3.75,
+    "healthy": true,
+    "thresholds": {
+      "ltv_cac_min": 3.0,
+      "payback_months_max": 12.0
+    }
+  },
+  "sensitivity": {
+    "base_value": 1000.0,
+    "drivers": [
+      {
+        "name": "价格",
+        "low_pct": -0.1,
+        "high_pct": 0.1,
+        "weight": 1.2,
+        "low_impact": -120.0,
+        "high_impact": 120.0,
+        "swing_abs": 240.0,
+        "swing_pct": 0.24,
+        "rank": 1
+      },
+      {
+        "name": "流失率",
+        "low_pct": -0.05,
+        "high_pct": 0.05,
+        "weight": 0.8,
+        "low_impact": -40.0,
+        "high_impact": 40.0,
+        "swing_abs": 80.0,
+        "swing_pct": 0.08,
+        "rank": 2
+      }
+    ],
+    "top_driver": "价格",
+    "swing_total": 320.0,
+    "deadly_point": "致命摆点：价格 是最大敏感驱动，基准 1000 下摆动 240（24.00%），须优先做情景压测与对冲",
+    "driver_count": 2
+  },
+  "tam_triangulate": {
+    "tam_top": 100.0,
+    "tam_bottom": 120.0,
+    "variance": 0.2,
+    "converged": true,
+    "tolerance": 0.3,
+    "tam": 110.0,
+    "component_count": 2,
+    "gap": 20.0
+  }
+}

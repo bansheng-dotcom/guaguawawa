@@ -1,0 +1,48 @@
+{
+  "task_id": "7c52141f",
+  "title": "蛙得清｜分析订单数据趋势",
+  "owner": "r06",
+  "intent": "分析订单数据趋势",
+  "inputs": [
+    {
+      "name": "dataset",
+      "kind": "data",
+      "media_type": "text/csv",
+      "note": "input=D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\workspace\\artifacts\\orders.csv,date=date,value=amount,stage=status,group=channel"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "explore.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    },
+    {
+      "name": "analysis_report.md",
+      "kind": "report",
+      "media_type": "text/markdown",
+      "note": ""
+    },
+    {
+      "name": "analysis_report.html",
+      "kind": "report",
+      "media_type": "text/html",
+      "note": ""
+    },
+    {
+      "name": "analysis_report.pdf",
+      "kind": "report",
+      "media_type": "application/pdf",
+      "note": "{\"ok\": true, \"status\": \"created\", \"output\": \"D:\\\\蛙蛙呱呱\\\\蛙蛙呱呱agents团\\\\workspace\\\\artifacts\\\\7c52141f\\\\analysis_report.pdf\", \"errors\": []}"
+    }
+  ],
+  "acceptance": [
+    "产物目录存在 analysis_report.md",
+    "趋势 JSON 的 total 数值可复算",
+    "数据清洗后无整行重复"
+  ],
+  "deps": [],
+  "status": "done",
+  "logs": []
+}

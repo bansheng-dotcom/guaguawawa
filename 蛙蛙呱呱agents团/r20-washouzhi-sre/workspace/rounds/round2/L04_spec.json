@@ -1,0 +1,209 @@
+{
+  "ok": true,
+  "engine": "R20SpecLedger",
+  "layer": "L04",
+  "spec": {
+    "ok": true,
+    "spec": {
+      "spec_version": "1.0.0",
+      "role": "r20",
+      "owner": "蛙值守",
+      "north_star": {
+        "availability_slo": 0.999,
+        "error_budget_ratio": 0.001,
+        "mttr_max_minutes": 30,
+        "mtta_max_minutes": 5,
+        "rto_max_hours": 4,
+        "rpo_max_hours": 1,
+        "backup_restore_drill_days": 30,
+        "snapshot_min_count": 1,
+        "escalation_max_level": 3
+      },
+      "kpis": [
+        {
+          "id": "KPI-AVAIL",
+          "name": "可用率",
+          "formula": "success_probes / total_probes",
+          "target": ">= 0.999",
+          "unit": "ratio"
+        },
+        {
+          "id": "KPI-BURN",
+          "name": "错误预算燃烧率",
+          "formula": "actual_error_rate / (1 - slo)",
+          "target": "<= 1.0",
+          "unit": "ratio"
+        },
+        {
+          "id": "KPI-MTTR",
+          "name": "平均恢复时长",
+          "formula": "sum(resolved_at - started_at) / incidents",
+          "target": "<= 30",
+          "unit": "min"
+        },
+        {
+          "id": "KPI-RTO",
+          "name": "恢复时间目标",
+          "formula": "declared rto_hours",
+          "target": "<= 4",
+          "unit": "hour"
+        },
+        {
+          "id": "KPI-RPO",
+          "name": "恢复点目标",
+          "formula": "declared rpo_hours",
+          "target": "<= 1",
+          "unit": "hour"
+        },
+        {
+          "id": "KPI-DRILL",
+          "name": "恢复演练新鲜度",
+          "formula": "today - last_drill_at",
+          "target": "<= 30",
+          "unit": "day"
+        }
+      ],
+      "release_gates": [
+        {
+          "id": "G1",
+          "name": "结构完整性",
+          "dim": "structure",
+          "threshold": "工件为对象且 checks 非空"
+        },
+        {
+          "id": "G2",
+          "name": "SLO 口径一致",
+          "dim": "slo",
+          "threshold": "reliability metric ∈ [0,1] 且 >= 0.999"
+        },
+        {
+          "id": "G3",
+          "name": "证据链完整",
+          "dim": "evidence",
+          "threshold": "至少 1 条通过判据且带 dim/msg"
+        },
+        {
+          "id": "G4",
+          "name": "授权与交接",
+          "dim": "authorization",
+          "threshold": "破坏性动作必须带 authorization/handoff"
+        },
+        {
+          "id": "G5",
+          "name": "回滚可执行",
+          "dim": "rollback",
+          "threshold": "恢复类动作必须有 rollback_plan 且步骤 >= 1"
+        },
+        {
+          "id": "G6",
+          "name": "可观测性",
+          "dim": "observability",
+          "threshold": "须有 monitor/alert/telemetry 证据"
+        },
+        {
+          "id": "G7",
+          "name": "值班与升级",
+          "dim": "oncall",
+          "threshold": "须有 owner 与升级链（<= 3 级）"
+        },
+        {
+          "id": "G8",
+          "name": "卫生与凭据",
+          "dim": "hygiene",
+          "threshold": "无凭据明文、无 TODO/待定 占位"
+        }
+      ]
+    },
+    "spec_version": "1.0.0",
+    "sha256": "ee375aede90fe6a19e36346726cd8f33e0a03ef293f8af065708104c1c32f686",
+    "bytes": 3486,
+    "gates_count": 8,
+    "kpis_count": 6,
+    "north_star": {
+      "availability_slo": 0.999,
+      "error_budget_ratio": 0.001,
+      "mttr_max_minutes": 30,
+      "mtta_max_minutes": 5,
+      "rto_max_hours": 4,
+      "rpo_max_hours": 1,
+      "backup_restore_drill_days": 30,
+      "snapshot_min_count": 1,
+      "escalation_max_level": 3
+    },
+    "missing_north_star": []
+  },
+  "export": {
+    "gates_path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r20-washouzhi-sre\\workspace\\rounds\\round2/gates\\sre_gates.json",
+    "matrix_path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r20-washouzhi-sre\\workspace\\rounds\\round2/gates\\sre_gate_matrix.md",
+    "gates_count": 8,
+    "spec_sha256": "ee375aede90fe6a19e36346726cd8f33e0a03ef293f8af065708104c1c32f686"
+  },
+  "compliance": {
+    "ok": true,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "artifact_type": "release",
+    "spec_version": "1.0.0",
+    "spec_sha256": "ee375aede90fe6a1",
+    "gates": [
+      {
+        "id": "G1",
+        "name": "结构完整性",
+        "ok": true,
+        "msg": "字段数=10 checks=2",
+        "sev": "OK"
+      },
+      {
+        "id": "G2",
+        "name": "SLO 口径一致",
+        "ok": true,
+        "msg": "reliability=[0.9995, 0.999] slo=0.999",
+        "sev": "OK"
+      },
+      {
+        "id": "G3",
+        "name": "证据链完整",
+        "ok": true,
+        "msg": "通过判据=2/2",
+        "sev": "OK"
+      },
+      {
+        "id": "G4",
+        "name": "授权与交接",
+        "ok": true,
+        "msg": "破坏性动作=否 授权=True",
+        "sev": "OK"
+      },
+      {
+        "id": "G5",
+        "name": "回滚可执行",
+        "ok": true,
+        "msg": "需要回滚=否 步骤=0",
+        "sev": "OK"
+      },
+      {
+        "id": "G6",
+        "name": "可观测性",
+        "ok": true,
+        "msg": "monitor/alert/telemetry 证据",
+        "sev": "OK"
+      },
+      {
+        "id": "G7",
+        "name": "值班与升级",
+        "ok": true,
+        "msg": "值班证据=True 升级级数=2",
+        "sev": "OK"
+      },
+      {
+        "id": "G8",
+        "name": "卫生与凭据",
+        "ok": true,
+        "msg": "无凭据明文/无占位",
+        "sev": "OK"
+      }
+    ],
+    "failed_gates": []
+  }
+}

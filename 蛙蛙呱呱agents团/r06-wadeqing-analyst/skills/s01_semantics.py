@@ -293,6 +293,8 @@ def _link(model: Any, rows: List[Dict[str, str]]) -> Dict[str, Any]:
             "columns_in_data": sorted(cols),
             "links": links,
             "hallucinated_count": hallucinated,
+            "linked_count": len(links),
+            "total_columns": len(cols),
             "note": "expr 引用的列必须在数据中存在（否则为语义幻觉）；measure 数值聚合须能算"}
 
 

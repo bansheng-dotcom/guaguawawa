@@ -1,0 +1,329 @@
+{
+  "role_id": "r10",
+  "domain": "视觉设计",
+  "max_questions": 3,
+  "execution_inputs": {
+    "input": {
+      "resolve": "task_port",
+      "question": "设计简报/品牌资料文件在哪？"
+    }
+  },
+  "lexicon": {
+    "topic": {
+      "*": [
+        "*"
+      ]
+    },
+    "style": {
+      "minimal": [
+        "极简",
+        "简约"
+      ],
+      "retro": [
+        "复古",
+        "怀旧"
+      ],
+      "tech": [
+        "科技感",
+        "赛博"
+      ],
+      "handdrawn": [
+        "手绘",
+        "插画风"
+      ]
+    },
+    "platform": {
+      "mobile": [
+        "移动端",
+        "手机",
+        "app"
+      ],
+      "web": [
+        "网页",
+        "web",
+        "桌面端"
+      ]
+    }
+  },
+  "assumptions": {},
+  "assumption_reason": {},
+  "questions": {
+    "action": {
+      "question": "你想产出哪类视觉物料？",
+      "options": [
+        {
+          "value": "prompt",
+          "label": "生图提示词"
+        },
+        {
+          "value": "generate",
+          "label": "主视觉生成"
+        },
+        {
+          "value": "logo",
+          "label": "Logo"
+        },
+        {
+          "value": "screen",
+          "label": "界面设计"
+        },
+        {
+          "value": "vi",
+          "label": "品牌视觉"
+        },
+        {
+          "value": "token",
+          "label": "设计令牌"
+        },
+        {
+          "value": "motion",
+          "label": "动效"
+        },
+        {
+          "value": "poster",
+          "label": "海报物料"
+        }
+      ]
+    },
+    "topic": {
+      "question": "具体设计对象/主题是什么？",
+      "options": []
+    },
+    "style": {
+      "question": "想要什么风格？",
+      "options": [
+        {
+          "value": "minimal",
+          "label": "极简"
+        },
+        {
+          "value": "retro",
+          "label": "复古"
+        },
+        {
+          "value": "tech",
+          "label": "科技感"
+        },
+        {
+          "value": "handdrawn",
+          "label": "手绘/插画"
+        }
+      ]
+    },
+    "platform": {
+      "question": "面向哪个端？",
+      "options": [
+        {
+          "value": "mobile",
+          "label": "移动端"
+        },
+        {
+          "value": "web",
+          "label": "网页/桌面"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "imagegen",
+      "action": "prompt",
+      "label": "生图提示词",
+      "when": [
+        "提示词",
+        "生图提示",
+        "prompt"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "imagegen",
+      "action": "generate",
+      "label": "主视觉生成",
+      "when": [
+        "生图",
+        "主视觉",
+        "插画"
+      ],
+      "requires": [
+        "topic",
+        "style"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "logo",
+      "action": "logo",
+      "label": "Logo 设计",
+      "when": [
+        "logo",
+        "标志",
+        "品牌标"
+      ],
+      "requires": [
+        "topic",
+        "style"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "uiux",
+      "action": "screen",
+      "label": "界面设计",
+      "when": [
+        "界面",
+        "屏幕",
+        "ui稿"
+      ],
+      "requires": [
+        "topic",
+        "platform"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "brand",
+      "action": "vi",
+      "label": "品牌视觉识别",
+      "when": [
+        "视觉身份",
+        "品牌vi",
+        "色彩体系"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "brand",
+      "action": "token",
+      "label": "设计令牌",
+      "when": [
+        "设计令牌",
+        "design token",
+        "token"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "motion",
+      "action": "motion",
+      "label": "动效设计",
+      "when": [
+        "动效",
+        "lottie",
+        "微交互"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "render",
+      "action": "poster",
+      "label": "海报与物料",
+      "when": [
+        "海报",
+        "banner",
+        "宣传图"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "uiux",
+      "action": "ux",
+      "label": "交互流程与用户旅程",
+      "when": [
+        "交互流程",
+        "用户旅程",
+        "流程图"
+      ],
+      "requires": [
+        "topic",
+        "platform"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "logo",
+      "action": "favicon",
+      "label": "网站图标与 favicon",
+      "when": [
+        "favicon",
+        "网站图标",
+        "应用图标"
+      ],
+      "requires": [
+        "topic",
+        "style"
+      ],
+      "params": {}
+    }
+  ],
+  "semantic_fields": {
+    "imagegen.style": [
+      "style",
+      "topic"
+    ],
+    "imagegen.probe": [],
+    "imagegen.edit": [
+      "style",
+      "topic"
+    ],
+    "motion.prototype": [
+      "topic",
+      "platform"
+    ],
+    "imaging.edit": [
+      "input"
+    ],
+    "imaging.probe": [],
+    "media.media": [
+      "input",
+      "platform"
+    ],
+    "media.probe": [],
+    "transcribe.transcribe": [
+      "input"
+    ],
+    "transcribe.probe": [],
+    "render.theme": [
+      "platform",
+      "style"
+    ]
+  },
+  "l2_prompt_blocks": [
+    {
+      "name": "视觉约束",
+      "template": "设计对象：{topic}；风格：{style}；端：{platform}。先定调性与色板，再落到尺寸与栅格，禁止未定调性就出图。"
+    },
+    {
+      "name": "可交付自检",
+      "template": "交付必须含：尺寸/比例、色值（HEX）、字体与字重、导出格式；缺任一项视为半成品。"
+    },
+    {
+      "name": "禁用词与反例",
+      "template": "禁止「赋能、闭环、抓手、高级感拉满」等空话；禁止只给形容词不给参数，禁止无版权来源的素材。"
+    }
+  ],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "设计目标",
+      "调性与色板",
+      "尺寸规格",
+      "交付清单"
+    ]
+  }
+}

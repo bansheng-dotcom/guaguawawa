@@ -1,0 +1,44 @@
+{
+  "schema_version": "2.0.0",
+  "run_id": "test_run_01",
+  "exported_at": "2026-11-10T21:58:03",
+  "lineage": {
+    "producer": "R06-Wadeqing-Analyst",
+    "engine": "analysis_engine_manager",
+    "spec_version": "1.0.0",
+    "spec_sha256": "",
+    "source_query": ""
+  },
+  "artifacts": [
+    {
+      "name": "vega_spec_test_run_01.json",
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r06-wadeqing-analyst\\workspace\\vega_spec_test_run_01.json",
+      "media_type": "application/vnd.vega-lite+json",
+      "bytes": 660,
+      "sha256": "5f852c266ebd83cd7ec02c4df539bab814f89f951ab2d5bcce012a2eb6a41d01"
+    },
+    {
+      "name": "sarif_test_run_01.json",
+      "path": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r06-wadeqing-analyst\\workspace\\sarif_test_run_01.json",
+      "media_type": "application/sarif+json",
+      "bytes": 1830,
+      "sha256": "8ad83d5a0d38a3fa984e18536286463f712c1afafef5c1a8df716df71a23b2cd"
+    }
+  ],
+  "report_data": {
+    "title": "渠道增长分析",
+    "chart_data": [
+      {
+        "x": "W1",
+        "y": 10
+      },
+      {
+        "x": "W2",
+        "y": 25
+      }
+    ],
+    "issues": [
+      "Warning: Conversion dropped in weekend"
+    ]
+  }
+}

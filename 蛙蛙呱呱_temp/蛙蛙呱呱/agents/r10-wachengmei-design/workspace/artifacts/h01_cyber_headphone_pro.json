@@ -1,7 +1,0 @@
-{
-  "media": "image",
-  "style": "3d",
-  "prompt": "A transparent crystal wireless earbud floating in mid-air, embedded cyan neon glowing PCB circuits visible through the clear shell, brushed titanium charging case orbiting below, volumetric god rays piercing through the scene creating visible light beams, caustic light patterns projected on the surface beneath, studio product photography lighting with three-point setup (key light, fill light, rim light), shot on Hasselblad H6D with 85mm macro lens, f/2.8 aperture, Unreal Engine 5 ray tracing rendering, ultra-detailed subsurface scattering on translucent materials, subtle depth of field bokeh in background, dark charcoal seamless studio backdrop, 8K resolution, photorealistic, commercial product shot aesthetic",
-  "negative_prompt": "blurry, low quality, deformed, plastic toy, cheap, people, hands, water stains, scratches, text, watermark, jpeg artifacts, low detail, oversaturated",
-  "style_locks": ["transparent crystal material", "cyan neon PCB", "volumetric god rays", "caustic light", "three-point studio lighting", "Unreal Engine 5 rendering", "Hasselblad product shot", "subsurface scattering"]
-}

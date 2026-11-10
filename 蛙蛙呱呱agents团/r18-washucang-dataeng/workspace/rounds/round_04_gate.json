@@ -1,0 +1,36 @@
+{
+  "round": 4,
+  "layer": "L04",
+  "stage": 2,
+  "name": "领域账本层（DATAENG_SPEC.md 单一信任源 + 8 维发布门禁）",
+  "audit": "8 维门禁阈值、北极星指标（PSR/FSR/DQR/LCR）散落各 skill 与 thresholds.json，口径随任务漂移，无统一 SSOT。",
+  "benchmark": "dbt-labs/dbt(14139★/Apache-2.0) · OAI/OpenAPI-Specification(31311★/Apache-2.0) · dbt-labs/metricflow(1868★/Apache-2.0)",
+  "engine_module": "engines/spec_ledger.py",
+  "verify_cmd": [
+    "D:\\anaconda3\\python.exe",
+    "-m",
+    "engines.spec_ledger",
+    "--out",
+    "workspace/rounds/L04_spec.json",
+    "--export-dir",
+    "workspace/spec_exports"
+  ],
+  "probe_stdout": "__AGENT_RESULT__ {\"ok\": true, \"version\": \"v1.0\", \"gates_count\": 8, \"metrics_count\": 8}",
+  "artifact": {
+    "path": "workspace/rounds/L04_spec.json",
+    "bytes": 497,
+    "sha256": "919f5d3dc0d07c723c053ed1221cea27bc853ce95612657427bfebb2586d09e2"
+  },
+  "regression": {
+    "baseline": {
+      "passed": 133,
+      "total": 133
+    },
+    "evolution": {
+      "tests": 75,
+      "ok": true
+    }
+  },
+  "status": "PASS",
+  "timestamp": "2026-11-10T18:30:50"
+}

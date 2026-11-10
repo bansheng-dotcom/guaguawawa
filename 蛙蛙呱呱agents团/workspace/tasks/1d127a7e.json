@@ -1,0 +1,21 @@
+{
+  "task_id": "1d127a7e",
+  "title": "核查工作流结构",
+  "owner": "r17",
+  "intent": "帮我核查这个自动化工作流的结构是否合规、能不能集成",
+  "inputs": [
+    {
+      "name": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r17-wazhiwang-automation\\examples\\workflow.json",
+      "kind": "data",
+      "media_type": "application/json",
+      "note": ""
+    }
+  ],
+  "outputs": [],
+  "acceptance": [
+    "workflow 门禁通过"
+  ],
+  "deps": [],
+  "status": "pending",
+  "logs": []
+}

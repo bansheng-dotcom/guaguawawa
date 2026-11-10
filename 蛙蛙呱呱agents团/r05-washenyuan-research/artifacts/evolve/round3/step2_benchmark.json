@@ -1,0 +1,72 @@
+{
+  "round": 3,
+  "timestamp": "2026-11-10T19:37:12",
+  "benchmarks": [
+    {
+      "project": "microsoft/sarif-tools",
+      "stars": 1200,
+      "url": "https://github.com/microsoft/sarif-tools",
+      "absorbed": "OASIS SARIF v2.1.0 标准审计结果（runs/tool/results/locations）"
+    },
+    {
+      "project": "OASIS SARIF 2.1.0",
+      "stars": 0,
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
+      "absorbed": "跨系统静态分析结果交换标准（非 GitHub 项目，行业标准）"
+    },
+    {
+      "project": "evanphx/json-patch",
+      "stars": 2500,
+      "url": "https://github.com/evanphx/json-patch",
+      "absorbed": "RFC 6902 全算子实现（add/remove/replace/move/copy/test）"
+    },
+    {
+      "project": "google/diff-match-patch",
+      "stars": 7000,
+      "url": "https://github.com/google/diff-match-patch",
+      "absorbed": "差量生成与最小补丁思想"
+    },
+    {
+      "project": "cpacker/MemGPT",
+      "stars": 14000,
+      "url": "https://github.com/cpacker/MemGPT",
+      "absorbed": "持久化记忆池 + 槽位 + 检索式代词消歧"
+    },
+    {
+      "project": "langchain-ai/langgraph",
+      "stars": 11000,
+      "url": "https://github.com/langchain-ai/langgraph",
+      "absorbed": "状态快照/回滚（checkpoint）"
+    },
+    {
+      "project": "temporalio/temporal",
+      "stars": 14000,
+      "url": "https://github.com/temporalio/temporal",
+      "absorbed": "长任务看门狗与状态机式容灾"
+    },
+    {
+      "project": "jd/tenacity",
+      "stars": 6500,
+      "url": "https://github.com/jd/tenacity",
+      "absorbed": "指数退避 + full jitter 重试策略"
+    },
+    {
+      "project": "open-telemetry/opentelemetry-python",
+      "stars": 2100,
+      "url": "https://github.com/open-telemetry/opentelemetry-python",
+      "absorbed": "TraceID/SpanID 全链路遥测"
+    }
+  ],
+  "absorbed_mechanisms": [
+    "OASIS SARIF v2.1.0 标准审计结果（runs/tool/results/locations）",
+    "跨系统静态分析结果交换标准（非 GitHub 项目，行业标准）",
+    "RFC 6902 全算子实现（add/remove/replace/move/copy/test）",
+    "差量生成与最小补丁思想",
+    "持久化记忆池 + 槽位 + 检索式代词消歧",
+    "状态快照/回滚（checkpoint）",
+    "长任务看门狗与状态机式容灾",
+    "指数退避 + full jitter 重试策略",
+    "TraceID/SpanID 全链路遥测"
+  ],
+  "policy": "每个标杆必须说明被吸收的具体机制，禁止只贴 star 数"
+}

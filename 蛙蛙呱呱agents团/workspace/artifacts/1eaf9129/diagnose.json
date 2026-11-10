@@ -1,0 +1,44 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "北极星指标一主一辅齐备",
+      "dim": "diagnose.northstar",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "漏斗阶段 ≥1（实际 5）",
+      "dim": "diagnose.funnel",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "漏斗阶段在白名单（越界 无）",
+      "dim": "diagnose.funnel_enum",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "PMF 信号 ≥1（实际 4）",
+      "dim": "diagnose.pmf",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "PMF 信号在白名单（越界 无）",
+      "dim": "diagnose.pmf_enum",
+      "sev": "OK"
+    }
+  ],
+  "verdict": "PASS",
+  "next": "工件通过全部门禁，可进入授权与交接",
+  "funnel_count": 5,
+  "signal_count": 4,
+  "capability_status": "real",
+  "capability_evidence": "local metrics recalculated",
+  "task_id": "1eaf9129",
+  "skill": "diagnose",
+  "action": "diagnose"
+}

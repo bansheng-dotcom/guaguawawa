@@ -1,0 +1,32 @@
+{
+  "$schema": "https://wawaguagua.com/schemas/research-spec-v1.json",
+  "meta": {
+    "producer": "r05-washenyuan-research",
+    "version": "1.0.0",
+    "confidence_tier": "tier_1"
+  },
+  "market_data": {
+    "tam": 120.0,
+    "hhi": 2250,
+    "cr4": 90,
+    "market_structure": "moderate"
+  },
+  "evidence_ledger": [
+    {
+      "id": "c1",
+      "sources": [
+        "S1"
+      ]
+    },
+    {
+      "id": "c2",
+      "sources": []
+    }
+  ],
+  "downstream_handover": {
+    "to_r06": "提供确定性 TAM 与集中度数值进行可视化渲染",
+    "to_r07": "提供竞品薄弱点与细分切入假设作为 PRD 输入",
+    "to_r01": "提供多情景决策备选项与致命风险预警"
+  }
+}
+ 

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "slots": {
+    "service": "支付服务",
+    "alert_threshold": 1.0,
+    "scenario": "SCN_B_STEADY",
+    "last_intent": "按刚才第二套方案调整，把上次那个服务的阈值调高0.05"
+  },
+  "entities": {
+    "service": "支付服务",
+    "scenario": "SCN_B_STEADY",
+    "alert_threshold": 1.0,
+    "last_intent": "按刚才第二套方案调整，把上次那个服务的阈值调高0.05"
+  },
+  "snapshots": [
+    {
+      "version": 1,
+      "label": "初始状态",
+      "slots": {
+        "service": "支付服务",
+        "alert_threshold": 0.95,
+        "scenario": "SCN_B_STEADY"
+      },
+      "entities": {
+        "service": "支付服务",
+        "scenario": "SCN_B_STEADY",
+        "alert_threshold": 0.95,
+        "last_intent": null
+      },
+      "created_at": "2026-11-10T19:06:08"
+    },
+    {
+      "version": 2,
+      "label": "阈值下调后",
+      "slots": {
+        "service": "支付服务",
+        "alert_threshold": 0.9,
+        "scenario": "SCN_B_STEADY"
+      },
+      "entities": {
+        "service": "支付服务",
+        "scenario": "SCN_B_STEADY",
+        "alert_threshold": 0.9,
+        "last_intent": null
+      },
+      "created_at": "2026-11-10T19:06:08"
+    }
+  ],
+  "updated_at": "2026-11-10T19:06:08"
+}

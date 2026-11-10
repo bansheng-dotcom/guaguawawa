@@ -1,0 +1,56 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "R14 交易与履约结算漏斗图",
+  "data": {
+    "values": [
+      {
+        "stage": "创建订单",
+        "amount": 100000.0
+      },
+      {
+        "stage": "合同签署",
+        "amount": 95000.0
+      },
+      {
+        "stage": "发起支付",
+        "amount": 92000.0
+      },
+      {
+        "stage": "支付成功",
+        "amount": 90000.0
+      },
+      {
+        "stage": "履约交付",
+        "amount": 89500.0
+      }
+    ]
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadius": 4,
+    "color": "#0d9488"
+  },
+  "encoding": {
+    "x": {
+      "field": "stage",
+      "type": "nominal",
+      "title": "交易履约环节",
+      "sort": null
+    },
+    "y": {
+      "field": "amount",
+      "type": "quantitative",
+      "title": "累计交易流水 (CNY)"
+    },
+    "tooltip": [
+      {
+        "field": "stage",
+        "type": "nominal"
+      },
+      {
+        "field": "amount",
+        "type": "quantitative"
+      }
+    ]
+  }
+}

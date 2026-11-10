@@ -1,0 +1,10 @@
+{
+  "run_id": "test_run_bundle",
+  "agent": "r14-wajiaoyi-commerce",
+  "exported_at": "2026-11-10T21:58:23.666495",
+  "order_meta": {
+    "order_id": "ORD_TEST_999",
+    "total": 1000.0
+  },
+  "status": "COMPLETED"
+}

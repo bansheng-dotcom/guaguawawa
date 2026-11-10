@@ -1,8 +1,0 @@
-{
-  "monitor_id": "mon-http-api",
-  "type": "http",
-  "target": "https://api.example.com/health",
-  "interval": 60,
-  "retries": 3,
-  "method": "GET"
-}

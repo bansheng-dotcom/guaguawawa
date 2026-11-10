@@ -1,0 +1,93 @@
+{
+  "role": "r20",
+  "sop_version": "13.0",
+  "round": 1,
+  "title": "第一轮 · 工具实体 / 意图解构 / 自愈反思",
+  "generated_at": "2026-11-10T19:06:34",
+  "stages": [
+    {
+      "id": "L01",
+      "name": "真实可靠性精算沙箱",
+      "ok": true,
+      "exit_code": 0,
+      "elapsed_ms": 293,
+      "artifact": "workspace\\rounds\\round1\\L01_probe.json",
+      "artifact_bytes": 2785,
+      "evidence_ok": true,
+      "argv": [
+        "evolve",
+        "probe",
+        "--out",
+        "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r20-washouzhi-sre\\workspace\\rounds\\round1/L01_probe.json"
+      ]
+    },
+    {
+      "id": "L02",
+      "name": "复合故障诉求 → 5 阶段恢复 DAG",
+      "ok": true,
+      "exit_code": 0,
+      "elapsed_ms": 397,
+      "artifact": "workspace\\rounds\\round1\\L02_compile.json",
+      "artifact_bytes": 2638,
+      "evidence_ok": true,
+      "argv": [
+        "evolve",
+        "decompile",
+        "--text",
+        "支付服务 P1 故障，30 分钟内恢复，RTO<=2h，RPO<=0.5h，影响 3 万用户，先回滚再复盘",
+        "--out",
+        "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r20-washouzhi-sre\\workspace\\rounds\\round1/L02_compile.json",
+        "--md",
+        "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r20-washouzhi-sre\\workspace\\rounds\\round1/L02_compile.md"
+      ]
+    },
+    {
+      "id": "L03",
+      "name": "告警归一 + Reflexion + 五条红线",
+      "ok": true,
+      "exit_code": 0,
+      "elapsed_ms": 340,
+      "artifact": "workspace\\rounds\\round1\\L03_heal.json",
+      "artifact_bytes": 2094,
+      "evidence_ok": true,
+      "argv": [
+        "evolve",
+        "heal",
+        "--action",
+        "补齐告警并生成恢复计划",
+        "--artifact",
+        "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r20-washouzhi-sre\\workspace\\rounds\\round1/L03_input.json",
+        "--out",
+        "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r20-washouzhi-sre\\workspace\\rounds\\round1/L03_heal.json"
+      ]
+    }
+  ],
+  "inputs": [
+    "workspace\\rounds\\round1\\L03_input.json"
+  ],
+  "regression": {
+    "legacy": {
+      "path": "run_tests.py",
+      "exit_code": 0,
+      "passed": 123,
+      "total": 123,
+      "elapsed_ms": 8582,
+      "stdout_tail": "\n== manifest / 技能清单 ==\n\n== S01 可用性监控 ==\n\n== S02 告警与升级 ==\n\n== S03 状态页与事件沟通 ==\n\n== S04 加密增量备份 ==\n\n== S05 恢复演练 ==\n\n== S06 灾难恢复与回滚 ==\n\n== S07 运行复盘 ==\n\n== T6 契约 ==\n\n== T7 对抗评审（含三条 R20 红线） ==\n\n== T8 案例库 ==\n\n== T9 阈值外置 ==\n\n== harness 确定性验证器 ==\n\n== demo / CLI 端到端 ==\n\n== run_task 协作入口 ==\n\n== T15 verify_loop 闭环矩阵 ==\n\n============================================================\n通过 123 / 123\n全绿 · R20 端到端验收通过\n",
+      "stderr_tail": ""
+    },
+    "evolution": {
+      "path": "tests\\test_evolution_l01_l10.py",
+      "exit_code": 0,
+      "passed": 45,
+      "total": 45,
+      "elapsed_ms": 258,
+      "stdout_tail": "",
+      "stderr_tail": "est_persistence (__main__.TestL09Memory.test_persistence) ... ok\ntest_slot_sync (__main__.TestL09Memory.test_slot_sync) ... ok\ntest_snapshot_rollback (__main__.TestL09Memory.test_snapshot_rollback) ... ok\ntest_backoff_bounds_and_determinism (__main__.TestL10Watchdog.test_backoff_bounds_and_determinism) ... ok\ntest_breaker_three_states (__main__.TestL10Watchdog.test_breaker_three_states) ... ok\ntest_execute_exhaustion_opens_breaker (__main__.TestL10Watchdog.test_execute_exhaustion_opens_breaker) ... ok\ntest_execute_success_and_telemetry_integrity (__main__.TestL10Watchdog.test_execute_success_and_telemetry_integrity) ... ok\ntest_probe_health (__main__.TestL10Watchdog.test_probe_health) ... ok\n\n----------------------------------------------------------------------\nRan 45 tests in 0.040s\n\nOK\n"
+    },
+    "release_artifact": "release"
+  },
+  "zero_regression": true,
+  "decision": "PASS",
+  "failed_stages": [],
+  "rollback": "保留上一轮 gate.json 与 workspace/bundles；代码回退至 git 上一提交，状态文件 round 字段回退 1。"
+}

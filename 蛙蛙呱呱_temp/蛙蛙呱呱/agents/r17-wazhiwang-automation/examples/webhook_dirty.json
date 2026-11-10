@@ -1,7 +1,0 @@
-{
-  "path": "x",
-  "method": "TRACE",
-  "trigger_type": "webhook",
-  "input_shape": "body",
-  "handlers": []
-}

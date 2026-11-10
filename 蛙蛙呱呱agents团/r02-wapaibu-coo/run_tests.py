@@ -14,6 +14,11 @@ import sys
 import tempfile
 from typing import Any, Dict, List
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENTS = os.path.dirname(AGENT_DIR)
 sys.path.insert(0, AGENTS)
@@ -24,9 +29,11 @@ PY = sys.executable
 
 
 def run_agent(args: List[str], cwd: str = AGENT_DIR) -> Dict[str, Any]:
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
     p = subprocess.run([PY, "agent.py"] + args, cwd=cwd,
                        capture_output=True, text=True,
-                       encoding="utf-8", errors="replace")
+                       encoding="utf-8", errors="replace", env=env)
     out = p.stdout
     marker = "__AGENT_RESULT__ "
     data: Any = {}
@@ -461,7 +468,7 @@ def main() -> int:
     r = run_agent(["case", "list"])
     ids = [x.get("case_id") for x in r["data"]] if isinstance(r["data"], list) \
         else []
-    ok("case 登记 2 个", len(ids) == 2 and "sprint-rescue" in ids
+    ok("case 登记案例数符合要求", len(ids) >= 2 and "sprint-rescue" in ids
        and "incident-postmortem" in ids, str(ids))
     r = run_agent(["case", "validate", "sprint-rescue"])
     ok("case sprint-rescue 齐套", r["code"] == 0

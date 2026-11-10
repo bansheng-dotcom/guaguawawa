@@ -1,1 +1,0 @@
-{"chart_type": "pareto", "title": "前 N 项贡献", "category_field": "item", "value_field": "v", "data": [{"item": "A", "v": 50.0}, {"item": "B", "v": 30.0}]}

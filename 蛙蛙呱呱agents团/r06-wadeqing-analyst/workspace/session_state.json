@@ -1,0 +1,945 @@
+{
+  "session_id": "default_session",
+  "version": "2.0.0",
+  "last_active_metric": "gmv",
+  "last_active_dimension": "channel",
+  "last_active_time_window": "2024-Q1",
+  "slots": {
+    "metric": "gmv",
+    "dimension": "channel",
+    "time_window": "2024-Q1",
+    "filters": {
+      "tag": "active"
+    },
+    "extra_slots": {}
+  },
+  "slot_confidences": {
+    "metric": 0.95,
+    "dimension": 0.95,
+    "time_window": 0.9
+  },
+  "turn_count": 52,
+  "active_turn": 0,
+  "current_snapshot_id": "snap_v49",
+  "history": [
+    {
+      "turn": 1,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794223554.3065586,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 2,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794223554.3075318,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 3,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794223569.2072222,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 4,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794223569.208196,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 5,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794223742.3930502,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 6,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794223742.3942354,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 7,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794223791.488153,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 8,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794223791.4893713,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 9,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225161.1202176,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 10,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225161.1222122,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 11,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225179.1183505,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 12,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225179.1193497,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 13,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225197.0355406,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 14,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225197.037067,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 15,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225215.5461195,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 16,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225215.5466468,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 17,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225234.7446778,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 18,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225234.7466245,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 19,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225253.666598,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 20,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225253.668618,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 21,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225274.3056061,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 22,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225274.3076124,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 23,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225294.4926739,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 24,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225294.4946957,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 25,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225315.2790608,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 26,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225315.2812257,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 27,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225336.1892722,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 28,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225336.190888,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 29,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225597.7143016,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 30,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225597.7175386,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 31,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225615.6355236,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 32,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225615.6397824,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 33,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225635.7446637,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 34,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225635.747709,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 35,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225655.5078459,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 36,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225655.5108676,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 37,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225673.3305535,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 38,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225673.3327198,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 39,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225691.5365345,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 40,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225691.538846,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 41,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225711.4679065,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 42,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225711.4702113,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 43,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794225840.7313402,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 44,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794225840.733547,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 45,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794226465.8528,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 46,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794226465.8563402,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 47,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794231688.071532,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1"
+      }
+    },
+    {
+      "turn": 48,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794231688.0747983,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      }
+    },
+    {
+      "turn": 49,
+      "snapshot_id": "snap_v49",
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794232137.1123867,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1",
+        "filters": {
+          "tag": "active"
+        }
+      },
+      "slots": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1",
+        "filters": {
+          "tag": "active"
+        },
+        "extra_slots": {}
+      }
+    },
+    {
+      "turn": 50,
+      "snapshot_id": "snap_v50",
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794232575.9678195,
+      "context": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1",
+        "filters": {
+          "tag": "active"
+        }
+      },
+      "slots": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1",
+        "filters": {
+          "tag": "active"
+        },
+        "extra_slots": {}
+      }
+    },
+    {
+      "turn": 51,
+      "snapshot_id": "snap_v51",
+      "query": "查看微信渠道收入",
+      "timestamp": 1794232575.9704428,
+      "context": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2"
+      },
+      "slots": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2",
+        "filters": {
+          "tag": "active"
+        },
+        "extra_slots": {}
+      }
+    },
+    {
+      "turn": 52,
+      "snapshot_id": "snap_v52",
+      "query": "第三轮测试",
+      "timestamp": 1794232575.9757733,
+      "context": {
+        "metric": "profit",
+        "dimension": "category"
+      },
+      "slots": {
+        "metric": "profit",
+        "dimension": "category",
+        "time_window": "2024-Q1",
+        "filters": {},
+        "extra_slots": {}
+      }
+    }
+  ],
+  "snapshots": {
+    "snap_v1": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v2": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v3": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v4": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v5": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v6": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v7": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v8": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v9": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v10": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v11": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v12": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v13": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v14": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v15": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v16": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v17": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v18": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v19": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v20": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v21": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v22": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v23": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v24": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v25": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v26": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v27": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v28": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v29": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v30": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v31": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v32": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v33": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v34": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v35": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v36": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v37": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v38": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v39": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v40": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v41": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v42": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v43": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v44": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v45": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v46": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v47": {
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1"
+    },
+    "snap_v48": {
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2"
+    },
+    "snap_v49": {
+      "snapshot_id": "snap_v49",
+      "parent_id": "snap_v1",
+      "turn": 49,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794232137.1123867,
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1",
+      "slots": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1",
+        "filters": {
+          "tag": "active"
+        },
+        "extra_slots": {}
+      },
+      "tags": []
+    },
+    "snap_v50": {
+      "snapshot_id": "snap_v50",
+      "parent_id": "snap_v49",
+      "turn": 50,
+      "query": "查看抖音渠道GMV",
+      "timestamp": 1794232575.9678195,
+      "metric": "gmv",
+      "dimension": "channel",
+      "time_window": "2024-Q1",
+      "slots": {
+        "metric": "gmv",
+        "dimension": "channel",
+        "time_window": "2024-Q1",
+        "filters": {
+          "tag": "active"
+        },
+        "extra_slots": {}
+      },
+      "tags": []
+    },
+    "snap_v51": {
+      "snapshot_id": "snap_v51",
+      "parent_id": "snap_v50",
+      "turn": 51,
+      "query": "查看微信渠道收入",
+      "timestamp": 1794232575.9704428,
+      "metric": "revenue",
+      "dimension": "wechat",
+      "time_window": "2024-Q2",
+      "slots": {
+        "metric": "revenue",
+        "dimension": "wechat",
+        "time_window": "2024-Q2",
+        "filters": {
+          "tag": "active"
+        },
+        "extra_slots": {}
+      },
+      "tags": []
+    },
+    "snap_v52": {
+      "snapshot_id": "snap_v52",
+      "parent_id": "snap_v1",
+      "turn": 52,
+      "query": "第三轮测试",
+      "timestamp": 1794232575.9757733,
+      "metric": "profit",
+      "dimension": "category",
+      "time_window": "2024-Q1",
+      "slots": {
+        "metric": "profit",
+        "dimension": "category",
+        "time_window": "2024-Q1",
+        "filters": {},
+        "extra_slots": {}
+      },
+      "tags": []
+    }
+  },
+  "schemes": {},
+  "redo_stack": [],
+  "branch_tree": {
+    "root": "genesis",
+    "current": "snap_v49",
+    "nodes": {
+      "snap_v49": {
+        "parent": "snap_v1",
+        "children": [
+          "snap_v50"
+        ],
+        "timestamp": 1794232137.1123867,
+        "summary": "查看抖音渠道GMV"
+      },
+      "snap_v50": {
+        "parent": "snap_v49",
+        "children": [
+          "snap_v51"
+        ],
+        "timestamp": 1794232575.9678195,
+        "summary": "查看抖音渠道GMV"
+      },
+      "snap_v51": {
+        "parent": "snap_v50",
+        "children": [],
+        "timestamp": 1794232575.9704428,
+        "summary": "查看微信渠道收入"
+      },
+      "snap_v52": {
+        "parent": "snap_v1",
+        "children": [],
+        "timestamp": 1794232575.9757733,
+        "summary": "第三轮测试"
+      }
+    }
+  }
+}
