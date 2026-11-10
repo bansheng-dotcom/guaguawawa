@@ -19,3 +19,6 @@
 {"timestamp": "2026-11-10T21:40:53.895514", "trace_id": "668909fb37bff90d", "span_id": "71d927ed", "span_name": "test_span", "duration_ms": 15.2, "status": "OK", "metadata": {"test": true}}
 {"timestamp": "2026-11-10T21:49:30.710203", "trace_id": "69cd7e94b6a8fd8a", "span_id": "517ffddf", "span_name": "test_span", "duration_ms": 15.2, "status": "OK", "metadata": {"test": true}}
 {"timestamp": "2026-11-10T22:01:10.409960", "trace_id": "3a33c9f86d43c540", "span_id": "6f2b3395", "span_name": "test_span", "duration_ms": 15.2, "status": "OK", "metadata": {"test": true}}
+{"timestamp": "2026-11-10T23:12:01.813380", "trace_id": "4cfac29c27203e37", "span_id": "b2cd6922", "span_name": "test_span", "duration_ms": 15.2, "status": "OK", "metadata": {"test": true}}
+{"timestamp": "2026-11-10T23:20:04.763837", "trace_id": "f20da8b146882b4f", "span_id": "72424779", "span_name": "test_span", "duration_ms": 15.2, "status": "OK", "metadata": {"test": true}}
+{"timestamp": "2026-11-10T23:23:19.891427", "trace_id": "7d67bdbdb07767f1", "span_id": "ffa61518", "span_name": "test_span", "duration_ms": 15.2, "status": "OK", "metadata": {"test": true}}

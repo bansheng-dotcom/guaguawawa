@@ -1,5 +1,5 @@
 {
-  "session_id": "r05_session_6c8403d1",
+  "session_id": "r05_session_10f2e496",
   "version": 2,
   "current_focus": "海外SaaS市场",
   "slots": {
@@ -27,57 +27,36 @@
         ]
       },
       "topic": "海外SaaS市场",
-      "at": "2026-11-10T21:57:59.925"
+      "at": "2026-11-10T23:23:40.897"
     }
   ],
   "snapshots": [
     {
       "version": 0,
       "reason": "record_turn",
-      "at": "2026-11-10T21:57:59.925",
+      "at": "2026-11-10T23:23:40.897",
       "state": {
-        "session_id": "r05_session_6c8403d1",
+        "session_id": "r05_session_10f2e496",
         "version": 0,
         "current_focus": null,
         "slots": {},
         "entities": {},
-        "history": []
+        "history_len": 0
       }
     },
     {
       "version": 1,
       "reason": "update_slot",
-      "at": "2026-11-10T21:57:59.925",
+      "at": "2026-11-10T23:23:40.897",
       "state": {
-        "session_id": "r05_session_6c8403d1",
+        "session_id": "r05_session_10f2e496",
         "version": 1,
         "current_focus": "海外SaaS市场",
         "slots": {},
         "entities": {
           "last_topic": "海外SaaS市场"
         },
-        "history": [
-          {
-            "turn_id": 1,
-            "user": "调研海外SaaS市场",
-            "agent": {
-              "tam": 120.0,
-              "scenarios": [
-                {
-                  "name": "A"
-                },
-                {
-                  "name": "B"
-                },
-                {
-                  "name": "C"
-                }
-              ]
-            },
-            "topic": "海外SaaS市场",
-            "at": "2026-11-10T21:57:59.925"
-          }
-        ]
+        "history_len": 1
       }
     }
   ],

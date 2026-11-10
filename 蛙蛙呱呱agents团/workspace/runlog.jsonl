@@ -43144,3 +43144,372 @@
 {"skill": "decide", "action": "card", "input_hash": "7ec312397c17", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T21:47:29"}
 {"skill": "criteria/review", "task_id": "c563e7f9", "ok": true, "verdict": "PASS", "ts": "2026-11-10T21:56:54"}
 {"skill": "criteria/review", "task_id": "e5aa4388", "ok": true, "verdict": "PASS", "ts": "2026-11-10T21:57:35"}
+{"skill": "artifact/inventory", "ok": false, "verdict": null, "ts": "2026-11-10T22:18:10"}
+{"skill": "semantics", "action": "validate", "input_hash": "7f939045669a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T22:19:36"}
+{"skill": "intent", "action": "brief", "input_hash": "21d2cfe5e5f9", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:19:36"}
+{"skill": "quality", "action": "audit", "input_hash": "5b2a046b7ae9", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:22:40"}
+{"skill": "explore", "action": "trend", "input_hash": "5b2a046b7ae9", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T22:22:40"}
+{"skill": "explore", "action": "funnel", "input_hash": "5b2a046b7ae9", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-10T22:22:41"}
+{"skill": "abtest", "action": null, "input_hash": "7d00277af310", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-10T22:22:41"}
+{"skill": "causal", "action": null, "input_hash": "d6d9e015846d", "elapsed_ms": 5, "exit_code": 0, "ts": "2026-11-10T22:22:42"}
+{"skill": "intent", "action": "brief", "input_hash": "21d2cfe5e5f9", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:23:26"}
+{"role": "r02", "skill": "schedule", "action": "wbs", "ok": true, "ts": "2026-11-10T22:23:27"}
+{"skill": "artifact/inventory", "ok": true, "verdict": "COMPLETE", "ts": "2026-11-10T22:23:27"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T22:23:27"}
+{"skill": "semantics", "action": "validate", "input_hash": "7f939045669a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T22:23:28"}
+{"skill": "prd", "action": "prd", "input_hash": "31ce7e463795", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:23:28"}
+{"skill": "slice", "action": "slice", "input_hash": "39a29e694538", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:23:28"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-10T22:23:28"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "0c0fe0e25e4e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:23:29"}
+{"skill": "copy", "action": "article", "input_hash": "67086d0ce74a", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-10T22:23:29"}
+{"skill": "diagnose", "action": "diagnose", "input_hash": "8362f992aaae", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:23:29"}
+{"skill": "pipeline", "action": "pipeline", "input_hash": "80fd98d912dd", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:23:30"}
+{"skill": "catalog", "action": "product", "input_hash": "c8ddfa53d6cc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T22:23:30"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "ec67ef8648fe", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-10T22:23:30"}
+{"skill": "recruit", "action": "offer", "input_hash": "61a068ef06f0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T22:23:30"}
+{"skill": "integration", "action": "workflow", "input_hash": "6936de42ea17", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:23:31"}
+{"skill": "elt", "action": "connection", "input_hash": "5444ae43fad3", "elapsed_ms": 4, "exit_code": 0, "ts": "2026-11-10T22:23:31"}
+{"skill": "tracking", "action": "experiment", "input_hash": "2c3b7fc29bdc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T22:23:31"}
+{"skill": "monitor", "action": "monitor", "input_hash": "2334cf568fc5", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:23:31"}
+{"skill": "metrics", "action": "northstar", "input_hash": "8f0dcb83e81c", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:25:42"}
+{"skill": "techbrief", "action": "techbrief", "input_hash": "ccfe177f9682", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T22:25:42"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-10T22:25:43"}
+{"skill": "backup", "action": "backup", "input_hash": "ee887dc1fed2", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T22:25:43"}
+{"skill": "catalog", "action": "product", "input_hash": "c8ddfa53d6cc", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:11:20"}
+{"skill": "catalog", "action": "price", "input_hash": "09c413bb7226", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:11:20"}
+{"skill": "order", "action": "cart", "input_hash": "a758ca894907", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:11:20"}
+{"skill": "order", "action": "order", "input_hash": "85e50233981f", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:11:21"}
+{"skill": "billing", "action": "plan", "input_hash": "fa70353cb09c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:11:21"}
+{"skill": "billing", "action": "usage", "input_hash": "4b2c60567b98", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:11:21"}
+{"skill": "billing", "action": "invoice", "input_hash": "cf4f7927a92a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:11:21"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "073b4f25807b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:11:21"}
+{"skill": "payment", "action": "refund", "input_hash": "b6fff83cd526", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:11:21"}
+{"skill": "signature", "action": "document", "input_hash": "f2361e6292b8", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:11:22"}
+{"skill": "signature", "action": "signing", "input_hash": "3dd93c56472a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:11:22"}
+{"skill": "appointment", "action": "appointment", "input_hash": "6f98747056bf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:11:22"}
+{"skill": "appointment", "action": "calendar", "input_hash": "0ba6f234d2f3", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-10T23:11:22"}
+{"skill": "workflow", "action": "state", "input_hash": "5f06b2ff234b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:11:22"}
+{"skill": "workflow", "action": "transition", "input_hash": "d7cde99e90f3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:11:22"}
+{"skill": "revenue", "action": "events", "input_hash": "4ec1722eecce", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:11:23"}
+{"skill": "revenue", "action": "webhook", "input_hash": "e952dbbcbe1f", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:11:23"}
+{"skill": "catalog", "action": "product", "input_hash": "4d28455e73c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:23"}
+{"skill": "catalog", "action": "price", "input_hash": "2afc32caa4cc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:23"}
+{"skill": "order", "action": "cart", "input_hash": "96abfdb4324a", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:11:23"}
+{"skill": "order", "action": "order", "input_hash": "0a25d760b732", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:11:23"}
+{"skill": "billing", "action": "plan", "input_hash": "67770fffa41b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:24"}
+{"skill": "billing", "action": "usage", "input_hash": "8a24b587253a", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:11:24"}
+{"skill": "billing", "action": "invoice", "input_hash": "0235e5e78d9b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:24"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "8493cffcb58c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:24"}
+{"skill": "payment", "action": "refund", "input_hash": "0a8345f191e6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:24"}
+{"skill": "signature", "action": "document", "input_hash": "1c2b8bdd5776", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:24"}
+{"skill": "signature", "action": "signing", "input_hash": "3aa85ac052d3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:25"}
+{"skill": "appointment", "action": "appointment", "input_hash": "080516e78f4a", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-10T23:11:25"}
+{"skill": "appointment", "action": "calendar", "input_hash": "a79ebf340754", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:11:25"}
+{"skill": "workflow", "action": "state", "input_hash": "c51464e8b7c1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:25"}
+{"skill": "workflow", "action": "transition", "input_hash": "20bf24a84f52", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:25"}
+{"skill": "revenue", "action": "events", "input_hash": "5b969a1eeea7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:25"}
+{"skill": "revenue", "action": "webhook", "input_hash": "df642226e7bb", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:11:26"}
+{"skill": "catalog", "action": "product", "input_hash": "c8ddfa53d6cc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:19:58"}
+{"skill": "catalog", "action": "price", "input_hash": "09c413bb7226", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:19:58"}
+{"skill": "order", "action": "cart", "input_hash": "a758ca894907", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:19:58"}
+{"skill": "order", "action": "order", "input_hash": "85e50233981f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:19:58"}
+{"skill": "billing", "action": "plan", "input_hash": "fa70353cb09c", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:19:58"}
+{"skill": "billing", "action": "usage", "input_hash": "4b2c60567b98", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:19:58"}
+{"skill": "billing", "action": "invoice", "input_hash": "cf4f7927a92a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:19:59"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "073b4f25807b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:19:59"}
+{"skill": "payment", "action": "refund", "input_hash": "b6fff83cd526", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:19:59"}
+{"skill": "signature", "action": "document", "input_hash": "f2361e6292b8", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:19:59"}
+{"skill": "signature", "action": "signing", "input_hash": "3dd93c56472a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:19:59"}
+{"skill": "appointment", "action": "appointment", "input_hash": "6f98747056bf", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-10T23:19:59"}
+{"skill": "appointment", "action": "calendar", "input_hash": "0ba6f234d2f3", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-10T23:20:00"}
+{"skill": "workflow", "action": "state", "input_hash": "5f06b2ff234b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:20:00"}
+{"skill": "workflow", "action": "transition", "input_hash": "d7cde99e90f3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:20:00"}
+{"skill": "revenue", "action": "events", "input_hash": "4ec1722eecce", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:20:00"}
+{"skill": "revenue", "action": "webhook", "input_hash": "e952dbbcbe1f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:20:00"}
+{"skill": "catalog", "action": "product", "input_hash": "4d28455e73c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:01"}
+{"skill": "catalog", "action": "price", "input_hash": "2afc32caa4cc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:01"}
+{"skill": "order", "action": "cart", "input_hash": "96abfdb4324a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:01"}
+{"skill": "order", "action": "order", "input_hash": "0a25d760b732", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:20:01"}
+{"skill": "billing", "action": "plan", "input_hash": "67770fffa41b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:01"}
+{"skill": "billing", "action": "usage", "input_hash": "8a24b587253a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:01"}
+{"skill": "billing", "action": "invoice", "input_hash": "0235e5e78d9b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:02"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "8493cffcb58c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:02"}
+{"skill": "payment", "action": "refund", "input_hash": "0a8345f191e6", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:20:02"}
+{"skill": "signature", "action": "document", "input_hash": "1c2b8bdd5776", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:20:02"}
+{"skill": "signature", "action": "signing", "input_hash": "3aa85ac052d3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:20:02"}
+{"skill": "appointment", "action": "appointment", "input_hash": "080516e78f4a", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-10T23:20:02"}
+{"skill": "appointment", "action": "calendar", "input_hash": "a79ebf340754", "elapsed_ms": 3, "exit_code": 1, "ts": "2026-11-10T23:20:03"}
+{"skill": "workflow", "action": "state", "input_hash": "c51464e8b7c1", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:20:03"}
+{"skill": "workflow", "action": "transition", "input_hash": "20bf24a84f52", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:03"}
+{"skill": "revenue", "action": "events", "input_hash": "5b969a1eeea7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:03"}
+{"skill": "revenue", "action": "webhook", "input_hash": "df642226e7bb", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:20:03"}
+{"skill": "research/ledger", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:05"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:05"}
+{"skill": "industry/landscape", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:06"}
+{"skill": "industry/concentration", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:06"}
+{"skill": "competitor/matrix", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:06"}
+{"skill": "competitor/battlecard", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:06"}
+{"skill": "business/canvas", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:06"}
+{"skill": "business/monetize", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:06"}
+{"skill": "sizing/size", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:07"}
+{"skill": "sizing/sensitivity", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:07"}
+{"skill": "scenario/pestel", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:07"}
+{"skill": "scenario/premortem", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:07"}
+{"skill": "auto/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:07"}
+{"skill": "auto/track", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:07"}
+{"skill": "research/ledger", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:08"}
+{"skill": "research/report", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:08"}
+{"skill": "industry/landscape", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:08"}
+{"skill": "research/ledger", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:09"}
+{"skill": "research/report", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:09"}
+{"skill": "industry/landscape", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:09"}
+{"skill": "industry/concentration", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:10"}
+{"skill": "competitor/matrix", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:10"}
+{"skill": "competitor/battlecard", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:10"}
+{"skill": "business/canvas", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:10"}
+{"skill": "business/monetize", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:10"}
+{"skill": "sizing/size", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:10"}
+{"skill": "sizing/sensitivity", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:11"}
+{"skill": "scenario/pestel", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:11"}
+{"skill": "scenario/premortem", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:11"}
+{"skill": "auto/plan", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:11"}
+{"skill": "auto/track", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:11"}
+{"skill": "research/ledger", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:12"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:13"}
+{"skill": "industry/landscape", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:13"}
+{"skill": "industry/concentration", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:13"}
+{"skill": "competitor/matrix", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:13"}
+{"skill": "competitor/battlecard", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:13"}
+{"skill": "business/canvas", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:13"}
+{"skill": "business/monetize", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:14"}
+{"skill": "sizing/size", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:14"}
+{"skill": "sizing/sensitivity", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:14"}
+{"skill": "scenario/pestel", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:14"}
+{"skill": "scenario/premortem", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:14"}
+{"skill": "auto/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:14"}
+{"skill": "auto/track", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:15"}
+{"skill": "research/ledger", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:15"}
+{"skill": "research/report", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:15"}
+{"skill": "industry/landscape", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:15"}
+{"skill": "industry/concentration", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:15"}
+{"skill": "competitor/matrix", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:15"}
+{"skill": "competitor/battlecard", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:16"}
+{"skill": "business/canvas", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:16"}
+{"skill": "business/monetize", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:16"}
+{"skill": "sizing/size", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:16"}
+{"skill": "sizing/sensitivity", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:16"}
+{"skill": "scenario/pestel", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:16"}
+{"skill": "scenario/premortem", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:17"}
+{"skill": "auto/plan", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:17"}
+{"skill": "auto/track", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:17"}
+{"skill": "research/ledger", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:22"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:23"}
+{"skill": "industry/landscape", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:23"}
+{"skill": "industry/concentration", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:23"}
+{"skill": "competitor/matrix", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:23"}
+{"skill": "competitor/battlecard", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:23"}
+{"skill": "business/canvas", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:24"}
+{"skill": "business/monetize", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:24"}
+{"skill": "sizing/size", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:24"}
+{"skill": "sizing/sensitivity", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:24"}
+{"skill": "scenario/pestel", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:24"}
+{"skill": "scenario/premortem", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:24"}
+{"skill": "auto/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:25"}
+{"skill": "auto/track", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:25"}
+{"skill": "research/ledger", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:25"}
+{"skill": "research/report", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:25"}
+{"skill": "industry/landscape", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:25"}
+{"skill": "research/ledger", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:27"}
+{"skill": "research/report", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:27"}
+{"skill": "industry/landscape", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:27"}
+{"skill": "industry/concentration", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:27"}
+{"skill": "competitor/matrix", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:27"}
+{"skill": "competitor/battlecard", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:27"}
+{"skill": "business/canvas", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:28"}
+{"skill": "business/monetize", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:28"}
+{"skill": "sizing/size", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:28"}
+{"skill": "sizing/sensitivity", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:28"}
+{"skill": "scenario/pestel", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:28"}
+{"skill": "scenario/premortem", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:28"}
+{"skill": "auto/plan", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:29"}
+{"skill": "auto/track", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:29"}
+{"skill": "research/ledger", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:30"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:30"}
+{"skill": "industry/landscape", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:30"}
+{"skill": "industry/concentration", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:30"}
+{"skill": "competitor/matrix", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:30"}
+{"skill": "competitor/battlecard", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:31"}
+{"skill": "business/canvas", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:31"}
+{"skill": "business/monetize", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:31"}
+{"skill": "sizing/size", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:31"}
+{"skill": "sizing/sensitivity", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:31"}
+{"skill": "scenario/pestel", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:32"}
+{"skill": "scenario/premortem", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:32"}
+{"skill": "auto/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:32"}
+{"skill": "auto/track", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:32"}
+{"skill": "research/ledger", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:32"}
+{"skill": "research/report", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:32"}
+{"skill": "industry/landscape", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:33"}
+{"skill": "industry/concentration", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:33"}
+{"skill": "competitor/matrix", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:33"}
+{"skill": "competitor/battlecard", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:33"}
+{"skill": "business/canvas", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:33"}
+{"skill": "business/monetize", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:33"}
+{"skill": "sizing/size", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:34"}
+{"skill": "sizing/sensitivity", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:34"}
+{"skill": "scenario/pestel", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:34"}
+{"skill": "scenario/premortem", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:34"}
+{"skill": "auto/plan", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:34"}
+{"skill": "auto/track", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:34"}
+{"skill": "research/ledger", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:38"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:38"}
+{"skill": "industry/landscape", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:39"}
+{"skill": "industry/concentration", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:39"}
+{"skill": "competitor/matrix", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:39"}
+{"skill": "competitor/battlecard", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:39"}
+{"skill": "business/canvas", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:39"}
+{"skill": "business/monetize", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:39"}
+{"skill": "sizing/size", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:40"}
+{"skill": "sizing/sensitivity", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:40"}
+{"skill": "scenario/pestel", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:40"}
+{"skill": "scenario/premortem", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:40"}
+{"skill": "auto/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:40"}
+{"skill": "auto/track", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:40"}
+{"skill": "research/ledger", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:41"}
+{"skill": "research/report", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:41"}
+{"skill": "industry/landscape", "ok": false, "verdict": null, "ts": "2026-11-10T23:20:41"}
+{"skill": "research/ledger", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:42"}
+{"skill": "research/report", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:42"}
+{"skill": "industry/landscape", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:42"}
+{"skill": "industry/concentration", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:43"}
+{"skill": "competitor/matrix", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:43"}
+{"skill": "competitor/battlecard", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:43"}
+{"skill": "business/canvas", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:43"}
+{"skill": "business/monetize", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:43"}
+{"skill": "sizing/size", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:44"}
+{"skill": "sizing/sensitivity", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:44"}
+{"skill": "scenario/pestel", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:44"}
+{"skill": "scenario/premortem", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:44"}
+{"skill": "auto/plan", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:44"}
+{"skill": "auto/track", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:44"}
+{"skill": "research/ledger", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:45"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:46"}
+{"skill": "industry/landscape", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:46"}
+{"skill": "industry/concentration", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:46"}
+{"skill": "competitor/matrix", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:46"}
+{"skill": "competitor/battlecard", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:46"}
+{"skill": "business/canvas", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:46"}
+{"skill": "business/monetize", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:47"}
+{"skill": "sizing/size", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:47"}
+{"skill": "sizing/sensitivity", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:47"}
+{"skill": "scenario/pestel", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:47"}
+{"skill": "scenario/premortem", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:47"}
+{"skill": "auto/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:47"}
+{"skill": "auto/track", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:20:48"}
+{"skill": "research/ledger", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:48"}
+{"skill": "research/report", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:48"}
+{"skill": "industry/landscape", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:48"}
+{"skill": "industry/concentration", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:48"}
+{"skill": "competitor/matrix", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:48"}
+{"skill": "competitor/battlecard", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:49"}
+{"skill": "business/canvas", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:49"}
+{"skill": "business/monetize", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:49"}
+{"skill": "sizing/size", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:49"}
+{"skill": "sizing/sensitivity", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:49"}
+{"skill": "scenario/pestel", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:50"}
+{"skill": "scenario/premortem", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:50"}
+{"skill": "auto/plan", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:50"}
+{"skill": "auto/track", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:20:50"}
+{"skill": "catalog", "action": "product", "input_hash": "c8ddfa53d6cc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:13"}
+{"skill": "catalog", "action": "price", "input_hash": "09c413bb7226", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:13"}
+{"skill": "order", "action": "cart", "input_hash": "a758ca894907", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:13"}
+{"skill": "order", "action": "order", "input_hash": "85e50233981f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:13"}
+{"skill": "billing", "action": "plan", "input_hash": "fa70353cb09c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:14"}
+{"skill": "billing", "action": "usage", "input_hash": "4b2c60567b98", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:14"}
+{"skill": "billing", "action": "invoice", "input_hash": "cf4f7927a92a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:14"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "073b4f25807b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:23:14"}
+{"skill": "payment", "action": "refund", "input_hash": "b6fff83cd526", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:14"}
+{"skill": "signature", "action": "document", "input_hash": "f2361e6292b8", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:14"}
+{"skill": "signature", "action": "signing", "input_hash": "3dd93c56472a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:15"}
+{"skill": "appointment", "action": "appointment", "input_hash": "6f98747056bf", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-10T23:23:15"}
+{"skill": "appointment", "action": "calendar", "input_hash": "0ba6f234d2f3", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-10T23:23:15"}
+{"skill": "workflow", "action": "state", "input_hash": "5f06b2ff234b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-10T23:23:15"}
+{"skill": "workflow", "action": "transition", "input_hash": "d7cde99e90f3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:15"}
+{"skill": "revenue", "action": "events", "input_hash": "4ec1722eecce", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:15"}
+{"skill": "revenue", "action": "webhook", "input_hash": "e952dbbcbe1f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-10T23:23:16"}
+{"skill": "catalog", "action": "product", "input_hash": "4d28455e73c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:16"}
+{"skill": "catalog", "action": "price", "input_hash": "2afc32caa4cc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:16"}
+{"skill": "order", "action": "cart", "input_hash": "96abfdb4324a", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:23:16"}
+{"skill": "order", "action": "order", "input_hash": "0a25d760b732", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:23:16"}
+{"skill": "billing", "action": "plan", "input_hash": "67770fffa41b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:16"}
+{"skill": "billing", "action": "usage", "input_hash": "8a24b587253a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:17"}
+{"skill": "billing", "action": "invoice", "input_hash": "0235e5e78d9b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:17"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "8493cffcb58c", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:23:17"}
+{"skill": "payment", "action": "refund", "input_hash": "0a8345f191e6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:17"}
+{"skill": "signature", "action": "document", "input_hash": "1c2b8bdd5776", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:17"}
+{"skill": "signature", "action": "signing", "input_hash": "3aa85ac052d3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:17"}
+{"skill": "appointment", "action": "appointment", "input_hash": "080516e78f4a", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-10T23:23:18"}
+{"skill": "appointment", "action": "calendar", "input_hash": "a79ebf340754", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-10T23:23:18"}
+{"skill": "workflow", "action": "state", "input_hash": "c51464e8b7c1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:18"}
+{"skill": "workflow", "action": "transition", "input_hash": "20bf24a84f52", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:18"}
+{"skill": "revenue", "action": "events", "input_hash": "5b969a1eeea7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-10T23:23:18"}
+{"skill": "revenue", "action": "webhook", "input_hash": "df642226e7bb", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-10T23:23:18"}
+{"skill": "research/ledger", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:27"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:27"}
+{"skill": "industry/landscape", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:27"}
+{"skill": "industry/concentration", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:27"}
+{"skill": "competitor/matrix", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:27"}
+{"skill": "competitor/battlecard", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:28"}
+{"skill": "business/canvas", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:28"}
+{"skill": "business/monetize", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:28"}
+{"skill": "sizing/size", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:28"}
+{"skill": "sizing/sensitivity", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:28"}
+{"skill": "scenario/pestel", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:28"}
+{"skill": "scenario/premortem", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:29"}
+{"skill": "auto/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:29"}
+{"skill": "auto/track", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:29"}
+{"skill": "research/ledger", "ok": false, "verdict": null, "ts": "2026-11-10T23:23:29"}
+{"skill": "research/report", "ok": false, "verdict": null, "ts": "2026-11-10T23:23:29"}
+{"skill": "industry/landscape", "ok": false, "verdict": null, "ts": "2026-11-10T23:23:29"}
+{"skill": "research/ledger", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:31"}
+{"skill": "research/report", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:31"}
+{"skill": "industry/landscape", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:31"}
+{"skill": "industry/concentration", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:31"}
+{"skill": "competitor/matrix", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:31"}
+{"skill": "competitor/battlecard", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:31"}
+{"skill": "business/canvas", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:32"}
+{"skill": "business/monetize", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:32"}
+{"skill": "sizing/size", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:32"}
+{"skill": "sizing/sensitivity", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:32"}
+{"skill": "scenario/pestel", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:32"}
+{"skill": "scenario/premortem", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:32"}
+{"skill": "auto/plan", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:33"}
+{"skill": "auto/track", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:33"}
+{"skill": "research/ledger", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:34"}
+{"skill": "research/report", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:34"}
+{"skill": "industry/landscape", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:34"}
+{"skill": "industry/concentration", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:34"}
+{"skill": "competitor/matrix", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:34"}
+{"skill": "competitor/battlecard", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:34"}
+{"skill": "business/canvas", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:35"}
+{"skill": "business/monetize", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:35"}
+{"skill": "sizing/size", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:35"}
+{"skill": "sizing/sensitivity", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:35"}
+{"skill": "scenario/pestel", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:35"}
+{"skill": "scenario/premortem", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:35"}
+{"skill": "auto/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:36"}
+{"skill": "auto/track", "ok": true, "verdict": "PASS", "ts": "2026-11-10T23:23:36"}
+{"skill": "research/ledger", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:36"}
+{"skill": "research/report", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:36"}
+{"skill": "industry/landscape", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:36"}
+{"skill": "industry/concentration", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:36"}
+{"skill": "competitor/matrix", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:37"}
+{"skill": "competitor/battlecard", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:37"}
+{"skill": "business/canvas", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:37"}
+{"skill": "business/monetize", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:37"}
+{"skill": "sizing/size", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:37"}
+{"skill": "sizing/sensitivity", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:37"}
+{"skill": "scenario/pestel", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:38"}
+{"skill": "scenario/premortem", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:38"}
+{"skill": "auto/plan", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:38"}
+{"skill": "auto/track", "ok": false, "verdict": "FAIL", "ts": "2026-11-10T23:23:38"}
