@@ -345,6 +345,37 @@ def cmd_check(args: argparse.Namespace) -> int:
     return 0
 
 
+def _memory_summary() -> Dict[str, Any]:
+    """汇总全部角色记忆池的体积，供 doctor / gc 使用。"""
+    from core.memory_guard import HARD_LIMIT_BYTES, SOFT_LIMIT_BYTES, file_size, iter_memory_files
+    files = iter_memory_files(str(ROOT))
+    sizes = [(path, file_size(path)) for path in files]
+    total = sum(size for _, size in sizes)
+    biggest = max(sizes, key=lambda item: item[1]) if sizes else (None, 0)
+    return {"files": files, "sizes": sizes, "total": total,
+            "biggest": biggest, "soft": SOFT_LIMIT_BYTES, "hard": HARD_LIMIT_BYTES}
+
+
+def _memory_health(mem: Dict[str, Any]) -> Optional[str]:
+    """记忆池体积哨兵：返回告警文案，正常时返回 None。"""
+    if mem["biggest"][1] > mem["hard"]:
+        return "[FAIL] 有记忆池超过 100 MB：python guagua.py gc"
+    if mem["biggest"][1] > mem["soft"]:
+        return "[WARN] 有记忆池超过 2 MB：建议 python guagua.py gc"
+    return None
+
+
+def cmd_gc(args: argparse.Namespace) -> int:
+    """记忆池护栏：裁剪过期快照 / 隔离异常体积文件。"""
+    from core.memory_guard import format_report, gc as run_gc
+    summary = run_gc(str(ROOT), keep_last=args.keep_last, dry_run=args.dry_run)
+    if args.json:
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+    else:
+        print(format_report(summary))
+    return 0
+
+
 def cmd_doctor(_: argparse.Namespace) -> int:
     print("蛙蛙呱呱 · 环境诊断")
     print("=" * 72)
@@ -353,6 +384,15 @@ def cmd_doctor(_: argparse.Namespace) -> int:
     print(f"角色数  : {len(ROLES)}")
     print(f"chat.py : {'OK' if (ROOT / 'chat.py').exists() else 'MISSING'}")
     print(f"registry: {'OK' if (ROOT / 'core' / 'registry.py').exists() else 'MISSING'}")
+    if (ROOT / 'core' / 'memory_guard.py').exists():
+        mem = _memory_summary()
+        print(f"记忆池  : {len(mem['files'])} 个文件，合计 {mem['total'] / 1024:.1f} KB")
+        if mem["biggest"][0]:
+            rel = Path(mem["biggest"][0]).relative_to(ROOT).as_posix()
+            print(f"          最大 {rel}  {mem['biggest'][1] / 1024:.1f} KB")
+        warning = _memory_health(mem)
+        if warning:
+            print(warning)
     missing = [r["id"] for r in ROLES if not _role_agent(r).exists()]
     if missing:
         print(f"缺失入口: {', '.join(missing)}")
@@ -377,6 +417,7 @@ def build_parser() -> argparse.ArgumentParser:
             '  python guagua.py plan "停车场一年营收最大化"\n'
             "  python guagua.py dispatch --all\n"
             "  python guagua.py check\n"
+            "  python guagua.py gc --dry-run\n"
         ),
     )
     sub = parser.add_subparsers(dest="command", required=True)
@@ -425,6 +466,17 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("check", help="体检全部 20 个角色入口")
     p.set_defaults(func=cmd_check)
+
+    p = sub.add_parser(
+        "gc",
+        help="记忆池护栏：裁剪过期快照 / 隔离异常体积文件",
+        description="扫描全部 rXX-*/workspace/session_state*.json："
+                    "超过 2 MB 裁到最近 N 条快照，超过 100 MB 整份隔离为 .bak。",
+    )
+    p.add_argument("--dry-run", action="store_true", help="只出报告，不改文件")
+    p.add_argument("--keep-last", type=int, default=50, help="保留最近多少条快照（默认 50）")
+    p.add_argument("--json", action="store_true", help="输出机器可读 JSON")
+    p.set_defaults(func=cmd_gc)
 
     p = sub.add_parser("doctor", help="环境诊断 + 全部角色入口体检")
     p.set_defaults(func=cmd_doctor)

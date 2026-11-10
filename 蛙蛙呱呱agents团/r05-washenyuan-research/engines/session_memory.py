@@ -21,9 +21,25 @@ import datetime
 import json
 import os
 import re
+import sys
 import time
 import uuid
 from typing import Any, Dict, List, Optional
+
+# 记忆池体积护栏（core/memory_guard.py）：仓库根不在 sys.path 时降级为无护栏。
+try:  # pragma: no cover - 依赖部署布局
+    _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    if _REPO_ROOT not in sys.path:
+        sys.path.insert(0, _REPO_ROOT)
+    from core.memory_guard import (  # noqa: F401
+        enforce as _guard_enforce,
+        load_json_guarded as _guarded_load,
+        trim_snapshots as _trim_snapshots,
+    )
+except Exception:  # pragma: no cover
+    _guard_enforce = None
+    _guarded_load = None
+    _trim_snapshots = None
 
 # 中文数字到阿拉伯数字（SOP 只要求支持到十，额外兼容“两”）。
 _CN_NUMERALS: Dict[str, int] = {
@@ -61,6 +77,7 @@ class ResearchSessionStore:
     def __init__(self, storage_path: Optional[str] = None):
         self.storage_path = os.path.abspath(storage_path or _default_storage_path())
         self._state: Dict[str, Any] = _default_state()
+        self.last_guard_notice: Optional[Dict[str, Any]] = None
         self.load()
 
     # ------------------------------------------------------------------
@@ -71,14 +88,19 @@ class ResearchSessionStore:
         return self._state
 
     def load(self) -> Dict[str, Any]:
-        """从磁盘载入会话状态；缺失或损坏时回落到全新的默认 state。"""
+        """从磁盘载入会话状态；缺失 / 损坏 / 超 100 MB 时回落到全新默认 state。"""
         if not os.path.exists(self.storage_path):
             return self._state
-        try:
-            with open(self.storage_path, "r", encoding="utf-8") as fh:
-                loaded = json.load(fh)
-        except (OSError, ValueError):
-            return self._state
+        if _guarded_load is not None:
+            loaded, notice = _guarded_load(self.storage_path, dict)
+            if isinstance(notice, dict):
+                self.last_guard_notice = notice
+        else:  # pragma: no cover - 护栏不可用时的降级路径
+            try:
+                with open(self.storage_path, "r", encoding="utf-8") as fh:
+                    loaded = json.load(fh)
+            except (OSError, ValueError):
+                return self._state
         if not isinstance(loaded, dict):
             return self._state
         merged = _default_state()
@@ -104,24 +126,41 @@ class ResearchSessionStore:
         directory = os.path.dirname(self.storage_path)
         if directory:
             os.makedirs(directory, exist_ok=True)
+        self._write()
+        # 体积护栏：文件超软上限（2 MB）时裁到最近 50 条快照后重写一次
+        if _guard_enforce is not None and _guard_enforce(self.storage_path, self._state):
+            self._write()
+        return self.storage_path
+
+    def _write(self) -> None:
         with open(self.storage_path, "w", encoding="utf-8") as fh:
             json.dump(self._state, fh, ensure_ascii=False, indent=2)
-        return self.storage_path
 
     # ------------------------------------------------------------------
     # 快照
     # ------------------------------------------------------------------
     def _push_snapshot(self, reason: str) -> Dict[str, Any]:
-        """把当前 state（除 snapshots 自身）深拷贝入栈，快照带 version。"""
+        """把当前业务态深拷贝入栈，快照带 version。
+
+        只存业务字段（焦点 / 槽位 / 实体 / 版本），**不复制 history 与 snapshots**：
+        历史轮次用 ``history_len`` 记录长度，回滚时按长度截断即可还原时间线。
+        旧实现把整份 history 复制进每条快照，第 i 条快照装 i 条历史，
+        长期会话体积按 O(n²) 膨胀（80 轮 3 MB、1000 轮约 480 MB）。
+        """
         payload = {key: value for key, value in self._state.items()
-                   if key != "snapshots"}
+                   if key not in ("snapshots", "history")}
+        payload["history_len"] = len(self._state.get("history") or [])
         snapshot = {
             "version": self._state.get("version", 0),
             "reason": reason,
             "at": datetime.datetime.now().isoformat(timespec="milliseconds"),
             "state": copy.deepcopy(payload),
         }
-        self._state.setdefault("snapshots", []).append(snapshot)
+        snapshots = self._state.setdefault("snapshots", [])
+        snapshots.append(snapshot)
+        # 保留上限：只留最近 50 条，避免无限累积
+        if _trim_snapshots is not None:
+            _trim_snapshots(self._state, keep_last=50)
         return snapshot
 
     # ------------------------------------------------------------------
@@ -279,6 +318,14 @@ class ResearchSessionStore:
 
         recovered = copy.deepcopy(snapshot_state)
         recovered["snapshots"] = snapshots
+        history_len = recovered.pop("history_len", None)
+        current_history = self._state.get("history") or []
+        if isinstance(history_len, int) and history_len >= 0:
+            # 新格式：按长度把历史截断回快照时刻，保持“时间线回滚”语义
+            recovered["history"] = current_history[:history_len]
+        elif "history" not in recovered:
+            # 兜底：既无 history_len 也无 history 时保留现有历史
+            recovered["history"] = current_history
         self._state = recovered
         try:
             self._state["version"] = int(self._state.get("version", 0))
