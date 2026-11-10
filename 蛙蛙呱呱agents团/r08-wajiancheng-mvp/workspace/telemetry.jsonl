@@ -28,3 +28,4 @@
 {"trace_id": "5cf80398aa0c597d418e25cb8168e404", "span_id": "00d78235d3a1357f", "name": "r08_test_span", "timestamp": 1794318481.774938, "duration_ms": 12.5, "status": "SUCCESS", "payload_sha256": "N/A", "metadata": {}}
 {"trace_id": "58e86345b480cb7a48c753897830cac9", "span_id": "3b2d20b9f6fa01f3", "name": "r08_test_span", "timestamp": 1794319088.5761683, "duration_ms": 12.5, "status": "SUCCESS", "payload_sha256": "N/A", "metadata": {}}
 {"trace_id": "05603ddadad693bf8c1301759e2106d0", "span_id": "541f4cdc63309161", "name": "r08_test_span", "timestamp": 1794329844.4814126, "duration_ms": 12.5, "status": "SUCCESS", "payload_sha256": "N/A", "metadata": {}}
+{"trace_id": "44024232aca9af2909860f521f6e3f9b", "span_id": "73bbdb7752a5e7d2", "name": "r08_test_span", "timestamp": 1794330540.236196, "duration_ms": 12.5, "status": "SUCCESS", "payload_sha256": "N/A", "metadata": {}}

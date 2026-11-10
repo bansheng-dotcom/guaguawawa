@@ -63,6 +63,8 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 _INTENT_ROUTES = [
     (("设计系统", "design system", "design.md", "风格库", "品牌风格", "参考风格"), "designsys", "list", {}),
     (("风格推荐", "推荐风格", "style recommend"), "designsys", "recommend", {}),
+    (("视频提示词", "分镜", "h3", "t2va", "i2va", "fl2va", "l2va", "ref2va", "脚本转视频"), "h3prompt", "build", {}),
+    (("真实生图", "真实生成图片", "nano banana", "nanobanana", "aihive", "ai hive", "文生图接口", "图片编辑接口"), "aihive", "probe", {}),
     (("logo", "标志", "logotype", "图标", "favicon", "app icon", "品牌标"), "logo", "logo", {}),
     (("生图", "插画", "主视觉", "imagegen", "图片", "生图提示词"), "imagegen", "generate", {}),
     (("海报", "物料", "banner", "卖点图", "poster", "宣传图"), "imagegen", "generate", {}),

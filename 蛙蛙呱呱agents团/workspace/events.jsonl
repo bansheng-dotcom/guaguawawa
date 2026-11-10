@@ -6758,3 +6758,18 @@
 {"ts": "2026-11-11T00:57:50", "agent": "r10", "type": "task_started", "task_id": "67bc9176", "payload": {}}
 {"ts": "2026-11-11T00:57:50", "agent": "r10", "type": "note", "task_id": "67bc9176", "payload": {"outputs": [{"name": "logo.json", "kind": "data", "media_type": "application/json", "note": ""}, {"name": "design_report.md", "kind": "report", "media_type": "text/markdown", "note": ""}, {"name": "design_report.html", "kind": "report", "media_type": "text/html", "note": ""}], "status": "done"}}
 {"ts": "2026-11-11T00:57:50", "agent": "r10", "type": "task_finished", "task_id": "67bc9176", "payload": {"outputs": ["logo.json", "design_report.md", "design_report.html"]}}
+{"ts": "2026-11-11T01:08:42", "agent": "core", "type": "task_created", "task_id": "896d01d3", "payload": {"owner": "r10", "title": "设计一个 logo"}}
+{"ts": "2026-11-11T01:08:42", "agent": "r10", "type": "note", "task_id": "896d01d3", "payload": {"status": "running"}}
+{"ts": "2026-11-11T01:08:42", "agent": "r10", "type": "task_started", "task_id": "896d01d3", "payload": {}}
+{"ts": "2026-11-11T01:08:42", "agent": "r10", "type": "note", "task_id": "896d01d3", "payload": {"outputs": [{"name": "logo.json", "kind": "data", "media_type": "application/json", "note": ""}, {"name": "design_report.md", "kind": "report", "media_type": "text/markdown", "note": ""}, {"name": "design_report.html", "kind": "report", "media_type": "text/html", "note": ""}], "status": "done"}}
+{"ts": "2026-11-11T01:08:42", "agent": "r10", "type": "task_finished", "task_id": "896d01d3", "payload": {"outputs": ["logo.json", "design_report.md", "design_report.html"]}}
+{"ts": "2026-11-11T01:08:54", "agent": "core", "type": "task_created", "task_id": "92cdb10a", "payload": {"owner": "r08", "title": "切片一个 MVP"}}
+{"ts": "2026-11-11T01:08:54", "agent": "r08", "type": "note", "task_id": "92cdb10a", "payload": {"status": "running"}}
+{"ts": "2026-11-11T01:08:54", "agent": "r08", "type": "task_started", "task_id": "92cdb10a", "payload": {}}
+{"ts": "2026-11-11T01:08:54", "agent": "r08", "type": "note", "task_id": "92cdb10a", "payload": {"outputs": [{"name": "slice.json", "kind": "data", "media_type": "application/json", "note": ""}, {"name": "mvp_report.md", "kind": "report", "media_type": "text/markdown", "note": ""}, {"name": "mvp_report.html", "kind": "report", "media_type": "text/html", "note": ""}], "status": "done"}}
+{"ts": "2026-11-11T01:08:54", "agent": "r08", "type": "task_finished", "task_id": "92cdb10a", "payload": {"outputs": ["slice.json", "mvp_report.md", "mvp_report.html"]}}
+{"ts": "2026-11-11T01:10:10", "agent": "core", "type": "task_created", "task_id": "d40cda84", "payload": {"owner": "r10", "title": "设计一个 logo"}}
+{"ts": "2026-11-11T01:10:10", "agent": "r10", "type": "note", "task_id": "d40cda84", "payload": {"status": "running"}}
+{"ts": "2026-11-11T01:10:10", "agent": "r10", "type": "task_started", "task_id": "d40cda84", "payload": {}}
+{"ts": "2026-11-11T01:10:10", "agent": "r10", "type": "note", "task_id": "d40cda84", "payload": {"outputs": [{"name": "logo.json", "kind": "data", "media_type": "application/json", "note": ""}, {"name": "design_report.md", "kind": "report", "media_type": "text/markdown", "note": ""}, {"name": "design_report.html", "kind": "report", "media_type": "text/html", "note": ""}], "status": "done"}}
+{"ts": "2026-11-11T01:10:10", "agent": "r10", "type": "task_finished", "task_id": "d40cda84", "payload": {"outputs": ["logo.json", "design_report.md", "design_report.html"]}}

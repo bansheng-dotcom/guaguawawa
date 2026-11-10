@@ -43,6 +43,11 @@ python agent.py designsys recommend --project ai              # S11 按项目类
 python agent.py designsys show --brand linear.app             # S11 看色板/字体/组件
 python agent.py designsys apply --brand linear.app --out DESIGNS/linear  # S11 落盘
 python agent.py designsys audit --brand claude                # S11 九段式门禁
+python agent.py aihive probe                                  # S12 真实生图：探测 Key/依赖
+python agent.py aihive preview --prompt "高级商业摄影风格" --batch 2   # S12 只拼命令
+python agent.py aihive generate --prompt "..." --yes          # S12 真实调用（会扣费）
+python agent.py h3prompt build --input h3_spec.json --out prompt.txt  # S13 H3 提示词
+python agent.py h3prompt audit --input h3_spec.json           # S13 提示词门禁
 
 python agent.py contract list                               # T6 8 技能机器可读契约
 python agent.py contract validate --skill logo --action logo --output r.json
@@ -68,6 +73,8 @@ python agent.py run --task <task_id>                        # 协作入口
 | S08 | 转写字幕 | `transcribe transcribe/probe` | 模型尺寸白名单 + 段列表 + faster-whisper 探测 | SYSTRAN faster-whisper |
 | S09 | 数据视觉营销物料 | `render poster/theme` | 宣传图契约 → 确定性 SVG（主题色板 + 参数化几何体） | 生成层（对齐第九节「LLM 生成，Python 关笼子」） |
 | S11 | 品牌设计系统库 | `designsys list/recommend/show/apply/audit` | 31 套品牌 DESIGN.md：检索 → 按项目类型推荐 → 落盘 DESIGN.md + design_tokens.json → 九段式门禁 | awesome-design-md（Google Stitch DESIGN.md 格式） |
+| S12 | 真实生图（AI Hive） | `aihive probe/preview/generate/task` | Nano Banana Pro 裸接口外壳：探测 → 拼命令 → 扣费前确认 → 真实调用 → 解析 taskId/落盘文件 | Marketplace Skill nano-banana-pro |
+| S13 | H3 视频提示词 | `h3prompt build/audit` | T2VA/I2VA/FL2VA/L2VA/Ref2VA 结构装配 + 时长/时间戳/参考标签/对白/屏幕文字硬门禁 | Marketplace Skill h3-prompt-writing |
 
 ## 协作契约
 
@@ -102,7 +109,14 @@ R10 产出视觉资产与设计规格；真实前端代码实现交 R09；数据
 模型生成。两条路各司其职：`render` 出「版式正确但不真实」的矢量稿，`imagegen prompt`
 出「能直投模型」的提示词。
 
-## 详细参考（9 个模块）
+「真实生成」纪律（S12 aihive / S13 h3prompt）：
+- `aihive` 真实出图需要 **API Key + 网络 + 额度**，缺一即 `status=blocked`；`generate` 必须
+  `--yes`，batch > 4 需 `--allow-batch`；超时只保留 `taskId`，不重复提交（避免重复扣费）。
+- `h3prompt` 产出的是**给 MiniMax H3 的提示词**，不是成片；时长/时间戳/参考标签/对白/
+  屏幕文字全部走确定性门禁，失败即 FAIL，不允许"差不多"。
+- 两者都不得虚构商品事实（功能、材质、认证、价格）；屏幕文字交付前必须人工复核。
+
+## 详细参考（11 个模块）
 
 - [模块A AI 生图与插画](references/01-imagegen.md)
 - [模块B Logo 与图标](references/02-logo.md)
@@ -111,5 +125,6 @@ R10 产出视觉资产与设计规格；真实前端代码实现交 R09；数据
 - [模块E 交互原型与动效](references/05-motion.md)
 - [模块F 修图与图像工程](references/06-imaging.md)
 - [模块I 品牌设计系统库（31 套 DESIGN.md）](references/09-design-systems.md)
+- [模块J 真实生图与视频提示词（Nano Banana Pro / MiniMax H3）](references/10-ai-generation.md)
 - [模块G 视频与音频处理](references/07-media.md)
 - [模块H 转写与字幕](references/08-transcribe.md)

@@ -509,7 +509,7 @@ python guagua.py call r09 local-verify --project . --kind unittest --command pyt
 
 **定位**：把品牌简报和内容变成可交付的视觉规范、Logo/VI、UI/UX、动效、图片/视频处理任务单。
 
-**核心能力**：AI 生图插画 · Logo 图标 VI · 产品 UI/UX · 交互原型动效 · 修图图像工程 · 视频音频处理 · 转写字幕 · 数据视觉营销物料 · **品牌设计系统库（31 套 DESIGN.md）**
+**核心能力**：AI 生图插画 · Logo 图标 VI · 产品 UI/UX · 交互原型动效 · 修图图像工程 · 视频音频处理 · 转写字幕 · 数据视觉营销物料 · **品牌设计系统库（31 套 DESIGN.md）** · **真实生图（Nano Banana Pro）** · **H3 视频提示词**
 
 **契约**：`brand_brief` + `content` → `visual_assets` + `vi`
 
@@ -526,16 +526,23 @@ python guagua.py call r10 designsys recommend --project ai
 python guagua.py call r10 designsys show --brand linear.app
 python guagua.py call r10 designsys apply --brand linear.app --out DESIGNS/linear
 python guagua.py call r10 designsys audit --brand claude
+# 真实生图（需 AI_HIVE_API_KEY / ~/.ai-hive/config.json；generate 会扣费）
+python guagua.py call r10 aihive probe
+python guagua.py call r10 aihive preview --prompt "高级商业摄影风格的产品主视觉" --batch 2
+python guagua.py call r10 aihive generate --prompt "..." --yes
+# H3 视频提示词（T2VA/I2VA/FL2VA/L2VA/Ref2VA）
+python guagua.py call r10 h3prompt build --input h3_spec.json --out prompt.txt
 ```
 
-**设计系统库归属**（31 套品牌规范，来源见 `r10-wachengmei-design/references/design-systems/README.md`）：
+**设计系统库与生成能力归属**（31 套品牌规范 + 真实生图 + H3 视频提示词）：
 
 | 角色 | 用法 |
 |---|---|
-| **R10 蛙成美** | 主用：`designsys` 检索 / 推荐 / 落盘 `DESIGN.md` + `design_tokens.json` / 九段式门禁 |
-| **R08 蛙建成** | 消费：`design from-md` 把 `DESIGN.md` 转成组件与令牌契约，直接过 R08 门禁 |
+| **R10 蛙成美** | 主用：`designsys` 检索/推荐/落盘/门禁；`aihive` 真实出图；`h3prompt` 装配视频提示词 |
+| **R08 蛙建成** | 消费：`design from-md` 把 `DESIGN.md` 转成组件与令牌契约；落地页素材用 `aihive` 产物而非占位图 |
 | **R09 蛙稳码** | 消费：拿 `design_tokens.json` 落生产前端，颜色/字阶/间距不再自造 |
-| R11 蛙点题 | 参考：内容页的配色与版式语气对齐品牌规范 |
+| **R11 蛙点题** | 消费：视频/口播脚本交 `h3prompt` 装配成可投喂提示词；内容页配色对齐 `designsys` 基线 |
+| **R12 蛙引流** | 消费：投放素材（KV/信息流/短视频）走 R10 的 `aihive` + `h3prompt`，不自己编画面 |
 | R07 蛙得明 | 参考：PRD 的 UI Brief 直接引用某个设计系统 slug，避免"看着办" |
 
 **协作位置**：R11 文案 → R10 配图/视觉；R08/R09 实现时使用 R10 的设计令牌与组件规格；品牌决策升级创始人。
@@ -931,6 +938,16 @@ python verify_loop.py
 ---
 
 ## 十、版本与更新记录
+
+### v2.0.4（2026-11-11）
+
+- 新增 **S12 `aihive`（真实生图）**：Nano Banana Pro 裸接口外壳——`probe`/`preview`/`generate`/`task`，
+  默认 COST_FIRST、`generate` 必须 `--yes`、batch ≤4、缺 Key 即 `blocked`、超时只留 `taskId` 不重复扣费；
+  上游脚本 vendor 到 `r10-wachengmei-design/vendor/aihive/imagegen.py`。
+- 新增 **S13 `h3prompt`（MiniMax H3 视频提示词）**：T2VA/I2VA/FL2VA/L2VA/Ref2VA 结构装配 +
+  时长 4–15s、时间戳递增、参考标签、对白语言标签、屏幕文字引号等硬门禁。
+- 文档：r10 SKILL.md 增 S12/S13 与生成纪律；新增[模块J](蛙蛙呱呱agents团/r10-wachengmei-design/references/10-ai-generation.md)；
+  README 归属表补 R11/R12 消费关系；新增 `tests/test_ai_generation.py`（14 例）。
 
 ### v2.0.3（2026-11-11）
 

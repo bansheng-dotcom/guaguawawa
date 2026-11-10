@@ -232,6 +232,36 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "audit": _out([]),
         },
     },
+    "aihive": {
+        "desc": "AI 图片生成与编辑（Nano Banana Pro）：probe/preview/generate/task",
+        "input": {
+            "probe": _REQ({}, []),
+            "preview": _REQ({"prompt": _STR, "batch": {"type": "integer"}}, ["prompt"]),
+            "generate": _REQ({"prompt": _STR, "batch": {"type": "integer"},
+                              "yes": _BOOL}, ["prompt"]),
+            "task": _REQ({"task_id": _STR}, ["task_id"]),
+        },
+        "output": {
+            "probe": _out(["status"]),
+            "preview": _out(["command"]),
+            "generate": _out(["status"]),
+            "task": _out(["status"]),
+        },
+    },
+    "h3prompt": {
+        "desc": "MiniMax H3 视频提示词：build/audit",
+        "input": {
+            "build": _REQ({"mode": _STR, "duration_sec": _NUM,
+                           "shots": _ARR({"type": "object"})},
+                          ["mode", "duration_sec", "shots"]),
+            "audit": _REQ({"mode": _STR, "duration_sec": _NUM,
+                           "shots": _ARR({"type": "object"})}, ["mode", "shots"]),
+        },
+        "output": {
+            "build": _out(["prompt"]),
+            "audit": _out([]),
+        },
+    },
 }
 
 
