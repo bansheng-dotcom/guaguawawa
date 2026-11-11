@@ -172,6 +172,21 @@ def handle_meta_command(argv: List[str], role: str) -> Optional[int]:
     """在角色 CLI 解析前拦截统一元命令；不匹配则返回 None 交回原 CLI。"""
     if not argv:
         return None
+
+    # 全员 LLM 网关：默认关闭；开启且通过 schema 校验时接管，否则原样放行。
+    try:
+        from .prompt_gateway import maybe as _llm_maybe
+        _llm_res = _llm_maybe(role, argv)
+    except Exception:  # noqa: BLE001
+        _llm_res = None
+    if _llm_res is not None:
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+        print("__AGENT_RESULT__ " + json.dumps(_llm_res, ensure_ascii=False))
+        return 0 if _llm_res.get("ok", True) else 1
+
     cmd = argv[0]
     if cmd not in ("report", "test", "logs"):
         return None
