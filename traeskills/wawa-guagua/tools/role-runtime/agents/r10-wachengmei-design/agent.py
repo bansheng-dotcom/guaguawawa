@@ -23,7 +23,7 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 if _REPO_ROOT not in _sys.path:
     _sys.path.insert(0, _REPO_ROOT)
 
@@ -44,6 +44,7 @@ for _p in (_HERE, _AGENTS):
         sys.path.insert(0, _p)
 
 from core import protocol, registry, workspace  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
@@ -53,15 +54,22 @@ import review  # noqa: E402
 
 ROLE = "r10"
 CAPABILITY_STATUS = {"default": "real", "reason": "本地输入的结构与文件属性检查", "external_actions": "simulated"}
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 _INTENT_ROUTES = [
+    (("品牌一致性", "vi 检查", "品牌检查"), "brandcheck", "check", {}),
+    (("缩放", "裁剪", "加水印", "图片补边", "resize"), "imgops", "info", {}),
+    (("设计系统", "design system", "design.md", "风格库", "品牌风格", "参考风格"), "designsys", "list", {}),
+    (("风格推荐", "推荐风格", "style recommend"), "designsys", "recommend", {}),
+    (("视频提示词", "分镜", "h3", "t2va", "i2va", "fl2va", "l2va", "ref2va", "脚本转视频"), "h3prompt", "build", {}),
+    (("真实生图", "真实生成图片", "nano banana", "nanobanana", "aihive", "ai hive", "文生图接口", "图片编辑接口"), "aihive", "probe", {}),
     (("logo", "标志", "logotype", "图标", "favicon", "app icon", "品牌标"), "logo", "logo", {}),
-    (("生图", "插画", "主视觉", "海报", "imagegen", "prompt", "构图"), "imagegen", "prompt", {}),
+    (("生图", "插画", "主视觉", "imagegen", "图片", "生图提示词"), "imagegen", "compose", {}),
+    (("海报", "物料", "banner", "卖点图", "poster", "宣传图"), "imagegen", "compose", {}),
     (("设计令牌", "token", "令牌", "design token"), "brand", "token", {}),
     (("视觉身份", "stylescape", "品牌vi", "vi", "品牌视觉", "色彩", "字体搭配"), "brand", "vi", {}),
     (("动效", "motion", "lottie", "微交互", "动画", "缓动"), "motion", "motion", {}),
@@ -70,7 +78,7 @@ _INTENT_ROUTES = [
     (("转写", "字幕", "whisper", "语音转文字"), "transcribe", "transcribe", {}),
     (("视频", "音频", "转码", "剪辑", "ffmpeg", "封装"), "media", "media", {}),
     (("抠图", "修图", "图片处理", "批量", "压缩", "pillow", "背景去除"), "imaging", "edit", {}),
-    (("宣传图", "海报", "物料", "banner", "卖点图", "poster"), "render", "poster", {}),
+    (("矢量稿", "版式稿", "svg", "主题色板", "矢量渲染", "theme"), "render", "poster", {}),
 ]
 
 
@@ -91,6 +99,7 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例设计工件（logo/prompt/vi/screen）")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
     _register_harness(sp)
     _register_contract(sp)
@@ -98,6 +107,29 @@ def build_parser() -> argparse.ArgumentParser:
     _register_review(sp)
     la = sp.add_parser("local-media-check", help="本地媒体文件存在性/MIME/尺寸检查")
     la.add_argument("--input", required=True)
+
+    ev_p = sp.add_parser("evolve", help="十维演进元模型引擎调度 (L01~L10)")
+    ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
+    ev_sub.add_parser("probe", help="L01: 探测引擎健康状态")
+    dec_p = ev_sub.add_parser("decompile", help="L02: 意图解构与DAG编排")
+    dec_p.add_argument("--query", required=True, help="设计诉求自然语言")
+    heal_p = ev_sub.add_parser("heal", help="L03: 自愈反思与红线审判")
+    heal_p.add_argument("--type", default="prompt", dest="heal_type")
+    heal_p.add_argument("--input", required=True)
+    spec_p = ev_sub.add_parser("spec-tokens", help="L04: 领域规格与令牌导出")
+    spec_p.add_argument("--format", default="css", choices=["css", "flutter", "json"])
+    slop_p = ev_sub.add_parser("slopguard", help="L05: 质感去劣与占位驱除")
+    slop_p.add_argument("--text", required=True)
+    scen_p = ev_sub.add_parser("scenario", help="L06: 裂变横向决策看板")
+    scen_p.add_argument("--concept", default="商业宣传主视觉")
+    bun_p = ev_sub.add_parser("bundle", help="L07: 导出下游伴生消费资产包")
+    bun_p.add_argument("--id", default="r10_evolve_bundle")
+    pat_p = ev_sub.add_parser("patch", help="L08: 局部差量补丁与Inpaint")
+    pat_p.add_argument("--doc", default='{"theme": {"primary": "#0F172A"}}')
+    mem_p = ev_sub.add_parser("memory", help="L09: 会话记忆与代词消歧")
+    mem_p.add_argument("--query", required=True)
+    tel_p = ev_sub.add_parser("telemetry", help="L10: 工业容灾与遥测记录")
+    tel_p.add_argument("--name", default="r10_cli_trace")
 
     for m in SKILLS:
         m.add_parser(sp)
@@ -236,6 +268,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -245,6 +286,9 @@ def run_task(task_id: str) -> Dict[str, Any]:
     merged.update(params)
     merged["action"] = action
     merged["input"] = in_file
+    # 生图类动作的默认落盘目录固定到任务工件目录，避免污染 workspace 根
+    if skill_name == "imagegen" and action == "generate" and not merged.get("output_dir"):
+        merged["output_dir"] = out_dir
 
     result = mod.run(_mkns(**merged))
     result.setdefault("capability_status", "real")
@@ -258,6 +302,11 @@ def run_task(task_id: str) -> Dict[str, Any]:
     with open(result_path, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     outputs.append(protocol.Port(f"{skill_name}.json", "data"))
+
+    # 真实视觉产物也登记为输出端口，供 R08/R11 等下游直接取用
+    for art in (result.get("artifacts") or []):
+        if isinstance(art, str) and os.path.exists(art):
+            outputs.append(protocol.Port(os.path.basename(art), "image"))
 
     ports = role_runtime.emit(
         role=ROLE, name="蛙成美", title="视觉设计官",
@@ -289,7 +338,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return "imagegen", "prompt", {}
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -359,6 +409,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "local-media-check":
         from local_actions import inspect_media
         out = inspect_media(args.input)
@@ -380,6 +432,72 @@ def main() -> int:
         out = _run_review(args)
         emit_result(out)
         return 0 if out["verdict"] == "PASS" else 1
+    if args.skill == "evolve":
+        from engines import (
+            VisualRuntimeEngine,
+            VisualIntentCompiler,
+            VisualReflexiveHealer,
+            DesignSpecLedger,
+            SlopGuard,
+            VisualScenarioMatrix,
+            VisualAssetBundle,
+            VisualDiffPatchEngine,
+            VisualSessionMemory,
+            WatchdogBreaker,
+            TelemetryTracer,
+        )
+        if args.subcmd == "probe":
+            eng = VisualRuntimeEngine()
+            out = eng.probe_health()
+            emit_result(out)
+            return 0 if out.get("status") == "healthy" else 1
+        elif args.subcmd == "decompile":
+            comp = VisualIntentCompiler()
+            out = comp.decompile(args.query)
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "heal":
+            healer = VisualReflexiveHealer()
+            in_data = c.load_json(args.input)
+            out = healer.audit_and_heal(args.heal_type, in_data)
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "spec-tokens":
+            ledger = DesignSpecLedger()
+            if args.format == "css":
+                emit_result({"css": ledger.export_css_variables()})
+            elif args.format == "flutter":
+                emit_result({"flutter": ledger.export_flutter_theme()})
+            else:
+                emit_result(ledger.load_spec())
+            return 0
+        elif args.subcmd == "slopguard":
+            emit_result(SlopGuard.audit_text(args.text))
+            return 0
+        elif args.subcmd == "scenario":
+            mat = VisualScenarioMatrix()
+            emit_result(mat.generate_matrix(args.concept))
+            return 0
+        elif args.subcmd == "bundle":
+            bundle_eng = VisualAssetBundle()
+            emit_result(bundle_eng.export_bundle(args.id, {"tokens": {"primary": "#0F172A"}}))
+            return 0
+        elif args.subcmd == "patch":
+            patch_eng = VisualDiffPatchEngine()
+            doc1 = json.loads(args.doc)
+            doc2 = {"theme": {"primary": "#22D3EE", "radius": "8px"}}
+            patch = patch_eng.create_patch(doc1, doc2)
+            applied = patch_eng.apply_patch(doc1, patch)
+            emit_result({"patch": patch, "applied": applied})
+            return 0
+        elif args.subcmd == "memory":
+            mem = VisualSessionMemory()
+            emit_result(mem.resolve_pronouns(args.query))
+            return 0
+        elif args.subcmd == "telemetry":
+            tracer = TelemetryTracer()
+            emit_result(tracer.record_span(args.name, 12.0, "SUCCESS"))
+            return 0
 
     t0 = time.time()
     result = SKILL_BY_NAME[args.skill].run(args)

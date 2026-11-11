@@ -71,6 +71,9 @@ def check() -> dict:
         src = open(R10_AGENT, encoding="utf-8").read()
         if "imagegen" not in src:
             warnings.append({"scope": "r10", "msg": "agent.py 未见 imagegen 注册"})
+        # 默认意图必须是 compose（提示词路线），不能默认 generate（要引擎）
+        if ('"imagegen", "compose"' not in src) or ('"imagegen", "generate"' in src):
+            problems.append({"scope": "r10", "msg": "默认意图未指向 imagegen compose"})
 
     for role in roles():
         role_dir = os.path.join(ROOT, role)

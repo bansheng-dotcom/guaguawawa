@@ -56,7 +56,8 @@ def main() -> int:
     if gw.maybe("r07", argv) is not None:
         fails.append("无 Key 时不应接管")
 
-    # 4) 有 Key + 模型返回合法 JSON：接管并标 llm=True
+    # 4) 有 Key + 未设 flag：默认就走模型优先，接管并标 llm=True
+    os.environ.pop("PROMPT_PACK_LLM", None)
     os.environ["DEEPSEEK_API_KEY"] = "test-key"
     fd, path = tempfile.mkstemp(suffix=".json")
     with os.fdopen(fd, "w", encoding="utf-8") as f:
@@ -71,7 +72,13 @@ def main() -> int:
     finally:
         pp.generate = orig
     if not res or not res.get("llm"):
-        fails.append(f"开启后应接管：{res}")
+        fails.append(f"有 Key 默认应接管：{res}")
+
+    # 4.1) 显式关掉：PROMPT_PACK_LLM=0 + Key → 不接管
+    os.environ["PROMPT_PACK_LLM"] = "0"
+    if gw.maybe("r07", ["prd", "prd", "--input", path]) is not None:
+        fails.append("PROMPT_PACK_LLM=0 时不应接管")
+    os.environ.pop("PROMPT_PACK_LLM", None)
 
     # 5) 未登记动作：不接管
     try:
@@ -105,7 +112,7 @@ def main() -> int:
         print("  [FAIL] " + f)
     if fails:
         return 1
-    print("\n[OK] 19 角色同点接入；默认关闭；无 Key 不接管；脏输出回退")
+    print("\n[OK] 19 角色同点接入；有 Key 默认接管；PROMPT_PACK_LLM=0 可关；脏输出回退")
     return 0
 
 

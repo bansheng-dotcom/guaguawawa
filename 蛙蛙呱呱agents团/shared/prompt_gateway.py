@@ -22,11 +22,13 @@ ENV_FLAG = "PROMPT_PACK_LLM"
 
 
 def enabled() -> bool:
+    """有 Key 就默认走模型优先；显式设 PROMPT_PACK_LLM=0 可关闭。"""
     flag = str(os.environ.get(ENV_FLAG, "")).strip().lower()
-    if flag not in ("1", "true", "yes", "on"):
+    if flag in ("0", "false", "off", "no"):
         return False
-    return bool(os.environ.get("OPENAI_API_KEY")
-                or os.environ.get("DEEPSEEK_API_KEY"))
+    if not (os.environ.get("OPENAI_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")):
+        return False
+    return True
 
 
 def _parse(argv: List[str]) -> Dict[str, str]:

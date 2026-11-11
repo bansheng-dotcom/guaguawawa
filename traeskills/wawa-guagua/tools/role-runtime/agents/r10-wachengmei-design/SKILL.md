@@ -58,6 +58,10 @@ metadata:
 | 任务 | 入口 |
 |---|---|
 | 生图提示词（默认路线） | `agent.py imagegen compose --need "<一句话需求>"` |
+
+> **默认路线：提示词**。任何出图请求先走 `imagegen compose`（必要时由模型扩写），
+> 不自动调用外部生图接口；确需接某个接口时，由用户指定并给 Key 后单独接入。
+> `generate` 无引擎时自动降级为提示词，`render poster` 输出为确定性模板（带水印）。
 | 参考设计系统（31 套） | `agent.py imagegen refs --query "dark cinematic"` |
 | 灵感检索（39 站 + 版权） | `agent.py imagegen inspire --need "..." --category packaging` |
 | 校验提示词包 | `agent.py imagegen prompt` |
