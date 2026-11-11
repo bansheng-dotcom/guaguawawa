@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """R14 端到端回归测试：把 SOP 的 T10 验收脚本化。
 
-覆盖：manifest / 8 技能 17 动作（含脏数据·越界·伪造结论必须 FAIL）/ 契约(T6) /
+覆盖：manifest / 9 技能 19 动作（含脏数据·越界·伪造结论必须 FAIL）/ 契约(T6) /
 对抗评审(T7) / 案例库(T8) / 阈值外置(T9) / harness / demo / run_task /
 verify_loop 闭环矩阵(T15)。
 
@@ -96,7 +96,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("8 个技能", len(m.get("skills", [])) == 8, str(len(m.get("skills", []))))
+    t.check("9 个技能", len(m.get("skills", [])) == 9, str(len(m.get("skills", []))))
     t.check("角色 r14", m.get("role") == "r14", str(m.get("role")))
     t.check("输入端口 package/quotation",
             m.get("inputs") == ["package", "quotation"], str(m.get("inputs")))
@@ -340,10 +340,10 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("T6 契约")
-    t.check("8 技能登记", len(contracts.skill_names()) == 8,
+    t.check("9 技能登记", len(contracts.skill_names()) == 9,
             str(contracts.skill_names()))
     total_actions = sum(len(contracts.actions(s)) for s in contracts.skill_names())
-    t.check("17 动作登记", total_actions == 17, str(total_actions))
+    t.check("19 动作登记", total_actions == 19, str(total_actions))
     for s in contracts.skill_names():
         ent = contracts.get(s)
         for a in contracts.actions(s):
@@ -446,7 +446,7 @@ def main() -> int:
     t.check("harness 未知门禁拦截", not h["ok"] and h["grade"] == "FAIL")
     h = harness.run_validator("refund", os.path.join(tmp, "missing.json"))
     t.check("harness 缺文件拦截", not h["ok"] and h["grade"] == "FAIL")
-    t.check("17 个门禁全部登记", len(harness._VALIDATORS) == 17,
+    t.check("19 个门禁全部登记", len(harness._VALIDATORS) == 19,
             str(len(harness._VALIDATORS)))
     code, rl = run_agent("harness", "runlog", "--n", "5")
     t.check("harness runlog 可读", code == 0 or "runlog" in rl, str(rl)[:120])
@@ -460,7 +460,7 @@ def main() -> int:
     code, _ = run_agent("case", "get", "--case", "order-refund-dispute")
     t.check("CLI case get 正常", code == 0)
     code, ctr = run_agent("contract", "list")
-    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 8)
+    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 9)
 
     # ------------------------------------------------------------------ #
     t.section("run_task 协作入口")

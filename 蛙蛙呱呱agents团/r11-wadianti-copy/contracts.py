@@ -172,6 +172,21 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "probe": _out(["status"]),
         },
     },
+    "xhs": {
+        "desc": "小红书发布包：note/score/compliance（评分卡+合规扫描）",
+        "input": {
+            "note": _REQ({"title": _STR, "body": _STR, "cta": _STR,
+                          "tags": _ARR(_STR)}, ["title", "body", "tags"]),
+            "score": _REQ({"title": _STR, "body": _STR, "cta": _STR,
+                           "format_type": _STR}, ["title", "body"]),
+            "compliance": _REQ({"title": _STR, "body": _STR}, ["title", "body"]),
+        },
+        "output": {
+            "note": _out(["title_len", "body_len"]),
+            "score": _out(["passed", "ces_reference"]),
+            "compliance": _out([]),
+        },
+    },
 }
 
 

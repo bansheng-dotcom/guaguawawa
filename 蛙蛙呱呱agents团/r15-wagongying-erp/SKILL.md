@@ -22,8 +22,9 @@ Sales-Purchase Invoice / Payment Entry 的 doctype status Select 字段与必填
 | ERP财务业务接口 | `finance` | `invoice` / `payment` | 发票状态 9 枚举 + 恒等式 + 行项目必填；付款单状态 3 枚举 + 金额非负 + 必须声明授权（不代付款） |
 | 主数据与权限 | `masterdata` | `master_data` / `permission` | 主数据类型 6 枚举 + 编码白名单 + 同类型唯一；角色 6 枚举 + 动作 7 枚举 + SoD 冲突识别 + 高危动作须审计备注 |
 | 运营报表 | `report` | `report` | 报表类型 4 枚举 + 周期口径（YYYY/YYYY-MM/YYYY-Qn）+ KPI 三要素（值/分子/分母）可复算 |
+| 采购总拥有成本 | `tco` | `compare` / `lifecycle` | landed cost = 货值+起运+主运+保险+关税+不可抵扣税+报关+到港+杂费；effective = (landed+资金占用)/可用数量；TCO 至少 3 类成本非零才算 TCO |
 
-共 **7 技能 / 18 动作**（18 个门禁）。
+共 **8 技能 / 20 动作**（20 个门禁）。
 
 ## 协作契约
 

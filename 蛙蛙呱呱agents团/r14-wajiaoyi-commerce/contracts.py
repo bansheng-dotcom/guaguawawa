@@ -164,6 +164,20 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "webhook": _out(["event_count"]),
         },
     },
+    "selection": {
+        "desc": "选品评分：score/profit（五维加权 + 利润红线）",
+        "input": {
+            "score": _REQ({"products": _ARR(_REQ({"name": _STR, "dims": {"type": "object"}},
+                                                ["name", "dims"]))},
+                          ["products"]),
+            "profit": _REQ({"price": _NUM, "cost": _NUM},
+                           ["price", "cost"]),
+        },
+        "output": {
+            "score": _out(["ranked"]),
+            "profit": _out(["margin_pct"]),
+        },
+    },
 }
 
 

@@ -35,6 +35,24 @@
 
 R03/R04/R13/R16/R17/R18/R19/R20 没有领到外部能力，但作为消费方出现在上表（如 R04 做品牌审查会读 R10 的 `brand-guardian` 文档）。
 
+## 一.5 已落地为可执行技能（不是只登记）
+
+登记只是第一步；下面 3 个能力已经把上游的规则表变成角色里可直接跑、可回归的确定性技能：
+
+| 能力 | 落点 | 命令 | 实现的规则 | 上游问题 |
+|---|---|---|---|---|
+| `xhs-content-skills` + `rednote-post` | R11 `xhs` | `xhs note` / `score` / `compliance` | 标题 ≤20 字且前 10 字含核心词；正文 550–650 字；标签 3–8 且埋词闭环；8 项质量快检 ≥7 通过；CES 基准；CTA 黑名单（6 类）+ 四类诱导互动 + 绝对化用语/收入表述/联系方式；AI 内容须带 `#AI辅助创作` | 无 |
+| `smart-product-selector` | R14 `selection` | `selection score` / `profit` | 五维 1–5 打分；推荐等级四档；**SP-09 假设卡缺预期指标即 FAIL**；毛利率 <30% 警告、<15% 放弃；每品须标数据来源类型 | 文档五维权重写作 30/20/25/30/15（**合计 120%**），实现按 100% 归一化并在 checks 显式提示 |
+| `analyze-procurement` | R15 `tco` | `tco compare` / `lifecycle` | landed cost 九项加总；`landed_unit = landed / 可用数量`；资金占用按账期折算；MOQ/交期/不良率旗标；TCO 至少 3 类成本非零才算 TCO（仅货值+运费不算） | 无 |
+
+这三个技能都已接进各自角色的 `harness` 门禁与 `contract` 契约，并有单独的跨角色回归
+`tests/test_capability_fusions.py`（8 例）。
+
+其余 23 项为什么还没做成可执行技能，分两类：
+- **纯提示词规范**（如 `tashan-research-skills`、`user-research-toolkit`）：没有可判定的规则表，
+  强行写"校验"就是编造标准；正确用法是按其 Workflow 执行，由角色 harness 验收产物。
+- **需要运行时**（4 个 MCP + lark 等）：需 MCP 客户端/凭据，CLI 不直连，只能给接入配方。
+
 ## 二、怎么查、怎么用
 
 ```bash

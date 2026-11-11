@@ -191,6 +191,20 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "report": _out(["report_count", "kpi_count"]),
         },
     },
+    "tco": {
+        "desc": "采购总拥有成本：compare/lifecycle",
+        "input": {
+            "compare": _REQ({"quotes": _ARR(_REQ({"supplier": _STR, "unit_price": _NUM,
+                                                  "qty": _NUM},
+                                                 ["supplier", "unit_price", "qty"]))},
+                            ["quotes"]),
+            "lifecycle": _REQ({"acquisition": _NUM}, ["acquisition"]),
+        },
+        "output": {
+            "compare": _out(["ranked"]),
+            "lifecycle": _out(["tco"]),
+        },
+    },
 }
 
 

@@ -24,7 +24,8 @@ for _p in (_HERE, _ROOT):
 
 from skills import _common as c  # noqa: E402
 from skills import (s01_catalog, s02_order, s03_billing, s04_payment,  # noqa: E402
-                    s05_signature, s06_appointment, s07_workflow, s08_revenue)
+                    s05_signature, s06_appointment, s07_workflow, s08_revenue,
+                    s09_selection)
 
 # harness 命令 → (技能模块, 校验函数)
 _VALIDATORS = {
@@ -45,6 +46,8 @@ _VALIDATORS = {
     "transition": (s07_workflow, "_validate_transition"),
     "events": (s08_revenue, "_validate_events"),
     "webhook": (s08_revenue, "_validate_webhook"),
+    "score": (s09_selection, "_validate_score"),
+    "profit": (s09_selection, "_validate_profit"),
 }
 
 _GATE_HELP = {
@@ -56,6 +59,7 @@ _GATE_HELP = {
     "appointment": "预约记录门禁", "calendar": "预约日历门禁",
     "state": "交易状态机门禁", "transition": "状态迁移门禁",
     "events": "交易事件表门禁", "webhook": "回调需求门禁",
+    "score": "选品五维评分门禁", "profit": "利润红线门禁",
 }
 
 

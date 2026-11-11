@@ -557,7 +557,7 @@ python guagua.py call r10 h3prompt build --input h3_spec.json --out prompt.txt
 
 **定位**：把主题变成有策略、有钩子、有平台适配的内容，并对文本格式和长度做本地校验。
 
-**核心能力**：内容策略选题 · SEO/AEO · 钩子提纲 · 文案长文 · 品牌语调编辑 · 广告公关 · 多平台适配 · 持续本地化
+**核心能力**：内容策略选题 · SEO/AEO · 钩子提纲 · 文案长文 · 品牌语调编辑 · 广告公关 · 多平台适配 · 持续本地化 · **小红书发布包（评分/合规）**
 
 **契约**：`topic` + `audience` → `content_draft` + `publish_list`
 
@@ -568,6 +568,10 @@ python guagua.py call r11 copy article --input examples/article.json
 python guagua.py call r11 seo audit --input examples/keyword.json
 python guagua.py call r11 platform adapt --input examples/adapt.json
 python guagua.py call r11 localize term --input examples/term.json
+# 小红书：四要素校验 → 8 项快检 → 发布前合规扫描
+python guagua.py call r11 xhs note --input note.json
+python guagua.py call r11 xhs score --input note.json
+python guagua.py call r11 xhs compliance --input note.json
 ```
 
 **协作位置**：R11 成稿 → R10 配图 → R12 投放 → R06 复盘归因；广告/公关合规交 R03。
@@ -628,7 +632,7 @@ python guagua.py call r13 voc survey --input examples/survey.json
 
 **定位**：管商品、订单、订阅计费、支付、电子签、预约、交易状态机和收入事件。
 
-**核心能力**：商品电商后端 · 订阅计量计费 · 支付集成 · 电子签审计 · 服务预约 · 交易状态编排 · 收入数据接口 · 交易自动化接口
+**核心能力**：商品电商后端 · 订阅计量计费 · 支付集成 · 电子签审计 · 服务预约 · 交易状态编排 · 收入数据接口 · 交易自动化接口 · **选品评分与利润红线**
 
 **契约**：`package` + `quotation` → `order` + `payment_status`
 
@@ -640,6 +644,9 @@ python guagua.py call r14 billing invoice --input examples/invoice.json
 python guagua.py call r14 payment payment_intent --input examples/payment_intent.json
 python guagua.py call r14 signature signing --input examples/signing.json
 python guagua.py call r14 workflow transition --input examples/transition.json
+# 选品：五维加权（上游 120% 权重已归一化）+ 利润红线 + 假设卡门禁
+python guagua.py call r14 selection score --input selection.json
+python guagua.py call r14 selection profit --input profit.json
 ```
 
 **协作位置**：R14 订单 → R15 履约；收入数据交 R03/R06；退款争议交 R03；高风险交易动作需人工授权。
@@ -652,7 +659,7 @@ python guagua.py call r14 workflow transition --input examples/transition.json
 
 **定位**：管采购、供应商、库存、仓库、销售履约、生产资源、财务业务接口和主数据权限。
 
-**核心能力**：采购供应商 · 库存仓库 · 销售履约记录 · 生产服务资源 · ERP 财务接口 · 主数据权限 · 运营报表
+**核心能力**：采购供应商 · 库存仓库 · 销售履约记录 · 生产服务资源 · ERP 财务接口 · 主数据权限 · 运营报表 · **采购 TCO / landed cost**
 
 **契约**：`order` + `sop` → `purchase_order` + `inventory_ledger`
 
@@ -663,6 +670,9 @@ python guagua.py call r15 inventory bin --input examples/bin.json
 python guagua.py call r15 fulfillment sales_order --input examples/sales_order.json
 python guagua.py call r15 production bom --input examples/bom.json
 python guagua.py call r15 masterdata permission --input examples/permission.json
+# 采购总拥有成本：landed cost 对比 + 生命周期 TCO
+python guagua.py call r15 tco compare --input quotes.json
+python guagua.py call r15 tco lifecycle --input lifecycle.json
 ```
 
 **协作位置**：R14 订单 → R15 采购/库存/履约；财务业务接口交 R03；库存风险升级 R01；履约状态回 R13/R14。
@@ -971,6 +981,19 @@ python verify_loop.py
 ---
 
 ## 十、版本与更新记录
+
+### v2.0.6（2026-11-11）
+
+- **把外部能力真正做成可执行技能**（不再只是目录登记）：
+  - R11 `xhs`：`note`/`score`/`compliance`——标题 ≤20 字、正文 550–650、标签埋词闭环、8 项快检 ≥7、CES 基准、
+    CTA 黑名单与四类诱导互动、绝对化/收入/联系方式拦截、AI 标注。
+  - R14 `selection`：`score`/`profit`——五维加权（上游 120% 权重**归一化**并提示）、推荐四档、
+    SP-09 假设卡门禁、毛利率 30%/15% 红线、数据来源类型校验。
+  - R15 `tco`：`compare`/`lifecycle`——landed cost 九项加总、可用数量与资金占用折算、MOQ/交期/不良率旗标、
+    TCO 至少 3 类成本。
+- 三个技能均接入各角色 harness 门禁与契约（r14 19 动作、r15 20 动作、r11 9 技能），
+  新增 `tests/test_capability_fusions.py`（8 例，跑真实 CLI）。
+- 文档：`docs/EXTERNAL_CAPABILITIES.md` 增「已落地为可执行技能」表，记录上游权重 120% 的口径问题。
 
 ### v2.0.5（2026-11-11）
 
