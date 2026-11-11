@@ -1,0 +1,11 @@
+{
+  "media": "image",
+  "style": "3d",
+  "prompt": "Clean e-commerce main image: a light pine wooden crate filled with fresh cool-climate vegetables, crisp orange carrots with green tops, smooth potatoes, glossy red tomatoes, deep green broccoli, small yellow onions, arranged neatly and overflowing naturally, pure white seamless background, soft even studio softbox light, subtle contact shadow, ultra sharp texture detail, commercial catalog quality, centered composition, generous margin, no text",
+  "negative_prompt": "text, watermark, logo, cluttered background, dim lighting, wilted leaves, dirty produce, busy props",
+  "style_locks": [
+    "纯白无缝背景",
+    "木质礼盒主体",
+    "均匀棚拍柔光"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "media": "banner",
+  "style": "duotone",
+  "prompt": "Duotone brand banner: silhouette of a determined person climbing a stylized staircase built from stacked books and gear wheels, double exposure texture of city skylines inside the silhouette, strictly two colors deep forest green and warm sand beige, bold graphic composition with strong diagonal flow, generous empty space on the left for a headline, screen-print editorial quality",
+  "negative_prompt": "full color image, photograph, smooth gradients, clutter, text, watermark, blurry edges, low contrast",
+  "style_locks": [
+    "双色调",
+    "深森林绿与暖沙色",
+    "剪影剪裁构图"
+  ]
+}

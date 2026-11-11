@@ -1,0 +1,11 @@
+{
+  "media": "icon",
+  "style": "flat",
+  "prompt": "Logo design, wordmark only: the short invented brand name 'WAWA' in a friendly rounded geometric sans-serif, letters slightly connected with a subtle frog-eye counter in the second A, single deep forest green color, perfectly centered on pure white background, flat vector, crisp edges, professional brand identity presentation, no other elements",
+  "negative_prompt": "3D, gradient, shadow, multiple words, misspelled letters, clutter, watermark, photo",
+  "style_locks": [
+    "纯文字标",
+    "圆润几何无衬线",
+    "单色深森林绿"
+  ]
+}

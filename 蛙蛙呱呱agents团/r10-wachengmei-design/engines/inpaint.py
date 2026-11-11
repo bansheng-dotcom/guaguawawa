@@ -30,11 +30,22 @@ class InpaintEditEngine:
         instruction: str,
         output_dir: str,
         target_region: str = "background",
-        preferred_engine: Optional[str] = None
+        preferred_engine: Optional[str] = None,
+        style: str = "commercial-photography"
     ) -> Dict[str, Any]:
         """执行对话式增量重绘改稿。"""
         if not os.path.exists(image_path):
             return {"ok": False, "error": f"输入底图不存在: {image_path}"}
+
+        # 先判引擎：没有真实引擎就别造遮罩等中间产物（否则会留下"像在做改稿"的痕迹）
+        manager = get_engine_manager()
+        engine = manager.select_best_engine(preferred=preferred_engine)
+        if getattr(engine, "is_mock", False):
+            return {"ok": False, "verdict": "FAIL", "blocked": True,
+                    "engine_used": engine.name,
+                    "error": "没有可用真实生图引擎（只有占位 mock），拒绝产出假改稿",
+                    "next": "启动 ComfyUI(8188) 或 SD-WebUI(7860 --api) 后重试；"
+                            "或改用 imagegen compose 拿提示词"}
 
         os.makedirs(output_dir, exist_ok=True)
         with Image.open(image_path) as img:
@@ -46,7 +57,7 @@ class InpaintEditEngine:
 
         # 2. 调用 LLM 创意大脑扩写重绘区域提示词
         prompter = get_design_prompter()
-        spec = prompter.expand(instruction, category_or_style="commercial-photography")
+        spec = prompter.expand(instruction, category_or_style=style)
         prompt_en = spec.get("prompt_en", instruction)
         negative_en = spec.get("negative_prompt_en", "lowres, deformed, boundary artifacts")
 
@@ -65,9 +76,6 @@ class InpaintEditEngine:
                 "grow_mask": 8,
             }
         )
-
-        manager = get_engine_manager()
-        engine = manager.select_best_engine(preferred=preferred_engine)
 
         # 4. 执行调度重绘
         res = engine.generate(task, output_dir=output_dir)

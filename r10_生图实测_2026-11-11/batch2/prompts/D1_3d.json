@@ -1,0 +1,11 @@
+{
+  "media": "image",
+  "style": "3d",
+  "prompt": "Cyberpunk dark neon city street at rainy night: wet asphalt reflecting magenta and cyan signage, steaming vents, dense vertical architecture with holographic billboards, a lone figure in a translucent raincoat walking away, volumetric fog, cinematic anamorphic lens flare, high contrast deep blacks, unreal engine 5 cinematic render, no legible text",
+  "negative_prompt": "flat illustration, daylight, pastel colors, low contrast, watermark, readable words, cartoon",
+  "style_locks": [
+    "暗黑赛博",
+    "洋红青双霓虹",
+    "雨夜湿地面"
+  ]
+}

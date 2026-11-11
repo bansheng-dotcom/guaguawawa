@@ -8,15 +8,18 @@
 动作：
   adapt   平台改写（platform/title/length_limit/tone_shift/hashtags）
   publish 发布清单（platform/url/status/authorized）
+  visual  配图需求 → 调用 R10 产出生图提示词（真实委托，不是文档声明）
 """
 from __future__ import annotations
 
+import os
+import sys
 from typing import Any, Dict, List
 
 from . import _common as c
 
 NAME = "platform"
-DESC = "多平台适配：adapt/publish"
+DESC = "多平台适配：adapt/publish/visual"
 
 
 def add_parser(sp) -> None:
@@ -26,15 +29,45 @@ def add_parser(sp) -> None:
     a.add_argument("--input", required=True)
     pu = act.add_parser("publish", help="校验发布清单")
     pu.add_argument("--input", required=True)
+    vi = act.add_parser("visual", help="配图需求 → 调用 R10 生图提示词")
+    vi.add_argument("--need", required=True, help="一句话配图需求，如：中秋节蔬菜礼盒封面图")
+    vi.add_argument("--style", default=None, help="可选风格，如 3d-food / flat")
+    vi.add_argument("--media", default=None, help="可选载体，如 poster / social-card")
 
 
 def run(args) -> Dict[str, Any]:
+    if args.action == "visual":
+        return _visual(args)
     data = c.load_json(args.input)
     if args.action == "adapt":
         return _validate_adapt(data)
     if args.action == "publish":
         return _validate_publish(data)
     return {"error": f"未知动作: {args.action}"}
+
+
+def _visual(args) -> Dict[str, Any]:
+    """真实调用 R10，而不是在文档里写「归 r10」。"""
+    root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    if root not in sys.path:
+        sys.path.insert(0, root)
+    try:
+        from .imagegen_bridge import compose
+    except Exception as exc:  # noqa: BLE001
+        return c.result([_ck(False, f"无法加载 R10 客户端：{exc}", "platform.visual")],
+                        ok=False, verdict="FAIL")
+    res = compose(args.need, style=args.style, media=args.media)
+    ok = bool(res.get("ok"))
+    checks = [_ck(ok, f"R10 返回 ok={ok}"
+                      f"（resolved={res.get('resolved_style')}）", "platform.visual")]
+    return c.result(checks, ok=ok, verdict="PASS" if ok else "FAIL",
+                    delegated_to="r10",
+                    prompt=res.get("prompt"), negative_prompt=res.get("negative_prompt"),
+                    image_size=res.get("image_size"), text_policy=res.get("text_policy"),
+                    risks=res.get("risks", []), hard_limits=res.get("hard_limits", []),
+                    artifacts=res.get("artifacts", []),
+                    next=("把 Prompt/Negative 交给生图工具；文字与图表刻度请后期排版"
+                          if ok else res.get("error", "R10 未返回结果")))
 
 
 def _ck(ok: bool, msg: str, dim: str = "") -> Dict[str, Any]:

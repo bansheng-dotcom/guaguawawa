@@ -16,8 +16,16 @@ import argparse
 import copy
 import json
 import os
+
 import subprocess
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -82,7 +90,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("8 个技能", len(m.get("skills", [])) == 8, str(len(m.get("skills", []))))
+    t.check("9 个技能", len(m.get("skills", [])) == 9, str(len(m.get("skills", []))))
     t.check("角色 r11", m.get("role") == "r11")
     t.check("输入端口 topic/audience",
             m.get("inputs") == ["topic", "audience"])
@@ -209,6 +217,19 @@ def main() -> int:
                 {"items": [{"platform": "微信公众号", "url": "u", "status": "ready",
                             "authorized": False}]})["ok"])
 
+    # 跨角色：配图提示词必须真的调 R10，而不是只在文档里写「转 r10」
+    import argparse as _argparse
+    _ns = _argparse.Namespace(action="visual", need="冷凉蔬菜礼盒封面图",
+                              style="flat", media="poster")
+    _vr = s07_platform.run(_ns)
+    t.check("platform visual 真实委托 R10",
+            _vr["ok"] and _vr.get("delegated_to") == "r10", str(_vr.get("delegated_to")))
+    t.check("platform visual 拿到可用提示词", bool(_vr.get("prompt")))
+    t.check("platform visual 带出风险清单", isinstance(_vr.get("risks"), list))
+    t.check("platform visual 空需求被拦",
+            not s07_platform.run(_argparse.Namespace(action="visual", need="",
+                                                     style=None, media=None))["ok"])
+
     t.section("S08 持续本地化")
     term = c.load_json(_ex("term.json"))
     r = s08_localize._validate_term(term)
@@ -233,7 +254,7 @@ def main() -> int:
 
     t.section("T6 契约")
     names = contracts.skill_names()
-    t.check("契约覆盖 8 技能", len(names) == 8, str(len(names)))
+    t.check("契约覆盖 9 技能", len(names) == 9, str(len(names)))
     v = contracts.validate_output("copy", "article", s04_copy._validate_article(article))
     t.check("契约校验 article 产出通过", v["ok"], str(v.get("errors")))
     t.check("契约校验非法产出拦截",
@@ -266,9 +287,11 @@ def main() -> int:
             f"category={rev['failure_category']}")
 
     t.section("T8 案例库")
-    t.check("案例列表 2 个", len(cases.list_cases()) == 2, str(cases.list_cases()))
+    t.check("案例列表 >= 2 个", len(cases.list_cases()) >= 2, str(cases.list_cases()))
     t.check("content-strategy 结构通过", cases.validate_case("content-strategy")["ok"])
     t.check("product-copy 结构通过", cases.validate_case("product-copy")["ok"])
+    if os.path.exists(os.path.join(HERE, "cases", "headline-test", "case.json")):
+        t.check("headline-test 结构通过", cases.validate_case("headline-test")["ok"])
 
     t.section("T9 阈值外置")
     th = c.load_thresholds()
@@ -285,7 +308,8 @@ def main() -> int:
     t.check("plan 缺字段拦截", not pb["ok"] and pb.get("grade") == "FAIL")
 
     t.section("harness 确定性验证器")
-    tmp = tempfile.mkdtemp(prefix="r11_harness_")
+    tmp = os.path.join(role_workspace(HERE), "tmp", "harness_test")
+    os.makedirs(tmp, exist_ok=True)
     good_article_path = os.path.join(tmp, "article.json")
     c.write_json(good_article_path, article)
     h = harness.run_validator("article", good_article_path)
@@ -322,6 +346,57 @@ def main() -> int:
     matrix = verify_loop.run_all()
     t.check("闭环 32 行全绿", matrix["ok"], f"passed={matrix['passed']}/{matrix['total']}")
     t.check("闭环 verdict=PASS", matrix["verdict"] == "PASS")
+
+    t.section("SOP 十维演进双轨集成门禁 (L01~L10)")
+    try:
+        from engines import (
+            CopyRuntimeEngine,
+            IntentDAGCompiler,
+            CopyReflexiveHealer,
+            CopySpecLedger,
+            CopySlopGuard,
+            ScenarioMatrix,
+            ContentAssetBundle,
+            ContentDiffPatchEngine,
+            ContentSessionMemory,
+            ContentTelemetryWatchdog,
+        )
+        rt = CopyRuntimeEngine()
+        probe = rt.probe_health()
+        t.check("L01 运行时健康探针", probe["status"] == "healthy")
+
+        comp = IntentDAGCompiler()
+        dag_res = comp.decompile_intent("写一篇关于企业AI工具落地的长文，提炼小红书和公众号的核心卖点与金句")
+        t.check("L02 意图解构 Kahn DAG", dag_res["ok"] and dag_res["dag"]["is_dag"])
+
+        healer = CopyReflexiveHealer()
+        redlines = healer.audit_redlines({"text": "国家级第一品牌，这篇文章可以发布了。TODO待定"})
+        t.check("L03 自愈反思拦截红线", len(redlines) >= 3)
+
+        ledger = CopySpecLedger()
+        spec = ledger.load_spec()
+        t.check("L04 领域账本加载", spec["spec_loaded"] and len(spec["rules"]["release_gates"]) == 8)
+
+        guard = CopySlopGuard()
+        slop_res = guard.audit_text("总而言之，毋庸置疑，转化率大幅提升！")
+        t.check("L05 质感去劣化 SlopGuard", not slop_res["is_clean"] and slop_res["slop_count"] >= 2)
+
+        sc_mat = ScenarioMatrix()
+        sc_res = sc_mat.generate_matrix("内容复利")
+        t.check("L06 横向决策看板三维裂变", sc_res["scenario_count"] == 3)
+
+        diff = ContentDiffPatchEngine()
+        p_res = diff.create_patch({"a": 1}, {"a": 2})
+        t.check("L08 RFC 6902 局部差量", len(p_res) == 1)
+
+        mem = ContentSessionMemory()
+        disambig = mem.resolve_pronouns("按刚才第二套风格改写")
+        t.check("L09 会话记忆代词消歧", disambig["had_ambiguity"])
+
+        wd = ContentTelemetryWatchdog()
+        t.check("L10 工业容灾看门狗", wd.get_state() == "CLOSED")
+    except Exception as e:
+        t.check("十维演进核心引擎加载与验证", False, str(e))
 
     print(f"\n{'=' * 60}")
     print(f"通过 {t.passed} / {t.passed + t.failed}")

@@ -1,0 +1,11 @@
+{
+  "media": "banner",
+  "style": "duotone",
+  "prompt": "Duotone promotional banner: strong silhouette of a hand lifting a crate of vegetables, inside the silhouette a double exposure of farm fields and snowflake patterns, strictly two colors deep sage green and warm cream, bold diagonal split composition, large clean empty panel on the right third for a promotional headline, screen print texture, premium grocery brand aesthetic",
+  "negative_prompt": "full color photo, smooth gradients, clutter, watermark, garbled letters, low contrast, drop shadows",
+  "style_locks": [
+    "双色调",
+    "斜切分割构图",
+    "丝网印刷颗粒"
+  ]
+}

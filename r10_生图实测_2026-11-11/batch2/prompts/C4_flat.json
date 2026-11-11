@@ -1,0 +1,11 @@
+{
+  "media": "image",
+  "style": "flat",
+  "prompt": "Mobile app UI mockup, error state screen: centered flat illustration of a cracked vegetable crate with a tangled delivery route line, muted terracotta red accent circle with exclamation mark, short placeholder error copy lines, two buttons primary retry in terracotta and secondary gray, white card on light gray background, minimal iOS style",
+  "negative_prompt": "3D photo, neon green, clutter, watermark, dense paragraphs, dark theme",
+  "style_locks": [
+    "陶土红错误色",
+    "断线路线图",
+    "主次双按钮"
+  ]
+}

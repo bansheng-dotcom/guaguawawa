@@ -1,0 +1,11 @@
+{
+  "media": "icon",
+  "style": "line-art",
+  "prompt": "Logo design, monogram mark: a capital letter W drawn as a single continuous thin line that doubles as a frog's upper lip, enclosed in a thin perfect circle, uniform 4px stroke weight, pure black on white, geometric construction grid feeling, minimal Scandinavian identity design, centered, vector precision",
+  "negative_prompt": "3D, fill color, gradient, sketchy lines, watermark, text below, photo, uneven strokes",
+  "style_locks": [
+    "单线构成",
+    "细圆环包围",
+    "黑白等粗线"
+  ]
+}

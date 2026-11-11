@@ -1,0 +1,11 @@
+{
+  "media": "icon",
+  "style": "line-art",
+  "prompt": "Logo design, emblem badge: a circular badge with a thin double-line border, inside a stylized frog sitting on a leaf above two crossed wheat stalks, fine engraving line style, monochrome dark green on aged cream background, classic agricultural cooperative seal feeling, symmetrical, centered, high precision line work, no readable text",
+  "negative_prompt": "3D, gradient, photo, asymmetric, watermark, modern neon, sketchy lines, clutter",
+  "style_locks": [
+    "圆形双线徽章",
+    "精细刻线",
+    "深绿+米白"
+  ]
+}

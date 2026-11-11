@@ -67,6 +67,7 @@ metadata:
 | 关键词与选题 | `agent.py seo keyword` |
 | SEO 体检 | `agent.py seo audit` |
 | 广告创意文案 | `agent.py pr ad` |
+| 配图/封面提示词（调用 R10） | `agent.py platform visual --need "..."` |
 
 ## §4 执行流程（Workflow）
 

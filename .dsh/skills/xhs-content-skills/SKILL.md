@@ -38,7 +38,7 @@ metadata:
 | 长文/公众号/深度稿 | 本角色的 `longform-article` | 那是长内容，规则完全不同 |
 | 投放与达人合作 | `r12` 的 `campaign-plan` | 那是付费流量 |
 | 品牌语调与禁词总则 | 本角色的 `brand-voice` | 本包只管笔记结构 |
-| 主图与封面设计 | `r10` 的 `ecommerce-designer` | 那是视觉 |
+| 主图与封面提示词 | `agent.py platform visual --need "..."`（调 `r10`） | 视觉本体由 r10 负责，本卡只发起委托 |
 
 **最小可开工输入**：**写什么 + 给谁看 + 一个核心词**。
 

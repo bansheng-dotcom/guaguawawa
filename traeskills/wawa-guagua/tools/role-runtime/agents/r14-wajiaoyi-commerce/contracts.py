@@ -43,7 +43,7 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
     "catalog": {
-        "desc": "商品与电商后端：product/price",
+        "desc": "商品与电商后端：product/price/image",
         "input": {
             "product": _REQ({
                 "products": _ARR(_REQ({"title": _STR, "status": _STR,
@@ -52,10 +52,12 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             }, ["products"]),
             "price": _REQ({"title": _STR, "status": _STR, "price": _NUM},
                           ["title", "status", "price"]),
+            "image": _REQ({"need": _STR}, ["need"]),
         },
         "output": {
             "product": _out(["product_count", "sellable_count"]),
             "price": _out(["product_count"]),
+            "image": _out(["prompt", "delegated_to"]),
         },
     },
     "order": {
@@ -162,6 +164,20 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
         "output": {
             "events": _out(["event_count", "total_amount"]),
             "webhook": _out(["event_count"]),
+        },
+    },
+    "selection": {
+        "desc": "选品评分：score/profit（五维加权 + 利润红线）",
+        "input": {
+            "score": _REQ({"products": _ARR(_REQ({"name": _STR, "dims": {"type": "object"}},
+                                                ["name", "dims"]))},
+                          ["products"]),
+            "profit": _REQ({"price": _NUM, "cost": _NUM},
+                           ["price", "cost"]),
+        },
+        "output": {
+            "score": _out(["ranked"]),
+            "profit": _out(["margin_pct"]),
         },
     },
 }

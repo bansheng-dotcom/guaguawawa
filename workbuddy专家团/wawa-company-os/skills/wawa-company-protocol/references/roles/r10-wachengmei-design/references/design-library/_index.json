@@ -1,0 +1,436 @@
+{
+  "count": 31,
+  "built_at": "2026-11-11T22:14:26",
+  "sites": {
+    "airbnb": {
+      "name": "Airbnb",
+      "file": "airbnb.md",
+      "atmosphere": "Airbnb's website is a warm, photography-forward marketplace that feels like flipping through a travel magazine where every page invites you to book. The design operates on a foundation of pure white (`#ffffff`) with the iconic Rausch Red (`#ff385c`) — named after Airbnb's first street address — serving as the singular ",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Section Heading | Airbnb Cereal VF | 28px (1.75rem) | 700 | 1.43 | normal | ",
+      "colors": [
+        "#ffffff",
+        "#ff385c",
+        "#222222",
+        "#460479",
+        "#92174d",
+        "#e00b41"
+      ]
+    },
+    "airtable": {
+      "name": "Airtable",
+      "file": "airtable.md",
+      "atmosphere": "Airtable's website is a clean, enterprise-friendly platform that communicates \"sophisticated simplicity\" through a white canvas with deep navy text (`#181d26`) and Airtable Blue (`#1b61c9`) as the primary interactive accent. The Haas font family (display + text variants) creates a Swiss-precision typography system with",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | |------|------|------|--------|-------------|----------------| | Display Hero | Haas | 48px | 400 | 1.15 | normal | | Display Bold | Haas Groot Disp | 48px |",
+      "colors": [
+        "#181d26",
+        "#1b61c9",
+        "#ffffff",
+        "#006400",
+        "#333333",
+        "#254fad"
+      ]
+    },
+    "apple": {
+      "name": "Apple",
+      "file": "apple.md",
+      "atmosphere": "Apple's website is a masterclass in controlled drama — vast expanses of pure black and near-white serve as cinematic backdrops for products that are photographed as if they were sculptures in a gallery. The design philosophy is reductive to its core: every pixel exists in service of the product, and the interface itsel",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | SF Pro Display | 56px (3.50rem) | 600 | 1.07 (tight) | -0.28p",
+      "colors": [
+        "#000000",
+        "#f5f5f7",
+        "#1d1d1f",
+        "#0071e3",
+        "#0066cc",
+        "#2997ff"
+      ]
+    },
+    "bmw": {
+      "name": "BMW",
+      "file": "bmw.md",
+      "atmosphere": "BMW's website is automotive engineering made visual — a design system that communicates precision, performance, and German industrial confidence. The page alternates between deep dark hero sections (featuring full-bleed automotive photography) and clean white content areas, creating a cinematic rhythm reminiscent of a ",
+      "typography": "| Role | Font | Size | Weight | Line Height | Notes | |------|------|------|--------|-------------|-------| | Display Hero | BMWTypeNextLatin Light | 60px (3.75rem) | 300 | 1.30 (tight) | `text-transform: uppercase` | | ",
+      "colors": [
+        "#1c69d4",
+        "#0653b6",
+        "#757575",
+        "#ffffff",
+        "#262626",
+        "#bbbbbb"
+      ]
+    },
+    "cal.com": {
+      "name": "Cal.com",
+      "file": "cal.md",
+      "atmosphere": "Cal.com's website is a masterclass in monochromatic restraint — a grayscale world where boldness comes not from color but from the sheer confidence of black text on white space. Inspired by Uber's minimal aesthetic, the palette is deliberately stripped of hue: near-black headings (`#242424`), mid-gray secondary text (`",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | Cal Sans | 64px | 600 | 1.10 | 0px | Maximum impact, tight de",
+      "colors": [
+        "#242424",
+        "#898989",
+        "#111111",
+        "#ffffff",
+        "#0099ff",
+        "#3b82f6"
+      ]
+    },
+    "claude (anthropic)": {
+      "name": "Claude (Anthropic)",
+      "file": "claude.md",
+      "atmosphere": "Claude's interface is a literary salon reimagined as a product page — warm, unhurried, and quietly intellectual. The entire experience is built on a parchment-toned canvas (`#f5f4ed`) that deliberately evokes the feeling of high-quality paper rather than a digital surface. Where most AI product pages lean into cold, fu",
+      "typography": "*Note: These are custom typefaces. For external implementations, Georgia serves as the serif substitute and system-ui/Inter as the sans substitute.*",
+      "colors": [
+        "#f5f4ed",
+        "#c96442",
+        "#5e5d59",
+        "#87867f",
+        "#4d4c48",
+        "#f0eee6"
+      ]
+    },
+    "clay": {
+      "name": "Clay",
+      "file": "clay.md",
+      "atmosphere": "Clay's website is a warm, playful celebration of color that treats B2B data enrichment like a craft rather than an enterprise chore. The design language is built on a foundation of warm cream backgrounds (`#faf9f7`) and oat-toned borders (`#dad4c8`, `#eee9df`) that give every surface the tactile quality of handmade pap",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | Roobert | 80px (5.00rem) | 600 | 1.00 (tight) | -3.2px | All ",
+      "colors": [
+        "#faf9f7",
+        "#dad4c8",
+        "#eee9df",
+        "#000000",
+        "#ffffff",
+        "#84e7a5"
+      ]
+    },
+    "clickhouse": {
+      "name": "ClickHouse",
+      "file": "clickhouse.md",
+      "atmosphere": "ClickHouse's interface is a high-performance cockpit rendered in acid yellow-green on obsidian black — a design that screams \"speed\" before you read a single word. The entire experience lives in darkness: pure black backgrounds (`#000000`) with dark charcoal cards (`#414141` borders) creating a terminal-grade aesthetic",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Mega | Inter | 96px (6rem) | 900 | 1.00 (tight) | normal | Maximum i",
+      "colors": [
+        "#000000",
+        "#414141",
+        "#faff69",
+        "#166534",
+        "#f4f692",
+        "#14572f"
+      ]
+    },
+    "cohere": {
+      "name": "Cohere",
+      "file": "cohere.md",
+      "atmosphere": "Cohere's interface is a polished enterprise command deck — confident, clean, and designed to make AI feel like serious infrastructure rather than a consumer toy. The experience lives on a bright white canvas where content is organized into generously rounded cards (22px radius) that create an organic, cloud-like contai",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display / Hero | CohereText | 72px (4.5rem) | 400 | 1.00 (tight) | -1.44px |",
+      "colors": [
+        "#d9d9dd",
+        "#e5e7eb",
+        "#1863dc",
+        "#000000",
+        "#212121",
+        "#17171c"
+      ]
+    },
+    "coinbase": {
+      "name": "Coinbase",
+      "file": "coinbase.md",
+      "atmosphere": "Coinbase's website is a clean, trustworthy crypto platform that communicates financial reliability through a blue-and-white binary palette. The design uses Coinbase Blue (`#0052ff`) — a deep, saturated blue — as the singular brand accent against white and near-black surfaces. The proprietary font family includes Coinba",
+      "typography": "| Role | Font | Size | Weight | Line Height | Notes | |------|------|------|--------|-------------|-------| | Display Hero | CoinbaseDisplay | 80px | 400 | 1.00 (tight) | Maximum impact | | Display Secondary | CoinbaseDi",
+      "colors": [
+        "#0052ff",
+        "#578bfa",
+        "#0a0b0d",
+        "#282b31",
+        "#eef0f3",
+        "#ffffff"
+      ]
+    },
+    "composio": {
+      "name": "Composio",
+      "file": "composio.md",
+      "atmosphere": "Composio's interface is a nocturnal command center — a dense, developer-focused darkness punctuated by electric cyan and deep cobalt signals. The entire experience is built on an almost-pure-black canvas (`#0f0f0f`) where content floats within barely-visible containment borders, creating the feeling of a high-tech cont",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display / Hero | abcDiatype | 64px (4rem) | 400 | 0.87 (ultra-tight) | norma",
+      "colors": [
+        "#0f0f0f",
+        "#0007cd",
+        "#00ffff",
+        "#0089ff",
+        "#0096ff",
+        "#000000"
+      ]
+    },
+    "cursor": {
+      "name": "Cursor",
+      "file": "cursor.md",
+      "atmosphere": "Cursor's website is a study in warm minimalism meets code-editor elegance. The entire experience is built on a warm off-white canvas (`#f2f1ed`) with dark warm-brown text (`#26251e`) -- not pure black, not neutral gray, but a deeply warm near-black with a yellowish undertone that evokes old paper, ink, and craft. This ",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | CursorGothic | 72px (4.50rem) | 400 | 1.10 (tight) | -2.16px ",
+      "colors": [
+        "#f2f1ed",
+        "#26251e",
+        "#e6e5e0",
+        "#ebeae5",
+        "#cf2d56",
+        "#f54e00"
+      ]
+    },
+    "elevenlabs": {
+      "name": "ElevenLabs",
+      "file": "elevenlabs.md",
+      "atmosphere": "ElevenLabs' website is a study in restrained elegance — a near-white canvas (`#ffffff`, `#f5f5f5`) where typography and subtle shadows do all the heavy lifting. The design feels like a premium audio product brochure: clean, spacious, and confident enough to let the content speak (literally, given ElevenLabs makes voice",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | Waldenburg | 48px (3.00rem) | 300 | 1.08 (tight) | -0.96px | ",
+      "colors": [
+        "#ffffff",
+        "#f5f5f5",
+        "#f5f2ef",
+        "#777169",
+        "#000000",
+        "#4e4e4e"
+      ]
+    },
+    "expo": {
+      "name": "Expo",
+      "file": "expo.md",
+      "atmosphere": "Expo's interface is a luminous, confidence-radiating developer platform built on the premise that tools for building apps should feel as polished as the apps themselves. The entire experience lives on a bright, airy canvas — a cool-tinted off-white (`#f0f0f3`) that gives the page a subtle technological coolness without",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display / Hero | Inter | 64px (4rem) | 700–900 | 1.10 (tight) | -1.6px to -3",
+      "colors": [
+        "#f0f0f3",
+        "#000000",
+        "#60646c",
+        "#b0b4ba",
+        "#555860",
+        "#1c2024"
+      ]
+    },
+    "figma": {
+      "name": "Figma",
+      "file": "figma.md",
+      "atmosphere": "Figma's interface is the design tool that designed itself — a masterclass in typographic sophistication where a custom variable font (figmaSans) modulates between razor-thin (weight 320) and bold (weight 700) with stops at unusual intermediates (330, 340, 450, 480, 540) that most type systems never explore. This granul",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display / Hero | figmaSans | 86px (5.38rem) | 400 | 1.00 (tight) | -1.72px |",
+      "colors": [
+        "#000000",
+        "#ffffff"
+      ]
+    },
+    "framer": {
+      "name": "Framer",
+      "file": "framer.md",
+      "atmosphere": "Framer's website is a cinematic, tool-obsessed dark canvas that radiates the confidence of a design tool built by designers who worship craft. The entire experience is drenched in pure black — not a warm charcoal or a cozy dark gray, but an absolute void (`#000000`) that makes every element, every screenshot, every typ",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | GT Walsheim Framer Medium | 110px | 500 | 0.85 | -5.5px | Ext",
+      "colors": [
+        "#000000",
+        "#0099ff",
+        "#ffffff",
+        "#a6a6a6",
+        "#090909",
+        "#0000ee"
+      ]
+    },
+    "hashicorp": {
+      "name": "HashiCorp",
+      "file": "hashicorp.md",
+      "atmosphere": "HashiCorp's website is enterprise infrastructure made tangible — a design system that must communicate the complexity of cloud infrastructure management while remaining approachable. The visual language splits between two modes: a clean white light-mode for informational sections and a dramatic dark-mode (`#15181e`, `#",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | HashiCorp Sans | 82px (5.13rem) | 600 | 1.17 (tight) | normal",
+      "colors": [
+        "#15181e",
+        "#0d0e12",
+        "#7b42bc",
+        "#ffcf25",
+        "#14c6cb",
+        "#1868f2"
+      ]
+    },
+    "ibm": {
+      "name": "IBM",
+      "file": "ibm.md",
+      "atmosphere": "IBM's website is the digital embodiment of enterprise authority built on the Carbon Design System — a design language so methodically structured it reads like an engineering specification rendered as a webpage. The page operates on a stark duality: a bright white (`#ffffff`) canvas with near-black (`#161616`) text, pun",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display 01 | IBM Plex Sans | 60px (3.75rem) | 300 (Light) | 1.17 (70px) | 0 ",
+      "colors": [
+        "#ffffff",
+        "#161616",
+        "#0f62fe",
+        "#f4f4f4",
+        "#262626",
+        "#393939"
+      ]
+    },
+    "intercom": {
+      "name": "Intercom",
+      "file": "intercom.md",
+      "atmosphere": "Intercom's website is a warm, confident customer service platform that communicates \"AI-first helpdesk\" through a clean, editorial design language. The page operates on a warm off-white canvas (`#faf9f6`) with off-black (`#111111`) text, creating an intimate, magazine-like reading experience. The signature Fin Orange (",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | |------|------|------|--------|-------------|----------------| | Display Hero | Saans | 80px | 400 | 1.00 (tight) | -2.4px | | Section Heading | Saans | 54px",
+      "colors": [
+        "#faf9f6",
+        "#111111",
+        "#ff5600",
+        "#dedbd6",
+        "#ffffff",
+        "#fe4c02"
+      ]
+    },
+    "kraken": {
+      "name": "Kraken",
+      "file": "kraken.md",
+      "atmosphere": "Kraken's website is a clean, trustworthy crypto exchange that uses purple as its commanding brand color. The design operates on white backgrounds with Kraken Purple (`#7132f5`, `#5741d8`, `#5b1ecf`) creating a distinctive, professional crypto identity. The proprietary Kraken-Brand font handles display headings with bol",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | |------|------|------|--------|-------------|----------------| | Display Hero | Kraken-Brand | 48px | 700 | 1.17 | -1px | | Section Heading | Kraken-Brand | ",
+      "colors": [
+        "#7132f5",
+        "#5741d8",
+        "#5b1ecf",
+        "#101114",
+        "#149e61",
+        "#686b82"
+      ]
+    },
+    "linear": {
+      "name": "Linear",
+      "file": "linear.app.md",
+      "atmosphere": "Linear's website is a masterclass in dark-mode-first product design — a near-black canvas (`#08090a`) where content emerges from darkness like starlight. The overall impression is one of extreme precision engineering: every element exists in a carefully calibrated hierarchy of luminance, from barely-visible borders (`r",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display XL | Inter Variable | 72px (4.50rem) | 510 | 1.00 (tight) | -1.584px",
+      "colors": [
+        "#08090a",
+        "#f7f8f8",
+        "#5e6ad2",
+        "#7170ff",
+        "#0f1011",
+        "#191a1b"
+      ]
+    },
+    "lovable": {
+      "name": "Lovable",
+      "file": "lovable.md",
+      "atmosphere": "Lovable's website radiates warmth through restraint. The entire page sits on a creamy, parchment-toned background (`#f7f4ed`) that immediately separates it from the cold-white conventions of most developer tool sites. This isn't minimalism for minimalism's sake — it's a deliberate choice to feel approachable, almost an",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | Camera Plain Variable | 60px (3.75rem) | 600 | 1.00–1.10 (tig",
+      "colors": [
+        "#f7f4ed",
+        "#1c1c1c",
+        "#eceae4",
+        "#fcfbf8",
+        "#5f5f5d",
+        "#3b82f6"
+      ]
+    },
+    "minimax": {
+      "name": "MiniMax",
+      "file": "minimax.md",
+      "atmosphere": "MiniMax's website is a clean, product-showcase platform for a Chinese AI technology company that bridges consumer-friendly appeal with technical credibility. The design language is predominantly white-space-driven with a light, airy feel — pure white backgrounds (`#ffffff`) dominate, letting colorful product cards and ",
+      "typography": "| Role | Font | Size | Weight | Line Height | Notes | |------|------|------|--------|-------------|-------| | Display Hero | DM Sans / Outfit | 80px (5.00rem) | 500 | 1.10 (tight) | Hero headlines | | Section Heading | O",
+      "colors": [
+        "#ffffff",
+        "#1456f0",
+        "#3b82f6",
+        "#60a5fa",
+        "#ea5ec1",
+        "#222222"
+      ]
+    },
+    "mintlify": {
+      "name": "Mintlify",
+      "file": "mintlify.md",
+      "atmosphere": "Mintlify's website is a study in documentation-as-product design — a white, airy, information-rich surface that treats clarity as its highest aesthetic value. The page opens with a luminous white (`#ffffff`) background, near-black (`#0d0d0d`) text, and a signature green brand accent (`#18E299`) that signals freshness a",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | Inter | 64px (4.00rem) | 600 | 1.15 (tight) | -1.28px | Maxim",
+      "colors": [
+        "#ffffff",
+        "#0d0d0d",
+        "#18e299",
+        "#d4fae8",
+        "#0fa76e",
+        "#c37d0d"
+      ]
+    },
+    "miro": {
+      "name": "Miro",
+      "file": "miro.md",
+      "atmosphere": "Miro's website is a clean, collaborative-tool-forward platform that communicates \"visual thinking\" through generous whitespace, pastel accent colors, and a confident geometric font. The design uses a predominantly white canvas with near-black text (`#1c1c1e`) and a distinctive pastel color palette — coral, rose, teal, ",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | |------|------|------|--------|-------------|----------------| | Display Hero | Roobert PRO Medium | 56px | 400 | 1.15 | -1.68px | | Section Heading | Roober",
+      "colors": [
+        "#1c1c1e",
+        "#5b76fe",
+        "#00b473",
+        "#ffffff",
+        "#2a41b6",
+        "#ffc6c6"
+      ]
+    },
+    "mistral ai": {
+      "name": "Mistral AI",
+      "file": "mistral.ai.md",
+      "atmosphere": "Mistral AI's interface is a sun-drenched landscape rendered in code — a warm, bold, unapologetically European design that trades the typical blue-screen AI aesthetic for golden amber, burnt orange, and the feeling of late-afternoon light in southern France. Every surface glows with warmth: backgrounds fade from pale cr",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display / Hero | Arial (custom) | 82px (5.13rem) | 400 | 1.00 (tight) | -2.0",
+      "colors": [
+        "#fa520f",
+        "#ffd900",
+        "#ffa110",
+        "#fffaeb",
+        "#fb6424",
+        "#ff8105"
+      ]
+    },
+    "mongodb": {
+      "name": "MongoDB",
+      "file": "mongodb.md",
+      "atmosphere": "MongoDB's website is a deep-forest-meets-terminal experience — a design system rooted in the darkest teal-black (`#001e2b`) that evokes both the density of a database and the depth of a forest canopy. Against this near-black canvas, a striking neon green (`#00ed64`) pulses as the brand accent — bright enough to feel el",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | MongoDB Value Serif | 96px (6.00rem) | 400 | 1.20 (tight) | n",
+      "colors": [
+        "#001e2b",
+        "#00ed64",
+        "#b8c4c2",
+        "#00684a",
+        "#006cfa",
+        "#3860be"
+      ]
+    },
+    "notion": {
+      "name": "Notion",
+      "file": "notion.md",
+      "atmosphere": "Notion's website embodies the philosophy of the tool itself: a blank canvas that gets out of your way. The design system is built on warm neutrals rather than cold grays, creating a distinctly approachable minimalism that feels like quality paper rather than sterile glass. The page canvas is pure white (`#ffffff`) but ",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | NotionInter | 64px (4.00rem) | 700 | 1.00 (tight) | -2.125px ",
+      "colors": [
+        "#ffffff",
+        "#f6f5f4",
+        "#31302e",
+        "#615d59",
+        "#a39e98",
+        "#0075de"
+      ]
+    },
+    "nvidia": {
+      "name": "NVIDIA",
+      "file": "nvidia.md",
+      "atmosphere": "NVIDIA's website is a high-contrast, technology-forward experience that communicates raw computational power through design restraint. The page is built on a stark black (`#000000`) and white (`#ffffff`) foundation, punctuated by NVIDIA's signature green (`#76b900`) -- a color so specific it functions as a brand finger",
+      "typography": "| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes | |------|------|------|--------|-------------|----------------|-------| | Display Hero | NVIDIA-EMEA | 36px (2.25rem) | 700 | 1.25 (tight) | normal | ",
+      "colors": [
+        "#000000",
+        "#ffffff",
+        "#76b900",
+        "#bff230",
+        "#df6500",
+        "#ef9100"
+      ]
+    },
+    "ollama": {
+      "name": "Ollama",
+      "file": "ollama.md",
+      "atmosphere": "Ollama's interface is radical minimalism taken to its logical conclusion — a pure-white void where content floats without decoration, shadow, or color. The design philosophy mirrors the product itself: strip away everything unnecessary until only the essential tool remains. This is the digital equivalent of a Dieter Ra",
+      "typography": "*Note: SF Pro Rounded is Apple's system font — it renders with rounded terminals on macOS/iOS and falls back to the system sans-serif on other platforms.*",
+      "colors": [
+        "#000000",
+        "#ffffff",
+        "#262626",
+        "#090909",
+        "#fafafa",
+        "#e5e5e5"
+      ]
+    },
+    "opencode": {
+      "name": "OpenCode",
+      "file": "opencode.ai.md",
+      "atmosphere": "OpenCode's website embodies a terminal-native, monospace-first aesthetic that reflects its identity as an open source AI coding agent. The entire visual system is built on a stark dark-on-light contrast using a near-black background (`#201d1d`) with warm off-white text (`#fdfcfc`). This isn't a generic dark theme -- it",
+      "typography": "| Role | Size | Weight | Line Height | Notes | |------|------|--------|-------------|-------| | Heading 1 | 38px (2.38rem) | 700 | 1.50 | Hero headlines, page titles | | Heading 2 | 16px (1.00rem) | 700 | 1.50 | Section ",
+      "colors": [
+        "#201d1d",
+        "#fdfcfc",
+        "#9a9898",
+        "#007aff",
+        "#ff3b30",
+        "#30d158"
+      ]
+    }
+  }
+}

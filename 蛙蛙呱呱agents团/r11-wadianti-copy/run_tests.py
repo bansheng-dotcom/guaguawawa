@@ -217,6 +217,19 @@ def main() -> int:
                 {"items": [{"platform": "微信公众号", "url": "u", "status": "ready",
                             "authorized": False}]})["ok"])
 
+    # 跨角色：配图提示词必须真的调 R10，而不是只在文档里写「转 r10」
+    import argparse as _argparse
+    _ns = _argparse.Namespace(action="visual", need="冷凉蔬菜礼盒封面图",
+                              style="flat", media="poster")
+    _vr = s07_platform.run(_ns)
+    t.check("platform visual 真实委托 R10",
+            _vr["ok"] and _vr.get("delegated_to") == "r10", str(_vr.get("delegated_to")))
+    t.check("platform visual 拿到可用提示词", bool(_vr.get("prompt")))
+    t.check("platform visual 带出风险清单", isinstance(_vr.get("risks"), list))
+    t.check("platform visual 空需求被拦",
+            not s07_platform.run(_argparse.Namespace(action="visual", need="",
+                                                     style=None, media=None))["ok"])
+
     t.section("S08 持续本地化")
     term = c.load_json(_ex("term.json"))
     r = s08_localize._validate_term(term)

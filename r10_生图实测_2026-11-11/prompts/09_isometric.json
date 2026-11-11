@@ -1,0 +1,11 @@
+{
+  "media": "illustration",
+  "style": "isometric",
+  "prompt": "Isometric illustration of a tiny sustainable eco town block: rooftop gardens, solar panels, a small tram gliding on curved streets, miniature trees and tiny people, pastel sage green and terracotta palette, soft ambient shadow, clean vector-like 3D render, 30 degree top-down angle, pure white background, charming miniature diorama feeling, highly detailed",
+  "negative_prompt": "first person perspective, photograph, dark tones, chaotic layout, text, watermark, blurry details, cluttered background",
+  "style_locks": [
+    "等距视角30度",
+    "鼠尾草绿与陶土色",
+    "白底微投影"
+  ]
+}

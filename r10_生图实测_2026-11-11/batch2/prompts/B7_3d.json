@@ -1,0 +1,11 @@
+{
+  "media": "icon",
+  "style": "3d",
+  "prompt": "Logo design, mascot mark: a compact 3D stylized green tree frog character bust wearing a tiny orange bandana, big friendly eyes, soft vinyl toy material, subtle studio rim light, simple rounded silhouette that reads at small sizes, centered on soft warm gray background, Pixar-like charm, clean edges",
+  "negative_prompt": "photo, realistic frog skin, scary, extra limbs, watermark, text, busy background, low detail",
+  "style_locks": [
+    "3D黏土吉祥物",
+    "橘色头巾",
+    "小尺寸可识别轮廓"
+  ]
+}

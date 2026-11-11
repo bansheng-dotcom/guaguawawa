@@ -1,0 +1,11 @@
+{
+  "media": "image",
+  "style": "flat",
+  "prompt": "Mobile app UI mockup, empty state screen for grocery orders: friendly flat illustration of an empty wooden crate with a small frog peeking out, centered above a short placeholder headline and a sage green outline button, plenty of white space, soft cream background, minimal iOS design, gentle mood",
+  "negative_prompt": "3D photo, cluttered, dark theme, neon, watermark, dense text, busy background",
+  "style_locks": [
+    "空纸箱插画",
+    "大量留白",
+    "浅描边按钮"
+  ]
+}

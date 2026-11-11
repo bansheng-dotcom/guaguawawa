@@ -1,0 +1,11 @@
+{
+  "media": "icon",
+  "style": "flat",
+  "prompt": "Logo design, combination lockup: a flat vector frog-eye mark on the left plus the invented wordmark 'WAWA' on the right, horizontally aligned with equal optical spacing, single forest green color on pure white, clean geometry, professional stationery presentation, centered, no tagline",
+  "negative_prompt": "3D, gradient, photo, decorative flourishes, watermark, multiple lines, misspelling",
+  "style_locks": [
+    "图形+文字横向锁定",
+    "光学等距",
+    "单色森林绿"
+  ]
+}

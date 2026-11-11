@@ -1,0 +1,11 @@
+{
+  "media": "poster",
+  "style": "gradient",
+  "prompt": "Y2K aesthetic poster artwork: liquid chrome blobs and iridescent holographic spheres floating over a glossy gradient background of acid green, lilac and silver, warped grid lines, star sparkles, translucent bubble layers, high gloss reflections, early 2000s internet visual language, centered abstract composition, no readable text",
+  "negative_prompt": "photo, matte flat colors, vintage sepia, clutter, watermark, letters, dark gothic",
+  "style_locks": [
+    "液态金属",
+    "全息虹彩",
+    "酸性绿+丁香紫"
+  ]
+}

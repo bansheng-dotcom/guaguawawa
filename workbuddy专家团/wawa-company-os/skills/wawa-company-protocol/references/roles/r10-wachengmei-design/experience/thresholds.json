@@ -1,9 +1,26 @@
 {
   "_note": "R10 蛙成美·视觉设计官的全局阈值，harness 与各技能统一引用（T9 外置，改口径不改代码）。键名与 skills/_common._DEFAULT_THRESHOLDS 严格一致。",
   "imagegen": {
-    "output_media": ["image", "illustration", "icon", "poster", "banner"],
-    "style_types": ["line-art", "flat", "gradient", "3d", "watercolor",
-                    "pixel", "isometric", "duotone"],
+    "_note": "output_media=载体轴（12）；style_types=风格轴的 core 投影（10），必须与 experience/style_registry.json 里 level=core 的记录一一对应；extended/experimental 由 registry 提供，不进本数组。",
+    "output_media": ["image", "illustration", "icon", "poster", "banner",
+                     "packaging", "mockup", "ui-screen", "infographic",
+                     "pattern", "comic", "character-sheet"],
+    "output_media_extended": ["social-card", "thumbnail", "sticker", "sprite",
+                              "dieline", "storyboard"],
+    "text_policy_by_media": {
+      "poster": "overlay-later", "banner": "overlay-later",
+      "infographic": "overlay-later", "ui-screen": "overlay-later",
+      "packaging": "overlay-later", "comic": "overlay-later",
+      "character-sheet": "overlay-later", "mockup": "overlay-later",
+      "social-card": "overlay-later", "thumbnail": "overlay-later",
+      "storyboard": "overlay-later"
+    },
+    "image_sizes": {"1:1": "square_hd", "4:3": "landscape_4_3",
+                    "3:4": "portrait_4_3", "16:9": "landscape_16_9"},
+    "style_types": ["flat", "line-art", "gradient", "duotone", "watercolor",
+                    "pixel", "isometric", "3d", "photo", "collage"],
+    "style_registry": "experience/style_registry.json",
+    "text_policy": ["none", "overlay-later", "render-attempt"],
     "negative_min": 1
   },
   "logo": {

@@ -135,7 +135,7 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
         },
     },
     "platform": {
-        "desc": "多平台适配：adapt/publish",
+        "desc": "多平台适配：adapt/publish/visual",
         "input": {
             "adapt": _REQ({
                 "platform": _STR, "title": _STR, "length_limit": _STR,
@@ -146,10 +146,12 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
                                     "status": _STR, "authorized": _BOOL},
                                    ["platform", "url", "status", "authorized"])),
             }, ["items"]),
+            "visual": _REQ({"need": _STR}, ["need"]),
         },
         "output": {
             "adapt": _out(["platform"]),
             "publish": _out(["item_count"]),
+            "visual": _out(["prompt", "delegated_to"]),
         },
     },
     "localize": {

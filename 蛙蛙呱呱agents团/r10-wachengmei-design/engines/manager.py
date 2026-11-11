@@ -24,7 +24,12 @@ class MockFallbackEngine(BaseImageEngine):
 
     使用 PIL 高性能渲染一张专业级构图占位概念稿，并输出完整的设计元数据与接入提示，
     保证系统链路 100% 畅通且不报错。
+
+    注意：它**不是**生图模型。`is_mock=True` 供上层识别——任何把它当成交付物的路径
+    都必须拦下，否则用户会拿到一张写着 "Fallback Mock" 的假成品。
     """
+
+    is_mock = True
 
     def __init__(self, name: str = "Local-Visual-Fallback"):
         super().__init__(name=name, endpoint="local://embedded")

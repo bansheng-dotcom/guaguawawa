@@ -1,3 +1,5 @@
+> 历史快照：下文计数为当时状态（如「6 项通过」）。当前口径以 `SKILL.md` 与 `references/01-imagegen.md` 为准。
+
 # R10 视觉设计官（蛙成美）· 十维演进元模型自升级终验报告
 
 > **执行标准**：《人机协作·智能体十轮渐进式演进标准作业程序 (Universal Agent 10-Stage Evolution SOP v9.0)》  

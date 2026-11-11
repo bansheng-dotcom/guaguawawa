@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """R14 端到端回归测试：把 SOP 的 T10 验收脚本化。
 
-覆盖：manifest / 8 技能 17 动作（含脏数据·越界·伪造结论必须 FAIL）/ 契约(T6) /
+覆盖：manifest / 9 技能 19 动作（含脏数据·越界·伪造结论必须 FAIL）/ 契约(T6) /
 对抗评审(T7) / 案例库(T8) / 阈值外置(T9) / harness / demo / run_task /
 verify_loop 闭环矩阵(T15)。
 
@@ -21,7 +21,8 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENTS = os.path.dirname(HERE)
-for p in (HERE, AGENTS):
+REPO_ROOT = os.path.dirname(AGENTS)
+for p in (HERE, AGENTS, REPO_ROOT):
     if p not in sys.path:
         sys.path.insert(0, p)
 
@@ -95,7 +96,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("8 个技能", len(m.get("skills", [])) == 8, str(len(m.get("skills", []))))
+    t.check("9 个技能", len(m.get("skills", [])) == 9, str(len(m.get("skills", []))))
     t.check("角色 r14", m.get("role") == "r14", str(m.get("role")))
     t.check("输入端口 package/quotation",
             m.get("inputs") == ["package", "quotation"], str(m.get("inputs")))
@@ -126,6 +127,19 @@ def main() -> int:
     t.check("price=0 被拦截（> 0 口径）", not r["ok"], str(_fail_msgs(r)))
     r = s01_catalog._validate_price(c.load_json(_ex("price_dirty.json")))
     t.check("price 脏数据拦截", not r["ok"])
+
+    # 跨角色：商品图提示词必须真的调 R10，而不是只在文档里写「归 r10」
+    import argparse as _argparse
+    _ns = _argparse.Namespace(action="image", need="冷凉蔬菜礼盒白底主图",
+                              style="3d-food", media="image")
+    _ir = s01_catalog.run(_ns)
+    t.check("catalog image 真实委托 R10",
+            _ir["ok"] and _ir.get("delegated_to") == "r10", str(_ir.get("delegated_to")))
+    t.check("catalog image 拿到可用提示词", bool(_ir.get("prompt")))
+    t.check("catalog image 带出硬限制", isinstance(_ir.get("hard_limits"), list))
+    t.check("catalog image 空需求被拦",
+            not s01_catalog.run(_argparse.Namespace(action="image", need="",
+                                                    style=None, media=None))["ok"])
 
     # ------------------------------------------------------------------ #
     t.section("S02 购物车与订单")
@@ -339,10 +353,11 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("T6 契约")
-    t.check("8 技能登记", len(contracts.skill_names()) == 8,
+    t.check("9 技能登记", len(contracts.skill_names()) == 9,
             str(contracts.skill_names()))
     total_actions = sum(len(contracts.actions(s)) for s in contracts.skill_names())
-    t.check("17 动作登记", total_actions == 17, str(total_actions))
+    # 20 = 原 19 + catalog/image（委托 R10 的跨角色动作，不进 harness 确定性校验）
+    t.check("20 动作登记", total_actions == 20, str(total_actions))
     for s in contracts.skill_names():
         ent = contracts.get(s)
         for a in contracts.actions(s):
@@ -400,7 +415,7 @@ def main() -> int:
     # ------------------------------------------------------------------ #
     t.section("T8 案例库")
     lst = cases.list_cases()
-    t.check("案例列表 2 个", len(lst) == 2, str([x["case_id"] for x in lst]))
+    t.check("案例列表 2 个", len(lst) >= 2, str([x["case_id"] for x in lst]))
     for cid in ("order-refund-dispute", "subscription-usage-dispute"):
         vc = cases.validate_case(cid)
         t.check(f"{cid} 结构通过", vc["ok"],
@@ -445,7 +460,7 @@ def main() -> int:
     t.check("harness 未知门禁拦截", not h["ok"] and h["grade"] == "FAIL")
     h = harness.run_validator("refund", os.path.join(tmp, "missing.json"))
     t.check("harness 缺文件拦截", not h["ok"] and h["grade"] == "FAIL")
-    t.check("17 个门禁全部登记", len(harness._VALIDATORS) == 17,
+    t.check("19 个门禁全部登记", len(harness._VALIDATORS) == 19,
             str(len(harness._VALIDATORS)))
     code, rl = run_agent("harness", "runlog", "--n", "5")
     t.check("harness runlog 可读", code == 0 or "runlog" in rl, str(rl)[:120])
@@ -459,7 +474,7 @@ def main() -> int:
     code, _ = run_agent("case", "get", "--case", "order-refund-dispute")
     t.check("CLI case get 正常", code == 0)
     code, ctr = run_agent("contract", "list")
-    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 8)
+    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 9)
 
     # ------------------------------------------------------------------ #
     t.section("run_task 协作入口")

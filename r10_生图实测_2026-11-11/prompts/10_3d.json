@@ -1,0 +1,11 @@
+{
+  "media": "image",
+  "style": "3d",
+  "prompt": "High quality 3D stylized character render: a chubby friendly green tree frog mascot wearing a small orange scarf and round glasses, standing full body, big expressive eyes, soft vinyl toy material, gentle studio lighting, plain light warm gray background, Pixar-quality character design, appealing silhouette, perfectly centered, ultra detailed",
+  "negative_prompt": "flat illustration, realistic frog, horror, extra limbs, text, watermark, busy background, low detail, creepy expression",
+  "style_locks": [
+    "3D黏土角色",
+    "橘色围巾绿蛙",
+    "暖灰纯色背景"
+  ]
+}

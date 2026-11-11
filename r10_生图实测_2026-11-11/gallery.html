@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>r10 生图提示词 × Trae 文生图 · 10 类实测</title>
+<style>
+  :root { --ink:#14181d; --mute:#6b7683; --line:#e4e8ee; --bg:#f7f8fa; --green:#1f7a5c; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif; }
+  header { padding:56px 32px 24px; max-width:1280px; margin:0 auto; }
+  .kicker { font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--green); font-weight:700; }
+  h1 { font-size:clamp(26px,4vw,40px); margin:14px 0 10px; letter-spacing:-.02em; }
+  .lead { color:var(--mute); max-width:820px; line-height:1.75; font-size:15px; margin:0; }
+  .stats { display:flex; gap:30px; margin-top:22px; flex-wrap:wrap; font-size:12.5px; color:var(--mute); }
+  .stats b { color:var(--ink); font-size:20px; display:block; }
+  main { max-width:1280px; margin:0 auto; padding:8px 32px 40px;
+          display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:22px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden;
+           display:flex; flex-direction:column; box-shadow:0 1px 2px rgba(20,24,29,.04); }
+  .thumb { position:relative; display:block; background:#eef1f5; }
+  .thumb img { width:100%; display:block; aspect-ratio:4/3; object-fit:cover; transition:transform .3s; }
+  .thumb:hover img { transform:scale(1.02); }
+  .idx { position:absolute; top:12px; left:12px; background:rgba(20,24,29,.78); color:#fff;
+          font-size:12px; padding:4px 9px; border-radius:999px; letter-spacing:.08em; }
+  .badge { position:absolute; top:12px; right:12px; background:rgba(255,255,255,.92); color:var(--ink);
+            font-size:11px; padding:4px 9px; border-radius:999px; border:1px solid var(--line); }
+  .meta { padding:16px 18px 18px; }
+  h2 { font-size:17px; margin:0 0 6px; }
+  .sub { margin:0 0 12px; color:var(--mute); font-size:12.5px; }
+  .locks { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  .lock { font-size:11.5px; background:#f0f7f3; color:var(--green); border:1px solid #d6e9df;
+           padding:3px 8px; border-radius:6px; }
+  .gate { font-size:12px; margin:0 0 10px; color:var(--green); }
+  details summary { cursor:pointer; font-size:12.5px; color:var(--mute); }
+  pre { white-space:pre-wrap; word-break:break-word; background:#fafbfc; border:1px solid var(--line);
+         border-radius:8px; padding:10px; font-size:12px; line-height:1.6; margin:10px 0 8px;
+         font-family:ui-monospace,Consolas,monospace; }
+  .neg { font-size:11.5px; color:var(--mute); margin:0; }
+  footer { max-width:1280px; margin:0 auto; padding:0 32px 64px; color:var(--mute); font-size:12.5px; line-height:1.8; }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">r10 · 蛙成美 / Visual Design</div>
+  <h1>生图提示词 × Trae 文生图 · 10 类实测</h1>
+  <p class="lead">10 组提示词包按 r10 的 imagegen.prompt 规格撰写，逐条通过确定性门禁（media 白名单 / style 白名单 / 正向提示词 / 负向提示词 / 风格锁不被负向推翻），再交给 Trae 文生图接口出图，最后逐张人工视觉验收。覆盖 8 种风格、10 类视觉用途、4 档画幅。</p>
+  <div class="stats">
+    <div><b>10/10</b>门禁 PASS</div>
+    <div><b>10/10</b>出图成功</div>
+    <div><b>8</b>种风格</div>
+    <div><b>10</b>类用途</div>
+  </div>
+</header>
+<main>
+  <article class="card">
+    <a class="thumb" href="images/01_flat.jpg" target="_blank"><img src="images/01_flat.jpg" alt="品牌主视觉 · 扁平团队插画" loading="lazy">
+      <span class="idx">01</span><span class="badge">flat</span></a>
+    <div class="meta">
+      <h2>品牌主视觉 · 扁平团队插画</h2>
+      <p class="sub">扁平矢量插画 · media=illustration · landscape_16_9</p>
+      <div class="locks"><span class="lock">扁平矢量插画</span><span class="lock">青绿/暖黄/深青绿三色</span><span class="lock">纯色块平涂</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 162 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>Flat vector brand key visual: a cheerful chubby green frog mascot wearing a tiny tailored suit standing at the head of a circular meeting table, surrounded by twenty diverse stylized cartoon coworkers with laptops, charts and coffee cups, clean geometric shapes, bold flat color blocks of fresh green, warm amber yellow and deep teal, subtle paper grain texture, soft ambient occlusion, balanced wide composition with airy negative space, professional editorial illustration, no text</pre>
+      <p class="neg">负向：photograph, 3D render, blurry, cluttered background, harsh shadows, watermark, text, logo, distorted faces, extra limbs, gradient mesh</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/02_3d.jpg" target="_blank"><img src="images/02_3d.jpg" alt="电商主图 · 3D 产品渲染" loading="lazy">
+      <span class="idx">02</span><span class="badge">3d</span></a>
+    <div class="meta">
+      <h2>电商主图 · 3D 产品渲染</h2>
+      <p class="sub">电商产品主图 · media=image · square_hd</p>
+      <div class="locks"><span class="lock">3D产品渲染</span><span class="lock">米白瓷罐主体</span><span class="lock">柔和棚拍高光</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 71 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>Premium 3D product render of a minimalist matte white ceramic cosmetic jar with a brushed gold lid, floating slightly above a smooth warm beige podium, fresh botanical leaves and crystal water droplets suspended around it, studio softbox lighting, gentle rim reflections, crisp contact shadow, ultra clean commercial product photography composition, centered with generous copy space at top, high detail, 8k</pre>
+      <p class="neg">负向：flat illustration, cartoon, low poly, noisy background, human hands, text, watermark, harsh reflections, cheap plastic look, muddy colors</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/03_gradient.jpg" target="_blank"><img src="images/03_gradient.jpg" alt="课程海报 · 渐变几何" loading="lazy">
+      <span class="idx">03</span><span class="badge">gradient</span></a>
+    <div class="meta">
+      <h2>课程海报 · 渐变几何</h2>
+      <p class="sub">海报排版 · media=poster · portrait_4_3</p>
+      <div class="locks"><span class="lock">渐变网格</span><span class="lock">靛蓝紫到珊瑚色</span><span class="lock">颗粒质感</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 197 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>Modern gradient poster artwork: abstract overlapping translucent geometric shapes, flowing curved ribbons sweeping diagonally, deep indigo blending into violet and coral gradient mesh, fine film grain texture, soft luminous edges, vast clean area in the lower third reserved for title placement, premium editorial layout, restrained minimalism, 4k render</pre>
+      <p class="neg">负向：photograph, human figure, cluttered typography, low contrast, muddy colors, pixelation, watermark, sticker outline, heavy noise</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/04_isometric.jpg" target="_blank"><img src="images/04_isometric.jpg" alt="App 图标 · 等距黏土" loading="lazy">
+      <span class="idx">04</span><span class="badge">isometric</span></a>
+    <div class="meta">
+      <h2>App 图标 · 等距黏土</h2>
+      <p class="sub">应用图标 · media=icon · square_hd</p>
+      <div class="locks"><span class="lock">等距3D图标</span><span class="lock">黏土质感</span><span class="lock">薄荷绿奶油白</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 67 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>Single iOS app icon, isometric 3D miniature scene of a tiny smiling green frog sitting on a floating rounded square island with a small ascending bar chart and a coin, soft clay material, pastel mint and cream palette, diffuse soft shadow, perfectly centered, flat solid light background, crisp clean edges, app store icon aesthetic, high detail</pre>
+      <p class="neg">负向：photo, text, busy gradient background, too many objects, harsh glare, blurry, watermark, realistic skin</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/05_duotone.jpg" target="_blank"><img src="images/05_duotone.jpg" alt="品牌 Banner · 双色调" loading="lazy">
+      <span class="idx">05</span><span class="badge">duotone</span></a>
+    <div class="meta">
+      <h2>品牌 Banner · 双色调</h2>
+      <p class="sub">横幅视觉 · media=banner · landscape_16_9</p>
+      <div class="locks"><span class="lock">双色调</span><span class="lock">深森林绿与暖沙色</span><span class="lock">剪影剪裁构图</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 114 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>Duotone brand banner: silhouette of a determined person climbing a stylized staircase built from stacked books and gear wheels, double exposure texture of city skylines inside the silhouette, strictly two colors deep forest green and warm sand beige, bold graphic composition with strong diagonal flow, generous empty space on the left for a headline, screen-print editorial quality</pre>
+      <p class="neg">负向：full color image, photograph, smooth gradients, clutter, text, watermark, blurry edges, low contrast</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/06_watercolor.jpg" target="_blank"><img src="images/06_watercolor.jpg" alt="绘本插画 · 水彩" loading="lazy">
+      <span class="idx">06</span><span class="badge">watercolor</span></a>
+    <div class="meta">
+      <h2>绘本插画 · 水彩</h2>
+      <p class="sub">儿童绘本 · media=illustration · landscape_4_3</p>
+      <div class="locks"><span class="lock">水彩湿画法</span><span class="lock">纸张纹理</span><span class="lock">细线勾边</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 302 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>Soft watercolor children&#x27;s book illustration: a little girl in a yellow raincoat holding a giant leaf as an umbrella, walking through a misty bamboo forest with glowing fireflies, wet-on-wet washes, visible cold press paper texture, delicate bleeding edges, fine ink outline accents, warm calm mood, gentle light rays, storybook double-page composition</pre>
+      <p class="neg">负向：3D render, vector flat, neon colors, harsh black outlines, digital airbrush gradient, text, watermark, scary face, creepy atmosphere</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/07_pixel.jpg" target="_blank"><img src="images/07_pixel.jpg" alt="游戏场景 · 像素风" loading="lazy">
+      <span class="idx">07</span><span class="badge">pixel</span></a>
+    <div class="meta">
+      <h2>游戏场景 · 像素风</h2>
+      <p class="sub">像素场景 · media=image · landscape_16_9</p>
+      <div class="locks"><span class="lock">16位像素风</span><span class="lock">复古暖色限定色板</span><span class="lock">硬边像素块</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 201 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>16-bit pixel art game scene: a cozy night market alley in a fantasy town, warm paper lanterns glowing, pixelated food stalls with steaming bowls, a small green frog merchant wearing an apron in the foreground, limited retro palette of amber, teal and plum, crisp pixel clusters, parallax layered composition, nostalgic SNES aesthetic, hard pixel edges with no anti-aliasing</pre>
+      <p class="neg">负向：smooth vector, 3D render, photographic, blurry, high resolution gradients, anti-aliased edges, text, watermark, modern realistic lighting</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/08_line-art.jpg" target="_blank"><img src="images/08_line-art.jpg" alt="信息图 · 极简线稿" loading="lazy">
+      <span class="idx">08</span><span class="badge">line-art</span></a>
+    <div class="meta">
+      <h2>信息图 · 极简线稿</h2>
+      <p class="sub">线稿信息图 · media=illustration · landscape_4_3</p>
+      <div class="locks"><span class="lock">黑色细线稿</span><span class="lock">纯白背景</span><span class="lock">单一黄色点缀</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 68 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>Minimal line art infographic illustration: a conversion funnel diagram of three stacked hand-drawn arrows, small icons of users, shopping cart and coin hovering above each stage, ultra thin consistent black strokes on pure white background, one restrained yellow accent fill, generous white space, technical editorial style, flat 2D, precision line work</pre>
+      <p class="neg">负向：3D, photograph, color gradients, heavy shadows, texture, watermark, messy lines, paragraphs of text, colored background</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/09_isometric.jpg" target="_blank"><img src="images/09_isometric.jpg" alt="城市场景 · 等距插画" loading="lazy">
+      <span class="idx">09</span><span class="badge">isometric</span></a>
+    <div class="meta">
+      <h2>城市场景 · 等距插画</h2>
+      <p class="sub">等距场景 · media=illustration · landscape_4_3</p>
+      <div class="locks"><span class="lock">等距视角30度</span><span class="lock">鼠尾草绿与陶土色</span><span class="lock">白底微投影</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 101 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>Isometric illustration of a tiny sustainable eco town block: rooftop gardens, solar panels, a small tram gliding on curved streets, miniature trees and tiny people, pastel sage green and terracotta palette, soft ambient shadow, clean vector-like 3D render, 30 degree top-down angle, pure white background, charming miniature diorama feeling, highly detailed</pre>
+      <p class="neg">负向：first person perspective, photograph, dark tones, chaotic layout, text, watermark, blurry details, cluttered background</p></details>
+    </div>
+  </article>
+  <article class="card">
+    <a class="thumb" href="images/10_3d.jpg" target="_blank"><img src="images/10_3d.jpg" alt="IP 吉祥物 · 3D 角色" loading="lazy">
+      <span class="idx">10</span><span class="badge">3d</span></a>
+    <div class="meta">
+      <h2>IP 吉祥物 · 3D 角色</h2>
+      <p class="sub">角色设定 · media=image · square_hd</p>
+      <div class="locks"><span class="lock">3D黏土角色</span><span class="lock">橘色围巾绿蛙</span><span class="lock">暖灰纯色背景</span></div>
+      <p class="gate">r10 提示词门禁：PASS · 出图 90 KB</p>
+      <details><summary>提示词 / 负向提示词</summary><pre>High quality 3D stylized character render: a chubby friendly green tree frog mascot wearing a small orange scarf and round glasses, standing full body, big expressive eyes, soft vinyl toy material, gentle studio lighting, plain light warm gray background, Pixar-quality character design, appealing silhouette, perfectly centered, ultra detailed</pre>
+      <p class="neg">负向：flat illustration, realistic frog, horror, extra limbs, text, watermark, busy background, low detail, creepy expression</p></details>
+    </div>
+  </article></main>
+<footer>
+  链路：r10 imagegen prompt（门禁）→ Trae text_to_image（按用途分档画幅）→ 本地落盘 → 人工验收。<br>
+  已知局限：03/05/06 三张出现模型自造的英文乱码小字，说明纯图形类提示词应追加 “absolutely no letters or typography” 级负向约束；需要可直接说一声，我按加严负向重跑。
+</footer>
+</body>
+</html>

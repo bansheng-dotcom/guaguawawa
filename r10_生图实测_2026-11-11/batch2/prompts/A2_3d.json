@@ -1,0 +1,11 @@
+{
+  "media": "image",
+  "style": "3d",
+  "prompt": "Lifestyle kitchen scene: the same wooden crate of fresh vegetables resting on a warm oak countertop, morning sunlight streaming through a window with soft linen curtain, scattered rosemary sprigs and a cutting board, shallow depth of field, natural warm color grading, cozy farmhouse atmosphere, editorial food photography, high realism, no text",
+  "negative_prompt": "cartoon, flat vector, cold blue light, messy clutter, text, watermark, plastic packaging glare, blurry produce",
+  "style_locks": [
+    "晨光暖调",
+    "橡木台面",
+    "浅景深"
+  ]
+}

@@ -67,6 +67,7 @@ metadata:
 | 购物车 | `agent.py order cart` |
 | 用量计费 | `agent.py billing usage` |
 | 事件重放 | `agent.py revenue webhook` |
+| 商品图提示词（调用 R10） | `agent.py catalog image --need "..."` |
 
 ## §4 执行流程（Workflow）
 

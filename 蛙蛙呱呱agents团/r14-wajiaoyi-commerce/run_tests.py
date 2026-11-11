@@ -128,6 +128,19 @@ def main() -> int:
     r = s01_catalog._validate_price(c.load_json(_ex("price_dirty.json")))
     t.check("price 脏数据拦截", not r["ok"])
 
+    # 跨角色：商品图提示词必须真的调 R10，而不是只在文档里写「归 r10」
+    import argparse as _argparse
+    _ns = _argparse.Namespace(action="image", need="冷凉蔬菜礼盒白底主图",
+                              style="3d-food", media="image")
+    _ir = s01_catalog.run(_ns)
+    t.check("catalog image 真实委托 R10",
+            _ir["ok"] and _ir.get("delegated_to") == "r10", str(_ir.get("delegated_to")))
+    t.check("catalog image 拿到可用提示词", bool(_ir.get("prompt")))
+    t.check("catalog image 带出硬限制", isinstance(_ir.get("hard_limits"), list))
+    t.check("catalog image 空需求被拦",
+            not s01_catalog.run(_argparse.Namespace(action="image", need="",
+                                                    style=None, media=None))["ok"])
+
     # ------------------------------------------------------------------ #
     t.section("S02 购物车与订单")
     r = s02_order._validate_cart(c.load_json(_ex("cart.json")))
@@ -343,7 +356,8 @@ def main() -> int:
     t.check("9 技能登记", len(contracts.skill_names()) == 9,
             str(contracts.skill_names()))
     total_actions = sum(len(contracts.actions(s)) for s in contracts.skill_names())
-    t.check("19 动作登记", total_actions == 19, str(total_actions))
+    # 20 = 原 19 + catalog/image（委托 R10 的跨角色动作，不进 harness 确定性校验）
+    t.check("20 动作登记", total_actions == 20, str(total_actions))
     for s in contracts.skill_names():
         ent = contracts.get(s)
         for a in contracts.actions(s):

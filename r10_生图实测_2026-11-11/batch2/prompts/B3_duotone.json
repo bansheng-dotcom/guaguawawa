@@ -1,0 +1,11 @@
+{
+  "media": "icon",
+  "style": "duotone",
+  "prompt": "Logo design, letterform mark: the letter F whose stem and arms morph into a crouching frog silhouette, bold geometric construction, strictly two colors deep teal and warm sand, flat vector shapes with sharp corners, strong negative space play, centered on cream background, modernist identity presentation",
+  "negative_prompt": "3D, gradient, photo, thin strokes, watermark, extra letters, clutter, soft shadows",
+  "style_locks": [
+    "字母F异构成蛙",
+    "双色平涂",
+    "负空间"
+  ]
+}

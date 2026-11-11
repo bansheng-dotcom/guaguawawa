@@ -12,15 +12,18 @@
 动作：
   product   商品目录与定价校验
   price     单品价格与状态校验
+  image     商品主图/详情页配图需求 → 调用 R10 产出生图提示词（真实委托）
 """
 from __future__ import annotations
 
+import os
+import sys
 from typing import Any, Dict, List
 
 from . import _common as c
 
 NAME = "catalog"
-DESC = "商品与电商后端：product/price"
+DESC = "商品与电商后端：product/price/image"
 
 
 def add_parser(sp) -> None:
@@ -30,15 +33,45 @@ def add_parser(sp) -> None:
     a.add_argument("--input", required=True)
     b = act.add_parser("price", help="校验单品价格与状态")
     b.add_argument("--input", required=True)
+    im = act.add_parser("image", help="商品图需求 → 调用 R10 生图提示词")
+    im.add_argument("--need", required=True, help="一句话需求，如：冷凉蔬菜礼盒白底主图")
+    im.add_argument("--style", default=None, help="可选风格，如 3d-food / studio-still")
+    im.add_argument("--media", default=None, help="可选载体，如 image / poster")
 
 
 def run(args) -> Dict[str, Any]:
+    if args.action == "image":
+        return _image(args)
     data = c.load_json(args.input)
     if args.action == "product":
         return _validate_product(data)
     if args.action == "price":
         return _validate_price(data)
     return {"error": f"未知动作: {args.action}"}
+
+
+def _image(args) -> Dict[str, Any]:
+    """真实调用 R10：商品图不在这里自己画，也不只是写一句「交给 r10」。"""
+    root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    if root not in sys.path:
+        sys.path.insert(0, root)
+    try:
+        from .imagegen_bridge import compose
+    except Exception as exc:  # noqa: BLE001
+        return c.result([_ck(False, f"无法加载 R10 客户端：{exc}", "catalog.image")],
+                        ok=False, verdict="FAIL")
+    res = compose(args.need, style=args.style, media=args.media)
+    ok = bool(res.get("ok"))
+    checks = [_ck(ok, f"R10 返回 ok={ok}"
+                      f"（resolved={res.get('resolved_style')}）", "catalog.image")]
+    return c.result(checks, ok=ok, verdict="PASS" if ok else "FAIL",
+                    delegated_to="r10",
+                    prompt=res.get("prompt"), negative_prompt=res.get("negative_prompt"),
+                    image_size=res.get("image_size"), text_policy=res.get("text_policy"),
+                    risks=res.get("risks", []), hard_limits=res.get("hard_limits", []),
+                    artifacts=res.get("artifacts", []),
+                    next=("把 Prompt/Negative 交给生图工具；价格/规格/参数文字必须后期排版"
+                          if ok else res.get("error", "R10 未返回结果")))
 
 
 def _ck(ok: bool, msg: str, dim: str = "") -> Dict[str, Any]:

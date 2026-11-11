@@ -1,0 +1,572 @@
+[
+  {
+    "id": "01",
+    "name": "品牌主视觉 · 扁平团队插画",
+    "type": "扁平矢量插画",
+    "media": "illustration",
+    "style": "flat",
+    "image_size": "landscape_16_9",
+    "prompt": "Flat vector brand key visual: a cheerful chubby green frog mascot wearing a tiny tailored suit standing at the head of a circular meeting table, surrounded by twenty diverse stylized cartoon coworkers with laptops, charts and coffee cups, clean geometric shapes, bold flat color blocks of fresh green, warm amber yellow and deep teal, subtle paper grain texture, soft ambient occlusion, balanced wide composition with airy negative space, professional editorial illustration, no text",
+    "negative_prompt": "photograph, 3D render, blurry, cluttered background, harsh shadows, watermark, text, logo, distorted faces, extra limbs, gradient mesh",
+    "style_locks": [
+      "扁平矢量插画",
+      "青绿/暖黄/深青绿三色",
+      "纯色块平涂"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='illustration' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='flat' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（483 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Flat%20vector%20brand%20key%20visual%3A%20a%20cheerful%20chubby%20green%20frog%20mascot%20wearing%20a%20tiny%20tailored%20suit%20standing%20at%20the%20head%20of%20a%20circular%20meeting%20table%2C%20surrounded%20by%20twenty%20diverse%20stylized%20cartoon%20coworkers%20with%20laptops%2C%20charts%20and%20coffee%20cups%2C%20clean%20geometric%20shapes%2C%20bold%20flat%20color%20blocks%20of%20fresh%20green%2C%20warm%20amber%20yellow%20and%20deep%20teal%2C%20subtle%20paper%20grain%20texture%2C%20soft%20ambient%20occlusion%2C%20balanced%20wide%20composition%20with%20airy%20negative%20space%2C%20professional%20editorial%20illustration%2C%20no%20text&image_size=landscape_16_9",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\01_flat.jpg",
+    "bytes": 166328
+  },
+  {
+    "id": "02",
+    "name": "电商主图 · 3D 产品渲染",
+    "type": "电商产品主图",
+    "media": "image",
+    "style": "3d",
+    "image_size": "square_hd",
+    "prompt": "Premium 3D product render of a minimalist matte white ceramic cosmetic jar with a brushed gold lid, floating slightly above a smooth warm beige podium, fresh botanical leaves and crystal water droplets suspended around it, studio softbox lighting, gentle rim reflections, crisp contact shadow, ultra clean commercial product photography composition, centered with generous copy space at top, high detail, 8k",
+    "negative_prompt": "flat illustration, cartoon, low poly, noisy background, human hands, text, watermark, harsh reflections, cheap plastic look, muddy colors",
+    "style_locks": [
+      "3D产品渲染",
+      "米白瓷罐主体",
+      "柔和棚拍高光"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='image' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='3d' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（407 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Premium%203D%20product%20render%20of%20a%20minimalist%20matte%20white%20ceramic%20cosmetic%20jar%20with%20a%20brushed%20gold%20lid%2C%20floating%20slightly%20above%20a%20smooth%20warm%20beige%20podium%2C%20fresh%20botanical%20leaves%20and%20crystal%20water%20droplets%20suspended%20around%20it%2C%20studio%20softbox%20lighting%2C%20gentle%20rim%20reflections%2C%20crisp%20contact%20shadow%2C%20ultra%20clean%20commercial%20product%20photography%20composition%2C%20centered%20with%20generous%20copy%20space%20at%20top%2C%20high%20detail%2C%208k&image_size=square_hd",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\02_3d.jpg",
+    "bytes": 73128
+  },
+  {
+    "id": "03",
+    "name": "课程海报 · 渐变几何",
+    "type": "海报排版",
+    "media": "poster",
+    "style": "gradient",
+    "image_size": "portrait_4_3",
+    "prompt": "Modern gradient poster artwork: abstract overlapping translucent geometric shapes, flowing curved ribbons sweeping diagonally, deep indigo blending into violet and coral gradient mesh, fine film grain texture, soft luminous edges, vast clean area in the lower third reserved for title placement, premium editorial layout, restrained minimalism, 4k render",
+    "negative_prompt": "photograph, human figure, cluttered typography, low contrast, muddy colors, pixelation, watermark, sticker outline, heavy noise",
+    "style_locks": [
+      "渐变网格",
+      "靛蓝紫到珊瑚色",
+      "颗粒质感"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='poster' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='gradient' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（354 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Modern%20gradient%20poster%20artwork%3A%20abstract%20overlapping%20translucent%20geometric%20shapes%2C%20flowing%20curved%20ribbons%20sweeping%20diagonally%2C%20deep%20indigo%20blending%20into%20violet%20and%20coral%20gradient%20mesh%2C%20fine%20film%20grain%20texture%2C%20soft%20luminous%20edges%2C%20vast%20clean%20area%20in%20the%20lower%20third%20reserved%20for%20title%20placement%2C%20premium%20editorial%20layout%2C%20restrained%20minimalism%2C%204k%20render&image_size=portrait_4_3",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\03_gradient.jpg",
+    "bytes": 202381
+  },
+  {
+    "id": "04",
+    "name": "App 图标 · 等距黏土",
+    "type": "应用图标",
+    "media": "icon",
+    "style": "isometric",
+    "image_size": "square_hd",
+    "prompt": "Single iOS app icon, isometric 3D miniature scene of a tiny smiling green frog sitting on a floating rounded square island with a small ascending bar chart and a coin, soft clay material, pastel mint and cream palette, diffuse soft shadow, perfectly centered, flat solid light background, crisp clean edges, app store icon aesthetic, high detail",
+    "negative_prompt": "photo, text, busy gradient background, too many objects, harsh glare, blurry, watermark, realistic skin",
+    "style_locks": [
+      "等距3D图标",
+      "黏土质感",
+      "薄荷绿奶油白"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='icon' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='isometric' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（345 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Single%20iOS%20app%20icon%2C%20isometric%203D%20miniature%20scene%20of%20a%20tiny%20smiling%20green%20frog%20sitting%20on%20a%20floating%20rounded%20square%20island%20with%20a%20small%20ascending%20bar%20chart%20and%20a%20coin%2C%20soft%20clay%20material%2C%20pastel%20mint%20and%20cream%20palette%2C%20diffuse%20soft%20shadow%2C%20perfectly%20centered%2C%20flat%20solid%20light%20background%2C%20crisp%20clean%20edges%2C%20app%20store%20icon%20aesthetic%2C%20high%20detail&image_size=square_hd",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\04_isometric.jpg",
+    "bytes": 68797
+  },
+  {
+    "id": "05",
+    "name": "品牌 Banner · 双色调",
+    "type": "横幅视觉",
+    "media": "banner",
+    "style": "duotone",
+    "image_size": "landscape_16_9",
+    "prompt": "Duotone brand banner: silhouette of a determined person climbing a stylized staircase built from stacked books and gear wheels, double exposure texture of city skylines inside the silhouette, strictly two colors deep forest green and warm sand beige, bold graphic composition with strong diagonal flow, generous empty space on the left for a headline, screen-print editorial quality",
+    "negative_prompt": "full color image, photograph, smooth gradients, clutter, text, watermark, blurry edges, low contrast",
+    "style_locks": [
+      "双色调",
+      "深森林绿与暖沙色",
+      "剪影剪裁构图"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='banner' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='duotone' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（382 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Duotone%20brand%20banner%3A%20silhouette%20of%20a%20determined%20person%20climbing%20a%20stylized%20staircase%20built%20from%20stacked%20books%20and%20gear%20wheels%2C%20double%20exposure%20texture%20of%20city%20skylines%20inside%20the%20silhouette%2C%20strictly%20two%20colors%20deep%20forest%20green%20and%20warm%20sand%20beige%2C%20bold%20graphic%20composition%20with%20strong%20diagonal%20flow%2C%20generous%20empty%20space%20on%20the%20left%20for%20a%20headline%2C%20screen-print%20editorial%20quality&image_size=landscape_16_9",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\05_duotone.jpg",
+    "bytes": 117643
+  },
+  {
+    "id": "06",
+    "name": "绘本插画 · 水彩",
+    "type": "儿童绘本",
+    "media": "illustration",
+    "style": "watercolor",
+    "image_size": "landscape_4_3",
+    "prompt": "Soft watercolor children's book illustration: a little girl in a yellow raincoat holding a giant leaf as an umbrella, walking through a misty bamboo forest with glowing fireflies, wet-on-wet washes, visible cold press paper texture, delicate bleeding edges, fine ink outline accents, warm calm mood, gentle light rays, storybook double-page composition",
+    "negative_prompt": "3D render, vector flat, neon colors, harsh black outlines, digital airbrush gradient, text, watermark, scary face, creepy atmosphere",
+    "style_locks": [
+      "水彩湿画法",
+      "纸张纹理",
+      "细线勾边"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='illustration' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='watercolor' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（352 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Soft%20watercolor%20children%27s%20book%20illustration%3A%20a%20little%20girl%20in%20a%20yellow%20raincoat%20holding%20a%20giant%20leaf%20as%20an%20umbrella%2C%20walking%20through%20a%20misty%20bamboo%20forest%20with%20glowing%20fireflies%2C%20wet-on-wet%20washes%2C%20visible%20cold%20press%20paper%20texture%2C%20delicate%20bleeding%20edges%2C%20fine%20ink%20outline%20accents%2C%20warm%20calm%20mood%2C%20gentle%20light%20rays%2C%20storybook%20double-page%20composition&image_size=landscape_4_3",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\06_watercolor.jpg",
+    "bytes": 310119
+  },
+  {
+    "id": "07",
+    "name": "游戏场景 · 像素风",
+    "type": "像素场景",
+    "media": "image",
+    "style": "pixel",
+    "image_size": "landscape_16_9",
+    "prompt": "16-bit pixel art game scene: a cozy night market alley in a fantasy town, warm paper lanterns glowing, pixelated food stalls with steaming bowls, a small green frog merchant wearing an apron in the foreground, limited retro palette of amber, teal and plum, crisp pixel clusters, parallax layered composition, nostalgic SNES aesthetic, hard pixel edges with no anti-aliasing",
+    "negative_prompt": "smooth vector, 3D render, photographic, blurry, high resolution gradients, anti-aliased edges, text, watermark, modern realistic lighting",
+    "style_locks": [
+      "16位像素风",
+      "复古暖色限定色板",
+      "硬边像素块"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='image' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='pixel' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（373 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=16-bit%20pixel%20art%20game%20scene%3A%20a%20cozy%20night%20market%20alley%20in%20a%20fantasy%20town%2C%20warm%20paper%20lanterns%20glowing%2C%20pixelated%20food%20stalls%20with%20steaming%20bowls%2C%20a%20small%20green%20frog%20merchant%20wearing%20an%20apron%20in%20the%20foreground%2C%20limited%20retro%20palette%20of%20amber%2C%20teal%20and%20plum%2C%20crisp%20pixel%20clusters%2C%20parallax%20layered%20composition%2C%20nostalgic%20SNES%20aesthetic%2C%20hard%20pixel%20edges%20with%20no%20anti-aliasing&image_size=landscape_16_9",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\07_pixel.jpg",
+    "bytes": 206305
+  },
+  {
+    "id": "08",
+    "name": "信息图 · 极简线稿",
+    "type": "线稿信息图",
+    "media": "illustration",
+    "style": "line-art",
+    "image_size": "landscape_4_3",
+    "prompt": "Minimal line art infographic illustration: a conversion funnel diagram of three stacked hand-drawn arrows, small icons of users, shopping cart and coin hovering above each stage, ultra thin consistent black strokes on pure white background, one restrained yellow accent fill, generous white space, technical editorial style, flat 2D, precision line work",
+    "negative_prompt": "3D, photograph, color gradients, heavy shadows, texture, watermark, messy lines, paragraphs of text, colored background",
+    "style_locks": [
+      "黑色细线稿",
+      "纯白背景",
+      "单一黄色点缀"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='illustration' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='line-art' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（353 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Minimal%20line%20art%20infographic%20illustration%3A%20a%20conversion%20funnel%20diagram%20of%20three%20stacked%20hand-drawn%20arrows%2C%20small%20icons%20of%20users%2C%20shopping%20cart%20and%20coin%20hovering%20above%20each%20stage%2C%20ultra%20thin%20consistent%20black%20strokes%20on%20pure%20white%20background%2C%20one%20restrained%20yellow%20accent%20fill%2C%20generous%20white%20space%2C%20technical%20editorial%20style%2C%20flat%202D%2C%20precision%20line%20work&image_size=landscape_4_3",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\08_line-art.jpg",
+    "bytes": 69726
+  },
+  {
+    "id": "09",
+    "name": "城市场景 · 等距插画",
+    "type": "等距场景",
+    "media": "illustration",
+    "style": "isometric",
+    "image_size": "landscape_4_3",
+    "prompt": "Isometric illustration of a tiny sustainable eco town block: rooftop gardens, solar panels, a small tram gliding on curved streets, miniature trees and tiny people, pastel sage green and terracotta palette, soft ambient shadow, clean vector-like 3D render, 30 degree top-down angle, pure white background, charming miniature diorama feeling, highly detailed",
+    "negative_prompt": "first person perspective, photograph, dark tones, chaotic layout, text, watermark, blurry details, cluttered background",
+    "style_locks": [
+      "等距视角30度",
+      "鼠尾草绿与陶土色",
+      "白底微投影"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='illustration' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='isometric' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（357 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Isometric%20illustration%20of%20a%20tiny%20sustainable%20eco%20town%20block%3A%20rooftop%20gardens%2C%20solar%20panels%2C%20a%20small%20tram%20gliding%20on%20curved%20streets%2C%20miniature%20trees%20and%20tiny%20people%2C%20pastel%20sage%20green%20and%20terracotta%20palette%2C%20soft%20ambient%20shadow%2C%20clean%20vector-like%203D%20render%2C%2030%20degree%20top-down%20angle%2C%20pure%20white%20background%2C%20charming%20miniature%20diorama%20feeling%2C%20highly%20detailed&image_size=landscape_4_3",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\09_isometric.jpg",
+    "bytes": 104104
+  },
+  {
+    "id": "10",
+    "name": "IP 吉祥物 · 3D 角色",
+    "type": "角色设定",
+    "media": "image",
+    "style": "3d",
+    "image_size": "square_hd",
+    "prompt": "High quality 3D stylized character render: a chubby friendly green tree frog mascot wearing a small orange scarf and round glasses, standing full body, big expressive eyes, soft vinyl toy material, gentle studio lighting, plain light warm gray background, Pixar-quality character design, appealing silhouette, perfectly centered, ultra detailed",
+    "negative_prompt": "flat illustration, realistic frog, horror, extra limbs, text, watermark, busy background, low detail, creepy expression",
+    "style_locks": [
+      "3D黏土角色",
+      "橘色围巾绿蛙",
+      "暖灰纯色背景"
+    ],
+    "gate": "PASS",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "media='image' 在白名单 ['image', 'illustration', 'icon', 'poster', 'banner']",
+        "dim": "imagegen.media",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style='3d' 在白名单 ['line-art', 'flat', 'gradient', '3d', 'watercolor', 'pixel', 'isometric', 'duotone']",
+        "dim": "imagegen.style",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "prompt 非空（344 字）",
+        "dim": "imagegen.prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "negative_prompt 非空（≥1 项）",
+        "dim": "imagegen.negative_prompt",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "style_locks ≥1（实际 3）",
+        "dim": "imagegen.style_locks",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "风格锁不被负向提示词推翻（矛盾 无）",
+        "dim": "imagegen.lock_consistency",
+        "sev": "OK"
+      }
+    ],
+    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=High%20quality%203D%20stylized%20character%20render%3A%20a%20chubby%20friendly%20green%20tree%20frog%20mascot%20wearing%20a%20small%20orange%20scarf%20and%20round%20glasses%2C%20standing%20full%20body%2C%20big%20expressive%20eyes%2C%20soft%20vinyl%20toy%20material%2C%20gentle%20studio%20lighting%2C%20plain%20light%20warm%20gray%20background%2C%20Pixar-quality%20character%20design%2C%20appealing%20silhouette%2C%20perfectly%20centered%2C%20ultra%20detailed&image_size=square_hd",
+    "file": "d:\\蛙蛙呱呱\\r10_生图实测_2026-11-11\\images\\10_3d.jpg",
+    "bytes": 92640
+  }
+]

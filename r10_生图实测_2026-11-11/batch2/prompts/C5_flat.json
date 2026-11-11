@@ -1,0 +1,11 @@
+{
+  "media": "image",
+  "style": "flat",
+  "prompt": "Mobile app UI mockup, disabled state: grocery checkout screen where all form fields and the primary pay button are visibly disabled in light gray, reduced contrast, a small lock icon beside the button, one alert strip explaining missing delivery address in soft amber, white cards on light gray canvas, minimal iOS style, clear visual hierarchy",
+  "negative_prompt": "3D photo, saturated colors, clutter, watermark, dark theme, realistic device frame",
+  "style_locks": [
+    "灰阶禁用态",
+    "低对比度",
+    "琥珀提示条"
+  ]
+}

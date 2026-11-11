@@ -57,8 +57,15 @@ metadata:
 
 | 任务 | 入口 |
 |---|---|
-| 生图提示词 | `agent.py imagegen prompt` |
-| 主视觉生成 | `agent.py imagegen generate` |
+| 生图提示词（默认路线） | `agent.py imagegen compose --need "<一句话需求>"` |
+| 参考设计系统（31 套） | `agent.py imagegen refs --query "dark cinematic"` |
+| 灵感检索（39 站 + 版权） | `agent.py imagegen inspire --need "..." --category packaging` |
+| 校验提示词包 | `agent.py imagegen prompt` |
+| 试跑看最终 prompt | `agent.py imagegen generate --dry-run` |
+| 能力目录（57 风格） | `agent.py imagegen catalog` |
+| 批量提示词包 | `agent.py imagegen pack --seeds 3` |
+| 引擎接入清单 | `agent.py imagegen engines` |
+| 主视觉生成（需引擎） | `agent.py imagegen generate` |
 | Logo 设计 | `agent.py logo logo` |
 | 界面设计 | `agent.py uiux screen` |
 | 品牌视觉识别 | `agent.py brand vi` |

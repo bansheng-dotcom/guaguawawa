@@ -135,7 +135,7 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
         },
     },
     "platform": {
-        "desc": "多平台适配：adapt/publish",
+        "desc": "多平台适配：adapt/publish/visual",
         "input": {
             "adapt": _REQ({
                 "platform": _STR, "title": _STR, "length_limit": _STR,
@@ -146,10 +146,12 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
                                     "status": _STR, "authorized": _BOOL},
                                    ["platform", "url", "status", "authorized"])),
             }, ["items"]),
+            "visual": _REQ({"need": _STR}, ["need"]),
         },
         "output": {
             "adapt": _out(["platform"]),
             "publish": _out(["item_count"]),
+            "visual": _out(["prompt", "delegated_to"]),
         },
     },
     "localize": {
@@ -170,6 +172,21 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "term": _out(["glossary_count"]),
             "review": _out(["status"]),
             "probe": _out(["status"]),
+        },
+    },
+    "xhs": {
+        "desc": "小红书发布包：note/score/compliance（评分卡+合规扫描）",
+        "input": {
+            "note": _REQ({"title": _STR, "body": _STR, "cta": _STR,
+                          "tags": _ARR(_STR)}, ["title", "body", "tags"]),
+            "score": _REQ({"title": _STR, "body": _STR, "cta": _STR,
+                           "format_type": _STR}, ["title", "body"]),
+            "compliance": _REQ({"title": _STR, "body": _STR}, ["title", "body"]),
+        },
+        "output": {
+            "note": _out(["title_len", "body_len"]),
+            "score": _out(["passed", "ces_reference"]),
+            "compliance": _out([]),
         },
     },
 }

@@ -40,6 +40,9 @@ class StylescapeExplorer:
                 style=style
             )
             engine = manager.select_best_engine()
+            if getattr(engine, "is_mock", False):
+                # 没有真实引擎：宁可返回空，也不拿占位图冒充三种风格探索
+                return []
             res = engine.generate(task, output_dir=output_dir)
             
             if res.ok and res.image_paths:

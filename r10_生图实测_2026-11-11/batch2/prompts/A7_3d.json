@@ -1,0 +1,11 @@
+{
+  "media": "image",
+  "style": "3d",
+  "prompt": "Packaging mockup render of a kraft paper gift box with a die-cut handle, front panel printed with a simple minimal sage green leaf emblem, fresh vegetables peeking from the open top, soft neutral studio background with gentle gradient, three quarter angle view, realistic paper fiber texture, subtle embossed logo relief, premium sustainable packaging design, no readable text",
+  "negative_prompt": "plastic sheen, neon colors, cluttered background, watermark, readable words, distorted box geometry",
+  "style_locks": [
+    "牛皮纸本色",
+    "模切提手",
+    "凹凸压印"
+  ]
+}

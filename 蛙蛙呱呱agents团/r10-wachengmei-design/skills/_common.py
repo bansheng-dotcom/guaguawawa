@@ -170,6 +170,50 @@ def load_thresholds() -> Dict[str, Any]:
 
 
 # --------------------------------------------------------------------------- #
+# 风格注册表（单一出处）：core 由 thresholds.style_types 投影，extended/experimental
+# 只活在 experience/style_registry.json 里。门禁把任意 style 解析成 render_style（core 之一）
+# 后才放行，避免「加一个风格名 = 改一处数组 + 改一处测试」的硬编码扩散。
+# --------------------------------------------------------------------------- #
+def registry_path() -> str:
+    return os.path.join(_AGENT_DIR, "experience", "style_registry.json")
+
+
+def load_registry() -> Dict[str, Any]:
+    p = registry_path()
+    if not os.path.exists(p):
+        return {"entries": []}
+    try:
+        with open(p, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        return {"entries": []}
+    if not isinstance(data, dict):
+        return {"entries": []}
+    data.setdefault("entries", [])
+    return data
+
+
+def style_index(reg: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
+    """小写键索引：`style.flat` / `flat` / 任一 alias 都命中同一条记录。"""
+    idx: Dict[str, Dict[str, Any]] = {}
+    for e in reg.get("entries", []):
+        if not isinstance(e, dict) or e.get("axis") != "style":
+            continue
+        keys = set()
+        sid = str(e.get("id") or "")
+        if sid:
+            keys.add(sid)
+            keys.add(sid.split(".", 1)[-1])
+        for a in e.get("aliases", []) or []:
+            if isinstance(a, str) and a.strip():
+                keys.add(a.strip())
+        for k in keys:
+            idx.setdefault(k.lower(), e)
+    return idx
+
+
+
+# --------------------------------------------------------------------------- #
 # 通用检查与结果辅助
 # --------------------------------------------------------------------------- #
 def ck(ok: bool, msg: str, dim: str, sev: str = "OK", **ev) -> Dict[str, Any]:
