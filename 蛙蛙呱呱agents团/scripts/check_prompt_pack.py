@@ -36,6 +36,7 @@ def main() -> int:
             pass
 
     fails = []
+    sizes = []
     for rid in ROLES:
         pack = pp.build(rid, "check", {"topic": "自检样例"})
         if not pack.get("ok"):
@@ -45,6 +46,14 @@ def main() -> int:
             fails.append(f"{rid}: L2 块为 0")
         system = pack["messages"][0]["content"]
         user = pack["messages"][1]["content"]
+        total = len(system) + len(user)
+        sizes.append(total)
+        if total < 2000:
+            fails.append(f"{rid}: prompt 仅 {total} 字，未覆盖能力全景")
+        if "【能力全景】" not in system:
+            fails.append(f"{rid}: 缺能力全景")
+        if pack["coverage"]["actions"] < 8:
+            fails.append(f"{rid}: 动作覆盖 {pack['coverage']['actions']} < 8")
         if pack["domain"] and pack["domain"] not in system:
             fails.append(f"{rid}: system 未包含领域")
         if "绝不做的三件事" not in system:
@@ -76,12 +85,12 @@ def main() -> int:
 
     print("20 角色提示词拼装自检")
     print("=" * 66)
-    print(f"角色 {len(ROLES)} 个｜问题 {len(fails)}")
+    print(f"角色 {len(ROLES)} 个｜问题 {len(fails)}｜prompt 长度 {min(sizes)}–{max(sizes)} 字")
     for f in fails:
         print("  [FAIL] " + f)
     if fails:
         return 1
-    print("\n[OK] 20 角色四层齐备，schema 可校验，失败可回退")
+    print("\n[OK] 20 角色四层齐备、能力全景覆盖、schema 可校验、失败可回退")
     return 0
 
 

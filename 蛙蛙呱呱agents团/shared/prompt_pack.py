@@ -39,6 +39,62 @@ def _load_json(path: str) -> Dict[str, Any]:
         return {}
 
 
+_SKILL_CACHE: Dict[str, Dict[str, Any]] = {}
+
+
+def skill_index(role_id: str) -> Dict[str, Dict[str, Any]]:
+    """解析角色 skills/*.py 的 NAME / DESC / ACTIONS / 模块 docstring（不执行代码）。"""
+    import ast
+
+    rid = str(role_id).lower().strip()
+    if rid in _SKILL_CACHE:
+        return _SKILL_CACHE[rid]
+    d = role_dir(rid)
+    out: Dict[str, Dict[str, Any]] = {}
+    skills_dir = os.path.join(d, "skills") if d else ""
+    for path in sorted(os.listdir(skills_dir)) if os.path.isdir(skills_dir) else []:
+        if not (path.startswith("s") and path.endswith(".py")):
+            continue
+        try:
+            src = open(os.path.join(skills_dir, path), encoding="utf-8").read()
+            tree = ast.parse(src)
+        except (OSError, SyntaxError):
+            continue
+        name, desc, actions = "", "", {}
+        for node in tree.body:
+            if not isinstance(node, ast.Assign) or len(node.targets) != 1:
+                continue
+            target = node.targets[0]
+            if not isinstance(target, ast.Name):
+                continue
+            try:
+                value = ast.literal_eval(node.value)
+            except (ValueError, SyntaxError):
+                continue
+            if target.id == "NAME" and isinstance(value, str):
+                name = value
+            elif target.id == "DESC" and isinstance(value, str):
+                desc = value
+            elif target.id == "ACTIONS" and isinstance(value, dict):
+                actions = {str(k): str(v) for k, v in value.items()}
+        if name:
+            out[name] = {"file": path, "desc": desc, "actions": actions,
+                         "doc": (ast.get_docstring(tree) or "").strip()}
+    _SKILL_CACHE[rid] = out
+    return out
+
+
+def _thresholds_text(role_id: str, limit: int = 1600) -> str:
+    d = role_dir(role_id)
+    data = _load_json(os.path.join(d, "experience", "thresholds.json")) if d else {}
+    if not data:
+        return ""
+    text = json.dumps(data, ensure_ascii=False, sort_keys=True)
+    if len(text) > limit:
+        text = text[:limit] + " …"
+    return text
+
+
 def constitutions() -> Dict[str, Any]:
     return _load_json(CONSTITUTIONS)
 
@@ -78,6 +134,44 @@ def build(role_id: str, action: Optional[str] = None,
     blocks = profile.get("l2_prompt_blocks") or []
     forbidden = (constitutions().get("forbidden_global") or []) + ["placeholder"]
     must = (profile.get("output_contract") or {}).get("must_include") or []
+    actions = profile.get("actions") or []
+    skills = skill_index(rid)
+
+    # 能力全景：把该角色所有技能与动作摊开（模型才知道自己有哪些家底）
+    by_skill: Dict[str, List[Dict[str, Any]]] = {}
+    for a in actions:
+        by_skill.setdefault(str(a.get("skill", "")), []).append(a)
+    panorama_lines = []
+    for sk in sorted(by_skill):
+        meta = skills.get(sk, {})
+        kind = meta.get("desc") or ""
+        panorama_lines.append(f"- {sk}（{kind}）")
+        for a in by_skill[sk]:
+            need = a.get("requires") or ""
+            if isinstance(need, (list, tuple)):
+                need = "、".join(str(x) for x in need)
+            when = a.get("when") or ""
+            if isinstance(when, (list, tuple)):
+                when = "、".join(str(x) for x in when)
+            desc = (skills.get(sk, {}).get("actions") or {}).get(
+                str(a.get("action", "")), "")
+            panorama_lines.append(
+                f"    · {a.get('action','')} —— {a.get('label','')}"
+                + (f"｜{desc}" if desc else "")
+                + f"｜触发：{when}"
+                + (f"｜需填：{need}" if need else ""))
+    panorama = "\n".join(panorama_lines) or "（profile 未登记动作）"
+
+    cur_skill = str((action or "").split(".")[0]) if action else ""
+    cur_meta = skills.get(cur_skill, {})
+    cur_action = ""
+    cur_label = ""
+    for a in actions:
+        if str(a.get("skill")) == cur_skill and (
+                not action or "." not in action or str(a.get("action")) == action.split(".", 1)[1]):
+            cur_action = str(a.get("action", ""))
+            cur_label = str(a.get("label", ""))
+            break
 
     l0 = (
         f"你是「{const.get('name','')}」，负责{const.get('domain', profile.get('domain',''))}。\n"
@@ -87,11 +181,39 @@ def build(role_id: str, action: Optional[str] = None,
     )
     l2 = "\n".join(f"[{b.get('name','块')}] {_render(str(b.get('template','')), inputs)}"
                    for b in blocks) or "（本角色暂无领域块，请先在 prompt_profile.json 补齐）"
+    method = cur_meta.get("doc", "")
+    if len(method) > 900:
+        method = method[:900] + " …"
+    th_text = _thresholds_text(rid)
+    sections = [l0]
+    sections.append("【能力全景】本角色共 %d 个技能 / %d 个动作，先看清再动手：\n%s"
+                    % (len(by_skill), len(actions), panorama))
+    if cur_skill:
+        sections.append(
+            f"【当前技能】{cur_skill}：{cur_meta.get('desc','')}\n"
+            f"【当前动作】{cur_action or '-'} —— {cur_label or '（未在 profile 登记）'}")
+    if method:
+        sections.append("【领域方法】\n" + method)
+    sections.append("【方法块】\n" + l2)
+    if th_text:
+        sections.append("【判定阈值】（本角色 experience/thresholds.json）\n" + th_text)
+    sections.append("【输出要求】按以下小节组织内容，然后整体只输出一个 JSON 对象："
+                    + "、".join(must))
+
     l1_lines = []
     if action:
-        l1_lines.append(f"本次动作：{action}")
+        l1_lines.append(f"本次动作：{action}（{cur_label}）" if cur_label else f"本次动作：{action}")
     if inputs:
         l1_lines.append("本次输入：" + json.dumps(inputs, ensure_ascii=False))
+    req = ""
+    for a in actions:
+        if str(a.get("skill")) == cur_skill and str(a.get("action")) == cur_action:
+            req = str(a.get("requires") or "")
+            break
+    if req:
+        missing = [r for r in req.split() if r not in inputs]
+        l1_lines.append(f"参数检查：本动作需要 {req}"
+                        + (f"；当前缺 {missing}，请先追问再产出" if missing else "；已齐备"))
     qs = profile.get("questions") or {}
     if qs:
         l1_lines.append("必答（缺则先问）：" + "；".join(
@@ -99,10 +221,9 @@ def build(role_id: str, action: Optional[str] = None,
     assum = profile.get("assumptions") or {}
     if assum:
         l1_lines.append("默认假设（未确认前不得扩写范围）：" + json.dumps(assum, ensure_ascii=False))
-    l1_lines.append("输出：" + json.dumps({"must_include": must}, ensure_ascii=False)
-                    + "，只输出 JSON。")
+    l1_lines.append("输出：JSON 对象，必须包含 " + "、".join(must) + "；不要输出 JSON 之外的任何文字。")
 
-    system = l0 + "\n\n" + l2
+    system = "\n\n".join(sections)
     user = "\n".join(l1_lines)
     return {
         "ok": True,
@@ -121,6 +242,8 @@ def build(role_id: str, action: Optional[str] = None,
             "blocks_present": len(blocks),
         },
         "l2_block_count": len(blocks),
+        "coverage": {"skills": len(by_skill), "actions": len(actions),
+                     "char_total": len(system) + len(user)},
     }
 
 
