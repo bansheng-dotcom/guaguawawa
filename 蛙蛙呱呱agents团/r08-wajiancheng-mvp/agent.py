@@ -79,6 +79,9 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 _INTENT_ROUTES = [
+    (("幻灯片", "ppt", "deck", "演示文稿", "汇报材料"), "deck", "plan", {}),
+    (("html 报告", "网页报告", "报告页", "研究报告页"), "htmlreport", "plan", {}),
+    (("小程序", "miniapp", "taro", "weapp"), "miniapp", "plan", {}),
     (("landing", "落地页", "h5", "收集邮箱", "单页"), "landing", "landing", {}),
     (("prototype", "flutter", "跨端", "移动", "app原型", "原型"), "prototype", "prototype", {}),
     (("email", "邮件", "模板", "退订"), "saas", "email", {}),

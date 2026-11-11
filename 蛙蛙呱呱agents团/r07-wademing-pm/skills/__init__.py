@@ -2,10 +2,11 @@
 """R07 八个能力域技能模块注册表。"""
 from __future__ import annotations
 
-from . import (s01_discover, s02_ost, s03_prd, s04_priority,
+from . import (s09_prdguard, s01_discover, s02_ost, s03_prd, s04_priority,
                s05_roadmap, s06_metrics, s07_techbrief, s08_decision)
 
-SKILLS = [s01_discover, s02_ost, s03_prd, s04_priority,
+SKILLS = [
+    s09_prdguard,s01_discover, s02_ost, s03_prd, s04_priority,
           s05_roadmap, s06_metrics, s07_techbrief, s08_decision]
 
 # 兼容历史技能模块：统一补齐注册元数据。

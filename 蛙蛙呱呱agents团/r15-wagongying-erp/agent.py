@@ -68,6 +68,7 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 注意「报价」(quotation) 必须排在「询价」(rfq) 之前、「收货」(receipt) 排在
 # 「采购订单」(purchase_order) 之前，否则动作错配导致门禁选错（R14 踩坑同理）。
 _INTENT_ROUTES = [
+    (("tco", "总拥有成本", "采购成本对比", "报价对比", "landed"), "tco", "compare", {}),
     (("报价", "供应商报价", "quotation", "sq", "比价结果"),
      "procurement", "quotation", {}),
     (("询价", "rfq", "request for quotation", "询比价"),

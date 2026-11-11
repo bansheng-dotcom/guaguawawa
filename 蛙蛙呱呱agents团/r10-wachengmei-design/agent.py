@@ -61,6 +61,8 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 _INTENT_ROUTES = [
+    (("品牌一致性", "vi 检查", "品牌检查"), "brandcheck", "check", {}),
+    (("缩放", "裁剪", "加水印", "图片补边", "resize"), "imgops", "info", {}),
     (("设计系统", "design system", "design.md", "风格库", "品牌风格", "参考风格"), "designsys", "list", {}),
     (("风格推荐", "推荐风格", "style recommend"), "designsys", "recommend", {}),
     (("视频提示词", "分镜", "h3", "t2va", "i2va", "fl2va", "l2va", "ref2va", "脚本转视频"), "h3prompt", "build", {}),

@@ -67,6 +67,7 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 「退款」(refund) 必须排在通用「支付」(payment_intent) 之前——
 # 否则退款请求会被当成支付意图校验（R14 踩坑：动作错配导致门禁选错）。
 _INTENT_ROUTES = [
+    (("选品", "利润测算", "毛利率", "选品报告"), "selection", "score", {}),
     (("签署", "签名", "电子签", "合同签署", "待签", "documenso", "审计包", "签署人"),
      "signature", "document", {}),
     (("预约", "时段", "日历", "排期预约", "appointment", "easyappointments"),

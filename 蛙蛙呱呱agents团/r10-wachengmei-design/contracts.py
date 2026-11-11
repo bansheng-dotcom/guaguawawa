@@ -272,6 +272,25 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "check": _out(["design", "palette_size"]),
         },
     },
+    "imgops": {
+        "desc": "本地图片处理：info/resize/crop/compress/pad/watermark",
+        "input": {
+            "info": _REQ({"input": _STR}, ["input"]),
+            "resize": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+            "crop": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+            "compress": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+            "pad": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+            "watermark": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+        },
+        "output": {
+            "info": _out(["width", "height"]),
+            "resize": _out(["out", "size_bytes"]),
+            "crop": _out(["out", "size_bytes"]),
+            "compress": _out(["out", "size_bytes"]),
+            "pad": _out(["out", "size_bytes"]),
+            "watermark": _out(["out", "size_bytes"]),
+        },
+    },
 }
 
 

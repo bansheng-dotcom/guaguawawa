@@ -871,10 +871,10 @@ python guagua.py capabilities --id xhs-content-skills
 | R02 | `business-ops-analysis` |
 | R05 | `tashan-research-skills`、`industry-panorama-research`、`market-intelligence-radar` |
 | R06 | `build-web-data-visualization`、`data-processing` |
-| R07 | `user-research-toolkit` |
-| R08 | `rapid-prototype-craft`、`ppt-generator` |
+| R07 | `user-research-toolkit`、`prd-authoring` |
+| R08 | `rapid-prototype-craft`、`ppt-generator`、`html-report-presentation`、`miniapp-builder` |
 | R09 | `web-app-development`、`frontend-design` |
-| R10 | `design-system`、`whiteboard`、`brand-guardian`、`ecommerce-designer` |
+| R10 | `design-system`、`whiteboard`、`brand-guardian`、`ecommerce-designer`、`image-ops` |
 | R11 | `rednote-post`、`xhs-content-skills` |
 | R12 | `marketing-toolkit` |
 | R14 | `omnichannel-commerce-assistant`、`smart-product-selector` |
@@ -999,6 +999,17 @@ python verify_loop.py
 - 三个技能均接入各角色 harness 门禁与契约（r14 19 动作、r15 20 动作、r11 9 技能），
   新增 `tests/test_capability_fusions.py`（8 例，跑真实 CLI）。
 - 文档：各角色 `references/capabilities/` 增能力卡，记录上游权重 120% 的口径问题。
+
+### v2.1.1（2026-11-11）
+
+- **意图路由补齐**：R07/R08/R09/R10/R11/R14/R15 的 `_INTENT_ROUTES` 覆盖新技能（幻灯片、HTML 报告、
+  小程序、PRD 检查、图片处理、品牌一致性、小红书、选品、TCO），`run --task` 不再落到 fallback。
+- **新增 4 个可执行技能**：
+  - R07 `prdguard`：`check/render` —— 产品契约四要素、P0 四段、非目标、边界、假设与待验证、来源可追溯。
+  - R08 `htmlreport`：`plan/html` —— 章节 ≥3、论点 ≥3、来源 ≥3；单文件渲染（目录/引用/来源表/打印样式）。
+  - R08 `miniapp`：`plan/scaffold` —— 2–20 页、路径与 tabBar 校验；生成 Taro 风格工程骨架。
+  - R10 `imgops`：`info/resize/crop/compress/pad/watermark` —— Pillow 本地处理，不覆盖源文件、缺库即 blocked。
+- 能力库从 22 项扩到 **26 项**（9 个代码技能 + 17 张规范卡）；`tests/test_capability_fusions.py` 扩到 14 例。
 
 ### v2.1.0（2026-11-11）
 

@@ -69,6 +69,7 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 _INTENT_ROUTES = [
+    (("发布前检查", "笔记评分", "笔记合规", "xhs", "小红书笔记"), "xhs", "score", {}),
     (("关键词", "seo", "aeo", "搜索", "排名", "结构化数据", "eeat", "e-e-a-t"),
      "seo", "audit", {}),
     (("广告", "slogan", "口号", "卖点", "promotion", "投放文案"), "pr", "ad", {}),

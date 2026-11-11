@@ -206,3 +206,82 @@ def test_r10_brandcheck_against_design_md(tmp_path):
     assert out2["verdict"] == "FAIL"
     dims = {c["dim"] for c in out2["checks"] if not c["ok"]}
     assert "brand.colors.known" in dims and "brand.fonts" in dims
+
+
+# --------------------------------------------------------------------------- #
+# R07 · prdguard / R08 · htmlreport / miniapp / R10 · imgops
+# --------------------------------------------------------------------------- #
+def _prd():
+    return {
+        "title": "会员券分层",
+        "product_contract": {"user": "复购 2 次以上", "trigger": "订单完成 7 天",
+                             "job": "把复购周期压到 21 天", "completion": "券核销并二次下单"},
+        "p0_features": [
+            {"name": "分层发券", "trigger": "订单完成 7 天", "rule": "按客单分 3 档",
+             "result": "收到券", "state": "待核销", "source": "judgment"},
+            {"name": "核销提醒", "trigger": "到期前 48h", "rule": "未核销推 1 次",
+             "result": "推送成功", "state": "已提醒", "source": "evidence"},
+        ],
+        "non_goals": ["不做全场折扣", "不做新客首单"],
+        "edge_cases": ["券库存不足降档", "通知失败重试 2 次"],
+        "assumptions": ["21 天可达"], "open_questions": ["券成本上限"],
+    }
+
+
+def test_r07_prd_guard_and_render(tmp_path):
+    src = _write(tmp_path, "prd.json", _prd())
+    rc, out = _run("r07-wademing-pm", ["prdguard", "check", "--input", src])
+    assert rc == 0 and out["ok"], [c for c in out["checks"] if not c["ok"]]
+    target = str(tmp_path / "prd.md")
+    rc2, out2 = _run("r07-wademing-pm", ["prdguard", "render", "--input", src, "--out", target])
+    assert out2["ok"] and os.path.isfile(target)
+    assert "产品契约" in open(target, encoding="utf-8").read()
+
+    bad = _prd()
+    bad["p0_features"][0].pop("state")
+    bad["non_goals"] = ["只有一条"]
+    rc3, out3 = _run("r07-wademing-pm", ["prdguard", "check", "--input",
+                                         _write(tmp_path, "bad.json", bad)])
+    assert not out3["ok"]
+
+
+def test_r08_html_report(tmp_path):
+    report = {"title": "Q4 复盘", "meta": {"audience": "管理层", "purpose": "决定加投"},
+              "chapters": [{"title": "结论", "summary": "复购是主因", "paragraphs": ["+18%"]},
+                           {"title": "流量", "summary": "自然升转化降"},
+                           {"title": "动作", "summary": "先修履约"}],
+              "thesis": ["复购 62%", "履约漏点", "只投 ROI>2"],
+              "sources": [{"label": "生意参谋"}, {"label": "财务月报"}, {"label": "履约系统"}]}
+    target = str(tmp_path / "report.html")
+    rc, out = _run("r08-wajiancheng-mvp", ["htmlreport", "html", "--input",
+                                           _write(tmp_path, "r.json", report), "--out", target])
+    assert out["verdict"] == "PASS", out.get("checks")
+    body = open(target, encoding="utf-8").read()
+    assert body.startswith("<!doctype html>") and "http" not in body
+
+
+def test_r08_miniapp_scaffold(tmp_path):
+    spec = {"name": "wawa-shop", "pages": [{"path": "pages/home/index", "title": "首页"},
+                                           {"path": "pages/cart/index", "title": "购物车"}],
+            "tabbar": [{"page": "pages/home/index"}, {"page": "pages/cart/index"}]}
+    src = _write(tmp_path, "mini.json", spec)
+    rc, out = _run("r08-wajiancheng-mvp", ["miniapp", "plan", "--input", src])
+    assert out["verdict"] == "PASS"
+    target = str(tmp_path / "app")
+    rc2, out2 = _run("r08-wajiancheng-mvp", ["miniapp", "scaffold", "--input", src, "--out", target])
+    assert out2["verdict"] == "PASS" and out2["file_count"] >= 9
+    assert os.path.isfile(os.path.join(target, "package.json"))
+
+
+def test_r10_imgops_resize_and_overwrite_guard(tmp_path):
+    from PIL import Image
+    src = tmp_path / "src.png"
+    Image.new("RGB", (800, 600), (15, 23, 42)).save(src)
+    out = str(tmp_path / "out.jpg")
+    rc, data = _run("r10-wachengmei-design", ["imgops", "resize", "--input", str(src),
+                                              "--out", out, "--width", "400"])
+    assert data["verdict"] == "PASS" and data["width"] == 400
+    rc2, bad = _run("r10-wachengmei-design", ["imgops", "resize", "--input", str(src),
+                                              "--out", str(src), "--width", "100"])
+    assert bad["verdict"] == "FAIL"
+    assert any(c["dim"] == "img.overwrite" and not c["ok"] for c in bad["checks"])

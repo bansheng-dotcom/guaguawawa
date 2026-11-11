@@ -1,6 +1,6 @@
 {
  "version": 2,
- "count": 22,
+ "count": 26,
  "capabilities": [
   {
    "id": "strategic-growth-compass",
@@ -618,6 +618,142 @@
     "资金占用按账期折算进 effective unit cost",
     "仅货值+运费不叫 TCO，至少 3 类成本"
    ]
+  },
+  {
+   "id": "prd-authoring",
+   "title": "PRD 结构门禁",
+   "owner": "r07",
+   "consumers": [
+    "r08",
+    "r01"
+   ],
+   "triggers": [
+    "PRD",
+    "需求文档",
+    "产品需求",
+    "验收标准"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "prdguard",
+    "actions": [
+     "check",
+     "render"
+    ]
+   },
+   "summary": "把 PRD 十条终检做成确定性门禁，并可渲染 Markdown。",
+   "rules": [
+    "产品契约四要素：用户/触发/任务/完成",
+    "P0 功能四段：触发/规则/结果/状态，且来源可追溯",
+    "明确不做 ≥2 条，边界/失败场景 ≥1 条",
+    "有假设必须列待验证问题，禁止把假设当事实"
+   ],
+   "owner_dir": "r07-wademing-pm",
+   "dir": "r07-wademing-pm/references/capabilities/prd-authoring"
+  },
+  {
+   "id": "html-report-presentation",
+   "title": "单文件 HTML 报告",
+   "owner": "r08",
+   "consumers": [
+    "r02",
+    "r06",
+    "r10"
+   ],
+   "triggers": [
+    "HTML 报告",
+    "网页报告",
+    "报告页",
+    "研究简报"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "htmlreport",
+    "actions": [
+     "plan",
+     "html"
+    ]
+   },
+   "summary": "章节化报告的结构门禁 + 单文件渲染（目录、引用、来源表、打印样式）。",
+   "rules": [
+    "章节 ≥3，每章有标题与摘要",
+    "核心论点 ≥3 条",
+    "来源 ≥3 条且每条有 label",
+    "单文件、无外部资源、含打印样式"
+   ],
+   "owner_dir": "r08-wajiancheng-mvp",
+   "dir": "r08-wajiancheng-mvp/references/capabilities/html-report-presentation"
+  },
+  {
+   "id": "image-ops",
+   "title": "本地图片处理",
+   "owner": "r10",
+   "consumers": [
+    "r14",
+    "r12",
+    "r08"
+   ],
+   "triggers": [
+    "图片处理",
+    "裁剪",
+    "缩放",
+    "压缩",
+    "水印",
+    "补边"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "imgops",
+    "actions": [
+     "info",
+     "resize",
+     "crop",
+     "compress",
+     "pad",
+     "watermark"
+    ]
+   },
+   "summary": "基于 Pillow 的本地图片操作：改尺寸、裁剪、压缩、补边、加水印。",
+   "rules": [
+    "永不覆盖源文件",
+    "输出格式白名单 png/jpeg/webp",
+    "像素数上限 40MP",
+    "缺 Pillow 时返回 blocked，不假装处理"
+   ],
+   "owner_dir": "r10-wachengmei-design",
+   "dir": "r10-wachengmei-design/references/capabilities/image-ops"
+  },
+  {
+   "id": "miniapp-builder",
+   "title": "小程序工程脚手架",
+   "owner": "r08",
+   "consumers": [
+    "r09",
+    "r17"
+   ],
+   "triggers": [
+    "小程序",
+    "Taro",
+    "微信小程序",
+    "抖音小程序"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "miniapp",
+    "actions": [
+     "plan",
+     "scaffold"
+    ]
+   },
+   "summary": "把多页小程序规格变成可运行工程骨架（Taro + React 语法）。",
+   "rules": [
+    "页数 2–20，路径形如 pages/a/b 且不重复",
+    "tabBar 2–5 项且页面已声明",
+    "目标目录非空需 --force",
+    "只生成骨架，不拉依赖、不发布"
+   ],
+   "owner_dir": "r08-wajiancheng-mvp",
+   "dir": "r08-wajiancheng-mvp/references/capabilities/miniapp-builder"
   }
  ]
 }

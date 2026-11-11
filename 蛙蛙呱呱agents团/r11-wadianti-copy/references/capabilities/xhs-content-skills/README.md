@@ -9,7 +9,7 @@
 ## 我们怎么用
 
 - 命令：`python agent.py xhs note / score / compliance`
-- 这是本团队自有的确定性技能，规则与门禁已写进代码。
+- 确定性技能，规则与门禁已写进代码。
 
 ## 规则要点
 

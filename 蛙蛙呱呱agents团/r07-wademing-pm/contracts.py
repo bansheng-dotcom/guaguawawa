@@ -116,6 +116,14 @@ CONTRACTS: Dict[str, Any] = {
         "experience": _ok(["card_fields"], card_fields=_arr),
     },
 },
+"prdguard": {
+    "desc": "PRD 结构门禁：check/render",
+    "input": {"check": _IN, "render": _IN},
+    "output": {
+        "check": _ok(["p0_count"], p0_count=_i),
+        "render": _ok(["out"], out=_s),
+    },
+},
 }
 
 
