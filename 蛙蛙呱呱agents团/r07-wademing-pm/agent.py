@@ -77,18 +77,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("prd 检查", "prd 结构", "需求文档检查"), "prdguard", "check", {}),
-    (("prd", "产品文档", "需求文档", "需求说明", "需求分析"), "prd", "prd", {}),
-    (("用户故事", "story", "故事", "验收"), "prd", "story", {}),
-    (("优先级", "打分", "rice", "ice", "排序", "backlog", "排期"), "priority", "rice", {}),
-    (("路线图", "roadmap", "发布"), "roadmap", "roadmap", {}),
-    (("北极星", "okr", "愿景", "指标", "metrics"), "metrics", "northstar", {}),
-    (("技术", "brief", "代码", "ui", "反推", "接口"), "techbrief", "techbrief", {}),
-    (("决策", "汇报", "需求卡", "需求管理", "经验卡", "经验"), "decision", "decision", {}),
-    (("机会", "ost", "方案", "假设", "验证"), "ost", "ost", {}),
-    (("调研", "访谈", "发现", "research", "voc", "挖掘", "报告"), "discover", "discover", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 # P3.2：技能层语义参数（与 prompt_profile.json 的 lexicon 同名）。
 # 无 --input 时用这些参数组装最小输入骨架，技能自身的门禁该报缺什么仍然报什么。

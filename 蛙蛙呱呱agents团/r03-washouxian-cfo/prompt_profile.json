@@ -342,5 +342,252 @@
       "结论",
       "风险提示"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "对账",
+        "银行对账",
+        "调节表",
+        "reconcile"
+      ],
+      "skill": "financial",
+      "action": "recon",
+      "defaults": {
+        "period": "monthly"
+      }
+    },
+    {
+      "when": [
+        "月结",
+        "关账",
+        "滚调",
+        "rollforward"
+      ],
+      "skill": "financial",
+      "action": "rollforward",
+      "defaults": {
+        "period": "monthly"
+      }
+    },
+    {
+      "when": [
+        "预算差异",
+        "差异",
+        "偏差",
+        "variance"
+      ],
+      "skill": "financial",
+      "action": "variance",
+      "defaults": {
+        "period": "monthly"
+      }
+    },
+    {
+      "when": [
+        "跑道",
+        "烧钱",
+        "runway",
+        "现金能撑"
+      ],
+      "skill": "cfo",
+      "action": "runway",
+      "defaults": {
+        "period": "monthly"
+      }
+    },
+    {
+      "when": [
+        "单位经济",
+        "ltv",
+        "cac"
+      ],
+      "skill": "cfo",
+      "action": "unitecon",
+      "defaults": {
+        "metric": "ltv"
+      }
+    },
+    {
+      "when": [
+        "体检",
+        "健康度",
+        "财务健康",
+        "healthcheck"
+      ],
+      "skill": "cfo",
+      "action": "healthcheck",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "iso",
+        "行权",
+        "amt",
+        "期权"
+      ],
+      "skill": "tax",
+      "action": "iso",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "rmd",
+        "退休",
+        "最低提取"
+      ],
+      "skill": "tax",
+      "action": "rmd",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "预扣",
+        "预缴税",
+        "safe harbor"
+      ],
+      "skill": "tax",
+      "action": "safeharbor",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "合同",
+        "条款",
+        "自动续约"
+      ],
+      "skill": "contract",
+      "action": "scan",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "红线",
+        "redline",
+        "改条款"
+      ],
+      "skill": "contract",
+      "action": "redline",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "隐私",
+        "数据流",
+        "数据地图"
+      ],
+      "skill": "privacy",
+      "action": "map",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "dsr",
+        "gdpr",
+        "数据主体"
+      ],
+      "skill": "privacy",
+      "action": "dsr",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "最小化",
+        "minimize",
+        "只留必要"
+      ],
+      "skill": "privacy",
+      "action": "minimize",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "ai治理",
+        "ai 治理",
+        "治理",
+        "框架",
+        "选型"
+      ],
+      "skill": "aigov",
+      "action": "frameworks",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "分级",
+        "aiclassify",
+        "风险等级"
+      ],
+      "skill": "aigov",
+      "action": "aiclassify",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "披露",
+        "disclose"
+      ],
+      "skill": "aigov",
+      "action": "disclose",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "留存",
+        "保留",
+        "retention"
+      ],
+      "skill": "audit",
+      "action": "retention",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "模拟审计",
+        "mock",
+        "mockaudit"
+      ],
+      "skill": "audit",
+      "action": "mockaudit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "审计",
+        "证据",
+        "soc"
+      ],
+      "skill": "audit",
+      "action": "evidence",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "kyc",
+        "尽调"
+      ],
+      "skill": "risk",
+      "action": "kyc",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "aml",
+        "反洗钱"
+      ],
+      "skill": "risk",
+      "action": "aml",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "广告",
+        "adreview",
+        "广告审核"
+      ],
+      "skill": "risk",
+      "action": "adreview",
+      "defaults": {}
+    }
+  ]
 }

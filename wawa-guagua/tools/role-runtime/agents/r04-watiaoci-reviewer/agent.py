@@ -12,13 +12,16 @@
 """
 from __future__ import annotations
 
-# --- 运行时引导（META-001 Stage 3）：仓库根入 sys.path，修掉异构 cwd 下 ---
-# --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
+# --- 运行时引导（META-001 Stage 3）：agents/ 所在根入 sys.path ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS_ROOT = _os.path.dirname(_HERE)
+_WORKSPACE_ROOT = _os.path.dirname(_AGENTS_ROOT)
+for _p in (_AGENTS_ROOT, _WORKSPACE_ROOT, _HERE):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
+
 
 
 import argparse
@@ -42,6 +45,7 @@ import review as review_lib                                        # noqa: E402
 import harness as harness_lib                                       # noqa: E402
 
 from core import protocol, workspace                 # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # REP-001 报告引擎
 
 ws = workspace.Workspace(os.path.join(_ROOT, "workspace"))
@@ -53,52 +57,46 @@ DIRS = os.path.basename(_HERE)
 # 意图路由（R07 踩坑：具体关键词靠前；大小写不敏感；命中即返回）
 # 元组：(关键词组, skill, action, extra_args 默认值)
 # ---------------------------------------------------------------------------
-_INTENT_ROUTES: List[Tuple[Tuple[str, ...], str, str, Dict[str, str]]] = [
-    (("三级证据链", "证据链核验", "stub 扫描", "孤岛工件", "artifact verify"),
-     "artifact", "verify", {}),
-    (("物料核验", "工件清单", "materials", "inventory", "成品清点"),
-     "artifact", "inventory", {}),
-    (("门禁强度", "门禁审计", "strength", "theatre", "gate audit"),
-     "gate", "audit", {}),
-    (("跑门禁", "硬门禁", "命令门禁", "gate run"),
-     "gate", "run", {}),
-    (("判据对照", "复评对照", "criteria delta", "fixed new remaining"),
-     "criteria", "delta",
-     {"state": os.path.join(_HERE, "examples", "criteria_delta_state.json")}),
-    (("外置判据", "验收判据", "判据审查", "acceptance", "criteria review"),
-     "criteria", "review", {}),
-    (("收敛", "converge", "不再下降"),
-     "quality", "converge",
-     {"compare": os.path.join(_HERE, "examples", "quality_converge_v2.json")}),
-    (("禁词", "质量批评", "critique", "完成声明", "claims"),
-     "quality", "critique", {}),
-    (("单数字", "数字回溯", "facts trace"),
-     "facts", "trace",
-     {"text": os.path.join(_HERE, "examples", "facts_trace_source.txt")}),
-    (("事实核查", "数字幻觉", "来源质量", "facts check", "幻觉"),
-     "facts", "check", {}),
-    (("保留优点", "keep_list", "优点标记", "why_keep"),
-     "strengths", "mark", {}),
-    (("复评修改", "keep 降级", "recheck", "change 区"),
-     "strengths", "recheck",
-     {"new": os.path.join(_HERE, "examples", "strengths_recheck_new.json")}),
-    (("staged", "复制资产", "human ack", "ack 批次"),
-     "human", "ack", {}),
-    (("批次校验", "逐字回填", "human ingest", "edits"),
-     "human", "ingest", {}),
-    (("人工评审", "评审包", "human package", "发起评审"),
-     "human", "package", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 _DEFAULT_ROUTE: Tuple[str, str, Dict[str, str]] = ("criteria", "review", {})
 
 
 def route_intent(intent: str) -> Tuple[str, str, Dict[str, str]]:
     low = str(intent or "").lower()
+    # 最长关键词优先：避免通用词（如「评审」）遮蔽专用词（如「人工评审」）
+    best = None
     for keys, skill, action, extra in _INTENT_ROUTES:
         for k in keys:
-            if k.lower() in low:
-                return skill, action, extra
-    return _DEFAULT_ROUTE[0], _DEFAULT_ROUTE[1], _DEFAULT_ROUTE[2]
+            kl = k.lower()
+            if kl in low and (best is None or len(kl) > best[0]):
+                best = (len(kl), skill, action, extra)
+    if best is not None:
+        return best[1], best[2], best[3]
+    # 关键词未命中：交给共享 L02 内核；不再静默落到 criteria.review。
+    return fallback_route(ROLE, intent)
 
 
 # ---------------------------------------------------------------------------
@@ -113,6 +111,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     rp = sub.add_parser("run", help="按 task 卡执行一次评审任务")
     rp.add_argument("--task", required=True, help="task id（workspace 协议）")
+    add_clarify_parser(sub)
 
     cp = sub.add_parser("contract", help="技能契约登记表")
     csub = cp.add_subparsers(dest="ccmd", required=True)
@@ -235,6 +234,16 @@ def run_task(task_id: str) -> int:
 
     intent = str(task.intent or "")
     skill, action, extra = route_intent(intent)
+    if skill == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": extra.get("questions", [])}))
+        print(json.dumps({"error": "needs_clarification",
+                          "questions": extra.get("questions", []),
+                          "assumptions": extra.get("assumptions", []),
+                          "plan": extra.get("plan")}, ensure_ascii=False))
+        return 2
     input_path = _first_input_file(task.inputs) or extra.get("input") or ""
     if not input_path or not os.path.isfile(input_path):
         ws.set_status(task_id, "failed")
@@ -290,6 +299,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         return _run_demo()
     if cmd == "run":
         return run_task(args.task)
+    if cmd == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if cmd == "contract":
         if args.ccmd == "list":
             rows = [f"{s}/{a}" for s in contracts.skill_names()

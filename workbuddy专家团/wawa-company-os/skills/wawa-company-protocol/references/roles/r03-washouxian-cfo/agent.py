@@ -17,15 +17,25 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_AGENT_DIR = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_AGENT_DIR)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in [_AGENT_DIR, _AGENTS, _REPO_ROOT]:
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
+
+if hasattr(_sys.stdout, "reconfigure"):
+    _sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(_sys.stderr, "reconfigure"):
+    _sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 
 from agents.shared import role_runtime
 import argparse  # 统一元命令/报告
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 from agents.shared.chat_cli import add_chat_parser, handle_chat
 from typing import Any, Dict
@@ -34,6 +44,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from skills import SKILLS  # noqa: E402
 from skills import _common as c  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 
 ROLE = "r03"
 
@@ -62,69 +73,44 @@ def emit_manifest() -> None:
 
 TOOL_PATH = os.path.abspath(__file__)
 
-INTENTS = {
-    "月结": "financial",
-    "关账": "financial",
-    "对账": "financial",
-    "调节表": "financial",
-    "差异": "financial",
-    "roll": "financial",
-    "财报": "financial",
-    "报表": "financial",
-    "烧钱": "cfo",
-    "跑道": "cfo",
-    "runway": "cfo",
-    "现金": "cfo",
-    "单位经济": "cfo",
-    "ltv": "cfo",
-    "cac": "cfo",
-    "勾稽": "cfo",
-    "预算": "cfo",
-    "税": "tax",
-    "iso": "tax",
-    "amt": "tax",
-    "rmd": "tax",
-    "退休": "tax",
-    "预扣": "tax",
-    "预估税": "tax",
-    "合同": "contract",
-    "条款": "contract",
-    "政策": "contract",
-    "redline": "contract",
-    "隐私": "privacy",
-    "数据安全": "privacy",
-    "泄露": "privacy",
-    "dsr": "privacy",
-    "gdpr": "privacy",
-    "数据流": "privacy",
-    "ai": "aigov",
-    "ai治理": "aigov",
-    "框架": "aigov",
-    "分级": "aigov",
-    "披露": "aigov",
-    "审计": "audit",
-    "留存": "audit",
-    "证据": "audit",
-    "soc": "audit",
-    "mock": "audit",
-    "kyc": "risk",
-    "aml": "risk",
-    "反洗钱": "risk",
-    "广告": "risk",
-    "制裁": "risk",
-    "pep": "risk",
-    "尽调": "risk",
-}
+# 意图 → (技能, 动作, 默认参数)。供 probe/run_task 把意图确定性路由到技能。
+# 顺序即优先级：更具体的关键词靠前，route 用小写不区分大小写匹配。
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
 
 
-def route(text: str) -> str:
-    """意图路由（确定性关键词匹配）：中文/英文关键词 → 技能名。"""
+_INTENT_ROUTES = _load_intent_routes()
+
+
+def route(text: str):
+    """意图路由（确定性关键词匹配）：中文/英文关键词 → (技能, 动作, 默认参数)。
+
+    旧实现未命中即静默落到 financial；现在未命中交给共享 L02 内核澄清。
+    """
     t = (text or "").lower()
-    best, best_len = "financial", 0  # 缺省走财务（月结对账是最常见诉求）
-    for kw, skill in INTENTS.items():
-        if kw in t and len(kw) > best_len:
-            best, best_len = skill, len(kw)
-    return best
+    for kws, skill, action, defaults in _INTENT_ROUTES:
+        if any(k in t for k in kws):
+            return skill, action, defaults
+    return fallback_route(ROLE, text)
 
 
 def dispatch(skill: str, action: str, input_path: str) -> Dict[str, Any]:
@@ -154,6 +140,7 @@ def agent_description() -> Dict[str, Any]:
 def _register_parsers() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="r03-washouxian-cfo")
     sub = parser.add_subparsers(dest="skill", required=True)
+    add_clarify_parser(sub)
     for m in SKILLS:
         m.add_parser(sub)
     _register_case(sub)
@@ -268,6 +255,8 @@ def main(argv=None) -> int:
         return 0
     parser = _register_parsers()
     args = parser.parse_args(argv)
+    if getattr(args, "skill", None) == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if getattr(args, "skill", None) == "case":
         return _run_case_cli(args)
     if getattr(args, "skill", None) == "deep":
@@ -275,7 +264,7 @@ def main(argv=None) -> int:
         from agents.shared.report_generator import generate_professional_report
         from agents.shared.role_profiles import get as get_profile
         
-        out_dir = getattr(args, "out_dir", None) or os.path.join(os.path.dirname(__file__), "workspace", "deep_report")
+        out_dir = getattr(args, "out_dir", None) or os.path.join(role_workspace(os.path.dirname(__file__)), "deep_report")
         res = run_deep_analysis(args.input)
         
         profile = get_profile(ROLE)

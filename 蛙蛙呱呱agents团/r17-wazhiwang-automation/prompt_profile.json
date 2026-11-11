@@ -407,5 +407,232 @@
       "失败重试与死信",
       "执行审计证据"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "审批",
+        "approval",
+        "人工确认",
+        "授权",
+        "hitel",
+        "hitl"
+      ],
+      "skill": "approval",
+      "action": "approval",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "发布",
+        "publish",
+        "上线",
+        "部署",
+        "deploy"
+      ],
+      "skill": "approval",
+      "action": "publish",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "集成",
+        "saas",
+        "api",
+        "连接",
+        "工作流",
+        "节点",
+        "workflow",
+        "integration",
+        "node"
+      ],
+      "skill": "integration",
+      "action": "workflow",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "凭据",
+        "密钥",
+        "credential",
+        "认证",
+        "凭证",
+        "鉴权"
+      ],
+      "skill": "integration",
+      "action": "credential",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "webhook",
+        "事件",
+        "回调",
+        "event",
+        "触发器",
+        "hook"
+      ],
+      "skill": "webhook",
+      "action": "webhook",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "事件日志",
+        "事件路由",
+        "重放",
+        "replay"
+      ],
+      "skill": "webhook",
+      "action": "event",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "字段",
+        "映射",
+        "mapping",
+        "主键",
+        "身份",
+        "field"
+      ],
+      "skill": "mapping",
+      "action": "mapping",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "数据表",
+        "table",
+        "列",
+        "column",
+        "schema"
+      ],
+      "skill": "mapping",
+      "action": "table",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "定时",
+        "调度",
+        "schedule",
+        "cron",
+        "周期",
+        "批处理",
+        "batch"
+      ],
+      "skill": "schedule",
+      "action": "schedule",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "补偿",
+        "批任务",
+        "批次",
+        "batch_id"
+      ],
+      "skill": "schedule",
+      "action": "batch",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "审批",
+        "approval",
+        "人工确认",
+        "授权",
+        "hitel",
+        "hitl"
+      ],
+      "skill": "approval",
+      "action": "approval",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "发布",
+        "publish",
+        "上线",
+        "部署",
+        "deploy"
+      ],
+      "skill": "approval",
+      "action": "publish",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "重试",
+        "retry",
+        "幂等",
+        "idempotency",
+        "死信",
+        "dead_letter"
+      ],
+      "skill": "retry",
+      "action": "retry",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "错误工作流",
+        "errorflow",
+        "error workflow",
+        "恢复手册"
+      ],
+      "skill": "retry",
+      "action": "errorflow",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "ai 节点",
+        "ai节点",
+        "aiagent",
+        "大模型",
+        "模型",
+        "model",
+        "意图分类"
+      ],
+      "skill": "aiworkflow",
+      "action": "aiagent",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "锚点",
+        "anchor",
+        "agent-anchored",
+        "workflow-anchored"
+      ],
+      "skill": "aiworkflow",
+      "action": "model",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "审计",
+        "audit",
+        "执行日志",
+        "轨迹",
+        "operator"
+      ],
+      "skill": "audit",
+      "action": "audit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "执行统计",
+        "runlog",
+        "成功率",
+        "执行分布"
+      ],
+      "skill": "audit",
+      "action": "runlog",
+      "defaults": {}
+    }
+  ]
 }

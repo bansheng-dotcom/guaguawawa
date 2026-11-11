@@ -71,9 +71,18 @@ def check() -> dict:
         src = open(R10_AGENT, encoding="utf-8").read()
         if "imagegen" not in src:
             warnings.append({"scope": "r10", "msg": "agent.py 未见 imagegen 注册"})
-        # 默认意图必须是 compose（提示词路线），不能默认 generate（要引擎）
-        if ('"imagegen", "compose"' not in src) or ('"imagegen", "generate"' in src):
-            problems.append({"scope": "r10", "msg": "默认意图未指向 imagegen compose"})
+        # 默认意图必须是 compose（提示词路线）：README 已迁移到 prompt_profile.intent_routes
+        import json as _json
+        prof_path = os.path.join(os.path.dirname(R10_AGENT), "prompt_profile.json")
+        try:
+            routes = (_json.load(open(prof_path, encoding="utf-8")).get("intent_routes") or [])
+        except (OSError, ValueError):
+            routes = []
+        image_routes = [r for r in routes if str(r.get("skill")) == "imagegen"]
+        bad = [r for r in image_routes if str(r.get("action")) != "compose"]
+        if not image_routes or bad:
+            problems.append({"scope": "r10",
+                             "msg": f"默认意图未指向 imagegen compose（imagegen 路由 {len(image_routes)} 条，非 compose {len(bad)} 条）"})
 
     for role in roles():
         role_dir = os.path.join(ROOT, role)

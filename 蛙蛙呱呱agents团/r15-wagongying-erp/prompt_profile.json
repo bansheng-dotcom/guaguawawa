@@ -365,5 +365,228 @@
       "结论",
       "单据号"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "tco",
+        "总拥有成本",
+        "采购成本对比",
+        "报价对比",
+        "landed"
+      ],
+      "skill": "tco",
+      "action": "compare",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "报价",
+        "供应商报价",
+        "quotation",
+        "sq",
+        "比价结果"
+      ],
+      "skill": "procurement",
+      "action": "quotation",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "询价",
+        "rfq",
+        "request for quotation",
+        "询比价"
+      ],
+      "skill": "procurement",
+      "action": "rfq",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "收货",
+        "到货",
+        "采购入库",
+        "purchase receipt",
+        "入库单"
+      ],
+      "skill": "procurement",
+      "action": "receipt",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "采购",
+        "采购订单",
+        "下单采购",
+        "purchase order",
+        "po",
+        "买"
+      ],
+      "skill": "procurement",
+      "action": "purchase_order",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "供应商",
+        "supplier",
+        "供方"
+      ],
+      "skill": "procurement",
+      "action": "supplier",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "bom",
+        "物料清单",
+        "配方",
+        "生产一件",
+        "成品的料"
+      ],
+      "skill": "production",
+      "action": "bom",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "物料请求",
+        "material request",
+        "缺料",
+        "请购",
+        "补料"
+      ],
+      "skill": "production",
+      "action": "material_request",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "发票",
+        "invoice",
+        "应收",
+        "应付",
+        "开票"
+      ],
+      "skill": "finance",
+      "action": "invoice",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "付款",
+        "payment",
+        "付款单",
+        "打款"
+      ],
+      "skill": "finance",
+      "action": "payment",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "权限",
+        "permission",
+        "职责分离",
+        "角色",
+        "授权矩阵",
+        "sod"
+      ],
+      "skill": "masterdata",
+      "action": "permission",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "主数据",
+        "编码",
+        "物料主数据",
+        "master data",
+        "数据字典"
+      ],
+      "skill": "masterdata",
+      "action": "master_data",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "报表",
+        "运营报表",
+        "report",
+        "kpi",
+        "台账"
+      ],
+      "skill": "report",
+      "action": "report",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "发货",
+        "delivery",
+        "履约",
+        "交付"
+      ],
+      "skill": "fulfillment",
+      "action": "delivery",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "销售订单",
+        "sales order",
+        "so",
+        "订单承诺"
+      ],
+      "skill": "fulfillment",
+      "action": "sales_order",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "库存",
+        "库存明细",
+        "bin",
+        "库存台账",
+        "现值"
+      ],
+      "skill": "inventory",
+      "action": "bin",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "出入库",
+        "库存交易",
+        "stock entry",
+        "调拨",
+        "盘点"
+      ],
+      "skill": "inventory",
+      "action": "stock_entry",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "仓库",
+        "warehouse",
+        "库房"
+      ],
+      "skill": "inventory",
+      "action": "warehouse",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "物料",
+        "item",
+        "sku",
+        "品号"
+      ],
+      "skill": "inventory",
+      "action": "item",
+      "defaults": {}
+    }
+  ]
 }

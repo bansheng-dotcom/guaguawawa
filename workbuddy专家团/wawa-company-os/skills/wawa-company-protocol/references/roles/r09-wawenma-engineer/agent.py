@@ -12,13 +12,27 @@
 """
 from __future__ import annotations
 
-# --- 运行时引导（META-001 Stage 3）：仓库根入 sys.path，修掉异构 cwd 下 ---
-# --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
+# --- 运行时引导（META-001 Stage 3）：统一安全引导，注入 sys.path 与 utf-8 编码 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+
+if hasattr(_sys.stdout, "reconfigure"):
+    try:
+        _sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+if hasattr(_sys.stderr, "reconfigure"):
+    try:
+        _sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_HERE)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in (_HERE, _AGENTS, _REPO_ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 
 from agents.shared import role_runtime
@@ -43,6 +57,7 @@ import review as review_lib                                        # noqa: E402
 import harness as harness_lib                                       # noqa: E402
 
 from core import protocol, workspace                                # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 
 ws = workspace.Workspace(os.path.join(_ROOT, "workspace"))
 
@@ -54,40 +69,30 @@ DIRS = os.path.basename(_HERE)
 # 意图路由（具体关键词靠前；大小写不敏感；命中即返回）
 # 元组：(关键词组, skill, action, extra_args 默认值)
 # ---------------------------------------------------------------------------
-_INTENT_ROUTES: List[Tuple[Tuple[str, ...], str, str, Dict[str, str]]] = [
-    (("技术规格", "模块边界", "输入输出", "工程约束", "tech spec"),
-     "spec", "spec", {}),
-    (("架构", "拓扑", "服务连线", "architecture"),
-     "spec", "arch", {}),
-    (("数据库", "schema", "建表", "索引", "数据模型"),
-     "data_api", "schema", {}),
-    (("api 契约", "接口", "错误码", "endpoint", "rest"),
-     "data_api", "api", {}),
-    (("全栈", "端到端", "前端后端", "功能切片", "fullstack"),
-     "fullstack", "feature", {}),
-    (("认证", "登录", "鉴权", "auth"),
-     "fullstack", "auth", {}),
-    (("构建", "编译", "打包", "build"),
-     "crossplatform", "build", {}),
-    (("跨端", "平台差异", "flutter", "状态管理"),
-     "crossplatform", "platform", {}),
-    (("单元测试", "集成测试", "契约测试", "覆盖率", "test suite"),
-     "testing", "suites", {}),
-    (("浏览器验证", "e2e", "playwright", "关键路径"),
-     "testing", "browser", {}),
-    (("调试", "复现", "根因", "bug", "debug"),
-     "debug", "debug", {}),
-    (("性能", "重构", "热点", "剖析", "refactor"),
-     "debug", "refactor", {}),
-    (("迁移", "回滚", "migration", "数据迁移"),
-     "ops", "migration", {}),
-    (("安全审计", "cve", "依赖审计", "密钥", "security"),
-     "ops", "security", {}),
-    (("mcp", "工具服务"),
-     "special", "mcp", {}),
-    (("godot", "游戏工程", "可加载脚本"),
-     "special", "godot", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 _DEFAULT_ROUTE: Tuple[str, str, Dict[str, str]] = ("spec", "spec", {})
 
 
@@ -97,7 +102,8 @@ def route_intent(intent: str) -> Tuple[str, str, Dict[str, str]]:
         for k in keys:
             if k.lower() in low:
                 return skill, action, extra
-    return _DEFAULT_ROUTE[0], _DEFAULT_ROUTE[1], _DEFAULT_ROUTE[2]
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 # ---------------------------------------------------------------------------
@@ -112,6 +118,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     rp = sub.add_parser("run", help="按 task 卡执行一次工程任务")
     rp.add_argument("--task", required=True, help="task id（workspace 协议）")
+    add_clarify_parser(sub)
     lp = sub.add_parser("local-verify", help="在当前项目内运行本地测试/构建；命令为白名单且禁止 shell")
     lp.add_argument("--project", required=True)
     lp.add_argument("--kind", choices=["pytest", "unittest", "build"], required=True)
@@ -142,6 +149,20 @@ def build_parser() -> argparse.ArgumentParser:
     hpp.add_argument("--input", required=True)
     hrp = hsub.add_parser("runlog", help="最近 n 条 runlog")
     hrp.add_argument("--n", type=int, default=5)
+
+    evp = sub.add_parser("evolve", help="SOP 十维元模型自升级子命令")
+    esub = evp.add_subparsers(dest="esubcmd", required=True)
+    esub.add_parser("probe", help="[L01] 工具实体层环境探针")
+    edc = esub.add_parser("decompile", help="[L02] 意图反编译为工程 DAG")
+    edc.add_argument("--query", required=True, help="工程需求自然语言提示词")
+    ehl = esub.add_parser("heal", help="[L03] 工程数据包自愈与红线审计")
+    ehl.add_argument("--input", required=True, help="待审计工程包 JSON")
+    esl = esub.add_parser("spec", help="[L04] 工程领域规范账本")
+    esl.add_argument("--format", choices=["json", "rules"], default="json")
+    esg = esub.add_parser("slopguard", help="[L05] 代码与工程套话去劣化")
+    esg.add_argument("--text", required=True, help="待清洗代码或文档文本")
+    esm = esub.add_parser("scenario", help="[L06] 三维横向决策矩阵")
+    esm.add_argument("--project", default="通用工程架构", help="项目名称")
 
     for m in SKILLS:
         m.add_parser(sub)
@@ -292,6 +313,16 @@ def run_task(task_id: str) -> int:
 
     intent = str(task.intent or "")
     skill, action, extra = route_intent(intent)
+    if skill == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": extra.get("questions", [])}))
+        print(json.dumps({"error": "needs_clarification",
+                          "questions": extra.get("questions", []),
+                          "assumptions": extra.get("assumptions", []),
+                          "plan": extra.get("plan")}, ensure_ascii=False, indent=2))
+        return 2
     input_path = _first_input_file(task.inputs) or extra.get("input") or ""
     if not input_path or not os.path.isfile(input_path):
         ws.set_status(task_id, "failed")
@@ -355,6 +386,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         return _run_demo()
     if cmd == "run":
         return run_task(args.task)
+    if cmd == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if cmd == "local-verify":
         out = _run_local_verify(args.project, args.kind, args.command)
         c.emit(out)
@@ -399,6 +432,46 @@ def main(argv: Optional[List[str]] = None) -> int:
             out = {"ok": False, "error": f"{type(e).__name__}: {e}"}
         print(json.dumps(out, ensure_ascii=False, indent=2))
         return 0 if out.get("ok") else 1
+    if cmd == "evolve":
+        from engines.runtime_engine import EngineeringRuntimeEngine
+        from engines.intent_compiler import EngineeringIntentCompiler
+        from engines.reflexive_healer import EngineeringReflexiveHealer
+        if args.esubcmd == "probe":
+            eng = EngineeringRuntimeEngine()
+            out = eng.probe_health()
+            c.emit(out)
+            return 0 if out.get("status") == "healthy" else 1
+        elif args.esubcmd == "decompile":
+            comp = EngineeringIntentCompiler()
+            out = comp.decompile(args.query)
+            c.emit(out)
+            return 0 if out.get("ok") else 1
+        elif args.esubcmd == "heal":
+            healer = EngineeringReflexiveHealer()
+            in_data = json.load(open(args.input, encoding="utf-8"))
+            out = healer.heal_engineering_packet(in_data)
+            c.emit(out)
+            return 0 if out.get("ok") else 1
+        elif args.esubcmd == "spec":
+            from engines.eng_spec_ledger import EngSpecLedger
+            ledger = EngSpecLedger()
+            out = ledger.load_spec()
+            c.emit(out)
+            return 0 if out.get("ok") else 1
+        elif args.esubcmd == "slopguard":
+            from engines.eng_slop_guard import EngSlopGuard
+            guard = EngSlopGuard()
+            out = guard.audit_text(args.text)
+            c.emit(out)
+            return 0
+        elif args.esubcmd == "scenario":
+            from engines.scenario_matrix import ScenarioMatrix
+            matrix = ScenarioMatrix()
+            out = matrix.generate_matrix(args.project)
+            c.emit(out)
+            return 0
+        c.emit({"ok": False, "error": f"unknown evolve subcmd: {args.esubcmd}"})
+        return 1
     m = SKILL_BY_NAME.get(cmd)
     if m is None:
         print(f"未知命令：{cmd}", file=sys.stderr)

@@ -66,25 +66,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 注意「退款状态」(workflow) 必须排在「退款」(payment/refund) 之前，
 # 「退款」(refund) 必须排在通用「支付」(payment_intent) 之前——
 # 否则退款请求会被当成支付意图校验（R14 踩坑：动作错配导致门禁选错）。
-_INTENT_ROUTES = [
-    (("选品", "利润测算", "毛利率", "选品报告"), "selection", "score", {}),
-    (("签署", "签名", "电子签", "合同签署", "待签", "documenso", "审计包", "签署人"),
-     "signature", "document", {}),
-    (("预约", "时段", "日历", "排期预约", "appointment", "easyappointments"),
-     "appointment", "appointment", {}),
-    (("订阅", "计量", "计费", "账单", "用量", "套餐", "lago", "invoice", "额度"),
-     "billing", "plan", {}),
-    (("状态机", "状态迁移", "取消订单", "履约", "退款状态", "订单状态"),
-     "workflow", "state", {}),
-    (("退款", "refund", "退钱", "退单", "申请退"),
-     "payment", "refund", {}),
-    (("支付意图", "支付", "扣款回调", "stripe", "payment", "回调"),
-     "payment", "payment_intent", {}),
-    (("事件表", "收入数据", "对账", "事件口径", "交易事件", "webhook"),
-     "revenue", "events", {}),
-    (("购物车", "cart", "订单", "下单", "order", "商品", "产品", "价格", "catalog"),
-     "order", "order", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

@@ -391,5 +391,84 @@
       "容量与风险",
       "阻塞与升级路径"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "wbs",
+        "工作分解",
+        "拆工作"
+      ],
+      "skill": "schedule",
+      "action": "wbs",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "排期",
+        "冲刺",
+        "sprint",
+        "工期",
+        "排产"
+      ],
+      "skill": "schedule",
+      "action": "sprint",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "容量",
+        "过载",
+        "负载",
+        "人日"
+      ],
+      "skill": "capacity",
+      "action": "check",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "交接",
+        "handoff",
+        "交接包",
+        "工单"
+      ],
+      "skill": "handoff",
+      "action": "package",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "复盘",
+        "事故",
+        "postmortem",
+        "根因"
+      ],
+      "skill": "retro",
+      "action": "postmortem",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "流程",
+        "sop",
+        "标准化",
+        "固化"
+      ],
+      "skill": "process",
+      "action": "sop",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "项目群",
+        "编排",
+        "状态汇总",
+        "portfolio"
+      ],
+      "skill": "portfolio",
+      "action": "status",
+      "defaults": {}
+    }
+  ]
 }

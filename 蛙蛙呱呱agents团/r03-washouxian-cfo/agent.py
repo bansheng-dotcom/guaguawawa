@@ -75,35 +75,30 @@ TOOL_PATH = os.path.abspath(__file__)
 
 # 意图 → (技能, 动作, 默认参数)。供 probe/run_task 把意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，route 用小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("对账", "银行对账", "调节表", "reconcile"), "financial", "recon",
-     {"period": "monthly"}),
-    (("月结", "关账", "滚调", "rollforward"), "financial", "rollforward",
-     {"period": "monthly"}),
-    (("预算差异", "差异", "偏差", "variance"), "financial", "variance",
-     {"period": "monthly"}),
-    (("跑道", "烧钱", "runway", "现金能撑"), "cfo", "runway",
-     {"period": "monthly"}),
-    (("单位经济", "ltv", "cac"), "cfo", "unitecon", {"metric": "ltv"}),
-    (("体检", "健康度", "财务健康", "healthcheck"), "cfo", "healthcheck", {}),
-    (("iso", "行权", "amt", "期权"), "tax", "iso", {}),
-    (("rmd", "退休", "最低提取"), "tax", "rmd", {}),
-    (("预扣", "预缴税", "safe harbor"), "tax", "safeharbor", {}),
-    (("合同", "条款", "自动续约"), "contract", "scan", {}),
-    (("红线", "redline", "改条款"), "contract", "redline", {}),
-    (("隐私", "数据流", "数据地图"), "privacy", "map", {}),
-    (("dsr", "gdpr", "数据主体"), "privacy", "dsr", {}),
-    (("最小化", "minimize", "只留必要"), "privacy", "minimize", {}),
-    (("ai治理", "ai 治理", "治理", "框架", "选型"), "aigov", "frameworks", {}),
-    (("分级", "aiclassify", "风险等级"), "aigov", "aiclassify", {}),
-    (("披露", "disclose"), "aigov", "disclose", {}),
-    (("留存", "保留", "retention"), "audit", "retention", {}),
-    (("模拟审计", "mock", "mockaudit"), "audit", "mockaudit", {}),
-    (("审计", "证据", "soc"), "audit", "evidence", {}),
-    (("kyc", "尽调"), "risk", "kyc", {}),
-    (("aml", "反洗钱"), "risk", "aml", {}),
-    (("广告", "adreview", "广告审核"), "risk", "adreview", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def route(text: str):

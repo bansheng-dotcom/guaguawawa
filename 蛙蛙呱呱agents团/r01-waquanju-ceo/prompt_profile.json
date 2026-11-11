@@ -409,5 +409,188 @@
       "责任人",
       "下一步"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "战略简报",
+        "简报",
+        "brief"
+      ],
+      "skill": "intent",
+      "action": "brief",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "澄清",
+        "六问",
+        "客户原话",
+        "护城河"
+      ],
+      "skill": "intent",
+      "action": "clarify",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "意图",
+        "分级",
+        "拆给谁",
+        "boardroom"
+      ],
+      "skill": "intent",
+      "action": "triage",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "任务卡",
+        "分工",
+        "wbs",
+        "波次",
+        "依赖图",
+        "拆解"
+      ],
+      "skill": "decompose",
+      "action": "taskcard",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "路由",
+        "指派哪个角色"
+      ],
+      "skill": "decompose",
+      "action": "route",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "决策卡",
+        "可逆性",
+        "硬决策",
+        "升级人工"
+      ],
+      "skill": "decide",
+      "action": "card",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "冷却",
+        "freeze",
+        "重议"
+      ],
+      "skill": "companyos",
+      "action": "freeze",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "质询",
+        "反方",
+        "红队",
+        "魔鬼代言人",
+        "交叉评估"
+      ],
+      "skill": "redteam",
+      "action": "devil",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "换人测试",
+        "grove",
+        "沉没成本"
+      ],
+      "skill": "redteam",
+      "action": "grove",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "公司os",
+        "公司操作系统",
+        "六大组件",
+        "治理成熟度"
+      ],
+      "skill": "companyos",
+      "action": "os",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "记分卡",
+        "指标盘点",
+        "rocks",
+        "ids"
+      ],
+      "skill": "companyos",
+      "action": "scorecard",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "决策日志",
+        "留痕",
+        "do_not_resurface",
+        "被否提案"
+      ],
+      "skill": "decisionlog",
+      "action": "entry",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "复盘",
+        "retro",
+        "杀死标准触发"
+      ],
+      "skill": "decisionlog",
+      "action": "retro",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "董事会",
+        "汇报包",
+        "board memo"
+      ],
+      "skill": "boardroom",
+      "action": "memo",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "陪练",
+        "卡点",
+        "教练"
+      ],
+      "skill": "boardroom",
+      "action": "coach",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "决策",
+        "拍板",
+        "定夺"
+      ],
+      "skill": "decide",
+      "action": "card",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "战略",
+        "方向",
+        "愿景",
+        "意图"
+      ],
+      "skill": "intent",
+      "action": "brief",
+      "defaults": {}
+    }
+  ]
 }

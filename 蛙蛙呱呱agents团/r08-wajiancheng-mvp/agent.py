@@ -78,20 +78,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("幻灯片", "ppt", "deck", "演示文稿", "汇报材料"), "deck", "plan", {}),
-    (("html 报告", "网页报告", "报告页", "研究报告页"), "htmlreport", "plan", {}),
-    (("小程序", "miniapp", "taro", "weapp"), "miniapp", "plan", {}),
-    (("landing", "落地页", "h5", "收集邮箱", "单页"), "landing", "landing", {}),
-    (("prototype", "flutter", "跨端", "移动", "app原型", "原型"), "prototype", "prototype", {}),
-    (("email", "邮件", "模板", "退订"), "saas", "email", {}),
-    (("saas", "多页", "脚手架"), "saas", "saas", {}),
-    (("slice", "切片", "最小", "形态"), "slice", "slice", {}),
-    (("mvp", "最小可行", "五门禁", "假设"), "slice", "mvp", {}),
-    (("scaffold", "spec", "仓库", "脚手架", "骨架", "目录树"), "scaffold", "scaffold", {}),
-    (("设计系统", "设计", "组件", "token", "令牌", "设计稿"), "design", "design", {}),
-    (("qa", "验证", "交接", "测试", "截图", "无障碍", "handoff", "门禁"), "qa", "qa", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def _with_capability(data: Dict[str, Any], status: str = "real") -> Dict[str, Any]:

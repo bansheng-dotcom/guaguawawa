@@ -61,25 +61,30 @@ ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。具体关键词靠前，_route 小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("战略简报", "简报", "brief"), "intent", "brief", {}),
-    (("澄清", "六问", "客户原话", "护城河"), "intent", "clarify", {}),
-    (("意图", "分级", "拆给谁", "boardroom"), "intent", "triage", {}),
-    (("任务卡", "分工", "wbs", "波次", "依赖图", "拆解"), "decompose", "taskcard", {}),
-    (("路由", "指派哪个角色"), "decompose", "route", {}),
-    (("决策卡", "可逆性", "硬决策", "升级人工"), "decide", "card", {}),
-    (("冷却", "freeze", "重议"), "companyos", "freeze", {}),
-    (("质询", "反方", "红队", "魔鬼代言人", "交叉评估"), "redteam", "devil", {}),
-    (("换人测试", "grove", "沉没成本"), "redteam", "grove", {}),
-    (("公司os", "公司操作系统", "六大组件", "治理成熟度"), "companyos", "os", {}),
-    (("记分卡", "指标盘点", "rocks", "ids"), "companyos", "scorecard", {}),
-    (("决策日志", "留痕", "do_not_resurface", "被否提案"), "decisionlog", "entry", {}),
-    (("复盘", "retro", "杀死标准触发"), "decisionlog", "retro", {}),
-    (("董事会", "汇报包", "board memo"), "boardroom", "memo", {}),
-    (("陪练", "卡点", "教练"), "boardroom", "coach", {}),
-    (("决策", "拍板", "定夺"), "decide", "card", {}),
-    (("战略", "方向", "愿景", "意图"), "intent", "brief", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

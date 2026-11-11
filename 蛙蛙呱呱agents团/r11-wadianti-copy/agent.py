@@ -68,23 +68,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("发布前检查", "笔记评分", "笔记合规", "xhs", "小红书笔记"), "xhs", "score", {}),
-    (("关键词", "seo", "aeo", "搜索", "排名", "结构化数据", "eeat", "e-e-a-t"),
-     "seo", "audit", {}),
-    (("广告", "slogan", "口号", "卖点", "promotion", "投放文案"), "pr", "ad", {}),
-    (("新闻稿", "press release", "公关", "对外口径"), "pr", "press", {}),
-    (("翻译", "本地化", "多语言", "术语表", "localization", "weblate", "审校"),
-     "localize", "term", {}),
-    (("小红书", "抖音", "b站", "b 站", "知乎", "微博", "多平台", "改写", "适配"),
-     "platform", "adapt", {}),
-    (("语调", "口吻", "品牌指南", "语气", "称呼", "禁词"), "voice", "guide", {}),
-    (("钩子", "标题", "首句", "选题标题", "爆款标题"), "hook", "hook", {}),
-    (("提纲", "大纲", "细纲", "outline", "立场"), "hook", "outline", {}),
-    (("选题", "内容规划", "选题卡", "brief", "plan"), "topic", "brief", {}),
-    (("脚本", "口播", "视频文案", "对话"), "copy", "script", {}),
-    (("文章", "文案", "长文", "成稿", "正文", "科普", "写一篇"), "copy", "article", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

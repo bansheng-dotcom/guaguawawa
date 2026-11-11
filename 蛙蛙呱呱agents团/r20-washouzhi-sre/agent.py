@@ -60,26 +60,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 # 「删除快照/灾难切换」等不可逆词必须排在通用词之前，避免误路由到普通动作。
-_INTENT_ROUTES = [
-    (("删除快照", "删除备份", "清空快照", "灾难切换", "切换生产", "恢复生产"),
-     "dr", "rollback", {}),
-    (("rpo", "rto", "恢复点", "恢复时间", "灾难恢复", "恢复手册", "dr"),
-     "dr", "rpo_rto", {}),
-    (("回滚", "rollback", "退路", "撤销切换"), "dr", "rollback", {}),
-    (("恢复演练", "演练", "drill", "能否恢复", "恢复验证"), "restore", "drill", {}),
-    (("恢复", "restore", "还原"), "restore", "restore", {}),
-    (("快照", "snapshot", "存了哪些", "备份了多少"), "backup", "snapshot", {}),
-    (("加密", "保留策略", "排除规则", "备份仓", "备份", "restic", "repo", "backup"),
-     "backup", "backup", {}),
-    (("状态页", "组件状态", "对外状态", "statuspage"), "statuspage", "statuspage", {}),
-    (("事件", "故障通报", "事件时间线", "incident"), "statuspage", "incident", {}),
-    (("值班升级", "升级链", "escalation", "oncall"), "alert", "escalation", {}),
-    (("告警", "报警", "通知渠道", "阈值告警", "alert"), "alert", "alert", {}),
-    (("可用率", "uptime", "可用性记录", "在线率"), "monitor", "uptime", {}),
-    (("监控", "探测", "心跳", "monitor", "站点"), "monitor", "monitor", {}),
-    (("复盘", "故障复盘", "postmortem", "事故分析"), "postmortem", "postmortem", {}),
-    (("改进项", "闭环", "整改", "improvement"), "postmortem", "improvement", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

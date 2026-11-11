@@ -64,32 +64,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 的候选 ID 里可能含「版本」字样，不能误路由到 registry（R19 猜坑：发布裁决
 # vs 版本登记动作错配）。「评估」(evaluation) 要排在「追踪」(tracking) 之前，
 # 因为评估任务常同时提到「实验」。
-_INTENT_ROUTES = [
-    (("发布", "上线", "放行", "裁决", "回归", "回退", "阻断", "release",
-      "candidate", "block"), "release", "candidate", {}),
-    (("回归测试", "fail-before", "pass-after", "新旧版本", "根因", "诊断层"),
-     "release", "regression", {}),
-    (("评估", "评测", "评分", "打分", "scorer", "judge", "指标对比", "evaluation"),
-     "evaluation", "scorer", {}),
-    (("评估集", "数据集准备", "ground truth", "expectations", "评测集", "标注集"),
-     "evaluation", "dataset", {}),
-    (("追踪", "实验", "运行记录", "参数", "指标记录", "tracking", "run"),
-     "tracking", "run", {}),
-    (("实验登记", "实验创建", "实验元数据", "tracking_uri", "experiment"), "tracking",
-     "experiment", {}),
-    (("注册", "模型版本", "模型入库", "阶段", "staging", "production产出",
-      "registry"), "registry", "register", {}),
-    (("版本清单", "版本列表", "多版本", "版本历史"), "registry", "version", {}),
-    (("trace", "跨度", "span", "链路", "错误定位", "调试", "追踪分析"), "trace",
-     "analyze", {}),
-    (("检索", "过滤", "搜索trace", "拉取trace", "retrieval", "filter"), "trace",
-     "retrieval", {}),
-    (("监控", "指标查询", "聚合", "趋势", "metric", "monitor"), "monitor", "metrics", {}),
-    (("漂移", "告警阈值", "drift", "数据漂移", "模型漂移"), "monitor", "drift", {}),
-    (("模型卡", "用途", "限制", "风险分层", "许可", "model card", "modelcard"), "modelcard",
-     "card", {}),
-    (("资产", "产物", "artifact", "模型文件", "评估报告文件"), "modelcard", "asset", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 _DEFAULT_ROUTE = ("evaluation", "scorer", {})
 

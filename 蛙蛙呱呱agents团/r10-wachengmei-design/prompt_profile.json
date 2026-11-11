@@ -385,5 +385,237 @@
       "尺寸规格",
       "交付清单"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "品牌一致性",
+        "vi 检查",
+        "品牌检查"
+      ],
+      "skill": "brandcheck",
+      "action": "check",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "缩放",
+        "裁剪",
+        "加水印",
+        "图片补边",
+        "resize"
+      ],
+      "skill": "imgops",
+      "action": "info",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "设计系统",
+        "design system",
+        "design.md",
+        "风格库",
+        "品牌风格",
+        "参考风格"
+      ],
+      "skill": "designsys",
+      "action": "list",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "风格推荐",
+        "推荐风格",
+        "style recommend"
+      ],
+      "skill": "designsys",
+      "action": "recommend",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "视频提示词",
+        "分镜",
+        "h3",
+        "t2va",
+        "i2va",
+        "fl2va",
+        "l2va",
+        "ref2va",
+        "脚本转视频"
+      ],
+      "skill": "h3prompt",
+      "action": "build",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "真实生图",
+        "真实生成图片",
+        "nano banana",
+        "nanobanana",
+        "aihive",
+        "ai hive",
+        "文生图接口",
+        "图片编辑接口"
+      ],
+      "skill": "aihive",
+      "action": "probe",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "logo",
+        "标志",
+        "logotype",
+        "图标",
+        "favicon",
+        "app icon",
+        "品牌标"
+      ],
+      "skill": "logo",
+      "action": "logo",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "生图",
+        "插画",
+        "主视觉",
+        "imagegen",
+        "图片",
+        "生图提示词"
+      ],
+      "skill": "imagegen",
+      "action": "compose",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "海报",
+        "物料",
+        "banner",
+        "卖点图",
+        "poster",
+        "宣传图"
+      ],
+      "skill": "imagegen",
+      "action": "compose",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "设计令牌",
+        "token",
+        "令牌",
+        "design token"
+      ],
+      "skill": "brand",
+      "action": "token",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "视觉身份",
+        "stylescape",
+        "品牌vi",
+        "vi",
+        "品牌视觉",
+        "色彩",
+        "字体搭配"
+      ],
+      "skill": "brand",
+      "action": "vi",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "动效",
+        "motion",
+        "lottie",
+        "微交互",
+        "动画",
+        "缓动"
+      ],
+      "skill": "motion",
+      "action": "motion",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "原型",
+        "交互",
+        "可点击",
+        "prototype"
+      ],
+      "skill": "motion",
+      "action": "prototype",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "屏幕",
+        "界面",
+        "ui",
+        "ux",
+        "组件库",
+        "无障碍",
+        "可用性"
+      ],
+      "skill": "uiux",
+      "action": "screen",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "转写",
+        "字幕",
+        "whisper",
+        "语音转文字"
+      ],
+      "skill": "transcribe",
+      "action": "transcribe",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "视频",
+        "音频",
+        "转码",
+        "剪辑",
+        "ffmpeg",
+        "封装"
+      ],
+      "skill": "media",
+      "action": "media",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "抠图",
+        "修图",
+        "图片处理",
+        "批量",
+        "压缩",
+        "pillow",
+        "背景去除"
+      ],
+      "skill": "imaging",
+      "action": "edit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "矢量稿",
+        "版式稿",
+        "svg",
+        "主题色板",
+        "矢量渲染",
+        "theme"
+      ],
+      "skill": "render",
+      "action": "poster",
+      "defaults": {}
+    }
+  ]
 }

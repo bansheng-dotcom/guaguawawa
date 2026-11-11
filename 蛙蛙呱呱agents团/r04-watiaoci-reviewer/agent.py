@@ -57,44 +57,30 @@ DIRS = os.path.basename(_HERE)
 # 意图路由（R07 踩坑：具体关键词靠前；大小写不敏感；命中即返回）
 # 元组：(关键词组, skill, action, extra_args 默认值)
 # ---------------------------------------------------------------------------
-_INTENT_ROUTES: List[Tuple[Tuple[str, ...], str, str, Dict[str, str]]] = [
-    (("三级证据链", "证据链核验", "stub 扫描", "孤岛工件", "artifact verify"),
-     "artifact", "verify", {}),
-    (("物料核验", "工件清单", "materials", "inventory", "成品清点"),
-     "artifact", "inventory", {}),
-    (("门禁强度", "门禁审计", "strength", "theatre", "gate audit"),
-     "gate", "audit", {}),
-    (("跑门禁", "硬门禁", "命令门禁", "gate run"),
-     "gate", "run", {}),
-    (("判据对照", "复评对照", "criteria delta", "fixed new remaining"),
-     "criteria", "delta",
-     {"state": os.path.join(_HERE, "examples", "criteria_delta_state.json")}),
-    (("外置判据", "验收判据", "判据审查", "acceptance", "criteria review"),
-     "criteria", "review", {}),
-    (("验收", "评审", "验收评审"),
-     "criteria", "review", {}),
-    (("收敛", "converge", "不再下降"),
-     "quality", "converge",
-     {"compare": os.path.join(_HERE, "examples", "quality_converge_v2.json")}),
-    (("禁词", "质量批评", "critique", "完成声明", "claims"),
-     "quality", "critique", {}),
-    (("单数字", "数字回溯", "facts trace"),
-     "facts", "trace",
-     {"text": os.path.join(_HERE, "examples", "facts_trace_source.txt")}),
-    (("事实核查", "数字幻觉", "来源质量", "facts check", "幻觉"),
-     "facts", "check", {}),
-    (("保留优点", "keep_list", "优点标记", "why_keep"),
-     "strengths", "mark", {}),
-    (("复评修改", "keep 降级", "recheck", "change 区"),
-     "strengths", "recheck",
-     {"new": os.path.join(_HERE, "examples", "strengths_recheck_new.json")}),
-    (("staged", "复制资产", "human ack", "ack 批次"),
-     "human", "ack", {}),
-    (("批次校验", "逐字回填", "human ingest", "edits"),
-     "human", "ingest", {}),
-    (("人工评审", "评审包", "human package", "发起评审"),
-     "human", "package", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 _DEFAULT_ROUTE: Tuple[str, str, Dict[str, str]] = ("criteria", "review", {})
 
 

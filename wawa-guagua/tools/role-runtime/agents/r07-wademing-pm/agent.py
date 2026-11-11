@@ -23,17 +23,33 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
-
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_HERE)
+_ROOT = _os.path.dirname(_AGENTS)
+for _p in (_HERE, _AGENTS, _ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 import argparse
 import hashlib
 import json
 import os
 import sys
-from agents.shared.chat_cli import add_chat_parser, handle_chat
+try:
+    from agents.shared.chat_cli import add_chat_parser, handle_chat
+except ImportError:
+    try:
+        from shared.chat_cli import add_chat_parser, handle_chat
+    except ImportError:
+        def add_chat_parser(p): pass
+        def handle_chat(args): pass
+try:
+    from agents.shared import role_runtime
+except ImportError:
+    try:
+        from shared import role_runtime
+    except ImportError:
+        role_runtime = None
 import time
 from typing import Any, Dict, List, Optional
 
@@ -43,34 +59,72 @@ for _p in (_HERE, _AGENTS):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
+# core imports
 from core import protocol, registry, workspace  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from skills import SKILLS, _common as c
 from skills import s01_discover, s02_ost, s03_prd, s04_priority, s05_roadmap, s06_metrics, s07_techbrief, s08_decision  # noqa: E402
 import cases  # noqa: E402
 import contracts  # noqa: E402
 import harness  # noqa: E402
 import review  # noqa: E402
-from agents.shared import role_runtime  # noqa: E402
 import report_contract  # noqa: E402
 
 ROLE = "r07"
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("prd", "产品文档", "需求文档", "需求说明", "需求分析"), "prd", "prd", {}),
-    (("用户故事", "story", "故事", "验收"), "prd", "story", {}),
-    (("优先级", "打分", "rice", "ice", "排序", "backlog", "排期"), "priority", "rice", {}),
-    (("路线图", "roadmap", "发布"), "roadmap", "roadmap", {}),
-    (("北极星", "okr", "愿景", "指标", "metrics"), "metrics", "northstar", {}),
-    (("技术", "brief", "代码", "ui", "反推", "接口"), "techbrief", "techbrief", {}),
-    (("决策", "汇报", "需求卡", "需求管理", "经验卡", "经验"), "decision", "decision", {}),
-    (("机会", "ost", "方案", "假设", "验证"), "ost", "ost", {}),
-    (("调研", "访谈", "发现", "research", "voc", "挖掘", "报告"), "discover", "discover", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
+
+# P3.2：技能层语义参数（与 prompt_profile.json 的 lexicon 同名）。
+# 无 --input 时用这些参数组装最小输入骨架，技能自身的门禁该报缺什么仍然报什么。
+SEMANTIC_KEYS = ("topic", "audience", "objective", "horizon", "evidence")
+
+
+def _add_semantic_args(parser) -> None:
+    for key in SEMANTIC_KEYS:
+        parser.add_argument("--" + key, default=None, help="语义参数（可替代 --input）")
+
+
+def _assemble_semantic_input(args) -> Optional[Dict[str, Any]]:
+    """只做字段搬运，不补造业务内容。"""
+    values = {k: getattr(args, k, None) for k in SEMANTIC_KEYS}
+    values = {k: v for k, v in values.items() if v not in (None, "")}
+    if not values:
+        return None
+    data = dict(values)
+    if "topic" in values:
+        data.setdefault("problem", values["topic"])
+        data.setdefault("problem_statement", values["topic"])
+    if "audience" in values:
+        data.setdefault("users", [{"segment": values["audience"]}])
+    return data
 
 
 def emit_result(data: Dict[str, Any]) -> None:
@@ -88,6 +142,7 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例产品工件（PRD/Job story/Backlog/指标）")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
     _register_harness(sp)
     _register_contract(sp)
@@ -100,6 +155,34 @@ def build_parser() -> argparse.ArgumentParser:
     dp.add_argument("--intent", default="产品机会树与PRD深度诊断", help="分析意图")
     dp.add_argument("--out-dir", default=None, help="输出目录")
 
+    # 十维演进元模型引擎调度 (L01~L03)
+    ev_p = sp.add_parser("evolve", help="十维演进元模型引擎调度 (L01~L03)")
+    ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
+    ev_sub.add_parser("probe", help="L01: 探测 PM 运行时引擎健康状态与计算沙箱")
+    dec_p = ev_sub.add_parser("decompile", help="L02: 意图解构与敏捷交付 DAG 编排")
+    dec_p.add_argument("--query", required=True, help="产品诉求自然语言")
+    heal_p = ev_sub.add_parser("heal", help="L03: 自愈反思与红线审判")
+    heal_p.add_argument("--type", default="prd", dest="heal_type", help="工件类型 (prd/story)")
+    heal_p.add_argument("--input", required=True, help="工件输入 JSON")
+    calc_p = ev_sub.add_parser("score", help="L01: 真实优先级算法计算 (RICE/ICE/Opportunity)")
+    calc_p.add_argument("--method", default="rice", choices=["rice", "ice", "opportunity"], help="计算模型")
+    calc_p.add_argument("--input", required=True, help="待打分需求项列表 JSON")
+    bun_p = ev_sub.add_parser("bundle", help="L07: PRD 伴生资产包导出 (AST + SARIF + Vega)")
+    bun_p.add_argument("--input", required=True, help="PRD JSON")
+    bun_p.add_argument("--out-dir", default=None, help="输出目录（默认 workspace/bundles）")
+    pt_p = ev_sub.add_parser("patch", help="L08: RFC 6902 PRD 条目级增量热修")
+    pt_p.add_argument("--input", required=True, help="原始 PRD JSON")
+    pt_p.add_argument("--ops", required=True, help="JSON Patch 算子文件")
+    pt_p.add_argument("--out-dir", default=None, help="输出目录（默认 workspace/patched）")
+    se_p = ev_sub.add_parser("session", help="L09: 会话记忆、代词消歧与快照回滚")
+    se_p.add_argument("--self-test", action="store_true", dest="self_test",
+                      help="运行确定性自检矩阵")
+    se_p.add_argument("--say", default=None, help="解析一句多轮对话指令")
+    se_p.add_argument("--state", default=None, help="记忆池路径（默认 workspace/session_state.json）")
+    wd_p = ev_sub.add_parser("watchdog", help="L10: 熔断/退避/超时隔离/遥测自检")
+    wd_p.add_argument("--self-test", action="store_true", dest="self_test",
+                      help="运行确定性容灾自检矩阵")
+
     for m in SKILLS:
         add_parser = getattr(m, "add_parser", None)
         if add_parser is not None:
@@ -110,7 +193,12 @@ def build_parser() -> argparse.ArgumentParser:
             ap = mp.add_subparsers(dest="action", required=True)
             for action in contracts.actions(m.NAME):
                 act = ap.add_parser(action)
-                act.add_argument("--input", required=True)
+                # P3.2：--input 与语义参数二选一；无文件时由语义参数组装最小输入骨架。
+                act.add_argument("--input", default=None, help="工件 JSON；省略时用语义参数组装")
+                _add_semantic_args(act)
+                # 用户故事按 kind=user/job 走不同验收区间（4~6 / 6~8 条）
+                if action == "story":
+                    act.add_argument("--kind", default="user", choices=["user", "job"])
     return p
 
 
@@ -249,6 +337,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -259,7 +356,7 @@ def run_task(task_id: str) -> Dict[str, Any]:
     merged["action"] = action
     merged["input"] = in_file
 
-    result = mod.run(_mkns(**merged))
+    result = _invoke_skill(mod, _mkns(**merged))
     result["task_id"] = task_id
     result["skill"] = skill_name
     result["action"] = action
@@ -298,12 +395,39 @@ def _write_report(result: Dict[str, Any], title: str, path: str) -> None:
     c.write_text(path, "\n".join(lines))
 
 
+def _invoke_skill(mod, args) -> Dict[str, Any]:
+    """统一调用一个技能动作：有 run() 走 run()，否则按 action 名字解析函数。"""
+    if hasattr(mod, "run"):
+        return mod.run(args)
+    action = getattr(args, "action", None)
+    fn = getattr(mod, action, None)
+    if not callable(fn):
+        return {"ok": False, "error": f"未知动作: {action}"}
+    input_path = getattr(args, "input", None)
+    semantic = None
+    if input_path:
+        inp = c.load_json(input_path)
+    else:
+        semantic = _assemble_semantic_input(args)
+        if semantic is None:
+            return {"ok": False,
+                    "error": "缺少 --input，且未提供 --topic/--audience 等语义参数"}
+        inp = semantic
+    if action == "story" and isinstance(inp, dict):
+        inp.setdefault("kind", getattr(args, "kind", "user"))
+    result = fn(inp)
+    if semantic is not None and isinstance(result, dict):
+        result.setdefault("input_source", "semantic")
+    return result
+
+
 def _route(intent: str):
     low = intent.lower()
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return "prd", "prd", {}
+    # 关键词未命中：交给共享 L02 内核；不再静默落到 prd.prd。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -379,6 +503,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "harness":
         out = _run_harness(args)
         emit_result(out)
@@ -396,12 +522,86 @@ def main() -> int:
         emit_result(out)
         return 0 if out["verdict"] == "PASS" else 1
 
+    if args.skill == "evolve":
+        from engines import (
+            PMRuntimeEngine,
+            IntentDAGCompiler,
+            PMReflexiveHealer,
+        )
+        if args.subcmd == "probe":
+            eng = PMRuntimeEngine()
+            out = eng.probe_health()
+            emit_result(out)
+            return 0 if out.get("status") == "healthy" else 1
+        elif args.subcmd == "decompile":
+            comp = IntentDAGCompiler()
+            out = comp.decompile_intent(args.query)
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "heal":
+            healer = PMReflexiveHealer()
+            in_data = c.load_json(args.input)
+            out = healer.audit_and_heal(args.heal_type, in_data)
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "score":
+            eng = PMRuntimeEngine()
+            in_data = c.load_json(args.input)
+            items = in_data if isinstance(in_data, list) else in_data.get("items", [])
+            out = eng.score_priorities(args.method, items)
+            emit_result(out)
+            return 0
+        elif args.subcmd == "bundle":
+            from engines import AssetBundleExporter
+            from skills import s03_prd
+            in_data = c.load_json(args.input)
+            gate = s03_prd._validate_prd(in_data)
+            out = AssetBundleExporter().export(
+                in_data, gate, out_dir=getattr(args, "out_dir", None),
+                artifact_uri=args.input,
+                generated_at=time.strftime("%Y-%m-%dT%H:%M:%S"))
+            emit_result(out)
+            # 门禁未过的 PRD 允许导出取证（exported=True），但命令必须以非零退出
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "patch":
+            from engines import PatchError, PRDPatchEngine
+            from skills import s03_prd
+            prd = c.load_json(args.input)
+            ops_doc = c.load_json(args.ops)
+            ops = ops_doc.get("operations") if isinstance(ops_doc, dict) else ops_doc
+            out_dir = getattr(args, "out_dir", None) or os.path.join(workspace.role_workspace(_HERE), "patched")
+            try:
+                out = PRDPatchEngine().patch_and_export(
+                    prd, ops or [], out_dir=out_dir,
+                    validate=s03_prd._validate_prd,
+                    generated_at=time.strftime("%Y-%m-%dT%H:%M:%S"))
+            except PatchError as exc:
+                out = {"ok": False, "layer": "L08", "error": str(exc)}
+            emit_result(out)
+            return 0 if (out.get("ok") and out.get("gate_ok") is not False) else 1
+        elif args.subcmd == "session":
+            from engines import SessionMemory
+            mem = SessionMemory(path=getattr(args, "state", None))
+            if getattr(args, "self_test", False):
+                out = mem.self_test()
+            else:
+                out = mem.resolve_reference(getattr(args, "say", None) or "")
+                out["saved"] = mem.save()
+                out["ok"] = not out.get("needs_clarification")
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+        elif args.subcmd == "watchdog":
+            from engines.telemetry_watchdog import self_test as watchdog_self_test
+            out = watchdog_self_test()
+            emit_result(out)
+            return 0 if out.get("ok") else 1
+
     if args.skill == "deep":
         from deep_analysis import run_deep_analysis
         from agents.shared.report_generator import generate_professional_report
         from agents.shared.role_profiles import get as get_profile
 
-        out_dir = getattr(args, "out_dir", None) or os.path.join(os.path.dirname(__file__), "workspace", "deep_report")
+        out_dir = getattr(args, "out_dir", None) or os.path.join(workspace.role_workspace(os.path.dirname(__file__)), "deep_report")
         res = run_deep_analysis(args.input)
         profile = get_profile(ROLE)
         
@@ -433,16 +633,7 @@ def main() -> int:
 
     t0 = time.time()
     mod = SKILL_BY_NAME[args.skill]
-    if hasattr(mod, "run"):
-        result = mod.run(args)
-    else:
-        # r07 技能模块按「动作函数(input_data)」组织，无统一 run(args)。
-        fn = getattr(mod, getattr(args, "action", None), None)
-        if not callable(fn):
-            result = {"ok": False, "error": f"未知动作: {getattr(args, 'action', None)}"}
-        else:
-            inp = c.load_json(args.input) if getattr(args, "input", None) else {}
-            result = fn(inp)
+    result = _invoke_skill(mod, args)
     elapsed = int((time.time() - t0) * 1000)
     result = {"result": result} if not isinstance(result, dict) else result
     ok = bool(result.get("ok", True))

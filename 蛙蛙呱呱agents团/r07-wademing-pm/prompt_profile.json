@@ -444,5 +444,128 @@
       "非目标",
       "验收标准"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "prd 检查",
+        "prd 结构",
+        "需求文档检查"
+      ],
+      "skill": "prdguard",
+      "action": "check",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "prd",
+        "产品文档",
+        "需求文档",
+        "需求说明",
+        "需求分析"
+      ],
+      "skill": "prd",
+      "action": "prd",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "用户故事",
+        "story",
+        "故事",
+        "验收"
+      ],
+      "skill": "prd",
+      "action": "story",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "优先级",
+        "打分",
+        "rice",
+        "ice",
+        "排序",
+        "backlog",
+        "排期"
+      ],
+      "skill": "priority",
+      "action": "rice",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "路线图",
+        "roadmap",
+        "发布"
+      ],
+      "skill": "roadmap",
+      "action": "roadmap",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "北极星",
+        "okr",
+        "愿景",
+        "指标",
+        "metrics"
+      ],
+      "skill": "metrics",
+      "action": "northstar",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "技术",
+        "brief",
+        "代码",
+        "ui",
+        "反推",
+        "接口"
+      ],
+      "skill": "techbrief",
+      "action": "techbrief",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "决策",
+        "汇报",
+        "需求卡",
+        "需求管理",
+        "经验卡",
+        "经验"
+      ],
+      "skill": "decision",
+      "action": "decision",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "机会",
+        "ost",
+        "方案",
+        "假设",
+        "验证"
+      ],
+      "skill": "ost",
+      "action": "ost",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "调研",
+        "访谈",
+        "发现",
+        "research",
+        "voc",
+        "挖掘",
+        "报告"
+      ],
+      "skill": "discover",
+      "action": "discover",
+      "defaults": {}
+    }
+  ]
 }

@@ -357,5 +357,188 @@
       "验证命令",
       "回滚方式"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "技术规格",
+        "模块边界",
+        "输入输出",
+        "工程约束",
+        "tech spec"
+      ],
+      "skill": "spec",
+      "action": "spec",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "架构",
+        "拓扑",
+        "服务连线",
+        "architecture"
+      ],
+      "skill": "spec",
+      "action": "arch",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "数据库",
+        "schema",
+        "建表",
+        "索引",
+        "数据模型"
+      ],
+      "skill": "data_api",
+      "action": "schema",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "api 契约",
+        "接口",
+        "错误码",
+        "endpoint",
+        "rest"
+      ],
+      "skill": "data_api",
+      "action": "api",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "全栈",
+        "端到端",
+        "前端后端",
+        "功能切片",
+        "fullstack"
+      ],
+      "skill": "fullstack",
+      "action": "feature",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "认证",
+        "登录",
+        "鉴权",
+        "auth"
+      ],
+      "skill": "fullstack",
+      "action": "auth",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "构建",
+        "编译",
+        "打包",
+        "build"
+      ],
+      "skill": "crossplatform",
+      "action": "build",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "跨端",
+        "平台差异",
+        "flutter",
+        "状态管理"
+      ],
+      "skill": "crossplatform",
+      "action": "platform",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "单元测试",
+        "集成测试",
+        "契约测试",
+        "覆盖率",
+        "test suite"
+      ],
+      "skill": "testing",
+      "action": "suites",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "浏览器验证",
+        "e2e",
+        "playwright",
+        "关键路径"
+      ],
+      "skill": "testing",
+      "action": "browser",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "调试",
+        "复现",
+        "根因",
+        "bug",
+        "debug"
+      ],
+      "skill": "debug",
+      "action": "debug",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "性能",
+        "重构",
+        "热点",
+        "剖析",
+        "refactor"
+      ],
+      "skill": "debug",
+      "action": "refactor",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "迁移",
+        "回滚",
+        "migration",
+        "数据迁移"
+      ],
+      "skill": "ops",
+      "action": "migration",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "安全审计",
+        "cve",
+        "依赖审计",
+        "密钥",
+        "security"
+      ],
+      "skill": "ops",
+      "action": "security",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "mcp",
+        "工具服务"
+      ],
+      "skill": "special",
+      "action": "mcp",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "godot",
+        "游戏工程",
+        "可加载脚本"
+      ],
+      "skill": "special",
+      "action": "godot",
+      "defaults": {}
+    }
+  ]
 }

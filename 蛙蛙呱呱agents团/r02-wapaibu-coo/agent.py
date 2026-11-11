@@ -261,15 +261,30 @@ def run_cli(argv: List[str]) -> int:
 # --------------------------------------------------------------------------- #
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("wbs", "工作分解", "拆工作"), "schedule", "wbs", {}),
-    (("排期", "冲刺", "sprint", "工期", "排产"), "schedule", "sprint", {}),
-    (("容量", "过载", "负载", "人日"), "capacity", "check", {}),
-    (("交接", "handoff", "交接包", "工单"), "handoff", "package", {}),
-    (("复盘", "事故", "postmortem", "根因"), "retro", "postmortem", {}),
-    (("流程", "sop", "标准化", "固化"), "process", "sop", {}),
-    (("项目群", "编排", "状态汇总", "portfolio"), "portfolio", "status", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def _route(intent: str):

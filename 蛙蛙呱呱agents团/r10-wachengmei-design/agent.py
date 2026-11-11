@@ -60,26 +60,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("品牌一致性", "vi 检查", "品牌检查"), "brandcheck", "check", {}),
-    (("缩放", "裁剪", "加水印", "图片补边", "resize"), "imgops", "info", {}),
-    (("设计系统", "design system", "design.md", "风格库", "品牌风格", "参考风格"), "designsys", "list", {}),
-    (("风格推荐", "推荐风格", "style recommend"), "designsys", "recommend", {}),
-    (("视频提示词", "分镜", "h3", "t2va", "i2va", "fl2va", "l2va", "ref2va", "脚本转视频"), "h3prompt", "build", {}),
-    (("真实生图", "真实生成图片", "nano banana", "nanobanana", "aihive", "ai hive", "文生图接口", "图片编辑接口"), "aihive", "probe", {}),
-    (("logo", "标志", "logotype", "图标", "favicon", "app icon", "品牌标"), "logo", "logo", {}),
-    (("生图", "插画", "主视觉", "imagegen", "图片", "生图提示词"), "imagegen", "compose", {}),
-    (("海报", "物料", "banner", "卖点图", "poster", "宣传图"), "imagegen", "compose", {}),
-    (("设计令牌", "token", "令牌", "design token"), "brand", "token", {}),
-    (("视觉身份", "stylescape", "品牌vi", "vi", "品牌视觉", "色彩", "字体搭配"), "brand", "vi", {}),
-    (("动效", "motion", "lottie", "微交互", "动画", "缓动"), "motion", "motion", {}),
-    (("原型", "交互", "可点击", "prototype"), "motion", "prototype", {}),
-    (("屏幕", "界面", "ui", "ux", "组件库", "无障碍", "可用性"), "uiux", "screen", {}),
-    (("转写", "字幕", "whisper", "语音转文字"), "transcribe", "transcribe", {}),
-    (("视频", "音频", "转码", "剪辑", "ffmpeg", "封装"), "media", "media", {}),
-    (("抠图", "修图", "图片处理", "批量", "压缩", "pillow", "背景去除"), "imaging", "edit", {}),
-    (("矢量稿", "版式稿", "svg", "主题色板", "矢量渲染", "theme"), "render", "poster", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

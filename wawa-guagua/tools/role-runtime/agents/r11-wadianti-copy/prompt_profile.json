@@ -1,0 +1,517 @@
+{
+  "role_id": "r11",
+  "domain": "内容创作",
+  "max_questions": 3,
+  "execution_inputs": {
+    "input": {
+      "resolve": "task_port",
+      "question": "素材或选题文件在哪？"
+    }
+  },
+  "lexicon": {
+    "platform": {
+      "小红书": [
+        "小红书"
+      ],
+      "抖音": [
+        "抖音"
+      ],
+      "公众号": [
+        "公众号",
+        "微信"
+      ],
+      "知乎": [
+        "知乎"
+      ],
+      "B站": [
+        "b站",
+        "哔哩哔哩"
+      ],
+      "微博": [
+        "微博"
+      ]
+    },
+    "voice": {
+      "专业": [
+        "专业",
+        "严谨",
+        "权威"
+      ],
+      "轻松": [
+        "轻松",
+        "口语",
+        "接地气"
+      ],
+      "犀利": [
+        "犀利",
+        "尖锐",
+        "有态度"
+      ]
+    },
+    "word_count": {
+      "short": [
+        "短",
+        "精简",
+        "几百字"
+      ],
+      "long": [
+        "长文",
+        "深度",
+        "几千字"
+      ]
+    },
+    "topic": {
+      "*": [
+        "*"
+      ]
+    }
+  },
+  "assumptions": {
+    "voice": "专业"
+  },
+  "assumption_reason": {
+    "voice": "未指定语气，按专业口吻，已要求在首段前标注"
+  },
+  "questions": {
+    "action": {
+      "question": "你想做哪类内容工作？",
+      "options": [
+        {
+          "value": "hook",
+          "label": "标题/钩子"
+        },
+        {
+          "value": "article",
+          "label": "长文/文案"
+        },
+        {
+          "value": "script",
+          "label": "口播脚本"
+        },
+        {
+          "value": "adapt",
+          "label": "多平台改写"
+        },
+        {
+          "value": "outline",
+          "label": "提纲"
+        }
+      ]
+    },
+    "platform": {
+      "question": "发在哪个平台？",
+      "options": [
+        {
+          "value": "xiaohongshu",
+          "label": "小红书"
+        },
+        {
+          "value": "douyin",
+          "label": "抖音"
+        },
+        {
+          "value": "wechat",
+          "label": "公众号"
+        },
+        {
+          "value": "zhihu",
+          "label": "知乎"
+        }
+      ]
+    },
+    "topic": {
+      "question": "主题是什么？",
+      "options": []
+    }
+  },
+  "actions": [
+    {
+      "skill": "hook",
+      "action": "hook",
+      "label": "标题与钩子",
+      "when": [
+        "钩子",
+        "标题",
+        "首句",
+        "爆款",
+        "能爆",
+        "起个",
+        "开头"
+      ],
+      "requires": [
+        "topic",
+        "platform",
+        "voice"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "hook",
+      "action": "outline",
+      "label": "提纲与立场",
+      "when": [
+        "提纲",
+        "大纲",
+        "细纲",
+        "结构"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "platform",
+      "action": "adapt",
+      "label": "多平台改写",
+      "when": [
+        "小红书",
+        "抖音",
+        "b站",
+        "哔哩哔哩",
+        "知乎",
+        "微博",
+        "多平台",
+        "改写",
+        "适配"
+      ],
+      "requires": [
+        "topic",
+        "platform",
+        "voice"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "copy",
+      "action": "article",
+      "label": "长文与文案",
+      "when": [
+        "文章",
+        "长文",
+        "写一篇",
+        "写篇",
+        "文案",
+        "正文",
+        "科普"
+      ],
+      "requires": [
+        "topic",
+        "voice"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "copy",
+      "action": "script",
+      "label": "口播脚本",
+      "when": [
+        "脚本",
+        "口播",
+        "视频文案",
+        "对话"
+      ],
+      "requires": [
+        "topic",
+        "voice"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "voice",
+      "action": "edit",
+      "label": "润色与清洁",
+      "when": [
+        "优化",
+        "润色",
+        "改一下",
+        "精修"
+      ],
+      "requires": [
+        "topic",
+        "voice"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "localize",
+      "action": "term",
+      "label": "翻译与术语",
+      "when": [
+        "翻译",
+        "本地化",
+        "多语言",
+        "术语表"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "seo",
+      "action": "keyword",
+      "label": "关键词与选题",
+      "when": [
+        "关键词",
+        "长尾词",
+        "搜索词",
+        "seo"
+      ],
+      "requires": [
+        "topic"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "seo",
+      "action": "audit",
+      "label": "SEO 体检",
+      "when": [
+        "seo诊断",
+        "seo",
+        "收录情况",
+        "关键词布局"
+      ],
+      "requires": [
+        "topic",
+        "platform"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "pr",
+      "action": "ad",
+      "label": "广告创意文案",
+      "when": [
+        "广告语",
+        "slogan",
+        "卖点文案",
+        "促销文案"
+      ],
+      "requires": [
+        "topic",
+        "voice"
+      ],
+      "params": {}
+    }
+  ],
+  "semantic_fields": {
+    "topic.brief": [
+      "topic",
+      "platform"
+    ],
+    "topic.plan": [
+      "topic"
+    ],
+    "voice.guide": [
+      "topic",
+      "voice"
+    ],
+    "pr.press": [
+      "topic",
+      "platform"
+    ],
+    "platform.publish": [
+      "topic",
+      "platform"
+    ],
+    "localize.review": [
+      "topic",
+      "platform"
+    ],
+    "localize.probe": [],
+    "xhs.note": [
+      "topic",
+      "platform"
+    ],
+    "xhs.score": [
+      "topic",
+      "platform"
+    ],
+    "xhs.compliance": [
+      "topic",
+      "platform"
+    ]
+  },
+  "l2_prompt_blocks": [
+    {
+      "name": "平台规范",
+      "template": "目标平台：{platform}（未指定则按公众号默认口径）。按该平台原生结构与长度组织，不套用其他平台模板。"
+    },
+    {
+      "name": "品牌语调",
+      "template": "语气：{voice}。禁用词：毋庸置疑、总而言之、赋能、闭环、抓手。"
+    },
+    {
+      "name": "反塑料自检",
+      "template": "每个观点必须绑定数字、案例或来源；禁止连续三段使用同一句式；删除空泛形容词。"
+    }
+  ],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "平台适配说明",
+      "钩子",
+      "核心观点",
+      "行动号召"
+    ]
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "发布前检查",
+        "笔记评分",
+        "笔记合规",
+        "xhs",
+        "小红书笔记"
+      ],
+      "skill": "xhs",
+      "action": "score",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "关键词",
+        "seo",
+        "aeo",
+        "搜索",
+        "排名",
+        "结构化数据",
+        "eeat",
+        "e-e-a-t"
+      ],
+      "skill": "seo",
+      "action": "audit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "广告",
+        "slogan",
+        "口号",
+        "卖点",
+        "promotion",
+        "投放文案"
+      ],
+      "skill": "pr",
+      "action": "ad",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "新闻稿",
+        "press release",
+        "公关",
+        "对外口径"
+      ],
+      "skill": "pr",
+      "action": "press",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "翻译",
+        "本地化",
+        "多语言",
+        "术语表",
+        "localization",
+        "weblate",
+        "审校"
+      ],
+      "skill": "localize",
+      "action": "term",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "小红书",
+        "抖音",
+        "b站",
+        "b 站",
+        "知乎",
+        "微博",
+        "多平台",
+        "改写",
+        "适配"
+      ],
+      "skill": "platform",
+      "action": "adapt",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "语调",
+        "口吻",
+        "品牌指南",
+        "语气",
+        "称呼",
+        "禁词"
+      ],
+      "skill": "voice",
+      "action": "guide",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "钩子",
+        "标题",
+        "首句",
+        "选题标题",
+        "爆款标题"
+      ],
+      "skill": "hook",
+      "action": "hook",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "提纲",
+        "大纲",
+        "细纲",
+        "outline",
+        "立场"
+      ],
+      "skill": "hook",
+      "action": "outline",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "选题",
+        "内容规划",
+        "选题卡",
+        "brief",
+        "plan"
+      ],
+      "skill": "topic",
+      "action": "brief",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "脚本",
+        "口播",
+        "视频文案",
+        "对话"
+      ],
+      "skill": "copy",
+      "action": "script",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "文章",
+        "文案",
+        "长文",
+        "成稿",
+        "正文",
+        "科普",
+        "写一篇"
+      ],
+      "skill": "copy",
+      "action": "article",
+      "defaults": {}
+    }
+  ]
+}

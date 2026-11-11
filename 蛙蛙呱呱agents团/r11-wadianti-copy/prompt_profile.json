@@ -356,5 +356,162 @@
       "核心观点",
       "行动号召"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "发布前检查",
+        "笔记评分",
+        "笔记合规",
+        "xhs",
+        "小红书笔记"
+      ],
+      "skill": "xhs",
+      "action": "score",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "关键词",
+        "seo",
+        "aeo",
+        "搜索",
+        "排名",
+        "结构化数据",
+        "eeat",
+        "e-e-a-t"
+      ],
+      "skill": "seo",
+      "action": "audit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "广告",
+        "slogan",
+        "口号",
+        "卖点",
+        "promotion",
+        "投放文案"
+      ],
+      "skill": "pr",
+      "action": "ad",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "新闻稿",
+        "press release",
+        "公关",
+        "对外口径"
+      ],
+      "skill": "pr",
+      "action": "press",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "翻译",
+        "本地化",
+        "多语言",
+        "术语表",
+        "localization",
+        "weblate",
+        "审校"
+      ],
+      "skill": "localize",
+      "action": "term",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "小红书",
+        "抖音",
+        "b站",
+        "b 站",
+        "知乎",
+        "微博",
+        "多平台",
+        "改写",
+        "适配"
+      ],
+      "skill": "platform",
+      "action": "adapt",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "语调",
+        "口吻",
+        "品牌指南",
+        "语气",
+        "称呼",
+        "禁词"
+      ],
+      "skill": "voice",
+      "action": "guide",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "钩子",
+        "标题",
+        "首句",
+        "选题标题",
+        "爆款标题"
+      ],
+      "skill": "hook",
+      "action": "hook",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "提纲",
+        "大纲",
+        "细纲",
+        "outline",
+        "立场"
+      ],
+      "skill": "hook",
+      "action": "outline",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "选题",
+        "内容规划",
+        "选题卡",
+        "brief",
+        "plan"
+      ],
+      "skill": "topic",
+      "action": "brief",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "脚本",
+        "口播",
+        "视频文案",
+        "对话"
+      ],
+      "skill": "copy",
+      "action": "script",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "文章",
+        "文案",
+        "长文",
+        "成稿",
+        "正文",
+        "科普",
+        "写一篇"
+      ],
+      "skill": "copy",
+      "action": "article",
+      "defaults": {}
+    }
+  ]
 }

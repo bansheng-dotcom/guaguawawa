@@ -75,28 +75,30 @@ ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
-_INTENT_ROUTES = [
-    (("清洗", "clean", "去重"), "quality", "clean", {}),
-    (("质检", "质量", "audit"), "quality", "audit", {}),
-    (("趋势", "trend"), "explore", "trend", {"date": "date", "value": "amount"}),
-    (("漏斗", "funnel"), "explore", "funnel", {"stage": "status"}),
-    (("留存", "cohort"), "explore", "cohort", {"user": "user_id", "period": "date"}),
-    (("分组", "groupby"), "explore", "groupby", {"group": "channel", "value": "amount"}),
-    (("描述", "describe", "统计汇总"), "describe", "describe", {"col": "amount"}),
-    (("相关", "correlate", "相关系数", "皮尔逊"), "correlate", "correlate",
-     {"col_a": "amount", "col_b": "amount"}),
-    (("t检验", "ttest", "welch", "双样本"), "ttest", "ttest",
-     {"value": "amount", "group": "channel", "group_a": "抖音", "group_b": "微信"}),
-    (("卡方", "chi2", "独立性"), "chi2", "chi2", {"row": "channel", "col": "status"}),
-    (("anova", "方差分析"), "anova", "anova", {"value": "amount", "group": "channel"}),
-    (("回归", "regression", "ols"), "regression", "regression",
-     {"x": "amount", "y": "amount"}),
-    (("实验", "abtest", "ab"), "abtest", "abtest",
-     {"group": "channel", "control": "抖音", "treatment": "微信", "metric": "amount"}),
-    (("根因", "贡献", "下钻", "drilldown"), "rootcause", "drilldown",
-     {"dim": "channel", "value": "amount"}),
-    (("语义", "指标", "口径", "semantic"), "semantics", "validate", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

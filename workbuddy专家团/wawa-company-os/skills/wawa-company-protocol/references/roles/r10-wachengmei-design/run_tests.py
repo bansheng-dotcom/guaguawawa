@@ -170,6 +170,12 @@ def main() -> int:
             pk["count"] == len(c.load_registry()["entries"]) * 2, str(pk["count"]))
     t.check("pack 产物可读",
             os.path.isfile(os.path.join(pk_dir, "MANIFEST.json")))
+    t.check("pack 默认主体不止一种（避免全是同一对象）",
+            len(pk.get("subjects") or []) >= 2, str(pk.get("subjects")))
+    _pk_one = s01_imagegen._build_pack(tempfile.mkdtemp(prefix="r10_pack1_"),
+                                       seeds=2, subject="统一主体X")
+    t.check("pack --subject 统一主体", _pk_one.get("subjects") == ["统一主体X"],
+            str(_pk_one.get("subjects")))
 
     # 客观评分：占位图与真实图必须分开
     from PIL import Image, ImageDraw  # noqa: E402
@@ -195,6 +201,14 @@ def main() -> int:
     r = s01_imagegen._validate_prompt({**prompt, "media": "poster"})
     t.check("载体级 text_policy 默认 overlay-later",
             r["text_policy"] == "overlay-later", str(r.get("text_policy")))
+    # 文字型载体集合必须来自 thresholds，不在代码里另写一份
+    _th = c.load_thresholds()
+    t.check("文字型载体集合 = thresholds 投影",
+            s01_imagegen._text_heavy_media(_th)
+            == set((_th["imagegen"].get("text_policy_by_media") or {}).keys()))
+    t.check("代码中不再有 _TEXT_HEAVY_MEDIA 常量",
+            "_TEXT_HEAVY_MEDIA" not in open(
+                os.path.join(HERE, "skills", "s01_imagegen.py"), encoding="utf-8").read())
 
     # 结构性硬限制：注册表要带，且文字型载体在 text_policy=none 时给 WARN
     reg_now = c.load_registry()

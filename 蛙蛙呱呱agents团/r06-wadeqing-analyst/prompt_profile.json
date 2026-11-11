@@ -504,5 +504,194 @@
       "结论",
       "置信区间"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "清洗",
+        "clean",
+        "去重"
+      ],
+      "skill": "quality",
+      "action": "clean",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "质检",
+        "质量",
+        "audit"
+      ],
+      "skill": "quality",
+      "action": "audit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "趋势",
+        "trend"
+      ],
+      "skill": "explore",
+      "action": "trend",
+      "defaults": {
+        "date": "date",
+        "value": "amount"
+      }
+    },
+    {
+      "when": [
+        "漏斗",
+        "funnel"
+      ],
+      "skill": "explore",
+      "action": "funnel",
+      "defaults": {
+        "stage": "status"
+      }
+    },
+    {
+      "when": [
+        "留存",
+        "cohort"
+      ],
+      "skill": "explore",
+      "action": "cohort",
+      "defaults": {
+        "user": "user_id",
+        "period": "date"
+      }
+    },
+    {
+      "when": [
+        "分组",
+        "groupby"
+      ],
+      "skill": "explore",
+      "action": "groupby",
+      "defaults": {
+        "group": "channel",
+        "value": "amount"
+      }
+    },
+    {
+      "when": [
+        "描述",
+        "describe",
+        "统计汇总"
+      ],
+      "skill": "describe",
+      "action": "describe",
+      "defaults": {
+        "col": "amount"
+      }
+    },
+    {
+      "when": [
+        "相关",
+        "correlate",
+        "相关系数",
+        "皮尔逊"
+      ],
+      "skill": "correlate",
+      "action": "correlate",
+      "defaults": {
+        "col_a": "amount",
+        "col_b": "amount"
+      }
+    },
+    {
+      "when": [
+        "t检验",
+        "ttest",
+        "welch",
+        "双样本"
+      ],
+      "skill": "ttest",
+      "action": "ttest",
+      "defaults": {
+        "value": "amount",
+        "group": "channel",
+        "group_a": "抖音",
+        "group_b": "微信"
+      }
+    },
+    {
+      "when": [
+        "卡方",
+        "chi2",
+        "独立性"
+      ],
+      "skill": "chi2",
+      "action": "chi2",
+      "defaults": {
+        "row": "channel",
+        "col": "status"
+      }
+    },
+    {
+      "when": [
+        "anova",
+        "方差分析"
+      ],
+      "skill": "anova",
+      "action": "anova",
+      "defaults": {
+        "value": "amount",
+        "group": "channel"
+      }
+    },
+    {
+      "when": [
+        "回归",
+        "regression",
+        "ols"
+      ],
+      "skill": "regression",
+      "action": "regression",
+      "defaults": {
+        "x": "amount",
+        "y": "amount"
+      }
+    },
+    {
+      "when": [
+        "实验",
+        "abtest",
+        "ab"
+      ],
+      "skill": "abtest",
+      "action": "abtest",
+      "defaults": {
+        "group": "channel",
+        "control": "抖音",
+        "treatment": "微信",
+        "metric": "amount"
+      }
+    },
+    {
+      "when": [
+        "根因",
+        "贡献",
+        "下钻",
+        "drilldown"
+      ],
+      "skill": "rootcause",
+      "action": "drilldown",
+      "defaults": {
+        "dim": "channel",
+        "value": "amount"
+      }
+    },
+    {
+      "when": [
+        "语义",
+        "指标",
+        "口径",
+        "semantic"
+      ],
+      "skill": "semantics",
+      "action": "validate",
+      "defaults": {}
+    }
+  ]
 }

@@ -55,36 +55,30 @@ DIRS = os.path.basename(_HERE)
 # 意图路由（具体关键词靠前；大小写不敏感；命中即返回）
 # 元组：(关键词组, skill, action, extra_args 默认值)
 # ---------------------------------------------------------------------------
-_INTENT_ROUTES: List[Tuple[Tuple[str, ...], str, str, Dict[str, str]]] = [
-    (("证据台账", "研究台账", "来源登记", "evidence ledger", "claims ledger"),
-     "research", "ledger", {}),
-    (("研究报告", "引用覆盖", "研究汇报", "research report"),
-     "research", "report", {}),
-    (("行业地图", "产业链", "价值链", "行业扫描", "landscape"),
-     "industry", "landscape", {}),
-    (("市场集中度", "HHI", "CR4", "集中度", "concentration"),
-     "industry", "concentration", {}),
-    (("竞品矩阵", "功能对比", "feature matrix", "竞品对比"),
-     "competitor", "matrix", {}),
-    (("战斗卡", "对位卡", "battlecard", "竞品威胁"),
-     "competitor", "battlecard", {}),
-    (("商业画布", "九宫格", "business canvas", "商业模式"),
-     "business", "canvas", {}),
-    (("变现", "定价", "单位经济", "ltv", "monetize"),
-     "business", "monetize", {}),
-    (("市场规模", "TAM", "SAM", "SOM", "market sizing"),
-     "sizing", "size", {}),
-    (("敏感性", "关键驱动", "sensitivity"),
-     "sizing", "sensitivity", {}),
-    (("宏观分析", "PESTEL", "政策环境"),
-     "scenario", "pestel", {}),
-    (("事前尸检", "失效推演", "pre-mortem", "premortem"),
-     "scenario", "premortem", {}),
-    (("研究计划", "research plan", "调研计划"),
-     "auto", "plan", {}),
-    (("研究追踪", "运行追踪", "调研进度", "research track"),
-     "auto", "track", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 _DEFAULT_ROUTE: Tuple[str, str, Dict[str, str]] = ("research", "ledger", {})
 
 

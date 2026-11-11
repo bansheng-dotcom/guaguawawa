@@ -358,5 +358,183 @@
       "结论",
       "恢复验证结果"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "删除快照",
+        "删除备份",
+        "清空快照",
+        "灾难切换",
+        "切换生产",
+        "恢复生产"
+      ],
+      "skill": "dr",
+      "action": "rollback",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "rpo",
+        "rto",
+        "恢复点",
+        "恢复时间",
+        "灾难恢复",
+        "恢复手册",
+        "dr"
+      ],
+      "skill": "dr",
+      "action": "rpo_rto",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "回滚",
+        "rollback",
+        "退路",
+        "撤销切换"
+      ],
+      "skill": "dr",
+      "action": "rollback",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "恢复演练",
+        "演练",
+        "drill",
+        "能否恢复",
+        "恢复验证"
+      ],
+      "skill": "restore",
+      "action": "drill",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "恢复",
+        "restore",
+        "还原"
+      ],
+      "skill": "restore",
+      "action": "restore",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "快照",
+        "snapshot",
+        "存了哪些",
+        "备份了多少"
+      ],
+      "skill": "backup",
+      "action": "snapshot",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "加密",
+        "保留策略",
+        "排除规则",
+        "备份仓",
+        "备份",
+        "restic",
+        "repo",
+        "backup"
+      ],
+      "skill": "backup",
+      "action": "backup",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "状态页",
+        "组件状态",
+        "对外状态",
+        "statuspage"
+      ],
+      "skill": "statuspage",
+      "action": "statuspage",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "事件",
+        "故障通报",
+        "事件时间线",
+        "incident"
+      ],
+      "skill": "statuspage",
+      "action": "incident",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "值班升级",
+        "升级链",
+        "escalation",
+        "oncall"
+      ],
+      "skill": "alert",
+      "action": "escalation",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "告警",
+        "报警",
+        "通知渠道",
+        "阈值告警",
+        "alert"
+      ],
+      "skill": "alert",
+      "action": "alert",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "可用率",
+        "uptime",
+        "可用性记录",
+        "在线率"
+      ],
+      "skill": "monitor",
+      "action": "uptime",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "监控",
+        "探测",
+        "心跳",
+        "monitor",
+        "站点"
+      ],
+      "skill": "monitor",
+      "action": "monitor",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "复盘",
+        "故障复盘",
+        "postmortem",
+        "事故分析"
+      ],
+      "skill": "postmortem",
+      "action": "postmortem",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "改进项",
+        "闭环",
+        "整改",
+        "improvement"
+      ],
+      "skill": "postmortem",
+      "action": "improvement",
+      "defaults": {}
+    }
+  ]
 }

@@ -349,5 +349,188 @@
       "结论",
       "门禁结果"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "质量",
+        "门禁",
+        "空值",
+        "重复率",
+        "唯一性",
+        "新鲜度",
+        "quality",
+        "fresh",
+        "校验数据"
+      ],
+      "skill": "quality",
+      "action": "check",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "新鲜度",
+        "时效",
+        "延迟",
+        "过期",
+        "freshness"
+      ],
+      "skill": "quality",
+      "action": "fresh",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "增量",
+        "水位",
+        "全量",
+        "快照",
+        "cdc",
+        "迟到",
+        "incremental",
+        "watermark"
+      ],
+      "skill": "incremental",
+      "action": "strategy",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "回填",
+        "补数",
+        "重跑",
+        "backfill"
+      ],
+      "skill": "incremental",
+      "action": "backfill",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "血缘",
+        "目录",
+        "口径",
+        "字段说明",
+        "lineage",
+        "catalog",
+        "owner"
+      ],
+      "skill": "catalog",
+      "action": "lineage",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "目录条目",
+        "字段类型",
+        "登记表",
+        "表结构"
+      ],
+      "skill": "catalog",
+      "action": "entry",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "转换",
+        "模型",
+        "物化",
+        "dbt",
+        "model",
+        "material",
+        "测试声明"
+      ],
+      "skill": "transform",
+      "action": "model",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "dbt测试",
+        "通用测试",
+        "accepted_values",
+        "not_null",
+        "unique测试"
+      ],
+      "skill": "transform",
+      "action": "test",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "调度",
+        "编排",
+        "dag",
+        "依赖",
+        "任务图",
+        "airflow",
+        "pipeline"
+      ],
+      "skill": "pipeline",
+      "action": "dag",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "运行状态",
+        "任务状态",
+        "失败任务",
+        "重试",
+        "task state"
+      ],
+      "skill": "pipeline",
+      "action": "run",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "连接",
+        "connector",
+        "数据源",
+        "来源",
+        "目的地",
+        "connection"
+      ],
+      "skill": "elt",
+      "action": "connection",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "同步",
+        "sync",
+        "拉取",
+        "抽取",
+        "extract"
+      ],
+      "skill": "elt",
+      "action": "sync",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "审批",
+        "授权",
+        "运维",
+        "高风险",
+        "审批单",
+        "request"
+      ],
+      "skill": "ops",
+      "action": "request",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "告警",
+        "报警",
+        "通知",
+        "阈值告警",
+        "alert"
+      ],
+      "skill": "ops",
+      "action": "alert",
+      "defaults": {}
+    }
+  ]
 }

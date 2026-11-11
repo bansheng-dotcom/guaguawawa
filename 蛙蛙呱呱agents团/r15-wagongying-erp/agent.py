@@ -67,45 +67,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 # 注意「报价」(quotation) 必须排在「询价」(rfq) 之前、「收货」(receipt) 排在
 # 「采购订单」(purchase_order) 之前，否则动作错配导致门禁选错（R14 踩坑同理）。
-_INTENT_ROUTES = [
-    (("tco", "总拥有成本", "采购成本对比", "报价对比", "landed"), "tco", "compare", {}),
-    (("报价", "供应商报价", "quotation", "sq", "比价结果"),
-     "procurement", "quotation", {}),
-    (("询价", "rfq", "request for quotation", "询比价"),
-     "procurement", "rfq", {}),
-    (("收货", "到货", "采购入库", "purchase receipt", "入库单"),
-     "procurement", "receipt", {}),
-    (("采购", "采购订单", "下单采购", "purchase order", "po", "买"),
-     "procurement", "purchase_order", {}),
-    (("供应商", "supplier", "供方"),
-     "procurement", "supplier", {}),
-    (("bom", "物料清单", "配方", "生产一件", "成品的料"),
-     "production", "bom", {}),
-    (("物料请求", "material request", "缺料", "请购", "补料"),
-     "production", "material_request", {}),
-    (("发票", "invoice", "应收", "应付", "开票"),
-     "finance", "invoice", {}),
-    (("付款", "payment", "付款单", "打款"),
-     "finance", "payment", {}),
-    (("权限", "permission", "职责分离", "角色", "授权矩阵", "sod"),
-     "masterdata", "permission", {}),
-    (("主数据", "编码", "物料主数据", "master data", "数据字典"),
-     "masterdata", "master_data", {}),
-    (("报表", "运营报表", "report", "kpi", "台账"),
-     "report", "report", {}),
-    (("发货", "delivery", "履约", "交付"),
-     "fulfillment", "delivery", {}),
-    (("销售订单", "sales order", "so", "订单承诺"),
-     "fulfillment", "sales_order", {}),
-    (("库存", "库存明细", "bin", "库存台账", "现值"),
-     "inventory", "bin", {}),
-    (("出入库", "库存交易", "stock entry", "调拨", "盘点"),
-     "inventory", "stock_entry", {}),
-    (("仓库", "warehouse", "库房"),
-     "inventory", "warehouse", {}),
-    (("物料", "item", "sku", "品号"),
-     "inventory", "item", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

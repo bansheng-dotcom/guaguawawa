@@ -292,5 +292,118 @@
       "下一步动作与时点",
       "风险与升级路径"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "faq",
+        "知识库",
+        "升级单",
+        "升级",
+        "问题证据",
+        "sop 沉淀",
+        "沉淀"
+      ],
+      "skill": "knowledge",
+      "action": "faq",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "自动化",
+        "需求卡",
+        "触发条件",
+        "审批点",
+        "字段映射",
+        "webhook"
+      ],
+      "skill": "automation",
+      "action": "automation",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "nps",
+        "问卷",
+        "反馈",
+        "voc",
+        "满意度",
+        "ces",
+        "csat 调研",
+        "调查"
+      ],
+      "skill": "voc",
+      "action": "voc",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "健康",
+        "续约",
+        "流失",
+        "风险名单",
+        "客户风险",
+        "健康分"
+      ],
+      "skill": "health",
+      "action": "health",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "客服",
+        "工单",
+        "收件箱",
+        "会话",
+        "首响",
+        "重开",
+        "chatwoot"
+      ],
+      "skill": "support",
+      "action": "inbox",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "跟进",
+        "活动",
+        "逾期",
+        "承诺",
+        "会议记录",
+        "拜访"
+      ],
+      "skill": "activity",
+      "action": "activity",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "管道",
+        "商机",
+        "pipeline",
+        "阶段",
+        "停滞",
+        "销售预测",
+        "加权"
+      ],
+      "skill": "pipeline",
+      "action": "pipeline",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "客户",
+        "联系人",
+        "公司",
+        "档案",
+        "crm",
+        "时间线",
+        "lead",
+        "线索"
+      ],
+      "skill": "crm",
+      "action": "person",
+      "defaults": {}
+    }
+  ]
 }

@@ -19,13 +19,18 @@
 """
 from __future__ import annotations
 
-# --- 运行时引导（META-001 Stage 3）：仓库根入 sys.path，修掉异构 cwd 下 ---
-# --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
+# --- 运行时引导（SOP v13.0 §5.9 动态防爆探测）---
+# 本目录 + agents 集合目录 + 仓库根同时入 sys.path，且在导入 agents/shared 之前完成。
+# 修掉「三层 dirname 误当仓库根 + 路径注入晚于 chat_cli 导入」导致本目录
+# `python agent.py` 直接起不来的历史故障（R20 L01 体检断点 #1）。
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_HERE)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in (_HERE, _AGENTS, _REPO_ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 
 import argparse
@@ -37,13 +42,8 @@ from agents.shared.chat_cli import add_chat_parser, handle_chat
 import time
 from typing import Any, Dict, List, Optional
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
-_AGENTS = os.path.dirname(_HERE)
-for _p in (_HERE, _AGENTS):
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
 from core import protocol, registry, workspace  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
@@ -53,35 +53,37 @@ import review  # noqa: E402
 import local_exec  # noqa: E402
 
 ROLE = "r20"
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 # 「删除快照/灾难切换」等不可逆词必须排在通用词之前，避免误路由到普通动作。
-_INTENT_ROUTES = [
-    (("删除快照", "删除备份", "清空快照", "灾难切换", "切换生产", "恢复生产"),
-     "dr", "rollback", {}),
-    (("rpo", "rto", "恢复点", "恢复时间", "灾难恢复", "恢复手册", "dr"),
-     "dr", "rpo_rto", {}),
-    (("回滚", "rollback", "退路", "撤销切换"), "dr", "rollback", {}),
-    (("恢复演练", "演练", "drill", "能否恢复", "恢复验证"), "restore", "drill", {}),
-    (("恢复", "restore", "还原"), "restore", "restore", {}),
-    (("快照", "snapshot", "存了哪些", "备份了多少"), "backup", "snapshot", {}),
-    (("加密", "保留策略", "排除规则", "备份仓", "备份", "restic", "repo", "backup"),
-     "backup", "backup", {}),
-    (("状态页", "组件状态", "对外状态", "statuspage"), "statuspage", "statuspage", {}),
-    (("事件", "故障通报", "事件时间线", "incident"), "statuspage", "incident", {}),
-    (("值班升级", "升级链", "escalation", "oncall"), "alert", "escalation", {}),
-    (("告警", "报警", "通知渠道", "阈值告警", "alert"), "alert", "alert", {}),
-    (("可用率", "uptime", "可用性记录", "在线率"), "monitor", "uptime", {}),
-    (("监控", "探测", "心跳", "monitor", "站点"), "monitor", "monitor", {}),
-    (("复盘", "故障复盘", "postmortem", "事故分析"), "postmortem", "postmortem", {}),
-    (("改进项", "闭环", "整改", "improvement"), "postmortem", "improvement", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
 
-_DEFAULT_ROUTE = ("monitor", "monitor", {})
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:
@@ -102,11 +104,13 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例可靠性工件")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
     _register_harness(sp)
     _register_contract(sp)
     _register_case(sp)
     _register_review(sp)
+    _register_evolve(sp)
 
     for m in SKILLS:
         m.add_parser(sp)
@@ -228,6 +232,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -279,7 +292,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return _DEFAULT_ROUTE
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -298,6 +312,160 @@ def _first_input_file(ports: List[protocol.Port]) -> Optional[str]:
         if p.kind == "data" and os.path.exists(p.name):
             return p.name
     return None
+
+
+# --------------------------------------------------------------------------- #
+# SOP v13.0 十维演进入口（L01~L10）
+# --------------------------------------------------------------------------- #
+def _register_evolve(sp) -> None:
+    ev = sp.add_parser("evolve", help="SOP v13.0 十维演进探针（L01~L10）")
+    ea = ev.add_subparsers(dest="ecmd", required=True)
+
+    p = ea.add_parser("probe", help="L01 可靠性精算沙箱体检")
+    p.add_argument("--out", default=None)
+
+    p = ea.add_parser("decompile", help="L02 复合故障诉求 → 5 阶段恢复 DAG")
+    p.add_argument("--text", required=True)
+    p.add_argument("--deadline", type=float, default=0.0)
+    p.add_argument("--out", default=None)
+    p.add_argument("--md", default=None)
+
+    p = ea.add_parser("heal", help="L03 告警归一 + Reflexion + 五条红线")
+    p.add_argument("--action", default="")
+    p.add_argument("--artifact", default="")
+    p.add_argument("--out", default=None)
+
+    p = ea.add_parser("spec", help="L04 SRE_SPEC 账本 + 8 维发布门禁")
+    p.add_argument("--artifact", default="")
+    p.add_argument("--artifact-type", default="release")
+    p.add_argument("--export-dir", default="")
+    p.add_argument("--out", default=None)
+
+    p = ea.add_parser("slop", help="L05 假大空清洗 + 量化证据 + 行动力")
+    p.add_argument("--text", required=True)
+    p.add_argument("--out", default=None)
+
+    p = ea.add_parser("scenario", help="L06 三维处置方案 + MCDA 权衡")
+    p.add_argument("--service", default="核心服务")
+    p.add_argument("--severity", default="major")
+    p.add_argument("--out", default=None)
+    p.add_argument("--md", default=None)
+
+    p = ea.add_parser("bundle", help="L07 Bundle / SARIF / Vega-Lite")
+    p.add_argument("--run-id", default="L07")
+    p.add_argument("--out-dir", default="")
+    p.add_argument("--out", default=None)
+
+    p = ea.add_parser("patch", help="L08 RFC6902 差量热修 + 不变量复核")
+    p.add_argument("--base", default="")
+    p.add_argument("--new", default="")
+    p.add_argument("--out", default=None)
+
+    p = ea.add_parser("memory", help="L09 持久记忆 + 代词消歧 + 回滚")
+    p.add_argument("--query", default="")
+    p.add_argument("--out", default=None)
+
+    p = ea.add_parser("watchdog", help="L10 熔断 / 退避 / 全链路遥测")
+    p.add_argument("--out", default=None)
+
+
+def _run_evolve(args) -> Dict[str, Any]:
+    import json as _json
+    from engines import (R20AssetBundle, R20DiffPatchEngine, R20IntentCompiler,
+                         R20ReflexiveHealer, R20RuntimeEngine, R20ScenarioMatrix,
+                         R20SessionMemory, R20SpecLedger, R20TelemetryWatchdog,
+                         SreSlopGuard)
+
+    def _dump(out: Dict[str, Any], path: Optional[str]) -> None:
+        if not path:
+            return
+        os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            _json.dump(out, f, ensure_ascii=False, indent=2)
+
+    def _dump_md(text: str, path: Optional[str]) -> None:
+        if not path:
+            return
+        os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(text)
+
+    local_ws = os.path.join(workspace.role_workspace(_HERE))
+
+    if args.ecmd == "probe":
+        out = R20RuntimeEngine().probe_health()
+        _dump(out, args.out)
+        return out
+    if args.ecmd == "decompile":
+        comp = R20IntentCompiler()
+        out = comp.compile_request(args.text, args.deadline or None)
+        _dump(out, args.out)
+        _dump_md(comp.render_markdown(out), args.md)
+        return out
+    if args.ecmd == "heal":
+        healer = R20ReflexiveHealer()
+        artifact = None
+        if args.artifact and os.path.exists(args.artifact):
+            with open(args.artifact, encoding="utf-8-sig") as f:
+                artifact = _json.load(f)
+        if artifact is not None:
+            out = healer.reflexive_loop(artifact, args.action)
+        else:
+            audit = healer.audit_redlines(args.action, None)
+            out = {"ok": not audit["blocked"], "audit": audit,
+                   "engine": healer.ENGINE, "layer": healer.LAYER}
+        _dump(out, args.out)
+        return out
+    if args.ecmd == "spec":
+        ledger = R20SpecLedger()
+        spec = ledger.load_spec()
+        out: Dict[str, Any] = {"ok": spec["ok"], "engine": ledger.ENGINE,
+                               "layer": ledger.LAYER, "spec": spec}
+        if args.export_dir:
+            out["export"] = ledger.export_gates(args.export_dir)
+        if args.artifact and os.path.exists(args.artifact):
+            with open(args.artifact, encoding="utf-8-sig") as f:
+                art = _json.load(f)
+            out["compliance"] = ledger.verify_gate_compliance(args.artifact_type, art)
+            out["ok"] = out["ok"] and out["compliance"]["ok"]
+        _dump(out, args.out)
+        return out
+    if args.ecmd == "slop":
+        out = SreSlopGuard().clean(args.text)
+        _dump(out, args.out)
+        return out
+    if args.ecmd == "scenario":
+        eng = R20ScenarioMatrix()
+        out = eng.compile_matrix(args.service, args.severity)
+        _dump(out, args.out)
+        _dump_md(eng.render_markdown(out), args.md)
+        return out
+    if args.ecmd == "bundle":
+        out_dir = args.out_dir or os.path.join(local_ws, "bundles")
+        built = R20AssetBundle(out_dir).build(args.run_id)
+        _dump({k: v for k, v in built.items() if k not in ("bundle", "sarif", "vega")}, args.out)
+        return built
+    if args.ecmd == "patch":
+        eng = R20DiffPatchEngine()
+        if args.base and args.new:
+            with open(args.base, encoding="utf-8-sig") as f:
+                old = _json.load(f)
+            with open(args.new, encoding="utf-8-sig") as f:
+                new = _json.load(f)
+            out = eng.patch_with_recheck(old, new)
+        else:
+            out = eng.demo()
+        _dump(out, args.out)
+        return out
+    if args.ecmd == "memory":
+        out = R20SessionMemory(local_ws).demo(args.query)
+        _dump(out, args.out)
+        return out
+    if args.ecmd == "watchdog":
+        out = R20TelemetryWatchdog(local_ws).probe_health()
+        _dump(out, args.out)
+        return out
+    raise SystemExit(f"unknown evolve command: {args.ecmd}")
 
 
 # --------------------------------------------------------------------------- #
@@ -361,6 +529,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "harness":
         out = _run_harness(args)
         emit_result(out)
@@ -377,6 +547,10 @@ def main() -> int:
         out = _run_review(args)
         emit_result(out)
         return 0 if out["verdict"] == "PASS" else 1
+    if args.skill == "evolve":
+        out = _run_evolve(args)
+        emit_result(out)
+        return 0 if out.get("ok", False) else 1
 
     t0 = time.time()
     result = SKILL_BY_NAME[args.skill].run(args)

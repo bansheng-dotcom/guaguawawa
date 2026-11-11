@@ -122,9 +122,12 @@ _SPACE_DECL = ("flat solid", "pure color field", "solid color field",
                "no lettering", "no typography", "do not invent",
                "不出现任何文字", "纯色空场")
 
-# 这些载体天生依赖文字排版，靠生图硬扛必然出乱码（实测：A4 信息图、C 组界面）
-_TEXT_HEAVY_MEDIA = {"infographic", "ui-screen", "comic", "character-sheet",
-                     "social-card", "storyboard", "mockup", "packaging"}
+def _text_heavy_media(th: Dict[str, Any]) -> set:
+    """文字型载体的唯一出处：thresholds.imagegen.text_policy_by_media 的键。
+
+    不再在代码里另写一份集合——否则门禁和默认值会各说各话。
+    """
+    return set((th["imagegen"].get("text_policy_by_media") or {}).keys())
 
 
 def add_parser(sp) -> None:
@@ -380,7 +383,7 @@ def _validate_prompt(data: Any) -> Dict[str, Any]:
                               "imagegen.negative_space", sev="WARN"))
 
     # 结构性硬限制：这类载体天生依赖文字，模型必出乱码/自造文案
-    if ok_tp and media in _TEXT_HEAVY_MEDIA and tp != "overlay-later":
+    if ok_tp and media in _text_heavy_media(th) and tp != "overlay-later":
         checks.append(_ck(True,
                           f"media={media!r} 天然依赖文字：模型会产出乱码标签/自造文案，"
                           f"建议 text_policy='overlay-later' 并后期排版",
@@ -1197,7 +1200,7 @@ def _compose_prompt(brief: Dict[str, Any], output_dir: Optional[str] = None,
                                      _BASE_NEG) if p)
 
     risks = list(pack["failure_modes"])
-    if media in _TEXT_HEAVY_MEDIA and tp != "overlay-later":
+    if media in _text_heavy_media(th) and tp != "overlay-later":
         risks.append("该载体依赖文字：会出乱码标签，建议 overlay-later + 后期排版")
     if not pack["resolved"]:
         risks.append("风格未登记：结果不可复现，建议先加进注册表")
@@ -1364,7 +1367,7 @@ def _dry_run_generate(brief: Dict[str, Any], output_dir: Optional[str] = None) -
 
     media = brief.get("media")
     risks = list(pack["failure_modes"])
-    if media in _TEXT_HEAVY_MEDIA and tp != "overlay-later":
+    if media in _text_heavy_media(th) and tp != "overlay-later":
         risks.append("该载体天然依赖文字：会出乱码标签，建议 overlay-later + 后期排版")
     if not pack["resolved"]:
         risks.append("风格未登记：只会把名字交给 LLM 扩写，结果不可复现")

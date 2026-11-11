@@ -23,9 +23,12 @@ from __future__ import annotations
 # --- `ModuleNotFoundError: No module named 'agents'` 的历史故障 ---
 import os as _os
 import sys as _sys
-_REPO_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
-if _REPO_ROOT not in _sys.path:
-    _sys.path.insert(0, _REPO_ROOT)
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_AGENTS = _os.path.dirname(_HERE)
+_REPO_ROOT = _os.path.dirname(_AGENTS)
+for _p in (_HERE, _AGENTS, _REPO_ROOT):
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 
 
 import argparse
@@ -44,6 +47,7 @@ for _p in (_HERE, _AGENTS):
         sys.path.insert(0, _p)
 
 from core import protocol, registry, workspace  # noqa: E402
+from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
@@ -55,7 +59,7 @@ import csv as _csv
 import tempfile as _tempfile
 
 ROLE = "r15"
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
@@ -63,46 +67,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 # 注意「报价」(quotation) 必须排在「询价」(rfq) 之前、「收货」(receipt) 排在
 # 「采购订单」(purchase_order) 之前，否则动作错配导致门禁选错（R14 踩坑同理）。
-_INTENT_ROUTES = [
-    (("报价", "供应商报价", "quotation", "sq", "比价结果"),
-     "procurement", "quotation", {}),
-    (("询价", "rfq", "request for quotation", "询比价"),
-     "procurement", "rfq", {}),
-    (("收货", "到货", "采购入库", "purchase receipt", "入库单"),
-     "procurement", "receipt", {}),
-    (("采购", "采购订单", "下单采购", "purchase order", "po", "买"),
-     "procurement", "purchase_order", {}),
-    (("供应商", "supplier", "供方"),
-     "procurement", "supplier", {}),
-    (("bom", "物料清单", "配方", "生产一件", "成品的料"),
-     "production", "bom", {}),
-    (("物料请求", "material request", "缺料", "请购", "补料"),
-     "production", "material_request", {}),
-    (("发票", "invoice", "应收", "应付", "开票"),
-     "finance", "invoice", {}),
-    (("付款", "payment", "付款单", "打款"),
-     "finance", "payment", {}),
-    (("权限", "permission", "职责分离", "角色", "授权矩阵", "sod"),
-     "masterdata", "permission", {}),
-    (("主数据", "编码", "物料主数据", "master data", "数据字典"),
-     "masterdata", "master_data", {}),
-    (("报表", "运营报表", "report", "kpi", "台账"),
-     "report", "report", {}),
-    (("发货", "delivery", "履约", "交付"),
-     "fulfillment", "delivery", {}),
-    (("销售订单", "sales order", "so", "订单承诺"),
-     "fulfillment", "sales_order", {}),
-    (("库存", "库存明细", "bin", "库存台账", "现值"),
-     "inventory", "bin", {}),
-    (("出入库", "库存交易", "stock entry", "调拨", "盘点"),
-     "inventory", "stock_entry", {}),
-    (("仓库", "warehouse", "库房"),
-     "inventory", "warehouse", {}),
-    (("物料", "item", "sku", "品号"),
-     "inventory", "item", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
 
-_DEFAULT_ROUTE = ("procurement", "purchase_order", {})
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:
@@ -123,11 +111,13 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("demo", help="生成示例 ERP 工件")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
+    add_clarify_parser(sp)
 
     _register_harness(sp)
     _register_contract(sp)
     _register_case(sp)
     _register_review(sp)
+    _register_evolve(sp)
 
     for m in SKILLS:
         m.add_parser(sp)
@@ -195,6 +185,41 @@ def _register_review(sp) -> None:
     p.add_argument("--run-id", default="")
 
 
+def _register_evolve(sp) -> None:
+    ev_p = sp.add_parser("evolve", help="十维演进元模型核心引擎调度 (L01~L10)")
+    ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
+    ev_sub.add_parser("probe", help="L01: 探测 ERP 供应链计算沙箱与健康状态")
+
+    dec_p = ev_sub.add_parser("decompile", help="L02: 意图解构与 Kahn 拓扑 DAG 编排")
+    dec_p.add_argument("--query", required=True, help="供应链采购或排产需求自然语言")
+
+    heal_p = ev_sub.add_parser("heal", help="L03: 自愈反思与红线审判")
+    heal_p.add_argument("--action", default="代付款", help="待审判的动作或策略")
+
+    spec_p = ev_sub.add_parser("spec", help="L04: 领域规格账本加载与合规校验")
+    spec_p.add_argument("--input", default=None, help="供应链数据 JSON 或留空加载 Spec")
+
+    slop_p = ev_sub.add_parser("slop", help="L05: 质感去劣化与 Anti-Slop 显著性校验")
+    slop_p.add_argument("--text", default=None, help="待审查文本")
+
+    sc_p = ev_sub.add_parser("scenario", help="L06: 多维供应链补货策略看板裂变")
+    sc_p.add_argument("--item-code", default="ITEM_STANDARD", help="物料代码")
+    sc_p.add_argument("--demand", type=float, default=1000.0, help="需求总量")
+
+    b_p = ev_sub.add_parser("bundle", help="L07: 伴生消费资产包与 SARIF/Vega 导出")
+    b_p.add_argument("--run-id", default="demo_run_01", help="运行标识")
+    b_p.add_argument("--input", default=None, help="供应链工件 JSON")
+
+    p_p = ev_sub.add_parser("patch", help="L08: RFC 6902 局部差量补丁与热修")
+    p_p.add_argument("--old", required=True, help="旧状态 JSON")
+    p_p.add_argument("--new", required=True, help="新状态 JSON")
+
+    mem_p = ev_sub.add_parser("memory", help="L09: 会话记忆与代词消歧测试")
+    mem_p.add_argument("--query", required=True, help="自然语言查询")
+
+    ev_sub.add_parser("watchdog", help="L10: 看门狗熔断器与遥测探测")
+
+
 def _run_review(args) -> Dict[str, Any]:
     result = c.load_json(args.result)
     packet = {"run_id": args.run_id, "skill": args.review_skill,
@@ -249,6 +274,15 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     intent = task.intent + " " + " ".join(params.values())
     skill_name, action, defaults = _route(intent)
+    if skill_name == "__clarify__":
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification",
+                                    "questions": defaults.get("questions", [])}))
+        return {"error": "needs_clarification",
+                "questions": defaults.get("questions", []),
+                "assumptions": defaults.get("assumptions", []),
+                "plan": defaults.get("plan")}
     mod = SKILL_BY_NAME[skill_name]
 
     out_dir = ws.artifact(task_id)
@@ -300,7 +334,8 @@ def _route(intent: str):
     for kws, skill, action, defaults in _INTENT_ROUTES:
         if any(k.lower() in low for k in kws):
             return skill, action, defaults
-    return _DEFAULT_ROUTE
+    # 关键词未命中：交给共享 L02 内核；不再静默落到默认动作。
+    return fallback_route(ROLE, intent)
 
 
 def _parse_port_params(ports: List[protocol.Port]) -> Dict[str, str]:
@@ -356,9 +391,13 @@ def _input_hash(args) -> str:
 
 
 def main() -> int:
-    _meta = role_runtime.handle_meta_command(sys.argv[1:], ROLE)
-    if _meta is not None:
-        return _meta
+    # 避让：R15 自身拥有名为 `report` 的技能 (s07_report)。
+    # 当 CLI 传入 `report report ...` 时属于 R15 自身技能调用，交由技能解析器处理；
+    # 仅当入参为元命令（如 report procurement purchase_order 等）才交由公共 meta_command。
+    if not (len(sys.argv) > 2 and sys.argv[1] == "report" and sys.argv[2] == "report"):
+        _meta = role_runtime.handle_meta_command(sys.argv[1:], ROLE)
+        if _meta is not None:
+            return _meta
 
     args = build_parser().parse_args()
 
@@ -377,6 +416,8 @@ def main() -> int:
     if args.skill == "run":
         emit_result(run_task(args.task))
         return 0
+    if args.skill == "clarify":
+        return clarify_cli(ROLE, args.intent)
     if args.skill == "harness":
         out = _run_harness(args)
         emit_result(out)
@@ -393,6 +434,80 @@ def main() -> int:
         out = _run_review(args)
         emit_result(out)
         return 0 if out["verdict"] == "PASS" else 1
+    if args.skill == "evolve":
+        from engines import (
+            ERPRuntimeEngine,
+            IntentCompiler,
+            ReflexiveHealer,
+            SpecLedger,
+            SupplySlopGuard,
+            SupplyScenarioMatrix,
+            ERPAssetBundle,
+            ERPDiffPatchEngine,
+            ERPSessionMemory,
+            ERPTelemetryWatchdog,
+        )
+        if args.subcmd == "probe":
+            eng = ERPRuntimeEngine()
+            out = eng.probe_health()
+            emit_result(out)
+            return 0 if out.get("status") == "healthy" else 1
+        elif args.subcmd == "decompile":
+            comp = IntentCompiler()
+            stages = comp.compile_intent(args.query)
+            out = {"stages": stages, "summary": comp.get_dag_summary(stages)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "heal":
+            healer = ReflexiveHealer()
+            try:
+                res = healer.check_redlines(args.action)
+                out = {"blocked": False, "action": args.action, "result": res}
+            except ValueError as e:
+                out = {"blocked": True, "action": args.action, "reason": str(e)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "spec":
+            ledger = SpecLedger()
+            out = ledger.load_spec()
+            emit_result(out)
+            return 0
+        elif args.subcmd == "slop":
+            guard = SupplySlopGuard()
+            raw_text = args.text or "整体良好，按需采购，表现良好，相关细节待定"
+            audit_res = guard.audit(raw_text)
+            emit_result(audit_res)
+            return 0
+        elif args.subcmd == "scenario":
+            sc = SupplyScenarioMatrix()
+            scenarios = sc.generate(item_code=getattr(args, "item_code", "ITEM_STANDARD"), target_demand_qty=getattr(args, "demand", 1000.0))
+            out = {"scenarios": scenarios, "markdown_table": sc.render_markdown(scenarios)}
+            emit_result(out)
+            return 0
+        elif args.subcmd == "bundle":
+            bundle_eng = ERPAssetBundle()
+            input_data = c.load_json(args.input) if getattr(args, "input", None) else None
+            paths = bundle_eng.compile_and_save(args.run_id, artifact_data=input_data)
+            emit_result({"ok": True, "run_id": args.run_id, "paths": paths})
+            return 0
+        elif args.subcmd == "patch":
+            diff_eng = ERPDiffPatchEngine()
+            old_doc = c.load_json(args.old)
+            new_doc = c.load_json(args.new)
+            patch_ops = diff_eng.create_patch(old_doc, new_doc)
+            applied = diff_eng.apply_patch(old_doc, patch_ops)
+            emit_result({"patch_ops": patch_ops, "applied": applied})
+            return 0
+        elif args.subcmd == "memory":
+            mem = ERPSessionMemory()
+            res = mem.disambiguate_query(args.query)
+            emit_result(res)
+            return 0
+        elif args.subcmd == "watchdog":
+            wd = ERPTelemetryWatchdog()
+            out = wd.probe_health()
+            emit_result(out)
+            return 0
 
     t0 = time.time()
     result = SKILL_BY_NAME[args.skill].run(args)

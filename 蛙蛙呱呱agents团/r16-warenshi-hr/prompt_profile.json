@@ -333,5 +333,156 @@
       "结论",
       "PII 脱敏说明"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "招聘",
+        "职位",
+        "候选人",
+        "录用",
+        "offer",
+        "入职",
+        "opening",
+        "applicant",
+        "job"
+      ],
+      "skill": "recruit",
+      "action": "offer",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "合同",
+        "档案",
+        "紧急联系人",
+        "附件",
+        "contract",
+        "profile",
+        "employee"
+      ],
+      "skill": "people",
+      "action": "contract",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "考勤",
+        "出勤",
+        "上班",
+        "打卡",
+        "attendance"
+      ],
+      "skill": "attendance",
+      "action": "attendance",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "请假",
+        "休假",
+        "年假",
+        "leave",
+        "调休"
+      ],
+      "skill": "attendance",
+      "action": "leave",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "绩效",
+        "评估",
+        "考核",
+        "appraisal",
+        "评分"
+      ],
+      "skill": "performance",
+      "action": "appraisal",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "目标",
+        "okr",
+        "kra",
+        "goal",
+        "进度"
+      ],
+      "skill": "performance",
+      "action": "goal",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "薪酬",
+        "工资",
+        "薪资",
+        "payroll",
+        "核算",
+        "净额",
+        "毛额"
+      ],
+      "skill": "payroll",
+      "action": "calc",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "薪酬输入",
+        "薪资输入",
+        "输入表",
+        "payroll_input"
+      ],
+      "skill": "payroll",
+      "action": "input",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "报销",
+        "费用",
+        "claim",
+        "expense",
+        "发票"
+      ],
+      "skill": "expense",
+      "action": "claim",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "福利",
+        "benefit",
+        "补贴"
+      ],
+      "skill": "expense",
+      "action": "benefit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "报表",
+        "花名册",
+        "人数",
+        "headcount",
+        "流动率",
+        "turnover"
+      ],
+      "skill": "report",
+      "action": "headcount",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "组织运营",
+        "运营指标",
+        "指标",
+        "metric"
+      ],
+      "skill": "report",
+      "action": "report",
+      "defaults": {}
+    }
+  ]
 }

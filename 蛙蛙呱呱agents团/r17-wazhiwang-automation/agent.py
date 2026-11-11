@@ -63,37 +63,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
 # 意图 → (技能, 动作, 默认参数)。供 run_task 把任务卡意图确定性路由到技能。
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
-_INTENT_ROUTES = [
-    (("审批", "approval", "人工确认", "授权", "hitel", "hitl"),
-     "approval", "approval", {}),
-    (("发布", "publish", "上线", "部署", "deploy"), "approval", "publish", {}),
-    (("集成", "saas", "api", "连接", "工作流", "节点", "workflow",
-      "integration", "node"), "integration", "workflow", {}),
-    (("凭据", "密钥", "credential", "认证", "凭证", "鉴权"),
-     "integration", "credential", {}),
-    (("webhook", "事件", "回调", "event", "触发器", "hook"),
-     "webhook", "webhook", {}),
-    (("事件日志", "事件路由", "重放", "replay"), "webhook", "event", {}),
-    (("字段", "映射", "mapping", "主键", "身份", "field"),
-     "mapping", "mapping", {}),
-    (("数据表", "table", "列", "column", "schema"), "mapping", "table", {}),
-    (("定时", "调度", "schedule", "cron", "周期", "批处理", "batch"),
-     "schedule", "schedule", {}),
-    (("补偿", "批任务", "批次", "batch_id"), "schedule", "batch", {}),
-    (("审批", "approval", "人工确认", "授权", "hitel", "hitl"),
-     "approval", "approval", {}),
-    (("发布", "publish", "上线", "部署", "deploy"), "approval", "publish", {}),
-    (("重试", "retry", "幂等", "idempotency", "死信", "dead_letter"),
-     "retry", "retry", {}),
-    (("错误工作流", "errorflow", "error workflow", "恢复手册"),
-     "retry", "errorflow", {}),
-    (("ai 节点", "ai节点", "aiagent", "大模型", "模型", "model", "意图分类"),
-     "aiworkflow", "aiagent", {}),
-    (("锚点", "anchor", "agent-anchored", "workflow-anchored"),
-     "aiworkflow", "model", {}),
-    (("审计", "audit", "执行日志", "轨迹", "operator"), "audit", "audit", {}),
-    (("执行统计", "runlog", "成功率", "执行分布"), "audit", "runlog", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 _DEFAULT_ROUTE = ("integration", "workflow", {})
 

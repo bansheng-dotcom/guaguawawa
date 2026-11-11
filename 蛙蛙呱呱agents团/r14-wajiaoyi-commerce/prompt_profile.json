@@ -392,5 +392,129 @@
       "结论",
       "异常单号"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "选品",
+        "利润测算",
+        "毛利率",
+        "选品报告"
+      ],
+      "skill": "selection",
+      "action": "score",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "签署",
+        "签名",
+        "电子签",
+        "合同签署",
+        "待签",
+        "documenso",
+        "审计包",
+        "签署人"
+      ],
+      "skill": "signature",
+      "action": "document",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "预约",
+        "时段",
+        "日历",
+        "排期预约",
+        "appointment",
+        "easyappointments"
+      ],
+      "skill": "appointment",
+      "action": "appointment",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "订阅",
+        "计量",
+        "计费",
+        "账单",
+        "用量",
+        "套餐",
+        "lago",
+        "invoice",
+        "额度"
+      ],
+      "skill": "billing",
+      "action": "plan",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "状态机",
+        "状态迁移",
+        "取消订单",
+        "履约",
+        "退款状态",
+        "订单状态"
+      ],
+      "skill": "workflow",
+      "action": "state",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "退款",
+        "refund",
+        "退钱",
+        "退单",
+        "申请退"
+      ],
+      "skill": "payment",
+      "action": "refund",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "支付意图",
+        "支付",
+        "扣款回调",
+        "stripe",
+        "payment",
+        "回调"
+      ],
+      "skill": "payment",
+      "action": "payment_intent",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "事件表",
+        "收入数据",
+        "对账",
+        "事件口径",
+        "交易事件",
+        "webhook"
+      ],
+      "skill": "revenue",
+      "action": "events",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "购物车",
+        "cart",
+        "订单",
+        "下单",
+        "order",
+        "商品",
+        "产品",
+        "价格",
+        "catalog"
+      ],
+      "skill": "order",
+      "action": "order",
+      "defaults": {}
+    }
+  ]
 }

@@ -331,5 +331,150 @@
       "运行方式",
       "验收步骤"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "幻灯片",
+        "ppt",
+        "deck",
+        "演示文稿",
+        "汇报材料"
+      ],
+      "skill": "deck",
+      "action": "plan",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "html 报告",
+        "网页报告",
+        "报告页",
+        "研究报告页"
+      ],
+      "skill": "htmlreport",
+      "action": "plan",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "小程序",
+        "miniapp",
+        "taro",
+        "weapp"
+      ],
+      "skill": "miniapp",
+      "action": "plan",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "landing",
+        "落地页",
+        "h5",
+        "收集邮箱",
+        "单页"
+      ],
+      "skill": "landing",
+      "action": "landing",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "prototype",
+        "flutter",
+        "跨端",
+        "移动",
+        "app原型",
+        "原型"
+      ],
+      "skill": "prototype",
+      "action": "prototype",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "email",
+        "邮件",
+        "模板",
+        "退订"
+      ],
+      "skill": "saas",
+      "action": "email",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "saas",
+        "多页",
+        "脚手架"
+      ],
+      "skill": "saas",
+      "action": "saas",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "slice",
+        "切片",
+        "最小",
+        "形态"
+      ],
+      "skill": "slice",
+      "action": "slice",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "mvp",
+        "最小可行",
+        "五门禁",
+        "假设"
+      ],
+      "skill": "slice",
+      "action": "mvp",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "scaffold",
+        "spec",
+        "仓库",
+        "脚手架",
+        "骨架",
+        "目录树"
+      ],
+      "skill": "scaffold",
+      "action": "scaffold",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "设计系统",
+        "设计",
+        "组件",
+        "token",
+        "令牌",
+        "设计稿"
+      ],
+      "skill": "design",
+      "action": "design",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "qa",
+        "验证",
+        "交接",
+        "测试",
+        "截图",
+        "无障碍",
+        "handoff",
+        "门禁"
+      ],
+      "skill": "qa",
+      "action": "qa",
+      "defaults": {}
+    }
+  ]
 }

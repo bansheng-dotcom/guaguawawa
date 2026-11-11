@@ -374,5 +374,202 @@
       "不通过项清单",
       "复评条件"
     ]
-  }
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "三级证据链",
+        "证据链核验",
+        "stub 扫描",
+        "孤岛工件",
+        "artifact verify"
+      ],
+      "skill": "artifact",
+      "action": "verify",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "物料核验",
+        "工件清单",
+        "materials",
+        "inventory",
+        "成品清点"
+      ],
+      "skill": "artifact",
+      "action": "inventory",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "门禁强度",
+        "门禁审计",
+        "strength",
+        "theatre",
+        "gate audit"
+      ],
+      "skill": "gate",
+      "action": "audit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "跑门禁",
+        "硬门禁",
+        "命令门禁",
+        "gate run"
+      ],
+      "skill": "gate",
+      "action": "run",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "判据对照",
+        "复评对照",
+        "criteria delta",
+        "fixed new remaining"
+      ],
+      "skill": "criteria",
+      "action": "delta",
+      "defaults": {
+        "state": {
+          "__path__": "examples/criteria_delta_state.json"
+        }
+      }
+    },
+    {
+      "when": [
+        "外置判据",
+        "验收判据",
+        "判据审查",
+        "acceptance",
+        "criteria review"
+      ],
+      "skill": "criteria",
+      "action": "review",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "验收",
+        "评审",
+        "验收评审"
+      ],
+      "skill": "criteria",
+      "action": "review",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "收敛",
+        "converge",
+        "不再下降"
+      ],
+      "skill": "quality",
+      "action": "converge",
+      "defaults": {
+        "compare": {
+          "__path__": "examples/quality_converge_v2.json"
+        }
+      }
+    },
+    {
+      "when": [
+        "禁词",
+        "质量批评",
+        "critique",
+        "完成声明",
+        "claims"
+      ],
+      "skill": "quality",
+      "action": "critique",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "单数字",
+        "数字回溯",
+        "facts trace"
+      ],
+      "skill": "facts",
+      "action": "trace",
+      "defaults": {
+        "text": {
+          "__path__": "examples/facts_trace_source.txt"
+        }
+      }
+    },
+    {
+      "when": [
+        "事实核查",
+        "数字幻觉",
+        "来源质量",
+        "facts check",
+        "幻觉"
+      ],
+      "skill": "facts",
+      "action": "check",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "保留优点",
+        "keep_list",
+        "优点标记",
+        "why_keep"
+      ],
+      "skill": "strengths",
+      "action": "mark",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "复评修改",
+        "keep 降级",
+        "recheck",
+        "change 区"
+      ],
+      "skill": "strengths",
+      "action": "recheck",
+      "defaults": {
+        "new": {
+          "__path__": "examples/strengths_recheck_new.json"
+        }
+      }
+    },
+    {
+      "when": [
+        "staged",
+        "复制资产",
+        "human ack",
+        "ack 批次"
+      ],
+      "skill": "human",
+      "action": "ack",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "批次校验",
+        "逐字回填",
+        "human ingest",
+        "edits"
+      ],
+      "skill": "human",
+      "action": "ingest",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "人工评审",
+        "评审包",
+        "human package",
+        "发起评审"
+      ],
+      "skill": "human",
+      "action": "package",
+      "defaults": {}
+    }
+  ]
 }

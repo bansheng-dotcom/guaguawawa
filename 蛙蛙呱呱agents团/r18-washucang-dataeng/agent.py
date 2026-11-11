@@ -68,27 +68,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 注意「质量/门禁」(quality) 必须排在「同步/sync」之前——质量口径词里含「数据」
 # 相关词时不能误路由到 elt（R18 猜坑：质量门禁 vs 连接同步动作错配）。
 # 同样「增量/水位」(incremental) 要排在「调度/管道」(pipeline) 之前。
-_INTENT_ROUTES = [
-    (("质量", "门禁", "空值", "重复率", "唯一性", "新鲜度", "quality", "fresh",
-      "校验数据"), "quality", "check", {}),
-    (("新鲜度", "时效", "延迟", "过期", "freshness"), "quality", "fresh", {}),
-    (("增量", "水位", "全量", "快照", "cdc", "迟到", "incremental", "watermark"),
-     "incremental", "strategy", {}),
-    (("回填", "补数", "重跑", "backfill"), "incremental", "backfill", {}),
-    (("血缘", "目录", "口径", "字段说明", "lineage", "catalog", "owner"),
-     "catalog", "lineage", {}),
-    (("目录条目", "字段类型", "登记表", "表结构"), "catalog", "entry", {}),
-    (("转换", "模型", "物化", "dbt", "model", "material", "测试声明"),
-     "transform", "model", {}),
-    (("dbt测试", "通用测试", "accepted_values", "not_null", "unique测试"),
-     "transform", "test", {}),
-    (("调度", "编排", "dag", "依赖", "任务图", "airflow", "pipeline"), "pipeline", "dag", {}),
-    (("运行状态", "任务状态", "失败任务", "重试", "task state"), "pipeline", "run", {}),
-    (("连接", "connector", "数据源", "来源", "目的地", "connection"), "elt", "connection", {}),
-    (("同步", "sync", "拉取", "抽取", "extract"), "elt", "sync", {}),
-    (("审批", "授权", "运维", "高风险", "审批单", "request"), "ops", "request", {}),
-    (("告警", "报警", "通知", "阈值告警", "alert"), "ops", "alert", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

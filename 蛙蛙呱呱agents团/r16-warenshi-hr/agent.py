@@ -65,22 +65,30 @@ SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 # 顺序即优先级：更具体的关键词靠前，_route 用小写不区分大小写匹配。
 # 注意「薪酬/工资」(payroll) 必须排在「费用/报销」(expense) 之前——报销的
 # 金额校验里含「工资」相关词时不能误路由（R16 猜坑：薪酬 vs 报销动作错配）。
-_INTENT_ROUTES = [
-    (("招聘", "职位", "候选人", "录用", "offer", "入职", "opening", "applicant",
-      "job"), "recruit", "offer", {}),
-    (("合同", "档案", "紧急联系人", "附件", "contract", "profile", "employee"),
-     "people", "contract", {}),
-    (("考勤", "出勤", "上班", "打卡", "attendance"), "attendance", "attendance", {}),
-    (("请假", "休假", "年假", "leave", "调休"), "attendance", "leave", {}),
-    (("绩效", "评估", "考核", "appraisal", "评分"), "performance", "appraisal", {}),
-    (("目标", "okr", "kra", "goal", "进度"), "performance", "goal", {}),
-    (("薪酬", "工资", "薪资", "payroll", "核算", "净额", "毛额"), "payroll", "calc", {}),
-    (("薪酬输入", "薪资输入", "输入表", "payroll_input"), "payroll", "input", {}),
-    (("报销", "费用", "claim", "expense", "发票"), "expense", "claim", {}),
-    (("福利", "benefit", "补贴"), "expense", "benefit", {}),
-    (("报表", "花名册", "人数", "headcount", "流动率", "turnover"), "report", "headcount", {}),
-    (("组织运营", "运营指标", "指标", "metric"), "report", "report", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 
 
 def emit_result(data: Dict[str, Any]) -> None:

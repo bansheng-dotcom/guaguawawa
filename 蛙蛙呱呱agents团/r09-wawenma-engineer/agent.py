@@ -69,40 +69,30 @@ DIRS = os.path.basename(_HERE)
 # 意图路由（具体关键词靠前；大小写不敏感；命中即返回）
 # 元组：(关键词组, skill, action, extra_args 默认值)
 # ---------------------------------------------------------------------------
-_INTENT_ROUTES: List[Tuple[Tuple[str, ...], str, str, Dict[str, str]]] = [
-    (("技术规格", "模块边界", "输入输出", "工程约束", "tech spec"),
-     "spec", "spec", {}),
-    (("架构", "拓扑", "服务连线", "architecture"),
-     "spec", "arch", {}),
-    (("数据库", "schema", "建表", "索引", "数据模型"),
-     "data_api", "schema", {}),
-    (("api 契约", "接口", "错误码", "endpoint", "rest"),
-     "data_api", "api", {}),
-    (("全栈", "端到端", "前端后端", "功能切片", "fullstack"),
-     "fullstack", "feature", {}),
-    (("认证", "登录", "鉴权", "auth"),
-     "fullstack", "auth", {}),
-    (("构建", "编译", "打包", "build"),
-     "crossplatform", "build", {}),
-    (("跨端", "平台差异", "flutter", "状态管理"),
-     "crossplatform", "platform", {}),
-    (("单元测试", "集成测试", "契约测试", "覆盖率", "test suite"),
-     "testing", "suites", {}),
-    (("浏览器验证", "e2e", "playwright", "关键路径"),
-     "testing", "browser", {}),
-    (("调试", "复现", "根因", "bug", "debug"),
-     "debug", "debug", {}),
-    (("性能", "重构", "热点", "剖析", "refactor"),
-     "debug", "refactor", {}),
-    (("迁移", "回滚", "migration", "数据迁移"),
-     "ops", "migration", {}),
-    (("安全审计", "cve", "依赖审计", "密钥", "security"),
-     "ops", "security", {}),
-    (("mcp", "工具服务"),
-     "special", "mcp", {}),
-    (("godot", "游戏工程", "可加载脚本"),
-     "special", "godot", {}),
-]
+def _load_intent_routes():
+    """意图路由唯一出处：prompt_profile.json 的 intent_routes（勿在代码里再写一份）。"""
+    import json as _json
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _p = os.path.join(_here, "prompt_profile.json")
+    try:
+        with open(_p, encoding="utf-8") as _f:
+            _data = _json.load(_f)
+    except (OSError, ValueError):
+        return []
+    def _defaults(d):
+        out = {}
+        for k, v in (d or {}).items():
+            if isinstance(v, dict) and "__path__" in v:
+                out[k] = os.path.join(_here, *str(v["__path__"]).split("/"))
+            else:
+                out[k] = v
+        return out
+    return [(tuple(r.get("when") or []), str(r.get("skill") or ""),
+             str(r.get("action") or ""), _defaults(r.get("defaults")))
+            for r in (_data.get("intent_routes") or [])]
+
+
+_INTENT_ROUTES = _load_intent_routes()
 _DEFAULT_ROUTE: Tuple[str, str, Dict[str, str]] = ("spec", "spec", {})
 
 
