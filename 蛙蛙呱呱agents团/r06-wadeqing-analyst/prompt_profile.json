@@ -485,7 +485,16 @@
       "time_window"
     ]
   },
-  "l2_prompt_blocks": [],
+  "l2_prompt_blocks": [
+    {
+      "name": "口径与因果",
+      "template": "先写指标定义与口径（分子/分母/时间窗/去重规则），再写结论；相关不等于因果，因果判断必须给出识别策略（对照/断点/工具变量）。"
+    },
+    {
+      "name": "数字自检",
+      "template": "每个结论必须带样本量与置信区间；同环比不可混用；异常值单独交代处理方式。"
+    }
+  ],
   "output_contract": {
     "format": "md",
     "must_include": [

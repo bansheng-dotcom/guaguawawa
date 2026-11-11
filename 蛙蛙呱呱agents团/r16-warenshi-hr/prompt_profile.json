@@ -314,7 +314,16 @@
       "time_window"
     ]
   },
-  "l2_prompt_blocks": [],
+  "l2_prompt_blocks": [
+    {
+      "name": "合规与公平",
+      "template": "只写与岗位相关的可观察证据；禁止基于年龄、性别、婚育、籍贯的推断；候选人之间不做排名，只做逐项达标判定。"
+    },
+    {
+      "name": "PII 脱敏",
+      "template": "输出前自查：身份证、手机号、住址、薪资明细一律脱敏为掩码；统计口径里的人数与薪酬必须说明是否含实习与外包。"
+    }
+  ],
   "output_contract": {
     "format": "md",
     "must_include": [

@@ -373,7 +373,16 @@
       "time_window"
     ]
   },
-  "l2_prompt_blocks": [],
+  "l2_prompt_blocks": [
+    {
+      "name": "三态一致",
+      "template": "任何结论先对齐三态：订单状态、支付状态、履约状态必须互不矛盾；金额必须守恒（原额-退款=净额）；终态不可再迁移。"
+    },
+    {
+      "name": "退款约束",
+      "template": "退款必须写清前置状态、金额比例、发起人与失败回退路径；不允许出现「已退款但订单仍待支付」这类组合。"
+    }
+  ],
   "output_contract": {
     "format": "md",
     "must_include": [
