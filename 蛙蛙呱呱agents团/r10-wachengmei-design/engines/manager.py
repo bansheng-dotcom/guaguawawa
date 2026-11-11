@@ -17,6 +17,8 @@ from .cloud_apis import (CogViewEngine, DalleEngine, DashScopeWanxEngine,
                          FluxCloudEngine, FooocusEngine, MidjourneyEngine)
 from .comfyui import ComfyUIEngine
 from .sdwebui import SDWebUIEngine
+from .command import CommandEngine
+from .placeholder_guard import guard_result
 
 
 class MockFallbackEngine(BaseImageEngine):
@@ -109,6 +111,8 @@ class EngineManager:
             "midjourney": MidjourneyEngine(),
             "wanx": DashScopeWanxEngine(),
             "cogview": CogViewEngine(),
+            # 自定义命令引擎：设 R10_IMAGE_CMD 即可接自有生成器（MCP/CLI/带鉴权脚本）
+            "custom": CommandEngine(),
         }
         self.fallback = MockFallbackEngine()
 
@@ -144,7 +148,12 @@ class EngineManager:
             if eng and eng.probe(timeout=1.0).online:
                 return eng
 
-        # 2. 本地高阶引擎优先 (ComfyUI > SD-WebUI > Fooocus)
+        # 2. 显式配置的自定义命令引擎优先（用户自己接的生成器）
+        custom = self.engines.get("custom")
+        if custom is not None and custom.probe(timeout=1.0).online:
+            return custom
+
+        # 3. 本地高阶引擎优先 (ComfyUI > SD-WebUI > Fooocus)
         for local_name in ["comfyui", "sdwebui", "fooocus"]:
             eng = self.engines[local_name]
             if eng.probe(timeout=1.0).online:
@@ -167,7 +176,8 @@ class EngineManager:
     ) -> EngineGenResult:
         """统一调度执行生图。"""
         engine = self.select_best_engine(preferred=preferred_engine)
-        return engine.generate(task, output_dir=output_dir)
+        # 占位图防护：接口回占位（stub）时判失败，绝不把假图当成品
+        return guard_result(engine.generate(task, output_dir=output_dir), engine.name)
 
 
 # 全局单例管理器

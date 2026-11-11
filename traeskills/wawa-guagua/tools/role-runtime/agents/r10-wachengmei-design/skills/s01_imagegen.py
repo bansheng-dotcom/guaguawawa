@@ -558,9 +558,15 @@ def _score_images(directory: str) -> Dict[str, Any]:
                         ok=False, verdict="FAIL")
 
     rows = []
+    try:
+        from engines.placeholder_guard import is_placeholder_file
+    except Exception:  # noqa: BLE001
+        def is_placeholder_file(_p):  # type: ignore
+            return False
     for fn in files:
         p = os.path.join(directory, fn)
-        row = {"file": fn, "bytes": os.path.getsize(p)}
+        row = {"file": fn, "bytes": os.path.getsize(p),
+               "placeholder_md5": is_placeholder_file(p)}
         try:
             im = Image.open(p).convert("RGB")
             a = np.asarray(im).astype(np.int32)
@@ -573,7 +579,7 @@ def _score_images(directory: str) -> Dict[str, Any]:
             row.update({
                 "w": im.width, "h": im.height,
                 "aspect": round(im.width / im.height, 2),
-                "placeholder": gray_std < 8.0,
+                "placeholder": bool(row.get("placeholder_md5")) or gray_std < 8.0,
                 "palette_c90": int(np.searchsorted(cum, 0.90) + 1),
             })
         except Exception as exc:  # noqa: BLE001
@@ -1225,6 +1231,8 @@ _ENGINE_WIRING = {
                 "example": "ZHIPUAI_API_KEY=..."},
     "midjourney": {"kind": "cloud", "enable": "MIDJOURNEY_API_KEY",
                    "example": "MIDJOURNEY_API_KEY=..."},
+    "custom": {"kind": "command", "enable": "R10_IMAGE_CMD",
+               "example": "R10_IMAGE_CMD=python D:/my_gen.py"},
 }
 
 

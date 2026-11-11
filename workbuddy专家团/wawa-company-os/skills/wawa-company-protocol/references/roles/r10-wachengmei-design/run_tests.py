@@ -344,6 +344,39 @@ def main() -> int:
             "design language inspired by Linear" in cr["prompt"]
             and bool(cr.get("reference")))
 
+    # 占位图防护 + 自定义命令引擎
+    from engines import placeholder_guard as pg  # noqa: E402
+    from engines.command import CommandEngine  # noqa: E402
+    _ph_dir = tempfile.mkdtemp(prefix="r10_ph_")
+    _gray = os.path.join(_ph_dir, "gray.png")
+    Image.new("RGB", (64, 64), (242, 242, 242)).save(_gray)
+    t.check("占位图被识别（低方差）", pg.is_placeholder_file(_gray) is True)
+    t.check("真实图不被误判",
+            pg.is_placeholder_file(_ex("poster.json")) is False)
+
+    class _R:
+        ok = True
+        image_paths = [_gray]
+        error = ""
+    _guarded = pg.guard_result(_R(), "stub-engine")
+    t.check("引擎返回占位图时判失败", _guarded.ok is False and bool(_guarded.error))
+
+    # 自定义命令引擎：未配置时离线；配置后能收 JSON 并写图
+    os.environ.pop("R10_IMAGE_CMD", None)
+    t.check("未配置 R10_IMAGE_CMD 时引擎离线",
+            CommandEngine().probe().online is False)
+    _gen_script = os.path.join(_ph_dir, "gen.py")
+    with open(_gen_script, "w", encoding="utf-8") as f:
+        f.write("import json,sys\nfrom PIL import Image\n"
+                "d=json.load(sys.stdin)\nImage.new('RGB',(32,32),(10,120,60)).save(d['out'])\n")
+    os.environ["R10_IMAGE_CMD"] = f'"{sys.executable}" "{_gen_script}"'
+    _eng = CommandEngine()
+    t.check("配置后命令引擎在线", _eng.probe().online is True)
+    from engines.base import ImageGenTask  # noqa: E402
+    _gr = _eng.generate(ImageGenTask(prompt="x"), _ph_dir)
+    t.check("命令引擎按 out 写图", _gr.ok and os.path.isfile(_gr.image_paths[0]))
+    os.environ.pop("R10_IMAGE_CMD", None)
+
     # 灵感检索：站点清单 + 计划 + 版权规则
     _sites = s01_imagegen._load_sites()
     t.check("灵感站点 ≥35", len(_sites.get("sites", [])) >= 35,
@@ -391,12 +424,12 @@ def main() -> int:
 
     # 引擎接口清单：必须给得出 env 开关，方便用户自己接
     eg = s01_imagegen._engines_help()
-    t.check("引擎清单覆盖 8 个", eg["ok"] and len(eg["engines"]) == 8,
+    t.check("引擎清单覆盖 9 个", eg["ok"] and len(eg["engines"]) == 9,
             str(len(eg.get("engines", []))))
     t.check("引擎清单带 env 接入开关",
             all(e["env"] for e in eg["engines"]))
     t.check("引擎清单区分本地/云端",
-            {e["kind"] for e in eg["engines"]} == {"local", "cloud"})
+            {e["kind"] for e in eg["engines"]} == {"local", "cloud", "command"})
 
     # edit / explore 也不许拿 mock 当交付物
     if not eng_now["available"]:
