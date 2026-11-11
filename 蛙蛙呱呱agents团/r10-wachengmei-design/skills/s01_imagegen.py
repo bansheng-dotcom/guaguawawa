@@ -253,7 +253,8 @@ def run(args) -> Dict[str, Any]:
             out.update(degraded=True, degraded_reason="无可用生图引擎，已自动走提示词路线",
                        engine_required=False,
                        next="复制 Prompt/Negative 去外部工具；想直接出图执行 "
-                            "`python agent.py imagegen engines` 看接入方式")
+                            "`python agent.py imagegen engines` 看接入方式；"
+                            "不要拿 render poster 的 SVG 模板当图片交付")
             return out
         if getattr(args, "explore", False):
             # 启动 Multi-Stylescape 模式
@@ -1369,7 +1370,8 @@ def _mock_block(engine: Any, steps_log: Optional[List[Dict[str, Any]]] = None) -
         engine_used=name, route_menu=True, options=_ROUTES, recommended="1",
         steps_log=steps_log or [],
         next="没有真实引擎：先用 `imagegen compose` 拿提示词，"
-             "或启动 ComfyUI(8188)/SD-WebUI(7860 --api) 后重试")
+             "或启动 ComfyUI(8188)/SD-WebUI(7860 --api) 后重试；"
+             "render poster 出的是确定性模板，不能当图片交付")
 
 
 def _run_full_generation_pipeline(brief: Dict[str, Any], preferred_engine: Optional[str] = None, output_dir: Optional[str] = None) -> Dict[str, Any]:

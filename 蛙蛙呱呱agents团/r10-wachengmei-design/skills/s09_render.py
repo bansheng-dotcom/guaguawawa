@@ -72,7 +72,12 @@ def run(args) -> Dict[str, Any]:
             out_path = getattr(args, "output", None) or (args.input.rsplit(".", 1)[0] + ".svg")
             c.write_text(out_path, svg)
             out["artifact"] = out_path
-            out["next"] = f"宣传图已渲染：{out_path}"
+            # 明确标注：这是确定性模板，不是 AI 生成图。防止被当成交付级视觉成品。
+            out["deterministic"] = True
+            out["not_ai_generated"] = True
+            out["template"] = True
+            out["next"] = (f"版式模板已渲染：{out_path}"
+                           "（确定性 SVG，不是 AI 生成图；要图片请走 imagegen compose 出提示词）")
         return out
     return {"error": f"未知动作: {args.action}"}
 
@@ -115,6 +120,10 @@ def _validate_poster(data: Any) -> Dict[str, Any]:
     checks.append(_ck(subject in _VALID_SUBJECT,
                       f"subject={subject!r} 在白名单 {sorted(_VALID_SUBJECT)}",
                       "poster.subject"))
+    if subject == "generic":
+        checks.append(c.ck(True, "subject=generic：这是通用版式模板，不是真实产品图，"
+                                 "别当交付级视觉成品", "poster.subject.generic",
+                           sev="WARN"))
 
     points = data.get("selling_points")
     if not isinstance(points, list) or len(points) != 3:
@@ -171,10 +180,28 @@ def render_poster(data: Dict[str, Any]) -> str:
     th = _THEMES[data["theme"]]
     title = _esc(data["title"])
     subtitle = _esc(data["subtitle"])
-    brand = _esc(data.get("brand", "LINGXI"))
-    brandline = _esc(data.get("brandline", "LINGXI · PRO"))
+    # 不再默认写死 "LINGXI · PRO"：没给品牌就不画品牌行，避免看起来像成品
+    brand = _esc(str(data.get("brand") or ""))
+    brandline = _esc(str(data.get("brandline") or data.get("brand") or ""))
     subject = data.get("subject", "mouse")
     pts = data.get("selling_points", [])
+
+    # 品牌行与页脚：品牌为空时整段不输出
+    brand_el = (
+        '<text x="600" y="96" fill="' + th["accent"]
+        + '" font-size="22" letter-spacing="10">' + brandline + "</text>"
+    ) if brandline else ""
+    footer_el = (
+        '<text x="600" y="1156" fill="' + th["muted"]
+        + '" font-size="18" letter-spacing="3">'
+        + (brand + " · " + title if brand else title) + "</text>"
+    )
+    # 明确水印：这是确定性模板，不是 AI 生成图
+    watermark_el = (
+        '<text x="1176" y="1188" text-anchor="end" fill="' + th["muted"]
+        + '" font-size="16" letter-spacing="2" opacity="0.7">'
+        + "R10 确定性模板 · 非 AI 生成</text>"
+    )
 
     pills = ""
     x0 = 150
@@ -226,7 +253,7 @@ def render_poster(data: Dict[str, Any]) -> str:
   </g>
 
   <g text-anchor="middle" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
-    <text x="600" y="96" fill="{accent}" font-size="22" letter-spacing="10">{brandline}</text>
+    {brand_el}
     <text x="600" y="168" fill="{th['text']}" font-size="92" font-weight="700" letter-spacing="4">{title}</text>
     <text x="600" y="232" fill="{th['muted']}" font-size="30" letter-spacing="6">{subtitle}</text>
   </g>
@@ -240,7 +267,8 @@ def render_poster(data: Dict[str, Any]) -> str:
   {pills}
 
   <g text-anchor="middle" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
-    <text x="600" y="1156" fill="{th['muted']}" font-size="18" letter-spacing="3">{brand} · {title}</text>
+    {footer_el}
+    {watermark_el}
   </g>
 </svg>
 """

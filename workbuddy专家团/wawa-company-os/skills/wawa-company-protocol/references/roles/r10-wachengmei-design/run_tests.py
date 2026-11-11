@@ -544,6 +544,20 @@ def main() -> int:
     t.check("poster 主题枚举齐全", set(s09_render._theme()["themes"]) ==
             {"tech-blue", "brand-yellow", "minimal"})
 
+    # 版式模板不得冒充成品：没给品牌就不画品牌行，且必须带"非 AI 生成"水印
+    _plain = {"title": "T", "subtitle": "S", "theme": "minimal", "subject": "generic",
+              "selling_points": [{"title": "a", "desc": "b"},
+                                 {"title": "c", "desc": "d"},
+                                 {"title": "e", "desc": "f"}]}
+    _svg = s09_render.render_poster(_plain)
+    t.check("poster 不再写死默认品牌 LINGXI", "LINGXI" not in _svg)
+    t.check("poster 带『非 AI 生成』水印", "非 AI 生成" in _svg)
+    _tmp_svg = os.path.join(tempfile.mkdtemp(prefix="r10_poster_"), "p.svg")
+    _res = s09_render.run(argparse.Namespace(
+        action="poster", input=_ex("poster.json"), output=_tmp_svg))
+    t.check("poster 结果标注 deterministic/template",
+            _res.get("deterministic") is True and _res.get("template") is True)
+
     t.section("T6 契约")
     names = contracts.skill_names()
     t.check("契约覆盖 14 技能", len(names) == 14, str(len(names)))
