@@ -29,7 +29,9 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 _AGENTS = os.path.dirname(_HERE)
 _REPO = os.path.dirname(_AGENTS)
 
-LOG_DIR = os.path.join(_AGENTS, "workspace", "logs")
+from core.workspace import default_root  # noqa: E402
+
+LOG_DIR = os.path.join(default_root(), "logs")
 
 
 def bootstrap() -> None:
@@ -246,7 +248,7 @@ def handle_meta_command(argv: List[str], role: str) -> Optional[int]:
     if not isinstance(result, dict):
         result = {"ok": True, "value": result}
 
-    out_dir = os.path.join(_AGENTS, "workspace", "reports", role,
+    out_dir = os.path.join(default_root(), "reports", role,
                            f"{skill}-{action}")
     res = run_and_report(role=role, name=profile["name"],
                          title=profile["title"], skill=skill, action=action,

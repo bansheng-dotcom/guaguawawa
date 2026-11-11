@@ -1,0 +1,23 @@
+{
+  "_comment": "反例：度量聚合用了自创值 sum_of（不在白名单）+ 维度类型 timex → harness semantic 必须判不通过",
+  "semantic_models": [
+    {
+      "name": "orders",
+      "model": "fct_orders",
+      "description": "订单表",
+      "entities": [
+        {"name": "order", "type": "primary", "expr": "order_id", "description": "订单主键"}
+      ],
+      "dimensions": [
+        {"name": "created_date", "type": "timex", "expr": "date", "description": "下单日期"}
+      ],
+      "measures": [
+        {"name": "total_amount", "agg": "sum_of", "expr": "amount", "description": "订单总金额", "unit": "元"}
+      ]
+    }
+  ],
+  "metrics": [
+    {"name": "monthly_revenue", "label": "月度收入", "type": "simplex",
+     "type_params": {"measure": {"name": "total_amount"}}}
+  ]
+}

@@ -13,6 +13,8 @@ from __future__ import annotations
 import datetime
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 from typing import Any, Dict, List, Optional
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -23,7 +25,7 @@ class VisualAssetBundle:
     """L07 视觉资产伴生消费打包器。"""
 
     def __init__(self, workspace_bundles_dir: Optional[str] = None):
-        self.bundles_dir = workspace_bundles_dir or os.path.join(AGENT_DIR, "workspace", "bundles")
+        self.bundles_dir = workspace_bundles_dir or os.path.join(role_workspace(AGENT_DIR), "bundles")
         os.makedirs(self.bundles_dir, exist_ok=True)
 
     def export_bundle(self, bundle_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:

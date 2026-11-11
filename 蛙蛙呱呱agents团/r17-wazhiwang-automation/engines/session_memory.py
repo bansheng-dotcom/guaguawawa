@@ -17,11 +17,13 @@ import copy
 import datetime
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import re
 from typing import Any, Dict, List, Optional
 
 _HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_WS = os.path.join(_HERE, "workspace")
+_WS = os.path.join(role_workspace(_HERE))
 SESSION_FILE = os.path.join(_WS, "session_state.json")
 
 

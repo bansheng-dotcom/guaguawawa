@@ -1,34 +1,9 @@
-# 品牌一致性守卫
+品牌一致性守卫（capability: brand-guardian）
 
-> 归属：R10　消费：r04, r11, r12　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
 
-## 定位
-
-把产物与品牌令牌对比：颜色、字体、对比度、用色数量。
-
-## 怎么用
-
-- 命令：`python agent.py brandcheck check`
-- 确定性技能：规则与门禁已写进代码，直接跑即可。
-
-## 执行步骤
-
-1. 颜色必须来自 DESIGN.md 令牌（或在其容差内）
-2. 字体族必须是令牌内字体
-3. 正文对比度 ≥4.5，大字 ≥3.0
-4. 单页主色不超过 3 个
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py brandcheck check`）
+- 夹具：`tests/brand-pass.json` / `tests/brand-fail.json`（以 `../../../DESIGN.md` 令牌为基准）
+- 门禁自检：`scripts/gate_selftest.py`（实测 2/2）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py brandcheck check`，本包不重复实现

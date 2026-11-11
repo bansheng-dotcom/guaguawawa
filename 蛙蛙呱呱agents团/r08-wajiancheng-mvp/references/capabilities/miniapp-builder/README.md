@@ -1,34 +1,9 @@
-# 小程序工程脚手架
+小程序工程脚手架（capability: miniapp-builder）
 
-> 归属：R08　消费：r09, r17　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
 
-## 定位
-
-把多页小程序规格变成可运行工程骨架（Taro + React 语法）。
-
-## 怎么用
-
-- 命令：`python agent.py miniapp plan / scaffold`
-- 确定性技能：规则与门禁已写进代码，直接跑即可。
-
-## 执行步骤
-
-1. 页数 2–20，路径形如 pages/a/b 且不重复
-2. tabBar 2–5 项且页面已声明
-3. 目标目录非空需 --force
-4. 只生成骨架，不拉依赖、不发布
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py miniapp plan`）
+- 夹具：`tests/miniapp-pass.json` / `tests/miniapp-fail.json`（中文名 + tabbar 悬空）
+- 门禁自检：`scripts/gate_selftest.py`（实测 2/2）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py miniapp`（plan / scaffold），本包不重复实现

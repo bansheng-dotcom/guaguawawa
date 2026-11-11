@@ -14,6 +14,8 @@
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 import time
 import unittest
@@ -32,7 +34,7 @@ from engines.telemetry_watchdog import (CircuitBreaker, CircuitOpenError,  # noq
                                         RetryPolicy, RetryExhausted, TaskTimeout,
                                         TelemetryTracer, WatchdogRunner)
 
-TMP = os.path.join(_ROLE, "workspace", "tmp")
+TMP = os.path.join(role_workspace(_ROLE), "tmp")
 
 
 def _ensure_tmp():

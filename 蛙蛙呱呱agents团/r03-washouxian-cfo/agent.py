@@ -34,6 +34,8 @@ from agents.shared import role_runtime
 import argparse  # 统一元命令/报告
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 from agents.shared.chat_cli import add_chat_parser, handle_chat
 from typing import Any, Dict
@@ -267,7 +269,7 @@ def main(argv=None) -> int:
         from agents.shared.report_generator import generate_professional_report
         from agents.shared.role_profiles import get as get_profile
         
-        out_dir = getattr(args, "out_dir", None) or os.path.join(os.path.dirname(__file__), "workspace", "deep_report")
+        out_dir = getattr(args, "out_dir", None) or os.path.join(role_workspace(os.path.dirname(__file__)), "deep_report")
         res = run_deep_analysis(args.input)
         
         profile = get_profile(ROLE)

@@ -3,9 +3,11 @@
 """
 import os
 import json
-from typing import Dict, List
+from typing import Any, Dict, List
 
-COCKPIT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "workspace", "cockpit")
+from .workspace import default_root
+
+COCKPIT_DIR = os.path.join(default_root(), "cockpit")
 
 def list_pending_approvals() -> List[Dict[str, Any]]:
     """列出所有待创始人签字的 EVOLUTION_PROPOSAL 或重大决策。"""

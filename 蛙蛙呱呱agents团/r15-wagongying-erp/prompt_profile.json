@@ -336,6 +336,14 @@
     "report.report": [
       "metric",
       "time_window"
+    ],
+    "tco.compare": [
+      "scope",
+      "time_window"
+    ],
+    "tco.lifecycle": [
+      "scope",
+      "time_window"
     ]
   },
   "l2_prompt_blocks": [],

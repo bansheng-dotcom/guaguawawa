@@ -1,1 +1,0 @@
-{"trace_id": "trace_ceo_1794211131711_73f18ebd", "role": "r01", "action": "telemetry_healthcheck", "timestamp": 1794211131.7116804, "input_sha256": "73f18ebdfb9ad916", "status": "SUCCESS", "latency_ms": 1.2, "extra": {}}

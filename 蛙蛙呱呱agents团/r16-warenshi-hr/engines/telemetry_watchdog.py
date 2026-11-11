@@ -18,13 +18,15 @@ import datetime
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import time
 import uuid
 from typing import Any, Callable, Dict, Optional
 
 _HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_WS = os.path.join(_HERE, "workspace")
+_WS = os.path.join(role_workspace(_HERE))
 TELEMETRY_LOG = os.path.join(_WS, "telemetry.jsonl")
 
 

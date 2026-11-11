@@ -1,8 +1,0 @@
-{
-  "error_workflow_id": "wf_err_123",
-  "target_workflow_id": "wf_main",
-  "published": true,
-  "error_trigger_active": true,
-  "per_target": true,
-  "notification": true
-}

@@ -17,6 +17,8 @@ import time
 import uuid
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
+from core.workspace import role_workspace
+
 
 class TelemetryLogger:
     """结构化遥测日志记录器"""
@@ -24,7 +26,8 @@ class TelemetryLogger:
     def __init__(self, log_path: Optional[str] = None) -> None:
         if log_path is None:
             here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            log_path = os.path.join(here, "telemetry.jsonl")
+            log_path = os.path.join(role_workspace(here), "telemetry.jsonl")
+            os.makedirs(os.path.dirname(log_path), exist_ok=True)
         self.log_path = log_path
 
     def log_event(self, action: str, status: str, elapsed_ms: int, trace_id: Optional[str] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:

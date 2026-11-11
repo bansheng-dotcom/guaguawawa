@@ -9,6 +9,8 @@
 from __future__ import annotations
 
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 from typing import Any, Dict, List, Optional
 
@@ -86,7 +88,7 @@ class VisualRuntimeEngine:
 
     def execute_render(self, prompt: str, style: str = "commercial-photography", width: int = 512, height: int = 512, output_dir: Optional[str] = None) -> EngineGenResult:
         """执行确定性视觉渲染。"""
-        out_dir = output_dir or os.path.join(AGENT_DIR, "workspace", "artifacts")
+        out_dir = output_dir or os.path.join(role_workspace(AGENT_DIR), "artifacts")
         os.makedirs(out_dir, exist_ok=True)
         task = ImageGenTask(prompt=prompt, width=width, height=height, style=style)
         eng = self.manager.select_best_engine()

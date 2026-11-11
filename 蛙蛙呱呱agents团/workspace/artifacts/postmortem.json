@@ -1,8 +1,0 @@
-{
-  "postmortem_id": "pm-001",
-  "severity": "sev2",
-  "timeline": "10:00 告警；10:05 定位；10:30 修复",
-  "root_cause": "数据库连接池耗尽",
-  "impact": "API 不可用 30 分钟",
-  "actions": "加大连接池+加告警"
-}

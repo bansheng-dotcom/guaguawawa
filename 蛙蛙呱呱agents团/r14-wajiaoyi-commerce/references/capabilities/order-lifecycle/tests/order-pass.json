@@ -1,0 +1,14 @@
+{
+  "_comment": "正例：三态自洽（已完成 / 已收款 / 已送达）+ 总额 > 0 → harness order 应通过",
+  "id": "ord_20261111_0001",
+  "status": "completed",
+  "payment_status": "captured",
+  "fulfillment_status": "delivered",
+  "total": 1046.0,
+  "currency": "CNY",
+  "lines": [
+    {"sku": "SKU-A", "qty": 2, "unit_price": 423.0},
+    {"sku": "SKU-B", "qty": 1, "unit_price": 200.0}
+  ],
+  "idempotency_key": "ord_20261111_0001:capture:1"
+}

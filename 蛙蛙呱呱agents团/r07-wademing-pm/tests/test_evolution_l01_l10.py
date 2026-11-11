@@ -5,6 +5,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import sys
 import time
@@ -42,7 +44,7 @@ from engines.telemetry_watchdog import self_test as watchdog_self_test  # noqa: 
 from engines.telemetry_watchdog import CLOSED, HALF_OPEN, OPEN  # noqa: E402
 from skills import s03_prd  # noqa: E402
 
-TMP_ROOT = os.path.join(HERE, "workspace", "tmp")
+TMP_ROOT = os.path.join(role_workspace(HERE), "tmp")
 
 
 class TestEvolutionRound1(unittest.TestCase):

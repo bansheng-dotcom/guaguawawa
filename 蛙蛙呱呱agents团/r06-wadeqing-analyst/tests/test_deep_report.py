@@ -10,6 +10,8 @@
 from __future__ import annotations
 
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -20,10 +22,10 @@ for _p in (ROLE, AGENTS, REPO):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-import deep_report  # noqa: E402
+from pipelines import deep_report  # noqa: E402
 from agents.shared.report_generator import generate_professional_report, validate_spec  # noqa: E402
 
-WS = os.path.join(ROLE, "workspace")
+WS = os.path.join(role_workspace(ROLE))
 SERIES_CSV = os.path.join(WS, "parking_profit_12m.csv")
 CROSS_CSV = os.path.join(WS, "parking_profit.csv")
 

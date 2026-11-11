@@ -1,33 +1,10 @@
-# 生产级 Web 界面
+# Web 应用构建（capability: web-app-development）
 
-> 归属：R09　消费：r08, r10　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
+> 本文件仅保留旧路径指针，供 `guagua.py capabilities --probe` 与历史链接继续可用。
 
-## 定位
-
-生产级界面的实现与审查要点：语义化、响应式、性能与可访问性。
-
-## 怎么用
-
-- 规范形式内化：按下面步骤执行，产物走角色 harness 验收。
-
-## 执行步骤
-
-1. 语义化标签与键盘可达是底线，不靠 div 堆
-2. 响应式断点按内容断，不按设备断
-3. 首屏资源预算写清楚（体积/请求数）
-4. 审查清单：对比度、焦点、表单错误、空状态
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py spec spec`）
+- 知识层：`references/web-app-delivery.md`（契约表 / 端到端切片四段 / 鉴权三规则 / 依赖方向 / 材料四件）
+- 门禁自检：`scripts/gate_selftest.py`（正例 3 + 反例 3，实测 6/6）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py spec|fullstack` 与 `harness.py materials|testreport`，本包不重复实现

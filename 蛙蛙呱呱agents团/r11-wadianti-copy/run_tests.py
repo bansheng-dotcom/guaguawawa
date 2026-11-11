@@ -16,8 +16,16 @@ import argparse
 import copy
 import json
 import os
+
 import subprocess
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -287,7 +295,7 @@ def main() -> int:
     t.check("plan 缺字段拦截", not pb["ok"] and pb.get("grade") == "FAIL")
 
     t.section("harness 确定性验证器")
-    tmp = os.path.join(HERE, "workspace", "tmp", "harness_test")
+    tmp = os.path.join(role_workspace(HERE), "tmp", "harness_test")
     os.makedirs(tmp, exist_ok=True)
     good_article_path = os.path.join(tmp, "article.json")
     c.write_json(good_article_path, article)

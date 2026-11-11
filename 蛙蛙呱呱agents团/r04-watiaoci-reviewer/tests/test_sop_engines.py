@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """SOP 演进统一自测与全量回归套件。"""
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 import unittest
 
@@ -104,7 +106,7 @@ class TestSOPEvolutionEngines(unittest.TestCase):
         self.assertEqual(res["suppressed_count"], 1)
 
     def test_r09_session_memory(self):
-        state_path = os.path.join(_HERE, "workspace", "test_sop_mem.json")
+        state_path = os.path.join(role_workspace(_PARENT), "test_sop_mem.json")
         mem = SessionMemoryEngine("unit_test", state_file=state_path)
         mem.current_state["last_inspected_target"] = "agent.py"
         v1 = mem.checkpoint("Initial")

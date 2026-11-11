@@ -1,0 +1,14 @@
+{
+  "_comment": "反例：语义模型三个部分全空（结构合法、实质无法算指标）→ 2026-11-11 补非空校验后必须 FAIL",
+  "semantic_models": [
+    {
+      "name": "orders",
+      "model": "fct_orders",
+      "description": "只有名字",
+      "entities": [],
+      "dimensions": [],
+      "measures": []
+    }
+  ],
+  "metrics": []
+}

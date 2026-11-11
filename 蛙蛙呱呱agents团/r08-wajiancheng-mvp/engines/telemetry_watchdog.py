@@ -16,6 +16,8 @@ import random
 import time
 from typing import Any, Callable, Dict, List, Optional
 
+from core.workspace import role_workspace
+
 
 class WatchdogBreaker:
     """看门狗熔断器：状态机 (CLOSED -> OPEN -> HALF_OPEN)。"""
@@ -70,8 +72,7 @@ class TelemetryTracer:
     def __init__(self, telemetry_file: Optional[str] = None):
         if telemetry_file is None:
             telemetry_file = os.path.join(
-                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                "workspace",
+                role_workspace(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                 "telemetry.jsonl",
             )
         self.telemetry_file = telemetry_file

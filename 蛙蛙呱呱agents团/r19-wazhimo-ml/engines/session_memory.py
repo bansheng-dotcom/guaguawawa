@@ -27,6 +27,8 @@ import copy
 import datetime
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import re
 import sys
 from typing import Any, Dict, List, Optional
@@ -80,7 +82,7 @@ class R19SessionMemory:
 
     def __init__(self, workspace_dir: Optional[str] = None,
                  state_path: Optional[str] = None):
-        ws = workspace_dir or os.path.join(_ROLE, "workspace")
+        ws = workspace_dir or os.path.join(role_workspace(_ROLE))
         self.state_path = state_path or os.path.join(ws, "session_state.json")
         self.state = self._load()
 

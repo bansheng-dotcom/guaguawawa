@@ -301,6 +301,66 @@
     "render.theme": [
       "platform",
       "style"
+    ],
+    "designsys.list": [
+      "topic",
+      "platform"
+    ],
+    "designsys.recommend": [
+      "topic",
+      "platform"
+    ],
+    "designsys.show": [
+      "topic",
+      "platform"
+    ],
+    "designsys.apply": [],
+    "designsys.audit": [
+      "topic",
+      "platform"
+    ],
+    "aihive.probe": [],
+    "aihive.preview": [],
+    "aihive.generate": [
+      "topic",
+      "platform"
+    ],
+    "aihive.task": [],
+    "h3prompt.build": [
+      "topic",
+      "platform"
+    ],
+    "h3prompt.audit": [
+      "topic",
+      "platform"
+    ],
+    "brandcheck.check": [
+      "topic",
+      "platform"
+    ],
+    "imgops.info": [
+      "topic",
+      "platform"
+    ],
+    "imgops.resize": [
+      "topic",
+      "platform"
+    ],
+    "imgops.crop": [
+      "topic",
+      "platform"
+    ],
+    "imgops.compress": [
+      "topic",
+      "platform"
+    ],
+    "imgops.pad": [
+      "topic",
+      "platform"
+    ],
+    "imgops.watermark": [
+      "topic",
+      "platform"
     ]
   },
   "l2_prompt_blocks": [

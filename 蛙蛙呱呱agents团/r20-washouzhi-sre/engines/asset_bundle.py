@@ -25,6 +25,8 @@ import datetime
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 from typing import Any, Dict, List
 
@@ -200,7 +202,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out-dir", default=None)
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
-    out_dir = args.out_dir or os.path.join(_ROLE, "workspace", "bundles")
+    out_dir = args.out_dir or os.path.join(role_workspace(_ROLE), "bundles")
     built = R20AssetBundle(out_dir).build(args.run_id)
     if args.out:
         os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)

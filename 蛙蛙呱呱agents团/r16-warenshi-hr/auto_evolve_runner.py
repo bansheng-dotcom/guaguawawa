@@ -27,8 +27,16 @@ import argparse
 import datetime
 import json
 import os
+
 import subprocess
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 import time
 from typing import Any, Dict, List, Optional
 
@@ -51,7 +59,7 @@ for p in (HERE, AGENTS, REPO_ROOT):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-WS = os.path.join(HERE, "workspace")
+WS = os.path.join(role_workspace(HERE))
 STATE_FILE = os.path.join(WS, "evolution_state.json")
 
 # 10 轮阶梯元模型定义（特化于 R16 蛙人事 · 人力资源与组织运营官）

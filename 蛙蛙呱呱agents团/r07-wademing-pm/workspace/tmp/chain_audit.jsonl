@@ -1,2 +1,0 @@
-{"schema": "pm.telemetry/v1", "service": "t", "trace_id": "t1t1t1t1t1t1t1t1t1t1t1t1t1t1t1t1", "span_id": "dddddddddddddddd", "parent_span_id": null, "name": "s", "status": "OK", "duration_ms": 1.0, "sha256": "90bb1cc25ca4a28318912d0e1954b30110e873d03a5ae275d45c43d4eb74a388", "ts": 1.0}
-{"schema": "pm.telemetry/v1", "service": "t", "trace_id": "t1t1t1t1t1t1t1t1t1t1t1t1t1t1t1t1", "span_id": "dddddddddddddddd", "parent_span_id": null, "name": "s", "status": "OK", "duration_ms": 1.0, "sha256": "90bb1cc25ca4a28318912d0e1954b30110e873d03a5ae275d45c43d4eb74a388", "ts": 1.0}

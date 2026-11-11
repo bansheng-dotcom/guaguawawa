@@ -70,7 +70,7 @@ from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  
 import report_contract  # noqa: E402
 
 ROLE = "r06"
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
@@ -129,7 +129,23 @@ def build_parser() -> argparse.ArgumentParser:
     dp.add_argument("--after", required=True, help="本期时间标识 (如 2025-10)")
     dp.add_argument("--intent", default="全盘利润异动归因与行动决策", help="分析命题与意图")
     dp.add_argument("--out-dir", default=None, help="输出目录")
-    
+
+    # 七步深度分析报告（REP-001，pipelines/deep_report.py）
+    dr = sp.add_parser("depth", help="出具七步深度分析决策报告 (REP-001)")
+    dr.add_argument("--input", required=True, help="时序/明细 CSV")
+    dr.add_argument("--value", required=True, help="指标数值列")
+    dr.add_argument("--date", default="date", help="时间列")
+    dr.add_argument("--dim", default=None, help="结构拆解维度列")
+    dr.add_argument("--period", default=None, help="前后期列")
+    dr.add_argument("--before", default=None, help="前期时间标识 (如 2025-09)")
+    dr.add_argument("--after", default=None, help="本期时间标识 (如 2025-10)")
+    dr.add_argument("--pk", default=None, help="主键列（质量六维去重）")
+    dr.add_argument("--decompose-input", default=None,
+                    help="前后期横截面 CSV（缺省同 --input）")
+    dr.add_argument("--intent", default="核心指标异动三级归因")
+    dr.add_argument("--out-dir", default=None, help="输出目录")
+    dr.add_argument("--slug", default="deep_report")
+
     # 注入真实适配器命令
     qa = sp.add_parser("quality_real", help="真实的 Pandas 数据质量审计")
     qa.add_argument("--input", required=True)
@@ -537,9 +553,31 @@ def main() -> int:
             })
         return 0
 
+    # 七步深度分析报告（REP-001）
+    if args.skill == "depth":
+        from pipelines import deep_report as DR
+        from agents.shared.report_generator import generate_professional_report
+
+        out_dir = args.out_dir or os.path.join(WORKSPACE_ROOT, "deep_report")
+        spec = DR.build(
+            os.path.abspath(args.input), args.value, args.date, args.dim,
+            args.period, args.before, args.after, args.intent, args.pk,
+            decompose_input=(os.path.abspath(args.decompose_input)
+                             if args.decompose_input else None))
+        files = generate_professional_report(out_dir=out_dir, report_slug=args.slug, **spec)
+        emit_result({
+            "ok": True,
+            "status": "出具成功",
+            "report_html": files["html"],
+            "report_md": files["md"],
+            "figures_count": len(spec["figures"]),
+            "sections_count": len(spec["analysis_sections"]),
+        })
+        return 0
+
     # 咨询级深度决策研报分支
     if args.skill == "deep":
-        from consulting_report import build_consulting_report
+        from pipelines.consulting_report import build_consulting_report
         from agents.shared.report_generator import generate_professional_report
         
         out_dir = args.out_dir or os.path.join(WORKSPACE_ROOT, "consulting_report")
@@ -606,7 +644,7 @@ def main() -> int:
                 rows = sandbox.register_records("demo_orders", _demo_records())
                 sql = args.sql
             res = sandbox.execute(sql)
-            artifact = os.path.join(_HERE, "workspace", "evolve_l01_sql.json")
+            artifact = os.path.join(workspace.role_workspace(_HERE), "evolve_l01_sql.json")
             c.write_json(artifact, {"sql": sql, "rows_registered": rows,
                                     "ok": res.ok, "error": res.error,
                                     "result": res.data})
@@ -617,7 +655,7 @@ def main() -> int:
         elif args.subcmd == "plan":
             dec = AnalysisIntentDecompiler()
             res = dec.compile_intent(args.query, data_rows=args.rows)
-            artifact = os.path.join(_HERE, "workspace", "evolve_l02_dag.json")
+            artifact = os.path.join(workspace.role_workspace(_HERE), "evolve_l02_dag.json")
             c.write_json(artifact, res)
             out = {"ok": res["dag_validation"]["valid"],
                    "step_count": res["step_count"],
@@ -631,7 +669,7 @@ def main() -> int:
             healer = AnalysisReflexiveHealer()
             payload = c.load_json(args.payload) if args.payload else _dirty_payload()
             healed = healer.reflect_and_heal(payload, max_rounds=3)
-            artifact = os.path.join(_HERE, "workspace", "evolve_l03_heal.json")
+            artifact = os.path.join(workspace.role_workspace(_HERE), "evolve_l03_heal.json")
             c.write_json(artifact, healed)
             out = {"ok": healed["_reflection_converged"],
                    "attempts": healed["_reflection_attempts"],
@@ -648,7 +686,7 @@ def main() -> int:
         elif args.subcmd == "scenario":
             mat = ScenarioComparativeMatrix()
             sc = mat.generate_scenarios(args.base, args.growth)
-            artifact = os.path.join(_HERE, "workspace", "evolve_l06_scenario.json")
+            artifact = os.path.join(workspace.role_workspace(_HERE), "evolve_l06_scenario.json")
             c.write_json(artifact, sc)
             emit_result({"recommended": sc["recommended"],
                          "ranking_stable": sc["sensitivity"]["ranking_stable"],
@@ -670,7 +708,7 @@ def main() -> int:
                 "baseline_created": drift["baseline_created"],
                 "rule_bundle": bundle_path,
             }
-            artifact = os.path.join(_HERE, "workspace", "evolve_l04_spec.json")
+            artifact = os.path.join(workspace.role_workspace(_HERE), "evolve_l04_spec.json")
             c.write_json(artifact, out)
             emit_result(out)
             return 0 if spec["schema"]["valid"] and drift["within_tolerance"] else 1
@@ -690,7 +728,7 @@ def main() -> int:
                 "replaced_count": replaced,
                 "polished": guard.inject_dri(polished, action="下钻抖音渠道素材与出价"),
             }
-            artifact = os.path.join(_HERE, "workspace", "evolve_l05_slop.json")
+            artifact = os.path.join(workspace.role_workspace(_HERE), "evolve_l05_slop.json")
             c.write_json(artifact, out)
             emit_result(out)
             return 0 if report["attribution"]["complete"] and report["traceability"]["hallucination_free"] else 1
@@ -727,7 +765,7 @@ def main() -> int:
                 "new_state": proof["new_state"],
                 "inverse_patch": proof["inverse_patch"],
             }
-            artifact = os.path.join(_HERE, "workspace", "evolve_l08_patch.json")
+            artifact = os.path.join(workspace.role_workspace(_HERE), "evolve_l08_patch.json")
             c.write_json(artifact, out)
             emit_result(out)
             return 0 if proof["roundtrip_exact"] and proof["new_state"] == new_state else 1

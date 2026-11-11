@@ -18,6 +18,8 @@ import copy
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import re
 import time
 from typing import Any, Dict, List, Optional, Tuple, Union
@@ -38,7 +40,7 @@ class AnalysisSessionMemoryPool:
                  lock_ttl_sec: float = 5.0, lock_timeout_sec: float = 2.0):
         if not state_file:
             here = os.path.dirname(os.path.abspath(__file__))
-            state_file = os.path.join(os.path.dirname(here), "workspace", "session_state.json")
+            state_file = os.path.join(role_workspace(os.path.dirname(here)), "session_state.json")
         self.state_file = state_file
         self.session_id = session_id
         self.lock_path = f"{state_file}.lock"

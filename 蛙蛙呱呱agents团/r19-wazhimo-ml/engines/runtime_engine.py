@@ -30,6 +30,8 @@ import hashlib
 import json
 import math
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 from typing import Any, Dict, List, Optional, Sequence
 
@@ -78,7 +80,7 @@ class R19RuntimeEngine:
 
     def __init__(self, workspace_dir: Optional[str] = None):
         self.role_dir = _ROLE
-        self.workspace_dir = workspace_dir or os.path.join(_ROLE, "workspace")
+        self.workspace_dir = workspace_dir or os.path.join(role_workspace(_ROLE))
 
     # ------------------------------------------------------------------ #
     # 1. 健康探测

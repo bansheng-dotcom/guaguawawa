@@ -23,6 +23,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import time
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
@@ -103,7 +105,7 @@ class DataEngRuntimeEngine:
 
     def __init__(self, workspace_dir: Optional[str] = None):
         here = os.path.dirname(os.path.abspath(__file__))
-        self.workspace_dir = workspace_dir or os.path.join(os.path.dirname(here), "workspace")
+        self.workspace_dir = workspace_dir or os.path.join(role_workspace(os.path.dirname(here)))
         os.makedirs(self.workspace_dir, exist_ok=True)
         self.backend, self._driver = self._detect_backend()
         self.version = self._detect_version()

@@ -1,11 +1,12 @@
-﻿# core/dynamic_orchestrator.py
+# core/dynamic_orchestrator.py
 import uuid
 import json
 import os
 from typing import List, Dict, Any
 
-_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_PLANS_DIR = os.path.join(_REPO, "workspace", "plans")
+from .workspace import default_root
+
+_PLANS_DIR = os.path.join(default_root(), "plans")
 
 class MissionControl:
     '''

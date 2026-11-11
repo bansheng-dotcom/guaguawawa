@@ -1,34 +1,11 @@
-# PRD 结构门禁
+# PRD 撰写（capability: prd-authoring）
 
-> 归属：R07　消费：r08, r01　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
+> 本文件仅保留旧路径指针，供 `guagua.py capabilities --probe` 与历史链接继续可用。
 
-## 定位
-
-把 PRD 十条终检做成确定性门禁，并可渲染 Markdown。
-
-## 怎么用
-
-- 命令：`python agent.py prdguard check / render`
-- 确定性技能：规则与门禁已写进代码，直接跑即可。
-
-## 执行步骤
-
-1. 产品契约四要素：用户/触发/任务/完成
-2. P0 功能四段：触发/规则/结果/状态，且来源可追溯
-3. 明确不做 ≥2 条，边界/失败场景 ≥1 条
-4. 有假设必须列待验证问题，禁止把假设当事实
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（frontmatter 含触发语、`metadata.verify` 门禁命令）
+- 知识层：`references/two-layer-prd.md`（两层分工 / AC vs DoD / RICE 算例 / 12 项审批）
+- 执行层骨架：`tests/spec-pass.json`（可直接改）
+- 门禁自检：`scripts/gate_selftest.py`（正例 2 + 反例 3，实测 5/5）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py prdguard`（12 项）与 `harness.py prd`，本包不重复实现

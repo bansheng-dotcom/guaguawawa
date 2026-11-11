@@ -38,9 +38,12 @@ def check(name: str, cond: bool, detail: str = "") -> None:
 
 
 def run_cli(args, cwd=HERE):
+    # 子进程统一 UTF-8：否则中文结果在 GBK 控制台下会被父进程按 UTF-8 解码成替换字符，
+    # 导致「不可逆 / 授权」等中文断言假失败（跨机器复现不一致）。
+    env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
     return subprocess.run([sys.executable, "agent.py"] + args,
                           capture_output=True, text=True, cwd=cwd,
-                          encoding="utf-8", errors="replace")
+                          encoding="utf-8", errors="replace", env=env)
 
 
 def parse_result(out: str):
@@ -438,14 +441,14 @@ check("plan 生成任务卡", bool(tid))
 r = run_cli(["run", "--task", tid])
 res = parse_result(r.stdout) or {}
 check("run --task 转发 r06 并完成", res.get("exit_code") == 0)
-art = os.path.join(AGENTS, "workspace", "artifacts", tid)
+from core import workspace as _ws
+art = os.path.join(_ws.default_root(), "artifacts", tid)
 check("产物目录含 r06 报告",
       any("report" in f for f in os.listdir(art)) if os.path.isdir(art) else False)
 
 # r01 自身任务（决策卡路由）
 from core import protocol as _p
-ws_dir = os.path.join(AGENTS, "workspace")
-from core import workspace as _ws
+ws_dir = _ws.default_root()
 _wsmod = _ws.Workspace(ws_dir)
 t = _p.Task(title="R01｜定价决策卡", owner="r01",
             intent="自助版定价决策卡评估", acceptance=["决策卡门禁通过"])
@@ -455,7 +458,7 @@ res = parse_result(r.stdout) or {}
 check("run --task owner=r01 路由到 decide/card",
       res.get("skill") == "decide", json.dumps(res, ensure_ascii=False)[:200])
 check("run --task 产出 ceo_report.md",
-      os.path.exists(os.path.join(AGENTS, "workspace", "artifacts", tid2,
+      os.path.exists(os.path.join(_ws.default_root(), "artifacts", tid2,
                                   "ceo_report.md")))
 
 print("== T4 可观测性 runlog ==")

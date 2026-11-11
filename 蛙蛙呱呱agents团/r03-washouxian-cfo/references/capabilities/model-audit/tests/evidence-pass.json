@@ -1,0 +1,18 @@
+{
+  "_comment": "正例：每个控制点都有证据，且每条证据含 collector / artifact / collected_at",
+  "controls": [
+    {
+      "control": "AC-01",
+      "evidence": [
+        {"control": "AC-01", "artifact": "访问审查记录.xlsx", "collected_at": "2026-10-01", "collector": "蛙守线"},
+        {"control": "AC-01", "artifact": "权限变更工单.pdf", "collected_at": "2026-10-02", "collector": "蛙守线"}
+      ]
+    },
+    {
+      "control": "CM-02",
+      "evidence": [
+        {"control": "CM-02", "artifact": "变更工单截图", "collected_at": "2026-10-02", "collector": "蛙稳码"}
+      ]
+    }
+  ]
+}

@@ -320,7 +320,19 @@
       "topic",
       "platform"
     ],
-    "localize.probe": []
+    "localize.probe": [],
+    "xhs.note": [
+      "topic",
+      "platform"
+    ],
+    "xhs.score": [
+      "topic",
+      "platform"
+    ],
+    "xhs.compliance": [
+      "topic",
+      "platform"
+    ]
   },
   "l2_prompt_blocks": [
     {

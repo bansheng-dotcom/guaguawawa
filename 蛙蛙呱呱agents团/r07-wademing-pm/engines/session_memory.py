@@ -21,6 +21,8 @@ from __future__ import annotations
 import copy
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import re
 import time
 from typing import Any, Dict, List, Optional, Tuple
@@ -65,8 +67,8 @@ class SessionMemory:
                  clock=None) -> None:
         here = os.path.dirname(os.path.abspath(__file__))
         self.agent_dir = os.path.dirname(here)
-        self.path = path or os.path.join(self.agent_dir, "workspace", "session_state.json")
-        self.tmp_dir = os.path.join(self.agent_dir, "workspace", "tmp")
+        self.path = path or os.path.join(role_workspace(self.agent_dir), "session_state.json")
+        self.tmp_dir = os.path.join(role_workspace(self.agent_dir), "tmp")
         self.agent = agent
         self._clock = clock or (lambda: time.time())
         os.makedirs(self.tmp_dir, exist_ok=True)

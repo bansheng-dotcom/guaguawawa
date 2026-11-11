@@ -5,7 +5,7 @@
 > **演进日期**：2026-11-09  
 > **当前状态**：**全面验收通过 (ALL PASS)**  
 > - **基准一致性与契约回归套件 (`run_tests.py`)**：**77/77 PASS (100%)**  
-> - **十轮渐进自升级能力测试套件 (`test_evolution_suite.py`)**：**10/10 PASS (100%)**  
+> - **十轮渐进自升级能力测试套件 (`tests/test_evolution_suite.py`)**：**10/10 PASS (100%)**  
 > - **CLI 命令物理工件**：已成功在控制台全量触发并物理落盘。
 
 ---
@@ -43,7 +43,7 @@
 ## 三、 全面验收结论
 
 - **系统一致性回归测试套件 (`run_tests.py`)**：**PASS=77, FAIL=0**。
-- **十轮渐进演进能力测试套件 (`test_evolution_suite.py`)**：**PASS=10, FAIL=0**。
+- **十轮渐进演进能力测试套件 (`tests/test_evolution_suite.py`)**：**PASS=10, FAIL=0**。
 - **真实物理工件生成**：
   - `artifacts/strategy_gallery_dashboard.md`（多向对比看板）
   - `artifacts/executive_spec.json`（伴生治理资产包）

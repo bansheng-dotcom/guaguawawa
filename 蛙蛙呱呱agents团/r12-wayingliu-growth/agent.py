@@ -57,7 +57,7 @@ import review  # noqa: E402
 
 ROLE = "r12"
 CAPABILITY_STATUS = {"default": "real", "reason": "本地指标与公式复算", "external_actions": "simulated"}
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 

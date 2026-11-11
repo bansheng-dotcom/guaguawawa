@@ -13,6 +13,8 @@ from __future__ import annotations
 
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import sys
 import tempfile
@@ -40,7 +42,7 @@ from engines import (  # noqa: E402
     WatchdogBreaker,
 )
 
-TMP_ROOT = os.path.join(HERE, "workspace", "tmp")
+TMP_ROOT = os.path.join(role_workspace(HERE), "tmp")
 os.makedirs(TMP_ROOT, exist_ok=True)
 
 

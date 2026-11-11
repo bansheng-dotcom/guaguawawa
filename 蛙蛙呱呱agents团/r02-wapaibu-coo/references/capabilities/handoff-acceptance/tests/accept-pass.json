@@ -1,0 +1,8 @@
+{
+  "_comment": "正例：每个验收项都带可定位证据 → accept 应通过",
+  "package_id": "HP-a1b2c3d4",
+  "criteria": [
+    {"criterion": "Lighthouse ≥ 90", "passed": true, "evidence": "Lighthouse 报告 91 分（报告见 workspace/lh.html）"},
+    {"criterion": "首屏 < 1.5s", "passed": true, "evidence": "WebPageTest 实测 1.2s（2026-11-11）"}
+  ]
+}

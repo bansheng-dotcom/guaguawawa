@@ -1,34 +1,9 @@
-# 单文件 HTML 幻灯片
+单文件 HTML 幻灯片（capability: ppt-generator）
 
-> 归属：R08　消费：r10, r02　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
 
-## 定位
-
-把大纲变成可放映的单文件 HTML deck：结构门禁 + 确定性渲染。
-
-## 怎么用
-
-- 命令：`python agent.py deck plan / html`
-- 确定性技能：规则与门禁已写进代码，直接跑即可。
-
-## 执行步骤
-
-1. 一份 deck 6–30 页，每页只讲一个观点
-2. 页标题 ≤20 字，且不重复
-3. 必须有封面、结论页与行动页
-4. 单文件、内联样式、不依赖外部 JS 库
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py deck plan`）
+- 夹具：`tests/deck-pass.json`（6 页正例）/ `tests/deck-fail.json`（2 页反例）
+- 门禁自检：`scripts/gate_selftest.py`（实测 2/2）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py deck`（plan / html），本包不重复实现

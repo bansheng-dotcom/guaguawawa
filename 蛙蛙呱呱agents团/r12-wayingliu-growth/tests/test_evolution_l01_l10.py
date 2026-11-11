@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 import unittest
 
@@ -100,7 +102,7 @@ class TestEvolutionRound3(unittest.TestCase):
     """第 3 轮升级 (L07~L10 交付阶段) 集成测试。"""
 
     def test_l07_asset_bundle(self):
-        tmp_dir = os.path.join(HERE, "workspace", "tmp", "test_bundles")
+        tmp_dir = os.path.join(role_workspace(HERE), "tmp", "test_bundles")
         bundle_exporter = GrowthAssetBundle(workspace_dir=tmp_dir)
         growth_mock = {
             "title": "测试增长实验资产",
@@ -156,7 +158,7 @@ class TestEvolutionRound3(unittest.TestCase):
         self.assertEqual(recalc["delta_acquisitions"], 300)
 
     def test_l09_session_memory(self):
-        tmp_file = os.path.join(HERE, "workspace", "tmp", "test_session_state.json")
+        tmp_file = os.path.join(role_workspace(HERE), "tmp", "test_session_state.json")
         mem = GrowthSessionMemory(state_file=tmp_file)
         snap1 = mem.record_turn("设计一套小红书获客方案", {"target_channel": "小红书", "budget": 30000.0})
         self.assertEqual(mem.current_state["slots"]["target_channel"], "小红书")
@@ -174,7 +176,7 @@ class TestEvolutionRound3(unittest.TestCase):
         self.assertEqual(mem.current_state["slots"]["target_channel"], "小红书")
 
     def test_l10_telemetry_watchdog(self):
-        tmp_telemetry = os.path.join(HERE, "workspace", "tmp", "test_telemetry.jsonl")
+        tmp_telemetry = os.path.join(role_workspace(HERE), "tmp", "test_telemetry.jsonl")
         wd = GrowthTelemetryWatchdog(failure_threshold=2, reset_timeout_sec=0.5, telemetry_file=tmp_telemetry)
         self.assertEqual(wd.get_state(), "CLOSED")
 

@@ -22,6 +22,8 @@ import contextlib
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import statistics
 import subprocess
@@ -293,7 +295,7 @@ class AnalysisTelemetryTracer:
                  sample_rate: float = 1.0):
         if not log_path:
             here = os.path.dirname(os.path.abspath(__file__))
-            log_path = os.path.join(os.path.dirname(here), "workspace", "telemetry.jsonl")
+            log_path = os.path.join(role_workspace(os.path.dirname(here)), "telemetry.jsonl")
         self.log_path = log_path
         self.latency_alert_threshold_ms = latency_alert_threshold_ms
         self.sample_rate = max(0.0, min(1.0, float(sample_rate)))

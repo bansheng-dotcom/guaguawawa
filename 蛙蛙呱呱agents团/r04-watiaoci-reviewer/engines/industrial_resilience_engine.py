@@ -14,13 +14,16 @@ import time
 import uuid
 from typing import Any, Callable, Dict, List, Optional
 
+from core.workspace import role_workspace
+
 
 class TelemetryLogger:
     """全链路遥测追踪器，规范写入 telemetry.jsonl。"""
 
     def __init__(self, log_path: str | None = None) -> None:
         self.log_path = log_path or os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "workspace", "telemetry.jsonl"
+            role_workspace(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+            "telemetry.jsonl",
         )
         os.makedirs(os.path.dirname(os.path.abspath(self.log_path)), exist_ok=True)
 

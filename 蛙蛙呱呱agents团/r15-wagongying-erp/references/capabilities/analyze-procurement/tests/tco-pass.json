@@ -1,0 +1,20 @@
+{
+  "_comment": "正例：两家同币种、单价与数量均 >0、资金年化 6%",
+  "annual_rate_pct": 6.0,
+  "quotes": [
+    {
+      "supplier": "华东塑料",
+      "unit_price": 12.5,
+      "qty": 10000,
+      "moq": 3000,
+      "currency": "CNY"
+    },
+    {
+      "supplier": "华南模具",
+      "unit_price": 11.8,
+      "qty": 10000,
+      "moq": 5000,
+      "currency": "CNY"
+    }
+  ]
+}

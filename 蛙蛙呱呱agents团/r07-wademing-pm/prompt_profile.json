@@ -415,7 +415,12 @@
     "decision.experience": [
       "audience",
       "evidence"
-    ]
+    ],
+    "prdguard.check": [
+      "topic",
+      "audience"
+    ],
+    "prdguard.render": []
   },
   "l2_prompt_blocks": [
     {

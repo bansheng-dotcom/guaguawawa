@@ -1,0 +1,39 @@
+{
+  "_comment": "评审结果骨架。复制后填写；字段契约见 references/anti-collusion.md §二。",
+  "reviewer": "r04-watiaoci-reviewer",
+  "producer": "<生产者角色 ID 或人>",
+  "artifact": "<成品路径或链接>",
+  "verdict": "FAIL",
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MAJOR",
+      "dimension": "<哪个维度>",
+      "message": "<问题是什么>",
+      "evidence": "<文件:行 / 截图路径 / 命令输出>",
+      "suggestion": "<整改建议，不代改>"
+    }
+  ],
+  "criteria_results": [
+    {
+      "id": "AC-01",
+      "criterion": "<验收标准原文>",
+      "status": "pass",
+      "reason": "evidence_specific",
+      "evidence": "<可定位证据>"
+    },
+    {
+      "id": "AC-02",
+      "criterion": "<验收标准原文>",
+      "status": "fail",
+      "reason": "evidence_missing",
+      "evidence": "<缺什么>"
+    }
+  ],
+  "declined_to_judge": [
+    {"item": "<不评判的部分>", "reason": "<为什么>", "needed": "<需要什么才能评>"}
+  ],
+  "keep_list_check": [
+    {"item": "<上轮保留项>", "state": "kept", "resolution_reason": null}
+  ]
+}

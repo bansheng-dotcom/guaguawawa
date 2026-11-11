@@ -15,6 +15,8 @@ import os
 import time
 from typing import Any, Dict, List, Optional
 
+from core.workspace import role_workspace
+
 
 class ReviewSessionMemory:
     """持久化审查会话状态管理器"""
@@ -22,7 +24,8 @@ class ReviewSessionMemory:
     def __init__(self, storage_path: Optional[str] = None) -> None:
         if storage_path is None:
             here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            storage_path = os.path.join(here, "session_state.json")
+            storage_path = os.path.join(role_workspace(here), "session_state.json")
+            os.makedirs(os.path.dirname(storage_path), exist_ok=True)
         self.storage_path = storage_path
         self.state: Dict[str, Any] = self._load()
 

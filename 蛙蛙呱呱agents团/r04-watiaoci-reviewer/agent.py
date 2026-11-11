@@ -71,7 +71,7 @@ _INTENT_ROUTES: List[Tuple[Tuple[str, ...], str, str, Dict[str, str]]] = [
      {"state": os.path.join(_HERE, "examples", "criteria_delta_state.json")}),
     (("外置判据", "验收判据", "判据审查", "acceptance", "criteria review"),
      "criteria", "review", {}),
-    (("验收", "评审", "验收评审", "人工评审"),
+    (("验收", "评审", "验收评审"),
      "criteria", "review", {}),
     (("收敛", "converge", "不再下降"),
      "quality", "converge",
@@ -100,10 +100,15 @@ _DEFAULT_ROUTE: Tuple[str, str, Dict[str, str]] = ("criteria", "review", {})
 
 def route_intent(intent: str) -> Tuple[str, str, Dict[str, str]]:
     low = str(intent or "").lower()
+    # 最长关键词优先：避免通用词（如「评审」）遮蔽专用词（如「人工评审」）
+    best = None
     for keys, skill, action, extra in _INTENT_ROUTES:
         for k in keys:
-            if k.lower() in low:
-                return skill, action, extra
+            kl = k.lower()
+            if kl in low and (best is None or len(kl) > best[0]):
+                best = (len(kl), skill, action, extra)
+    if best is not None:
+        return best[1], best[2], best[3]
     # 关键词未命中：交给共享 L02 内核；不再静默落到 criteria.review。
     return fallback_route(ROLE, intent)
 

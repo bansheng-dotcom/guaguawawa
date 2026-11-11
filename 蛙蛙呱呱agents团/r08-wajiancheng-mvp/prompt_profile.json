@@ -288,6 +288,25 @@
     "design.token": [
       "topic",
       "platform"
+    ],
+    "design.from-md": [],
+    "deck.plan": [],
+    "deck.html": [],
+    "htmlreport.plan": [],
+    "htmlreport.html": [],
+    "miniapp.plan": [],
+    "miniapp.scaffold": [
+      "topic",
+      "platform"
+    ],
+    "office.probe": [],
+    "office.xlsx": [
+      "topic",
+      "platform"
+    ],
+    "office.docx": [
+      "topic",
+      "platform"
     ]
   },
   "l2_prompt_blocks": [

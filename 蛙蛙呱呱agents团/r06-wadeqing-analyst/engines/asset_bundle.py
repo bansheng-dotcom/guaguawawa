@@ -11,6 +11,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import time
 from typing import Any, Dict, List, Optional
 
@@ -30,7 +32,7 @@ class AnalysisAssetBundle:
     def __init__(self, workspace_dir: str = None):
         if not workspace_dir:
             here = os.path.dirname(os.path.abspath(__file__))
-            workspace_dir = os.path.join(os.path.dirname(here), "workspace")
+            workspace_dir = os.path.join(role_workspace(os.path.dirname(here)))
         self.workspace_dir = workspace_dir
         os.makedirs(self.workspace_dir, exist_ok=True)
 

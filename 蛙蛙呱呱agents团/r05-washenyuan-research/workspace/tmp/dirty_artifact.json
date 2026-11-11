@@ -1,8 +1,0 @@
-{
-  "shares": [55, 35],
-  "conclusion": "我们必须进入这个赛道，绝对可行",
-  "claims": [{"id": "c1", "text": "行业增速 40%", "tier": "tier_3", "confidence": 0.4}],
-  "tam_top": 100.0,
-  "tam_bottom": 150.0,
-  "payment": {"action": "代付款给供应商", "amount": 8000}
-}

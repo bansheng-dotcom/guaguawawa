@@ -22,7 +22,7 @@ def test_actions_enumerable(role_dir):
     import contracts
     names = contracts.skill_names()
     assert names, "契约表不得为空"
-    assert len(names) == 8, f"契约应覆盖 8 个技能，实际 {len(names)}"
+    assert len(names) >= 8, f"契约应至少覆盖 8 个核心技能（只增不减），实际 {len(names)}"
     total_actions = 0
     for skill in names:
         entry = contracts.get(skill)
@@ -35,7 +35,7 @@ def test_actions_enumerable(role_dir):
                 f"{skill}/{action} 缺输出 schema"
             assert contracts.input_schema(skill, action), \
                 f"{skill}/{action} 缺输入 schema"
-    assert total_actions == 29, f"动作总数应为 29，实际 {total_actions}"
+    assert total_actions >= 29, f"动作总数应至少 29（只增不减），实际 {total_actions}"
 
 
 def test_validate_output_rejects_bad_payload(role_dir):

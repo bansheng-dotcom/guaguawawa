@@ -71,7 +71,7 @@ import review  # noqa: E402
 import report_contract  # noqa: E402
 
 ROLE = "r07"
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
@@ -557,8 +557,7 @@ def main() -> int:
             prd = c.load_json(args.input)
             ops_doc = c.load_json(args.ops)
             ops = ops_doc.get("operations") if isinstance(ops_doc, dict) else ops_doc
-            out_dir = getattr(args, "out_dir", None) or os.path.join(
-                _HERE, "workspace", "patched")
+            out_dir = getattr(args, "out_dir", None) or os.path.join(workspace.role_workspace(_HERE), "patched")
             try:
                 out = PRDPatchEngine().patch_and_export(
                     prd, ops or [], out_dir=out_dir,
@@ -590,7 +589,7 @@ def main() -> int:
         from agents.shared.report_generator import generate_professional_report
         from agents.shared.role_profiles import get as get_profile
 
-        out_dir = getattr(args, "out_dir", None) or os.path.join(os.path.dirname(__file__), "workspace", "deep_report")
+        out_dir = getattr(args, "out_dir", None) or os.path.join(workspace.role_workspace(os.path.dirname(__file__)), "deep_report")
         res = run_deep_analysis(args.input)
         profile = get_profile(ROLE)
         

@@ -25,6 +25,8 @@ import datetime
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import sys
 import time
@@ -134,7 +136,7 @@ class R20TelemetryWatchdog:
     ]
 
     def __init__(self, workspace_dir: Optional[str] = None):
-        self.workspace_dir = workspace_dir or os.path.join(_ROLE, "workspace")
+        self.workspace_dir = workspace_dir or os.path.join(role_workspace(_ROLE))
         self.telemetry_path = os.path.join(self.workspace_dir, "telemetry.jsonl")
 
     # ------------------------------------------------------------------ #

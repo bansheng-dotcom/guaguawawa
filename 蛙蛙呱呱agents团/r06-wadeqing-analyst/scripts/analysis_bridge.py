@@ -2,15 +2,23 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+
 import time
 import subprocess
 from datetime import datetime
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 sys.stdout.reconfigure(encoding='utf-8')
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _AGENT = os.path.dirname(_HERE)
-_WORKSPACE = os.path.join(_AGENT, "workspace")
+_WORKSPACE = os.path.join(role_workspace(_AGENT))
 
 def trigger_ab_test():
     print(f"\n[Action] 诊断报告建议发起 A/B 测试，正在自动启动测试引擎...")

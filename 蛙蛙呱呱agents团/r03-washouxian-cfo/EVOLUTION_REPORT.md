@@ -28,8 +28,8 @@
 
 严格遵循 SOP v6.0 第五条“**契约零破坏回归**”铁律，所有升级组件均具备独立单元测试及演进套件验证：
 
-1. **十轮演进集成验收套件 (`test_evolution_suite.py`)**：
-   - 终端命令：`python test_evolution_suite.py`
+1. **十轮演进集成验收套件 (`tests/test_evolution_suite.py`)**：
+   - 终端命令：`python tests/test_evolution_suite.py`
    - 验证结果：**10 / 10 专项测试全部通过 (ALL GREEN)**。
 2. **全系统基础契约与 24 动作闭环验证 (`run_tests.py`)**：
    - 终端命令：`python run_tests.py`
@@ -49,4 +49,4 @@
 8. **差量微调 Patch 引擎**：[engines/patch_editor.py](<engines/patch_editor.py>)
 9. **工作记忆与状态机**：[engines/memory.py](<engines/memory.py>)
 10. **工业容灾与遥测追踪**：[engines/telemetry.py](<engines/telemetry.py>), `telemetry.jsonl`
-11. **十轮验收套件**：[test_evolution_suite.py](<test_evolution_suite.py>)
+11. **十轮验收套件**：[tests/test_evolution_suite.py](<tests/test_evolution_suite.py>)

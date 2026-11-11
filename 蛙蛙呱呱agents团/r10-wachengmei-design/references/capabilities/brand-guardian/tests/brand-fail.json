@@ -1,0 +1,15 @@
+{
+  "_comment": "反例：用了令牌外的颜色 + 灰字白底（对比度约 1.1:1）",
+  "colors": [
+    "#123456"
+  ],
+  "fonts": [
+    "Source Han Sans"
+  ],
+  "text_pairs": [
+    {
+      "fg": "#EEEEEE",
+      "bg": "#FFFFFF"
+    }
+  ]
+}

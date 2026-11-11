@@ -20,6 +20,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import subprocess
 import sys
@@ -239,7 +241,7 @@ class TelemetryTracer:
     def __init__(self, path: Optional[str] = None, service: str = "r07-wademing-pm",
                  clock: Optional[Callable[[], float]] = None) -> None:
         here = os.path.dirname(os.path.abspath(__file__))
-        self.path = path or os.path.join(os.path.dirname(here), "workspace",
+        self.path = path or os.path.join(role_workspace(os.path.dirname(here)),
                                          "telemetry.jsonl")
         self.service = service
         self._clock = clock or time.time
@@ -383,9 +385,9 @@ def self_test(telemetry_path: Optional[str] = None,
     """L10 确定性自检：熔断三态 / 退避重试 / 超时隔离 / 遥测链路。"""
     here = os.path.dirname(os.path.abspath(__file__))
     agent_dir = os.path.dirname(here)
-    tmp_dir = tmp_dir or os.path.join(agent_dir, "workspace", "tmp")
+    tmp_dir = tmp_dir or os.path.join(role_workspace(agent_dir), "tmp")
     os.makedirs(tmp_dir, exist_ok=True)
-    telemetry_path = telemetry_path or os.path.join(agent_dir, "workspace", "telemetry.jsonl")
+    telemetry_path = telemetry_path or os.path.join(role_workspace(agent_dir), "telemetry.jsonl")
     # 遥测是 append-only 审计日志：探针不清空历史，只校验「最近 4 条」自洽
     os.makedirs(os.path.dirname(telemetry_path), exist_ok=True)
     tracer = TelemetryTracer(path=telemetry_path)

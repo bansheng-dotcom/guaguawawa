@@ -2,7 +2,7 @@
 
 > 适用范围：全量 20 个角色智能体
 > 触发背景：能力执行很全面，但出报告只有三段文字 + 一张小表，**看得懂、但不足以支撑决策**
-> 现行样板：R06 蛙得清（`deep_analysis.py` + `deep_report.py`）
+> 现行样板：R06 蛙得清（`pipelines/deep_analysis.py` + `pipelines/deep_report.py`）
 
 ---
 
@@ -69,7 +69,7 @@
 ```powershell
 cd <repo>/r06-wadeqing-analyst
 $env:PYTHONPATH = "<repo>"
-python deep_report.py --input workspace\parking_profit_12m.csv `
+python pipelines/deep_report.py --input workspace\parking_profit_12m.csv `
   --decompose-input workspace\parking_profit.csv `
   --value profit --date month --dim zone --period month `
   --before 2025-09 --after 2025-10 `

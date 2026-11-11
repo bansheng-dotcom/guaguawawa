@@ -17,10 +17,12 @@ from __future__ import annotations
 
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 from typing import Any, Dict, List, Optional
 
 _HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WORKSPACE_BUNDLES = os.path.join(_HERE, "workspace", "bundles")
+WORKSPACE_BUNDLES = os.path.join(role_workspace(_HERE), "bundles")
 
 
 class AutomationAssetBundle:

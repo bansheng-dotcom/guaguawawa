@@ -1,0 +1,10 @@
+{
+  "_comment": "反例：sheet 无名称、无表头、无数据行",
+  "sheets": [
+    {
+      "name": "",
+      "headers": [],
+      "rows": []
+    }
+  ]
+}

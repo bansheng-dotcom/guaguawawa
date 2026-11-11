@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import threading
 import time
@@ -37,7 +39,7 @@ class GrowthTelemetryWatchdog:
         if not telemetry_file:
             here = os.path.dirname(os.path.abspath(__file__))
             agent_root = os.path.dirname(here)
-            telemetry_file = os.path.join(agent_root, "workspace", "telemetry.jsonl")
+            telemetry_file = os.path.join(role_workspace(agent_root), "telemetry.jsonl")
         self.telemetry_file = telemetry_file
         os.makedirs(os.path.dirname(self.telemetry_file), exist_ok=True)
 

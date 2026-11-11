@@ -33,8 +33,16 @@ import datetime
 import hashlib
 import json
 import os
+
 import subprocess
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 import time
 from typing import Any, Dict, List, Optional
 
@@ -54,7 +62,7 @@ try:  # Windows GBK 终端 Unicode 崩溃防御（SOP 五-2）
 except Exception:
     pass
 
-WS = os.path.join(HERE, "workspace")
+WS = os.path.join(role_workspace(HERE))
 TMP = os.path.join(WS, "tmp")
 ART = os.path.join(HERE, "artifacts", "evolve")
 STATE_FILE = os.path.join(WS, "evolution_state.json")

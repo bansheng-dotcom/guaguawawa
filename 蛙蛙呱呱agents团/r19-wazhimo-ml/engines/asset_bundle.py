@@ -28,6 +28,8 @@ import datetime
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 from typing import Any, Dict, List, Optional
 
@@ -87,7 +89,7 @@ class R19AssetBundle:
     ]
 
     def __init__(self, out_dir: Optional[str] = None):
-        self.out_dir = out_dir or os.path.join(_ROLE, "workspace", "bundles")
+        self.out_dir = out_dir or os.path.join(role_workspace(_ROLE), "bundles")
         self.runtime = R19RuntimeEngine()
 
     # ------------------------------------------------------------------ #

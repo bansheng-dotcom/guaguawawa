@@ -25,11 +25,12 @@ for _p in (ROOT, os.path.dirname(ROOT)):
         sys.path.insert(0, _p)
 
 from engines import DataEngRuntimeEngine, DataEngIntentCompiler, DataEngReflexiveHealer  # noqa: E402
+from core.workspace import default_root, role_workspace  # noqa: E402
 
 
 def _ws_tmp(*parts: str) -> str:
     """SOP §5.7/§5.4：临时目录约束在 workspace/tmp 内，禁止系统全局 tempfile。"""
-    p = os.path.join(ROOT, "workspace", "tmp", *parts)
+    p = os.path.join(role_workspace(ROOT), "tmp", *parts)
     os.makedirs(p, exist_ok=True)
     return p
 
@@ -766,7 +767,7 @@ class L02L03MainPathWiringTests(unittest.TestCase):
         from core import workspace as ws_mod, protocol
         import agent
 
-        ws = ws_mod.Workspace(os.path.join(os.path.dirname(ROOT), "workspace"))
+        ws = ws_mod.Workspace(ws_mod.default_root())
         inp = protocol.Port(os.path.join(ROOT, "examples", "quality_check.json"),
                             "data", note="")
         task = protocol.Task(

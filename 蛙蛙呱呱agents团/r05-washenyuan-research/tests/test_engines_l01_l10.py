@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """R05 蛙深远（战略研究官）十轮渐进式架构演进测试套件 (L01~L10)。"""
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 import unittest
 
@@ -115,7 +117,7 @@ class TestR05EvolutionSuite(unittest.TestCase):
     def test_l07_asset_bundle(self):
         """L07 伴生消费层：下游机器消费规格与图表导出。"""
         bundle_exporter = ResearchAssetBundle()
-        out_dir = os.path.join(_HERE, "workspace", "test_bundle")
+        out_dir = os.path.join(role_workspace(_PARENT), "test_bundle")
         bundle = bundle_exporter.export_bundle({
             "tam": 120.0,
             "hhi": 2250,
@@ -149,7 +151,8 @@ class TestR05EvolutionSuite(unittest.TestCase):
 
     def test_l09_session_memory(self):
         """L09 会话记忆层：状态持久化、代词消歧与回滚。"""
-        state_path = os.path.join(_HERE, "session_state.json")
+        state_path = os.path.join(role_workspace(_PARENT), "session_state.json")
+        os.makedirs(os.path.dirname(state_path), exist_ok=True)
         mem = SessionMemoryPool(state_path)
         mem.record_turn("调研下海外SaaS市场", {"tam": 120.0}, topic="海外SaaS市场")
 
@@ -169,7 +172,8 @@ class TestR05EvolutionSuite(unittest.TestCase):
         val = watchdog.execute_with_guard(fast_calc, 21)
         self.assertEqual(val, 42)
 
-        telemetry_file = os.path.join(_HERE, "telemetry.jsonl")
+        telemetry_file = os.path.join(role_workspace(_PARENT), "telemetry.jsonl")
+        os.makedirs(os.path.dirname(telemetry_file), exist_ok=True)
         telemetry = ProductionTelemetry(telemetry_file)
         span = telemetry.record_span("research:sizing", {"tam": 120.0}, latency_ms=12.5)
         self.assertEqual(span["status"], "SUCCESS")

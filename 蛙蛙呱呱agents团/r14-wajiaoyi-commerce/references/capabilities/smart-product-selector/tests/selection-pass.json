@@ -1,0 +1,50 @@
+{
+  "_comment": "正例：2 候选、五维均 1–5、来源在枚举内、假设卡四指标齐、各有风险",
+  "products": [
+    {
+      "name": "便携咖啡机",
+      "dims": {
+        "capacity": 4,
+        "growth": 4,
+        "entry": 4,
+        "margin": 4,
+        "supply": 4
+      },
+      "source_types": [
+        "检索核实"
+      ],
+      "hypothesis": {
+        "click_rate": "8%",
+        "cvr": "2.5%",
+        "margin": "35%",
+        "verify_at": "2026-12-31"
+      },
+      "risks": [
+        "季节性明显"
+      ]
+    },
+    {
+      "name": "露营灯",
+      "dims": {
+        "capacity": 5,
+        "growth": 3,
+        "entry": 3,
+        "margin": 3,
+        "supply": 3
+      },
+      "source_types": [
+        "用户提供"
+      ],
+      "hypothesis": {
+        "click_rate": "8%",
+        "cvr": "2.5%",
+        "margin": "35%",
+        "verify_at": "2026-12-31"
+      },
+      "risks": [
+        "竞争激烈",
+        "认证成本"
+      ]
+    }
+  ]
+}

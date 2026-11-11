@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import time
 from typing import Any, Dict, List, Optional
 
@@ -22,7 +24,7 @@ class GrowthAssetBundle:
         if not workspace_dir:
             here = os.path.dirname(os.path.abspath(__file__))
             agent_root = os.path.dirname(here)
-            workspace_dir = os.path.join(agent_root, "workspace", "bundles")
+            workspace_dir = os.path.join(role_workspace(agent_root), "bundles")
         self.workspace_dir = workspace_dir
         os.makedirs(self.workspace_dir, exist_ok=True)
 

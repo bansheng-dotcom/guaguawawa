@@ -1,0 +1,13 @@
+{
+  "_comment": "正例：总账与子账逐笔完全匹配（金额/数量/时点全同）→ matched 100%、breaks 0",
+  "gl_entries": [
+    {"key": "t1", "amount": 10000.0, "quantity": 1, "posting_date": "2026-09-30"},
+    {"key": "t2", "amount": 2500.0, "quantity": 1, "posting_date": "2026-09-30"},
+    {"key": "t3", "amount": 800.0, "quantity": 1, "posting_date": "2026-09-28"}
+  ],
+  "subledger_entries": [
+    {"key": "t1", "amount": 10000.0, "quantity": 1, "posting_date": "2026-09-30"},
+    {"key": "t2", "amount": 2500.0, "quantity": 1, "posting_date": "2026-09-30"},
+    {"key": "t3", "amount": 800.0, "quantity": 1, "posting_date": "2026-09-28"}
+  ]
+}

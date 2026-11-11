@@ -17,13 +17,15 @@ import datetime
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import time
 from typing import Any, Callable, Dict, List, Optional
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _PARENT = os.path.dirname(_HERE)
-DEFAULT_TELEMETRY_FILE = os.path.join(_PARENT, "workspace", "telemetry.jsonl")
+DEFAULT_TELEMETRY_FILE = os.path.join(role_workspace(_PARENT), "telemetry.jsonl")
 
 
 class WatchdogBreaker:

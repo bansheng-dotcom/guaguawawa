@@ -145,6 +145,18 @@ def _validate(model: Any, strict: bool = False) -> Dict[str, Any]:
             if m.get("agg") and m["agg"] not in VALID_AGG:
                 errors.append(f"measure[{m.get('name')}] agg 非法 {m['agg']!r}")
 
+        # 非空校验（2026-11 补）：只校验枚举合法性会放过"三个都为空"的语义模型，
+        # 那种模型结构上合法、实质上无法算任何指标，属假绿。
+        if not (sm.get("entities") or []):
+            errors.append(
+                f"semantic_model[{sn or '<unnamed>'}] 缺 entities（至少需要一个主体，否则无法关联）")
+        if not (sm.get("measures") or []):
+            errors.append(
+                f"semantic_model[{sn or '<unnamed>'}] 缺 measures（没有度量的语义模型算不出任何指标）")
+
+    if not sms and not (model.get("metrics") or []):
+        errors.append("语义模型为空：semantic_models 与 metrics 不能同时为空")
+
     measure_names = set(_all_measures(model))
     # metrics 引用完整性：metric 的 type_params 必须引用已定义的 measure
     for mt in model.get("metrics", []) or []:

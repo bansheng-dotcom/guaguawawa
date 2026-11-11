@@ -388,7 +388,8 @@ def cmd_capabilities(args: argparse.Namespace) -> int:
         print(f"{cap['id']} · {cap['title']}")
         print(f"  形态：{cap['kind']}   负责：{cap['owner']}   消费方：{', '.join(cap['consumers']) or '—'}")
         print(f"  触发词：{' / '.join(cap['triggers'])}")
-        print(f"  能力卡：{cap['dir']}/README.md")
+        card = cap_mod.card_path(cap)
+        print(f"  载体：{os.path.relpath(card, ROOT).replace(os.sep, '/')}")
         if cap["entry"]:
             print(f"  命令：python agent.py {cap['entry']['skill']} {' / '.join(cap['entry']['actions'])}")
         else:
@@ -399,17 +400,50 @@ def cmd_capabilities(args: argparse.Namespace) -> int:
             print(f"  - {rule}")
         return 0
 
-    caps = cap_mod.list_caps(role=args.role, q=args.q, kind=args.kind)
+    if args.observed:
+        with open(cap_mod.CATALOG_PATH, encoding="utf-8") as fh:
+            doc = json.load(fh)
+        obs = doc.get("observed_actions") or []
+        if args.json:
+            print(json.dumps({"observed_actions": obs,
+                              "audit": doc.get("audit", {}),
+                              "entry_mismatch": doc.get("entry_mismatch", [])},
+                             ensure_ascii=False, indent=2))
+            return 0
+        print(f"蛙蛙呱呱 · 已观测但尚无能力卡的调用（{len(obs)} 组）\n")
+        print("这些 action 在运行日志里真实发生过，但目录里还没有对应能力卡。")
+        print("它们是下一批升级的**真实候选**，不是凭空拟的名单。\n")
+        rows = [[o.get("role", ""), f"{o.get('skill')}.{o.get('action')}",
+                 o.get("calls", 0), o.get("ok", 0), o.get("fail", 0),
+                 (o.get("last_seen") or "")[:10], o.get("suggested_pack") or "—"]
+                for o in obs]
+        _print_table(["角色", "skill.action", "调用", "通过", "失败", "最近", "建议并入"],
+                     rows)
+        mm = doc.get("entry_mismatch") or []
+        if mm:
+            print(f"\nentry 声明与实际调用不一致（{len(mm)} 条）：")
+            for m in mm:
+                print(f"  {m['capability']}（{m['skill']}）未声明 action: {m['observed_extra_actions']}")
+        print("\n刷新方式：python scripts/sync_catalog_observed.py")
+        print("漂移门禁：python scripts/capability_usage.py --check")
+        return 0
+
+    caps = cap_mod.list_caps(role=args.role, q=args.q, kind=args.kind,
+                             status=args.status)
     if not caps:
         print("没有匹配的能力。")
         return 0
     rows = []
+    STATUS_MARK = {"pack": "包", "active": "待升级", "merged": "已并入", "deprecated": "停用"}
     for cap in caps:
-        mark = "代码" if cap["entry"] else "规范"
-        missing = "" if os.path.isfile(cap_mod.card_path(cap)) else "（缺能力卡）"
+        st = cap.get("status", "active")
+        mark = STATUS_MARK.get(st, st)
         if args.probe:
             mark += "/就绪" if os.path.isfile(cap_mod.card_path(cap)) else "/缺失"
-        rows.append([cap["id"], cap["owner"], cap["kind"], mark, cap["title"] + missing])
+        note = cap["title"]
+        if st == "merged":
+            note += f"（→ {cap.get('superseded_by', '?')}）"
+        rows.append([cap["id"], cap["owner"], cap["kind"], mark, note])
     print(f"蛙蛙呱呱 · 能力目录（{len(rows)} 项，role={args.role or 'all'}）\n")
     widths = [max(len(str(r[i])) for r in rows + [["能力", "负责", "类型", "形态", "说明"]])
               for i in range(5)]
@@ -419,6 +453,57 @@ def cmd_capabilities(args: argparse.Namespace) -> int:
     for r in rows:
         print("  ".join(str(r[i]).ljust(widths[i]) for i in range(5)))
     print("\n查看详情：python guagua.py capabilities --id <能力>")
+    return 0
+
+
+def cmd_skills(args: argparse.Namespace) -> int:
+    """技能包目录：扫描 SKILL.md，输出供大模型/编排器选型的索引。
+
+    只读 frontmatter，不加载正文 —— 与 Agent Skills 渐进披露口径一致。
+    """
+    from shared import skill_index as si
+
+    if args.id:
+        hit = next((s for s in si.list_skills() if s["id"] == args.id), None)
+        if not hit:
+            print(f"未找到技能包：{args.id}")
+            return 1
+        if args.json:
+            print(json.dumps(hit, ensure_ascii=False, indent=2))
+            return 0
+        print(f"{hit['name']} · {hit['id']}（v{hit['version'] or '?'}）")
+        print(f"  归属：{hit['owner'] or '?'}   形态：{hit['kind'] or '?'}   消费方：{', '.join(hit['consumers']) or '—'}")
+        print(f"  触发词：{' / '.join(hit['triggers']) or '—'}")
+        print(f"  文件：{hit['path']}（{hit['lines']} 行 / {hit['bytes']} 字节）")
+        print(f"  门禁：{hit['verify'] or '无（按 SKILL.md §8 人工核对）'}")
+        print(f"  入口：{hit['entry'] or '无独立命令'}")
+        print(f"\n  描述：{hit['description']}")
+        if hit["parse_error"]:
+            print(f"\n  [WARN] {hit['parse_error']}")
+        return 0
+
+    skills = si.list_skills(role=args.role)
+    if args.broken:
+        skills = [s for s in skills if s["parse_error"]]
+    if args.json:
+        print(json.dumps({"skills": skills, "stats": si.stats()}, ensure_ascii=False, indent=2))
+        return 0
+    if not skills:
+        print(f"没有已升级的技能包（role={args.role or 'all'}）。")
+        print("把能力卡升级为技能包：参见 docs/SKILL-LAYER-SPEC.md，模板见 templates/SKILL.template.md")
+        return 0
+
+    st = si.stats()
+    print(f"蛙蛙呱呱 · 技能包目录（{len(skills)} 项，role={args.role or 'all'}）")
+    print(f"总数 {st['count']}｜有门禁 {st['with_verify']}｜有入口 {st['with_entry']}｜异常 {len(st['broken'])}\n")
+    rows = []
+    for s in skills:
+        gate = "门禁" if s["verify"] else "人工"
+        rows.append([s["id"], s["owner"], s["kind"] or "-", f"v{s['version'] or '?'}",
+                     gate, (s["parse_error"] or "")[:24], s["description"][:38] + ("…" if len(s["description"]) > 38 else "")])
+    _print_table(["技能包", "归属", "形态", "版本", "校验", "异常", "描述"], rows)
+    print("\n查看详情：python guagua.py skills --id ecommerce-designer")
+    print("机器可读：python guagua.py skills --json")
     return 0
 
 
@@ -518,7 +603,14 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--id", default=None, help="能力 ID（如 rednote-post）")
     p.add_argument("--q", default=None, help="按名称/触发词搜索")
     p.add_argument("--kind", default=None, choices=["skill", "multi", "mcp"])
+    p.add_argument("--status", default=None,
+                   choices=["pack", "active", "merged", "deprecated"],
+                   help="按状态过滤：pack=已升级技能包 / active=待升级 / merged=已并入新包 / deprecated=停用")
     p.add_argument("--probe", action="store_true", help="显示就绪探测（本地只读，不联网）")
+    p.add_argument("--observed", action="store_true",
+                   help="列出「日志里真实发生过、但目录尚无能力卡」的调用（下一批升级候选）")
+    p.add_argument("--json", action="store_true",
+                   help="机器可读输出（当前仅 --observed 支持）")
     p.set_defaults(func=cmd_capabilities)
 
     p = sub.add_parser("gc", help="记忆池护栏：裁剪过期快照 / 隔离异常体积文件",
@@ -529,6 +621,15 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--keep-last", type=int, default=50, help="保留最近多少条快照（默认 50）")
     p.add_argument("--json", action="store_true", help="输出机器可读 JSON")
     p.set_defaults(func=cmd_gc)
+
+    p = sub.add_parser("skills", help="技能包目录：SKILL.md 选型索引（只读 frontmatter）",
+        description="扫描各角色 references/capabilities/<id>/SKILL.md，"
+                    "输出 name/description/kind/verify 索引。正文不加载，符合渐进披露口径。")
+    p.add_argument("--role", default=None, help="角色 ID（如 r10）")
+    p.add_argument("--id", default=None, help="技能包 ID（如 ecommerce-designer）")
+    p.add_argument("--json", action="store_true", help="输出机器可读 JSON（供编排器/多模型接入层使用）")
+    p.add_argument("--broken", action="store_true", help="只显示 frontmatter 解析异常的技能包")
+    p.set_defaults(func=cmd_skills)
 
     p = sub.add_parser("doctor", help="环境诊断 + 全部角色入口体检")
     p.set_defaults(func=cmd_doctor)

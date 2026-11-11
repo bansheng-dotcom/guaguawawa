@@ -28,9 +28,9 @@
 
 ## 二、 严格自动化验收结果
 
-按照 SOP v6.0 第五条“**契约零破坏回归**”铁律，所有演进模块全部组织在 `engines/` 模块下，并在 `test_evolution_suite.py` 与 `run_tests.py` 中进行了双重终端 CLI 实跑验证：
+按照 SOP v6.0 第五条“**契约零破坏回归**”铁律，所有演进模块全部组织在 `engines/` 模块下，并在 `tests/test_evolution_suite.py` 与 `run_tests.py` 中进行了双重终端 CLI 实跑验证：
 
-1. **十轮运筹特化演进验收 (`test_evolution_suite.py`)**：
+1. **十轮运筹特化演进验收 (`tests/test_evolution_suite.py`)**：
    - 验证结果：**10 / 10 专项演进测试全部通过 (PASS)**。
 2. **全系统基础契约与基准回归 (`run_tests.py`)**：
    - 验证结果：**通过 107 项，失败 0 项 (ALL GREEN 100%)**。
@@ -49,4 +49,4 @@
 - **差量 Patch 改稿**：[engines/patch_editor.py](<engines/patch_editor.py>)
 - **会话状态记忆池**：[engines/memory.py](<engines/memory.py>), `session_state.json`
 - **工业容灾与遥测**：[engines/telemetry.py](<engines/telemetry.py>), `telemetry.jsonl`
-- **演进测试验收套件**：[test_evolution_suite.py](<test_evolution_suite.py>), [run_tests.py](<run_tests.py>)
+- **演进测试验收套件**：[tests/test_evolution_suite.py](<tests/test_evolution_suite.py>), [run_tests.py](<run_tests.py>)

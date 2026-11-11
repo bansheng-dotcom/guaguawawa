@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="R19-ML-Gates" tests="3" failures="0" errors="0" skipped="0" timestamp="2026-11-10T18:55:17">
-  <testcase classname="R19.gates.C2" name="GATE-01">
-  </testcase>
-  <testcase classname="R19.gates.C2" name="GATE-02">
-  </testcase>
-  <testcase classname="R19.gates.C2" name="GATE-03">
-  </testcase>
-</testsuite>

@@ -22,6 +22,8 @@ agents/workspace/artifacts/
 # ---- 第三方上游 clone / 学习仓库（体积大，不入库）----
 补充技能/
 agents/repo_python_xuexi/
+# 2026-11 技能层调研时 clone 的上游仓库（约 75 MB，可随时重 clone）
+research/
 
 # ---- 编辑器 / 操作系统 ----
 .vscode/
@@ -31,8 +33,19 @@ Thumbs.db
 desktop.ini
 
 # ---- 蛙蛙呱呱agents团：运行态与归档 ----
+# 产物已迁到仓库根 workspace/（见 使用指南.md §6.2.1）
+workspace/
 蛙蛙呱呱agents团/workspace/
 蛙蛙呱呱agents团/*/workspace/
 蛙蛙呱呱agents团.zip
 蛙蛙呱呱agents团_精简版.zip
 *.oversize-*.bak
+
+# ---- 演进 / 测试循环写到源码目录的残留（2026-11 清理）----
+# 一次性探针的输出与日志：只允许写 workspace/，其余目录一律不留
+acl-backup-*.json
+acl-backup-*.json.ps1
+acl-report-*.jsonl
+stage2.*.log
+_test_out.txt
+_test_tmp/.dsh/

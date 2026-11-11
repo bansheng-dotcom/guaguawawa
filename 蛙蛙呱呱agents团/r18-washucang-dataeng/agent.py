@@ -59,7 +59,7 @@ import review  # noqa: E402
 import local_exec  # noqa: E402
 
 ROLE = "r18"
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
@@ -299,7 +299,7 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     # --- L10 主链路接入：技能执行过看门狗（重试 + 熔断 + 遥测留痕） ---
     from engines import DataEngTelemetryWatchdog
-    watchdog = DataEngTelemetryWatchdog(workspace_dir=os.path.join(_HERE, "workspace"))
+    watchdog = DataEngTelemetryWatchdog(workspace_dir=os.path.join(workspace.role_workspace(_HERE)))
     outcome = watchdog.execute_with_resilience(
         lambda: mod.run(_mkns(**merged)), retries=2,
         name=f"{skill_name}/{action}")
@@ -318,7 +318,7 @@ def run_task(task_id: str) -> Dict[str, Any]:
     # --- L09 主链路接入：跨轮会话记忆（代词消歧 + 槽位落盘） ---
     from engines import DataEngSessionMemory
     memory = DataEngSessionMemory(
-        workspace_dir=os.path.join(_HERE, "workspace", "state"),
+        workspace_dir=os.path.join(workspace.role_workspace(_HERE), "state"),
         session_id="r18-main")
     resolved = memory.disambiguate(intent)
     memory.remember_turn(task.intent, f"{skill_name}/{action}",

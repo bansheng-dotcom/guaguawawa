@@ -182,7 +182,7 @@ python guagua.py chat --role r06 --intent "分析订单漏斗、留存和渠道�
 
 ```bash
 # 例：只找 R06 做数据分析
-python guagua.py call r06 quality audit --input workspace/_loop_clean.csv
+python guagua.py call r06 quality audit --input ../workspace/r06-wadeqing-analyst/_loop_clean.csv
 
 # 例：只找 R04 做独立验收
 python guagua.py call r04 artifact inventory --input examples/artifact_inventory.json
@@ -372,12 +372,12 @@ python guagua.py call r05 scenario premortem --input examples/scenario_premortem
 ```bash
 python guagua.py call r06 demo
 python guagua.py call r06 semantics validate --input examples/semantic_model.json
-python guagua.py call r06 quality audit --input workspace/_loop_clean.csv
-python guagua.py call r06 explore funnel --input workspace/_loop_clean.csv --stage status
-python guagua.py call r06 abtest --input workspace/parking_ab.csv --group group \
+python guagua.py call r06 quality audit --input ../workspace/r06-wadeqing-analyst/_loop_clean.csv
+python guagua.py call r06 explore funnel --input ../workspace/r06-wadeqing-analyst/_loop_clean.csv --stage status
+python guagua.py call r06 abtest --input ../workspace/r06-wadeqing-analyst/parking_ab.csv --group group \
   --control A --treatment B --metric revenue
-python guagua.py call r06 deep --series workspace/parking_profit_12m.csv \
-  --cross workspace/parking_profit.csv --before 2025-09 --after 2025-10 \
+python guagua.py call r06 deep --series ../workspace/r06-wadeqing-analyst/parking_profit_12m.csv \
+  --cross ../workspace/r06-wadeqing-analyst/parking_profit.csv --before 2025-09 --after 2025-10 \
   --intent "停车场利润结构诊断"
 ```
 
@@ -747,7 +747,7 @@ python guagua.py dispatch --all
 
 ```bash
 # 数据分析
-python guagua.py call r06 explore funnel --input workspace/_loop_clean.csv --stage status
+python guagua.py call r06 explore funnel --input ../workspace/r06-wadeqing-analyst/_loop_clean.csv --stage status
 
 # 独立验收
 python guagua.py call r04 criteria review --input examples/criteria_review.json
@@ -797,7 +797,7 @@ python guagua.py call r06 explore funnel --help
 
 # 3) 直接执行
 python guagua.py call r06 explore funnel \
-  --input workspace/_loop_clean.csv --stage status
+  --input ../workspace/r06-wadeqing-analyst/_loop_clean.csv --stage status
 ```
 
 `call` 的规则只有一条：**第一个参数是角色，后面的参数全部交给该角色的 `agent.py`**。因此角色支持的任何技能、动作、参数、`--help`、`demo`、`run --task` 都可以通过这一个入口调用。
@@ -832,10 +832,14 @@ python guagua.py call r06 explore funnel \
 │  ├─ r20-washouzhi-sre/         # R20 蛙值守
 │  ├─ shared/                    # 报告引擎、共享能力
 │  ├─ docs/                      # SOP、能力地图、字段语义
-│  ├─ scripts/                   # 批量生成、基准、演练脚本
-│  └─ workspace/                 # 任务卡、事件流、产物
+│  └─ scripts/                   # 批量生成、基准、演练脚本
+├─ workspace/                    # ← 统一产物根（任务卡/事件流/artifacts/各角色私有产物）
 └─ 蛙蛙呱呱.zip                  # 历史打包快照
 ```
+
+> **产物不再写进 `蛙蛙呱呱agents团/`**：共享产物在 `<仓库根>/workspace`，
+> 角色私有产物在 `<仓库根>/workspace/<角色目录名>`。改路径见
+> [`使用指南.md` §6.2.1](使用指南.md)。
 
 ### 关键文档
 
@@ -883,10 +887,12 @@ python verify_loop.py
 
 ### 产物位置
 
-- 任务卡与事件：`workspace/tasks/`、`workspace/events.jsonl`、`workspace/runlog.jsonl`
+- 任务卡与事件：`workspace/tasks/`、`workspace/events.jsonl`、`workspace/runlog.jsonl`（均在**仓库根**）
 - 单次任务产物：`workspace/artifacts/{task_id}/`
-- 角色自己的工作区：`rXX-*/workspace/`
+- 角色私有产物：`workspace/rXX-<角色>/`（会话记忆、遥测、bundles、深度报告等）
 - 报告：通常为 `.md` 快读版 + `.html` 正式版
+- 想换位置：设环境变量 `GUAGUA_WORKSPACE`，或改 `蛙蛙呱呱agents团/core/workspace.py`
+  （说明见 [`使用指南.md` §6.2.1](使用指南.md)）
 
 ### 能力边界（重要）
 

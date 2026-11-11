@@ -32,12 +32,15 @@ def get(cap_id: str) -> Optional[Dict[str, Any]]:
 
 
 def list_caps(role: Optional[str] = None, q: Optional[str] = None,
-              kind: Optional[str] = None) -> List[Dict[str, Any]]:
+              kind: Optional[str] = None, status: Optional[str] = None) -> List[Dict[str, Any]]:
     out = []
     for cap in all_caps():
         if role and cap["owner"] != role.lower() and role.lower() not in cap.get("consumers", []):
             continue
         if kind and cap["kind"] != kind:
+            continue
+        # status: pack（已升级技能包）/ active（待升级）/ merged（已并入新包）/ deprecated（停用）
+        if status and cap.get("status", "active") != status:
             continue
         if q:
             hay = " ".join([cap["id"], cap["title"], cap["summary"],
@@ -53,16 +56,28 @@ def owned(role: str) -> List[Dict[str, Any]]:
 
 
 def card_path(cap: Dict[str, Any]) -> str:
-    return os.path.join(_REPO, cap["dir"].replace("/", os.sep), "README.md")
+    """能力卡路径：优先 SKILL.md（技能包），回落 README.md（旧能力卡）。
+
+    与 docs/SKILL-LAYER-SPEC.md §6.2 对齐：升级为技能包后旧路径仍可探测。
+    """
+    base = os.path.join(_REPO, cap["dir"].replace("/", os.sep))
+    skill = os.path.join(base, "SKILL.md")
+    if os.path.isfile(skill):
+        return skill
+    return os.path.join(base, "README.md")
 
 
 def stats() -> Dict[str, Any]:
     caps = all_caps()
     by_kind: Dict[str, int] = {}
     by_role: Dict[str, int] = {}
+    by_status: Dict[str, int] = {}
     for c in caps:
         by_kind[c["kind"]] = by_kind.get(c["kind"], 0) + 1
         by_role[c["owner"]] = by_role.get(c["owner"], 0) + 1
+        st = c.get("status", "active")
+        by_status[st] = by_status.get(st, 0) + 1
     return {"count": len(caps), "by_kind": by_kind,
+            "by_status": dict(sorted(by_status.items())),
             "by_role": dict(sorted(by_role.items())),
             "executable": sum(1 for c in caps if c["entry"])}

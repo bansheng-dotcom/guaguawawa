@@ -15,6 +15,8 @@ import os
 import time
 from typing import Any, Dict, List, Optional
 
+from core.workspace import role_workspace
+
 
 class PrototypeSessionMemory:
     """R08 L09 多轮原型会话记忆与代词消歧引擎。"""
@@ -22,8 +24,7 @@ class PrototypeSessionMemory:
     def __init__(self, state_file: Optional[str] = None):
         if state_file is None:
             state_file = os.path.join(
-                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                "workspace",
+                role_workspace(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                 "session_state.json",
             )
         self.state_file = state_file

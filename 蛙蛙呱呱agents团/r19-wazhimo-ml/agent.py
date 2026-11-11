@@ -54,7 +54,7 @@ import review  # noqa: E402
 import local_exec  # noqa: E402
 
 ROLE = "r19"
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 
@@ -375,7 +375,7 @@ def _run_evolve(args) -> Dict[str, Any]:
         ledger = R19SpecLedger()
         spec = ledger.load_spec()
         lint = ledger.lint_spec(spec)
-        baseline_path = os.path.join(_HERE, "workspace", "bundles", "ml_gates.json")
+        baseline_path = os.path.join(workspace.role_workspace(_HERE), "bundles", "ml_gates.json")
         baseline = None
         if os.path.exists(baseline_path):
             raw = c.load_json(baseline_path)
@@ -445,7 +445,7 @@ def _run_evolve(args) -> Dict[str, Any]:
                "diff": core, "drift_conflicts": drift, "compacted": compacted,
                "capabilities": list(eng.CAPABILITIES)}
     elif cmd == "memory2":
-        state_path = os.path.join(_HERE, "workspace", "rounds", "cycle2", "session_state.json")
+        state_path = os.path.join(workspace.role_workspace(_HERE), "rounds", "cycle2", "session_state.json")
         os.makedirs(os.path.dirname(state_path), exist_ok=True)
         if os.path.exists(state_path):
             os.remove(state_path)

@@ -11,6 +11,8 @@
 """
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 import unittest
 
@@ -24,7 +26,7 @@ from engines.spec_ledger import ResearchSpecLedger  # noqa: E402
 from engines.slop_guard import ResearchSlopGuard  # noqa: E402
 from engines.scenario_matrix import ScenarioMatrixExplorer  # noqa: E402
 
-TMP = os.path.join(_ROLE, "workspace", "tmp")
+TMP = os.path.join(role_workspace(_ROLE), "tmp")
 
 
 class TestL04SpecLedger(unittest.TestCase):

@@ -11,12 +11,14 @@ from __future__ import annotations
 import datetime
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import re
 from typing import Any, Dict, List, Optional
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENT_DIR = os.path.dirname(HERE)
-DEFAULT_STATE_FILE = os.path.join(AGENT_DIR, "workspace", "session_state.json")
+DEFAULT_STATE_FILE = os.path.join(role_workspace(AGENT_DIR), "session_state.json")
 
 
 class VisualSessionMemory:

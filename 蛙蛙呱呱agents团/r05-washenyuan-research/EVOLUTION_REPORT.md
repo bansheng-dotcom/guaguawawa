@@ -154,7 +154,7 @@ python auto_evolve_runner.py --reset           # 重置状态机
 | 轨道 | 命令 | 结果 |
 | :--- | :--- | :--- |
 | 原基准套件（严格超集守护） | `python run_tests.py` | **Ran 63 tests — OK**（rc=0，18.4s） |
-| L01~L10 演进集成套件 | `python test_evolution_suite.py` | **Ran 10 tests — OK**（rc=0） |
+| L01~L10 演进集成套件 | `python tests/test_evolution_suite.py` | **Ran 10 tests — OK**（rc=0） |
 | Round 1 契约 | `pytest tests/test_round1_foundation.py -q` | **13 passed** |
 | Round 2 契约 | `pytest tests/test_round2_depth.py -q` | **11 passed** |
 | Round 3 契约 | `pytest tests/test_round3_industrial.py -q` | **16 passed** |
@@ -251,7 +251,7 @@ cd D:\蛙蛙呱呱\蛙蛙呱呱agents团\r05-washenyuan-research
 $env:PYTHONIOENCODING='utf-8'
 
 python run_tests.py                    # 63/63 OK
-python test_evolution_suite.py         # 10/10 OK
+python tests/test_evolution_suite.py         # 10/10 OK
 python -m pytest tests -q              # 62 passed
 
 python auto_evolve_runner.py --status  # ALL_GREEN_10_OF_10

@@ -15,8 +15,16 @@ from __future__ import annotations
 import argparse
 import json
 import os
+
 import subprocess
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -343,7 +351,7 @@ def main() -> int:
     # ------------------------------------------------------------------ #
     t.section("harness 确定性验证器")
     # SOP §5.7：临时目录显式约束在 workspace/tmp，禁止依赖系统全局 tempfile 死循环陷阱。
-    tmp_root = os.path.join(HERE, "workspace", "tmp")
+    tmp_root = os.path.join(role_workspace(HERE), "tmp")
     os.makedirs(tmp_root, exist_ok=True)
     tmp = tempfile.mkdtemp(prefix="r18_harness_", dir=tmp_root)
     good_path = os.path.join(tmp, "quality_check.json")

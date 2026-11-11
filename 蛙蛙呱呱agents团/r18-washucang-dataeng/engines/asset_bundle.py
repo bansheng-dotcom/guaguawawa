@@ -22,6 +22,8 @@ from __future__ import annotations
 
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import time
 from typing import Any, Dict, List, Optional
 
@@ -37,7 +39,7 @@ class DataEngAssetBundle:
 
     def __init__(self, workspace_dir: Optional[str] = None):
         here = os.path.dirname(os.path.abspath(__file__))
-        self.workspace_dir = workspace_dir or os.path.join(os.path.dirname(here), "workspace")
+        self.workspace_dir = workspace_dir or os.path.join(role_workspace(os.path.dirname(here)))
 
     # ------------------------------------------------------------------ #
     # 构造

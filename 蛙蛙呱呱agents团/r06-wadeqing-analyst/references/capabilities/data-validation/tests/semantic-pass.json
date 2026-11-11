@@ -1,0 +1,29 @@
+{
+  "_comment": "正例：实体/维度/度量类型全部落在白名单内 → harness semantic 应通过",
+  "semantic_models": [
+    {
+      "name": "orders",
+      "model": "fct_orders",
+      "description": "订单级分析语义模型",
+      "entities": [
+        {"name": "order", "type": "primary", "expr": "order_id", "description": "订单主键"},
+        {"name": "customer", "type": "foreign", "expr": "user_id", "description": "用户外键"}
+      ],
+      "dimensions": [
+        {"name": "channel", "type": "categorical", "expr": "channel", "description": "获客渠道"},
+        {"name": "created_date", "type": "time", "expr": "date", "description": "下单日期",
+         "type_params": {"time_granularity": "day"}}
+      ],
+      "measures": [
+        {"name": "total_amount", "agg": "sum", "expr": "amount", "description": "订单总金额", "unit": "元"},
+        {"name": "order_count", "agg": "count_distinct", "expr": "order_id", "description": "订单数", "unit": "单"}
+      ]
+    }
+  ],
+  "metrics": [
+    {"name": "monthly_revenue", "label": "月度收入", "description": "当月订单总金额",
+     "type": "simple", "type_params": {"measure": {"name": "total_amount"}}},
+    {"name": "avg_order_value", "label": "平均客单价", "type": "ratio",
+     "type_params": {"numerator": {"name": "total_amount"}, "denominator": {"name": "order_count"}}}
+  ]
+}

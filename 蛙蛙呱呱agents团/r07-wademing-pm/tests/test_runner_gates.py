@@ -8,6 +8,8 @@
 """
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import subprocess
 import sys
 import tempfile
@@ -23,7 +25,7 @@ import auto_evolve_runner as runner  # noqa: E402
 from engines import telemetry_watchdog as tw  # noqa: E402
 from engines.telemetry_watchdog import TelemetryTracer  # noqa: E402
 
-TMP = os.path.join(HERE, "workspace", "tmp")
+TMP = os.path.join(role_workspace(HERE), "tmp")
 os.makedirs(TMP, exist_ok=True)
 
 

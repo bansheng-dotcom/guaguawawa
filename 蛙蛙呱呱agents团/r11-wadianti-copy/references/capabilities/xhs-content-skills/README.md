@@ -1,34 +1,9 @@
-# 小红书发布包
+# 小红书笔记发布包（capability: xhs-content-skills）
 
-> 归属：R11　消费：r10, r12, r03　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
 
-## 定位
-
-发布前四要素校验 + 8 项质量快检 + 合规硬扫。
-
-## 怎么用
-
-- 命令：`python agent.py xhs note / score / compliance`
-- 确定性技能：规则与门禁已写进代码，直接跑即可。
-
-## 执行步骤
-
-1. 标题 ≤20 字且前 10 字含核心词
-2. 正文 550–650 字，≥3 个带数字的硬信息点
-3. 8 项快检至少 7 项通过才可发
-4. CTA 黑名单/诱导互动/绝对化用语零命中
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py xhs note`）
+- 夹具：`tests/xhs-pass.json`（正文 596 字）/ `tests/xhs-fail.json`（多项违规）
+- 门禁自检：`scripts/gate_selftest.py`（实测 2/2）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py xhs`（note / score / compliance），本包不重复实现

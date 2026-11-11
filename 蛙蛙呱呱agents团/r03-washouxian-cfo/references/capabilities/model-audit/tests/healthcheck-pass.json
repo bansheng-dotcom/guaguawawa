@@ -1,0 +1,20 @@
+{
+  "_comment": "正例：三表勾稽全对（资产=负债+权益；现金推算=申报；毛利=收入-成本）→ healthcheck 通过",
+  "balance_sheet": {
+    "assets": 160000.0,
+    "liabilities": 60000.0,
+    "equity": 100000.0
+  },
+  "cash_flow": {
+    "cash_begin": 50000.0,
+    "operating": 9500.0,
+    "investing": 0.0,
+    "financing": 0.0,
+    "cash_end": 59500.0
+  },
+  "income_statement": {
+    "revenue": 12500.0,
+    "cogs": 3000.0,
+    "gross_profit": 9500.0
+  }
+}

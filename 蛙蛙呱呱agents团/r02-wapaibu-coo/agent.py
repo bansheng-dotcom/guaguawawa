@@ -47,7 +47,7 @@ from core import protocol
 from skills import SKILLS
 
 ROLE = "r02"
-WORKSPACE_ROOT = os.path.join(AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 
 

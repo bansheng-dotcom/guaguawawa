@@ -53,6 +53,15 @@ python r01-waquanju-ceo/agent.py run --task <task_id>
 | 汇报写什么、什么文笔、什么排版 | `REPORT-STANDARD.md` |
 | **全角色商业分析与决策级报告出具标准（必读）** | `docs/SOP_BUSINESS_ANALYSIS_AND_REPORTING.md` |
 | **智能体能力升级方法论（体检→对标→硬化→注入→闭环→沉淀）** | `docs/SOP_AGENT_META_UPGRADE.md` |
+| **技能层升级方案（SKILL.md 引领：现状体检→GitHub 对标→20 角色清单→路线图）** | `docs/SKILL-MD-UPGRADE-PLAN.md` |
+| **技能层规格（一份合格 SKILL.md 的硬标准：6 字段 + 十节 + 100 分口径）** | `docs/SKILL-LAYER-SPEC.md` |
+| 技能包骨架模板（复制即用） | `templates/SKILL.template.md` |
+| 技能层体检（打分 / CI 门禁） | `python scripts/audit_skill_layer.py --min 75` |
+| 技能包选型索引（只读 frontmatter） | `python guagua.py skills` |
+| 技能层 CI 门禁（门槛 + 黄金快照） | `python scripts/check_skill_gate.py` |
+| **20 人专家团包（宿主可直接加载）** | `agent-packs/plugin.json` + `agent-packs/agents/*.md` |
+| 专家团包生成器（改源后重跑） | `python scripts/gen_agent_packs.py` |
+| 跨宿主入口（agents.md 标准） | `AGENTS.md` |
 | 机器可读的角色注册表 | `core/registry.py` |
 | 端口/任务卡/事件字段契约 | `core/protocol.py` |
 | 共享 HTML 报告渲染器 | `core/report_renderer.py` |

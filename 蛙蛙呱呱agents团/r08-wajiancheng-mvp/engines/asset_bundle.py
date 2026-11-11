@@ -17,13 +17,15 @@ import os
 import time
 from typing import Any, Dict, List, Optional
 
+from core.workspace import role_workspace
+
 
 class AssetBundle:
     """R08 L07 伴生消费与资产包导出引擎。"""
 
     def __init__(self, workspace_dir: Optional[str] = None):
         if workspace_dir is None:
-            workspace_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "workspace")
+            workspace_dir = role_workspace(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         self.workspace_dir = workspace_dir
         self.bundles_dir = os.path.join(self.workspace_dir, "bundles")
         os.makedirs(self.bundles_dir, exist_ok=True)

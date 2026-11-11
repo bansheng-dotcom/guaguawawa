@@ -14,13 +14,16 @@ import os
 import time
 from typing import Any, Dict, List, Optional
 
+from core.workspace import role_workspace
+
 class FinancialSessionMemoryPool:
     """持久化财务工作记忆与状态机。"""
 
     def __init__(self, storage_path: Optional[str] = None):
         if storage_path is None:
             base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            storage_path = os.path.join(base_dir, "session_state.json")
+            storage_path = os.path.join(role_workspace(base_dir), "session_state.json")
+            os.makedirs(os.path.dirname(storage_path), exist_ok=True)
         self.storage_path = storage_path
         self.state: Dict[str, Any] = {
             "current_session_id": "cfo_session_default",

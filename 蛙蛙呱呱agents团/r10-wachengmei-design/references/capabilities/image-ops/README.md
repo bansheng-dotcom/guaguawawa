@@ -1,34 +1,9 @@
-# 本地图片处理
+本地图片处理（capability: image-ops）
 
-> 归属：R10　消费：r14, r12, r08　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
 
-## 定位
-
-基于 Pillow 的本地图片操作：改尺寸、裁剪、压缩、补边、加水印。
-
-## 怎么用
-
-- 命令：`python agent.py imgops info / resize / crop / compress / pad / watermark`
-- 确定性技能：规则与门禁已写进代码，直接跑即可。
-
-## 执行步骤
-
-1. 永不覆盖源文件
-2. 输出格式白名单 png/jpeg/webp
-3. 像素数上限 40MP
-4. 缺 Pillow 时返回 blocked，不假装处理
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py imgops info`）
+- 夹具：`tests/sample.png`（64×64 RGB）/ `tests/not-a-png.png`（伪 PNG）
+- 门禁自检：`scripts/gate_selftest.py`（实测 2/2）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py imgops`，本包不重复实现

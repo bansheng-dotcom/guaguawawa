@@ -54,7 +54,7 @@ import review  # noqa: E402
 
 ROLE = "r10"
 CAPABILITY_STATUS = {"default": "real", "reason": "本地输入的结构与文件属性检查", "external_actions": "simulated"}
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 

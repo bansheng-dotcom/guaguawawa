@@ -1,0 +1,20 @@
+{
+  "_comment": "反例：混合币种（BLOCKER）+ 单价 0（BLOCKER）+ 资金年化 45%",
+  "annual_rate_pct": 45.0,
+  "quotes": [
+    {
+      "supplier": "华东塑料",
+      "unit_price": 0,
+      "qty": 10000,
+      "moq": 3000,
+      "currency": "CNY"
+    },
+    {
+      "supplier": "海外供应商",
+      "unit_price": 1.7,
+      "qty": 10000,
+      "moq": 3000,
+      "currency": "USD"
+    }
+  ]
+}

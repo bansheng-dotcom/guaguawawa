@@ -1,34 +1,9 @@
-# Office 交付物
+Office 交付物（capability: office-plugin）
 
-> 归属：R08　消费：r02, r06, r07　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
 
-## 定位
-
-把结构化内容写成 xlsx / docx：表头、冻结、列宽、标题层级、要点列表。
-
-## 怎么用
-
-- 命令：`python agent.py office probe / xlsx / docx`
-- 确定性技能：规则与门禁已写进代码，直接跑即可。
-
-## 执行步骤
-
-1. 不覆盖已有文件（需 --force）
-2. 扩展名白名单 .xlsx/.docx
-3. 行宽与表头一致、章节非空
-4. 缺 openpyxl/python-docx 时 blocked
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py office xlsx`）
+- 夹具：`tests/xlsx-pass.json`（两表带表头）/ `tests/xlsx-fail.json`（无表头无数据）
+- 门禁自检：`scripts/gate_selftest.py`（实测 2/2，写临时文件后自动清理）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py office`（probe / xlsx / docx），本包不重复实现

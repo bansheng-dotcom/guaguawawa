@@ -14,6 +14,8 @@ import time
 import uuid
 from typing import Any, Callable, Dict, Optional
 
+from core.workspace import role_workspace
+
 class WatchdogTimeoutException(Exception):
     pass
 
@@ -37,7 +39,8 @@ class ProductionTelemetry:
     def __init__(self, log_path: Optional[str] = None):
         if log_path is None:
             base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            log_path = os.path.join(base_dir, "telemetry.jsonl")
+            log_path = os.path.join(role_workspace(base_dir), "telemetry.jsonl")
+            os.makedirs(os.path.dirname(log_path), exist_ok=True)
         self.log_path = log_path
 
     def record_trace(self, action: str, input_payload: Any, status: str, latency_ms: float, error_msg: str = "") -> str:

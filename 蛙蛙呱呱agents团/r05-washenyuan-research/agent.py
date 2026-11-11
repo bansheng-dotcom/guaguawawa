@@ -337,7 +337,8 @@ def _run_evolution(args) -> Dict[str, Any]:
         return {"ok": True, "patched": patched, "patch_logs": logs}
 
     elif act == "memory":
-        state_path = os.path.join(_HERE, "session_state.json")
+        state_path = os.path.join(workspace.role_workspace(_HERE), "session_state.json")
+        os.makedirs(os.path.dirname(state_path), exist_ok=True)
         pool = SessionMemoryPool(state_path)
         if args.commit:
             ver = pool.record_turn(args.commit, {"status": "manual_commit"}, topic="人工提交快照")
@@ -353,7 +354,8 @@ def _run_evolution(args) -> Dict[str, Any]:
     elif act == "telemetry":
         watchdog = WatchdogCircuitBreaker(timeout_sec=2.0)
         res = watchdog.execute_with_guard(lambda: "pong")
-        tel_file = os.path.join(_HERE, "telemetry.jsonl")
+        tel_file = os.path.join(workspace.role_workspace(_HERE), "telemetry.jsonl")
+        os.makedirs(os.path.dirname(tel_file), exist_ok=True)
         tel = ProductionTelemetry(tel_file)
         span = tel.record_span("r05:healthcheck", {"res": res}, latency_ms=1.0)
         return {"ok": True, "watchdog": res, "span": span}
@@ -399,7 +401,7 @@ def _run_evolution(args) -> Dict[str, Any]:
                 "ops_count": len(patch), "output": args.output}
 
     elif act == "session":
-        state_path = args.state or os.path.join(_HERE, "workspace", "session_state_v2.json")
+        state_path = args.state or os.path.join(workspace.role_workspace(_HERE), "session_state_v2.json")
         store = ResearchSessionStore(state_path)
         if args.slot:
             key, _, value = args.slot.partition("=")

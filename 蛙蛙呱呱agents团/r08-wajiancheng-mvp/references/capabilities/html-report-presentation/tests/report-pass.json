@@ -1,0 +1,39 @@
+{
+  "_comment": "正例：标题 + meta(audience/purpose) + 3 章含 summary + 3 论点 + 3 来源",
+  "title": "客服工具市场扫描",
+  "meta": {
+    "audience": "创始人",
+    "purpose": "判断是否进入该赛道",
+    "author": "r05"
+  },
+  "chapters": [
+    {
+      "title": "市场格局",
+      "summary": "三分层：基础设施 / 平台 / 应用"
+    },
+    {
+      "title": "集中度",
+      "summary": "CR3 约 41%，属中等集中"
+    },
+    {
+      "title": "建议",
+      "summary": "先做应用层单点，不做平台"
+    }
+  ],
+  "thesis": [
+    "应用层仍有窗口",
+    "价格不是主要壁垒",
+    "集成能力才是护城河"
+  ],
+  "sources": [
+    {
+      "label": "公开财报 2025"
+    },
+    {
+      "label": "行业访谈 3 家"
+    },
+    {
+      "label": "招投标公告 12 条"
+    }
+  ]
+}

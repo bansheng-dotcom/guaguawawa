@@ -24,6 +24,8 @@ AGENTS = os.path.dirname(AGENT_DIR)
 sys.path.insert(0, AGENTS)
 sys.path.insert(0, AGENT_DIR)
 
+from core.workspace import default_root as _default_root  # noqa: E402
+
 EXAMPLES = os.path.join(AGENT_DIR, "examples")
 PY = sys.executable
 
@@ -93,7 +95,7 @@ def main() -> int:
     ok("demo 生成 7 份工件",
        len(r["data"].get("demo_artifacts", [])) == 7,
        str(r["data"].get("count")))
-    demo_dir = os.path.join(AGENTS, "workspace", "artifacts", "demo")
+    demo_dir = os.path.join(_default_root(), "artifacts", "demo")
     ok("demo 落盘存在", os.path.isdir(demo_dir))
 
     print("== 2. S01 schedule（排期）==")
@@ -502,7 +504,7 @@ def main() -> int:
     sys.path.insert(0, AGENTS)
     from core import protocol as _p
     from core import workspace as _ws
-    wsd = _ws.Workspace(os.path.join(AGENTS, "workspace"))
+    wsd = _ws.Workspace(_ws.default_root())
     t = _p.Task(title="R02｜双11冲刺排期", owner="r02",
                 intent="双 11 冲刺排期：WBS+容量+派工",
                 acceptance=["排期与派工门禁全过"])
@@ -510,8 +512,7 @@ def main() -> int:
     r = run_agent(["run", "--task", tid])
     ok("run_task 路由 schedule 并产出工件", r["code"] == 0
        and r["data"].get("skill") == "schedule", str(r["data"]))
-    art = os.path.join(AGENTS, "workspace",
-                       f"artifacts/r02/{tid}/coo_report.md")
+    art = os.path.join(_default_root(), f"artifacts/r02/{tid}/coo_report.md")
     ok("run_task 工件落盘", os.path.isfile(art))
     r = run_agent(["harness", "runlog"])
     runs = r["data"].get("runs", [])

@@ -17,10 +17,12 @@ from __future__ import annotations
 import datetime
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 from typing import Any, Dict, List, Optional
 
 _HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_WS = os.path.join(_HERE, "workspace")
+_WS = os.path.join(role_workspace(_HERE))
 BUNDLE_DIR = os.path.join(_WS, "bundles")
 
 

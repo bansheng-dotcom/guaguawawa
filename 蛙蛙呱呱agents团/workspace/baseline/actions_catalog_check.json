@@ -3,8 +3,8 @@
   "python": "3.12.7",
   "summary": {
     "roles": 20,
-    "skills": 161,
-    "actions": 374
+    "skills": 174,
+    "actions": 411
   },
   "errors": [],
   "roles": [
@@ -4018,9 +4018,68 @@
       "name": "蛙得明",
       "title": "产品经理",
       "dir": "r07-wademing-pm",
-      "skill_count": 8,
-      "action_count": 29,
+      "skill_count": 9,
+      "action_count": 31,
       "skills": [
+        {
+          "name": "prdguard",
+          "desc": "PRD 结构门禁：check/render",
+          "file": "r07-wademing-pm/skills/s09_prdguard.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "check",
+              "help": "校验 PRD spec",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "render",
+              "help": "渲染 Markdown PRD",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
         {
           "name": "discover",
           "desc": "产品发现、JTBD 与用户访谈验证",
@@ -4680,8 +4739,8 @@
       "name": "蛙建成",
       "title": "产品实现官 (MVP)",
       "dir": "r08-wajiancheng-mvp",
-      "skill_count": 7,
-      "action_count": 14,
+      "skill_count": 11,
+      "action_count": 24,
       "skills": [
         {
           "name": "slice",
@@ -4930,7 +4989,7 @@
         },
         {
           "name": "design",
-          "desc": "组件与设计实现：design/token",
+          "desc": "组件与设计实现：design/token/from-md",
           "file": "r08-wajiancheng-mvp/skills/s06_design.py",
           "extract_mode": "argparse",
           "error": "",
@@ -4973,6 +5032,45 @@
                 }
               ],
               "optional": [],
+              "positional": []
+            },
+            {
+              "name": "from-md",
+              "help": "把 DESIGN.md 转成设计令牌契约（对接 R10 设计系统库）",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "DESIGN.md 路径"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选：写出 design_tokens.json"
+                },
+                {
+                  "name": "brand",
+                  "flags": [
+                    "--brand"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选：品牌 slug（用于溯源，如 linear.app）"
+                }
+              ],
               "positional": []
             }
           ]
@@ -5022,6 +5120,300 @@
                 }
               ],
               "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "deck",
+          "desc": "单文件 HTML 幻灯片：plan/html",
+          "file": "r08-wajiancheng-mvp/skills/s08_deck.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "plan",
+              "help": "校验 deck 大纲",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "html",
+              "help": "渲染单文件 HTML deck",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "accent",
+                  "flags": [
+                    "--accent"
+                  ],
+                  "type": "str",
+                  "default": "#0F172A",
+                  "help": "主色（十六进制）"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "htmlreport",
+          "desc": "单文件 HTML 报告：plan/html",
+          "file": "r08-wajiancheng-mvp/skills/s09_htmlreport.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "plan",
+              "help": "校验报告结构",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "html",
+              "help": "渲染单文件 HTML",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "miniapp",
+          "desc": "小程序工程脚手架：plan/scaffold",
+          "file": "r08-wajiancheng-mvp/skills/s10_miniapp.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "plan",
+              "help": "校验小程序规格",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "scaffold",
+              "help": "生成工程骨架",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "force",
+                  "flags": [
+                    "--force"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "目标目录非空时仍写入"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "office",
+          "desc": "Office 交付物：probe/xlsx/docx",
+          "file": "r08-wajiancheng-mvp/skills/s11_office.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "probe",
+              "help": "探测 openpyxl / python-docx",
+              "required": [],
+              "required_detail": [],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "xlsx",
+              "help": "生成多表工作簿",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "force",
+                  "flags": [
+                    "--force"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "docx",
+              "help": "生成报告文档",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "force",
+                  "flags": [
+                    "--force"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": ""
+                }
+              ],
               "positional": []
             }
           ]
@@ -5435,8 +5827,8 @@
       "name": "蛙成美",
       "title": "视觉设计官",
       "dir": "r10-wachengmei-design",
-      "skill_count": 9,
-      "action_count": 21,
+      "skill_count": 14,
+      "action_count": 39,
       "skills": [
         {
           "name": "imagegen",
@@ -5964,6 +6356,765 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "designsys",
+          "desc": "设计系统库：list/recommend/show/apply/audit",
+          "file": "r10-wachengmei-design/skills/s11_designsys.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "list",
+              "help": "列出库内设计系统",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "category",
+                  "flags": [
+                    "--category"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "过滤分类：ai/devtools/infra/design/fintech/enterprise"
+                },
+                {
+                  "name": "q",
+                  "flags": [
+                    "--q"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "关键词（名称/气质/标签）"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "recommend",
+              "help": "按项目类型推荐设计系统",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "project",
+                  "flags": [
+                    "--project"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "saas/devtools/ai/fintech/productivity/ecommerce/dashboard/creative/enterprise"
+                },
+                {
+                  "name": "list_types",
+                  "flags": [
+                    "--list-types"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "列出全部项目类型"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "show",
+              "help": "查看单个品牌",
+              "required": [
+                "brand"
+              ],
+              "required_detail": [
+                {
+                  "name": "brand",
+                  "flags": [
+                    "--brand"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "品牌 slug，如 linear.app"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "apply",
+              "help": "落盘 DESIGN.md 与 design_tokens.json",
+              "required": [
+                "brand"
+              ],
+              "required_detail": [
+                {
+                  "name": "brand",
+                  "flags": [
+                    "--brand"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "目标目录（默认 workspace/design-systems/<brand>）"
+                },
+                {
+                  "name": "force",
+                  "flags": [
+                    "--force"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "覆盖已存在文件"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "audit",
+              "help": "九段式门禁校验",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "DESIGN.md 路径"
+                },
+                {
+                  "name": "brand",
+                  "flags": [
+                    "--brand"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "库内品牌 slug（与 --input 二选一）"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "aihive",
+          "desc": "AI 图片生成与编辑（Nano Banana Pro）：probe/preview/generate/task",
+          "file": "r10-wachengmei-design/skills/s12_aihive.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "probe",
+              "help": "探测脚本/依赖/API Key（不联网）",
+              "required": [],
+              "required_detail": [],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "preview",
+              "help": "只拼命令，不执行",
+              "required": [
+                "prompt"
+              ],
+              "required_detail": [
+                {
+                  "name": "prompt",
+                  "flags": [
+                    "--prompt"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "image",
+                  "flags": [
+                    "--image"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "参考图路径，可多张"
+                },
+                {
+                  "name": "batch",
+                  "flags": [
+                    "--batch"
+                  ],
+                  "type": "int",
+                  "default": 1,
+                  "help": ""
+                },
+                {
+                  "name": "param",
+                  "flags": [
+                    "--param"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "模型参数 key=value"
+                },
+                {
+                  "name": "output_dir",
+                  "flags": [
+                    "--output-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "routing",
+                  "flags": [
+                    "--routing"
+                  ],
+                  "type": "str",
+                  "default": "COST_FIRST",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "generate",
+              "help": "真实生成（需 --yes）",
+              "required": [
+                "prompt"
+              ],
+              "required_detail": [
+                {
+                  "name": "prompt",
+                  "flags": [
+                    "--prompt"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "image",
+                  "flags": [
+                    "--image"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "batch",
+                  "flags": [
+                    "--batch"
+                  ],
+                  "type": "int",
+                  "default": 1,
+                  "help": ""
+                },
+                {
+                  "name": "param",
+                  "flags": [
+                    "--param"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "output_dir",
+                  "flags": [
+                    "--output-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "routing",
+                  "flags": [
+                    "--routing"
+                  ],
+                  "type": "str",
+                  "default": "COST_FIRST",
+                  "help": ""
+                },
+                {
+                  "name": "no_download",
+                  "flags": [
+                    "--no-download"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "只提交不下载"
+                },
+                {
+                  "name": "yes",
+                  "flags": [
+                    "--yes"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "确认会产生费用并执行"
+                },
+                {
+                  "name": "allow_batch",
+                  "flags": [
+                    "--allow-batch"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "允许 batch > 4（费用按倍增长）"
+                },
+                {
+                  "name": "timeout",
+                  "flags": [
+                    "--timeout"
+                  ],
+                  "type": "int",
+                  "default": 600,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "task",
+              "help": "查询任务状态（需网络）",
+              "required": [
+                "task_id"
+              ],
+              "required_detail": [
+                {
+                  "name": "task_id",
+                  "flags": [
+                    "--task-id"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "yes",
+                  "flags": [
+                    "--yes"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "确认执行网络查询"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "h3prompt",
+          "desc": "MiniMax H3 视频提示词：build/audit（T2VA/I2VA/FL2VA/L2VA/Ref2VA）",
+          "file": "r10-wachengmei-design/skills/s13_h3prompt.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "build",
+              "help": "装配 H3 提示词",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "spec JSON 路径"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "build 时把提示词写到该 .txt"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "audit",
+              "help": "只做门禁校验",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "spec JSON 路径"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "build 时把提示词写到该 .txt"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "brandcheck",
+          "desc": "品牌一致性检查：check（颜色/字体/对比度）",
+          "file": "r10-wachengmei-design/skills/s14_brandcheck.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "check",
+              "help": "对产物做品牌一致性检查",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物描述 JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "design",
+                  "flags": [
+                    "--design"
+                  ],
+                  "type": "str",
+                  "default": "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r10-wachengmei-design\\DESIGN.md",
+                  "help": "DESIGN.md 路径"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "imgops",
+          "desc": "本地图片处理：info/resize/crop/compress/pad/watermark",
+          "file": "r10-wachengmei-design/skills/s15_imgops.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "info",
+              "help": "读取图片信息",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "resize",
+              "help": "缩放",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "width",
+                  "flags": [
+                    "--width"
+                  ],
+                  "type": "int",
+                  "default": 0,
+                  "help": ""
+                },
+                {
+                  "name": "height",
+                  "flags": [
+                    "--height"
+                  ],
+                  "type": "int",
+                  "default": 0,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "crop",
+              "help": "裁剪",
+              "required": [
+                "input",
+                "out",
+                "left",
+                "top",
+                "right",
+                "bottom"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "left",
+                  "flags": [
+                    "--left"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "top",
+                  "flags": [
+                    "--top"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "right",
+                  "flags": [
+                    "--right"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "bottom",
+                  "flags": [
+                    "--bottom"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "compress",
+              "help": "压缩",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "quality",
+                  "flags": [
+                    "--quality"
+                  ],
+                  "type": "int",
+                  "default": 82,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "pad",
+              "help": "按比例补边",
+              "required": [
+                "input",
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "ratio",
+                  "flags": [
+                    "--ratio"
+                  ],
+                  "type": "str",
+                  "default": "1:1",
+                  "help": ""
+                },
+                {
+                  "name": "fill",
+                  "flags": [
+                    "--fill"
+                  ],
+                  "type": "str",
+                  "default": "#FFFFFF",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "watermark",
+              "help": "加文字水印",
+              "required": [
+                "input",
+                "out",
+                "text"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "text",
+                  "flags": [
+                    "--text"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "opacity",
+                  "flags": [
+                    "--opacity"
+                  ],
+                  "type": "int",
+                  "default": 120,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -5972,8 +7123,8 @@
       "name": "蛙点题",
       "title": "内容主笔",
       "dir": "r11-wadianti-copy",
-      "skill_count": 8,
-      "action_count": 17,
+      "skill_count": 9,
+      "action_count": 20,
       "skills": [
         {
           "name": "topic",
@@ -6370,6 +7521,75 @@
               "help": "weblate 可用性探测",
               "required": [],
               "required_detail": [],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "xhs",
+          "desc": "小红书发布包：note/score/compliance",
+          "file": "r11-wadianti-copy/skills/s11_xhs.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "note",
+              "help": "校验笔记四要素",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "score",
+              "help": "8 项质量快检 + CES/关键词",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "compliance",
+              "help": "发布前合规扫描",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
               "optional": [],
               "positional": []
             }
@@ -7211,8 +8431,8 @@
       "name": "蛙交易",
       "title": "交易与收入履约官",
       "dir": "r14-wajiaoyi-commerce",
-      "skill_count": 8,
-      "action_count": 17,
+      "skill_count": 9,
+      "action_count": 19,
       "skills": [
         {
           "name": "catalog",
@@ -7625,6 +8845,55 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "selection",
+          "desc": "选品评分：score/profit（五维加权 + 利润红线 + 假设卡门禁）",
+          "file": "r14-wajiaoyi-commerce/skills/s09_selection.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "score",
+              "help": "五维评分与推荐等级",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "profit",
+              "help": "单件利润测算",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -7633,8 +8902,8 @@
       "name": "蛙供应",
       "title": "ERP 与供应链运营官",
       "dir": "r15-wagongying-erp",
-      "skill_count": 7,
-      "action_count": 18,
+      "skill_count": 8,
+      "action_count": 20,
       "skills": [
         {
           "name": "procurement",
@@ -8040,6 +9309,55 @@
             {
               "name": "report",
               "help": "校验运营报表结构与 KPI 口径",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "tco",
+          "desc": "采购总拥有成本：compare/lifecycle（landed cost + TCO）",
+          "file": "r15-wagongying-erp/skills/s08_tco.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "compare",
+              "help": "多报价 landed/effective unit cost 对比",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "lifecycle",
+              "help": "生命周期 TCO 汇总",
               "required": [
                 "input"
               ],

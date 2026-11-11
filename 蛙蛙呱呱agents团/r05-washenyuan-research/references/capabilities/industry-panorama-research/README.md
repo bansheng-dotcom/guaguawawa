@@ -1,33 +1,9 @@
-# 行业全景研究
+# 行业全景研究（capability: industry-panorama-research）
 
-> 归属：R05　消费：r01, r12　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
+> 本文件仅保留旧路径指针，供 `guagua.py capabilities --probe` 与历史链接继续可用。
 
-## 定位
-
-行业研究的标准骨架：边界、规模、竞争、价值链、驱动力与风险。
-
-## 怎么用
-
-- 规范形式内化：按下面步骤执行，产物走角色 harness 验收。
-
-## 执行步骤
-
-1. 先定义行业边界与统计口径，再给规模数字
-2. 规模至少两个来源交叉，不一致时给区间与原因
-3. 竞争格局用 CR3/份额/壁垒描述，不堆公司名单
-4. 结论落成「进入/观望/退出」三选一，并写触发条件
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py industry landscape`）
+- 门禁自检：`scripts/gate_selftest.py`（4 正例 + 4 反例，实测 8/8）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py industry`（landscape/concentration）与 `sizing`（size/sensitivity），本包不重复实现

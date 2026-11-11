@@ -1,0 +1,17 @@
+{
+  "_comment": "正例：用色全部取自 DESIGN.md 令牌 + 高对比度文本对 + 通用字体族（sans-serif）",
+  "colors": [
+    "#0F172A",
+    "#22D3EE",
+    "#F8FAFC"
+  ],
+  "fonts": [
+    "sans-serif"
+  ],
+  "text_pairs": [
+    {
+      "fg": "#F8FAFC",
+      "bg": "#0F172A"
+    }
+  ]
+}

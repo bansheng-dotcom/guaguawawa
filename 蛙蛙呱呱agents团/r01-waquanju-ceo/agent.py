@@ -56,7 +56,7 @@ import review  # noqa: E402
 import knowledge  # noqa: E402
 
 ROLE = "r01"
-WORKSPACE_ROOT = os.path.join(_AGENTS, "workspace")
+WORKSPACE_ROOT = workspace.default_root()
 ws = workspace.Workspace(WORKSPACE_ROOT)
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}
 

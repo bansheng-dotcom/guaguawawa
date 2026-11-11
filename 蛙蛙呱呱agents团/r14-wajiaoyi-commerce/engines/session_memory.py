@@ -16,13 +16,15 @@ import copy
 import datetime
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import re
 import sys
 from typing import Any, Dict, List, Optional
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _PARENT = os.path.dirname(_HERE)
-DEFAULT_SESSION_FILE = os.path.join(_PARENT, "workspace", "session_state.json")
+DEFAULT_SESSION_FILE = os.path.join(role_workspace(_PARENT), "session_state.json")
 
 # 记忆池体积护栏（core/memory_guard.py）：仓库根不在 sys.path 时降级为无护栏，
 # 角色本身不因护栏缺失而不可用。

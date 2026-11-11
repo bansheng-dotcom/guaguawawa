@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import sys
 import tempfile
 import unittest
@@ -140,7 +142,7 @@ class TestEvolutionRound3(unittest.TestCase):
     """第 3 轮升级 (L07~L10 交付阶段) 集成测试。"""
 
     def test_l07_asset_bundle(self):
-        tmp_dir = os.path.join(HERE, "workspace", "tmp", "test_bundles")
+        tmp_dir = os.path.join(role_workspace(HERE), "tmp", "test_bundles")
         bundle_exporter = ContentAssetBundle(workspace_dir=tmp_dir)
         content_mock = {
             "title": "测试文案资产",
@@ -175,7 +177,7 @@ class TestEvolutionRound3(unittest.TestCase):
         self.assertEqual(patched, "段落一\n\n更新后的第二段\n\n段落三")
 
     def test_l09_session_memory(self):
-        tmp_file = os.path.join(HERE, "workspace", "tmp", "test_session_state.json")
+        tmp_file = os.path.join(role_workspace(HERE), "tmp", "test_session_state.json")
         mem = ContentSessionMemory(state_file=tmp_file)
         snap1 = mem.record_turn("写一篇小红书种草文案", {"topic": "智能体", "channel": "小红书笔记"})
         self.assertEqual(mem.current_state["slots"]["topic"], "智能体")
@@ -193,7 +195,7 @@ class TestEvolutionRound3(unittest.TestCase):
         self.assertEqual(mem.current_state["slots"]["channel"], "小红书笔记")
 
     def test_l10_telemetry_watchdog(self):
-        tmp_telemetry = os.path.join(HERE, "workspace", "tmp", "test_telemetry.jsonl")
+        tmp_telemetry = os.path.join(role_workspace(HERE), "tmp", "test_telemetry.jsonl")
         wd = ContentTelemetryWatchdog(failure_threshold=2, reset_timeout_sec=0.5, telemetry_file=tmp_telemetry)
         self.assertEqual(wd.get_state(), "CLOSED")
 

@@ -21,6 +21,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import time
 from typing import Any, Dict, List, Optional
 
@@ -225,8 +227,7 @@ class AssetBundleExporter:
 
     def __init__(self, out_dir: Optional[str] = None) -> None:
         here = os.path.dirname(os.path.abspath(__file__))
-        self.default_out_dir = out_dir or os.path.join(os.path.dirname(here),
-                                                       "workspace", "bundles")
+        self.default_out_dir = out_dir or os.path.join(role_workspace(os.path.dirname(here)), "bundles")
         self.ast_builder = PRDASTBuilder()
         self.sarif_reporter = SARIFReporter()
         self.vega_builder = VegaChartBuilder()

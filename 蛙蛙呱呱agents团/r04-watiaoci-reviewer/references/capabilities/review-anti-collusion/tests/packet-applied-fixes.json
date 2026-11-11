@@ -1,0 +1,15 @@
+{
+  "_comment": "反例②：评审输出含 applied_fixes（已改好声明）→ never_fixes CRITICAL → 必须 exit 1",
+  "skill": "review",
+  "action": "verdict",
+  "result": {
+    "reviewer": "r04-watiaoci-reviewer",
+    "producer": "r09-wawenma-engineer",
+    "verdict": "PASS",
+    "applied_fixes": ["修掉了按钮错别字", "补了缺失的错误提示"],
+    "criteria_results": [
+      {"id": "AC-01", "status": "pass", "evidence": "landing.html:12"}
+    ],
+    "summary": "顺手把问题改掉了，现在可以过了。"
+  }
+}

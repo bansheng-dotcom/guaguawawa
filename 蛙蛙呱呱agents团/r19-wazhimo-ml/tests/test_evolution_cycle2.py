@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import shutil
 import sys
 import tempfile
@@ -38,7 +40,7 @@ from engines import (  # noqa: E402
 )
 import auto_evolve_runner as runner  # noqa: E402
 
-TMP_ROOT = os.path.join(HERE, "workspace", "tmp")
+TMP_ROOT = os.path.join(role_workspace(HERE), "tmp")
 os.makedirs(TMP_ROOT, exist_ok=True)
 
 

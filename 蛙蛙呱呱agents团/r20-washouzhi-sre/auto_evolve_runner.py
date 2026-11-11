@@ -25,9 +25,17 @@ import argparse
 import datetime
 import json
 import os
+
 import re
 import subprocess
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 import time
 from typing import Any, Dict, List, Optional
 
@@ -37,7 +45,7 @@ if HERE not in sys.path:
 
 SOP_VERSION = "13.0"
 ROLE = "r20"
-WORKSPACE = os.path.join(HERE, "workspace")
+WORKSPACE = os.path.join(role_workspace(HERE))
 ROUNDS_DIR = os.path.join(WORKSPACE, "rounds")
 STATE_PATH = os.path.join(WORKSPACE, "evolution_state.json")
 

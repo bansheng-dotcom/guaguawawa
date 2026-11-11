@@ -13,6 +13,8 @@ from __future__ import annotations
 import copy
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import time
 from typing import Any, Dict, List, Optional
 
@@ -35,7 +37,7 @@ class GrowthSessionMemory:
         if not state_file:
             here = os.path.dirname(os.path.abspath(__file__))
             agent_root = os.path.dirname(here)
-            state_file = os.path.join(agent_root, "workspace", "session_state.json")
+            state_file = os.path.join(role_workspace(agent_root), "session_state.json")
         self.state_file = state_file
         self.session_id = session_id
 

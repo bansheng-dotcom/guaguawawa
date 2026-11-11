@@ -1,0 +1,410 @@
+{
+  "_note": "技能层得分黄金快照。由 scripts/check_skill_gate.py --update 生成；CI 对比此文件检测退化。",
+  "_generated_by": "scripts/check_skill_gate.py",
+  "scores": {
+    "cap:analysis-method": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:analyze-procurement": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:bad-good-contrast": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:brand-guardian": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:brand-voice": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:budget-variance": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:build-web-data-visualization": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:business-ops-analysis": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:campaign-plan": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:cash-runway": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:chart-honesty": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:content-calendar": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:customer-onboarding": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:customer-support-sla": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:data-processing": {
+      "score": 15,
+      "kind": ""
+    },
+    "cap:data-validation": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:dbt-unit-test": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:decision-gate": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:deep-research-assistant": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:design-handoff": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:design-system": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:detail-page-copy": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:ecommerce-designer": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:eval-report": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:event-tracking-design": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:evidence-ledger": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:experiment-analysis": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:frontend-design": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:handoff-acceptance": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:hiring-scorecard": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:html-report-presentation": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:image-candidate-selection": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:image-gen-pipeline": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:image-ops": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:image-prompt-structure": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:incident-response": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:industry-panorama-research": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:inventory-planning": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:kol-collab": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:lark": {
+      "score": 15,
+      "kind": ""
+    },
+    "cap:logo-vi": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:longform-article": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:market-intelligence-radar": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:marketing-toolkit": {
+      "score": 15,
+      "kind": ""
+    },
+    "cap:miniapp-builder": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:model-audit": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:narrative-structure": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:office-plugin": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:omnichannel-commerce-assistant": {
+      "score": 15,
+      "kind": ""
+    },
+    "cap:opportunity-scoring": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:order-lifecycle": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:paid-execution": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:po-validate": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:ppt-generator": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:prd-authoring": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:pricing-strategy": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:product-metrics": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:prompt-engineering": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:qbr-health": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:quantified-taste": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:rapid-prototype": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:rapid-prototype-craft": {
+      "score": 15,
+      "kind": ""
+    },
+    "cap:rednote-post": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:release-change-management": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:renewal-expansion": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:review-anti-collusion": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:review-tiering": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:rubric-calibration": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:shared-standards": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:smart-product-selector": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:strategic-growth-compass": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:supplier-onboarding": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:tashan-research-skills": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:tdd-review-pair": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:tone-axes": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:user-research-toolkit": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:visual-hierarchy": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:web-app-development": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:webhook-retry": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:whiteboard": {
+      "score": 100,
+      "kind": ""
+    },
+    "cap:xhs-content-skills": {
+      "score": 100,
+      "kind": ""
+    },
+    "role:r01": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r02": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r03": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r04": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r05": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r06": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r07": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r08": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r09": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r10": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r11": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r12": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r13": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r14": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r15": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r16": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r17": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r18": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r19": {
+      "score": 100,
+      "kind": "role"
+    },
+    "role:r20": {
+      "score": 100,
+      "kind": "role"
+    }
+  }
+}

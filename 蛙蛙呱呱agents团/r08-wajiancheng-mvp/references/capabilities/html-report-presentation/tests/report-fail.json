@@ -1,0 +1,13 @@
+{
+  "_comment": "反例：无标题、meta 缺 audience/purpose、只有 1 章且无 summary、无论点无来源",
+  "title": "",
+  "meta": {},
+  "chapters": [
+    {
+      "title": "只有标题没有结论",
+      "summary": ""
+    }
+  ],
+  "thesis": [],
+  "sources": []
+}

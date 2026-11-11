@@ -1,34 +1,9 @@
-# 单文件 HTML 报告
+单文件 HTML 报告（capability: html-report-presentation）
 
-> 归属：R08　消费：r02, r06, r10　版本：v1
+> 本能力已升级为技能包，**入口在 [`SKILL.md`](SKILL.md)**。
 
-## 定位
-
-章节化报告的结构门禁 + 单文件渲染（目录、引用、来源表、打印样式）。
-
-## 怎么用
-
-- 命令：`python agent.py htmlreport plan / html`
-- 确定性技能：规则与门禁已写进代码，直接跑即可。
-
-## 执行步骤
-
-1. 章节 ≥3，每章有标题与摘要
-2. 核心论点 ≥3 条
-3. 来源 ≥3 条且每条有 label
-4. 单文件、无外部资源、含打印样式
-
-## 产出与验收
-
-- 依据可追溯：结论能指回证据或标注为判断
-- 产物可复算：数字/口径可被他人重算
-- 边界写清：空/错/取消/重试至少覆盖一项
-
-## 常见错误
-
-- 结论先于证据：先有观点再找材料
-- 把假设当事实：未验证的口径写成确定结论
-
-## 变更记录
-
-- v1：初始内化版本。
+- 技能包：`SKILL.md`（`metadata.verify` = `agent.py htmlreport plan`）
+- 夹具：`tests/report-pass.json`（六项全过）/ `tests/report-fail.json`（多项缺失）
+- 门禁自检：`scripts/gate_selftest.py`（实测 2/2）
+- 负向用例：`tests/misuse.md`
+- 判定逻辑：复用 `agent.py htmlreport`（plan / html），本包不重复实现

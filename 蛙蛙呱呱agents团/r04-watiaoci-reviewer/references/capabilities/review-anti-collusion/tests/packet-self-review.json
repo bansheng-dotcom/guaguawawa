@@ -1,0 +1,14 @@
+{
+  "_comment": "反例①：reviewer 与 producer 同名 → 身份红线 CRITICAL → review.py 必须 exit 1",
+  "skill": "review",
+  "action": "verdict",
+  "result": {
+    "reviewer": "r09-wawenma-engineer",
+    "producer": "r09-wawenma-engineer",
+    "verdict": "PASS",
+    "criteria_results": [
+      {"id": "AC-01", "status": "pass", "evidence": "self-check"}
+    ],
+    "summary": "自己检查过，没有发现问题。"
+  }
+}

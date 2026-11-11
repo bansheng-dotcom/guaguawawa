@@ -21,6 +21,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from core.workspace import role_workspace  # noqa: E402
+
 import random
 import threading
 import time
@@ -74,7 +76,7 @@ class DataEngTelemetryWatchdog:
     def __init__(self, workspace_dir: Optional[str] = None, breaker: Optional[CircuitBreaker] = None,
                  telemetry_name: str = "telemetry.jsonl"):
         here = os.path.dirname(os.path.abspath(__file__))
-        self.workspace_dir = workspace_dir or os.path.join(os.path.dirname(here), "workspace")
+        self.workspace_dir = workspace_dir or os.path.join(role_workspace(os.path.dirname(here)))
         os.makedirs(self.workspace_dir, exist_ok=True)
         self.telemetry_path = os.path.join(self.workspace_dir, telemetry_name)
         self.breaker = breaker or CircuitBreaker()

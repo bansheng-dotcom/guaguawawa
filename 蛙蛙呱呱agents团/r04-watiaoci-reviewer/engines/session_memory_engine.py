@@ -11,6 +11,8 @@ import os
 import time
 from typing import Any, Dict, List, Optional
 
+from core.workspace import role_workspace
+
 
 class SessionMemoryEngine:
     """具备版本快照、代词消歧与一键回滚能力的持久化会话记忆引擎。"""
@@ -18,8 +20,10 @@ class SessionMemoryEngine:
     def __init__(self, session_id: str, state_file: str | None = None) -> None:
         self.session_id = session_id
         self.state_file = state_file or os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "workspace", f"session_state_{session_id}.json"
+            role_workspace(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+            f"session_state_{session_id}.json",
         )
+        os.makedirs(os.path.dirname(self.state_file), exist_ok=True)
         self.current_state: Dict[str, Any] = {
             "session_id": session_id,
             "turn": 0,

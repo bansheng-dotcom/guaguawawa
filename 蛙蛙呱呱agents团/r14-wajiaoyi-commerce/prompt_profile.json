@@ -363,6 +363,14 @@
     ],
     "workflow.transition": [
       "scope"
+    ],
+    "selection.score": [
+      "scope",
+      "time_window"
+    ],
+    "selection.profit": [
+      "scope",
+      "time_window"
     ]
   },
   "l2_prompt_blocks": [],

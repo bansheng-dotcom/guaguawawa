@@ -1,0 +1,19 @@
+{
+  "_comment": "反例：只有 2 页（<6）、标题为空、封面不在首位",
+  "title": "",
+  "slides": [
+    {
+      "title": "正文页",
+      "message": "没有封面",
+      "bullets": [
+        "x"
+      ]
+    },
+    {
+      "title": "",
+      "message": "",
+      "is_cover": true,
+      "bullets": []
+    }
+  ]
+}

@@ -1,8 +1,0 @@
-{
-  "north_star": "日下载量",
-  "input_metrics": ["周复盘完成率", "模板复用率", "邀请协作数"],
-  "guardrail": ["误报率"],
-  "baseline": "当前 32%",
-  "target": "目标 45%",
-  "data_source": "埋点 event=core_action"
-}

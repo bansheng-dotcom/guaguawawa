@@ -15,8 +15,16 @@ from __future__ import annotations
 import argparse
 import json
 import os
+
 import subprocess
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -461,7 +469,7 @@ def main() -> int:
                 f"gates={spec['gates_count']} kpis={len(spec['north_star_kpis'])}")
         t.check("L04 账本单一信任源落盘",
                 os.path.exists(os.path.join(HERE, "ML_SPEC.md")))
-        tmp_evo = os.path.join(HERE, "workspace", "tmp")
+        tmp_evo = os.path.join(role_workspace(HERE), "tmp")
         os.makedirs(tmp_evo, exist_ok=True)
         evo_dir = tempfile.mkdtemp(prefix="r19_evo_", dir=tmp_evo)
         evo_out = os.path.join(evo_dir, "probe.json")
