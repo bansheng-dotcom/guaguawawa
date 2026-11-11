@@ -1,0 +1,3718 @@
+{
+ "version": 1,
+ "count": 31,
+ "presets": [
+  {
+   "slug": "airbnb",
+   "name": "Airbnb",
+   "category": "enterprise",
+   "style": "暖珊瑚强调色、摄影驱动、圆角卡片",
+   "tags": [
+    "warm",
+    "coral",
+    "photography",
+    "rounded"
+   ],
+   "fonts": [
+    "Airbnb Cereal VF"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#ffffff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "rgba(0,0,0,0.02)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#ff385c",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "#222222",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-5",
+     "hex": "#460479",
+     "role": "unspecified"
+    },
+    {
+     "name": "Deep Rausch",
+     "hex": "#e00b41",
+     "role": "Primary Brand"
+    },
+    {
+     "name": "Error Red",
+     "hex": "#c13515",
+     "role": "Primary Brand"
+    },
+    {
+     "name": "Error Dark",
+     "hex": "#b32505",
+     "role": "Primary Brand"
+    },
+    {
+     "name": "Plus Magenta",
+     "hex": "#92174d",
+     "role": "Premium Tiers"
+    },
+    {
+     "name": "Focused Gray",
+     "hex": "#3f3f3f",
+     "role": "Text Scale"
+    },
+    {
+     "name": "Secondary Gray",
+     "hex": "#6a6a6a",
+     "role": "Text Scale"
+    },
+    {
+     "name": "Disabled",
+     "hex": "rgba(0,0,0,0.24)",
+     "role": "Text Scale"
+    },
+    {
+     "name": "Link Disabled",
+     "hex": "#929292",
+     "role": "Text Scale"
+    },
+    {
+     "name": "Legal Blue",
+     "hex": "#428bff",
+     "role": "Interactive"
+    },
+    {
+     "name": "Border Gray",
+     "hex": "#c1c1c1",
+     "role": "Interactive"
+    },
+    {
+     "name": "Light Surface",
+     "hex": "#f2f2f2",
+     "role": "Interactive"
+    },
+    {
+     "name": "Card Shadow",
+     "hex": "rgba(0,0,0,0.04)",
+     "role": "Surface & Shadows"
+    },
+    {
+     "name": "Hover Shadow",
+     "hex": "rgba(0,0,0,0.08)",
+     "role": "Surface & Shadows"
+    },
+    {
+     "name": "color-19",
+     "hex": "rgba(0,0,0,0.1)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "Active Focus (Level 3)",
+     "hex": "rgb(255,255,255)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "color-21",
+     "hex": "#000000",
+     "role": "Do"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs",
+    "Navigation",
+    "Image Treatment"
+   ]
+  },
+  {
+   "slug": "airtable",
+   "name": "Airtable",
+   "category": "design",
+   "style": "彩色友好、结构化数据美学",
+   "tags": [
+    "colorful",
+    "friendly",
+    "structured"
+   ],
+   "fonts": [
+    "Haas",
+    "Haas Groot Disp"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#181d26",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#1b61c9",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "rgba(45,127,249,0.28)",
+     "role": "unspecified"
+    },
+    {
+     "name": "White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "Spotlight",
+     "hex": "rgba(249,252,255,0.97)",
+     "role": "Primary"
+    },
+    {
+     "name": "Success Green",
+     "hex": "#006400",
+     "role": "Semantic"
+    },
+    {
+     "name": "Weak Text",
+     "hex": "rgba(4,14,32,0.69)",
+     "role": "Semantic"
+    },
+    {
+     "name": "Secondary Active",
+     "hex": "rgba(7,12,20,0.82)",
+     "role": "Semantic"
+    },
+    {
+     "name": "Dark Gray",
+     "hex": "#333333",
+     "role": "Neutral"
+    },
+    {
+     "name": "Mid Blue",
+     "hex": "#254fad",
+     "role": "Neutral"
+    },
+    {
+     "name": "Border",
+     "hex": "#e0e2e6",
+     "role": "Neutral"
+    },
+    {
+     "name": "Light Surface",
+     "hex": "#f8fafc",
+     "role": "Neutral"
+    },
+    {
+     "name": "Blue-tinted",
+     "hex": "rgba(0,0,0,0.32)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Soft",
+     "hex": "rgba(15,48,106,0.05)",
+     "role": "Shadows"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards: `1px solid #e0e2e6`, 16px–24px radius",
+    "Inputs: Standard Haas styling"
+   ]
+  },
+  {
+   "slug": "apple",
+   "name": "Apple",
+   "category": "enterprise",
+   "style": "大留白、SF Pro、电影感图像",
+   "tags": [
+    "premium",
+    "whitespace",
+    "sf-pro"
+   ],
+   "fonts": [
+    "SF Pro Display",
+    "SF Pro Text"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#000000",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#f5f5f7",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#0071e3",
+     "role": "unspecified"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#1d1d1f",
+     "role": "Primary"
+    },
+    {
+     "name": "Link Blue",
+     "hex": "#0066cc",
+     "role": "Interactive"
+    },
+    {
+     "name": "Bright Blue",
+     "hex": "#2997ff",
+     "role": "Interactive"
+    },
+    {
+     "name": "White",
+     "hex": "#ffffff",
+     "role": "Text"
+    },
+    {
+     "name": "Black 80%",
+     "hex": "rgba(0, 0, 0, 0.8)",
+     "role": "Text"
+    },
+    {
+     "name": "Black 48%",
+     "hex": "rgba(0, 0, 0, 0.48)",
+     "role": "Text"
+    },
+    {
+     "name": "Dark Surface 1",
+     "hex": "#272729",
+     "role": "Surface & Dark Variants"
+    },
+    {
+     "name": "Dark Surface 2",
+     "hex": "#262628",
+     "role": "Surface & Dark Variants"
+    },
+    {
+     "name": "Dark Surface 3",
+     "hex": "#28282a",
+     "role": "Surface & Dark Variants"
+    },
+    {
+     "name": "Dark Surface 4",
+     "hex": "#2a2a2d",
+     "role": "Surface & Dark Variants"
+    },
+    {
+     "name": "Dark Surface 5",
+     "hex": "#242426",
+     "role": "Surface & Dark Variants"
+    },
+    {
+     "name": "Button Active",
+     "hex": "#ededf2",
+     "role": "Button States"
+    },
+    {
+     "name": "Button Default Light",
+     "hex": "#fafafc",
+     "role": "Button States"
+    },
+    {
+     "name": "Overlay",
+     "hex": "rgba(210, 210, 215, 0.64)",
+     "role": "Button States"
+    },
+    {
+     "name": "White 32%",
+     "hex": "rgba(255, 255, 255, 0.32)",
+     "role": "Button States"
+    },
+    {
+     "name": "Card Shadow",
+     "hex": "rgba(0, 0, 0, 0.22)",
+     "role": "Shadows"
+    },
+    {
+     "name": "color-20",
+     "hex": "rgba(0, 0, 0, 0.04)",
+     "role": "Buttons"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "bmw",
+   "name": "BMW",
+   "category": "enterprise",
+   "style": "暗色高级面、德系工程精密感",
+   "tags": [
+    "dark",
+    "premium",
+    "engineering"
+   ],
+   "fonts": [
+    "BMWTypeNextLatin Light",
+    "BMWTypeNextLatin"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#1c69d4",
+     "role": "unspecified"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Primary Brand"
+    },
+    {
+     "name": "BMW Focus Blue",
+     "hex": "#0653b6",
+     "role": "Primary Brand"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#262626",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Meta Gray",
+     "hex": "#757575",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Silver",
+     "hex": "#bbbbbb",
+     "role": "Neutral Scale"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Navigation",
+    "Image Treatment"
+   ]
+  },
+  {
+   "slug": "cal",
+   "name": "Cal.com",
+   "category": "design",
+   "style": "干净中性、开发者友好的极简",
+   "tags": [
+    "neutral",
+    "minimal",
+    "developer"
+   ],
+   "fonts": [
+    "Cal Sans",
+    "Inter",
+    "Cal Sans UI Variable Light",
+    "Cal Sans UI Medium"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#242424",
+     "role": "unspecified"
+    },
+    {
+     "name": "Midnight",
+     "hex": "#111111",
+     "role": "Primary"
+    },
+    {
+     "name": "White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "Link Blue",
+     "hex": "#0099ff",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Focus Ring",
+     "hex": "#3b82f6",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Default Link",
+     "hex": "#0000ee",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Light Gray",
+     "hex": "#f5f5f5",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Mid Gray",
+     "hex": "#898989",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Pure Black",
+     "hex": "#000000",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Border Gray",
+     "hex": "rgba(34, 42, 53, 0.08–0.10)",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Dark Primary",
+     "hex": "#1e1f23",
+     "role": "Buttons"
+    },
+    {
+     "name": "Inset highlight",
+     "hex": "rgba(255, 255, 255, 0.15)",
+     "role": "Buttons"
+    },
+    {
+     "name": "Shadow Card",
+     "hex": "rgba(19, 19, 22, 0.7)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "Select dropdown",
+     "hex": "rgb(118, 118, 118)",
+     "role": "Inputs & Forms"
+    },
+    {
+     "name": "Level 1 (Inset)",
+     "hex": "rgba(0,0,0,0.16)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "Level 2 (Ring + Soft)",
+     "hex": "rgba(34,42,53,0.08)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "Level 3 (Ring + Soft Alt)",
+     "hex": "rgba(36,36,36,0.7)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "Level 4 (Inset Highlight)",
+     "hex": "rgb(255,255,255)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "Level 5 (Soft Only)",
+     "hex": "rgba(34,42,53,0.05)",
+     "role": "Border Radius Scale"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment"
+   ]
+  },
+  {
+   "slug": "claude",
+   "name": "Claude",
+   "category": "ai",
+   "style": "暖赤陶强调色、编辑式排版",
+   "tags": [
+    "warm",
+    "terracotta",
+    "editorial"
+   ],
+   "fonts": [
+    "Anthropic Serif",
+    "Anthropic Sans",
+    "Anthropic Mono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#f5f4ed",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#c96442",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#5e5d59",
+     "role": "unspecified"
+    },
+    {
+     "name": "Anthropic Near Black",
+     "hex": "#141413",
+     "role": "Primary"
+    },
+    {
+     "name": "Coral Accent",
+     "hex": "#d97757",
+     "role": "Primary"
+    },
+    {
+     "name": "Error Crimson",
+     "hex": "#b53333",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Focus Blue",
+     "hex": "#3898ec",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Ivory",
+     "hex": "#faf9f5",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Warm Sand",
+     "hex": "#e8e6dc",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Dark Surface",
+     "hex": "#30302e",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Charcoal Warm",
+     "hex": "#4d4c48",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Stone Gray",
+     "hex": "#87867f",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Dark Warm",
+     "hex": "#3d3d3a",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Warm Silver",
+     "hex": "#b0aea5",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Border Cream",
+     "hex": "#f0eee6",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Ring Warm",
+     "hex": "#d1cfc5",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Ring Subtle",
+     "hex": "#dedc01",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Ring Deep",
+     "hex": "#c2c0b6",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "color-20",
+     "hex": "rgba(0,0,0,0.05)",
+     "role": "Cards & Containers"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "clay",
+   "name": "Clay",
+   "category": "design",
+   "style": "有机形状、柔和渐变、艺术指导式版式",
+   "tags": [
+    "organic",
+    "gradient",
+    "art-directed"
+   ],
+   "fonts": [
+    "Roobert",
+    "Space Mono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#faf9f7",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "rgb(0,0,0)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#dad4c8",
+     "role": "unspecified"
+    },
+    {
+     "name": "Clay Black",
+     "hex": "#000000",
+     "role": "Primary"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "Matcha 300",
+     "hex": "#84e7a5",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Matcha 600",
+     "hex": "#078a52",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Matcha 800",
+     "hex": "#02492a",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Slushie 500",
+     "hex": "#3bd3fd",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Slushie 800",
+     "hex": "#0089ad",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Lemon 400",
+     "hex": "#f8cc65",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Lemon 500",
+     "hex": "#fbbd41",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Lemon 700",
+     "hex": "#d08a11",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Lemon 800",
+     "hex": "#9d6a09",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Ube 300",
+     "hex": "#c1b0ff",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Ube 800",
+     "hex": "#43089f",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Ube 900",
+     "hex": "#32037d",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Pomegranate 400",
+     "hex": "#fc7981",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Blueberry 800",
+     "hex": "#01418d",
+     "role": "Swatch Palette — Named Colors"
+    },
+    {
+     "name": "Warm Silver",
+     "hex": "#9f9b93",
+     "role": "Neutral Scale (Warm)"
+    },
+    {
+     "name": "Warm Charcoal",
+     "hex": "#55534e",
+     "role": "Neutral Scale (Warm)"
+    },
+    {
+     "name": "Dark Charcoal",
+     "hex": "#333333",
+     "role": "Neutral Scale (Warm)"
+    },
+    {
+     "name": "Oat Light",
+     "hex": "#eee9df",
+     "role": "Surface & Border"
+    },
+    {
+     "name": "Cool Border",
+     "hex": "#e6e8ec",
+     "role": "Surface & Border"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "clickhouse",
+   "name": "ClickHouse",
+   "category": "infra",
+   "style": "黄色强调、技术文档风格",
+   "tags": [
+    "yellow",
+    "technical",
+    "docs"
+   ],
+   "fonts": [
+    "Inter",
+    "Basier",
+    "Inconsolata"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#000000",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#faff69",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#414141",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "#166534",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-5",
+     "hex": "#f4f692",
+     "role": "unspecified"
+    },
+    {
+     "name": "Dark Forest",
+     "hex": "#14572f",
+     "role": "Primary"
+    },
+    {
+     "name": "Border Olive",
+     "hex": "#4f5100",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Olive Dark",
+     "hex": "#161600",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#141414",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Deep Charcoal",
+     "hex": "#343434",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Hover Gray",
+     "hex": "#3a3a3a",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Silver",
+     "hex": "#a0a0a0",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Mid Gray",
+     "hex": "#585858",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Border Gray",
+     "hex": "#e5e7eb",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "color-16",
+     "hex": "#151515",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-17",
+     "hex": "rgb(29, 29, 29)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-18",
+     "hex": "rgba(65, 65, 65, 0.8)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "color-19",
+     "hex": "rgba(0,0,0,0.1)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "color-20",
+     "hex": "rgba(0,0,0,0.06)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "Pressed/Inset (Level 4)",
+     "hex": "rgba(0,0,0,0.14)",
+     "role": "Border Radius Scale"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Navigation",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "cohere",
+   "name": "Cohere",
+   "category": "ai",
+   "style": "高饱和渐变、数据密集型仪表盘",
+   "tags": [
+    "gradient",
+    "data",
+    "dashboard"
+   ],
+   "fonts": [
+    "CohereText",
+    "Unica77 Cohere Web",
+    "CohereMono",
+    "CohereIconDefault"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#d9d9dd",
+     "role": "unspecified"
+    },
+    {
+     "name": "Cohere Black",
+     "hex": "#000000",
+     "role": "Primary"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#212121",
+     "role": "Primary"
+    },
+    {
+     "name": "Deep Dark",
+     "hex": "#17171c",
+     "role": "Primary"
+    },
+    {
+     "name": "Interaction Blue",
+     "hex": "#1863dc",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Ring Blue",
+     "hex": "#4c6ee6",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Focus Purple",
+     "hex": "#9b60aa",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Snow",
+     "hex": "#fafafa",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Lightest Gray",
+     "hex": "#f2f2f2",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Muted Slate",
+     "hex": "#93939f",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Border Light",
+     "hex": "#e5e7eb",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "color-13",
+     "hex": "rgba(255, 255, 255, 0)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-14",
+     "hex": "rgb(179, 0, 0)",
+     "role": "Inputs & Forms"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "coinbase",
+   "name": "Coinbase",
+   "category": "fintech",
+   "style": "干净蓝色识别、信任感、机构气质",
+   "tags": [
+    "blue",
+    "trust",
+    "institutional"
+   ],
+   "fonts": [
+    "CoinbaseDisplay",
+    "CoinbaseSans",
+    "CoinbaseText",
+    "CoinbaseIcons"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#0052ff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#578bfa",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#0a0b0d",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "#eef0f3",
+     "role": "unspecified"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "Link Blue",
+     "hex": "#0667d0",
+     "role": "Interactive"
+    },
+    {
+     "name": "Muted Blue",
+     "hex": "#5b616e",
+     "role": "Interactive"
+    },
+    {
+     "name": "Dark Card",
+     "hex": "#282b31",
+     "role": "Surface"
+    },
+    {
+     "name": "Light Surface",
+     "hex": "rgba(247,247,247,0.88)",
+     "role": "Surface"
+    },
+    {
+     "name": "color-10",
+     "hex": "rgba(91,97,110,0.2)",
+     "role": "Cards & Containers"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers"
+   ]
+  },
+  {
+   "slug": "composio",
+   "name": "Composio",
+   "category": "infra",
+   "style": "现代暗色 + 彩色集成图标",
+   "tags": [
+    "dark",
+    "icons",
+    "integrations"
+   ],
+   "fonts": [
+    "abcDiatype",
+    "JetBrains Mono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#0f0f0f",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#0007cd",
+     "role": "unspecified"
+    },
+    {
+     "name": "Electric Cyan",
+     "hex": "#00ffff",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Signal Blue",
+     "hex": "#0089ff",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Ocean Blue",
+     "hex": "#0096ff",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Pure Black",
+     "hex": "#000000",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Charcoal",
+     "hex": "#2c2c2c",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Muted Smoke",
+     "hex": "#444444",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Ghost White",
+     "hex": "rgba(255,255,255,0.6)",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Whisper White",
+     "hex": "rgba(255,255,255,0.5)",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Phantom White",
+     "hex": "rgba(255,255,255,0.2)",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Border Mist 12",
+     "hex": "rgba(255,255,255,0.12)",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Border Mist 10",
+     "hex": "rgba(255,255,255,0.10)",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Border Mist 08",
+     "hex": "rgba(255,255,255,0.08)",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Border Mist 06",
+     "hex": "rgba(255,255,255,0.06)",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Border Mist 04",
+     "hex": "rgba(255,255,255,0.04)",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Light Border",
+     "hex": "#e0e0e0",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "color-19",
+     "hex": "rgba(0,255,255,0.12)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-20",
+     "hex": "rgb(0,150,255)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-21",
+     "hex": "rgb(0,137,255)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-22",
+     "hex": "rgb(44,44,44)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-23",
+     "hex": "rgba(0,0,0,0.15)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "color-24",
+     "hex": "rgba(0,0,0,0.5)",
+     "role": "Cards & Containers"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "cursor",
+   "name": "Cursor",
+   "category": "devtools",
+   "style": "流畅暗色界面、渐变强调",
+   "tags": [
+    "dark",
+    "gradient",
+    "editor"
+   ],
+   "fonts": [
+    "CursorGothic",
+    "jjannon",
+    "berkeleyMono",
+    "system-ui"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#f2f1ed",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#26251e",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#f54e00",
+     "role": "unspecified"
+    },
+    {
+     "name": "Cursor Light",
+     "hex": "#e6e5e0",
+     "role": "Primary"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "True Black",
+     "hex": "#000000",
+     "role": "Primary"
+    },
+    {
+     "name": "Gold",
+     "hex": "#c08532",
+     "role": "Accent"
+    },
+    {
+     "name": "Error",
+     "hex": "#cf2d56",
+     "role": "Semantic"
+    },
+    {
+     "name": "Success",
+     "hex": "#1f8a65",
+     "role": "Semantic"
+    },
+    {
+     "name": "Thinking",
+     "hex": "#dfa88f",
+     "role": "Timeline / Feature Colors"
+    },
+    {
+     "name": "Grep",
+     "hex": "#9fc9a2",
+     "role": "Timeline / Feature Colors"
+    },
+    {
+     "name": "Read",
+     "hex": "#9fbbe0",
+     "role": "Timeline / Feature Colors"
+    },
+    {
+     "name": "Edit",
+     "hex": "#c0a8dd",
+     "role": "Timeline / Feature Colors"
+    },
+    {
+     "name": "Surface 100",
+     "hex": "#f7f7f4",
+     "role": "Surface Scale"
+    },
+    {
+     "name": "Surface 300",
+     "hex": "#ebeae5",
+     "role": "Surface Scale"
+    },
+    {
+     "name": "Surface 500",
+     "hex": "#e1e0db",
+     "role": "Surface Scale"
+    },
+    {
+     "name": "Border Strong",
+     "hex": "rgba(38, 37, 30, 0.55)",
+     "role": "Border Colors"
+    },
+    {
+     "name": "Card Shadow",
+     "hex": "rgba(0,0,0,0.14)",
+     "role": "Shadows & Depth"
+    },
+    {
+     "name": "Ambient Shadow",
+     "hex": "rgba(0,0,0,0.02)",
+     "role": "Shadows & Depth"
+    },
+    {
+     "name": "color-20",
+     "hex": "rgba(0,0,0,0.1)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-21",
+     "hex": "rgba(38, 37, 30, 0.06)",
+     "role": "Buttons"
+    },
+    {
+     "name": "Ambient (Level 2)",
+     "hex": "rgba(0,0,0,0.008)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "color-23",
+     "hex": "rgba(38, 37, 30, 0.4)",
+     "role": "Hover States"
+    },
+    {
+     "name": "color-24",
+     "hex": "rgba(38, 37, 30, 0.1)",
+     "role": "Quick Color Reference"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "elevenlabs",
+   "name": "ElevenLabs",
+   "category": "ai",
+   "style": "暗色电影感、声波美学",
+   "tags": [
+    "dark",
+    "cinematic",
+    "audio"
+   ],
+   "fonts": [
+    "Waldenburg",
+    "WaldenburgFH",
+    "Inter",
+    "Geist Mono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#ffffff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "rgba(0,0,0,0.075)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#f5f5f5",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "rgba(78, 50, 23, 0.04)",
+     "role": "unspecified"
+    },
+    {
+     "name": "Warm Stone",
+     "hex": "#f5f2ef",
+     "role": "Primary"
+    },
+    {
+     "name": "Black",
+     "hex": "#000000",
+     "role": "Primary"
+    },
+    {
+     "name": "Dark Gray",
+     "hex": "#4e4e4e",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Warm Gray",
+     "hex": "#777169",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Near White",
+     "hex": "#f6f6f6",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Grid Cyan",
+     "hex": "#7fffff",
+     "role": "Interactive"
+    },
+    {
+     "name": "Ring Blue",
+     "hex": "rgb(147 197 253 / 0.5)",
+     "role": "Interactive"
+    },
+    {
+     "name": "Border Light",
+     "hex": "#e5e5e5",
+     "role": "Interactive"
+    },
+    {
+     "name": "Border Subtle",
+     "hex": "rgba(0, 0, 0, 0.05)",
+     "role": "Interactive"
+    },
+    {
+     "name": "Inset Dark",
+     "hex": "rgba(0,0,0,0.1)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Outline Ring",
+     "hex": "rgba(0,0,0,0.06)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Soft Elevation",
+     "hex": "rgba(0,0,0,0.04)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Card Shadow",
+     "hex": "rgba(0,0,0,0.4)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Edge Shadow",
+     "hex": "rgba(0,0,0,0.08)",
+     "role": "Shadows"
+    },
+    {
+     "name": "color-19",
+     "hex": "rgba(245, 242, 239, 0.8)",
+     "role": "Buttons"
+    },
+    {
+     "name": "Shadow Philosophy",
+     "hex": "rgba(78,50,23,...)",
+     "role": "Border Radius Scale"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "expo",
+   "name": "Expo",
+   "category": "devtools",
+   "style": "暗色主题、紧凑字距、代码优先",
+   "tags": [
+    "dark",
+    "tight",
+    "code"
+   ],
+   "fonts": [
+    "Inter",
+    "JetBrains Mono",
+    "system-ui, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#f0f0f3",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#000000",
+     "role": "unspecified"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#1c2024",
+     "role": "Primary"
+    },
+    {
+     "name": "Link Cobalt",
+     "hex": "#0d74ce",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Legal Blue",
+     "hex": "#476cff",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Widget Sky",
+     "hex": "#47c2ff",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Preview Purple",
+     "hex": "#8145b5",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Widget Dark",
+     "hex": "#1a1a1a",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Banner Dark",
+     "hex": "#171717",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Slate Gray",
+     "hex": "#60646c",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Mid Slate",
+     "hex": "#555860",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Silver",
+     "hex": "#b0b4ba",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Pewter",
+     "hex": "#999999",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Light Silver",
+     "hex": "#cccccc",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Dark Slate",
+     "hex": "#363a3f",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Charcoal",
+     "hex": "#333333",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Warning Amber",
+     "hex": "#ab6400",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Destructive Rose",
+     "hex": "#eb8e90",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Border Lavender",
+     "hex": "#e0e1e6",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Input Border",
+     "hex": "#d9d9e0",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Dark Focus Ring",
+     "hex": "#2547d0",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "color-23",
+     "hex": "rgba(0,0,0,0.08)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "color-24",
+     "hex": "rgba(0,0,0,0.1)",
+     "role": "Cards & Containers"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "figma",
+   "name": "Figma",
+   "category": "design",
+   "style": "高饱和多彩、活泼但专业",
+   "tags": [
+    "colorful",
+    "playful",
+    "professional"
+   ],
+   "fonts": [
+    "figmaSans",
+    "figmaMono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#000000",
+     "role": "unspecified"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "Glass Black",
+     "hex": "rgba(0, 0, 0, 0.08)",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Glass White",
+     "hex": "rgba(255, 255, 255, 0.16)",
+     "role": "Surface & Background"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Navigation",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "framer",
+   "name": "Framer",
+   "category": "design",
+   "style": "黑蓝大胆、动效优先、设计感强",
+   "tags": [
+    "black",
+    "blue",
+    "motion"
+   ],
+   "fonts": [
+    "GT Walsheim Framer Medium",
+    "Inter Variable",
+    "Mona Sans",
+    "Azeret Mono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#000000",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#0099ff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "rgba(255, 255, 255, 0.1)",
+     "role": "unspecified"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "Muted Silver",
+     "hex": "#a6a6a6",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#090909",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Subtle White",
+     "hex": "rgba(255, 255, 255, 0.5)",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Ghost White",
+     "hex": "rgba(255, 255, 255, 0.6)",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Blue Glow",
+     "hex": "rgba(0, 153, 255, 0.15)",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Default Link Blue",
+     "hex": "#0000ee",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Solid White Pill",
+     "hex": "rgb(255, 255, 255)",
+     "role": "Buttons"
+    },
+    {
+     "name": "Elevated Card",
+     "hex": "rgba(0, 0, 0, 0.25)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "color-13",
+     "hex": "rgba(255, 255, 255, 0.4)",
+     "role": "Inputs & Forms"
+    },
+    {
+     "name": "Level 2 (Contained)",
+     "hex": "rgb(9, 9, 9)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "color-15",
+     "hex": "#1a1a1a",
+     "role": "Don't"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Trust & Social Proof"
+   ]
+  },
+  {
+   "slug": "hashicorp",
+   "name": "HashiCorp",
+   "category": "infra",
+   "style": "企业级干净、黑白为主",
+   "tags": [
+    "monochrome",
+    "enterprise",
+    "clean"
+   ],
+   "fonts": [
+    "__hashicorpSans_96f0ca",
+    "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#15181e",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#7b42bc",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "rgba(97, 104, 117, 0.05)",
+     "role": "unspecified"
+    },
+    {
+     "name": "Black",
+     "hex": "#000000",
+     "role": "Brand Primary"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#0d0e12",
+     "role": "Brand Primary"
+    },
+    {
+     "name": "Light Gray",
+     "hex": "#f1f2f3",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Mid Gray",
+     "hex": "#d5d7db",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Cool Gray",
+     "hex": "#b2b6bd",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Dark Gray",
+     "hex": "#656a76",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Charcoal",
+     "hex": "#3b3d45",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Near White",
+     "hex": "#efeff1",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Vault Yellow",
+     "hex": "#ffcf25",
+     "role": "Product Brand Colors"
+    },
+    {
+     "name": "Waypoint Teal",
+     "hex": "#14c6cb",
+     "role": "Product Brand Colors"
+    },
+    {
+     "name": "Waypoint Teal Hover",
+     "hex": "#12b6bb",
+     "role": "Product Brand Colors"
+    },
+    {
+     "name": "Vagrant Blue",
+     "hex": "#1868f2",
+     "role": "Product Brand Colors"
+    },
+    {
+     "name": "Purple Accent",
+     "hex": "#911ced",
+     "role": "Product Brand Colors"
+    },
+    {
+     "name": "Visited Purple",
+     "hex": "#a737ff",
+     "role": "Product Brand Colors"
+    },
+    {
+     "name": "Action Blue",
+     "hex": "#1060ff",
+     "role": "Semantic Colors"
+    },
+    {
+     "name": "Link Blue",
+     "hex": "#2264d6",
+     "role": "Semantic Colors"
+    },
+    {
+     "name": "Bright Blue",
+     "hex": "#2b89ff",
+     "role": "Semantic Colors"
+    },
+    {
+     "name": "Amber",
+     "hex": "#bb5a00",
+     "role": "Semantic Colors"
+    },
+    {
+     "name": "Amber Light",
+     "hex": "#fbeabf",
+     "role": "Semantic Colors"
+    },
+    {
+     "name": "Vault Faint Yellow",
+     "hex": "#fff9cf",
+     "role": "Semantic Colors"
+    },
+    {
+     "name": "Orange",
+     "hex": "#a9722e",
+     "role": "Semantic Colors"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Badges / Pills",
+    "Inputs",
+    "Links",
+    "Cards & Containers",
+    "Navigation"
+   ]
+  },
+  {
+   "slug": "ibm",
+   "name": "IBM",
+   "category": "enterprise",
+   "style": "Carbon 设计系统、结构化蓝色体系",
+   "tags": [
+    "carbon",
+    "blue",
+    "system"
+   ],
+   "fonts": [
+    "IBM Plex Sans",
+    "IBM Plex Mono",
+    "ibm_icons"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#ffffff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#0f62fe",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#f4f4f4",
+     "role": "unspecified"
+    },
+    {
+     "name": "Gray 100",
+     "hex": "#161616",
+     "role": "Primary"
+    },
+    {
+     "name": "Gray 90",
+     "hex": "#262626",
+     "role": "Neutral Scale (Gray Family)"
+    },
+    {
+     "name": "Gray 80",
+     "hex": "#393939",
+     "role": "Neutral Scale (Gray Family)"
+    },
+    {
+     "name": "Gray 70",
+     "hex": "#525252",
+     "role": "Neutral Scale (Gray Family)"
+    },
+    {
+     "name": "Gray 60",
+     "hex": "#6f6f6f",
+     "role": "Neutral Scale (Gray Family)"
+    },
+    {
+     "name": "Gray 50",
+     "hex": "#8d8d8d",
+     "role": "Neutral Scale (Gray Family)"
+    },
+    {
+     "name": "Gray 30",
+     "hex": "#c6c6c6",
+     "role": "Neutral Scale (Gray Family)"
+    },
+    {
+     "name": "Gray 20",
+     "hex": "#e0e0e0",
+     "role": "Neutral Scale (Gray Family)"
+    },
+    {
+     "name": "Gray 10 Hover",
+     "hex": "#e8e8e8",
+     "role": "Neutral Scale (Gray Family)"
+    },
+    {
+     "name": "Blue 70",
+     "hex": "#0043ce",
+     "role": "Interactive"
+    },
+    {
+     "name": "Blue 80",
+     "hex": "#002d9c",
+     "role": "Interactive"
+    },
+    {
+     "name": "Blue 10",
+     "hex": "#edf5ff",
+     "role": "Interactive"
+    },
+    {
+     "name": "Red 60",
+     "hex": "#da1e28",
+     "role": "Support & Status"
+    },
+    {
+     "name": "Green 50",
+     "hex": "#24a148",
+     "role": "Support & Status"
+    },
+    {
+     "name": "Yellow 30",
+     "hex": "#f1c21b",
+     "role": "Support & Status"
+    },
+    {
+     "name": "Interactive",
+     "hex": "#78a9ff",
+     "role": "Dark Theme (Gray 100 Theme)"
+    },
+    {
+     "name": "color-20",
+     "hex": "#0353e9",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-21",
+     "hex": "#4c4c4c",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-22",
+     "hex": "#b81921",
+     "role": "Buttons"
+    },
+    {
+     "name": "Raised",
+     "hex": "rgba(0,0,0,0.3)",
+     "role": "Border Radius Scale"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Links",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "intercom",
+   "name": "Intercom",
+   "category": "design",
+   "style": "友好蓝色、对话式 UI",
+   "tags": [
+    "blue",
+    "friendly",
+    "conversational"
+   ],
+   "fonts": [
+    "Saans",
+    "Serrif",
+    "SaansMono",
+    "MediumLL"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#faf9f6",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#dedbd6",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#ff5600",
+     "role": "unspecified"
+    },
+    {
+     "name": "Off Black",
+     "hex": "#111111",
+     "role": "Primary"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "Report Orange",
+     "hex": "#fe4c02",
+     "role": "Primary"
+    },
+    {
+     "name": "Report Blue",
+     "hex": "#65b5ff",
+     "role": "Report Palette"
+    },
+    {
+     "name": "Report Green",
+     "hex": "#0bdf50",
+     "role": "Report Palette"
+    },
+    {
+     "name": "Report Red",
+     "hex": "#c41c1c",
+     "role": "Report Palette"
+    },
+    {
+     "name": "Report Pink",
+     "hex": "#ff2067",
+     "role": "Report Palette"
+    },
+    {
+     "name": "Report Lime",
+     "hex": "#b3e01c",
+     "role": "Report Palette"
+    },
+    {
+     "name": "Green",
+     "hex": "#00da00",
+     "role": "Report Palette"
+    },
+    {
+     "name": "Deep Blue",
+     "hex": "#0007cb",
+     "role": "Report Palette"
+    },
+    {
+     "name": "Black 80",
+     "hex": "#313130",
+     "role": "Neutral Scale (Warm)"
+    },
+    {
+     "name": "Black 60",
+     "hex": "#626260",
+     "role": "Neutral Scale (Warm)"
+    },
+    {
+     "name": "Black 50",
+     "hex": "#7b7b78",
+     "role": "Neutral Scale (Warm)"
+    },
+    {
+     "name": "Content Tertiary",
+     "hex": "#9c9fa5",
+     "role": "Neutral Scale (Warm)"
+    },
+    {
+     "name": "Warm Sand",
+     "hex": "#d3cec6",
+     "role": "Neutral Scale (Warm)"
+    },
+    {
+     "name": "color-19",
+     "hex": "#2c6415",
+     "role": "Buttons"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Navigation"
+   ]
+  },
+  {
+   "slug": "kraken",
+   "name": "Kraken",
+   "category": "fintech",
+   "style": "紫色暗色界面、数据密集型仪表盘",
+   "tags": [
+    "purple",
+    "dark",
+    "dashboard"
+   ],
+   "fonts": [
+    "Kraken-Brand",
+    "Kraken-Product"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#7132f5",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#5741d8",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#101114",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "rgba(0,0,0,0.03)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-5",
+     "hex": "#149e61",
+     "role": "unspecified"
+    },
+    {
+     "name": "Purple Deep",
+     "hex": "#5b1ecf",
+     "role": "Primary"
+    },
+    {
+     "name": "Purple Subtle",
+     "hex": "rgba(133,91,251,0.16)",
+     "role": "Primary"
+    },
+    {
+     "name": "Cool Gray",
+     "hex": "#686b82",
+     "role": "Neutral"
+    },
+    {
+     "name": "Silver Blue",
+     "hex": "#9497a9",
+     "role": "Neutral"
+    },
+    {
+     "name": "White",
+     "hex": "#ffffff",
+     "role": "Neutral"
+    },
+    {
+     "name": "Border Gray",
+     "hex": "#dedee5",
+     "role": "Neutral"
+    },
+    {
+     "name": "Green Dark",
+     "hex": "#026b3f",
+     "role": "Semantic"
+    },
+    {
+     "name": "color-13",
+     "hex": "rgba(148,151,169,0.08)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-14",
+     "hex": "rgba(20,158,97,0.16)",
+     "role": "Badges"
+    },
+    {
+     "name": "color-15",
+     "hex": "#484b5e",
+     "role": "Badges"
+    },
+    {
+     "name": "color-16",
+     "hex": "rgba(16,24,40,0.04)",
+     "role": "Border Radius: 3px, 6px, 8px, 10px, 12px, 16px, 9999px, 50%"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Badges"
+   ]
+  },
+  {
+   "slug": "linear.app",
+   "name": "Linear",
+   "category": "devtools",
+   "style": "超极简、精准、紫色强调",
+   "tags": [
+    "minimal",
+    "precise",
+    "purple"
+   ],
+   "fonts": [
+    "Inter Variable",
+    "Berkeley Mono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#08090a",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#5e6ad2",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#0f1011",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "#7170ff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-5",
+     "hex": "rgba(255,255,255,0.05)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-6",
+     "hex": "rgba(255,255,255,0.02)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-7",
+     "hex": "#27a644",
+     "role": "unspecified"
+    },
+    {
+     "name": "Marketing Black",
+     "hex": "#010102",
+     "role": "Background Surfaces"
+    },
+    {
+     "name": "Level 3 Surface",
+     "hex": "#191a1b",
+     "role": "Background Surfaces"
+    },
+    {
+     "name": "Secondary Surface",
+     "hex": "#28282c",
+     "role": "Background Surfaces"
+    },
+    {
+     "name": "Primary Text",
+     "hex": "#f7f8f8",
+     "role": "Text & Content"
+    },
+    {
+     "name": "Secondary Text",
+     "hex": "#d0d6e0",
+     "role": "Text & Content"
+    },
+    {
+     "name": "Tertiary Text",
+     "hex": "#8a8f98",
+     "role": "Text & Content"
+    },
+    {
+     "name": "Quaternary Text",
+     "hex": "#62666d",
+     "role": "Text & Content"
+    },
+    {
+     "name": "Accent Hover",
+     "hex": "#828fff",
+     "role": "Brand & Accent"
+    },
+    {
+     "name": "Security Lavender",
+     "hex": "#7a7fad",
+     "role": "Brand & Accent"
+    },
+    {
+     "name": "Emerald",
+     "hex": "#10b981",
+     "role": "Status Colors"
+    },
+    {
+     "name": "Border Primary",
+     "hex": "#23252a",
+     "role": "Border & Divider"
+    },
+    {
+     "name": "Border Secondary",
+     "hex": "#34343a",
+     "role": "Border & Divider"
+    },
+    {
+     "name": "Border Tertiary",
+     "hex": "#3e3e44",
+     "role": "Border & Divider"
+    },
+    {
+     "name": "Border Standard",
+     "hex": "rgba(255,255,255,0.08)",
+     "role": "Border & Divider"
+    },
+    {
+     "name": "Line Tint",
+     "hex": "#141516",
+     "role": "Border & Divider"
+    },
+    {
+     "name": "Line Tertiary",
+     "hex": "#18191a",
+     "role": "Border & Divider"
+    },
+    {
+     "name": "Light Surface",
+     "hex": "#f3f4f5",
+     "role": "Light Mode Neutrals (for light theme contexts)"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Badges & Pills",
+    "Navigation",
+    "Image Treatment"
+   ]
+  },
+  {
+   "slug": "lovable",
+   "name": "Lovable",
+   "category": "devtools",
+   "style": "俏皮渐变、友好的开发者气质",
+   "tags": [
+    "playful",
+    "gradient",
+    "friendly"
+   ],
+   "fonts": [
+    "Camera Plain Variable",
+    "400 (body/reading), 480 (special display), 600 (headings/emphasis)"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#f7f4ed",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#1c1c1c",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "rgba(255,255,255,0.2)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "#eceae4",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-5",
+     "hex": "rgba(0,0,0,0.1)",
+     "role": "unspecified"
+    },
+    {
+     "name": "Off-White",
+     "hex": "#fcfbf8",
+     "role": "Primary"
+    },
+    {
+     "name": "Charcoal 83%",
+     "hex": "rgba(28,28,28,0.83)",
+     "role": "Neutral Scale (Opacity-Based)"
+    },
+    {
+     "name": "Charcoal 82%",
+     "hex": "rgba(28,28,28,0.82)",
+     "role": "Neutral Scale (Opacity-Based)"
+    },
+    {
+     "name": "Muted Gray",
+     "hex": "#5f5f5d",
+     "role": "Neutral Scale (Opacity-Based)"
+    },
+    {
+     "name": "Charcoal 40%",
+     "hex": "rgba(28,28,28,0.4)",
+     "role": "Neutral Scale (Opacity-Based)"
+    },
+    {
+     "name": "Charcoal 4%",
+     "hex": "rgba(28,28,28,0.04)",
+     "role": "Neutral Scale (Opacity-Based)"
+    },
+    {
+     "name": "Charcoal 3%",
+     "hex": "rgba(28,28,28,0.03)",
+     "role": "Neutral Scale (Opacity-Based)"
+    },
+    {
+     "name": "Ring Blue",
+     "hex": "#3b82f6",
+     "role": "Interactive"
+    },
+    {
+     "name": "Button Inset",
+     "hex": "rgba(0,0,0,0.2)",
+     "role": "Inset Shadows"
+    },
+    {
+     "name": "color-15",
+     "hex": "rgba(0,0,0,0)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-16",
+     "hex": "rgba(59,130,246,0.5)",
+     "role": "Inputs & Forms"
+    },
+    {
+     "name": "Inset (Level 2)",
+     "hex": "rgba(0,0,0,0.05)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "color-18",
+     "hex": "#ffffff",
+     "role": "Don't"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Links",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "minimax",
+   "name": "MiniMax",
+   "category": "ai",
+   "style": "大胆暗色界面 + 霓虹强调",
+   "tags": [
+    "dark",
+    "neon",
+    "bold"
+   ],
+   "fonts": [
+    "DM Sans",
+    "Outfit",
+    "Poppins",
+    "Roboto"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#ffffff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#1456f0",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#ea5ec1",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "#222222",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-5",
+     "hex": "rgba(44, 30, 116, 0.16)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-6",
+     "hex": "#181e25",
+     "role": "unspecified"
+    },
+    {
+     "name": "Sky Blue",
+     "hex": "#3daeff",
+     "role": "Brand Primary"
+    },
+    {
+     "name": "Primary 200",
+     "hex": "#bfdbfe",
+     "role": "Blue Scale (Primary)"
+    },
+    {
+     "name": "Primary Light",
+     "hex": "#60a5fa",
+     "role": "Blue Scale (Primary)"
+    },
+    {
+     "name": "Primary 500",
+     "hex": "#3b82f6",
+     "role": "Blue Scale (Primary)"
+    },
+    {
+     "name": "Primary 600",
+     "hex": "#2563eb",
+     "role": "Blue Scale (Primary)"
+    },
+    {
+     "name": "Primary 700",
+     "hex": "#1d4ed8",
+     "role": "Blue Scale (Primary)"
+    },
+    {
+     "name": "Brand Deep",
+     "hex": "#17437d",
+     "role": "Blue Scale (Primary)"
+    },
+    {
+     "name": "Dark",
+     "hex": "#18181b",
+     "role": "Text Colors"
+    },
+    {
+     "name": "Dark Gray",
+     "hex": "#45515e",
+     "role": "Text Colors"
+    },
+    {
+     "name": "Mid Gray",
+     "hex": "#8e8e93",
+     "role": "Text Colors"
+    },
+    {
+     "name": "Light Gray",
+     "hex": "#5f5f5f",
+     "role": "Text Colors"
+    },
+    {
+     "name": "Light Gray",
+     "hex": "#f0f0f0",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Border Light",
+     "hex": "#f2f3f5",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Border Gray",
+     "hex": "#e5e7eb",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Success Background",
+     "hex": "#e8ffea",
+     "role": "Semantic"
+    },
+    {
+     "name": "Standard",
+     "hex": "rgba(0, 0, 0, 0.08)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Brand Purple Offset",
+     "hex": "rgba(44, 30, 116, 0.11)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Card Elevation",
+     "hex": "rgba(36, 36, 36, 0.08)",
+     "role": "Shadows"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Product Cards",
+    "AI Product Cards (Matrix)",
+    "Links",
+    "Navigation"
+   ]
+  },
+  {
+   "slug": "mintlify",
+   "name": "Mintlify",
+   "category": "devtools",
+   "style": "干净、绿色强调、阅读优化",
+   "tags": [
+    "green",
+    "docs",
+    "reading"
+   ],
+   "fonts": [
+    "Inter",
+    "Geist Mono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#ffffff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#18e299",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "rgba(0,0,0,0.05)",
+     "role": "unspecified"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#0d0d0d",
+     "role": "Primary"
+    },
+    {
+     "name": "Brand Green Light",
+     "hex": "#d4fae8",
+     "role": "Secondary Accents"
+    },
+    {
+     "name": "Brand Green Deep",
+     "hex": "#0fa76e",
+     "role": "Secondary Accents"
+    },
+    {
+     "name": "Warm Amber",
+     "hex": "#c37d0d",
+     "role": "Secondary Accents"
+    },
+    {
+     "name": "Soft Blue",
+     "hex": "#3772cf",
+     "role": "Secondary Accents"
+    },
+    {
+     "name": "Error Red",
+     "hex": "#d45656",
+     "role": "Secondary Accents"
+    },
+    {
+     "name": "Gray 700",
+     "hex": "#333333",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Gray 500",
+     "hex": "#666666",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Gray 400",
+     "hex": "#888888",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Gray 200",
+     "hex": "#e5e5e5",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Gray 100",
+     "hex": "#f5f5f5",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Gray 50",
+     "hex": "#fafafa",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Border Medium",
+     "hex": "rgba(0,0,0,0.08)",
+     "role": "Surface & Overlay"
+    },
+    {
+     "name": "Card Shadow",
+     "hex": "rgba(0,0,0,0.03)",
+     "role": "Shadows & Depth"
+    },
+    {
+     "name": "Button Shadow",
+     "hex": "rgba(0,0,0,0.06)",
+     "role": "Shadows & Depth"
+    },
+    {
+     "name": "Text Primary",
+     "hex": "#ededed",
+     "role": "Color Inversions"
+    },
+    {
+     "name": "Text Secondary",
+     "hex": "#a0a0a0",
+     "role": "Color Inversions"
+    },
+    {
+     "name": "Border",
+     "hex": "rgba(255,255,255,0.08)",
+     "role": "Color Inversions"
+    },
+    {
+     "name": "Card Background",
+     "hex": "#141414",
+     "role": "Color Inversions"
+    },
+    {
+     "name": "Shadow",
+     "hex": "rgba(0,0,0,0.4)",
+     "role": "Color Inversions"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "miro",
+   "name": "Miro",
+   "category": "design",
+   "style": "明黄强调、无限画布美学",
+   "tags": [
+    "yellow",
+    "canvas",
+    "bright"
+   ],
+   "fonts": [
+    "Roobert PRO Medium",
+    "Roobert PRO SemiBold",
+    "Noto Sans"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#1c1c1e",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#5b76fe",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#00b473",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "rgb(224,226,232)",
+     "role": "unspecified"
+    },
+    {
+     "name": "White",
+     "hex": "#ffffff",
+     "role": "Primary"
+    },
+    {
+     "name": "Actionable Pressed",
+     "hex": "#2a41b6",
+     "role": "Primary"
+    },
+    {
+     "name": "Coral",
+     "hex": "#ffc6c6",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Rose",
+     "hex": "#ffd8f4",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Teal",
+     "hex": "#c3faf5",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Orange",
+     "hex": "#ffe6cd",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Yellow",
+     "hex": "#746019",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Moss",
+     "hex": "#187574",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Pink",
+     "hex": "#fde0f0",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Red",
+     "hex": "#fbd4d4",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Dark Red",
+     "hex": "#e3c5c5",
+     "role": "Pastel Accents (Light/Dark pairs)"
+    },
+    {
+     "name": "Slate",
+     "hex": "#555a6a",
+     "role": "Neutral"
+    },
+    {
+     "name": "Input Placeholder",
+     "hex": "#a5a8b5",
+     "role": "Neutral"
+    },
+    {
+     "name": "Border",
+     "hex": "#c7cad5",
+     "role": "Neutral"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards: 12px–24px radius, pastel backgrounds",
+    "Inputs: white bg, `1px solid #e9eaef`, 8px radius, 16px padding"
+   ]
+  },
+  {
+   "slug": "mistral.ai",
+   "name": "Mistral AI",
+   "category": "ai",
+   "style": "法式工程极简、紫色调",
+   "tags": [
+    "minimal",
+    "purple",
+    "french"
+   ],
+   "fonts": [
+    "Arial"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#fa520f",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#ffd900",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#fffaeb",
+     "role": "unspecified"
+    },
+    {
+     "name": "Mistral Flame",
+     "hex": "#fb6424",
+     "role": "Primary"
+    },
+    {
+     "name": "Block Orange",
+     "hex": "#ff8105",
+     "role": "Primary"
+    },
+    {
+     "name": "Sunshine 900",
+     "hex": "#ff8a00",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Sunshine 700",
+     "hex": "#ffa110",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Sunshine 500",
+     "hex": "#ffb83e",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Sunshine 300",
+     "hex": "#ffd06a",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Block Gold",
+     "hex": "#ffe295",
+     "role": "Secondary & Accent"
+    },
+    {
+     "name": "Cream",
+     "hex": "#fff0c2",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Mistral Black",
+     "hex": "#1f1f1f",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "color-14",
+     "hex": "rgba(127, 99, 21, 0.12)",
+     "role": "Cards & Containers"
+    },
+    {
+     "name": "Shadow Philosophy",
+     "hex": "rgba(127, 99, 21, ...)",
+     "role": "Border Radius Scale"
+    },
+    {
+     "name": "color-16",
+     "hex": "#000000",
+     "role": "Do"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "mongodb",
+   "name": "MongoDB",
+   "category": "infra",
+   "style": "绿色叶形品牌、开发者文档导向",
+   "tags": [
+    "green",
+    "docs",
+    "developer"
+   ],
+   "fonts": [
+    "MongoDB Value Serif",
+    "Euclid Circular A",
+    "Source Code Pro",
+    "Akzidenz-Grotesk Std"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#001e2b",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#b8c4c2",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#00ed64",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "rgba(0, 30, 43, 0.12)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-5",
+     "hex": "#00684a",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-6",
+     "hex": "#006cfa",
+     "role": "unspecified"
+    },
+    {
+     "name": "Hover Blue",
+     "hex": "#3860be",
+     "role": "Interactive"
+    },
+    {
+     "name": "Teal Active",
+     "hex": "#1eaedb",
+     "role": "Interactive"
+    },
+    {
+     "name": "Deep Teal",
+     "hex": "#1c2d38",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Teal Gray",
+     "hex": "#3d4f58",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Dark Slate",
+     "hex": "#21313c",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Cool Gray",
+     "hex": "#5c6c75",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Light Input",
+     "hex": "#e8edeb",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Black",
+     "hex": "#000000",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Forest Shadow",
+     "hex": "rgba(0, 0, 0, 0.13)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Standard Shadow",
+     "hex": "rgba(0, 0, 0, 0.15)",
+     "role": "Shadows"
+    },
+    {
+     "name": "Subtle Shadow",
+     "hex": "rgba(0, 0, 0, 0.1)",
+     "role": "Shadows"
+    },
+    {
+     "name": "color-19",
+     "hex": "rgba(0,0,0,0.06)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-20",
+     "hex": "rgba(0,30,43,...)",
+     "role": "Don't"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "notion",
+   "name": "Notion",
+   "category": "design",
+   "style": "暖极简、衬线标题、柔和表面",
+   "tags": [
+    "warm",
+    "serif",
+    "minimal"
+   ],
+   "fonts": [
+    "NotionInter"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#ffffff",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "rgba(0,0,0,0.1)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#f6f5f4",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "rgba(0,0,0,0.95)",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-5",
+     "hex": "#0075de",
+     "role": "unspecified"
+    },
+    {
+     "name": "Deep Navy",
+     "hex": "#213183",
+     "role": "Brand Secondary"
+    },
+    {
+     "name": "Active Blue",
+     "hex": "#005bab",
+     "role": "Brand Secondary"
+    },
+    {
+     "name": "Warm Dark",
+     "hex": "#31302e",
+     "role": "Warm Neutral Scale"
+    },
+    {
+     "name": "Warm Gray 500",
+     "hex": "#615d59",
+     "role": "Warm Neutral Scale"
+    },
+    {
+     "name": "Warm Gray 300",
+     "hex": "#a39e98",
+     "role": "Warm Neutral Scale"
+    },
+    {
+     "name": "Teal",
+     "hex": "#2a9d99",
+     "role": "Semantic Accent Colors"
+    },
+    {
+     "name": "Green",
+     "hex": "#1aae39",
+     "role": "Semantic Accent Colors"
+    },
+    {
+     "name": "Orange",
+     "hex": "#dd5b00",
+     "role": "Semantic Accent Colors"
+    },
+    {
+     "name": "Pink",
+     "hex": "#ff64c8",
+     "role": "Semantic Accent Colors"
+    },
+    {
+     "name": "Purple",
+     "hex": "#391c57",
+     "role": "Semantic Accent Colors"
+    },
+    {
+     "name": "Brown",
+     "hex": "#523410",
+     "role": "Semantic Accent Colors"
+    },
+    {
+     "name": "Link Light Blue",
+     "hex": "#62aef0",
+     "role": "Interactive"
+    },
+    {
+     "name": "Focus Blue",
+     "hex": "#097fe8",
+     "role": "Interactive"
+    },
+    {
+     "name": "Badge Blue Bg",
+     "hex": "#f2f9ff",
+     "role": "Interactive"
+    },
+    {
+     "name": "Card Shadow",
+     "hex": "rgba(0,0,0,0.04)",
+     "role": "Shadows & Depth"
+    },
+    {
+     "name": "Deep Shadow",
+     "hex": "rgba(0,0,0,0.01)",
+     "role": "Shadows & Depth"
+    },
+    {
+     "name": "color-22",
+     "hex": "rgba(0,0,0,0.05)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-23",
+     "hex": "#000000",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-24",
+     "hex": "rgba(0,0,0,0.027)",
+     "role": "Cards & Containers"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "nvidia",
+   "name": "NVIDIA",
+   "category": "enterprise",
+   "style": "绿黑能量、技术力量感",
+   "tags": [
+    "green",
+    "dark",
+    "energy"
+   ],
+   "fonts": [
+    "NVIDIA-EMEA",
+    "Font Awesome 6 Pro",
+    "Font Awesome 6 Sharp"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#000000",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#76b900",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#ffffff",
+     "role": "unspecified"
+    },
+    {
+     "name": "NVIDIA Green Light",
+     "hex": "#bff230",
+     "role": "Extended Brand Palette"
+    },
+    {
+     "name": "Orange 400",
+     "hex": "#df6500",
+     "role": "Extended Brand Palette"
+    },
+    {
+     "name": "Yellow 300",
+     "hex": "#ef9100",
+     "role": "Extended Brand Palette"
+    },
+    {
+     "name": "Yellow 050",
+     "hex": "#feeeb2",
+     "role": "Extended Brand Palette"
+    },
+    {
+     "name": "Red 500",
+     "hex": "#e52020",
+     "role": "Status & Semantic"
+    },
+    {
+     "name": "Red 800",
+     "hex": "#650b0b",
+     "role": "Status & Semantic"
+    },
+    {
+     "name": "Green 500",
+     "hex": "#3f8500",
+     "role": "Status & Semantic"
+    },
+    {
+     "name": "Blue 700",
+     "hex": "#0046a4",
+     "role": "Status & Semantic"
+    },
+    {
+     "name": "Purple 800",
+     "hex": "#4d1368",
+     "role": "Decorative"
+    },
+    {
+     "name": "Purple 100",
+     "hex": "#f9d4ff",
+     "role": "Decorative"
+    },
+    {
+     "name": "Fuchsia 700",
+     "hex": "#8c1c55",
+     "role": "Decorative"
+    },
+    {
+     "name": "Gray 300",
+     "hex": "#a7a7a7",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Gray 400",
+     "hex": "#898989",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Gray 500",
+     "hex": "#757575",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Gray Border",
+     "hex": "#5e5e5e",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#1a1a1a",
+     "role": "Neutral Scale"
+    },
+    {
+     "name": "Link Hover",
+     "hex": "#3860be",
+     "role": "Interactive States"
+    },
+    {
+     "name": "Button Hover",
+     "hex": "#1eaedb",
+     "role": "Interactive States"
+    },
+    {
+     "name": "Button Active",
+     "hex": "#007fff",
+     "role": "Interactive States"
+    },
+    {
+     "name": "Card Shadow",
+     "hex": "rgba(0, 0, 0, 0.3)",
+     "role": "Shadows & Depth"
+    },
+    {
+     "name": "color-24",
+     "hex": "#003eff",
+     "role": "Buttons"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Links",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "ollama",
+   "name": "Ollama",
+   "category": "ai",
+   "style": "终端优先、单色极简",
+   "tags": [
+    "terminal",
+    "monochrome",
+    "minimal"
+   ],
+   "fonts": [
+    "SF Pro Rounded",
+    "ui-sans-serif",
+    "ui-monospace"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#000000",
+     "role": "unspecified"
+    },
+    {
+     "name": "Near Black",
+     "hex": "#262626",
+     "role": "Primary"
+    },
+    {
+     "name": "Darkest Surface",
+     "hex": "#090909",
+     "role": "Primary"
+    },
+    {
+     "name": "Pure White",
+     "hex": "#ffffff",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Snow",
+     "hex": "#fafafa",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Light Gray",
+     "hex": "#e5e5e5",
+     "role": "Surface & Background"
+    },
+    {
+     "name": "Stone",
+     "hex": "#737373",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Mid Gray",
+     "hex": "#525252",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Silver",
+     "hex": "#a3a3a3",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Button Text Dark",
+     "hex": "#404040",
+     "role": "Neutrals & Text"
+    },
+    {
+     "name": "Ring Blue",
+     "hex": "#3b82f6",
+     "role": "Semantic & Accent"
+    },
+    {
+     "name": "Border Light",
+     "hex": "#d4d4d4",
+     "role": "Semantic & Accent"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Cards & Containers",
+    "Inputs & Forms",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  },
+  {
+   "slug": "opencode.ai",
+   "name": "OpenCode AI",
+   "category": "ai",
+   "style": "开发者中心的暗色主题",
+   "tags": [
+    "dark",
+    "developer",
+    "code"
+   ],
+   "fonts": [
+    "Berkeley Mono"
+   ],
+   "palette": [
+    {
+     "name": "color-1",
+     "hex": "#201d1d",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-2",
+     "hex": "#9a9898",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-3",
+     "hex": "#fdfcfc",
+     "role": "unspecified"
+    },
+    {
+     "name": "color-4",
+     "hex": "rgba(15, 0, 0, 0.12)",
+     "role": "unspecified"
+    },
+    {
+     "name": "OpenCode Dark",
+     "hex": "rgb(32, 29, 29)",
+     "role": "Primary"
+    },
+    {
+     "name": "Dark Surface",
+     "hex": "#302c2c",
+     "role": "Secondary"
+    },
+    {
+     "name": "Border Gray",
+     "hex": "#646262",
+     "role": "Secondary"
+    },
+    {
+     "name": "Light Surface",
+     "hex": "#f1eeee",
+     "role": "Secondary"
+    },
+    {
+     "name": "Accent Blue",
+     "hex": "#007aff",
+     "role": "Accent"
+    },
+    {
+     "name": "Accent Blue Hover",
+     "hex": "#0056b3",
+     "role": "Accent"
+    },
+    {
+     "name": "Accent Blue Active",
+     "hex": "#004085",
+     "role": "Accent"
+    },
+    {
+     "name": "Danger Red",
+     "hex": "#ff3b30",
+     "role": "Semantic"
+    },
+    {
+     "name": "Danger Hover",
+     "hex": "#d70015",
+     "role": "Semantic"
+    },
+    {
+     "name": "Danger Active",
+     "hex": "#a50011",
+     "role": "Semantic"
+    },
+    {
+     "name": "Success Green",
+     "hex": "#30d158",
+     "role": "Semantic"
+    },
+    {
+     "name": "Warning Orange",
+     "hex": "#ff9f0a",
+     "role": "Semantic"
+    },
+    {
+     "name": "Warning Hover",
+     "hex": "#cc7f08",
+     "role": "Semantic"
+    },
+    {
+     "name": "Warning Active",
+     "hex": "#995f06",
+     "role": "Semantic"
+    },
+    {
+     "name": "Text Muted",
+     "hex": "#6e6e73",
+     "role": "Text Scale"
+    },
+    {
+     "name": "Text Secondary",
+     "hex": "#424245",
+     "role": "Text Scale"
+    },
+    {
+     "name": "color-21",
+     "hex": "rgb(253, 252, 252)",
+     "role": "Buttons"
+    },
+    {
+     "name": "color-22",
+     "hex": "#f8f7f7",
+     "role": "Inputs"
+    },
+    {
+     "name": "color-23",
+     "hex": "#000000",
+     "role": "Iteration Guide"
+    }
+   ],
+   "components": [
+    "Buttons",
+    "Inputs",
+    "Links",
+    "Tabs",
+    "Navigation",
+    "Image Treatment",
+    "Distinctive Components"
+   ]
+  }
+ ]
+}

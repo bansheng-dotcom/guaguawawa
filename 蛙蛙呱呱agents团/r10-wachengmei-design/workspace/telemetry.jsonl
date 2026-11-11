@@ -34,3 +34,8 @@
 {"trace_id": "0a066e0630ab4f00", "span_id": "30441f5c", "name": "r10_unit_test", "duration_ms": 15.6, "status": "SUCCESS", "timestamp": "2026-11-11T01:08:53.814824", "details": {}}
 {"trace_id": "ec41d6575ee64bbb", "span_id": "df5c5e97", "name": "r10_unit_test", "duration_ms": 15.6, "status": "SUCCESS", "timestamp": "2026-11-11T01:10:21.546454", "details": {}}
 {"trace_id": "99d7526119d04271", "span_id": "150c086d", "name": "r10_unit_test", "duration_ms": 15.6, "status": "SUCCESS", "timestamp": "2026-11-11T11:21:39.542103", "details": {}}
+{"trace_id": "b18180c45ad54aee", "span_id": "281da4b9", "name": "r10_unit_test", "duration_ms": 15.6, "status": "SUCCESS", "timestamp": "2026-11-11T11:52:44.966415", "details": {}}
+{"trace_id": "7dac0c5a65034049", "span_id": "12dec1c8", "name": "r10_unit_test", "duration_ms": 15.6, "status": "SUCCESS", "timestamp": "2026-11-11T11:54:58.712772", "details": {}}
+{"trace_id": "41cb2a5715e34ff9", "span_id": "7e2460f8", "name": "r10_unit_test", "duration_ms": 15.6, "status": "SUCCESS", "timestamp": "2026-11-11T13:21:02.041918", "details": {}}
+{"trace_id": "d7f1915b265b47b4", "span_id": "fc17ac26", "name": "r10_unit_test", "duration_ms": 15.6, "status": "SUCCESS", "timestamp": "2026-11-11T13:22:52.182293", "details": {}}
+{"trace_id": "f07abf26ae4a4b52", "span_id": "0f44383f", "name": "r10_unit_test", "duration_ms": 15.6, "status": "SUCCESS", "timestamp": "2026-11-11T13:25:23.274729", "details": {}}

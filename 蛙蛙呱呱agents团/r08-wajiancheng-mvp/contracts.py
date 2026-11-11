@@ -233,6 +233,19 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "scaffold": _out(["out", "file_count"]),
         },
     },
+    "office": {
+        "desc": "Office 交付物：probe/xlsx/docx",
+        "input": {
+            "probe": _REQ({}, []),
+            "xlsx": _REQ({"sheets": _ARR({"type": "object"})}, ["sheets"]),
+            "docx": _REQ({"title": _STR, "sections": _ARR({"type": "object"})}, ["title"]),
+        },
+        "output": {
+            "probe": _out(["status"]),
+            "xlsx": _out(["out", "size_bytes"]),
+            "docx": _out(["out", "size_bytes"]),
+        },
+    },
 }
 
 

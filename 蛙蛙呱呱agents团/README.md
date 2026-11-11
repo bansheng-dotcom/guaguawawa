@@ -868,11 +868,11 @@ python guagua.py capabilities --id xhs-content-skills
 | 负责 | 能力（id） |
 |---|---|
 | R01 | `strategic-growth-compass` |
-| R02 | `business-ops-analysis` |
-| R05 | `tashan-research-skills`、`industry-panorama-research`、`market-intelligence-radar` |
+| R02 | `business-ops-analysis`、`lark`（不接入说明） |
+| R05 | `tashan-research-skills`、`industry-panorama-research`、`market-intelligence-radar`、`deep-research-assistant` |
 | R06 | `build-web-data-visualization`、`data-processing` |
 | R07 | `user-research-toolkit`、`prd-authoring` |
-| R08 | `rapid-prototype-craft`、`ppt-generator`、`html-report-presentation`、`miniapp-builder` |
+| R08 | `rapid-prototype-craft`、`ppt-generator`、`html-report-presentation`、`miniapp-builder`、`office-plugin` |
 | R09 | `web-app-development`、`frontend-design` |
 | R10 | `design-system`、`whiteboard`、`brand-guardian`、`ecommerce-designer`、`image-ops` |
 | R11 | `rednote-post`、`xhs-content-skills` |
@@ -1000,6 +1000,18 @@ python verify_loop.py
   新增 `tests/test_capability_fusions.py`（8 例，跑真实 CLI）。
 - 文档：各角色 `references/capabilities/` 增能力卡，记录上游权重 120% 的口径问题。
 
+### v2.2.0（2026-11-11）
+
+- **剩余缺口收口**：
+  - 31 套品牌基线抽取为自有 `brand-presets/presets.json`（色板/字体/组件结构化），删除全部第三方原文；DESIGN.md 改为按需生成。
+  - 删除 H3 提示词规范原文，规则已内化在 `s13_h3prompt.py`；`THIRD_PARTY_NOTICES.md` 同步。
+  - 新增 R08 `office`（probe/xlsx/docx）：openpyxl / python-docx 生成表格与报告，不覆盖、缺库即 blocked。
+  - 新增能力卡：`office-plugin`（代码）、`deep-research-assistant`（规范）、`lark`（不接入说明）。
+  - 能力卡统一升级为「执行步骤 + 产出与验收 + 常见错误 + 变更记录」，目录加 `version`。
+  - `.gitignore` 收口 workspace 运行态与归档包；清理仓库根的两处历史工具残留目录。
+  - 新增端到端用例：任务卡意图「幻灯片」→ `run --task` 路由到 `deck` 并验收通过。
+- 能力库 29 项（10 代码 + 19 规范）；测试 75 passed。
+
 ### v2.1.1（2026-11-11）
 
 - **意图路由补齐**：R07/R08/R09/R10/R11/R14/R15 的 `_INTENT_ROUTES` 覆盖新技能（幻灯片、HTML 报告、
@@ -1038,7 +1050,7 @@ python verify_loop.py
 
 ### v2.0.3（2026-11-11）
 
-- 新增 **设计系统库**：31 套品牌 DESIGN.md 落入 [`r10-wachengmei-design/references/design-systems/`](蛙蛙呱呱agents团/r10-wachengmei-design/references/design-systems/)，
+- 新增 **设计系统库**：31 套品牌基线抽取为自有预设 [`r10-wachengmei-design/references/brand-presets/presets.json`](蛙蛙呱呱agents团/r10-wachengmei-design/references/brand-presets/presets.json)，
   解析/门禁/令牌转换在 [`shared/design_systems.py`](蛙蛙呱呱agents团/shared/design_systems.py)（纯标准库）。
 - R10 新增 `designsys` 技能（`list/recommend/show/apply/audit`）：按分类或项目类型选基线，
   落盘 `DESIGN.md` + `design_tokens.json`，九段式门禁 31/31 PASS；契约与 `run_tests` 同步到 10 技能。

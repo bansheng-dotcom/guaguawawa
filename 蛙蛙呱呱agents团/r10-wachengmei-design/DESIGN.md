@@ -52,7 +52,7 @@
 
 ## 6. 参考基线库（31 套品牌 DESIGN.md）
 
-本账本是团队**唯一权威令牌**；`references/design-systems/` 里另有 31 套品牌
+本账本是团队**唯一权威令牌**；`references/brand-presets/presets.json` 里另有 31 套品牌
 DESIGN.md 作为**参考基线**，用于「先选气质、再换客户色」，不直接替代本账本。
 
 | 用途 | 动作 | 说明 |

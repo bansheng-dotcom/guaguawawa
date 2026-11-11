@@ -2,7 +2,7 @@
 
 > 素材来源：Marketplace Skill `nano-banana-pro` v1.0.0（AI Hive OpenAPI 裸接口）
 > 与 `h3-prompt-writing` v1.0.0（MiniMax H3 提示词规范）。
-> 落地位置：`vendor/aihive/imagegen.py`、`references/h3/{base-en,ref-en}.txt`
+> 落地位置：`vendor/aihive/imagegen.py`（外部付费接口适配）与 R10 内置的 H3 结构规则（`s13_h3prompt.py`）
 
 过去 R10 的 `imagegen` 只产出**提示词**，不碰真实生成；这两个 Skill 正好补上「最后一步」，
 但两者性质不同，融合方式也不同：

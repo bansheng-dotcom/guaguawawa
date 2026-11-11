@@ -5,8 +5,8 @@
 
 | 资产 | 位置 | 来源与许可 |
 |---|---|---|
-| 品牌设计参考（31 套 DESIGN.md） | `r10-wachengmei-design/references/design-systems/` | 公开设计系统规范集合（Google Stitch DESIGN.md 格式），按原项目许可使用；仅作设计基线，不替代客户品牌授权 |
-| MiniMax H3 提示词规范摘录 | `r10-wachengmei-design/references/h3/` | MiniMax H3 公开提示词文档，用于结构校验 |
+| 品牌设计基线（31 套，已抽取为自有 JSON 预设） | `r10-wachengmei-design/references/brand-presets/presets.json` | 色板/字体等事实数据，来自公开设计系统；仅作设计基线，不替代客户品牌授权 |
+| MiniMax H3 提示词规范（已内化为结构规则） | `r10-wachengmei-design/skills/s13_h3prompt.py` | 据公开规范实现的字段顺序/时长/时间戳等校验，无原文拷贝 |
 | AI Hive OpenAPI 客户端脚本 | `r10-wachengmei-design/vendor/aihive/imagegen.py` | 上游公开客户端脚本；调用需自行配置 API Key，费用以服务方实时报价为准 |
 | 报告/主题等共享模块 | `shared/` | 本团队自有实现 |
 

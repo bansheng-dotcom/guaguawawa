@@ -17,8 +17,8 @@ ROLES = {"r01", "r02", "r03", "r04", "r05", "r06", "r07", "r08", "r09", "r10",
 
 def test_catalog_is_owned_and_complete():
     items = caps.all_caps()
-    assert len(items) == 26
-    assert len({c["id"] for c in items}) == 26
+    assert len(items) == 29
+    assert len({c["id"] for c in items}) == 29
     for c in items:
         assert c["owner"] in ROLES
         for consumer in c["consumers"]:
@@ -45,7 +45,7 @@ def test_executable_capabilities_point_to_real_skills():
     assert set(executable) == {"xhs-content-skills", "smart-product-selector",
                                "analyze-procurement", "ppt-generator", "brand-guardian",
                                "prd-authoring", "html-report-presentation", "image-ops",
-                               "miniapp-builder"}
+                               "miniapp-builder", "office-plugin"}
     for cap in executable.values():
         role_dir = next(d for d in os.listdir(ROOT)
                         if d.startswith(cap["owner"] + "-") and os.path.isdir(os.path.join(ROOT, d)))
@@ -76,6 +76,6 @@ def test_repository_has_no_platform_traces():
 
 def test_stats_shape():
     s = caps.stats()
-    assert s["count"] == 26
-    assert s["executable"] == 9
-    assert sum(s["by_role"].values()) == 26
+    assert s["count"] == 29
+    assert s["executable"] == 10
+    assert sum(s["by_role"].values()) == 29

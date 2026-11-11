@@ -1,6 +1,6 @@
 {
- "version": 2,
- "count": 26,
+ "version": 3,
+ "count": 29,
  "capabilities": [
   {
    "id": "strategic-growth-compass",
@@ -27,7 +27,8 @@
     "SWOT 必须落在具体证据上，不允许只写形容词",
     "PESTEL 只保留会改变决策的因子，凑数项删掉",
     "路线图给三档：必做/择机/放弃，并标注依赖与验证点"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "business-ops-analysis",
@@ -53,7 +54,8 @@
     "异常先看同比/环比与基线，再看结构（人群/渠道/品类）",
     "归因分流量/转化/价格/供给四类，每类给一条可验证动作",
     "报告必须写清「本次不解决什么」，防止范围蔓延"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "tashan-research-skills",
@@ -80,7 +82,8 @@
     "方法与数据先于结论；样本量与统计口径必须交代",
     "审稿回复逐条对账，不合并、不回避",
     "引用格式统一，禁止二手转引冒充原文"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "industry-panorama-research",
@@ -106,7 +109,8 @@
     "规模至少两个来源交叉，不一致时给区间与原因",
     "竞争格局用 CR3/份额/壁垒描述，不堆公司名单",
     "结论落成「进入/观望/退出」三选一，并写触发条件"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "market-intelligence-radar",
@@ -132,7 +136,8 @@
     "每条情报带来源、时间、可信度等级",
     "去重与聚类后再排序，避免同一事件反复占位",
     "变化分级：影响决策/需观察/仅记录"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "build-web-data-visualization",
@@ -160,7 +165,8 @@
     "必须有标题、单位、数据来源、时间范围",
     "颜色只用角色色：中性底 + 1 主强调 + 可选对比色",
     "可访问性：alt 文本、对比度、非颜色冗余编码"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "data-processing",
@@ -187,7 +193,8 @@
     "清洗动作逐条记录（规则+影响行数），可回滚",
     "合并前校验键唯一性与类型一致",
     "透视结果必须能追溯回明细"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "rapid-prototype-craft",
@@ -213,7 +220,8 @@
     "所有交互态齐全：默认/加载/空/错误/禁用",
     "用假数据但保持真实字段名与量级",
     "交付附「已知限制」：哪些是模拟、哪些未接"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "ppt-generator",
@@ -246,7 +254,8 @@
     "页标题 ≤20 字，且不重复",
     "必须有封面、结论页与行动页",
     "单文件、内联样式、不依赖外部 JS 库"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "web-app-development",
@@ -272,7 +281,8 @@
     "响应式断点按内容断，不按设备断",
     "首屏资源预算写清楚（体积/请求数）",
     "审查清单：对比度、焦点、表单错误、空状态"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "frontend-design",
@@ -297,7 +307,8 @@
     "字号阶梯 ≤5 级，间距用同一套刻度",
     "用真实文案长度做布局测试",
     "动效只服务理解，不做装饰性循环"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "brand-guardian",
@@ -329,7 +340,8 @@
     "字体族必须是令牌内字体",
     "正文对比度 ≥4.5，大字 ≥3.0",
     "单页主色不超过 3 个"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "design-system",
@@ -355,7 +367,8 @@
     "语义层是唯一可被业务引用的层",
     "单图设计先定版式骨架，再填内容",
     "导出规范写清尺寸、倍率、色彩空间"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "whiteboard",
@@ -382,7 +395,8 @@
     "节点命名用名词，边用动词",
     "分组不超过两层，跨组关系单独标",
     "导出保留可编辑源（结构 JSON）"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "ecommerce-designer",
@@ -408,7 +422,8 @@
     "详情页按「痛点→方案→证据→参数→服务」排",
     "所有规格按平台最新要求，标注适用平台",
     "素材成套交付：主图/细节/场景/对比，便于 A/B"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "user-research-toolkit",
@@ -434,7 +449,8 @@
     "问卷先测再发，选项互斥且穷尽",
     "可用性测试至少 5 人，任务写成可观察的完成标准",
     "结论区分「观察到的事实」与「推断」"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "rednote-post",
@@ -461,7 +477,8 @@
     "正文 ≤500 字放正文区，超长拆文字图",
     "标签 3–8 个，复用标题/正文里的词",
     "封面优先真人感（实拍/截图），不是海报感"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "xhs-content-skills",
@@ -496,7 +513,8 @@
     "正文 550–650 字，≥3 个带数字的硬信息点",
     "8 项快检至少 7 项通过才可发",
     "CTA 黑名单/诱导互动/绝对化用语零命中"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "marketing-toolkit",
@@ -523,7 +541,8 @@
     "每个渠道给预算占比、素材规格、衡量指标",
     "漏斗每层有基准与目标，不写空泛 KPI",
     "合规与素材授权单独列一节"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "omnichannel-commerce-assistant",
@@ -550,7 +569,8 @@
     "每层异常给基线对比与可能原因（不超过 3 条）",
     "区分平台侧、商品侧、履约侧问题",
     "结论必须给优先级与验证动作"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "smart-product-selector",
@@ -583,7 +603,8 @@
     "≥4.0 强烈推荐 / 3.0–3.9 尝试 / 2.0–2.9 谨慎 / <2 放弃",
     "推荐品必须有假设卡（预期指标 + 验证节点）",
     "毛利率 <30% 警告、<15% 建议放弃"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "analyze-procurement",
@@ -617,7 +638,8 @@
     "用可用数量（扣不良）计算单位成本",
     "资金占用按账期折算进 effective unit cost",
     "仅货值+运费不叫 TCO，至少 3 类成本"
-   ]
+   ],
+   "version": 1
   },
   {
    "id": "prd-authoring",
@@ -649,7 +671,8 @@
     "有假设必须列待验证问题，禁止把假设当事实"
    ],
    "owner_dir": "r07-wademing-pm",
-   "dir": "r07-wademing-pm/references/capabilities/prd-authoring"
+   "dir": "r07-wademing-pm/references/capabilities/prd-authoring",
+   "version": 1
   },
   {
    "id": "html-report-presentation",
@@ -682,7 +705,8 @@
     "单文件、无外部资源、含打印样式"
    ],
    "owner_dir": "r08-wajiancheng-mvp",
-   "dir": "r08-wajiancheng-mvp/references/capabilities/html-report-presentation"
+   "dir": "r08-wajiancheng-mvp/references/capabilities/html-report-presentation",
+   "version": 1
   },
   {
    "id": "image-ops",
@@ -721,7 +745,8 @@
     "缺 Pillow 时返回 blocked，不假装处理"
    ],
    "owner_dir": "r10-wachengmei-design",
-   "dir": "r10-wachengmei-design/references/capabilities/image-ops"
+   "dir": "r10-wachengmei-design/references/capabilities/image-ops",
+   "version": 1
   },
   {
    "id": "miniapp-builder",
@@ -753,7 +778,102 @@
     "只生成骨架，不拉依赖、不发布"
    ],
    "owner_dir": "r08-wajiancheng-mvp",
-   "dir": "r08-wajiancheng-mvp/references/capabilities/miniapp-builder"
+   "dir": "r08-wajiancheng-mvp/references/capabilities/miniapp-builder",
+   "version": 1
+  },
+  {
+   "id": "office-plugin",
+   "title": "Office 交付物",
+   "owner": "r08",
+   "consumers": [
+    "r02",
+    "r06",
+    "r07"
+   ],
+   "triggers": [
+    "excel",
+    "xlsx",
+    "word",
+    "docx",
+    "表格",
+    "报告文档"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "office",
+    "actions": [
+     "probe",
+     "xlsx",
+     "docx"
+    ]
+   },
+   "summary": "把结构化内容写成 xlsx / docx：表头、冻结、列宽、标题层级、要点列表。",
+   "rules": [
+    "不覆盖已有文件（需 --force）",
+    "扩展名白名单 .xlsx/.docx",
+    "行宽与表头一致、章节非空",
+    "缺 openpyxl/python-docx 时 blocked"
+   ],
+   "owner_dir": "r08-wajiancheng-mvp",
+   "dir": "r08-wajiancheng-mvp/references/capabilities/office-plugin",
+   "version": 1
+  },
+  {
+   "id": "deep-research-assistant",
+   "title": "深度研究",
+   "owner": "r05",
+   "consumers": [
+    "r01",
+    "r07",
+    "r11"
+   ],
+   "triggers": [
+    "深度研究",
+    "研究计划",
+    "证据链",
+    "研究简报"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "summary": "复杂主题的深度研究流程：问题拆解、证据分级、交叉验证、结论与不确定性。",
+   "rules": [
+    "先写研究问题与不研究什么",
+    "每人结论至少两个独立来源",
+    "证据分级：一手/二手/推测，推测必须标注",
+    "结论写清适用边界与反例"
+   ],
+   "owner_dir": "r05-washenyuan-research",
+   "dir": "r05-washenyuan-research/references/capabilities/deep-research-assistant",
+   "version": 1
+  },
+  {
+   "id": "lark",
+   "title": "飞书协作（不接入）",
+   "owner": "r02",
+   "consumers": [
+    "r13",
+    "r16",
+    "r17"
+   ],
+   "triggers": [
+    "飞书",
+    "lark",
+    "审批",
+    "日历",
+    "会议"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "summary": "飞书类协作工具的边界说明：本团队不接第三方 SaaS 账号，只产出可粘贴的结构化内容。",
+   "rules": [
+    "不保存任何企业账号凭据",
+    "会议纪要/审批流以 Markdown 表格交付，人工粘贴",
+    "涉及权限与外发的动作一律人工执行",
+    "不承诺消息送达状态"
+   ],
+   "owner_dir": "r02-wapaibu-coo",
+   "dir": "r02-wapaibu-coo/references/capabilities/lark",
+   "version": 1
   }
  ]
 }

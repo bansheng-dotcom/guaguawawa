@@ -43759,3 +43759,1550 @@
 {"skill": "platform", "action": "publish", "input_hash": "6e7bb587cdbd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:21:47"}
 {"skill": "localize", "action": "term", "input_hash": "e19afff9294f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:21:47"}
 {"skill": "localize", "action": "review", "input_hash": "1c0c5d2344ca", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:21:47"}
+{"skill": "xhs", "action": "note", "input_hash": "9f8498c9ea26", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:35:40"}
+{"skill": "xhs", "action": "note", "input_hash": "9f8498c9ea26", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:35:40"}
+{"skill": "xhs", "action": "score", "input_hash": "9f8498c9ea26", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:35:40"}
+{"skill": "xhs", "action": "score", "input_hash": "9f8498c9ea26", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:35:40"}
+{"skill": "xhs", "action": "compliance", "input_hash": "ef2501d19976", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:35:41"}
+{"skill": "selection", "action": "score", "input_hash": "bcc2e22b6562", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:35:41"}
+{"skill": "selection", "action": "profit", "input_hash": "9e3d5cd26d10", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:35:41"}
+{"skill": "tco", "action": "compare", "input_hash": "ffb6b47aa5e4", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:35:41"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "3021fd54f2be", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:35:41"}
+{"skill": "xhs", "action": "note", "input_hash": "e16ca8f768ef", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:04"}
+{"skill": "xhs", "action": "score", "input_hash": "e16ca8f768ef", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:36:04"}
+{"skill": "xhs", "action": "compliance", "input_hash": "ac87d8f42777", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:36:05"}
+{"skill": "selection", "action": "score", "input_hash": "bcc2e22b6562", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:36:05"}
+{"skill": "selection", "action": "profit", "input_hash": "9e3d5cd26d10", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:05"}
+{"skill": "tco", "action": "compare", "input_hash": "ffb6b47aa5e4", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:36:05"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "3021fd54f2be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:05"}
+{"skill": "xhs", "action": "note", "input_hash": "e16ca8f768ef", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:30"}
+{"skill": "xhs", "action": "score", "input_hash": "e16ca8f768ef", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:36:30"}
+{"skill": "xhs", "action": "compliance", "input_hash": "ac87d8f42777", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:36:30"}
+{"skill": "selection", "action": "score", "input_hash": "bcc2e22b6562", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:31"}
+{"skill": "selection", "action": "profit", "input_hash": "9e3d5cd26d10", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:31"}
+{"skill": "tco", "action": "compare", "input_hash": "ffb6b47aa5e4", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:31"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "3021fd54f2be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:31"}
+{"skill": "xhs", "action": "note", "input_hash": "e16ca8f768ef", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:36:46"}
+{"skill": "xhs", "action": "compliance", "input_hash": "ac87d8f42777", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:36:47"}
+{"skill": "selection", "action": "score", "input_hash": "bcc2e22b6562", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:47"}
+{"skill": "selection", "action": "profit", "input_hash": "9e3d5cd26d10", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:36:47"}
+{"skill": "tco", "action": "compare", "input_hash": "ffb6b47aa5e4", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:36:47"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "3021fd54f2be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:47"}
+{"skill": "xhs", "action": "note", "input_hash": "e16ca8f768ef", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:59"}
+{"skill": "xhs", "action": "score", "input_hash": "e16ca8f768ef", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:59"}
+{"skill": "xhs", "action": "compliance", "input_hash": "ac87d8f42777", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:36:59"}
+{"skill": "selection", "action": "score", "input_hash": "bcc2e22b6562", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:36:59"}
+{"skill": "selection", "action": "profit", "input_hash": "9e3d5cd26d10", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:00"}
+{"skill": "tco", "action": "compare", "input_hash": "ffb6b47aa5e4", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:00"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "3021fd54f2be", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:00"}
+{"skill": "topic", "action": "brief", "input_hash": "eb3074cf35cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:05"}
+{"skill": "topic", "action": "plan", "input_hash": "7d89ce464057", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:06"}
+{"skill": "seo", "action": "keyword", "input_hash": "c01e560b32f0", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:06"}
+{"skill": "seo", "action": "audit", "input_hash": "2ab8078b72f7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:06"}
+{"skill": "hook", "action": "hook", "input_hash": "62233aed2222", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:06"}
+{"skill": "hook", "action": "outline", "input_hash": "5edb649a3b3e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:06"}
+{"skill": "copy", "action": "article", "input_hash": "67086d0ce74a", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:07"}
+{"skill": "copy", "action": "script", "input_hash": "09d76bcb0130", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:07"}
+{"skill": "voice", "action": "guide", "input_hash": "53f7840ff7ba", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:07"}
+{"skill": "voice", "action": "edit", "input_hash": "0ea14f8706ff", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:07"}
+{"skill": "pr", "action": "ad", "input_hash": "103beabfc110", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:07"}
+{"skill": "pr", "action": "press", "input_hash": "1395e18d2cde", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:08"}
+{"skill": "platform", "action": "adapt", "input_hash": "cfbbb93be825", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:08"}
+{"skill": "platform", "action": "publish", "input_hash": "d0a4c7308eff", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:08"}
+{"skill": "localize", "action": "term", "input_hash": "71857072550d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:08"}
+{"skill": "localize", "action": "review", "input_hash": "648266501905", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:09"}
+{"skill": "topic", "action": "brief", "input_hash": "452390b52c11", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:09"}
+{"skill": "topic", "action": "plan", "input_hash": "04f272ae55f1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:09"}
+{"skill": "seo", "action": "keyword", "input_hash": "68d3846e609e", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:09"}
+{"skill": "seo", "action": "audit", "input_hash": "99395506c01e", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:09"}
+{"skill": "hook", "action": "hook", "input_hash": "1fa459e0bb5d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:10"}
+{"skill": "hook", "action": "outline", "input_hash": "d032da3f56a4", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:10"}
+{"skill": "copy", "action": "article", "input_hash": "6c6525e4270d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:10"}
+{"skill": "copy", "action": "script", "input_hash": "fd614219d706", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T11:37:10"}
+{"skill": "voice", "action": "guide", "input_hash": "0e9aa133c601", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:10"}
+{"skill": "voice", "action": "edit", "input_hash": "5e19d78ed47e", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:11"}
+{"skill": "pr", "action": "ad", "input_hash": "c2ad0b62f76b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:11"}
+{"skill": "pr", "action": "press", "input_hash": "64efe2a9f4a7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:11"}
+{"skill": "platform", "action": "adapt", "input_hash": "bc4bd29f99ec", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:11"}
+{"skill": "platform", "action": "publish", "input_hash": "6e7bb587cdbd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:11"}
+{"skill": "localize", "action": "term", "input_hash": "e19afff9294f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:12"}
+{"skill": "localize", "action": "review", "input_hash": "1c0c5d2344ca", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:12"}
+{"skill": "catalog", "action": "product", "input_hash": "c8ddfa53d6cc", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:14"}
+{"skill": "catalog", "action": "price", "input_hash": "09c413bb7226", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:14"}
+{"skill": "order", "action": "cart", "input_hash": "a758ca894907", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:14"}
+{"skill": "order", "action": "order", "input_hash": "85e50233981f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:15"}
+{"skill": "billing", "action": "plan", "input_hash": "fa70353cb09c", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:15"}
+{"skill": "billing", "action": "usage", "input_hash": "4b2c60567b98", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:15"}
+{"skill": "billing", "action": "invoice", "input_hash": "cf4f7927a92a", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:15"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "073b4f25807b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:15"}
+{"skill": "payment", "action": "refund", "input_hash": "b6fff83cd526", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:16"}
+{"skill": "signature", "action": "document", "input_hash": "f2361e6292b8", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:16"}
+{"skill": "signature", "action": "signing", "input_hash": "3dd93c56472a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:16"}
+{"skill": "appointment", "action": "appointment", "input_hash": "6f98747056bf", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T11:37:16"}
+{"skill": "appointment", "action": "calendar", "input_hash": "0ba6f234d2f3", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T11:37:16"}
+{"skill": "workflow", "action": "state", "input_hash": "5f06b2ff234b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:17"}
+{"skill": "workflow", "action": "transition", "input_hash": "d7cde99e90f3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:17"}
+{"skill": "revenue", "action": "events", "input_hash": "4ec1722eecce", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:17"}
+{"skill": "revenue", "action": "webhook", "input_hash": "e952dbbcbe1f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:17"}
+{"skill": "catalog", "action": "product", "input_hash": "4d28455e73c9", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:18"}
+{"skill": "catalog", "action": "price", "input_hash": "2afc32caa4cc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:18"}
+{"skill": "order", "action": "cart", "input_hash": "96abfdb4324a", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:18"}
+{"skill": "order", "action": "order", "input_hash": "0a25d760b732", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:18"}
+{"skill": "billing", "action": "plan", "input_hash": "67770fffa41b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:18"}
+{"skill": "billing", "action": "usage", "input_hash": "8a24b587253a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:19"}
+{"skill": "billing", "action": "invoice", "input_hash": "0235e5e78d9b", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:19"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "8493cffcb58c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:19"}
+{"skill": "payment", "action": "refund", "input_hash": "0a8345f191e6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:19"}
+{"skill": "signature", "action": "document", "input_hash": "1c2b8bdd5776", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:19"}
+{"skill": "signature", "action": "signing", "input_hash": "3aa85ac052d3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:20"}
+{"skill": "appointment", "action": "appointment", "input_hash": "080516e78f4a", "elapsed_ms": 3, "exit_code": 1, "ts": "2026-11-11T11:37:20"}
+{"skill": "appointment", "action": "calendar", "input_hash": "a79ebf340754", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T11:37:20"}
+{"skill": "workflow", "action": "state", "input_hash": "c51464e8b7c1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:20"}
+{"skill": "workflow", "action": "transition", "input_hash": "20bf24a84f52", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:20"}
+{"skill": "revenue", "action": "events", "input_hash": "5b969a1eeea7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:21"}
+{"skill": "revenue", "action": "webhook", "input_hash": "df642226e7bb", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:21"}
+{"skill": "procurement", "action": "supplier", "input_hash": "013f2c872d88", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:23"}
+{"skill": "procurement", "action": "rfq", "input_hash": "c148cbec426d", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:23"}
+{"skill": "procurement", "action": "quotation", "input_hash": "55a83f42febe", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:23"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "ec67ef8648fe", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:23"}
+{"skill": "procurement", "action": "receipt", "input_hash": "e278508d9912", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:24"}
+{"skill": "inventory", "action": "item", "input_hash": "f85dffe3aa29", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:24"}
+{"skill": "inventory", "action": "warehouse", "input_hash": "6dd06719d483", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:24"}
+{"skill": "inventory", "action": "bin", "input_hash": "8832d3dc1e53", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:24"}
+{"skill": "inventory", "action": "stock_entry", "input_hash": "6c908c9c6f82", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:24"}
+{"skill": "fulfillment", "action": "sales_order", "input_hash": "2ef40d17d9a9", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:25"}
+{"skill": "fulfillment", "action": "delivery", "input_hash": "58376e1a5390", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:25"}
+{"skill": "production", "action": "bom", "input_hash": "bc9c0284c1e6", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:25"}
+{"skill": "production", "action": "material_request", "input_hash": "1d6f0f60c4c2", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:25"}
+{"skill": "finance", "action": "invoice", "input_hash": "1f0a0a2b4db0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:25"}
+{"skill": "finance", "action": "payment", "input_hash": "ad5983573b0b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:26"}
+{"skill": "masterdata", "action": "master_data", "input_hash": "74766e7187e0", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:26"}
+{"skill": "masterdata", "action": "permission", "input_hash": "1757e0e94246", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:37:26"}
+{"skill": "report", "action": "report", "input_hash": "3f8174cf15ef", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:37:26"}
+{"skill": "procurement", "action": "supplier", "input_hash": "4045f91ab8bc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:26"}
+{"skill": "procurement", "action": "rfq", "input_hash": "4f6b217133f1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:27"}
+{"skill": "procurement", "action": "quotation", "input_hash": "60e6d5f658a9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:27"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "8fae491e8527", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:27"}
+{"skill": "procurement", "action": "receipt", "input_hash": "d59fb4ef5cad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:27"}
+{"skill": "inventory", "action": "item", "input_hash": "06ea71e4f7aa", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:27"}
+{"skill": "inventory", "action": "warehouse", "input_hash": "5e7e5c1106ce", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:28"}
+{"skill": "inventory", "action": "bin", "input_hash": "6146735caee4", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:37:28"}
+{"skill": "inventory", "action": "stock_entry", "input_hash": "991077672a02", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:28"}
+{"skill": "fulfillment", "action": "sales_order", "input_hash": "65f0592d46c2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:28"}
+{"skill": "fulfillment", "action": "delivery", "input_hash": "7f89a84fb8ec", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:28"}
+{"skill": "production", "action": "bom", "input_hash": "d90a92ede3f7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:29"}
+{"skill": "production", "action": "material_request", "input_hash": "2b194558608a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:29"}
+{"skill": "finance", "action": "invoice", "input_hash": "9f8163e31f5c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:29"}
+{"skill": "finance", "action": "payment", "input_hash": "7f6bf6f10b6f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:29"}
+{"skill": "masterdata", "action": "master_data", "input_hash": "906624f79e2d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:29"}
+{"skill": "masterdata", "action": "permission", "input_hash": "b7014a80c69b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:30"}
+{"skill": "report", "action": "report", "input_hash": "cdabac324efd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:37:30"}
+{"skill": "catalog", "action": "product", "input_hash": "c8ddfa53d6cc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:46"}
+{"skill": "catalog", "action": "price", "input_hash": "09c413bb7226", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:38:46"}
+{"skill": "order", "action": "cart", "input_hash": "a758ca894907", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:38:47"}
+{"skill": "order", "action": "order", "input_hash": "85e50233981f", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:38:47"}
+{"skill": "billing", "action": "plan", "input_hash": "fa70353cb09c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:47"}
+{"skill": "billing", "action": "usage", "input_hash": "4b2c60567b98", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:38:47"}
+{"skill": "billing", "action": "invoice", "input_hash": "cf4f7927a92a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:47"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "073b4f25807b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:48"}
+{"skill": "payment", "action": "refund", "input_hash": "b6fff83cd526", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:48"}
+{"skill": "signature", "action": "document", "input_hash": "f2361e6292b8", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:48"}
+{"skill": "signature", "action": "signing", "input_hash": "3dd93c56472a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:48"}
+{"skill": "appointment", "action": "appointment", "input_hash": "6f98747056bf", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T11:38:48"}
+{"skill": "appointment", "action": "calendar", "input_hash": "0ba6f234d2f3", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T11:38:49"}
+{"skill": "workflow", "action": "state", "input_hash": "5f06b2ff234b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:49"}
+{"skill": "workflow", "action": "transition", "input_hash": "d7cde99e90f3", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:38:49"}
+{"skill": "revenue", "action": "events", "input_hash": "4ec1722eecce", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:49"}
+{"skill": "revenue", "action": "webhook", "input_hash": "e952dbbcbe1f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:49"}
+{"skill": "catalog", "action": "product", "input_hash": "4d28455e73c9", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:38:50"}
+{"skill": "catalog", "action": "price", "input_hash": "2afc32caa4cc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:50"}
+{"skill": "order", "action": "cart", "input_hash": "96abfdb4324a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:50"}
+{"skill": "order", "action": "order", "input_hash": "0a25d760b732", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:50"}
+{"skill": "billing", "action": "plan", "input_hash": "67770fffa41b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:51"}
+{"skill": "billing", "action": "usage", "input_hash": "8a24b587253a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:51"}
+{"skill": "billing", "action": "invoice", "input_hash": "0235e5e78d9b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:51"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "8493cffcb58c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:51"}
+{"skill": "payment", "action": "refund", "input_hash": "0a8345f191e6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:51"}
+{"skill": "signature", "action": "document", "input_hash": "1c2b8bdd5776", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:52"}
+{"skill": "signature", "action": "signing", "input_hash": "3aa85ac052d3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:52"}
+{"skill": "appointment", "action": "appointment", "input_hash": "080516e78f4a", "elapsed_ms": 3, "exit_code": 1, "ts": "2026-11-11T11:38:52"}
+{"skill": "appointment", "action": "calendar", "input_hash": "a79ebf340754", "elapsed_ms": 3, "exit_code": 1, "ts": "2026-11-11T11:38:52"}
+{"skill": "workflow", "action": "state", "input_hash": "c51464e8b7c1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:52"}
+{"skill": "workflow", "action": "transition", "input_hash": "20bf24a84f52", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:53"}
+{"skill": "revenue", "action": "events", "input_hash": "5b969a1eeea7", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:38:53"}
+{"skill": "revenue", "action": "webhook", "input_hash": "df642226e7bb", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:53"}
+{"skill": "procurement", "action": "supplier", "input_hash": "013f2c872d88", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:55"}
+{"skill": "procurement", "action": "rfq", "input_hash": "c148cbec426d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:55"}
+{"skill": "procurement", "action": "quotation", "input_hash": "55a83f42febe", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:55"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "ec67ef8648fe", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:55"}
+{"skill": "procurement", "action": "receipt", "input_hash": "e278508d9912", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:56"}
+{"skill": "inventory", "action": "item", "input_hash": "f85dffe3aa29", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:56"}
+{"skill": "inventory", "action": "warehouse", "input_hash": "6dd06719d483", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:56"}
+{"skill": "inventory", "action": "bin", "input_hash": "8832d3dc1e53", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:38:56"}
+{"skill": "inventory", "action": "stock_entry", "input_hash": "6c908c9c6f82", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:56"}
+{"skill": "fulfillment", "action": "sales_order", "input_hash": "2ef40d17d9a9", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:57"}
+{"skill": "fulfillment", "action": "delivery", "input_hash": "58376e1a5390", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:57"}
+{"skill": "production", "action": "bom", "input_hash": "bc9c0284c1e6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:57"}
+{"skill": "production", "action": "material_request", "input_hash": "1d6f0f60c4c2", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:57"}
+{"skill": "finance", "action": "invoice", "input_hash": "1f0a0a2b4db0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:57"}
+{"skill": "finance", "action": "payment", "input_hash": "ad5983573b0b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:57"}
+{"skill": "masterdata", "action": "master_data", "input_hash": "74766e7187e0", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:38:58"}
+{"skill": "masterdata", "action": "permission", "input_hash": "1757e0e94246", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:58"}
+{"skill": "report", "action": "report", "input_hash": "3f8174cf15ef", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:38:58"}
+{"skill": "procurement", "action": "supplier", "input_hash": "4045f91ab8bc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:58"}
+{"skill": "procurement", "action": "rfq", "input_hash": "4f6b217133f1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:58"}
+{"skill": "procurement", "action": "quotation", "input_hash": "60e6d5f658a9", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:38:59"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "8fae491e8527", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:38:59"}
+{"skill": "procurement", "action": "receipt", "input_hash": "d59fb4ef5cad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:59"}
+{"skill": "inventory", "action": "item", "input_hash": "06ea71e4f7aa", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:59"}
+{"skill": "inventory", "action": "warehouse", "input_hash": "5e7e5c1106ce", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:38:59"}
+{"skill": "inventory", "action": "bin", "input_hash": "6146735caee4", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:00"}
+{"skill": "inventory", "action": "stock_entry", "input_hash": "991077672a02", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:00"}
+{"skill": "fulfillment", "action": "sales_order", "input_hash": "65f0592d46c2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:00"}
+{"skill": "fulfillment", "action": "delivery", "input_hash": "7f89a84fb8ec", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:00"}
+{"skill": "production", "action": "bom", "input_hash": "d90a92ede3f7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:00"}
+{"skill": "production", "action": "material_request", "input_hash": "2b194558608a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:01"}
+{"skill": "finance", "action": "invoice", "input_hash": "9f8163e31f5c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:01"}
+{"skill": "finance", "action": "payment", "input_hash": "7f6bf6f10b6f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:01"}
+{"skill": "masterdata", "action": "master_data", "input_hash": "906624f79e2d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:01"}
+{"skill": "masterdata", "action": "permission", "input_hash": "b7014a80c69b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:01"}
+{"skill": "report", "action": "report", "input_hash": "cdabac324efd", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:02"}
+{"skill": "xhs", "action": "note", "input_hash": "964bfaa736a8", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:22"}
+{"skill": "xhs", "action": "compliance", "input_hash": "b339486e4774", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:22"}
+{"skill": "xhs", "action": "compliance", "input_hash": "964bfaa736a8", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:22"}
+{"skill": "xhs", "action": "score", "input_hash": "964bfaa736a8", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:22"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:23"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:23"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:23"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:23"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:23"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:23"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:24"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:33"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:33"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:33"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:34"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:39:34"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:34"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:34"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:34"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:35"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:35"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:35"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:35"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:44"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:44"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:45"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:45"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:45"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:45"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:45"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:46"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:46"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:46"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:46"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:46"}
+{"skill": "design", "action": "from-md", "input_hash": "085632e264aa", "elapsed_ms": 4, "exit_code": 0, "ts": "2026-11-11T11:39:47"}
+{"skill": "topic", "action": "brief", "input_hash": "eb3074cf35cf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:39:48"}
+{"skill": "topic", "action": "plan", "input_hash": "7d89ce464057", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:48"}
+{"skill": "seo", "action": "keyword", "input_hash": "c01e560b32f0", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:39:48"}
+{"skill": "seo", "action": "audit", "input_hash": "2ab8078b72f7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:48"}
+{"skill": "hook", "action": "hook", "input_hash": "62233aed2222", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:49"}
+{"skill": "hook", "action": "outline", "input_hash": "5edb649a3b3e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:49"}
+{"skill": "copy", "action": "article", "input_hash": "67086d0ce74a", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T11:39:49"}
+{"skill": "copy", "action": "script", "input_hash": "09d76bcb0130", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T11:39:49"}
+{"skill": "voice", "action": "guide", "input_hash": "53f7840ff7ba", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:49"}
+{"skill": "voice", "action": "edit", "input_hash": "0ea14f8706ff", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:50"}
+{"skill": "pr", "action": "ad", "input_hash": "103beabfc110", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:50"}
+{"skill": "pr", "action": "press", "input_hash": "1395e18d2cde", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:50"}
+{"skill": "platform", "action": "adapt", "input_hash": "cfbbb93be825", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:50"}
+{"skill": "platform", "action": "publish", "input_hash": "d0a4c7308eff", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:50"}
+{"skill": "localize", "action": "term", "input_hash": "71857072550d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:51"}
+{"skill": "localize", "action": "review", "input_hash": "648266501905", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:39:51"}
+{"skill": "topic", "action": "brief", "input_hash": "452390b52c11", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:51"}
+{"skill": "topic", "action": "plan", "input_hash": "04f272ae55f1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:51"}
+{"skill": "seo", "action": "keyword", "input_hash": "68d3846e609e", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:51"}
+{"skill": "seo", "action": "audit", "input_hash": "99395506c01e", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:52"}
+{"skill": "hook", "action": "hook", "input_hash": "1fa459e0bb5d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:52"}
+{"skill": "hook", "action": "outline", "input_hash": "d032da3f56a4", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:52"}
+{"skill": "copy", "action": "article", "input_hash": "6c6525e4270d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:52"}
+{"skill": "copy", "action": "script", "input_hash": "fd614219d706", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:52"}
+{"skill": "voice", "action": "guide", "input_hash": "0e9aa133c601", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:53"}
+{"skill": "voice", "action": "edit", "input_hash": "5e19d78ed47e", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:53"}
+{"skill": "pr", "action": "ad", "input_hash": "c2ad0b62f76b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:53"}
+{"skill": "pr", "action": "press", "input_hash": "64efe2a9f4a7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:53"}
+{"skill": "platform", "action": "adapt", "input_hash": "bc4bd29f99ec", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:53"}
+{"skill": "platform", "action": "publish", "input_hash": "6e7bb587cdbd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:53"}
+{"skill": "localize", "action": "term", "input_hash": "e19afff9294f", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:54"}
+{"skill": "localize", "action": "review", "input_hash": "1c0c5d2344ca", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:54"}
+{"skill": "catalog", "action": "product", "input_hash": "c8ddfa53d6cc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:56"}
+{"skill": "catalog", "action": "price", "input_hash": "09c413bb7226", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:39:56"}
+{"skill": "order", "action": "cart", "input_hash": "a758ca894907", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:56"}
+{"skill": "order", "action": "order", "input_hash": "85e50233981f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:56"}
+{"skill": "billing", "action": "plan", "input_hash": "fa70353cb09c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:56"}
+{"skill": "billing", "action": "usage", "input_hash": "4b2c60567b98", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:57"}
+{"skill": "billing", "action": "invoice", "input_hash": "cf4f7927a92a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:57"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "073b4f25807b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:57"}
+{"skill": "payment", "action": "refund", "input_hash": "b6fff83cd526", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:39:57"}
+{"skill": "signature", "action": "document", "input_hash": "f2361e6292b8", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:57"}
+{"skill": "signature", "action": "signing", "input_hash": "3dd93c56472a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:57"}
+{"skill": "appointment", "action": "appointment", "input_hash": "6f98747056bf", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T11:39:58"}
+{"skill": "appointment", "action": "calendar", "input_hash": "0ba6f234d2f3", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T11:39:58"}
+{"skill": "workflow", "action": "state", "input_hash": "5f06b2ff234b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:58"}
+{"skill": "workflow", "action": "transition", "input_hash": "d7cde99e90f3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:58"}
+{"skill": "revenue", "action": "events", "input_hash": "4ec1722eecce", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:58"}
+{"skill": "revenue", "action": "webhook", "input_hash": "e952dbbcbe1f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:39:59"}
+{"skill": "catalog", "action": "product", "input_hash": "4d28455e73c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:59"}
+{"skill": "catalog", "action": "price", "input_hash": "2afc32caa4cc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:59"}
+{"skill": "order", "action": "cart", "input_hash": "96abfdb4324a", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:39:59"}
+{"skill": "order", "action": "order", "input_hash": "0a25d760b732", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:39:59"}
+{"skill": "billing", "action": "plan", "input_hash": "67770fffa41b", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:00"}
+{"skill": "billing", "action": "usage", "input_hash": "8a24b587253a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:00"}
+{"skill": "billing", "action": "invoice", "input_hash": "0235e5e78d9b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:00"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "8493cffcb58c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:00"}
+{"skill": "payment", "action": "refund", "input_hash": "0a8345f191e6", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:00"}
+{"skill": "signature", "action": "document", "input_hash": "1c2b8bdd5776", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:00"}
+{"skill": "signature", "action": "signing", "input_hash": "3aa85ac052d3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:01"}
+{"skill": "appointment", "action": "appointment", "input_hash": "080516e78f4a", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T11:40:01"}
+{"skill": "appointment", "action": "calendar", "input_hash": "a79ebf340754", "elapsed_ms": 3, "exit_code": 1, "ts": "2026-11-11T11:40:01"}
+{"skill": "workflow", "action": "state", "input_hash": "c51464e8b7c1", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:01"}
+{"skill": "workflow", "action": "transition", "input_hash": "20bf24a84f52", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:01"}
+{"skill": "revenue", "action": "events", "input_hash": "5b969a1eeea7", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:02"}
+{"skill": "revenue", "action": "webhook", "input_hash": "df642226e7bb", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:02"}
+{"skill": "procurement", "action": "supplier", "input_hash": "013f2c872d88", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:03"}
+{"skill": "procurement", "action": "rfq", "input_hash": "c148cbec426d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:04"}
+{"skill": "procurement", "action": "quotation", "input_hash": "55a83f42febe", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:04"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "ec67ef8648fe", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:40:04"}
+{"skill": "procurement", "action": "receipt", "input_hash": "e278508d9912", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:04"}
+{"skill": "inventory", "action": "item", "input_hash": "f85dffe3aa29", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:04"}
+{"skill": "inventory", "action": "warehouse", "input_hash": "6dd06719d483", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:04"}
+{"skill": "inventory", "action": "bin", "input_hash": "8832d3dc1e53", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:05"}
+{"skill": "inventory", "action": "stock_entry", "input_hash": "6c908c9c6f82", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:40:05"}
+{"skill": "fulfillment", "action": "sales_order", "input_hash": "2ef40d17d9a9", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:05"}
+{"skill": "fulfillment", "action": "delivery", "input_hash": "58376e1a5390", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:40:05"}
+{"skill": "production", "action": "bom", "input_hash": "bc9c0284c1e6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:05"}
+{"skill": "production", "action": "material_request", "input_hash": "1d6f0f60c4c2", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:06"}
+{"skill": "finance", "action": "invoice", "input_hash": "1f0a0a2b4db0", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:40:06"}
+{"skill": "finance", "action": "payment", "input_hash": "ad5983573b0b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:40:06"}
+{"skill": "masterdata", "action": "master_data", "input_hash": "74766e7187e0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:06"}
+{"skill": "masterdata", "action": "permission", "input_hash": "1757e0e94246", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:06"}
+{"skill": "report", "action": "report", "input_hash": "3f8174cf15ef", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:40:07"}
+{"skill": "procurement", "action": "supplier", "input_hash": "4045f91ab8bc", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:07"}
+{"skill": "procurement", "action": "rfq", "input_hash": "4f6b217133f1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:07"}
+{"skill": "procurement", "action": "quotation", "input_hash": "60e6d5f658a9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:07"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "8fae491e8527", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:07"}
+{"skill": "procurement", "action": "receipt", "input_hash": "d59fb4ef5cad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:08"}
+{"skill": "inventory", "action": "item", "input_hash": "06ea71e4f7aa", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:08"}
+{"skill": "inventory", "action": "warehouse", "input_hash": "5e7e5c1106ce", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:08"}
+{"skill": "inventory", "action": "bin", "input_hash": "6146735caee4", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:08"}
+{"skill": "inventory", "action": "stock_entry", "input_hash": "991077672a02", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:08"}
+{"skill": "fulfillment", "action": "sales_order", "input_hash": "65f0592d46c2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:08"}
+{"skill": "fulfillment", "action": "delivery", "input_hash": "7f89a84fb8ec", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:09"}
+{"skill": "production", "action": "bom", "input_hash": "d90a92ede3f7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:09"}
+{"skill": "production", "action": "material_request", "input_hash": "2b194558608a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:09"}
+{"skill": "finance", "action": "invoice", "input_hash": "9f8163e31f5c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:09"}
+{"skill": "finance", "action": "payment", "input_hash": "7f6bf6f10b6f", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:10"}
+{"skill": "masterdata", "action": "master_data", "input_hash": "906624f79e2d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:10"}
+{"skill": "masterdata", "action": "permission", "input_hash": "b7014a80c69b", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:40:10"}
+{"skill": "report", "action": "report", "input_hash": "cdabac324efd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:40:10"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:41:38"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:41:38"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:41:38"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:41:39"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:41:39"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:41:39"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:41:39"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:41:40"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:41:40"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:41:40"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:41:40"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:41:40"}
+{"skill": "design", "action": "from-md", "input_hash": "085632e264aa", "elapsed_ms": 5, "exit_code": 0, "ts": "2026-11-11T11:41:41"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "ec67ef8648fe", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:41:51"}
+{"skill": "deck", "action": "plan", "input_hash": "ef4253655b47", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:02"}
+{"skill": "deck", "action": "html", "input_hash": "ef4253655b47", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T11:52:02"}
+{"skill": "brandcheck", "action": "check", "input_hash": "f0293a20b2f5", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:52:02"}
+{"skill": "brandcheck", "action": "check", "input_hash": "f0293a20b2f5", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:24"}
+{"skill": "slice", "action": "slice", "input_hash": "39a29e694538", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:28"}
+{"skill": "slice", "action": "mvp", "input_hash": "fcb400920bd0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:28"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "f3e06ab1973a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:29"}
+{"skill": "scaffold", "action": "spec", "input_hash": "267df681d3d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:29"}
+{"skill": "landing", "action": "landing", "input_hash": "aac053e8f631", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:29"}
+{"skill": "landing", "action": "form", "input_hash": "8ff1551fe0be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:29"}
+{"skill": "saas", "action": "saas", "input_hash": "04ce4b6e1426", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:29"}
+{"skill": "saas", "action": "email", "input_hash": "05680e89bcfb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:29"}
+{"skill": "prototype", "action": "prototype", "input_hash": "f44d93001ae7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:30"}
+{"skill": "prototype", "action": "screen", "input_hash": "603a33bdc7a6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:30"}
+{"skill": "design", "action": "design", "input_hash": "505e7ac39673", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:30"}
+{"skill": "design", "action": "token", "input_hash": "7d4a6e306efa", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:30"}
+{"skill": "qa", "action": "qa", "input_hash": "b19b32e6b4a5", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:30"}
+{"skill": "qa", "action": "handoff", "input_hash": "688c2fbd76f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:31"}
+{"skill": "slice", "action": "slice", "input_hash": "e7663d65393c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:31"}
+{"skill": "slice", "action": "mvp", "input_hash": "deac8b73eb04", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:31"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "384e296dce79", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:31"}
+{"skill": "scaffold", "action": "spec", "input_hash": "4c3aa7d37a4b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:31"}
+{"skill": "landing", "action": "landing", "input_hash": "5b8b97957622", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:52:31"}
+{"skill": "landing", "action": "form", "input_hash": "d2c6801f3d48", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:32"}
+{"skill": "saas", "action": "saas", "input_hash": "798770a4ff6d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:32"}
+{"skill": "saas", "action": "email", "input_hash": "c4bccab6d3e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:32"}
+{"skill": "prototype", "action": "prototype", "input_hash": "deea56e9fabd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:32"}
+{"skill": "prototype", "action": "screen", "input_hash": "c09a07233f91", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:32"}
+{"skill": "design", "action": "design", "input_hash": "cb09b5112ab7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:32"}
+{"skill": "design", "action": "token", "input_hash": "4fd4bb9c8a09", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:33"}
+{"skill": "qa", "action": "qa", "input_hash": "8d0beb143808", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:52:33"}
+{"skill": "qa", "action": "handoff", "input_hash": "b96801ee1a5f", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:52:33"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "0c0fe0e25e4e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:34"}
+{"skill": "imagegen", "action": "style", "input_hash": "5246b002cf2e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:34"}
+{"skill": "logo", "action": "logo", "input_hash": "d5515f0c708f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:35"}
+{"skill": "logo", "action": "favicon", "input_hash": "e5300868e9fb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:35"}
+{"skill": "uiux", "action": "screen", "input_hash": "bdb83346a7d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:35"}
+{"skill": "uiux", "action": "ux", "input_hash": "946eb536ab47", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:35"}
+{"skill": "brand", "action": "vi", "input_hash": "2d2c4776320d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:36"}
+{"skill": "brand", "action": "token", "input_hash": "6526ef8369ad", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:36"}
+{"skill": "motion", "action": "motion", "input_hash": "d44898196b15", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:36"}
+{"skill": "motion", "action": "prototype", "input_hash": "52d4acd97a58", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:36"}
+{"skill": "imaging", "action": "edit", "input_hash": "3c1d85c32a87", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:52:37"}
+{"skill": "media", "action": "media", "input_hash": "ce16372a9408", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:52:37"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "8a5004a7c101", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:52:37"}
+{"skill": "render", "action": "poster", "input_hash": "07889dfdf24f", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:52:37"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "d715edc17382", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:38"}
+{"skill": "imagegen", "action": "style", "input_hash": "4d99ff31478f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:38"}
+{"skill": "logo", "action": "logo", "input_hash": "be1519b82c3f", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:52:38"}
+{"skill": "logo", "action": "favicon", "input_hash": "528495e02484", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:52:38"}
+{"skill": "uiux", "action": "screen", "input_hash": "caa3f0dc2edc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:39"}
+{"skill": "uiux", "action": "ux", "input_hash": "773e133071e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:39"}
+{"skill": "brand", "action": "vi", "input_hash": "6f54e230291c", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:52:39"}
+{"skill": "brand", "action": "token", "input_hash": "f0ff7afde81c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:39"}
+{"skill": "motion", "action": "motion", "input_hash": "dc6b50341c70", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:40"}
+{"skill": "motion", "action": "prototype", "input_hash": "edc0e615b6ed", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:40"}
+{"skill": "imaging", "action": "edit", "input_hash": "f287d8359251", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:40"}
+{"skill": "media", "action": "media", "input_hash": "b85e75fb8d80", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:52:40"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "56e10693c307", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:41"}
+{"skill": "render", "action": "poster", "input_hash": "7fe75eacec38", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:52:41"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:47"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:53:47"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:53:48"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:48"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:48"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:48"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:53:48"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:49"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:53:49"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:49"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:49"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:53:49"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:49"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:50"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:53:50"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:53:50"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T11:53:50"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:34"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:35"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:35"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:35"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:35"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:35"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:36"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:36"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:36"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:36"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:37"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:37"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:37"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:37"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:37"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:38"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:38"}
+{"skill": "design", "action": "from-md", "input_hash": "085632e264aa", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T11:54:38"}
+{"skill": "slice", "action": "slice", "input_hash": "39a29e694538", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:40"}
+{"skill": "slice", "action": "mvp", "input_hash": "fcb400920bd0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:40"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "f3e06ab1973a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:40"}
+{"skill": "scaffold", "action": "spec", "input_hash": "267df681d3d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:40"}
+{"skill": "landing", "action": "landing", "input_hash": "aac053e8f631", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:41"}
+{"skill": "landing", "action": "form", "input_hash": "8ff1551fe0be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:41"}
+{"skill": "saas", "action": "saas", "input_hash": "04ce4b6e1426", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:41"}
+{"skill": "saas", "action": "email", "input_hash": "05680e89bcfb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:41"}
+{"skill": "prototype", "action": "prototype", "input_hash": "f44d93001ae7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:41"}
+{"skill": "prototype", "action": "screen", "input_hash": "603a33bdc7a6", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:42"}
+{"skill": "design", "action": "design", "input_hash": "505e7ac39673", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:42"}
+{"skill": "design", "action": "token", "input_hash": "7d4a6e306efa", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:42"}
+{"skill": "qa", "action": "qa", "input_hash": "b19b32e6b4a5", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:42"}
+{"skill": "qa", "action": "handoff", "input_hash": "688c2fbd76f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:42"}
+{"skill": "slice", "action": "slice", "input_hash": "e7663d65393c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:43"}
+{"skill": "slice", "action": "mvp", "input_hash": "deac8b73eb04", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:43"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "384e296dce79", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:43"}
+{"skill": "scaffold", "action": "spec", "input_hash": "4c3aa7d37a4b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:43"}
+{"skill": "landing", "action": "landing", "input_hash": "5b8b97957622", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:43"}
+{"skill": "landing", "action": "form", "input_hash": "d2c6801f3d48", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:44"}
+{"skill": "saas", "action": "saas", "input_hash": "798770a4ff6d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:44"}
+{"skill": "saas", "action": "email", "input_hash": "c4bccab6d3e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:44"}
+{"skill": "prototype", "action": "prototype", "input_hash": "deea56e9fabd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:44"}
+{"skill": "prototype", "action": "screen", "input_hash": "c09a07233f91", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:44"}
+{"skill": "design", "action": "design", "input_hash": "cb09b5112ab7", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:54:45"}
+{"skill": "design", "action": "token", "input_hash": "4fd4bb9c8a09", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:45"}
+{"skill": "qa", "action": "qa", "input_hash": "8d0beb143808", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:54:45"}
+{"skill": "qa", "action": "handoff", "input_hash": "b96801ee1a5f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:45"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "0c0fe0e25e4e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:47"}
+{"skill": "imagegen", "action": "style", "input_hash": "5246b002cf2e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:47"}
+{"skill": "logo", "action": "logo", "input_hash": "d5515f0c708f", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:47"}
+{"skill": "logo", "action": "favicon", "input_hash": "e5300868e9fb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:48"}
+{"skill": "uiux", "action": "screen", "input_hash": "bdb83346a7d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:48"}
+{"skill": "uiux", "action": "ux", "input_hash": "946eb536ab47", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:48"}
+{"skill": "brand", "action": "vi", "input_hash": "2d2c4776320d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:49"}
+{"skill": "brand", "action": "token", "input_hash": "6526ef8369ad", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:49"}
+{"skill": "motion", "action": "motion", "input_hash": "d44898196b15", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:49"}
+{"skill": "motion", "action": "prototype", "input_hash": "52d4acd97a58", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:49"}
+{"skill": "imaging", "action": "edit", "input_hash": "3c1d85c32a87", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:50"}
+{"skill": "media", "action": "media", "input_hash": "ce16372a9408", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:54:50"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "8a5004a7c101", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:50"}
+{"skill": "render", "action": "poster", "input_hash": "07889dfdf24f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:54:51"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "d715edc17382", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:51"}
+{"skill": "imagegen", "action": "style", "input_hash": "4d99ff31478f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:51"}
+{"skill": "logo", "action": "logo", "input_hash": "be1519b82c3f", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:54:51"}
+{"skill": "logo", "action": "favicon", "input_hash": "528495e02484", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:52"}
+{"skill": "uiux", "action": "screen", "input_hash": "caa3f0dc2edc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:52"}
+{"skill": "uiux", "action": "ux", "input_hash": "773e133071e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:52"}
+{"skill": "brand", "action": "vi", "input_hash": "6f54e230291c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:53"}
+{"skill": "brand", "action": "token", "input_hash": "f0ff7afde81c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:53"}
+{"skill": "motion", "action": "motion", "input_hash": "dc6b50341c70", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:53"}
+{"skill": "motion", "action": "prototype", "input_hash": "edc0e615b6ed", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:53"}
+{"skill": "imaging", "action": "edit", "input_hash": "f287d8359251", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:54"}
+{"skill": "media", "action": "media", "input_hash": "b85e75fb8d80", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:54"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "56e10693c307", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:54"}
+{"skill": "render", "action": "poster", "input_hash": "7fe75eacec38", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:54:55"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:55:38"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:55:38"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:55:39"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:55:39"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:55:39"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:55:39"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:55:39"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:55:40"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:55:40"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:55:40"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:55:40"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:55:40"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T11:55:41"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:55:41"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T11:55:41"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T11:55:41"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T11:55:42"}
+{"skill": "design", "action": "from-md", "input_hash": "085632e264aa", "elapsed_ms": 4, "exit_code": 0, "ts": "2026-11-11T11:55:42"}
+{"skill": "htmlreport", "action": "plan", "input_hash": "5420dfa14dc9", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:19:42"}
+{"skill": "htmlreport", "action": "html", "input_hash": "5420dfa14dc9", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:19:43"}
+{"skill": "miniapp/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:19:43"}
+{"skill": "miniapp/scaffold", "ok": false, "verdict": "PASS", "ts": "2026-11-11T13:19:43"}
+{"skill": "imgops", "action": "info", "input_hash": "93073f7c4aeb", "elapsed_ms": 28, "exit_code": 0, "ts": "2026-11-11T13:19:44"}
+{"skill": "prdguard", "action": "check", "input_hash": "66fa4ae53e28", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:11"}
+{"skill": "prdguard", "action": "render", "input_hash": "66fa4ae53e28", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:11"}
+{"skill": "htmlreport", "action": "plan", "input_hash": "5420dfa14dc9", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:11"}
+{"skill": "htmlreport", "action": "html", "input_hash": "5420dfa14dc9", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:20:11"}
+{"skill": "miniapp/plan", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:12"}
+{"skill": "miniapp/scaffold", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:12"}
+{"skill": "imgops", "action": "info", "input_hash": "93073f7c4aeb", "elapsed_ms": 12, "exit_code": 0, "ts": "2026-11-11T13:20:12"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 20, "exit_code": 0, "ts": "2026-11-11T13:20:12"}
+{"skill": "discover", "action": "jobstory", "input_hash": "bb75f3d728f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:17"}
+{"skill": "discover", "action": "discover", "input_hash": "c0a961b07c42", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:17"}
+{"skill": "discover", "action": "interview", "input_hash": "0d967417ddc3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:17"}
+{"skill": "ost", "action": "ost", "input_hash": "9b0a0ef6da43", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:17"}
+{"skill": "ost", "action": "poc", "input_hash": "17bbd99c0ef6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:17"}
+{"skill": "ost", "action": "assumption", "input_hash": "3dbe3147eaab", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:18"}
+{"skill": "ost", "action": "research", "input_hash": "518f6d2ae029", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:18"}
+{"skill": "prd", "action": "prd", "input_hash": "31ce7e463795", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:18"}
+{"skill": "prd", "action": "story", "input_hash": "1753a740338d", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:18"}
+{"skill": "prd", "action": "acceptance", "input_hash": "ded9e93a003a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:18"}
+{"skill": "priority", "action": "opportunity", "input_hash": "647d94e70cfc", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:19"}
+{"skill": "priority", "action": "ice", "input_hash": "600a9c15a12e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:19"}
+{"skill": "priority", "action": "rice", "input_hash": "b869b5bc3400", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:19"}
+{"skill": "priority", "action": "backlog", "input_hash": "eecc6cef8b3d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:19"}
+{"skill": "roadmap", "action": "roadmap", "input_hash": "f11901aea51d", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:19"}
+{"skill": "roadmap", "action": "releasenotes", "input_hash": "aa3dc077d9cc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:20"}
+{"skill": "roadmap", "action": "premortem", "input_hash": "55918c646392", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:20"}
+{"skill": "metrics", "action": "northstar", "input_hash": "8f0dcb83e81c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:20"}
+{"skill": "metrics", "action": "metrics", "input_hash": "1386703a318b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:20"}
+{"skill": "metrics", "action": "okr", "input_hash": "dd2432f1df6f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:20"}
+{"skill": "metrics", "action": "vision", "input_hash": "a7160573614f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:21"}
+{"skill": "metrics", "action": "canvas", "input_hash": "bff310810bb4", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:21"}
+{"skill": "techbrief", "action": "techbrief", "input_hash": "ccfe177f9682", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:21"}
+{"skill": "techbrief", "action": "uibrief", "input_hash": "c30e2fd43a3c", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:21"}
+{"skill": "techbrief", "action": "codetoprd", "input_hash": "7f8a825af3b2", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:21"}
+{"skill": "techbrief", "action": "releasegate", "input_hash": "7137dd8061e6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:21"}
+{"skill": "decision", "action": "decision", "input_hash": "3fb80e6e09b4", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:22"}
+{"skill": "decision", "action": "demand", "input_hash": "29bebf0a06ec", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:22"}
+{"skill": "decision", "action": "experience", "input_hash": "ad753ebae71b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:22"}
+{"skill": "discover", "action": "jobstory", "input_hash": "c2c4b045d1cd", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:22"}
+{"skill": "discover", "action": "discover", "input_hash": "cfa14138a9f3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:22"}
+{"skill": "discover", "action": "interview", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:23"}
+{"skill": "ost", "action": "ost", "input_hash": "67224de76a6a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:23"}
+{"skill": "ost", "action": "poc", "input_hash": "90b752313109", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:23"}
+{"skill": "ost", "action": "assumption", "input_hash": "3ea9188e9c44", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:23"}
+{"skill": "ost", "action": "research", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:23"}
+{"skill": "prd", "action": "prd", "input_hash": "b17c24e0df87", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:24"}
+{"skill": "prd", "action": "story", "input_hash": "f97c9c9bfa0b", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:24"}
+{"skill": "prd", "action": "acceptance", "input_hash": "ea492c98a32f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:24"}
+{"skill": "priority", "action": "opportunity", "input_hash": "786e1466d669", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:24"}
+{"skill": "priority", "action": "ice", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:24"}
+{"skill": "priority", "action": "rice", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:25"}
+{"skill": "priority", "action": "backlog", "input_hash": "f627de71fea0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:25"}
+{"skill": "roadmap", "action": "roadmap", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:25"}
+{"skill": "roadmap", "action": "releasenotes", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:25"}
+{"skill": "roadmap", "action": "premortem", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:25"}
+{"skill": "metrics", "action": "northstar", "input_hash": "a8c9ee21c75d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:26"}
+{"skill": "metrics", "action": "metrics", "input_hash": "2a5bc386f2be", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:26"}
+{"skill": "metrics", "action": "okr", "input_hash": "e84c1c5eda13", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:26"}
+{"skill": "metrics", "action": "vision", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:26"}
+{"skill": "metrics", "action": "canvas", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:26"}
+{"skill": "techbrief", "action": "techbrief", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:27"}
+{"skill": "techbrief", "action": "uibrief", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:27"}
+{"skill": "techbrief", "action": "codetoprd", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:27"}
+{"skill": "techbrief", "action": "releasegate", "input_hash": "16acc9e6883c", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:27"}
+{"skill": "decision", "action": "decision", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:27"}
+{"skill": "decision", "action": "demand", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:28"}
+{"skill": "decision", "action": "experience", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:28"}
+{"skill": "slice", "action": "slice", "input_hash": "39a29e694538", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:29"}
+{"skill": "slice", "action": "mvp", "input_hash": "fcb400920bd0", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:29"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "f3e06ab1973a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:29"}
+{"skill": "scaffold", "action": "spec", "input_hash": "267df681d3d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:29"}
+{"skill": "landing", "action": "landing", "input_hash": "aac053e8f631", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:30"}
+{"skill": "landing", "action": "form", "input_hash": "8ff1551fe0be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:30"}
+{"skill": "saas", "action": "saas", "input_hash": "04ce4b6e1426", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:30"}
+{"skill": "saas", "action": "email", "input_hash": "05680e89bcfb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:30"}
+{"skill": "prototype", "action": "prototype", "input_hash": "f44d93001ae7", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:30"}
+{"skill": "prototype", "action": "screen", "input_hash": "603a33bdc7a6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:31"}
+{"skill": "design", "action": "design", "input_hash": "505e7ac39673", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:31"}
+{"skill": "design", "action": "token", "input_hash": "7d4a6e306efa", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:31"}
+{"skill": "qa", "action": "qa", "input_hash": "b19b32e6b4a5", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:20:31"}
+{"skill": "qa", "action": "handoff", "input_hash": "688c2fbd76f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:31"}
+{"skill": "slice", "action": "slice", "input_hash": "e7663d65393c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:32"}
+{"skill": "slice", "action": "mvp", "input_hash": "deac8b73eb04", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:32"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "384e296dce79", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:32"}
+{"skill": "scaffold", "action": "spec", "input_hash": "4c3aa7d37a4b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:32"}
+{"skill": "landing", "action": "landing", "input_hash": "5b8b97957622", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:32"}
+{"skill": "landing", "action": "form", "input_hash": "d2c6801f3d48", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:33"}
+{"skill": "saas", "action": "saas", "input_hash": "798770a4ff6d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:33"}
+{"skill": "saas", "action": "email", "input_hash": "c4bccab6d3e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:33"}
+{"skill": "prototype", "action": "prototype", "input_hash": "deea56e9fabd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:33"}
+{"skill": "prototype", "action": "screen", "input_hash": "c09a07233f91", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:33"}
+{"skill": "design", "action": "design", "input_hash": "cb09b5112ab7", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:34"}
+{"skill": "design", "action": "token", "input_hash": "4fd4bb9c8a09", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:34"}
+{"skill": "qa", "action": "qa", "input_hash": "8d0beb143808", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:34"}
+{"skill": "qa", "action": "handoff", "input_hash": "b96801ee1a5f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:34"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:35"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:35"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:35"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:35"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:35"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:36"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:36"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:36"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:36"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:36"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:36"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:37"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:37"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:37"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:37"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:37"}
+{"skill": "spec/spec", "ok": false, "verdict": null, "ts": "2026-11-11T13:20:38"}
+{"skill": "spec/arch", "ok": false, "verdict": null, "ts": "2026-11-11T13:20:38"}
+{"skill": "data_api/schema", "ok": false, "verdict": null, "ts": "2026-11-11T13:20:38"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:39"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:39"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:39"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:40"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:40"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:40"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:40"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:40"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:41"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:41"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:41"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:41"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:41"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:42"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:42"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:42"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:43"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:43"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:43"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:44"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:44"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:44"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:44"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:44"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:45"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:45"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:45"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:45"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:45"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:46"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:46"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:20:46"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:46"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:46"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:47"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:47"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:47"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:47"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:47"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:47"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:48"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:48"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:48"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:48"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:48"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:49"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:49"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:20:49"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "0c0fe0e25e4e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:50"}
+{"skill": "imagegen", "action": "style", "input_hash": "5246b002cf2e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:51"}
+{"skill": "logo", "action": "logo", "input_hash": "d5515f0c708f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:51"}
+{"skill": "logo", "action": "favicon", "input_hash": "e5300868e9fb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:51"}
+{"skill": "uiux", "action": "screen", "input_hash": "bdb83346a7d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:51"}
+{"skill": "uiux", "action": "ux", "input_hash": "946eb536ab47", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:52"}
+{"skill": "brand", "action": "vi", "input_hash": "2d2c4776320d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:52"}
+{"skill": "brand", "action": "token", "input_hash": "6526ef8369ad", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:52"}
+{"skill": "motion", "action": "motion", "input_hash": "d44898196b15", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:53"}
+{"skill": "motion", "action": "prototype", "input_hash": "52d4acd97a58", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:53"}
+{"skill": "imaging", "action": "edit", "input_hash": "3c1d85c32a87", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:53"}
+{"skill": "media", "action": "media", "input_hash": "ce16372a9408", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:53"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "8a5004a7c101", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:54"}
+{"skill": "render", "action": "poster", "input_hash": "07889dfdf24f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:20:54"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "d715edc17382", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:54"}
+{"skill": "imagegen", "action": "style", "input_hash": "4d99ff31478f", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:54"}
+{"skill": "logo", "action": "logo", "input_hash": "be1519b82c3f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:55"}
+{"skill": "logo", "action": "favicon", "input_hash": "528495e02484", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:55"}
+{"skill": "uiux", "action": "screen", "input_hash": "caa3f0dc2edc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:55"}
+{"skill": "uiux", "action": "ux", "input_hash": "773e133071e0", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:56"}
+{"skill": "brand", "action": "vi", "input_hash": "6f54e230291c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:56"}
+{"skill": "brand", "action": "token", "input_hash": "f0ff7afde81c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:56"}
+{"skill": "motion", "action": "motion", "input_hash": "dc6b50341c70", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:56"}
+{"skill": "motion", "action": "prototype", "input_hash": "edc0e615b6ed", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:57"}
+{"skill": "imaging", "action": "edit", "input_hash": "f287d8359251", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:57"}
+{"skill": "media", "action": "media", "input_hash": "b85e75fb8d80", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:20:57"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "56e10693c307", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:58"}
+{"skill": "render", "action": "poster", "input_hash": "7fe75eacec38", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:20:58"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:07"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:07"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:07"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:07"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:08"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:08"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:08"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:08"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:08"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:09"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:09"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:09"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:09"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:09"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:10"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:10"}
+{"skill": "spec/spec", "ok": false, "verdict": null, "ts": "2026-11-11T13:21:10"}
+{"skill": "spec/arch", "ok": false, "verdict": null, "ts": "2026-11-11T13:21:10"}
+{"skill": "data_api/schema", "ok": false, "verdict": null, "ts": "2026-11-11T13:21:10"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:11"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:12"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:12"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:12"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:12"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:12"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:13"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:13"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:13"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:13"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:13"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:14"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:14"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:14"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:14"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:14"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:15"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:16"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:16"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:16"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:16"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:16"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:17"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:17"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:17"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:17"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:17"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:18"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:18"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:18"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:18"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:18"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:18"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:19"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:19"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:19"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:19"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:19"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:20"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:20"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:20"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:20"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:20"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:21"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:21"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:21"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:21"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:21"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:26"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:26"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:26"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:26"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:27"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:27"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:27"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:27"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:27"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:27"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:28"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:28"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:28"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:28"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:28"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:29"}
+{"skill": "spec/spec", "ok": false, "verdict": null, "ts": "2026-11-11T13:21:29"}
+{"skill": "spec/arch", "ok": false, "verdict": null, "ts": "2026-11-11T13:21:29"}
+{"skill": "data_api/schema", "ok": false, "verdict": null, "ts": "2026-11-11T13:21:29"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:30"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:31"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:31"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:31"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:31"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:31"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:31"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:32"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:32"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:32"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:32"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:32"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:33"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:33"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:33"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:33"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:34"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:34"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:35"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:35"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:35"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:35"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:35"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:36"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:36"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:36"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:36"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:36"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:37"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:37"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:37"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:21:37"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:37"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:38"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:38"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:38"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:38"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:38"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:39"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:39"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:39"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:39"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:39"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:40"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:40"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:40"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:40"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:21:40"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:00"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:00"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:01"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:01"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:01"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:01"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:01"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:02"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:02"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:02"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:02"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:02"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:03"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:03"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:03"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:03"}
+{"skill": "spec/spec", "ok": false, "verdict": null, "ts": "2026-11-11T13:22:03"}
+{"skill": "spec/arch", "ok": false, "verdict": null, "ts": "2026-11-11T13:22:03"}
+{"skill": "data_api/schema", "ok": false, "verdict": null, "ts": "2026-11-11T13:22:04"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:05"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:05"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:05"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:06"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:06"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:06"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:06"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:06"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:06"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:07"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:07"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:07"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:07"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:07"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:08"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:08"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:09"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:09"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:09"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:10"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:10"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:10"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:10"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:10"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:11"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:11"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:11"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:11"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:11"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:11"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:12"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:22:12"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:12"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:12"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:12"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:13"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:13"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:13"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:13"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:13"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:14"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:14"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:14"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:14"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:14"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:15"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:15"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:22:15"}
+{"skill": "discover", "action": "jobstory", "input_hash": "bb75f3d728f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:21"}
+{"skill": "discover", "action": "discover", "input_hash": "c0a961b07c42", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:21"}
+{"skill": "discover", "action": "interview", "input_hash": "0d967417ddc3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:21"}
+{"skill": "ost", "action": "ost", "input_hash": "9b0a0ef6da43", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:22"}
+{"skill": "ost", "action": "poc", "input_hash": "17bbd99c0ef6", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:22"}
+{"skill": "ost", "action": "assumption", "input_hash": "3dbe3147eaab", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:22"}
+{"skill": "ost", "action": "research", "input_hash": "518f6d2ae029", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:22"}
+{"skill": "prd", "action": "prd", "input_hash": "31ce7e463795", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:22"}
+{"skill": "prd", "action": "story", "input_hash": "1753a740338d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:23"}
+{"skill": "prd", "action": "acceptance", "input_hash": "ded9e93a003a", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:23"}
+{"skill": "priority", "action": "opportunity", "input_hash": "647d94e70cfc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:23"}
+{"skill": "priority", "action": "ice", "input_hash": "600a9c15a12e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:23"}
+{"skill": "priority", "action": "rice", "input_hash": "b869b5bc3400", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:23"}
+{"skill": "priority", "action": "backlog", "input_hash": "eecc6cef8b3d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:24"}
+{"skill": "roadmap", "action": "roadmap", "input_hash": "f11901aea51d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:24"}
+{"skill": "roadmap", "action": "releasenotes", "input_hash": "aa3dc077d9cc", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:24"}
+{"skill": "roadmap", "action": "premortem", "input_hash": "55918c646392", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:24"}
+{"skill": "metrics", "action": "northstar", "input_hash": "8f0dcb83e81c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:24"}
+{"skill": "metrics", "action": "metrics", "input_hash": "1386703a318b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:25"}
+{"skill": "metrics", "action": "okr", "input_hash": "dd2432f1df6f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:25"}
+{"skill": "metrics", "action": "vision", "input_hash": "a7160573614f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:25"}
+{"skill": "metrics", "action": "canvas", "input_hash": "bff310810bb4", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:25"}
+{"skill": "techbrief", "action": "techbrief", "input_hash": "ccfe177f9682", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:25"}
+{"skill": "techbrief", "action": "uibrief", "input_hash": "c30e2fd43a3c", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:26"}
+{"skill": "techbrief", "action": "codetoprd", "input_hash": "7f8a825af3b2", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:26"}
+{"skill": "techbrief", "action": "releasegate", "input_hash": "7137dd8061e6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:26"}
+{"skill": "decision", "action": "decision", "input_hash": "3fb80e6e09b4", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:26"}
+{"skill": "decision", "action": "demand", "input_hash": "29bebf0a06ec", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:26"}
+{"skill": "decision", "action": "experience", "input_hash": "ad753ebae71b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:27"}
+{"skill": "discover", "action": "jobstory", "input_hash": "c2c4b045d1cd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:27"}
+{"skill": "discover", "action": "discover", "input_hash": "cfa14138a9f3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:27"}
+{"skill": "discover", "action": "interview", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:27"}
+{"skill": "ost", "action": "ost", "input_hash": "67224de76a6a", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:27"}
+{"skill": "ost", "action": "poc", "input_hash": "90b752313109", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:28"}
+{"skill": "ost", "action": "assumption", "input_hash": "3ea9188e9c44", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:28"}
+{"skill": "ost", "action": "research", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:28"}
+{"skill": "prd", "action": "prd", "input_hash": "b17c24e0df87", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:28"}
+{"skill": "prd", "action": "story", "input_hash": "f97c9c9bfa0b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:28"}
+{"skill": "prd", "action": "acceptance", "input_hash": "ea492c98a32f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:29"}
+{"skill": "priority", "action": "opportunity", "input_hash": "786e1466d669", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:29"}
+{"skill": "priority", "action": "ice", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:29"}
+{"skill": "priority", "action": "rice", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:29"}
+{"skill": "priority", "action": "backlog", "input_hash": "f627de71fea0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:29"}
+{"skill": "roadmap", "action": "roadmap", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:30"}
+{"skill": "roadmap", "action": "releasenotes", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:30"}
+{"skill": "roadmap", "action": "premortem", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:30"}
+{"skill": "metrics", "action": "northstar", "input_hash": "a8c9ee21c75d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:30"}
+{"skill": "metrics", "action": "metrics", "input_hash": "2a5bc386f2be", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:30"}
+{"skill": "metrics", "action": "okr", "input_hash": "e84c1c5eda13", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:31"}
+{"skill": "metrics", "action": "vision", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:31"}
+{"skill": "metrics", "action": "canvas", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:31"}
+{"skill": "techbrief", "action": "techbrief", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:31"}
+{"skill": "techbrief", "action": "uibrief", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:32"}
+{"skill": "techbrief", "action": "codetoprd", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:32"}
+{"skill": "techbrief", "action": "releasegate", "input_hash": "16acc9e6883c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:32"}
+{"skill": "decision", "action": "decision", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:32"}
+{"skill": "decision", "action": "demand", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:32"}
+{"skill": "decision", "action": "experience", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:33"}
+{"skill": "slice", "action": "slice", "input_hash": "39a29e694538", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:34"}
+{"skill": "slice", "action": "mvp", "input_hash": "fcb400920bd0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:34"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "f3e06ab1973a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:34"}
+{"skill": "scaffold", "action": "spec", "input_hash": "267df681d3d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:34"}
+{"skill": "landing", "action": "landing", "input_hash": "aac053e8f631", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:34"}
+{"skill": "landing", "action": "form", "input_hash": "8ff1551fe0be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:35"}
+{"skill": "saas", "action": "saas", "input_hash": "04ce4b6e1426", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:35"}
+{"skill": "saas", "action": "email", "input_hash": "05680e89bcfb", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:35"}
+{"skill": "prototype", "action": "prototype", "input_hash": "f44d93001ae7", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:35"}
+{"skill": "prototype", "action": "screen", "input_hash": "603a33bdc7a6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:35"}
+{"skill": "design", "action": "design", "input_hash": "505e7ac39673", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:36"}
+{"skill": "design", "action": "token", "input_hash": "7d4a6e306efa", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:36"}
+{"skill": "qa", "action": "qa", "input_hash": "b19b32e6b4a5", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:36"}
+{"skill": "qa", "action": "handoff", "input_hash": "688c2fbd76f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:36"}
+{"skill": "slice", "action": "slice", "input_hash": "e7663d65393c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:36"}
+{"skill": "slice", "action": "mvp", "input_hash": "deac8b73eb04", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:37"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "384e296dce79", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:37"}
+{"skill": "scaffold", "action": "spec", "input_hash": "4c3aa7d37a4b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:37"}
+{"skill": "landing", "action": "landing", "input_hash": "5b8b97957622", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:37"}
+{"skill": "landing", "action": "form", "input_hash": "d2c6801f3d48", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:37"}
+{"skill": "saas", "action": "saas", "input_hash": "798770a4ff6d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:38"}
+{"skill": "saas", "action": "email", "input_hash": "c4bccab6d3e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:38"}
+{"skill": "prototype", "action": "prototype", "input_hash": "deea56e9fabd", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:38"}
+{"skill": "prototype", "action": "screen", "input_hash": "c09a07233f91", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:38"}
+{"skill": "design", "action": "design", "input_hash": "cb09b5112ab7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:38"}
+{"skill": "design", "action": "token", "input_hash": "4fd4bb9c8a09", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:39"}
+{"skill": "qa", "action": "qa", "input_hash": "8d0beb143808", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:39"}
+{"skill": "qa", "action": "handoff", "input_hash": "b96801ee1a5f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:39"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "0c0fe0e25e4e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:41"}
+{"skill": "imagegen", "action": "style", "input_hash": "5246b002cf2e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:41"}
+{"skill": "logo", "action": "logo", "input_hash": "d5515f0c708f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:41"}
+{"skill": "logo", "action": "favicon", "input_hash": "e5300868e9fb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:41"}
+{"skill": "uiux", "action": "screen", "input_hash": "bdb83346a7d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:42"}
+{"skill": "uiux", "action": "ux", "input_hash": "946eb536ab47", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:42"}
+{"skill": "brand", "action": "vi", "input_hash": "2d2c4776320d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:42"}
+{"skill": "brand", "action": "token", "input_hash": "6526ef8369ad", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:43"}
+{"skill": "motion", "action": "motion", "input_hash": "d44898196b15", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:43"}
+{"skill": "motion", "action": "prototype", "input_hash": "52d4acd97a58", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:43"}
+{"skill": "imaging", "action": "edit", "input_hash": "3c1d85c32a87", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:43"}
+{"skill": "media", "action": "media", "input_hash": "ce16372a9408", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:22:44"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "8a5004a7c101", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:44"}
+{"skill": "render", "action": "poster", "input_hash": "07889dfdf24f", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:22:44"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "d715edc17382", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:44"}
+{"skill": "imagegen", "action": "style", "input_hash": "4d99ff31478f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:45"}
+{"skill": "logo", "action": "logo", "input_hash": "be1519b82c3f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:45"}
+{"skill": "logo", "action": "favicon", "input_hash": "528495e02484", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:45"}
+{"skill": "uiux", "action": "screen", "input_hash": "caa3f0dc2edc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:46"}
+{"skill": "uiux", "action": "ux", "input_hash": "773e133071e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:46"}
+{"skill": "brand", "action": "vi", "input_hash": "6f54e230291c", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:22:46"}
+{"skill": "brand", "action": "token", "input_hash": "f0ff7afde81c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:46"}
+{"skill": "motion", "action": "motion", "input_hash": "dc6b50341c70", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:47"}
+{"skill": "motion", "action": "prototype", "input_hash": "edc0e615b6ed", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:47"}
+{"skill": "imaging", "action": "edit", "input_hash": "f287d8359251", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:47"}
+{"skill": "media", "action": "media", "input_hash": "b85e75fb8d80", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:47"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "56e10693c307", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:48"}
+{"skill": "render", "action": "poster", "input_hash": "7fe75eacec38", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:22:48"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:35"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:23:36"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:23:36"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:36"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:36"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:36"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:23:37"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:37"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:23:37"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:37"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:37"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:23:38"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:38"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:38"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:23:38"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:39"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:23:39"}
+{"skill": "prdguard", "action": "check", "input_hash": "4fdd65ffc090", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:39"}
+{"skill": "prdguard", "action": "render", "input_hash": "4fdd65ffc090", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:23:39"}
+{"skill": "prdguard", "action": "check", "input_hash": "fcfc0bd224ba", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:23:40"}
+{"skill": "htmlreport", "action": "html", "input_hash": "af0c5f50e15e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:23:40"}
+{"skill": "miniapp", "action": "plan", "input_hash": "37efe93dde0e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:23:40"}
+{"skill": "miniapp", "action": "scaffold", "input_hash": "37efe93dde0e", "elapsed_ms": 8, "exit_code": 0, "ts": "2026-11-11T13:23:40"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 27, "exit_code": 0, "ts": "2026-11-11T13:23:41"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T13:23:41"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:24"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:24"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:25"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:25"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:25"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:25"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:26"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:26"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:26"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:26"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:27"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:27"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:27"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:27"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:27"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:24:28"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:28"}
+{"skill": "prdguard", "action": "check", "input_hash": "4fdd65ffc090", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:28"}
+{"skill": "prdguard", "action": "render", "input_hash": "4fdd65ffc090", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:29"}
+{"skill": "prdguard", "action": "check", "input_hash": "fcfc0bd224ba", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:29"}
+{"skill": "htmlreport", "action": "html", "input_hash": "af0c5f50e15e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:29"}
+{"skill": "miniapp", "action": "plan", "input_hash": "37efe93dde0e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:29"}
+{"skill": "miniapp", "action": "scaffold", "input_hash": "37efe93dde0e", "elapsed_ms": 11, "exit_code": 0, "ts": "2026-11-11T13:24:30"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 26, "exit_code": 0, "ts": "2026-11-11T13:24:30"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 4, "exit_code": 1, "ts": "2026-11-11T13:24:30"}
+{"skill": "design", "action": "from-md", "input_hash": "085632e264aa", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T13:24:31"}
+{"skill": "discover", "action": "jobstory", "input_hash": "bb75f3d728f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:32"}
+{"skill": "discover", "action": "discover", "input_hash": "c0a961b07c42", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:32"}
+{"skill": "discover", "action": "interview", "input_hash": "0d967417ddc3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:32"}
+{"skill": "ost", "action": "ost", "input_hash": "9b0a0ef6da43", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:33"}
+{"skill": "ost", "action": "poc", "input_hash": "17bbd99c0ef6", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:33"}
+{"skill": "ost", "action": "assumption", "input_hash": "3dbe3147eaab", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:33"}
+{"skill": "ost", "action": "research", "input_hash": "518f6d2ae029", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:33"}
+{"skill": "prd", "action": "prd", "input_hash": "31ce7e463795", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:33"}
+{"skill": "prd", "action": "story", "input_hash": "1753a740338d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:34"}
+{"skill": "prd", "action": "acceptance", "input_hash": "ded9e93a003a", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:34"}
+{"skill": "priority", "action": "opportunity", "input_hash": "647d94e70cfc", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:34"}
+{"skill": "priority", "action": "ice", "input_hash": "600a9c15a12e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:34"}
+{"skill": "priority", "action": "rice", "input_hash": "b869b5bc3400", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:35"}
+{"skill": "priority", "action": "backlog", "input_hash": "eecc6cef8b3d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:35"}
+{"skill": "roadmap", "action": "roadmap", "input_hash": "f11901aea51d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:35"}
+{"skill": "roadmap", "action": "releasenotes", "input_hash": "aa3dc077d9cc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:35"}
+{"skill": "roadmap", "action": "premortem", "input_hash": "55918c646392", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:36"}
+{"skill": "metrics", "action": "northstar", "input_hash": "8f0dcb83e81c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:36"}
+{"skill": "metrics", "action": "metrics", "input_hash": "1386703a318b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:36"}
+{"skill": "metrics", "action": "okr", "input_hash": "dd2432f1df6f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:36"}
+{"skill": "metrics", "action": "vision", "input_hash": "a7160573614f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:37"}
+{"skill": "metrics", "action": "canvas", "input_hash": "bff310810bb4", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:37"}
+{"skill": "techbrief", "action": "techbrief", "input_hash": "ccfe177f9682", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:37"}
+{"skill": "techbrief", "action": "uibrief", "input_hash": "c30e2fd43a3c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:37"}
+{"skill": "techbrief", "action": "codetoprd", "input_hash": "7f8a825af3b2", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:38"}
+{"skill": "techbrief", "action": "releasegate", "input_hash": "7137dd8061e6", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:38"}
+{"skill": "decision", "action": "decision", "input_hash": "3fb80e6e09b4", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:38"}
+{"skill": "decision", "action": "demand", "input_hash": "29bebf0a06ec", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:38"}
+{"skill": "decision", "action": "experience", "input_hash": "ad753ebae71b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:39"}
+{"skill": "discover", "action": "jobstory", "input_hash": "c2c4b045d1cd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:39"}
+{"skill": "discover", "action": "discover", "input_hash": "cfa14138a9f3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:39"}
+{"skill": "discover", "action": "interview", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:39"}
+{"skill": "ost", "action": "ost", "input_hash": "67224de76a6a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:40"}
+{"skill": "ost", "action": "poc", "input_hash": "90b752313109", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:40"}
+{"skill": "ost", "action": "assumption", "input_hash": "3ea9188e9c44", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:40"}
+{"skill": "ost", "action": "research", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:40"}
+{"skill": "prd", "action": "prd", "input_hash": "b17c24e0df87", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:41"}
+{"skill": "prd", "action": "story", "input_hash": "f97c9c9bfa0b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:41"}
+{"skill": "prd", "action": "acceptance", "input_hash": "ea492c98a32f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:41"}
+{"skill": "priority", "action": "opportunity", "input_hash": "786e1466d669", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:41"}
+{"skill": "priority", "action": "ice", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:42"}
+{"skill": "priority", "action": "rice", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:42"}
+{"skill": "priority", "action": "backlog", "input_hash": "f627de71fea0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:42"}
+{"skill": "roadmap", "action": "roadmap", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:42"}
+{"skill": "roadmap", "action": "releasenotes", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:43"}
+{"skill": "roadmap", "action": "premortem", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:43"}
+{"skill": "metrics", "action": "northstar", "input_hash": "a8c9ee21c75d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:43"}
+{"skill": "metrics", "action": "metrics", "input_hash": "2a5bc386f2be", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:43"}
+{"skill": "metrics", "action": "okr", "input_hash": "e84c1c5eda13", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:44"}
+{"skill": "metrics", "action": "vision", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:44"}
+{"skill": "metrics", "action": "canvas", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:44"}
+{"skill": "techbrief", "action": "techbrief", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:44"}
+{"skill": "techbrief", "action": "uibrief", "input_hash": "99914b932bd3", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:45"}
+{"skill": "techbrief", "action": "codetoprd", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:45"}
+{"skill": "techbrief", "action": "releasegate", "input_hash": "16acc9e6883c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:45"}
+{"skill": "decision", "action": "decision", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:45"}
+{"skill": "decision", "action": "demand", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:45"}
+{"skill": "decision", "action": "experience", "input_hash": "99914b932bd3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:46"}
+{"skill": "slice", "action": "slice", "input_hash": "39a29e694538", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:47"}
+{"skill": "slice", "action": "mvp", "input_hash": "fcb400920bd0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:47"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "f3e06ab1973a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:47"}
+{"skill": "scaffold", "action": "spec", "input_hash": "267df681d3d6", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:48"}
+{"skill": "landing", "action": "landing", "input_hash": "aac053e8f631", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:48"}
+{"skill": "landing", "action": "form", "input_hash": "8ff1551fe0be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:48"}
+{"skill": "saas", "action": "saas", "input_hash": "04ce4b6e1426", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:48"}
+{"skill": "saas", "action": "email", "input_hash": "05680e89bcfb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:48"}
+{"skill": "prototype", "action": "prototype", "input_hash": "f44d93001ae7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:49"}
+{"skill": "prototype", "action": "screen", "input_hash": "603a33bdc7a6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:49"}
+{"skill": "design", "action": "design", "input_hash": "505e7ac39673", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:49"}
+{"skill": "design", "action": "token", "input_hash": "7d4a6e306efa", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:49"}
+{"skill": "qa", "action": "qa", "input_hash": "b19b32e6b4a5", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:24:49"}
+{"skill": "qa", "action": "handoff", "input_hash": "688c2fbd76f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:24:50"}
+{"skill": "slice", "action": "slice", "input_hash": "e7663d65393c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:50"}
+{"skill": "slice", "action": "mvp", "input_hash": "deac8b73eb04", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:50"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "384e296dce79", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:50"}
+{"skill": "scaffold", "action": "spec", "input_hash": "4c3aa7d37a4b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:51"}
+{"skill": "landing", "action": "landing", "input_hash": "5b8b97957622", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:51"}
+{"skill": "landing", "action": "form", "input_hash": "d2c6801f3d48", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:51"}
+{"skill": "saas", "action": "saas", "input_hash": "798770a4ff6d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:51"}
+{"skill": "saas", "action": "email", "input_hash": "c4bccab6d3e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:51"}
+{"skill": "prototype", "action": "prototype", "input_hash": "deea56e9fabd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:52"}
+{"skill": "prototype", "action": "screen", "input_hash": "c09a07233f91", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:52"}
+{"skill": "design", "action": "design", "input_hash": "cb09b5112ab7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:52"}
+{"skill": "design", "action": "token", "input_hash": "4fd4bb9c8a09", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:24:52"}
+{"skill": "qa", "action": "qa", "input_hash": "8d0beb143808", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:53"}
+{"skill": "qa", "action": "handoff", "input_hash": "b96801ee1a5f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:24:53"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:53"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:53"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:54"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:54"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:54"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:54"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:55"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:55"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:55"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:55"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:55"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:56"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:56"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:56"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:56"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:24:56"}
+{"skill": "spec/spec", "ok": false, "verdict": null, "ts": "2026-11-11T13:24:57"}
+{"skill": "spec/arch", "ok": false, "verdict": null, "ts": "2026-11-11T13:24:57"}
+{"skill": "data_api/schema", "ok": false, "verdict": null, "ts": "2026-11-11T13:24:57"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:24:59"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:24:59"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:24:59"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:24:59"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:24:59"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:00"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:00"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:00"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:00"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:00"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:01"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:01"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:01"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:01"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:02"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:02"}
+{"skill": "spec/spec", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:03"}
+{"skill": "spec/arch", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:03"}
+{"skill": "data_api/schema", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:03"}
+{"skill": "data_api/api", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:04"}
+{"skill": "fullstack/feature", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:04"}
+{"skill": "fullstack/auth", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:04"}
+{"skill": "crossplatform/build", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:04"}
+{"skill": "crossplatform/platform", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:04"}
+{"skill": "testing/suites", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:05"}
+{"skill": "testing/browser", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:05"}
+{"skill": "debug/debug", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:05"}
+{"skill": "debug/refactor", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:05"}
+{"skill": "ops/migration", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:05"}
+{"skill": "ops/security", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:06"}
+{"skill": "special/mcp", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:06"}
+{"skill": "special/godot", "ok": true, "verdict": "PASS", "ts": "2026-11-11T13:25:06"}
+{"skill": "spec/spec", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:06"}
+{"skill": "spec/arch", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:06"}
+{"skill": "data_api/schema", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:07"}
+{"skill": "data_api/api", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:07"}
+{"skill": "fullstack/feature", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:07"}
+{"skill": "fullstack/auth", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:07"}
+{"skill": "crossplatform/build", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:07"}
+{"skill": "crossplatform/platform", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:08"}
+{"skill": "testing/suites", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:08"}
+{"skill": "testing/browser", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:08"}
+{"skill": "debug/debug", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:08"}
+{"skill": "debug/refactor", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:08"}
+{"skill": "ops/migration", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:09"}
+{"skill": "ops/security", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:09"}
+{"skill": "special/mcp", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:09"}
+{"skill": "special/godot", "ok": false, "verdict": "FAIL", "ts": "2026-11-11T13:25:09"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "0c0fe0e25e4e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:25:11"}
+{"skill": "imagegen", "action": "style", "input_hash": "5246b002cf2e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:11"}
+{"skill": "logo", "action": "logo", "input_hash": "d5515f0c708f", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:25:11"}
+{"skill": "logo", "action": "favicon", "input_hash": "e5300868e9fb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:12"}
+{"skill": "uiux", "action": "screen", "input_hash": "bdb83346a7d6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:12"}
+{"skill": "uiux", "action": "ux", "input_hash": "946eb536ab47", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:12"}
+{"skill": "brand", "action": "vi", "input_hash": "2d2c4776320d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:13"}
+{"skill": "brand", "action": "token", "input_hash": "6526ef8369ad", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:13"}
+{"skill": "motion", "action": "motion", "input_hash": "d44898196b15", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:13"}
+{"skill": "motion", "action": "prototype", "input_hash": "52d4acd97a58", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:14"}
+{"skill": "imaging", "action": "edit", "input_hash": "3c1d85c32a87", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:25:14"}
+{"skill": "media", "action": "media", "input_hash": "ce16372a9408", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:25:14"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "8a5004a7c101", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:25:15"}
+{"skill": "render", "action": "poster", "input_hash": "07889dfdf24f", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:25:15"}
+{"skill": "imagegen", "action": "prompt", "input_hash": "d715edc17382", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:25:15"}
+{"skill": "imagegen", "action": "style", "input_hash": "4d99ff31478f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:15"}
+{"skill": "logo", "action": "logo", "input_hash": "be1519b82c3f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:16"}
+{"skill": "logo", "action": "favicon", "input_hash": "528495e02484", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:25:16"}
+{"skill": "uiux", "action": "screen", "input_hash": "caa3f0dc2edc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:16"}
+{"skill": "uiux", "action": "ux", "input_hash": "773e133071e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:17"}
+{"skill": "brand", "action": "vi", "input_hash": "6f54e230291c", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:25:17"}
+{"skill": "brand", "action": "token", "input_hash": "f0ff7afde81c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:17"}
+{"skill": "motion", "action": "motion", "input_hash": "dc6b50341c70", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:18"}
+{"skill": "motion", "action": "prototype", "input_hash": "edc0e615b6ed", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:25:18"}
+{"skill": "imaging", "action": "edit", "input_hash": "f287d8359251", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:18"}
+{"skill": "media", "action": "media", "input_hash": "b85e75fb8d80", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:18"}
+{"skill": "transcribe", "action": "transcribe", "input_hash": "56e10693c307", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:19"}
+{"skill": "render", "action": "poster", "input_hash": "7fe75eacec38", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:25:19"}
+{"skill": "topic", "action": "brief", "input_hash": "eb3074cf35cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:22"}
+{"skill": "topic", "action": "plan", "input_hash": "7d89ce464057", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:22"}
+{"skill": "seo", "action": "keyword", "input_hash": "c01e560b32f0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:22"}
+{"skill": "seo", "action": "audit", "input_hash": "2ab8078b72f7", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:22"}
+{"skill": "hook", "action": "hook", "input_hash": "62233aed2222", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:23"}
+{"skill": "hook", "action": "outline", "input_hash": "5edb649a3b3e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:23"}
+{"skill": "copy", "action": "article", "input_hash": "67086d0ce74a", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:23"}
+{"skill": "copy", "action": "script", "input_hash": "09d76bcb0130", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:23"}
+{"skill": "voice", "action": "guide", "input_hash": "53f7840ff7ba", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:24"}
+{"skill": "voice", "action": "edit", "input_hash": "0ea14f8706ff", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:24"}
+{"skill": "pr", "action": "ad", "input_hash": "103beabfc110", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:24"}
+{"skill": "pr", "action": "press", "input_hash": "1395e18d2cde", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:24"}
+{"skill": "platform", "action": "adapt", "input_hash": "cfbbb93be825", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:25"}
+{"skill": "platform", "action": "publish", "input_hash": "d0a4c7308eff", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:25"}
+{"skill": "localize", "action": "term", "input_hash": "71857072550d", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:25"}
+{"skill": "localize", "action": "review", "input_hash": "648266501905", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:25"}
+{"skill": "topic", "action": "brief", "input_hash": "452390b52c11", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:26"}
+{"skill": "topic", "action": "plan", "input_hash": "04f272ae55f1", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:26"}
+{"skill": "seo", "action": "keyword", "input_hash": "68d3846e609e", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:26"}
+{"skill": "seo", "action": "audit", "input_hash": "99395506c01e", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:26"}
+{"skill": "hook", "action": "hook", "input_hash": "1fa459e0bb5d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:26"}
+{"skill": "hook", "action": "outline", "input_hash": "d032da3f56a4", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:27"}
+{"skill": "copy", "action": "article", "input_hash": "6c6525e4270d", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:27"}
+{"skill": "copy", "action": "script", "input_hash": "fd614219d706", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:27"}
+{"skill": "voice", "action": "guide", "input_hash": "0e9aa133c601", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:27"}
+{"skill": "voice", "action": "edit", "input_hash": "5e19d78ed47e", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:28"}
+{"skill": "pr", "action": "ad", "input_hash": "c2ad0b62f76b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:28"}
+{"skill": "pr", "action": "press", "input_hash": "64efe2a9f4a7", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:28"}
+{"skill": "platform", "action": "adapt", "input_hash": "bc4bd29f99ec", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:28"}
+{"skill": "platform", "action": "publish", "input_hash": "6e7bb587cdbd", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:29"}
+{"skill": "localize", "action": "term", "input_hash": "e19afff9294f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:29"}
+{"skill": "localize", "action": "review", "input_hash": "1c0c5d2344ca", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:29"}
+{"skill": "catalog", "action": "product", "input_hash": "c8ddfa53d6cc", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:31"}
+{"skill": "catalog", "action": "price", "input_hash": "09c413bb7226", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:32"}
+{"skill": "order", "action": "cart", "input_hash": "a758ca894907", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:32"}
+{"skill": "order", "action": "order", "input_hash": "85e50233981f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:32"}
+{"skill": "billing", "action": "plan", "input_hash": "fa70353cb09c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:32"}
+{"skill": "billing", "action": "usage", "input_hash": "4b2c60567b98", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:33"}
+{"skill": "billing", "action": "invoice", "input_hash": "cf4f7927a92a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:33"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "073b4f25807b", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:33"}
+{"skill": "payment", "action": "refund", "input_hash": "b6fff83cd526", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:33"}
+{"skill": "signature", "action": "document", "input_hash": "f2361e6292b8", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:34"}
+{"skill": "signature", "action": "signing", "input_hash": "3dd93c56472a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:34"}
+{"skill": "appointment", "action": "appointment", "input_hash": "6f98747056bf", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T13:26:34"}
+{"skill": "appointment", "action": "calendar", "input_hash": "0ba6f234d2f3", "elapsed_ms": 4, "exit_code": 0, "ts": "2026-11-11T13:26:34"}
+{"skill": "workflow", "action": "state", "input_hash": "5f06b2ff234b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:35"}
+{"skill": "workflow", "action": "transition", "input_hash": "d7cde99e90f3", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:35"}
+{"skill": "revenue", "action": "events", "input_hash": "4ec1722eecce", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:35"}
+{"skill": "revenue", "action": "webhook", "input_hash": "e952dbbcbe1f", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:35"}
+{"skill": "catalog", "action": "product", "input_hash": "4d28455e73c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:36"}
+{"skill": "catalog", "action": "price", "input_hash": "2afc32caa4cc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:36"}
+{"skill": "order", "action": "cart", "input_hash": "96abfdb4324a", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:36"}
+{"skill": "order", "action": "order", "input_hash": "0a25d760b732", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:36"}
+{"skill": "billing", "action": "plan", "input_hash": "67770fffa41b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:37"}
+{"skill": "billing", "action": "usage", "input_hash": "8a24b587253a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:37"}
+{"skill": "billing", "action": "invoice", "input_hash": "0235e5e78d9b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:37"}
+{"skill": "payment", "action": "payment_intent", "input_hash": "8493cffcb58c", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:37"}
+{"skill": "payment", "action": "refund", "input_hash": "0a8345f191e6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:38"}
+{"skill": "signature", "action": "document", "input_hash": "1c2b8bdd5776", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:38"}
+{"skill": "signature", "action": "signing", "input_hash": "3aa85ac052d3", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:38"}
+{"skill": "appointment", "action": "appointment", "input_hash": "080516e78f4a", "elapsed_ms": 5, "exit_code": 1, "ts": "2026-11-11T13:26:38"}
+{"skill": "appointment", "action": "calendar", "input_hash": "a79ebf340754", "elapsed_ms": 4, "exit_code": 1, "ts": "2026-11-11T13:26:39"}
+{"skill": "workflow", "action": "state", "input_hash": "c51464e8b7c1", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:39"}
+{"skill": "workflow", "action": "transition", "input_hash": "20bf24a84f52", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:39"}
+{"skill": "revenue", "action": "events", "input_hash": "5b969a1eeea7", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:39"}
+{"skill": "revenue", "action": "webhook", "input_hash": "df642226e7bb", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:40"}
+{"skill": "procurement", "action": "supplier", "input_hash": "013f2c872d88", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:42"}
+{"skill": "procurement", "action": "rfq", "input_hash": "c148cbec426d", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:42"}
+{"skill": "procurement", "action": "quotation", "input_hash": "55a83f42febe", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:42"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "ec67ef8648fe", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:43"}
+{"skill": "procurement", "action": "receipt", "input_hash": "e278508d9912", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:43"}
+{"skill": "inventory", "action": "item", "input_hash": "f85dffe3aa29", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:43"}
+{"skill": "inventory", "action": "warehouse", "input_hash": "6dd06719d483", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:43"}
+{"skill": "inventory", "action": "bin", "input_hash": "8832d3dc1e53", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:44"}
+{"skill": "inventory", "action": "stock_entry", "input_hash": "6c908c9c6f82", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:44"}
+{"skill": "fulfillment", "action": "sales_order", "input_hash": "2ef40d17d9a9", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:44"}
+{"skill": "fulfillment", "action": "delivery", "input_hash": "58376e1a5390", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:44"}
+{"skill": "production", "action": "bom", "input_hash": "bc9c0284c1e6", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:45"}
+{"skill": "production", "action": "material_request", "input_hash": "1d6f0f60c4c2", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:45"}
+{"skill": "finance", "action": "invoice", "input_hash": "1f0a0a2b4db0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:45"}
+{"skill": "finance", "action": "payment", "input_hash": "ad5983573b0b", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:45"}
+{"skill": "masterdata", "action": "master_data", "input_hash": "74766e7187e0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:26:46"}
+{"skill": "masterdata", "action": "permission", "input_hash": "1757e0e94246", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:26:46"}
+{"skill": "report", "action": "report", "input_hash": "3f8174cf15ef", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T13:26:46"}
+{"skill": "procurement", "action": "supplier", "input_hash": "4045f91ab8bc", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:47"}
+{"skill": "procurement", "action": "rfq", "input_hash": "4f6b217133f1", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:47"}
+{"skill": "procurement", "action": "quotation", "input_hash": "60e6d5f658a9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:47"}
+{"skill": "procurement", "action": "purchase_order", "input_hash": "8fae491e8527", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:47"}
+{"skill": "procurement", "action": "receipt", "input_hash": "d59fb4ef5cad", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:48"}
+{"skill": "inventory", "action": "item", "input_hash": "06ea71e4f7aa", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:48"}
+{"skill": "inventory", "action": "warehouse", "input_hash": "5e7e5c1106ce", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:48"}
+{"skill": "inventory", "action": "bin", "input_hash": "6146735caee4", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:48"}
+{"skill": "inventory", "action": "stock_entry", "input_hash": "991077672a02", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:49"}
+{"skill": "fulfillment", "action": "sales_order", "input_hash": "65f0592d46c2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:49"}
+{"skill": "fulfillment", "action": "delivery", "input_hash": "7f89a84fb8ec", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:49"}
+{"skill": "production", "action": "bom", "input_hash": "d90a92ede3f7", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:50"}
+{"skill": "production", "action": "material_request", "input_hash": "2b194558608a", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:50"}
+{"skill": "finance", "action": "invoice", "input_hash": "9f8163e31f5c", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:50"}
+{"skill": "finance", "action": "payment", "input_hash": "7f6bf6f10b6f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:50"}
+{"skill": "masterdata", "action": "master_data", "input_hash": "906624f79e2d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:51"}
+{"skill": "masterdata", "action": "permission", "input_hash": "b7014a80c69b", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:26:51"}
+{"skill": "report", "action": "report", "input_hash": "cdabac324efd", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:26:51"}
+{"skill": "design", "action": "from-md", "input_hash": "a2a4fe13725f", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T13:28:31"}
+{"skill": "office", "action": "probe", "input_hash": "", "elapsed_ms": 382, "exit_code": 0, "ts": "2026-11-11T13:29:22"}
+{"skill": "office", "action": "xlsx", "input_hash": "c2a574d2eea0", "elapsed_ms": 292, "exit_code": 0, "ts": "2026-11-11T13:29:36"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 299, "exit_code": 0, "ts": "2026-11-11T13:29:37"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:29:57"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:29:58"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:29:58"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:29:58"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:29:58"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:29:59"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:29:59"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:29:59"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:00"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:00"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:00"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:30:00"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:01"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:30:01"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:01"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:30:01"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T13:30:02"}
+{"skill": "prdguard", "action": "check", "input_hash": "4fdd65ffc090", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:02"}
+{"skill": "prdguard", "action": "render", "input_hash": "4fdd65ffc090", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:30:02"}
+{"skill": "prdguard", "action": "check", "input_hash": "fcfc0bd224ba", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:03"}
+{"skill": "htmlreport", "action": "html", "input_hash": "af0c5f50e15e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:03"}
+{"skill": "miniapp", "action": "plan", "input_hash": "37efe93dde0e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:03"}
+{"skill": "miniapp", "action": "scaffold", "input_hash": "37efe93dde0e", "elapsed_ms": 11, "exit_code": 0, "ts": "2026-11-11T13:30:03"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 35, "exit_code": 0, "ts": "2026-11-11T13:30:04"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 4, "exit_code": 1, "ts": "2026-11-11T13:30:04"}
+{"skill": "office", "action": "xlsx", "input_hash": "66a8dcce762f", "elapsed_ms": 388, "exit_code": 0, "ts": "2026-11-11T13:30:05"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 307, "exit_code": 0, "ts": "2026-11-11T13:30:05"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 291, "exit_code": 1, "ts": "2026-11-11T13:30:06"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:23"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:23"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:24"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:24"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:24"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:24"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:25"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:25"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:30:25"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:25"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:26"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:26"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:26"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:30:26"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:27"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:30:27"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T13:30:27"}
+{"skill": "prdguard", "action": "check", "input_hash": "4fdd65ffc090", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:27"}
+{"skill": "prdguard", "action": "render", "input_hash": "4fdd65ffc090", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:30:28"}
+{"skill": "prdguard", "action": "check", "input_hash": "fcfc0bd224ba", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:28"}
+{"skill": "htmlreport", "action": "html", "input_hash": "af0c5f50e15e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:28"}
+{"skill": "miniapp", "action": "plan", "input_hash": "37efe93dde0e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:28"}
+{"skill": "miniapp", "action": "scaffold", "input_hash": "37efe93dde0e", "elapsed_ms": 9, "exit_code": 0, "ts": "2026-11-11T13:30:29"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 32, "exit_code": 0, "ts": "2026-11-11T13:30:29"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 4, "exit_code": 1, "ts": "2026-11-11T13:30:30"}
+{"skill": "office", "action": "xlsx", "input_hash": "66a8dcce762f", "elapsed_ms": 408, "exit_code": 0, "ts": "2026-11-11T13:30:30"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 306, "exit_code": 0, "ts": "2026-11-11T13:30:31"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 348, "exit_code": 1, "ts": "2026-11-11T13:30:31"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:47"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:48"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:48"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:48"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:49"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:49"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:30:49"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:49"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:30:50"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:50"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:50"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:51"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:51"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T13:30:51"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:52"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:52"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:53"}
+{"skill": "prdguard", "action": "check", "input_hash": "4fdd65ffc090", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:53"}
+{"skill": "prdguard", "action": "render", "input_hash": "4fdd65ffc090", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:53"}
+{"skill": "prdguard", "action": "check", "input_hash": "fcfc0bd224ba", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:30:54"}
+{"skill": "htmlreport", "action": "html", "input_hash": "af0c5f50e15e", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:30:55"}
+{"skill": "miniapp", "action": "plan", "input_hash": "37efe93dde0e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:30:55"}
+{"skill": "miniapp", "action": "scaffold", "input_hash": "37efe93dde0e", "elapsed_ms": 19, "exit_code": 0, "ts": "2026-11-11T13:30:55"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 39, "exit_code": 0, "ts": "2026-11-11T13:30:56"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 4, "exit_code": 1, "ts": "2026-11-11T13:30:56"}
+{"skill": "office", "action": "xlsx", "input_hash": "66a8dcce762f", "elapsed_ms": 425, "exit_code": 0, "ts": "2026-11-11T13:30:57"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 317, "exit_code": 0, "ts": "2026-11-11T13:30:58"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 305, "exit_code": 1, "ts": "2026-11-11T13:30:58"}
+{"skill": "design", "action": "from-md", "input_hash": "a2a4fe13725f", "elapsed_ms": 4, "exit_code": 0, "ts": "2026-11-11T13:30:59"}
+{"skill": "slice", "action": "slice", "input_hash": "39a29e694538", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:01"}
+{"skill": "slice", "action": "mvp", "input_hash": "fcb400920bd0", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:01"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "f3e06ab1973a", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:01"}
+{"skill": "scaffold", "action": "spec", "input_hash": "267df681d3d6", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:31:01"}
+{"skill": "landing", "action": "landing", "input_hash": "aac053e8f631", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:31:02"}
+{"skill": "landing", "action": "form", "input_hash": "8ff1551fe0be", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:02"}
+{"skill": "saas", "action": "saas", "input_hash": "04ce4b6e1426", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:02"}
+{"skill": "saas", "action": "email", "input_hash": "05680e89bcfb", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:02"}
+{"skill": "prototype", "action": "prototype", "input_hash": "f44d93001ae7", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:31:03"}
+{"skill": "prototype", "action": "screen", "input_hash": "603a33bdc7a6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:03"}
+{"skill": "design", "action": "design", "input_hash": "505e7ac39673", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:03"}
+{"skill": "design", "action": "token", "input_hash": "7d4a6e306efa", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:03"}
+{"skill": "qa", "action": "qa", "input_hash": "b19b32e6b4a5", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:31:04"}
+{"skill": "qa", "action": "handoff", "input_hash": "688c2fbd76f6", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:04"}
+{"skill": "slice", "action": "slice", "input_hash": "e7663d65393c", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:31:04"}
+{"skill": "slice", "action": "mvp", "input_hash": "deac8b73eb04", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:04"}
+{"skill": "scaffold", "action": "scaffold", "input_hash": "384e296dce79", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:05"}
+{"skill": "scaffold", "action": "spec", "input_hash": "4c3aa7d37a4b", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:31:05"}
+{"skill": "landing", "action": "landing", "input_hash": "5b8b97957622", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:31:05"}
+{"skill": "landing", "action": "form", "input_hash": "d2c6801f3d48", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:05"}
+{"skill": "saas", "action": "saas", "input_hash": "798770a4ff6d", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:06"}
+{"skill": "saas", "action": "email", "input_hash": "c4bccab6d3e0", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:06"}
+{"skill": "prototype", "action": "prototype", "input_hash": "deea56e9fabd", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:06"}
+{"skill": "prototype", "action": "screen", "input_hash": "c09a07233f91", "elapsed_ms": 1, "exit_code": 1, "ts": "2026-11-11T13:31:06"}
+{"skill": "design", "action": "design", "input_hash": "cb09b5112ab7", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:07"}
+{"skill": "design", "action": "token", "input_hash": "4fd4bb9c8a09", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:07"}
+{"skill": "qa", "action": "qa", "input_hash": "8d0beb143808", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:07"}
+{"skill": "qa", "action": "handoff", "input_hash": "b96801ee1a5f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:07"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:53"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:53"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:54"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:54"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:54"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:54"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:55"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:55"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:55"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:31:55"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:56"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:56"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:56"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:56"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:57"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:31:57"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T13:31:57"}
+{"skill": "prdguard", "action": "check", "input_hash": "4fdd65ffc090", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:58"}
+{"skill": "prdguard", "action": "render", "input_hash": "4fdd65ffc090", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:58"}
+{"skill": "prdguard", "action": "check", "input_hash": "fcfc0bd224ba", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:31:58"}
+{"skill": "htmlreport", "action": "html", "input_hash": "af0c5f50e15e", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:31:58"}
+{"skill": "miniapp", "action": "plan", "input_hash": "37efe93dde0e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:31:58"}
+{"skill": "miniapp", "action": "scaffold", "input_hash": "37efe93dde0e", "elapsed_ms": 12, "exit_code": 0, "ts": "2026-11-11T13:31:59"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 29, "exit_code": 0, "ts": "2026-11-11T13:31:59"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 4, "exit_code": 1, "ts": "2026-11-11T13:31:59"}
+{"skill": "office", "action": "xlsx", "input_hash": "66a8dcce762f", "elapsed_ms": 374, "exit_code": 0, "ts": "2026-11-11T13:32:00"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 297, "exit_code": 0, "ts": "2026-11-11T13:32:01"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 276, "exit_code": 1, "ts": "2026-11-11T13:32:01"}
+{"skill": "design", "action": "from-md", "input_hash": "a2a4fe13725f", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T13:32:02"}
+{"skill": "xhs", "action": "note", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:28"}
+{"skill": "xhs", "action": "note", "input_hash": "8746977e04ad", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:32:28"}
+{"skill": "xhs", "action": "compliance", "input_hash": "729dc1040c03", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:32:29"}
+{"skill": "xhs", "action": "compliance", "input_hash": "7d854a29fe63", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:32:29"}
+{"skill": "xhs", "action": "score", "input_hash": "7d854a29fe63", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:29"}
+{"skill": "selection", "action": "score", "input_hash": "cf470ffab74c", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:30"}
+{"skill": "selection", "action": "score", "input_hash": "e4c3ba63b7c9", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:32:30"}
+{"skill": "selection", "action": "profit", "input_hash": "596e7bdfffc7", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:30"}
+{"skill": "selection", "action": "profit", "input_hash": "81c36a6bdd7f", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:32:30"}
+{"skill": "tco", "action": "compare", "input_hash": "6fa4942e41cf", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:31"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "9956d7f8c8df", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:32:31"}
+{"skill": "tco", "action": "lifecycle", "input_hash": "a9b2c34dabc2", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:32:31"}
+{"skill": "deck", "action": "plan", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:31"}
+{"skill": "deck", "action": "html", "input_hash": "b46a6b9dbd05", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:32"}
+{"skill": "deck", "action": "plan", "input_hash": "66b4eadd0be6", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:32:32"}
+{"skill": "brandcheck", "action": "check", "input_hash": "2775ed3629cf", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:32:32"}
+{"skill": "brandcheck", "action": "check", "input_hash": "cb0de32cd42d", "elapsed_ms": 2, "exit_code": 1, "ts": "2026-11-11T13:32:32"}
+{"skill": "prdguard", "action": "check", "input_hash": "4fdd65ffc090", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:33"}
+{"skill": "prdguard", "action": "render", "input_hash": "4fdd65ffc090", "elapsed_ms": 1, "exit_code": 0, "ts": "2026-11-11T13:32:33"}
+{"skill": "prdguard", "action": "check", "input_hash": "fcfc0bd224ba", "elapsed_ms": 0, "exit_code": 1, "ts": "2026-11-11T13:32:33"}
+{"skill": "htmlreport", "action": "html", "input_hash": "af0c5f50e15e", "elapsed_ms": 2, "exit_code": 0, "ts": "2026-11-11T13:32:33"}
+{"skill": "miniapp", "action": "plan", "input_hash": "37efe93dde0e", "elapsed_ms": 0, "exit_code": 0, "ts": "2026-11-11T13:32:34"}
+{"skill": "miniapp", "action": "scaffold", "input_hash": "37efe93dde0e", "elapsed_ms": 11, "exit_code": 0, "ts": "2026-11-11T13:32:34"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 24, "exit_code": 0, "ts": "2026-11-11T13:32:34"}
+{"skill": "imgops", "action": "resize", "input_hash": "93073f7c4aeb", "elapsed_ms": 4, "exit_code": 1, "ts": "2026-11-11T13:32:35"}
+{"skill": "office", "action": "xlsx", "input_hash": "66a8dcce762f", "elapsed_ms": 277, "exit_code": 0, "ts": "2026-11-11T13:32:35"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 320, "exit_code": 0, "ts": "2026-11-11T13:32:36"}
+{"skill": "office", "action": "docx", "input_hash": "f2c18775a412", "elapsed_ms": 260, "exit_code": 1, "ts": "2026-11-11T13:32:36"}
+{"skill": "design", "action": "from-md", "input_hash": "a2a4fe13725f", "elapsed_ms": 3, "exit_code": 0, "ts": "2026-11-11T13:32:37"}

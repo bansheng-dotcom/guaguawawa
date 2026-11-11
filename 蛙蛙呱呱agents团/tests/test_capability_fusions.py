@@ -285,3 +285,37 @@ def test_r10_imgops_resize_and_overwrite_guard(tmp_path):
                                               "--out", str(src), "--width", "100"])
     assert bad["verdict"] == "FAIL"
     assert any(c["dim"] == "img.overwrite" and not c["ok"] for c in bad["checks"])
+
+
+def test_r08_office_xlsx_and_docx(tmp_path):
+    xlsx_spec = {"sheets": [{"name": "汇总", "headers": ["渠道", "收入"],
+                             "rows": [["自然", 1200], ["投放", 800]]}]}
+    target = str(tmp_path / "out.xlsx")
+    rc, out = _run("r08-wajiancheng-mvp", ["office", "xlsx", "--input",
+                                           _write(tmp_path, "x.json", xlsx_spec), "--out", target])
+    assert out["verdict"] == "PASS" and os.path.getsize(target) > 0
+
+    docx_spec = {"title": "Q4 复盘", "sections": [
+        {"heading": "结论", "paragraphs": ["复购是主因"], "bullets": ["复购 62%"]}]}
+    target2 = str(tmp_path / "out.docx")
+    rc2, out2 = _run("r08-wajiancheng-mvp", ["office", "docx", "--input",
+                                             _write(tmp_path, "d.json", docx_spec), "--out", target2])
+    assert out2["verdict"] == "PASS" and os.path.getsize(target2) > 0
+    rc3, out3 = _run("r08-wajiancheng-mvp", ["office", "docx", "--input",
+                                             _write(tmp_path, "d.json", docx_spec), "--out", target2])
+    assert out3["verdict"] == "FAIL"
+
+
+def test_e2e_task_routes_to_deck(tmp_path):
+    """plan→run --task 的端到端：任务卡意图「幻灯片」必须路由到 deck。"""
+    from core import protocol, workspace
+    role = os.path.join(ROOT, "r08-wajiancheng-mvp")
+    src = _write(tmp_path, "deck.json", _deck())
+    ws = workspace.Workspace(os.path.join(ROOT, "workspace"))
+    task = protocol.Task(title="做一份季度复盘幻灯片", owner="r08",
+                         intent="帮我做一份季度复盘幻灯片", inputs=[protocol.Port(src, "data", note="")],
+                         acceptance=["deck 门禁通过"])
+    ws.create_task(task)
+    rc, out = _run("r08-wajiancheng-mvp", ["run", "--task", task.task_id])
+    assert out.get("skill") == "deck", out
+    assert out.get("ok") is True, out

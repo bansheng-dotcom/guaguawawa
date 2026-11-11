@@ -32,7 +32,7 @@ def test_library_has_31_systems():
     for slug in systems:
         item = ds.get(slug)
         assert item and item["exists"], f"{slug} 元数据缺失"
-        assert os.path.isfile(ds.path_of(slug))
+        assert ds.read(slug).startswith("# Design System:")
 
 
 def test_every_system_passes_nine_section_audit():

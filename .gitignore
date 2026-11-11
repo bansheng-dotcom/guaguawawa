@@ -29,3 +29,10 @@ agents/repo_python_xuexi/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# ---- 蛙蛙呱呱agents团：运行态与归档 ----
+蛙蛙呱呱agents团/workspace/
+蛙蛙呱呱agents团/*/workspace/
+蛙蛙呱呱agents团.zip
+蛙蛙呱呱agents团_精简版.zip
+*.oversize-*.bak

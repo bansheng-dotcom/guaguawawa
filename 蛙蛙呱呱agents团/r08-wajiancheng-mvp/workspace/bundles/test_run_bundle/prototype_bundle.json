@@ -1,7 +1,7 @@
 {
   "bundle_id": "test_run_bundle",
   "agent": "r08-wajiancheng-mvp",
-  "generated_at": 1794330540.2291868,
+  "generated_at": 1794375067.8376698,
   "artifacts": {
     "component_ast": "bundles\\test_run_bundle\\component_ast.json",
     "sarif_report": "bundles\\test_run_bundle\\prototype_audit.sarif.json"

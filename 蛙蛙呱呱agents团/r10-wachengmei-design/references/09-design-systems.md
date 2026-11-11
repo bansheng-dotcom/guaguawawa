@@ -2,7 +2,7 @@
 
 > 素材来源：[awesome-design-md](https://github.com/VoltAgent/awesome-design-md) 的 DESIGN.md 集合
 > （Google Stitch 的 DESIGN.md 格式：九段式纯文本设计规范）。
-> 落地位置：`r10-wachengmei-design/references/design-systems/<brand>.md`
+> 落地位置：`r10-wachengmei-design/references/brand-presets/presets.json`（结构化预设，按需生成 DESIGN.md）
 > 解析与门禁代码：`shared/design_systems.py`（R10/R08 共用，纯标准库）
 
 ## 一、为什么放进 R10
@@ -80,7 +80,7 @@ python guagua.py call r08 design from-md --input DESIGNS/linear/DESIGN.md --out 
 
 ## 六、扩展新的品牌
 
-1. 把新 DESIGN.md 放进 `references/design-systems/<slug>.md`（保持九段式格式）；
+1. 在 `references/brand-presets/presets.json` 增加一条预设（slug/name/style/palette/fonts/components）；
 2. 在 `shared/design_systems.py` 的 `CATALOG` 里加一条（name / category / zh / style / tags，
    必要时加 `palette_min`）；
 3. 跑 `python -m pytest tests/test_design_systems.py -q`，门禁不过就说明文档结构缺段。
