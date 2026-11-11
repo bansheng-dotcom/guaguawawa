@@ -810,6 +810,7 @@ python guagua.py call r03 financial rollforward --input examples/financial_rollf
 | `check` | 体检 20 个入口 | `python guagua.py check` |
 | `doctor` | 环境诊断 + 体检（含记忆池体积） | `python guagua.py doctor` |
 | `gc` | 记忆池护栏：裁剪过期快照 / 隔离超限文件 | `python guagua.py gc --dry-run` |
+| `capabilities` | 外部能力目录：谁负责 / 谁能用 / 是否就绪 | `python guagua.py capabilities --role r11 --probe` |
 
 ### 7.3 如何调用「全部功能」
 
@@ -835,6 +836,38 @@ python guagua.py call r06 explore funnel \
 3. [`ORG.md`](蛙蛙呱呱agents团/ORG.md)（组织章程与红线）
 4. [`PROTOCOL.md`](蛙蛙呱呱agents团/PROTOCOL.md)（任务卡与移交协议）
 5. [`REPORT-STANDARD.md`](蛙蛙呱呱agents团/REPORT-STANDARD.md)（汇报格式）
+
+### 7.5 外部能力目录（26 项）
+
+Trae 插件市场 24 个插件 + WorkBuddy 2 个技能已登记为外部能力：**入口文档按负责角色拷入
+`references/external/`**，登记表在 [`shared/external_capabilities/catalog.json`](蛙蛙呱呱agents团/shared/external_capabilities/catalog.json)。
+
+```bash
+python guagua.py capabilities --probe                # 全部 26 项 + 就绪状态
+python guagua.py capabilities --role r11 --probe     # 某角色负责/可消费的
+python guagua.py capabilities --q 小红书
+python guagua.py capabilities --id meitu-local-mcp   # 详情 + 接入配方
+```
+
+| 负责 | 能力（id） |
+|---|---|
+| R01 | `strategic-growth-compass` |
+| R02 | `business-ops-analysis` |
+| R05 | `tashan-research-skills`、`industry-panorama-research`、`market-intelligence-radar`、`volcengine-pro-dataset`(MCP)、`agent-earth`(MCP) |
+| R06 | `build-web-data-visualization`、`data-processing` |
+| R07 | `user-research-toolkit` |
+| R08 | `rapid-prototype-craft`、`ppt-generator` |
+| R09 | `web-app-development`(uicraft)、`frontend-design`、`miniapp-builder`(MCP) |
+| R10 | `meitu-local-mcp`(MCP)、`trae-design`、`whiteboard`、`brand-guardian`、`ecommerce-designer` |
+| R11 | `rednote-post`、`xhs-content-skills` |
+| R12 | `marketing-toolkit` |
+| R14 | `omnichannel-commerce-assistant`、`smart-product-selector` |
+| R15 | `analyze-procurement` |
+
+三类处理方式不同：`skill`/`multi` 是提示词规范（按文档执行，角色 harness 验收）；`mcp` 需要
+MCP 客户端与凭据，本团队 CLI 不直连，只给脱敏接入配方；两者都不假装"已调用"。
+详见 [`docs/EXTERNAL_CAPABILITIES.md`](蛙蛙呱呱agents团/docs/EXTERNAL_CAPABILITIES.md)。
+
 
 ---
 
@@ -938,6 +971,17 @@ python verify_loop.py
 ---
 
 ## 十、版本与更新记录
+
+### v2.0.5（2026-11-11）
+
+- 新增 **外部能力目录（26 项）**：Trae 插件市场 24 个插件 + WorkBuddy 2 个技能按角色归属登记；
+  入口文档（163 个 SKILL.md + README/LICENCE，共 212 文件 / 1.5 MB）拷入各角色
+  `references/external/`，索引见各角色 `references/external/README.md`。
+- 新增 `python guagua.py capabilities`：按角色/关键词检索、`--probe` 本地只读就绪探测、
+  `--id` 查看详情与脱敏接入配方（MCP 类）。
+- 新增 `shared/external_capabilities.py` 与 `catalog.json`；`scripts/ingest_external_capabilities.py` 可重跑摄取；
+  `docs/EXTERNAL_CAPABILITIES.md` 记录三类能力（skill/multi/mcp）的边界与接法。
+- 测试：`tests/test_external_capabilities.py`（9 例：目录完整性、文档落地、角色过滤、探测形状、MCP 配方）。
 
 ### v2.0.4（2026-11-11）
 

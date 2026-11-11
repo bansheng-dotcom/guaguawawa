@@ -100,3 +100,14 @@ python agent.py run --task <task_id>                        # 协作入口
 - [模块F 产品愿景与指标](references/06-vision-metrics.md)
 - [模块G 技术翻译与代码反推需求](references/07-techbrief-code-to-prd.md)
 - [模块H 经验检索与决策汇报](references/08-experience-decision.md)
+
+---
+
+## 外部能力（可选，见 references/external/）
+
+以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+
+- `user-research-toolkit` · 用户研究工具箱（技能；消费方：r05, r11）
+
+就绪状态：`python guagua.py capabilities --role r07 --probe`；
+MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。

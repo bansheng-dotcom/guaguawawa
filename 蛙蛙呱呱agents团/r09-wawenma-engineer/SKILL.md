@@ -122,3 +122,16 @@ python verify_loop.py   # 32 行闭环矩阵（16 干净 + 16 脏数据）
   （TDD / 系统化调试 / 验证后才算完成）、`godotengine__godot-demo-projects`
   （Godot 可加载脚本）、`open-gsd__gsd-core`（工程 Agent 工作流）
 - 方法论：`references/s01` – `references/s08`
+
+---
+
+## 外部能力（可选，见 references/external/）
+
+以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+
+- `frontend-design` · 高质量前端界面（技能；消费方：r08, r10）
+- `miniapp-builder` · Taro 小程序构建 MCP（MCP；消费方：r08, r17）
+- `web-app-development` · uicraft 生产级 Web 界面（技能；消费方：r08, r10）
+
+就绪状态：`python guagua.py capabilities --role r09 --probe`；
+MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。

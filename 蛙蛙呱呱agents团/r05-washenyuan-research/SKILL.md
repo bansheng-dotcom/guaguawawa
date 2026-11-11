@@ -110,3 +110,18 @@ python verify_loop.py   # 28 行闭环矩阵（14 干净 + 14 脏数据）
   `K-Dense-AI__scientific-agent-skills`（market-research-reports 的
   TAM/SAM/SOM 计算器、competitor matrix、evidence ledger）
 - 方法论：`references/s01` – `references/s07`
+
+---
+
+## 外部能力（可选，见 references/external/）
+
+以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+
+- `agent-earth` · AgentEarth 1500+ API MCP（MCP；消费方：r06, r12, r14, r19）
+- `industry-panorama-research` · 行业全景研究（技能；消费方：r01, r12）
+- `market-intelligence-radar` · 市场情报雷达（技能；消费方：r12, r01）
+- `tashan-research-skills` · 学术研究与写作（20 技能）（多技能；消费方：r11, r04）
+- `volcengine-pro-dataset` · 火山专业数据集 MCP（MCP；消费方：r06, r19）
+
+就绪状态：`python guagua.py capabilities --role r05 --probe`；
+MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。

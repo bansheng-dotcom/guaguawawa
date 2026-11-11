@@ -81,3 +81,14 @@ python agent.py run --all                                 # 按依赖调度执�
 - [模块C 硬决策](references/03-hard-decisions.md) —— 可逆性分级、反方质询、10/10/10
 - [模块D 公司 OS](references/04-company-os.md) —— 六大组件、决策日志、复盘
 - [模块E 治理审计](references/05-governance-audit.md) —— 成熟度、意向授权、漂移、冷却锁
+
+---
+
+## 外部能力（可选，见 references/external/）
+
+以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+
+- `strategic-growth-compass` · 战略与增长罗盘（技能；消费方：r07, r12）
+
+就绪状态：`python guagua.py capabilities --role r01 --probe`；
+MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。

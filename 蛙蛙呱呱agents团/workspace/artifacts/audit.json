@@ -1,18 +1,3 @@
 {
-  "records": [
-    {
-      "execution_id": "e1",
-      "status": "success",
-      "trigger": "webhook",
-      "input": {
-        "lead_id": 1
-      },
-      "execution": "wf_main",
-      "output": {
-        "ok": true
-      },
-      "operator": "r17",
-      "ts": 1700000000
-    }
-  ]
+  "content": "# AEO 优化实战复盘\n\n我们团队在一人公司内容流水线上跑了 3 个月，数据点：曝光提升 42%，点击率提升 1.8 倍。\n\n## 权威来源\n\n参考 [世界卫生组织](https://who.int/newsroom) 与 [CDC](https://cdc.gov/guidelines) 的公开口径。\n\n## 结构建议\n\n标题层级与 [IEEE](https://ieeexplore.ieee.org/document/1) 论文的段落结构一致。\n\n## 时效\n\n本文更新于 2026-11-01。"
 }

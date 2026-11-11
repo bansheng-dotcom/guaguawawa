@@ -6773,3 +6773,13 @@
 {"ts": "2026-11-11T01:10:10", "agent": "r10", "type": "task_started", "task_id": "d40cda84", "payload": {}}
 {"ts": "2026-11-11T01:10:10", "agent": "r10", "type": "note", "task_id": "d40cda84", "payload": {"outputs": [{"name": "logo.json", "kind": "data", "media_type": "application/json", "note": ""}, {"name": "design_report.md", "kind": "report", "media_type": "text/markdown", "note": ""}, {"name": "design_report.html", "kind": "report", "media_type": "text/html", "note": ""}], "status": "done"}}
 {"ts": "2026-11-11T01:10:10", "agent": "r10", "type": "task_finished", "task_id": "d40cda84", "payload": {"outputs": ["logo.json", "design_report.md", "design_report.html"]}}
+{"ts": "2026-11-11T11:21:25", "agent": "core", "type": "task_created", "task_id": "9e26844e", "payload": {"owner": "r10", "title": "设计一个 logo"}}
+{"ts": "2026-11-11T11:21:25", "agent": "r10", "type": "note", "task_id": "9e26844e", "payload": {"status": "running"}}
+{"ts": "2026-11-11T11:21:25", "agent": "r10", "type": "task_started", "task_id": "9e26844e", "payload": {}}
+{"ts": "2026-11-11T11:21:25", "agent": "r10", "type": "note", "task_id": "9e26844e", "payload": {"outputs": [{"name": "logo.json", "kind": "data", "media_type": "application/json", "note": ""}, {"name": "design_report.md", "kind": "report", "media_type": "text/markdown", "note": ""}, {"name": "design_report.html", "kind": "report", "media_type": "text/html", "note": ""}], "status": "done"}}
+{"ts": "2026-11-11T11:21:25", "agent": "r10", "type": "task_finished", "task_id": "9e26844e", "payload": {"outputs": ["logo.json", "design_report.md", "design_report.html"]}}
+{"ts": "2026-11-11T11:21:40", "agent": "core", "type": "task_created", "task_id": "7964e9bb", "payload": {"owner": "r11", "title": "写一篇内容复利成稿"}}
+{"ts": "2026-11-11T11:21:40", "agent": "r11", "type": "note", "task_id": "7964e9bb", "payload": {"status": "running"}}
+{"ts": "2026-11-11T11:21:40", "agent": "r11", "type": "task_started", "task_id": "7964e9bb", "payload": {}}
+{"ts": "2026-11-11T11:21:40", "agent": "r11", "type": "note", "task_id": "7964e9bb", "payload": {"outputs": [{"name": "copy.json", "kind": "data", "media_type": "application/json", "note": ""}, {"name": "content_report.md", "kind": "report", "media_type": "text/markdown", "note": ""}, {"name": "content_report.html", "kind": "report", "media_type": "text/html", "note": ""}], "status": "done"}}
+{"ts": "2026-11-11T11:21:40", "agent": "r11", "type": "task_finished", "task_id": "7964e9bb", "payload": {"outputs": ["copy.json", "content_report.md", "content_report.html"]}}

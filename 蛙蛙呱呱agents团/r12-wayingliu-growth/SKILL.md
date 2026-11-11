@@ -56,3 +56,14 @@ python run_tests.py                            # 一键验收，期望 ALL GREEN
 - 干净数据 → `ok=true` / exit 0；脏数据（非法枚举 / 刷单词 / 未授权采集 / 缺披露 / 算术不闭合）→ `ok=false` / exit 1。
 - `probe`（selfmedia）恒 `ok=true`，缺数据只反映在 `status=blocked`（如实降级，探测非门禁）。
 - 对抗评审五检查：`contract` / `no_fake_growth` / `privacy_gate` / `scope_boundary` / `concrete_artifact`。
+
+---
+
+## 外部能力（可选，见 references/external/）
+
+以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+
+- `marketing-toolkit` · 营销全链路工具箱（技能；消费方：r11, r10）
+
+就绪状态：`python guagua.py capabilities --role r12 --probe`；
+MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。

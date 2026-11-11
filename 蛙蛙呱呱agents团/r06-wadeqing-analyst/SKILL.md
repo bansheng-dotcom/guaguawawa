@@ -135,3 +135,15 @@ omicverse 生信重后端由 R19 蛙智模承载，本角色统计检验是探�
 - [模块H 专业领域分析(生信)](references/08-domain-analysis.md)
 - [模块I 自媒体数据运营](references/09-selfmedia-ops.md)
 - [模块J SQL/Schema/元数据](references/15-sql-schema-catalog.md)
+
+---
+
+## 外部能力（可选，见 references/external/）
+
+以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+
+- `build-web-data-visualization` · Web 数据可视化（18 技能）（多技能；消费方：r08, r09, r10）
+- `data-processing` · 数据处理与可视化（技能；消费方：r18, r02）
+
+就绪状态：`python guagua.py capabilities --role r06 --probe`；
+MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。

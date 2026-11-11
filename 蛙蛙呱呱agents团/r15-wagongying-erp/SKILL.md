@@ -85,3 +85,14 @@ python run_tests.py                                         # 一键验收，期
   （如 `purchase-over-receipt` 补充超收容差与让步接收授权、`inventory-negative-stock`
   补充负库存开关与盘点调整路径）。
 - Windows GBK 控制台：所有输出经 UTF-8 重配置，verify_loop 使用 `[OK]` / `[XX]` ASCII 标记。
+
+---
+
+## 外部能力（可选，见 references/external/）
+
+以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+
+- `analyze-procurement` · 采购与供应链分析（技能；消费方：r14, r03）
+
+就绪状态：`python guagua.py capabilities --role r15 --probe`；
+MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。

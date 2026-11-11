@@ -376,6 +376,49 @@ def cmd_gc(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_capabilities(args: argparse.Namespace) -> int:
+    """外部能力目录：谁拥有、谁能用、是否就绪。"""
+    from shared import external_capabilities as ext
+
+    if args.id:
+        cap = ext.get(args.id)
+        if not cap:
+            print(f"未找到能力：{args.id}")
+            return 1
+        print(f"{cap['id']} · {cap['title']}")
+        print(f"  类型：{cap['kind']}   负责：{cap['owner']}   消费方：{', '.join(cap['consumers']) or '—'}")
+        print(f"  触发词：{' / '.join(cap['triggers'])}")
+        print(f"  文档：{cap['docs_dir']}（{cap['docs_files']} 个文件 / {len(cap['skills'])} 个技能入口）")
+        print(f"  源目录：{cap['source']}")
+        status = ext.probe(cap)
+        print(f"  就绪：{status['status'].upper()}")
+        for c in status["checks"]:
+            flag = "OK  " if c["ok"] else ("WARN" if c["sev"] == "WARN" else "FAIL")
+            print(f"    [{flag}] {c['msg']}")
+        print("\n接入方式：")
+        print(ext.recipe(cap))
+        return 0
+
+    caps = ext.list_caps(role=args.role, q=args.q, kind=args.kind)
+    if not caps:
+        print("没有匹配的外部能力。")
+        return 0
+    rows = []
+    for cap in caps:
+        status = ext.probe(cap)["status"] if args.probe else "-"
+        rows.append([cap["id"], cap["owner"], cap["kind"], status, cap["title"]])
+    print(f"蛙蛙呱呱 · 外部能力目录（{len(rows)} 项，role={args.role or 'all'}）\n")
+    widths = [max(len(str(r[i])) for r in rows + [["能力", "负责", "类型", "状态", "说明"]])
+              for i in range(5)]
+    header = ["能力", "负责", "类型", "状态", "说明"]
+    print("  ".join(h.ljust(widths[i]) for i, h in enumerate(header)))
+    print("  ".join("-" * widths[i] for i in range(5)))
+    for r in rows:
+        print("  ".join(str(r[i]).ljust(widths[i]) for i in range(5)))
+    print("\n查看详情：python guagua.py capabilities --id <能力>")
+    return 0
+
+
 def cmd_doctor(_: argparse.Namespace) -> int:
     print("蛙蛙呱呱 · 环境诊断")
     print("=" * 72)
@@ -467,9 +510,15 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("check", help="体检全部 20 个角色入口")
     p.set_defaults(func=cmd_check)
 
-    p = sub.add_parser(
-        "gc",
-        help="记忆池护栏：裁剪过期快照 / 隔离异常体积文件",
+    p = sub.add_parser("capabilities", help="外部能力目录：谁拥有 / 谁能用 / 是否就绪")
+    p.add_argument("--role", default=None, help="角色 ID（如 r11）：查自己负责或可消费的能力")
+    p.add_argument("--id", default=None, help="能力 ID（如 rednote-post）")
+    p.add_argument("--q", default=None, help="按名称/触发词搜索")
+    p.add_argument("--kind", default=None, choices=["skill", "multi", "mcp"])
+    p.add_argument("--probe", action="store_true", help="显示就绪探测（本地只读，不联网）")
+    p.set_defaults(func=cmd_capabilities)
+
+    p = sub.add_parser("gc", help="记忆池护栏：裁剪过期快照 / 隔离异常体积文件",
         description="扫描全部 rXX-*/workspace/session_state*.json："
                     "超过 2 MB 裁到最近 N 条快照，超过 100 MB 整份隔离为 .bak。",
     )
