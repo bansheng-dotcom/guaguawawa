@@ -93,7 +93,7 @@ style → `style/resolved_style/style_level/comp_count/palette`；catalog → `s
 - `admit`：只报不改，当前报出 10 条 core 证据不足（都是 seeds=1，未达 3 seed）。
 - `catalog` 四态：`verified`（客观检查 + ≥2 seed）/ `sampled`（有样张未达门槛）/
   `failed`（0 过）/ `unverified`（未跑）；当前 0 / 15 / 1 / 27。
-- `pack`：生成 57 风格 × 3 seed = **171 条**可直接喂渲染器的提示词包
+- `pack`：生成 57 风格 × 3 seed = **171 条**可直接喂渲染器的提示词包；**主体默认按 产品/角色/场景 轮换**（不再写死蔬菜），`--subject` 统一覆盖、`--subjects "A,B,C"` 按 seed 轮换。
   （`workspace/pack/prompts/*.json` + `MANIFEST.json`），不含生图调用。
 - `score --dir`：对已有图做客观评分——占位图检测（灰度标准差 <8）、`palette_c90`
   （90% 像素落在多少 8 阶色桶）、尺寸/画幅；输出 `score_report.json`。

@@ -170,6 +170,12 @@ def main() -> int:
             pk["count"] == len(c.load_registry()["entries"]) * 2, str(pk["count"]))
     t.check("pack 产物可读",
             os.path.isfile(os.path.join(pk_dir, "MANIFEST.json")))
+    t.check("pack 默认主体不止一种（避免全是同一对象）",
+            len(pk.get("subjects") or []) >= 2, str(pk.get("subjects")))
+    _pk_one = s01_imagegen._build_pack(tempfile.mkdtemp(prefix="r10_pack1_"),
+                                       seeds=2, subject="统一主体X")
+    t.check("pack --subject 统一主体", _pk_one.get("subjects") == ["统一主体X"],
+            str(_pk_one.get("subjects")))
 
     # 客观评分：占位图与真实图必须分开
     from PIL import Image, ImageDraw  # noqa: E402

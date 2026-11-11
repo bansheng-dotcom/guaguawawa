@@ -171,6 +171,9 @@ def add_parser(sp) -> None:
     pk = act.add_parser("pack", help="生成基准提示词包（每风格 N 份，不调用渲染器）")
     pk.add_argument("--output-dir", default=None)
     pk.add_argument("--seeds", type=int, default=3)
+    pk.add_argument("--subject", default=None, help="统一主体（覆盖默认轮换）")
+    pk.add_argument("--subjects", default=None,
+                    help="逗号分隔的多个主体，按 seed 轮换，如 \"陶瓷杯,青蛙吉祥物,高原菜田\"")
 
     sc = act.add_parser("score", help="对已生成图做客观评分（占位检测 + 色板/画幅）")
     sc.add_argument("--dir", required=True)
@@ -229,7 +232,11 @@ def run(args) -> Dict[str, Any]:
     if args.action == "engines":
         return _engines_help()
     if args.action == "pack":
-        return _build_pack(getattr(args, "output_dir", None), int(getattr(args, "seeds", 3)))
+        _subs = getattr(args, "subjects", None)
+        return _build_pack(getattr(args, "output_dir", None),
+                           int(getattr(args, "seeds", 3)),
+                           subject=getattr(args, "subject", None),
+                           subjects=[s.strip() for s in _subs.split(",") if s.strip()] if _subs else None)
     if args.action == "score":
         return _score_images(args.dir)
     if args.action == "edit":
@@ -479,7 +486,13 @@ _PACK_SUBJECTS = {
     "comic-ink": "a farmer harvesting vegetables in a highland field",
     "technical-blueprint": "a modular vegetable shipping crate, engineering drawing",
 }
-_PACK_DEFAULT_SUBJECT = "a crate of fresh vegetables (cabbage, carrots, tomatoes) on a plain surface"
+# 默认主体轮换：一次 3 seed 覆盖 产品 / 角色 / 场景，避免"全都是蔬菜"
+_PACK_SUBJECT_ROTATION = [
+    "a matte ceramic mug on a plain surface",
+    "a chubby green frog mascot",
+    "a quiet highland vegetable farm at dawn",
+]
+_PACK_DEFAULT_SUBJECT = _PACK_SUBJECT_ROTATION[0]
 
 
 def _text_clause(policy: str) -> str:
@@ -491,7 +504,9 @@ def _text_clause(policy: str) -> str:
     return "absolutely no text, no lettering, no logo, no watermark"
 
 
-def _build_pack(output_dir: Optional[str] = None, seeds: int = 3) -> Dict[str, Any]:
+def _build_pack(output_dir: Optional[str] = None, seeds: int = 3,
+                subject: Optional[str] = None,
+                subjects: Optional[List[str]] = None) -> Dict[str, Any]:
     """生成可直接喂给任意渲染器的提示词包（每风格 seeds 份），不含生图调用。"""
     th = c.load_thresholds()
     reg = c.load_registry()
@@ -507,15 +522,22 @@ def _build_pack(output_dir: Optional[str] = None, seeds: int = 3) -> Dict[str, A
         name = str(e.get("id") or "").split(".", 1)[-1]
         aspect = str(e.get("aspect_default") or "1:1")
         tp = str(e.get("text_policy_default") or "none")
-        subject = _PACK_SUBJECTS.get(name, _PACK_DEFAULT_SUBJECT)
-        prompt = f"{subject}, {e.get('positive_recipe', '')}, {_text_clause(tp)}"
         negative = str(e.get("negative_recipe") or "")
         for n in range(1, seeds + 1):
+            # 主体在 seed 循环内选取：默认按 产品/角色/场景 轮换，避免"全是同一种东西"
+            if subjects:
+                subj = subjects[(n - 1) % len(subjects)]
+            elif subject:
+                subj = subject
+            else:
+                subj = (_PACK_SUBJECTS.get(name)
+                        or _PACK_SUBJECT_ROTATION[(n - 1) % len(_PACK_SUBJECT_ROTATION)])
+            prompt = f"{subj}, {e.get('positive_recipe', '')}, {_text_clause(tp)}"
             item = {"id": f"{name}__seed{n}", "style": name,
                     "render_style": e.get("render_style") or e.get("parent"),
                     "level": e.get("level"), "seed_index": n,
                     "image_size": sizes.get(aspect, "square_hd"),
-                    "aspect": aspect, "text_policy": tp,
+                    "aspect": aspect, "text_policy": tp, "subject": subj,
                     "prompt": prompt, "negative_prompt": negative}
             p = os.path.join(pdir, item["id"] + ".json")
             with open(p, "w", encoding="utf-8") as f:
@@ -532,6 +554,8 @@ def _build_pack(output_dir: Optional[str] = None, seeds: int = 3) -> Dict[str, A
         f.write(
             "# R10 基准提示词包\n\n"
             f"{len(manifest)} 条（{len(manifest)//max(seeds,1)} 风格 × {seeds} seed）。\n\n"
+            "**主体是示例**：默认按 产品 / 角色 / 场景 轮换，换成你的业务对象请用 "
+            "`--subject` 或 `--subjects`。\n\n"
             "跑完后把图按 `<id>.jpg` 命名放进 `images/`，再执行：\n\n"
             "```bash\npython agent.py imagegen score --dir workspace/pack/images\n```\n\n"
             "评分报告会告诉你每条风格有几张过客观检查，再用 `imagegen admit` 看升降级建议。\n")
@@ -539,7 +563,9 @@ def _build_pack(output_dir: Optional[str] = None, seeds: int = 3) -> Dict[str, A
         [_ck(True, f"提示词包已生成：{len(manifest)} 条 → {pdir}",
              "imagegen.pack")],
         ok=True, verdict="PASS", grade="PASS", count=len(manifest),
-        seeds_per_style=seeds, artifacts=[mpath, readme],
+        seeds_per_style=seeds,
+        subjects=sorted({str(i.get("subject", "")) for i in manifest}),
+        artifacts=[mpath, readme],
         next="交给任意渲染器生成，图存 <id>.jpg 后跑 imagegen score 回填")
 
 
