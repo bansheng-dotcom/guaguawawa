@@ -103,11 +103,10 @@ python agent.py run --task <task_id>                        # 协作入口
 
 ---
 
-## 外部能力（可选，见 references/external/）
+## 能力库（自有）
 
-以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+本角色自有能力（规范或可执行技能），能力卡在 `references/capabilities/<id>/README.md`：
 
-- `user-research-toolkit` · 用户研究工具箱（技能；消费方：r05, r11）
+- `user-research-toolkit` · 用户研究工具箱（规范；消费方：r05, r11）
 
-就绪状态：`python guagua.py capabilities --role r07 --probe`；
-MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。
+查看：`python guagua.py capabilities --role r07`

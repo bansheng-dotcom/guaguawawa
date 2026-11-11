@@ -1,6 +1,6 @@
 # 模块J · 语义层与分析口径 (Schema & Analytical Definitions)
 
-> 蒸馏自: 补充技能/01-当前能力域/nimrodfisher__data-analytics-skills, 补充技能/自媒体工作台-trae, 补充技能/01-当前能力域/Starlitnightly__omicverse
+> 蒸馏自: 补充技能/01-当前能力域/nimrodfisher__data-analytics-skills, 补充技能/自媒体工作台, 补充技能/01-当前能力域/Starlitnightly__omicverse
 
 > 整合自 `query-validation` / `schema-mapper` / `sql-to-business-logic` / `data-catalog-entry`。
 > 本模块是把「原始数据 → 语义资产 → 可审计结论」闭环的基石：强调跨平台的容差降级逻辑、生信分析的后置阈值及降维实践，以及表结构向业务语言的精准翻译。数据不仅仅是技术结构的堆叠，必须具备明确的业务解释力与科学严谨度。

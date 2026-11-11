@@ -462,7 +462,7 @@ python guagua.py call r07 techbrief techbrief --input examples/techbrief.json
 
 **定位**：用最快速度把 PRD 变成可演示的 MVP、落地页、脚手架或跨平台原型。
 
-**核心能力**：产品切片 MVP · Spec 转仓库 · 落地页 H5 · SaaS 邮件脚手架 · 跨平台原型 · 组件设计实现 · 质量验证交接
+**核心能力**：产品切片 MVP · Spec 转仓库 · 落地页 H5 · SaaS 邮件脚手架 · 跨平台原型 · 组件设计实现 · 质量验证交接 · **单文件 HTML deck**
 
 **契约**：`prd` + `ui_brief` → `mvp` + `page_assets`
 
@@ -473,6 +473,9 @@ python guagua.py call r08 scaffold scaffold --input examples/scaffold.json
 python guagua.py call r08 landing landing --input examples/landing.json
 python guagua.py call r08 prototype prototype --input examples/prototype.json
 python guagua.py call r08 qa handoff --input examples/handoff.json
+# 单文件 HTML 幻灯片：结构门禁 + 渲染
+python guagua.py call r08 deck plan --input deck.json
+python guagua.py call r08 deck html --input deck.json --out deck.html
 # 直接吃 R10 落盘的品牌 DESIGN.md，转成设计令牌并过本角色门禁
 python guagua.py call r08 design from-md --input DESIGNS/linear/DESIGN.md --out DESIGNS/linear/design_tokens.json
 ```
@@ -509,7 +512,7 @@ python guagua.py call r09 local-verify --project . --kind unittest --command pyt
 
 **定位**：把品牌简报和内容变成可交付的视觉规范、Logo/VI、UI/UX、动效、图片/视频处理任务单。
 
-**核心能力**：AI 生图插画 · Logo 图标 VI · 产品 UI/UX · 交互原型动效 · 修图图像工程 · 视频音频处理 · 转写字幕 · 数据视觉营销物料 · **品牌设计系统库（31 套 DESIGN.md）** · **真实生图（Nano Banana Pro）** · **H3 视频提示词**
+**核心能力**：AI 生图插画 · Logo 图标 VI · 产品 UI/UX · 交互原型动效 · 修图图像工程 · 视频音频处理 · 转写字幕 · 数据视觉营销物料 · **品牌设计系统库（31 套 DESIGN.md）** · **真实生图（Nano Banana Pro）** · **H3 视频提示词** · **品牌一致性检查**
 
 **契约**：`brand_brief` + `content` → `visual_assets` + `vi`
 
@@ -526,6 +529,8 @@ python guagua.py call r10 designsys recommend --project ai
 python guagua.py call r10 designsys show --brand linear.app
 python guagua.py call r10 designsys apply --brand linear.app --out DESIGNS/linear
 python guagua.py call r10 designsys audit --brand claude
+# 品牌一致性检查：颜色/字体/对比度对 DESIGN.md 令牌
+python guagua.py call r10 brandcheck check --input artifact.json
 # 真实生图（需 AI_HIVE_API_KEY / ~/.ai-hive/config.json；generate 会扣费）
 python guagua.py call r10 aihive probe
 python guagua.py call r10 aihive preview --prompt "高级商业摄影风格的产品主视觉" --batch 2
@@ -820,7 +825,7 @@ python guagua.py call r03 financial rollforward --input examples/financial_rollf
 | `check` | 体检 20 个入口 | `python guagua.py check` |
 | `doctor` | 环境诊断 + 体检（含记忆池体积） | `python guagua.py doctor` |
 | `gc` | 记忆池护栏：裁剪过期快照 / 隔离超限文件 | `python guagua.py gc --dry-run` |
-| `capabilities` | 外部能力目录：谁负责 / 谁能用 / 是否就绪 | `python guagua.py capabilities --role r11 --probe` |
+| `capabilities` | 能力目录：谁负责 / 谁能用 / 形态 | `python guagua.py capabilities --role r11` |
 
 ### 7.3 如何调用「全部功能」
 
@@ -847,36 +852,36 @@ python guagua.py call r06 explore funnel \
 4. [`PROTOCOL.md`](蛙蛙呱呱agents团/PROTOCOL.md)（任务卡与移交协议）
 5. [`REPORT-STANDARD.md`](蛙蛙呱呱agents团/REPORT-STANDARD.md)（汇报格式）
 
-### 7.5 外部能力目录（26 项）
+### 7.5 能力库（自有 22 项）
 
-Trae 插件市场 24 个插件 + WorkBuddy 2 个技能已登记为外部能力：**入口文档按负责角色拷入
-`references/external/`**，登记表在 [`shared/external_capabilities/catalog.json`](蛙蛙呱呱agents团/shared/external_capabilities/catalog.json)。
+团队把值得内化的方法论写成了**自有能力**：能确定性执行的落成代码技能，不能的落成能力卡（规范）。
+能力卡在各角色 `references/capabilities/<id>/README.md`，登记表在
+[`shared/capabilities/catalog.json`](蛙蛙呱呱agents团/shared/capabilities/catalog.json)。
 
 ```bash
-python guagua.py capabilities --probe                # 全部 26 项 + 就绪状态
-python guagua.py capabilities --role r11 --probe     # 某角色负责/可消费的
+python guagua.py capabilities                    # 全部能力 + 形态（代码/规范）
+python guagua.py capabilities --role r11         # 某角色负责或可消费
 python guagua.py capabilities --q 小红书
-python guagua.py capabilities --id meitu-local-mcp   # 详情 + 接入配方
+python guagua.py capabilities --id xhs-content-skills
 ```
 
 | 负责 | 能力（id） |
 |---|---|
 | R01 | `strategic-growth-compass` |
 | R02 | `business-ops-analysis` |
-| R05 | `tashan-research-skills`、`industry-panorama-research`、`market-intelligence-radar`、`volcengine-pro-dataset`(MCP)、`agent-earth`(MCP) |
+| R05 | `tashan-research-skills`、`industry-panorama-research`、`market-intelligence-radar` |
 | R06 | `build-web-data-visualization`、`data-processing` |
 | R07 | `user-research-toolkit` |
 | R08 | `rapid-prototype-craft`、`ppt-generator` |
-| R09 | `web-app-development`(uicraft)、`frontend-design`、`miniapp-builder`(MCP) |
-| R10 | `meitu-local-mcp`(MCP)、`trae-design`、`whiteboard`、`brand-guardian`、`ecommerce-designer` |
+| R09 | `web-app-development`、`frontend-design` |
+| R10 | `design-system`、`whiteboard`、`brand-guardian`、`ecommerce-designer` |
 | R11 | `rednote-post`、`xhs-content-skills` |
 | R12 | `marketing-toolkit` |
 | R14 | `omnichannel-commerce-assistant`、`smart-product-selector` |
 | R15 | `analyze-procurement` |
 
-三类处理方式不同：`skill`/`multi` 是提示词规范（按文档执行，角色 harness 验收）；`mcp` 需要
-MCP 客户端与凭据，本团队 CLI 不直连，只给脱敏接入配方；两者都不假装"已调用"。
-详见 [`docs/EXTERNAL_CAPABILITIES.md`](蛙蛙呱呱agents团/docs/EXTERNAL_CAPABILITIES.md)。
+形态说明：`代码` = 有确定性命令与门禁（`xhs`、`selection`、`tco` 等）；`规范` = 按能力卡规则执行，
+产物仍走角色 harness 验收。不存在"外部接口"依赖，也不需要任何第三方客户端。
 
 
 ---
@@ -984,7 +989,7 @@ python verify_loop.py
 
 ### v2.0.6（2026-11-11）
 
-- **把外部能力真正做成可执行技能**（不再只是目录登记）：
+- **把能力真正做成可执行技能**（不再只是目录登记）：
   - R11 `xhs`：`note`/`score`/`compliance`——标题 ≤20 字、正文 550–650、标签埋词闭环、8 项快检 ≥7、CES 基准、
     CTA 黑名单与四类诱导互动、绝对化/收入/联系方式拦截、AI 标注。
   - R14 `selection`：`score`/`profit`——五维加权（上游 120% 权重**归一化**并提示）、推荐四档、
@@ -993,18 +998,22 @@ python verify_loop.py
     TCO 至少 3 类成本。
 - 三个技能均接入各角色 harness 门禁与契约（r14 19 动作、r15 20 动作、r11 9 技能），
   新增 `tests/test_capability_fusions.py`（8 例，跑真实 CLI）。
-- 文档：`docs/EXTERNAL_CAPABILITIES.md` 增「已落地为可执行技能」表，记录上游权重 120% 的口径问题。
+- 文档：各角色 `references/capabilities/` 增能力卡，记录上游权重 120% 的口径问题。
+
+### v2.1.0（2026-11-11）
+
+- **能力全部内化**：`shared/capabilities/catalog.json` 收录 22 项自有能力，能力卡在
+  各角色 `references/capabilities/<id>/README.md`；不再依赖任何外部客户端、路径或插件。
+- **新增两个可执行技能**：
+  - R08 `deck`：`plan`/`html` —— 6–30 页、一页一个观点、标题 ≤20 字不重复、封面/行动页齐全；
+    渲染单文件 HTML（内联样式、无外部资源、含打印分页）。
+  - R10 `brandcheck`：`check` —— 颜色/字体对 `DESIGN.md` 令牌、正文对比度 ≥4.5、单页主色 ≤8。
+- 目录命令改为 `python guagua.py capabilities`：显示形态（代码/规范）、能力卡与规则要点。
+- 新增 `tests/test_capabilities.py`（目录完整性、能力卡、无外部痕迹、可执行技能真实存在）。
 
 ### v2.0.5（2026-11-11）
 
-- 新增 **外部能力目录（26 项）**：Trae 插件市场 24 个插件 + WorkBuddy 2 个技能按角色归属登记；
-  入口文档（163 个 SKILL.md + README/LICENCE，共 212 文件 / 1.5 MB）拷入各角色
-  `references/external/`，索引见各角色 `references/external/README.md`。
-- 新增 `python guagua.py capabilities`：按角色/关键词检索、`--probe` 本地只读就绪探测、
-  `--id` 查看详情与脱敏接入配方（MCP 类）。
-- 新增 `shared/external_capabilities.py` 与 `catalog.json`；`scripts/ingest_external_capabilities.py` 可重跑摄取；
-  `docs/EXTERNAL_CAPABILITIES.md` 记录三类能力（skill/multi/mcp）的边界与接法。
-- 测试：`tests/test_external_capabilities.py`（9 例：目录完整性、文档落地、角色过滤、探测形状、MCP 配方）。
+- 第一版能力目录（26 项登记 + 文档入库），后续已被 v2.1.0 的自有化方案取代。
 
 ### v2.0.4（2026-11-11）
 

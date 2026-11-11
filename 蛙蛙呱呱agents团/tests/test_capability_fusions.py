@@ -155,3 +155,54 @@ def test_r15_lifecycle_requires_three_components(tmp_path):
         "acquisition": 100, "main_freight": 10})])
     assert thin["verdict"] == "FAIL"
     assert any(c["dim"] == "tco.lifecycle_components" and not c["ok"] for c in thin["checks"])
+
+
+# --------------------------------------------------------------------------- #
+# R08 · deck
+# --------------------------------------------------------------------------- #
+def _deck(**over):
+    slides = [
+        {"title": "Q4 复盘", "message": "营收 +18%，利润只 +4%", "is_cover": True},
+        {"title": "结论先行", "message": "增长来自复购", "bullets": ["复购 62%"]},
+        {"title": "流量结构", "message": "自然流量升、转化降"},
+        {"title": "履约成本", "message": "单均履约是最大漏点"},
+        {"title": "三个动作", "message": "先修履约再加复购"},
+        {"title": "验证方式", "message": "每项动作 4 周验证"},
+        {"title": "下一步", "message": "本周定责任人", "is_closing": True},
+    ]
+    data = {"title": "2026 Q4 增长复盘", "slides": slides}
+    data.update(over)
+    return data
+
+
+def test_r08_deck_plan_and_html(tmp_path):
+    src = _write(tmp_path, "deck.json", _deck())
+    rc, out = _run("r08-wajiancheng-mvp", ["deck", "plan", "--input", src])
+    assert rc == 0 and out["verdict"] == "PASS", out.get("checks")
+    target = str(tmp_path / "deck.html")
+    rc2, html_out = _run("r08-wajiancheng-mvp", ["deck", "html", "--input", src, "--out", target])
+    assert html_out["verdict"] == "PASS", html_out.get("checks")
+    body = open(target, encoding="utf-8").read()
+    assert body.startswith("<!doctype html>") and "page-break-after" in body
+
+    bad = _deck(slides=_deck()["slides"][:3])
+    rc3, bad_out = _run("r08-wajiancheng-mvp", ["deck", "plan", "--input", _write(tmp_path, "bad.json", bad)])
+    assert bad_out["verdict"] == "FAIL"
+
+
+# --------------------------------------------------------------------------- #
+# R10 · brandcheck
+# --------------------------------------------------------------------------- #
+def test_r10_brandcheck_against_design_md(tmp_path):
+    good = {"colors": ["#0F172A", "#22D3EE"], "fonts": ["system-ui"],
+            "text_pairs": [{"fg": "#F8FAFC", "bg": "#0F172A"}]}
+    rc, out = _run("r10-wachengmei-design", ["brandcheck", "check",
+                                             "--input", _write(tmp_path, "b.json", good)])
+    assert out["verdict"] == "PASS", [c for c in out["checks"] if not c["ok"]]
+
+    bad = {"colors": ["#FF00FF"], "fonts": ["Comic Sans"]}
+    rc2, out2 = _run("r10-wachengmei-design", ["brandcheck", "check",
+                                               "--input", _write(tmp_path, "bad.json", bad)])
+    assert out2["verdict"] == "FAIL"
+    dims = {c["dim"] for c in out2["checks"] if not c["ok"]}
+    assert "brand.colors.known" in dims and "brand.fonts" in dims

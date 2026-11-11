@@ -3,7 +3,7 @@
 > 蒸馏自: 
 > - `补充技能/01-当前能力域/nimrodfisher__data-analytics-skills/03-data-analysis-investigation/ab-test-analysis/SKILL.md`
 > - `补充技能/01-当前能力域/py-why__dowhy/docs/source/example_notebooks/dowhy_simple_example.ipynb`
-> - `补充技能/自媒体工作台-trae/docs/经营分析模块_产品规格.md`
+> - `补充技能/自媒体工作台/docs/经营分析模块_产品规格.md`
 > - `补充技能/01-当前能力域/nimrodfisher__data-analytics-skills/04-data-storytelling-visualization/visualization-builder/SKILL.md`
 
 > 本文档规范了本角色（R06 蛙得清 - 分析师）在因果推断、A/B测试、自媒体运营分析及数据可视化的可执行口径。它不仅是方法论，更是业务代码实现（如 `skills/s05_causal.py`）的直接映射。

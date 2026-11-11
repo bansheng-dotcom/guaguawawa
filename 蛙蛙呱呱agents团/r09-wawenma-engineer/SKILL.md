@@ -125,13 +125,20 @@ python verify_loop.py   # 32 行闭环矩阵（16 干净 + 16 脏数据）
 
 ---
 
-## 外部能力（可选，见 references/external/）
+## 能力库（自有）
 
-以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+本角色自有能力（规范或可执行技能），能力卡在 `references/capabilities/<id>/README.md`：
 
-- `frontend-design` · 高质量前端界面（技能；消费方：r08, r10）
-- `miniapp-builder` · Taro 小程序构建 MCP（MCP；消费方：r08, r17）
-- `web-app-development` · uicraft 生产级 Web 界面（技能；消费方：r08, r10）
+- `frontend-design` · 高质量前端界面（规范；消费方：r08, r10）
+- `web-app-development` · 生产级 Web 界面（规范；消费方：r08, r10）
 
-就绪状态：`python guagua.py capabilities --role r09 --probe`；
-MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。
+查看：`python guagua.py capabilities --role r09`
+
+## 能力库（自有）
+
+本角色自有能力（规范或可执行技能），能力卡在 `references/capabilities/<id>/README.md`：
+
+- `frontend-design` · 高质量前端界面（规范；消费方：r08, r10）
+- `web-app-development` · 生产级 Web 界面（规范；消费方：r08, r10）
+
+查看：`python guagua.py capabilities --role r09`

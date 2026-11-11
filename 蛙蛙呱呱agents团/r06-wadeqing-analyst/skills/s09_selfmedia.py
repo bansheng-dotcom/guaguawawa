@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """S09 自媒体数据运营 —— 能力域 9。
 
-整合自 专项包《自媒体工作台-trae》的 `normalize-self-media-dashboard.py` +
+整合自 专项包《自媒体工作台》的 `normalize-self-media-dashboard.py` +
 `check-self-media-dashboard-contract.py` + `daily_pipeline.py`。
 
 主张：**快照不求和、增长按时段求和；新鲜度与准确率是日报的门禁**。

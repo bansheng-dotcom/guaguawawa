@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """R10 端到端回归测试：把 SOP 的 T10 验收脚本化。
 
@@ -83,7 +83,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("12 个技能", len(m.get("skills", [])) == 12, str(len(m.get("skills", []))))
+    t.check("13 个技能", len(m.get("skills", [])) == 13, str(len(m.get("skills", []))))
     t.check("角色 r10", m.get("role") == "r10")
     t.check("输入端口 brand_brief/content",
             m.get("inputs") == ["brand_brief", "content"])
@@ -239,7 +239,7 @@ def main() -> int:
 
     t.section("T6 契约")
     names = contracts.skill_names()
-    t.check("契约覆盖 12 技能", len(names) == 12, str(len(names)))
+    t.check("契约覆盖 13 技能", len(names) == 13, str(len(names)))
     v = contracts.validate_output("logo", "logo", s02_logo._validate_logo(logo))
     t.check("契约校验 logo 产出通过", v["ok"], str(v.get("errors")))
     t.check("契约校验非法产出拦截",

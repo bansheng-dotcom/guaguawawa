@@ -4,7 +4,7 @@
 
 
 来源沉淀：`bzwh321__self-media-data-console-bzwh`（self-media-console-workflow 的多平台数据
-看板、self-media-attribution 的自媒体归因）+ `自媒体工作台-trae`（与 bzwh321 同源，去重后
+看板、self-media-attribution 的自媒体归因）+ `自媒体工作台`（与 bzwh321 同源，去重后
 不重复计数）。
 
 ## 一、方法论（什么时候用、核心口径）

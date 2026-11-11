@@ -84,11 +84,18 @@ python agent.py run --all                                 # 按依赖调度执�
 
 ---
 
-## 外部能力（可选，见 references/external/）
+## 能力库（自有）
 
-以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+本角色自有能力（规范或可执行技能），能力卡在 `references/capabilities/<id>/README.md`：
 
-- `strategic-growth-compass` · 战略与增长罗盘（技能；消费方：r07, r12）
+- `strategic-growth-compass` · 战略与增长罗盘（规范；消费方：r07, r12）
 
-就绪状态：`python guagua.py capabilities --role r01 --probe`；
-MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。
+查看：`python guagua.py capabilities --role r01`
+
+## 能力库（自有）
+
+本角色自有能力（规范或可执行技能），能力卡在 `references/capabilities/<id>/README.md`：
+
+- `strategic-growth-compass` · 战略与增长罗盘（规范；消费方：r07, r12）
+
+查看：`python guagua.py capabilities --role r01`

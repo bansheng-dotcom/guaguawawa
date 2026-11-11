@@ -1,4 +1,4 @@
-> 蒸馏自: 补充技能/自媒体工作台-trae/SKILL.md
+> 蒸馏自: 补充技能/自媒体工作台/SKILL.md
 > 蒸馏自: 补充技能/01-当前能力域/nimrodfisher__data-analytics-skills/04-data-storytelling-visualization/visualization-builder/SKILL.md
 > 蒸馏自: 补充技能/01-当前能力域/nimrodfisher__data-analytics-skills/04-data-storytelling-visualization/data-narrative-builder/SKILL.md
 > 蒸馏自: 补充技能/01-当前能力域/nimrodfisher__data-analytics-skills/04-data-storytelling-visualization/insight-synthesis/SKILL.md

@@ -2,7 +2,7 @@
 
 > 蒸馏自: 补充技能/01-当前能力域/Starlitnightly__omicverse/.claude/skills/single-preprocessing/SKILL.md
 > 蒸馏自: 补充技能/01-当前能力域/nimrodfisher__data-analytics-skills/02-documentation-knowledge/schema-mapper/SKILL.md
-> 蒸馏自: 补充技能/自媒体工作台-trae/.trae/skills/self-media-attribution/SKILL.md
+> 蒸馏自: 补充技能/自媒体工作台/skills/self-media-attribution/SKILL.md
 > 蒸馏自: 补充技能/01-当前能力域/Starlitnightly__omicverse/.claude/skills/single-multiomics/SKILL.md
 
 ## 一、 生信管线核心：后端探测与诚实降级

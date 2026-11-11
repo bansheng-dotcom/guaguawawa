@@ -4,7 +4,7 @@
 > - 补充技能/01-当前能力域/nimrodfisher__data-analytics-skills/03-data-analysis-investigation/ab-test-analysis/SKILL.md
 > - 补充技能/01-当前能力域/nimrodfisher__data-analytics-skills/04-data-storytelling-visualization/visualization-builder/SKILL.md
 > - 补充技能/01-当前能力域/py-why__dowhy/AGENTS.md
-> - 补充技能/01-当前能力域/bzwh321__self-media-data-console-bzwh/.trae/skills/self-media-attribution/SKILL.md
+> - 补充技能/01-当前能力域/bzwh321__self-media-data-console-bzwh/skills/self-media-attribution/SKILL.md
 
 > 核心主张：**分析不是跑数，而是业务决策。重依赖领域 = 严格数理门禁 + 业务逻辑约束 + 极简洞察表达。不设铁律，不算结论。**
 

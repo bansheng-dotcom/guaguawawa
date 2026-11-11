@@ -1,0 +1,623 @@
+{
+ "version": 2,
+ "count": 22,
+ "capabilities": [
+  {
+   "id": "strategic-growth-compass",
+   "title": "战略与增长罗盘",
+   "owner": "r01",
+   "owner_dir": "r01-waquanju-ceo",
+   "consumers": [
+    "r07",
+    "r12"
+   ],
+   "triggers": [
+    "战略",
+    "SWOT",
+    "PESTEL",
+    "路线图",
+    "增长"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r01-waquanju-ceo/references/capabilities/strategic-growth-compass",
+   "summary": "把公司/产品目标变成可取舍的战略判断：定位、目标市场、商业模式、成本结构、客户信号。",
+   "rules": [
+    "先写清目标与非目标，再谈路径；两者缺一即不成立",
+    "SWOT 必须落在具体证据上，不允许只写形容词",
+    "PESTEL 只保留会改变决策的因子，凑数项删掉",
+    "路线图给三档：必做/择机/放弃，并标注依赖与验证点"
+   ]
+  },
+  {
+   "id": "business-ops-analysis",
+   "title": "经营运营分析",
+   "owner": "r02",
+   "owner_dir": "r02-wapaibu-coo",
+   "consumers": [
+    "r06",
+    "r12"
+   ],
+   "triggers": [
+    "经营分析",
+    "异常识别",
+    "运营",
+    "指标"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r02-wapaibu-coo/references/capabilities/business-ops-analysis",
+   "summary": "用指标树定位经营问题：增长、效率、质量三条线，先定位再归因。",
+   "rules": [
+    "指标必须带口径（分子/分母/周期），否则不下结论",
+    "异常先看同比/环比与基线，再看结构（人群/渠道/品类）",
+    "归因分流量/转化/价格/供给四类，每类给一条可验证动作",
+    "报告必须写清「本次不解决什么」，防止范围蔓延"
+   ]
+  },
+  {
+   "id": "tashan-research-skills",
+   "title": "学术研究与写作",
+   "owner": "r05",
+   "owner_dir": "r05-washenyuan-research",
+   "consumers": [
+    "r11",
+    "r04"
+   ],
+   "triggers": [
+    "论文",
+    "综述",
+    "实验设计",
+    "审稿",
+    "投稿"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r05-washenyuan-research/references/capabilities/tashan-research-skills",
+   "summary": "从选题到投稿的学术写作流水线：论证结构、证据链、审稿回复。",
+   "rules": [
+    "每个论断对应一条可核验证据，证据不足写成「待验证」",
+    "方法与数据先于结论；样本量与统计口径必须交代",
+    "审稿回复逐条对账，不合并、不回避",
+    "引用格式统一，禁止二手转引冒充原文"
+   ]
+  },
+  {
+   "id": "industry-panorama-research",
+   "title": "行业全景研究",
+   "owner": "r05",
+   "owner_dir": "r05-washenyuan-research",
+   "consumers": [
+    "r01",
+    "r12"
+   ],
+   "triggers": [
+    "行业研究",
+    "市场规模",
+    "竞争格局",
+    "商业模式"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r05-washenyuan-research/references/capabilities/industry-panorama-research",
+   "summary": "行业研究的标准骨架：边界、规模、竞争、价值链、驱动力与风险。",
+   "rules": [
+    "先定义行业边界与统计口径，再给规模数字",
+    "规模至少两个来源交叉，不一致时给区间与原因",
+    "竞争格局用 CR3/份额/壁垒描述，不堆公司名单",
+    "结论落成「进入/观望/退出」三选一，并写触发条件"
+   ]
+  },
+  {
+   "id": "market-intelligence-radar",
+   "title": "市场情报雷达",
+   "owner": "r05",
+   "owner_dir": "r05-washenyuan-research",
+   "consumers": [
+    "r12",
+    "r01"
+   ],
+   "triggers": [
+    "竞品监控",
+    "情报",
+    "基线变化",
+    "市场监测"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r05-washenyuan-research/references/capabilities/market-intelligence-radar",
+   "summary": "对竞品/政策/技术做基线对比，只报「相对上次的净变化」。",
+   "rules": [
+    "先存基线，再谈变化；无基线不报「新增」",
+    "每条情报带来源、时间、可信度等级",
+    "去重与聚类后再排序，避免同一事件反复占位",
+    "变化分级：影响决策/需观察/仅记录"
+   ]
+  },
+  {
+   "id": "build-web-data-visualization",
+   "title": "Web 数据可视化",
+   "owner": "r06",
+   "owner_dir": "r06-wadeqing-analyst",
+   "consumers": [
+    "r08",
+    "r09",
+    "r10"
+   ],
+   "triggers": [
+    "ECharts",
+    "D3",
+    "大屏",
+    "图表",
+    "可视化"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r06-wadeqing-analyst/references/capabilities/build-web-data-visualization",
+   "summary": "图表选型与可访问性规范：用最简视图回答一个问题。",
+   "rules": [
+    "先定问题与比较关系，再选图形；装饰性图表不做",
+    "必须有标题、单位、数据来源、时间范围",
+    "颜色只用角色色：中性底 + 1 主强调 + 可选对比色",
+    "可访问性：alt 文本、对比度、非颜色冗余编码"
+   ]
+  },
+  {
+   "id": "data-processing",
+   "title": "数据处理与可视化",
+   "owner": "r06",
+   "owner_dir": "r06-wadeqing-analyst",
+   "consumers": [
+    "r18",
+    "r02"
+   ],
+   "triggers": [
+    "CSV",
+    "Excel",
+    "清洗",
+    "透视",
+    "合并"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r06-wadeqing-analyst/references/capabilities/data-processing",
+   "summary": "表格数据的探查、清洗、合并与透视规范。",
+   "rules": [
+    "先做数据画像：行数、缺失、重复、异常值",
+    "清洗动作逐条记录（规则+影响行数），可回滚",
+    "合并前校验键唯一性与类型一致",
+    "透视结果必须能追溯回明细"
+   ]
+  },
+  {
+   "id": "rapid-prototype-craft",
+   "title": "高保真可交互原型",
+   "owner": "r08",
+   "owner_dir": "r08-wajiancheng-mvp",
+   "consumers": [
+    "r10",
+    "r09"
+   ],
+   "triggers": [
+    "原型",
+    "高保真",
+    "HTML 原型",
+    "交互"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r08-wajiancheng-mvp/references/capabilities/rapid-prototype-craft",
+   "summary": "从想法/PRD 到可点击原型：单文件优先、假数据、无真实后端。",
+   "rules": [
+    "一屏一个主任务，导航不超过两级",
+    "所有交互态齐全：默认/加载/空/错误/禁用",
+    "用假数据但保持真实字段名与量级",
+    "交付附「已知限制」：哪些是模拟、哪些未接"
+   ]
+  },
+  {
+   "id": "ppt-generator",
+   "title": "单文件 HTML 幻灯片",
+   "owner": "r08",
+   "owner_dir": "r08-wajiancheng-mvp",
+   "consumers": [
+    "r10",
+    "r02"
+   ],
+   "triggers": [
+    "PPT",
+    "幻灯片",
+    "演示文稿",
+    "deck",
+    "汇报"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "deck",
+    "actions": [
+     "plan",
+     "html"
+    ]
+   },
+   "dir": "r08-wajiancheng-mvp/references/capabilities/ppt-generator",
+   "summary": "把大纲变成可放映的单文件 HTML deck：结构门禁 + 确定性渲染。",
+   "rules": [
+    "一份 deck 6–30 页，每页只讲一个观点",
+    "页标题 ≤20 字，且不重复",
+    "必须有封面、结论页与行动页",
+    "单文件、内联样式、不依赖外部 JS 库"
+   ]
+  },
+  {
+   "id": "web-app-development",
+   "title": "生产级 Web 界面",
+   "owner": "r09",
+   "owner_dir": "r09-wawenma-engineer",
+   "consumers": [
+    "r08",
+    "r10"
+   ],
+   "triggers": [
+    "前端",
+    "落地页",
+    "响应式",
+    "可访问性"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r09-wawenma-engineer/references/capabilities/web-app-development",
+   "summary": "生产级界面的实现与审查要点：语义化、响应式、性能与可访问性。",
+   "rules": [
+    "语义化标签与键盘可达是底线，不靠 div 堆",
+    "响应式断点按内容断，不按设备断",
+    "首屏资源预算写清楚（体积/请求数）",
+    "审查清单：对比度、焦点、表单错误、空状态"
+   ]
+  },
+  {
+   "id": "frontend-design",
+   "title": "高质量前端界面",
+   "owner": "r09",
+   "owner_dir": "r09-wawenma-engineer",
+   "consumers": [
+    "r08",
+    "r10"
+   ],
+   "triggers": [
+    "前端组件",
+    "页面",
+    "视觉质量"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r09-wawenma-engineer/references/capabilities/frontend-design",
+   "summary": "避免「AI 味」的界面设计原则：克制、层级、真实内容。",
+   "rules": [
+    "一个页面一个视觉重心，强调色不超过两处",
+    "字号阶梯 ≤5 级，间距用同一套刻度",
+    "用真实文案长度做布局测试",
+    "动效只服务理解，不做装饰性循环"
+   ]
+  },
+  {
+   "id": "brand-guardian",
+   "title": "品牌一致性守卫",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r04",
+    "r11",
+    "r12"
+   ],
+   "triggers": [
+    "品牌一致性",
+    "VI 检查",
+    "语气",
+    "品牌审查"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "brandcheck",
+    "actions": [
+     "check"
+    ]
+   },
+   "dir": "r10-wachengmei-design/references/capabilities/brand-guardian",
+   "summary": "把产物与品牌令牌对比：颜色、字体、对比度、用色数量。",
+   "rules": [
+    "颜色必须来自 DESIGN.md 令牌（或在其容差内）",
+    "字体族必须是令牌内字体",
+    "正文对比度 ≥4.5，大字 ≥3.0",
+    "单页主色不超过 3 个"
+   ]
+  },
+  {
+   "id": "design-system",
+   "title": "设计系统与图形",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r08",
+    "r09"
+   ],
+   "triggers": [
+    "设计系统",
+    "design token",
+    "海报",
+    "图像编辑"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/design-system",
+   "summary": "设计系统构建与单图设计：令牌架构、组件规范、图形产出。",
+   "rules": [
+    "令牌分三层：原始值/语义/组件",
+    "语义层是唯一可被业务引用的层",
+    "单图设计先定版式骨架，再填内容",
+    "导出规范写清尺寸、倍率、色彩空间"
+   ]
+  },
+  {
+   "id": "whiteboard",
+   "title": "可编辑白板/架构图",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r07",
+    "r08",
+    "r02"
+   ],
+   "triggers": [
+    "白板",
+    "架构图",
+    "信息架构",
+    "流程图"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/whiteboard",
+   "summary": "用白板表达信息架构与关系：节点、边、分组、泳道。",
+   "rules": [
+    "一张图只回答一个结构问题",
+    "节点命名用名词，边用动词",
+    "分组不超过两层，跨组关系单独标",
+    "导出保留可编辑源（结构 JSON）"
+   ]
+  },
+  {
+   "id": "ecommerce-designer",
+   "title": "电商视觉设计",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r14",
+    "r12"
+   ],
+   "triggers": [
+    "主图",
+    "详情页",
+    "电商设计",
+    "卖点视觉"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/ecommerce-designer",
+   "summary": "电商主图/详情页的视觉结构：卖点优先级、平台规格、A/B 素材。",
+   "rules": [
+    "首图只放一个主卖点 + 一个信任元素",
+    "详情页按「痛点→方案→证据→参数→服务」排",
+    "所有规格按平台最新要求，标注适用平台",
+    "素材成套交付：主图/细节/场景/对比，便于 A/B"
+   ]
+  },
+  {
+   "id": "user-research-toolkit",
+   "title": "用户研究工具箱",
+   "owner": "r07",
+   "owner_dir": "r07-wademing-pm",
+   "consumers": [
+    "r05",
+    "r11"
+   ],
+   "triggers": [
+    "用户访谈",
+    "问卷",
+    "可用性",
+    "用户研究"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r07-wademing-pm/references/capabilities/user-research-toolkit",
+   "summary": "访谈、问卷与可用性研究的执行规范：问题设计、样本、记录与结论。",
+   "rules": [
+    "访谈问题开放且不带引导，一次只问一件事",
+    "问卷先测再发，选项互斥且穷尽",
+    "可用性测试至少 5 人，任务写成可观察的完成标准",
+    "结论区分「观察到的事实」与「推断」"
+   ]
+  },
+  {
+   "id": "rednote-post",
+   "title": "小红书笔记结构",
+   "owner": "r11",
+   "owner_dir": "r11-wadianti-copy",
+   "consumers": [
+    "r10",
+    "r12"
+   ],
+   "triggers": [
+    "小红书",
+    "笔记",
+    "爆款",
+    "封面",
+    "种草"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r11-wadianti-copy/references/capabilities/rednote-post",
+   "summary": "小红书笔记六要素咬合：选题、标题、封面、正文、图片、标签。",
+   "rules": [
+    "标题 ≤20 字，前 5–10 字放核心词",
+    "正文 ≤500 字放正文区，超长拆文字图",
+    "标签 3–8 个，复用标题/正文里的词",
+    "封面优先真人感（实拍/截图），不是海报感"
+   ]
+  },
+  {
+   "id": "xhs-content-skills",
+   "title": "小红书发布包",
+   "owner": "r11",
+   "owner_dir": "r11-wadianti-copy",
+   "consumers": [
+    "r10",
+    "r12",
+    "r03"
+   ],
+   "triggers": [
+    "标题",
+    "选题",
+    "合规",
+    "打分",
+    "发布"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "xhs",
+    "actions": [
+     "note",
+     "score",
+     "compliance"
+    ]
+   },
+   "dir": "r11-wadianti-copy/references/capabilities/xhs-content-skills",
+   "summary": "发布前四要素校验 + 8 项质量快检 + 合规硬扫。",
+   "rules": [
+    "标题 ≤20 字且前 10 字含核心词",
+    "正文 550–650 字，≥3 个带数字的硬信息点",
+    "8 项快检至少 7 项通过才可发",
+    "CTA 黑名单/诱导互动/绝对化用语零命中"
+   ]
+  },
+  {
+   "id": "marketing-toolkit",
+   "title": "营销全链路",
+   "owner": "r12",
+   "owner_dir": "r12-wayingliu-growth",
+   "consumers": [
+    "r11",
+    "r10"
+   ],
+   "triggers": [
+    "营销活动",
+    "文案",
+    "投放",
+    "SEO",
+    "转化"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r12-wayingliu-growth/references/capabilities/marketing-toolkit",
+   "summary": "从目标到渠道到度量的营销方案骨架。",
+   "rules": [
+    "先定单一传播主张，再拆渠道",
+    "每个渠道给预算占比、素材规格、衡量指标",
+    "漏斗每层有基准与目标，不写空泛 KPI",
+    "合规与素材授权单独列一节"
+   ]
+  },
+  {
+   "id": "omnichannel-commerce-assistant",
+   "title": "全渠道电商经营诊断",
+   "owner": "r14",
+   "owner_dir": "r14-wajiaoyi-commerce",
+   "consumers": [
+    "r12",
+    "r02"
+   ],
+   "triggers": [
+    "电商诊断",
+    "店铺经营",
+    "全渠道",
+    "选品",
+    "转化"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r14-wajiaoyi-commerce/references/capabilities/omnichannel-commerce-assistant",
+   "summary": "店铺经营诊断：流量、转化、客单、复购、库存五条线。",
+   "rules": [
+    "诊断从漏斗开始：曝光→点击→加购→支付→复购",
+    "每层异常给基线对比与可能原因（不超过 3 条）",
+    "区分平台侧、商品侧、履约侧问题",
+    "结论必须给优先级与验证动作"
+   ]
+  },
+  {
+   "id": "smart-product-selector",
+   "title": "选品评分",
+   "owner": "r14",
+   "owner_dir": "r14-wajiaoyi-commerce",
+   "consumers": [
+    "r01",
+    "r06",
+    "r12"
+   ],
+   "triggers": [
+    "选品",
+    "利润测算",
+    "竞品对标",
+    "选品报告"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "selection",
+    "actions": [
+     "score",
+     "profit"
+    ]
+   },
+   "dir": "r14-wajiaoyi-commerce/references/capabilities/smart-product-selector",
+   "summary": "五维评分 + 利润红线 + 假设卡门禁。",
+   "rules": [
+    "五维各 1–5 分，按归一化权重加权（原始权重合计 120%）",
+    "≥4.0 强烈推荐 / 3.0–3.9 尝试 / 2.0–2.9 谨慎 / <2 放弃",
+    "推荐品必须有假设卡（预期指标 + 验证节点）",
+    "毛利率 <30% 警告、<15% 建议放弃"
+   ]
+  },
+  {
+   "id": "analyze-procurement",
+   "title": "采购总拥有成本",
+   "owner": "r15",
+   "owner_dir": "r15-wagongying-erp",
+   "consumers": [
+    "r14",
+    "r03"
+   ],
+   "triggers": [
+    "采购",
+    "供应商",
+    "RFx",
+    "TCO",
+    "补货",
+    "物流"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "tco",
+    "actions": [
+     "compare",
+     "lifecycle"
+    ]
+   },
+   "dir": "r15-wagongying-erp/references/capabilities/analyze-procurement",
+   "summary": "多报价 landed cost 对比 + 生命周期 TCO。",
+   "rules": [
+    "landed cost 含货值/起运/主运/保险/关税/不可抵扣税/报关/到港/杂费",
+    "用可用数量（扣不良）计算单位成本",
+    "资金占用按账期折算进 effective unit cost",
+    "仅货值+运费不叫 TCO，至少 3 类成本"
+   ]
+  }
+ ]
+}

@@ -262,6 +262,16 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "audit": _out([]),
         },
     },
+    "brandcheck": {
+        "desc": "品牌一致性检查：check（颜色/字体/对比度）",
+        "input": {
+            "check": _REQ({"colors": _ARR(_STR), "fonts": _ARR(_STR)},
+                          ["colors"]),
+        },
+        "output": {
+            "check": _out(["design", "palette_size"]),
+        },
+    },
 }
 
 

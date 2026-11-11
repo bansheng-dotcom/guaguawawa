@@ -131,15 +131,24 @@ R10 产出视觉资产与设计规格；真实前端代码实现交 R09；数据
 
 ---
 
-## 外部能力（可选，见 references/external/）
+## 能力库（自有）
 
-以下外部能力（Trae 插件 / WorkBuddy 技能）的入口文档已拷入 `references/external/`，深层 references 与脚本仍以登记源目录为准：
+本角色自有能力（规范或可执行技能），能力卡在 `references/capabilities/<id>/README.md`：
 
-- `brand-guardian` · 品牌一致性守卫（技能；消费方：r04, r11, r12）
-- `ecommerce-designer` · 电商视觉设计（技能；消费方：r14, r12）
-- `meitu-local-mcp` · 美图本地 MCP（图像/视频 30 工具）（MCP；消费方：r14, r12, r11）
-- `trae-design` · 设计系统与 solo 设计（4 技能）（多技能；消费方：r08, r09）
-- `whiteboard` · 可编辑白板/架构图（技能；消费方：r07, r08, r02）
+- `brand-guardian` · 品牌一致性守卫（代码：`brandcheck check`；消费方：r04, r11, r12）
+- `ecommerce-designer` · 电商视觉设计（规范；消费方：r14, r12）
+- `design-system` · 设计系统与图形（规范；消费方：r08, r09）
+- `whiteboard` · 可编辑白板/架构图（规范；消费方：r07, r08, r02）
 
-就绪状态：`python guagua.py capabilities --role r10 --probe`；
-MCP 类需要 MCP 客户端接入，本团队 CLI 不直连。
+查看：`python guagua.py capabilities --role r10`
+
+## 能力库（自有）
+
+本角色自有能力（规范或可执行技能），能力卡在 `references/capabilities/<id>/README.md`：
+
+- `brand-guardian` · 品牌一致性守卫（代码：`brandcheck check`；消费方：r04, r11, r12）
+- `ecommerce-designer` · 电商视觉设计（规范；消费方：r14, r12）
+- `design-system` · 设计系统与图形（规范；消费方：r08, r09）
+- `whiteboard` · 可编辑白板/架构图（规范；消费方：r07, r08, r02）
+
+查看：`python guagua.py capabilities --role r10`

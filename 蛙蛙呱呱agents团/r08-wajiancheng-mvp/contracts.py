@@ -192,6 +192,23 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "handoff": _out(["artifact_count"]),
         },
     },
+    "deck": {
+        "desc": "单文件 HTML 幻灯片：plan/html",
+        "input": {
+            "plan": _REQ({"title": _STR,
+                          "slides": _ARR(_REQ({"title": _STR, "message": _STR},
+                                              ["title", "message"]))},
+                         ["title", "slides"]),
+            "html": _REQ({"title": _STR,
+                          "slides": _ARR(_REQ({"title": _STR, "message": _STR},
+                                              ["title", "message"]))},
+                         ["title", "slides"]),
+        },
+        "output": {
+            "plan": _out(["slide_count"]),
+            "html": _out(["out", "size_bytes"]),
+        },
+    },
 }
 
 
