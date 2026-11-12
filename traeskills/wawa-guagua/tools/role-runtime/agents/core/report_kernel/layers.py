@@ -400,6 +400,11 @@ def spec_compliance(contract: Dict[str, Any], spec: Dict[str, Any]) -> List[str]
     return errs
 
 
+# 公开别名：structure.py 复用同一份实现，避免第二份表格/分数节写法
+fidelity_section = _fidelity_section
+record_table = _record_table
+
+
 def contract_hash(contract: Dict[str, Any]) -> str:
     payload = json.dumps(contract, ensure_ascii=False, sort_keys=True, default=str)
     return hashlib.sha256(payload.encode()).hexdigest()[:16]

@@ -16,6 +16,9 @@ from shared.methods import core  # noqa: E402
 NAME = "matched"
 DESC = "匹配差分：两组均值差 + 自助法 CI + 置换 p"
 
+# manifest 依赖 ACTIONS（与其它技能一致）；单动作技能用动作名作键
+ACTIONS = {NAME: DESC}
+
 
 def add_parser(sp) -> None:
     p = sp.add_parser(NAME, help=DESC)

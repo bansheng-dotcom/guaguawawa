@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """报告版式出厂检查（不关心报告是谁画的，只看 HTML 结果）。
 
-四条硬规则（对应 REPORT-STANDARD 第七节）：
+四条硬规则（对应 REPORT-STANDARD 第八节，权威实现在 core/report_kernel/structure.py）：
   R1 首屏不得出现保真分数（保留率/溯源率/弃置率）
   R2 最后一节必须是「口径与分数」
   R3 附录必须折叠（<details> 不带 open）

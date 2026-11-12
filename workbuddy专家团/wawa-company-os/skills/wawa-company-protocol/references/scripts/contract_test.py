@@ -70,24 +70,13 @@ def run_preserve(role: str) -> dict:
 
 
 def _layout_errors(contract) -> list:
-    """底层版式规则：分数在末尾 / 记录层折叠 / 不允许结论清单复述。"""
-    errs = []
-    secs = contract.get("sections") or []
-    if not secs:
-        return ["无章节"]
-    last = secs[-1]
-    if last.get("title") != "口径与分数":
-        errs.append(f"末节不是「口径与分数」: {last.get('title')}")
-    if not any(s.get("appendix") for s in secs):
-        errs.append("记录层未标 appendix（应折叠）")
-    for s in secs:
-        if "结论清单" in s.get("title", "") or "摘要复述" in s.get("title", ""):
-            errs.append(f"出现重复章节: {s.get('title')}")
-    strip = contract.get("metric_strip") or []
-    for m in strip:
-        if m.get("label") in ("保留率", "溯源率", "弃置率"):
-            errs.append(f"首页指标带仍含自检分数: {m.get('label')}")
-    return errs
+    """底层版式规则：分数在末尾 / 记录层折叠 / 不允许结论清单复述。
+
+    实现已下沉到 core/report_kernel/structure.py（单一出处），此处保留函数名
+    只为不破坏既有调用与文档引用。
+    """
+    from core.report_kernel import structure as kstructure
+    return kstructure.layout_errors(contract)
 
 
 def run_spec(role: str) -> dict:

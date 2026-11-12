@@ -2,10 +2,10 @@
 name: html-report-presentation
 description: 单文件 HTML 报告技能包。把「写个报告」变成可校验的阅读结构：标题定调、meta 交代读者与目的、章节 ≥3 且每章有结论摘要、核心论点 ≥3 条、来源 ≥3 条可核，产出单文件 HTML 可离线打开与打印。当需要出深度报告、扫描结论、复盘文档，或判断一份报告能不能直接发给决策者时使用。不负责幻灯片（见 ppt-generator）、不做 Excel 表格（见 office-plugin）、不替代研究本身。
 license: MIT
-compatibility: 通用。门禁在角色根目录 agent.py（htmlreport plan / htmlreport html），Python 3.10+、零第三方依赖；无 Python 环境时按 §8 转人工六项核对，此时不得标记「可发」。
+compatibility: 通用。门禁在角色根目录 agent.py（htmlreport plan / htmlreport html），Python 3.10+；**渲染与结构规则依赖同仓库 core/report_kernel + core/report_renderer**（不再自带渲染器副本）。无 Python 环境时按 §8 转人工六项核对，此时不得标记「可发」。
 metadata:
   owner: r08
-  version: "2.0.0"
+  version: "2.1.0"
   kind: skill
   triggers: "HTML报告,深度报告,扫描结论,复盘文档,单文件报告,打印"
   verify: python agent.py htmlreport plan --input <报告.json>
@@ -52,6 +52,8 @@ metadata:
 | `chapters[]`（≥3，各含 summary） | 必需 | 少于 3 章说明还没想清结构 |
 | `thesis[]`（≥3 条论点） | 必需 | 没有论点就是资料合集 |
 | `sources[]`（≥3 条，各含 label） | 必需 | 来源数不出来则无法核查 |
+| `dataset[]`（观测：date/item/value/unit/source） | 可选 | 给了才产出保留率/溯源率/弃置率与记录层；不给则如实标 N/A |
+| `claims[]`（结论锚点：text + obs_ids） | 可选 | 给了才算溯源率 |
 | 数据与图表 | 建议 | 缺则标注"待补数据" |
 
 **追问纪律**：最多一轮，只问**给谁看、要他做什么决定**。
@@ -78,6 +80,9 @@ python agent.py htmlreport plan --input <报告.json>
 **最容易漏的是 5 和 6**：章节写得挺多，但通篇没有一个明确论点，
 来源只有"公开资料"一条——这种报告读完了什么也留不下。
 
+**归一说明（2026-11-12）**：这六条的唯一实现在 `core/report_kernel/structure.py`（S1–S6），
+本技能不再持有副本；`htmlreport plan` 只是调用它并转成技能结果。改判定去改内核，别改这里。
+
 - **产出**：报告 JSON（结构合法）
 - **过关条件**：`agent.py htmlreport plan` 退出码 0
 
@@ -97,12 +102,13 @@ python agent.py htmlreport plan --input <报告.json>
 
 ### Step 5 · 渲染单文件 HTML
 ```bash
-python agent.py htmlreport html --input <报告.json>
+python agent.py htmlreport html --input <报告.json> --out <report.html>
 ```
-要求：样式内联、无外链、离线可开、**打印友好**（页面分页不切断表格与图）。
+渲染走**唯一渲染器** `core/report_renderer.py`（REPORT-STANDARD §四：不许手写一次性 HTML），
+自动继承四条版式硬规则：R1 首屏不放自检分数 · R2 末节「口径与分数」· R3 记录层折叠 · R4 无结论清单复述。
 
-- **产出**：`report.html`
-- **过关条件**：双击能开、打印预览正常、目录可跳转
+- **产出**：`report.html`（含目录、打印样式、来源表；带 `dataset` 时附保真分数与记录层）
+- **过关条件**：`plan` 的六条 + 版式四规则全过，退出码 0；双击能开、打印预览正常、目录可跳转
 
 ---
 
@@ -127,8 +133,10 @@ python agent.py htmlreport html --input <报告.json>
 4. **核心论点 ≥3**，且每条可被反驳；
 5. **来源 ≥3**，每条有 `label`（可核）；
 6. **单文件 HTML**：样式内联、无外链、打印不切断表格。
+7. **版式四规则（R1–R4）**：首屏无自检分数 / 末节「口径与分数」/ 记录层折叠 / 无结论清单复述。
 
-> 验收命令：`python agent.py htmlreport plan --input <报告.json>`
+> 验收命令：`python agent.py htmlreport plan --input <报告.json>`（1–6 条）
+> 与 `python agent.py htmlreport html ... --out x.html`（第 7 条随渲染校验）
 > 命中任一项不过 → 回 §3 对应 Step，**不允许编造来源凑够 3 条**。
 
 ---
@@ -194,6 +202,8 @@ python agent.py htmlreport html --input <报告.json>
 | 研究结论与来源分级 | `r05` 的 `industry-panorama-research` / `evidence-ledger` |
 | 数据口径校验 | `r06` 的 `data-validation` |
 | 门禁是否还有效 | `scripts/gate_selftest.py --self-test` |
+| 六条结构规则与版式规则的实现 | `core/report_kernel/structure.py`（唯一出处） |
+| 渲染器与契约必填字段 | `core/report_renderer.py`（`validate_contract` / `render`） |
 | 负向用例 | `tests/misuse.md` |
 
 **脚本清单**
@@ -206,6 +216,11 @@ python agent.py htmlreport html --input <报告.json>
 
 ## §10 变更记录
 
+- **v2.1.0（2026-11-12）**：与报告内核归一。
+  - 六条结构门禁下沉到 `core/report_kernel/structure.py::guard`（S1–S6），本技能不再自带规则副本；
+  - 渲染改走唯一渲染器 `core/report_renderer`（不再手写一次性 HTML），自动继承版式四规则 R1–R4；
+  - 新增可选 `dataset` / `claims`：给了才出保留率/溯源率/弃置率与记录层，不给如实标 N/A；
+  - 渲染产物新增目录（TOC）与「口径与分数」末节；`tests/report-pass.json` 仍全过。
 - **v2.0.0（2026-11-11）**：按 `docs/SKILL-LAYER-SPEC.md` v1.0 从能力卡升级为十节技能包。
   **新增夹具**（此前无任何报告夹具）：`tests/report-pass.json`（六项全过，实测 exit 0）/
   `tests/report-fail.json`（缺 meta/章节/来源，实测 exit 1）。

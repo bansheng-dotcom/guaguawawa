@@ -17,6 +17,9 @@ DEPTH = "L3"
 NAME = "tam-mc"
 DESC = "TAM 蒙特卡洛：渗透率×ARPU，输出 p10/p50/p90"
 
+# manifest 依赖 ACTIONS（与其它技能一致）；单动作技能用动作名作键
+ACTIONS = {NAME: DESC}
+
 
 def add_parser(sp) -> None:
     p = sp.add_parser(NAME, help=DESC)

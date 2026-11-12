@@ -70,6 +70,10 @@ def _use_kernel(role: str) -> bool:
     return _spec.role_spec_path(role).exists()
 
 
+# 公开别名：shared/role_runtime.py 据此判断该角色走内核还是 REP-001 旧引擎
+use_kernel = _use_kernel
+
+
 def build_kernel_contract(role, name, title, result, skill, action, intent,
                           dataset=None, doc_type="角色报告"):
     from core.report_kernel import layers as _layers, spec as _spec
