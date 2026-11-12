@@ -192,6 +192,60 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "handoff": _out(["artifact_count"]),
         },
     },
+    "deck": {
+        "desc": "单文件 HTML 幻灯片：plan/html",
+        "input": {
+            "plan": _REQ({"title": _STR,
+                          "slides": _ARR(_REQ({"title": _STR, "message": _STR},
+                                              ["title", "message"]))},
+                         ["title", "slides"]),
+            "html": _REQ({"title": _STR,
+                          "slides": _ARR(_REQ({"title": _STR, "message": _STR},
+                                              ["title", "message"]))},
+                         ["title", "slides"]),
+        },
+        "output": {
+            "plan": _out(["slide_count"]),
+            "html": _out(["out", "size_bytes"]),
+        },
+    },
+    "htmlreport": {
+        "desc": "单文件 HTML 报告：plan/html",
+        "input": {
+            "plan": _REQ({"title": _STR, "chapters": _ARR({"type": "object"})},
+                         ["title", "chapters"]),
+            "html": _REQ({"title": _STR, "chapters": _ARR({"type": "object"})},
+                         ["title", "chapters"]),
+        },
+        "output": {
+            "plan": _out(["chapter_count"]),
+            "html": _out(["out", "size_bytes"]),
+        },
+    },
+    "miniapp": {
+        "desc": "小程序工程脚手架：plan/scaffold",
+        "input": {
+            "plan": _REQ({"name": _STR, "pages": _ARR({"type": "object"})}, ["name", "pages"]),
+            "scaffold": _REQ({"name": _STR, "pages": _ARR({"type": "object"})}, ["name", "pages"]),
+        },
+        "output": {
+            "plan": _out(["page_count"]),
+            "scaffold": _out(["out", "file_count"]),
+        },
+    },
+    "office": {
+        "desc": "Office 交付物：probe/xlsx/docx",
+        "input": {
+            "probe": _REQ({}, []),
+            "xlsx": _REQ({"sheets": _ARR({"type": "object"})}, ["sheets"]),
+            "docx": _REQ({"title": _STR, "sections": _ARR({"type": "object"})}, ["title"]),
+        },
+        "output": {
+            "probe": _out(["status"]),
+            "xlsx": _out(["out", "size_bytes"]),
+            "docx": _out(["out", "size_bytes"]),
+        },
+    },
 }
 
 

@@ -266,7 +266,9 @@ def evaluate_policy_evolution(
 # --------------------------------------------------------------------------- #
 # 5. 全球决策资产元数据索引与汇总 (Global Decision Ledger)
 # --------------------------------------------------------------------------- #
-LEDGER_DIR = os.path.join(_AGENTS_ROOT, "workspace", "governance")
+from core.workspace import default_root  # noqa: E402
+
+LEDGER_DIR = os.path.join(default_root(), "governance")
 
 
 def record_decision_ledger(role_id: str, report_slug: str, report_spec: Dict[str, Any]) -> str:

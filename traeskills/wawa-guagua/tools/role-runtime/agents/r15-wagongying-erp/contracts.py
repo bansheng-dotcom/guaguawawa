@@ -42,6 +42,16 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "fulfill-sim": {
+        "desc": "履约仿真：履约率/缺货天数/平均库存",
+        "input": {},
+        "output": {"fulfill-sim": _out(["fulfillment"])},
+    },
+    "safety-stock": {
+        "desc": "安全库存：z × σ_d × √LT",
+        "input": {},
+        "output": {"safety-stock": _out(["safety_stock"])},
+    },
     "procurement": {
         "desc": "采购与供应商：supplier/rfq/quotation/purchase_order/receipt",
         "input": {
@@ -189,6 +199,20 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
         },
         "output": {
             "report": _out(["report_count", "kpi_count"]),
+        },
+    },
+    "tco": {
+        "desc": "采购总拥有成本：compare/lifecycle",
+        "input": {
+            "compare": _REQ({"quotes": _ARR(_REQ({"supplier": _STR, "unit_price": _NUM,
+                                                  "qty": _NUM},
+                                                 ["supplier", "unit_price", "qty"]))},
+                            ["quotes"]),
+            "lifecycle": _REQ({"acquisition": _NUM}, ["acquisition"]),
+        },
+        "output": {
+            "compare": _out(["ranked"]),
+            "lifecycle": _out(["tco"]),
         },
     },
 }

@@ -14,8 +14,16 @@ from __future__ import annotations
 import argparse
 import json
 import os
+
 import subprocess
 import sys
+# --- 引导仓库根入 sys.path：本文件可被直接 `python xxx.py` 执行 ---
+_boot = os.path.dirname(os.path.abspath(__file__))
+while _boot and not os.path.isdir(os.path.join(_boot, "core")):
+    _boot = os.path.dirname(_boot)
+if _boot and _boot not in sys.path:
+    sys.path.insert(0, _boot)
+from core.workspace import role_workspace  # noqa: E402
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -26,8 +34,10 @@ if _CHART_DIR not in sys.path:
 
 
 def run(argv):
+    env = dict(os.environ)
+    env["PYTHONIOENCODING"] = "utf-8"
     r = subprocess.run([sys.executable, "agent.py", *argv], cwd=HERE,
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", env=env)
     return r.returncode, r.stdout, r.stderr
 
 
@@ -122,21 +132,21 @@ def main():
     model = d["semantic_model"]
     print(f"  csv={csv}\n  model={model}")
 
-    clean = os.path.join(HERE, "workspace", "_tmp_clean.csv")
+    clean = os.path.join(role_workspace(HERE), "_tmp_clean.csv")
     _write_clean(clean)
-    spec = os.path.join(HERE, "workspace", "_tmp_chart_spec.json")
+    spec = os.path.join(role_workspace(HERE), "_tmp_chart_spec.json")
     with open(spec, "w", encoding="utf-8") as f:
         json.dump({"chart_type": "bar", "title": "各渠道营收",
                    "x_field": "label", "y_field": "value",
                    "data": [{"label": "抖音", "value": 120.0},
                             {"label": "微信", "value": 80.0}]}, f, ensure_ascii=False)
-    saas_csv = os.path.join(HERE, "workspace", "_tmp_saas.csv")
+    saas_csv = os.path.join(role_workspace(HERE), "_tmp_saas.csv")
     with open(saas_csv, "w", encoding="utf-8") as f:
         f.write("customer_id,month,mrr,status\n"
                 "c1,2024-01,100,active\nc2,2024-01,200,active\nc3,2024-01,300,active\n"
                 "c1,2024-02,100,active\nc2,2024-02,250,active\n"
                 "c3,2024-02,0,canceled\nc4,2024-02,150,active\n")
-    pareto_spec = os.path.join(HERE, "workspace", "_tmp_pareto_spec.json")
+    pareto_spec = os.path.join(role_workspace(HERE), "_tmp_pareto_spec.json")
     with open(pareto_spec, "w", encoding="utf-8") as f:
         json.dump({"chart_type": "pareto", "title": "前 N 项贡献",
                    "category_field": "item", "value_field": "v",
@@ -168,7 +178,7 @@ def main():
     must_pass("regression", ["regression", "--input", csv, "--x", "amount", "--y", "amount"])
     must_pass("abtest", ["abtest", "--input", csv, "--group", "channel", "--control", "抖音", "--treatment", "微信", "--metric", "amount"])
     # 能力域5 拆细之八/九：power（功效设计，statsmodels 同口径）+ causal（dowhy 四步）
-    causal_csv = os.path.join(HERE, "workspace", "_tmp_causal.csv")
+    causal_csv = os.path.join(role_workspace(HERE), "_tmp_causal.csv")
     _write_causal(causal_csv)
     pw_n = must_pass("power[n]", ["power", "--baseline", "0.15", "--mde", "0.03"], parse=True)
     pwn = pw_n["power"]["required_n_per_group"]
@@ -176,7 +186,7 @@ def main():
     pw_m = must_pass("power[mde反解]", ["power", "--baseline", "0.15", "--n-per-group", "1000"], parse=True)
     m = pw_m["power"]["mde_solvable"]
     must_check("power[mde∈(0.03,0.08)]", 0.03 < m < 0.08, f"mde={m}")
-    pwrj = os.path.join(HERE, "workspace", "_tmp_power_result.json")
+    pwrj = os.path.join(role_workspace(HERE), "_tmp_power_result.json")
     with open(pwrj, "w", encoding="utf-8") as f:
         json.dump(pw_n, f, ensure_ascii=False)
     must_pass("power.contract", ["contract", "validate", "--skill", "power", "--action", "power", "--output", pwrj])
@@ -191,7 +201,7 @@ def main():
                f"bias={est['confounding_bias']} naive={est['unadjusted_effect']}")
     must_check("causal[安慰剂通过]", ca["causal"]["refute"]["survives"] is True,
                f"p={ca['causal']['refute']['placebo_p']}")
-    carj = os.path.join(HERE, "workspace", "_tmp_causal_result.json")
+    carj = os.path.join(role_workspace(HERE), "_tmp_causal_result.json")
     with open(carj, "w", encoding="utf-8") as f:
         json.dump(ca, f, ensure_ascii=False)
     must_pass("causal.contract", ["contract", "validate", "--skill", "causal", "--action", "causal", "--output", carj])
@@ -475,12 +485,12 @@ def main():
                               {"name": "y", "values": [2, 3]}]}))
 
     print("== 3) harness 确定性门禁（干净数据必须 PASS）==")
-    report = os.path.join(HERE, "workspace", "_tmp_report.md")
+    report = os.path.join(role_workspace(HERE), "_tmp_report.md")
     os.makedirs(os.path.dirname(report), exist_ok=True)
     with open(report, "w", encoding="utf-8") as f:
         f.write("# 结论\n抖音渠道贡献 62% 营收，Q3 利润率 15.2%，属健康水平。\n\n"
                 "## QA 清单\n- 数据来源 orders.csv（59 行）\n")
-    plan = os.path.join(HERE, "workspace", "_tmp_plan.json")
+    plan = os.path.join(role_workspace(HERE), "_tmp_plan.json")
     with open(plan, "w", encoding="utf-8") as f:
         json.dump({
             "round": 1, "analytical_step": "decomposition",
@@ -500,7 +510,7 @@ def main():
 
     print("== 4) 契约 / 评审 / 案例 ==")
     must_pass("contract.list", ["contract", "list"])
-    rj = os.path.join(HERE, "workspace", "_tmp_result.json")
+    rj = os.path.join(role_workspace(HERE), "_tmp_result.json")
     with open(rj, "w", encoding="utf-8") as f:
         json.dump({"describe": {"amount": {"count": 59, "mean": 1922.7}}}, f)
     must_pass("contract.validate", ["contract", "validate", "--skill", "describe", "--action", "describe", "--output", rj])
@@ -509,7 +519,7 @@ def main():
     _, dout, _ = run(["rootcause", "decompose", "--input", csv, "--dim", "channel",
                       "--value", "amount", "--period", "date",
                       "--before", "2024-01-01", "--after", "2024-12-31"])
-    drj = os.path.join(HERE, "workspace", "_tmp_decompose_result.json")
+    drj = os.path.join(role_workspace(HERE), "_tmp_decompose_result.json")
     with open(drj, "w", encoding="utf-8") as f:
         json.dump(extract(dout), f, ensure_ascii=False)
     must_pass("review.pass", ["review", "--result", drj, "--skill", "rootcause",
@@ -521,13 +531,13 @@ def main():
 
     print("== 5) 门禁不得是摆设：脏数据/幻觉/伪造结论必须 FAIL ==")
     if not args.no_fail:
-        dirty = os.path.join(HERE, "workspace", "_tmp_dirty.csv")
+        dirty = os.path.join(role_workspace(HERE), "_tmp_dirty.csv")
         with open(dirty, "w", encoding="utf-8") as f:
             f.write("order_id,channel,amount\n1,抖音,100\n2,抖音,\n3,抖音,200\n"
                     "4,抖音,150\n5,抖音,\n6,抖音,99999\n7,抖音,\n")
         must_fail("harness.dataset[脏数据缺列]", ["harness", "dataset", "--input", dirty])
 
-        hallu = os.path.join(HERE, "workspace", "_tmp_hallu_model.json")
+        hallu = os.path.join(role_workspace(HERE), "_tmp_hallu_model.json")
         with open(hallu, "w", encoding="utf-8") as f:
             f.write(json.dumps({"semantic_models": [{"name": "m",
                 "entities": [{"name": "orders", "expr": "not_a_real_table"}],
@@ -535,13 +545,13 @@ def main():
                 "measures": [{"name": "amt", "expr": "amount"}]}], "metrics": []}))
         must_fail("semantics.link[幻觉列]", ["semantics", "link", "--input", hallu, "--data", csv])
 
-        contr = os.path.join(HERE, "workspace", "_tmp_bad_result.json")
+        contr = os.path.join(role_workspace(HERE), "_tmp_bad_result.json")
         with open(contr, "w", encoding="utf-8") as f:
             f.write('{"conclusion": "渠道A导致收入下降，建议加大投入"}')
         must_fail("review[点名因果无分解证据]",
                   ["review", "--result", contr, "--skill", "rootcause",
                    "--action", "drilldown", "--data", csv])
-        bad = os.path.join(HERE, "workspace", "_tmp_empty.json")
+        bad = os.path.join(role_workspace(HERE), "_tmp_empty.json")
         with open(bad, "w", encoding="utf-8") as f:
             f.write("{}")
         must_fail("contract.validate[缺必填字段]",
@@ -559,6 +569,24 @@ def main():
         print(f"  [{'ok' if ok else 'FAIL'}] {name}"
               f"  contract={'OK' if r.get('contract_ok') else 'X'}"
               f"  review={r.get('review_verdict')}")
+
+    # 7) 十维演进集成回归套件 (L01~L10)
+    print("\n== 7) 十维演进元模型集成测试套件 (L01~L10 Dual Zero-Regression Gate) ==")
+    import unittest
+    import tests.test_engines_l01_l10 as t_l10
+    import tests.test_evolution_cycle2 as t_c2
+    loader = unittest.TestLoader()
+    suite = loader.loadTestsFromTestCase(t_l10.TestR06EvolutionSuite)
+    for case_name in ("TestRound1ToolsIntentHeal", "TestRound2SpecSlopScenario",
+                      "TestRound3BundlePatchMemoryResilience"):
+        case = getattr(t_c2, case_name, None)
+        if case is not None:
+            suite.addTests(loader.loadTestsFromTestCase(case))
+    runner = unittest.TextTestRunner(verbosity=0)
+    res = runner.run(suite)
+    l10_ok = res.wasSuccessful()
+    (PASS if l10_ok else FAIL).append("metamodel.10stages.l01_to_l10")
+    print(f"  [{'ok' if l10_ok else 'FAIL'}] metamodel.10stages.l01_to_l10 (ran {res.testsRun} tests)")
 
     print("\n================ 验收结果 ================")
     print(f"  PASS {len(PASS)} / {len(PASS)+len(FAIL)}")

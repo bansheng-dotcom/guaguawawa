@@ -40,6 +40,21 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "power": {
+        "desc": "实验功效：样本量/MDE",
+        "input": {},
+        "output": {"power": _out(["power"])},
+    },
+    "mmm": {
+        "desc": "营销组合模型（简化 OLS）：系数/R²/贡献",
+        "input": {},
+        "output": {"mmm": _out(["mmm"])},
+    },
+    "ltv-cac": {
+        "desc": "LTV/CAC：回收月数与健康判定",
+        "input": {},
+        "output": {"ltv-cac": _out(["ltv_cac"])},
+    },
     "diagnose": {
         "desc": "增长诊断与基线：diagnose/unit",
         "input": {

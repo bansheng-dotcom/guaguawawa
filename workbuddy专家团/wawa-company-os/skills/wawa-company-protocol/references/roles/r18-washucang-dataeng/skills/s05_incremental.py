@@ -81,10 +81,29 @@ def _validate_strategy(data: Any) -> Dict[str, Any]:
     late = c._num(data.get("late_arrival_days"))
     checks.append(_ck(late >= 0, f"迟到容忍 {late:g} 天 ≥ 0", "strategy.late"))
 
+    # L01 主链路接入：给出基线行 + 增量行时，真实执行合并并校验物料守恒（容差 0）。
+    conservation = None
+    base_rows = data.get("base_rows")
+    incoming_rows = data.get("incoming_rows")
+    if isinstance(base_rows, list) and base_rows and isinstance(incoming_rows, list):
+        try:
+            from engines import DataEngRuntimeEngine
+            conservation = DataEngRuntimeEngine().incremental_conservation(
+                base_rows, incoming_rows,
+                key=str(data.get("key") or data.get("idempotency_key") or "id"))
+            checks.append(_ck(
+                bool(conservation.get("conserved")),
+                f"增量守恒 target({conservation.get('target_count')}) == "
+                f"base({conservation.get('base_count')}) + inserted({conservation.get('inserted_count')})",
+                "strategy.conservation"))
+        except Exception as exc:  # noqa: BLE001 - 守恒无法验证时 fail-closed
+            checks.append(_ck(False, f"增量守恒校验不可用：{exc}",
+                              "strategy.conservation"))
+
     ok = all(x["ok"] for x in checks)
     return c.result(
         checks, ok=ok, verdict="PASS" if ok else "FAIL",
-        stream=stream, mode=mode,
+        stream=stream, mode=mode, conservation=conservation,
         narrative=f"增量策略 {stream}：{mode} / 分区 {partition}")
 
 

@@ -9,7 +9,7 @@ import os
 from datetime import datetime
 from typing import Any, Dict, List
 
-AGENTS_ROOT = r"D:\一人公司\agents"
+AGENTS_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORKSPACE_ROOT = os.path.join(AGENTS_ROOT, "workspace")
 REPORT_DIR = os.path.join(WORKSPACE_ROOT, "ai_benchmark_reports")
 RESULTS_FILE = os.path.join(REPORT_DIR, "full_benchmark_results.json")

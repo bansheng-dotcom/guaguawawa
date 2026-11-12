@@ -11,7 +11,7 @@ def generate_heavy_data_report():
     print("🚀 正在生成高信息密度、带数据溯源、对抗审查的重度数据分析报告...")
     print("==================================================")
     
-    out_dir = Path("D:/一人公司/深度专项报告")
+    out_dir = Path(__file__).resolve().parents[1] / "workspace" / "artifacts" / "深度专项报告"
     out_dir.mkdir(parents=True, exist_ok=True)
     
     metric_strip = '''

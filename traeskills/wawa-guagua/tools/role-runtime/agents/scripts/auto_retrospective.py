@@ -9,7 +9,7 @@ def generate_retrospective(task_id: str, error_context: str, project_name: str =
     自动化复盘机制 (Auto-Retrospective) MVP。
     当 R04 或流程报错时触发，将失败上下文转换为经验库候选记录。
     '''
-    base_dir = Path("D:/一人公司/补充技能/product-manager/experience")
+    base_dir = Path(__file__).resolve().parents[1] / "workspace" / "retrospective"
     inbox_dir = base_dir / "inbox"
     inbox_dir.mkdir(parents=True, exist_ok=True)
     

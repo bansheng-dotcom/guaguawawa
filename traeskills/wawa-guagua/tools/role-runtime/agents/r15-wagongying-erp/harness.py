@@ -23,7 +23,8 @@ for _p in (_HERE, _ROOT):
 
 from skills import _common as c  # noqa: E402
 from skills import (s01_procurement, s02_inventory, s03_fulfillment,  # noqa: E402
-                    s04_production, s05_finance, s06_masterdata, s07_report)
+                    s04_production, s05_finance, s06_masterdata, s07_report,
+                    s08_tco)
 
 # harness 命令 → (技能模块, 校验函数)
 _VALIDATORS = {
@@ -45,6 +46,8 @@ _VALIDATORS = {
     "master_data": (s06_masterdata, "_validate_master_data"),
     "permission": (s06_masterdata, "_validate_permission"),
     "report": (s07_report, "_validate_report"),
+    "compare": (s08_tco, "_validate_compare"),
+    "lifecycle": (s08_tco, "_validate_lifecycle"),
 }
 
 _GATE_HELP = {
@@ -56,6 +59,7 @@ _GATE_HELP = {
     "material_request": "物料请求门禁", "invoice": "发票门禁",
     "payment": "付款单门禁", "master_data": "主数据门禁",
     "permission": "权限矩阵门禁", "report": "运营报表门禁",
+    "compare": "报价 landed cost 对比门禁", "lifecycle": "生命周期 TCO 门禁",
 }
 
 

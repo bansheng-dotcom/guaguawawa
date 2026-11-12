@@ -15,6 +15,10 @@ from __future__ import annotations
 from . import (s01_schedule, s02_capacity, s03_handoff, s04_retro,
                s05_process, s06_knowledge, s07_portfolio)
 
+from . import s10_little
+
+from . import s11_queue
+
 SKILLS = [
     s01_schedule,
     s02_capacity,
@@ -23,4 +27,6 @@ SKILLS = [
     s05_process,
     s06_knowledge,
     s07_portfolio,
+    s10_little,
+    s11_queue,
 ]

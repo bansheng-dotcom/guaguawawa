@@ -25,6 +25,9 @@ from . import s05_regression
 from . import s05_abtest
 from . import s05_power
 from . import s05_causal
+from . import s05_matched
+from . import s05_did
+from . import s05_elasticity
 from . import s06_scinlp
 from . import s07_domain
 from . import s08_viz
@@ -32,6 +35,8 @@ from . import s09_selfmedia
 
 # 顺序即「能力域顺序」，与能力全景 R06 的九能力域一致；
 # 能力域 5（统计）按来源技能粒度拆成 7 个单功能模块。
+from . import s05_rdd
+
 SKILLS = [
     s01_semantics,
     s02_quality,
@@ -46,8 +51,12 @@ SKILLS = [
     s05_abtest,
     s05_power,
     s05_causal,
+    s05_matched,
+    s05_did,
+    s05_elasticity,
     s06_scinlp,
     s07_domain,
     s08_viz,
     s09_selfmedia,
+    s05_rdd,
 ]

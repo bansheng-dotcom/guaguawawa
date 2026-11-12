@@ -41,6 +41,11 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "eval-ci": {
+        "desc": "评测 Wilson CI",
+        "input": {},
+        "output": {"eval-ci": _out(["eval_ci"])},
+    },
     "tracking": {
         "desc": "实验与运行追踪：experiment/run",
         "input": {

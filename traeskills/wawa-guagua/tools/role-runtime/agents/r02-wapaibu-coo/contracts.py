@@ -16,6 +16,12 @@ _N = {"type": "number", "minimum": 0}
 _I = {"type": "integer", "minimum": 0}
 
 CONTRACTS: Dict[str, Dict[str, Dict[str, Any]]] = {
+    "queue": {
+        "queue": {"ok": _B, "checks": _A, "queue": _O, "next": _S},
+    },
+    "little": {
+        "little": {"ok": _B, "checks": _A, "little": _O, "next": _S},
+    },
     "schedule": {
         "wbs": {"ok": _B, "checks": _A, "item_count": _I, "total_cost": _N,
                 "kinds": _A, "max_step": _I, "next": _S},

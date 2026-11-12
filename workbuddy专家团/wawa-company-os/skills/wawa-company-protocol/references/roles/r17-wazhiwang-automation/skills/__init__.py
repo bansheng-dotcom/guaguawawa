@@ -16,6 +16,8 @@ from __future__ import annotations
 from . import (s01_integration, s02_webhook, s03_mapping, s04_schedule,
                s05_approval, s06_retry, s07_aiworkflow, s08_audit)
 
+from . import s09_retry_model
+
 SKILLS = [
     s01_integration,
     s02_webhook,
@@ -25,6 +27,7 @@ SKILLS = [
     s06_retry,
     s07_aiworkflow,
     s08_audit,
+    s09_retry_model,
 ]
 
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}

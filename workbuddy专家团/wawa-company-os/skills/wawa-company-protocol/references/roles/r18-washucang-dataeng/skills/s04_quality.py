@@ -45,6 +45,15 @@ def _ck(ok: bool, msg: str, dim: str = "") -> Dict[str, Any]:
     return {"ok": ok, "msg": msg, "dim": dim, "sev": "OK" if ok else "BLOCKER"}
 
 
+def _rows_from(data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """取真实行集：只要给了 rows/records/sample_rows/data 就不信自报数字。"""
+    for key in ("rows", "records", "sample_rows", "data"):
+        value = data.get(key)
+        if isinstance(value, list) and value and all(isinstance(x, dict) for x in value):
+            return value
+    return []
+
+
 # --------------------------------------------------------------------------- #
 def _validate_check(data: Any) -> Dict[str, Any]:
     checks: List[Dict[str, Any]] = []
@@ -56,18 +65,52 @@ def _validate_check(data: Any) -> Dict[str, Any]:
     table = str(data.get("table", "")).strip()
     checks.append(_ck(bool(table), "表名非空", "quality.table"))
 
-    row_count = c._num(data.get("row_count"))
+    # L01 主链路接入：有真实行集时，由嵌入式 SQL 引擎重算，禁止信自报数字。
+    rows = _rows_from(data)
+    measured_by = None
+    measured = None
+    if rows:
+        try:
+            from engines import DataEngRuntimeEngine
+            engine = DataEngRuntimeEngine()
+            prof = engine.profile_table(rows, table=table or "t")
+            measured_by = f"runtime_engine({prof['engine']})"
+            row_count = float(prof["row_count"])
+            null_ratio = max(prof["null_ratio"].values()) if prof["null_ratio"] else 0.0
+            dup_ratio = float(prof["dup_ratio"])
+            measured = {
+                "row_count": int(prof["row_count"]),
+                "max_null_ratio": round(null_ratio, 6),
+                "dup_ratio": round(dup_ratio, 6),
+                "engine": prof["engine"],
+            }
+            checks.append(_ck(True, f"实测口径 {measured_by}",
+                              "quality.measured_by"))
+            for key, actual, tol in (("row_count", row_count, 0.0),
+                                     ("null_ratio", null_ratio, 0.001),
+                                     ("dup_ratio", dup_ratio, 0.001)):
+                if key in data and abs(c._num(data.get(key)) - actual) > tol:
+                    checks.append(_ck(
+                        False,
+                        f"自报 {key}={c._num(data.get(key)):g} 与实测 {actual:g} 不符（fail-open 拦截）",
+                        "quality.tamper"))
+        except Exception as exc:  # noqa: BLE001 - 测量层坏了必须 fail-closed
+            checks.append(_ck(False, f"真实测量引擎不可用：{exc}", "quality.measured_by"))
+            row_count, null_ratio, dup_ratio = 0.0, 1.0, 1.0
+    else:
+        row_count = c._num(data.get("row_count"))
+        null_ratio = c._num(data.get("null_ratio"))
+        dup_ratio = c._num(data.get("dup_ratio"))
+
     checks.append(_ck(row_count > 0, f"行数 {row_count:g} > 0", "quality.row_count"))
 
     # 完整性：空值率 ≤ 阈值
-    null_ratio = c._num(data.get("null_ratio"))
     max_null = c._num(th["default_max_null_ratio"])
     checks.append(_ck(null_ratio <= max_null,
                       f"空值率 {null_ratio:g} ≤ {max_null:g}",
                       "quality.null_ratio"))
 
     # 唯一性：重复率 ≤ 阈值
-    dup_ratio = c._num(data.get("dup_ratio"))
     max_dup = c._num(th["default_max_dup_ratio"])
     checks.append(_ck(dup_ratio <= max_dup,
                       f"重复率 {dup_ratio:g} ≤ {max_dup:g}",
@@ -90,8 +133,9 @@ def _validate_check(data: Any) -> Dict[str, Any]:
     return c.result(
         checks, ok=ok, verdict="PASS" if ok else "FAIL",
         table=table, check_count=len(items) if isinstance(items, list) else 0,
-        row_count=int(row_count),
-        narrative=f"质量门禁 {table}：{len(items) if isinstance(items, list) else 0} 项检查")
+        row_count=int(row_count), measured_by=measured_by, measured=measured,
+        narrative=(f"质量门禁 {table}：{len(items) if isinstance(items, list) else 0} 项检查"
+                   + (f"（{measured_by} 实测）" if measured_by else "（自报口径）")))
 
 
 # --------------------------------------------------------------------------- #

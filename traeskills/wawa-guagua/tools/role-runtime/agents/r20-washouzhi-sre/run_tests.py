@@ -290,8 +290,11 @@ def main() -> int:
     # ------------------------------------------------------------------ #
     t.section("T8 案例库")
     lst = cases.list_cases()
-    t.check("案例列表 2 个", len(lst) == 2, str([x["case_id"] for x in lst]))
-    for cid in ("backup-no-restore", "incident-escalation"):
+    # SOP §5.10：案例库允许平滑扩容，历史契约用严格超集判据，禁止写死 == 2。
+    ids = [x["case_id"] for x in lst]
+    t.check("案例列表 >= 2 个（超集判据）", len(lst) >= 2, str(ids))
+    for cid in ("backup-no-restore", "incident-escalation", "sla-incident"):
+        t.check(f"案例存在 {cid}", cid in ids, str(ids))
         vc = cases.validate_case(cid)
         t.check(f"{cid} 结构通过", vc["ok"],
                 str([x["msg"] for x in vc["checks"] if not x["ok"]]))

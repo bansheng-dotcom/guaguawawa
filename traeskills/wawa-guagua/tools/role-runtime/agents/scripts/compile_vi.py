@@ -4,8 +4,9 @@ from pathlib import Path
 
 def compile_design_tokens():
     '''将企业 VI YAML 编译为报告通用的 CSS 变量库'''
-    token_path = Path("D:/一人公司/agents/styles/color-system/brand-tokens.yaml")
-    css_out_path = Path("D:/一人公司/agents/styles/color-system/corporate-vi.css")
+    _style_dir = Path(__file__).resolve().parents[1] / "styles" / "color-system"
+    token_path = _style_dir / "brand-tokens.yaml"
+    css_out_path = _style_dir / "corporate-vi.css"
     
     if not token_path.exists():
         return

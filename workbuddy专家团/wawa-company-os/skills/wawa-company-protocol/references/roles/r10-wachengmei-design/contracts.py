@@ -215,6 +215,82 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "theme": _out(["themes"]),
         },
     },
+    "designsys": {
+        "desc": "品牌设计系统库：list/recommend/show/apply/audit",
+        "input": {
+            "list": _REQ({"category": _STR, "q": _STR}, []),
+            "recommend": _REQ({"project": _STR}, ["project"]),
+            "show": _REQ({"brand": _STR}, ["brand"]),
+            "apply": _REQ({"brand": _STR, "out": _STR}, ["brand"]),
+            "audit": _REQ({"input": _STR, "brand": _STR}, []),
+        },
+        "output": {
+            "list": _out(["count"]),
+            "recommend": _out(["brands"]),
+            "show": _out(["brand"]),
+            "apply": _out(["written"]),
+            "audit": _out([]),
+        },
+    },
+    "aihive": {
+        "desc": "AI 图片生成与编辑（Nano Banana Pro）：probe/preview/generate/task",
+        "input": {
+            "probe": _REQ({}, []),
+            "preview": _REQ({"prompt": _STR, "batch": {"type": "integer"}}, ["prompt"]),
+            "generate": _REQ({"prompt": _STR, "batch": {"type": "integer"},
+                              "yes": _BOOL}, ["prompt"]),
+            "task": _REQ({"task_id": _STR}, ["task_id"]),
+        },
+        "output": {
+            "probe": _out(["status"]),
+            "preview": _out(["command"]),
+            "generate": _out(["status"]),
+            "task": _out(["status"]),
+        },
+    },
+    "h3prompt": {
+        "desc": "MiniMax H3 视频提示词：build/audit",
+        "input": {
+            "build": _REQ({"mode": _STR, "duration_sec": _NUM,
+                           "shots": _ARR({"type": "object"})},
+                          ["mode", "duration_sec", "shots"]),
+            "audit": _REQ({"mode": _STR, "duration_sec": _NUM,
+                           "shots": _ARR({"type": "object"})}, ["mode", "shots"]),
+        },
+        "output": {
+            "build": _out(["prompt"]),
+            "audit": _out([]),
+        },
+    },
+    "brandcheck": {
+        "desc": "品牌一致性检查：check（颜色/字体/对比度）",
+        "input": {
+            "check": _REQ({"colors": _ARR(_STR), "fonts": _ARR(_STR)},
+                          ["colors"]),
+        },
+        "output": {
+            "check": _out(["design", "palette_size"]),
+        },
+    },
+    "imgops": {
+        "desc": "本地图片处理：info/resize/crop/compress/pad/watermark",
+        "input": {
+            "info": _REQ({"input": _STR}, ["input"]),
+            "resize": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+            "crop": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+            "compress": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+            "pad": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+            "watermark": _REQ({"input": _STR, "out": _STR}, ["input", "out"]),
+        },
+        "output": {
+            "info": _out(["width", "height"]),
+            "resize": _out(["out", "size_bytes"]),
+            "crop": _out(["out", "size_bytes"]),
+            "compress": _out(["out", "size_bytes"]),
+            "pad": _out(["out", "size_bytes"]),
+            "watermark": _out(["out", "size_bytes"]),
+        },
+    },
 }
 
 

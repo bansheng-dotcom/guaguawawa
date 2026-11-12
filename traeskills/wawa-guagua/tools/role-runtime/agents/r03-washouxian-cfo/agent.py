@@ -253,6 +253,9 @@ def main(argv=None) -> int:
     if argv == ["manifest"]:
         emit_manifest()
         return 0
+    if argv == ["demo"]:
+        # demo = 用示例输入真实跑一次技能（不是伪造结果）
+        argv = ["aigov", "aiclassify", "--input", "examples/aigov_aiclassify.json"]
     parser = _register_parsers()
     args = parser.parse_args(argv)
     if getattr(args, "skill", None) == "clarify":

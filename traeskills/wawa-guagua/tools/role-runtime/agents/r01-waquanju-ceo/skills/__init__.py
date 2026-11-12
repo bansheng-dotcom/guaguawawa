@@ -17,6 +17,8 @@ from __future__ import annotations
 from . import (s01_intent, s02_decompose, s03_decide, s04_redteam,
                s05_companyos, s06_decisionlog, s07_boardroom)
 
+from . import s08_ev
+
 SKILLS = [
     s01_intent,
     s02_decompose,
@@ -25,4 +27,5 @@ SKILLS = [
     s05_companyos,
     s06_decisionlog,
     s07_boardroom,
+    s08_ev,
 ]

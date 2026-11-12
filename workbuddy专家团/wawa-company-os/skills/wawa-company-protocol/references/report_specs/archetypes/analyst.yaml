@@ -1,0 +1,13 @@
+id: analyst
+tier: A
+doc_type: 分析报告
+sections:
+  - { id: summary,  title: 结论先行, min_chars: 100 }
+  - { id: analysis, title: 分析层,   min_tables: 1, min_chars: 150 }
+  - { id: record,   title: 记录层,   min_tables: 1 }
+  - { id: boundary, title: 边界与缺口, min_chars: 80 }
+fidelity: { retention_min: 0.95, trace_min: 1.0 }
+dimensions:
+  - { id: price,    min_obs: 30 }
+  - { id: regional, min_obs: 14 }
+  - { id: upstream, min_obs: 4 }

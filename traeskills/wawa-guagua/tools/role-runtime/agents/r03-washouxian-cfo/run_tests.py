@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """R03 蛙守线（CFO / 财务合规官）验收测试。
 
 跑法：python run_tests.py [--kwd 过滤词]
@@ -16,6 +16,11 @@ import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 from skills import SKILLS, _common as c  # noqa: E402
 import contracts  # noqa: E402
@@ -41,9 +46,12 @@ ACTIONS = [
 
 
 def run_cli(skill, action, input_path):
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
     p = subprocess.run([sys.executable, TOOL, skill, action,
                         "--input", input_path],
                        capture_output=True, text=True, encoding="utf-8", errors="replace",
+                       env=env,
                        timeout=120)
     for line in (p.stdout or "").splitlines():
         if line.startswith(RESULT_MARK):
@@ -80,14 +88,15 @@ class T01(unittest.TestCase):
 
     def test_intent_routing(self):
         import agent
-        self.assertEqual(agent.route("帮我做月结对账"), "financial")
-        self.assertEqual(agent.route("runway 还剩几个月"), "cfo")
-        self.assertEqual(agent.route("ISO 行权 AMT 怎么算"), "tax")
-        self.assertEqual(agent.route("这份合同有自动续约条款"), "contract")
-        self.assertEqual(agent.route("GDPR 数据主体请求"), "privacy")
-        self.assertEqual(agent.route("AI 治理框架选型"), "aigov")
-        self.assertEqual(agent.route("SOC2 审计证据"), "audit")
-        self.assertEqual(agent.route("KYC 尽调评级"), "risk")
+        # P2.1：route() 返回 (skill, action, defaults)，这里只校验技能档位。
+        self.assertEqual(agent.route("帮我做月结对账")[0], "financial")
+        self.assertEqual(agent.route("runway 还剩几个月")[0], "cfo")
+        self.assertEqual(agent.route("ISO 行权 AMT 怎么算")[0], "tax")
+        self.assertEqual(agent.route("这份合同有自动续约条款")[0], "contract")
+        self.assertEqual(agent.route("GDPR 数据主体请求")[0], "privacy")
+        self.assertEqual(agent.route("AI 治理框架选型")[0], "aigov")
+        self.assertEqual(agent.route("SOC2 审计证据")[0], "audit")
+        self.assertEqual(agent.route("KYC 尽调评级")[0], "risk")
 
 
 class T02(unittest.TestCase):

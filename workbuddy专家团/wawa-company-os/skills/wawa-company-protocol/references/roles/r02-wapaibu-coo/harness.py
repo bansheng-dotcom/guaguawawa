@@ -73,3 +73,68 @@ def verify(data: Any) -> Dict[str, Any]:
     return {"ok": ok, "checks": checks, "sprint_end": spr.get("end_date", ""),
             "overloaded": cap.get("overloaded", []),
             "next": "全链通过后冻结排期"}
+
+
+# --------------------------------------------------------------------------- #
+# CLI（2026-11 补）：此前本文件是纯库，无 __main__，
+# `python harness.py package --input x` 什么也不做且退出码 0 —— 典型的假绿：
+# 一个不执行的脚本和一个通过的门禁，退出码是一样的。
+# 现在补上 CLI 与非 0 退出码，与其余 18 个角色一致。
+# --------------------------------------------------------------------------- #
+def _cli(argv=None) -> int:
+    import argparse
+    import json
+    import sys
+
+    ap = argparse.ArgumentParser(
+        prog="r02-harness",
+        description="R02 确定性验证器 CLI：跑单个门禁或综合 verify。"
+                    "退出码 0=通过 / 1=不通过 / 2=输入或环境问题。",
+        epilog="示例：python harness.py package --input examples/handoff.json",
+    )
+    ap.add_argument("action", choices=sorted(_VALIDATORS) + ["verify"],
+                    help="门禁名（与 agent.py harness 一致）")
+    ap.add_argument("--input", required=True, help="输入 JSON 路径")
+    ap.add_argument("--json", action="store_true", help="只输出 JSON（不打印摘要）")
+    args = ap.parse_args(argv)
+
+    if not hasattr(sys.stdout, "reconfigure"):
+        pass
+    else:
+        try:
+            sys.stdout.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+
+    if args.action == "verify":
+        try:
+            data = c.load_json(args.input)
+        except (OSError, ValueError) as e:
+            print(f'{{"ok": false, "error": "加载 {args.input} 失败：{e}"}}')
+            return 2
+        out = verify(data)
+    else:
+        out = run_validator(args.action, args.input)
+
+    if args.json:
+        print(json.dumps(out, ensure_ascii=False))
+    else:
+        # 与其它角色一致：单行 __AGENT_RESULT__ + 人读摘要
+        print("__AGENT_RESULT__ " + json.dumps(out, ensure_ascii=False))
+        if out.get("error"):
+            print(f"[harness] {args.action}: ERROR {out['error']}")
+            return 2
+        bad = out.get("violations") or []
+        print(f"[harness] {args.action}: ok={out.get('ok')} "
+              f"pass={out.get('pass_count')} fail={out.get('fail_count')}")
+        for v in bad:
+            print(f"  - {v}")
+    if out.get("error"):
+        return 2
+    return 0 if out.get("ok") else 1
+
+
+if __name__ == "__main__":
+    import sys
+
+    raise SystemExit(_cli())

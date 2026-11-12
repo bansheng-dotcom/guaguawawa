@@ -75,7 +75,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("8 个技能", len(m.get("skills", [])) == 8, str(len(m.get("skills", []))))
+    t.check("9 个技能", len(m.get("skills", [])) == 9, str(len(m.get("skills", []))))
     t.check("角色 r07", m.get("role") == "r07")
     t.check("输入端口 research_report/voc",
             m.get("inputs") == ["research_report", "voc"])
@@ -195,7 +195,7 @@ def main() -> int:
 
     t.section("T6 契约")
     names = contracts.skill_names()
-    t.check("契约覆盖 8 技能", len(names) == 8, str(len(names)))
+    t.check("契约覆盖 9 技能", len(names) == 9, str(len(names)))
     v = contracts.validate_output("prd", "prd", s03_prd._validate_prd(prd))
     t.check("契约校验 PRD 产出通过", v["ok"], str(v.get("errors")))
     t.check("契约校验非法产出拦截", not contracts.validate_output(
@@ -211,7 +211,9 @@ def main() -> int:
             f"category={rev['failure_category']}")
 
     t.section("T8 案例库")
-    t.check("案例列表 2 个", len(cases.list_cases()) == 2, str(cases.list_cases()))
+    case_ids = [c_["case_id"] for c_ in cases.list_cases()] if cases.list_cases() else []
+    t.check("案例列表 >= 2 个（超集契约，允许平滑扩容）", len(case_ids) >= 2, str(case_ids))
+    t.check("案例库含 saas-activation", "saas-activation" in case_ids, str(case_ids))
     t.check("saas-activation 结构通过", cases.validate_case("saas-activation")["ok"])
     t.check("feature-prd 结构通过", cases.validate_case("feature-prd")["ok"])
 
@@ -220,7 +222,8 @@ def main() -> int:
     t.check("阈值外置已加载", th.get("prd", {}).get("risk_hypotheses_min") == 3)
 
     t.section("harness 确定性验证器")
-    tmp = tempfile.mkdtemp(prefix="r07_harness_")
+    tmp = os.path.join(HERE, "_test_tmp")
+    os.makedirs(tmp, exist_ok=True)
     good_prd_path = os.path.join(tmp, "prd.json")
     c.write_json(good_prd_path, prd)
     h = harness.run_validator("prd", good_prd_path)

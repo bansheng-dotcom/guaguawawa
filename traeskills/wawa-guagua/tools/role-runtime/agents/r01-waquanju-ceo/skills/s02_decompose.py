@@ -9,6 +9,7 @@
 """
 from __future__ import annotations
 
+import re
 from typing import Any, Dict, List
 
 from . import _common as c
@@ -16,26 +17,43 @@ from . import _common as c
 NAME = "decompose"
 DESC = "跨部门拆解：taskcard/wave/route"
 
-# 信号 → 角色（对齐 references/02 路由判定矩阵 + 20 角色选型表）
-_ROUTE_MATRIX: List[tuple] = [
-    (("burn", "runway", "fundraise", "现金流", "融资", "预算", "税务", "合规",
-      "合同", "隐私"), "r03"),
-    (("研究", "市场", "竞品", "行业", "规模", "TAM"), "r05"),
-    (("数据", "分析", "指标", "漏斗", "统计", "趋势"), "r06"),
-    (("产品", "PRD", "需求", "路线图", "backlog", "优先级"), "r07"),
-    (("MVP", "原型", "落地页", "H5"), "r08"),
-    (("代码", "开发", "Bug", "接口", "部署", "工程"), "r09"),
-    (("设计", "UI", "VI", "海报", "视觉"), "r10"),
-    (("文案", "文章", "内容", "翻译"), "r11"),
-    (("获客", "投放", "增长", "冷启动", "转化"), "r12"),
-    (("客户", "CRM", "客服", "续约", "商机"), "r13"),
-    (("订单", "支付", "账单", "签约", "预约"), "r14"),
-    (("采购", "库存", "供应商", "履约", "ERP"), "r15"),
-    (("招聘", "考勤", "绩效", "薪酬", "人事"), "r16"),
-    (("自动化", "集成", "webhook", "工作流"), "r17"),
-    (("排期", "SOP", "流程", "交接", "复盘", "项目群"), "r02"),
-    (("验收", "评审", "质量门", "pass/fail"), "r04"),
+# 信号 → 角色：编排器 plan 与 decompose route 共用的唯一事实来源。
+# 顺序即同分时的主责优先级（CEO 视角：先战略/运营，再专业域，最后平台域）。
+ROUTE_MATRIX: List[tuple] = [
+    (("战略", "方向", "决策", "公司", "治理", "strategy", "vision"), "r01"),
+    (("排期", "排布", "SOP", "流程", "交接", "复盘", "项目群"), "r02"),
+    (("合规", "税务", "审计", "隐私", "合同", "财务红线", "risk",
+      "burn", "runway", "fundraise", "现金流", "融资", "预算"), "r03"),
+    (("验收", "评审", "挑刺", "review", "pass/fail", "质量门"), "r04"),
+    (("研究", "市场", "竞品", "行业", "规模", "research", "market", "TAM"), "r05"),
+    (("数据", "分析", "指标", "趋势", "漏斗", "统计", "日报", "analytics"), "r06"),
+    (("产品", "PRD", "需求", "路线图", "backlog", "用户故事", "优先级"), "r07"),
+    (("MVP", "原型", "落地页", "H5", "跨端", "demo app"), "r08"),
+    (("代码", "开发", "Bug", "接口", "部署", "CI", "后端", "前端",
+      "engineer", "工程"), "r09"),
+    (("设计", "UI", "VI", "海报", "图片", "视频", "音频", "logo", "视觉"), "r10"),
+    (("文案", "文章", "内容", "软文", "多平台", "翻译", "copy"), "r11"),
+    (("获客", "投放", "增长", "冷启动", "CRO", "ASO", "K因子", "转化"), "r12"),
+    (("客户", "CRM", "客服", "商机", "VOC", "NPS", "续约"), "r13"),
+    (("订单", "支付", "账单", "签约", "预约", "订阅", "电商", "stripe"), "r14"),
+    (("采购", "库存", "供应商", "履约", "ERP", "仓储"), "r15"),
+    (("招聘", "考勤", "休假", "绩效", "薪酬", "人事", "HR"), "r16"),
+    (("自动化", "集成", "webhook", "n8n", "工作流", "API对接"), "r17"),
+    (("数仓", "ELT", "管道", "dbt", "airflow", "同步", "数据质量"), "r18"),
+    (("模型", "实验", "MLflow", "评估", "训练", "A/B", "ML"), "r19"),
+    (("监控", "告警", "备份", "恢复", "状态页", "SRE", "uptime"), "r20"),
 ]
+
+_ASCII_KEYWORD = re.compile(r"^[A-Za-z0-9][A-Za-z0-9/._ +-]*$")
+
+
+def keyword_hits(intent: str, keyword: str) -> bool:
+    """英文关键词按词边界匹配，避免 UI 命中 build、CI 命中 social 之类的误路由。"""
+    low = intent.lower()
+    kw = keyword.lower()
+    if _ASCII_KEYWORD.match(keyword):
+        return re.search(rf"(?<![a-z0-9]){re.escape(kw)}(?![a-z0-9])", low) is not None
+    return kw in low
 
 
 def _ck(ok: bool, msg: str, dim: str = "", sev: str = "") -> Dict[str, Any]:
@@ -162,11 +180,10 @@ def _route(data: Any) -> Dict[str, Any]:
     if not isinstance(data, dict):
         return {"ok": False, "checks": [_ck(False, "必须是 JSON 对象", "structure")]}
     intent = str(data.get("intent", ""))
-    low = intent.lower()
 
     matched = []
-    for kws, rid in _ROUTE_MATRIX:
-        hits = sum(1 for k in kws if k.lower() in low)
+    for kws, rid in ROUTE_MATRIX:
+        hits = sum(1 for k in kws if keyword_hits(intent, k))
         if hits > 0:
             matched.append({"role": rid, "hits": hits})
     matched.sort(key=lambda x: -x["hits"])

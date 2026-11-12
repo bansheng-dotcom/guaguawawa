@@ -42,6 +42,11 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "elasticity": {
+        "desc": "价格弹性：log-log OLS + R²",
+        "input": {},
+        "output": {"elasticity": _out(["elasticity"])},
+    },
     "catalog": {
         "desc": "商品与电商后端：product/price/image",
         "input": {

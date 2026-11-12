@@ -9,7 +9,7 @@ import csv
 import json
 import os
 import sys
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 def emit(data: Dict[str, Any]) -> None:
@@ -190,12 +190,56 @@ def load_thresholds() -> Dict[str, Any]:
 def has_any(text: str, tokens: List[str]) -> bool:
     return any(t in text for t in tokens if t)
 
-def make_result(ok: bool, skill: str, action: str, checks_list: list[str]) -> dict:
-    formatted_checks = [{"ok": False, "msg": c} for c in checks_list] if not ok else [{"ok": True, "msg": "Passed"}]
-    return {
-        "ok": ok,
+
+def is_blank(value: Any) -> bool:
+    """统一的「空值」判定：None / 空串 / 空白串 / 空容器。"""
+    if value is None:
+        return True
+    if isinstance(value, str):
+        return not value.strip()
+    if isinstance(value, (list, tuple, dict, set)):
+        return len(value) == 0
+    return False
+
+
+def check(ok: bool, msg: str, dim: str = "", sev: str = "") -> Dict[str, Any]:
+    """构造一条确定性门禁判据（dim=维度，sev=BLOCKER/MAJOR/OK）。"""
+    return {"ok": bool(ok), "msg": msg, "dim": dim,
+            "sev": sev or ("OK" if ok else "BLOCKER")}
+
+
+def make_result(ok: bool, skill: str, action: str,
+                checks_list: Optional[List[Any]] = None, **extra: Any) -> Dict[str, Any]:
+    """统一产出结构：{ok, skill, action, checks[], grade, score} + 动作扩展字段。
+
+    checks 的每一条必须是可被 harness / report_contract / SARIF 消费的字典：
+    {ok, msg, dim, sev}。历史调用方传入的裸字符串按整体结论归一，避免
+    「失败项被记成 ok=True」的假绿回归。
+    """
+    normalized: List[Dict[str, Any]] = []
+    for item in (checks_list or []):
+        if isinstance(item, dict):
+            entry = dict(item)
+            entry["ok"] = bool(entry.get("ok", ok))
+            entry["msg"] = str(entry.get("msg", ""))
+            entry.setdefault("dim", "")
+            entry.setdefault("sev", "OK" if entry["ok"] else "BLOCKER")
+            normalized.append(entry)
+        else:
+            normalized.append(check(ok, str(item)))
+    if not normalized:
+        normalized = [check(ok, "全部判据通过" if ok else "判据未通过", "summary")]
+    result: Dict[str, Any] = {
+        "ok": bool(ok),
         "skill": skill,
         "action": action,
-        "checks": formatted_checks,
-        "grade": 100 if ok else 0
+        "checks": normalized,
+        "grade": "PASS" if ok else "FAIL",
+        "score": 100 if ok else 0,
+        # 兼容 review.py 的「价值主张可衡量」门禁：任何产物都带可量化口径槽位。
+        "metrics": {"gate_score": 100 if ok else 0,
+                    "checks_total": len(normalized),
+                    "checks_failed": sum(1 for c in normalized if not c["ok"])},
     }
+    result.update(extra)
+    return result

@@ -41,6 +41,11 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "slo": {
+        "desc": "SLO 错误预算：允许/已用/燃尽",
+        "input": {},
+        "output": {"slo": _out(["slo"])},
+    },
     "monitor": {
         "desc": "可用性监控：monitor/uptime",
         "input": {

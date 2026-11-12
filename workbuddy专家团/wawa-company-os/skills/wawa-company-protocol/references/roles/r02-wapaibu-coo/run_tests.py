@@ -14,19 +14,28 @@ import sys
 import tempfile
 from typing import Any, Dict, List
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENTS = os.path.dirname(AGENT_DIR)
 sys.path.insert(0, AGENTS)
 sys.path.insert(0, AGENT_DIR)
+
+from core.workspace import default_root as _default_root  # noqa: E402
 
 EXAMPLES = os.path.join(AGENT_DIR, "examples")
 PY = sys.executable
 
 
 def run_agent(args: List[str], cwd: str = AGENT_DIR) -> Dict[str, Any]:
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
     p = subprocess.run([PY, "agent.py"] + args, cwd=cwd,
                        capture_output=True, text=True,
-                       encoding="utf-8", errors="replace")
+                       encoding="utf-8", errors="replace", env=env)
     out = p.stdout
     marker = "__AGENT_RESULT__ "
     data: Any = {}
@@ -86,7 +95,7 @@ def main() -> int:
     ok("demo 生成 7 份工件",
        len(r["data"].get("demo_artifacts", [])) == 7,
        str(r["data"].get("count")))
-    demo_dir = os.path.join(AGENTS, "workspace", "artifacts", "demo")
+    demo_dir = os.path.join(_default_root(), "artifacts", "demo")
     ok("demo 落盘存在", os.path.isdir(demo_dir))
 
     print("== 2. S01 schedule（排期）==")
@@ -461,7 +470,7 @@ def main() -> int:
     r = run_agent(["case", "list"])
     ids = [x.get("case_id") for x in r["data"]] if isinstance(r["data"], list) \
         else []
-    ok("case 登记 2 个", len(ids) == 2 and "sprint-rescue" in ids
+    ok("case 登记案例数符合要求", len(ids) >= 2 and "sprint-rescue" in ids
        and "incident-postmortem" in ids, str(ids))
     r = run_agent(["case", "validate", "sprint-rescue"])
     ok("case sprint-rescue 齐套", r["code"] == 0
@@ -495,7 +504,7 @@ def main() -> int:
     sys.path.insert(0, AGENTS)
     from core import protocol as _p
     from core import workspace as _ws
-    wsd = _ws.Workspace(os.path.join(AGENTS, "workspace"))
+    wsd = _ws.Workspace(_ws.default_root())
     t = _p.Task(title="R02｜双11冲刺排期", owner="r02",
                 intent="双 11 冲刺排期：WBS+容量+派工",
                 acceptance=["排期与派工门禁全过"])
@@ -503,8 +512,7 @@ def main() -> int:
     r = run_agent(["run", "--task", tid])
     ok("run_task 路由 schedule 并产出工件", r["code"] == 0
        and r["data"].get("skill") == "schedule", str(r["data"]))
-    art = os.path.join(AGENTS, "workspace",
-                       f"artifacts/r02/{tid}/coo_report.md")
+    art = os.path.join(_default_root(), f"artifacts/r02/{tid}/coo_report.md")
     ok("run_task 工件落盘", os.path.isfile(art))
     r = run_agent(["harness", "runlog"])
     runs = r["data"].get("runs", [])

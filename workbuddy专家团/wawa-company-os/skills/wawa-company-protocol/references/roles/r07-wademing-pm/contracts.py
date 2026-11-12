@@ -34,6 +34,11 @@ def _ok(required: List[str], **props: Any) -> Dict[str, Any]:
 
 
 CONTRACTS: Dict[str, Any] = {
+"rice": {
+    "desc": "RICE 排序：score/敏感性",
+    "input": {"args": {"input": _s}},
+    "output": {"rice": _ok(["rice"], rice=_obj)},
+},
 "discover": {
     "desc": "产品发现与JTBD：jobstory/discover/interview",
     "input": {"jobstory": _IN, "discover": _IN, "interview": _IN},
@@ -114,6 +119,14 @@ CONTRACTS: Dict[str, Any] = {
         "decision": _ok(["layers"], layers=_arr),
         "demand": _ok(["demand_required_fields"], demand_required_fields=_arr),
         "experience": _ok(["card_fields"], card_fields=_arr),
+    },
+},
+"prdguard": {
+    "desc": "PRD 结构门禁：check/render",
+    "input": {"check": _IN, "render": _IN},
+    "output": {
+        "check": _ok(["p0_count"], p0_count=_i),
+        "render": _ok(["out"], out=_s),
     },
 },
 }

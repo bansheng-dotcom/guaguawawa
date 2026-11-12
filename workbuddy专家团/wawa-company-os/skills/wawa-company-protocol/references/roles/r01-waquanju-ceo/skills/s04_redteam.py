@@ -25,18 +25,22 @@ def _validate_crosseval(input_data: Dict[str, Any]) -> Dict[str, Any]:
     res = make_result(True, "redteam", "crosseval", [])
     evals = input_data.get("evaluations", [])
     decisions = [e.get("verdict") for e in evals]
-    if decisions.count("APPROVE") >= 2:
-        res["verdict"] = "GO"
+    if decisions.count("REJECT") >= 2:
+        res["verdict"] = "STOP"
     elif "DEFER" in decisions:
         res["verdict"] = "PAUSE"
-    elif decisions.count("REJECT") >= 2:
-        res["verdict"] = "STOP"
+    elif decisions.count("APPROVE") >= 2:
+        res["verdict"] = "GO"
+    else:
+        res["verdict"] = "PAUSE"
     return res
 
 
 def _validate_grove(input_data: Dict[str, Any]) -> Dict[str, Any]:
     res = make_result(True, "redteam", "grove", [])
-    if not input_data.get("outside_perspective"):
+    # 兼容 outside_perspective 或 successor_would 外视角字段
+    has_ext = bool(input_data.get("outside_perspective") or input_data.get("successor_would"))
+    if not has_ext:
         res["ok"] = False
     return res
 

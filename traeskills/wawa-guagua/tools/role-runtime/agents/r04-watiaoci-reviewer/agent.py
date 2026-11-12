@@ -200,6 +200,10 @@ def _run_demo() -> int:
         verdict = out.get("verdict") or out.get("overall") or ("ok" if out.get("ok") else "FAIL")
         lines.append(f"[demo] {skill} {action} → verdict={verdict} ok={out.get('ok')}")
     lines.append(f"[demo] 产物目录：{artifacts_dir}")
+    print("__AGENT_RESULT__ " + json.dumps({
+        "ok": ok_all, "verdict": "PASS" if ok_all else "FAIL",
+        "checks": [{"ok": ok_all, "dim": "demo", "msg": "r04 demo 技能链路"}],
+        "note": "r04 demo 真实运行汇总"}, ensure_ascii=False))
     print("\n".join(lines))
     return 0 if ok_all else 1
 

@@ -159,14 +159,35 @@ def thresholds_path() -> str:
 
 
 def load_thresholds() -> Dict[str, Any]:
+    """阈值加载：DATAENG_SPEC.md 为单一信任源，experience/thresholds.json 仅兜底。
+
+    L04 主链路接入（SOP §六.6 严格超集）：账本存在时，质量三阈值以账本为准并写入
+    `_spec_source` 标记，杜绝「改文档不改判定」的影子口径；账本缺失时退回 JSON，
+    不得阻断既有技能。
+    """
     p = thresholds_path()
+    data: Dict[str, Any] = dict(_DEFAULT_THRESHOLDS)
     if os.path.exists(p):
         try:
             with open(p, encoding="utf-8") as f:
-                return json.load(f)
+                loaded = json.load(f)
+            if isinstance(loaded, dict):
+                data = loaded
         except (OSError, ValueError):
-            return dict(_DEFAULT_THRESHOLDS)
-    return dict(_DEFAULT_THRESHOLDS)
+            data = dict(_DEFAULT_THRESHOLDS)
+    try:
+        from engines import DataEngSpecLedger
+        spec = DataEngSpecLedger().load_spec()
+        st = spec["thresholds"]
+        quality = data.setdefault("quality", {})
+        quality["default_max_null_ratio"] = st["max_null_ratio"]
+        quality["default_max_dup_ratio"] = st["max_dup_ratio"]
+        quality["default_max_age_hours"] = st["max_age_hours"]
+        quality["min_row_count"] = st.get("min_row_count", 1)
+        data["_spec_source"] = f"DATAENG_SPEC.md {spec['version']}"
+    except Exception:  # noqa: BLE001 - 账本缺失时保留旧口径，由 _spec_source 缺失暴露
+        pass
+    return data
 
 
 # --------------------------------------------------------------------------- #

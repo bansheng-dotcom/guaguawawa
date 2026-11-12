@@ -40,6 +40,11 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "retry-model": {
+        "desc": "重试可靠性：最终成功/期望尝试",
+        "input": {},
+        "output": {"retry-model": _out(["retry_model"])},
+    },
     "integration": {
         "desc": "SaaS/API 集成：workflow/credential",
         "input": {
@@ -125,7 +130,7 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "publish": _out(["publish_ready"]),
         },
     },
-    "retry": {
+    "reliability": {
         "desc": "失败处理与重试：retry/errorflow",
         "input": {
             "retry": _REQ({"policy": {"type": "object"}}, ["policy"]),

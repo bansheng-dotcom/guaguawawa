@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """R15 端到端回归测试：把 SOP 的 T10 验收脚本化。
 
-覆盖：manifest / 7 技能 18 动作（含脏数据·越界·伪造结论必须 FAIL）/ 契约(T6) /
+覆盖：manifest / 8 技能 20 动作（含脏数据·越界·伪造结论必须 FAIL）/ 契约(T6) /
 对抗评审(T7) / 案例库(T8) / 阈值外置(T9) / harness / demo / run_task /
 verify_loop 闭环矩阵(T15)。
 
@@ -21,7 +21,8 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENTS = os.path.dirname(HERE)
-for p in (HERE, AGENTS):
+REPO_ROOT = os.path.dirname(AGENTS)
+for p in (HERE, AGENTS, REPO_ROOT):
     if p not in sys.path:
         sys.path.insert(0, p)
 
@@ -95,7 +96,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("7 个技能", len(m.get("skills", [])) == 7, str(len(m.get("skills", []))))
+    t.check("8 个技能", len(m.get("skills", [])) == 8, str(len(m.get("skills", []))))
     t.check("角色 r15", m.get("role") == "r15", str(m.get("role")))
     t.check("输入端口 order/sop",
             m.get("inputs") == ["order", "sop"], str(m.get("inputs")))
@@ -257,8 +258,8 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("T6 契约")
-    t.check("18 动作契约登记", sum(len(contracts.actions(s))
-                                    for s in contracts.skill_names()) == 18,
+    t.check("20 动作契约登记", sum(len(contracts.actions(s))
+                                    for s in contracts.skill_names()) == 20,
             str(sum(len(contracts.actions(s)) for s in contracts.skill_names())))
     v = contracts.validate_output("procurement", "purchase_order",
                                   c.load_json(_ex("purchase_order.json"))
@@ -293,7 +294,7 @@ def main() -> int:
     # ------------------------------------------------------------------ #
     t.section("T8 案例库")
     lst = cases.list_cases()
-    t.check("案例列表 2 个", len(lst) == 2, str([x["case_id"] for x in lst]))
+    t.check("案例列表 >= 2 个", len(lst) >= 2, str([x["case_id"] for x in lst]))
     for cid in ("purchase-over-receipt", "inventory-negative-stock"):
         vc = cases.validate_case(cid)
         t.check(f"{cid} 结构通过", vc["ok"],
@@ -338,7 +339,7 @@ def main() -> int:
     t.check("harness 未知门禁拦截", not h["ok"] and h["grade"] == "FAIL")
     h = harness.run_validator("purchase_order", os.path.join(tmp, "missing.json"))
     t.check("harness 缺文件拦截", not h["ok"] and h["grade"] == "FAIL")
-    t.check("18 个门禁全部登记", len(harness._VALIDATORS) == 18,
+    t.check("20 个门禁全部登记", len(harness._VALIDATORS) == 20,
             str(len(harness._VALIDATORS)))
     code, rl = run_agent("harness", "runlog", "--n", "5")
     t.check("harness runlog 可读", code == 0 or "runlog" in rl, str(rl)[:120])
@@ -352,7 +353,7 @@ def main() -> int:
     code, _ = run_agent("case", "get", "--case", "purchase-over-receipt")
     t.check("CLI case get 正常", code == 0)
     code, ctr = run_agent("contract", "list")
-    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 7)
+    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 8)
 
     # ------------------------------------------------------------------ #
     t.section("run_task 协作入口")

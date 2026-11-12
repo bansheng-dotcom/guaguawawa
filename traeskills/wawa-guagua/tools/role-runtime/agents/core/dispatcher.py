@@ -7,9 +7,11 @@ import json
 import subprocess
 from agents.shared.governance import read_decision_ledger
 from agents.shared.role_profiles import get as get_profile
+from . import registry
+from .workspace import default_root
 
 def process_pending_tickets():
-    ledger_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "workspace", "governance", "decision_ledger.jsonl")
+    ledger_path = os.path.join(default_root(), "governance", "decision_ledger.jsonl")
     
     # 扫描账本中处于待处理状态的 TaskTickets
     # 实际场景中应有专用的 ticket_store.jsonl，此处简化从 ledger 读取
@@ -22,7 +24,9 @@ def process_pending_tickets():
     for ticket in pending_tickets:
         print(f"[*] 执行工单: {ticket['ticket_id']} -> {ticket['target_role']}")
         # 构造 CLI 命令
-        cmd = ["python", f"agents/{get_profile(ticket['target_role'])['dir']}/agent.py", "run", "--task", ticket['ticket_id']]
+        role = registry.by_id(ticket['target_role'])
+        cmd = ["python", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", role["dir"], "agent.py"),
+               "run", "--task", ticket['ticket_id']]
         # 非阻塞执行
         subprocess.Popen(cmd)
         

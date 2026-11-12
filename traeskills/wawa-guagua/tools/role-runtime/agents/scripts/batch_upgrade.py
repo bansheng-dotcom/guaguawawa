@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, re
-agents_dir = r'D:\一人公司\agents'
+agents_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for i in range(2, 21):
     rid = f'r{i:02d}'
     matched = [d for d in os.listdir(agents_dir) if d.startswith(rid)][0]

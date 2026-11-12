@@ -15,7 +15,12 @@ def _validate_brief(input_data: Dict[str, Any]) -> Dict[str, Any]:
     checks = []
     ok = True
 
-    if "options" in input_data and len(input_data["options"]) == 1:
+    opts = input_data.get("options", [])
+    if len(opts) <= 1:
+        checks.append({"ok": False, "msg": "选项过少（需>=2）", "sev": "CRITICAL"})
+        ok = False
+    if not input_data.get("kill_criteria"):
+        checks.append({"ok": False, "msg": "缺少杀死标准", "sev": "CRITICAL"})
         ok = False
     if "success_criteria" not in input_data or not input_data["success_criteria"]:
         if input_data.get("decision_made"):

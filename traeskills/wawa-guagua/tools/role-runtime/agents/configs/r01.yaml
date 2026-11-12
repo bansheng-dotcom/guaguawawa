@@ -1,4 +1,5 @@
 # R01 蛙全局 · CEO 主理人配置
+role_id: r01
 role_name: "R01 蛙全局"
 role_title: "CEO 主理人 / 编排器"
 language: "zh"

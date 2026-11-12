@@ -131,6 +131,26 @@ CONTRACTS: Dict[str, Any] = {
     "input": {"args": {"input": _s, "value": _s, "group": _s}},
     "output": {"anova": _o(["anova"], {"anova": _obj})},
 },
+"matched": {
+    "desc": "匹配差分（能力域5拆细·新增）：matched",
+    "input": {"args": {"treat": _s, "control": _s, "col": _s}},
+    "output": {"matched": _o(["matched"], {"matched": _obj})},
+},
+"did": {
+    "desc": "双重差分 DID（能力域5拆细·新增）：did",
+    "input": {"args": {"input": _s, "y": _s, "treat": _s, "post": _s}},
+    "output": {"did": _o(["did"], {"did": _obj})},
+},
+"elasticity": {
+    "desc": "价格弹性 log-log OLS（能力域5拆细·新增）：elasticity",
+    "input": {"args": {"input": _s, "price": _s, "qty": _s}},
+    "output": {"elasticity": _o(["elasticity"], {"elasticity": _obj})},
+},
+"rdd": {
+    "desc": "断点回归（能力域5拆细·新增）：rdd",
+    "input": {"args": {"input": _s, "y": _s, "running": _s, "cutoff": _n, "bandwidth": _n}},
+    "output": {"rdd": _o(["rdd"], {"rdd": _obj})},
+},
 "regression": {
     "desc": "一元线性回归（能力域5拆细·新增）：regression",
     "input": {"args": {"input": _s, "x": _s, "y": _s}},

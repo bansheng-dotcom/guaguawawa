@@ -1,0 +1,10 @@
+﻿id: review
+tier: B
+doc_type: 评审报告
+sections:
+  - { id: verdict,  title: 结论（PASS/FAIL）, min_chars: 50 }
+  - { id: items,    title: 逐条核证, min_tables: 1 }
+  - { id: evidence, title: 证据链, min_tables: 1 }
+fidelity: { retention_min: 0.90, trace_min: 1.0 }
+dimensions:
+  - { id: check, min_obs: 3 }

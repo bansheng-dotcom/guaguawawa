@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import os
 import subprocess
+import tempfile
 import time
 from typing import Any, Dict, List, Optional
 
@@ -57,8 +58,11 @@ def _run_one(gate: Dict[str, Any], th_gate: Dict[str, Any]) -> Dict[str, Any]:
     t0 = time.time()
     # Windows 管道孤儿问题：shell=True 时管道会被孙进程持有，超时杀 cmd 后
     # communicate 仍要等管道 EOF。改用临时文件承接输出，超时即快速返回。
-    out_path = os.path.join(c.agent_dir(), ".gate_out.tmp")
-    err_path = os.path.join(c.agent_dir(), ".gate_err.tmp")
+    # 临时文件落在系统临时目录，不污染角色源码目录（崩溃残留也可被系统清理）。
+    _fd, out_path = tempfile.mkstemp(prefix="r04_gate_out_", suffix=".tmp")
+    os.close(_fd)
+    _fd, err_path = tempfile.mkstemp(prefix="r04_gate_err_", suffix=".tmp")
+    os.close(_fd)
     timed_out = False
     exit_code: Any = None
     try:

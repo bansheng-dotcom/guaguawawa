@@ -282,10 +282,14 @@ def main() -> int:
 
     t.section("T8 案例库")
     lst = cases.list_cases()
-    t.check("案例列表 2 个", len(lst) == 2, str([x["case_id"] for x in lst]))
+    t.check("案例列表 >= 2 个", len(lst) >= 2, str([x["case_id"] for x in lst]))
     for cid in ("pipeline-rescue", "renewal-health"):
         vc = cases.validate_case(cid)
         t.check(f"{cid} 结构通过", vc["ok"],
+                str([x["msg"] for x in vc["checks"] if not x["ok"]]))
+    if "churn-warning" in [x["case_id"] for x in lst]:
+        vc = cases.validate_case("churn-warning")
+        t.check("churn-warning 结构通过", vc["ok"],
                 str([x["msg"] for x in vc["checks"] if not x["ok"]]))
     merged = cases.resolve_thresholds("pipeline-rescue")
     t.check("案例阈值可覆盖全局", merged["pipeline"]["stall_days_max"] == 10,

@@ -1,0 +1,3321 @@
+{
+ "version": 46,
+ "count": 84,
+ "capabilities": [
+  {
+   "id": "strategic-growth-compass",
+   "title": "战略与增长罗盘",
+   "owner": "r01",
+   "owner_dir": "r01-waquanju-ceo",
+   "consumers": [
+    "r07",
+    "r12"
+   ],
+   "triggers": [
+    "战略",
+    "增长路线",
+    "取舍",
+    "年度目标",
+    "季度动作",
+    "增长杠杆"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r01-waquanju-ceo/references/capabilities/strategic-growth-compass",
+   "summary": "把公司/产品目标变成可取舍的战略判断：定位、目标市场、商业模式、成本结构、客户信号。",
+   "rules": [
+    "先写清目标与非目标，再谈路径；两者缺一即不成立",
+    "SWOT 必须落在具体证据上，不允许只写形容词",
+    "PESTEL 只保留会改变决策的因子，凑数项删掉",
+    "路线图给三档：必做/择机/放弃，并标注依赖与验证点"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "business-ops-analysis",
+   "title": "经营运营分析",
+   "owner": "r02",
+   "owner_dir": "r02-wapaibu-coo",
+   "consumers": [
+    "r06",
+    "r12"
+   ],
+   "triggers": [
+    "经营分析",
+    "月度复盘",
+    "业绩缺口",
+    "偏差",
+    "环节诊断",
+    "整改清单"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r02-wapaibu-coo/references/capabilities/business-ops-analysis",
+   "summary": "用指标树定位经营问题：增长、效率、质量三条线，先定位再归因。",
+   "rules": [
+    "指标必须带口径（分子/分母/周期），否则不下结论",
+    "异常先看同比/环比与基线，再看结构（人群/渠道/品类）",
+    "归因分流量/转化/价格/供给四类，每类给一条可验证动作",
+    "报告必须写清「本次不解决什么」，防止范围蔓延"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "tashan-research-skills",
+   "title": "学术研究与写作",
+   "owner": "r05",
+   "owner_dir": "r05-washenyuan-research",
+   "consumers": [
+    "r11",
+    "r04"
+   ],
+   "triggers": [
+    "学术写作",
+    "文献",
+    "论证结构",
+    "引用",
+    "局限",
+    "方法论",
+    "可审阅"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r05-washenyuan-research/references/capabilities/tashan-research-skills",
+   "summary": "从选题到投稿的学术写作流水线：论证结构、证据链、审稿回复。",
+   "rules": [
+    "每个论断对应一条可核验证据，证据不足写成「待验证」",
+    "方法与数据先于结论；样本量与统计口径必须交代",
+    "审稿回复逐条对账，不合并、不回避",
+    "引用格式统一，禁止二手转引冒充原文"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "industry-panorama-research",
+   "title": "行业全景研究",
+   "owner": "r05",
+   "owner_dir": "r05-washenyuan-research",
+   "consumers": [
+    "r01",
+    "r07",
+    "r06"
+   ],
+   "triggers": [
+    "行业研究",
+    "行业格局",
+    "市场集中度",
+    "市场规模",
+    "CR3",
+    "赛道判断",
+    "市场测算"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "industry",
+    "actions": [
+     "landscape",
+     "concentration"
+    ]
+   },
+   "dir": "r05-washenyuan-research/references/capabilities/industry-panorama-research",
+   "summary": "把「这个行业什么情况」做成结构化产出：格局分层、CR3/CR5 带口径、规模给区间与路径、敏感性标出最要命假设。",
+   "rules": [
+    "行业边界可验证：能列出 3 家在、2 家不在的公司",
+    "格局图必须有分层与每层玩家，禁止只列公司名",
+    "集中度必须给 CR3/CR5 数值 + 口径 + 年份 + 来源",
+    "规模测算给区间与路径，禁止单点伪精确（精度不超过输入精度）",
+    "必须做敏感性分析并标出最敏感假设",
+    "每个数字标来源类型；数据缺口必须写明并说明影响哪条结论"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "market-intelligence-radar",
+   "title": "市场情报雷达",
+   "owner": "r05",
+   "owner_dir": "r05-washenyuan-research",
+   "consumers": [
+    "r12",
+    "r01"
+   ],
+   "triggers": [
+    "竞品",
+    "情报",
+    "监控",
+    "对手动作",
+    "竞争格局",
+    "季度复盘"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r05-washenyuan-research/references/capabilities/market-intelligence-radar",
+   "summary": "对竞品/政策/技术做基线对比，只报「相对上次的净变化」。",
+   "rules": [
+    "先存基线，再谈变化；无基线不报「新增」",
+    "每条情报带来源、时间、可信度等级",
+    "去重与聚类后再排序，避免同一事件反复占位",
+    "变化分级：影响决策/需观察/仅记录"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "build-web-data-visualization",
+   "title": "Web 数据可视化",
+   "owner": "r06",
+   "owner_dir": "r06-wadeqing-analyst",
+   "consumers": [
+    "r08",
+    "r09",
+    "r10"
+   ],
+   "triggers": [
+    "数据可视化",
+    "图表",
+    "看板",
+    "图形选择",
+    "坐标轴",
+    "颜色语义",
+    "误读"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r06-wadeqing-analyst/references/capabilities/build-web-data-visualization",
+   "summary": "图表选型与可访问性规范：用最简视图回答一个问题。",
+   "rules": [
+    "先定问题与比较关系，再选图形；装饰性图表不做",
+    "必须有标题、单位、数据来源、时间范围",
+    "颜色只用角色色：中性底 + 1 主强调 + 可选对比色",
+    "可访问性：alt 文本、对比度、非颜色冗余编码"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "data-processing",
+   "title": "数据处理与可视化",
+   "owner": "r06",
+   "owner_dir": "r06-wadeqing-analyst",
+   "consumers": [
+    "r18",
+    "r02"
+   ],
+   "triggers": [
+    "CSV",
+    "Excel",
+    "清洗",
+    "透视",
+    "合并"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r06-wadeqing-analyst/references/capabilities/data-processing",
+   "summary": "表格数据的探查、清洗、合并与透视规范。",
+   "rules": [
+    "先做数据画像：行数、缺失、重复、异常值",
+    "清洗动作逐条记录（规则+影响行数），可回滚",
+    "合并前校验键唯一性与类型一致",
+    "透视结果必须能追溯回明细"
+   ],
+   "version": 1,
+   "status": "merged",
+   "superseded_by": "data-validation",
+   "merge_note": "方法已被 data-validation 覆盖，不再单独升级"
+  },
+  {
+   "id": "rapid-prototype-craft",
+   "title": "高保真可交互原型",
+   "owner": "r08",
+   "owner_dir": "r08-wajiancheng-mvp",
+   "consumers": [
+    "r10",
+    "r09"
+   ],
+   "triggers": [
+    "原型",
+    "高保真",
+    "HTML 原型",
+    "交互"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r08-wajiancheng-mvp/references/capabilities/rapid-prototype-craft",
+   "summary": "从想法/PRD 到可点击原型：单文件优先、假数据、无真实后端。",
+   "rules": [
+    "一屏一个主任务，导航不超过两级",
+    "所有交互态齐全：默认/加载/空/错误/禁用",
+    "用假数据但保持真实字段名与量级",
+    "交付附「已知限制」：哪些是模拟、哪些未接"
+   ],
+   "version": 1,
+   "status": "merged",
+   "superseded_by": "rapid-prototype",
+   "merge_note": "方法已被 rapid-prototype 覆盖，不再单独升级"
+  },
+  {
+   "id": "ppt-generator",
+   "title": "单文件 HTML 幻灯片",
+   "owner": "r08",
+   "owner_dir": "r08-wajiancheng-mvp",
+   "consumers": [
+    "r01",
+    "r07",
+    "r12"
+   ],
+   "triggers": [
+    "PPT",
+    "幻灯片",
+    "汇报稿",
+    "路演页",
+    "封面",
+    "单文件HTML"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "deck",
+    "actions": [
+     "plan",
+     "html"
+    ]
+   },
+   "dir": "r08-wajiancheng-mvp/references/capabilities/ppt-generator",
+   "summary": "把「做个 PPT」变成可校验演示结构：页数 6–30、封面首、收尾末、每页有标题与一句话结论，产出单文件 HTML。",
+   "rules": [
+    "页数 6–30",
+    "封面必须在第 1 页（is_cover）",
+    "收尾必须在最后一页（is_closing）",
+    "每页必须有 title 与 message，且 message 是结论句",
+    "单页 bullets ≤4",
+    "产出单文件 HTML，样式内联、无外链"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "web-app-development",
+   "title": "生产级 Web 界面",
+   "owner": "r09",
+   "owner_dir": "r09-wawenma-engineer",
+   "consumers": [
+    "r07",
+    "r08",
+    "r10"
+   ],
+   "triggers": [
+    "Web应用",
+    "技术规格",
+    "模块契约",
+    "端到端切片",
+    "鉴权",
+    "受保护路由",
+    "全栈"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "fullstack",
+    "actions": [
+     "feature",
+     "auth"
+    ]
+   },
+   "dir": "r09-wawenma-engineer/references/capabilities/web-app-development",
+   "summary": "把「做个能用的 Web 应用」拆成三段可校验交付：模块契约（inputs/outputs 成对）、端到端切片（链路闭合）、鉴权（服务端校验 + 默认拒绝 + 越权实测）。",
+   "rules": [
+    "每个模块必须写清 inputs 与 outputs，禁止孤儿输出/无源输入",
+    "端到端切片必须四段闭合：入口→逻辑→落库→可见结果",
+    "鉴权必须服务端校验，前端隐藏按钮不算",
+    "默认拒绝：未显式放行的路径一律拒，不用黑名单",
+    "必须做三条越权实测（横向/纵向/未登录）",
+    "测试跳过必须说明原因；材料必须写影响面；依赖必须单向"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "frontend-design",
+   "title": "高质量前端界面",
+   "owner": "r09",
+   "owner_dir": "r09-wawenma-engineer",
+   "consumers": [
+    "r10",
+    "r08",
+    "r07"
+   ],
+   "triggers": [
+    "界面设计",
+    "前端设计",
+    "视觉层级",
+    "间距字号",
+    "组件状态",
+    "响应式",
+    "可访问性"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r09-wawenma-engineer/references/capabilities/frontend-design",
+   "summary": "把「这页面能用吗」拆成六件可判定的事：三眼层级 / 间距字号刻度 / 对比度 / 组件六态 / 断点 / 可访问性四条。",
+   "rules": [
+    "主任务一句话说清，第一眼元素与它一致；主操作与取消权重必须不同",
+    "间距只用 4/8/12/16/24/32/48 七档；字号 ≤5 级且正文 ≥14px",
+    "正文对比度 ≥4.5:1，非文本 ≥3:1；颜色不得是唯一信息载体",
+    "每个交互组件覆盖 6 态（默认/悬停/焦点/禁用/加载/空或错）",
+    "375 宽度无横向滚动，触控目标 ≥44×44",
+    "键盘可走完、焦点可见、标题不跳级、有意义的图有 alt"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "brand-guardian",
+   "title": "品牌一致性守卫",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r11",
+    "r14",
+    "r09"
+   ],
+   "triggers": [
+    "品牌一致性",
+    "品牌守卫",
+    "越界用色",
+    "对比度",
+    "字体数量",
+    "物料检查"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "brandcheck",
+    "actions": [
+     "check"
+    ]
+   },
+   "dir": "r10-wachengmei-design/references/capabilities/brand-guardian",
+   "summary": "把「这套物料还是不是我们」变成可校验比对：用色必须在 DESIGN.md 令牌内、单页主色 ≤8、对比度达标、字体 ≤2。",
+   "rules": [
+    "所有颜色必须精确落在 DESIGN.md 令牌内，差一点也算越界",
+    "越界必须给令牌内替代色，不能只报错",
+    "单页主色 ≤8；同色系深浅算同族",
+    "正文对比度 ≥4.5:1，大字 ≥3:1",
+    "字体 ≤2 种并标明商用授权",
+    "结论三选一：合规 / 有条件通过 / 不合规"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "design-system",
+   "title": "设计系统与图形",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r09",
+    "r08",
+    "r14"
+   ],
+   "triggers": [
+    "设计系统",
+    "设计令牌",
+    "design token",
+    "色彩体系",
+    "字阶",
+    "间距刻度",
+    "多端统一"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "brand",
+    "actions": [
+     "token"
+    ]
+   },
+   "dir": "r10-wachengmei-design/references/capabilities/design-system",
+   "summary": "把「视觉要统一」变成可校验的令牌体系：三类令牌齐全、主色唯一可推导、字号 ≤5 级、间距七档，并可一键落盘 DESIGN.md + design_tokens.json。",
+   "rules": [
+    "三类令牌（color/typography/spacing）必须齐全，缺一不可",
+    "主色唯一且为合法十六进制；其余色为色阶或语义色",
+    "字号 ≤5 级、正文 ≥14px；间距只用 4/8/12/16/24/32/48",
+    "字体族 ≤2 种，逐款标明商用授权",
+    "正文对比度 ≥4.5:1，须用工具量",
+    "令牌必须落盘为 design_tokens.json，工程只认文件不认口述"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "whiteboard",
+   "title": "可编辑白板/架构图",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r07",
+    "r08",
+    "r02"
+   ],
+   "triggers": [
+    "白板",
+    "架构图",
+    "流程图",
+    "节点",
+    "连线",
+    "分层",
+    "可编辑图"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/whiteboard",
+   "summary": "用白板表达信息架构与关系：节点、边、分组、泳道。",
+   "rules": [
+    "一张图只回答一个结构问题",
+    "节点命名用名词，边用动词",
+    "分组不超过两层，跨组关系单独标",
+    "导出保留可编辑源（结构 JSON）"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "ecommerce-designer",
+   "title": "电商视觉设计",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r14",
+    "r12"
+   ],
+   "triggers": [
+    "主图",
+    "详情页",
+    "电商设计",
+    "卖点视觉"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/ecommerce-designer",
+   "summary": "电商主图/详情页的视觉结构：卖点优先级、平台规格、A/B 素材。",
+   "rules": [
+    "首图只放一个主卖点 + 一个信任元素",
+    "详情页按「痛点→方案→证据→参数→服务」排",
+    "所有规格按平台最新要求，标注适用平台",
+    "素材成套交付：主图/细节/场景/对比，便于 A/B"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "user-research-toolkit",
+   "title": "用户研究工具箱",
+   "owner": "r07",
+   "owner_dir": "r07-wademing-pm",
+   "consumers": [
+    "r05",
+    "r11"
+   ],
+   "triggers": [
+    "用户研究",
+    "访谈",
+    "问卷",
+    "可用性测试",
+    "假设验证",
+    "样本量"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r07-wademing-pm/references/capabilities/user-research-toolkit",
+   "summary": "访谈、问卷与可用性研究的执行规范：问题设计、样本、记录与结论。",
+   "rules": [
+    "访谈问题开放且不带引导，一次只问一件事",
+    "问卷先测再发，选项互斥且穷尽",
+    "可用性测试至少 5 人，任务写成可观察的完成标准",
+    "结论区分「观察到的事实」与「推断」"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "rednote-post",
+   "title": "小红书笔记结构",
+   "owner": "r11",
+   "owner_dir": "r11-wadianti-copy",
+   "consumers": [
+    "r10",
+    "r12"
+   ],
+   "triggers": [
+    "笔记结构",
+    "钩子",
+    "五段结构",
+    "可截图短句",
+    "完读率",
+    "互动引导"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r11-wadianti-copy/references/capabilities/rednote-post",
+   "summary": "小红书笔记六要素咬合：选题、标题、封面、正文、图片、标签。",
+   "rules": [
+    "标题 ≤20 字，前 5–10 字放核心词",
+    "正文 ≤500 字放正文区，超长拆文字图",
+    "标签 3–8 个，复用标题/正文里的词",
+    "封面优先真人感（实拍/截图），不是海报感"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "xhs-content-skills",
+   "title": "小红书发布包",
+   "owner": "r11",
+   "owner_dir": "r11-wadianti-copy",
+   "consumers": [
+    "r12",
+    "r10",
+    "r14"
+   ],
+   "triggers": [
+    "小红书",
+    "笔记",
+    "标题字数",
+    "埋词",
+    "标签",
+    "CTA",
+    "禁词",
+    "发布检查"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "xhs",
+    "actions": [
+     "note",
+     "score",
+     "compliance"
+    ]
+   },
+   "dir": "r11-wadianti-copy/references/capabilities/xhs-content-skills",
+   "summary": "把「发一篇小红书」变成可校验发布物：标题 ≤20 字且前 10 字含核心词、正文 550–650 字、标签 3–8 且埋词闭环 ≥2、CTA 非空、禁词清零、AI 辅助须声明。",
+   "rules": [
+    "标题 1–20 字，且前 10 字必须含核心词",
+    "正文 550–650 字（硬区间，不许灌水凑数）",
+    "标签 3–8 个，且 ≥2 个复用核心词（埋词闭环）",
+    "CTA 非空；禁词（极限词/医疗功效/虚假承诺）清零",
+    "ai_assisted 为真时必须带 #AI辅助创作",
+    "score 高分不等于可发，note 门禁才是门槛"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "marketing-toolkit",
+   "title": "营销全链路",
+   "owner": "r12",
+   "owner_dir": "r12-wayingliu-growth",
+   "consumers": [
+    "r11",
+    "r10"
+   ],
+   "triggers": [
+    "营销活动",
+    "文案",
+    "投放",
+    "SEO",
+    "转化"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r12-wayingliu-growth/references/capabilities/marketing-toolkit",
+   "summary": "从目标到渠道到度量的营销方案骨架。",
+   "rules": [
+    "先定单一传播主张，再拆渠道",
+    "每个渠道给预算占比、素材规格、衡量指标",
+    "漏斗每层有基准与目标，不写空泛 KPI",
+    "合规与素材授权单独列一节"
+   ],
+   "version": 1,
+   "status": "merged",
+   "superseded_by": "campaign-plan",
+   "merge_note": "方法已被 campaign-plan 覆盖，不再单独升级"
+  },
+  {
+   "id": "omnichannel-commerce-assistant",
+   "title": "全渠道电商经营诊断",
+   "owner": "r14",
+   "owner_dir": "r14-wajiaoyi-commerce",
+   "consumers": [
+    "r12",
+    "r02"
+   ],
+   "triggers": [
+    "电商诊断",
+    "店铺经营",
+    "全渠道",
+    "选品",
+    "转化"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r14-wajiaoyi-commerce/references/capabilities/omnichannel-commerce-assistant",
+   "summary": "店铺经营诊断：流量、转化、客单、复购、库存五条线。",
+   "rules": [
+    "诊断从漏斗开始：曝光→点击→加购→支付→复购",
+    "每层异常给基线对比与可能原因（不超过 3 条）",
+    "区分平台侧、商品侧、履约侧问题",
+    "结论必须给优先级与验证动作"
+   ],
+   "version": 1,
+   "status": "merged",
+   "superseded_by": "order-lifecycle",
+   "merge_note": "方法已被 order-lifecycle 覆盖，不再单独升级"
+  },
+  {
+   "id": "smart-product-selector",
+   "title": "选品评分",
+   "owner": "r14",
+   "owner_dir": "r14-wajiaoyi-commerce",
+   "consumers": [
+    "r12",
+    "r15",
+    "r01"
+   ],
+   "triggers": [
+    "选品",
+    "选品评分",
+    "五维评分",
+    "假设卡",
+    "数据来源",
+    "毛利空间",
+    "备货决策"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "selection",
+    "actions": [
+     "score",
+     "profit"
+    ]
+   },
+   "dir": "r14-wajiaoyi-commerce/references/capabilities/smart-product-selector",
+   "summary": "把「这个品能不能做」拆成五维 1–5 评分、来源枚举、推荐级必附假设卡（四指标）与至少一条具体风险。",
+   "rules": [
+    "五维分数必须在 1–5（capacity/growth/entry/margin/supply）",
+    "source_types 只能是 检索核实 / 用户提供 / 经验参考值",
+    "推荐级（强烈推荐/值得尝试）必须附假设卡四指标：click_rate/cvr/margin/verify_at",
+    "每个候选至少 1 条具体风险，禁止「有一定风险」",
+    "verify_at 必须是具体日期",
+    "结论用四级：强烈推荐 / 值得尝试 / 观望 / 放弃"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "analyze-procurement",
+   "title": "采购总拥有成本",
+   "owner": "r15",
+   "owner_dir": "r15-wagongying-erp",
+   "consumers": [
+    "r03",
+    "r14",
+    "r01"
+   ],
+   "triggers": [
+    "采购比价",
+    "TCO",
+    "总拥有成本",
+    "币种",
+    "关税率",
+    "起订量",
+    "供应商选择"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "tco",
+    "actions": [
+     "compare",
+     "lifecycle"
+    ]
+   },
+   "dir": "r15-wagongying-erp/references/capabilities/analyze-procurement",
+   "summary": "把「哪家便宜」升级成「哪家总成本低」：同币种、单价与数量 >0、MOQ 满足、关税率与资金年化合理，折算五项成本比总拥有成本。",
+   "rules": [
+    "所有报价必须同币种，混合币种 BLOCKER，先按 FX 归一",
+    "unit_price > 0 且 qty > 0",
+    "关税率 0–50%，资金年化 0–30%",
+    "折算五项：采购额 + 物流 + 关税 + 资金占用 + 质量售后",
+    "资金占用 = 采购额 × 年化 × 账期/365，账期不是免费",
+    "结论必须写差额、来源项与前提（汇率/数量/账期）"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "prd-authoring",
+   "title": "PRD 撰写",
+   "owner": "r07",
+   "consumers": [
+    "r08",
+    "r09",
+    "r10",
+    "r04"
+   ],
+   "triggers": [
+    "写PRD",
+    "需求文档",
+    "用户故事",
+    "验收标准",
+    "优先级",
+    "RICE",
+    "范围界定"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "prdguard",
+    "actions": [
+     "check",
+     "render"
+    ],
+    "skills": [
+     {
+      "skill": "prd",
+      "actions": [
+       "prd"
+      ]
+     }
+    ]
+   },
+   "summary": "两层 PRD：战略层说清问题/价值/范围/指标，执行层给每个 P0 补齐触发/规则/结果/状态四段与来源枚举，可一键渲染为 Markdown。",
+   "rules": [
+    "产品契约四要素齐全（user / trigger / job / completion）",
+    "P0 ≥2，且每项四段齐全（trigger / rule / result / state）",
+    "每个 P0 的 source ∈ {assumption, evidence, judgment}",
+    "non_goals ≥2 且各有理由；edge_cases ≥1（空/错/取消/重试）",
+    "有 assumptions 必须有 open_questions（禁止把假设当事实）",
+    "战略层走 harness prd，执行层走 prdguard check，两层 schema 不通用"
+   ],
+   "owner_dir": "r07-wademing-pm",
+   "dir": "r07-wademing-pm/references/capabilities/prd-authoring",
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "html-report-presentation",
+   "title": "单文件 HTML 报告",
+   "owner": "r08",
+   "consumers": [
+    "r05",
+    "r06",
+    "r01"
+   ],
+   "triggers": [
+    "HTML报告",
+    "深度报告",
+    "扫描结论",
+    "复盘文档",
+    "单文件报告",
+    "打印"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "htmlreport",
+    "actions": [
+     "plan",
+     "html"
+    ]
+   },
+   "summary": "把「写个报告」变成可校验阅读结构：meta 交代读者与目的、章节 ≥3 各带摘要、论点 ≥3、来源 ≥3，产出单文件 HTML。",
+   "rules": [
+    "标题非空；meta 必须含 audience 与 purpose",
+    "章节 ≥3，每章有 title 与 summary",
+    "核心论点 ≥3，且每条可被反驳",
+    "来源 ≥3，每条有可核 label",
+    "单文件 HTML：样式内联、无外链、打印不切断表格",
+    "结论先行，背景在后"
+   ],
+   "owner_dir": "r08-wajiancheng-mvp",
+   "dir": "r08-wajiancheng-mvp/references/capabilities/html-report-presentation",
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "image-ops",
+   "title": "本地图片处理",
+   "owner": "r10",
+   "consumers": [
+    "r14",
+    "r11",
+    "r08"
+   ],
+   "triggers": [
+    "图片处理",
+    "批量改尺寸",
+    "压缩",
+    "加水印",
+    "裁剪",
+    "图片信息",
+    "防覆盖"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "imgops",
+    "actions": [
+     "info",
+     "resize",
+     "crop",
+     "compress",
+     "pad",
+     "watermark"
+    ]
+   },
+   "summary": "把「这批图能不能批量处理」变成可校验操作：先探测尺寸/格式/通道，操作限六种白名单，防覆盖，偶数边与透明通道逐项校验。",
+   "rules": [
+    "处理前必须 imgops info 探测尺寸/格式/通道/体积",
+    "操作限白名单六种；不在其中的需求先说明做不到",
+    "默认不覆盖原图；要覆盖先备份",
+    "缩放后宽高取偶数；RGBA 输出用 PNG/WEBP",
+    "批量前先单张验证参数；失败逐张记录",
+    "无 Pillow 如实报缺失，不得伪造执行"
+   ],
+   "owner_dir": "r10-wachengmei-design",
+   "dir": "r10-wachengmei-design/references/capabilities/image-ops",
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "miniapp-builder",
+   "title": "小程序工程脚手架",
+   "owner": "r08",
+   "consumers": [
+    "r07",
+    "r09",
+    "r14"
+   ],
+   "triggers": [
+    "小程序",
+    "工程骨架",
+    "pages",
+    "tabbar",
+    "页面路径",
+    "脚手架"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "miniapp",
+    "actions": [
+     "plan",
+     "scaffold"
+    ]
+   },
+   "summary": "把「做个小程序」变成可校验工程骨架：工程名合法、页数 2–20、路径 pages/a/b、每页有标题、tabbar 只能指向已定义页面。",
+   "rules": [
+    "工程名必须 ^[a-z][a-z0-9-]{2,30}$（小写字母开头、3–31 位）",
+    "页数 2–20",
+    "页面路径必须 pages/ 开头的两段式 pages/a/b",
+    "每页必须有 title",
+    "tabbar 的每个 page 必须在 pages 里（否则白屏）",
+    "工程目录由 scaffold 生成，不手写 app.json"
+   ],
+   "owner_dir": "r08-wajiancheng-mvp",
+   "dir": "r08-wajiancheng-mvp/references/capabilities/miniapp-builder",
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "office-plugin",
+   "title": "Office 交付物",
+   "owner": "r08",
+   "consumers": [
+    "r03",
+    "r06",
+    "r16"
+   ],
+   "triggers": [
+    "Excel",
+    "Word",
+    "xlsx",
+    "docx",
+    "工作簿",
+    "交付物",
+    "防覆盖",
+    "表头"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "office",
+    "actions": [
+     "probe",
+     "xlsx",
+     "docx"
+    ]
+   },
+   "summary": "把「导个表/写个文档」变成可校验交付：xlsx 多表带表头且行宽一致、扩展名合法、默认不覆盖；docx 有标题/分节/属性。",
+   "rules": [
+    "生成前先 office probe 确认依赖，缺库如实报缺失",
+    "输出扩展名与格式匹配（.xlsx / .docx）",
+    "默认不覆盖同名文件，覆盖需 --force 且先备份",
+    "工作表 ≥1，每表表头 ≥1 列，每行宽度与表头一致",
+    "表头用业务语言，数字列标单位与是否含税",
+    "文件名带版本与日期，不用「最终版」"
+   ],
+   "owner_dir": "r08-wajiancheng-mvp",
+   "dir": "r08-wajiancheng-mvp/references/capabilities/office-plugin",
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "deep-research-assistant",
+   "title": "深度研究",
+   "owner": "r05",
+   "consumers": [
+    "r01",
+    "r07",
+    "r11"
+   ],
+   "triggers": [
+    "深度研究",
+    "研究问题",
+    "收证",
+    "来源分级",
+    "已知未知",
+    "矛盾点"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "summary": "复杂主题的深度研究流程：问题拆解、证据分级、交叉验证、结论与不确定性。",
+   "rules": [
+    "先写研究问题与不研究什么",
+    "每人结论至少两个独立来源",
+    "证据分级：一手/二手/推测，推测必须标注",
+    "结论写清适用边界与反例"
+   ],
+   "owner_dir": "r05-washenyuan-research",
+   "dir": "r05-washenyuan-research/references/capabilities/deep-research-assistant",
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "lark",
+   "title": "飞书协作（不接入）",
+   "owner": "r02",
+   "consumers": [
+    "r13",
+    "r16",
+    "r17"
+   ],
+   "triggers": [
+    "飞书",
+    "lark",
+    "审批",
+    "日历",
+    "会议"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "summary": "飞书类协作工具的边界说明：本团队不接第三方 SaaS 账号，只产出可粘贴的结构化内容。",
+   "rules": [
+    "不保存任何企业账号凭据",
+    "会议纪要/审批流以 Markdown 表格交付，人工粘贴",
+    "涉及权限与外发的动作一律人工执行",
+    "不承诺消息送达状态"
+   ],
+   "owner_dir": "r02-wapaibu-coo",
+   "dir": "r02-wapaibu-coo/references/capabilities/lark",
+   "version": 1,
+   "status": "deprecated",
+   "deprecate_note": "不接入 SaaS（无 OAuth 客户端）；仅作能力边界说明保留"
+  },
+  {
+   "id": "decision-gate",
+   "title": "硬决策闸门",
+   "owner": "r01",
+   "owner_dir": "r01-waquanju-ceo",
+   "consumers": [
+    "r02",
+    "r03",
+    "r04",
+    "r14"
+   ],
+   "triggers": [
+    "拍板",
+    "决策卡",
+    "可逆性",
+    "撤回成本",
+    "不可逆",
+    "人工签发",
+    "升级判定"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "decide",
+    "actions": [
+     "reversibility",
+     "card",
+     "escalate"
+    ],
+    "skills": [
+     {
+      "skill": "intent",
+      "actions": [
+       "brief"
+      ]
+     }
+    ]
+   },
+   "dir": "r01-waquanju-ceo/references/capabilities/decision-gate",
+   "summary": "把拍板变成可签名、可回滚、可复盘的决策卡：先判可逆性并答完五问，再出十字段决策卡与升级判定，不可逆动作禁止自动执行。",
+   "rules": [
+    "五问逐条作答，不许写成「已考虑风险」这类概括",
+    "选项 ≥2 且必含「什么都不做」；成功/杀死标准必须是 metric+threshold+deadline 且决策前写死",
+    "难逆/不可逆必须有具体回滚触发条件（阈值+时限+动作）",
+    "不可逆决策 human_signoff_required 必须为 true，且不得自动执行",
+    "决策卡必须落盘并进决策日志，日志不可覆盖（推翻则追加新条目）"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "model-audit",
+   "title": "财务模型审计",
+   "owner": "r03",
+   "owner_dir": "r03-washouxian-cfo",
+   "consumers": [
+    "r01",
+    "r06",
+    "r04"
+   ],
+   "triggers": [
+    "财务模型审计",
+    "勾稽",
+    "对账",
+    "破差",
+    "三表",
+    "证据链",
+    "问题日志"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "cfo",
+    "actions": [
+     "healthcheck"
+    ]
+   },
+   "dir": "r03-washouxian-cfo/references/capabilities/model-audit",
+   "summary": "只读审计财务模型：三表勾稽、总账子账逐笔对账、审计证据链完整性，出六列问题日志，只报不改。",
+   "rules": [
+    "三表勾稽差额必须为 0，不接受「差异很小」",
+    "对账需同时满足匹配率 ≥95% 且破差 = 0（金额/数量/时点/存在性四维）",
+    "每条审计证据必须有 artifact / collected_at / collector 三件套",
+    "超阈差异必须写 driver 解释 why，不能只复述数字",
+    "审计只读：不修改被审模型，改了原始证据即消失",
+    "门禁必须经 scripts/audit_gate.py 包装（原生 harness 在 ok=false 时仍 exit 0）"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "review-anti-collusion",
+   "title": "独立评审反合谋",
+   "owner": "r04",
+   "owner_dir": "r04-watiaoci-reviewer",
+   "consumers": [
+    "r01",
+    "r02",
+    "r03",
+    "r07"
+   ],
+   "triggers": [
+    "验收成品",
+    "评审",
+    "pass/fail",
+    "硬门禁复核",
+    "证据链",
+    "反合谋",
+    "质量结论"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "harness",
+    "actions": [
+     "verdict"
+    ],
+    "skills": [
+     {
+      "skill": "artifact",
+      "actions": [
+       "verify"
+      ]
+     }
+    ]
+   },
+   "dir": "r04-watiaoci-reviewer/references/capabilities/review-anti-collusion",
+   "summary": "以只读身份核验他人成品，出带证据链的 pass/fail 与评审报告；并对评审产出自身做五类系统病再评审。",
+   "rules": [
+    "reviewer ≠ producer：自己评自己是 BLOCKER",
+    "PASS 必带证据链（evidence / criteria_results 任一非空）",
+    "只记录不修复：applied_fixes / modified 非空即 BLOCKER",
+    "keep 项被降级必须给 resolution_reason",
+    "结论不得含 should/probably/应该/我认为 等模糊措辞",
+    "无成品或无判据 → BLOCKED，不做猜测评价"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "order-lifecycle",
+   "title": "订单生命周期",
+   "owner": "r14",
+   "owner_dir": "r14-wajiaoyi-commerce",
+   "consumers": [
+    "r03",
+    "r13",
+    "r15"
+   ],
+   "triggers": [
+    "订单状态",
+    "三态一致性",
+    "退款",
+    "部分退款",
+    "状态机",
+    "状态迁移",
+    "幂等"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "order",
+    "actions": [
+     "order"
+    ],
+    "skills": [
+     {
+      "skill": "payment",
+      "actions": [
+       "refund"
+      ]
+     },
+     {
+      "skill": "signature",
+      "actions": [
+       "document"
+      ]
+     }
+    ]
+   },
+   "dir": "r14-wajiaoyi-commerce/references/capabilities/order-lifecycle",
+   "summary": "把下单→支付→履约→退款做成可校验的三态状态机：三态互不矛盾、迁移走白名单、终态不可回头、退款四项约束。",
+   "rules": [
+    "三态分离：status / payment_status / fulfillment_status 各自在白名单内",
+    "三态无矛盾组合（如已全额退款却 completed 即 BLOCKER）",
+    "迁移必须走白名单路径，未列出的路径一律非法",
+    "终态（completed/canceled/refunded/delivered）不可再迁移；重开须新建关联单",
+    "退款四项：必填齐备 / 金额>0 / 累计比例≤1.0 / 前置状态可退",
+    "每次变更带幂等键，重试不得产生第二笔扣款或发货"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "handoff-acceptance",
+   "title": "交接与验收",
+   "owner": "r02",
+   "owner_dir": "r02-wapaibu-coo",
+   "consumers": [
+    "r04",
+    "r01",
+    "r09"
+   ],
+   "triggers": [
+    "交接",
+    "交接包",
+    "验收",
+    "签收",
+    "复现",
+    "审计轨迹",
+    "下游字段"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "harness",
+    "actions": [
+     "package",
+     "accept",
+     "trace"
+    ],
+    "skills": [
+     {
+      "skill": "schedule",
+      "actions": [
+       "wbs",
+       "run"
+      ]
+     }
+    ]
+   },
+   "dir": "r02-wapaibu-coo/references/capabilities/handoff-acceptance",
+   "summary": "让交接变成可复现的交接包、让验收变成可判定的记录：复现命令/下游字段/验收标准必填，证据缺失即不通过。",
+   "rules": [
+    "交接包必填 required_fields + 复现命令 ≥1 + 下游字段 ≥1 + 验收标准 ≥1",
+    "验收项 passed=true 但 evidence 为空 → 不算通过（口头通过不算过）",
+    "未过项必须给 reason，否则视为无说明",
+    "审计轨迹时间必须单调，倒序不签收；补记只能追加并标 backfilled",
+    "结论三选一：可签收 / 退回补齐 / 验收不通过（不接受「基本可以」）",
+    "禁止替上交方补缺失字段；签收必须留痕（签收人 + 时间）"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "data-validation",
+   "title": "数据校验",
+   "owner": "r06",
+   "owner_dir": "r06-wadeqing-analyst",
+   "consumers": [
+    "r18",
+    "r03",
+    "r19"
+   ],
+   "triggers": [
+    "数据校验",
+    "数据质量",
+    "脏数据",
+    "指标口径",
+    "语义模型",
+    "字段类型",
+    "数据可用"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "quality",
+    "actions": [
+     "audit"
+    ]
+   },
+   "dir": "r06-wadeqing-analyst/references/capabilities/data-validation",
+   "summary": "算指标之前先验数据：六维质量审计 + 指标语义模型枚举校验 + 来源分级 + 幸存者偏差三问 + 交叉核对。",
+   "rules": [
+    "判据看 findings 有没有 HIGH/CRITICAL，不看 overall_score（8.2 分也可能带 4 条 HIGH）",
+    "字段处置分四类（可修/需问/应剔/保留标注），禁止无差别 dropna",
+    "语义模型枚举必须合法（entity/dimension/measure/metric 四类白名单）",
+    "每个数字标来源类型（检索核实/用户提供/经验参考值），禁止伪精确",
+    "必答「谁不在这个数据集里」，排除比例 >10% 须在结论声明",
+    "关键数字须交叉核对；差异 ≥1% 且不可解释 → 停止分析先查口径"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "brand-voice",
+   "title": "品牌语调",
+   "owner": "r11",
+   "owner_dir": "r11-wadianti-copy",
+   "consumers": [
+    "r12",
+    "r10",
+    "r11"
+   ],
+   "triggers": [
+    "品牌语调",
+    "禁词",
+    "术语统一",
+    "黑话",
+    "终稿校验",
+    "口吻",
+    "文风"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "harness",
+    "actions": [
+     "edit",
+     "audit",
+     "term"
+    ],
+    "skills": [
+     {
+      "skill": "copy",
+      "actions": [
+       "article"
+      ]
+     }
+    ]
+   },
+   "dir": "r11-wadianti-copy/references/capabilities/brand-voice",
+   "summary": "把「写得像我们」变成可校验的终稿：禁词清零、术语 from→to 替换到无残留、口吻基线一致，并做 SEO/E-E-A-T/引用扫描。",
+   "rules": [
+    "forbidden_hits 必须是列表（字符串会判 BLOCKER）",
+    "禁词残留必须为 0；清空禁词表等于作弊，residual 会抓",
+    "term_fixes 每条含 from/to；to 为空即删除，不是待定",
+    "替换后必须复查：from 词残留 = 0",
+    "口吻基线三项（人称/语体/温度）写定且全篇一致",
+    "无绝对化用语与空泛权威；外部数据必须有来源"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "campaign-plan",
+   "title": "增长 Campaign 设计",
+   "owner": "r12",
+   "owner_dir": "r12-wayingliu-growth",
+   "consumers": [
+    "r11",
+    "r10",
+    "r06"
+   ],
+   "triggers": [
+    "投放方案",
+    "渠道预算",
+    "增长阶段",
+    "A/B实验",
+    "显著性",
+    "停止条件",
+    "预注册"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "paid",
+    "actions": [
+     "media",
+     "cro"
+    ],
+    "skills": [
+     {
+      "skill": "diagnose",
+      "actions": [
+       "diagnose"
+      ]
+     }
+    ]
+   },
+   "dir": "r12-wayingliu-growth/references/capabilities/campaign-plan",
+   "summary": "把 campaign 变成可预注册的方案：阶段 + 唯一北极星 + 渠道矩阵 20/60/20 + 预注册实验 + 停止条件三件套。",
+   "rules": [
+    "增长阶段与打法一致（成长期应放大已验证渠道，不开全新渠道）",
+    "北极星指标唯一；护栏指标至少一条",
+    "预算按 20/60/20，单渠道上限 60%，禁止 100% 单渠道",
+    "每条实验预注册：hypothesis + 唯一 metric + significance + 样本量",
+    "停止条件三件套：阈值 + 时间窗 + owner，缺一不可",
+    "不承诺 ROI/排名；灰产渠道一律拒绝"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "qbr-health",
+   "title": "客户健康与 QBR",
+   "owner": "r13",
+   "owner_dir": "r13-wakecheng-csm",
+   "consumers": [
+    "r01",
+    "r12",
+    "r03"
+   ],
+   "triggers": [
+    "客户健康分",
+    "续约风险",
+    "QBR",
+    "客户盘点",
+    "流失预警",
+    "升级处理"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "health",
+    "actions": [
+     "health",
+     "risk",
+     "escalation"
+    ],
+    "skills": [
+     {
+      "skill": "pipeline",
+      "actions": [
+       "pipeline"
+      ]
+     }
+    ]
+   },
+   "dir": "r13-wakecheng-csm/references/capabilities/qbr-health",
+   "summary": "把续约风险算成可复核的数字：四维加权（30/25/25/20）落三色区间，标 delta 与临期，红线客户强制归因，升级附证据。",
+   "rules": [
+    "四维加权 30/25/25/20，禁止简单平均",
+    "区间与分数一致：≥75 绿 / 50-74 黄 / <50 红（band_consistency 会校验）",
+    "at_risk 客户必须写具体 risk_reason（指到指标变化与事件）",
+    "90 天内到期为独立预警；临期且分 <70 = 最高优先级",
+    "分数只降不升：改善要改事实，不改分数",
+    "升级必须带路由与证据；安全类直接 L4"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "evidence-ledger",
+   "title": "证据账本",
+   "owner": "r05",
+   "owner_dir": "r05-washenyuan-research",
+   "consumers": [
+    "r01",
+    "r07",
+    "r06"
+   ],
+   "triggers": [
+    "证据账本",
+    "来源",
+    "研究结论",
+    "竞品研究",
+    "行业研究",
+    "可溯源",
+    "待核实"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "research",
+    "actions": [
+     "report"
+    ],
+    "skills": [
+     {
+      "skill": "sizing",
+      "actions": [
+       "size"
+      ]
+     }
+    ]
+   },
+   "dir": "r05-washenyuan-research/references/capabilities/evidence-ledger",
+   "summary": "把研究结论做成可复核的账本：来源四级 + 措辞强度对齐 + 材料缺口显式声明 + 反证要求，先出计划再动手。",
+   "rules": [
+    "研究问题必须能被一个具体事实回答，宽泛方向不出报告",
+    "先写查询规格（question / analytical_step / query_spec）再检索",
+    "材料清单必须含缺口，并写明影响哪条结论",
+    "每条证据记 level/source/date/locator 四要素，缺一定位即不合格",
+    "结论措辞与证据级别匹配：C 级只作线索，措辞必须「待核实」",
+    "禁止「业内普遍认为/大家都知道/显而易见」；报告必须有反证段落"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "hiring-scorecard",
+   "title": "招聘评分卡",
+   "owner": "r16",
+   "owner_dir": "r16-warenshi-hr",
+   "consumers": [
+    "r01",
+    "r03",
+    "r13"
+   ],
+   "triggers": [
+    "招聘",
+    "岗位需求",
+    "候选人评估",
+    "评分卡",
+    "面试打分",
+    "Offer",
+    "录用"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "recruit",
+    "actions": [
+     "opening",
+     "offer"
+    ],
+    "skills": [
+     {
+      "skill": "attendance",
+      "actions": [
+       "leave"
+      ]
+     },
+     {
+      "skill": "payroll",
+      "actions": [
+       "calc"
+      ]
+     },
+     {
+      "skill": "people",
+      "actions": [
+       "employee"
+      ]
+     }
+    ]
+   },
+   "dir": "r16-warenshi-hr/references/capabilities/hiring-scorecard",
+   "summary": "把「这人要不要」变成结构化评分卡：必选项可验证且 ≤5、权重见面之前定死、逐项打分带证据、结论三选一、Offer 前校验前置状态链。",
+   "rules": [
+    "必选项 ≤5 且每条可验证（能设计一道题判断）",
+    "权重合计 100%，必须在见候选人之前定死，改动留痕",
+    "每个维度打分必须附证据；未验证记「未验证」，不许打 3 分和稀泥",
+    "结论三选一（推进/待定/不推进），并写明决定项",
+    "禁止排名、禁止综合印象分、禁止「文化匹配」当否决项",
+    "Offer 前状态链完整：面试→评估推进→编制确认→薪酬审批"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "dbt-unit-test",
+   "title": "数据管道建模与测试",
+   "owner": "r18",
+   "owner_dir": "r18-washucang-dataeng",
+   "consumers": [
+    "r06",
+    "r19",
+    "r20"
+   ],
+   "triggers": [
+    "数据模型",
+    "物化策略",
+    "数据测试",
+    "分层",
+    "DAG",
+    "依赖",
+    "增量"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "transform",
+    "actions": [
+     "model"
+    ],
+    "skills": [
+     {
+      "skill": "quality",
+      "actions": [
+       "check"
+      ]
+     },
+     {
+      "skill": "incremental",
+      "actions": [
+       "backfill"
+      ]
+     },
+     {
+      "skill": "catalog",
+      "actions": [
+       "lineage"
+      ]
+     }
+    ]
+   },
+   "dir": "r18-washucang-dataeng/references/capabilities/dbt-unit-test",
+   "summary": "把「数据能不能信」做成三件套：分层与物化合法、四类测试齐备（unique/not_null/accepted_values/relationships）、DAG 无环，并前置校验增量与回填。",
+   "rules": [
+    "粒度必须一句话说清（一行代表什么），主键据此而定",
+    "物化方式在白名单内（view/table/incremental/ephemeral），staging 用 view",
+    "主键必须同时加 unique + not_null（unique 允许多个 NULL）",
+    "所有枚举字段必须加 accepted_values，值要列全",
+    "DAG 无环、依赖显式、禁止 mart 被 staging 依赖",
+    "增量模型必须有去重键与回填方案；无回填不许上生产"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "eval-report",
+   "title": "模型评测与发布门禁",
+   "owner": "r19",
+   "owner_dir": "r19-wazhimo-ml",
+   "consumers": [
+    "r20",
+    "r06",
+    "r01"
+   ],
+   "triggers": [
+    "模型评测",
+    "评分器",
+    "回归",
+    "发布门禁",
+    "评测集",
+    "模型卡",
+    "红队"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "evaluation",
+    "actions": [
+     "dataset",
+     "scorer"
+    ],
+    "skills": [
+     {
+      "skill": "release",
+      "actions": [
+       "candidate"
+      ]
+     },
+     {
+      "skill": "modelcard",
+      "actions": [
+       "card"
+      ]
+     },
+     {
+      "skill": "tracking",
+      "actions": [
+       "run"
+      ]
+     }
+    ]
+   },
+   "dir": "r19-wazhimo-ml/references/capabilities/eval-report",
+   "summary": "把「能不能上」变成可复核的评测报告：评测集输入与期望成对、评分器三件齐全、回归必须跑旧绿集并写归因层次、模型卡写明不适用场景。",
+   "rules": [
+    "每条评测用例必须含 inputs 与 expectations",
+    "评分器必须含 type/target/criteria；LLM 判定须附正反例校准",
+    "报告必须含分层分布 + ≥5 条失败样本 + 局限说明，不许只报总体分",
+    "回归必须跑旧绿集（existing_green）并写归因层次（diagnosis_layer）",
+    "旧绿集变差即判回归失败，新增用例变好不能抵消",
+    "模型卡必须写明不适用场景与已知偏差"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "incident-response",
+   "title": "故障响应与恢复演练",
+   "owner": "r20",
+   "owner_dir": "r20-washouzhi-sre",
+   "consumers": [
+    "r01",
+    "r09",
+    "r19"
+   ],
+   "triggers": [
+    "故障响应",
+    "事故",
+    "复盘",
+    "恢复演练",
+    "升级",
+    "RPO",
+    "RTO",
+    "时间线"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "postmortem",
+    "actions": [
+     "postmortem"
+    ],
+    "skills": [
+     {
+      "skill": "monitor",
+      "actions": [
+       "monitor"
+      ]
+     },
+     {
+      "skill": "backup",
+      "actions": [
+       "backup"
+      ]
+     },
+     {
+      "skill": "restore",
+      "actions": [
+       "drill"
+      ]
+     },
+     {
+      "skill": "dr",
+      "actions": [
+       "rollback"
+      ]
+     }
+    ]
+   },
+   "dir": "r20-washouzhi-sre/references/capabilities/incident-response",
+   "summary": "把「出事了怎么办」变成可复盘的事实链：时间线单调、升级有时限、恢复经数据验证、复盘三层根因 + 六章齐全。",
+   "rules": [
+    "安全类事件直接 P0，跳过分级讨论",
+    "时间线必须单调递增；补记只能追加并标 backfilled，绝不改原 ts",
+    "同时记开始时间与发现时间，发现延迟必须算出来",
+    "升级必须有触发条件 + 时限 + 实际时间",
+    "恢复必须验证数据行数/校验和一致，重启成功不等于恢复",
+    "复盘根因至少追到中层（流程/工具），「人为失误」不是根因；必须有未解决项章节"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "rapid-prototype",
+   "title": "快速原型",
+   "owner": "r08",
+   "owner_dir": "r08-wajiancheng-mvp",
+   "consumers": [
+    "r07",
+    "r09",
+    "r10"
+   ],
+   "triggers": [
+    "原型",
+    "MVP",
+    "落地页",
+    "切片",
+    "时间盒",
+    "捷径",
+    "快速验证"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "prototype",
+    "actions": [
+     "prototype"
+    ],
+    "skills": [
+     {
+      "skill": "slice",
+      "actions": [
+       "mvp",
+       "slice"
+      ]
+     }
+    ]
+   },
+   "dir": "r08-wajiancheng-mvp/references/capabilities/rapid-prototype",
+   "summary": "把「先做个能看的东西」变成有边界的交付：MVP 切片写明成功/杀死标准，落地页证明可核验，交付前过类型检查/截图/设计 QA，并登记捷径与时间盒。",
+   "rules": [
+    "MVP 必须含成功标准与杀死标准，且都可判定",
+    "时间盒写死，到点砍范围不延期",
+    "每条捷径登记「为什么现在不做 + 上线前必须补」",
+    "落地页社会证明必须可核验，禁止编造用户数与评价",
+    "交付前必过类型检查、截图证据、设计自检三项",
+    "产物首行必须写明「这是原型，不是成品」"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "tdd-review-pair",
+   "title": "测试驱动与双向评审",
+   "owner": "r09",
+   "owner_dir": "r09-wawenma-engineer",
+   "consumers": [
+    "r04",
+    "r08",
+    "r17"
+   ],
+   "triggers": [
+    "TDD",
+    "测试报告",
+    "代码评审",
+    "合并",
+    "材料齐备",
+    "复现",
+    "跳过测试"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "testing",
+    "actions": [
+     "suites"
+    ]
+   },
+   "dir": "r09-wawenma-engineer/references/capabilities/tdd-review-pair",
+   "summary": "把「写完了」和「审过了」变成可判定记录：测试报告含通过/失败/跳过及原因，材料含改动/复现/验证/影响面，评审拆成请求与接收两侧。",
+   "rules": [
+    "先写会失败的测试再写实现（先红后绿），或说明为何不能",
+    "测试报告必须含通过/失败/跳过计数；每条跳过都要原因",
+    "交付材料必须含改动清单/复现步骤/验证命令/影响面",
+    "请求评审要指定 1–3 个重点，不写「都看看」",
+    "每条评审意见都要有响应状态（接受/拒绝/待议）",
+    "禁止夹带无关改动；已知问题必须主动声明；不得自审自合"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "po-validate",
+   "title": "采购单与库存单据校验",
+   "owner": "r15",
+   "owner_dir": "r15-wagongying-erp",
+   "consumers": [
+    "r03",
+    "r14",
+    "r17"
+   ],
+   "triggers": [
+    "采购单",
+    "收货",
+    "入库",
+    "出库",
+    "库存分录",
+    "超收",
+    "对账"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "procurement",
+    "actions": [
+     "purchase_order"
+    ],
+    "skills": [
+     {
+      "skill": "inventory",
+      "actions": [
+       "bin",
+       "item"
+      ]
+     }
+    ]
+   },
+   "dir": "r15-wagongying-erp/references/capabilities/po-validate",
+   "summary": "把「这批货该不该收」变成可校验的单据链：采购单总额自洽、收货不超订单、库存分录用途在白名单，三单匹配差异必须解释。",
+   "rules": [
+    "采购单总额必须等于行项目之和，不许手工改总额",
+    "订单日期必须合法且在业务时点内",
+    "收货数量不得超过订单数量；超收走变更单",
+    "库存分录用途只能用白名单词，禁止自创（暂存/借出等）",
+    "三单（订单/收货/发票）数量与单价差异必须解释，不许改单据凑平",
+    "历史错误走冲正，不修改历史单据"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "webhook-retry",
+   "title": "Webhook 与失败重试",
+   "owner": "r17",
+   "owner_dir": "r17-wazhiwang-automation",
+   "consumers": [
+    "r14",
+    "r18",
+    "r20"
+   ],
+   "triggers": [
+    "webhook",
+    "回调",
+    "重试",
+    "幂等",
+    "死信",
+    "错误流",
+    "集成"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "webhook",
+    "actions": [
+     "webhook"
+    ],
+    "skills": [
+     {
+      "skill": "integration",
+      "actions": [
+       "workflow"
+      ]
+     },
+     {
+      "skill": "approval",
+      "actions": [
+       "publish"
+      ]
+     }
+    ]
+   },
+   "dir": "r17-wazhiwang-automation/references/capabilities/webhook-retry",
+   "summary": "把「接了这条回调」变成可校验的集成契约：webhook 有 path/method/handlers 且验签，重试有幂等键与死信，错误流已发布且恢复路径已验证。",
+   "rules": [
+    "webhook 必须有 path / method / handlers，缺一不可",
+    "外部回调必须验签 + 时间戳窗口校验",
+    "幂等键必须可重建且唯一（event_id 或业务键组合），禁用 UUID",
+    "重试次数有限（3–5 次）+ 指数退避 + 抖动",
+    "必须有死信队列并写明谁看、多久看一次",
+    "错误流必须已发布生效且恢复路径演练过，不能只写在文档里"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "logo-vi",
+   "title": "Logo 与图标变体",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r08",
+    "r09",
+    "r14"
+   ],
+   "triggers": [
+    "logo",
+    "标志",
+    "图标",
+    "favicon",
+    "app icon",
+    "尺寸阶梯",
+    "单色变体"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "logo",
+    "actions": [
+     "logo"
+    ]
+   },
+   "dir": "r10-wachengmei-design/references/capabilities/logo-vi",
+   "summary": "把「画个 logo」变成可交付的标识系统：类型白名单、四档尺寸可辨、三套变体、favicon/app-icon 多端变体与使用禁区。",
+   "rules": [
+    "标记类型必须在白名单（wordmark/lettermark/pictorial/abstract/combination）",
+    "四档尺寸 16/32/64/128 都出图，16px 下仍可辨",
+    "三套变体齐备：全彩 / 单色黑 （无渐变）/ 反白（对比 ≥4.5:1）",
+    "app icon 内容不贴边，留安全区",
+    "最小留白 ≥ 标志高度 1/4；使用禁区写明（不拉伸/不投影/不换色）",
+    "favicon 与 app-icon 变体无夹具，由人工核对（三尺寸 + 两格式 + 简化版）"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "longform-article",
+   "title": "长文与稿件",
+   "owner": "r11",
+   "owner_dir": "r11-wadianti-copy",
+   "consumers": [
+    "r12",
+    "r10",
+    "r05"
+   ],
+   "triggers": [
+    "长文",
+    "深度稿",
+    "专题文章",
+    "稿件",
+    "选题",
+    "结构",
+    "论据"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "copy",
+    "actions": [
+     "article"
+    ]
+   },
+   "dir": "r11-wadianti-copy/references/capabilities/longform-article",
+   "summary": "把「写一篇」变成可交付稿件：选题三件套（读者/承诺/反承诺）、结构可一句话复述、论据分级带出处、发布前过语调扫描。",
+   "rules": [
+    "选题必须写清读者（具体角色）、承诺（带走一句话）、反承诺（这篇不谈什么）",
+    "结构必须能一句话复述，每节有独立结论",
+    "小标题必须是结论句，不是名词短语",
+    "每个事实断言标 A/B/C 级出处，禁止「业内普遍认为」",
+    "标题与正文承诺一致，禁止标题党",
+    "发布前语调扫描用 harness edit（已验 0/1）；copy voice 路径不可用"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "cash-runway",
+   "title": "现金流跑道",
+   "owner": "r03",
+   "owner_dir": "r03-washouxian-cfo",
+   "consumers": [
+    "r01",
+    "r02",
+    "r06"
+   ],
+   "triggers": [
+    "现金流",
+    "跑道",
+    "runway",
+    "burn multiple",
+    "烧钱速率",
+    "融资触发",
+    "降本"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "cfo",
+    "actions": [
+     "runway"
+    ]
+   },
+   "dir": "r03-washouxian-cfo/references/capabilities/cash-runway",
+   "summary": "把「钱还能烧几个月」变成可复算模型：逐月推演净烧钱、定位耗尽月、算 burn multiple（≤2.0）、触碰阈值时列融资/降本/紧急三档触发器。",
+   "rules": [
+    "参数齐全且口径声明（现金范围/人力口径/毛利口径）",
+    "逐月计算净烧钱，禁止用平均值",
+    "模塑期内现金不得为负；第一个负现金月即耗尽月",
+    "burn multiple ≤ 2.0（净烧钱 ÷ 净新增 ARR）",
+    "每个触发器都要有处置决策（做/不做/何时做）",
+    "不许改短 model_months 掩盖耗尽；未到账融资不算现金"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "bad-good-contrast",
+   "title": "正反例对照写作法",
+   "owner": "r04",
+   "owner_dir": "r04-watiaoci-reviewer",
+   "consumers": [
+    "r01",
+    "r02",
+    "r03",
+    "r05",
+    "r06",
+    "r07",
+    "r08",
+    "r09",
+    "r10",
+    "r11",
+    "r12",
+    "r13",
+    "r14",
+    "r15",
+    "r16",
+    "r17",
+    "r18",
+    "r19",
+    "r20"
+   ],
+   "triggers": [
+    "正反例",
+    "对照",
+    "BAD GOOD",
+    "规范写法",
+    "可判定",
+    "抽象要求",
+    "质量标尺"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r04-watiaoci-reviewer/references/capabilities/bad-good-contrast",
+   "summary": "把「要清晰专业」这类抽象要求改写成可判定的「错例 + 对例 + 差异点 + 阈值」四件套；P1 八张范式卡的第一张。",
+   "rules": [
+    "每条原则至少 1 组同场景错/对例，错例须为真实样本并有出处",
+    "对例与错例同场景同内容，只改判据点",
+    "差异点必须可指认（位置/字号/词/顺序），不接受「感觉更好」",
+    "每条原则至少一个数字阈值；抽象句占比 ≤20%",
+    "发布前做双评，一致率 ≥80%，否则先改规范",
+    "灰化/去色后判据仍应成立，否则说明判的是装饰不是结构"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "quantified-taste",
+   "title": "阈值设计法",
+   "owner": "r04",
+   "owner_dir": "r04-watiaoci-reviewer",
+   "consumers": [
+    "r01",
+    "r02",
+    "r03",
+    "r05",
+    "r06",
+    "r07",
+    "r08",
+    "r09",
+    "r10",
+    "r11",
+    "r12",
+    "r13",
+    "r14",
+    "r15",
+    "r16",
+    "r17",
+    "r18",
+    "r19",
+    "r20"
+   ],
+   "triggers": [
+    "阈值",
+    "量化",
+    "地板线",
+    "目标值",
+    "区分度",
+    "校准",
+    "可达性",
+    "质量分档"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r04-watiaoci-reviewer/references/capabilities/quantified-taste",
+   "summary": "把「好」落成三级阈值（地板/目标/优秀），用历史分布反推可达性、检验区分度、写测法与校准周期；P1 八张范式卡的第二张。",
+   "rules": [
+    "阈值对应的量必须可被两人独立数出同一个数",
+    "必须三级分档（地板/目标/优秀），单一数值不合格",
+    "必须有 ≥5 个历史产物的分布回测，否则标注「行业惯例·未校准」，不进质量门",
+    "地板应卡掉约 10%、目标约 70% 可达、优秀约前 10%",
+    "必须做区分度检验：好/差各 3 个样本能被该量分开",
+    "写明测法三句（怎么量/谁量/何时量）与校准周期；底线类指标（诚实性）只有一档归零"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "visual-hierarchy",
+   "title": "视觉层级与构图",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r08",
+    "r09",
+    "r10",
+    "r06",
+    "r14"
+   ],
+   "triggers": [
+    "视觉层级",
+    "构图",
+    "留白",
+    "对齐",
+    "对比度",
+    "字体阶梯",
+    "好看",
+    "改稿优先级"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/visual-hierarchy",
+   "summary": "把「好不好看」拆成十三条可判定原则（层级/对齐/对比/留白/邻近/重复/统一/平衡/比例/色彩/字体/深度/动效），每条配 BAD/GOOD 与阈值，并按 P0→P1→P2 排改稿优先级。",
+   "rules": [
+    "一屏 ≤3 个层级；相邻层级字号差 ≥1.5×",
+    "主操作与取消必须视觉权重不同（填充 vs 描边）",
+    "同组共用对齐轴，金额右对齐；间距只用 4/8/12/16/24/32/48",
+    "正文对比度 ≥4.5:1，非文本 ≥3:1；颜色不得是唯一载体",
+    "375 无横向滚动，触控热区 ≥44×44；字号 ≤5 级且正文 ≥14px",
+    "交付前做灰化反看：层级仍成立才说明判的是结构不是装饰"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "chart-honesty",
+   "title": "图表诚实与选型",
+   "owner": "r06",
+   "owner_dir": "r06-wadeqing-analyst",
+   "consumers": [
+    "r01",
+    "r05",
+    "r06",
+    "r08"
+   ],
+   "triggers": [
+    "图表",
+    "选型",
+    "误导",
+    "截断轴",
+    "双轴",
+    "饼图",
+    "数据墨水比",
+    "标注"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r06-wadeqing-analyst/references/capabilities/chart-honesty",
+   "summary": "把「这张图会不会误导人」拆成四条归零红线（截断轴/双轴/类别超限/面积误导）与一张选型矩阵，并用零轴反看与数据墨水比约束。",
+   "rules": [
+    "四条红线归零：截断轴未标 / 双轴未说明 / 饼图 >5 类 / 3D 面积误导",
+    "一个问题一张图；比较用条形、趋势用折线、构成用堆叠（≤5 段）",
+    "轴标签 + 单位 + 时间范围三项齐备；图下写数据来源与样本量",
+    "非数据墨水 ≤30%；标题写结论句且不含比较级",
+    "必须做零轴反看：Y 轴拉到 0 后结论是否仍成立，并记录处置",
+    "类别超限时合并为「其他」或改 Top N 排行"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "review-tiering",
+   "title": "评审分级",
+   "owner": "r04",
+   "owner_dir": "r04-watiaoci-reviewer",
+   "consumers": [
+    "r01",
+    "r02",
+    "r04",
+    "r19",
+    "r20"
+   ],
+   "triggers": [
+    "评审分级",
+    "Tier",
+    "逐项",
+    "收口",
+    "证据链",
+    "走过场",
+    "同轮证据"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r04-watiaoci-reviewer/references/capabilities/review-tiering",
+   "summary": "把「评审该看多细」拆成两级：可单提交验证的 Tier A（须与提交交错）与只能整体收口的 Tier B，并用同轮证据回溯与抽样反查防止走过场。",
+   "rules": [
+    "项里点了具体产物 → Tier A（逐项）；说「整体/全部/最终」→ Tier B（收口）",
+    "A 项必须与提交交错（一致率 ≥80%），B 项中期勾选数必须为 0",
+    "每条完成声称须回看同轮证据；无证据 / 证据过期 / 证据不足都要记录",
+    "从 A 项随机抽 3 项反查能否指出具体位置，3/3 才算过",
+    "结论三选一：pass / conditional / fail，不写「总体还行」",
+    "评审后校准 checklist：A/B 错置、项数 >20、不可判项都要修"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "narrative-structure",
+   "title": "叙事结构",
+   "owner": "r07",
+   "owner_dir": "r07-wademing-pm",
+   "consumers": [
+    "r01",
+    "r07",
+    "r08",
+    "r13",
+    "r16"
+   ],
+   "triggers": [
+    "叙事结构",
+    "结论先行",
+    "金字塔",
+    "PR FAQ",
+    "提案",
+    "汇报",
+    "复述检验"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r07-wademing-pm/references/capabilities/narrative-structure",
+   "summary": "把「写清楚」拆成可选结构：PR/FAQ 六段（说服）、金字塔三层（汇报）、结论先行（评审），并用一句话主张与复述检验验证结构成立。",
+   "rules": [
+    "先写一句话主张（≤40 字，含动词与理由），写不出就别动笔",
+    "一次只用一种结构：说服用 PR/FAQ、汇报用金字塔、评审用结论先行",
+    "PR/FAQ 六段必答：问题/现状/方案（含不做什么）/收益/风险/行动（含日期）",
+    "金字塔只留 3 条论据；结论放最前，背景 ≤1 段",
+    "做一句话复述检验：≥2/3 的人能复述出你的主张",
+    "说服场景必须写最强反方意见并回应；删掉首段检验废话"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "tone-axes",
+   "title": "语调三轴",
+   "owner": "r11",
+   "owner_dir": "r11-wadianti-copy",
+   "consumers": [
+    "r11",
+    "r13",
+    "r14",
+    "r16"
+   ],
+   "triggers": [
+    "语调",
+    "口吻",
+    "禁词",
+    "正式度",
+    "温度",
+    "具体化",
+    "句长",
+    "标点"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r11-wadianti-copy/references/capabilities/tone-axes",
+   "summary": "把「写得像我们」拆成三条 1–5 刻度（正式度/温度/能量）+ 禁用词替换表 + 具体化密度 ≤3/千字 + 中文行文与标点硬指标。",
+   "rules": [
+    "先定三轴 1–5（正式度/温度/能量），全篇段落偏差 ≤1",
+    "形容词/程度副词 ≤3 处/千字，每处必须配数字或事实",
+    "禁用词归零：极致/顶级/业界领先/革命性/赋能/闭环/抓手/打通/生态化",
+    "单句 ≤40 字（移动端 ≤30）、单段 ≤5 行、一段一意、连续同长句 ≤2",
+    "中文全角标点、中英之间加空格、感叹号 ≤2、破折号 ≤3",
+    "双评两人三轴打分差 ≤1 且与设定一致；差 ≥2 则重写该段"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "rubric-calibration",
+   "title": "评分表设计与校准",
+   "owner": "r04",
+   "owner_dir": "r04-watiaoci-reviewer",
+   "consumers": [
+    "r04",
+    "r16",
+    "r19",
+    "r13"
+   ],
+   "triggers": [
+    "评分表",
+    "rubric",
+    "锚定样例",
+    "双评",
+    "一致率",
+    "kappa",
+    "校准",
+    "打分分歧"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r04-watiaoci-reviewer/references/capabilities/rubric-calibration",
+   "summary": "把「凭感觉打分」变成可校准的评分表：维度 3–6、每档配锚定样例、权重与总分口径写死，用双评一致率 ≥80%（或 kappa ≥0.6）验证可判性。",
+   "rules": [
+    "用途先定：排序 / 分档 / 一票否决，不同用途不同表",
+    "维度 3–6 个，权重整数合计 100；超过 6 维拆主表 + 子表",
+    "每维每档必须有锚定样例，且别人拿锚定句能定位到同一档",
+    "写死总分口径：缺失值怎么处理、底线项是否可被补偿",
+    "双评 ≥10 样本，一致率 ≥80%（或 kappa ≥0.6）才可上线",
+    "校准只改锚定样例与档位描述，不轻易改维度；每季度复核"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "image-prompt-structure",
+   "title": "出图提示词结构",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r10",
+    "r11",
+    "r14",
+    "r08"
+   ],
+   "triggers": [
+    "提示词",
+    "出图",
+    "prompt",
+    "主体",
+    "构图",
+    "光线",
+    "负向词",
+    "平台规格",
+    "AI生图"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/image-prompt-structure",
+   "summary": "把「我要一张高级感商品图」翻成模型可执行的六段结构（主体/环境/构图/光线/材质风格/规格负向），并给平台规格表、负向词库与四版一致性抽检。",
+   "rules": [
+    "一图一主体（独立物体 ≤2，含 1 个陪衬上限），多主体拆图",
+    "六段齐备：主体 / 环境 / 构图 / 光线 / 材质风格 / 规格负向",
+    "负向词 ≥3 条，覆盖文字/质量/构图/风格四类中至少三类",
+    "平台规格（比例 + 像素 + 留白）必须写进 prompt，不靠后处理裁",
+    "四版一致性抽检：≥3/4 版在主体、构图、光线三项上一致才可定稿",
+    "每个模糊形容词（高级感/氛围感）必须换成可执行描述"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "image-candidate-selection",
+   "title": "出图候选筛选",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r10",
+    "r14",
+    "r11",
+    "r08"
+   ],
+   "triggers": [
+    "挑图",
+    "选图",
+    "候选",
+    "多版",
+    "主选",
+    "备选",
+    "落选原因",
+    "筛选"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/image-candidate-selection",
+   "summary": "把「四版挑一张」变成可复现三段筛选：硬门淘汰违规版 → 结构分加权排序 → 意图盲测确认，并强制落选原因六分类回灌 prompt。",
+   "rules": [
+    "三段顺序不可交换：硬门（一票否决）→ 结构分（排序）→ 意图分（盲测）",
+    "硬门五条逐版核：规格/负向残留/安全区/品牌色/主体完整",
+    "过硬门版数 <2 → 判为 prompt 或参数问题，退回上游，不许硬挑",
+    "结构分加权 ≥72/100 且意图分 ≥3 才可定主选",
+    "主选 1 + 备选 1；落选图不删，原因必须归入六类之一",
+    "双评主选一致率 ≥80%，低于则先修锚定再重评"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "image-gen-pipeline",
+   "title": "出图编排层",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r10",
+    "r14",
+    "r08",
+    "r11"
+   ],
+   "triggers": [
+    "出图批次",
+    "编排",
+    "预算",
+    "版数",
+    "重试",
+    "命名",
+    "manifest",
+    "成本"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/image-gen-pipeline",
+   "summary": "把「出图」变成可控批次作业：任务卡锁死每张图、版数按风险定、预算 80% 止损、失败先分类（该重试 vs 该改 prompt）、文件名含 seed、产出 manifest 台账。不含 API 调用。",
+   "rules": [
+    "每张图独立任务卡（用途/规格/卖点/版本/版数/验收要点），禁止合并",
+    "版数按风险档：试水 4 / 正式 8 / A/B 每向 4 / 补数 2；总版数 ≤8×张数",
+    "必须写预算上限与止损线（80% 暂停，单卡重试 >2 次即停）",
+    "失败先归因再动作：随机性才换 seed，其余必须改 prompt",
+    "文件名必须含 seed 或等价可复现标识；每批产出 manifest.json",
+    "出图后先跑规格闸（imgops info / brandcheck），进候选版本 100% 通过"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "pricing-strategy",
+   "title": "定价与促销策略",
+   "owner": "r14",
+   "owner_dir": "r14-wajiaoyi-commerce",
+   "consumers": [
+    "r03",
+    "r12",
+    "r10"
+   ],
+   "triggers": [
+    "定价",
+    "价格锚定",
+    "折扣",
+    "满减",
+    "毛利",
+    "促销",
+    "价格带"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r14-wajiaoyi-commerce/references/capabilities/pricing-strategy",
+   "summary": "把「卖多少钱」拆成四步：成本五项底座（含平台费/退货损耗）→ 三种定价方法选一并写理由 → 折扣阶梯逐档算折后毛利 → 心理价位与压测。",
+   "rules": [
+    "成本必须拆五项：采购/头程/包装/平台费（抽佣+支付）/退货损耗",
+    "毛利率按「到手价」口径复算，禁用「售价减进货价」",
+    "定价方法三选一（成本加成/价值定价/竞品锚定）并写明为何不用另两种",
+    "每一档折扣都要算折后毛利率，地板线 15%，低于即不上该档",
+    "价格带偏离主流区间必须给理由；原价必须有真实成交记录",
+    "压测（退货率 ×2、抽佣 +3pp）后毛利率仍须为正"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "budget-variance",
+   "title": "预算与差异分析",
+   "owner": "r03",
+   "owner_dir": "r03-washouxian-cfo",
+   "consumers": [
+    "r01",
+    "r02",
+    "r12"
+   ],
+   "triggers": [
+    "预算",
+    "差异分析",
+    "variance",
+    "实际vs计划",
+    "超支",
+    "费用归类"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r03-washouxian-cfo/references/capabilities/budget-variance",
+   "summary": "把「这个月花超了」拆成可复核差异桥：对齐口径 → 逐科目差异 → 价格/数量/结构三段拆解 → 可解释 vs 需追责 → 整改清单。",
+   "rules": [
+    "先对齐科目/期间/币种口径，不一致不许直接算差异",
+    "逐科目算差异并按金额降序，不只给总额",
+    "重大差异必须三段拆解：价格差 + 数量差 + 结构差 = 总额差（可加总验证）",
+    "每个重大差异归入「可解释」或「需追责」，并给依据",
+    "整改动作必须带验证指标与回看日期",
+    "连续两月同科目超支且拆不出原因 → 判定为预算假设错误"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "event-tracking-design",
+   "title": "埋点与事件设计",
+   "owner": "r18",
+   "owner_dir": "r18-washucang-dataeng",
+   "consumers": [
+    "r06",
+    "r07",
+    "r12",
+    "r09"
+   ],
+   "triggers": [
+    "埋点",
+    "事件",
+    "属性",
+    "漏斗",
+    "命名规范",
+    "数据字典",
+    "事件设计"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r18-washucang-dataeng/references/capabilities/event-tracking-design",
+   "summary": "把「加个埋点」变成数据契约：一埋点一问、`对象_动作` 命名、必填属性 ≥3、发起与成功拆两个事件、漏斗逐步声明、字典版本化、上线 7 天回看。",
+   "rules": [
+    "每个事件必须对应一个度量问题（含主体/场景/动作/指标）",
+    "事件名统一 `<对象>_<动作>`，禁数字与缩写，动作用过去式",
+    "必填属性 ≥3 个且含 user_id 与 occurred_at",
+    "有成功/失败之分的动作必须拆成 ≥2 个事件（发起 / 成功 / 失败）",
+    "漏斗逐步显式声明 + 时间窗，禁止用「A 之后有 B」倒推",
+    "数据字典齐全且属性变更走版本升级，旧版本保留一个周期",
+    "上线 7 天内回看量级、属性缺失率、漏斗异常"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "analysis-method",
+   "title": "分析方法与结论强度",
+   "owner": "r06",
+   "owner_dir": "r06-wadeqing-analyst",
+   "consumers": [
+    "r01",
+    "r05",
+    "r07",
+    "r12"
+   ],
+   "triggers": [
+    "分析",
+    "同期群",
+    "分组对比",
+    "归因",
+    "因果",
+    "相关",
+    "结论强度"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r06-wadeqing-analyst/references/capabilities/analysis-method",
+   "summary": "把「分析一下」变成可复核推理：四类问题定方法 → 看分布不看均值 → 同期群比较 → 拆解加排除做归因 → 结论标三级强度并写反驳条件。",
+   "rules": [
+    "问题必须先归入四类（描述/比较/归因/预测），方法与类型匹配",
+    "报中位数与至少一个分位点（P90），不只报均值",
+    "时间序列比较必须用同期群，禁止全量池直接比",
+    "归因必须给拆解算式（量×率×结构）并逐条排除干扰项",
+    "结论标三级强度：观察到 / 推断 / 因果；因果级必须有实验支撑",
+    "推断级以上结论必须写「什么证据会推翻它」",
+    "输出须含行动项与不做项各 ≥1 条"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "paid-execution",
+   "title": "投放执行与归因",
+   "owner": "r12",
+   "owner_dir": "r12-wayingliu-growth",
+   "consumers": [
+    "r10",
+    "r11",
+    "r14"
+   ],
+   "triggers": [
+    "投放",
+    "出价",
+    "日预算",
+    "素材轮换",
+    "归因",
+    "渠道",
+    "ROI",
+    "跑量"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r12-wayingliu-growth/references/capabilities/paid-execution",
+   "summary": "把「投一下看看」变成可控执行：三级账户结构（一计划一目标）→ 出价与日预算 → 素材轮换与三条止损线 → 归因口径先定后看数 → 日复盘三数。",
+   "rules": [
+    "账户三级结构：计划=一个目标，单元=一个定向组合，素材=一个创意变量",
+    "出价策略三选一并写明理由；日预算 ≤ 总预算/投放天数 ×1.5",
+    "素材轮换触发：CTR 连续 3 天下滑 >20%；单单元并行素材 3–5 个",
+    "三条止损线写死：CPA > 目标×1.5 / 连续 3 天无转化 / 消耗 > 计划 150%",
+    "归因口径必须先声明且整批不改；自然流量单列或用基线拆出",
+    "日复盘只盯消耗/转化/CPA 三数，异常必须给归因"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "experiment-analysis",
+   "title": "实验设计与结果分析",
+   "owner": "r12",
+   "owner_dir": "r12-wayingliu-growth",
+   "consumers": [
+    "r06",
+    "r07",
+    "r01"
+   ],
+   "triggers": [
+    "实验",
+    "A/B",
+    "显著性",
+    "样本量",
+    "停止条件",
+    "分流",
+    "假设检验"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r12-wayingliu-growth/references/capabilities/experiment-analysis",
+   "summary": "把「跑个 A/B」变成可判定检验：可证伪单指标假设 → 算最小样本量 → 用户级分流 + 护栏 → 预设停止规则 → 按护栏/主指标/异质顺序出结论并区分「不显著」与「无效果」。",
+   "rules": [
+    "假设必须可证伪、单主指标、方向明确（从 A 到 B）",
+    "开跑前必须算最小样本量并据此估时长；算不起就明确放弃",
+    "分流单元为用户级，同一用户不跨组；多实验需正交分层",
+    "护栏指标 ≥2 个且各有阈值；护栏恶化则无论主指标多好都判失败",
+    "停止规则必须预设，禁止中途看 p 值决定延长",
+    "结论须区分「不显著」与「无效果」，并给置信区间；分组差异只作探索性发现"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "customer-onboarding",
+   "title": "客户上手与激活",
+   "owner": "r13",
+   "owner_dir": "r13-wakecheng-csm",
+   "consumers": [
+    "r14",
+    "r07",
+    "r12"
+   ],
+   "triggers": [
+    "上手",
+    "onboarding",
+    "激活",
+    "首价值",
+    "TTV",
+    "引导",
+    "交付"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r13-wakecheng-csm/references/capabilities/customer-onboarding",
+   "summary": "把「客户签了但不用」变成可设计路径：定 TTV 与激活事件 → 压到 ≤3 步并代做 → 每步配兜底与时限 → 用激活率与 TTV 中位数度量 → 卡点归口到产品或话术。",
+   "rules": [
+    "TTV 必须写成「第 N 天 + 做 X + 得到 Y」，Y 为客户可感知成果",
+    "激活 = 一个事件 + 一个数值阈值；禁用登录/注册当激活",
+    "上手路径 ≤3 步，可代做的步骤由我们代做",
+    "每步必须有失败兜底、责任人与时限",
+    "度量看激活率与 TTV 中位数（非均值），并按规模/渠道分组",
+    "同一卡点 ≥3 次归口为产品问题，1–2 次进话术库"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "renewal-expansion",
+   "title": "续约与增购",
+   "owner": "r13",
+   "owner_dir": "r13-wakecheng-csm",
+   "consumers": [
+    "r03",
+    "r14",
+    "r01"
+   ],
+   "triggers": [
+    "续约",
+    "增购",
+    "续费率",
+    "涨价",
+    "让步",
+    "报价",
+    "流失挽回"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r13-wakecheng-csm/references/capabilities/renewal-expansion",
+   "summary": "把「客户要到期了」变成有准备的谈判：健康分×金额四象限 → 客户口径价值复盘 → 三档方案提前算 → 让步必换回项 → 涨价三件套 → 放弃条件与体面退出。",
+   "rules": [
+    "按健康分×金额四象限分配资源；低健康客户先救价值再谈钱",
+    "价值复盘只讲客户侧数字，禁止罗列产品功能",
+    "三档方案（保底/目标/理想）必须提前写好金额与毛利",
+    "每一次让步都必须对应换回项，且总额不超授权上限，一次只让一步",
+    "涨价须有新价值 + 提前 ≥60 天告知 + 多年锁定选项",
+    "放弃条件写死（健康分连续下滑/毛利<15%/客户明确拒绝），并给体面退出三件"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "customer-support-sla",
+   "title": "客服话术与 SLA",
+   "owner": "r13",
+   "owner_dir": "r13-wakecheng-csm",
+   "consumers": [
+    "r11",
+    "r14",
+    "r16"
+   ],
+   "triggers": [
+    "客服",
+    "SLA",
+    "话术",
+    "工单",
+    "响应时长",
+    "纠纷",
+    "致歉",
+    "升级"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r13-wakecheng-csm/references/capabilities/customer-support-sla",
+   "summary": "把「回得快说得好」变成可执行分级：四级 SLA（含计时起点）→ 承认/解释/动作/时间四段话术 → 禁词替换 → 补偿授权上限 → 升级交接四项 → 按级统计达标率。",
+   "rules": [
+    "四级分级（P0 全站/P1 多客户/P2 单客户/P3 咨询）各有响应与解决时限",
+    "计时起点为客户首次报告，不是「确认是问题」",
+    "话术必须四段：承认/解释/动作/时间，时间点要具体",
+    "禁词零出现：系统繁忙、操作失败、敬请谅解、应该、大概、尽快",
+    "补偿必须有授权上限与审批人；禁承诺未上线功能",
+    "升级三条触发（P0/P1、客户要求上级、超时 50%），交接带四项信息"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "release-change-management",
+   "title": "发布与变更管理",
+   "owner": "r20",
+   "owner_dir": "r20-washouzhi-sre",
+   "consumers": [
+    "r09",
+    "r08",
+    "r01"
+   ],
+   "triggers": [
+    "发布",
+    "变更",
+    "灰度",
+    "回滚",
+    "上线审批",
+    "变更窗口",
+    "发布单"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r20-washouzhi-sre/references/capabilities/release-change-management",
+   "summary": "把「发一下」变成可控变更：按不可逆性分三级 → 影响面三项 → 回滚预案四项且一级 ≤15 分钟 → 灰度 1/10/50/100% 带放量条件 → 发布窗口与冻结期 → 发布单六项 + 24h 回看。",
+   "rules": [
+    "变更按不可逆性分三级：一级可逆 / 二级半可逆 / 三级不可逆（须创始人签字）",
+    "影响面必须含功能清单、客户范围、最坏后果三项",
+    "回滚预案含触发条件/步骤/耗时/验证；一级变更回滚 ≤15 分钟",
+    "灰度阶梯 1%→10%→50%→100%，每档观察 ≥30 分钟且有放量条件",
+    "发布避开周五 15:00 后、节假日前、大促期；冻结期变更需升级审批 + on-call",
+    "发布单六项齐备，24 小时内完成事后回看"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "prompt-engineering",
+   "title": "通用 Prompt 工程",
+   "owner": "r19",
+   "owner_dir": "r19-wazhimo-ml",
+   "consumers": [
+    "r01",
+    "r07",
+    "r10",
+    "r11",
+    "r08"
+   ],
+   "triggers": [
+    "prompt",
+    "系统提示词",
+    "few-shot",
+    "提示注入",
+    "输出格式",
+    "上下文"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r19-wazhimo-ml/references/capabilities/prompt-engineering",
+   "summary": "把「写个提示词」变成可回归工程件：输出契约三件（格式/长度/字段）→ 六段结构（角色/输入/步骤/约束/示例/输出）→ 三种失败行为 → 三条注入防护 → ≥10 条回归集改动必跑。",
+   "rules": [
+    "输出契约必须含格式、长度、必含字段；建议含 confidence 与 missing_info",
+    "prompt 六段齐备：角色/输入/步骤/约束/示例/输出",
+    "三种失败行为写明：信息不足→提问、超范围→拒答、不确定→标注",
+    "三条注入防护：只执行授权任务、忽略越权指令、不泄露系统提示",
+    "few-shot ≥1 个且含边界情形（空/超长/歧义）",
+    "回归集 ≥10 条（正例≥5、边界≥3、拒答/注入≥2），每次改 prompt 必跑"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "design-handoff",
+   "title": "设计交付规范",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r09",
+    "r08",
+    "r11"
+   ],
+   "triggers": [
+    "交付",
+    "标注",
+    "切图",
+    "设计稿",
+    "命名",
+    "变更",
+    "handoff"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/design-handoff",
+   "summary": "把「图给你了」变成工程可直接用的交付：标注四件（尺寸/间距/色值/字重）→ 六态 + 3 断点 → 资源命名与导出 → 动效说明 → 变更单 → 工程复述验收。",
+   "rules": [
+    "每个元素标注尺寸/间距/色值/字重四项",
+    "每个交互组件覆盖 6 态（含焦点与错误）；每屏 ≥3 断点",
+    "资源命名 `<模块>_<元素>@<倍率>`，可矢量优先 SVG",
+    "动效标触发/时长/缓动，且尊重 prefers-reduced-motion",
+    "改稿必出变更单并标注影响已开发部分",
+    "以「工程能独立复述结构」作为交付完成判据"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "detail-page-copy",
+   "title": "详情页分屏文案",
+   "owner": "r10",
+   "owner_dir": "r10-wachengmei-design",
+   "consumers": [
+    "r11",
+    "r14"
+   ],
+   "triggers": [
+    "详情页",
+    "分屏",
+    "卖点",
+    "文案",
+    "图文对应",
+    "首屏",
+    "转化"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r10-wachengmei-design/references/capabilities/detail-page-copy",
+   "summary": "把「写详情页」拆成分屏脚本：首屏 3 秒三件 → 一屏一卖点且标题即结论 → 图文严格对应 → 异议屏 ≥3 条（承认/证据/保障）→ 参数可扫读 → 末屏行动+保障。",
+   "rules": [
+    "首屏必须 3 秒说清「是什么/给谁/为什么值」，禁放参数表",
+    "每屏一个卖点，标题必须是结论句",
+    "图文严格对应，图讲什么字讲什么",
+    "异议屏 ≥3 条，每条含承认 + 证据 + 保障",
+    "参数屏只列影响决策的关键项（≤5 个），可扫读",
+    "末屏含行动 + 保障 + 真实紧急度（禁编造限时）"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "opportunity-scoring",
+   "title": "机会评估与需求优先级",
+   "owner": "r07",
+   "owner_dir": "r07-wademing-pm",
+   "consumers": [
+    "r01",
+    "r02",
+    "r05"
+   ],
+   "triggers": [
+    "优先级",
+    "机会评估",
+    "RICE",
+    "需求排序",
+    "做不做",
+    "投入产出"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r07-wademing-pm/references/capabilities/opportunity-scoring",
+   "summary": "把「先做哪个」变成可复核排序：四维固定权重（影响/置信/成本/紧迫）→ 公式公开可复算 → 置信度 A/B/C 且 C 不進前三 → 维度分布检查 → 不做什么与再评估触发。",
+   "rules": [
+    "四维（影响面/置信度/成本/紧迫性）与权重季度内固定，不临时加维度",
+    "评分公式必须公开，他人可复算出同一排名",
+    "置信度分 A（数据）/B（访谈 ≥3 人）/C（直觉）三级，前三名不得含 C 级",
+    "每个维度至少 2 档差异，否则删除该维度或换度量",
+    "必须写明本轮不做什么及再评估触发条件",
+    "异议只针对打分依据处理，不因职位直接改排名"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "product-metrics",
+   "title": "产品指标体系",
+   "owner": "r07",
+   "owner_dir": "r07-wademing-pm",
+   "consumers": [
+    "r06",
+    "r18",
+    "r01"
+   ],
+   "triggers": [
+    "北极星",
+    "指标体系",
+    "漏斗",
+    "护栏指标",
+    "口径",
+    "激活率",
+    "留存"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r07-wademing-pm/references/capabilities/product-metrics",
+   "summary": "把「看几个数」变成可对齐体系：一个行为型北极星 + 3–5 个可分解驱动指标 + 2 个护栏 + 每个指标四件（定义/口径/来源/频率）+ 同名消歧 + 看板 ≤8。",
+   "rules": [
+    "北极星必须是价值行为指标（禁收入/GMV/DAU/注册数）",
+    "3–5 个驱动指标，且与北极星有可复算的乘法分解式",
+    "护栏指标 ≥2 个并各有阈值",
+    "每个指标写全四件：定义 / 口径（含谁不含谁）/ 来源 / 更新频率",
+    "同名不同义指标必须列消歧表并统一，废弃别名标注",
+    "看板指标 ≤8 个（1 北极星 + 3–5 驱动 + 2 护栏）"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "content-calendar",
+   "title": "内容日历与节奏",
+   "owner": "r11",
+   "owner_dir": "r11-wadianti-copy",
+   "consumers": [
+    "r12",
+    "r10",
+    "r14"
+   ],
+   "triggers": [
+    "内容日历",
+    "选题",
+    "更新频率",
+    "栏目",
+    "内容复用",
+    "停更",
+    "节奏"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r11-wadianti-copy/references/capabilities/content-calendar",
+   "summary": "把「持续更新」变成可执行排期：栏目 2–4 个各有边界 → 频次由实际工时倒推并 70% 折减 → 选题池 ≥4 周 → 复用路径（必改开头）→ 停更三条件提前公告 → 只排 4 周含缓冲。",
+   "rules": [
+    "栏目 2–4 个，每个写清「讲什么/不讲什么」",
+    "频次由实际工时倒推，并按 70% 折减",
+    "选题池覆盖 ≥4 周，并标注素材是否齐备",
+    "复用必须改写开头 20 字与案例，禁原文照搬",
+    "停更/降频三种触发写死，且提前一周公告",
+    "排期只排 4 周并含 1 周缓冲"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "kol-collab",
+   "title": "达人合作与联盟",
+   "owner": "r12",
+   "owner_dir": "r12-wayingliu-growth",
+   "consumers": [
+    "r11",
+    "r10",
+    "r03"
+   ],
+   "triggers": [
+    "达人",
+    "KOL",
+    "联盟",
+    "佣金",
+    "brief",
+    "合作",
+    "坑位费",
+    "带货"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r12-wayingliu-growth/references/capabilities/kol-collab",
+   "summary": "把「找达人带货」变成可控合作：四维筛（匹配度一票否决）→ brief 四件（卖点≤3/必提/禁提≥3/交付物）→ 佣金结构三选一 → 验收不含效果 → 归因入口 → 六条合规红线。",
+   "rules": [
+    "四维筛选：匹配度一票否决，禁只看粉丝量",
+    "brief 四件齐备：卖点 ≤3、必提、禁提 ≥3、交付物与窗口",
+    "佣金结构三选一（纯佣/坑位+低佣/固定费），须与目标一致",
+    "验收 = 交付物 + 保留 ≥30 天 + 窗口内发布，不含销量",
+    "必须给可归因入口（专属口令/链接/UTM）",
+    "六条合规红线写进 brief 并要求达人书面确认"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "supplier-onboarding",
+   "title": "供应商准入与评估",
+   "owner": "r15",
+   "owner_dir": "r15-wagongying-erp",
+   "consumers": [
+    "r03",
+    "r14",
+    "r01"
+   ],
+   "triggers": [
+    "供应商",
+    "准入",
+    "评估",
+    "验厂",
+    "资质",
+    "试单",
+    "退出",
+    "分级"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r15-wagongying-erp/references/capabilities/supplier-onboarding",
+   "summary": "把「找家便宜的」变成可控准入：资质五项（不过即拒）→ 四维试单评估（质量/交付/成本/配合）→ A/B/C 分级与配额 → 冻结与退出条件 → 季度台账复评 → 单源风险处置。",
+   "rules": [
+    "资质合规五项逐条核对（主体/认证/财务/合规/产能），任一不过即拒",
+    "四维评估必须基于试单数据，试单量 1–2 周用量",
+    "分级 A（60–80%）/B（20–40%）/C（≤15%），关键物料禁 100% 单源",
+    "冻结三触发（连续 2 批不合格/准时率<80%/资质过期）与退出三条件写死并指定责任人",
+    "建立季度评估台账（四维得分/批次不良/事件记录）",
+    "单源物料须有 6 个月内引入第二家的计划 + 安全库存兜底"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "inventory-planning",
+   "title": "库存计划与补货",
+   "owner": "r15",
+   "owner_dir": "r15-wagongying-erp",
+   "consumers": [
+    "r14",
+    "r03",
+    "r12"
+   ],
+   "triggers": [
+    "库存",
+    "补货",
+    "安全库存",
+    "周转",
+    "缺货",
+    "滞销",
+    "补货点"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r15-wagongying-erp/references/capabilities/inventory-planning",
+   "summary": "把「快没货了再下单」变成可算计划：日均取中位数 + P90 → 安全库存 = 日均×交期×波动系数 → 补货点触发 → 批量 ≤6 周销量 → 滞销/呆滞分档处置 → 按 SKU 算资金占用。",
+   "rules": [
+    "日均销量用中位数，并给出 P90 与波动比（P90/P50）",
+    "安全库存 = 日均 × 交期 × 波动系数，参数须有来源",
+    "补货点 = 日均 × 交期 + 安全库存；降到补货点即下单，且需扣在途",
+    "单次补货批量在起订量与 6 周销量之间",
+    "滞销（30 天 < 安全库存/3）与呆滞（90 天零销量）分档处置，呆滞须记损失",
+    "按 SKU 计算资金占用与周转天数，并列出资金占用 Top 10"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "shared-standards",
+   "title": "全局基准与术语表",
+   "owner": "r04",
+   "owner_dir": "r04-watiaoci-reviewer",
+   "consumers": [
+    "r01",
+    "r02",
+    "r03",
+    "r04",
+    "r05",
+    "r06",
+    "r07",
+    "r08",
+    "r09",
+    "r10",
+    "r11",
+    "r12",
+    "r13",
+    "r14",
+    "r15",
+    "r16",
+    "r17",
+    "r18",
+    "r19",
+    "r20"
+   ],
+   "triggers": [
+    "基准",
+    "术语表",
+    "单一出处",
+    "阈值",
+    "一致率",
+    "双评",
+    "抽样",
+    "停止条件",
+    "强度"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r04-watiaoci-reviewer/references/capabilities/shared-standards",
+   "summary": "三级阈值 / 双评一致率 / 抽样数 / 停止条件 / 结论强度三级的**唯一出处**；其他卡引用不复制，配套 check_threshold_consistency.py 机器校验（含 --self-test）。",
+   "rules": [
+    "本卡 §4 概念表是所有卡的唯一数值出处，其他卡只写「见 shared-standards §4」",
+    "毛利率地板 15%、双评一致率 ≥80%、kappa ≥0.6、评审抽样 3 项、双评 ≥10 样本、诚实类指标归零",
+    "改数值顺序：先改本卡 §4 → 跑一致性检查 → 逐张改卡",
+    "领域需偏离时卡内写理由并在本卡 §6·附 登记",
+    "新出现的共享概念必须加进脚本 CANON，否则机器看不见",
+    "一致性检查须先跑 --self-test 证明检查器本身没坏"
+   ],
+   "version": 2,
+   "status": "pack"
+  },
+  {
+   "id": "consulting-workflow",
+   "title": "咨询 8 阶段工作流",
+   "owner": "r01",
+   "owner_dir": "r01-waquanju-ceo",
+   "consumers": [
+    "r05",
+    "r06",
+    "r03",
+    "r04"
+   ],
+   "triggers": [
+    "咨询",
+    "问题树",
+    "MECE",
+    "假设",
+    "董事会",
+    "建议书",
+    "诊断"
+   ],
+   "kind": "skill",
+   "entry": {
+    "skill": "consult",
+    "actions": [
+     "start",
+     "submit",
+     "sign",
+     "advance",
+     "status",
+     "render"
+    ]
+   },
+   "dir": "shared/consulting",
+   "summary": "定义问题→MECE→80/20→分析计划→执行→整合→建议→打包，每阶段双门禁。",
+   "rules": [
+    "阶段 1 必须有一句话决策、决策者、成功标准、非目标",
+    "阶段 2 必须 ≥3 支且互斥、每支有假设与杀死标准",
+    "阶段 5 每条发现必须有 claim/evidence/confidence/falsifier",
+    "阶段 7 必须 ≥3 个选项，推荐项有 owner/kpi/rollback",
+    "未签字不得进入下一阶段"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "method-pack",
+   "title": "角色方法包",
+   "owner": "r05",
+   "owner_dir": "r05-washenyuan-research",
+   "consumers": [
+    "r01",
+    "r02",
+    "r03",
+    "r04",
+    "r06"
+   ],
+   "triggers": [
+    "方法包",
+    "决策问题",
+    "假设",
+    "证据分级",
+    "证伪"
+   ],
+   "kind": "knowledge",
+   "entry": null,
+   "dir": "r05-washenyuan-research/references",
+   "summary": "每个角色的 6 段方法：决策问题/问题树/假设与证伪/证据分级/方法与陷阱/输出契约。",
+   "rules": [
+    "方法包审计 ≥80 才可用",
+    "每条假设必须有杀死标准",
+    "至少列 2 个竞争解释",
+    "输出契约四件套缺一不进首页"
+   ],
+   "version": 1,
+   "status": "pack"
+  },
+  {
+   "id": "mcp-gateway",
+   "title": "MCP 数据网关",
+   "owner": "r18",
+   "owner_dir": "r18-washucang-dataeng",
+   "consumers": [
+    "r03",
+    "r05",
+    "r06",
+    "r14",
+    "r15"
+   ],
+   "triggers": [
+    "MCP",
+    "数据源",
+    "接入",
+    "工具",
+    "API"
+   ],
+   "kind": "skill",
+   "entry": {
+    "script": "scripts/mcp_doctor.py",
+    "actions": [
+     "list",
+     "doctor",
+     "template",
+     "add"
+    ]
+   },
+   "dir": "shared/mcp",
+   "summary": "8 个预留槽位 + 零依赖客户端 + 体检；按需接行情/统计/财报/平台/知识库。",
+   "rules": [
+    "只读优先，写工具需人工审批",
+    "密钥只放环境变量，不进 registry",
+    "每个槽位必须有 fallback",
+    "调用写 workspace/mcp_calls.jsonl"
+   ],
+   "version": 1,
+   "status": "pack"
+  }
+ ],
+ "observed_actions": [],
+ "entry_mismatch": [
+  {
+   "capability": "model-audit",
+   "role": "r03",
+   "skill": "cfo",
+   "declared_actions": [
+    "healthcheck"
+   ],
+   "observed_extra_actions": [
+    "runway"
+   ],
+   "note": "实际调用出现过未声明的 action；建议补进 entry.actions 或解释差异"
+  }
+ ],
+ "audit": {
+  "generated_by": "scripts/capability_usage.py",
+  "log_events": 1489,
+  "bad_lines": 0,
+  "threshold": 10,
+  "skipped_below_threshold": 4,
+  "observed_count": 0,
+  "entry_mismatch_count": 1
+ }
+}

@@ -7,7 +7,7 @@ import re
 import sys
 from typing import Any, Dict, List
 
-AGENTS_ROOT = r"D:\一人公司\agents"
+AGENTS_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def analyze_agent_skills(role_dir: str) -> Dict[str, Any]:
     """分析单个智能体的技能配置"""

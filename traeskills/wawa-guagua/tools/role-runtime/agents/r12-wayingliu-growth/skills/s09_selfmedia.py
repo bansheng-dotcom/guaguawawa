@@ -2,7 +2,7 @@
 """S09 自媒体运营 —— 能力域 9。
 
 整合自 bzwh321__self-media-data-console-bzwh（self-media-console-workflow /
-self-media-attribution）+ 自媒体工作台-trae。把「自媒体运营」转成确定性校验：
+self-media-attribution）+ 自媒体工作台。把「自媒体运营」转成确定性校验：
 多平台数据看板 + 日报确定性结论规则 + 数据接入探测（如实降级）。
 
 动作：
@@ -107,7 +107,7 @@ def _probe() -> Dict[str, Any]:
     # 探测数据根：仅检查是否存在可选数据目录，缺则 status=blocked，不假装有数据
     here = os.path.dirname(os.path.abspath(__file__))
     data_root = os.path.join(os.path.dirname(os.path.dirname(here)), "..",
-                             "补充技能", "自媒体工作台-trae", "data")
+                             "补充技能", "自媒体工作台", "data")
     has_demo = os.path.exists(os.path.join(data_root, "demo"))
     status = "ready" if has_demo else "blocked"
     checks = [c.ck(True, "多平台数据接入探测完成（探测非门禁）", "selfmedia.probe",

@@ -1,0 +1,4 @@
+extends: analyst
+role: r06
+title_prefix: 数据
+adapter: r06
