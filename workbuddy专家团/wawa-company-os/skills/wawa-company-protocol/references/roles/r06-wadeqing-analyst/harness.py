@@ -7,7 +7,7 @@
 输入工件 → 逐条判据 → 输出 `{ok, checks[]}`，`ok=false` 时返回码非 0。
 
 用法：
-    python harness.py dataset --input orders.csv [--semantic semantic_model.json]
+    python harness.py dataset --input examples/orders.csv [--semantic semantic_model.json]
     python harness.py report  --input report.md
     python harness.py semantic --input semantic_model.json
     python harness.py chart    --input chart_spec.json

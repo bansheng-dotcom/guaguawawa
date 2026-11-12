@@ -13,9 +13,9 @@
 本地运行示例：
     python agent.py manifest
     python agent.py demo
-    python agent.py quality audit  --input orders.csv
-    python agent.py explore trend --input orders.csv --date date --value amount
-    python agent.py statistics abtest --input orders.csv --group channel \
+    python agent.py quality audit  --input examples/orders.csv
+    python agent.py explore trend --input examples/orders.csv --date date --value amount
+    python agent.py statistics abtest --input examples/orders.csv --group channel \
         --control 抖音 --treatment 微信 --metric amount
     python agent.py run --task <task_id>
 """

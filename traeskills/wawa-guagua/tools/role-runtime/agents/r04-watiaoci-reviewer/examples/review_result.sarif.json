@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "r04-watiaoci-reviewer",
+          "semanticVersion": "7.0.0",
+          "rules": [
+            {
+              "id": "P-THEATRE",
+              "shortDescription": {
+                "text": "Rule P-THEATRE"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "P-THEATRE",
+          "level": "error",
+          "message": {
+            "text": "exit 0 bypass detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test.sh"
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -71,6 +71,9 @@ metadata:
 | 七步深度决策报告 | `agent.py depth` |
 | 咨询级研报 | `agent.py deep` |
 
+> 直接可跑：`python agent.py explore funnel --input examples/orders.csv --stage status`
+> `examples/orders.csv` 是 2.7KB 夹具；`python agent.py demo` 会生成到仓库根 `workspace/artifacts/orders.csv`。
+
 ## §4 执行流程（Workflow）
 
 1. **接单**：确认 `intent` 是否已含必需字段；缺则一轮问清（≤4 问、每问带候选）。
