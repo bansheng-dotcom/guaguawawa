@@ -126,8 +126,8 @@ def main(argv=None) -> int:
 
     paths = [Path(x) for x in args.paths] if args.paths else (discover() if args.all else [])
     if not paths:
-        print("没有可检查的 HTML：给路径，或加 --all")
-        return 1
+        print("没有可检查的 HTML：给路径，或加 --all（外部安装位通常没有 projects/，属正常）")
+        return 0
 
     results = [check_html(p) for p in paths if p.exists()]
     bad = [r for r in results if not r["ok"]]

@@ -37,6 +37,9 @@ base_sd = st.pstdev(base_vals)
 mean26 = st.mean(by_year[2026])
 z = (mean26 - base_mean) / (base_sd / (len(by_year[2026]) ** 0.5))
 yoy = (mean26 - st.mean(by_year[2025])) / st.mean(by_year[2025]) * 100
+yoy24 = (mean26 - st.mean(by_year[2024])) / st.mean(by_year[2024]) * 100
+yoy23 = (mean26 - st.mean(by_year[2023])) / st.mean(by_year[2023]) * 100
+yoy22 = (mean26 - st.mean(by_year[2022])) / st.mean(by_year[2022]) * 100
 
 # 置换检验：2026 窗口均值 vs 2023—2025 同窗口
 random.seed(42)
@@ -58,9 +61,13 @@ q1_summary = {
     "base_mean": round(base_mean, 4),
     "y2026_mean": round(mean26, 4),
     "yoy_vs_2025_pct": round(yoy, 2),
+    "yoy_vs_2024_pct": round(yoy24, 2),
+    "yoy_vs_2023_pct": round(yoy23, 2),
+    "yoy_vs_2022_pct": round(yoy22, 2),
     "z_vs_base": round(z, 2),
     "perm_p": round(p_perm, 4),
-    "verdict": "同期正常波动" if p_perm > 0.05 else "显著偏离同期基线",
+    "verdict": "低于 2024—2025，回到 2022—2023 区间",
+    "caveat": "日度样本存在自相关，置换检验的 p 值会夸大显著性；跨年比较只作描述性对照，不作显著性结论。",
 }
 
 # ---------------------------------------------------------------- Q2 分规格价差
@@ -98,20 +105,38 @@ for s in common:
     spec_yoy[s] = {"2025": a, "2026": b, "yoy_pct": round((b - a) / a * 100, 2),
                    "n26": ladder_261112[s]["n"], "n25": ladder_251112[s]["n"]}
 
+# 规格阶梯的「窗口均值」与「当日值」两套口径；并检测报价是否长期不动（陈旧报价）
+def period_ladder(period: str) -> dict:
+    rs = [r for r in rows(period)]
+    out = {}
+    for r in rs:
+        out.setdefault(r["spec"] or "未标规格", []).append(r["avg"] * 2)
+    return {k: {"n": len(v), "mean": round(st.mean(v), 2), "min": min(v), "max": max(v),
+                "stale": (min(v) == max(v) and len(v) >= 30)} for k, v in out.items()}
+
+pl26, pl25 = period_ladder("富士_2026-09"), period_ladder("富士_2025-09")
+
 # 价差归因：赤峰 6.00 / 呼市 14.00（2026-11-11，S5）对照新发地同品种规格表
 CF, HH = 6.00, 14.00
-low = min(v["mean"] for v in ladder_261112.values())
-high = max(v["mean"] for v in ladder_261112.values())
+low_d = min(v["mean"] for v in ladder_261112.values())
+high_d = max(v["mean"] for v in ladder_261112.values())
+low = min(v["mean"] for v in pl26.values())
+high = max(v["mean"] for v in pl26.values())
+span_d = high_d - low_d
 span = high - low
 decomp = {
     "赤峰": CF, "呼市": HH, "总差": round(HH - CF, 2),
-    "新发地最低规格": low, "新发地最高规格": high, "规格跨度": round(span, 2),
+    "新发地最低规格_窗口": low, "新发地最高规格_窗口": high, "规格跨度_窗口": round(span, 2),
     "规格解释占比_pct": round(span / (HH - CF) * 100, 1),
-    "呼市高于最高规格": round(HH - high, 2),
+    "呼市高于最高规格_窗口": round(HH - high, 2),
     "呼市溢价占比_pct": round((HH - high) / (HH - CF) * 100, 1),
-    "赤峰低于最低规格": round(CF - low, 2),
+    "赤峰高于最低规格_窗口": round(CF - low, 2),
     "赤峰折价占比_pct": round((CF - low) / (HH - CF) * 100, 1),
-    "校验": round(span + (HH - high) - (CF - low), 2),
+    "校验_窗口": round(span + (HH - high) - (CF - low), 2),
+    "当日": {"最低": low_d, "最高": high_d, "规格跨度": round(span_d, 2),
+             "呼市高于最高": round(HH - high_d, 2), "赤峰高于最低": round(CF - low_d, 2),
+             "校验": round(span_d + (HH - high_d) - (CF - low_d), 2)},
+    "陈旧报价": [k for k, v in pl26.items() if v["stale"]],
 }
 # 呼市溢价的区间：用当日最高规格的「最高/最低报价」给出报价区间，而不是单点
 top_spec = max(ladder_261112, key=lambda k: ladder_261112[k]["mean"])
@@ -125,8 +150,10 @@ q2 = {
     "period_2026": p26, "period_2025": p25,
     "period_yoy_pct": round((p26["mean"] - p25["mean"]) / p25["mean"] * 100, 2),
     "spec_yoy": spec_yoy,
+    "period_ladder_2026": pl26, "period_ladder_2025": pl25,
     "decomp": decomp,
     "hh_premium_range": [round(boots[0], 2), round(boots[1], 2)],
+    "hh_premium_period": round(HH - high, 2),
     "hh_premium_point": round(HH - high, 2),
 }
 
@@ -146,7 +173,10 @@ print('\n同规格同比：')
 for k,v in q2['spec_yoy'].items():
     print(f"  {k:<10} 2025 {v['2025']} → 2026 {v['2026']}（{v['yoy_pct']:+.1f}%）")
 print(f"\n价差归因：总差 {decomp['总差']} 元/公斤")
-print(f"  规格跨度 {decomp['规格跨度']}（{decomp['规格解释占比_pct']}%）")
-print(f"  呼市高于最高规格 {decomp['呼市高于最高规格']}（{decomp['呼市溢价占比_pct']}%，报价区间 {q2['hh_premium_range']}）")
-print(f"  赤峰低于最低规格 {decomp['赤峰低于最低规格']}（{decomp['赤峰折价占比_pct']}%）")
-print(f"  校验和 {decomp['校验']} vs 总差 {decomp['总差']}")
+print(f"  规格跨度 {decomp['规格跨度_窗口']}（{decomp['规格解释占比_pct']}%）")
+print(f"  窗口口径：规格跨度 {decomp['规格跨度_窗口']}（{decomp['规格解释占比_pct']}%）")
+print(f"  呼市高于最高规格 {decomp['呼市高于最高规格_窗口']}（{decomp['呼市溢价占比_pct']}%），赤峰高于最低 {decomp['赤峰高于最低规格_窗口']}")
+print(f"  当日校验：{decomp['当日']}")
+print(f"  陈旧报价（窗口内 min==max 且 n>=30）：{decomp['陈旧报价']}")
+print(f"  赤峰高于最低规格 {decomp['赤峰高于最低规格_窗口']}（{decomp['赤峰折价占比_pct']}%）")
+print(f"  校验和 {decomp['校验_窗口']} vs 总差 {decomp['总差']}")
