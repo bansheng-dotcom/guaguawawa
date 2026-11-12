@@ -1,0 +1,37 @@
+{
+ "branches": [
+  {
+   "name": "经济性",
+   "question": "直采能否降本",
+   "hypothesis": "有效成本比现采低 ≥10%",
+   "data": "R15 TCO + 成本卡",
+   "method": "TCO 对比 + 三情景",
+   "falsifier": "损耗 >10% 连续两周"
+  },
+  {
+   "name": "供给",
+   "question": "产地能否稳定供货",
+   "hypothesis": "周 2 车、到货率 ≥95%",
+   "data": "合作社产能 + 到货记录",
+   "method": "产能核对 + 履约统计",
+   "falsifier": "到货率 <80%"
+  },
+  {
+   "name": "渠道",
+   "question": "门店/档口能否消化",
+   "hypothesis": "动销 ≥85%、周转 ≤7 天",
+   "data": "POS/档口出货",
+   "method": "动销测算",
+   "falsifier": "连续 2 周动销 <75%"
+  },
+  {
+   "name": "风险",
+   "question": "断供/质量/价格风险",
+   "hypothesis": "断供可 1 周内切换",
+   "data": "供应商备选 + 期货",
+   "method": "风险矩阵 + 情景",
+   "falsifier": "断供 >1 周"
+  }
+ ],
+ "critical_branch": "经济性"
+}

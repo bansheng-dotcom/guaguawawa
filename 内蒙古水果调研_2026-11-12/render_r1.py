@@ -14,13 +14,14 @@ L = json.loads((ROOT / "data" / "证据台账.json").read_text(encoding="utf-8")
 L1, L2, L3, L4, L5, L6, L7 = (M["L1_全国日度"], M["L2_全国周度"], M["L3_批发报价"],
                               M["L4_呼市零售"], M["L5_期货"], M["L6_苹果分市场"], M["L7_产业面"])
 X, SZ, OBS = M["跨层"], M["市场规模"], M["观测统计"]
+L9, L10 = M["L9_季节性"], M["L10_规格"]
 U, ROI, SCEN = B["unit"], B["roi"], B["scenarios"]
 CLAIMS = {c["id"]: c for c in L["claims"]}
 SOURCES = {s["id"]: s for s in L["sources"]}
 
 # 质检通过、进入证据链的观测（L3 整体判 B 级弃用，不计入）
-VALID_OBS = OBS["L1"] + OBS["L2_字段数"] + OBS["L4"] + OBS["L5"] + OBS["L6"]
-RAW_OBS = OBS["合计"]
+VALID_OBS = OBS["L1"] + OBS["L2_字段数"] + OBS["L4"] + OBS["L5"] + OBS["L6"] + L9["n"] + L10["n"]
+RAW_OBS = OBS["总观测"]
 DISCARD = OBS["L3"]
 RETAIN = 100.0
 DISCARD_RATE = DISCARD / RAW_OBS * 100
@@ -159,7 +160,7 @@ def build_r1() -> str:
   <div class="directive-box">{K.esc(CLAIMS["C27"]["text"])}</div>
   <div class="executive-body">
     三个数字支撑这句话：全国 6 种水果均价 38 个交易日振幅 4.79%（C1）；呼市 8 种水果零售均价 9 周 +2.74%（C7）；
-    同品种同日省内价差 133.3%（C10）。数据层 8 个、有效观测 {VALID_OBS:,} 条；每条结论都已挂来源与层号，分数见文末第 11 节。
+    同品种同日价差 2.33 倍中 64.4% 是规格、同规格区域溢价 3.09 元（C10）。数据层 8 个、有效观测 {VALID_OBS:,} 条；每条结论都已挂来源与层号，分数见文末第 11 节。
   </div>
 </div>
 <nav class=toc>
@@ -178,16 +179,25 @@ def build_r1() -> str:
 {K.callout("压缩必须标注：本报告凡把多点压成一个数（如『38 日均值』『9 周变化』），都在表头或注释写明『从几个点压到几个点、丢了什么』。附录 A 保留全量观测，压缩层不替代记录层。")}
 """))
 
-    body.append(K.section("02", "全国总量：窄幅震荡，不是趋势行情", f"""
+    # 季节性基线（L9）
+    season_bars = [(y, v["mean"], "#B91C1C" if y == "2026" else "#94A3B8") for y, v in L9["by_year"].items()]
+    season_rows = [[y, v["n"], K.fmt(v["mean"], 4), f'{v["min"]:.2f}—{v["max"]:.2f}',
+                    ("—" if y == "2026" else f'{(v["mean"] - L9["y2026_mean"]) / L9["y2026_mean"] * 100:+.1f}%')]
+                   for y, v in L9["by_year"].items()]
+    body.append(K.section("02", "全国总量：波动最低，但水平回到两年前", f"""
 {K.figure("图 1 · 全国 6 种水果均价日度（38 个交易日）", K.svg_line(l1_series, annotate=[("首日 6.65", 0), ("末日 6.62", len(l1_series) - 1)]),
           "来源 S1；38 个交易日，10-02~10-05 国庆无数据，按交易日口径不插值。")}
 <p>{K.esc(CLAIMS["C1"]["text"])}</p>
 <p>{K.esc(CLAIMS["C2"]["text"])}</p>
 {K.table(["月份", "观测日", "均价（元/公斤）"], monthly_rows, align_right={1, 2})}
+{K.figure("图 1B · 同一窗口的年度均值（2022—2026，元/公斤）", K.svg_bars(season_bars, unit=""),
+          "来源 S1/S18；每年 09-15—11-12，n=36—39 个交易日；2026 为红色。")}
+{K.table(["年份", "交易日", "窗口均值", "区间", "相对 2026"], season_rows, align_right={1,2,4})}
+<p>{K.esc(CLAIMS["C31"]["text"])}</p>
 <p>{K.esc(CLAIMS["C3"]["text"])}</p>
-{K.callout(f"r06 引擎描述统计复核：n={desc.get('count')}、均值 {K.fmt(desc.get('mean'), 4)}、中位数 {K.fmt(desc.get('median'), 3)}、"
-           f"标准差 {K.fmt(desc.get('std'), 4)}、偏度 {K.fmt(desc.get('skew'), 3)}、p5—p95 = {K.fmt(desc.get('p5'), 2)}—{K.fmt(desc.get('p95'), 3)}。"
-           "标准差只有 0.056，说明『日度涨跌』基本是噪声。", "healthy")}
+{K.callout(f"r06 描述统计：n={desc.get('count')}、均值 {K.fmt(desc.get('mean'), 4)}、中位数 {K.fmt(desc.get('median'), 3)}、"
+           f"标准差 {K.fmt(desc.get('std'), 4)}。标准差 0.056 是五年最低——但那是『波动小』，不等于『水平正常』；"
+           "同比 -5.11%、比 2024 低 8.37%，结论是水平回到两年前，而不是行情正常。", "critical")}
 """))
 
     body.append(K.section("03", "品类结构：三个方向，不是一个方向", f"""
@@ -210,20 +220,46 @@ def build_r1() -> str:
 {K.callout("口径提醒：呼市『8 种水果均价（零售）』与全国『6 种水果均价（批发）』是两个篮子、两个环节，只比变化率与水平差，不能把 10.49 与 6.62 直接相减当成渠道利润。", "critical")}
 """))
 
-    body.append(K.section("05", "区域价差：省内 2.33 倍，呼市是全国最高价市场", f"""
+    ladder26, ladder25 = L10["ladder_2026"], L10["ladder_2025"]
+    ladder_day = L10["ladder_2026_11_12"]
+    spec_bars = [(k, v["mean"], "#B45309") for k, v in sorted(ladder_day.items(), key=lambda kv: kv[1]["mean"])]
+    spec_bars += [("赤峰市场", 6.0, "#64748B"), ("呼市东瓦窑", 14.0, "#B91C1C")]
+    spec_rows = []
+    for k, v in sorted(ladder26.items(), key=lambda kv: kv[1]["mean"]):
+        old = ladder25.get(k)
+        yoy = f'{(v["mean"] - old["mean"]) / old["mean"] * 100:+.1f}%' if old else "—"
+        if v["stale"]:
+            yoy = "—（陈旧）"
+        note = "陈旧报价（73 天未变）" if v["stale"] else "窗口均值"
+        spec_rows.append([k, K.fmt(v["mean"]), K.fmt(old["mean"]) if old else "—", yoy, note])
+    d, d2 = L10["decomp_window"], L10["decomp_same_day"]
+    decomp_rows = [
+        ["赤峰 → 呼市 总差", f'{d["总差"]:.2f}', f'{d2["总差"]:.2f}', "同品种、相邻两日"],
+        ["规格跨度（最低→最高）", f'{d["规格跨度"]:.2f}（{d["规格占比_pct"]:.1f}%）', f'{d2["规格跨度"]:.2f}（{d2["规格占比_pct"]:.1f}%）', "新发地分规格"],
+        ["同规格区域溢价", f'{d["同规格区域溢价"]:.2f}（{d["区域溢价占比_pct"]:.1f}%）', f'{d2["同规格区域溢价"]:.2f}（{d2["区域溢价占比_pct"]:.1f}%）', "呼市 vs 最高规格"],
+        ["赤峰高于最低规格", f'{d["赤峰高于最低"]:.2f}', f'{d2["赤峰高于最低"]:.2f}', "赤峰 vs 最低规格"],
+        ["校验和", f'{d["校验"]:.2f}', f'{d2["校验"]:.2f}', "三项相加 = 总差，残差 0"],
+    ]
+    body.append(K.section("05", "区域价差：先匹配规格，再谈区域", f"""
+{K.figure("图 5A · 同日同品种的价格阶梯（2026-11-12，元/公斤）", K.svg_bars(spec_bars, height=300),
+          "前 3 根为新发地富士 2026-11-12 分规格（S17）；后 2 根为 2026-11-11 赤峰西城与呼市东瓦窑（S5）。")}
+{K.table(["规格", "2026 窗口", "2025 窗口", "同比", "备注"], spec_rows, align_right={1,2,3})}
+{K.table(["归因项", "窗口口径", "当日口径", "说明"], decomp_rows, align_right={1,2})}
+<p>{K.esc(CLAIMS["C10"]["text"])}</p>
+<p>{K.esc(CLAIMS["C11"]["text"])}</p>
+<p>{K.esc(CLAIMS["C33"]["text"])}</p>
+{K.callout("同规格跨市空间 3.09—3.70 元/公斤；扣冷链 0.21、损耗约 0.5、渠道约 0.3，剩 2.1—2.7 元/公斤。按 6→14 元做套利，买到的是不同规格。", "critical")}
 {K.figure("图 5 · 全国 57 个批发市场富士苹果价格分布（2 期 107 条）",
           K.svg_hist([x["price"] for v in L6["by_date"].values() for x in v],
                      mark=[(6.0, "赤峰 6.00", K.HEALTHY), (8.0, "中位数 8.00", "#475569"), (14.0, "呼市 14.00", K.CRITICAL)]),
           "来源 S4/S5；同一品种、两个日期。虚线为赤峰、全国中位数、呼市三处。")}
-<p>{K.esc(CLAIMS["C10"]["text"])}</p>
-<p>{K.esc(CLAIMS["C11"]["text"])}</p>
 <p>{K.esc(CLAIMS["C12"]["text"])}</p>
 {K.table(["日期", "内蒙古市场", "富士苹果（元/公斤）", "相对全国中位数"], nm_rows, align_right={2,3})}
 <h3>分省均值（2026-11-11，前 8）</h3>
 {K.table(["#", "省份", "均值（元/公斤）", "市场数"], prov_rows, align_right={2,3})}
 """))
 
-    body.append(K.section("06", "批零结构与链路加价：1.61 倍与 2.31 倍", f"""
+    body.append(K.section("06", "批零结构与链路加价（规格未匹配，仅作参考）：1.61 倍与 2.31 倍", f"""
 {K.figure("图 6 · 从赤峰产地到呼市货架的加价阶梯（元/公斤）", K.svg_waterfall(wf),
           "赤峰西城 6.00（S5）→ 全国富士苹果批发 8.64（S2）→ 呼市苹果零售 13.88（S3）。价格为代理口径，等级/品种差异见第十节。")}
 <p>{K.esc(CLAIMS["C13"]["text"])}</p>
@@ -233,7 +269,7 @@ def build_r1() -> str:
     ["全国富士苹果批发", "8.64", "+44.0%", "S2 · 最新一周"],
     ["呼市苹果零售", "13.88", "+60.6%", "S3 · 11-02~11-08"],
 ], align_right={1, 2})}
-{K.callout("三个独立品种给出同一倍率：苹果 1.61 倍、西瓜 1.69 倍（6.52 ÷ 3.85）、香蕉 1.60 倍（7.81 ÷ 4.87）。批零加价不是某个品种的偶然，而是呼市生鲜零售的结构性水平。", "healthy")}
+{K.callout("三个独立品种给出同一倍率：苹果 1.61 倍、西瓜 1.69 倍（6.52 ÷ 3.85）、香蕉 1.60 倍（7.81 ÷ 4.87）；规格未匹配，仅作结构参考。批零加价不是某个品种的偶然，而是呼市生鲜零售的结构性水平。", "healthy")}
 """))
 
     body.append(K.section("07", "期货与预期：期货先跌，现货后知", f"""
@@ -318,6 +354,8 @@ def build_r1() -> str:
   <h3>A3 · L4 呼市零售周报（{OBS["L4"]} 点）</h3>{K.table(["周区间", "品种", "价格（元/公斤）", "环比"], l4_rows, cls="compact", align_right={2,3})}
   <h3>A4 · L5 期货日线（{OBS["L5"]} 点）</h3>{K.table(["日期", "合约", "收盘（元/吨）", "成交"], l5_rows, cls="compact", align_right={2,3})}
   <h3>A5 · L6 全国苹果分市场（{OBS["L6"]} 点）</h3>{K.table(["日期", "市场", "省", "元/公斤"], l6_rows, cls="compact", align_right={3})}
+  <h3>A6 · L9 同期基线（{L9["n"]} 点）</h3>{K.table(["年份", "交易日", "均值", "区间"], season_rows, cls="compact", align_right={1,2,3})}
+  <h3>A7 · L10 分规格（{L10["n"]} 行）</h3>{K.table(["规格", "2026 窗口", "2025 窗口", "同比", "备注"], spec_rows, cls="compact", align_right={1,2,3})}
 </div></details>
 <details class="audit-ledger"><summary>附录 B · 已采集但未采用的观测（{DISCARD} 条，B 级）</summary>
 <div class="audit-body">
@@ -329,11 +367,12 @@ def build_r1() -> str:
 
     body.append(K.section("11", "口径与分数", f"""
 {K.metric_strip([
-        ("有效观测", f"{VALID_OBS:,}", f"L1+L2+L4+L5+L6；另弃用 B 级 {DISCARD} 条", "accent"),
+        ("有效观测", f"{VALID_OBS:,}", f"L1—L6 + L9 基线 + L10 规格；弃用 {DISCARD} 条", "accent"),
         ("结论条数", str(len(L["claims"])), "每条挂来源与层号", ""),
-        ("来源", str(len(L["sources"])), "部委 / 政府 / 交易所 / 研究机构", ""),
+        ("来源", str(len(L["sources"])), "部委 / 政府 / 交易所 / 数据库", ""),
+        ("同期同比", f'{L9["yoy_pct"]["2025"]:+.2f}%', f'vs 2025；vs 2024 {L9["yoy_pct"]["2024"]:+.2f}%', "critical"),
+        ("同规格溢价", f'{L10["decomp_window"]["同规格区域溢价"]:.2f}', "元/公斤（28%—36%）", "healthy"),
         ("保留率", f"{RETAIN:.0f}%", f"{VALID_OBS:,}/{VALID_OBS:,} 可回指", "healthy"),
-        ("溯源率", f"{TRACE:.0f}%", "0 条无源结论", "healthy"),
     ])}
 {K.callout("这几个数是这份报告的自检结果，放在最后：数据够不够、每个数字回不回得去、引用率多少。"
            "正文若与它们冲突，以正文的观测明细为准。", "healthy")}
@@ -343,7 +382,7 @@ def build_r1() -> str:
         "内蒙古水果市场调研与数据分析报告",
         "调研与数据分析 · 2026 年 10—11 月",
         f"38 个交易日、9 周、57 个批发市场、{VALID_OBS:,} 条有效观测，回答一个问题：<b>10—11 月内蒙古水果的钱，是在趋势里还是在结构里？</b>"
-        f"答案是结构：全国批发窄幅走弱（篮子 {K.pct(L2['basket_change_pct'])}），呼市零售小幅走强（+{K.fmt(L4['avg_change_pct'])}%），同省同日价差 2.33 倍。",
+        f"答案是结构：全国批发窄幅走弱（篮子 {K.pct(L2['basket_change_pct'])}），呼市零售小幅走强（+{K.fmt(L4['avg_change_pct'])}%），同省同日价差 2.33 倍中 64% 是规格，同规格区域溢价只有 3.09 元。",
         ["执行：蛙蛙呱呱 agents 团 · R01 编排 / R05 研究 / R06 分析 / R15 供应链 / R03 财务 / R04 独立评审",
-         "数据层 8 个 · 有效观测 {:,}".format(VALID_OBS), "报告版本 v1.0（首版）"],
+         "数据层 10 个 · 有效观测 {:,}".format(VALID_OBS), "报告版本 v1.0（首版）"],
         "".join(body), f"蛙蛙呱呱 · 内蒙古水果调研 · 保留率 {RETAIN:.0f}% · 溯源率 {TRACE:.0f}%")

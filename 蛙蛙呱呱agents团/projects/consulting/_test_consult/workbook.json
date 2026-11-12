@@ -1,0 +1,316 @@
+{
+ "engagement": {
+  "id": "_test_consult",
+  "client": "测试客户",
+  "decision": "是否直采",
+  "partner": "r01",
+  "lead": "r05",
+  "deadline": ""
+ },
+ "current_stage": 8,
+ "stages": {
+  "1": {
+   "status": "done",
+   "payload": {
+    "decision": "是否在呼市做苹果产地直采，12 个月内单公斤成本降 8%",
+    "decision_maker": "创始人",
+    "success_metric": "单公斤成本降 8% 且损耗 ≤5%",
+    "scope_out": "不做全国扩张，不新增品类"
+   },
+   "signed_by": "r01",
+   "errors": []
+  },
+  "2": {
+   "status": "done",
+   "payload": {
+    "branches": [
+     {
+      "name": "经济性",
+      "question": "直采能否降本",
+      "hypothesis": "降 0.6 元/公斤",
+      "data": "TCO 与损耗台账",
+      "method": "单位经济 + 三情景",
+      "falsifier": "损耗 >10% 连续两周"
+     },
+     {
+      "name": "供给",
+      "question": "产地能否稳定供货",
+      "hypothesis": "周 2 车可行",
+      "data": "合作社产能",
+      "method": "产能核对",
+      "falsifier": "到货率 <80%"
+     },
+     {
+      "name": "渠道",
+      "question": "门店能否消化",
+      "hypothesis": "动销 ≥85%",
+      "data": "POS",
+      "method": "动销测算",
+      "falsifier": "连续 2 周动销 <75%"
+     }
+    ],
+    "critical_branch": "经济性"
+   },
+   "signed_by": "r01",
+   "errors": []
+  },
+  "3": {
+   "status": "done",
+   "payload": {
+    "focus": [
+     "经济性",
+     "供给"
+    ],
+    "excluded_reasons": {
+     "渠道": "现有门店动销数据已足够，暂不单独立项"
+    }
+   },
+   "signed_by": "r01",
+   "errors": []
+  },
+  "4": {
+   "status": "done",
+   "payload": {
+    "workstreams": [
+     {
+      "name": "TCO",
+      "data_source": "报价 + 运价",
+      "method": "TCO 对比",
+      "owner": "r15",
+      "output": "有效单位成本",
+      "fallback": "人工报价"
+     },
+     {
+      "name": "损耗",
+      "data_source": "温控记录",
+      "method": "损耗核算",
+      "owner": "r06",
+      "output": "损耗率区间",
+      "fallback": "行业区间"
+     }
+    ]
+   },
+   "signed_by": "r01",
+   "errors": []
+  },
+  "5": {
+   "status": "done",
+   "payload": {
+    "findings": [
+     {
+      "claim": "直采有效成本 5.23 元/公斤",
+      "evidence": "r15 TCO",
+      "confidence": "A",
+      "falsifier": "实际到货损耗 >10%"
+     },
+     {
+      "claim": "同规格区域溢价 3.09 元/公斤",
+      "evidence": "新发地分规格",
+      "confidence": "B",
+      "falsifier": "匹配后差 <1 元"
+     },
+     {
+      "claim": "损耗 8%→5% 可省 0.22 元",
+      "evidence": "成本卡",
+      "confidence": "C",
+      "falsifier": "实际损耗不降"
+     }
+    ],
+    "conflicts": [
+     {
+      "item": "呼市 14.00 vs 零售 13.88",
+      "reason": "规格不同"
+     }
+    ],
+    "gaps": []
+   },
+   "signed_by": "r01",
+   "errors": []
+  },
+  "6": {
+   "status": "done",
+   "payload": {
+    "messages": [
+     {
+      "message": "直采能降本，但前提是损耗可控",
+      "mechanism": "去一道批发 + 预冷",
+      "competing_explanations": [
+       "价格下行而非直采"
+      ]
+     }
+    ]
+   },
+   "signed_by": "r01",
+   "errors": []
+  },
+  "7": {
+   "status": "done",
+   "payload": {
+    "options": [
+     {
+      "name": "全量直采",
+      "economics": "降 0.62 元/公斤",
+      "risks": "断供",
+      "preconditions": "合作社产能"
+     },
+     {
+      "name": "试点直采",
+      "economics": "降 0.3 元/公斤",
+      "risks": "规模不足",
+      "preconditions": "2 车/周"
+     },
+     {
+      "name": "维持现采",
+      "economics": "0",
+      "risks": "成本不动",
+      "preconditions": "无"
+     }
+    ],
+    "recommendation": {
+     "choice": "试点直采",
+     "owner": "r15",
+     "kpi": "损耗 ≤8%",
+     "rollback": "连续 2 周损耗 >10% 回现采"
+    }
+   },
+   "signed_by": "r01",
+   "errors": []
+  },
+  "8": {
+   "status": "done",
+   "payload": {
+    "deliverables": {
+     "summary": "一页纸",
+     "main": "建议书",
+     "appendix": "证据台账"
+    },
+    "value_tracking": {
+     "baseline": "6.74",
+     "target": "6.12",
+     "metric": "单公斤成本",
+     "review_date": "2026-12-31"
+    }
+   },
+   "signed_by": "r01",
+   "errors": []
+  }
+ },
+ "log": [
+  {
+   "action": "submit",
+   "stage": 1,
+   "errors": []
+  },
+  {
+   "action": "sign",
+   "stage": 1,
+   "by": "r01"
+  },
+  {
+   "action": "advance",
+   "from": 1,
+   "to": 2
+  },
+  {
+   "action": "submit",
+   "stage": 2,
+   "errors": []
+  },
+  {
+   "action": "sign",
+   "stage": 2,
+   "by": "r01"
+  },
+  {
+   "action": "advance",
+   "from": 2,
+   "to": 3
+  },
+  {
+   "action": "submit",
+   "stage": 3,
+   "errors": []
+  },
+  {
+   "action": "sign",
+   "stage": 3,
+   "by": "r01"
+  },
+  {
+   "action": "advance",
+   "from": 3,
+   "to": 4
+  },
+  {
+   "action": "submit",
+   "stage": 4,
+   "errors": []
+  },
+  {
+   "action": "sign",
+   "stage": 4,
+   "by": "r01"
+  },
+  {
+   "action": "advance",
+   "from": 4,
+   "to": 5
+  },
+  {
+   "action": "submit",
+   "stage": 5,
+   "errors": []
+  },
+  {
+   "action": "sign",
+   "stage": 5,
+   "by": "r01"
+  },
+  {
+   "action": "advance",
+   "from": 5,
+   "to": 6
+  },
+  {
+   "action": "submit",
+   "stage": 6,
+   "errors": []
+  },
+  {
+   "action": "sign",
+   "stage": 6,
+   "by": "r01"
+  },
+  {
+   "action": "advance",
+   "from": 6,
+   "to": 7
+  },
+  {
+   "action": "submit",
+   "stage": 7,
+   "errors": []
+  },
+  {
+   "action": "sign",
+   "stage": 7,
+   "by": "r01"
+  },
+  {
+   "action": "advance",
+   "from": 7,
+   "to": 8
+  },
+  {
+   "action": "submit",
+   "stage": 8,
+   "errors": []
+  },
+  {
+   "action": "sign",
+   "stage": 8,
+   "by": "r01"
+  }
+ ],
+ "status": "completed"
+}

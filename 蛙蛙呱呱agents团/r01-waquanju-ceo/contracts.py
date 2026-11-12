@@ -31,6 +31,11 @@ def _ok(required: List[str], **props: Any) -> Dict[str, Any]:
 
 
 CONTRACTS: Dict[str, Any] = {
+"ev": {
+    "desc": "决策期望值：EV/盈亏平衡/敏感性",
+    "input": {"args": {"input": _s}},
+    "output": {"ev": _ok(["ev"], ev=_obj)},
+},
 "intent": {
     "desc": "意图识别与任务分级：brief/clarify/triage",
     "input": {"args": {"input": _s}},

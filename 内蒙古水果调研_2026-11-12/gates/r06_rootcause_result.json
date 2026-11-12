@@ -53,5 +53,5 @@
   ],
   "impact_min_pct": 3.0,
   "note": "contribution_pct = (after-before)/总变化；正=拉动增长，负=拖累；|contribution| < impact_min_pct 的分支判定为 minor，可停止下钻",
-  "runtime_ms": 1
+  "runtime_ms": 0
 }

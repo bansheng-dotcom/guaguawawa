@@ -1,0 +1,28 @@
+{
+ "options": [
+  {
+   "name": "全量直采",
+   "economics": "降 0.62 元/公斤、年省 93 万",
+   "risks": "断供/损耗",
+   "preconditions": "合作社产能 ≥3000 吨、双源"
+  },
+  {
+   "name": "试点直采（推荐）",
+   "economics": "降 0.3—0.4 元/公斤、投入 70 万",
+   "risks": "装载率不足",
+   "preconditions": "2 车/周、损耗 ≤8%"
+  },
+  {
+   "name": "维持现采",
+   "economics": "0",
+   "risks": "成本不动、毛利被压缩",
+   "preconditions": "无"
+  }
+ ],
+ "recommendation": {
+  "choice": "试点直采",
+  "owner": "r15",
+  "kpi": "损耗 ≤8%、到店 ≤48h、单公斤成本 ≤6.12 元",
+  "rollback": "连续 2 周损耗 >10% 或装载率 <70%，回现采"
+ }
+}

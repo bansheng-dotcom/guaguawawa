@@ -15,6 +15,10 @@ from __future__ import annotations
 from . import (s01_procurement, s02_inventory, s03_fulfillment, s04_production,
                s05_finance, s06_masterdata, s07_report, s08_tco)
 
+from . import s11_safety_stock
+
+from . import s12_fulfill_sim
+
 SKILLS = [
     s01_procurement,
     s02_inventory,
@@ -24,6 +28,8 @@ SKILLS = [
     s06_masterdata,
     s07_report,
     s08_tco,
+    s11_safety_stock,
+    s12_fulfill_sim,
 ]
 
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}

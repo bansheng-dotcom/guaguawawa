@@ -1,0 +1,28 @@
+{
+ "options": [
+  {
+   "name": "全量直采",
+   "economics": "降 0.62 元/公斤",
+   "risks": "断供",
+   "preconditions": "合作社产能"
+  },
+  {
+   "name": "试点直采",
+   "economics": "降 0.3 元/公斤",
+   "risks": "规模不足",
+   "preconditions": "2 车/周"
+  },
+  {
+   "name": "维持现采",
+   "economics": "0",
+   "risks": "成本不动",
+   "preconditions": "无"
+  }
+ ],
+ "recommendation": {
+  "choice": "试点直采",
+  "owner": "r15",
+  "kpi": "损耗 ≤8%",
+  "rollback": "连续 2 周损耗 >10% 回现采"
+ }
+}

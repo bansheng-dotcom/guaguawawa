@@ -1,0 +1,13 @@
+{
+ "deliverables": {
+  "summary": "一页纸执行摘要（结论先行）",
+  "main": "直采试点建议书（含 TCO/规格/基线）",
+  "appendix": "全量证据台账 + 缺口清单 + 复盘"
+ },
+ "value_tracking": {
+  "baseline": "6.74 元/公斤（现采落地）",
+  "target": "6.12 元/公斤",
+  "metric": "单公斤总成本（同规格同城）",
+  "review_date": "2027-01-31"
+ }
+}

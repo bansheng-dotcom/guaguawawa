@@ -5,7 +5,7 @@
     "ok": null,
     "verdict": null,
     "has_json": true,
-    "stdout_tail": "__AGENT_RESULT__ {\"planned\": 2, \"task_ids\": [\"1babec94\", \"7d83c28c\"], \"owners\": [\"r06\", \"r05\"]}"
+    "stdout_tail": "__AGENT_RESULT__ {\"planned\": 2, \"task_ids\": [\"a7f2b622\", \"fe4e272c\"], \"owners\": [\"r06\", \"r05\"]}"
   },
   {
     "name": "r05_ledger",
@@ -141,7 +141,7 @@
     "ok": true,
     "verdict": "PASS",
     "has_json": true,
-    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"五维全过（14 条事实，308 项核查）\", \"dim\": \"facts:check\", \"sev\": \"OK\"}], \"dimension_results\": {\"traceability\": "
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"五维全过（17 条事实，410 项核查）\", \"dim\": \"facts:check\", \"sev\": \"OK\"}], \"dimension_results\": {\"traceability\": "
   },
   {
     "name": "r04_artifact",

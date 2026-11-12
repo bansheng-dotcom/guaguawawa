@@ -1,0 +1,212 @@
+{
+ "summary": {
+  "date": "2026-11-12",
+  "tasks": 20,
+  "scored": 10,
+  "missing": 10,
+  "mean": 17.6,
+  "pass_rate_18": 70.0
+ },
+ "rows": [
+  {
+   "id": "Q01",
+   "domain": "市场进入",
+   "status": "scored",
+   "scores": {
+    "问题定义": 5.0,
+    "证据质量": 3.0,
+    "分析深度": 3.0,
+    "洞察力": 3.0,
+    "行动性": 5.0,
+    "total": 19.0
+   },
+   "chars": 893
+  },
+  {
+   "id": "Q02",
+   "domain": "定价",
+   "status": "scored",
+   "scores": {
+    "问题定义": 5.0,
+    "证据质量": 3.0,
+    "分析深度": 3.0,
+    "洞察力": 3.0,
+    "行动性": 5.0,
+    "total": 19.0
+   },
+   "chars": 758
+  },
+  {
+   "id": "Q03",
+   "domain": "单位经济",
+   "status": "scored",
+   "scores": {
+    "问题定义": 5.0,
+    "证据质量": 4.0,
+    "分析深度": 3.0,
+    "洞察力": 1.0,
+    "行动性": 5.0,
+    "total": 18.0
+   },
+   "chars": 917
+  },
+  {
+   "id": "Q04",
+   "domain": "渠道",
+   "status": "scored",
+   "scores": {
+    "问题定义": 4.0,
+    "证据质量": 3.0,
+    "分析深度": 5.0,
+    "洞察力": 1.0,
+    "行动性": 5.0,
+    "total": 18.0
+   },
+   "chars": 752
+  },
+  {
+   "id": "Q05",
+   "domain": "供应链",
+   "status": "scored",
+   "scores": {
+    "问题定义": 4.0,
+    "证据质量": 4.0,
+    "分析深度": 3.0,
+    "洞察力": 2.0,
+    "行动性": 5.0,
+    "total": 18.0
+   },
+   "chars": 774
+  },
+  {
+   "id": "Q06",
+   "domain": "竞争回应",
+   "status": "scored",
+   "scores": {
+    "问题定义": 5.0,
+    "证据质量": 4.0,
+    "分析深度": 3.0,
+    "洞察力": 1.0,
+    "行动性": 5.0,
+    "total": 18.0
+   },
+   "chars": 779
+  },
+  {
+   "id": "Q07",
+   "domain": "组织",
+   "status": "scored",
+   "scores": {
+    "问题定义": 4.0,
+    "证据质量": 3.0,
+    "分析深度": 2.0,
+    "洞察力": 1.0,
+    "行动性": 5.0,
+    "total": 15.0
+   },
+   "chars": 703
+  },
+  {
+   "id": "Q08",
+   "domain": "现金流",
+   "status": "scored",
+   "scores": {
+    "问题定义": 4.0,
+    "证据质量": 3.0,
+    "分析深度": 2.0,
+    "洞察力": 2.0,
+    "行动性": 5.0,
+    "total": 16.0
+   },
+   "chars": 700
+  },
+  {
+   "id": "Q09",
+   "domain": "增长实验",
+   "status": "scored",
+   "scores": {
+    "问题定义": 5.0,
+    "证据质量": 4.0,
+    "分析深度": 3.0,
+    "洞察力": 1.0,
+    "行动性": 5.0,
+    "total": 18.0
+   },
+   "chars": 753
+  },
+  {
+   "id": "Q10",
+   "domain": "产品优先级",
+   "status": "scored",
+   "scores": {
+    "问题定义": 4.0,
+    "证据质量": 3.0,
+    "分析深度": 4.0,
+    "洞察力": 1.0,
+    "行动性": 5.0,
+    "total": 17.0
+   },
+   "chars": 648
+  },
+  {
+   "id": "Q11",
+   "domain": "客户留存",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q12",
+   "domain": "风险",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q13",
+   "domain": "供应链中断",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q14",
+   "domain": "区域扩张",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q15",
+   "domain": "品牌升级",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q16",
+   "domain": "组织设计",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q17",
+   "domain": "数据资产",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q18",
+   "domain": "客户分层",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q19",
+   "domain": "价格战",
+   "status": "missing",
+   "scores": null
+  },
+  {
+   "id": "Q20",
+   "domain": "年度预算",
+   "status": "missing",
+   "scores": null
+  }
+ ]
+}

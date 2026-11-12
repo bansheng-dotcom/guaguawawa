@@ -103,7 +103,8 @@ def build_r2() -> str:
     ["零售端毛利", f'{K.fmt(U["retail_margin"])} 元/公斤（{K.fmt(U["retail_margin_pct"])}%）', "批发→零售环节"],
     ["精品线（东瓦窑 14.00）", f'{K.fmt(U["premium_grade_margin"])} 元/公斤（{K.fmt(U["premium_grade_margin_pct"])}%）', "等级更高，不可按普通货复制"],
 ], align_right={1})}
-{K.callout("C 级假设必须显式：运距 750 km、冷链 0.28 元/吨公里、损耗 8%、收购 4.60 元/公斤。任何一项变动都会改变毛利，敏感性见下一节。", "critical")}
+{K.callout("C 级假设必须显式：运距 750 km、冷链 0.28 元/吨公里、损耗 8%、收购 4.60 元/公斤。任何一项变动都会改变毛利，敏感性见下一节。"
+           "另：价格按规格分层，统货口径会把规格差算进毛利（见调研报告第 5 节）。", "critical")}
 """))
 
     # 5 情景
@@ -191,7 +192,7 @@ def build_r2() -> str:
         f"把行情翻译成动作：TAM {K.fmt(SZ['TAM_零售额_亿元'], 1)} 亿元、基准毛利率 {K.fmt(U['margin_pct'], 1)}%、"
         f"直采后 {K.fmt(SCEN['乐观']['margin_pct'], 1)}%、投资回收 {K.fmt(ROI['payback_years_1500t'])} 年。",
         ["执行：R01 编排 / R06 分析 / R15 TCO / R03 财务 / R04 评审",
-         f"依据：{OBS['合计']:,} 条采集观测中 {OBS['L1'] + OBS['L2_字段数'] + OBS['L4'] + OBS['L5'] + OBS['L6']:,} 条通过质检",
+         f"依据：{OBS['总观测']:,} 条采集观测中 {OBS['L1'] + OBS['L2_字段数'] + OBS['L4'] + OBS['L5'] + OBS['L6'] + OBS['扩展']['L9'] + OBS['扩展']['L10']:,} 条通过质检",
          "版本 v1.0"],
         "".join(body), "蛙蛙呱呱 · 内蒙古水果经营报告 · 所有价格可回指 L1—L6")
 

@@ -41,6 +41,11 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "funnel": {
+        "desc": "招聘漏斗：转化率/瓶颈",
+        "input": {},
+        "output": {"funnel": _out(["funnel"])},
+    },
     "recruit": {
         "desc": "招聘与入职：opening/applicant/offer",
         "input": {

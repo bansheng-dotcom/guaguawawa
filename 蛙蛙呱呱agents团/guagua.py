@@ -512,6 +512,20 @@ def cmd_report(args: argparse.Namespace) -> int:
     return int(report_cli.main(args.report_args))
 
 
+def _run_script(script: str, argv: list[str]) -> int:
+    """把子命令透传给 scripts/ 下的独立脚本（保持零依赖与可单独运行）。"""
+    import subprocess
+    return int(subprocess.call([PYTHON, str(ROOT / "scripts" / script), *argv], cwd=str(ROOT)))
+
+
+def cmd_consult(args: argparse.Namespace) -> int:
+    return _run_script("consult.py", list(args.consult_args))
+
+
+def cmd_mcp(args: argparse.Namespace) -> int:
+    return _run_script("mcp_doctor.py", list(args.mcp_args))
+
+
 def cmd_doctor(_: argparse.Namespace) -> int:
     print("蛙蛙呱呱 · 环境诊断")
     print("=" * 72)
@@ -639,6 +653,14 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("report", help="报告体系：L1→L2→L3（build/audit/seal/diff）")
     p.add_argument("report_args", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_report)
+
+    p = sub.add_parser("consult", help="咨询 8 阶段：start/submit/sign/advance/status/render/check")
+    p.add_argument("consult_args", nargs=argparse.REMAINDER)
+    p.set_defaults(func=cmd_consult)
+
+    p = sub.add_parser("mcp", help="MCP 槽位：list/doctor/template/add")
+    p.add_argument("mcp_args", nargs=argparse.REMAINDER)
+    p.set_defaults(func=cmd_mcp)
 
     p = sub.add_parser("doctor", help="环境诊断 + 全部角色入口体检")
     p.set_defaults(func=cmd_doctor)

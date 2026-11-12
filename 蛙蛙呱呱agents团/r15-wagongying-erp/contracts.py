@@ -42,6 +42,16 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "fulfill-sim": {
+        "desc": "履约仿真：履约率/缺货天数/平均库存",
+        "input": {},
+        "output": {"fulfill-sim": _out(["fulfillment"])},
+    },
+    "safety-stock": {
+        "desc": "安全库存：z × σ_d × √LT",
+        "input": {},
+        "output": {"safety-stock": _out(["safety_stock"])},
+    },
     "procurement": {
         "desc": "采购与供应商：supplier/rfq/quotation/purchase_order/receipt",
         "input": {

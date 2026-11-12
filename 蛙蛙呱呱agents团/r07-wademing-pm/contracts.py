@@ -34,6 +34,11 @@ def _ok(required: List[str], **props: Any) -> Dict[str, Any]:
 
 
 CONTRACTS: Dict[str, Any] = {
+"rice": {
+    "desc": "RICE 排序：score/敏感性",
+    "input": {"args": {"input": _s}},
+    "output": {"rice": _ok(["rice"], rice=_obj)},
+},
 "discover": {
     "desc": "产品发现与JTBD：jobstory/discover/interview",
     "input": {"jobstory": _IN, "discover": _IN, "interview": _IN},

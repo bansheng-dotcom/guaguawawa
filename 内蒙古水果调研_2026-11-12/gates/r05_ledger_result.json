@@ -129,28 +129,28 @@
     },
     {
       "ok": true,
-      "msg": "claim C10 kind=fact 合规",
+      "msg": "claim C10 kind=calculation 合规",
       "dim": "research:claim_kind",
       "sev": "OK",
       "claim_id": "C10"
     },
     {
       "ok": true,
-      "msg": "claim C10 来源充足（1 条）",
+      "msg": "claim C10 来源充足（2 条）",
       "dim": "research:min_sources",
       "sev": "OK",
       "claim_id": "C10"
     },
     {
       "ok": true,
-      "msg": "claim C11 kind=fact 合规",
+      "msg": "claim C11 kind=calculation 合规",
       "dim": "research:claim_kind",
       "sev": "OK",
       "claim_id": "C11"
     },
     {
       "ok": true,
-      "msg": "claim C11 来源充足（1 条）",
+      "msg": "claim C11 来源充足（2 条）",
       "dim": "research:min_sources",
       "sev": "OK",
       "claim_id": "C11"
@@ -171,7 +171,7 @@
     },
     {
       "ok": true,
-      "msg": "claim C13 kind=fact 合规",
+      "msg": "claim C13 kind=calculation 合规",
       "dim": "research:claim_kind",
       "sev": "OK",
       "claim_id": "C13"
@@ -374,7 +374,7 @@
     },
     {
       "ok": true,
-      "msg": "claim C27 来源充足（4 条）",
+      "msg": "claim C27 来源充足（6 条）",
       "dim": "research:min_sources",
       "sev": "OK",
       "claim_id": "C27"
@@ -420,6 +420,48 @@
       "dim": "research:min_sources",
       "sev": "OK",
       "claim_id": "C30"
+    },
+    {
+      "ok": true,
+      "msg": "claim C31 kind=fact 合规",
+      "dim": "research:claim_kind",
+      "sev": "OK",
+      "claim_id": "C31"
+    },
+    {
+      "ok": true,
+      "msg": "claim C31 来源充足（2 条）",
+      "dim": "research:min_sources",
+      "sev": "OK",
+      "claim_id": "C31"
+    },
+    {
+      "ok": true,
+      "msg": "claim C32 kind=calculation 合规",
+      "dim": "research:claim_kind",
+      "sev": "OK",
+      "claim_id": "C32"
+    },
+    {
+      "ok": true,
+      "msg": "claim C32 来源充足（1 条）",
+      "dim": "research:min_sources",
+      "sev": "OK",
+      "claim_id": "C32"
+    },
+    {
+      "ok": true,
+      "msg": "claim C33 kind=opinion 合规",
+      "dim": "research:claim_kind",
+      "sev": "OK",
+      "claim_id": "C33"
+    },
+    {
+      "ok": true,
+      "msg": "claim C33 来源充足（2 条）",
+      "dim": "research:min_sources",
+      "sev": "OK",
+      "claim_id": "C33"
     },
     {
       "ok": true,
@@ -532,10 +574,24 @@
       "dim": "research:source_type",
       "sev": "OK",
       "source_id": "S16"
+    },
+    {
+      "ok": true,
+      "msg": "source S17 type=database 合规",
+      "dim": "research:source_type",
+      "sev": "OK",
+      "source_id": "S17"
+    },
+    {
+      "ok": true,
+      "msg": "source S18 type=government 合规",
+      "dim": "research:source_type",
+      "sev": "OK",
+      "source_id": "S18"
     }
   ],
-  "source_count": 16,
-  "claim_count": 30,
+  "source_count": 18,
+  "claim_count": 33,
   "orphan_claims": [],
   "unverified_sources": [],
   "coverage_rate": 1.0,

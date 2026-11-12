@@ -41,6 +41,11 @@ def _out(required: List[str]) -> Dict[str, Any]:
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "profile": {
+        "desc": "数据画像：缺失/基数/PSI",
+        "input": {},
+        "output": {"profile": _out(["profile"])},
+    },
     "elt": {
         "desc": "数据连接与 ELT：connection/sync",
         "input": {

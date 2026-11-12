@@ -35,21 +35,22 @@ def write_readme() -> None:
     md = f"""# 内蒙古水果调研（2026-10 ~ 11）· 快读版
 
 > 报告日 2026-11-12 ｜ 执行：蛙蛙呱呱 agents 团（R01 编排 / R05 研究 / R06 分析 / R15 供应链 / R03 财务 / R02 流程 / R04 评审）
-> 数据窗口 2026-09-15—2026-11-12 ｜ 有效观测 {M['观测统计']['L1'] + M['观测统计']['L2_字段数'] + M['观测统计']['L4'] + M['观测统计']['L5'] + M['观测统计']['L6']} 条 ｜ 结论 30 条 ｜ 来源 16 个
+> 数据窗口 2026-09-15—2026-11-12 ｜ 有效观测 {M['观测统计']['L1'] + M['观测统计']['L2_字段数'] + M['观测统计']['L4'] + M['观测统计']['L5'] + M['观测统计']['L6'] + M['观测统计']['扩展']['L9'] + M['观测统计']['扩展']['L10']} 条 ｜ 结论 {len(L['claims'])} 条 ｜ 来源 {len(L['sources'])} 个
 
 ## 一句话
 
 10—11 月内蒙古水果不是「涨」或「跌」的行情，而是**全国批发窄幅走弱（篮子 {L2['basket_change_pct']:+.2f}%）、呼市零售小幅走强（+{L4['avg_change_pct']:.2f}%）、同省同日价差 2.33 倍**的结构行情——钱在结构里，不在趋势里。
 
-## 五个数
+## 六个数
 
 | # | 数 | 含义 | 证据 |
 |---|---|---|---|
 | 1 | 6.65 → 6.62 元/公斤（振幅 4.79%） | 全国 6 种水果均价 38 个交易日，窄幅震荡 | C1 · S1 |
 | 2 | 呼市 8 种均价 10.21 → 10.49（9 周 +2.74%） | 零售端比全国批发端强 7.21 个百分点 | C7 · S3 |
-| 3 | 赤峰 6.00 / 呼市 14.00 元/公斤 | 同品种同日省内价差 133.3%（2.33 倍） | C10 · S5 |
+| 3 | 赤峰 6.00 / 呼市 14.00 元/公斤 | 8.00 元价差中 64.4% 是规格；同规格区域溢价 3.09 元 | C10 · S5/S17 |
 | 4 | 批零倍率 1.61（苹果）/ 1.69（西瓜）/ 1.60（香蕉） | 三个独立品种同倍率，加价是结构性的 | C13 · S2/S3 |
 | 5 | AP0 36 日 −19.27% | 期货先跌，现货后知，12 月—春节前不看涨 | C15 · S6 |
+| 6 | 2026 同期 −5.11%（vs 2025）、−8.37%（vs 2024） | 波动最低，但水平回到 2022—2023 区间 | C31 · S1/S18 |
 
 ## 三条经营动作
 
@@ -203,10 +204,29 @@ def write_manifest() -> None:
         json.dumps({"artifacts": arts}, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+
+def run_method_gate() -> int:
+    """渲染后自动跑 R04 方法门禁：FAIL 即让构建失败。"""
+    gate = Path(r"D:\蛙蛙呱呱\蛙蛙呱呱agents团\scripts\method_gate.py")
+    report = ROOT / "内蒙古水果市场调研与数据分析报告.html"
+    proc = subprocess.run([sys.executable, str(gate), "--input", str(report)],
+                          capture_output=True, text=True, encoding="utf-8", errors="replace")
+    out = (proc.stdout or "") + (proc.stderr or "")
+    (ROOT / "gates").mkdir(exist_ok=True)
+    (ROOT / "gates" / "method_gate.txt").write_text(out, encoding="utf-8")
+    (ROOT / "gates" / "method_gate_result.json").write_text(
+        json.dumps({"rc": proc.returncode, "report": str(report), "output": out},
+                   ensure_ascii=False, indent=1), encoding="utf-8")
+    first = out.strip().splitlines()[0] if out.strip() else ""
+    print("method gate:", "PASS" if proc.returncode == 0 else "FAIL", first)
+    return proc.returncode
+
+
 def main() -> None:
     for name, fn in HTMLS.items():
         (ROOT / name).write_text(fn(), encoding="utf-8")
         print("rendered", name, (ROOT / name).stat().st_size)
+    gate_rc = run_method_gate()
     write_readme()
     write_audit()
     write_manifest()
@@ -224,6 +244,9 @@ def main() -> None:
             (ROOT / "gates" / "r04_artifact_final_result.json").write_text(
                 json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
             print("final artifact:", d.get("verdict"), d.get("passed_count"), "/", d.get("artifact_count"))
+    if gate_rc != 0:
+        print("方法门禁未通过：构建失败（报告已落盘，可复核）")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

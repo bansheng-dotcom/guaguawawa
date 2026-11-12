@@ -74,6 +74,16 @@ _SECTION = _REQ({"title": _STR_NE, "content": _STR, "claims": _ARR(_STR),
 # 各技能契约
 # --------------------------------------------------------------------------- #
 CONTRACTS: Dict[str, Dict[str, Any]] = {
+    "tam-mc": {
+        "desc": "TAM 蒙特卡洛：p10/p50/p90",
+        "input": {},
+        "output": {"tam-mc": _out(["tam"])},
+    },
+    "matched": {
+        "desc": "匹配差分：两组均值差 + 自助法 CI + 置换 p",
+        "input": {},
+        "output": {"matched": _out(["matched"])},
+    },
     "research": {
         "desc": "证据台账与研究报告",
         "input": {

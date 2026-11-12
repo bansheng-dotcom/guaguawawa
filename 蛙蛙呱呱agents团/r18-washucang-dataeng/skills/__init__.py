@@ -15,6 +15,8 @@ from __future__ import annotations
 from . import (s01_elt, s02_transform, s03_pipeline, s04_quality,
                s05_incremental, s06_catalog, s07_ops)
 
+from . import s08_profile
+
 SKILLS = [
     s01_elt,
     s02_transform,
@@ -23,6 +25,7 @@ SKILLS = [
     s05_incremental,
     s06_catalog,
     s07_ops,
+    s08_profile,
 ]
 
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}

@@ -1,0 +1,29 @@
+{
+ "branches": [
+  {
+   "name": "经济性",
+   "question": "直采能否降本",
+   "hypothesis": "降 0.6 元/公斤",
+   "data": "TCO 与损耗台账",
+   "method": "单位经济 + 三情景",
+   "falsifier": "损耗 >10% 连续两周"
+  },
+  {
+   "name": "供给",
+   "question": "产地能否稳定供货",
+   "hypothesis": "周 2 车可行",
+   "data": "合作社产能",
+   "method": "产能核对",
+   "falsifier": "到货率 <80%"
+  },
+  {
+   "name": "渠道",
+   "question": "门店能否消化",
+   "hypothesis": "动销 ≥85%",
+   "data": "POS",
+   "method": "动销测算",
+   "falsifier": "连续 2 周动销 <75%"
+  }
+ ],
+ "critical_branch": "经济性"
+}

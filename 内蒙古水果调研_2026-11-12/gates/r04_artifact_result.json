@@ -127,37 +127,37 @@
       "per_artifact": {
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/内蒙古水果市场调研与数据分析报告.html": {
           "ok": true,
-          "size_bytes": 113388,
+          "size_bytes": 115460,
           "exists": true
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/内蒙古水果经营报告.html": {
           "ok": true,
-          "size_bytes": 33730,
+          "size_bytes": 35273,
           "exists": true
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/内蒙古水果链路优化报告.html": {
           "ok": true,
-          "size_bytes": 29315,
+          "size_bytes": 28835,
           "exists": true
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/内蒙古水果调研_快读版.md": {
           "ok": true,
-          "size_bytes": 3494,
+          "size_bytes": 3776,
           "exists": true
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/技能调用审计.md": {
           "ok": true,
-          "size_bytes": 4086,
+          "size_bytes": 4129,
           "exists": true
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/data/底稿指标.json": {
           "ok": true,
-          "size_bytes": 145803,
+          "size_bytes": 195651,
           "exists": true
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/data/证据台账.json": {
           "ok": true,
-          "size_bytes": 16795,
+          "size_bytes": 19162,
           "exists": true
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/data/经营指标.json": {
@@ -192,7 +192,7 @@
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/data/facts_check.json": {
           "ok": true,
-          "size_bytes": 9264,
+          "size_bytes": 12686,
           "exists": true
         },
         "D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/engine/r15_tco_apple.json": {
@@ -406,7 +406,7 @@
       "entry_point": true,
       "l1_exists": {
         "ok": true,
-        "size_bytes": 113388,
+        "size_bytes": 115460,
         "exists": true
       },
       "l2_substantive": {
@@ -428,7 +428,7 @@
       "entry_point": true,
       "l1_exists": {
         "ok": true,
-        "size_bytes": 33730,
+        "size_bytes": 35273,
         "exists": true
       },
       "l2_substantive": {
@@ -450,7 +450,7 @@
       "entry_point": true,
       "l1_exists": {
         "ok": true,
-        "size_bytes": 29315,
+        "size_bytes": 28835,
         "exists": true
       },
       "l2_substantive": {
@@ -472,7 +472,7 @@
       "entry_point": true,
       "l1_exists": {
         "ok": true,
-        "size_bytes": 3494,
+        "size_bytes": 3776,
         "exists": true
       },
       "l2_substantive": {
@@ -494,7 +494,7 @@
       "entry_point": true,
       "l1_exists": {
         "ok": true,
-        "size_bytes": 4086,
+        "size_bytes": 4129,
         "exists": true
       },
       "l2_substantive": {
@@ -516,7 +516,7 @@
       "entry_point": false,
       "l1_exists": {
         "ok": true,
-        "size_bytes": 145803,
+        "size_bytes": 195651,
         "exists": true
       },
       "l2_substantive": {
@@ -540,7 +540,7 @@
       "entry_point": false,
       "l1_exists": {
         "ok": true,
-        "size_bytes": 16795,
+        "size_bytes": 19162,
         "exists": true
       },
       "l2_substantive": {
@@ -708,7 +708,7 @@
       "entry_point": false,
       "l1_exists": {
         "ok": true,
-        "size_bytes": 9264,
+        "size_bytes": 12686,
         "exists": true
       },
       "l2_substantive": {

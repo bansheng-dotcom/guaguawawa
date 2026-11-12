@@ -17,6 +17,8 @@ from . import (s01_catalog, s02_order, s03_billing, s04_payment,
                s05_signature, s06_appointment, s07_workflow, s08_revenue,
                s09_selection)
 
+from . import s10_elasticity
+
 SKILLS = [
     s01_catalog,
     s02_order,
@@ -27,6 +29,7 @@ SKILLS = [
     s07_workflow,
     s08_revenue,
     s09_selection,
+    s10_elasticity,
 ]
 
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}

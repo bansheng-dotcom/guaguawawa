@@ -1,0 +1,36 @@
+{
+ "workstreams": [
+  {
+   "name": "TCO 对比",
+   "data_source": "三家报价 + 运价",
+   "method": "TCO",
+   "owner": "r15",
+   "output": "有效单位成本",
+   "fallback": "人工报价 + 行业区间"
+  },
+  {
+   "name": "损耗与温控",
+   "data_source": "温控记录",
+   "method": "损耗核算",
+   "owner": "r06",
+   "output": "损耗率区间",
+   "fallback": "行业 5—10% 区间"
+  },
+  {
+   "name": "规格匹配",
+   "data_source": "新发地分规格",
+   "method": "同日分规格对照",
+   "owner": "r05",
+   "output": "规格价差",
+   "fallback": "单日点估计"
+  },
+  {
+   "name": "同期基线",
+   "data_source": "2022—2025 农业农村部",
+   "method": "同期均值对照",
+   "owner": "r05",
+   "output": "同比与偏离",
+   "fallback": "仅与 2025 对比"
+  }
+ ]
+}

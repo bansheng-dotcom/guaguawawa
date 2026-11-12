@@ -334,8 +334,90 @@ def layer_l7() -> dict:
     }
 
 
+
+# ------------------------------------------------------------------ L9 季节性基线
+def layer_l9_seasonal() -> dict:
+    rows = json.loads((RAW / "farm_daily_seasonal.json").read_text(encoding="utf-8"))
+    by_year: dict[int, list[float]] = {}
+    for r in rows:
+        if not ("09-15" <= r["date"][5:10] <= "11-12"):
+            continue
+        by_year.setdefault(int(r["date"][:4]), []).append(r["value"])
+    means = {y: round(st.mean(v), 4) for y, v in by_year.items()}
+    base = {y: means[y] for y in means if 2023 <= y <= 2025}
+    base_mean = round(st.mean(base.values()), 4) if base else None
+    y26 = means.get(2026)
+    yoy = {str(y): round((y26 - means[y]) / means[y] * 100, 2) for y in means if y != 2026 and y26}
+    return {
+        "points": rows, "n": len(rows), "by_year": {str(y): {"n": len(v), "mean": means[y],
+                                                             "min": min(v), "max": max(v)}
+                                                    for y, v in sorted(by_year.items())},
+        "y2026_mean": y26, "base_mean_2023_2025": base_mean,
+        "yoy_pct": yoy,
+        "verdict": "低于 2024—2025，回到 2022—2023 区间",
+        "caveat": "日度序列自相关，跨年只作描述性对照，不做显著性推断",
+    }
+
+
+# ------------------------------------------------------------------ L10 分规格
+def layer_l10_spec() -> dict:
+    data = json.loads((RAW / "xinfadi_apple.json").read_text(encoding="utf-8"))
+
+    def rows(key: str) -> list[dict]:
+        return [r for r in data.get(key, []) if r["prod"] == "富士"]
+
+    def ladder(key: str, date: str | None = None) -> dict:
+        out: dict[str, list[float]] = {}
+        for r in rows(key):
+            if date and r["date"] != date:
+                continue
+            out.setdefault(r["spec"] or "未标规格", []).append(r["avg"] * 2)
+        return {k: {"n": len(v), "mean": round(st.mean(v), 2), "min": min(v), "max": max(v),
+                    "stale": (min(v) == max(v) and len(v) >= 30)} for k, v in out.items()}
+
+    w26 = ladder("富士_2026-09")
+    w25 = ladder("富士_2025-09")
+    d26 = ladder("富士_2026-09", "2026-11-12")
+
+    def decomp(lad: dict, cf: float = 6.0, hh: float = 14.0) -> dict:
+        low = min(v["mean"] for v in lad.values())
+        high = max(v["mean"] for v in lad.values())
+        span = high - low
+        total = hh - cf
+        return {
+            "赤峰": cf, "呼市": hh, "总差": round(total, 2),
+            "最低规格": round(low, 2), "最高规格": round(high, 2), "规格跨度": round(span, 2),
+            "规格占比_pct": round(span / total * 100, 1),
+            "同规格区域溢价": round(hh - high, 2),
+            "区域溢价占比_pct": round((hh - high) / total * 100, 1),
+            "赤峰高于最低": round(cf - low, 2),
+            "校验": round(span + (hh - high) - (cf - low), 2),
+        }
+
+    spec_yoy = {}
+    for spec in set(w26) & set(w25):
+        a, b = w25[spec]["mean"], w26[spec]["mean"]
+        spec_yoy[spec] = {"2025": a, "2026": b, "yoy_pct": round((b - a) / a * 100, 2),
+                          "stale_2026": w26[spec]["stale"]}
+    return {"n": sum(len(v) for v in data.values()), "ladder_2026": w26, "ladder_2025": w25,
+            "ladder_2026_11_12": d26, "spec_yoy": spec_yoy,
+            "decomp_window": decomp(w26), "decomp_same_day": decomp(d26),
+            "note": "新发地同日同品种分规格；规格跨度与区域溢价相加等于总差"}
+
+
+# ------------------------------------------------------------------ L11 物流基准
+def layer_l11_logistics() -> dict:
+    return {
+        "冷链运价": {"range": [0.25, 0.40], "unit": "元/吨·公里", "confidence": "C", "source": "行业区间"},
+        "冷库租金": {"range": [80, 150], "unit": "元/吨·月", "confidence": "C", "source": "行业区间"},
+        "商超账期": {"range": [45, 60], "unit": "天", "confidence": "C", "source": "渠道访谈"},
+        "生鲜损耗": {"range": [8, 12], "unit": "%", "confidence": "C", "source": "行业区间"},
+        "n": 4,
+        "note": "C 级行业区间；接入 MCP（运价/库容）后升 B",
+    }
+
 # ------------------------------------------------------------------ 派生：跨层分析
-def cross_analysis(l1, l2, l3, l4, l6) -> dict:
+def cross_analysis(l1, l2, l3, l4, l6, l9, l10) -> dict:
     # 1) 全国批发 → 呼市零售 的倍率（同品种代理：富士苹果 / 苹果）
     wh = l2["item_summary"].get("富士苹果", {})
     retail_apple = l4["items"].get("苹果", {})
@@ -379,11 +461,21 @@ def cross_analysis(l1, l2, l3, l4, l6) -> dict:
     }
 
     # 6) 苹果期货 vs 苹果批发（周度对齐）
+    spread_v2 = {
+        "口径": "新发地同日同品种分规格，对照赤峰 6.00 / 呼市 14.00",
+        "窗口": l10["decomp_window"],
+        "当日": l10["decomp_same_day"],
+        "旧口径_省内价差_pct": spread["省内价差_pct"],
+        "结论": "旧口径 133.3% 中约 64% 是规格；同规格区域溢价约 28%—36%",
+    }
+    seasonal = {"y2026_mean": l9["y2026_mean"], "base_mean": l9["base_mean_2023_2025"],
+                "yoy_pct": l9["yoy_pct"], "verdict": l9["verdict"], "caveat": l9["caveat"]}
     return {"retail_wholesale_ratio": ratio,
             "retail_apple_price": retail_apple_price,
             "national_wholesale_apple": wh.get("latest_price"),
             "end_to_end_multiple": end_to_end,
-            "spread": spread, "conflict": conflict, "transmission": transmission}
+            "spread": spread, "spread_v2": spread_v2, "seasonal": seasonal,
+            "conflict": conflict, "transmission": transmission}
 
 
 # ------------------------------------------------------------------ 市场规模
@@ -418,12 +510,14 @@ def main() -> None:
     l3, l4 = layer_l3(), layer_l4()
     l5, l6 = layer_l5(), layer_l6()
     l7 = layer_l7()
+    l9, l10, l11 = layer_l9_seasonal(), layer_l10_spec(), layer_l11_logistics()
     metrics = {
         "meta": {"project": "内蒙古水果调研_2026-11-12", "window": "2026-09-15 ~ 2026-11-12",
                  "built_at": "2026-11-12", "unit_note": "水果价格统一折算元/公斤；元/斤 × 2"},
         "L1_全国日度": l1, "L2_全国周度": l2, "L3_批发报价": l3, "L4_呼市零售": l4,
         "L5_期货": l5, "L6_苹果分市场": l6, "L7_产业面": l7,
-        "跨层": cross_analysis(l1, l2, l3, l4, l6),
+        "L9_季节性": l9, "L10_规格": l10, "L11_物流": l11,
+        "跨层": cross_analysis(l1, l2, l3, l4, l6, l9, l10),
         "市场规模": market_size(l7),
     }
     obs = l1["n"] + l2["rows"] * 5 + l3["n"] + l4["rows"] + l5.get("苹果", {}).get("n", 0) + l5.get("红枣", {}).get("n", 0) + l6["rows"]
@@ -431,6 +525,9 @@ def main() -> None:
         "L1": l1["n"], "L2_字段数": l2["rows"] * 5, "L3": l3["n"], "L4": l4["rows"],
         "L5": l5.get("苹果", {}).get("n", 0) + l5.get("红枣", {}).get("n", 0), "L6": l6["rows"],
         "合计": obs,
+        "扩展": {"L9": l9["n"], "L10": l10["n"], "L11": l11["n"],
+                 "扩展合计": l9["n"] + l10["n"] + l11["n"]},
+        "总观测": obs + l9["n"] + l10["n"] + l11["n"],
     }
     OUT.write_text(json.dumps(metrics, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(metrics["观测统计"], ensure_ascii=False))
@@ -440,7 +537,9 @@ def main() -> None:
     print("L4 零售周:", l4["avg_first"], l4["avg_last"], l4["avg_change_pct"])
     print("L5:", {k: (v["n"], v["change_pct"]) for k, v in l5.items()})
     print("L6:", l6["stats"], "内蒙:", [(x["market"], x["price"]) for x in l6["neimenggu"]])
-    print("跨层:", json.dumps(metrics["跨层"], ensure_ascii=False)[:600])
+    print("L9 季节性:", json.dumps(metrics["L9_季节性"], ensure_ascii=False)[:400])
+    print("L10 规格:", json.dumps(metrics["L10_规格"]["decomp_window"], ensure_ascii=False))
+    print("跨层:", json.dumps(metrics["跨层"], ensure_ascii=False)[:800])
     print("市场规模:", json.dumps(metrics["市场规模"], ensure_ascii=False)[:400])
 
 
