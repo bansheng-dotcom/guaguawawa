@@ -71,13 +71,68 @@ def log_event(role: str, event: str, payload: Optional[Dict[str, Any]] = None,
 # --------------------------------------------------------------------------- #
 # 报告出口（签名兼容 core.report_bridge.emit）
 # --------------------------------------------------------------------------- #
+ENGINE_ENV = "GUAGUA_REPORT_ENGINE"   # auto（默认）| kernel | legacy
+
+
+def _engine_choice(role: str) -> str:
+    """选引擎：auto 时按 spec 是否存在决定；可用环境变量强制回滚。"""
+    forced = os.environ.get(ENGINE_ENV, "auto").strip().lower()
+    if forced in ("kernel", "legacy"):
+        return forced
+    try:
+        from core import report_bridge
+        return "kernel" if report_bridge.use_kernel(role) else "legacy"
+    except Exception:  # noqa: BLE001  内核不可用不该挡住出报告
+        return "legacy"
+
+
+def _emit_kernel(role, name, title, result, skill, action, intent,
+                 out_dir, md_name, dataset):
+    """内核路径：result → L1 contract → core/report_renderer（唯一渲染器）。
+
+    渲染**在进程内**完成（不走 report_bridge.render_html 的子进程）：
+    角色测试本身常以「子进程 + 捕获输出」运行，再嵌套一层 subprocess 会在
+    Windows 上出现管道继承导致的挂起（实测 r14 pytest 卡死）。渲染器是纯函数，
+    进程内调用既快又不会死锁；`report_bridge` 的子进程路径保留给独立 CLI 用。
+    """
+    from core import protocol, report_bridge, report_renderer
+
+    contract, _fid = report_bridge.build_kernel_contract(
+        role, name, title, result, skill, action, intent, dataset=dataset)
+    errs = report_renderer.validate_contract(contract)
+    if errs:
+        raise RuntimeError("contract: " + "；".join(errs[:3]))
+
+    charts = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                          "core", "charts")
+    if os.path.isdir(charts):
+        report_renderer.set_chart_dir(charts)
+    doc = report_renderer.render(contract)
+
+    out_html = os.path.join(out_dir, md_name + ".html")
+    out_md = os.path.join(out_dir, md_name + ".md")
+    with open(out_html, "w", encoding="utf-8", newline="\n") as f:
+        f.write(doc)
+    report_bridge.write_markdown(contract, out_md)
+    return [protocol.Port(md_name + ".md", "report", "text/markdown"),
+            protocol.Port(md_name + ".html", "report", "text/html")]
+
+
 def emit(role: str, name: str, title: str, result: Dict[str, Any],
          skill: str, action: str, intent: str, out_dir: str,
          md_name: str, html_name: Optional[str] = None,
          input_path: Optional[str] = None,
          report_slug: Optional[str] = None,
+         dataset: Optional[List[Dict[str, Any]]] = None,
          **legacy: Any) -> List[Any]:
     """把一次技能真实运行结果，渲染成 REP-001 双格式报告，返回 Port 列表。
+
+    引擎选择（2026-11-12 起）：
+      - 该角色有 report_specs/roles/<role>.yaml 且不在 legacy 名单 → **内核**
+        （core/report_kernel + core/report_renderer：版式四规则、保真分数、
+        规格校验、可 seal/可 diff）；
+      - 否则回落 REP-001 五段式引擎（旧路径，保留不删，可用环境变量强制）。
+    回滚：`GUAGUA_REPORT_ENGINE=legacy python agent.py ...`
 
     :param role: 角色 id（r01..r20）
     :param name: 角色名（蛙全局…），仅用于日志
@@ -89,6 +144,7 @@ def emit(role: str, name: str, title: str, result: Dict[str, Any],
     :param md_name: 产物前缀（如 coo_report → coo_report.md / .html）
     :param html_name: 兼容旧签名，忽略（HTML 名与 md_name 同名）
     :param input_path: 本次输入文件绝对路径，用于计算 SHA256 供复算
+    :param dataset: 观测集（可选）；给了才产出保留率/溯源率/弃置率
     :param legacy: 兼容旧调用（specialist/chart_dir/data/doc_type/pdf 等），忽略
     :return: [Port(.md), Port(.html)]
     """
@@ -99,10 +155,27 @@ def emit(role: str, name: str, title: str, result: Dict[str, Any],
         "out_dir": out_dir, "md_name": md_name,
         "ignored_legacy": sorted(legacy) if legacy else [],
     }
+
+    engine = _engine_choice(role)
+    if engine == "kernel":
+        try:
+            ports = _emit_kernel(role, name, title, result, skill, action, intent,
+                                 out_dir, md_name, dataset)
+            payload.update({"engine": "kernel",
+                            "html": ports[1].name,
+                            "md": ports[0].name})
+            log_event(role, "report_emitted", payload)
+            return ports
+        except Exception as exc:  # noqa: BLE001  内核失败回落旧引擎，但必须留痕
+            payload.update({"engine": "kernel->legacy",
+                            "kernel_error": f"{type(exc).__name__}: {exc}"})
+            log_event(role, "report_kernel_fallback", payload, level="WARN")
+
     try:
         files = emit_role_report(role, result, skill, action, intent, out_dir,
                                  input_path=input_path, report_slug=slug)
-        payload.update({"html": os.path.basename(files["html"]),
+        payload.update({"engine": "legacy-rep001",
+                        "html": os.path.basename(files["html"]),
                         "md": os.path.basename(files["md"])})
         log_event(role, "report_emitted", payload)
         return [
@@ -122,7 +195,7 @@ def emit(role: str, name: str, title: str, result: Dict[str, Any],
                 "本次技能已真实执行，但报告渲染未通过 REP-001 门禁。"
                 "请按下方堆栈修复后重跑，禁止把本文件当作交付物。\n\n"
                 f"```\n{tb}\n```\n")
-        payload.update({"error": f"{type(exc).__name__}: {exc}"})
+        payload.update({"engine": "legacy-rep001", "error": f"{type(exc).__name__}: {exc}"})
         log_event(role, "report_failed", payload, level="ERROR")
         return [protocol.Port("REPORT_FAILED.md", "report", "text/markdown")]
 

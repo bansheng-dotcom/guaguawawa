@@ -31,6 +31,27 @@
 
 ---
 
+## 0.1 引擎路由（2026-11-12 起，必读）
+
+`emit()` 现在按角色**自动选引擎**，两者共用一个渲染器：
+
+| 条件 | 引擎 | 产物特征 |
+|---|---|---|
+| 有 `report_specs/roles/<role>.yaml` 且不在 `configs/legacy_roles.txt` | **内核**（`core/report_kernel`） | 规格校验 + 保真分数 + 版式四规则 + 记录层折叠，可 `seal`/`diff` |
+| 否则（或内核抛错） | REP-001 五段式（`shared/report_engine.py`） | 三级归因 + 熔断三档 + provenance |
+
+```bash
+GUAGUA_REPORT_ENGINE=legacy python agent.py ...   # 强制回滚旧引擎
+GUAGUA_REPORT_ENGINE=kernel python agent.py ...   # 强制内核（缺 spec 会回落并留 WARN 日志）
+```
+
+- 每次出报告都会在 `workspace/logs/<role>.jsonl` 记一行 `report_emitted`，`payload.engine` 写明走了哪条；
+  内核失败回落时额外记 `report_kernel_fallback`（WARN）并带 `kernel_error`，**不静默**。
+- 两个引擎都只调用 `core/report_renderer.py`，所以「唯一渲染器」不变。
+- 新角色接入仍按本文 §2 三步走；有 spec 的角色会自动走内核，不需要额外代码。
+
+---
+
 ## 1. 三件东西，先认脸
 
 | 文件 | 角色 | 谁该改 |
