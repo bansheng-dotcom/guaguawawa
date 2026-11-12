@@ -1,18 +1,11 @@
 # -*- coding: utf-8 -*-
-"""把「技能部分」同步到本地的 Trae / WorkBuddy 镜像包。
+"""把「技能运行所需」同步到本地 Trae / WorkBuddy 镜像包。
 
-只同步技能运行所需：
-  * 每个角色的 skills/ + agent.py + contracts.py + harness.py + run_tests.py + SKILL.md
-  * shared/methods, shared/consulting, shared/mcp, shared/capabilities
-  * scripts/methods.py / consult.py / mcp_doctor.py / audit_*depth*.py
-  * tests/test_methods_*.py
-  * 两份深度 SOP / 审计文档
-
-不同步：workspace、cases、avatars、docs 全量、报告产物。
-
-用法：
-  python scripts/sync_skill_mirrors.py --check
-  python scripts/sync_skill_mirrors.py
+映射：
+  Trae：角色与运行时都放在 role-runtime/agents/
+  WorkBuddy：角色放 references/roles/，运行时（core/shared/scripts/...）放 references/
+             —— 因为 role agent 的 _ROOT 是 references，core 必须在其下
+不复制 workspace、cases、avatars、报告产物。
 """
 from __future__ import annotations
 
@@ -24,18 +17,18 @@ from pathlib import Path
 TEAM = Path(__file__).resolve().parent.parent
 
 TARGETS = [
-    ("Trae 本地镜像", Path(r"D:\蛙蛙呱呱\traeskills\wawa-guagua\tools\role-runtime\agents")),
-    ("WorkBuddy 本地镜像", Path(r"D:\蛙蛙呱呱\workbuddy专家团\wawa-company-os\skills\wawa-company-protocol\references\roles")),
+    {"label": "Trae 本地镜像",
+     "root": Path(r"D:\蛙蛙呱呱\traeskills\wawa-guagua\tools\role-runtime\agents"),
+     "role_prefix": ""},
+    {"label": "WorkBuddy 本地镜像",
+     "root": Path(r"D:\蛙蛙呱呱\workbuddy专家团\wawa-company-os\skills\wawa-company-protocol\references"),
+     "role_prefix": "roles"},
 ]
 
-SHARED = ["shared/methods", "shared/consulting", "shared/mcp", "shared/capabilities"]
-SCRIPTS = [
-    "scripts/methods.py", "scripts/consult.py", "scripts/mcp_doctor.py",
-    "scripts/audit_method_depth.py", "scripts/audit_skill_depth.py",
-    "scripts/ci_upgrade_checks.py",
-]
+RUNTIME_DIRS = ["core", "configs", "shared", "scripts", "styles", "templates",
+                "knowledge", "report_specs", "agents"]
 DOCS = ["docs/方法代码深度升级SOP.md", "docs/技能深度审计_2026-11-12.md",
-        "docs/深度地图核对.md"]
+        "docs/深度地图核对.md", "docs/升级改动地图.md"]
 TESTS = ["tests/test_methods_core.py", "tests/test_methods_deep.py",
          "tests/test_methods_deep_advanced.py", "tests/test_methods_business.py",
          "tests/test_method_gate.py"]
@@ -56,15 +49,22 @@ def role_files() -> list[Path]:
 
 def all_files() -> list[Path]:
     files = role_files()
-    for rel in SHARED:
+    for rel in RUNTIME_DIRS:
         p = TEAM / rel
         if p.exists():
-            files.extend(q for q in p.rglob("*.py") if q.is_file())
-    for rel in SCRIPTS + DOCS + TESTS:
+            files.extend(q for q in p.rglob("*") if q.is_file()
+                         and "__pycache__" not in q.parts and q.suffix != ".pyc")
+    for rel in DOCS + TESTS:
         p = TEAM / rel
         if p.is_file():
             files.append(p)
     return files
+
+
+def dest_for(target: dict, rel: Path) -> Path:
+    if rel.parts and rel.parts[0].startswith("r") and rel.parts[0][1:3].isdigit():
+        return target["root"] / target["role_prefix"] / rel
+    return target["root"] / rel
 
 
 def main(argv=None) -> int:
@@ -72,16 +72,17 @@ def main(argv=None) -> int:
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args(argv)
     files = all_files()
-    print(f"待同步技能文件：{len(files)} 个")
+    print(f"待同步技能运行时文件：{len(files)} 个")
     total = 0
-    for label, dst_root in TARGETS:
-        if not dst_root.exists():
-            print(f"[skip] {label}: 不存在 {dst_root}")
+    for t in TARGETS:
+        root = t["root"]
+        if not root.exists():
+            print(f"[skip] {t['label']}: 不存在 {root}")
             continue
         changed = same = 0
         for src in files:
             rel = src.relative_to(TEAM)
-            dst = dst_root / rel
+            dst = dest_for(t, rel)
             if dst.exists() and filecmp.cmp(src, dst, shallow=False):
                 same += 1
                 continue
@@ -90,7 +91,7 @@ def main(argv=None) -> int:
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(src, dst)
         total += changed
-        print(f"[{label}] {'需同步' if args.check else '已同步'}：变更 {changed}，一致 {same} → {dst_root}")
+        print(f"[{t['label']}] {'需同步' if args.check else '已同步'}：变更 {changed}，一致 {same} → {root}")
     print(f"\n合计变更 {total} 个文件" + ("（--check 未写入）" if args.check else ""))
     return 0
 
