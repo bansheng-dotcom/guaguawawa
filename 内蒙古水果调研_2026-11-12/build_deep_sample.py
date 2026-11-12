@@ -64,7 +64,7 @@ ladder_bars.append(("呼市东瓦窑", Q2["decomp"]["呼市"], "#B91C1C"))
 spec_rows = []
 for spec, v in ladder:
     old = Q2["spec_yoy"].get(spec)
-    spec_rows.append([spec or "—", v["mean"], (f'{old["yoy_pct"]:+.1f}%' if old else "—"),
+    spec_rows.append([spec or "—", K.fmt(v["mean"]), (f'{old["yoy_pct"]:+.1f}%' if old else "—"),
                       K.fmt(old["2025"]) if old else "—"])
 dec = Q2["decomp"]
 
