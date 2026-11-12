@@ -1,6 +1,0 @@
-{
-  "growth_stage": "成长期",
-  "metrics": {"northstar": "付费用户数", "ltv": 1600, "cac": 150, "payback_months": 2.0},
-  "experiments": {"hypothesis": "简化注册页提升激活", "metric": "activation_rate", "significance": 0.05},
-  "stop_condition": {"kill_criteria": "转化率连续四周低于基线即停", "guardrail": "不刷单不伪造评价", "owner": "r12"}
-}

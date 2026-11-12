@@ -1,7 +1,0 @@
-{
-  "_comment": "artifact inventory 脏夹具：required 物料缺失 → verdict BLOCKED / ok=false",
-  "items": [
-    {"path": "experience/thresholds.json", "type": "config", "required": true},
-    {"path": "experience/__missing_required__.json", "type": "config", "required": true}
-  ]
-}

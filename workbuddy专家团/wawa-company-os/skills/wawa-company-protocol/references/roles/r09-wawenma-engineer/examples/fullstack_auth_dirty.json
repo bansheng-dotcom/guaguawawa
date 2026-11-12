@@ -1,5 +1,0 @@
-{
-  "auth_method": "sso",
-  "routes": [{"path": "/a"}],
-  "protected_routes": ["/nonexistent"]
-}

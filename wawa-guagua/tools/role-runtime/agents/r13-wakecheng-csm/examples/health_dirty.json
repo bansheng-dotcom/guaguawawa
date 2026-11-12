@@ -1,7 +1,0 @@
-{
-  "customers": [
-    {"usage": 10, "support": 10, "voc": 10,
-     "engagement": 10, "renewal_in_days": 10}
-  ],
-  "summary": "匿名的 at_risk 客户，且无归因。"
-}

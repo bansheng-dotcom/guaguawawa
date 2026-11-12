@@ -1,7 +1,0 @@
-{
-  "symptom": "客户 API 调用返回 403",
-  "repro": "使用旧版 token 调用 /v1/report 接口时稳定复现",
-  "impact": "客户日报拉取失败，影响其内部看板",
-  "owner_route": "r07",
-  "evidence": {"source": "chatwoot__chatwoot", "quote": "403 由过期凭证触发，需轮换 token"}
-}

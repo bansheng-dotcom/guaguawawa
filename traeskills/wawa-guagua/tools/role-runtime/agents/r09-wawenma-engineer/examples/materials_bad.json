@@ -1,8 +1,0 @@
-{
-  "project": "缺物料的工程",
-  "items": [
-    {"path": "spec_spec.json", "required": true},
-    {"path": "not_exist.json", "required": true},
-    {"path": "optional_missing.json", "required": false}
-  ]
-}

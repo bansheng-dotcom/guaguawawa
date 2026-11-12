@@ -1,6 +1,0 @@
-{
-  "modules": [
-    {"name": "auth", "inputs": ["credential"], "outputs": ["token"]},
-    {"name": "auth", "outputs": ["token"]}
-  ]
-}

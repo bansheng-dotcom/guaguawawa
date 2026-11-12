@@ -1,1 +1,0 @@
-"# 优先级规则\n\n1. 明文密钥 = BLOCKER，最高优先级。\n2. 未声明 credential_type 次之。\n3. 未解析占位符为 WARN，不阻断。\n"

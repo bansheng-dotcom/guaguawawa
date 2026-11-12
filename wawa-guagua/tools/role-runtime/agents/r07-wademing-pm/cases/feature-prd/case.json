@@ -1,8 +1,0 @@
-{
-  "case_id": "feature-prd",
-  "display_name": "功能 PRD 模板（新手引导）",
-  "description": "一份通过八门禁的 PRD 结构范式：问题/用户/价值/范围/指标/验收/风险/可读，用于反推功能需求的完整判断。",
-  "default_question": "如何写一份可执行、可验收的新手引导 PRD？",
-  "semantic_layer": "semantic_layer.json",
-  "experience_dir": "experience"
-}

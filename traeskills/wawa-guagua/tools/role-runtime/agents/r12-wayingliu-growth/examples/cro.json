@@ -1,5 +1,0 @@
-{
-  "hypothesis": "把注册页从 5 步减到 2 步能提升 15% 的激活率",
-  "metric": "activation_rate",
-  "significance": 0.05
-}

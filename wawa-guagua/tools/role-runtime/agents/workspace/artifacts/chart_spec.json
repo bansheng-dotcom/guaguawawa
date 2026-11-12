@@ -1,7 +1,0 @@
-{
-  "chart_type": "bar",
-  "title": "各渠道订单金额对比",
-  "x_field": "channel",
-  "y_field": "amount",
-  "data": []
-}

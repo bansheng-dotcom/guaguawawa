@@ -1,6 +1,0 @@
-{
-  "monitor_id": "mon-http-api",
-  "checks_total": 1000,
-  "up_count": 999,
-  "uptime_ratio": 0.999
-}

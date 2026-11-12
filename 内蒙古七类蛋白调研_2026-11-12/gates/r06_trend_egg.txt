@@ -1,1 +1,0 @@
-__AGENT_RESULT__ {"type": "trend", "series": [{"date": "2026-09-25", "value": 11.1}, {"date": "2026-10-02", "value": 10.76}, {"date": "2026-10-09", "value": 10.42}, {"date": "2026-10-16", "value": 10.05}, {"date": "2026-10-23", "value": 9.77}, {"date": "2026-10-30", "value": 9.84}, {"date": "2026-11-06", "value": 9.93}], "total": 71.87, "runtime_ms": 0}

@@ -1,6 +1,0 @@
-{
-  "case_id": "pricing-freeze",
-  "display_name": "定价决策与冷却锁",
-  "description": "自助版定价调整的完整决策链：简报→红队→交叉评估→决策卡→冷却锁→决策日志。演示难逆决策如何走「预承诺标准 + 回滚 + freeze」全链。",
-  "default_question": "下季度要不要把自助版定价从 99 上调到 149？"
-}

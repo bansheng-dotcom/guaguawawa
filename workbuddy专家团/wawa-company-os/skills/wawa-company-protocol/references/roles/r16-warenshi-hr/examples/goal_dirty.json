@@ -1,8 +1,0 @@
-{
-  "name": "交付零缺陷",
-  "status": "Completed",
-  "progress": 40.0,
-  "kras": [
-    {"name": "上线无阻塞"}
-  ]
-}

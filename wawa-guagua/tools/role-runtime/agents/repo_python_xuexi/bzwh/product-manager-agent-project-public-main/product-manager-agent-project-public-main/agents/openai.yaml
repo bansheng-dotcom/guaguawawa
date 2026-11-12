@@ -1,7 +1,0 @@
-interface:
-  display_name: "Product Manager"
-  short_description: "Decision-ready PM workflows and product briefs"
-  default_prompt: "Use $product-manager to clarify this product request and choose the right PM workflow."
-
-policy:
-  allow_implicit_invocation: true

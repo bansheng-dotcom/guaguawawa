@@ -1,8 +1,0 @@
-{
-  "case_id": "logo-rebrand",
-  "display_name": "Logo 重塑（新品牌视觉）",
-  "description": "给一个新品牌设计 logo：从样式寻路（3 个概念）到多尺寸测试、单色测试、商标排查与主/次色对比度校验，直到可交付 SVG 变体。",
-  "default_question": "为「蛙得清数据分析」设计一个 logo 与图标变体包。",
-  "semantic_layer": "semantic_layer.json",
-  "experience_dir": "experience"
-}

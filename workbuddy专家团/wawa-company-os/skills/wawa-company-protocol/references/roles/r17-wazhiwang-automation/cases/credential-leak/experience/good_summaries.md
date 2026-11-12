@@ -1,1 +1,0 @@
-"# 好结论范例\n\n- 工作流参数含 api_key 明文，凭据门禁 FAIL，需改用 newCredential() 引用。\n- 所有凭据均声明 credential_type 且无明文命中，可进入装配。\n"

@@ -1,5 +1,0 @@
-{
-  "connection_id": "conn-001",
-  "source_connector": "source-postgres",
-  "destination_connector": "destination-snowflake"
-}

@@ -1,9 +1,0 @@
-{
-  "_comment": "criteria review 干净夹具：3 pass + 1 warn，0 fail → verdict PASS",
-  "criteria": [
-    {"id": "AC-01", "description": "Hero 文案与定位一致", "evidence": "landing.html:12 主标语含定位语", "severity": "critical"},
-    {"id": "AC-02", "description": "表单可投递到真实端点", "evidence": "landing.html:47 form action 指向 /api/lead", "severity": "critical"},
-    {"id": "AC-03", "description": "移动优先布局", "evidence": "landing.html:8 viewport meta 存在", "partial": true, "severity": "major"},
-    {"id": "AC-04", "description": "转化追踪已接入", "evidence": "landing.html:52 转化追踪事件回传", "severity": "major"}
-  ]
-}

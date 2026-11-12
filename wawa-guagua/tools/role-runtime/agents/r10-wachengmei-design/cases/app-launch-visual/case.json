@@ -1,8 +1,0 @@
-{
-  "case_id": "app-launch-visual",
-  "display_name": "App 发布视觉包（品牌 VI + UI/UX）",
-  "description": "给一个即将上线的 App 产出一整套发布视觉：品牌视觉身份（3 个 Stylescape 方向）、屏幕设计（目标/分区/组件/状态/无障碍）、动效规格与交付令牌。",
-  "default_question": "为「蛙引流」App 做发布前的视觉身份与关键屏设计。",
-  "semantic_layer": "semantic_layer.json",
-  "experience_dir": "experience"
-}

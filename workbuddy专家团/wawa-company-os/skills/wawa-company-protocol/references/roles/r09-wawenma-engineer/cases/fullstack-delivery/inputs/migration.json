@@ -1,9 +1,0 @@
-{
-  "steps": [
-    {"operation": "add_column invoices.status"},
-    {"operation": "backfill invoices.status"},
-    {"operation": "create_index invoices(status)"}
-  ],
-  "rollback_plan": ["drop index", "drop column"],
-  "authorization": true
-}

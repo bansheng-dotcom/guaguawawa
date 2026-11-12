@@ -1,7 +1,0 @@
-{
-  "_comment": "quality converge 第二轮 findings（2 条 < 4 条，仍在下降 → ITERATING 未收敛）",
-  "findings": [
-    {"id": "V2-01", "check": "completion_without_evidence", "severity": "warning", "title": "次要：证据引用为空"},
-    {"id": "V2-02", "check": "minor_wording", "severity": "warning", "title": "次要：措辞含糊"}
-  ]
-}

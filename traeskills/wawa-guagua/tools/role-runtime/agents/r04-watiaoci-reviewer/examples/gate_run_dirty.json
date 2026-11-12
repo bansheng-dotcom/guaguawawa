@@ -1,8 +1,0 @@
-{
-  "_comment": "gate run 脏夹具：exit_code=3 FAIL + 1s 超时 FAIL(TIMEOUT) → overall FAIL",
-  "gates": [
-    {"name": "py-version", "command": "python --version"},
-    {"name": "must-fail", "command": "python -c \"import sys; sys.exit(3)\""},
-    {"name": "slow-gate", "command": "python -c \"import time; time.sleep(20)\"", "timeout_s": 1}
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "policy": {
-    "max_retries": 3,
-    "timeout_s": 5,
-    "operation": "create",
-    "idempotency_key": "idem_abc",
-    "dead_letter": true
-  }
-}

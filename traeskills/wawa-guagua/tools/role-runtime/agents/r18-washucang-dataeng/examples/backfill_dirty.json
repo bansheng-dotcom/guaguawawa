@@ -1,8 +1,0 @@
-{
-  "operation": "backfill",
-  "start": "2026-01-31",
-  "end": "2026-01-01",
-  "idempotency_key": "order_id",
-  "authorized": false,
-  "approver": ""
-}

@@ -1,8 +1,0 @@
-{
-  "transport": "stdio",
-  "tools": [
-    {"name": "search_code"},
-    {"name": "run_tests"}
-  ],
-  "manifest": {"tools": ["search_code", "run_tests"]}
-}

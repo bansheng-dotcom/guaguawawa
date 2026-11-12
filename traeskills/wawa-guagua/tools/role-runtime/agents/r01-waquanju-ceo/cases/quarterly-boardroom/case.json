@@ -1,6 +1,0 @@
-{
-  "case_id": "quarterly-boardroom",
-  "display_name": "季度董事会与复盘",
-  "description": "季度经营汇报的完整链路：记分卡→董事会材料（成绩/问题/计划/求助）→复盘（预承诺标准打分）。演示 miss 不掩盖、求助明确、LOSS 必闭环。",
-  "default_question": "这个季度经营结果怎么向董事会汇报，哪些决策要复盘？"
-}

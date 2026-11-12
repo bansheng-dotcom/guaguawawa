@@ -1,8 +1,0 @@
-{
-  "suites": [
-    {"suite_type": "unit", "passed": 120, "failed": 0, "skipped": 0},
-    {"suite_type": "integration", "passed": 40, "failed": 0, "skipped": 0},
-    {"suite_type": "e2e", "passed": 12, "failed": 0, "skipped": 0}
-  ],
-  "coverage": 0.87
-}

@@ -1,6 +1,0 @@
-{
-  "targets": [
-    {"platform": "android", "status": "success"},
-    {"platform": "web", "status": "skipped"}
-  ]
-}

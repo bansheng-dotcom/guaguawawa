@@ -1,8 +1,0 @@
-{
-  "model_name": "support-qa-assistant",
-  "intended_use": "什么都能答",
-  "limitations": "",
-  "risk_tier": "none",
-  "license": "免费随便用",
-  "known_bias": ""
-}

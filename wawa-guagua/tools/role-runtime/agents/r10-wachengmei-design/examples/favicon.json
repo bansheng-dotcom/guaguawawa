@@ -1,8 +1,0 @@
-{
-  "variants": [
-    {"name": "favicon"},
-    {"name": "apple-touch-icon"},
-    {"name": "android-icon"}
-  ],
-  "source": "logo.svg"
-}

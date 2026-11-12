@@ -1,9 +1,0 @@
-{
-  "model_size": "small",
-  "source": "episode-01.mp3",
-  "text": "大家好，这是第一期播客。",
-  "segments": [
-    {"start": 0.0, "end": 2.5, "text": "大家好"},
-    {"start": 2.5, "end": 4.0, "text": "这是第一期播客"}
-  ]
-}

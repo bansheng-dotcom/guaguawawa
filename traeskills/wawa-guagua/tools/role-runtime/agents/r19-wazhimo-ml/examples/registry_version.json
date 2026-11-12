@@ -1,8 +1,0 @@
-{
-  "model_name": "support-qa-assistant",
-  "versions": [
-    {"version": "1", "stage": "archived"},
-    {"version": "2", "stage": "archived"},
-    {"version": "3", "stage": "production"}
-  ]
-}

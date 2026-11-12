@@ -1,7 +1,0 @@
-{
-  "metric_name": "overall_wow_factor",
-  "view": "DASHBOARD",
-  "aggregation": "MAX",
-  "start": "",
-  "end": ""
-}

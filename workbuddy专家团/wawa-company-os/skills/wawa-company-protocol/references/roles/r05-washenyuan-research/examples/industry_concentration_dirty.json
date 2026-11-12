@@ -1,7 +1,0 @@
-{
-  "market": "中国 AI 编程助手",
-  "shares": [
-    {"player": "厂商A", "share": -10},
-    {"player": "厂商B", "share": 60}
-  ]
-}

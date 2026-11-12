@@ -1,9 +1,0 @@
-{
-  "auth_method": "jwt",
-  "routes": [
-    {"path": "/public"},
-    {"path": "/private"},
-    {"path": "/admin"}
-  ],
-  "protected_routes": ["/private", "/admin"]
-}

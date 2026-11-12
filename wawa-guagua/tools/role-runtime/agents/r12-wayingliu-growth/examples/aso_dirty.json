@@ -1,6 +1,0 @@
-{
-  "store": "steam",
-  "title": "这是一个超长到离谱的应用标题用来测试字符上限拦截的逻辑是否生效",
-  "subtitle": "副标题也很长很长很长很长很长很长很长很长很长很长很长很长",
-  "scores": {"title": 15, "description": 8, "visual": 8, "rating": 9, "metadata": 8, "conversion": 9}
-}

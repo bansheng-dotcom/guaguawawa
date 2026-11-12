@@ -1,9 +1,0 @@
-{
-  "events": [
-    {"ts": "2026-11-03T10:00:00", "type": "created", "actor": "r08", "detail": "建交接包"},
-    {"ts": "2026-11-03T11:00:00", "type": "updated", "actor": "r08", "detail": "补复现命令"},
-    {"ts": "2026-11-03T14:00:00", "type": "handoff", "actor": "r08", "detail": "交接给 r09"},
-    {"ts": "2026-11-03T16:00:00", "type": "accepted", "actor": "r09", "detail": "验收通过"},
-    {"ts": "2026-11-03T17:00:00", "type": "closed", "actor": "r09", "detail": "归档"}
-  ]
-}

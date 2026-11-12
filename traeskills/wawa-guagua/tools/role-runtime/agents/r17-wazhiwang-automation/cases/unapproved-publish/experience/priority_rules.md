@@ -1,1 +1,0 @@
-"# 优先级规则\n\n1. 高危动作（refund/publish/delete/drop）优先于一般动作。\n2. 无审批授权的高危动作 = BLOCKER，不回退。\n3. 低风险动作（email_notify）不强制审批。\n"

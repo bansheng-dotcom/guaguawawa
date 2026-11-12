@@ -1,8 +1,0 @@
-{
-  "source": "local_stg_orders",
-  "rows": [
-    {"order_id": "A-1001", "amount": 128.5, "channel": "抖音"},
-    {"order_id": "A-1002", "amount": 240.0, "channel": "微信"},
-    {"order_id": "A-1003", "amount": 88.25, "channel": "抖音"}
-  ]
-}

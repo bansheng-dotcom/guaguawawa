@@ -1,6 +1,0 @@
-{
-  "connection_id": "conn-002",
-  "source_connector": "postgres",
-  "destination_connector": "destination-snowflake",
-  "password": "s3cr3t"
-}

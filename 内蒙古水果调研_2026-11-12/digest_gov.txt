@@ -1,9 +1,0 @@
-### nmg_202611_10 (0 句) http://www.nmgjgjc.com.cn/jgjcwz/pricedyna/202611/10/qba034230aha5p0brf5y.shtml
-
-### nmg_202611_09 (0 句) http://www.nmgjgjc.com.cn/jgjcwz/pricedyna/202611/09/qb9045419h14smsjcjr0.shtml
-
-### nmg_202610_21 (0 句) http://www.nmgjgjc.com.cn/jgjcwz/pricedyna/202610/21/qal03001975nrpddn3b9.shtml
-
-### nmg_202610_28 (0 句) http://www.nmgjgjc.com.cn/jgjcwz/pricedyna/202610/28/qas033252m8iuyeawsrh.shtml
-
-### mofcom_1030 [FAIL URLError] https://cif.mofcom.gov.cn/newsite/html/neimenggu/html/1349859/2026/11/3/1793695175802.html

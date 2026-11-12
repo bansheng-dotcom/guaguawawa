@@ -1,8 +1,0 @@
-{
-  "_comment": "harness verdict 干净夹具：PASS + findings 数组 + criteria_results 证据链 → 结构门禁 PASS",
-  "verdict": "PASS",
-  "findings": [],
-  "criteria_results": [
-    {"id": "AC-01", "status": "pass", "reason": "evidence_specific", "evidence": "landing.html:12"}
-  ]
-}

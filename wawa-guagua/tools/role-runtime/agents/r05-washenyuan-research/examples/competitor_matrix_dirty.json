@@ -1,9 +1,0 @@
-{
-  "market": "AI 编程助手",
-  "features": ["代码补全", "对话式开发", "私有化部署", "多语言支持"],
-  "competitors": [
-    {"name": "厂商A", "features": {"代码补全": "yes", "对话式开发": "INVALID_VALUE"}},
-    {"name": "厂商B", "features": {"代码补全": "yes"}}
-  ],
-  "our_product": {"name": "我方产品", "features": {"代码补全": "yes"}}
-}

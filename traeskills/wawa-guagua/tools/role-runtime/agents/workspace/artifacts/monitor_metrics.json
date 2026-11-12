@@ -1,8 +1,0 @@
-{
-  "metric_name": "latency",
-  "view": "TRACES",
-  "aggregation": "P95",
-  "start": "2026-10-01",
-  "end": "2026-10-31",
-  "narrative": "客服助手 P95 延迟月视图"
-}

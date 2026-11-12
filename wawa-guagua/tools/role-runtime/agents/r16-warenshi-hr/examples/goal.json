@@ -1,9 +1,0 @@
-{
-  "name": "交付零缺陷",
-  "status": "Completed",
-  "progress": 100.0,
-  "kras": [
-    {"name": "上线无阻塞", "measurable_result": "连续 3 个月无 P0/P1"},
-    {"name": "响应及时", "key_result": "SLA ≤ 2h"}
-  ]
-}

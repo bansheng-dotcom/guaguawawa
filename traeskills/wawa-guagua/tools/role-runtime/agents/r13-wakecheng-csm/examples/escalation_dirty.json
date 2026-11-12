@@ -1,7 +1,0 @@
-{
-  "symptom": "客户 API 调用返回 403",
-  "repro": "使用旧版 token 调用 /v1/report 接口",
-  "impact": "客户日报拉取失败",
-  "owner_route": "r99",
-  "evidence": {"source": "未知来源", "quote": ""}
-}

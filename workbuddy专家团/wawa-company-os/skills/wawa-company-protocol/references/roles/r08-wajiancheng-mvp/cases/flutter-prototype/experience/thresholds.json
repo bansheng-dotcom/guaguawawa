@@ -1,5 +1,0 @@
-{
-  "prototype": {
-    "platforms": ["android", "ios", "web", "desktop"]
-  }
-}

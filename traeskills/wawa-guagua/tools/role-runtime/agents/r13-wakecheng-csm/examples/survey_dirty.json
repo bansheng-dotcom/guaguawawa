@@ -1,9 +1,0 @@
-{
-  "name": "",
-  "type": "email",
-  "status": "archived",
-  "questions": [
-    {"title": "", "type": "vote"}
-  ],
-  "summary": "名称空、类型/状态越界、题型非法。"
-}

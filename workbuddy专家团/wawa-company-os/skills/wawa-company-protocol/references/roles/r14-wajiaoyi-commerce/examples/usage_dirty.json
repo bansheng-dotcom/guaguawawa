@@ -1,9 +1,0 @@
-{
-  "usage": [
-    {
-      "metric_code": "",
-      "quantity": 0,
-      "aggregation_type": "bogus_agg"
-    }
-  ]
-}

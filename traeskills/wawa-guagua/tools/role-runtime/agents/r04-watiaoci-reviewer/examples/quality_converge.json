@@ -1,9 +1,0 @@
-{
-  "_comment": "quality converge 第一轮 findings（4 条）",
-  "findings": [
-    {"id": "V1-01", "check": "hedge_language", "severity": "error", "title": "使用推测措辞"},
-    {"id": "V1-02", "check": "completion_without_evidence", "severity": "error", "title": "完成声明无证据"},
-    {"id": "V1-03", "check": "absolutist_without_evidence", "severity": "error", "title": "绝对词无证据支撑"},
-    {"id": "V1-04", "check": "completion_without_evidence", "severity": "warning", "title": "次要：证据引用为空"}
-  ]
-}

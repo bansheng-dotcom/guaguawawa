@@ -1,7 +1,0 @@
-{
-  "schedule_type": "interval",
-  "interval_minutes": 0,
-  "timezone": "Asia/Shanghai",
-  "kind": "daily",
-  "read_back": false
-}

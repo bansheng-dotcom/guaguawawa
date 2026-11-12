@@ -1,7 +1,0 @@
-{
-  "media": "illustration",
-  "style": "line-art",
-  "prompt": "Professional mecha technical line art illustration, side profile orthographic view of biomechanical mecha skeleton showing internal structure, intricate joint mechanisms with visible hydraulic cylinders, networked wiring harnesses connecting through rib-like frame structure, precision gear assemblies at articulation points, clear and confident ink line weight variation (thick for outlines, thin for details), strategically placed fluorescent yellow highlights on critical pressure points and energy conduits ONLY, pure paper white background, no fill colors whatsoever, Moebius meets Macross design aesthetic, ink pen on Bristol board texture feel, clean orthographic projection with no perspective distortion, design specification sheet quality, mechanical engineering blueprint line weight hierarchy",
-  "negative_prompt": "filled color, gradients, rendering, photorealistic, human face portrait, cluttered background, extra colors, messy linework, sketchy, rough, pencil shading, shadows, ambient occlusion",
-  "style_locks": ["pure ink line art only", "yellow highlights ONLY on critical parts", "orthographic side profile", "Moebius x Macross aesthetic", "paper white background", "engineering blueprint hierarchy"]
-}

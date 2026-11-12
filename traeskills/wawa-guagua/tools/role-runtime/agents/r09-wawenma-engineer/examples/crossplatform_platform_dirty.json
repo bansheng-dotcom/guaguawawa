@@ -1,6 +1,0 @@
-{
-  "targets": [
-    {"platform": "linux", "state_management": "foo"}
-  ],
-  "diffs": []
-}

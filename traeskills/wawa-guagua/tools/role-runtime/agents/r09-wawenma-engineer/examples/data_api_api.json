@@ -1,6 +1,0 @@
-{
-  "endpoints": [
-    {"method": "GET", "path": "/users", "error_codes": ["404"]},
-    {"method": "POST", "path": "/users", "error_codes": ["400", "409"]}
-  ]
-}

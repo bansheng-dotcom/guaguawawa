@@ -1,9 +1,0 @@
-{
-  "employee": "EMP-0001",
-  "payroll_frequency": "Monthly",
-  "components": [
-    {"name": "基本工资", "type": "Earning", "amount": 20000.0, "source": "salary_structure"},
-    {"name": "社保个人", "type": "Deduction", "amount": 2000.0, "source": "salary_structure"},
-    {"name": "公积金雇主", "type": "Employer Contribution", "amount": 1000.0, "source": "salary_structure"}
-  ]
-}

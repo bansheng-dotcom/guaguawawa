@@ -1,6 +1,0 @@
-{
-  "assets": [
-    {"path": "", "run_id": "", "type": "binary_blob"},
-    {"path": "somewhere/on/desktop", "run_id": "", "type": "misc"}
-  ]
-}

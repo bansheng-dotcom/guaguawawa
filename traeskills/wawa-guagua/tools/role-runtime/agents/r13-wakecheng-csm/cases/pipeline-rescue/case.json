@@ -1,8 +1,0 @@
-{
-  "case_id": "pipeline-rescue",
-  "display_name": "停滞管道抢救",
-  "description": "客户成功官接手一条停滞的销售管道：从阶段分布与停滞天数出发，复算加权管道值、识别单一客户集中度风险、给每条停滞商机补齐下一步与负责人，最终产出可交付的 pipeline 视图与抢救动作清单。",
-  "default_question": "这条管道哪些商机停滞了？加权预测是多少？先救哪几条？",
-  "semantic_layer": "semantic_layer.json",
-  "experience_dir": "experience"
-}

@@ -1,8 +1,0 @@
-{
-  "activities": [
-    {"type": "meeting", "what": "会议", "owner": "蛙客成", "due": "2020-01-01",
-     "opportunity": "CRM 平台迁移"}
-  ],
-  "open_opportunities": ["CRM 平台迁移", "未覆盖商机"],
-  "summary": "活动逾期且未覆盖全部开放商机。"
-}

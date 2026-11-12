@@ -1,9 +1,0 @@
-{
-  "id": "c002",
-  "channel": "fax",
-  "status": "closed_illegal",
-  "messages": [
-    {"message_type": "outgoing", "content": "内部：这个客户要特殊处理，先别退款", "private": false}
-  ],
-  "summary": "渠道/状态越界，且内部备注未隔离。"
-}

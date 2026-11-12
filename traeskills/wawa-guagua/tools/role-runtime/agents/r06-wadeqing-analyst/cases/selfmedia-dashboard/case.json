@@ -1,9 +1,0 @@
-{
-  "case_id": "selfmedia-dashboard",
-  "display_name": "自媒体多平台经营看板",
-  "description": "抖音/微信/小红书/知乎/B站 多平台粉丝与收入归一化，新鲜度校验 + 集中度(HHI)监测。源自 self-media-data-console-bzwh + 自媒体工作台-trae。",
-  "semantic_layer": "semantic_layer.json",
-  "experience_dir": "experience",
-  "data_input": "selfmedia.csv",
-  "default_question": "多平台净增粉丝与净收入日报，哪些平台数据过期或异常？"
-}

@@ -1,7 +1,0 @@
-{
-  "sent_count": 50,
-  "responses": [
-    {"nps_score": 99, "open_text": "分数越界"}
-  ],
-  "summary": "NPS 分数越界（>10）。"
-}

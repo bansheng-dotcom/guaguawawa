@@ -1,5 +1,0 @@
-{
-  "operations": ["resize", "compress"],
-  "source": "hero.png",
-  "overwrite": "never"
-}
