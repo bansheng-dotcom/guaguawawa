@@ -1,0 +1,154 @@
+[
+  {
+    "name": "r01_plan",
+    "rc": 0,
+    "ok": null,
+    "verdict": null,
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"planned\": 2, \"task_ids\": [\"1babec94\", \"7d83c28c\"], \"owners\": [\"r06\", \"r05\"]}"
+  },
+  {
+    "name": "r05_ledger",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"claim C1 kind=fact 合规\", \"dim\": \"research:claim_kind\", \"sev\": \"OK\", \"claim_id\": \"C1\"}, {\"ok\": true,"
+  },
+  {
+    "name": "r05_report",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"section '总量与趋势' 全部 claim 有来源\", \"dim\": \"research:section_citation\", \"sev\": \"OK\", \"section\": \"总量与趋势\""
+  },
+  {
+    "name": "r06_describe",
+    "rc": 0,
+    "ok": null,
+    "verdict": null,
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"describe\": {\"水果6种均价\": {\"count\": 38, \"mean\": 6.6484, \"median\": 6.65, \"std\": 0.0563, \"min\": 6.47, \"max\": 6.78, \"p5\": 6.57, \"p95\": 6.743, \"skew\""
+  },
+  {
+    "name": "r06_trend",
+    "rc": 0,
+    "ok": null,
+    "verdict": null,
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"type\": \"trend\", \"series\": [{\"date\": \"2026-09-15\", \"value\": 6.65}, {\"date\": \"2026-09-16\", \"value\": 6.62}, {\"date\": \"2026-09-17\", \"value\": 6.67"
+  },
+  {
+    "name": "r06_regression",
+    "rc": 0,
+    "ok": null,
+    "verdict": null,
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"regression\": {\"n\": 8, \"x_mean\": 6.6439, \"y_mean\": 10.385, \"slope\": 0.175774, \"intercept\": 9.217178, \"pearson_r\": 0.0784, \"r_squared\": 0.0061,"
+  },
+  {
+    "name": "r06_correlate",
+    "rc": 0,
+    "ok": null,
+    "verdict": null,
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"correlation\": {\"col_a\": \"全国6种均价\", \"col_b\": \"呼市8种零售均价\", \"pearson_r\": 0.0784, \"strength\": \"弱\", \"note\": \"相关≠因果；|r| 高提示可能共线，需回归/混杂控制\"}, \"runtime_"
+  },
+  {
+    "name": "r06_rootcause",
+    "rc": 0,
+    "ok": null,
+    "verdict": null,
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"total_change\": -0.85, \"dimension\": \"品类\", \"segments\": [{\"segment\": \"菠萝\", \"before\": 7.45, \"after\": 6.95, \"delta\": -0.5, \"contribution_pct\": 58."
+  },
+  {
+    "name": "r15_tco",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"资金年化 0–30%（4.35%）\", \"dim\": \"tco.rate\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"报价币种一致（{'CNY'}，混合币种须先按 F"
+  },
+  {
+    "name": "r15_supplier",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"供应商必填齐备（缺 无）\", \"dim\": \"supplier.required\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"供应商类型在白名单（越界 无）\", \"d"
+  },
+  {
+    "name": "r15_rfq",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"询价家数 3 ≥ 2（防走过场比价）\", \"dim\": \"rfq.supplier_count\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"询价状态='Submitt"
+  },
+  {
+    "name": "r15_quote1",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"报价供应商非空\", \"dim\": \"quotation.supplier\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"报价状态='Submitted' 在白名单\", "
+  },
+  {
+    "name": "r15_quote2",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"报价供应商非空\", \"dim\": \"quotation.supplier\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"报价状态='Submitted' 在白名单\", "
+  },
+  {
+    "name": "r15_quote3",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"报价供应商非空\", \"dim\": \"quotation.supplier\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"报价状态='Submitted' 在白名单\", "
+  },
+  {
+    "name": "r03_healthcheck",
+    "rc": 0,
+    "ok": true,
+    "verdict": null,
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"资产 12000000.00 = 负债+权益 12000000.00\", \"dim\": \"balance_sheet\", \"sev\": \"OK\", \"identity\": \"assets = li"
+  },
+  {
+    "name": "r02_sop",
+    "rc": 0,
+    "ok": true,
+    "verdict": null,
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"流程名\", \"dim\": \"process_name\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"输入清单 ≥1\", \"dim\": \"inputs\", \"sev\": "
+  },
+  {
+    "name": "r04_quality",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"C1: verified\", \"dim\": \"quality:C1\", \"sev\": \"OK\"}, {\"ok\": true, \"msg\": \"C2: verified\", \"dim\": \"qual"
+  },
+  {
+    "name": "r04_facts",
+    "rc": 0,
+    "ok": true,
+    "verdict": "PASS",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"五维全过（14 条事实，308 项核查）\", \"dim\": \"facts:check\", \"sev\": \"OK\"}], \"dimension_results\": {\"traceability\": "
+  },
+  {
+    "name": "r04_artifact",
+    "rc": 0,
+    "ok": true,
+    "verdict": "COMPLETE",
+    "has_json": true,
+    "stdout_tail": "__AGENT_RESULT__ {\"ok\": true, \"checks\": [{\"ok\": true, \"msg\": \"三级全过：D:/蛙蛙呱呱/内蒙古水果调研_2026-11-12/内蒙古水果市场调研与数据分析报告.html（entry_point）\", \"dim\": \"artifact:verify\", \"se"
+  }
+]

@@ -1,0 +1,102 @@
+{
+  "doc_type": "评审报告 · agri_2026q4",
+  "title_lines": [
+    "agri_2026q4 · 评审",
+    "R04 独立核验"
+  ],
+  "standfirst": "只核证不修复；每条给出判定与依据。",
+  "metric_strip": [
+    {
+      "label": "受审角色",
+      "value": "2",
+      "note": "本次评审范围",
+      "status": "accent"
+    },
+    {
+      "label": "通过",
+      "value": "2",
+      "note": "规格达标",
+      "status": "healthy"
+    },
+    {
+      "label": "不通过",
+      "value": "0",
+      "note": "需回补",
+      "status": "critical"
+    },
+    {
+      "label": "层级",
+      "value": "L3",
+      "note": "R04 评审",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "评审完成：逐角色对照 spec 核验 section / 表数 / 字数。"
+    },
+    {
+      "label": "边界：",
+      "text": "只核证不修复，修复由生产方完成。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "逐条核证",
+      "question": "每个角色是否满足其 spec？",
+      "table": {
+        "caption": "核证结果",
+        "columns": [
+          {
+            "text": "角色"
+          },
+          {
+            "text": "判定"
+          },
+          {
+            "text": "依据"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "r05#肉蛋市场调研"
+            },
+            {
+              "text": "PASS"
+            },
+            {
+              "text": "符合 spec"
+            }
+          ],
+          [
+            {
+              "text": "r05#蔬菜市场调研"
+            },
+            {
+              "text": "PASS"
+            },
+            {
+              "text": "符合 spec"
+            }
+          ]
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "职责：",
+        "text": "R04 只记录，不代改。"
+      }
+    ]
+  },
+  "footer": [
+    "L3 · agri_2026q4",
+    "core/report_kernel.aggregate"
+  ]
+}

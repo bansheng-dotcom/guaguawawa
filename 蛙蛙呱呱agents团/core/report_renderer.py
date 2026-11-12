@@ -635,6 +635,11 @@ CSS = """    :root {
       .document { width: auto; margin: 0; border: 0; }
       a { text-decoration: none; }
       details { break-inside: avoid; }
+.report-appendix { grid-column: 1 / -1; margin: 28px 0; border-top: 1px solid var(--line); }
+.report-appendix > summary { cursor: pointer; padding: 14px 0; font-weight: 600; color: var(--ink-2); list-style: none; }
+.report-appendix > summary::-webkit-details-marker { display: none; }
+.report-appendix > summary::before { content: "▸"; margin-right: 10px; color: var(--muted); }
+.report-appendix[open] > summary::before { content: "▾"; }
     }"""
 
 # --------------------------------------------------------------------------- #
@@ -839,7 +844,10 @@ def render(c: Dict[str, Any]) -> str:
     # -- sections
     for s in c["sections"]:
         sid = f'section-{s["index"]}'
-        A(f'<section class="report-section" id="{sid}">')
+        if s.get("appendix"):
+            A(f'<details class="report-appendix" id="{sid}"><summary>附录 · {esc(s["title"])}</summary>')
+        else:
+            A(f'<section class="report-section" id="{sid}">')
         A('<header class="section-head">')
         A(f'<div class="section-index">{esc(s["index"])}</div>')
         A('<div class="section-heading-copy">')
@@ -866,7 +874,8 @@ def render(c: Dict[str, Any]) -> str:
         if s.get("reading") or s.get("boundary"):
             A('<div class="post-chart page-grid">')
             if s.get("reading"):
-                A('<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">')
+                label = "图后解读" if s.get("chart") else "本节说明"
+                A(f'<div class="reading-block"><h3>{label}</h3><ol class="reading-list">')
                 for i, r in enumerate(s["reading"], 1):
                     strong = f'<strong>{esc(r["strong"])}</strong>' if r.get("strong") else ""
                     A(f'<li><span class="reading-no">{i}</span><span class="reading-text">{strong}{esc(r["text"])}</span></li>')
@@ -909,7 +918,7 @@ def render(c: Dict[str, Any]) -> str:
         if s.get("block_note"):
             bn = s["block_note"]
             A(f'<div class="block-note"><h3>{esc(bn["title"])}</h3><p>{esc(bn["text"])}</p></div>')
-        A('</section>')
+        A('</details>' if s.get("appendix") else '</section>')
 
     # -- notes
     A('<section class="notes page-grid" aria-labelledby="notes-title">')

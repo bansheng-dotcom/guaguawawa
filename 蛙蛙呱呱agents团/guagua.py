@@ -507,6 +507,11 @@ def cmd_skills(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_report(args: argparse.Namespace) -> int:
+    from core import report_cli
+    return int(report_cli.main(args.report_args))
+
+
 def cmd_doctor(_: argparse.Namespace) -> int:
     print("蛙蛙呱呱 · 环境诊断")
     print("=" * 72)
@@ -630,6 +635,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true", help="输出机器可读 JSON（供编排器/多模型接入层使用）")
     p.add_argument("--broken", action="store_true", help="只显示 frontmatter 解析异常的技能包")
     p.set_defaults(func=cmd_skills)
+
+    p = sub.add_parser("report", help="报告体系：L1→L2→L3（build/audit/seal/diff）")
+    p.add_argument("report_args", nargs=argparse.REMAINDER)
+    p.set_defaults(func=cmd_report)
 
     p = sub.add_parser("doctor", help="环境诊断 + 全部角色入口体检")
     p.set_defaults(func=cmd_doctor)

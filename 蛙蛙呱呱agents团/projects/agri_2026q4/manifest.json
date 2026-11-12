@@ -1,0 +1,29 @@
+{
+  "project": "agri_2026q4",
+  "l1": [
+    {
+      "role": "r05",
+      "title": "肉蛋市场调研",
+      "fid": {
+        "obs_total": 297,
+        "retention": 1.0,
+        "trace": null,
+        "discard": 0.0,
+        "note": ""
+      },
+      "spec_errors": []
+    },
+    {
+      "role": "r05",
+      "title": "蔬菜市场调研",
+      "fid": {
+        "obs_total": 64,
+        "retention": 1.0,
+        "trace": null,
+        "discard": 0.0,
+        "note": ""
+      },
+      "spec_errors": []
+    }
+  ]
+}

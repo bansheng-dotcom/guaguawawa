@@ -1,0 +1,60 @@
+{
+ "process_name": "赤峰产地苹果 → 呼市货架 的 48 小时链路",
+ "purpose": "把赤峰产地苹果以 ≤5% 损耗、≤48 小时时效送到呼市门店/档口",
+ "inputs": [
+  "产地采购单",
+  "质检单（糖度/硬度/规格）",
+  "冷链车温控记录"
+ ],
+ "steps": [
+  {
+   "name": "产地采收与分级",
+   "owner": "r15",
+   "action": "按 80# 一二级分选，剔除病果",
+   "is_critical": true,
+   "control_point": "糖度≥13、硬度≥6kg/cm²、次果率≤8%"
+  },
+  {
+   "name": "预冷",
+   "owner": "r15",
+   "action": "差压预冷 8—12 小时至 0—4℃",
+   "is_critical": true,
+   "control_point": "果心温度 ≤4℃ 方可装车"
+  },
+  {
+   "name": "冷链干线",
+   "owner": "r15",
+   "action": "赤峰→呼市 750km，全程 0—4℃",
+   "is_critical": true,
+   "control_point": "温控记录每 30 分钟一点，超温即扣款"
+  },
+  {
+   "name": "销地入库与分拣",
+   "owner": "r15",
+   "action": "销地仓收货、复检、按门店分拣",
+   "is_critical": false
+  },
+  {
+   "name": "城配与上架",
+   "owner": "r14",
+   "action": "当日达门店，先进先出",
+   "is_critical": true,
+   "control_point": "到店温度 ≤6℃、破损率 ≤1%"
+  },
+  {
+   "name": "周度复盘",
+   "owner": "r06",
+   "action": "损耗/时效/毛利三线对拍",
+   "is_critical": false
+  }
+ ],
+ "outputs": [
+  "到店苹果",
+  "损耗台账",
+  "温控记录"
+ ],
+ "approvers": [
+  "r01",
+  "r04"
+ ]
+}

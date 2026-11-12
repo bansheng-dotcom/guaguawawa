@@ -272,6 +272,27 @@ def _hydrate_inputs(task: protocol.Task) -> protocol.Task:
     return ws.read_task(task.task_id) or task
 
 
+def _dump_result(task_id: str, owner: str, stdout: str) -> None:
+    """把一张卡的真实 result 追加到 dispatch_results.jsonl，供报告内核消费。"""
+    import json as _json
+    import os as _os
+    from datetime import datetime as _dt
+    mark = "__AGENT_RESULT__ "
+    line = next((x[len(mark):] for x in (stdout or "").splitlines() if x.startswith(mark)), None)
+    if not line:
+        return
+    try:
+        res = _json.loads(line)
+    except _json.JSONDecodeError:
+        return
+    d = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+                      "workspace", "artifacts", "r01")
+    _os.makedirs(d, exist_ok=True)
+    with open(_os.path.join(d, "dispatch_results.jsonl"), "a", encoding="utf-8") as fh:
+        fh.write(_json.dumps({"task_id": task_id, "owner": owner, "at": _dt.now().isoformat(timespec="seconds"),
+                              "result": res}, ensure_ascii=False) + "\n")
+
+
 def run_all(limit: int = 30) -> Dict[str, Any]:
     done_ids = {t.task_id for t in ws.list_tasks("done")}
     report = {"executed": [], "verified": [], "failed": [], "notes": []}
@@ -293,6 +314,7 @@ def run_all(limit: int = 30) -> Dict[str, Any]:
                 continue
             ws.set_status(t.task_id, "assigned")
             r = runner.invoke(t.owner, ["run", "--task", t.task_id])
+            _dump_result(t.task_id, t.owner, r.get("stdout", ""))
             current = ws.read_task(t.task_id)
             # 子进程退出码不可靠：部分角色在“缺输入/需澄清”时仍返回 0，
             # 以任务卡最终状态为准，避免把 failed 记成 executed。
@@ -335,6 +357,7 @@ def run_task(task_id: str) -> Dict[str, Any]:
     # 编排器转发：owner 不是 r01 的任务交给对应角色执行
     if task.owner != ROLE:
         r = runner.invoke(task.owner, ["run", "--task", task_id])
+        _dump_result(task_id, task.owner, r.get("stdout", ""))
         current = ws.read_task(task_id)
         status = current.status if current else "unknown"
         exit_code = r.get("exit_code")

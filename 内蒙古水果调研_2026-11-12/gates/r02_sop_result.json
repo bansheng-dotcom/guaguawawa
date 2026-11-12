@@ -1,0 +1,40 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "ok": true,
+      "msg": "流程名",
+      "dim": "process_name",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "输入清单 ≥1",
+      "dim": "inputs",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "步骤数 6（≥2）",
+      "dim": "steps",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "产出清单 ≥1",
+      "dim": "outputs",
+      "sev": "OK"
+    },
+    {
+      "ok": true,
+      "msg": "审批人 ≥1（SOP 必须有人把关）",
+      "dim": "approvers",
+      "sev": "OK"
+    }
+  ],
+  "step_count": 6,
+  "control_points": 4,
+  "critical_uncovered": [],
+  "cp_ratio": 0.667,
+  "next": "SOP 定稿后入知识库 knowledge 沉淀"
+}

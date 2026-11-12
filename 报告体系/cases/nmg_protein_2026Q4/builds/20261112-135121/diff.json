@@ -1,0 +1,14 @@
+{
+  "new": false,
+  "rows_delta": 0,
+  "changes": [
+    {
+      "kind": "metric",
+      "key": "daily.鸡蛋.change",
+      "from": -14.26,
+      "to": -14.71
+    }
+  ],
+  "from": "20261112-135117",
+  "to": "20261112-135121"
+}

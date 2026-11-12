@@ -1,0 +1,19 @@
+{
+ "balance_sheet": {
+  "assets": 12000000.0,
+  "liabilities": 5000000.0,
+  "equity": 7000000.0
+ },
+ "cash_flow": {
+  "cash_begin": 3000000.0,
+  "operating": 3509000.0,
+  "investing": -700000,
+  "financing": 0.0,
+  "cash_end": 5809000.0
+ },
+ "income_statement": {
+  "revenue": 25920000.0,
+  "cogs": 20211000.0,
+  "gross_profit": 5709000.0
+ }
+}

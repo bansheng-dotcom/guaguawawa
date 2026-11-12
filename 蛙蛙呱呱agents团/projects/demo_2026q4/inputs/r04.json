@@ -1,0 +1,32 @@
+{
+  "role": "r04",
+  "name": "蛙挑刺",
+  "title": "交付验收评审",
+  "skill": "review",
+  "action": "artifact",
+  "intent": "核验三份交付",
+  "result": {
+    "ok": true,
+    "conclusion": "PASS：三份交付均满足 spec，缺口已登记。",
+    "checks": [
+      {
+        "ok": true,
+        "dim": "L1",
+        "msg": "文件齐备"
+      },
+      {
+        "ok": true,
+        "dim": "L2",
+        "msg": "无 stub"
+      },
+      {
+        "ok": false,
+        "dim": "L3",
+        "msg": "一条批注待复核"
+      }
+    ],
+    "notes": [
+      "不代改，只记录"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+__AGENT_RESULT__ {"describe": {"水果6种均价": {"count": 38, "mean": 6.6484, "median": 6.65, "std": 0.0563, "min": 6.47, "max": 6.78, "p5": 6.57, "p95": 6.743, "skew": -0.2198}}, "runtime_ms": 1}

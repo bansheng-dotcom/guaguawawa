@@ -1,0 +1,34 @@
+{
+  "role": "r12",
+  "name": "蛙引流",
+  "title": "四季度增长方案",
+  "skill": "growth",
+  "action": "plan",
+  "intent": "存量提升",
+  "result": {
+    "ok": true,
+    "conclusion": "优先做复购而非拉新：老客贡献占比更高、成本更低。",
+    "checks": [
+      {
+        "ok": true,
+        "dim": "roi",
+        "msg": "LTV/CAC 达标"
+      }
+    ],
+    "options": [
+      {
+        "name": "拉新",
+        "cost": 12000,
+        "uplift": "3%"
+      },
+      {
+        "name": "复购",
+        "cost": 6000,
+        "uplift": "5%"
+      }
+    ],
+    "notes": [
+      "复购方案需门店配合，Q4 排期见 R02"
+    ]
+  }
+}

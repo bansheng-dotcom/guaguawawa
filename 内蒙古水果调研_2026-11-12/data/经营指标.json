@@ -1,0 +1,310 @@
+{
+ "matrix": [
+  {
+   "item": "富士苹果",
+   "wholesale": 8.64,
+   "change_pct": -2.81,
+   "volatility_pct": 1.51,
+   "yoy_pct": -4.3,
+   "retail": 13.88,
+   "multiplier": 1.61,
+   "role": "价格锚 / 毛利主来源",
+   "action": "备货主力，做引流与礼盒双规格"
+  },
+  {
+   "item": "巨峰葡萄",
+   "wholesale": 9.83,
+   "change_pct": -13.54,
+   "volatility_pct": 4.95,
+   "yoy_pct": -4.8,
+   "retail": null,
+   "multiplier": null,
+   "role": "季末清货",
+   "action": "只做短保促销，12 月起不备货"
+  },
+  {
+   "item": "菠萝",
+   "wholesale": 6.95,
+   "change_pct": -6.08,
+   "volatility_pct": 2.48,
+   "yoy_pct": -15.1,
+   "retail": null,
+   "multiplier": null,
+   "role": "场景搭配",
+   "action": "与礼盒组合，单量小"
+  },
+  {
+   "item": "西瓜",
+   "wholesale": 3.85,
+   "change_pct": 33.22,
+   "volatility_pct": 9.58,
+   "yoy_pct": -10.6,
+   "retail": 6.52,
+   "multiplier": 1.69,
+   "role": "反季高价",
+   "action": "少量精品，做果切与拼盘"
+  },
+  {
+   "item": "香蕉",
+   "wholesale": 4.87,
+   "change_pct": -7.41,
+   "volatility_pct": 2.89,
+   "yoy_pct": 3.2,
+   "retail": 7.81,
+   "multiplier": 1.6,
+   "role": "流量刚需",
+   "action": "低毛利高周转，按周补货"
+  },
+  {
+   "item": "鸭梨",
+   "wholesale": 5.22,
+   "change_pct": -3.15,
+   "volatility_pct": 0.93,
+   "yoy_pct": -3.3,
+   "retail": null,
+   "multiplier": null,
+   "role": "稳定搭配",
+   "action": "与苹果同货架，走量不压货"
+  },
+  {
+   "item": "柑橘",
+   "wholesale": null,
+   "change_pct": null,
+   "volatility_pct": null,
+   "yoy_pct": null,
+   "retail": 7.15,
+   "multiplier": null,
+   "role": "冬季主力 / 流量入口",
+   "action": "11—12 月主推，按 3 天补货"
+  },
+  {
+   "item": "芒果",
+   "wholesale": null,
+   "change_pct": null,
+   "volatility_pct": null,
+   "yoy_pct": null,
+   "retail": 15.06,
+   "multiplier": null,
+   "role": "精品线 / 高单价",
+   "action": "只做礼盒，不铺散装"
+  }
+ ],
+ "cost_card": [
+  {
+   "node": "产地收购",
+   "value": 4.6,
+   "grade": "C",
+   "note": "赤峰产地市场 6.00 元/公斤 − 1.4 环节差"
+  },
+  {
+   "node": "分选包装",
+   "value": 0.55,
+   "grade": "C",
+   "note": "纸箱 + 人工 + 贴标"
+  },
+  {
+   "node": "产地预冷",
+   "value": 0.12,
+   "grade": "C",
+   "note": "差压预冷 8—12 小时"
+  },
+  {
+   "node": "装卸短驳",
+   "value": 0.08,
+   "grade": "C",
+   "note": "产地仓 → 装车"
+  },
+  {
+   "node": "冷链干线",
+   "value": 0.21,
+   "grade": "C",
+   "note": "750 km × 0.28 元/吨·公里"
+  },
+  {
+   "node": "销地仓储分拣",
+   "value": 0.22,
+   "grade": "C",
+   "note": "销地仓 + 分拣 + 暂存"
+  },
+  {
+   "node": "城配",
+   "value": 0.18,
+   "grade": "C",
+   "note": "销地仓 → 门店/档口"
+  },
+  {
+   "node": "损耗摊销",
+   "value": 0.518,
+   "grade": "C",
+   "note": "损耗 8.0% 摊入"
+  },
+  {
+   "node": "档口佣金",
+   "value": 0.259,
+   "grade": "C",
+   "note": "批发价 × 3%"
+  }
+ ],
+ "unit": {
+  "purchase": 4.6,
+  "freight": 0.21,
+  "base_cost": 5.96,
+  "loss_pct": 8.0,
+  "landed": 6.478,
+  "commission": 0.259,
+  "total_cost": 6.737,
+  "wholesale": 8.64,
+  "margin": 1.903,
+  "margin_pct": 22.0,
+  "retail": 13.88,
+  "retail_margin": 5.24,
+  "retail_margin_pct": 37.8,
+  "premium_grade_wholesale": 14.0,
+  "premium_grade_margin": 7.263,
+  "premium_grade_margin_pct": 51.9
+ },
+ "scenarios": {
+  "乐观": {
+   "purchase": 4.3,
+   "loss_pct": 5.0,
+   "total_cost": 6.217,
+   "margin": 2.423,
+   "margin_pct": 28.0
+  },
+  "基准": {
+   "purchase": 4.6,
+   "loss_pct": 8.0,
+   "total_cost": 6.737,
+   "margin": 1.903,
+   "margin_pct": 22.0
+  },
+  "悲观": {
+   "purchase": 4.95,
+   "loss_pct": 12.0,
+   "total_cost": 7.43,
+   "margin": 1.21,
+   "margin_pct": 14.0
+  }
+ },
+ "sensitivity": [
+  {
+   "purchase": 4.3,
+   "rows": [
+    {
+     "purchase": 4.3,
+     "loss_pct": 5.0,
+     "total_cost": 6.217,
+     "margin": 2.423,
+     "margin_pct": 28.0
+    },
+    {
+     "purchase": 4.3,
+     "loss_pct": 8.0,
+     "total_cost": 6.411,
+     "margin": 2.229,
+     "margin_pct": 25.8
+    },
+    {
+     "purchase": 4.3,
+     "loss_pct": 12.0,
+     "total_cost": 6.691,
+     "margin": 1.949,
+     "margin_pct": 22.6
+    }
+   ]
+  },
+  {
+   "purchase": 4.6,
+   "rows": [
+    {
+     "purchase": 4.6,
+     "loss_pct": 5.0,
+     "total_cost": 6.533,
+     "margin": 2.107,
+     "margin_pct": 24.4
+    },
+    {
+     "purchase": 4.6,
+     "loss_pct": 8.0,
+     "total_cost": 6.737,
+     "margin": 1.903,
+     "margin_pct": 22.0
+    },
+    {
+     "purchase": 4.6,
+     "loss_pct": 12.0,
+     "total_cost": 7.032,
+     "margin": 1.608,
+     "margin_pct": 18.6
+    }
+   ]
+  },
+  {
+   "purchase": 4.95,
+   "rows": [
+    {
+     "purchase": 4.95,
+     "loss_pct": 5.0,
+     "total_cost": 6.901,
+     "margin": 1.739,
+     "margin_pct": 20.1
+    },
+    {
+     "purchase": 4.95,
+     "loss_pct": 8.0,
+     "total_cost": 7.118,
+     "margin": 1.522,
+     "margin_pct": 17.6
+    },
+    {
+     "purchase": 4.95,
+     "loss_pct": 12.0,
+     "total_cost": 7.43,
+     "margin": 1.21,
+     "margin_pct": 14.0
+    }
+   ]
+  }
+ ],
+ "roi": {
+  "invest": 700000,
+  "save_per_kg": 0.62,
+  "annual_save_1500t": 930000.0,
+  "annual_save_3000t": 1860000.0,
+  "payback_years_1500t": 0.75,
+  "payback_years_3000t": 0.38
+ },
+ "calendar": [
+  {
+   "month": "2026-11",
+   "focus": "柑橘起量、苹果稳价",
+   "stock": "苹果按周补、柑橘按 3 天补",
+   "kpi": "柑橘动销率 ≥ 85%、苹果周转 ≤ 7 天"
+  },
+  {
+   "month": "2026-12",
+   "focus": "双旦礼盒、苹果分级",
+   "stock": "礼盒备货 +30%，散装不压货",
+   "kpi": "礼盒毛利率 ≥ 35%、损耗 ≤ 6%"
+  },
+  {
+   "month": "2027-01",
+   "focus": "春节前 20 天冲刺",
+   "stock": "苹果锁量不锁价、分批点价",
+   "kpi": "节前 20 天销量占全季 ≥ 40%"
+  },
+  {
+   "month": "2027-02",
+   "focus": "节后清库、止损",
+   "stock": "葡萄/草莓清货，苹果转加工",
+   "kpi": "节后库存 ≤ 5 天销量"
+  }
+ ],
+ "assumptions": {
+  "dist_km": 750,
+  "truck_rate": 0.28,
+  "loss_pct": 8.0,
+  "purchase": 4.6,
+  "note": "标 C 的均为行业区间内假设，不来自本次观测；标 A 的来自 L2/L4/L6 实测。"
+ }
+}

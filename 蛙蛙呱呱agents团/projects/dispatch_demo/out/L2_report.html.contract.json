@@ -1,0 +1,219 @@
+{
+  "doc_type": "跨域汇总 · dispatch_demo",
+  "title_lines": [
+    "dispatch_demo · 跨域汇总",
+    "1 份 L1 报告"
+  ],
+  "standfirst": "由 report_kernel 汇总 L1 契约生成；数字均来自 L1，未新增。",
+  "metric_strip": [
+    {
+      "label": "L1 份数",
+      "value": "1",
+      "note": "参与汇总的角色报告",
+      "status": "accent"
+    },
+    {
+      "label": "规格达标",
+      "value": "1/1",
+      "note": "按 spec 校验",
+      "status": "healthy"
+    },
+    {
+      "label": "未追溯数字",
+      "value": "0",
+      "note": "guard 已校验",
+      "status": "healthy"
+    },
+    {
+      "label": "层级",
+      "value": "L2",
+      "note": "R01 汇总",
+      "status": "none"
+    }
+  ],
+  "summary": [
+    {
+      "label": "汇总：",
+      "text": "本跨域项目汇总 1 份角色报告；其中规格不达标 0 份（无）。"
+    },
+    {
+      "label": "约束：",
+      "text": "L2 只允许引用 L1 已出现的数字，guard 已校验。"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "各角色结论",
+      "question": "每个角色交付了什么、结论是什么、分数多少？",
+      "table": {
+        "caption": "L1 汇总",
+        "columns": [
+          {
+            "text": "角色"
+          },
+          {
+            "text": "交付"
+          },
+          {
+            "text": "结论"
+          },
+          {
+            "text": "保留率"
+          },
+          {
+            "text": "溯源率"
+          },
+          {
+            "text": "规格"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "r06"
+            },
+            {
+              "text": "任务 62675cbb"
+            },
+            {
+              "text": "本次执行完成，详见分析层与记录层；未列出的字段视为本次未观测。"
+            },
+            {
+              "text": "N/A"
+            },
+            {
+              "text": "N/A"
+            },
+            {
+              "text": "PASS"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "title": "综合判断",
+      "question": "跨域看，整体是否可交付？",
+      "reading": [
+        {
+          "text": "本跨域项目汇总 1 份角色报告；其中规格不达标 0 份（无）。"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "待补项",
+      "question": "哪些角色规格不达标、需要回补？",
+      "table": {
+        "caption": "规格缺口",
+        "columns": [
+          {
+            "text": "角色"
+          },
+          {
+            "text": "问题"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "—"
+            },
+            {
+              "text": "无"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "title": "口径与分数",
+      "question": "这份汇总的数据够不够、能不能追回去？",
+      "table": {
+        "caption": "自检分数",
+        "columns": [
+          {
+            "text": "指标"
+          },
+          {
+            "text": "值"
+          },
+          {
+            "text": "说明"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "L1 份数"
+            },
+            {
+              "text": "1"
+            },
+            {
+              "text": "参与汇总的角色报告"
+            }
+          ],
+          [
+            {
+              "text": "规格达标"
+            },
+            {
+              "text": "1/1"
+            },
+            {
+              "text": "按 spec 校验"
+            }
+          ],
+          [
+            {
+              "text": "未追溯数字"
+            },
+            {
+              "text": "0"
+            },
+            {
+              "text": "L2 只允许引用 L1 已有数字，guard 已校验"
+            }
+          ],
+          [
+            {
+              "text": "平均保留率"
+            },
+            {
+              "text": "N/A"
+            },
+            {
+              "text": "按有观测集的 L1 计算"
+            }
+          ]
+        ]
+      },
+      "reading": [
+        {
+          "text": "分数放在最后：先说结论，再说这些分数够不够。"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "来源：",
+        "text": "各角色 L1 报告（如实标注）"
+      },
+      {
+        "label": "边界：",
+        "text": "不新增数字，不做二次推断。"
+      }
+    ]
+  },
+  "footer": [
+    "L2 · dispatch_demo",
+    "core/report_kernel.aggregate"
+  ]
+}

@@ -55,6 +55,29 @@ _CONCLUSION_KEYS = ("conclusion", "next", "summary", "insight", "finding",
                     "recommendation", "result_note", "message", "answer")
 
 
+# ---------------------------------------------------------------- kernel 接入
+from pathlib import Path as _Path
+LEGACY_LIST = _Path(__file__).resolve().parent.parent / "configs" / "legacy_roles.txt"
+
+
+def _use_kernel(role: str) -> bool:
+    """角色是否走新内核：在 legacy 名单里 → 否；否则看有没有 spec。"""
+    if LEGACY_LIST.exists():
+        names = {x.strip() for x in LEGACY_LIST.read_text(encoding="utf-8").splitlines() if x.strip()}
+        if role in names:
+            return False
+    from core.report_kernel import spec as _spec
+    return _spec.role_spec_path(role).exists()
+
+
+def build_kernel_contract(role, name, title, result, skill, action, intent,
+                          dataset=None, doc_type="角色报告"):
+    from core.report_kernel import layers as _layers, spec as _spec
+    s = _spec.load(role)
+    return _layers.build_contract(role, name, title, result, s, skill, action, intent,
+                                  dataset=dataset)
+
+
 def _fmt(v: Any) -> str:
     if isinstance(v, bool):
         return "是" if v else "否"
@@ -269,13 +292,20 @@ def emit(role: str, name: str, title: str, result: Dict[str, Any],
          specialist: Optional[Callable[..., Optional[Dict[str, Any]]]] = None,
          chart_dir: Optional[str] = None,
          data: Optional[Dict[str, Any]] = None,
-         doc_type: str = "角色报告", pdf: bool = True) -> List[Any]:
+         doc_type: str = "角色报告", pdf: bool = True,
+         dataset: Optional[List[Dict[str, Any]]] = None,
+         legacy: bool = False) -> List[Any]:
+    """dataset: 观测集（可选）；legacy=True 强制走老路径。"""
     """把 result 变成 html + md 两份报告，返回 Port 列表。
 
     data：可选，技能的输入 JSON（部分角色如 R07 PRD，其内容在输入而非 result）。
     """
     contract = None
-    if specialist is not None:
+    if not legacy and _use_kernel(role):
+        contract, _fid = build_kernel_contract(role, name, title, result,
+                                               skill, action, intent,
+                                               dataset=dataset, doc_type=doc_type)
+    if contract is None and specialist is not None:
         try:
             contract = specialist(result, skill, action, intent, data)
         except TypeError:

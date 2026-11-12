@@ -1,0 +1,46 @@
+{
+  "project": "demo_2026q4",
+  "built_at": "2026-11-12 15:16:36",
+  "l1": [
+    {
+      "role": "r04",
+      "fid": {
+        "retention": null,
+        "trace": null,
+        "discard": null,
+        "obs_total": 0,
+        "note": "无观测集（该角色不产出数据），保留率 N/A"
+      },
+      "spec_errors": []
+    },
+    {
+      "role": "r05",
+      "fid": {
+        "obs_total": 8,
+        "retention": 1.0,
+        "trace": null,
+        "discard": 0.0,
+        "note": ""
+      },
+      "spec_errors": []
+    },
+    {
+      "role": "r12",
+      "fid": {
+        "retention": null,
+        "trace": null,
+        "discard": null,
+        "obs_total": 0,
+        "note": "无观测集（该角色不产出数据），保留率 N/A"
+      },
+      "spec_errors": []
+    }
+  ],
+  "cache": {
+    "hit": 3,
+    "miss": 0,
+    "hit_rate": 1.0
+  },
+  "l2_hash": "1ee60aded94a",
+  "l3_hash": "845b5bc512ba"
+}

@@ -1,0 +1,90 @@
+{
+  "role": "r05",
+  "name": "蛙深远",
+  "title": "内蒙古蛋白价格调研",
+  "skill": "research",
+  "action": "industrial",
+  "intent": "10—11 月价格结构",
+  "result": {
+    "ok": true,
+    "conclusion": "牛肉与鸡蛋走势分化：牛肉稳中上行，鸡蛋高位回落。",
+    "checks": [
+      {
+        "ok": true,
+        "dim": "source",
+        "msg": "6 个来源均可溯源"
+      },
+      {
+        "ok": true,
+        "dim": "coverage",
+        "msg": "覆盖 3 个品类"
+      },
+      {
+        "ok": true,
+        "dim": "fidelity",
+        "msg": "缺口 2 项已列 owner"
+      }
+    ],
+    "notes": [
+      "鸭/鹅/虾无政府序列，已降级为方向判断"
+    ]
+  },
+  "dataset": [
+    {
+      "date": "2026-10-06",
+      "item": "牛肉",
+      "value": 37.1,
+      "unit": "元/斤",
+      "source": "demo"
+    },
+    {
+      "date": "2026-10-20",
+      "item": "牛肉",
+      "value": 37.2,
+      "unit": "元/斤",
+      "source": "demo"
+    },
+    {
+      "date": "2026-11-05",
+      "item": "牛肉",
+      "value": 37.3,
+      "unit": "元/斤",
+      "source": "demo"
+    },
+    {
+      "date": "2026-10-06",
+      "item": "鸡蛋",
+      "value": 5.7,
+      "unit": "元/斤",
+      "source": "demo"
+    },
+    {
+      "date": "2026-10-20",
+      "item": "鸡蛋",
+      "value": 5.3,
+      "unit": "元/斤",
+      "source": "demo"
+    },
+    {
+      "date": "2026-11-05",
+      "item": "鸡蛋",
+      "value": 5.2,
+      "unit": "元/斤",
+      "source": "demo"
+    },
+    {
+      "date": "2026-10-06",
+      "item": "白条鸡",
+      "value": 11.9,
+      "unit": "元/斤",
+      "source": "demo"
+    },
+    {
+      "date": "2026-11-05",
+      "item": "白条鸡",
+      "value": 12.0,
+      "unit": "元/斤",
+      "source": "demo"
+    }
+  ]
+}

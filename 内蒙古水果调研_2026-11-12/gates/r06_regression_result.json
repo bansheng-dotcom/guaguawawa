@@ -1,0 +1,23 @@
+{
+  "regression": {
+    "n": 8,
+    "x_mean": 6.6439,
+    "y_mean": 10.385,
+    "slope": 0.175774,
+    "intercept": 9.217178,
+    "pearson_r": 0.0784,
+    "r_squared": 0.0061,
+    "r2_grade": "small",
+    "std_beta": 0.0784,
+    "slope_se": 0.912554,
+    "t": 0.1926,
+    "df": 6,
+    "p_value_approx": 0.847258,
+    "significant": false,
+    "residual_sd": 0.0948,
+    "note": "p 值为正态近似；斜率显著 ≠ 因果，需排除混杂"
+  },
+  "x": "全国6种均价",
+  "y": "呼市8种零售均价",
+  "runtime_ms": 1
+}

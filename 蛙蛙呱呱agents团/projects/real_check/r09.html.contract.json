@@ -1,0 +1,269 @@
+{
+  "doc_type": "执行报告 · r09",
+  "title_lines": [
+    "工程：真实任务演示",
+    "demo/demo"
+  ],
+  "standfirst": "r09 · tier C · 规格 delivery",
+  "metric_strip": [
+    {
+      "label": "门禁",
+      "value": "2/2",
+      "note": "执行门禁通过项",
+      "status": "healthy"
+    },
+    {
+      "label": "规格",
+      "value": "delivery",
+      "note": "r09 · tier C",
+      "status": "none"
+    }
+  ],
+  "meta": [
+    "角色 r09（r09）",
+    "规格 delivery · tier C"
+  ],
+  "summary": [
+    {
+      "label": "结论：",
+      "text": "next：迁移与回滚计划合规"
+    }
+  ],
+  "sections": [
+    {
+      "index": 1,
+      "title": "执行结论",
+      "question": "执行结论：本节的结论与证据是什么？",
+      "reading": [
+        {
+          "strong": "结论：",
+          "text": "next：迁移与回滚计划合规"
+        },
+        {
+          "text": "本次覆盖字段：step_count、irreversible_found、rollback_steps、verdict、next（共 7 项）；口径与边界见文末。"
+        },
+        {
+          "text": "本报告的回答只基于本次输入：未观测的字段不做推断，缺口与未采纳材料在文末单列，不与结论混在一起。"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "执行明细",
+      "question": "执行明细：本节的结论与证据是什么？",
+      "table": {
+        "caption": "checks",
+        "columns": [
+          {
+            "text": "ok"
+          },
+          {
+            "text": "msg"
+          },
+          {
+            "text": "dim"
+          },
+          {
+            "text": "sev"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "True"
+            },
+            {
+              "text": "迁移步骤均为可逆操作"
+            },
+            {
+              "text": "ops:irreversible"
+            },
+            {
+              "text": "OK"
+            }
+          ],
+          [
+            {
+              "text": "True"
+            },
+            {
+              "text": "回滚计划 2 步"
+            },
+            {
+              "text": "ops:rollback"
+            },
+            {
+              "text": "OK"
+            }
+          ]
+        ]
+      },
+      "reading": [
+        {
+          "text": "step_count：3"
+        },
+        {
+          "text": "rollback_steps：2"
+        },
+        {
+          "text": "verdict：PASS"
+        },
+        {
+          "text": "next：迁移与回滚计划合规"
+        },
+        {
+          "text": "本节列出的字段构成本次判定依据；未列出的字段视为未观测，不作推断。本节由执行结果的结构化字段生成：表格给出逐项明细，判定依据为对应门禁与证据；未列出的字段视为本次未观测，不做推断。若需追溯到原始输入，见记录层的门禁表与注释。本节不做因果推断：相关性不等于因果，任何因果表述都需另行设计对照。复算方式：按记录层字段与公式逐步重跑；任一步缺输入，结论降级为假设。"
+        }
+      ]
+    },
+    {
+      "index": "A1",
+      "title": "门禁记录",
+      "question": "门禁记录：本节的结论与证据是什么？",
+      "appendix": true,
+      "table": {
+        "caption": "门禁记录",
+        "columns": [
+          {
+            "text": "维度"
+          },
+          {
+            "text": "结果"
+          },
+          {
+            "text": "说明"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "ops:irreversible"
+            },
+            {
+              "text": "PASS"
+            },
+            {
+              "text": "迁移步骤均为可逆操作"
+            }
+          ],
+          [
+            {
+              "text": "ops:rollback"
+            },
+            {
+              "text": "PASS"
+            },
+            {
+              "text": "回滚计划 2 步"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "title": "口径与分数",
+      "question": "这份报告的数据够不够、每个数字回不回得去？",
+      "table": {
+        "caption": "自检分数",
+        "columns": [
+          {
+            "text": "指标"
+          },
+          {
+            "text": "值"
+          },
+          {
+            "text": "说明"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "text": "观测数"
+            },
+            {
+              "text": "0"
+            },
+            {
+              "text": "本报告覆盖的观测条数"
+            }
+          ],
+          [
+            {
+              "text": "保留率"
+            },
+            {
+              "text": "N/A"
+            },
+            {
+              "text": "报告中出现的观测占全部观测的比例"
+            }
+          ],
+          [
+            {
+              "text": "溯源率"
+            },
+            {
+              "text": "N/A"
+            },
+            {
+              "text": "有观测锚点的结论占比"
+            }
+          ],
+          [
+            {
+              "text": "弃置率"
+            },
+            {
+              "text": "N/A"
+            },
+            {
+              "text": "采集到但未进任何章节的观测比例"
+            }
+          ],
+          [
+            {
+              "text": "规格"
+            },
+            {
+              "text": "delivery"
+            },
+            {
+              "text": "r09 · tier C"
+            }
+          ]
+        ]
+      },
+      "reading": [
+        {
+          "text": "这几个数是报告的自检结果，放在最后：数据够不够、每个数字回不回得去。"
+        },
+        {
+          "text": "分数由观测集与结论锚点计算，不做估算填充；若正文与分数冲突，以正文的观测明细为准。"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "summary": "口径、来源与证据边界",
+    "items": [
+      {
+        "label": "规格：",
+        "text": "delivery（r09）"
+      },
+      {
+        "label": "内核：",
+        "text": "core/report_kernel · 确定性渲染"
+      },
+      {
+        "label": "边界：",
+        "text": "结论仅对本报告列出的观测与执行结果成立。"
+      }
+    ]
+  },
+  "footer": [
+    "r09 · 真实任务演示",
+    "core/report_kernel + report_renderer"
+  ]
+}

@@ -49,3 +49,7 @@ acl-report-*.jsonl
 stage2.*.log
 _test_out.txt
 _test_tmp/.dsh/
+
+# ---- 报告内核运行期缓存 ----
+**/.cache/
+
