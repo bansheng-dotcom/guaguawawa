@@ -182,7 +182,7 @@ R04 独立出具，**不得与执行角色同稿**，`reviewer == producer` 即 
 
 ---
 
-## 七、版式硬规则（内核级，20 个角色自动继承）
+## 八、版式硬规则（内核级，20 个角色自动继承）
 
 这四条写进 `core/report_kernel` 与渲染器，不由角色自由发挥；违反时 `scripts/contract_test.py` 直接报错。
 
@@ -201,7 +201,7 @@ sections = [业务章节...] + [{"title": "记录层", "appendix": True, ...}] +
 metric_strip = [门禁, 观测, 规格]      # 只放业务信息
 ```
 
-审计口径：`_layout_errors()` 校验末节标题、appendix 标记、重复章节、首页分数四项，任一不合即测试失败。
+审计口径：`core/report_kernel/structure.py` 的 `layout_errors()` 校验末节标题、appendix 标记、重复章节、首页分数四项，任一不合即测试失败；`scripts/contract_test.py` 与 r08 `htmlreport` 共用这一份实现。
 
 ### 怎么验（不靠自觉）
 

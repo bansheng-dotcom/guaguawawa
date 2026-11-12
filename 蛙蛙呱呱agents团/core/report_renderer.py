@@ -630,6 +630,11 @@ CSS = """    :root {
       .embed { overflow-x: auto; }
       .doc-footer { display: block; }
     }
+    .doc-toc { grid-column: 1 / -1; margin: 2px 0 18px; padding: 12px 16px; border: 1px solid var(--line); }
+    .doc-toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+    .doc-toc li { margin: 3px 0; font-size: 13px; }
+    .doc-toc a { color: var(--ink-2); text-decoration: none; }
+    .doc-toc a:hover { text-decoration: underline; }
     @media print {
       html, body { background: var(--paper); }
       .document { width: auto; margin: 0; border: 0; }
@@ -811,6 +816,15 @@ def render(c: Dict[str, Any]) -> str:
     for m in c.get("meta", []):
         A(f'<span>{esc(m)}</span>')
     A('</div></header>')
+
+    # -- optional TOC（仅 contract.toc 为真时输出，避免影响既有报告）
+    if c.get("toc"):
+        A('<nav class="doc-toc" aria-label="目录"><ol>')
+        for s in c["sections"]:
+            if s.get("appendix"):
+                continue
+            A(f'<li><a href="#section-{esc(s["index"])}">{esc(s["title"])}</a></li>')
+        A('</ol></nav>')
 
     # -- metric strip
     A('<section class="metric-strip page-grid" aria-label="数据速览">')
