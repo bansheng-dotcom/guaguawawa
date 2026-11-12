@@ -436,10 +436,6 @@ def _run_evolution(args) -> Dict[str, Any]:
 # manifest / demo
 # ---------------------------------------------------------------------------
 def make_manifest() -> Dict[str, Any]:
-    skills = [{"name": m.NAME, "desc": m.DESC,
-               "actions": [{"action": a, "help": h}
-                           for a, h in m.ACTIONS.items()]}
-              for m in SKILLS]
     from core import registry
     role = registry.by_id(ROLE)
     skills = [{"name": m.NAME, "skill": m.NAME, "desc": m.DESC, "description": m.DESC,
