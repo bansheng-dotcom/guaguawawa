@@ -562,7 +562,7 @@ def build_parser() -> argparse.ArgumentParser:
             "常用示例:\n"
             "  python guagua.py roles\n"
             "  python guagua.py call r06 --help\n"
-            "  python guagua.py call r06 explore funnel --input examples/orders.csv\n"
+            "  python guagua.py call r06 explore funnel --input examples/orders.csv --stage status\n"
             "  python guagua.py chat --role r06 --intent \"分析订单漏斗\"\n"
             '  python guagua.py plan "停车场一年营收最大化"\n'
             "  python guagua.py dispatch --all\n"

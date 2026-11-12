@@ -51,15 +51,15 @@ python agent.py semantics tree     --input model.json      # S01 指标树
 python agent.py semantics link     --input model.json --data orders.csv   # 防幻觉联动
 python agent.py semantics compute  --input model.json --data orders.csv   # 度量实算
 python agent.py semantics reconcile --a 100 --b 90 --label gmv          # 口径对账
-python agent.py quality audit  --input orders.csv           # S02 六维质量审计
-python agent.py quality clean  --input orders.csv           # S02 清洗去重
-python agent.py explore trend  --input orders.csv --date date --value amount
-python agent.py explore cohort --input orders.csv --user user_id --period date
-python agent.py explore time_series --input orders.csv --date date --value amount --window 3
-python agent.py explore segment --input orders.csv --features amount,sessions --k 3
+python agent.py quality audit  --input examples/orders.csv           # S02 六维质量审计
+python agent.py quality clean  --input examples/orders.csv           # S02 清洗去重
+python agent.py explore trend  --input examples/orders.csv --date date --value amount
+python agent.py explore cohort --input examples/orders.csv --user user_id --period date
+python agent.py explore time_series --input examples/orders.csv --date date --value amount --window 3
+python agent.py explore segment --input examples/orders.csv --features amount,sessions --k 3
 python agent.py explore metrics --input subs.csv --model saas     # 或 --model ecommerce
-python agent.py rootcause drilldown --input orders.csv --dim channel --value amount
-python agent.py statistics abtest --input orders.csv --group channel \
+python agent.py rootcause drilldown --input examples/orders.csv --dim channel --value amount
+python agent.py statistics abtest --input examples/orders.csv --group channel \
     --control 抖音 --treatment 微信 --metric amount
 # 能力域5 按来源技能粒度拆细为 9 个单功能子命令（上一行改用 abtest）：
 #   describe / correlate / ttest / chi2 / anova / regression / abtest
@@ -81,7 +81,7 @@ python agent.py case list                                    # T8 案例库
 python agent.py case validate --case retail-profitability
 python agent.py harness plan --input plan.json               # 分析计划门禁
 python agent.py harness semantic --input model.json --data orders.csv  # T5 语义门禁+联动
-python agent.py harness dataset --input orders.csv --semantic model.json
+python agent.py harness dataset --input examples/orders.csv --semantic examples/semantic_model.json
 python agent.py run --task <task_id>                        # 协作入口
 ```
 

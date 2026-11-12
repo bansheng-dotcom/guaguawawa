@@ -182,7 +182,7 @@ python guagua.py chat --role r06 --intent "分析订单漏斗、留存和渠道�
 
 ```bash
 # 例：只找 R06 做数据分析
-python guagua.py call r06 quality audit --input workspace/_loop_clean.csv
+python guagua.py call r06 quality audit --input examples/orders.csv
 
 # 例：只找 R04 做独立验收
 python guagua.py call r04 artifact inventory --input examples/artifact_inventory.json
@@ -372,8 +372,8 @@ python guagua.py call r05 scenario premortem --input examples/scenario_premortem
 ```bash
 python guagua.py call r06 demo
 python guagua.py call r06 semantics validate --input examples/semantic_model.json
-python guagua.py call r06 quality audit --input workspace/_loop_clean.csv
-python guagua.py call r06 explore funnel --input workspace/_loop_clean.csv --stage status
+python guagua.py call r06 quality audit --input examples/orders.csv
+python guagua.py call r06 explore funnel --input examples/orders.csv --stage status
 python guagua.py call r06 abtest --input workspace/parking_ab.csv --group group \
   --control A --treatment B --metric revenue
 python guagua.py call r06 deep --series workspace/parking_profit_12m.csv \
@@ -787,7 +787,7 @@ python guagua.py dispatch --all
 
 ```bash
 # 数据分析
-python guagua.py call r06 explore funnel --input workspace/_loop_clean.csv --stage status
+python guagua.py call r06 explore funnel --input examples/orders.csv --stage status
 
 # 独立验收
 python guagua.py call r04 criteria review --input examples/criteria_review.json
@@ -839,7 +839,7 @@ python guagua.py call r06 explore funnel --help
 
 # 3) 直接执行
 python guagua.py call r06 explore funnel \
-  --input workspace/_loop_clean.csv --stage status
+  --input examples/orders.csv --stage status
 ```
 
 `call` 的规则只有一条：**第一个参数是角色，后面的参数全部交给该角色的 `agent.py`**。因此角色支持的任何技能、动作、参数、`--help`、`demo`、`run --task` 都可以通过这一个入口调用。

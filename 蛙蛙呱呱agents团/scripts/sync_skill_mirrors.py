@@ -40,6 +40,9 @@ def role_files() -> list[Path]:
         if not role.is_dir():
             continue
         out.extend(p for p in (role / "skills").rglob("*.py") if p.is_file())
+        ex = role / "examples"
+        if ex.is_dir():
+            out.extend(p for p in ex.rglob("*") if p.is_file())
         for name in ("agent.py", "contracts.py", "harness.py", "run_tests.py", "SKILL.md"):
             p = role / name
             if p.is_file():
