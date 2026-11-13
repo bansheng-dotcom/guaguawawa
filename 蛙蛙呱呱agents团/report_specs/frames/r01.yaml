@@ -1,0 +1,51 @@
+role: r01
+domain: 一人公司治理
+objects:
+- 意图
+- 任务卡
+- 资源
+- 风险
+value_chain: []
+decisions:
+- 做/不做
+- 授权
+- 终止
+- 排序
+questions:
+- id: Q1
+  question: 这件事现在该不该做？
+  needs:
+  - 意图
+  - 资源
+  - 依赖
+  ops: []
+  decision: 做/不做/等
+- id: Q2
+  question: 有哪些选项，哪个可逆？
+  needs:
+  - 选项
+  - 可逆性分级
+  ops: []
+  decision: 选哪个方案
+- id: Q3
+  question: 代价是谁付、挤掉什么？
+  needs:
+  - 预算
+  - 人力
+  - 排期
+  ops: []
+  decision: 批准还是压缩范围
+- id: Q4
+  question: 什么信号出现就必须停？
+  needs:
+  - 阈值
+  - 熔断条件
+  ops: []
+  decision: 熔断线怎么定
+- id: Q5
+  question: 谁负责、何时验收？
+  needs:
+  - owner
+  - 验收标准
+  ops: []
+  decision: 派给谁

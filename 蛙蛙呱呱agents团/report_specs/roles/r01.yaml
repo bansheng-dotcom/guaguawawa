@@ -1,0 +1,3 @@
+extends: decision
+role: r01
+title_prefix: 全局

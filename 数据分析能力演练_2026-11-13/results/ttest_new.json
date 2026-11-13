@@ -1,0 +1,20 @@
+{
+  "welch_t": {
+    "group_a": "1",
+    "group_b": "0",
+    "n_a": 5345,
+    "n_b": 14655,
+    "mean_a": 94.2421,
+    "mean_b": 95.5293,
+    "diff": -1.2872,
+    "t": -1.3992,
+    "df": 9750.62,
+    "cohens_d": -0.0222,
+    "effect_grade": "small",
+    "p_value_approx": 0.161752,
+    "significant": false,
+    "alpha": 0.05,
+    "note": "p 值为正态近似（大 df 适用），精确值需 scipy.stats.ttest_ind"
+  },
+  "runtime_ms": 87
+}

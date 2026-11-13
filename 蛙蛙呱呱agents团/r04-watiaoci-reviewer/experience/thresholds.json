@@ -1,0 +1,65 @@
+{
+  "_comment": "R04 蛙挑刺全局阈值（T9 外置）：所有禁词/枚举/模式清单/评分口径在此，改口径不改代码。",
+  "artifact": {
+    "stub_markers": ["TODO", "FIXME", "XXX", "HACK", "PLACEHOLDER", "NOT_IMPLEMENTED"],
+    "stub_code_patterns": ["pass", "raise NotImplementedError", "return null", "return {}"],
+    "test_skip_markers": [".skip", "xit", "xdescribe", "pending"],
+    "min_file_bytes": 1,
+    "levels": ["L1_EXISTS", "L2_SUBSTANTIVE", "L3_WIRED"]
+  },
+  "gate": {
+    "timeout_s": 120,
+    "skipped_command": "NONE",
+    "tail_chars": 500
+  },
+  "strength": {
+    "patterns": {
+      "STRENGTH-001": {"severity": "error", "name": "blocking-gate-declared", "remediation": "删除文档/钩子中 never blocks / always exits 0 类声明，让门禁真的可阻断"},
+      "STRENGTH-002": {"severity": "error", "name": "baseline-auto-update", "remediation": "基线更新必须人工确认，禁止回归时自动改基线"},
+      "STRENGTH-003": {"severity": "warning", "name": "skip-categories-unjustified", "remediation": "每个 skip 类别补内联 justification"},
+      "STRENGTH-004": {"severity": "error", "name": "layers-without-thresholds", "remediation": "为每个 layer 定义 thresholds（多少算过/挂）"},
+      "STRENGTH-005": {"severity": "warning", "name": "lowest-default-tier", "remediation": "默认档位不得设为最低档"},
+      "STRENGTH-006": {"severity": "error", "name": "baseline-pr-auto-approved", "remediation": "基线更新 PR 必须有独立评审人，禁止自动批"},
+      "STRENGTH-007": {"severity": "error", "name": "passed-but-never-run", "remediation": "快照声明 passed 的每个检查必须在 signals 里真实运行过"}
+    },
+    "solid_min": 85,
+    "at_risk_min": 50,
+    "error_penalty": 15,
+    "warning_penalty": 5,
+    "skip_categories_max": 2,
+    "never_blocks_markers": ["never blocks", "always exits 0", "always exit 0", "不阻断", "总是退出 0", "永不拦截"],
+    "baseline_auto_update_markers": ["auto"],
+    "lowest_default_tiers": ["theatre", "low", "minimal", "loosest", "最低"]
+  },
+  "criteria": {
+    "evidence_line_re": ":[0-9]+",
+    "evidence_field_re": "[A-Za-z][A-Za-z0-9_]*\\.[A-Za-z][A-Za-z0-9_]*",
+    "statuses": ["pass", "warn", "fail"]
+  },
+  "quality": {
+    "hedge_words": ["should", "probably", "seems to", "i believe", "应该", "大概", "似乎", "我认为"],
+    "absolutist_words": ["全部", "完美", "生产级", "所有", "绝对", "all tests", "perfect", "production-ready"],
+    "severities": ["error", "warning"]
+  },
+  "facts": {
+    "source_type_whitelist": ["primary", "secondary", "unsourced"],
+    "severities": {"hallucinated": "critical", "unsourced": "high", "invalid_source_type": "high", "citation_missing": "high", "precision_drift": "high", "coverage_gap": "medium"},
+    "blocking_severities": ["critical", "high"]
+  },
+  "strengths": {
+    "keep_required_fields": ["id", "what", "why_keep", "evidence"]
+  },
+  "human": {
+    "comment_kinds": ["selection", "element"],
+    "edit_kinds": ["edited", "deleted", "moved"],
+    "batch_statuses": ["feedback", "closed", "superseded", "timeout", "feedback-waiting"],
+    "package_required_fields": ["artifact", "review_dimensions", "criteria_ref", "producer", "reviewer", "deadline"]
+  },
+  "review": {
+    "hedge_words": ["should", "probably", "seems to", "i believe", "应该", "大概", "似乎", "我认为"],
+    "fix_keys": ["applied_fixes", "fixes_applied", "modified", "modifications", "files_modified"],
+    "evidence_keys": ["evidence", "evidence_refs", "evidences", "level_results", "criteria_results", "claims_checked", "findings", "traces", "trace_results", "dimension_results", "pattern_results", "evaluated_patterns", "keep_list", "applied_plan", "recheck_results", "records", "results", "commands", "items", "delta"],
+    "conclusion_keys": ["summary", "conclusion", "overall_note", "executive_summary", "report_text", "opinion", "commentary", "reviewer_note", "verdict_note"],
+    "verdict_enum": ["PASS", "FAIL", "BLOCKED"]
+  }
+}

@@ -1,0 +1,27 @@
+id: nmg_protein_2026Q4
+title: 内蒙古七类蛋白市场调研（2026 年 10—11 月）
+window:
+  start: "2026-09-20"
+  end: "2026-11-12"
+units:
+  price: 元/斤
+
+categories: [牛肉, 羊肉, 鸡肉, 鸭肉, 鹅肉, 鱼肉, 虾类, 蛋类]
+
+aliases:
+  牛肉: [牛肉, 育肥牛, 活牛, 肥牛, 牛腩]
+  羊肉: [羊肉, 羔羊, 绒山羊]
+  鸡肉: [白条鸡, 鸡肉, 三黄鸡, 下架鸡]
+  鱼肉: [带鱼, 草鱼, 鲤鱼, 鲫鱼, 白鲢鱼, 大带鱼, 花鲢鱼, 大黄花鱼]
+  虾类: [对虾, 淡水虾]
+  蛋类: [鸡蛋, 鲜蛋装车]
+  鸭肉: [鸭肉]
+  鹅肉: [鹅肉, 白条鹅, 活鹅, 干管鹅, 淘汰老鹅]
+
+grades: { 牛肉: A, 羊肉: A, 鸡肉: A, 鱼肉: A, 蛋类: A, 鸭肉: B, 虾类: B, 鹅肉: C }
+
+dimensions:
+  - { id: price_series, name: 价格序列, min_obs: 30 }
+  - { id: regional,     name: 区域分化, min_obs: 14 }
+  - { id: spec_risk,    name: 规格与口径, min_obs: 6 }
+  - { id: upstream,     name: 成本与上游, min_obs: 4 }

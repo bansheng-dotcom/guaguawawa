@@ -1,0 +1,20 @@
+{
+ "skill": "ttest",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--value",
+  "revenue",
+  "--group",
+  "returned",
+  "--group-a",
+  "1",
+  "--group-b",
+  "0"
+ ],
+ "expect": {
+  "welch_t.p_exact": {
+   "not_null": true
+  }
+ }
+}

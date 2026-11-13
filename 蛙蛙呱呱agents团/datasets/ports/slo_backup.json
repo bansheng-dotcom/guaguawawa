@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "services": [
+    {
+      "name": "order-api",
+      "availability": 0.9992,
+      "error_budget_left": 0.34,
+      "incidents": 3,
+      "mttr_min": 42,
+      "backup": "daily",
+      "rpo_min": 15,
+      "rto_min": 58,
+      "drill_last": "2026-09-18",
+      "alerts": 220,
+      "false_alarm": 0.31
+    },
+    {
+      "name": "pay-gw",
+      "availability": 0.9998,
+      "error_budget_left": 0.71,
+      "incidents": 1,
+      "mttr_min": 21,
+      "backup": "daily",
+      "rpo_min": 5,
+      "rto_min": 25,
+      "drill_last": "2026-10-30",
+      "alerts": 96,
+      "false_alarm": 0.18
+    }
+  ]
+}

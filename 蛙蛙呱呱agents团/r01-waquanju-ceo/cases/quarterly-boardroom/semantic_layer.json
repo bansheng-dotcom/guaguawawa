@@ -1,0 +1,22 @@
+{
+  "artifact_type": "board_pack",
+  "terms": [
+    {"term": "记分卡", "meaning": "5-15 个周度指标，每项 owner + 数值目标（非区间）"},
+    {"term": "只看红", "meaning": "周会只讨论红项，绿项不占议程"},
+    {"term": "miss 归因", "meaning": "每个未达标项必须带根因，禁止只报数"},
+    {"term": "预承诺标准", "meaning": "决策前写下的成功/杀死标准，复盘只对它打分"},
+    {"term": "Rocks", "meaning": "90 天优先项，二元 done/not_done，无 60% 完成"}
+  ],
+  "gates": [
+    "memo 四段齐全（wins/misses/plan/asks）且每条 ask 向谁要什么",
+    "每个 miss 带根因（miss 不许掩盖）",
+    "win/miss 引用的指标在记分卡内（数字可追溯）",
+    "复盘只对预承诺标准打分（WIN/PARTIAL/LOSS/MIXED）",
+    "LOSS 必须触发新 boardroom 或 brief"
+  ],
+  "boundary": [
+    "R01 组织材料与复盘，指标本身由 R06 复算提供",
+    "陪练只给视角与行动项，不替创始人拍板",
+    "对外披露口径须过 R03 合规"
+  ]
+}

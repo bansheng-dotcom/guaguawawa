@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "cases": [
+    {
+      "model": "clf-v2",
+      "baseline": 0.812,
+      "metric": 0.824,
+      "p_value": 0.031,
+      "loss_last": 0.214,
+      "failed_samples": 37,
+      "eval_n": 1200
+    },
+    {
+      "model": "clf-v3",
+      "baseline": 0.812,
+      "metric": 0.809,
+      "p_value": 0.412,
+      "loss_last": 0.229,
+      "failed_samples": 44,
+      "eval_n": 1200
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+role: r18
+domain: 数据工程
+objects:
+- 表
+- 模型
+- DAG
+- 质量
+value_chain: []
+decisions:
+- 发布
+- 回填
+- 加测试
+questions:
+- id: Q1
+  question: 这批表能不能信？
+  needs:
+  - 质量检查
+  - 空值率
+  - 重复率
+  ops: []
+  decision: 下游能不能用
+- id: Q2
+  question: 数据新不新？
+  needs:
+  - 调度记录
+  - 延迟
+  ops: []
+  decision: 要不要告警
+- id: Q3
+  question: 断了下游谁受影响？
+  needs:
+  - 血缘
+  - 下游表
+  ops: []
+  decision: 先修哪张
+- id: Q4
+  question: 分层合不合规？
+  needs:
+  - 模型分层
+  - 依赖
+  ops: []
+  decision: 要不要重构
+- id: Q5
+  question: 回填会不会打爆？
+  needs:
+  - 增量策略
+  - 历史量
+  ops: []
+  decision: 回填窗口怎么定

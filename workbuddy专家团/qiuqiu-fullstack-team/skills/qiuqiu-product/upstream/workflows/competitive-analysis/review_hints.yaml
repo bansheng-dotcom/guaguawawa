@@ -1,0 +1,33 @@
+workflow_id: competitive-analysis
+version: "0.1"
+type: optional_review_hints
+
+purpose: >
+  给竞品分析报告生成可选复核提醒。这里不是触发图，不写死本地 agent 路径。
+
+rules:
+  - 只提醒角色类型。
+  - 不自动执行外部搜索或专业研究。
+
+review_hints:
+  research_reviewer:
+    remind_when:
+      - 竞品事实依赖外部网页、报告、新闻或版本变化
+    ask_them_to_check:
+      - 来源是否权威
+      - 日期是否最新
+      - 是否遗漏关键替代方案
+
+  ui_reviewer:
+    remind_when:
+      - 比较重点是页面、体验、信息架构或视觉层级
+    ask_them_to_check:
+      - 体验洞察是否准确
+      - 是否需要高保真截图或流程拆解
+
+  data_reviewer:
+    remind_when:
+      - 报告引用市场份额、价格、增长、用户量或转化
+    ask_them_to_check:
+      - 数据口径和来源是否可信
+      - 是否存在不可比口径

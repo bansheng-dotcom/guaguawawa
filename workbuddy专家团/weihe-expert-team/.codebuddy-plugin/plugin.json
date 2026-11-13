@@ -1,0 +1,149 @@
+{
+  "name": "weihe-expert-team",
+  "version": "1.0.0",
+  "description": "A multidisciplinary consulting team that turns complex business questions into decision-ready product, data, visualization, and narrative outputs.",
+  "author": {
+    "name": "WorkBuddy User",
+    "email": "user@local"
+  },
+  "agents": [
+    "./agents/weihe-expert-team-team-lead.md",
+    "./agents/product-strategist.md",
+    "./agents/data-insight-analyst.md",
+    "./agents/data-visualization-designer.md",
+    "./agents/report-narrative-editor.md"
+  ],
+  "skills": [
+    "./skills/weihe-consulting",
+    "./skills/weihe-product-strategy",
+    "./skills/weihe-data-analysis",
+    "./skills/weihe-data-viz",
+    "./skills/weihe-article"
+  ],
+  "expertType": "team",
+  "agentName": "weihe-expert-team-team-lead",
+  "teamInfo": {
+    "leadAgent": "weihe-expert-team-team-lead",
+    "memberAgents": [
+      "product-strategist",
+      "data-insight-analyst",
+      "data-visualization-designer",
+      "report-narrative-editor"
+    ]
+  },
+  "displayName": {
+    "en": "Weihe Expert Team",
+    "zh": "渭河-专家团"
+  },
+  "profession": {
+    "en": "Weihe Expert Team",
+    "zh": "渭河-专家团"
+  },
+  "displayDescription": {
+    "en": "A cross-functional consulting team for product decisions, hypothesis-driven data analysis, visual storytelling, and executive-ready reports.",
+    "zh": "将模糊业务问题拆成产品判断、假设验证、图表表达与叙事报告，输出可决策、可执行、可复盘的咨询成果。"
+  },
+  "avatar": "avatars/team.png",
+  "categoryId": "12-IndustryConsultant",
+  "defaultInitPrompt": {
+    "en": "Turn my business question into a decision-ready product, data, visualization, and report plan.",
+    "zh": "请把我的业务问题拆成产品判断、数据分析、图表表达和报告交付方案。"
+  },
+  "plugin": "weihe-expert-team",
+  "tags": [
+    {
+      "en": "Decision Consulting",
+      "zh": "决策咨询"
+    },
+    {
+      "en": "Data Insight",
+      "zh": "数据洞察"
+    },
+    {
+      "en": "Report Storytelling",
+      "zh": "报告叙事"
+    }
+  ],
+  "quickPrompts": [
+    {
+      "en": "Turn my business question into a decision-ready product, data, visualization, and report plan.",
+      "zh": "请把我的业务问题拆成产品判断、数据分析、图表表达和报告交付方案。"
+    },
+    {
+      "en": "Analyze this requirement, identify the data needed, and propose a management report structure.",
+      "zh": "请分析这份需求，明确需要哪些数据，并设计一份管理层报告结构。"
+    },
+    {
+      "en": "Review my analysis report and improve its logic, chart selection, and executive narrative.",
+      "zh": "请审阅我的分析报告，优化逻辑、图表选择和面向管理层的叙事表达。"
+    }
+  ],
+  "members": [
+    {
+      "id": "weihe-expert-team-team-lead",
+      "displayName": {
+        "en": "Gu Zongheng",
+        "zh": "渭总管"
+      },
+      "profession": {
+        "en": "Decision Integration Director",
+        "zh": "决策整合总监"
+      },
+      "avatar": "avatars/weihe-expert-team-team-lead.png",
+      "role": "lead"
+    },
+    {
+      "id": "product-strategist",
+      "displayName": {
+        "en": "Xu Qingshu",
+        "zh": "渭有品"
+      },
+      "profession": {
+        "en": "Product Strategy Consultant",
+        "zh": "产品策略顾问"
+      },
+      "avatar": "avatars/product-strategist.png",
+      "role": "member"
+    },
+    {
+      "id": "data-insight-analyst",
+      "displayName": {
+        "en": "Shen Juyin",
+        "zh": "渭究因"
+      },
+      "profession": {
+        "en": "Data Insight Analyst",
+        "zh": "数据洞察分析师"
+      },
+      "avatar": "avatars/data-insight-analyst.png",
+      "role": "member"
+    },
+    {
+      "id": "data-visualization-designer",
+      "displayName": {
+        "en": "Tu Biaoda",
+        "zh": "渭作图"
+      },
+      "profession": {
+        "en": "Data Visualization Designer",
+        "zh": "数据可视化设计师"
+      },
+      "avatar": "avatars/data-visualization-designer.png",
+      "role": "member"
+    },
+    {
+      "id": "report-narrative-editor",
+      "displayName": {
+        "en": "Wen Zhier",
+        "zh": "渭叙事"
+      },
+      "profession": {
+        "en": "Report Narrative Editor",
+        "zh": "报告叙事主编"
+      },
+      "avatar": "avatars/report-narrative-editor.png",
+      "role": "member"
+    }
+  ],
+  "sharedBy": "殊离"
+}

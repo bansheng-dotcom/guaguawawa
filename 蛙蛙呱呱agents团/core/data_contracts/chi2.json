@@ -1,0 +1,22 @@
+{
+ "name": "chi2",
+ "fields": [
+  {
+   "name": "category",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "returned",
+   "dtype": "int",
+   "required": true,
+   "enum": [
+    0,
+    1
+   ],
+   "range": null
+  }
+ ]
+}

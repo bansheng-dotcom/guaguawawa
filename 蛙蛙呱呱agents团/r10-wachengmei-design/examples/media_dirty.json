@@ -1,0 +1,7 @@
+{
+  "operations": ["explode"],
+  "source": "",
+  "target": {"container": "avi", "audio": "flac"},
+  "scale": {"width": 1921, "height": 1079},
+  "overwrite": "always"
+}

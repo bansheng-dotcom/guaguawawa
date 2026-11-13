@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "tables": [
+    {
+      "name": "fact_orders",
+      "rows": 128400,
+      "null_rate": 0.041,
+      "dup_rate": 0.002,
+      "delay_h": 2.5,
+      "downstream": 6,
+      "layer": "mart",
+      "blocking": 1
+    },
+    {
+      "name": "dim_customer",
+      "rows": 41200,
+      "null_rate": 0.004,
+      "dup_rate": 0.0,
+      "delay_h": 0.5,
+      "downstream": 3,
+      "layer": "mart",
+      "blocking": 0
+    },
+    {
+      "name": "stg_supplier",
+      "rows": 8600,
+      "null_rate": 0.012,
+      "dup_rate": 0.011,
+      "delay_h": 6.2,
+      "downstream": 2,
+      "layer": "staging",
+      "blocking": 1
+    },
+    {
+      "name": "int_inventory",
+      "rows": 96500,
+      "null_rate": 0.008,
+      "dup_rate": 0.001,
+      "delay_h": 1.2,
+      "downstream": 4,
+      "layer": "intermediate",
+      "blocking": 0
+    }
+  ]
+}

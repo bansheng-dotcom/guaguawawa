@@ -1,0 +1,46 @@
+role: r18
+doc_type: 数仓报告 · 蛙数仓
+title: '数仓：可信度
+
+  与血缘'
+title_highlight: 与血缘
+title_highlight_style: underline
+meta:
+- 读者：数据 / 分析团队
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r18 · shared/report_writer + core/report_renderer
+sections:
+- title: 质量
+  question: 这批表能不能信？
+  intro: 阻断级问题没清零，下游结论都是浮沙。
+  boundary: 质量按六维检查，阻断项优先。
+  chart: quality
+- title: 新鲜度
+  question: 数据新不新？
+  intro: 延迟超过 SLA 的表，等于不可用。
+  boundary: 新鲜度按调度完成时间计算。
+  chart: delay
+- title: 血缘
+  question: 断了下游谁受影响？
+  intro: 血缘不是文档，是故障影响面。
+  boundary: 血缘以 dbt/DAG 依赖为准。
+- title: 分层与回填
+  question: 结构合规吗、回填会不会打爆？
+  intro: 回填要先算窗口，再动手。
+  boundary: 分层规范以 staging/intermediate/mart 为准。
+- title: 判断与动作
+  question: 先修哪张表？
+  intro: 先修影响面最大的那张。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 质量
+- label: 关键
+  section: 血缘
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

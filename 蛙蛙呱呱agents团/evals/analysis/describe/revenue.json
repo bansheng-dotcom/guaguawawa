@@ -1,0 +1,17 @@
+{
+ "skill": "describe",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--col",
+  "revenue"
+ ],
+ "expect": {
+  "describe.revenue.mean": {
+   "gt": 0
+  },
+  "conclusion": {
+   "not_null": true
+  }
+ }
+}

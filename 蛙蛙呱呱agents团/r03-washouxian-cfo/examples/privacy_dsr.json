@@ -1,0 +1,23 @@
+{
+  "requests": [
+    {
+      "id": "dsr-1",
+      "type": "access",
+      "days_open": 20,
+      "completed": true,
+      "identity_verified": true,
+      "completed_at": "2026-10-20"
+    },
+    {
+      "id": "dsr-2",
+      "type": "erasure",
+      "days_open": 45,
+      "completed": false
+    }
+  ],
+  "breach": {
+    "hours_since_detection": 80,
+    "dfs_notified": false,
+    "individuals_notified": false
+  }
+}

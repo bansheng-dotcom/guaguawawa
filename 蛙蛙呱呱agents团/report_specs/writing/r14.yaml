@@ -1,0 +1,62 @@
+role: r14
+doc_type: 交易勾稽报告 · 蛙交易
+title: '呼市鲜果：交易勾稽
+
+  与履约状态'
+title_highlight: 与履约状态
+title_highlight_style: underline
+meta:
+- 读者：财务 / 运营
+- 数据截止：2026-11-13
+- 口径：订单-支付-退款-履约四表
+- 样本：96 单、4 个渠道
+footer:
+- r14 · shared/report_writer + core/report_renderer
+- 数据：示例公司（合成，演示用）
+sections:
+- title: 勾稽
+  question: 应收和实收差多少？
+  intro: 钱的差额必须能逐笔归因，否则就是坏账。
+  boundary: 订单金额含运费与优惠，未拆税。
+  chart: bridge
+- title: 退款
+  question: 退款集中在哪？
+  intro: 退款率是表面，原因是动作。
+  boundary: 退款按金额与单量双口径统计。
+- title: 履约
+  question: 时效的尾部在哪？
+  intro: 均值掩盖尾部，尾部才是投诉来源。
+  boundary: 履约天数按签收日减发货日。
+- title: 状态异常
+  question: 三态有没有打架？
+  intro: 已付未交付、已退已交付是最贵的两类错。
+  boundary: 异常判据为状态字段互斥性。
+- title: 状态矩阵
+  question: 四类状态各占多少？
+  intro: 状态矩阵是交易系统的体检表。
+  boundary: 四类互斥，合计等于总单量。
+- title: 渠道结构
+  question: 哪个渠道客单最高？
+  intro: 渠道差异决定预算与履约策略。
+  boundary: 客单为期间均值，未剔除极端单。
+  chart: channel
+- title: 数据缺口
+  question: 还有哪些交易问题答不了？
+  intro: 缺表就写缺表，不要用结论补。
+  boundary: 缺口项已排除出结论。
+- title: 判断与动作
+  question: 先修哪一段？
+  intro: 先闭环，再扩张。
+  table: decision
+  no_reading: true
+summary:
+- label: 勾稽
+  section: 勾稽
+- label: 退款
+  section: 退款
+- label: 异常
+  section: 状态异常
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

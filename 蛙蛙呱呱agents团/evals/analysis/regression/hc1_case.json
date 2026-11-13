@@ -1,0 +1,14 @@
+{
+ "skill": "regression",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--x",
+  "unit_price,discount",
+  "--y",
+  "revenue"
+ ],
+ "expect": {
+  "multivariate.se_method": "HC1"
+ }
+}

@@ -1,0 +1,284 @@
+{
+  "causal": {
+    "model": {
+      "outcome": "gmv_growth",
+      "treatment": "treat",
+      "treatment_values": [
+        "0",
+        "1"
+      ],
+      "confounders": [
+        "population",
+        "income_index",
+        "douyin_penetration",
+        "ecommerce_index"
+      ],
+      "n_used": 40,
+      "estimand": "ATE（后门分层调整）"
+    },
+    "identify": {
+      "backdoor_set": [
+        "population",
+        "income_index",
+        "douyin_penetration",
+        "ecommerce_index"
+      ],
+      "imbalance": [
+        {
+          "confounder": "population",
+          "type": "numeric",
+          "std_mean_diff": 0.3777,
+          "threshold": 0.2,
+          "flag": "imbalanced"
+        },
+        {
+          "confounder": "income_index",
+          "type": "numeric",
+          "std_mean_diff": -0.1749,
+          "threshold": 0.2,
+          "flag": "balanced"
+        },
+        {
+          "confounder": "douyin_penetration",
+          "type": "numeric",
+          "std_mean_diff": 0.4318,
+          "threshold": 0.2,
+          "flag": "imbalanced"
+        },
+        {
+          "confounder": "ecommerce_index",
+          "type": "numeric",
+          "std_mean_diff": 0.4692,
+          "threshold": 0.2,
+          "flag": "imbalanced"
+        }
+      ],
+      "note": "只调整观测到的混杂；未观测混杂（隐藏共同原因）不可消除。"
+    },
+    "estimate": {
+      "contrast": "treat(1) − ctrl(0)（两值按字典序配对，读数先看本行方向）",
+      "mean_treat": 11.18,
+      "mean_ctrl": 4.7385,
+      "adjusted_effect": 5.565,
+      "unadjusted_effect": 6.4415,
+      "confounding_bias": 0.8765,
+      "contribution": {
+        "treatment_effect": 5.565,
+        "confounding_bias": 0.8765,
+        "sum_check": "naive 6.4415 = 效应 5.5650 + 偏差 0.8765"
+      },
+      "strata_used": 2,
+      "strata_skipped": 35,
+      "strata_detail": [
+        {
+          "stratum": "population=q0|income_index=q0|douyin_penetration=q3|ecommerce_index=q2",
+          "n": 2,
+          "treated_n": 1,
+          "control_n": 1,
+          "within_effect": 4.74
+        },
+        {
+          "stratum": "population=q2|income_index=q0|douyin_penetration=q2|ecommerce_index=q1",
+          "n": 2,
+          "treated_n": 1,
+          "control_n": 1,
+          "within_effect": 6.39
+        }
+      ],
+      "skipped_detail": [
+        {
+          "stratum": "population=q3|income_index=q1|douyin_penetration=q1|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q0|income_index=q3|douyin_penetration=q1|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q1|douyin_penetration=q2|ecommerce_index=q1",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q2|income_index=q1|douyin_penetration=q0|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q0|income_index=q3|douyin_penetration=q1|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q2|douyin_penetration=q2|ecommerce_index=q2",
+          "n": 2,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q3|douyin_penetration=q2|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q2|income_index=q2|douyin_penetration=q0|ecommerce_index=q1",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q0|douyin_penetration=q3|ecommerce_index=q1",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q1|douyin_penetration=q0|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q0|income_index=q2|douyin_penetration=q0|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q2|douyin_penetration=q3|ecommerce_index=q2",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q0|income_index=q1|douyin_penetration=q1|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q0|income_index=q3|douyin_penetration=q3|ecommerce_index=q1",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q1|douyin_penetration=q0|ecommerce_index=q2",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q2|income_index=q2|douyin_penetration=q3|ecommerce_index=q2",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q2|douyin_penetration=q3|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q2|income_index=q3|douyin_penetration=q0|ecommerce_index=q1",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q1|douyin_penetration=q3|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q3|douyin_penetration=q2|ecommerce_index=q2",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q0|douyin_penetration=q0|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q2|income_index=q2|douyin_penetration=q1|ecommerce_index=q2",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q3|douyin_penetration=q2|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q0|income_index=q3|douyin_penetration=q0|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q2|income_index=q1|douyin_penetration=q3|ecommerce_index=q1",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q2|income_index=q0|douyin_penetration=q0|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q3|douyin_penetration=q1|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q1|income_index=q2|douyin_penetration=q1|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q0|income_index=q3|douyin_penetration=q0|ecommerce_index=q2",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q0|income_index=q0|douyin_penetration=q1|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q1|douyin_penetration=q2|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q0|douyin_penetration=q3|ecommerce_index=q0",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q2|douyin_penetration=q1|ecommerce_index=q3",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q3|income_index=q1|douyin_penetration=q2|ecommerce_index=q1",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        },
+        {
+          "stratum": "population=q2|income_index=q0|douyin_penetration=q1|ecommerce_index=q1",
+          "n": 1,
+          "reason": "单臂层（positivity 受限），不计入加权"
+        }
+      ]
+    },
+    "refute": {
+      "method": "安慰剂置换（随机重排处理标签，重算效应）",
+      "trials": 200,
+      "seed": 0,
+      "placebo_p": 0.0,
+      "survive_threshold": 0.05,
+      "survives": true,
+      "note": "安慰剂 p=0.00 = 随机标签效应达到 |调整效应| 的比例。p 低于阈值说明随机标签复现不出该效应，估计经受住反驳；p 达到或超过阈值说明随机排列也能造出同量级效应，估计与噪声无异。本结果 通过反驳。"
+    },
+    "note": "naive=处理效应+混杂偏差 的分解即归因证据（contribution）；结论只对已调整混杂成立，不得外推为「总因果效应已证明」。"
+  },
+  "contribution": {
+    "treatment_effect": 5.565,
+    "confounding_bias": 0.8765,
+    "unadjusted_effect": 6.4415,
+    "sum_check": "unadjusted = treatment_effect + confounding_bias"
+  },
+  "runtime_ms": 7
+}

@@ -1,0 +1,44 @@
+{
+  "dimension": "category",
+  "total": 1903705.87,
+  "items": [
+    {
+      "segment": "洗护发",
+      "value": 701166.54,
+      "share_pct": 36.83,
+      "cum_share_pct": 36.83,
+      "rank": 1
+    },
+    {
+      "segment": "口腔护理",
+      "value": 461457.07,
+      "share_pct": 24.24,
+      "cum_share_pct": 61.07,
+      "rank": 2
+    },
+    {
+      "segment": "身体护理",
+      "value": 353981.6,
+      "share_pct": 18.59,
+      "cum_share_pct": 79.67,
+      "rank": 3
+    },
+    {
+      "segment": "婴童护理",
+      "value": 202260.08,
+      "share_pct": 10.62,
+      "cum_share_pct": 90.29,
+      "rank": 4
+    },
+    {
+      "segment": "女性护理",
+      "value": 184840.58,
+      "share_pct": 9.71,
+      "cum_share_pct": 100.0,
+      "rank": 5
+    }
+  ],
+  "pareto_top_n_for_80pct": 4,
+  "pareto_threshold_pct": 80,
+  "runtime_ms": 81
+}

@@ -1,0 +1,23 @@
+{
+ "skill": "causal",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_cities.csv",
+  "--outcome",
+  "gmv_growth",
+  "--treatment",
+  "treat",
+  "--confounders",
+  "population,income_index,douyin_penetration,ecommerce_index",
+  "--trials",
+  "100"
+ ],
+ "expect": {
+  "causal.estimate.adjusted_effect": {
+   "not_null": true
+  },
+  "conclusion": {
+   "not_null": true
+  }
+ }
+}

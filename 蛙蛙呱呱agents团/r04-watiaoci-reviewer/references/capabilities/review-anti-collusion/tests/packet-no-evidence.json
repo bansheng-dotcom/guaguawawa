@@ -1,0 +1,13 @@
+{
+  "_comment": "反例③：verdict=PASS 但证据链全空 → evidence_gate CRITICAL → harness 与 review.py 都必须 exit 1",
+  "skill": "review",
+  "action": "verdict",
+  "result": {
+    "reviewer": "r04-watiaoci-reviewer",
+    "producer": "r09-wawenma-engineer",
+    "verdict": "PASS",
+    "findings": [],
+    "criteria_results": [],
+    "summary": "看起来没问题，应该可以过。"
+  }
+}

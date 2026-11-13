@@ -1,0 +1,49 @@
+role: r03
+domain: 社区零售财务
+objects:
+- 月度损益
+- 现金
+- 应收应付
+- 合同
+value_chain:
+- 采购
+- 履约
+- 回款
+decisions:
+- 压费用
+- 融资
+- 关店/扩店
+- 账期政策
+questions:
+- id: Q1
+  question: 现金还能撑多久？
+  needs:
+  - 月度损益
+  - 月度现金
+  ops: []
+  decision: 是否现在融资
+- id: Q2
+  question: 利润被哪一段吃掉？
+  needs:
+  - 费用明细
+  ops: []
+  decision: 先砍哪项费用
+- id: Q3
+  question: 应收能不能收回来？
+  needs:
+  - 应收账龄
+  ops: []
+  decision: 是否收紧账期
+- id: Q4
+  question: 哪些条款不能签？
+  needs:
+  - 合同文本
+  ops: []
+  decision: 签不签这份合同
+- id: Q5
+  question: 税负会不会突然跳档？
+  needs:
+  - 纳税申报表
+  - 税收优惠条件
+  ops: []
+  decision: 是否调整开票与架构

@@ -1,0 +1,4 @@
+extends: decision
+role: r07
+title_prefix: 产品
+adapter: r07

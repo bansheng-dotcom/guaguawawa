@@ -1,0 +1,84 @@
+{
+  "_note": "蛙排布（COO / 运营效能）运行配置：阈值/维度/数据源外置，改规则不改代码（META-001 Stage 3）。",
+  "role": "r02",
+  "language": "zh",
+  "enable_cache": true,
+  "enable_vector": false,
+  "report": {
+    "engine": "agents/shared/report_engine.py",
+    "generator": "agents/shared/report_generator.py",
+    "doc_type": "COO / 运营效能",
+    "formats": [
+      "html",
+      "md"
+    ],
+    "sections": [
+      "决策指令",
+      "KPI 格栅",
+      "三级归因",
+      "护栏熔断",
+      "灰度+下一步"
+    ]
+  },
+  "kpis": [
+    {
+      "id": "overflow_rate",
+      "name": "交付周期溢出率",
+      "formula": "(实际交付天数 − 计划天数) / 计划天数",
+      "unit": "%",
+      "target": "≤ 10%",
+      "alert": "> 20% 触发全链路回溯"
+    },
+    {
+      "id": "concurrent",
+      "name": "单人并发任务数",
+      "formula": "同一 owner 处于 running 的任务数",
+      "unit": "个",
+      "target": "≤ 3",
+      "alert": "> 3 强制委派或拆分"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "WBS kind 越界或 step 断档",
+      "verdict": "BLOCKER",
+      "action": "拒绝排期，先修拆解"
+    },
+    {
+      "id": "G2",
+      "when": "加权负载 > 100%",
+      "verdict": "CRITICAL",
+      "action": "先减负再派工，不允许带病排期"
+    },
+    {
+      "id": "G3",
+      "when": "任务 > 8h 未拆分",
+      "verdict": "CRITICAL",
+      "action": "按 Σ 恒等拆成 ≤8h 子任务"
+    }
+  ],
+  "guardrails": [
+    {
+      "dim": "交付周期溢出率",
+      "metric": "交付周期溢出率",
+      "base": "≤ 10%",
+      "threshold": "> 20% 触发全链路回溯"
+    },
+    {
+      "dim": "单人并发任务数",
+      "metric": "单人并发任务数",
+      "base": "≤ 3",
+      "threshold": "> 3 强制委派或拆分"
+    }
+  ],
+  "data_sources": [
+    {
+      "name": "examples/",
+      "type": "local_json",
+      "permission": "read_only",
+      "note": "本轮真实执行所用输入，报告页脚记录 SHA256"
+    }
+  ],
+  "case": "sprint-overload"
+}

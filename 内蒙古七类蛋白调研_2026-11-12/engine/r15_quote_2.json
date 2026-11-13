@@ -1,0 +1,14 @@
+{
+  "id": "SQ-BEEF-002",
+  "supplier": "乌兰察布集宁产地集配",
+  "status": "Submitted",
+  "valid_till": "2026-11-30",
+  "items": [
+    {
+      "item_code": "BEEF-BRISKET",
+      "qty": 1000,
+      "rate": 33.02
+    }
+  ],
+  "total": 33020.0
+}

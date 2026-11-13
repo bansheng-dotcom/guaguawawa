@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>内蒙古酒水供应链路报告｜六个断点、四条链路、90 天路线</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;background:#F6F8F8;color:#1D262B;line-height:1.78;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px 92px}
+header{background:linear-gradient(135deg,#16232E 0%,#243746 55%,#8A5A32 140%);color:#fff;padding:64px 0 54px;margin-bottom:46px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-110px;top:-130px;width:400px;height:400px;border-radius:50%;background:rgba(169,113,66,.18)}
+header .wrap{padding-bottom:0;position:relative;z-index:1}
+.tag{display:inline-block;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.30);padding:5px 15px;border-radius:100px;font-size:13px;letter-spacing:.6px;margin-bottom:18px}
+h1{font-size:34px;line-height:1.32;font-weight:700;letter-spacing:-.4px}
+.sub{font-size:15.6px;opacity:.92;margin-top:14px;max-width:780px}
+.meta{display:flex;gap:36px;flex-wrap:wrap;margin-top:26px;font-size:13px;opacity:.88}
+.meta b{display:block;font-size:11px;opacity:.7;letter-spacing:1px;font-weight:400;margin-bottom:2px}
+h2{font-size:22.5px;color:#243746;margin:54px 0 10px;padding-left:16px;border-left:5px solid #A97142;line-height:1.4}
+h2 .num{color:#A97142;font-family:Georgia,serif;margin-right:8px}
+h3{font-size:16.4px;color:#1B2C38;margin:28px 0 11px}
+p{margin:12px 0;font-size:15px;color:#33414A}
+small{font-size:12.5px;color:#7B878D}
+.q{background:#EDF1F3;border-left:4px solid #243746;padding:11px 16px;border-radius:0 8px 8px 0;font-size:13.6px;color:#2C414E;margin:14px 0 18px}
+.q b{color:#243746}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:24px}
+.kpi{background:#fff;border:1px solid #DFE5E7;border-radius:15px;padding:20px 18px;box-shadow:0 2px 10px rgba(36,55,70,.05)}
+.kpi .k{font-size:12.4px;color:#7B878D;margin-bottom:8px}
+.kpi .v{font-size:27px;font-weight:700;color:#243746;line-height:1.15;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:13.5px;font-weight:600;margin-left:2px;color:#243746}
+.kpi .d{font-size:12px;color:#7B878D;margin-top:8px}
+.kpi.watch .v{color:#A36A12}.kpi.critical .v{color:#A8322A}.kpi.good .v{color:#146B52}
+.card{background:#fff;border:1px solid #DFE5E7;border-radius:15px;padding:25px 23px;margin:22px 0;box-shadow:0 2px 10px rgba(36,55,70,.045)}
+.fig{font-size:12.3px;color:#7B878D;text-align:center;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:13.3px;margin:6px 0;font-variant-numeric:tabular-nums}
+th{background:#EEF2F4;color:#243746;font-weight:600;padding:11px 8px;text-align:right;border-bottom:2px solid #D3DBDF;font-size:12.3px;white-space:nowrap}
+th:first-child{text-align:left}
+td{padding:9px 8px;text-align:right;border-bottom:1px solid #F0F3F4}
+td.nm{text-align:left;font-weight:600;color:#1B2C38}
+td.c{color:#7B878D;font-size:12.4px;text-align:left}
+tr:hover td{background:#FAFBFC}
+.up{color:#A8322A;font-weight:600}.down{color:#146B52;font-weight:600}.flat{color:#7B878D}
+.note{background:#FBF3E4;border-left:4px solid #B48328;padding:15px 19px;border-radius:0 10px 10px 0;font-size:13.8px;margin:18px 0;color:#4B3D2E}
+.note b{color:#7A5A16}
+.insight{background:#fff;border:1px solid #DFE5E7;border-left:5px solid #243746;border-radius:11px;padding:17px 21px;margin:15px 0}
+.insight .t{font-weight:700;color:#243746;font-size:14.8px;margin-bottom:5px}
+.insight p{margin:4px 0;font-size:14.1px}
+mark{background:#F6E3A8;color:#3A2C08;padding:0 3px;border-radius:3px}
+.boundary{background:#F7F8F8;border:1px dashed #C9D2D6;border-radius:10px;padding:13px 17px;font-size:13px;color:#5D6A70;margin:16px 0}
+.boundary b{color:#3B4A52}
+.chain{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:16px 0}
+.step{background:#fff;border:1px solid #DFE5E7;border-radius:12px;padding:14px 11px;position:relative}
+.step .s1{font-size:11.4px;color:#7B878D;letter-spacing:.5px}
+.step .s2{font-size:13.6px;font-weight:700;color:#243746;margin:5px 0}
+.step .s3{font-size:12px;color:#4E5A62;line-height:1.55}
+.step::after{content:"›";position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:20px;color:#C6B7A6}
+.step:last-child::after{display:none}
+.tl{border-left:3px solid #D3DBDF;margin:14px 0 0 8px;padding-left:20px}
+.tl .ti{position:relative;margin:0 0 20px}
+.tl .ti::before{content:"";position:absolute;left:-27px;top:6px;width:10px;height:10px;border-radius:50%;background:#A97142;border:2px solid #F6F8F8}
+.tl .th{font-weight:700;color:#243746;font-size:14.3px}
+.tl .tb{font-size:13.5px;color:#3D4B53;margin-top:3px}
+.pill{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:100px;background:#EEF2F4;color:#243746;border:1px solid #D3DBDF;margin-left:6px;font-weight:400}
+.pill.warn{background:#FBF0E2;color:#8A5A12;border-color:#E9D3B2}
+.pill.bad{background:#FBEDEB;color:#94322A;border-color:#E7C5C0}
+.pill.good{background:#EDF7F1;color:#146B52;border-color:#CBE7D8}
+details{margin:18px 0;border:1px solid #DFE5E7;border-radius:12px;background:#fff}
+summary{cursor:pointer;padding:15px 20px;font-weight:600;color:#243746;font-size:14.5px}
+details .inner{padding:0 20px 18px}
+footer{margin-top:58px;padding-top:22px;border-top:1px solid #D3DBDF;font-size:12.5px;color:#7B878D}
+@media (max-width:840px){.kpis{grid-template-columns:1fr 1fr}.chain{grid-template-columns:1fr}.step::after{content:"⌄";right:50%;top:auto;bottom:-16px;transform:translateX(50%)}h1{font-size:26px}}
+</style></head><body>
+
+<header><div class="wrap">
+  <div class="tag">蛙蛙呱呱 · R15 供应链 / R03 财务口径 / R20 值守</div>
+  <h1>内蒙古酒水供应链路报告</h1>
+  <div class="sub">六个断点、四条链路、90 天路线：从 2,700 元/吨的高粱到 0.28 元/瓶的物流</div>
+  <div class="meta">
+    <div><b>报告期</b>2025 财年基准</div>
+    <div><b>覆盖链路</b>原料 / 包材 / 酿造 / 灌装 / 仓储 / 物流 / 渠道</div>
+    <div><b>测算口径</b>42 度 500ml 盒装 + 500ml 啤酒</div>
+    <div><b>报告日期</b>2026-11-12</div>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<h2><span class="num">00</span>供应链结论：六个断点，一句话一条</h2>
+
+<div class="kpis">
+  <div class="kpi critical"><div class="k">白酒产能利用率</div><div class="v">5.3<small>%</small></div><div class="d">设计 90 万吨 vs 产量约 4.8 万吨</div></div>
+  <div class="kpi good"><div class="k">高粱本地化率</div><div class="v">70—85<small>%</small></div><div class="d">赤峰/通辽/兴安盟 300km 半径</div></div>
+  <div class="kpi watch"><div class="k">包材占出厂价</div><div class="v">12—15<small>%</small></div><div class="d">玻璃瓶 2.1—3.2 元/只</div></div>
+  <div class="kpi"><div class="k">物流单瓶分摊</div><div class="v">0.26—0.29<small> 元</small></div><div class="d">呼市→北京，183—207 元/吨</div></div>
+</div>
+
+<div class="insight"><div class="t">总体判断</div>
+<p>内蒙古酒水的供应链不是“缺资源”，而是 <strong>资源错配</strong>：原粮在本地、包材在 1,000 公里外、产能闲置 95%、成品库存 900 天、物流靠公路、渠道靠压货。六个断点里，前三个决定成本，后三个决定现金流。</p></div>
+
+<div class="card">
+<table>
+<tr><th>断点</th><th>现状</th><th>量化</th><th>后果</th><th>优先级</th></tr>
+<tr><td class="nm">① 产能严重闲置</td><td class="c">设计产能 90 万吨，2025 年产量约 4.8 万吨</td><td class="up">利用率 5.3%</td><td class="c">折旧摊薄、单位固定成本高</td><td class="c">高</td></tr>
+<tr><td class="nm">② 包材远距离采购</td><td class="c">玻璃瓶主要来自山东郓城、江苏徐州</td><td class="c">1,000—1,300km；运费 +4%—6%</td><td class="c">瓶成本 2.1—3.2 元，库存 30—45 天</td><td class="c">高</td></tr>
+<tr><td class="nm">③ 原粮价格波动</td><td class="c">高粱 2,640—2,740 元/吨，年度波动 ±15%</td><td class="c">占生产成本 36.6%</td><td class="c">毛利率 ±2pp</td><td class="c">中高</td></tr>
+<tr><td class="nm">④ 基酒资金占用</td><td class="c">储酒 3—5 年，河套储酒 12 万吨</td><td class="c">资金+仓储+损耗 ≈2,925 元/吨</td><td class="c">每瓶摊 1.46 元</td><td class="c">中</td></tr>
+<tr><td class="nm">⑤ 成品库存高企</td><td class="c">行业平均存货周转 900 天</td><td class="c">20 家上市酒企存货 1,706.86 亿</td><td class="c">资金占用、价格倒挂</td><td class="c">高</td></tr>
+<tr><td class="nm">⑥ 物流半径长</td><td class="c">东西跨度 2,400km，公路为主</td><td class="c">呼市→北京 0.28 元/瓶</td><td class="c">区内配送成本高于全国均值</td><td class="c">中</td></tr>
+</table>
+<div class="fig">表 1｜六个断点。优先级按“对毛利率或现金流的影响”排序</div>
+</div>
+
+<h2><span class="num">01</span>链路总图：从一粒高粱到一瓶酒</h2>
+
+<div class="q"><b>本节验证问题：</b>一瓶酒经过哪些环节？每个环节的成本与风险在哪里？</div>
+
+<div class="chain">
+  <div class="step"><div class="s1">01 原料</div><div class="s2">高粱/大麦</div><div class="s3">赤峰 2,700—2,740 元/吨；本地化 70%—85%</div></div>
+  <div class="step"><div class="s1">02 酿造</div><div class="s2">制曲/发酵</div><div class="s3">出酒率 35%—42%；基酒储存 3—5 年</div></div>
+  <div class="step"><div class="s1">03 包材</div><div class="s2">瓶/盒/盖</div><div class="s3">玻璃瓶 2.1—3.2 元；包材占出厂价 12%—15%</div></div>
+  <div class="step"><div class="s1">04 灌装</div><div class="s2">灌装/包装</div><div class="s3">河套 37 条线、成品 12 万吨；蒙古王 1 万瓶/小时</div></div>
+  <div class="step"><div class="s1">05 仓储</div><div class="s2">成品/基酒</div><div class="s3">河套储酒 12 万吨；行业周转 900 天</div></div>
+  <div class="step"><div class="s1">06 物流</div><div class="s2">公路/城配</div><div class="s3">呼市→北京 183—207 元/吨；0.28 元/瓶</div></div>
+</div>
+<div class="fig">图 1｜酒水供应链六段。渠道（经销商/终端）作为第 7 段在经营报告中展开</div>
+
+<h2><span class="num">02</span>原料：高粱在本地，麦芽靠外采</h2>
+
+<div class="q"><b>本节验证问题：</b>内蒙古酿酒原料能不能自给？价格波动有多大？</div>
+
+<div class="card">
+<table>
+<tr><th>原料</th><th>主要来源</th><th>到厂价</th><th>单瓶用量</th><th>单瓶成本</th><th>本地化率</th><th>风险</th></tr>
+<tr><td class="nm">高粱</td><td class="c">赤峰、通辽、兴安盟</td><td>2,640—2,740 元/吨</td><td class="c">约 2.5 kg/瓶</td><td>6.6—6.9 元</td><td class="down">70%—85%</td><td class="c">年度 ±15% 波动</td></tr>
+<tr><td class="nm">大麦芽</td><td class="c">进口（澳洲/加拿大）+ 国产</td><td>约 2,900 元/吨</td><td class="c">约 60 g/瓶（啤酒）</td><td>0.17 元</td><td class="up">低</td><td class="c">进口依赖、汇率</td></tr>
+<tr><td class="nm">玉米</td><td class="c">内蒙古本地</td><td>约 2,200 元/吨</td><td class="c">辅料少量</td><td>0.2—0.4 元</td><td class="down">高</td><td class="c">与饲料争粮</td></tr>
+<tr><td class="nm">豌豆/小麦</td><td class="c">区外调入</td><td>2,800—3,200 元/吨</td><td class="c">制曲用</td><td>0.3—0.5 元</td><td class="flat">中</td><td class="c">制曲成本</td></tr>
+</table>
+<div class="fig">表 2｜主要原料成本。高粱按 2,700 元/吨、2.5 kg/瓶测算；大麦芽按 500ml 啤酒 60g 测算</div>
+</div>
+
+<div class="insight"><div class="t">原粮判断</div>
+<p><b>高粱是内蒙古酒水唯一有本地优势的原料。</b>赤峰净粮 1.35—1.37 元/斤、通辽 1.32 元/斤、兴安盟 1.33 元/斤，比黑龙江高 4%—8%，但比从河南/山西调入便宜。赤峰宁城县高粱收购价 1.40—2.10 元/斤，支持酒厂日供 500 吨，说明产区具备规模化直供能力。</p>
+<p><b>麦芽是啤酒的软肋。</b>进口大麦芽约 2,900 元/吨，占啤酒生产成本的 11%—12%；华润“国麦振兴”在推国产啤麦，但内蒙古本地大麦种植规模有限，短期难以替代进口。</p></div>
+
+<div class="boundary"><b>证据边界：</b>高粱价格为 2025 年 12 月 Mysteel 净粮装车价，不含到厂运费；单瓶用量按 42 度白酒出酒率 38% 估算，实际随香型、工艺波动 ±10%。</div>
+
+<h2><span class="num">03</span>包材：第二利润中心，也是最容易被忽视的漏点</h2>
+
+<div class="q"><b>本节验证问题：</b>包材到底占多少钱？玻璃瓶从哪来？能不能降本？</div>
+
+<div class="card">
+<table>
+<tr><th>包材</th><th>单价</th><th>单瓶用量</th><th>单瓶成本</th><th>占生产成本</th><th>主要产地</th></tr>
+<tr><td class="nm">乳白料瓶 500ml</td><td>2.10—2.35 元/只</td><td>1</td><td>2.10—2.35 元</td><td>10.2%—11.5%</td><td class="c">山东郓城</td></tr>
+<tr><td class="nm">晶白料瓶 500ml</td><td>2.83—3.20 元/只</td><td>1</td><td>2.83—3.20 元</td><td>13.8%—15.6%</td><td class="c">山东郓城、江苏徐州</td></tr>
+<tr><td class="nm">白瓷瓶 500ml</td><td>4.50—5.80 元/只</td><td>1</td><td>4.50—5.80 元</td><td>22.0%—28.3%</td><td class="c">河北、山东</td></tr>
+<tr><td class="nm">纸盒（中端）</td><td>3.00—5.00 元/只</td><td>1</td><td>3.00—5.00 元</td><td>14.6%—24.4%</td><td class="c">本地印刷厂</td></tr>
+<tr><td class="nm">瓶盖</td><td>0.35—0.55 元/只</td><td>1</td><td>0.35—0.55 元</td><td>1.7%—2.7%</td><td class="c">浙江、山东</td></tr>
+<tr><td class="nm">防伪标/标贴</td><td>0.15—0.30 元/套</td><td>1</td><td>0.15—0.30 元</td><td>0.7%—1.5%</td><td class="c">本地</td></tr>
+<tr><td class="nm">纸箱</td><td>1.50—3.00 元/只</td><td>1/6</td><td>0.25—0.50 元</td><td>1.2%—2.4%</td><td class="c">本地</td></tr>
+<tr><td class="nm">合计（中端盒装）</td><td class="c">—</td><td class="c">—</td><td><b>6.0—6.5 元</b></td><td><b>29%—32%</b></td><td class="c">—</td></tr>
+</table>
+<div class="fig">表 3｜包材成本。盒装酒生产成本 20.5 元中，包材 6.5 元占 31.7%</div>
+</div>
+
+<div class="card">
+<h3>包材半径：为什么瓶子的运费比瓶子本身更值得管</h3>
+<p>以 500ml 乳白料瓶为例：单只 0.4 kg，1,000 只 = 0.4 吨；山东郓城→呼和浩特约 1,100 km，重货 250—300 元/吨，折 <b>100—120 元/千只 = 0.10—0.12 元/只</b>，占瓶价的 4%—6%。看似不高，但叠加 30—45 天库存与 3%—5% 破损，实际到厂成本上升 <b>8%—11%</b>。</p>
+<table>
+<tr><th>方案</th><th>瓶价</th><th>运费</th><th>库存资金</th><th>到厂综合</th><th>对比基准</th></tr>
+<tr><td class="nm">山东郓城直采</td><td>2.20</td><td>0.11</td><td>0.03</td><td>2.34</td><td class="c">基准</td></tr>
+<tr><td class="nm">江苏徐州直采</td><td>2.30</td><td>0.13</td><td>0.03</td><td>2.46</td><td class="up">+5.1%</td></tr>
+<tr><td class="nm">本地建厂/合资</td><td>2.35</td><td>0.02</td><td>0.01</td><td>2.38</td><td class="flat">+1.7%</td></tr>
+<tr><td class="nm">集采+双源（目标）</td><td>2.10</td><td>0.10</td><td>0.02</td><td class="down">2.22</td><td class="down">−5.1%</td></tr>
+</table>
+<div class="fig">表 4｜玻璃瓶到厂综合成本。本地建厂不必然更便宜，关键在产能利用率与能源成本</div>
+</div>
+
+<div class="note"><b>包材降本的三个动作：</b>① 年度集采 + 双源（山东/江苏），目标瓶价 ≤2.2 元/只；② 把纸盒从 5 元降到 3.5 元（简化烫金/UV、本地印刷），单瓶省 1.5 元；③ 与包材厂签 VMI（供应商管理库存），把 45 天库存降到 15 天。<b>三项合计可省 1.2—1.8 元/瓶，相当于把出厂价毛利率提高 1.9—2.9 个百分点。</b></div>
+
+<h2><span class="num">04</span>产能：90 万吨设计产能，只用了 5.3%</h2>
+
+<div class="q"><b>本节验证问题：</b>内蒙古白酒产能到底过剩到什么程度？闲置产能能不能变成生意？</div>
+
+<div class="card">
+<svg viewBox="0 0 900 300" width="100%" role="img" aria-label="白酒与啤酒产能利用率">
+  <text x="0" y="16" font-size="13" fill="#7B878D">设计产能 vs 实际产量（万吨/万千升）</text>
+  <g font-size="13" fill="#33414A">
+    <text x="0" y="56">白酒 · 设计产能</text><rect x="180" y="40" width="540" height="22" fill="#243746"/><text x="730" y="56" fill="#243746" font-weight="700">90.0</text>
+    <text x="0" y="92">白酒 · 2025 产量</text><rect x="180" y="76" width="29" height="22" fill="#A97142"/><text x="219" y="92" fill="#A97142" font-weight="700">4.8（5.3%）</text>
+    <text x="0" y="140">啤酒 · 设计产能</text><rect x="180" y="124" width="540" height="22" fill="#243746"/><text x="730" y="140" fill="#243746" font-weight="700">180.0</text>
+    <text x="0" y="176">啤酒 · 2024 产量</text><rect x="180" y="160" width="187" height="22" fill="#5D7C8C"/><text x="377" y="176" fill="#5D7C8C" font-weight="700">62.28（34.6%）</text>
+  </g>
+  <line x1="180" y1="210" x2="760" y2="210" stroke="#D3DBDF"/>
+  <text x="180" y="230" font-size="11" fill="#7B878D">0</text><text x="450" y="230" font-size="11" fill="#7B878D">90</text><text x="700" y="230" font-size="11" fill="#7B878D">180 万吨</text>
+  <text x="0" y="268" font-size="12.5" fill="#5D6A70">白酒产能口径为内蒙古区情网 2018 年全区设计产能；产量为按品牌销售额与出厂均价反算的 2025E 值。</text>
+</svg>
+<div class="fig">图 2｜产能利用率。白酒 5.3%、啤酒 34.6%，均远低于全国平均</div>
+</div>
+
+<div class="insight"><div class="t">闲置产能的两种用法，只有一种能赚钱</div>
+<p><b>用法一：原酒代工/外销。</b>按 1.2 万元/吨原酒、毛利率 8%—15% 测算，把利用率从 5.3% 提到 15%，增量 8.7 万吨、产值约 10.4 亿元、毛利 0.8—1.6 亿元。这是“产能利用率生意”，能救现金流，不能救增长。</p>
+<p><b>用法二：品牌酒。</b>河套 13.9 亿元销售额、2023 年利税 2.5 亿元，利润率远高于代工。这是“品牌生意”，但需要 10—20 年积累。</p>
+<p><mark>结论：闲置产能应该做代工，但代工只能作为现金流补充，不能替代品牌投入。</mark>把代工利润再投回品牌，才是正循环；用代工利润扩产能，是反向循环。</p></div>
+
+<div class="boundary"><b>证据边界：</b>90 万吨为 2018 年全区设计产能口径，含大量小酒厂与半停产产能；若按可运营产能 45 万吨计，利用率约 10.7%。“4.8 万吨”为按品牌销售额÷出厂均价反算，误差 ±20%。</div>
+
+<h2><span class="num">05</span>单位成本：钱花在哪一段</h2>
+
+<div class="q"><b>本节验证问题：</b>盒装酒、光瓶酒、啤酒的生产成本结构有什么不同？哪一段最值得优化？</div>
+
+<div class="card">
+<svg viewBox="0 0 900 150" width="100%" role="img" aria-label="盒装酒生产成本结构">
+  <text x="0" y="16" font-size="13" fill="#7B878D">128 元盒装酒生产成本 20.5 元的构成（元/瓶）</text>
+  <rect x="0" y="38" width="329" height="46" fill="#243746"/>
+  <rect x="329" y="38" width="285" height="46" fill="#A97142"/>
+  <rect x="614" y="38" width="198" height="46" fill="#5D7C8C"/>
+  <rect x="812" y="38" width="88" height="46" fill="#9FB3BD"/>
+  <text x="12" y="67" font-size="13.5" fill="#fff" font-weight="700">原粮 7.5｜36.6%</text>
+  <text x="341" y="67" font-size="13.5" fill="#fff" font-weight="700">包材 6.5｜31.7%</text>
+  <text x="626" y="67" font-size="13" fill="#fff" font-weight="700">人工能耗 4.5｜22.0%</text>
+  <text x="820" y="67" font-size="11.5" fill="#243746" font-weight="700">制造 2.0</text>
+  <text x="0" y="112" font-size="12" fill="#7B878D">原粮 + 包材 = 68.3%：这两项决定毛利率的上限；人工能耗 + 制造 = 31.7%：这两项决定产能利用率的敏感性</text>
+</svg>
+<div class="fig">图 3｜盒装酒生产成本结构。包材 31.7%，是最容易被忽视的降本空间</div>
+</div>
+
+<div class="card">
+<table>
+<tr><th>成本项</th><th>盒装 128 元</th><th>光瓶 25 元</th><th>啤酒 5 元（新瓶）</th><th>优化空间</th></tr>
+<tr><td class="nm">原粮/麦芽</td><td>7.50</td><td>3.20</td><td>0.20</td><td class="c">锁价、本地直采，降 3%—5%</td></tr>
+<tr><td class="nm">包材</td><td>6.50</td><td>3.00</td><td>1.08</td><td class="down">集采+简化，降 1.5—1.8 元</td></tr>
+<tr><td class="nm">人工/能耗</td><td>4.50</td><td>1.00</td><td>0.36</td><td class="c">提高产能利用率，降 8%—12%</td></tr>
+<tr><td class="nm">制造费用</td><td>2.00</td><td>0.00</td><td>0.11</td><td class="c">折旧摊薄，随产量下降</td></tr>
+<tr><td class="nm">合计</td><td><b>20.50</b></td><td><b>7.20</b></td><td><b>1.75</b></td><td class="c">—</td></tr>
+<tr><td class="nm">占出厂价</td><td>33.1%</td><td>60.0%</td><td>72.9%</td><td class="c">—</td></tr>
+</table>
+<div class="fig">表 5｜三类产品生产成本拆解。啤酒成本占出厂价 72.9%，是典型的“薄利多销 + 瓶子生意”</div>
+</div>
+
+<div class="note"><b>光瓶酒的悖论：</b>25 元光瓶酒生产成本 7.2 元、占出厂价 60%，加上消费税 2.9 元、费用 2.16 元，出厂 12 元已经亏损。<b>光瓶酒要赚钱，只有两条路：把零售价提到 45 元以上，或把包材降到 2 元以内。</b>前者靠品牌，后者靠规模——两条都不容易。</div>
+
+<h2><span class="num">06</span>仓储与资金：基酒是资产，也是枷锁</h2>
+
+<div class="q"><b>本节验证问题：</b>储酒 3—5 年到底占用多少资金？900 天成品库存意味着什么？</div>
+
+<div class="card">
+<table>
+<tr><th>项目</th><th>数值</th><th>计算式</th><th>折每瓶</th><th>说明</th></tr>
+<tr><td class="nm">基酒成本</td><td>12,200 元/吨</td><td class="c">高粱 6,750 + 制曲/人工/能耗 5,450</td><td>6.10 元/瓶</td><td class="c">1 吨≈2,000 瓶</td></tr>
+<tr><td class="nm">资金成本（3 年）</td><td>1,593 元/吨</td><td class="c">12,200 × 4.35% × 3</td><td>0.80 元/瓶</td><td class="c">按一年期 LPR</td></tr>
+<tr><td class="nm">仓储成本（3 年）</td><td>600 元/吨</td><td class="c">200 元/吨·年 × 3</td><td>0.30 元/瓶</td><td class="c">陶坛/罐区</td></tr>
+<tr><td class="nm">挥发损耗（3 年）</td><td>732 元/吨</td><td class="c">12,200 × 2% × 3</td><td>0.37 元/瓶</td><td class="c">按 2%/年</td></tr>
+<tr><td class="nm">合计</td><td><b>2,925 元/吨</b></td><td class="c">占基酒成本 24.0%</td><td><b>1.46 元/瓶</b></td><td class="c">—</td></tr>
+</table>
+<div class="fig">表 6｜基酒储存成本。3 年储存使基酒成本上升 24%，这是“年份酒”溢价的成本底座</div>
+</div>
+
+<div class="card">
+<h3>成品库存：900 天是行业病，120 天是经营底线</h3>
+<p>2025 年上半年行业平均存货周转 900 天、同比 +10%；前三季度 20 家上市酒企存货 1,706.86 亿元、同比 +11.32%。按 4.35% 资金成本，900 天库存的资金占用相当于成本的 <b>10.7%</b>；若成品成本 20.5 元/瓶，即 <b>2.19 元/瓶</b>，再加上仓储，合计约 <b>3.4 元/瓶</b>。</p>
+<table>
+<tr><th>周转天数</th><th>资金占用</th><th>折每瓶</th><th>经营含义</th></tr>
+<tr><td class="nm">900 天（行业均值）</td><td>10.7%</td><td>2.19 元</td><td class="c">价格倒挂、退货风险高</td></tr>
+<tr><td class="nm">180 天（健康）</td><td>2.1%</td><td>0.44 元</td><td class="c">正常经营</td></tr>
+<tr><td class="nm">120 天（目标）</td><td>1.4%</td><td>0.29 元</td><td class="c">地产酒可达到</td></tr>
+</table>
+<div class="fig">表 7｜成品库存的资金成本。目标 120 天，比行业均值少占用 1.9 元/瓶</div>
+</div>
+
+<div class="insight"><div class="t">仓储判断</div>
+<p>基酒储存是“年份酒”的成本底座，不是越低越好；但成品库存是纯粹的负担。<b>把成品周转从 900 天降到 120 天，等于每瓶释放 1.9 元现金</b>，按 1 亿元销售盘子（约 160 万瓶）计算，释放现金约 304 万元。这笔钱足以覆盖一次区域终端直控的启动成本。</p></div>
+
+<h2><span class="num">07</span>物流：0.28 元/瓶的跨省账，0.15—0.35 元/瓶的区内账</h2>
+
+<div class="q"><b>本节验证问题：</b>内蒙古酒水物流成本到底多高？哪里该设仓、哪里该直发？</div>
+
+<div class="card">
+<table>
+<tr><th>线路</th><th>距离</th><th>重货价</th><th>单瓶分摊</th><th>时效</th><th>建议</th></tr>
+<tr><td class="nm">呼和浩特→北京</td><td>约 480 km</td><td>183—207 元/吨</td><td>0.26—0.29 元</td><td class="c">1—2 天</td><td class="c">整车直发，不设中转仓</td></tr>
+<tr><td class="nm">呼和浩特→石家庄</td><td>约 593 km</td><td>约 190 元/吨</td><td>0.27 元</td><td class="c">2 天</td><td class="c">与北京线合并调度</td></tr>
+<tr><td class="nm">呼和浩特→赤峰</td><td>约 800 km</td><td>250—300 元/吨</td><td>0.35—0.42 元</td><td class="c">2—3 天</td><td class="c">赤峰设区域仓</td></tr>
+<tr><td class="nm">呼和浩特→通辽</td><td>约 1,200 km</td><td>320—380 元/吨</td><td>0.45—0.53 元</td><td class="c">3—4 天</td><td class="c">通辽设区域仓或委托代发</td></tr>
+<tr><td class="nm">包头→呼和浩特</td><td>约 170 km</td><td>90—120 元/吨</td><td>0.13—0.17 元</td><td class="c">当日/次日</td><td class="c">城配整合</td></tr>
+</table>
+<div class="fig">表 8｜物流成本。按 30 吨车、500ml×6 箱（8.4kg/箱）折算，每车约 21,428 瓶</div>
+</div>
+
+<div class="card">
+<h3>四个 Hub 的布局逻辑</h3>
+<div class="chain">
+  <div class="step"><div class="s1">西部 Hub</div><div class="s2">包头</div><div class="s3">覆盖呼包鄂 + 巴彦淖尔；雪鹿/金川产能就近</div></div>
+  <div class="step"><div class="s1">中部 Hub</div><div class="s2">呼和浩特</div><div class="s3">总部仓 + 电商一件代发；辐射乌兰察布</div></div>
+  <div class="step"><div class="s1">东部 Hub</div><div class="s2">赤峰</div><div class="s3">覆盖赤峰/通辽；宁城老窖产能就近</div></div>
+  <div class="step"><div class="s1">东北 Hub</div><div class="s2">通辽/海拉尔</div><div class="s3">覆盖蒙东；啤酒就近直发</div></div>
+  <div class="step"><div class="s1">文旅线</div><div class="s2">景区直配</div><div class="s3">锡林郭勒/呼伦贝尔/乌海酒庄</div></div>
+  <div class="step"><div class="s1">仓配模式</div><div class="s2">整车+零担</div><div class="s3">整车直发；零担走区域仓</div></div>
+</div>
+<div class="fig">图 4｜物流网络。东西跨度 2,400km，单一中心仓无法覆盖全区</div>
+</div>
+
+<div class="boundary"><b>证据边界：</b>呼市→北京 183—207 元/吨为 2026 年物流平台报价；区内线路为按里程与吨公里费率估算，实际受回程车、季节、油价影响 ±20%。单瓶分摊按 500ml 玻璃瓶、6 瓶/箱测算，不含装卸与保险。</div>
+
+<h2><span class="num">08</span>采购策略：锁价、集采、半径、代工</h2>
+
+<div class="q"><b>本节验证问题：</b>四类采购各自怎么谈？目标价与熔断线是什么？</div>
+
+<div class="card">
+<table>
+<tr><th>品类</th><th>策略</th><th>目标价</th><th>合同要点</th><th>覆盖率</th><th>熔断线</th></tr>
+<tr><td class="nm">高粱</td><td class="c">锁价 60% + 随行就市 40%</td><td>≤2,800 元/吨</td><td class="c">赤峰/通辽/兴安盟三地直采；约定水分、杂质、容重</td><td class="c">60%</td><td class="c">&gt;3,000 元/吨</td></tr>
+<tr><td class="nm">大麦芽</td><td class="c">年度框架 + 双源</td><td>≤3,000 元/吨</td><td class="c">进口+国产双源；约定麦芽溶解度、色度</td><td class="c">70%</td><td class="c">&gt;3,300 元/吨</td></tr>
+<tr><td class="nm">玻璃瓶</td><td class="c">年度集采 + 双源</td><td>≤2.20 元/只</td><td class="c">山东/江苏双源；VMI 库存 15 天；破损率 ≤3%</td><td class="c">80%</td><td class="c">&gt;3.50 元/只</td></tr>
+<tr><td class="nm">纸盒</td><td class="c">本地印刷 + 简化设计</td><td>≤3.50 元/只</td><td class="c">减少烫金/UV；起订量 5 万只</td><td class="c">70%</td><td class="c">&gt;5.00 元/只</td></tr>
+<tr><td class="nm">物流</td><td class="c">年度招标 + 4 Hub</td><td>≤0.28 元/瓶（跨省）</td><td class="c">整车优先；回程车；时效违约扣款</td><td class="c">—</td><td class="c">&gt;0.35 元/瓶</td></tr>
+<tr><td class="nm">代工</td><td class="c">闲置产能出租/贴牌</td><td>毛利 ≥8%</td><td class="c">包料/不包料两种；最低起订 50 吨</td><td class="c">—</td><td class="c">毛利 &lt;8%</td></tr>
+</table>
+<div class="fig">表 9｜四类采购策略。覆盖率指年度需求量中被合约锁定的比例</div>
+</div>
+
+<div class="note"><b>为什么高粱只锁 60%：</b>高粱价格年度波动 ±15%，全锁会在下跌时吃亏，不锁会在上涨时被动。60% 锁价 + 40% 随行就市，是把“确定性”和“灵活性”各留一半。<b>锁价不是看涨，是买确定性；不锁不是看跌，是保留选择权。</b></div>
+
+<h2><span class="num">09</span>90 天路线：先止血，再降本，最后结构升级</h2>
+
+<div class="card">
+<div class="tl">
+  <div class="ti"><div class="th">第 1—30 天：盘点与止血</div><div class="tb">盘点基酒/成品/包材库存；测算真实周转天数；对库存 &gt;120 天的 SKU 停止采购；锁定 Q4—Q1 高粱 60% 用量（目标 ≤2,800 元/吨）；玻璃瓶启动双源询价。</div></div>
+  <div class="ti"><div class="th">第 31—60 天：集采与 Hub</div><div class="tb">玻璃瓶/纸盒年度集采招标（目标瓶价 ≤2.2 元、盒价 ≤3.5 元）；物流招标，确定包头/呼和浩特/赤峰/通辽四个 Hub；与包材厂签 VMI，库存从 45 天降到 15 天。</div></div>
+  <div class="ti"><div class="th">第 61—90 天：代工与复盘</div><div class="tb">盘点闲置产能，开发 2—3 家原酒/贴牌客户（起订 50 吨）；建立月度原料/包材/物流价格监测；复盘降本目标：单瓶成本 −1.6 至 −1.8 元，成品周转 ≤120 天。</div></div>
+</div>
+</div>
+
+<div class="card">
+<h3>降本目标汇总</h3>
+<table>
+<tr><th>动作</th><th>单瓶降本</th><th>1 亿元盘子年化</th><th>难度</th><th>生效周期</th></tr>
+<tr><td class="nm">玻璃瓶集采+双源</td><td>0.10—0.15 元</td><td>16—24 万元</td><td class="c">低</td><td class="c">30—60 天</td></tr>
+<tr><td class="nm">纸盒简化+本地印刷</td><td>1.00—1.50 元</td><td>160—240 万元</td><td class="c">中</td><td class="c">60—90 天</td></tr>
+<tr><td class="nm">高粱锁价 60%</td><td>0.20—0.30 元</td><td>32—48 万元</td><td class="c">低</td><td class="c">30 天</td></tr>
+<tr><td class="nm">VMI 库存优化</td><td>0.05—0.10 元</td><td>8—16 万元</td><td class="c">中</td><td class="c">60—90 天</td></tr>
+<tr><td class="nm">成品周转 900→120 天</td><td>1.90 元（资金释放）</td><td>304 万元（现金）</td><td class="c">高</td><td class="c">90—180 天</td></tr>
+<tr><td class="nm">合计</td><td><b>1.35—2.05 元</b></td><td><b>216—328 万元</b></td><td class="c">—</td><td class="c">90 天</td></tr>
+</table>
+<div class="fig">表 10｜降本目标。按 1 亿元销售盘子、约 160 万瓶测算；成品周转释放为现金，不计入毛利</div>
+</div>
+
+<h2><span class="num">10</span>口径与分数</h2>
+
+<div class="card">
+<table>
+<tr><th>项目</th><th>取值</th><th>口径</th><th>不确定性</th></tr>
+<tr><td class="nm">高粱价格</td><td>2,640—2,740 元/吨</td><td class="c">2025-12 Mysteel 净粮装车价</td><td class="c">不含运费；年度 ±15%</td></tr>
+<tr><td class="nm">玻璃瓶价格</td><td>2.10—3.20 元/只</td><td class="c">1688/淘宝批发报价</td><td class="c">随数量、工艺 ±10%</td></tr>
+<tr><td class="nm">白酒设计产能</td><td>90 万吨</td><td class="c">内蒙古区情网 2018 年鉴</td><td class="c">含半停产产能</td></tr>
+<tr><td class="nm">白酒产量 2025E</td><td>4.8 万吨</td><td class="c">品牌销售额 ÷ 出厂均价反算</td><td class="c">±20%</td></tr>
+<tr><td class="nm">啤酒产量</td><td>62.28 万千升</td><td class="c">中国统计局 2024</td><td class="c">—</td></tr>
+<tr><td class="nm">基酒储存成本</td><td>2,925 元/吨</td><td class="c">资金 4.35% + 仓储 200 元/吨·年 + 损耗 2%/年</td><td class="c">±15%</td></tr>
+<tr><td class="nm">物流单价</td><td>183—207 元/吨</td><td class="c">呼市→北京重货</td><td class="c">±20%</td></tr>
+<tr><td class="nm">观测数</td><td>41 个来源</td><td class="c">与调研报告共用证据台账</td><td class="c">—</td></tr>
+<tr><td class="nm">门禁</td><td>PASS</td><td class="c">成本可复算、边界已披露</td><td class="c">—</td></tr>
+</table>
+<div class="fig">表 11｜口径与分数。所有金额为含税口径，币种人民币</div>
+</div>
+
+<details>
+<summary>附录 · 记录层：供应链成本明细（点击展开）</summary>
+<div class="inner">
+<table>
+<tr><th>环节</th><th>项目</th><th>数值</th><th>单位</th><th>来源</th></tr>
+<tr><td class="c">原料</td><td class="c">高粱·赤峰净粮</td><td>2,700—2,740</td><td class="c">元/吨</td><td class="c">Mysteel 2025-12</td></tr>
+<tr><td class="c">原料</td><td class="c">高粱·通辽净粮</td><td>2,640</td><td class="c">元/吨</td><td class="c">Mysteel 2025-12</td></tr>
+<tr><td class="c">原料</td><td class="c">高粱·兴安盟净粮</td><td>2,660</td><td class="c">元/吨</td><td class="c">Mysteel 2025-12</td></tr>
+<tr><td class="c">原料</td><td class="c">进口大麦芽</td><td>2,900</td><td class="c">元/吨</td><td class="c">1688 报价</td></tr>
+<tr><td class="c">包材</td><td class="c">乳白料瓶</td><td>2.10—2.35</td><td class="c">元/只</td><td class="c">1688 报价</td></tr>
+<tr><td class="c">包材</td><td class="c">晶白料瓶</td><td>2.83—3.20</td><td class="c">元/只</td><td class="c">1688 报价</td></tr>
+<tr><td class="c">包材</td><td class="c">白瓷瓶</td><td>4.50—5.80</td><td class="c">元/只</td><td class="c">淘宝/1688</td></tr>
+<tr><td class="c">包材</td><td class="c">啤酒新瓶/回收瓶</td><td>0.60—0.90 / 0.30—0.50</td><td class="c">元/只</td><td class="c">行业经验值</td></tr>
+<tr><td class="c">产能</td><td class="c">白酒设计产能</td><td>90</td><td class="c">万吨</td><td class="c">内蒙古区情网</td></tr>
+<tr><td class="c">产能</td><td class="c">啤酒设计产能</td><td>180</td><td class="c">万吨</td><td class="c">内蒙古区情网</td></tr>
+<tr><td class="c">仓储</td><td class="c">河套储酒能力</td><td>12</td><td class="c">万吨</td><td class="c">河套酒业官网</td></tr>
+<tr><td class="c">仓储</td><td class="c">蒙古王储酒能力</td><td>3</td><td class="c">万吨</td><td class="c">蒙古王官网</td></tr>
+<tr><td class="c">库存</td><td class="c">行业存货周转</td><td>900</td><td class="c">天</td><td class="c">中国酒业协会 2025H1</td></tr>
+<tr><td class="c">物流</td><td class="c">呼市→北京重货</td><td>183—207</td><td class="c">元/吨</td><td class="c">56ye 物流</td></tr>
+<tr><td class="c">税负</td><td class="c">白酒消费税</td><td>20% + 0.5</td><td class="c">%/元/500ml</td><td class="c">消费税暂行条例</td></tr>
+<tr><td class="c">税负</td><td class="c">啤酒消费税</td><td>220/250</td><td class="c">元/吨</td><td class="c">消费税暂行条例</td></tr>
+</table>
+<p><small>完整明细见 <b>data/供应链成本.csv</b>；来源 URL 见 <b>data/证据台账.json</b>。</small></p>
+</div>
+</details>
+
+<footer>
+  <p><b>生成角色：</b>R15 蛙供应（供应链）· R03 蛙守先（财务口径）· R20 蛙守直（仓储物流可靠性）｜<b>生成时间：</b>2026-11-12</p>
+  <p><b>数据来源：</b>Mysteel、1688/淘宝批发报价、56ye 物流、内蒙古区情网、各盟市统计公报、企业官网；共 41 个来源，逐条见 data/证据台账.json。</p>
+  <p><b>免责：</b>本报告为供应链决策辅助材料，不构成采购合同、审计或税务意见；标注“估算/假设”的数字不得直接用于合同结算。</p>
+</footer>
+
+</div></body></html>

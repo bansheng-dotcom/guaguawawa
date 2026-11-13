@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "CONTRACT",
+  "port": "integration_log",
+  "system": "集成平台（API 网关 / Webhook 投递日志）",
+  "note": "r17 需要：接口契约与端点、成功率、重试与死信、字段映射、凭据存放与轮换、补偿与回放。",
+  "fields": [
+    "api_contract",
+    "webhook_path",
+    "success_rate",
+    "retry_log",
+    "dead_letter",
+    "field_mapping",
+    "sample_payload",
+    "secret_store",
+    "rotation_log",
+    "compensation",
+    "replay"
+  ],
+  "events": []
+}

@@ -1,0 +1,44 @@
+role: r01
+doc_type: 决策报告 · 蛙全局
+title: '决策卡：现在做
+
+  还是不做'
+title_highlight: 还是不做
+title_highlight_style: underline
+meta:
+- 读者：创始人
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r01 · shared/report_writer + core/report_renderer
+sections:
+- title: 意图与判断
+  question: 这件事现在该不该做？
+  intro: 先判可逆性，再谈收益；不可逆的动作不接受口头授权。
+  boundary: 结论只对本轮任务卡与资源约束成立。
+- title: 选项与可逆性
+  question: 有哪些走法，哪个回不来？
+  intro: 选项少于两个时，先别拍板。
+  boundary: 可逆性分级为三级：可撤、可改、不可撤。
+- title: 代价与资源
+  question: 代价是谁付、挤掉什么？
+  intro: 预算与人力的挤占，比金额本身更贵。
+  boundary: 资源口径按当前编制与现金，不含新增融资。
+- title: 风险与熔断
+  question: 什么信号出现就必须停？
+  intro: 熔断线要在拍板前写，不在出事时补。
+  boundary: 熔断阈值为条件化建议，需按业务校准。
+- title: 判断与动作
+  question: 所以做哪个、谁在什么时候做？
+  intro: 结论要落到 owner 与时点。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 意图与判断
+- label: 关键
+  section: 代价与资源
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

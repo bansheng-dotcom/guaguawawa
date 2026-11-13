@@ -1,0 +1,17 @@
+{
+ "skill": "rootcause",
+ "args": [
+  "drilldown",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--dim",
+  "channel",
+  "--value",
+  "revenue"
+ ],
+ "expect": {
+  "pareto_top_n_for_80pct": {
+   "gt": 0
+  }
+ }
+}

@@ -1,0 +1,48 @@
+{
+  "round": 1,
+  "generated_at": "2026-11-10T19:36:34",
+  "cli_commands": [
+    {
+      "argv": [
+        "D:\\anaconda3\\python.exe",
+        "agent.py",
+        "evolution",
+        "probe"
+      ],
+      "returncode": 0,
+      "duration_sec": 0.228
+    },
+    {
+      "argv": [
+        "D:\\anaconda3\\python.exe",
+        "agent.py",
+        "evolution",
+        "ledger"
+      ],
+      "returncode": 0,
+      "duration_sec": 0.202
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/evolve/round1/l01_runtime_probe.json",
+      "bytes": 3453,
+      "sha256": "8491d96d8568ce307851627b50c056282d4118ccae16fc54bb9f6be2b51e317a"
+    },
+    {
+      "path": "artifacts/evolve/round1/l02_intent_dag.json",
+      "bytes": 3282,
+      "sha256": "c72d40998c2ed8811082c1e307705d849930482620bf97fa6dbd8701fbe7932e"
+    },
+    {
+      "path": "artifacts/evolve/round1/l03_reflexive_heal.json",
+      "bytes": 2878,
+      "sha256": "cd9d282c96489eba32514ba94408a6b45690f0e115cf610982678a1ae83e9fed"
+    },
+    {
+      "path": "artifacts/evolve/round1/l03_redline_block.json",
+      "bytes": 334,
+      "sha256": "20043f6c98a61dca01153568d8aae4649ef6985d231e239887dc911856e01ed1"
+    }
+  ]
+}

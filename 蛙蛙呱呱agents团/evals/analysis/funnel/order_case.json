@@ -1,0 +1,15 @@
+{
+ "skill": "explore",
+ "args": [
+  "funnel",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_funnel.csv",
+  "--stage",
+  "stage",
+  "--order",
+  "曝光,点击,加购,下单,支付"
+ ],
+ "expect": {
+  "stages.4.stage": "支付"
+ }
+}

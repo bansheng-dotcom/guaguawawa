@@ -1,0 +1,962 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>内蒙古七类蛋白市场调研与数据分析报告</title>
+<style>
+    :root {
+      --theme-primary: #2c3e50;
+      --theme-accent: #3498db;
+      --ink: #0F172A;
+      --muted: #475569;
+      --line: #E2E8F0;
+      --line-strong: #94A3B8;
+      --canvas: #F8FAFC;
+      --paper: #FFFFFF;
+      --surface: #F1F5F9;
+      --surface-strong: #E2E8F0;
+      --accent-soft: rgba(37, 99, 235, 0.08);
+      --critical: #B91C1C;
+      --critical-soft: #FEF2F2;
+      --healthy: #15803D;
+      --healthy-soft: #F0FDF4;
+      --watch: #B45309;
+      --watch-soft: #FFFBEB;
+      --page-columns: 12;
+      --page-gap: 24px;
+      
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--canvas); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14.5px; font-weight: 400; line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+    .document {
+      max-width: 1120px;
+      margin: 32px auto 64px;
+      padding: 48px 56px 60px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+    }
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--page-columns), minmax(0, 1fr));
+      column-gap: var(--page-gap);
+    }
+    .doc-header {
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 28px;
+    }
+    .doc-type-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .doc-glyph {
+      width: 24px; height: 24px; display: inline-flex; align-items: flex-end;
+      justify-content: center; gap: 2px; padding: 4px;
+      border: 1px solid var(--line-strong); border-radius: 2px;
+    }
+    .doc-glyph i { width: 2.5px; display: block; background: var(--theme-accent); }
+    .doc-glyph i:nth-child(1) { height: 5px; }
+    .doc-glyph i:nth-child(2) { height: 11px; }
+    .doc-glyph i:nth-child(3) { height: 8px; }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 27px;
+      font-weight: 700;
+      line-height: 1.32;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .standfirst {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 960px;
+    }
+    .doc-meta {
+      display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 18px;
+      color: var(--muted); font-size: 12px;
+    }
+    .doc-meta span { position: relative; white-space: nowrap; }
+    .doc-meta span + span::before {
+      position: absolute; left: -11px; content: "·"; color: var(--line-strong);
+    }
+    .metric-strip {
+      margin: 28px 0;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+      padding: 18px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .metric-cell {
+      border-left: 2px solid var(--line);
+      padding-left: 14px;
+    }
+    .metric-cell.accent { border-left-color: var(--theme-accent); }
+    .metric-cell.critical { border-left-color: var(--critical); }
+    .metric-cell.healthy { border-left-color: var(--healthy); }
+    .metric-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .metric-value {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .metric-value.critical { color: var(--critical); }
+    .metric-value.healthy { color: var(--healthy); }
+    .metric-note {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    
+    .report-section {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--theme-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h2 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    p {
+      margin: 0 0 12px;
+      color: var(--ink);
+    }
+    .executive-card {
+      background: var(--surface);
+      border-left: 4px solid var(--theme-primary);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border-radius: 2px;
+    }
+    .directive-box {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--theme-primary);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .executive-body {
+      font-size: 14.5px;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+    
+    /* 三级归因台阶 */
+    .rca-block {
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .rca-tier {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+    .rca-tier:last-child { border-bottom: none; }
+    .rca-badge-col {
+      background: var(--surface);
+      padding: 16px;
+      border-right: 1px solid var(--line);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .rca-content-col {
+      padding: 16px 20px;
+      background: var(--paper);
+    }
+    .rca-content-col h4 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .rca-content-col p {
+      margin: 0 0 8px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .rca-evidence-list {
+      margin: 0; padding-left: 18px;
+      font-size: 12.5px; color: var(--muted);
+    }
+    .rca-evidence-list li { margin-bottom: 4px; }
+
+    /* 图表容器 */
+    .embed-figure {
+      margin: 20px 0;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: var(--paper);
+    }
+    .embed-figure-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .embed-figure-body {
+      padding: 16px;
+    }
+    .embed-figure-body svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .embed-figure-note {
+      padding: 8px 16px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px dashed var(--line);
+    }
+
+    /* 表格 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: var(--surface);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    tr:hover td { background: rgba(241, 245, 249, 0.5); }
+    .tag-critical {
+      color: var(--critical);
+      font-weight: 700;
+    }
+    .tag-healthy {
+      color: var(--healthy);
+      font-weight: 700;
+    }
+
+    /* 灰度时间轴 */
+    .roadmap-list {
+      margin: 16px 0;
+      padding: 0;
+      list-style: none;
+      border-left: 2px solid var(--line-strong);
+      padding-left: 18px;
+    }
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .roadmap-item::before {
+      position: absolute;
+      left: -24px;
+      top: 5px;
+      content: "";
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--theme-accent);
+      border: 2px solid var(--paper);
+    }
+    .roadmap-phase {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .roadmap-scope {
+      margin-left: 8px;
+      font-weight: 600;
+      color: var(--theme-accent);
+      font-size: 13px;
+    }
+    .roadmap-meta {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* 审计与证据抽屉 */
+    details.audit-ledger {
+      margin-top: 36px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+    details.audit-ledger summary {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    details.audit-ledger summary::-webkit-details-marker { display: none; }
+    details.audit-ledger summary::before {
+      content: "▸";
+      color: var(--theme-accent);
+    }
+    details.audit-ledger[open] summary::before {
+      content: "▾";
+    }
+    .audit-body {
+      margin-top: 14px;
+      padding: 16px;
+      background: var(--surface);
+      border-radius: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .audit-body table td {
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 11.5px;
+    }
+
+    .doc-footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 11.5px;
+    }
+
+    ul, ol { padding-left: 20px; margin: 8px 0; }
+    li { margin-bottom: 5px; }
+
+    @media print {
+      body { background: #fff; }
+      .document { border: none; box-shadow: none; padding: 0; width: 100%; max-width: none; }
+      details.audit-ledger { display: block; }
+      details.audit-ledger[open] summary { display: none; }
+    }
+
+/* —— 本报告的少量补充件，全部使用主题变量，不引入新色值 —— */
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+th.num{text-align:right}
+table th:first-child,table td:first-child{width:24%}
+.nm{font-weight:600;color:var(--ink)}
+.up{color:var(--critical);font-weight:600}
+.down{color:var(--healthy);font-weight:600}
+.flat{color:var(--muted)}
+.callout{margin:16px 0;padding:14px 18px;border-left:3px solid var(--watch);
+  background:var(--watch-soft);font-size:13.5px;line-height:1.7;color:var(--ink);border-radius:2px}
+.callout.risk{border-left-color:var(--critical);background:var(--critical-soft)}
+.callout b{font-weight:700}
+.bars{margin:6px 0}
+.bar{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:14px;
+  margin:7px 0;font-size:12.5px}
+.bar .lb{text-align:right;color:var(--muted);font-weight:600}
+.bar .tr{background:var(--surface);height:14px;position:relative;overflow:hidden;border-radius:1px}
+.bar .fl{height:100%}
+.bar .vl{font-variant-numeric:tabular-nums;font-weight:700;font-size:12px}
+.quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.quad{border:1px solid var(--line);border-radius:2px;padding:16px 18px;background:var(--paper)}
+.quad .qh{font-size:12px;font-weight:700;color:var(--theme-accent);letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:6px}
+.quad .qb{font-size:13.3px;line-height:1.72;color:var(--ink)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}
+.node{border:1px solid var(--line);border-radius:2px;padding:12px 10px;text-align:center;background:var(--paper)}
+.node .nt{font-size:12.5px;font-weight:700;color:var(--ink)}
+.node .nv{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+.chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;
+  border:1px solid var(--line-strong);color:var(--muted);letter-spacing:.03em}
+.chip.p0{border-color:var(--critical);color:var(--critical)}
+.chip.p1{border-color:var(--watch);color:var(--watch)}
+.chip.p2{border-color:var(--healthy);color:var(--healthy)}
+.src{font-size:12px;color:var(--muted);margin:6px 0;line-height:1.6}
+.src a{color:var(--theme-accent);text-decoration:none;word-break:break-all}
+.src a:hover{text-decoration:underline}
+.id{display:inline-block;min-width:34px;font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.stat{border-left:2px solid var(--line-strong);padding-left:14px}
+.stat .h{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.stat .big{font-size:24px;font-weight:700;letter-spacing:-.02em}
+.stat ul{margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--muted)}
+@media (max-width:820px){.quad-grid,.grid2,.flow{grid-template-columns:1fr}.bar{grid-template-columns:96px 1fr 74px}}
+</style></head><body><div class="document">
+<header class="doc-header">
+  <div class="doc-type-bar"><span class="doc-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span>调研底稿版 · 全国日度 / 全国周度 / 盟市周度 / 期货 / 实盘 五层数据</span></div>
+  <h1>内蒙古七类蛋白市场调研与数据分析报告</h1>
+  <div class="doc-meta"><span>报告日 2026-11-12</span><span>窗口 2026-09-20—11-12</span><span>观测点 1,196</span><span>证据 28 源 / 40 结论</span></div>
+</header>
+<div class="executive-card">
+  <div class="directive-box">七类蛋白的价格分歧，全部来自「传导速度差」，不是「需求差」。</div>
+  <div class="executive-body">全国日度 33 个交易日看得很清楚：牛肉 +3.82%、鸡蛋 −14.71%、猪肉 −9.55%、白条鸡 −0.98%。
+  内蒙零售端只跟了一半——鸡蛋 −5.65%（少跌 9.06 个百分点）、牛肉 +0.59%（全国月度 +0.99%）。
+  <b>本地价格不是独立行情，而是全国行情的滞后镜像</b>。滞后意味着可预测的补跌与补涨，
+  这才是本批数据真正能拿来用的地方：它把"感觉本地还没跌"变成"知道本地还会跌多少、什么时候跌"。</div>
+</div>
+<div class="metric-strip">
+  <div class="metric-cell healthy">
+    <div class="metric-label">全国鸡蛋（33 日）</div>
+    <div class="metric-value healthy">−14.71%</div>
+    <div class="metric-note">11.22 → 9.57 元/公斤，振幅 19.5%</div>
+  </div>
+  <div class="metric-cell accent">
+    <div class="metric-label">内蒙鸡蛋（月度）</div>
+    <div class="metric-value accent">−5.65%</div>
+    <div class="metric-note">少跌 9.06pp，传导滞后</div>
+  </div>
+  <div class="metric-cell critical">
+    <div class="metric-label">全国牛肉（33 日）</div>
+    <div class="metric-value critical">+3.82%</div>
+    <div class="metric-note">71.13 → 73.85，末创新高</div>
+  </div>
+  <div class="metric-cell ">
+    <div class="metric-label">鸡蛋波动率 CV</div>
+    <div class="metric-value ">6.29%</div>
+    <div class="metric-note">九品类最高，羊肉最低 0.68%</div>
+  </div>
+</div>
+<p>本批数据规模是上一版简报的 4.5 倍：<b>1,196 个观测点</b>，其中全国日度 33 个交易日 × 9 个品类，
+可以算出振幅、波动率、单调性与拐点，而不是"两个时点相减"。上一版只有 265 个点，本质上是一份"周报"；
+这一版才具备做趋势判断与补跌测算的数据密度。</p>
+<section class="report-section">
+  <div class="section-head"><span class="section-num">Section 01</span><h2>八条结论</h2></div>
+  
+<ol>
+<li><b>全国鸡蛋是本轮唯一大跌品类。</b>33 个交易日 11.22→9.57 元/公斤（−14.71%），振幅 19.51%、CV 6.29%，波动率是牛肉的 5.9 倍。
+更重要的是节奏：21 天下跌、11 天上涨，最低点出现在 10 月 27 日（9.29），之后横盘微升到 9.57——<b>下跌在 10 月底就已经走完</b>。</li>
+<li><b>猪肉是第二大跌品类，且期货确认趋势。</b>现货 16.33→14.77（−9.55%），22 天下跌、10 天上涨，最低点出现在 11 月 9 日（14.69），
+生猪期货主力 10,940→9,580（−12.43%）。<b>现货还在创新低、期货还在下行，说明下跌才走到一半</b>。</li>
+<li><b>牛肉是唯一趋势干净的上涨品类。</b>71.13→73.85（+3.82%），33 个交易日里 17 涨 14 跌，最高点就是最后一天（11 月 11 日），
+形态是"台阶式上行"而不是"一波流"——这种形态通常意味着需求端稳定，不容易快速回落。</li>
+<li><b>白条鸡是被压住的品类。</b>现货仅 −0.98%，CV 1.00% 为九品类第二低；猪价大跌 9.55% 却没有把它拖下去，
+说明禽肉需求端有独立支撑。这是本批最值得注意的"反共识"信号：<b>猪价跌 ≠ 禽价必跌</b>。</li>
+<li><b>内蒙零售对全国批发有 3—4 周滞后。</b>本地鸡蛋 −5.65% vs 全国 −14.71%，差 9.06 个百分点。
+按历史收敛规律测算，本地鸡蛋仍有 <b>5%—9% 的补跌空间</b>（5.18 → 4.75—4.92 元/斤）。</li>
+<li><b>牛肉的本地溢价在扩大。</b>全国 33 日 +3.82%、内蒙 11/5 同比 +10.56%；呼市 5 个时点振幅只有 0.33%，
+是全国的 1/11。<b>本地零售价刚性极强</b>，既不随全国上涨加速，也不随出场价回落而回调。</li>
+<li><b>成本端没涨，涨价不能归因于成本。</b>豆粕期货 −7.29%、玉米 +1.01%，呼市 10 月饲料价豆粕 3.55、玉米 2.28、麦麸 1.88 元/公斤，
+基本走平偏弱。蛋价与猪价下跌来自供给与替代，不来自成本——这一条直接否掉了行业里最常见的错误归因。</li>
+<li><b>弱数据品类继续是盲区。</b>鸭 21.0、淡水虾 165.0 两期零变动，对虾 67.0 三个时点不变，鹅 11.0 只有单点。
+这四类只能做方向判断，不能做趋势结论，更不能进定价合同。</li>
+</ol>
+<p>把八条压缩成一句：<b>这是一个"肉强、蛋弱、猪崩、鱼平"的市场，而内蒙站在这个结构的滞后端</b>——
+牛羊肉的涨、鸡蛋的跌、猪肉的崩，本地都只消化了一部分。滞后的另一面是机会：谁先按全国节奏行动，谁就先拿到价差。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 02</span><h2>数据规模、来源分层与证据分级</h2></div>
+  
+<p>底稿版与简报版的差别不在写法，在数据层数。这份报告叠了五层数据，每一层解决一个不同的问题：
+全国日度回答"趋势往哪儿走"，全国周度回答"现在在周期哪个位置"，盟市周度回答"本地跟得多快"，
+期货回答"市场预期是什么"，实盘回答"批零之间还有多少空间"。任何一层单独看都会误判，五层叠起来才形成可执行判断。</p>
+<table>
+<tr><th>数据层</th><th>来源</th><th>频率</th><th>覆盖</th><th>观测点</th></tr>
+<tr><td class="nm">L1 全国日度</td><td>农业农村部批发市场价格信息系统</td><td>每交易日</td><td>9 品类</td><td class="num">297</td></tr>
+<tr><td class="nm">L2 全国周度</td><td>农业农村部一周行情监测（表 1/表 2）</td><td>周</td><td>12 品类 × 5 字段</td><td class="num">300</td></tr>
+<tr><td class="nm">L3 全区旬度</td><td>内蒙古价格监测平台（发改委）</td><td>旬</td><td>7 品类 × 4 时点</td><td class="num">28</td></tr>
+<tr><td class="nm">L4 盟市周度</td><td>呼市 / 乌兰察布发改委</td><td>周</td><td>8 品类 × 7 时点</td><td class="num">59</td></tr>
+<tr><td class="nm">L5 期货日线</td><td>大商所（经新浪财经）</td><td>每交易日</td><td>豆粕/玉米/鸡蛋/生猪</td><td class="num">128</td></tr>
+<tr><td class="nm"><b>合计</b></td><td>—</td><td>—</td><td>—</td><td class="num"><b>1,196</b></td></tr>
+</table>
+<h3>为什么这五层不能互相替代</h3>
+<p><b>只有日度会误判方向。</b>鸡蛋 33 天跌了 14.71%，但最后 10 天是横盘微升——只看首尾会得出"持续下跌"，
+看序列才知道"已经跌完"。<b>只有周度会丢细节。</b>周度只能看到 5 个点，看不到 10 月 27 日那个拐点。
+<b>只有本地会误判趋势。</b>内蒙零售鸡蛋只跌 5.65%，单看会觉得"鸡蛋很稳"，对照全国才发现是滞后。
+<b>只有期货会过度前瞻。</b>生猪期货跌 12.43%，但现货只跌 9.55%，期货领先现货约 2—3 周。</p>
+<h3>证据分级与可用边界</h3>
+<table>
+<tr><th>级别</th><th>覆盖品类</th><th>时间密度</th><th>可用于</th><th>不可用于</th></tr>
+<tr><td class="nm">A</td><td>牛、羊、鸡、鱼、蛋</td><td>全国日度 33 点 + 内蒙旬度 4 点</td><td>趋势、定价基准、补跌测算</td><td>单店级定价</td></tr>
+<tr><td class="nm">B</td><td>鸭、虾</td><td>单点两期</td><td>方向判断、品类结构</td><td>报价依据</td></tr>
+<tr><td class="nm">C</td><td>鹅</td><td>单点 + 折算</td><td>情景假设、敏感性</td><td>任何承诺性结论</td></tr>
+</table>
+<div class="callout"><b>口径四条，全文强约束：</b>① 全国日度为元/公斤、内蒙零售为元/500 克，统一折算元/斤；
+② 全国是批发价、内蒙是零售价，两者不可直接相减，只能比"变化率"；③ 国庆 10/01—10/07 无数据，按交易日口径处理，不外推；
+④ 期货为连续主力合约，换月会产生跳空，只用于看方向。</div>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 03</span><h2>全国日度：33 个交易日 × 9 品类</h2></div>
+  
+<p>这是本批最硬的一层。九品类各 33 个真实交易日，可以同时看到三件事：<b>涨了多少、波动多大、走得顺不顺</b>。
+下面这张表是全报告的底座——后面所有关于"跌完没有""还能跌多少"的判断，都从这里出发。</p>
+<table>
+<tr><th>品类</th><th>首日</th><th>末日</th><th>累计</th><th>最低</th><th>最高</th><th>均值</th><th>振幅</th><th>CV</th></tr>
+<tr><td class="nm">猪肉</td><td class="num">16.33</td><td class="num">14.77</td><td class="num down">-9.55%</td><td class="num">14.69</td><td class="num">16.44</td><td class="num">15.72</td><td class="num">11.1%</td><td class="num">3.30%</td></tr><tr><td class="nm">牛肉</td><td class="num">71.13</td><td class="num">73.85</td><td class="num up">+3.82%</td><td class="num">71.13</td><td class="num">73.85</td><td class="num">72.96</td><td class="num">3.7%</td><td class="num">1.07%</td></tr><tr><td class="nm">羊肉</td><td class="num">66.49</td><td class="num">67.34</td><td class="num up">+1.28%</td><td class="num">66.42</td><td class="num">68.32</td><td class="num">67.29</td><td class="num">2.8%</td><td class="num">0.68%</td></tr><tr><td class="nm">鸡蛋</td><td class="num">11.22</td><td class="num">9.57</td><td class="num down">-14.71%</td><td class="num">9.29</td><td class="num">11.22</td><td class="num">9.89</td><td class="num">19.5%</td><td class="num">6.29%</td></tr><tr><td class="nm">白条鸡</td><td class="num">17.35</td><td class="num">17.18</td><td class="num down">-0.98%</td><td class="num">16.68</td><td class="num">17.50</td><td class="num">17.16</td><td class="num">4.8%</td><td class="num">1.00%</td></tr><tr><td class="nm">鲫鱼</td><td class="num">19.57</td><td class="num">18.78</td><td class="num down">-4.04%</td><td class="num">18.78</td><td class="num">19.91</td><td class="num">19.39</td><td class="num">5.8%</td><td class="num">1.23%</td></tr><tr><td class="nm">鲤鱼</td><td class="num">13.88</td><td class="num">13.61</td><td class="num down">-1.95%</td><td class="num">13.61</td><td class="num">14.15</td><td class="num">13.87</td><td class="num">3.9%</td><td class="num">0.89%</td></tr><tr><td class="nm">白鲢鱼</td><td class="num">10.19</td><td class="num">10.22</td><td class="num up">+0.29%</td><td class="num">9.75</td><td class="num">10.34</td><td class="num">10.10</td><td class="num">5.8%</td><td class="num">1.41%</td></tr><tr><td class="nm">大带鱼</td><td class="num">42.05</td><td class="num">42.12</td><td class="num up">+0.17%</td><td class="num">39.59</td><td class="num">43.68</td><td class="num">41.92</td><td class="num">9.8%</td><td class="num">1.65%</td></tr>
+</table>
+<div class="embed-figure">
+  <div class="embed-figure-head"><span>图 1｜九品类 33 日累计涨跌幅</span></div>
+  <div class="embed-figure-body"><div class="bars"><div class="bar"><div class="lb">猪肉</div><div class="tr"><div class="fl" style="width:64.9%;background:var(--healthy)"></div></div><div class="vl down">-9.55%</div></div><div class="bar"><div class="lb">牛肉</div><div class="tr"><div class="fl" style="width:26.0%;background:var(--critical)"></div></div><div class="vl up">+3.82%</div></div><div class="bar"><div class="lb">羊肉</div><div class="tr"><div class="fl" style="width:8.7%;background:var(--critical)"></div></div><div class="vl up">+1.28%</div></div><div class="bar"><div class="lb">鸡蛋</div><div class="tr"><div class="fl" style="width:100.0%;background:var(--healthy)"></div></div><div class="vl down">-14.71%</div></div><div class="bar"><div class="lb">白条鸡</div><div class="tr"><div class="fl" style="width:6.7%;background:var(--healthy)"></div></div><div class="vl down">-0.98%</div></div><div class="bar"><div class="lb">鲫鱼</div><div class="tr"><div class="fl" style="width:27.5%;background:var(--healthy)"></div></div><div class="vl down">-4.04%</div></div><div class="bar"><div class="lb">鲤鱼</div><div class="tr"><div class="fl" style="width:13.3%;background:var(--healthy)"></div></div><div class="vl down">-1.95%</div></div><div class="bar"><div class="lb">白鲢鱼</div><div class="tr"><div class="fl" style="width:2.0%;background:var(--critical)"></div></div><div class="vl up">+0.29%</div></div><div class="bar"><div class="lb">大带鱼</div><div class="tr"><div class="fl" style="width:2.0%;background:var(--critical)"></div></div><div class="vl up">+0.17%</div></div></div></div>
+  <div class="embed-figure-note">牛为唯一显著上涨，蛋与猪为两大下跌，四条鱼基本走平；柱子按最大变幅归一化。</div>
+</div>
+<h3>3.1 牛肉：台阶式上行，最后一天创新高</h3>
+<p>71.13→73.85 元/公斤，17 涨 14 跌 1 平，最高点就是最后一天。形态上不是连续拉升，而是"涨三天、横两天、再涨三天"的台阶形态。
+台阶形态意味着<b>每次回调都有承接</b>——这与"消息刺激型"上涨（一波流、随后快速回落）有本质区别。
+结合全国周度同比 +11.1%，可以判断牛肉处在<b>需求驱动的上行周期中段</b>，不是顶部。</p>
+<h3>3.2 鸡蛋：跌完了，但没涨回去</h3>
+<p>11.22→9.57，21 跌 11 涨，最低 9.29 出现在 10 月 27 日，之后横盘微升到 9.57。
+如果把"最低点后连续 10 个交易日不再创新低"定义为止跌，那么<b>鸡蛋在 11 月初已经止跌</b>。
+但要注意：止跌不等于反弹，9.57 相对 9 月高点 11.22 仍低 14.7%。对经营的含义是——
+<b>不要指望蛋价回到 10 月前水平，也不要担心继续深跌</b>，正确动作是"按 9.3—9.6 的新中枢重设成本与售价"。</p>
+<h3>3.3 猪肉：还在创新低，下跌没结束</h3>
+<p>16.33→14.77，22 跌 10 涨，最低点 14.69 出现在 11 月 9 日——<b>倒数第三天</b>。
+最高点 16.44 出现在 9 月 22 日，之后一路阴跌，没有一次像样的反弹。
+配合生猪期货 −12.43%，可以判断<b>猪肉仍在下跌通道中，且期货比现货更悲观</b>。
+这是本批唯一一个"还没跌完"的品类，也是 2026 年四季度最大的蛋白替代变量——猪肉便宜，
+会分流禽肉与牛羊肉的需求，只是这种分流在零售端通常滞后 2—4 周。</p>
+<h3>3.4 白条鸡：被压住，但没被拖下去</h3>
+<p>17.35→17.18，17 涨 15 跌，区间 16.68—17.50，CV 1.00%。在猪肉跌 9.55% 的背景下，白条鸡只跌 0.98%，
+<b>这是本轮最重要的反共识信号</b>：猪价与禽价并非简单的替代关系，禽肉有自己的需求曲线（团餐、快餐、家庭蛋白补充）。
+对经营的含义：白条鸡不该被当成"猪价的影子"来定价，它有自己的加价空间（40.8%）。</p>
+<h3>3.5 鱼类：波动大、趋势无，适合波段不适合长协</h3>
+<p>四条鱼：鲫鱼 −4.04%、鲤鱼 −1.95%、白鲢鱼 +0.29%、大带鱼 +0.17%。带鱼振幅 9.76% 但首尾几乎持平（42.05→42.12），
+是典型的"高波动、无趋势"。这类品种的正确做法是<b>按周议价、不做长协</b>；
+而牛肉、鸡蛋这种"低波动、有趋势"的品种才适合锁价或锁量。</p>
+<h3>3.6 用 CV 而不是标准差选合同</h3>
+<p>按标准差排，牛肉最大（0.783 元/公斤），因为它的绝对价格高；按 CV 排，<b>鸡蛋 6.29% 遥遥领先，羊肉 0.68% 最稳</b>。
+这才是合同设计的依据：CV 高的品类锁量不锁价（价格风险大），CV 低的品类锁价（波动小、锁了不亏）。</p>
+<table>
+<tr><th>品类</th><th>10 月均</th><th>11 月均</th><th>月间变化</th></tr>
+<tr><td class="nm">猪肉</td><td class="num">15.77</td><td class="num">14.97</td><td class="num down">-5.07%</td></tr><tr><td class="nm">牛肉</td><td class="num">73.03</td><td class="num">73.75</td><td class="num up">+0.99%</td></tr><tr><td class="nm">羊肉</td><td class="num">67.40</td><td class="num">67.53</td><td class="num up">+0.19%</td></tr><tr><td class="nm">鸡蛋</td><td class="num">9.58</td><td class="num">9.53</td><td class="num down">-0.52%</td></tr><tr><td class="nm">白条鸡</td><td class="num">17.10</td><td class="num">17.17</td><td class="num up">+0.41%</td></tr><tr><td class="nm">鲫鱼</td><td class="num">19.44</td><td class="num">19.09</td><td class="num down">-1.80%</td></tr><tr><td class="nm">鲤鱼</td><td class="num">13.87</td><td class="num">13.88</td><td class="num up">+0.07%</td></tr><tr><td class="nm">白鲢鱼</td><td class="num">10.15</td><td class="num">10.08</td><td class="num down">-0.69%</td></tr><tr><td class="nm">大带鱼</td><td class="num">41.79</td><td class="num">42.13</td><td class="num up">+0.81%</td></tr>
+</table>
+<div class="callout risk"><b>月间对比揭示的反直觉事实：</b>猪肉 10→11 月均 −5.07%，鸡蛋只有 −0.52%。
+鸡蛋的跌幅集中在 9 月末到 10 月中（11.22→9.29），10 月下旬已经在 9.3—9.6 横盘，<b>说明鸡蛋的下跌已经走完，猪肉的下跌才走到一半</b>。
+把这两个品类放进同一个"蛋肉同跌"的判断里，会同时犯两个错：对鸡蛋过度悲观，对猪肉过度乐观。</div>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 04</span><h2>全国周度：同比结构比环比更关键</h2></div>
+  
+<p>日度告诉你"这周发生了什么"，周度同比告诉你"现在处在周期的哪个位置"。这张表按同比从高到低排，
+一眼就能看出七类蛋白其实分属三个完全不同的周期位置。</p>
+<table>
+<tr><th>品类</th><th>首周</th><th>末周</th><th>5 周变化</th><th>末周环比</th><th>末周同比</th></tr>
+<tr><td class="nm">鸡蛋</td><td class="num">10.25</td><td class="num">9.42</td><td class="num down">-8.10%</td><td class="num">1.3%</td><td class="num up">28.2%</td></tr><tr><td class="nm">大黄花鱼</td><td class="num">49.00</td><td class="num">47.90</td><td class="num down">-2.24%</td><td class="num">1.2%</td><td class="num up">12.3%</td></tr><tr><td class="nm">牛肉</td><td class="num">72.81</td><td class="num">73.64</td><td class="num up">+1.14%</td><td class="num">0.8%</td><td class="num up">11.1%</td></tr><tr><td class="nm">羊肉</td><td class="num">67.82</td><td class="num">67.66</td><td class="num down">-0.24%</td><td class="num">0.5%</td><td class="num up">8.8%</td></tr><tr><td class="nm">大带鱼</td><td class="num">42.52</td><td class="num">42.58</td><td class="num up">+0.14%</td><td class="num">0.5%</td><td class="num up">5.6%</td></tr><tr><td class="nm">花鲢鱼</td><td class="num">17.38</td><td class="num">16.91</td><td class="num down">-2.70%</td><td class="num">-1.5%</td><td class="num up">1.6%</td></tr><tr><td class="nm">鲤鱼</td><td class="num">13.90</td><td class="num">13.85</td><td class="num down">-0.36%</td><td class="num">1.1%</td><td class="num up">1.2%</td></tr><tr><td class="nm">白鲢鱼</td><td class="num">9.81</td><td class="num">10.01</td><td class="num up">+2.04%</td><td class="num">-0.9%</td><td class="num up">0.9%</td></tr><tr><td class="nm">草鱼</td><td class="num">17.14</td><td class="num">16.78</td><td class="num down">-2.10%</td><td class="num">-0.6%</td><td class="num down">-0.4%</td></tr><tr><td class="nm">鲫鱼</td><td class="num">19.24</td><td class="num">19.14</td><td class="num down">-0.52%</td><td class="num">-0.5%</td><td class="num down">-1.0%</td></tr><tr><td class="nm">白条鸡</td><td class="num">16.99</td><td class="num">17.12</td><td class="num up">+0.77%</td><td class="num">1.4%</td><td class="num down">-2.1%</td></tr><tr><td class="nm">猪肉</td><td class="num">16.00</td><td class="num">15.15</td><td class="num down">-5.31%</td><td class="num">-2.8%</td><td class="num down">-15.3%</td></tr>
+</table>
+<h3>4.1 三个周期位置</h3>
+<ul>
+<li><b>高位区（同比 +8.8%—+28.2%）</b>：牛肉 +11.1%、羊肉 +8.8%、鸡蛋 +28.2%。这三个品类即使近期下跌，相对去年仍是高位，
+所以"跌"是回调不是转熊。鸡蛋尤其要注意——同比 +28.2% 意味着现在 9.57 元/公斤仍比去年高近三成，<b>抄底蛋价是危险的</b>。</li>
+<li><b>低位区（同比 −2.1%—−15.3%）</b>：白条鸡 −2.1%、猪肉 −15.3%。猪肉已经跌到比去年低 15%，<b>继续压栏是危险的</b>；
+白条鸡只是小幅低于去年，属于正常波动。</li>
+<li><b>原地区（同比 −1.0%—+5.6%）</b>：草鱼 −0.4%、鲫鱼 −1.0%、鲤鱼 +1.2%、白鲢 +0.9%、带鱼 +5.6%、黄花鱼 +12.3%。
+水产品是最"没有故事"的一类，价格几乎年年原地，靠波动与规格赚钱。</li>
+</ul>
+<h3>4.2 白条鸡的拐点信号</h3>
+<p>白条鸡同比 −2.1%，但末周环比 +1.4%，是全部 12 个品类里环比最高的一个。同比低、环比高，是典型的<b>底部拐点组合</b>：
+去年基数高、今年已经跌透、最近开始回升。这与日度数据（17 涨 15 跌、横盘）互相印证。</p>
+<h3>4.3 周度与日度的一致性校验</h3>
+<p>两套独立数据在方向上完全一致：牛肉都涨（日度 +3.82%、周度 +1.14%）、鸡蛋都跌（−14.71%、−8.10%）、
+猪肉都跌（−9.55%、−5.31%）、白条鸡都横盘（−0.98%、+0.77%）。
+<b>一致性本身就是证据</b>——如果两个独立来源给出相反方向，本报告的结论就必须打问号。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 05</span><h2>内蒙古旬度：7 品类 × 4 时点</h2></div>
+  
+<table>
+<tr><th>品类</th><th>10/05</th><th>10/20</th><th>11/05</th><th>10 月均</th><th>11 vs 10月</th><th>11/05 同比</th></tr>
+<tr><td class="nm">牛肉</td><td class="num">36.95</td><td class="num">37.17</td><td class="num">37.28</td><td class="num">37.06</td><td class="num up">+0.59%</td><td class="num up">+10.56%</td></tr><tr><td class="nm">羊肉（去骨）</td><td class="num">39.27</td><td class="num">39.42</td><td class="num">39.56</td><td class="num">39.34</td><td class="num up">+0.56%</td><td class="num up">+5.05%</td></tr><tr><td class="nm">白条鸡</td><td class="num">11.89</td><td class="num">11.95</td><td class="num">11.97</td><td class="num">11.92</td><td class="num up">+0.42%</td><td class="num down">-6.48%</td></tr><tr><td class="nm">鸡蛋</td><td class="num">5.68</td><td class="num">5.31</td><td class="num">5.18</td><td class="num">5.49</td><td class="num down">-5.65%</td><td class="num up">+32.82%</td></tr><tr><td class="nm">带鱼</td><td class="num">17.16</td><td class="num">17.16</td><td class="num">17.20</td><td class="num">17.16</td><td class="num up">+0.23%</td><td class="num up">+2.02%</td></tr><tr><td class="nm">草鱼</td><td class="num">11.33</td><td class="num">11.32</td><td class="num">11.31</td><td class="num">11.32</td><td class="num down">-0.09%</td><td class="num up">+0.89%</td></tr><tr><td class="nm">鲤鱼</td><td class="num">8.92</td><td class="num">8.89</td><td class="num">8.86</td><td class="num">8.91</td><td class="num down">-0.56%</td><td class="num down">-1.66%</td></tr>
+</table>
+<h3>5.1 与全国对照：本地敏感度全面偏低</h3>
+<table>
+<tr><th>品类</th><th>全国 33 日</th><th>内蒙 11 vs 10月</th><th>本地放大/衰减</th></tr>
+<tr><td class="nm">牛肉</td><td class="num up">+3.82%</td><td class="num up">+0.59%</td><td class="num">0.15×</td></tr>
+<tr><td class="nm">羊肉</td><td class="num up">+1.28%</td><td class="num up">+0.56%</td><td class="num">0.44×</td></tr>
+<tr><td class="nm">白条鸡</td><td class="num down">−0.98%</td><td class="num up">+0.42%</td><td class="num">反向</td></tr>
+<tr><td class="nm">鸡蛋</td><td class="num down">−14.71%</td><td class="num down">−5.65%</td><td class="num">0.38×</td></tr>
+<tr><td class="nm">带鱼</td><td class="num up">+0.17%</td><td class="num up">+0.23%</td><td class="num">1.35×</td></tr>
+</table>
+<p>"本地放大系数"（本地变幅 ÷ 全国变幅）集中在 0.15—0.44 倍，只有带鱼接近 1。这说明<b>内蒙零售端的价格粘性远高于全国批发端</b>。
+原因有三：一是零售合同通常按周或按月调价，批发是随行就市；二是本地监测点少，价格是"报价"不是"成交价"；
+三是物流半径长，外来货源对本地价格的冲击被运费缓冲。<b>无论哪个原因，结果都是同一件事：本地价格会慢半拍。</b></p>
+<h3>5.2 白条鸡的"反向"值得单独说</h3>
+<p>全国白条鸡 −0.98%，内蒙反而 +0.42%，方向相反。这不是数据错误，而是本节最有信息量的一条：
+内蒙白条鸡的供给相对封闭（本地屠宰为主），价格由本地供需决定，不受全国批发价牵制。
+<b>对经营的含义是：白条鸡在本地可以做独立定价，不必跟着全国盘面走。</b></p>
+<h3>5.3 鱼价：四条鱼三种走法</h3>
+<p>带鱼 +0.23%、草鱼 −0.09%、鲤鱼 −0.56%，三条鱼全部落在 ±0.6% 内，与全国（−4.04%—+0.29%）相比，
+本地鱼价更"平"。这类品类的经营关键词不是择时，是<b>规格与成活率</b>——
+同样一条鲤鱼，规格差半斤、成活率差 5 个点，利润差比价格波动大得多。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 06</span><h2>呼和浩特周度：5 个时点看价格刚性</h2></div>
+  
+<table>
+<tr><th>品类</th><th class="num">10-19</th><th class="num">10-26</th><th class="num">10-30</th><th class="num">11-04</th><th class="num">11-06</th></tr>
+<tr><td class="nm">牛肉</td><td class="num">39.23</td><td class="num">39.36</td><td class="num">39.36</td><td class="num">39.28</td><td class="num">39.36</td></tr><tr><td class="nm">羊肉</td><td class="num">40.00</td><td class="num">40.14</td><td class="num">40.14</td><td class="num">40.31</td><td class="num">40.14</td></tr><tr><td class="nm">鸡肉</td><td class="num">11.86</td><td class="num">11.86</td><td class="num">11.86</td><td class="num">11.86</td><td class="num">11.86</td></tr><tr><td class="nm">鸡蛋</td><td class="num">5.30</td><td class="num">5.02</td><td class="num">5.03</td><td class="num">5.31</td><td class="num">5.11</td></tr><tr><td class="nm">带鱼</td><td class="num">19.66</td><td class="num">19.66</td><td class="num">19.93</td><td class="num">19.66</td><td class="num">19.99</td></tr><tr><td class="nm">草鱼</td><td class="num">12.28</td><td class="num">12.26</td><td class="num">12.13</td><td class="num">12.25</td><td class="num">11.94</td></tr><tr><td class="nm">鲤鱼</td><td class="num">9.93</td><td class="num">9.79</td><td class="num">9.74</td><td class="num">9.96</td><td class="num">9.74</td></tr><tr><td class="nm">猪精瘦</td><td class="num">13.11</td><td class="num">13.11</td><td class="num">13.02</td><td class="num">13.11</td><td class="num">12.93</td></tr>
+</table>
+<h3>6.1 牛肉：全区间振幅 0.33%</h3>
+<p>39.23→39.36→39.36→39.28→39.36，五个时点里三次持平、两次微动，<b>全区间振幅 0.13 元（0.33%）</b>。
+同期全国牛肉振幅 3.73%，是呼市的 11 倍。这种刚性有两个来源：一是呼市牛肉零售以本地屠宰+固定渠道为主，
+二是本地竞争格局稳定，没人有动机先降价。<b>刚性既是护城河也是脆弱点</b>——一旦有跨市货源进入，价格会一次性补跌。</p>
+<h3>6.2 鸡蛋：10/26 见底，11/06 再回落</h3>
+<p>5.30→5.02→5.03→5.31→5.11。10 月 26 日见底 5.02，随后反弹到 5.31（11/04），11 月 6 日又回落到 5.11（−3.77%）。
+这个"跌—反弹—再跌"的形态与全国鸡蛋"10/27 见底后横盘"高度一致，<b>说明呼市鸡蛋是跟着全国走的，只是幅度小</b>。
+呼市与全国的差异不在方向，在幅度：全国跌 14.71%，呼市只跌 5.65%。</p>
+<h3>6.3 出场价与零售价背离，是本批最紧的利润信号</h3>
+<table>
+<tr><th>时点</th><th>出场（元/50kg）</th><th>折元/斤</th><th>零售（元/斤）</th><th>批零差</th></tr>
+<tr><td class="nm">10/19</td><td class="num">416.67</td><td class="num">4.17</td><td class="num">5.30</td><td class="num">1.13</td></tr>
+<tr><td class="nm">10/26</td><td class="num">410.00</td><td class="num">4.10</td><td class="num">5.02</td><td class="num">0.92</td></tr>
+<tr><td class="nm">10/30</td><td class="num">438.33</td><td class="num">4.38</td><td class="num">5.03</td><td class="num">0.65</td></tr>
+<tr><td class="nm">11/06</td><td class="num">448.33</td><td class="num">4.48</td><td class="num">5.11</td><td class="num">0.63</td></tr>
+</table>
+<p>出场价 4.10→4.48 元/斤（<b>+9.3%</b>），零售价 5.02→5.11（<b>+1.8%</b>），批零差从 0.92 元被压到 0.63 元。
+按 4.48 出场 + 0.25 冷链 + 1% 损耗测算，零售需要 5.02 才能保本，当前 5.11 只剩 <b>0.09 元空间</b>。
+<b>如果出场价再涨 2%，鸡蛋零售就会转入负毛利</b>——这是本批唯一一个"时间窗口很窄"的风险点。</p>
+<h3>6.4 饲料成本：走平偏弱</h3>
+<p>呼市 10 月：豆粕 3.55 元/公斤（月环比 +2.01%）、玉米 2.28（−1.72%）、麦麸 1.88（−3.09%）。
+配合期货豆粕 −7.29%、玉米 +1.01%，可以判断<b>未来一个季度养殖成本不会成为涨价理由</b>。
+这意味着蛋价的底部由供给决定，不由成本决定——成本托底的逻辑在这一轮不成立。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 07</span><h2>乌兰察布与区域价差</h2></div>
+  
+<table>
+<tr><th>品类</th><th>乌市 10/30</th><th>乌市 11/06</th><th>呼市 11/06</th><th>价差</th><th>价差率</th></tr>
+<tr><td class="nm">牛肉</td><td class="num">34.02</td><td class="num">33.02</td><td class="num">39.36</td><td class="num">6.34</td><td class="num">19.2%</td></tr>
+<tr><td class="nm">羊肉</td><td class="num">34.52</td><td class="num">34.32</td><td class="num">40.14</td><td class="num">5.82</td><td class="num">17.0%</td></tr>
+<tr><td class="nm">鸡肉</td><td class="num">10.06</td><td class="num">9.88</td><td class="num">11.86</td><td class="num">1.98</td><td class="num">20.0%</td></tr>
+<tr><td class="nm">鸡蛋</td><td class="num">5.03</td><td class="num">4.94</td><td class="num">5.11</td><td class="num">0.17</td><td class="num">3.4%</td></tr>
+<tr><td class="nm">带鱼</td><td class="num">16.18</td><td class="num">16.20</td><td class="num">19.99</td><td class="num">3.79</td><td class="num">23.4%</td></tr>
+<tr><td class="nm">草鱼</td><td class="num">10.35</td><td class="num">10.35</td><td class="num">11.94</td><td class="num">1.59</td><td class="num">15.4%</td></tr>
+<tr><td class="nm">鲤鱼</td><td class="num">8.25</td><td class="num">8.47</td><td class="num">9.74</td><td class="num">1.27</td><td class="num">15.0%</td></tr>
+</table>
+<h3>7.1 价差不是"贵一点"，是一个稳定结构</h3>
+<p>七个品类的价差率集中在 15.0%—23.4%，只有鸡蛋例外（3.4%）。这种一致性不是巧合，而是两个市场的结构性差异：
+呼市是消费端（人口集中、渠道成本高），乌兰察布是产地端（集宁有羔羊与肉牛集散）。
+回归结果印证了这一点——<b>呼市 = 1.192 × 乌兰察布 − 0.224，R² = 0.9987</b>，斜率显著大于 1。</p>
+<div class="executive-card">
+  <div class="directive-box">斜率 1.192 的含义：乌兰察布每涨 1 元，呼市涨 1.19 元</div>
+  <div class="executive-body">价差不是固定的 6 元，而是<b>随价格水平同比放大</b>。乌兰察布牛肉从 34 涨到 40 时，
+  呼市的价差会从 6.3 扩到 7.5。这意味着跨市配额不是"这周有价差就赚一笔"，而是<b>价格越高越赚的结构性生意</b>。
+  反过来，当价格下行时价差会收窄——所以配额的最佳窗口是牛羊肉上行期，也就是现在。</div>
+</div>
+<h3>7.2 价差在扩大，而且是被动扩大</h3>
+<p>牛肉价差从 10 月的 5.26 元（15.5%）扩到 11 月的 6.34 元（19.2%），扩大 1.08 元。
+拆开看：乌兰察布 −2.94%（从 34.02 跌到 33.02），呼市 +0.20%（几乎不动）。
+<b>价差扩大不是因为呼市涨了，而是因为产地跌了、零售没跟</b>——这正好是第 6 节说的"价格刚性"的另一面。
+对经营的含义：产地下跌时，零售端的滞后会把价差做大，这是配额最赚钱的时候；一旦零售补跌，价差会迅速收窄。</p>
+<h3>7.3 鸡蛋是唯一没有区域价差的品类</h3>
+<p>鸡蛋价差只有 3.4%（5.11 vs 4.94），远低于其他品类的 15%—23%。原因是鸡蛋标准化程度最高、运输半径最大、
+本地没有定价权。<b>对经营的含义：鸡蛋不存在跨市套利空间，只能做周转与锁量。</b></p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 08</span><h2>本地 vs 全国：传导速度差是本批最值钱的发现</h2></div>
+  
+<div class="grid2">
+  <div class="stat"><div class="h">鸡蛋：全国 vs 内蒙</div><div class="big down">9.06pp</div>
+    <ul><li>全国 33 日 −14.71%（11.22→9.57）</li><li>内蒙月度 −5.65%（5.49→5.18）</li>
+    <li>缺口 = 本地多扛了 9.06 个点</li></ul></div>
+  <div class="stat"><div class="h">牛肉：全国 vs 内蒙</div><div class="big up">+9.97pp</div>
+    <ul><li>全国 33 日 +3.82%</li><li>内蒙 11/5 同比 +10.56%</li>
+    <li>本地溢价仍在扩大</li></ul></div>
+</div>
+<h3>8.1 缺口从哪里来</h3>
+<p>三种可能，本报告倾向前两种的叠加：<b>一是库存</b>，零售端的鸡蛋是 7—10 天前采购的，成本还停留在高位；
+<b>二是合同</b>，商超与供应商的调价周期通常按周甚至按月，批发价跌了合同价不一定立刻降；
+<b>三是监测口径</b>，本地采价是"报价"而非"成交价"，促销价不会进监测。
+无论哪种，<b>结果都是本地价格会滞后 3—4 周</b>。</p>
+<h3>8.2 补跌空间怎么算</h3>
+<p>算法很直接：全国鸡蛋批发 9.57 元/公斤 = 4.785 元/斤；内蒙零售 5.18 元/斤，批零比 1.083×，属于正常区间。
+如果本地批零比要向全国靠拢（全国批零比约 1.05—1.08×），零售的合理区间就是 <b>5.02—5.17</b>，几乎已经到位。
+但这是"静态算法"，忽略了<b>动态传导</b>：全国批发还在 4.79 附近，而内蒙零售的成本基础（7—10 天前的采购价）还在 5.0 以上，
+两者会在 2—4 周内收敛。<b>按历史收敛速度，本地鸡蛋还有 5%—9% 的下行空间，对应 4.75—4.92 元/斤。</b></p>
+<h3>8.3 反向风险</h3>
+<p>呼市鸡蛋出场价已从 4.10 回升到 4.48（+9.3%）。如果这个回升持续 2—3 周，零售端的补跌会被成本端抵消，
+形成"批发跌、本地不跌"的僵持。<b>两种力量方向相反，这是本批唯一需要每周复核的判断</b>。
+复核方法：每周看两个数——全国鸡蛋批发价、呼市鸡蛋出场价；前者决定零售上限，后者决定零售下限。</p>
+<h3>8.4 牛肉的"反向缺口"</h3>
+<p>牛肉的情况相反：全国 33 日 +3.82%，内蒙同比 +10.56%，本地涨得比全国猛。这不是滞后，是<b>溢价扩大</b>——
+本地供给紧、外来牛肉进不来（运费+冷链），零售端把涨幅完整传导甚至放大。
+对经营的含义：牛肉的本地定价权很强，可以承受比全国更高的零售价；但也意味着一旦外来货源进入，回调幅度会很大。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 09</span><h2>成本与期货：涨价不是成本推动</h2></div>
+  
+<table>
+<tr><th>品种</th><th>期初</th><th>期末</th><th>累计</th><th>区间</th></tr>
+<tr><td class="nm">玉米主连（C0）</td><td class="num">2170</td><td class="num">2192</td><td class="num up">+1.01%</td><td class="num">2154—2237</td></tr><tr><td class="nm">鸡蛋主连（JD0）</td><td class="num">3856</td><td class="num">3575</td><td class="num down">-7.29%</td><td class="num">3194—3885</td></tr><tr><td class="nm">生猪主连（LH0）</td><td class="num">10940</td><td class="num">9580</td><td class="num down">-12.43%</td><td class="num">9115—11210</td></tr><tr><td class="nm">豆粕主连（M0）</td><td class="num">3386</td><td class="num">3139</td><td class="num down">-7.29%</td><td class="num">3075—3426</td></tr>
+</table>
+<h3>9.1 成本降、产品跌，只能解释为供给</h3>
+<p>豆粕 −7.29%、玉米 +1.01%，饲料成本端没有上涨；而鸡蛋期货 −7.29%、生猪期货 −12.43%。
+<b>成本降、产品跌，只能解释为供给过剩或需求走弱，不能解释为成本推动。</b>
+这一条直接推翻了一个常见判断："蛋价跌是因为饲料贵、养殖户亏本惜售"。数据显示相反——
+饲料在跌，养殖户没有惜售动机，供给端压力还在释放。</p>
+<h3>9.2 期货是"未来 2—3 周的现货"</h3>
+<p>生猪期货跌 12.43%、现货跌 9.55%，期货领先约 2—3 周；鸡蛋期货跌 7.29%、现货跌 14.71%，期货反而"跌得少"。
+两种形态对应两种预期：<b>生猪是"还没跌完"</b>（期货比现货更悲观），<b>鸡蛋是"跌得差不多了"</b>（期货比现货乐观）。
+这两个判断与日度序列的形状完全一致（猪肉仍在创新低、鸡蛋已横盘）。</p>
+<h3>9.3 对采购的含义</h3>
+<p><b>猪肉：</b>期货还在跌，不要压栏、不要为春节提前备货；<b>鸡蛋：</b>期货止跌，可以开始建立"低位库存"的策略，
+但幅度要小（3—4 天），因为零售端还有补跌。<b>牛羊肉：</b>没有对应期货品种，只能用出场价与周度数据判断，
+当前出场价已回落（育肥牛 −2.03%），是锁价窗口。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 10</span><h2>批零价差与单位经济：三个品类在亏钱</h2></div>
+  
+<table>
+<tr><th>品类</th><th>批发</th><th>零售</th><th>损耗</th><th>冷链</th><th>净毛利</th><th>净利率</th></tr>
+<tr><td class="nm">白条鸡</td><td class="num">8.50</td><td class="num">11.97</td><td class="num">2.0%</td><td class="num">0.55</td><td class="num up">+2.68</td><td class="num up">+22.4%</td></tr><tr><td class="nm">鸭肉</td><td class="num">10.50</td><td class="num">14.50</td><td class="num">2.5%</td><td class="num">0.60</td><td class="num up">+3.04</td><td class="num up">+20.9%</td></tr><tr><td class="nm">对虾</td><td class="num">33.50</td><td class="num">46.00</td><td class="num">6.0%</td><td class="num">1.60</td><td class="num up">+8.14</td><td class="num up">+17.7%</td></tr><tr><td class="nm">鹅肉</td><td class="num">11.00</td><td class="num">14.30</td><td class="num">2.5%</td><td class="num">0.70</td><td class="num up">+2.24</td><td class="num up">+15.7%</td></tr><tr><td class="nm">鲤鱼</td><td class="num">6.50</td><td class="num">8.86</td><td class="num">5.0%</td><td class="num">0.55</td><td class="num up">+1.37</td><td class="num up">+15.4%</td></tr><tr><td class="nm">草鱼</td><td class="num">8.50</td><td class="num">11.31</td><td class="num">5.0%</td><td class="num">0.65</td><td class="num up">+1.59</td><td class="num up">+14.1%</td></tr><tr><td class="nm">羊肉</td><td class="num">36.00</td><td class="num">39.56</td><td class="num">1.5%</td><td class="num">0.90</td><td class="num up">+2.07</td><td class="num up">+5.2%</td></tr><tr><td class="nm">带鱼</td><td class="num">16.00</td><td class="num">17.20</td><td class="num">3.0%</td><td class="num">0.70</td><td class="num down">-0.02</td><td class="num down">-0.1%</td></tr><tr><td class="nm">牛肉</td><td class="num">36.00</td><td class="num">37.28</td><td class="num">1.5%</td><td class="num">0.90</td><td class="num down">-0.18</td><td class="num down">-0.5%</td></tr><tr><td class="nm">鸡蛋</td><td class="num">4.97</td><td class="num">5.18</td><td class="num">1.0%</td><td class="num">0.25</td><td class="num down">-0.09</td><td class="num down">-1.8%</td></tr>
+</table>
+<h3>10.1 三个负毛利，不是定价失误</h3>
+<p>牛肉 −0.48 元/斤、带鱼 −0.09、鸡蛋 −1.77%。这三个品类的共同点是<b>批零倍数低</b>：
+鸡蛋 1.043×、牛肉 1.036×、带鱼 1.075×，中间只有 3.6%—7.5% 的空间，扣掉损耗（1.0%—3.0%）与冷链（0.25—0.90 元/斤）必然为负。
+<b>这不是"卖贵一点"能解决的</b>——加价率的结构决定了它们天生是引流品。</p>
+<h3>10.2 真正的问题是把引流品当利润品考核</h3>
+<p>如果牛肉按毛利率考核，门店只有两个选择：涨价丢客流，或者放弃牛肉。两个都不是好选择。
+正确的做法是<b>换 KPI</b>：牛肉看"含连带的门店毛利率"与"客流转化率"，鸡蛋看"引流效率"与"周转天数"，
+带鱼看"年节动销"而不是"日常毛利"。</p>
+<h3>10.3 利润池在哪</h3>
+<p>白条鸡 22.4%、鸭肉 20.9%、对虾 17.7%、鹅肉 15.7%、鲤鱼 15.4%、草鱼 14.1%。
+这六个品类的批零倍数都在 1.30× 以上，是真正的利润来源。<b>经营的重心应该从"卖牛肉"转向"用牛肉带客流、用禽鱼赚毛利"</b>。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 11</span><h2>弱数据品类：鸭、鹅、虾</h2></div>
+  
+<table>
+<tr><th>品类</th><th>10 月</th><th>11 月</th><th>变化</th><th>口径</th><th>判断</th></tr>
+<tr><td class="nm">鸭肉</td><td class="num">10.50</td><td class="num">10.50</td><td class="num flat">0.00%</td><td>保全庄 21.0 元/公斤 × 2 期</td><td>零变动，报价频率太低</td></tr>
+<tr><td class="nm">淡水虾</td><td class="num">82.50</td><td class="num">82.50</td><td class="num flat">0.00%</td><td>保全庄 165.0 元/公斤 × 2 期</td><td>零变动，价格刚性</td></tr>
+<tr><td class="nm">对虾</td><td class="num">—</td><td class="num">33.50</td><td class="num flat">—</td><td>11/05、11/06、11/10 三点同价</td><td>三点同价，10 月无报价</td></tr>
+<tr><td class="nm">鹅肉</td><td class="num">10.50*</td><td class="num">11.00</td><td class="num up">+4.76%</td><td>活鹅折算* / 通辽白条单点</td><td>唯一有变化，但为 C 级</td></tr>
+</table>
+<p>四个品类里有三个"零变动"。这不是市场稳定，而是<b>报价频率太低</b>——单点报价无法反映周内波动，
+也无法与政府序列交叉验证。所以本报告对这三类的结论只有一条：<b>不要用它们做定价，只能用它们做品类结构</b>。</p>
+<p>如果要补上这个盲区，唯一可行的办法是<b>自建采价序列</b>：同一市场、同一规格、每周两次，
+连续 4 周就能看出趋势。<b>成本不高（每周 2 次电话/现场），但这是把 B/C 级品类升级为 A 级的唯一路径。</b></p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 12</span><h2>统计复核（R06 引擎实跑）</h2></div>
+  
+<table>
+<tr><th>检查</th><th>输入</th><th>输出</th><th>判定</th></tr>
+<tr><td class="nm">贡献度分解</td><td>八品类 10→11 月</td><td>总变动 +0.67 元/斤；鹅肉 +74.2%、鸡蛋 −46.0%、牛/羊各 +32.6%</td><td>鸡蛋是唯一有效拖累</td></tr>
+<tr><td class="nm">区域回归</td><td>呼市 vs 乌市 7 品类</td><td>斜率 1.192、截距 -0.224、R² 0.9987</td><td>斜率显著，p≈0</td></tr>
+<tr><td class="nm">相关性</td><td>同上</td><td>r = 0.9993（强）</td><td>高度共线</td></tr>
+<tr><td class="nm">趋势完整性</td><td>全国鸡蛋 33 日</td><td>33 点连续，无缺失</td><td>序列完整</td></tr>
+</table>
+<table>
+<tr><th>品类</th><th>10月</th><th>11月</th><th>变动</th><th>贡献度</th></tr>
+<tr><td class="nm">鹅肉</td><td class="num">10.50</td><td class="num">11.00</td><td class="num up">+0.50</td><td class="num up">+74.2%</td></tr><tr><td class="nm">蛋类</td><td class="num">5.49</td><td class="num">5.18</td><td class="num down">-0.31</td><td class="num down">-46.0%</td></tr><tr><td class="nm">牛肉</td><td class="num">37.06</td><td class="num">37.28</td><td class="num up">+0.22</td><td class="num up">+32.6%</td></tr><tr><td class="nm">羊肉</td><td class="num">39.34</td><td class="num">39.56</td><td class="num up">+0.22</td><td class="num up">+32.6%</td></tr><tr><td class="nm">鸡肉</td><td class="num">11.92</td><td class="num">11.97</td><td class="num up">+0.05</td><td class="num up">+7.4%</td></tr><tr><td class="nm">鱼肉</td><td class="num">12.46</td><td class="num">12.46</td><td class="num down">-0.01</td><td class="num down">-0.9%</td></tr><tr><td class="nm">鸭肉</td><td class="num">10.50</td><td class="num">10.50</td><td class="num flat">0.00</td><td class="num flat">0.0%</td></tr><tr><td class="nm">虾类</td><td class="num">82.50</td><td class="num">82.50</td><td class="num flat">0.00</td><td class="num flat">0.0%</td></tr>
+</table>
+<div class="callout"><b>注意：</b>贡献度是"变动之和"口径，不是加权篮子。八品类量级差异极大（虾 82.5 vs 蛋 5.18），
+等权相加会被高价品类主导，所以主结论仍用篮子变化率，贡献度只回答"谁在拉动"。</div>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 13</span><h2>数据质量：三处必须记住的坑</h2></div>
+  
+<h3>坑 1：单点批发报价的噪声可达 14 个百分点</h3>
+<p>保全庄白皮鸡蛋 23.0→18.5 元/公斤（−19.57%），政府零售口径同期只有 −5.65%。差 14 个百分点不是行情，是报价噪声——
+单商户、规格变动、报价未更新都可能造成。<b>处理原则：单点报价只用于方向，不用于幅度</b>；任何单点数据进结论前，必须与政府序列交叉验证。</p>
+<h3>坑 2：跨市场比价必须先对齐规格</h3>
+<p>保全庄对虾 67.0 元/公斤 vs 全国均价 188.75，差 2.8 倍；保全庄鸭肉 21.0 vs 另一市场 11.0。
+差异来自规格（头数/盒装/冻鲜），不是产地。<b>规格未对齐前的任何"贵/便宜"结论都不成立</b>，
+这也是链路报告把"规格对齐"列为 P0 门禁的原因。</p>
+<h3>坑 3：本地零售与全国批发不能直接相减</h3>
+<p>全国鸡蛋批发 9.57 元/公斤 = 4.785 元/斤，内蒙零售 5.18 元/斤，差 0.395 元（8.3%）——这个差是正常的批零差，
+不是"内蒙贵 8.3%"。<b>只有比变化率，才能跨口径比较</b>；直接相减会得出完全错误的结论。</p>
+<h3>坑 4：国庆 7 天不是"价格没变"，是"没有数据"</h3>
+<p>全国日度序列在 10/01—10/07 断开 7 天。本报告按交易日口径处理，不做插值、不做外推。
+<b>插值会制造不存在的波动</b>，这是很多报告翻车的地方。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 14</span><h2>可直接使用的十条</h2></div>
+  
+<h3>可直接使用的十条</h3>
+<ol>
+<li><b>鸡蛋：</b>全国 33 日 −14.71%，内蒙只 −5.65%，补跌空间 5%—9%，库存压到 3—4 天。</li>
+<li><b>猪肉：</b>现货 −9.55%、期货 −12.43%，下跌才走到一半，不要压栏、不要为春节提前备货。</li>
+<li><b>牛肉：</b>全国 +3.82%、内蒙同比 +10.56%，本地刚性最强，但出场已 −2.03%，锁价窗口正在关闭。</li>
+<li><b>白条鸡：</b>全国 −0.98%、内蒙 +0.42%，需求有独立支撑，加价率 40.8% 是利润池。</li>
+<li><b>羊肉：</b>全国 +1.28%、CV 0.68% 最稳，适合做长协。</li>
+<li><b>鱼：</b>四条鱼全国 −4.04%—+0.29%，没有趋势可做，靠周转与规格赚钱。</li>
+<li><b>区域价差：</b>19.2%（牛肉）、20.0%（鸡肉），价差是月度波动的 30 倍，配额优先于择时。</li>
+<li><b>负毛利品类：</b>牛/带鱼/蛋三个必须换 KPI，否则越卖越亏。</li>
+<li><b>弱数据品类：</b>鸭/虾/鹅零变动是数据缺陷，不是市场稳定，不得进合同。</li>
+<li><b>成本：</b>饲料走平偏弱，任何"成本推动涨价"的说法都不成立。</li>
+</ol>
+<h3>缺口（如实披露）</h3>
+<ul>
+<li>国庆 10/01—10/07 全国日度空档 7 天，按交易日口径处理，不插值。</li>
+<li>鸭、鹅、虾无自治区政府序列；鹅的 10 月值为折算估算，误差约 ±2 个点。</li>
+<li>盟市周度只覆盖呼市与乌兰察布，赤峰/包头/通辽的页面结构不统一，未纳入。</li>
+<li>对虾 10 月无报价；虾类只能用淡水虾单条序列。</li>
+<li>11 月 2—8 日全区商务预报未获取，11 月锚点用 11/5 采价日。</li>
+<li>期货为连续主力合约，换月跳空未做复权处理，仅用于看方向。</li>
+</ul>
+</section>
+<section class="report-section">
+  <div class="section-head"><span class="section-num">Section 15</span><h2>分品类档案 · 牛肉（A 级证据）</h2></div>
+  
+<p class="standfirst" style="margin:0 0 10px">全国日度 33 天：71.13→73.85（+3.82%）｜周度同比 +11.1%｜内蒙月度 37.06→37.28（+0.59%）｜呼市 39.23→39.36（振幅 0.33%）</p>
+<p><b>趋势：</b>33 个交易日里 17 涨 14 跌，最高点就是最后一天（11/11），形态是台阶式上行而非一波流。
+     台阶形态意味着每次回调都有承接，属于需求驱动，不是消息刺激。</p>
+     <p><b>本地：</b>内蒙零售 37.06→37.28（+0.59%），只有全国涨幅的 1/6；呼市 5 个时点振幅 0.33%，
+     是全国的 1/11。<b>本地价格刚性极强</b>，涨得慢、也不会跌得快。</p>
+     <p><b>上游：</b>敖汉育肥牛 14.80→14.50（−2.03%）。<b>零售还在涨、出场已经在跌</b>，这个背离通常维持 3—4 周。</p>
+     <p><b>经济性：</b>批零 1.036×、净毛利 −0.48 元/斤；TCO 最优赤峰 28.95（MOQ 1,500 斤）、次优乌兰察布 34.44、最差东瓦窑 37.46。</p>
+     <p><b>经营含义：</b>引流品定位，KPI 换成连带率；锁价窗口正在关闭，跨市配额（19.2% 价差）优先于择时。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 16</span><h2>分品类档案 · 羊肉（A 级证据）</h2></div>
+  
+<p class="standfirst" style="margin:0 0 10px">全国日度：66.49→67.34（+1.28%）｜周度同比 +8.8%｜内蒙 39.34→39.56（+0.56%）｜呼市 40.00→40.14</p>
+<p><b>趋势：</b>全国 +1.28%，是九品类中波动第二低的（CV 0.68%）。走势平缓、没有明显拐点。</p>
+     <p><b>本地：</b>内蒙 39.34→39.56，呼市 40.00→40.14（+0.35%），乌兰察布 34.52→34.32（−0.58%）。
+     三个口径同向，是七类蛋白中一致性最好的品类。</p>
+     <p><b>上游：</b>乌兰察布羔羊 19.55、锡盟绒山羊 20.31 元/斤（11/10），产地价格稳定。</p>
+     <p><b>经济性：</b>批零 1.099×、净毛利 +2.07 元/斤（5.2%），是牛羊肉里唯一正毛利的品类。</p>
+     <p><b>经营含义：</b>CV 最低、毛利为正，<b>最适合做长协</b>——锁价周期可以放到 60—90 天，不必像牛肉那样每周盯盘。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 17</span><h2>分品类档案 · 鸡肉（A 级证据）</h2></div>
+  
+<p class="standfirst" style="margin:0 0 10px">全国日度：17.35→17.18（−0.98%）｜周度同比 −2.1%、环比 +1.4%｜内蒙 11.92→11.97（+0.42%）｜呼市 11.86 恒定</p>
+<p><b>趋势：</b>全国 −0.98%，但末周环比 +1.4%（12 品类最高），同比 −2.1%。<b>同比低、环比高，是典型底部拐点组合</b>。</p>
+     <p><b>本地：</b>内蒙 +0.42%，与全国方向相反；呼市 5 个时点全部 11.86，零变动。本地白条鸡供给相对封闭，
+     价格由本地供需决定，<b>可以做独立定价，不必跟全国盘面</b>。</p>
+     <p><b>批发端：</b>保全庄鸡肉 22.0→24.9 元/公斤（+13.2%），三黄鸡 36.0→34.5（−4.2%），
+     分割品与整禽走势分化——这是本地分割加工需求上升的信号。</p>
+     <p><b>经济性：</b>批零 1.408×（全品类最高）、净毛利 +2.68 元/斤（22.4%）。</p>
+     <p><b>经营含义：</b>利润池。<b>把 40.8% 的外部加价率收回来一部分</b>，比盯价格更值钱。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 18</span><h2>分品类档案 · 鸭肉（B 级证据）</h2></div>
+  
+<p class="standfirst" style="margin:0 0 10px">保全庄 10/07 与 11/10 均 21.0 元/公斤（10.50 元/斤，零变动）｜全国同日另一市场 11.0 元/公斤</p>
+<p><b>数据状况：</b>自治区无监测序列，全国日度也不含鸭。本批只有保全庄两期同价，加上全国另一市场一个单点，
+     <b>共 3 个观测值</b>——这是公开渠道能拿到的全部。</p>
+     <p><b>能说的：</b>① 内蒙鸭价约为全国另一市场的 1.9 倍（21.0 vs 11.0 元/公斤），溢价来自运输半径与冷鲜供应不足；
+     ② 两期零变动说明本地鸭价对全国波动不敏感；③ 批零 1.381×、净毛利 20.9%，是利润品。</p>
+     <p><b>不能说的：</b>不能判断月度趋势、不能做同比、不能用于报价谈判。<b>任何"鸭价在涨/在跌"的结论，
+     以现有数据都不成立。</b></p>
+     <p><b>补数方案：</b>每周二、五各打一次保全庄与东瓦窑的鸭肉报价，同规格（白条 2—2.5 斤/只），连续 4 周即可建序列。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 19</span><h2>分品类档案 · 鹅肉（C 级证据）</h2></div>
+  
+<p class="standfirst" style="margin:0 0 10px">通辽开鲁白条鹅 11.0 元/斤（11 月）｜内蒙古活鹅 6.1—7.1、干管鹅 8.1—9.0、淘汰老鹅 9.8—11.5 元/斤（10/25）</p>
+<p><b>数据状况：</b>四个口径并存——活鹅、干管鹅、淘汰老鹅、白条鹅。它们是同一条产业链的四个环节，
+     不是四个价格。<b>跨口径比价会得出相反结论</b>：按活鹅看内蒙低于全国，按白条鹅看高于全国 19%。</p>
+     <p><b>能说的：</b>白条鹅 11.0 元/斤折 22.0 元/公斤，高于全国 7 日均价 9.24 元/斤约 19%；
+     按出肉率 0.66 + 屠宰费 0.5 折算，10 月白条约 10.5 元/斤，环比 +4.76%；TCO 通辽直采 12.05 vs 呼市转手 12.98（低 7.2%）。</p>
+     <p><b>不能说的：</b>10 月值为折算估算，误差约 ±2 个点；单点报价无法判断趋势。<b>只能做情景，不能做承诺。</b></p>
+     <p><b>经营含义：</b>结构品、订单式采购、零库存；不要用鹅价去推断禽类整体走势。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 20</span><h2>分品类档案 · 鱼肉（A 级证据）</h2></div>
+  
+<p class="standfirst" style="margin:0 0 10px">全国日度：鲫鱼 −4.04%、鲤鱼 −1.95%、白鲢 +0.29%、大带鱼 +0.17%｜内蒙：带鱼 +0.23%、草鱼 −0.09%、鲤鱼 −0.56%</p>
+<p><b>趋势：</b>四条鱼全部走平（−4.04%—+0.29%），是七类蛋白里唯一"没有趋势"的一类。带鱼振幅 9.76% 但首尾几乎持平，
+     属于高波动无趋势。</p>
+     <p><b>本地：</b>内蒙带鱼 17.16→17.20、草鱼 11.32→11.31、鲤鱼 8.91→8.86，三条鱼都落在 ±0.6% 内；
+     呼市带鱼 19.66→19.99（+1.68%）、草鱼 12.28→11.94（−2.53%）、鲤鱼 9.93→9.74（−2.21%）。</p>
+     <p><b>经济性：</b>鲤鱼 1.363×（+15.4%）、草鱼 1.331×（+14.1%）为正；带鱼 1.075×（−0.1%）为负——
+     加价 7.5% 覆盖不了 3% 损耗与全程冷链。</p>
+     <p><b>经营含义：</b>不做长协、按周议价；利润来自规格与成活率，不来自择时；带鱼年限量、禁止走量。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 21</span><h2>分品类档案 · 虾类（B 级证据）</h2></div>
+  
+<p class="standfirst" style="margin:0 0 10px">淡水虾 165.0 元/公斤 × 2 期（零变动）｜对虾 67.0 元/公斤 × 3 期｜全国对虾均价 188.75 元/公斤（差 2.8 倍）</p>
+<p><b>数据状况：</b>无政府序列，淡水虾 2 个点、对虾 3 个点，且对虾 10 月完全没有报价。
+     <b>这是七类蛋白里数据最差的一类。</b></p>
+     <p><b>能说的：</b>① 淡水虾两期零变动，价格刚性；② 对虾三期间隔 5 天仍同价，短期波动极小；
+     ③ 保全庄对虾 67.0 vs 全国均价 188.75，差 2.8 倍——<b>这是规格差（头数/盒装），不是产地差</b>；
+     ④ 批零 1.373×、净毛利 17.7%，是形象品。</p>
+     <p><b>不能说的：</b>不能算月度环比、不能做趋势、不能跨市场比价。</p>
+     <p><b>经营含义：</b>只做预订与礼盒，规格（头数/净重/冰衣率）必须写进合同；TCO 排序出来 38.33 的冻虾不能采信，
+     因为它与 88.40 的淡水虾不是同一商品。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 22</span><h2>分品类档案 · 蛋类（A 级证据）</h2></div>
+  
+<p class="standfirst" style="margin:0 0 10px">全国日度：11.22→9.57（−14.71%，振幅 19.5%）｜周度同比 +28.2%｜内蒙 5.49→5.18（−5.65%）｜呼市 5.30→5.11</p>
+<p><b>趋势：</b>21 天下跌、11 天上涨，最低 9.29 出现在 10/27，之后横盘微升。<b>下跌在 10 月底已经走完</b>，
+     但同比仍 +28.2%，处在历史高位。</p>
+     <p><b>本地：</b>内蒙 5.49→5.18（−5.65%），只跟了全国跌幅的 38%；呼市 5.30→5.02→5.03→5.31→5.11，
+     与全国节奏同步但幅度更小。<b>缺口 9.06 个百分点，对应补跌 5%—9%。</b></p>
+     <p><b>成本端：</b>呼市出场 4.10→4.48（+9.3%），零售只跟 1.8%，批零差从 0.92 压到 0.63 元；
+     按 4.48 + 0.25 冷链 + 1% 损耗，零售需 5.02 保本，当前 5.11 只剩 0.09 元空间。</p>
+     <p><b>经济性：</b>批零 1.043×、净毛利 −0.09 元/斤（−1.77%）——引流成本，不是亏损。</p>
+     <p><b>经营含义：</b>锁量不锁价、库存 3—4 天；补跌前清库存等于锁定 5%—9% 价差；
+     出场价若再涨 2%，鸡蛋零售即转入负毛利。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 23</span><h2>定价权：本地价到底由谁决定</h2></div>
+  
+<p>把三个环节的价差摊开看，定价权的分布很清楚。<b>出场端没有定价权</b>：育肥牛 14.80→14.50、
+鲜蛋装车 4.00→4.11→4.33，波动小、跟随全国；<b>批发端有最强的定价权</b>：东瓦窑牛肉 72 元/公斤、
+保全庄鸭 21 元/公斤，报价频率低但一报就定一天；<b>零售端有"延迟定价权"</b>：呼市牛肉 5 个时点振幅 0.33%，
+可以长期不动，但一旦动就是一次性调整。</p>
+<p>这解释了一个常见困惑：为什么"批发价跌了，零售价不跌"。因为零售端的定价权不是"跟着批发走"，
+而是"在自己的调价周期里决定跟不跟"。呼市鸡蛋从 10/19 的 5.30 到 11/06 的 5.11，五个时点只降了 3.6%，
+而同期全国批发降了 14.7%——<b>差的 11 个点，就是零售端"延迟"出来的空间</b>。</p>
+<p>对经营的含义：不要指望通过谈判让零售端立刻跟跌，也不要假设零售端会永远不跌。
+正确做法是<b>把"跟价周期"写进合同</b>——例如约定"全国批发价连续 2 周变动超 5% 时，零售价次周调整"。
+这样既保留了零售端的缓冲，又避免了长期背离。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 24</span><h2>这套结论什么时候会失效（可证伪清单）</h2></div>
+  
+<p>一份调研报告的价值，一半在结论，一半在"什么情况下结论不成立"。本报告的四条主线，各有明确的失效条件：</p>
+<table>
+<tr><th>结论</th><th>失效条件</th><th>复核频率</th></tr>
+<tr><td class="nm">鸡蛋补跌 5%—9%</td><td>呼市出场价连续 2 周高于 4.6 元/斤，或全国批发止跌回升超 3%</td><td>每周</td></tr>
+<tr><td class="nm">牛肉锁价窗口</td><td>敖汉育肥牛连续 2 周回升，或全国牛肉周度转跌</td><td>每周</td></tr>
+<tr><td class="nm">跨市配额 19.2% 价差</td><td>价差率跌破 8%，或乌兰察布开始跟涨</td><td>每周</td></tr>
+<tr><td class="nm">白条鸡独立行情</td><td>本地白条鸡跟随全国跌破 −2%，或猪价反弹超 5%</td><td>每两周</td></tr>
+</table>
+<p><b>为什么要把失效条件写出来：</b>因为大部分经营决策的错误不是"判断错"，而是"判断曾经对、后来失效了却没人复核"。
+把复核条件与频率写进周会，比再写十页分析更有用。</p>
+</section>
+<div class="report-section">
+  <div class="section-head"><span class="section-num">Appendix</span><h2>附录 · 完整数据表（可复算）</h2></div>
+  <p>以下四张表是本报告全部原始观测值的展开。报告正文的每一个数字都可以在这里找到，
+  也可以由 <code>data/底稿指标.json</code> 与 <code>底稿版/*.csv</code> 复算。</p>
+  <h3>A1 全国日度：33 个交易日 × 9 品类（元/公斤）</h3>
+  <table><tr><th>日期</th><th class="num">猪肉</th><th class="num">牛肉</th><th class="num">羊肉</th><th class="num">鸡蛋</th><th class="num">白条鸡</th><th class="num">鲫鱼</th><th class="num">鲤鱼</th><th class="num">白鲢鱼</th><th class="num">大带鱼</th></tr><tr><td class="nm">2026-09-20</td><td class="num">16.33</td><td class="num">71.13</td><td class="num">66.49</td><td class="num">11.22</td><td class="num">17.35</td><td class="num">19.57</td><td class="num">13.88</td><td class="num">10.19</td><td class="num">42.05</td></tr><tr><td class="nm">2026-09-21</td><td class="num">16.27</td><td class="num">71.59</td><td class="num">66.74</td><td class="num">11.17</td><td class="num">17.31</td><td class="num">19.91</td><td class="num">13.96</td><td class="num">10.13</td><td class="num">41.98</td></tr><tr><td class="nm">2026-09-22</td><td class="num">16.44</td><td class="num">71.55</td><td class="num">66.57</td><td class="num">11.13</td><td class="num">17.42</td><td class="num">19.73</td><td class="num">13.91</td><td class="num">10.01</td><td class="num">41.76</td></tr><tr><td class="nm">2026-09-23</td><td class="num">16.42</td><td class="num">71.6</td><td class="num">66.42</td><td class="num">11.11</td><td class="num">17.22</td><td class="num">19.58</td><td class="num">13.88</td><td class="num">9.98</td><td class="num">42.83</td></tr><tr><td class="nm">2026-09-24</td><td class="num">16.34</td><td class="num">72.38</td><td class="num">67.24</td><td class="num">11.01</td><td class="num">17.37</td><td class="num">19.43</td><td class="num">13.73</td><td class="num">9.96</td><td class="num">42.2</td></tr><tr><td class="nm">2026-09-28</td><td class="num">16.44</td><td class="num">72.02</td><td class="num">66.99</td><td class="num">10.67</td><td class="num">17.28</td><td class="num">19.42</td><td class="num">13.83</td><td class="num">10.04</td><td class="num">41.32</td></tr><tr><td class="nm">2026-09-29</td><td class="num">16.24</td><td class="num">72.44</td><td class="num">66.78</td><td class="num">10.57</td><td class="num">17.11</td><td class="num">19.25</td><td class="num">13.73</td><td class="num">9.81</td><td class="num">41.35</td></tr><tr><td class="nm">2026-09-30</td><td class="num">16.42</td><td class="num">73.26</td><td class="num">67.5</td><td class="num">10.52</td><td class="num">17.22</td><td class="num">19.63</td><td class="num">14.01</td><td class="num">9.96</td><td class="num">42.43</td></tr><tr><td class="nm">2026-10-08</td><td class="num">16.1</td><td class="num">73.14</td><td class="num">67.77</td><td class="num">10.07</td><td class="num">17.5</td><td class="num">19.5</td><td class="num">14.15</td><td class="num">10.24</td><td class="num">42.38</td></tr><tr><td class="nm">2026-10-09</td><td class="num">16.04</td><td class="num">71.82</td><td class="num">66.61</td><td class="num">10.0</td><td class="num">17.25</td><td class="num">19.4</td><td class="num">13.72</td><td class="num">10.06</td><td class="num">40.42</td></tr><tr><td class="nm">2026-10-12</td><td class="num">15.98</td><td class="num">72.08</td><td class="num">66.44</td><td class="num">9.81</td><td class="num">17.11</td><td class="num">19.31</td><td class="num">13.91</td><td class="num">10.21</td><td class="num">41.3</td></tr><tr><td class="nm">2026-10-13</td><td class="num">15.94</td><td class="num">73.52</td><td class="num">67.32</td><td class="num">9.73</td><td class="num">17.19</td><td class="num">19.74</td><td class="num">14.06</td><td class="num">10.13</td><td class="num">41.85</td></tr><tr><td class="nm">2026-10-14</td><td class="num">15.92</td><td class="num">72.82</td><td class="num">67.1</td><td class="num">9.69</td><td class="num">17.33</td><td class="num">19.37</td><td class="num">13.87</td><td class="num">10.24</td><td class="num">41.69</td></tr><tr><td class="nm">2026-10-15</td><td class="num">15.8</td><td class="num">73.12</td><td class="num">67.69</td><td class="num">9.7</td><td class="num">17.11</td><td class="num">19.69</td><td class="num">13.96</td><td class="num">10.06</td><td class="num">41.89</td></tr><tr><td class="nm">2026-10-16</td><td class="num">15.7</td><td class="num">73.61</td><td class="num">67.82</td><td class="num">9.61</td><td class="num">17.26</td><td class="num">19.43</td><td class="num">13.91</td><td class="num">10.09</td><td class="num">41.62</td></tr><tr><td class="nm">2026-10-19</td><td class="num">15.74</td><td class="num">73.61</td><td class="num">67.84</td><td class="num">9.56</td><td class="num">16.98</td><td class="num">19.48</td><td class="num">13.88</td><td class="num">10.13</td><td class="num">43.08</td></tr><tr><td class="nm">2026-10-20</td><td class="num">15.85</td><td class="num">73.53</td><td class="num">68.32</td><td class="num">9.57</td><td class="num">17.23</td><td class="num">19.41</td><td class="num">13.87</td><td class="num">10.04</td><td class="num">41.88</td></tr><tr><td class="nm">2026-10-21</td><td class="num">15.76</td><td class="num">72.81</td><td class="num">67.32</td><td class="num">9.48</td><td class="num">17.02</td><td class="num">19.56</td><td class="num">13.99</td><td class="num">10.2</td><td class="num">42.09</td></tr><tr><td class="nm">2026-10-22</td><td class="num">15.73</td><td class="num">72.62</td><td class="num">67.0</td><td class="num">9.39</td><td class="num">16.92</td><td class="num">19.54</td><td class="num">13.89</td><td class="num">10.34</td><td class="num">41.82</td></tr><tr><td class="nm">2026-10-23</td><td class="num">15.82</td><td class="num">72.6</td><td class="num">67.74</td><td class="num">9.44</td><td class="num">16.97</td><td class="num">19.43</td><td class="num">13.89</td><td class="num">10.25</td><td class="num">41.81</td></tr><tr><td class="nm">2026-10-26</td><td class="num">15.83</td><td class="num">72.81</td><td class="num">67.06</td><td class="num">9.38</td><td class="num">16.99</td><td class="num">19.43</td><td class="num">13.73</td><td class="num">10.25</td><td class="num">41.82</td></tr><tr><td class="nm">2026-10-27</td><td class="num">15.7</td><td class="num">73.29</td><td class="num">67.49</td><td class="num">9.29</td><td class="num">17.09</td><td class="num">19.55</td><td class="num">13.86</td><td class="num">10.28</td><td class="num">41.79</td></tr><tr><td class="nm">2026-10-28</td><td class="num">15.59</td><td class="num">73.45</td><td class="num">67.3</td><td class="num">9.36</td><td class="num">16.68</td><td class="num">19.34</td><td class="num">13.65</td><td class="num">9.9</td><td class="num">43.68</td></tr><tr><td class="nm">2026-10-29</td><td class="num">15.38</td><td class="num">73.32</td><td class="num">67.38</td><td class="num">9.35</td><td class="num">16.84</td><td class="num">19.14</td><td class="num">13.68</td><td class="num">10.02</td><td class="num">39.59</td></tr><tr><td class="nm">2026-10-30</td><td class="num">15.29</td><td class="num">73.44</td><td class="num">67.57</td><td class="num">9.36</td><td class="num">17.16</td><td class="num">19.18</td><td class="num">13.76</td><td class="num">10.09</td><td class="num">41.8</td></tr><tr><td class="nm">2026-11-02</td><td class="num">15.15</td><td class="num">73.8</td><td class="num">67.52</td><td class="num">9.38</td><td class="num">17.19</td><td class="num">19.19</td><td class="num">13.85</td><td class="num">9.75</td><td class="num">42.18</td></tr><tr><td class="nm">2026-11-03</td><td class="num">15.14</td><td class="num">73.75</td><td class="num">67.39</td><td class="num">9.53</td><td class="num">17.34</td><td class="num">19.13</td><td class="num">13.8</td><td class="num">10.14</td><td class="num">42.71</td></tr><tr><td class="nm">2026-11-04</td><td class="num">15.18</td><td class="num">73.74</td><td class="num">67.45</td><td class="num">9.55</td><td class="num">17.28</td><td class="num">19.38</td><td class="num">14.07</td><td class="num">10.2</td><td class="num">41.93</td></tr><tr><td class="nm">2026-11-05</td><td class="num">14.98</td><td class="num">73.77</td><td class="num">67.82</td><td class="num">9.56</td><td class="num">17.1</td><td class="num">19.04</td><td class="num">13.84</td><td class="num">9.87</td><td class="num">41.87</td></tr><tr><td class="nm">2026-11-06</td><td class="num">15.05</td><td class="num">73.67</td><td class="num">67.47</td><td class="num">9.49</td><td class="num">17.01</td><td class="num">19.04</td><td class="num">13.9</td><td class="num">10.01</td><td class="num">41.87</td></tr><tr><td class="nm">2026-11-09</td><td class="num">14.69</td><td class="num">73.65</td><td class="num">67.48</td><td class="num">9.61</td><td class="num">17.2</td><td class="num">19.1</td><td class="num">14.05</td><td class="num">10.18</td><td class="num">42.28</td></tr><tr><td class="nm">2026-11-10</td><td class="num">14.81</td><td class="num">73.74</td><td class="num">67.73</td><td class="num">9.53</td><td class="num">17.03</td><td class="num">19.05</td><td class="num">13.93</td><td class="num">10.29</td><td class="num">42.12</td></tr><tr><td class="nm">2026-11-11</td><td class="num">14.77</td><td class="num">73.85</td><td class="num">67.34</td><td class="num">9.57</td><td class="num">17.18</td><td class="num">18.78</td><td class="num">13.61</td><td class="num">10.22</td><td class="num">42.12</td></tr></table>
+  <h3>A2 全国周度：5 周 × 12 品类（本周值，元/公斤）</h3>
+  <table><tr><th>品类</th><th class="num">20261—1008</th><th class="num">20261—1015</th><th class="num">20261—1022</th><th class="num">20261—1029</th><th class="num">20261—1105</th></tr><tr><td class="nm">猪肉</td><td class="num">16.0</td><td class="num">15.9</td><td class="num">15.71</td><td class="num">15.59</td><td class="num">15.15</td></tr><tr><td class="nm">牛肉</td><td class="num">72.81</td><td class="num">72.62</td><td class="num">73.32</td><td class="num">73.09</td><td class="num">73.64</td></tr><tr><td class="nm">羊肉</td><td class="num">67.82</td><td class="num">67.11</td><td class="num">67.72</td><td class="num">67.32</td><td class="num">67.66</td></tr><tr><td class="nm">鸡蛋</td><td class="num">10.25</td><td class="num">9.82</td><td class="num">9.49</td><td class="num">9.3</td><td class="num">9.42</td></tr><tr><td class="nm">白条鸡</td><td class="num">16.99</td><td class="num">17.14</td><td class="num">17.0</td><td class="num">16.89</td><td class="num">17.12</td></tr><tr><td class="nm">草鱼</td><td class="num">17.14</td><td class="num">17.26</td><td class="num">17.04</td><td class="num">16.88</td><td class="num">16.78</td></tr><tr><td class="nm">鲫鱼</td><td class="num">19.24</td><td class="num">19.51</td><td class="num">19.38</td><td class="num">19.24</td><td class="num">19.14</td></tr><tr><td class="nm">鲤鱼</td><td class="num">13.9</td><td class="num">13.9</td><td class="num">13.85</td><td class="num">13.7</td><td class="num">13.85</td></tr><tr><td class="nm">白鲢鱼</td><td class="num">9.81</td><td class="num">10.14</td><td class="num">10.1</td><td class="num">10.1</td><td class="num">10.01</td></tr><tr><td class="nm">花鲢鱼</td><td class="num">17.38</td><td class="num">17.58</td><td class="num">17.29</td><td class="num">17.16</td><td class="num">16.91</td></tr><tr><td class="nm">大带鱼</td><td class="num">42.52</td><td class="num">41.82</td><td class="num">42.48</td><td class="num">42.36</td><td class="num">42.58</td></tr><tr><td class="nm">大黄花鱼</td><td class="num">49.0</td><td class="num">48.36</td><td class="num">47.72</td><td class="num">47.35</td><td class="num">47.9</td></tr></table>
+  <h3>A3 期货日线：4 品种 × 32 个交易日（收盘价）</h3>
+  <table><tr><th>日期</th><th class="num">生猪</th><th class="num">鸡蛋</th><th class="num">豆粕</th><th class="num">玉米</th></tr><tr><td class="nm">2026-09-21</td><td class="num">10940</td><td class="num">3856</td><td class="num">3386</td><td class="num">2170</td></tr><tr><td class="nm">2026-09-22</td><td class="num">10935</td><td class="num">3885</td><td class="num">3416</td><td class="num">2180</td></tr><tr><td class="nm">2026-09-23</td><td class="num">10820</td><td class="num">3838</td><td class="num">3404</td><td class="num">2184</td></tr><tr><td class="nm">2026-09-24</td><td class="num">10655</td><td class="num">3865</td><td class="num">3426</td><td class="num">2181</td></tr><tr><td class="nm">2026-09-28</td><td class="num">10295</td><td class="num">3808</td><td class="num">3363</td><td class="num">2180</td></tr><tr><td class="nm">2026-09-29</td><td class="num">10560</td><td class="num">3698</td><td class="num">3359</td><td class="num">2187</td></tr><tr><td class="nm">2026-09-30</td><td class="num">10680</td><td class="num">3715</td><td class="num">3372</td><td class="num">2187</td></tr><tr><td class="nm">2026-10-08</td><td class="num">11105</td><td class="num">3731</td><td class="num">3366</td><td class="num">2154</td></tr><tr><td class="nm">2026-10-09</td><td class="num">11210</td><td class="num">3616</td><td class="num">3402</td><td class="num">2162</td></tr><tr><td class="nm">2026-10-12</td><td class="num">10885</td><td class="num">3570</td><td class="num">3383</td><td class="num">2176</td></tr><tr><td class="nm">2026-10-13</td><td class="num">10605</td><td class="num">3572</td><td class="num">3361</td><td class="num">2195</td></tr><tr><td class="nm">2026-10-14</td><td class="num">10425</td><td class="num">3426</td><td class="num">3373</td><td class="num">2216</td></tr><tr><td class="nm">2026-10-15</td><td class="num">10455</td><td class="num">3336</td><td class="num">3316</td><td class="num">2211</td></tr><tr><td class="nm">2026-10-16</td><td class="num">10490</td><td class="num">3332</td><td class="num">3281</td><td class="num">2206</td></tr><tr><td class="nm">2026-10-19</td><td class="num">10215</td><td class="num">3302</td><td class="num">3287</td><td class="num">2183</td></tr><tr><td class="nm">2026-10-20</td><td class="num">9995</td><td class="num">3194</td><td class="num">3267</td><td class="num">2191</td></tr><tr><td class="nm">2026-10-21</td><td class="num">10145</td><td class="num">3257</td><td class="num">3243</td><td class="num">2186</td></tr><tr><td class="nm">2026-10-22</td><td class="num">9860</td><td class="num">3247</td><td class="num">3249</td><td class="num">2218</td></tr><tr><td class="nm">2026-10-23</td><td class="num">9825</td><td class="num">3302</td><td class="num">3276</td><td class="num">2212</td></tr><tr><td class="nm">2026-10-26</td><td class="num">9560</td><td class="num">3305</td><td class="num">3230</td><td class="num">2214</td></tr><tr><td class="nm">2026-10-27</td><td class="num">9975</td><td class="num">3276</td><td class="num">3200</td><td class="num">2217</td></tr><tr><td class="nm">2026-10-28</td><td class="num">9840</td><td class="num">3341</td><td class="num">3208</td><td class="num">2224</td></tr><tr><td class="nm">2026-10-29</td><td class="num">9550</td><td class="num">3377</td><td class="num">3161</td><td class="num">2215</td></tr><tr><td class="nm">2026-10-30</td><td class="num">9510</td><td class="num">3478</td><td class="num">3183</td><td class="num">2221</td></tr><tr><td class="nm">2026-11-02</td><td class="num">9500</td><td class="num">3564</td><td class="num">3198</td><td class="num">2234</td></tr><tr><td class="nm">2026-11-03</td><td class="num">9150</td><td class="num">3551</td><td class="num">3147</td><td class="num">2230</td></tr><tr><td class="nm">2026-11-04</td><td class="num">9170</td><td class="num">3591</td><td class="num">3114</td><td class="num">2227</td></tr><tr><td class="nm">2026-11-05</td><td class="num">9115</td><td class="num">3542</td><td class="num">3121</td><td class="num">2233</td></tr><tr><td class="nm">2026-11-06</td><td class="num">9195</td><td class="num">3462</td><td class="num">3079</td><td class="num">2227</td></tr><tr><td class="nm">2026-11-09</td><td class="num">9350</td><td class="num">3441</td><td class="num">3075</td><td class="num">2237</td></tr><tr><td class="nm">2026-11-10</td><td class="num">9400</td><td class="num">3488</td><td class="num">3086</td><td class="num">2195</td></tr><tr><td class="nm">2026-11-11</td><td class="num">9580</td><td class="num">3575</td><td class="num">3139</td><td class="num">2192</td></tr></table>
+  <h3>A4 盟市周度：呼市 5 个时点 × 8 品类（元/斤）</h3>
+  <table><tr><th>品类</th><th class="num">10-19</th><th class="num">10-26</th><th class="num">10-30</th><th class="num">11-04</th><th class="num">11-06</th></tr><tr><td class="nm">牛肉</td><td class="num">39.23</td><td class="num">39.36</td><td class="num">39.36</td><td class="num">39.28</td><td class="num">39.36</td></tr><tr><td class="nm">羊肉</td><td class="num">40.00</td><td class="num">40.14</td><td class="num">40.14</td><td class="num">40.31</td><td class="num">40.14</td></tr><tr><td class="nm">鸡肉</td><td class="num">11.86</td><td class="num">11.86</td><td class="num">11.86</td><td class="num">11.86</td><td class="num">11.86</td></tr><tr><td class="nm">鸡蛋</td><td class="num">5.30</td><td class="num">5.02</td><td class="num">5.03</td><td class="num">5.31</td><td class="num">5.11</td></tr><tr><td class="nm">带鱼</td><td class="num">19.66</td><td class="num">19.66</td><td class="num">19.93</td><td class="num">19.66</td><td class="num">19.99</td></tr><tr><td class="nm">草鱼</td><td class="num">12.28</td><td class="num">12.26</td><td class="num">12.13</td><td class="num">12.25</td><td class="num">11.94</td></tr><tr><td class="nm">鲤鱼</td><td class="num">9.93</td><td class="num">9.79</td><td class="num">9.74</td><td class="num">9.96</td><td class="num">9.74</td></tr><tr><td class="nm">猪精瘦</td><td class="num">13.11</td><td class="num">13.11</td><td class="num">13.02</td><td class="num">13.11</td><td class="num">12.93</td></tr></table>
+</div>
+<div class="doc-footer">
+  <span>蛙蛙呱呱 agents 团 · R01 / R05 / R06 / R15 / R04 ｜ 调研底稿版 2026-11-12</span>
+  <span>默认主题 · report_theme 石墨蓝 · 数据底稿 data/底稿指标.json</span>
+</div></div></body></html>

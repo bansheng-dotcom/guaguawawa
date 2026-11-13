@@ -1,0 +1,27 @@
+{
+  "r01": {
+    "role_dir": "r01-waquanju-ceo",
+    "cases": [
+      {"id": "r01-01", "intent": "帮我看看这事", "expect": "clarify"},
+      {"id": "r01-02", "intent": "这个决策卡怎么用", "expect": "clarify"},
+      {"id": "r01-03", "intent": "拆解一下", "expect": "clarify"},
+      {"id": "r01-04", "intent": "写一份战略简报，讲清长期方向", "expect": "route", "expect_action": "intent.brief"},
+      {"id": "r01-05", "intent": "做个意图分级，范围是全公司", "expect": "route", "expect_action": "intent.triage"},
+      {"id": "r01-06", "intent": "把这件事拆成任务卡，跨部门推进，责任人是CEO", "expect": "route", "expect_action": "decompose.taskcard"},
+      {"id": "r01-07", "intent": "帮我拍板，有数据支撑", "expect": "route", "expect_action": "decide.card"},
+      {"id": "r01-08", "intent": "组织一次红队质询，我有访谈证据", "expect": "route", "expect_action": "redteam.devil"},
+      {"id": "r01-09", "intent": "准备董事会汇报包，向CEO汇报", "expect": "clarify"},
+      {"id": "r01-10", "intent": "把被否提案记进决策日志，范围是部门", "expect": "route", "expect_action": "decisionlog.entry"},
+      {"id": "r01-11", "intent": "按依赖图编排关键路径，范围是全公司", "expect": "route", "expect_action": "decompose.wave"},
+      {"id": "r01-12", "intent": "帮我评估可逆性", "expect": "clarify"},
+      {"id": "r01-13", "intent": "公司未来三年的长期方向要讲透，投资人下周来访，出一页纸战略", "expect": "route", "expect_action": "intent.brief"},
+      {"id": "r01-14", "intent": "手头一堆需求不知道归谁，帮我分个级判断该拆给谁，覆盖全公司", "expect": "route", "expect_action": "intent.triage"},
+      {"id": "r01-15", "intent": "把这次改版拆成一张张任务卡，跨部门协作推进，最终责任人是我自己", "expect": "route", "expect_action": "decompose.taskcard"},
+      {"id": "r01-16", "intent": "明天评审前先做一轮反方质询，我手上有一线反馈可以给你", "expect": "route", "expect_action": "redteam.devil"},
+      {"id": "r01-17", "intent": "在拍板之前必须先算清可逆性和回滚成本，我这边有数据指标", "expect": "route", "expect_action": "decide.reversibility"},
+      {"id": "r01-18", "intent": "董事会汇报包要准备，但目标还没想清楚", "expect": "clarify"},
+      {"id": "r01-19", "intent": "这个方案风险大不大", "expect": "clarify"},
+      {"id": "r01-20", "intent": "上次被否的提案要留个记录", "expect": "clarify"}
+    ]
+  }
+}

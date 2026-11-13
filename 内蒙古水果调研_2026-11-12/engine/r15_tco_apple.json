@@ -1,0 +1,35 @@
+{
+ "annual_rate_pct": 4.35,
+ "quotes": [
+  {
+   "supplier": "赤峰产地直采（一车直发）",
+   "currency": "CNY",
+   "unit_price": 4.6,
+   "qty": 10000,
+   "defects_pct": 8.0,
+   "main_freight": 2100,
+   "lead_days": 2,
+   "payment_terms_days": 7
+  },
+  {
+   "supplier": "呼市东瓦窑批发（混级现结）",
+   "currency": "CNY",
+   "unit_price": 8.64,
+   "qty": 10000,
+   "defects_pct": 3.0,
+   "main_freight": 120,
+   "lead_days": 0,
+   "payment_terms_days": 0
+  },
+  {
+   "supplier": "北京新发地调运（跨省）",
+   "currency": "CNY",
+   "unit_price": 7.6,
+   "qty": 10000,
+   "defects_pct": 5.0,
+   "main_freight": 4800,
+   "lead_days": 2,
+   "payment_terms_days": 15
+  }
+ ]
+}

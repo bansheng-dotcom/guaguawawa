@@ -1,0 +1,58 @@
+id: project-briefing
+display_name: 项目理解与汇报
+status: draft
+priority: P0
+purpose: >
+  帮产品管理 person 理解项目、理解对话对象，并把项目事实汇报成用户能判断、
+  能确认、能继续推进的内容。重点是人感、决策选项和归档。
+
+triggers:
+  - 用户要求理解项目、汇报现状、讲清楚、辅助决策
+  - 用户需要在多个技术或产品选项中拍板
+  - 项目事实、决策、文件地图需要归档
+
+entry_policy:
+  before_entering:
+    - 如果本轮要产出汇报或决策报告，按重任务处理，先读 `workflows/HEAVY_TASK_RAG_RULES.md`
+    - 重任务先执行 `workflows/experience-rag/workflow.yaml` 的 `heavy-task` 模式；内部追问默认复用 `experience_brief`，关键维度变化才执行 `pre-question` L1
+    - 先读取 `user/`，理解对话对象和历史偏好
+  can_start_when:
+    - 有项目事实、项目路径、对话上下文或决策选项之一
+  must_not_start_when:
+    - 用户只是要一句话解释，不需要汇报或决策选项
+
+inputs:
+  required:
+    - user_request
+  optional:
+    - project_root
+    - user_profile
+    - project_documents
+    - decision_options
+
+outputs:
+  - project_understanding
+  - decision_options_with_tradeoffs
+  - recommendation_not_decision
+  - risks_and_fallbacks
+  - archive_location
+
+owned_references:
+  - references/project-briefing-guide.md
+  - ../HEAVY_TASK_RAG_RULES.md
+  - ../experience-rag/workflow.yaml
+
+templates:
+  - templates/human-readable-briefing-template.md
+
+prompt:
+  current: prompts/current.md
+
+runner: runner.md
+topology: topology.md
+review_hints: review_hints.yaml
+
+version:
+  current: 0.3
+  updated_at: 2026-07-01
+  notes: 重任务入口改为 RAG Gate 分层；生成并复用 experience_brief，关键维度变化才重新 Gate。

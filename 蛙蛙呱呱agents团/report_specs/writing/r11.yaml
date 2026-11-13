@@ -1,0 +1,44 @@
+role: r11
+doc_type: 内容报告 · 蛙点题
+title: '内容：选题
+
+  与发布'
+title_highlight: 与发布
+title_highlight_style: underline
+meta:
+- 读者：内容负责人
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r11 · shared/report_writer + core/report_renderer
+sections:
+- title: 选题
+  question: 这个题有没有需求？
+  intro: 没有搜索需求的题，写得再好也没人看。
+  boundary: 需求以搜索量与竞品覆盖为参考。
+- title: 结构
+  question: 读者能不能一句话复述？
+  intro: 复述不出来，说明结构没立住。
+  boundary: 结构以大纲与标题为准。
+- title: 埋词
+  question: 能不能被搜到？
+  intro: 核心词进标题前 10 字，是硬规则。
+  boundary: 关键词密度不作硬指标。
+- title: 合规
+  question: 能不能发？
+  intro: 禁词与 AI 声明，是发布前的最后一道门。
+  boundary: 合规以禁词表与平台规则为准。
+- title: 判断与动作
+  question: 先发哪篇？
+  intro: 先发能验证选题假设的那篇。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 选题
+- label: 关键
+  section: 埋词
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

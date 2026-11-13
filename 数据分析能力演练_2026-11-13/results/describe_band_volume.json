@@ -1,0 +1,16 @@
+{
+  "describe": {
+    "volume_share_pct": {
+      "count": 3,
+      "mean": 24.49,
+      "median": 26.28,
+      "std": 14.0885,
+      "min": 6.41,
+      "max": 40.78,
+      "p5": 8.397,
+      "p95": 39.33,
+      "skew": -0.1885
+    }
+  },
+  "runtime_ms": 0
+}

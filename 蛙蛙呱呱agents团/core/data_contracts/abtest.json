@@ -1,0 +1,32 @@
+{
+ "name": "abtest",
+ "fields": [
+  {
+   "name": "group",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "convert",
+   "dtype": "int",
+   "required": true,
+   "enum": [
+    0,
+    1
+   ],
+   "range": null
+  },
+  {
+   "name": "click",
+   "dtype": "int",
+   "required": true,
+   "enum": [
+    0,
+    1
+   ],
+   "range": null
+  }
+ ]
+}

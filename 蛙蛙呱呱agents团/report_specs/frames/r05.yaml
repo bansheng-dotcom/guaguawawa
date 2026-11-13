@@ -1,0 +1,45 @@
+# R05 业务框架：先想明白这个生意是怎么转的，再决定报告写什么。
+# questions 里每条都要写 needs（需要什么数据）与 decision（答案会改哪个动作）。
+# 缺数据的问题不会被话术掩盖，而是进「数据缺口」节。
+
+role: r05
+domain: 农产品市场研究
+objects: [品类, 规格, 市场, 环节]
+value_chain: [产地, 产地市场, 销地批发, 零售]
+decisions: [选品, 定价, 采购来源, 备货节奏]
+questions:
+  - id: Q1
+    question: 当前价格处在历史什么位置？
+    needs: [历史同窗口价格]
+    ops: [benchmark]
+    decision: 这个窗口该不该建仓
+  - id: Q2
+    question: 涨跌发生在哪个规格上？
+    needs: [分规格价格]
+    ops: [explain_share]
+    decision: 采购按规格谈还是按均价谈
+  - id: Q3
+    question: 区域价差从哪来？
+    needs: [市场报价, 规格报价]
+    ops: [explain_share]
+    decision: 直采哪些市场、放弃哪些市场
+  - id: Q4
+    question: 链路利润怎么分？
+    needs: [环节成本, 批发价, 零售价]
+    ops: [sensitivity]
+    decision: 从哪一段挤利润
+  - id: Q5
+    question: 需求对价格有多敏感？
+    needs: [分品类销量]
+    ops: []
+    decision: 敢不敢提价/放量
+  - id: Q6
+    question: 哪个市场在卖什么规格？
+    needs: [市场, 规格]
+    ops: []
+    decision: 到哪个市场补什么货
+  - id: Q7
+    question: 竞争对手的定价与库存如何？
+    needs: [竞品报价, 竞品库存]
+    ops: []
+    decision: 跟价还是守价

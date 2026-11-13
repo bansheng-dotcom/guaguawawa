@@ -1,0 +1,54 @@
+role: r14
+domain: 交易与履约
+objects:
+- 订单
+- 支付
+- 退款
+- 履约
+value_chain:
+- 下单
+- 支付
+- 发货
+- 签收
+- 退款
+decisions:
+- 结算节奏
+- 退款政策
+- 渠道取舍
+questions:
+- id: Q1
+  question: 应收和实收差在哪？
+  needs:
+  - 订单
+  - 支付状态
+  - 退款
+  ops: []
+  decision: 这周先对哪笔账
+- id: Q2
+  question: 退款是被什么驱动的？
+  needs:
+  - 退款原因码
+  ops: []
+  decision: 改商品还是改承诺
+- id: Q3
+  question: 履约时效的尾部在哪？
+  needs:
+  - 履约
+  ops: []
+  decision: 要不要换承运商
+- id: Q4
+  question: 状态机有没有漏？
+  needs:
+  - 订单
+  - 支付状态
+  - 退款
+  - 履约
+  ops: []
+  decision: 要不要冻结结算
+- id: Q5
+  question: 渠道结算准不准？
+  needs:
+  - 结算单
+  - 平台账单
+  ops: []
+  decision: 按哪个数入账

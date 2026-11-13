@@ -1,0 +1,169 @@
+{
+  "total_change": 382639887.4,
+  "dimension": "city",
+  "segments": [
+    {
+      "segment": "青岛",
+      "before": 28690221.71,
+      "after": 56781792.52,
+      "delta": 28091570.81,
+      "contribution_pct": 7.34,
+      "below_impact_min": false
+    },
+    {
+      "segment": "济南",
+      "before": 23247774.06,
+      "after": 46736460.97,
+      "delta": 23488686.91,
+      "contribution_pct": 6.14,
+      "below_impact_min": false
+    },
+    {
+      "segment": "南昌",
+      "before": 22472692.07,
+      "after": 45010183.78,
+      "delta": 22537491.71,
+      "contribution_pct": 5.89,
+      "below_impact_min": false
+    },
+    {
+      "segment": "上海",
+      "before": 26771814.47,
+      "after": 49153572.42,
+      "delta": 22381757.95,
+      "contribution_pct": 5.85,
+      "below_impact_min": false
+    },
+    {
+      "segment": "西安",
+      "before": 21212993.77,
+      "after": 43048402.32,
+      "delta": 21835408.55,
+      "contribution_pct": 5.71,
+      "below_impact_min": false
+    },
+    {
+      "segment": "北京",
+      "before": 21136643.99,
+      "after": 42289635.77,
+      "delta": 21152991.78,
+      "contribution_pct": 5.53,
+      "below_impact_min": false
+    },
+    {
+      "segment": "重庆",
+      "before": 24498676.49,
+      "after": 45386274.47,
+      "delta": 20887597.98,
+      "contribution_pct": 5.46,
+      "below_impact_min": false
+    },
+    {
+      "segment": "合肥",
+      "before": 22995602.82,
+      "after": 42578027.42,
+      "delta": 19582424.6,
+      "contribution_pct": 5.12,
+      "below_impact_min": false
+    },
+    {
+      "segment": "杭州",
+      "before": 18737552.49,
+      "after": 37661807.01,
+      "delta": 18924254.52,
+      "contribution_pct": 4.95,
+      "below_impact_min": false
+    },
+    {
+      "segment": "成都",
+      "before": 22144640.99,
+      "after": 40716740.5,
+      "delta": 18572099.51,
+      "contribution_pct": 4.85,
+      "below_impact_min": false
+    },
+    {
+      "segment": "福州",
+      "before": 17108006.21,
+      "after": 34956323.64,
+      "delta": 17848317.43,
+      "contribution_pct": 4.66,
+      "below_impact_min": false
+    },
+    {
+      "segment": "深圳",
+      "before": 20396504.44,
+      "after": 37865380.62,
+      "delta": 17468876.18,
+      "contribution_pct": 4.57,
+      "below_impact_min": false
+    },
+    {
+      "segment": "贵阳",
+      "before": 21597895.1,
+      "after": 39035847.76,
+      "delta": 17437952.66,
+      "contribution_pct": 4.56,
+      "below_impact_min": false
+    },
+    {
+      "segment": "广州",
+      "before": 18074748.03,
+      "after": 35433665.08,
+      "delta": 17358917.05,
+      "contribution_pct": 4.54,
+      "below_impact_min": false
+    },
+    {
+      "segment": "武汉",
+      "before": 17064067.25,
+      "after": 34044671.66,
+      "delta": 16980604.41,
+      "contribution_pct": 4.44,
+      "below_impact_min": false
+    },
+    {
+      "segment": "郑州",
+      "before": 19892630.91,
+      "after": 36482773.1,
+      "delta": 16590142.19,
+      "contribution_pct": 4.34,
+      "below_impact_min": false
+    },
+    {
+      "segment": "沈阳",
+      "before": 19531402.63,
+      "after": 35905794.64,
+      "delta": 16374392.01,
+      "contribution_pct": 4.28,
+      "below_impact_min": false
+    },
+    {
+      "segment": "南京",
+      "before": 18287828.49,
+      "after": 33972926.6,
+      "delta": 15685098.11,
+      "contribution_pct": 4.1,
+      "below_impact_min": false
+    },
+    {
+      "segment": "长沙",
+      "before": 15925989.63,
+      "after": 31182318.75,
+      "delta": 15256329.12,
+      "contribution_pct": 3.99,
+      "below_impact_min": false
+    },
+    {
+      "segment": "昆明",
+      "before": 17948999.89,
+      "after": 32133973.81,
+      "delta": 14184973.92,
+      "contribution_pct": 3.71,
+      "below_impact_min": false
+    }
+  ],
+  "impact_min_pct": 3.0,
+  "note": "contribution_pct = (after-before)/总变化；正=拉动增长，负=拖累；|contribution| < impact_min_pct 的分支判定为 minor，可停止下钻",
+  "runtime_ms": 2
+}

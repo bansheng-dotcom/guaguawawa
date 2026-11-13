@@ -1,0 +1,630 @@
+{
+ "doc_type": "命题 4 · A/B 实验（R06 数据分析能力演练）",
+ "theme": "sticker",
+ "title_lines": [
+  "主图改版能不能把转化提上去？",
+  "一次 20 万人 A/B 的设计、读出与 SRM 门禁"
+ ],
+ "title_highlight": "能不能把转化提上去？",
+ "standfirst": "实验不是「跑完看 p 值」。先算 MDE，再看 SRM，最后才读 lift——这篇用一次 20 万人的模拟实验，把顺序走一遍。",
+ "meta": [
+  "读者：增长 / 产品",
+  "数据：200,000 会话（模拟，seed=42）",
+  "口径：会话级 CTR/CVR；80% 功效，alpha 0.05",
+  "技能：power / abtest / ttest / chi2"
+ ],
+ "metric_strip": [
+  {
+   "label": "样本",
+   "value": "20 万",
+   "note": "10 万/组，满足 80,735/组",
+   "status": "accent"
+  },
+  {
+   "label": "CTR lift",
+   "value": "3.13%",
+   "note": "p=0.200135",
+   "status": "watch"
+  },
+  {
+   "label": "CVR lift",
+   "value": "2.42%",
+   "note": "p=0.435006",
+   "status": "watch"
+  },
+  {
+   "label": "SRM（clean）",
+   "value": "通过",
+   "note": "χ²=0.00",
+   "status": "healthy"
+  },
+  {
+   "label": "决策",
+   "value": "不 ship",
+   "note": "主指标不显著",
+   "status": "critical"
+  }
+ ],
+ "summary": [
+  {
+   "label": "结论：",
+   "text": "主图改版的 CTR +3.13%、CVR +2.42%，都不显著；承诺的 +8% 没有兑现，判定 no_ship。"
+  },
+  {
+   "label": "为什么：",
+   "text": "这次只够检出 0.22pp 的绝对提升，实测差异在噪声内；不是「改版无效」，是「证据不够」。"
+  },
+  {
+   "label": "门禁：",
+   "text": "另一个 52/48 分流的实验 lift 8.89%、p<0.01，但 SRM χ²=81.6，直接判 rerun——显著不等于可信。"
+  }
+ ],
+ "sections": [
+  {
+   "index": 1,
+   "title": "设计：先算样本量，再看结果",
+   "question": "这个实验能检出多大的效果？样本够不够？",
+   "chart": {
+    "type": "vbar",
+    "title": "功效设计：所需样本量 vs 实际样本量（万/组）",
+    "unit_meta": "万/组；MDE 0.22pp 见读图",
+    "source": "power（R06 s05）：baseline 3.2%，alpha 0.05，power 0.8",
+    "vbars": [
+     {
+      "label": "所需样本/组",
+      "value": 8.07,
+      "value_label": "8.07 万"
+     },
+     {
+      "label": "实际样本/组",
+      "value": 10.0,
+      "value_label": "10 万",
+      "weight": "healthy"
+     }
+    ]
+   },
+   "reading": [
+    {
+     "strong": "样本量：",
+     "text": "基线 3.2%、绝对 MDE 0.25pp，需要每组 80,735 个样本（80% 功效）；本次每组 10 万，刚够。"
+    },
+    {
+     "strong": "可检出下限：",
+     "text": "每组 10 万时 MDE 为 0.22pp（相对 7.0%）；小于这个量级的效果检不出来。"
+    },
+    {
+     "strong": "纪律：",
+     "text": "先写主指标与 MDE，再开实验；事后改主指标就是 p-hacking。"
+    }
+   ],
+   "boundary": {
+    "text": "功效按双比例 z 检验正态近似；实际检测用了更保守的 Welch 口径。"
+   }
+  },
+  {
+   "index": 2,
+   "title": "读出：CTR +3.1%、CVR +2.4%，都不显著",
+   "question": "主图改版承诺的 +8% 兑现了吗？该不该发？",
+   "chart": {
+    "type": "hbar",
+    "title": "A/B 两组的主指标（%）",
+    "unit_meta": "%；CTR = click，CVR = convert",
+    "source": "abtest（R06 s05），ab_clean.csv 200,000 会话",
+    "bars": [
+     {
+      "label": "CTR · A",
+      "value": 3.29,
+      "value_label": "3.29%",
+      "weight": "context",
+      "sub": "lift 3.13%，p=0.200135"
+     },
+     {
+      "label": "CTR · B",
+      "value": 3.4,
+      "value_label": "3.40%",
+      "weight": "healthy",
+      "sub": "新版"
+     },
+     {
+      "label": "CVR · A",
+      "value": 2.07,
+      "value_label": "2.07%",
+      "weight": "context",
+      "sub": "lift 2.42%，p=0.435006"
+     },
+     {
+      "label": "CVR · B",
+      "value": 2.12,
+      "value_label": "2.12%",
+      "weight": "healthy",
+      "sub": "新版"
+     }
+    ]
+   },
+   "reading": [
+    {
+     "strong": "CTR：",
+     "text": "3.29% → 3.40%，lift 3.13%，p=0.200135（不显著）。"
+    },
+    {
+     "strong": "CVR：",
+     "text": "2.07% → 2.12%，lift 2.42%，p=0.435006，判定 no_ship。"
+    },
+    {
+     "strong": "兑现：",
+     "text": "承诺 +8% 相对提升，实测 +3.1% / +2.4%，且都在噪声范围内；不能宣布成功。"
+    }
+   ],
+   "boundary": {
+    "text": "CVR 只统计会话级转化；未覆盖复购与退款，不能代表 GMV 收益。"
+   }
+  },
+  {
+   "index": 3,
+   "title": "SRM：分流 52/48 的实验，结果再好看也不能用",
+   "question": "样本比例失配时，显著结果能不能采信？",
+   "table": {
+    "caption": "两个实验的 SRM 与决策",
+    "columns": [
+     {
+      "text": "实验"
+     },
+     {
+      "text": "SRM χ²",
+      "num": true
+     },
+     {
+      "text": "lift",
+      "num": true
+     },
+     {
+      "text": "决策"
+     }
+    ],
+    "col_widths": [
+     "26%",
+     "16%",
+     "16%",
+     "42%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "ab_clean（50/50）"
+        }
+       ]
+      },
+      {
+       "text": "0.00",
+       "num": true
+      },
+      {
+       "text": "2.42%",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "no_ship（无 SRM）"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "ab_srm（52/48）"
+        }
+       ]
+      },
+      {
+       "text": "81.6",
+       "num": true
+      },
+      {
+       "text": "8.89%",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "srm_rerun（显著也不采信）"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "SRM：",
+     "text": "ab_srm 的 χ²=81.6，远超临界 3.841——分流代码或埋点有问题。"
+    },
+    {
+     "strong": "纪律：",
+     "text": "SRM 异常时先查分流与去重，不能因为 p<0.05 就宣布胜利；这是实验平台最常见的事故。"
+    },
+    {
+     "strong": "正确动作：",
+     "text": "重跑实验，确认 50/50 后再读主指标。"
+    }
+   ],
+   "boundary": {
+    "text": "SRM 只查总量比例；分层后的比例失衡需要额外检查。"
+   }
+  },
+  {
+   "index": 4,
+   "title": "分层：设备间没有交互，收入差异也不显著",
+   "question": "效果是否集中在某类设备？收入有没有变化？",
+   "table": {
+    "caption": "分层与收入检验",
+    "columns": [
+     {
+      "text": "检验"
+     },
+     {
+      "text": "统计量",
+      "num": true
+     },
+     {
+      "text": "判读"
+     }
+    ],
+    "col_widths": [
+     "26%",
+     "18%",
+     "56%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "设备 × 转化（卡方）"
+        }
+       ]
+      },
+      {
+       "text": "2.10",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "临界 5.991，不显著（V=0.0032）"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "收入（Welch t）"
+        }
+       ]
+      },
+      {
+       "text": "-1.10",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "p=0.271516，d=-0.0049（small）"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "设备：",
+     "text": "iOS/Android/PC 的转化差异不显著，改版效果没有集中在某一端。"
+    },
+    {
+     "strong": "收入：",
+     "text": "两组收入差异 -0.10 元、p=0.271516；即使 CVR 小幅上升，也没有转化为可测的收入增量。"
+    },
+    {
+     "strong": "结论：",
+     "text": "不 ship；把预算留给下一次改版，或把样本量提到 20 万/组再测。"
+    }
+   ],
+   "boundary": {
+    "text": "分层检验未做多重比较校正；设备维度只有 3 层，检验力有限。"
+   }
+  },
+  {
+   "index": "A1",
+   "title": "记录层：4 次实验读数",
+   "question": "这次实际跑了哪些技能、输出落在哪里？",
+   "intro": [
+    {
+     "text": "实验数据为模拟（seed=42），但分流与效应结构按真实实验规范构造。"
+    }
+   ],
+   "table": {
+    "caption": "技能调用记录（可逐条复跑）",
+    "columns": [
+     {
+      "text": "技能 / 动作"
+     },
+     {
+      "text": "输入"
+     },
+     {
+      "text": "关键输出"
+     }
+    ],
+    "col_widths": [
+     "26%",
+     "22%",
+     "52%"
+    ],
+    "rows": [
+     [
+      {
+       "text": "power ×2"
+      },
+      {
+       "lines": [
+        {
+         "text": "baseline 3.2% / n=10 万"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "n=80735；MDE=0.002242"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "abtest convert"
+      },
+      {
+       "lines": [
+        {
+         "text": "ab_clean.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "lift 2.42%，p 0.435006，no_ship"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "abtest click"
+      },
+      {
+       "lines": [
+        {
+         "text": "ab_clean.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "lift 3.13%，p 0.200135"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "abtest SRM"
+      },
+      {
+       "lines": [
+        {
+         "text": "ab_srm.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "χ² 81.5914，srm_rerun"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "ttest"
+      },
+      {
+       "lines": [
+        {
+         "text": "ab_clean.csv revenue"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "diff -0.0974，p 0.271516"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "chi2"
+      },
+      {
+       "lines": [
+        {
+         "text": "ab_clean.csv device × convert"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "χ² 2.1022，不显著"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "appendix": true
+  },
+  {
+   "index": 5,
+   "title": "口径与分数",
+   "question": "这份报告的结论能追回到哪一步？哪些地方是模拟、哪些是真实？",
+   "table": {
+    "caption": "自检与数据边界",
+    "columns": [
+     {
+      "text": "指标"
+     },
+     {
+      "text": "值",
+      "num": true
+     },
+     {
+      "text": "说明"
+     }
+    ],
+    "col_widths": [
+     "22%",
+     "14%",
+     "64%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "技能调用"
+        }
+       ]
+      },
+      {
+       "text": "7",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "P4：power×2 / abtest×3 / ttest / chi2"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "样本"
+        }
+       ]
+      },
+      {
+       "text": "200,000",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "10 万/组；SRM 版 19.6 万"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "真实 / 模拟"
+        }
+       ]
+      },
+      {
+       "text": "全模拟",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "按真实实验规范生成，结论只演示方法"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "决策"
+        }
+       ]
+      },
+      {
+       "text": "no_ship",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "主指标不显著，SRM 版判 rerun"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "怎么读：",
+     "text": "lift = (处理−对照)/对照；SRM 用卡方检验分流比例；MDE 由功效公式反解。"
+    },
+    {
+     "strong": "边界：",
+     "text": "模拟实验不能替代线上真实实验；但流程与判定规则可直接复用。"
+    }
+   ]
+  }
+ ],
+ "notes": {
+  "summary": "模拟实验与判定规则",
+  "items": [
+   {
+    "label": "模拟：",
+    "text": "200,000 会话按 seed=42 生成；基线 CTR 3.2%、CVR 2.1%，与公开个护电商基准同量级。"
+   },
+   {
+    "label": "判定：",
+    "text": "ship 需同时满足：显著正、lift≥3%、无 SRM；否则 no_ship；SRM 异常一律 rerun。"
+   },
+   {
+    "label": "复现：",
+    "text": "results/abtest_*.json 保留了每组均值、p 值、SRM χ² 与决策。"
+   }
+  ],
+  "tail": "模拟实验只证明流程可跑；真实上线前仍需按同一 MDE 重新设计。"
+ },
+ "footer": [
+  "P4 A/B 实验 · 数据分析能力演练（R06 蛙得清）",
+  "渲染 core/report_renderer.py · 数据 results/*.json",
+  "生成时间 2026-11-13（Asia/Shanghai）"
+ ]
+}

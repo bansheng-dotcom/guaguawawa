@@ -1,0 +1,56 @@
+role: r15
+domain: 生鲜供应链
+objects:
+- 供应商
+- 报价
+- 库存
+- 需求
+value_chain:
+- 产地
+- 干线
+- 仓
+- 门店
+decisions:
+- 选谁
+- 订多少
+- 何时订
+- 备选策略
+questions:
+- id: Q1
+  question: 谁的 TCO 最低？
+  needs:
+  - 供应商报价
+  - 运费
+  - 次品率
+  - 账期
+  - 月采购量
+  ops: []
+  decision: 份额怎么分
+- id: Q2
+  question: 该备多少安全库存？
+  needs:
+  - 需求波动
+  - 交期波动
+  ops: []
+  decision: 安全库存定多少
+- id: Q3
+  question: 库存转得快不快？
+  needs:
+  - 库存余额
+  - 出库量
+  ops: []
+  decision: 要不要清货
+- id: Q4
+  question: 供应商履约稳不稳？
+  needs:
+  - 到货准时率
+  - 到货合格率
+  ops: []
+  decision: 要不要换供应商
+- id: Q5
+  question: 集中度风险多大？
+  needs:
+  - 供应商报价
+  - 采购份额
+  ops: []
+  decision: 要不要引入备选

@@ -1,0 +1,10 @@
+{
+  "mrr": 500000.0,
+  "active_users": 1200.0,
+  "churn_rate": 0.04,
+  "arpu": 416.67,
+  "ltv": 10416.67,
+  "ltv_requires_gross_margin": true,
+  "expected_lifetime_months": 25.0,
+  "runtime_ms": 0
+}

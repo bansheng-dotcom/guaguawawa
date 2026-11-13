@@ -1,0 +1,51 @@
+role: r07
+domain: 产品需求
+objects:
+- 用户
+- 场景
+- 方案
+- 假设
+value_chain: []
+decisions:
+- 做/不做
+- 优先级
+- 范围
+- 验收
+questions:
+- id: Q1
+  question: 这个问题是真的吗？
+  needs:
+  - VOC
+  - 访谈
+  - 行为数据
+  ops: []
+  decision: 值不值得立项
+- id: Q2
+  question: 为谁做、最痛的是谁？
+  needs:
+  - 用户分层
+  - 痛度
+  ops: []
+  decision: 先服务哪类用户
+- id: Q3
+  question: 方案能不能少做几步？
+  needs:
+  - 现有流程
+  - 方案对比
+  ops: []
+  decision: P0 切多小
+- id: Q4
+  question: 先做哪个？
+  needs:
+  - RICE 输入
+  - 依赖
+  ops: []
+  decision: 排期顺序
+- id: Q5
+  question: 怎么算成功？
+  needs:
+  - 北极星
+  - 基线
+  - 目标
+  ops: []
+  decision: 验收口径

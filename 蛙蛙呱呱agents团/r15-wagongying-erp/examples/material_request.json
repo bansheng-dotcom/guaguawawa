@@ -1,0 +1,11 @@
+{
+  "id": "MR-001",
+  "purpose": "Manufacture",
+  "status": "Pending",
+  "items": [
+    {
+      "item_code": "RM-001",
+      "qty": 50
+    }
+  ]
+}

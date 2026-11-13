@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>增长是「卖得多」还是「卖得贵」？</title>
+<style>
+    :root {
+      --ink: #18211D; --ink-2: #2C3A33; --muted: #5F6B64; --faint: #8A948D;
+      --paper: #FBFAF7; --card: #FFFFFF; --canvas: #F2F0E9;
+      --line: #E4E0D6; --line-strong: #CFC9BC;
+      --accent: #1F5C4A; --accent-2: #A8894F; --accent-soft: #EDF2EE;
+      --critical: #A8322A; --critical-soft: #FBEDEB;
+      --watch: #9A6A12; --watch-soft: #FBF3E4;
+      --healthy: #146B52; --healthy-soft: #EAF4EF;
+      --series-context: #8A948D; --series-reference: #B9B3A5;
+      /* 兼容 38 型扩展图沿用的旧令牌 */
+      --theme-base: #FBFAF7; --theme-primary: #18211D; --theme-accent: #1F5C4A;
+      --surface: #F4F2EB; --surface-strong: #EBE8DF;
+      --page-columns: 12; --page-gap: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: "PingFang SC", "Microsoft YaHei", "Microsoft YaHei UI", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15.2px; font-weight: 400; line-height: 1.8;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+      font-variant-numeric: tabular-nums;
+    }
+    a { color: inherit; }
+    strong, b { font-weight: 600; }
+
+    /* ---------- 封面 ---------- */
+    .cover {
+      position: relative; overflow: hidden; color: #fff;
+      background: linear-gradient(135deg, #101D18 0%, #1F5C4A 62%, #6B5730 138%);
+      padding: 58px 0 46px;
+    }
+    .cover::after {
+      content: ""; position: absolute; right: -120px; top: -140px;
+      width: 420px; height: 420px; border-radius: 50%;
+      background: rgba(200, 168, 106, .14);
+    }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 30px; }
+    .cover .wrap { position: relative; z-index: 1; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 5px 14px; border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px; background: rgba(255,255,255,.10);
+      font-size: 12.2px; letter-spacing: .08em; color: rgba(255,255,255,.94);
+    }
+    .glyph { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+    .glyph i { width: 2.5px; background: #D8C08A; display: block; }
+    .glyph i:nth-child(1) { height: 5px; }
+    .glyph i:nth-child(2) { height: 11px; }
+    .glyph i:nth-child(3) { height: 8px; }
+    h1 {
+      margin: 20px 0 0; font-size: 34px; line-height: 1.3;
+      font-weight: 700; letter-spacing: -.02em; max-width: 900px;
+    }
+    .h1-sub {
+      display: block; margin-top: 10px; font-size: 18.5px;
+      font-weight: 400; letter-spacing: 0; color: rgba(255,255,255,.82);
+    }
+    .deck {
+      margin: 18px 0 0; max-width: 780px; font-size: 15.2px;
+      line-height: 1.75; color: rgba(255,255,255,.93);
+    }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 8px 30px; margin-top: 26px;
+      font-size: 12.2px; color: rgba(255,255,255,.80);
+    }
+    .meta span { position: relative; }
+    .meta span + span::before {
+      content: ""; position: absolute; left: -16px; top: 7px;
+      width: 4px; height: 4px; border-radius: 50%; background: rgba(216,192,138,.75);
+    }
+
+    /* ---------- 正文 ---------- */
+    main.wrap { padding-bottom: 84px; }
+    .body-top { padding-top: 42px; }
+
+    h2.sec {
+      display: flex; align-items: baseline; gap: 12px;
+      margin: 56px 0 10px; padding-left: 16px;
+      border-left: 5px solid var(--accent-2);
+      font-size: 22px; line-height: 1.42; font-weight: 700;
+      letter-spacing: -.01em; color: var(--accent);
+    }
+    h2.sec .num {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px; font-weight: 400; color: var(--accent-2);
+      letter-spacing: .02em; min-width: 26px;
+    }
+    h3 { margin: 26px 0 8px; font-size: 16px; color: var(--ink-2); }
+    p { margin: 11px 0; color: var(--ink-2); }
+    .sec-lede { font-size: 15.8px; color: var(--ink); }
+
+    .q {
+      margin: 12px 0 20px; padding: 10px 16px;
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; font-size: 13.6px; color: #2C4A40;
+    }
+    .q b { color: var(--accent); }
+
+    /* ---------- 指标 ---------- */
+    .kpis {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+      gap: 14px; margin: 22px 0 6px;
+    }
+    .kpi {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: 18px 18px 16px;
+      box-shadow: 0 2px 10px rgba(31,92,74,.05);
+    }
+    .kpi .k { font-size: 12.2px; color: var(--muted); margin-bottom: 8px; }
+    .kpi .v {
+      font-size: 27px; font-weight: 700; line-height: 1.12;
+      color: var(--accent); letter-spacing: -.02em;
+    }
+    .kpi .v small { font-size: 13px; font-weight: 600; margin-left: 2px; }
+    .kpi .d { font-size: 11.8px; color: var(--faint); margin-top: 8px; line-height: 1.55; }
+    .kpi.critical .v { color: var(--critical); }
+    .kpi.watch .v { color: var(--watch); }
+    .kpi.healthy .v { color: var(--healthy); }
+
+    /* ---------- 结论卡 ---------- */
+    .insight {
+      background: var(--card); border: 1px solid var(--line);
+      border-left: 5px solid var(--accent); border-radius: 12px;
+      padding: 17px 21px; margin: 14px 0;
+    }
+    .insight.lead { padding: 20px 23px; }
+    .insight .t { font-size: 14.4px; font-weight: 700; color: var(--accent); margin-bottom: 5px; }
+    .insight p { margin: 4px 0; font-size: 14.4px; }
+    .insight.lead p { font-size: 15.2px; }
+    mark { background: #F6E3A8; color: #3A2C08; padding: 0 3px; border-radius: 3px; }
+
+    /* ---------- 目录 ---------- */
+    .toc {
+      margin: 30px 0 0; padding: 13px 0;
+      border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong);
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 5px 26px; font-size: 12.8px;
+    }
+    .toc a { color: var(--ink-2); text-decoration: none; border: 0; }
+    .toc a:hover { color: var(--accent); }
+    .toc .n { color: var(--accent-2); margin-right: 7px; font-family: Georgia, serif; }
+
+    /* ---------- 图表 ---------- */
+    .fig-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; margin: 22px 0 6px; overflow: hidden;
+      box-shadow: 0 2px 10px rgba(31,92,74,.045);
+    }
+    .fig-head {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
+      padding: 11px 18px; background: var(--surface);
+      border-bottom: 1px solid var(--line); font-size: 12.6px; font-weight: 600;
+    }
+    .fig-unit { color: var(--muted); font-weight: 400; font-size: 11.8px; white-space: nowrap; }
+    .fig-body { padding: 16px 16px 8px; overflow-x: auto; }
+    .fig-body svg { display: block; width: 100%; height: auto; min-width: 660px; }
+    .fig-src {
+      padding: 8px 18px 12px; font-size: 11.6px; color: var(--faint);
+      border-top: 1px dashed var(--line);
+    }
+
+    .reading { margin: 14px 0 4px; }
+    .reading h3 {
+      margin: 0 0 8px; font-size: 12.6px; font-weight: 700;
+      color: var(--accent-2); letter-spacing: .10em;
+    }
+    .reading ol { margin: 0; padding: 0; list-style: none; counter-reset: rd; }
+    .reading li {
+      position: relative; padding-left: 30px; margin: 8px 0;
+      font-size: 14.2px; line-height: 1.72; color: var(--ink-2);
+    }
+    .reading li::before {
+      counter-increment: rd; content: counter(rd);
+      position: absolute; left: 0; top: 3px; width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: var(--accent-soft);
+      color: var(--accent); font-size: 11.4px; font-weight: 700;
+    }
+    .reading li strong { color: var(--ink); }
+
+    /* ---------- 表 ---------- */
+    .table-wrap { overflow-x: auto; margin: 14px 0 2px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.2px; }
+    th {
+      background: #EFF2EE; color: var(--accent); font-weight: 600;
+      padding: 10px 10px; text-align: right; font-size: 12.2px;
+      border-bottom: 2px solid #D7DED6; white-space: nowrap;
+    }
+    th:first-child { text-align: left; }
+    td {
+      padding: 9px 10px; text-align: right; color: var(--ink-2);
+      border-bottom: 1px solid #F0EEE7; vertical-align: top;
+    }
+    td:first-child { text-align: left; font-weight: 600; color: #173C32; white-space: nowrap; }
+    tbody tr:hover td { background: #FAFBF8; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.lines { text-align: left; }
+    .tcap { margin: 6px 0 22px; font-size: 11.8px; color: var(--faint); }
+
+    /* ---------- 边界 ---------- */
+    .boundary {
+      margin: 18px 0; padding: 12px 16px;
+      background: #F7F5EF; border: 1px dashed var(--line-strong);
+      border-radius: 10px; font-size: 12.8px; color: #5D665F;
+    }
+    .boundary b { color: #3B4A42; }
+
+    /* ---------- 口径 ---------- */
+    .notes { margin-top: 58px; }
+    .notes-title {
+      margin: 0 0 10px; padding-left: 16px;
+      border-left: 5px solid var(--accent-2);
+      font-size: 19px; color: var(--accent); letter-spacing: -.01em;
+    }
+    details {
+      border: 1px solid var(--line); border-radius: 12px;
+      background: var(--card); margin: 14px 0 0; overflow: hidden;
+    }
+    summary {
+      cursor: pointer; padding: 13px 20px; font-weight: 600;
+      color: var(--accent); font-size: 14px; list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: "▸ "; color: var(--accent-2); }
+    details[open] > summary::before { content: "▾ "; }
+    .appendix .inner { padding: 2px 18px 12px; }
+    .notes-copy { padding: 0 20px 16px; }
+    .notes-copy p { margin: 6px 0; font-size: 13px; color: var(--muted); }
+    .notes-copy strong { color: var(--ink-2); }
+
+    footer {
+      margin-top: 54px; padding-top: 20px; border-top: 1px solid var(--line-strong);
+      display: flex; flex-wrap: wrap; gap: 8px 26px;
+      font-size: 12.2px; color: var(--faint);
+    }
+
+    /* ================= 主题二：paper（白纸研究风，对齐水果系报告） ================= */
+    body[data-theme="paper"] {
+      --ink: #0F172A; --ink-2: #334155; --muted: #475569; --faint: #64748B;
+      --paper: #FFFFFF; --canvas: #F8FAFC; --card: #FFFFFF;
+      --line: #E2E8F0; --line-strong: #94A3B8;
+      --accent: #B45309; --accent-2: #1F2937; --accent-soft: #FFFBEB;
+      --critical: #B91C1C; --healthy: #15803D; --watch: #B45309;
+      --surface: #F1F5F9; --surface-strong: #E2E8F0;
+      --series-context: #94A3B8; --series-reference: #64748B;
+      --theme-primary: #1F2937; --theme-accent: #B45309; --theme-base: #FFFFFF;
+      background: #E9EDF2;
+    }
+    body[data-theme="paper"] .page {
+      max-width: 1080px; margin: 28px auto 48px; background: #fff;
+      border: 1px solid #DCE3EA; border-radius: 2px;
+      box-shadow: 0 6px 30px rgba(15,23,42,.09); overflow: hidden;
+    }
+    body[data-theme="paper"] .cover {
+      background: var(--paper); color: var(--ink);
+      border-bottom: 2px solid var(--ink); padding: 42px 56px 24px;
+    }
+    body[data-theme="paper"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="paper"] main.wrap { padding: 0 56px 56px; max-width: none; }
+    body[data-theme="paper"] .cover::after { display: none; }
+    body[data-theme="paper"] .kicker {
+      background: var(--surface); border: 1px solid var(--line); color: var(--muted);
+    }
+    body[data-theme="paper"] .kicker .glyph i { background: var(--accent); }
+    body[data-theme="paper"] h1 { font-size: 27px; letter-spacing: -.01em; }
+    body[data-theme="paper"] .h1-sub { color: var(--muted); font-size: 16px; }
+    body[data-theme="paper"] .deck { color: var(--muted); font-size: 15px; }
+    body[data-theme="paper"] .meta { color: var(--muted); }
+    body[data-theme="paper"] .meta span + span::before { background: var(--line-strong); }
+    body[data-theme="paper"] .body-top { padding-top: 26px; }
+    body[data-theme="paper"] .wrap { max-width: 1120px; }
+    body[data-theme="paper"] h2.sec {
+      margin: 40px 0 10px; padding: 22px 0 0; border-left: 0;
+      border-top: 1px solid var(--line); font-size: 19px; color: var(--ink);
+    }
+    body[data-theme="paper"] h2.sec .num { color: var(--accent); font-size: 15px; }
+    body[data-theme="paper"] .q {
+      background: var(--surface); border-left: 3px solid var(--line-strong);
+      color: var(--muted); border-radius: 0;
+    }
+    body[data-theme="paper"] .kpis {
+      gap: 20px 0; border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong); padding: 18px 0; margin: 24px 0 4px;
+    }
+    body[data-theme="paper"] .kpi {
+      background: transparent; border: 0; border-left: 2px solid var(--line);
+      border-radius: 0; box-shadow: none; padding: 0 12px 0 14px;
+    }
+    body[data-theme="paper"] .kpi .v { color: var(--ink); font-size: 25px; }
+    body[data-theme="paper"] .kpi.critical .v { color: var(--critical); }
+    body[data-theme="paper"] .kpi.watch .v { color: var(--watch); }
+    body[data-theme="paper"] .kpi.healthy .v { color: var(--healthy); }
+    body[data-theme="paper"] .insight {
+      background: var(--surface); border: 1px solid var(--line);
+      border-left: 4px solid var(--ink); border-radius: 2px;
+      box-shadow: none; padding: 16px 20px;
+    }
+    body[data-theme="paper"] .insight .t { color: var(--ink); }
+    body[data-theme="paper"] .fig-card { border-radius: 3px; box-shadow: none; }
+    body[data-theme="paper"] .fig-head { background: var(--surface); }
+    body[data-theme="paper"] .reading h3 { color: var(--muted); }
+    body[data-theme="paper"] .reading li::before {
+      background: var(--surface); color: var(--accent);
+    }
+    body[data-theme="paper"] .boundary {
+      background: #FFFBEB; border: 1px dashed #E2C08A; border-radius: 2px;
+    }
+    body[data-theme="paper"] th { background: var(--surface-strong); color: var(--ink); }
+    body[data-theme="paper"] .notes-title { color: var(--ink); border-left-color: var(--accent); }
+    body[data-theme="paper"] details { border-radius: 3px; }
+    body[data-theme="paper"] summary { color: var(--ink); }
+
+    /* ================= 主题三：mono（麦肯锡式黑白，纯排版） ================= */
+    body[data-theme="mono"] {
+      --ink: #111111; --ink-2: #1F1F1F; --muted: #555555; --faint: #777777;
+      --paper: #FFFFFF; --canvas: #EDEDED; --card: #FFFFFF;
+      --line: #DADADA; --line-strong: #111111;
+      --accent: #111111; --accent-2: #111111; --accent-soft: #F2F2F2;
+      --critical: #111111; --healthy: #555555; --watch: #333333;
+      --surface: #F4F4F4; --surface-strong: #E8E8E8;
+      --series-context: #9A9A9A; --series-reference: #C9C9C9;
+      --theme-primary: #111111; --theme-accent: #111111; --theme-base: #FFFFFF;
+      background: #EDEDED;
+    }
+    body[data-theme="mono"] .page {
+      max-width: 1040px; margin: 26px auto 44px; background: #fff;
+      border: 0; border-radius: 0; box-shadow: none;
+    }
+    body[data-theme="mono"] .cover {
+      background: #fff; color: #111; border-bottom: 3px solid #111;
+      padding: 44px 52px 22px;
+    }
+    body[data-theme="mono"] .cover::after { display: none; }
+    body[data-theme="mono"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="mono"] main.wrap { padding: 0 52px 56px; max-width: none; }
+    body[data-theme="mono"] .kicker {
+      background: #fff; border: 1px solid #111; color: #111;
+      border-radius: 0; letter-spacing: .12em; font-weight: 600;
+    }
+    body[data-theme="mono"] .kicker .glyph i { background: #111; }
+    body[data-theme="mono"] h1 { font-size: 31px; letter-spacing: -.015em; }
+    body[data-theme="mono"] .h1-sub { color: #333; font-size: 17px; }
+    body[data-theme="mono"] .deck { color: #333; }
+    body[data-theme="mono"] .meta { color: #555; }
+    body[data-theme="mono"] .meta span + span::before { background: #111; }
+    body[data-theme="mono"] h2.sec {
+      border-left: 0; border-top: 2px solid #111; padding: 20px 0 0;
+      margin-top: 42px; color: #111; font-size: 20px;
+    }
+    body[data-theme="mono"] h2.sec .num {
+      color: #111; font-family: inherit; font-size: 14px; font-weight: 700;
+    }
+    body[data-theme="mono"] .q {
+      background: #fff; border-left: 0; border-bottom: 1px solid #DDD;
+      border-radius: 0; padding: 4px 0 10px; color: #555;
+    }
+    body[data-theme="mono"] .kpis {
+      gap: 0; border-top: 2px solid #111; border-bottom: 1px solid #111; padding: 16px 0;
+    }
+    body[data-theme="mono"] .kpi {
+      background: #fff; border: 0; border-left: 1px solid #DADADA;
+      border-radius: 0; box-shadow: none; padding: 0 14px;
+    }
+    body[data-theme="mono"] .kpi:first-child { border-left: 0; padding-left: 0; }
+    body[data-theme="mono"] .kpi .v { color: #111; font-size: 30px; }
+    body[data-theme="mono"] .kpi.critical .v,
+    body[data-theme="mono"] .kpi.watch .v,
+    body[data-theme="mono"] .kpi.healthy .v { color: #111; }
+    body[data-theme="mono"] .insight {
+      background: #fff; border: 0; border-top: 2px solid #111;
+      border-radius: 0; box-shadow: none; padding: 14px 0 2px;
+    }
+    body[data-theme="mono"] .insight .t {
+      color: #111; font-size: 12.5px; letter-spacing: .10em;
+    }
+    body[data-theme="mono"] .fig-card {
+      border: 0; border-top: 2px solid #111; border-radius: 0; box-shadow: none;
+    }
+    body[data-theme="mono"] .fig-head { background: #fff; border-bottom: 1px solid #DDD; }
+    body[data-theme="mono"] th { background: #fff; color: #111; border-bottom: 2px solid #111; }
+    body[data-theme="mono"] td { border-bottom: 1px solid #E6E6E6; }
+    body[data-theme="mono"] .boundary {
+      background: #F7F7F7; border: 0; border-left: 3px solid #111; border-radius: 0;
+    }
+    body[data-theme="mono"] .notes-title { color: #111; border-left-color: #111; }
+
+    /* ================= 主题四：annual（年报衬线，米纸+酒红+金线） ================= */
+    body[data-theme="annual"] {
+      --ink: #2B2118; --ink-2: #463726; --muted: #6B5A3E; --faint: #8C7A5C;
+      --paper: #FCFAF4; --canvas: #EFE9DC; --card: #FCFAF4;
+      --line: #E3D9C4; --line-strong: #B9A57E;
+      --accent: #7A2E2E; --accent-2: #A8894F; --accent-soft: #F6F1E5;
+      --critical: #8C2F2F; --healthy: #3F6B4A; --watch: #A8894F;
+      --surface: #F6F1E5; --surface-strong: #EFE7D6;
+      --series-context: #B9A57E; --series-reference: #DCCFB6;
+      --theme-primary: #2B2118; --theme-accent: #7A2E2E; --theme-base: #FCFAF4;
+      background: #EFE9DC;
+    }
+    body[data-theme="annual"] .page {
+      max-width: 1040px; margin: 26px auto 44px; background: #FCFAF4;
+      border: 1px solid #E3D9C4; border-radius: 0;
+      box-shadow: 0 6px 28px rgba(60,40,20,.12);
+    }
+    body[data-theme="annual"] .cover {
+      background: #FCFAF4; color: #2B2118;
+      border-bottom: 3px double #A8894F; padding: 44px 54px 24px;
+    }
+    body[data-theme="annual"] .cover::after { display: none; }
+    body[data-theme="annual"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="annual"] main.wrap { padding: 0 54px 56px; max-width: none; }
+    body[data-theme="annual"] h1,
+    body[data-theme="annual"] h2.sec,
+    body[data-theme="annual"] .h1-sub {
+      font-family: Georgia, "Songti SC", "SimSun", "Times New Roman", serif;
+    }
+    body[data-theme="annual"] h1 { font-size: 32px; }
+    body[data-theme="annual"] .h1-sub { color: #6B5A3E; font-size: 17px; }
+    body[data-theme="annual"] .kicker {
+      background: transparent; border: 1px solid #B9A57E; color: #6B5A3E;
+      border-radius: 0; letter-spacing: .14em;
+    }
+    body[data-theme="annual"] .kicker .glyph i { background: #7A2E2E; }
+    body[data-theme="annual"] .deck { color: #4A3B2A; }
+    body[data-theme="annual"] .meta { color: #6B5A3E; }
+    body[data-theme="annual"] .meta span + span::before { background: #A8894F; }
+    body[data-theme="annual"] h2.sec {
+      border-left: 0; border-bottom: 1px solid #DCCFB6; padding: 0 0 8px;
+      margin-top: 44px; color: #3A2C1E; font-size: 21px;
+    }
+    body[data-theme="annual"] h2.sec .num { color: #A8894F; }
+    body[data-theme="annual"] .q {
+      background: #F6F1E5; border-left: 3px solid #A8894F; color: #5A4630;
+      border-radius: 0;
+    }
+    body[data-theme="annual"] .kpis {
+      gap: 0; border-top: 2px solid #A8894F; border-bottom: 1px solid #DCCFB6; padding: 16px 0;
+    }
+    body[data-theme="annual"] .kpi {
+      background: transparent; border: 0; border-left: 1px solid #E3D9C4;
+      border-radius: 0; box-shadow: none; padding: 0 14px;
+    }
+    body[data-theme="annual"] .kpi:first-child { border-left: 0; padding-left: 0; }
+    body[data-theme="annual"] .kpi .v {
+      font-family: Georgia, serif; color: #7A2E2E; font-size: 29px;
+    }
+    body[data-theme="annual"] .insight {
+      background: #F6F1E5; border: 1px solid #E3D9C4;
+      border-left: 4px solid #7A2E2E; border-radius: 0; box-shadow: none;
+    }
+    body[data-theme="annual"] .insight .t { color: #7A2E2E; }
+    body[data-theme="annual"] .fig-card {
+      border: 1px solid #E3D9C4; border-radius: 0; box-shadow: none; background: #FCFAF4;
+    }
+    body[data-theme="annual"] .fig-head { background: #F6F1E5; border-bottom: 1px solid #E3D9C4; }
+    body[data-theme="annual"] th { background: #F3EDDF; color: #5A4630; border-bottom: 1.5px solid #A8894F; }
+    body[data-theme="annual"] td { border-bottom: 1px solid #EDE4D2; }
+    body[data-theme="annual"] .boundary { background: #F6F1E5; border: 1px dashed #C9B78F; border-radius: 0; }
+
+    /* ================= 主题五：swiss（瑞士网格，红黑大字号） ================= */
+    body[data-theme="swiss"] {
+      --ink: #000000; --ink-2: #1A1A1A; --muted: #444444; --faint: #6B6B6B;
+      --paper: #FFFFFF; --canvas: #F0F0F0; --card: #FFFFFF;
+      --line: #D8D8D8; --line-strong: #000000;
+      --accent: #E30613; --accent-2: #000000; --accent-soft: #F5F5F5;
+      --critical: #E30613; --healthy: #00693E; --watch: #8A6A00;
+      --surface: #F4F4F4; --surface-strong: #E9E9E9;
+      --series-context: #8A8A8A; --series-reference: #C4C4C4;
+      --theme-primary: #000000; --theme-accent: #E30613; --theme-base: #FFFFFF;
+      background: #F0F0F0;
+    }
+    body[data-theme="swiss"] .page {
+      max-width: 1080px; margin: 24px auto 44px; background: #fff;
+      border: 0; border-radius: 0; box-shadow: 0 4px 24px rgba(0,0,0,.10);
+    }
+    body[data-theme="swiss"] .cover {
+      background: #fff; color: #000; border-bottom: 8px solid #E30613;
+      padding: 42px 48px 24px;
+    }
+    body[data-theme="swiss"] .cover::after { display: none; }
+    body[data-theme="swiss"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="swiss"] main.wrap { padding: 0 48px 56px; max-width: none; }
+    body[data-theme="swiss"] .kicker {
+      background: #000; border: 0; color: #fff; border-radius: 0;
+      letter-spacing: .18em; font-weight: 700;
+    }
+    body[data-theme="swiss"] .kicker .glyph i { background: #E30613; }
+    body[data-theme="swiss"] h1 {
+      font-size: 38px; line-height: 1.14; letter-spacing: -.03em; font-weight: 800;
+    }
+    body[data-theme="swiss"] .h1-sub { color: #000; font-size: 19px; }
+    body[data-theme="swiss"] .deck { color: #222; }
+    body[data-theme="swiss"] .meta { color: #444; }
+    body[data-theme="swiss"] .meta span + span::before { background: #E30613; }
+    body[data-theme="swiss"] h2.sec {
+      border-left: 0; border-top: 1px solid #000; padding-top: 14px;
+      color: #000; font-size: 21px;
+    }
+    body[data-theme="swiss"] h2.sec .num {
+      color: #E30613; font-family: inherit; font-weight: 800; font-size: 26px;
+    }
+    body[data-theme="swiss"] .q {
+      background: #fff; border-left: 6px solid #E30613; border-radius: 0;
+      color: #333; padding: 6px 14px;
+    }
+    body[data-theme="swiss"] .kpis {
+      gap: 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 14px 0;
+    }
+    body[data-theme="swiss"] .kpi {
+      background: #fff; border: 0; border-left: 1px solid #DDD;
+      border-radius: 0; box-shadow: none; padding: 0 14px;
+    }
+    body[data-theme="swiss"] .kpi:first-child { border-left: 0; padding-left: 0; }
+    body[data-theme="swiss"] .kpi .v { color: #000; font-weight: 800; }
+    body[data-theme="swiss"] .insight {
+      background: #fff; border: 0; border-left: 6px solid #000;
+      border-radius: 0; box-shadow: none; padding: 12px 18px;
+    }
+    body[data-theme="swiss"] .insight .t { color: #E30613; letter-spacing: .08em; }
+    body[data-theme="swiss"] .fig-card {
+      border: 0; border-top: 2px solid #000; border-radius: 0; box-shadow: none;
+    }
+    body[data-theme="swiss"] .fig-head { background: #fff; border-bottom: 1px solid #000; }
+    body[data-theme="swiss"] th { background: #000; color: #fff; border: 0; }
+    body[data-theme="swiss"] td { border-bottom: 1px solid #E2E2E2; }
+    body[data-theme="swiss"] .boundary { background: #fff; border: 1px dashed #000; border-radius: 0; }
+
+    /* ================= 主题六：slate（科技商务，深蓝+亮蓝） ================= */
+    body[data-theme="slate"] {
+      --ink: #0B1220; --ink-2: #1E293B; --muted: #475569; --faint: #64748B;
+      --paper: #FFFFFF; --canvas: #EEF2F8; --card: #FFFFFF;
+      --line: #E2E8F0; --line-strong: #CBD5E1;
+      --accent: #2563EB; --accent-2: #1E40AF; --accent-soft: #EFF6FF;
+      --critical: #DC2626; --healthy: #059669; --watch: #D97706;
+      --surface: #F8FAFC; --surface-strong: #F1F5F9;
+      --series-context: #94A3B8; --series-reference: #CBD5E1;
+      --theme-primary: #0B1220; --theme-accent: #2563EB; --theme-base: #FFFFFF;
+      background: #EEF2F8;
+    }
+    body[data-theme="slate"] .page {
+      max-width: 1080px; margin: 26px auto 46px; background: #fff;
+      border: 1px solid #E2E8F0; border-radius: 14px;
+      box-shadow: 0 12px 34px rgba(15,23,42,.12); overflow: hidden;
+    }
+    body[data-theme="slate"] .cover {
+      background: linear-gradient(135deg, #0B1220 0%, #1E293B 68%, #334155 130%);
+      color: #fff; padding: 52px 52px 34px; border-bottom: 0;
+    }
+    body[data-theme="slate"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="slate"] main.wrap { padding: 0 52px 56px; max-width: none; }
+    body[data-theme="slate"] .kicker {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.92);
+    }
+    body[data-theme="slate"] .kicker .glyph i { background: #60A5FA; }
+    body[data-theme="slate"] .h1-sub { color: rgba(255,255,255,.82); }
+    body[data-theme="slate"] .deck { color: rgba(255,255,255,.90); }
+    body[data-theme="slate"] .meta { color: rgba(255,255,255,.72); }
+    body[data-theme="slate"] .meta span + span::before { background: #60A5FA; }
+    body[data-theme="slate"] h2.sec { color: #0B1220; border-left-color: #2563EB; }
+    body[data-theme="slate"] .q { background: #EFF6FF; border-left-color: #2563EB; color: #1E3A8A; }
+    body[data-theme="slate"] .kpi { border-radius: 14px; box-shadow: 0 4px 16px rgba(15,23,42,.06); }
+    body[data-theme="slate"] .kpi .v { color: #2563EB; }
+    body[data-theme="slate"] .insight { border-left-color: #2563EB; border-radius: 12px; }
+    body[data-theme="slate"] .insight .t { color: #1E40AF; }
+    body[data-theme="slate"] .fig-card { border-radius: 0 0 14px 14px; border-color: #E2E8F0; }
+    body[data-theme="slate"] .fig-head { background: #F8FAFC; }
+
+    /* ================= 主题七：noir（深色高端，炭黑+香槟金） ================= */
+    body[data-theme="noir"] {
+      --ink: #EDEAE3; --ink-2: #CFCAC0; --muted: #9A9488; --faint: #6E6A62;
+      --paper: #121418; --canvas: #0B0C0E; --card: #171A1F;
+      --line: #2A2E35; --line-strong: #3A3F47;
+      --accent: #C9A227; --accent-2: #C9A227; --accent-soft: #1E2126;
+      --critical: #D46A5F; --healthy: #6FBF9A; --watch: #C9A227;
+      --surface: #1A1D22; --surface-strong: #22262C;
+      --series-context: #8C877C; --series-reference: #5E5A52;
+      --theme-primary: #EDEAE3; --theme-accent: #C9A227; --theme-base: #121418;
+      background: #0B0C0E;
+    }
+    body[data-theme="noir"] .page {
+      max-width: 1060px; margin: 26px auto 46px; background: #121418;
+      border: 1px solid #24272D; border-radius: 2px;
+      box-shadow: 0 14px 44px rgba(0,0,0,.55);
+    }
+    body[data-theme="noir"] .cover {
+      background: linear-gradient(160deg, #0B0C0E 0%, #15171B 62%, #1E1A12 130%);
+      border-bottom: 1px solid #C9A227; padding: 50px 52px 32px;
+    }
+    body[data-theme="noir"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="noir"] main.wrap { padding: 0 52px 56px; max-width: none; }
+    body[data-theme="noir"] .kicker {
+      background: rgba(201,162,39,.08); border: 1px solid rgba(201,162,39,.4); color: #E6D8AE;
+    }
+    body[data-theme="noir"] .kicker .glyph i { background: #C9A227; }
+    body[data-theme="noir"] h1 { color: #F4F1EA; }
+    body[data-theme="noir"] .h1-sub { color: #BDB8AD; }
+    body[data-theme="noir"] .deck { color: #BDB8AD; }
+    body[data-theme="noir"] .meta { color: #8F8A80; }
+    body[data-theme="noir"] .meta span + span::before { background: #C9A227; }
+    body[data-theme="noir"] h2.sec { color: #EDEAE3; border-left-color: #C9A227; }
+    body[data-theme="noir"] h2.sec .num { color: #C9A227; }
+    body[data-theme="noir"] .q { background: #1A1D22; border-left-color: #C9A227; color: #CFCAC0; }
+    body[data-theme="noir"] .kpi { background: #171A1F; border-color: #2A2E35; box-shadow: none; }
+    body[data-theme="noir"] .kpi .v { color: #E9C46A; }
+    body[data-theme="noir"] .insight { background: #171A1F; border-color: #2A2E35; border-left-color: #C9A227; }
+    body[data-theme="noir"] .insight .t { color: #C9A227; }
+    body[data-theme="noir"] .fig-card { background: #171A1F; border-color: #2A2E35; }
+    body[data-theme="noir"] .fig-head { background: #1A1D22; border-color: #2A2E35; }
+    body[data-theme="noir"] th { background: #1E2126; color: #C9A227; border-bottom-color: #3A3F47; }
+    body[data-theme="noir"] td { border-bottom-color: #24272D; }
+    body[data-theme="noir"] .boundary { background: #171A1F; border-color: #3A3F47; color: #BDB8AD; }
+    body[data-theme="noir"] .notes-title { color: #EDEAE3; border-left-color: #C9A227; }
+    body[data-theme="noir"] details { background: #171A1F; border-color: #2A2E35; }
+    body[data-theme="noir"] .notes-copy p { color: #9A9488; }
+
+    @media (max-width: 860px) {
+      .wrap { padding: 0 20px; }
+      .cover { padding: 40px 0 34px; }
+      h1 { font-size: 26px; }
+      .h1-sub { font-size: 16px; }
+      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .toc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      h2.sec { font-size: 19px; margin-top: 44px; }
+    }
+    @media (max-width: 560px) {
+      .kpis { grid-template-columns: 1fr; }
+      .toc { grid-template-columns: 1fr; }
+      .fig-body svg { min-width: 560px; }
+    }
+    /* ================= 默认主题：sticker（墨绿封面 + 粗黑描边 + 贴纸卡片） ================= */
+    body[data-theme="sticker"] {
+      --ink: #14231C; --ink-2: #24352C; --muted: #5B6B62; --faint: #7C8B81;
+      --paper: #FFFFFF; --canvas: #F6F9F4; --card: #FFFFFF;
+      --line: #DCE5DD; --line-strong: #14231C;
+      --accent: #2F6F4F; --accent-2: #C99A1A; --accent-soft: #EEF6F0;
+      --critical: #B02A20; --critical-soft: #FDEDEA;
+      --watch: #9A6A12; --watch-soft: #FDF3DE;
+      --healthy: #1E7A57; --healthy-soft: #E8F5EE;
+      --series-context: #8A948D; --series-reference: #C4BBAA;
+      --theme-base: #FFFFFF; --theme-primary: #14231C; --theme-accent: #2F6F4F;
+      --surface: #F1F7F2; --surface-strong: #E6F0E8;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(47,111,79,.045) 1.2px, transparent 1.3px) 0 0/28px 28px,
+        var(--paper);
+    }
+    body[data-theme="sticker"] .cover {
+      background: linear-gradient(135deg, #0E2F22 0%, #2F6F4F 100%);
+      margin: 28px auto 0; max-width: 1040px; border-radius: 26px;
+      box-shadow: 8px 10px 0 rgba(20,35,28,.12);
+      padding: 46px 0 40px; border-bottom: 7px solid #FFD43B;
+    }
+    body[data-theme="sticker"] .cover .wrap { padding: 0 44px; }
+    body[data-theme="sticker"] h1 { font-size: clamp(34px, 4.6vw, 54px); line-height: 1.12; font-weight: 900; letter-spacing: -.03em; }
+    body[data-theme="sticker"] h1 .hl { font-style: normal; background: #FFD43B; color: #14231C; padding: 0 .07em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    body[data-theme="sticker"] .h1-sub { font-size: 19px; margin-top: 12px; color: rgba(255,255,255,.88); }
+    body[data-theme="sticker"] .deck { font-size: 16.5px; line-height: 1.78; max-width: 720px; }
+    body[data-theme="sticker"] .meta { gap: 8px; margin-top: 24px; }
+    body[data-theme="sticker"] .meta span {
+      border: 1px solid rgba(255,255,255,.38); border-radius: 999px;
+      padding: 5px 12px; font-size: 12px; color: rgba(255,255,255,.92);
+    }
+    body[data-theme="sticker"] .meta span + span::before { display: none; }
+    body[data-theme="sticker"] main.wrap { max-width: 1040px; padding: 0 0 96px; margin: 0 auto; }
+    @media (max-width: 1120px) {
+      body[data-theme="sticker"] .cover { margin: 18px 18px 0; max-width: none; }
+      body[data-theme="sticker"] main.wrap { padding: 0 24px 80px; max-width: none; }
+    }
+    @media (max-width: 720px) {
+      body[data-theme="sticker"] .cover { margin: 12px 12px 0; border-radius: 18px; padding: 30px 0 28px; }
+      body[data-theme="sticker"] .cover .wrap { padding: 0 22px; }
+      body[data-theme="sticker"] main.wrap { padding: 0 16px 70px; }
+    }
+    body[data-theme="sticker"] .cover::after { background: rgba(255,255,255,.08); }
+    body[data-theme="sticker"] .kicker { border-color: rgba(255,255,255,.42); background: rgba(255,255,255,.12); }
+    body[data-theme="sticker"] .glyph i { background: #FFD43B; }
+    body[data-theme="sticker"] h1 { font-weight: 800; letter-spacing: -.025em; }
+    body[data-theme="sticker"] .h1-sub { font-weight: 500; }
+    body[data-theme="sticker"] h2.sec {
+      border-left: 0; padding-left: 0; align-items: center; color: #14231C; font-weight: 800;
+    }
+    body[data-theme="sticker"] h2.sec .num {
+      font-family: inherit; font-size: 12px; font-weight: 800; color: #fff;
+      background: #14231C; border-radius: 7px; padding: 3px 8px; min-width: 0;
+    }
+    body[data-theme="sticker"] .q {
+      border: 1.5px solid #14231C; border-left: 6px solid var(--accent);
+      border-radius: 12px; background: var(--accent-soft); color: #24352C;
+      box-shadow: 2px 2px 0 rgba(20,35,28,.08);
+    }
+    body[data-theme="sticker"] .kpis { gap: 16px; }
+    body[data-theme="sticker"] .kpi {
+      border: 2px solid #14231C; border-radius: 16px;
+      box-shadow: 4px 5px 0 rgba(20,35,28,.10);
+    }
+    body[data-theme="sticker"] .insight {
+      border: 2px solid #14231C; border-left: 6px solid var(--accent);
+      border-radius: 14px; box-shadow: 3px 4px 0 rgba(20,35,28,.08);
+    }
+    body[data-theme="sticker"] .fig-card {
+      border: 2px solid #14231C; border-radius: 16px;
+      box-shadow: 4px 5px 0 rgba(20,35,28,.10);
+    }
+    body[data-theme="sticker"] .fig-head { background: var(--surface); border-bottom: 2px solid #14231C; }
+    body[data-theme="sticker"] .table-wrap {
+      border: 2px solid #14231C; border-radius: 14px; background: #fff;
+      box-shadow: 3px 4px 0 rgba(20,35,28,.08);
+    }
+    body[data-theme="sticker"] table { margin: 0; }
+    body[data-theme="sticker"] th { background: var(--surface-strong); color: #14231C; border-bottom: 2px solid #14231C; }
+    body[data-theme="sticker"] td { border-bottom: 1px solid #E4EBE5; }
+    body[data-theme="sticker"] td:first-child { color: #14231C; }
+    body[data-theme="sticker"] .boundary {
+      background: #FFFBEB; border: 1.5px dashed #C99A1A; border-radius: 12px; color: #5B4A1F;
+    }
+    body[data-theme="sticker"] .boundary b { color: #3E3212; }
+    body[data-theme="sticker"] .toc {
+      border-top: 2px dashed rgba(20,35,28,.25); border-bottom: 2px dashed rgba(20,35,28,.25);
+    }
+    body[data-theme="sticker"] .notes-title { border-left: 0; padding-left: 0; }
+    body[data-theme="sticker"] details { border: 2px solid #14231C; border-radius: 14px; }
+    body[data-theme="sticker"] summary { color: #14231C; }
+    body[data-theme="sticker"] footer { border-top: 2px dashed rgba(20,35,28,.25); }
+    body[data-theme="sticker"] mark { background: #FFD43B; }
+
+    @media print {
+      @page { size: A4; margin: 16mm 15mm; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      html, body { background: #fff; }
+      body[data-theme="editorial"] .cover { background: linear-gradient(135deg, #101D18 0%, #1F5C4A 62%, #6B5730 138%) !important; }
+      .cover { break-after: page; }
+      .page { margin: 0 !important; max-width: none !important; border: 0 !important; box-shadow: none !important; }
+      body[data-theme="paper"] { background: #fff !important; }
+      body[data-theme="sticker"] { background: #fff !important; }
+      body[data-theme="sticker"] .cover {
+        background: linear-gradient(135deg, #0E2F22 0%, #2F6F4F 100%) !important;
+        margin: 0 !important; max-width: none !important; border-radius: 0 !important; box-shadow: none !important;
+        border-bottom: 7px solid #FFD43B !important;
+        min-height: 250mm; display: flex; align-items: center;
+      }
+      body[data-theme="sticker"] .cover .wrap { width: 100%; }
+      body[data-theme="sticker"] .cover::before { display: none; }
+      body[data-theme="sticker"] main.wrap { padding: 0 0 40px !important; max-width: none !important; }
+      .fig-card, .kpi, .insight { break-inside: avoid; box-shadow: none; }
+      h2.sec { break-after: avoid; }
+      a { text-decoration: none; }
+    }
+</style></head>
+<body data-theme="sticker"><div class="page">
+<header class="cover"><div class="wrap">
+<div class="kicker"><span class="glyph"><i></i><i></i><i></i></span>命题 2 · 增长拆解（R06 数据分析能力演练）</div>
+<h1>增长是「卖得多」<em class="hl">还是「卖得贵」？</em><span class="h1-sub">洗护发量价拆解与价格弹性</span></h1>
+<p class="deck">695.51 亿元、+7.61%，听起来是增长；拆开看是量 +11.94% 与价 -3.87% 的对冲。这篇回答：钱从哪来，降价换量到底划不划算。</p>
+<div class="meta">
+<span>读者：定价 / 品类运营</span>
+<span>数据：魔镜洗护发年度值（真实）+ 2 万单模拟订单（弹性）</span>
+<span>口径：线上平台成交；量价分解用隐含价</span>
+<span>技能：describe / regression / correlate / elasticity / rootcause / scinlp</span>
+</div>
+</div></header>
+<main class="wrap"><div class="body-top"></div>
+<section id="summary">
+<h2 class="sec"><span class="num">00</span>结论先行</h2>
+<div class="insight lead"><div class="t">结论</div><p>洗护发的增长是「以价换量」：2025 年 695.51 亿元里，量贡献 +77.2 亿元、价拿走 -25.0 亿元，净增 49.2 亿元。</p></div>
+<div class="insight"><div class="t">弹性</div><p>模拟周度数据估出弹性 -1.344（R² 0.5692）：降价 1% 换 1.34% 的量；若毛利率 50%，这个交换在毛利上是亏的。</p></div>
+<div class="insight"><div class="t">结构</div><p>前 4 个品类贡献 80% GMV，洗护发占 36.83%；预算优先级应按这个顺序排。</p></div>
+</section>
+<div class="kpis" style="grid-template-columns:repeat(5,minmax(0,1fr))">
+<div class="kpi"><div class="k">2025 线上洗护发</div><div class="v">695.51 亿</div><div class="d">真实数据，+7.61%</div></div>
+<div class="kpi healthy"><div class="k">量贡献</div><div class="v">+11.94%</div><div class="d">交易量增速（真实）</div></div>
+<div class="kpi critical"><div class="k">价贡献</div><div class="v">-3.87%</div><div class="d">隐含均价变动</div></div>
+<div class="kpi watch"><div class="k">价格弹性</div><div class="v">-1.344</div><div class="d">R² 0.5692，n=39（模拟）</div></div>
+<div class="kpi"><div class="k">前 4 品类 GMV 占比</div><div class="v">80%</div><div class="d">帕累托阈值</div></div>
+</div>
+<nav class="toc" aria-label="目录">
+<a href="#s-1"><span class="n">1</span>量价：+7.61% 里，量给了 +11.94%，价拿走 -3.87%</a>
+<a href="#s-2"><span class="n">2</span>弹性：价格每降 1%，周销量约涨 1.34%</a>
+<a href="#s-3"><span class="n">3</span>微观证据：单价与件数负相关，但解释力只有 2%</a>
+<a href="#s-4"><span class="n">4</span>结构：80% 的 GMV 由 4 个品类贡献</a>
+<a href="#s-5"><span class="n">5</span>口径与分数</a>
+</nav>
+<section id="s-1">
+<h2 class="sec"><span class="num">1</span>量价：+7.61% 里，量给了 +11.94%，价拿走 -3.87%</h2>
+<p class="q"><b>本节问题</b>　线上洗护发的增长，多少来自卖得更多、多少来自卖得更贵？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>线上洗护发 2025 年增量拆解（亿元）</span>
+<span class="fig-unit">亿元；量贡献 = 上年额 × 量增速，价贡献 = 上年额 × 隐含价变动，交叉项 = 上年额 × 量 × 价</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 380" role="img" aria-label="线上洗护发 2025 年增量拆解（亿元）">
+          <line x1="74" y1="60.0" x2="930" y2="60.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="64.0" fill="var(--muted)" font-size="11.5" text-anchor="end">735</text>
+          <line x1="74" y1="124.0" x2="930" y2="124.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="128.0" fill="var(--muted)" font-size="11.5" text-anchor="end">710</text>
+          <line x1="74" y1="188.0" x2="930" y2="188.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="192.0" fill="var(--muted)" font-size="11.5" text-anchor="end">685</text>
+          <line x1="74" y1="252.0" x2="930" y2="252.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="256.0" fill="var(--muted)" font-size="11.5" text-anchor="end">660</text>
+          <line x1="74" y1="316.0" x2="930" y2="316.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="320.0" fill="var(--muted)" font-size="11.5" text-anchor="end">635</text>
+          <rect x="115.1" y="286.5" width="89.0" height="29.5" fill="var(--series-context)"/>
+          <text x="159.6" y="276" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">646</text>
+          <text x="159.6" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">2024</text>
+          <rect x="286.3" y="89.5" width="89.0" height="196.9" fill="var(--healthy)"/>
+          <text x="330.8" y="80" fill="var(--healthy)" font-size="12.5" font-weight="700" text-anchor="middle">+77</text>
+          <line x1="204.1" y1="286.5" x2="286.3" y2="286.5" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="330.8" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">量 +11.94%</text>
+          <rect x="457.5" y="89.5" width="89.0" height="63.8" fill="var(--critical)"/>
+          <text x="502.0" y="80" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−25</text>
+          <line x1="375.3" y1="89.5" x2="457.5" y2="89.5" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="502.0" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">价 -3.87%</text>
+          <rect x="628.7" y="153.3" width="89.0" height="7.6" fill="var(--critical)"/>
+          <text x="673.2" y="143" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−3</text>
+          <line x1="546.5" y1="153.3" x2="628.7" y2="153.3" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="673.2" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">交叉项</text>
+          <rect x="799.9" y="160.9" width="89.0" height="155.1" fill="var(--series-context)"/>
+          <text x="844.4" y="151" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">696</text>
+          <line x1="717.7" y1="161.0" x2="799.9" y2="161.0" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="844.4" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">2025</text>
+          </svg>
+</div>
+<div class="fig-src">真实数据：魔镜洞察 2024/2025 洗护发（695.51 亿、+7.61%、量 +11.94%）</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>拆解：</strong>646.32 亿元 → 695.51 亿元，增量 49.19 亿元里，量贡献 +77.17、价贡献 -25.00、交叉 -2.99。</li>
+<li><strong>口径：</strong>披露均价 55.75→53.35 元（-4.30%）与额/量隐含价（-3.87%）差 0.43pp；本节分解用隐含价，与披露值的差异属于加权均价口径，不是算错。</li>
+<li><strong>含义：</strong>洗护发的增长是「以价换量」；同样的 1 元增量，含金量低于口腔护理（P3/P5 用同一套口径）。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　真实数据只有 2024 与 2025 两个年度点；量价分解是两点分解，不是逐月路径。</div>
+</section>
+<section id="s-2">
+<h2 class="sec"><span class="num">2</span>弹性：价格每降 1%，周销量约涨 1.34%</h2>
+<p class="q"><b>本节问题</b>　价格弹性有多大？降价换量在量级上划不划算？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>洗护发：周均价 vs 周销量（39 周）</span>
+<span class="fig-unit">元/件 vs 件；每周一点</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 420" role="img" aria-label="洗护发：周均价 vs 周销量（39 周）">
+          <line x1="80" y1="56.0" x2="910" y2="56.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="60.0" fill="var(--muted)" font-size="11.5" text-anchor="end">519.4</text>
+          <line x1="80" y1="133.0" x2="910" y2="133.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="137.0" fill="var(--muted)" font-size="11.5" text-anchor="end">467.2</text>
+          <line x1="80" y1="210.0" x2="910" y2="210.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="214.0" fill="var(--muted)" font-size="11.5" text-anchor="end">415.0</text>
+          <line x1="80" y1="287.0" x2="910" y2="287.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="291.0" fill="var(--muted)" font-size="11.5" text-anchor="end">362.8</text>
+          <line x1="80" y1="364.0" x2="910" y2="364.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="368.0" fill="var(--muted)" font-size="11.5" text-anchor="end">310.6</text>
+          <line x1="80.0" y1="56" x2="80.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="80.0" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle">46.6</text>
+          <line x1="287.5" y1="56" x2="287.5" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="287.5" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle">49.8</text>
+          <line x1="495.0" y1="56" x2="495.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="495.0" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle">53.0</text>
+          <line x1="702.5" y1="56" x2="702.5" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="702.5" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle">56.2</text>
+          <line x1="910.0" y1="56" x2="910.0" y2="364" stroke="var(--line)" stroke-width="1"/>
+          <text x="910.0" y="382.0" fill="var(--muted)" font-size="11.5" text-anchor="middle">59.3</text>
+          <circle cx="674.4" cy="257.2" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="384.0" cy="114.1" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="777.9" cy="313.3" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="643.8" cy="302.9" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="167.2" cy="201.1" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="813.0" cy="300.0" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="686.1" cy="267.5" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="723.2" cy="319.2" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="264.8" cy="174.6" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="440.0" cy="215.9" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="364.5" cy="179.0" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="818.9" cy="342.8" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="548.1" cy="241.0" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="739.5" cy="254.3" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="444.5" cy="232.1" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="255.7" cy="77.2" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="492.7" cy="266.1" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="151.6" cy="112.6" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="719.9" cy="336.9" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="621.0" cy="286.7" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="693.2" cy="305.9" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="354.0" cy="235.1" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="852.8" cy="242.5" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="750.5" cy="339.8" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="702.4" cy="313.3" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="274.6" cy="152.5" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="447.8" cy="243.9" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="137.2" cy="239.5" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="228.4" cy="248.4" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="620.3" cy="260.2" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="683.5" cy="320.6" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="795.5" cy="338.3" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="333.9" cy="189.3" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="374.2" cy="236.6" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="475.1" cy="274.9" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="244.7" cy="158.4" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="225.1" cy="223.3" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="488.8" cy="282.3" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <circle cx="316.3" cy="298.5" r="4.2" fill="var(--theme-accent)" opacity="0.62"/>
+          <line x1="80.0" y1="647.3" x2="910.0" y2="835.4" stroke="var(--critical)" stroke-width="1.8" stroke-dasharray="7 4"/>
+          <text x="910" y="46" fill="var(--muted)" font-size="12" text-anchor="end">n=39 · r=-0.743（趋势线为 OLS，非因果）</text>
+          <text x="495.0" y="414" fill="var(--muted)" font-size="11.5" text-anchor="middle">x</text>
+          </svg>
+</div>
+<div class="fig-src">模拟订单按周聚合（2026 年 1—9 月，洗护发 7,892 单）；elasticity log-log OLS</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>弹性：</strong>-1.344（R² 0.5692，n=39）——富有弹性，降价 1% 对应销量约 +1.34%。</li>
+<li><strong>盈亏平衡：</strong>若毛利率 50%，降价 1% 需要销量至少 +2.0% 才能保住毛利；1.34% 不够——单纯降价换量在毛利口径下是亏的。</li>
+<li><strong>口径：</strong>弹性是周度 log-log 近似；周均价波动被促销周放大，不能线性外推到 −10%。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　弹性用模拟周度数据估计；真实弹性需按 SKU/价格带分别估，且要控制促销与流量变化。</div>
+</section>
+<section id="s-3">
+<h2 class="sec"><span class="num">3</span>微观证据：单价与件数负相关，但解释力只有 2%</h2>
+<p class="q"><b>本节问题</b>　订单级的「价格—数量」关系支持上面的弹性吗？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>订单级回归与相关的效应量</span>
+<span class="fig-unit">0—1；R² / |r| / |标准化 beta|</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 278" role="img" aria-label="订单级回归与相关的效应量">
+          <line x1="224.0" y1="45" x2="224.0" y2="222" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="222" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0.15</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">价格→件数 R²</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">斜率 -0.0154，t=-21.2</text>
+          <rect x="224.0" y="49" width="100.5" height="18" fill="var(--series-context)"/>
+          <text x="330.5" y="63" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.022</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">价格→件数 |r|</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">方向：负相关</text>
+          <rect x="224.0" y="112" width="678.0" height="18" fill="var(--healthy)"/>
+          <text x="908.0" y="126" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">0.148</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">折扣→金额 |r|</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">弱相关</text>
+          <rect x="224.0" y="175" width="548.7" height="18" fill="var(--series-reference)"/>
+          <text x="778.7" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.120</text>
+          </svg>
+</div>
+<div class="fig-src">regression（R06 s05）：qty ~ unit_price，n=20,000；correlate：discount vs revenue</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>回归：</strong>斜率 -0.01544（p≈0，t=-21.2），R² 只有 0.022——价格能解释件数差异的 2.2%，其余是品类/促销/用户差异。</li>
+<li><strong>折扣：</strong>折扣与金额相关 r=-0.1201（弱）；高折扣订单金额略低，说明折扣更多用在低价单上，不是「越折越贵」。</li>
+<li><strong>结论：</strong>方向与弹性一致（负相关、显著），但订单级解释力弱；对外只报方向，不报「降价多少就涨多少」。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　OLS 未控制品类、渠道、促销；系数是条件相关，不是因果。</div>
+</section>
+<section id="s-4">
+<h2 class="sec"><span class="num">4</span>结构：80% 的 GMV 由 4 个品类贡献</h2>
+<p class="q"><b>本节问题</b>　增长集中在哪几个品类？谁在拖后腿？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>品类对 GMV 的贡献（份额 %）</span>
+<span class="fig-unit">%；按品类聚合；帕累托前 4 到 80%</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 404" role="img" aria-label="品类对 GMV 的贡献（份额 %）">
+          <line x1="224.0" y1="45" x2="224.0" y2="348" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="348" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">36.83</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">洗护发</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">701,167 元｜累计 36.8%</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--healthy)"/>
+          <text x="908.0" y="63" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">36.83%</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">口腔护理</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">461,457 元｜累计 61.1%</text>
+          <rect x="224.0" y="112" width="446.2" height="18" fill="var(--healthy)"/>
+          <text x="676.2" y="126" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">24.24%</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">身体护理</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">353,982 元｜累计 79.7%</text>
+          <rect x="224.0" y="175" width="342.2" height="18" fill="var(--healthy)"/>
+          <text x="572.2" y="189" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">18.59%</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">婴童护理</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">202,260 元｜累计 90.3%</text>
+          <rect x="224.0" y="238" width="195.5" height="18" fill="var(--series-context)"/>
+          <text x="425.5" y="252" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">10.62%</text>
+          <text x="18" y="309" fill="var(--ink)" font-size="12.5" font-weight="700">女性护理</text>
+          <text x="18" y="327" fill="var(--muted)" font-size="11.5">184,841 元｜累计 100.0%</text>
+          <rect x="224.0" y="301" width="178.8" height="18" fill="var(--series-context)"/>
+          <text x="408.8" y="315" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">9.71%</text>
+          </svg>
+</div>
+<div class="fig-src">rootcause drilldown（R06 s04），orders.csv 20,000 单</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>集中：</strong>洗护发 36.83%、口腔 24.24%、身体 18.59%；前 4 个品类贡献 80%。</li>
+<li><strong>文本：</strong>商品标题词频前三是 500ml、洗发水、牙膏；bigram 里「控油蓬松」「去屑止痒」成对出现，卖点结构清晰。</li>
+<li><strong>用法：</strong>结构决定预算优先级：先守住洗护/口腔两大盘，再谈身体护理的增量。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　品类结构来自模拟订单的品类分布（洗护 40%、口腔 25%），不是真实市场份额。</div>
+</section>
+<details class="appendix" id="s-A1"><summary>附录 A1 · 记录层：39 周价格/销量逐周列出</summary><div class="inner">
+<p class="sec-lede">周度明细见 data/price_qty_weekly.csv；完整技能输出见 results/*.json。</p>
+<p class="tcap">表 1 · 技能调用记录（可逐条复跑）</p>
+<div class="table-wrap"><table>
+<colgroup><col style="width:26%"><col style="width:22%"><col style="width:52%"></colgroup>
+<thead><tr>
+<th>技能 / 动作</th>
+<th>输入</th>
+<th>关键输出</th>
+</tr></thead><tbody>
+<tr>
+<td>describe unit_price</td>
+<td class="lines">
+<span>orders.csv</span><br>
+</td>
+<td class="lines">
+<span>mean 56.9278，median 54.94，skew 0.8886</span><br>
+</td>
+</tr>
+<tr>
+<td>elasticity</td>
+<td class="lines">
+<span>price_qty_weekly.csv</span><br>
+</td>
+<td class="lines">
+<span>elasticity -1.344，R² 0.5692，n 39</span><br>
+</td>
+</tr>
+<tr>
+<td>regression</td>
+<td class="lines">
+<span>orders.csv</span><br>
+</td>
+<td class="lines">
+<span>slope -0.015436，R² 0.022，t -21.2221</span><br>
+</td>
+</tr>
+<tr>
+<td>correlate</td>
+<td class="lines">
+<span>orders.csv</span><br>
+</td>
+<td class="lines">
+<span>r -0.1201（弱）</span><br>
+</td>
+</tr>
+<tr>
+<td>rootcause drilldown</td>
+<td class="lines">
+<span>orders.csv category</span><br>
+</td>
+<td class="lines">
+<span>前 4 品类到 80%</span><br>
+</td>
+</tr>
+<tr>
+<td>scinlp textstats</td>
+<td class="lines">
+<span>sku_titles.csv</span><br>
+</td>
+<td class="lines">
+<span>1440 条标题、5940 词、82 词表</span><br>
+</td>
+</tr>
+</tbody></table></div>
+</div></details>
+<section id="s-5">
+<h2 class="sec"><span class="num">5</span>口径与分数</h2>
+<p class="q"><b>本节问题</b>　这份报告的结论能追回到哪一步？哪些地方是模拟、哪些是真实？</p>
+<div class="reading"><h3>要点</h3><ol>
+<li><strong>怎么读：</strong>量价分解由年度真实值按恒等式拆解（量+价+交叉=增量）；弹性由周度 log-log OLS 估计。</li>
+<li><strong>边界：</strong>模拟周度数据只能证明「方法跑得通」，不能替代真实价格实验。</li>
+</ol></div>
+<p class="tcap">表 2 · 自检与数据边界</p>
+<div class="table-wrap"><table>
+<colgroup><col style="width:22%"><col style="width:14%"><col style="width:64%"></colgroup>
+<thead><tr>
+<th>指标</th>
+<th class="num">值</th>
+<th>说明</th>
+</tr></thead><tbody>
+<tr>
+<td class="lines">
+<span>技能调用</span><br>
+</td>
+<td class="num">8</td>
+<td class="lines">
+<span>P2：describe×2 / regression / correlate / elasticity / rootcause×2 / scinlp</span><br>
+</td>
+</tr>
+<tr>
+<td class="lines">
+<span>真实 / 模拟</span><br>
+</td>
+<td class="num">2 点真实 + 39 周模拟</td>
+<td class="lines">
+<span>量价分解用真实年度值；弹性用模拟周度</span><br>
+</td>
+</tr>
+<tr>
+<td class="lines">
+<span>可复算</span><br>
+</td>
+<td class="num">全部</td>
+<td class="lines">
+<span>周度 CSV 与回归参数都可重跑</span><br>
+</td>
+</tr>
+<tr>
+<td class="lines">
+<span>结论等级</span><br>
+</td>
+<td class="num">结构=可用；弹性=方向</td>
+<td class="lines">
+<span>弹性不能外推到大幅降价</span><br>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="notes" id="notes">
+<h3 class="notes-title">口径、来源与证据边界</h3>
+<details open><summary>口径与模拟标注</summary>
+<div class="notes-copy">
+<p><strong>真实数据：</strong>695.51 亿元、+7.61%、量 +11.94%、均价 55.75→53.35 元，来自魔镜洞察 2025 洗护发数据（个护调研台账 S26–S28）。</p>
+<p><strong>模拟数据：</strong>周度价格/销量、订单级回归、品类结构来自按 seed=42 生成的模拟订单，锚点对齐真实均价与渠道结构。</p>
+<p><strong>盈亏平衡算法：</strong>毛利率 50% 假设：Δ毛利/毛利 ≈ 量增速×(1-毛利率) − 价格降幅；1.34%×0.5 − 1% = −0.33%。</p>
+<p>弹性是两点/周度近似，不能替代价格实验；正式调价前应做 A/B（见 P4）。</p>
+</div></details></section>
+<footer>
+<span>P2 增长拆解 · 数据分析能力演练（R06 蛙得清）</span>
+<span>渲染 core/report_renderer.py · 数据 results/*.json</span>
+<span>生成时间 2026-11-13（Asia/Shanghai）</span>
+</footer>
+</main></div></body></html>

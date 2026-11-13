@@ -1,0 +1,58 @@
+{
+ "proposition": "面板 DID 与横截面 PSM 的交叉验证",
+ "steps": [
+  {
+   "id": "did",
+   "type": "skill",
+   "skill": "did",
+   "args": [
+    "--input",
+    "{AGENTS}/tests/fixtures/analysis_panel.csv",
+    "--y",
+    "gmv",
+    "--treat",
+    "treat",
+    "--post",
+    "post",
+    "--unit",
+    "city_id",
+    "--time",
+    "week",
+    "--event-study"
+   ]
+  },
+  {
+   "id": "a1",
+   "type": "assert",
+   "path": "did.event_study_engine",
+   "equals": "v2"
+  },
+  {
+   "id": "psm",
+   "type": "skill",
+   "skill": "matched",
+   "args": [
+    "--treat",
+    "{AGENTS}/tests/fixtures/analysis_treat.csv",
+    "--control",
+    "{AGENTS}/tests/fixtures/analysis_control.csv",
+    "--col",
+    "gmv_growth",
+    "--covariates",
+    "population,income_index,douyin_penetration,ecommerce_index",
+    "--refute"
+   ]
+  },
+  {
+   "id": "a2",
+   "type": "assert",
+   "path": "psm.matched.att",
+   "equals": null
+  },
+  {
+   "id": "r",
+   "type": "report",
+   "path": "report.md"
+  }
+ ]
+}

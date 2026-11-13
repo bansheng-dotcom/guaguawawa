@@ -1,0 +1,23 @@
+{
+  "regression": {
+    "n": 20000,
+    "x_mean": 56.9278,
+    "y_mean": 1.9189,
+    "slope": -0.015436,
+    "intercept": 2.797714,
+    "pearson_r": -0.1484,
+    "r_squared": 0.022,
+    "r2_grade": "medium",
+    "std_beta": -0.1484,
+    "slope_se": 0.000727,
+    "t": -21.2221,
+    "df": 19998,
+    "p_value_approx": 0.0,
+    "significant": true,
+    "residual_sd": 1.1526,
+    "note": "p 值为正态近似；斜率显著 ≠ 因果，需排除混杂"
+  },
+  "x": "unit_price",
+  "y": "qty",
+  "runtime_ms": 108
+}

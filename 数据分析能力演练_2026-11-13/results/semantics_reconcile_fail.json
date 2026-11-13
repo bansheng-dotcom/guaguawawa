@@ -1,0 +1,20 @@
+{
+  "metric": "化妆品市场规模口径",
+  "a": 4653.0,
+  "b": 11042.45,
+  "diff": -6389.45,
+  "pct_diff": -57.862612,
+  "domain": "marketing",
+  "tolerance_pct": 1.0,
+  "within_tolerance": false,
+  "status": "fail",
+  "possible_root_causes": [
+    "过滤口径不同",
+    "JOIN 类型不同(LEFT 多行/INNER 丢行)",
+    "粒度不同(订单级 vs 行级)",
+    "时区 UTC vs 本地",
+    "指标定义漂移",
+    "刷新滞后"
+  ],
+  "runtime_ms": 0
+}

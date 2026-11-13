@@ -1,0 +1,16 @@
+{
+ "skill": "chi2",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--row",
+  "channel",
+  "--col",
+  "returned"
+ ],
+ "expect": {
+  "chi2.p_exact": {
+   "not_null": true
+  }
+ }
+}

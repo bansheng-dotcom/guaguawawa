@@ -1,0 +1,12 @@
+{
+  "power": {
+    "mode": "proportion",
+    "baseline": 0.032,
+    "n_per_group": 100000,
+    "alpha": 0.05,
+    "target_power": 0.8,
+    "mde_solvable": 0.002242,
+    "note": "每组 100000 个样本在 80% 功效下，最小可检测绝对提升为 0.0022（相对提升 7.0%）；小于该量级的效果 即使真实存在也大概率检不出来。"
+  },
+  "runtime_ms": 2
+}

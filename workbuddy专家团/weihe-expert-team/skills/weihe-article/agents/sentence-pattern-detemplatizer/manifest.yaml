@@ -1,0 +1,26 @@
+# manifest.yaml — 句式去模板化
+name: "sentence-pattern-detemplatizer"
+version: "2.0"
+status: "deprecated"
+description: "兼容入口；句式去模板化能力已迁移到 D:\\知识库\\skills\\内容生产\\ai-tone-director"
+
+io:
+  inputs:
+    - "assembled draft or revised section"
+    - "ai-tone-context-pack.json or ai-tone-audit.json"
+  outputs:
+    - "delegate to ai-tone-director outputs"
+
+execution:
+  temperature: 0.0
+  node_type: "support-skill"
+  parallel: false
+
+prompt_ref: null
+
+dependencies:
+  agents: []
+  scripts: []
+  references:
+    - 'D:\知识库\skills\内容生产\ai-tone-director\SKILL.md'
+    - 'D:\知识库\skills\内容生产\ai-tone-director\workflows\article-director-integration.md'

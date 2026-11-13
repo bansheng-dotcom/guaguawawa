@@ -1,0 +1,9 @@
+{
+  "policy": {
+    "purpose": "约束对外合同签署前的红线审查范围与流程",
+    "scope": "全部对外采购与销售合同（含电子签署）",
+    "owner": "蛙守线 R03",
+    "review_cycle_days": 180,
+    "enforcement": "CRITICAL 条款未消除时拦截签署流程并驳回用印申请"
+  }
+}

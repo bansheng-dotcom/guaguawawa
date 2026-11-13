@@ -1,0 +1,11 @@
+{
+ "skill": "scinlp",
+ "args": [
+  "backend"
+ ],
+ "expect": {
+  "backends.numpy": {
+   "not_null": true
+  }
+ }
+}

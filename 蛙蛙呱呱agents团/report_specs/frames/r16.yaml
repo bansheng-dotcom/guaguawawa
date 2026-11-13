@@ -1,0 +1,50 @@
+role: r16
+domain: 人员与组织
+objects:
+- 编制
+- 人效
+- 薪酬
+- 合规
+value_chain: []
+decisions:
+- 招/缓
+- 调薪
+- 优化
+- 排班
+questions:
+- id: Q1
+  question: 人效在升还是在降？
+  needs:
+  - 人均产出
+  - 人力成本
+  ops: []
+  decision: 要不要加编
+- id: Q2
+  question: 缺口补得回来吗？
+  needs:
+  - 招聘漏斗
+  - 到岗周期
+  ops: []
+  decision: 招还是外包
+- id: Q3
+  question: 薪酬带宽合理吗？
+  needs:
+  - 岗位薪酬
+  - 市场分位
+  ops: []
+  decision: 调不调薪
+- id: Q4
+  question: 有没有合规风险？
+  needs:
+  - 合同
+  - 考勤
+  - 社保
+  ops: []
+  decision: 先补哪一项
+- id: Q5
+  question: 绩效怎么对齐？
+  needs:
+  - 目标
+  - 评分
+  ops: []
+  decision: 考核口径

@@ -1,0 +1,19 @@
+{
+ "skill": "semantics",
+ "args": [
+  "reconcile",
+  "--a",
+  "1.0",
+  "--b",
+  "1.005",
+  "--domain",
+  "marketing",
+  "--label",
+  "对账"
+ ],
+ "expect": {
+  "within_tolerance": {
+   "not_null": true
+  }
+ }
+}

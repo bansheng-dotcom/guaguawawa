@@ -1,0 +1,2328 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>个护品类：增长不在“平均”里</title>
+<style>
+    :root {
+      --ink: #18211D; --ink-2: #2C3A33; --muted: #5F6B64; --faint: #8A948D;
+      --paper: #FBFAF7; --card: #FFFFFF; --canvas: #F2F0E9;
+      --line: #E4E0D6; --line-strong: #CFC9BC;
+      --accent: #1F5C4A; --accent-2: #A8894F; --accent-soft: #EDF2EE;
+      --critical: #A8322A; --critical-soft: #FBEDEB;
+      --watch: #9A6A12; --watch-soft: #FBF3E4;
+      --healthy: #146B52; --healthy-soft: #EAF4EF;
+      --series-context: #8A948D; --series-reference: #B9B3A5;
+      /* 兼容 38 型扩展图沿用的旧令牌 */
+      --theme-base: #FBFAF7; --theme-primary: #18211D; --theme-accent: #1F5C4A;
+      --surface: #F4F2EB; --surface-strong: #EBE8DF;
+      --page-columns: 12; --page-gap: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: "PingFang SC", "Microsoft YaHei", "Microsoft YaHei UI", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15.2px; font-weight: 400; line-height: 1.8;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+      font-variant-numeric: tabular-nums;
+    }
+    a { color: inherit; }
+    strong, b { font-weight: 600; }
+
+    /* ---------- 封面 ---------- */
+    .cover {
+      position: relative; overflow: hidden; color: #fff;
+      background: linear-gradient(135deg, #101D18 0%, #1F5C4A 62%, #6B5730 138%);
+      padding: 58px 0 46px;
+    }
+    .cover::after {
+      content: ""; position: absolute; right: -120px; top: -140px;
+      width: 420px; height: 420px; border-radius: 50%;
+      background: rgba(200, 168, 106, .14);
+    }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 30px; }
+    .cover .wrap { position: relative; z-index: 1; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 5px 14px; border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px; background: rgba(255,255,255,.10);
+      font-size: 12.2px; letter-spacing: .08em; color: rgba(255,255,255,.94);
+    }
+    .glyph { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+    .glyph i { width: 2.5px; background: #D8C08A; display: block; }
+    .glyph i:nth-child(1) { height: 5px; }
+    .glyph i:nth-child(2) { height: 11px; }
+    .glyph i:nth-child(3) { height: 8px; }
+    h1 {
+      margin: 20px 0 0; font-size: 34px; line-height: 1.3;
+      font-weight: 700; letter-spacing: -.02em; max-width: 900px;
+    }
+    .h1-sub {
+      display: block; margin-top: 10px; font-size: 18.5px;
+      font-weight: 400; letter-spacing: 0; color: rgba(255,255,255,.82);
+    }
+    .deck {
+      margin: 18px 0 0; max-width: 780px; font-size: 15.2px;
+      line-height: 1.75; color: rgba(255,255,255,.93);
+    }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 8px 30px; margin-top: 26px;
+      font-size: 12.2px; color: rgba(255,255,255,.80);
+    }
+    .meta span { position: relative; }
+    .meta span + span::before {
+      content: ""; position: absolute; left: -16px; top: 7px;
+      width: 4px; height: 4px; border-radius: 50%; background: rgba(216,192,138,.75);
+    }
+
+    /* ---------- 正文 ---------- */
+    main.wrap { padding-bottom: 84px; }
+    .body-top { padding-top: 42px; }
+
+    h2.sec {
+      display: flex; align-items: baseline; gap: 12px;
+      margin: 56px 0 10px; padding-left: 16px;
+      border-left: 5px solid var(--accent-2);
+      font-size: 22px; line-height: 1.42; font-weight: 700;
+      letter-spacing: -.01em; color: var(--accent);
+    }
+    h2.sec .num {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px; font-weight: 400; color: var(--accent-2);
+      letter-spacing: .02em; min-width: 26px;
+    }
+    h3 { margin: 26px 0 8px; font-size: 16px; color: var(--ink-2); }
+    p { margin: 11px 0; color: var(--ink-2); }
+    .sec-lede { font-size: 15.8px; color: var(--ink); }
+
+    .q {
+      margin: 12px 0 20px; padding: 10px 16px;
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; font-size: 13.6px; color: #2C4A40;
+    }
+    .q b { color: var(--accent); }
+
+    /* ---------- 指标 ---------- */
+    .kpis {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+      gap: 14px; margin: 22px 0 6px;
+    }
+    .kpi {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: 18px 18px 16px;
+      box-shadow: 0 2px 10px rgba(31,92,74,.05);
+    }
+    .kpi .k { font-size: 12.2px; color: var(--muted); margin-bottom: 8px; }
+    .kpi .v {
+      font-size: 27px; font-weight: 700; line-height: 1.12;
+      color: var(--accent); letter-spacing: -.02em;
+    }
+    .kpi .v small { font-size: 13px; font-weight: 600; margin-left: 2px; }
+    .kpi .d { font-size: 11.8px; color: var(--faint); margin-top: 8px; line-height: 1.55; }
+    .kpi.critical .v { color: var(--critical); }
+    .kpi.watch .v { color: var(--watch); }
+    .kpi.healthy .v { color: var(--healthy); }
+
+    /* ---------- 结论卡 ---------- */
+    .insight {
+      background: var(--card); border: 1px solid var(--line);
+      border-left: 5px solid var(--accent); border-radius: 12px;
+      padding: 17px 21px; margin: 14px 0;
+    }
+    .insight.lead { padding: 20px 23px; }
+    .insight .t { font-size: 14.4px; font-weight: 700; color: var(--accent); margin-bottom: 5px; }
+    .insight p { margin: 4px 0; font-size: 14.4px; }
+    .insight.lead p { font-size: 15.2px; }
+    mark { background: #F6E3A8; color: #3A2C08; padding: 0 3px; border-radius: 3px; }
+
+    /* ---------- 目录 ---------- */
+    .toc {
+      margin: 30px 0 0; padding: 13px 0;
+      border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong);
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 5px 26px; font-size: 12.8px;
+    }
+    .toc a { color: var(--ink-2); text-decoration: none; border: 0; }
+    .toc a:hover { color: var(--accent); }
+    .toc .n { color: var(--accent-2); margin-right: 7px; font-family: Georgia, serif; }
+
+    /* ---------- 图表 ---------- */
+    .fig-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; margin: 22px 0 6px; overflow: hidden;
+      box-shadow: 0 2px 10px rgba(31,92,74,.045);
+    }
+    .fig-head {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
+      padding: 11px 18px; background: var(--surface);
+      border-bottom: 1px solid var(--line); font-size: 12.6px; font-weight: 600;
+    }
+    .fig-unit { color: var(--muted); font-weight: 400; font-size: 11.8px; white-space: nowrap; }
+    .fig-body { padding: 16px 16px 8px; overflow-x: auto; }
+    .fig-body svg { display: block; width: 100%; height: auto; min-width: 660px; }
+    .fig-src {
+      padding: 8px 18px 12px; font-size: 11.6px; color: var(--faint);
+      border-top: 1px dashed var(--line);
+    }
+
+    .reading { margin: 14px 0 4px; }
+    .reading h3 {
+      margin: 0 0 8px; font-size: 12.6px; font-weight: 700;
+      color: var(--accent-2); letter-spacing: .10em;
+    }
+    .reading ol { margin: 0; padding: 0; list-style: none; counter-reset: rd; }
+    .reading li {
+      position: relative; padding-left: 30px; margin: 8px 0;
+      font-size: 14.2px; line-height: 1.72; color: var(--ink-2);
+    }
+    .reading li::before {
+      counter-increment: rd; content: counter(rd);
+      position: absolute; left: 0; top: 3px; width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: var(--accent-soft);
+      color: var(--accent); font-size: 11.4px; font-weight: 700;
+    }
+    .reading li strong { color: var(--ink); }
+
+    /* ---------- 表 ---------- */
+    .table-wrap { overflow-x: auto; margin: 14px 0 2px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.2px; }
+    th {
+      background: #EFF2EE; color: var(--accent); font-weight: 600;
+      padding: 10px 10px; text-align: right; font-size: 12.2px;
+      border-bottom: 2px solid #D7DED6; white-space: nowrap;
+    }
+    th:first-child { text-align: left; }
+    td {
+      padding: 9px 10px; text-align: right; color: var(--ink-2);
+      border-bottom: 1px solid #F0EEE7; vertical-align: top;
+    }
+    td:first-child { text-align: left; font-weight: 600; color: #173C32; white-space: nowrap; }
+    tbody tr:hover td { background: #FAFBF8; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.lines { text-align: left; }
+    .tcap { margin: 6px 0 22px; font-size: 11.8px; color: var(--faint); }
+
+    /* ---------- 边界 ---------- */
+    .boundary {
+      margin: 18px 0; padding: 12px 16px;
+      background: #F7F5EF; border: 1px dashed var(--line-strong);
+      border-radius: 10px; font-size: 12.8px; color: #5D665F;
+    }
+    .boundary b { color: #3B4A42; }
+
+    /* ---------- 口径 ---------- */
+    .notes { margin-top: 58px; }
+    .notes-title {
+      margin: 0 0 10px; padding-left: 16px;
+      border-left: 5px solid var(--accent-2);
+      font-size: 19px; color: var(--accent); letter-spacing: -.01em;
+    }
+    details {
+      border: 1px solid var(--line); border-radius: 12px;
+      background: var(--card); margin: 14px 0 0; overflow: hidden;
+    }
+    summary {
+      cursor: pointer; padding: 13px 20px; font-weight: 600;
+      color: var(--accent); font-size: 14px; list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: "▸ "; color: var(--accent-2); }
+    details[open] > summary::before { content: "▾ "; }
+    .appendix .inner { padding: 2px 18px 12px; }
+    .notes-copy { padding: 0 20px 16px; }
+    .notes-copy p { margin: 6px 0; font-size: 13px; color: var(--muted); }
+    .notes-copy strong { color: var(--ink-2); }
+
+    footer {
+      margin-top: 54px; padding-top: 20px; border-top: 1px solid var(--line-strong);
+      display: flex; flex-wrap: wrap; gap: 8px 26px;
+      font-size: 12.2px; color: var(--faint);
+    }
+
+    /* ================= 主题二：paper（白纸研究风，对齐水果系报告） ================= */
+    body[data-theme="paper"] {
+      --ink: #0F172A; --ink-2: #334155; --muted: #475569; --faint: #64748B;
+      --paper: #FFFFFF; --canvas: #F8FAFC; --card: #FFFFFF;
+      --line: #E2E8F0; --line-strong: #94A3B8;
+      --accent: #B45309; --accent-2: #1F2937; --accent-soft: #FFFBEB;
+      --critical: #B91C1C; --healthy: #15803D; --watch: #B45309;
+      --surface: #F1F5F9; --surface-strong: #E2E8F0;
+      --series-context: #94A3B8; --series-reference: #64748B;
+      --theme-primary: #1F2937; --theme-accent: #B45309; --theme-base: #FFFFFF;
+      background: #E9EDF2;
+    }
+    body[data-theme="paper"] .page {
+      max-width: 1080px; margin: 28px auto 48px; background: #fff;
+      border: 1px solid #DCE3EA; border-radius: 2px;
+      box-shadow: 0 6px 30px rgba(15,23,42,.09); overflow: hidden;
+    }
+    body[data-theme="paper"] .cover {
+      background: var(--paper); color: var(--ink);
+      border-bottom: 2px solid var(--ink); padding: 42px 56px 24px;
+    }
+    body[data-theme="paper"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="paper"] main.wrap { padding: 0 56px 56px; max-width: none; }
+    body[data-theme="paper"] .cover::after { display: none; }
+    body[data-theme="paper"] .kicker {
+      background: var(--surface); border: 1px solid var(--line); color: var(--muted);
+    }
+    body[data-theme="paper"] .kicker .glyph i { background: var(--accent); }
+    body[data-theme="paper"] h1 { font-size: 27px; letter-spacing: -.01em; }
+    body[data-theme="paper"] .h1-sub { color: var(--muted); font-size: 16px; }
+    body[data-theme="paper"] .deck { color: var(--muted); font-size: 15px; }
+    body[data-theme="paper"] .meta { color: var(--muted); }
+    body[data-theme="paper"] .meta span + span::before { background: var(--line-strong); }
+    body[data-theme="paper"] .body-top { padding-top: 26px; }
+    body[data-theme="paper"] .wrap { max-width: 1120px; }
+    body[data-theme="paper"] h2.sec {
+      margin: 40px 0 10px; padding: 22px 0 0; border-left: 0;
+      border-top: 1px solid var(--line); font-size: 19px; color: var(--ink);
+    }
+    body[data-theme="paper"] h2.sec .num { color: var(--accent); font-size: 15px; }
+    body[data-theme="paper"] .q {
+      background: var(--surface); border-left: 3px solid var(--line-strong);
+      color: var(--muted); border-radius: 0;
+    }
+    body[data-theme="paper"] .kpis {
+      gap: 20px 0; border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong); padding: 18px 0; margin: 24px 0 4px;
+    }
+    body[data-theme="paper"] .kpi {
+      background: transparent; border: 0; border-left: 2px solid var(--line);
+      border-radius: 0; box-shadow: none; padding: 0 12px 0 14px;
+    }
+    body[data-theme="paper"] .kpi .v { color: var(--ink); font-size: 25px; }
+    body[data-theme="paper"] .kpi.critical .v { color: var(--critical); }
+    body[data-theme="paper"] .kpi.watch .v { color: var(--watch); }
+    body[data-theme="paper"] .kpi.healthy .v { color: var(--healthy); }
+    body[data-theme="paper"] .insight {
+      background: var(--surface); border: 1px solid var(--line);
+      border-left: 4px solid var(--ink); border-radius: 2px;
+      box-shadow: none; padding: 16px 20px;
+    }
+    body[data-theme="paper"] .insight .t { color: var(--ink); }
+    body[data-theme="paper"] .fig-card { border-radius: 3px; box-shadow: none; }
+    body[data-theme="paper"] .fig-head { background: var(--surface); }
+    body[data-theme="paper"] .reading h3 { color: var(--muted); }
+    body[data-theme="paper"] .reading li::before {
+      background: var(--surface); color: var(--accent);
+    }
+    body[data-theme="paper"] .boundary {
+      background: #FFFBEB; border: 1px dashed #E2C08A; border-radius: 2px;
+    }
+    body[data-theme="paper"] th { background: var(--surface-strong); color: var(--ink); }
+    body[data-theme="paper"] .notes-title { color: var(--ink); border-left-color: var(--accent); }
+    body[data-theme="paper"] details { border-radius: 3px; }
+    body[data-theme="paper"] summary { color: var(--ink); }
+
+    /* ================= 主题三：mono（麦肯锡式黑白，纯排版） ================= */
+    body[data-theme="mono"] {
+      --ink: #111111; --ink-2: #1F1F1F; --muted: #555555; --faint: #777777;
+      --paper: #FFFFFF; --canvas: #EDEDED; --card: #FFFFFF;
+      --line: #DADADA; --line-strong: #111111;
+      --accent: #111111; --accent-2: #111111; --accent-soft: #F2F2F2;
+      --critical: #111111; --healthy: #555555; --watch: #333333;
+      --surface: #F4F4F4; --surface-strong: #E8E8E8;
+      --series-context: #9A9A9A; --series-reference: #C9C9C9;
+      --theme-primary: #111111; --theme-accent: #111111; --theme-base: #FFFFFF;
+      background: #EDEDED;
+    }
+    body[data-theme="mono"] .page {
+      max-width: 1040px; margin: 26px auto 44px; background: #fff;
+      border: 0; border-radius: 0; box-shadow: none;
+    }
+    body[data-theme="mono"] .cover {
+      background: #fff; color: #111; border-bottom: 3px solid #111;
+      padding: 44px 52px 22px;
+    }
+    body[data-theme="mono"] .cover::after { display: none; }
+    body[data-theme="mono"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="mono"] main.wrap { padding: 0 52px 56px; max-width: none; }
+    body[data-theme="mono"] .kicker {
+      background: #fff; border: 1px solid #111; color: #111;
+      border-radius: 0; letter-spacing: .12em; font-weight: 600;
+    }
+    body[data-theme="mono"] .kicker .glyph i { background: #111; }
+    body[data-theme="mono"] h1 { font-size: 31px; letter-spacing: -.015em; }
+    body[data-theme="mono"] .h1-sub { color: #333; font-size: 17px; }
+    body[data-theme="mono"] .deck { color: #333; }
+    body[data-theme="mono"] .meta { color: #555; }
+    body[data-theme="mono"] .meta span + span::before { background: #111; }
+    body[data-theme="mono"] h2.sec {
+      border-left: 0; border-top: 2px solid #111; padding: 20px 0 0;
+      margin-top: 42px; color: #111; font-size: 20px;
+    }
+    body[data-theme="mono"] h2.sec .num {
+      color: #111; font-family: inherit; font-size: 14px; font-weight: 700;
+    }
+    body[data-theme="mono"] .q {
+      background: #fff; border-left: 0; border-bottom: 1px solid #DDD;
+      border-radius: 0; padding: 4px 0 10px; color: #555;
+    }
+    body[data-theme="mono"] .kpis {
+      gap: 0; border-top: 2px solid #111; border-bottom: 1px solid #111; padding: 16px 0;
+    }
+    body[data-theme="mono"] .kpi {
+      background: #fff; border: 0; border-left: 1px solid #DADADA;
+      border-radius: 0; box-shadow: none; padding: 0 14px;
+    }
+    body[data-theme="mono"] .kpi:first-child { border-left: 0; padding-left: 0; }
+    body[data-theme="mono"] .kpi .v { color: #111; font-size: 30px; }
+    body[data-theme="mono"] .kpi.critical .v,
+    body[data-theme="mono"] .kpi.watch .v,
+    body[data-theme="mono"] .kpi.healthy .v { color: #111; }
+    body[data-theme="mono"] .insight {
+      background: #fff; border: 0; border-top: 2px solid #111;
+      border-radius: 0; box-shadow: none; padding: 14px 0 2px;
+    }
+    body[data-theme="mono"] .insight .t {
+      color: #111; font-size: 12.5px; letter-spacing: .10em;
+    }
+    body[data-theme="mono"] .fig-card {
+      border: 0; border-top: 2px solid #111; border-radius: 0; box-shadow: none;
+    }
+    body[data-theme="mono"] .fig-head { background: #fff; border-bottom: 1px solid #DDD; }
+    body[data-theme="mono"] th { background: #fff; color: #111; border-bottom: 2px solid #111; }
+    body[data-theme="mono"] td { border-bottom: 1px solid #E6E6E6; }
+    body[data-theme="mono"] .boundary {
+      background: #F7F7F7; border: 0; border-left: 3px solid #111; border-radius: 0;
+    }
+    body[data-theme="mono"] .notes-title { color: #111; border-left-color: #111; }
+
+    /* ================= 主题四：annual（年报衬线，米纸+酒红+金线） ================= */
+    body[data-theme="annual"] {
+      --ink: #2B2118; --ink-2: #463726; --muted: #6B5A3E; --faint: #8C7A5C;
+      --paper: #FCFAF4; --canvas: #EFE9DC; --card: #FCFAF4;
+      --line: #E3D9C4; --line-strong: #B9A57E;
+      --accent: #7A2E2E; --accent-2: #A8894F; --accent-soft: #F6F1E5;
+      --critical: #8C2F2F; --healthy: #3F6B4A; --watch: #A8894F;
+      --surface: #F6F1E5; --surface-strong: #EFE7D6;
+      --series-context: #B9A57E; --series-reference: #DCCFB6;
+      --theme-primary: #2B2118; --theme-accent: #7A2E2E; --theme-base: #FCFAF4;
+      background: #EFE9DC;
+    }
+    body[data-theme="annual"] .page {
+      max-width: 1040px; margin: 26px auto 44px; background: #FCFAF4;
+      border: 1px solid #E3D9C4; border-radius: 0;
+      box-shadow: 0 6px 28px rgba(60,40,20,.12);
+    }
+    body[data-theme="annual"] .cover {
+      background: #FCFAF4; color: #2B2118;
+      border-bottom: 3px double #A8894F; padding: 44px 54px 24px;
+    }
+    body[data-theme="annual"] .cover::after { display: none; }
+    body[data-theme="annual"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="annual"] main.wrap { padding: 0 54px 56px; max-width: none; }
+    body[data-theme="annual"] h1,
+    body[data-theme="annual"] h2.sec,
+    body[data-theme="annual"] .h1-sub {
+      font-family: Georgia, "Songti SC", "SimSun", "Times New Roman", serif;
+    }
+    body[data-theme="annual"] h1 { font-size: 32px; }
+    body[data-theme="annual"] .h1-sub { color: #6B5A3E; font-size: 17px; }
+    body[data-theme="annual"] .kicker {
+      background: transparent; border: 1px solid #B9A57E; color: #6B5A3E;
+      border-radius: 0; letter-spacing: .14em;
+    }
+    body[data-theme="annual"] .kicker .glyph i { background: #7A2E2E; }
+    body[data-theme="annual"] .deck { color: #4A3B2A; }
+    body[data-theme="annual"] .meta { color: #6B5A3E; }
+    body[data-theme="annual"] .meta span + span::before { background: #A8894F; }
+    body[data-theme="annual"] h2.sec {
+      border-left: 0; border-bottom: 1px solid #DCCFB6; padding: 0 0 8px;
+      margin-top: 44px; color: #3A2C1E; font-size: 21px;
+    }
+    body[data-theme="annual"] h2.sec .num { color: #A8894F; }
+    body[data-theme="annual"] .q {
+      background: #F6F1E5; border-left: 3px solid #A8894F; color: #5A4630;
+      border-radius: 0;
+    }
+    body[data-theme="annual"] .kpis {
+      gap: 0; border-top: 2px solid #A8894F; border-bottom: 1px solid #DCCFB6; padding: 16px 0;
+    }
+    body[data-theme="annual"] .kpi {
+      background: transparent; border: 0; border-left: 1px solid #E3D9C4;
+      border-radius: 0; box-shadow: none; padding: 0 14px;
+    }
+    body[data-theme="annual"] .kpi:first-child { border-left: 0; padding-left: 0; }
+    body[data-theme="annual"] .kpi .v {
+      font-family: Georgia, serif; color: #7A2E2E; font-size: 29px;
+    }
+    body[data-theme="annual"] .insight {
+      background: #F6F1E5; border: 1px solid #E3D9C4;
+      border-left: 4px solid #7A2E2E; border-radius: 0; box-shadow: none;
+    }
+    body[data-theme="annual"] .insight .t { color: #7A2E2E; }
+    body[data-theme="annual"] .fig-card {
+      border: 1px solid #E3D9C4; border-radius: 0; box-shadow: none; background: #FCFAF4;
+    }
+    body[data-theme="annual"] .fig-head { background: #F6F1E5; border-bottom: 1px solid #E3D9C4; }
+    body[data-theme="annual"] th { background: #F3EDDF; color: #5A4630; border-bottom: 1.5px solid #A8894F; }
+    body[data-theme="annual"] td { border-bottom: 1px solid #EDE4D2; }
+    body[data-theme="annual"] .boundary { background: #F6F1E5; border: 1px dashed #C9B78F; border-radius: 0; }
+
+    /* ================= 主题五：swiss（瑞士网格，红黑大字号） ================= */
+    body[data-theme="swiss"] {
+      --ink: #000000; --ink-2: #1A1A1A; --muted: #444444; --faint: #6B6B6B;
+      --paper: #FFFFFF; --canvas: #F0F0F0; --card: #FFFFFF;
+      --line: #D8D8D8; --line-strong: #000000;
+      --accent: #E30613; --accent-2: #000000; --accent-soft: #F5F5F5;
+      --critical: #E30613; --healthy: #00693E; --watch: #8A6A00;
+      --surface: #F4F4F4; --surface-strong: #E9E9E9;
+      --series-context: #8A8A8A; --series-reference: #C4C4C4;
+      --theme-primary: #000000; --theme-accent: #E30613; --theme-base: #FFFFFF;
+      background: #F0F0F0;
+    }
+    body[data-theme="swiss"] .page {
+      max-width: 1080px; margin: 24px auto 44px; background: #fff;
+      border: 0; border-radius: 0; box-shadow: 0 4px 24px rgba(0,0,0,.10);
+    }
+    body[data-theme="swiss"] .cover {
+      background: #fff; color: #000; border-bottom: 8px solid #E30613;
+      padding: 42px 48px 24px;
+    }
+    body[data-theme="swiss"] .cover::after { display: none; }
+    body[data-theme="swiss"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="swiss"] main.wrap { padding: 0 48px 56px; max-width: none; }
+    body[data-theme="swiss"] .kicker {
+      background: #000; border: 0; color: #fff; border-radius: 0;
+      letter-spacing: .18em; font-weight: 700;
+    }
+    body[data-theme="swiss"] .kicker .glyph i { background: #E30613; }
+    body[data-theme="swiss"] h1 {
+      font-size: 38px; line-height: 1.14; letter-spacing: -.03em; font-weight: 800;
+    }
+    body[data-theme="swiss"] .h1-sub { color: #000; font-size: 19px; }
+    body[data-theme="swiss"] .deck { color: #222; }
+    body[data-theme="swiss"] .meta { color: #444; }
+    body[data-theme="swiss"] .meta span + span::before { background: #E30613; }
+    body[data-theme="swiss"] h2.sec {
+      border-left: 0; border-top: 1px solid #000; padding-top: 14px;
+      color: #000; font-size: 21px;
+    }
+    body[data-theme="swiss"] h2.sec .num {
+      color: #E30613; font-family: inherit; font-weight: 800; font-size: 26px;
+    }
+    body[data-theme="swiss"] .q {
+      background: #fff; border-left: 6px solid #E30613; border-radius: 0;
+      color: #333; padding: 6px 14px;
+    }
+    body[data-theme="swiss"] .kpis {
+      gap: 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 14px 0;
+    }
+    body[data-theme="swiss"] .kpi {
+      background: #fff; border: 0; border-left: 1px solid #DDD;
+      border-radius: 0; box-shadow: none; padding: 0 14px;
+    }
+    body[data-theme="swiss"] .kpi:first-child { border-left: 0; padding-left: 0; }
+    body[data-theme="swiss"] .kpi .v { color: #000; font-weight: 800; }
+    body[data-theme="swiss"] .insight {
+      background: #fff; border: 0; border-left: 6px solid #000;
+      border-radius: 0; box-shadow: none; padding: 12px 18px;
+    }
+    body[data-theme="swiss"] .insight .t { color: #E30613; letter-spacing: .08em; }
+    body[data-theme="swiss"] .fig-card {
+      border: 0; border-top: 2px solid #000; border-radius: 0; box-shadow: none;
+    }
+    body[data-theme="swiss"] .fig-head { background: #fff; border-bottom: 1px solid #000; }
+    body[data-theme="swiss"] th { background: #000; color: #fff; border: 0; }
+    body[data-theme="swiss"] td { border-bottom: 1px solid #E2E2E2; }
+    body[data-theme="swiss"] .boundary { background: #fff; border: 1px dashed #000; border-radius: 0; }
+
+    /* ================= 主题六：slate（科技商务，深蓝+亮蓝） ================= */
+    body[data-theme="slate"] {
+      --ink: #0B1220; --ink-2: #1E293B; --muted: #475569; --faint: #64748B;
+      --paper: #FFFFFF; --canvas: #EEF2F8; --card: #FFFFFF;
+      --line: #E2E8F0; --line-strong: #CBD5E1;
+      --accent: #2563EB; --accent-2: #1E40AF; --accent-soft: #EFF6FF;
+      --critical: #DC2626; --healthy: #059669; --watch: #D97706;
+      --surface: #F8FAFC; --surface-strong: #F1F5F9;
+      --series-context: #94A3B8; --series-reference: #CBD5E1;
+      --theme-primary: #0B1220; --theme-accent: #2563EB; --theme-base: #FFFFFF;
+      background: #EEF2F8;
+    }
+    body[data-theme="slate"] .page {
+      max-width: 1080px; margin: 26px auto 46px; background: #fff;
+      border: 1px solid #E2E8F0; border-radius: 14px;
+      box-shadow: 0 12px 34px rgba(15,23,42,.12); overflow: hidden;
+    }
+    body[data-theme="slate"] .cover {
+      background: linear-gradient(135deg, #0B1220 0%, #1E293B 68%, #334155 130%);
+      color: #fff; padding: 52px 52px 34px; border-bottom: 0;
+    }
+    body[data-theme="slate"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="slate"] main.wrap { padding: 0 52px 56px; max-width: none; }
+    body[data-theme="slate"] .kicker {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.92);
+    }
+    body[data-theme="slate"] .kicker .glyph i { background: #60A5FA; }
+    body[data-theme="slate"] .h1-sub { color: rgba(255,255,255,.82); }
+    body[data-theme="slate"] .deck { color: rgba(255,255,255,.90); }
+    body[data-theme="slate"] .meta { color: rgba(255,255,255,.72); }
+    body[data-theme="slate"] .meta span + span::before { background: #60A5FA; }
+    body[data-theme="slate"] h2.sec { color: #0B1220; border-left-color: #2563EB; }
+    body[data-theme="slate"] .q { background: #EFF6FF; border-left-color: #2563EB; color: #1E3A8A; }
+    body[data-theme="slate"] .kpi { border-radius: 14px; box-shadow: 0 4px 16px rgba(15,23,42,.06); }
+    body[data-theme="slate"] .kpi .v { color: #2563EB; }
+    body[data-theme="slate"] .insight { border-left-color: #2563EB; border-radius: 12px; }
+    body[data-theme="slate"] .insight .t { color: #1E40AF; }
+    body[data-theme="slate"] .fig-card { border-radius: 0 0 14px 14px; border-color: #E2E8F0; }
+    body[data-theme="slate"] .fig-head { background: #F8FAFC; }
+
+    /* ================= 主题七：noir（深色高端，炭黑+香槟金） ================= */
+    body[data-theme="noir"] {
+      --ink: #EDEAE3; --ink-2: #CFCAC0; --muted: #9A9488; --faint: #6E6A62;
+      --paper: #121418; --canvas: #0B0C0E; --card: #171A1F;
+      --line: #2A2E35; --line-strong: #3A3F47;
+      --accent: #C9A227; --accent-2: #C9A227; --accent-soft: #1E2126;
+      --critical: #D46A5F; --healthy: #6FBF9A; --watch: #C9A227;
+      --surface: #1A1D22; --surface-strong: #22262C;
+      --series-context: #8C877C; --series-reference: #5E5A52;
+      --theme-primary: #EDEAE3; --theme-accent: #C9A227; --theme-base: #121418;
+      background: #0B0C0E;
+    }
+    body[data-theme="noir"] .page {
+      max-width: 1060px; margin: 26px auto 46px; background: #121418;
+      border: 1px solid #24272D; border-radius: 2px;
+      box-shadow: 0 14px 44px rgba(0,0,0,.55);
+    }
+    body[data-theme="noir"] .cover {
+      background: linear-gradient(160deg, #0B0C0E 0%, #15171B 62%, #1E1A12 130%);
+      border-bottom: 1px solid #C9A227; padding: 50px 52px 32px;
+    }
+    body[data-theme="noir"] .cover .wrap { padding: 0; max-width: none; }
+    body[data-theme="noir"] main.wrap { padding: 0 52px 56px; max-width: none; }
+    body[data-theme="noir"] .kicker {
+      background: rgba(201,162,39,.08); border: 1px solid rgba(201,162,39,.4); color: #E6D8AE;
+    }
+    body[data-theme="noir"] .kicker .glyph i { background: #C9A227; }
+    body[data-theme="noir"] h1 { color: #F4F1EA; }
+    body[data-theme="noir"] .h1-sub { color: #BDB8AD; }
+    body[data-theme="noir"] .deck { color: #BDB8AD; }
+    body[data-theme="noir"] .meta { color: #8F8A80; }
+    body[data-theme="noir"] .meta span + span::before { background: #C9A227; }
+    body[data-theme="noir"] h2.sec { color: #EDEAE3; border-left-color: #C9A227; }
+    body[data-theme="noir"] h2.sec .num { color: #C9A227; }
+    body[data-theme="noir"] .q { background: #1A1D22; border-left-color: #C9A227; color: #CFCAC0; }
+    body[data-theme="noir"] .kpi { background: #171A1F; border-color: #2A2E35; box-shadow: none; }
+    body[data-theme="noir"] .kpi .v { color: #E9C46A; }
+    body[data-theme="noir"] .insight { background: #171A1F; border-color: #2A2E35; border-left-color: #C9A227; }
+    body[data-theme="noir"] .insight .t { color: #C9A227; }
+    body[data-theme="noir"] .fig-card { background: #171A1F; border-color: #2A2E35; }
+    body[data-theme="noir"] .fig-head { background: #1A1D22; border-color: #2A2E35; }
+    body[data-theme="noir"] th { background: #1E2126; color: #C9A227; border-bottom-color: #3A3F47; }
+    body[data-theme="noir"] td { border-bottom-color: #24272D; }
+    body[data-theme="noir"] .boundary { background: #171A1F; border-color: #3A3F47; color: #BDB8AD; }
+    body[data-theme="noir"] .notes-title { color: #EDEAE3; border-left-color: #C9A227; }
+    body[data-theme="noir"] details { background: #171A1F; border-color: #2A2E35; }
+    body[data-theme="noir"] .notes-copy p { color: #9A9488; }
+
+    @media (max-width: 860px) {
+      .wrap { padding: 0 20px; }
+      .cover { padding: 40px 0 34px; }
+      h1 { font-size: 26px; }
+      .h1-sub { font-size: 16px; }
+      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .toc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      h2.sec { font-size: 19px; margin-top: 44px; }
+    }
+    @media (max-width: 560px) {
+      .kpis { grid-template-columns: 1fr; }
+      .toc { grid-template-columns: 1fr; }
+      .fig-body svg { min-width: 560px; }
+    }
+    /* ================= 默认主题：sticker（墨绿封面 + 粗黑描边 + 贴纸卡片） ================= */
+    body[data-theme="sticker"] {
+      --ink: #14231C; --ink-2: #24352C; --muted: #5B6B62; --faint: #7C8B81;
+      --paper: #FFFFFF; --canvas: #F6F9F4; --card: #FFFFFF;
+      --line: #DCE5DD; --line-strong: #14231C;
+      --accent: #2F6F4F; --accent-2: #C99A1A; --accent-soft: #EEF6F0;
+      --critical: #B02A20; --critical-soft: #FDEDEA;
+      --watch: #9A6A12; --watch-soft: #FDF3DE;
+      --healthy: #1E7A57; --healthy-soft: #E8F5EE;
+      --series-context: #8A948D; --series-reference: #C4BBAA;
+      --theme-base: #FFFFFF; --theme-primary: #14231C; --theme-accent: #2F6F4F;
+      --surface: #F1F7F2; --surface-strong: #E6F0E8;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(47,111,79,.045) 1.2px, transparent 1.3px) 0 0/28px 28px,
+        var(--paper);
+    }
+    body[data-theme="sticker"] .cover {
+      background: linear-gradient(135deg, #0E2F22 0%, #2F6F4F 100%);
+      margin: 28px auto 0; max-width: 1040px; border-radius: 26px;
+      box-shadow: 8px 10px 0 rgba(20,35,28,.12);
+      padding: 46px 0 40px; border-bottom: 7px solid #FFD43B;
+    }
+    body[data-theme="sticker"] .cover .wrap { padding: 0 44px; }
+    body[data-theme="sticker"] h1 { font-size: clamp(34px, 4.6vw, 54px); line-height: 1.12; font-weight: 900; letter-spacing: -.03em; }
+    body[data-theme="sticker"] h1 .hl { font-style: normal; background: #FFD43B; color: #14231C; padding: 0 .07em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    body[data-theme="sticker"] .h1-sub { font-size: 19px; margin-top: 12px; color: rgba(255,255,255,.88); }
+    body[data-theme="sticker"] .deck { font-size: 16.5px; line-height: 1.78; max-width: 720px; }
+    body[data-theme="sticker"] .meta { gap: 8px; margin-top: 24px; }
+    body[data-theme="sticker"] .meta span {
+      border: 1px solid rgba(255,255,255,.38); border-radius: 999px;
+      padding: 5px 12px; font-size: 12px; color: rgba(255,255,255,.92);
+    }
+    body[data-theme="sticker"] .meta span + span::before { display: none; }
+    body[data-theme="sticker"] main.wrap { max-width: 1040px; padding: 0 0 96px; margin: 0 auto; }
+    @media (max-width: 1120px) {
+      body[data-theme="sticker"] .cover { margin: 18px 18px 0; max-width: none; }
+      body[data-theme="sticker"] main.wrap { padding: 0 24px 80px; max-width: none; }
+    }
+    @media (max-width: 720px) {
+      body[data-theme="sticker"] .cover { margin: 12px 12px 0; border-radius: 18px; padding: 30px 0 28px; }
+      body[data-theme="sticker"] .cover .wrap { padding: 0 22px; }
+      body[data-theme="sticker"] main.wrap { padding: 0 16px 70px; }
+    }
+    body[data-theme="sticker"] .cover::after { background: rgba(255,255,255,.08); }
+    body[data-theme="sticker"] .kicker { border-color: rgba(255,255,255,.42); background: rgba(255,255,255,.12); }
+    body[data-theme="sticker"] .glyph i { background: #FFD43B; }
+    body[data-theme="sticker"] h1 { font-weight: 800; letter-spacing: -.025em; }
+    body[data-theme="sticker"] .h1-sub { font-weight: 500; }
+    body[data-theme="sticker"] h2.sec {
+      border-left: 0; padding-left: 0; align-items: center; color: #14231C; font-weight: 800;
+    }
+    body[data-theme="sticker"] h2.sec .num {
+      font-family: inherit; font-size: 12px; font-weight: 800; color: #fff;
+      background: #14231C; border-radius: 7px; padding: 3px 8px; min-width: 0;
+    }
+    body[data-theme="sticker"] .q {
+      border: 1.5px solid #14231C; border-left: 6px solid var(--accent);
+      border-radius: 12px; background: var(--accent-soft); color: #24352C;
+      box-shadow: 2px 2px 0 rgba(20,35,28,.08);
+    }
+    body[data-theme="sticker"] .kpis { gap: 16px; }
+    body[data-theme="sticker"] .kpi {
+      border: 2px solid #14231C; border-radius: 16px;
+      box-shadow: 4px 5px 0 rgba(20,35,28,.10);
+    }
+    body[data-theme="sticker"] .insight {
+      border: 2px solid #14231C; border-left: 6px solid var(--accent);
+      border-radius: 14px; box-shadow: 3px 4px 0 rgba(20,35,28,.08);
+    }
+    body[data-theme="sticker"] .fig-card {
+      border: 2px solid #14231C; border-radius: 16px;
+      box-shadow: 4px 5px 0 rgba(20,35,28,.10);
+    }
+    body[data-theme="sticker"] .fig-head { background: var(--surface); border-bottom: 2px solid #14231C; }
+    body[data-theme="sticker"] .table-wrap {
+      border: 2px solid #14231C; border-radius: 14px; background: #fff;
+      box-shadow: 3px 4px 0 rgba(20,35,28,.08);
+    }
+    body[data-theme="sticker"] table { margin: 0; }
+    body[data-theme="sticker"] th { background: var(--surface-strong); color: #14231C; border-bottom: 2px solid #14231C; }
+    body[data-theme="sticker"] td { border-bottom: 1px solid #E4EBE5; }
+    body[data-theme="sticker"] td:first-child { color: #14231C; }
+    body[data-theme="sticker"] .boundary {
+      background: #FFFBEB; border: 1.5px dashed #C99A1A; border-radius: 12px; color: #5B4A1F;
+    }
+    body[data-theme="sticker"] .boundary b { color: #3E3212; }
+    body[data-theme="sticker"] .toc {
+      border-top: 2px dashed rgba(20,35,28,.25); border-bottom: 2px dashed rgba(20,35,28,.25);
+    }
+    body[data-theme="sticker"] .notes-title { border-left: 0; padding-left: 0; }
+    body[data-theme="sticker"] details { border: 2px solid #14231C; border-radius: 14px; }
+    body[data-theme="sticker"] summary { color: #14231C; }
+    body[data-theme="sticker"] footer { border-top: 2px dashed rgba(20,35,28,.25); }
+    body[data-theme="sticker"] mark { background: #FFD43B; }
+
+    @media print {
+      @page { size: A4; margin: 16mm 15mm; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      html, body { background: #fff; }
+      body[data-theme="editorial"] .cover { background: linear-gradient(135deg, #101D18 0%, #1F5C4A 62%, #6B5730 138%) !important; }
+      .cover { break-after: page; }
+      .page { margin: 0 !important; max-width: none !important; border: 0 !important; box-shadow: none !important; }
+      body[data-theme="paper"] { background: #fff !important; }
+      body[data-theme="sticker"] { background: #fff !important; }
+      body[data-theme="sticker"] .cover {
+        background: linear-gradient(135deg, #0E2F22 0%, #2F6F4F 100%) !important;
+        margin: 0 !important; max-width: none !important; border-radius: 0 !important; box-shadow: none !important;
+        border-bottom: 7px solid #FFD43B !important;
+        min-height: 250mm; display: flex; align-items: center;
+      }
+      body[data-theme="sticker"] .cover .wrap { width: 100%; }
+      body[data-theme="sticker"] .cover::before { display: none; }
+      body[data-theme="sticker"] main.wrap { padding: 0 0 40px !important; max-width: none !important; }
+      .fig-card, .kpi, .insight { break-inside: avoid; box-shadow: none; }
+      h2.sec { break-after: avoid; }
+      a { text-decoration: none; }
+    }
+</style></head>
+<body data-theme="sticker"><div class="page">
+<header class="cover"><div class="wrap">
+<div class="kicker"><span class="glyph"><i></i><i></i><i></i></span>个护品类 · 数据与经营分析（R05 调研 × R06 分析）</div>
+<h1>个护品类：<em class="hl">增长不在“平均”里</em><span class="h1-sub">2026-11 数据与经营分析报告</span></h1>
+<p class="deck">二十万字的行业故事可以压成一句：个护还在长，但钱正在从基础洗护、货架电商和中间价格带里流走。这份报告用 76 条可核观测、25 个派生指标，把流向算清楚。</p>
+<div class="meta">
+<span>读者：创始人 / 品牌与零售经营决策</span>
+<span>数据截止：2026-11-12</span>
+<span>口径：限额以上 · 全渠道 · 线上平台 三套并列</span>
+<span>样本：6 家个护上市公司 2025 年报</span>
+</div>
+</div></header>
+<main class="wrap"><div class="body-top"></div>
+<section id="summary">
+<h2 class="sec"><span class="num">00</span>结论先行</h2>
+<div class="insight lead"><div class="t">结论</div><p>个护还在长，但增长已经不在“平均”里。2025 年限额以上化妆品零售额 4,653 亿元、同比 +5.1%（S05），跑赢社零 1.4pp；Euromonitor 口径的个护零售 5,525.78 亿元、+2.0%（S25）。总量温和，内部剧烈换挡。</p></div>
+<div class="insight"><div class="t">拆开看</div><p>线上洗护发 695.51 亿元、+7.61%，靠量 +11.94% 换来，均价 -4.30%（S26–S28）；线上口腔护理 245.26 亿元、+17.3%，量只 +7.2%，隐含均价 +9.42%（S34–S35、D12）。一个以价换量，一个量价齐升——这就是“结构增长”的全部含义。</p></div>
+<div class="insight"><div class="t">渠道</div><p>2026Q1 口腔线上 58.13 亿元，抖音 32.11 亿元、占 55.22%、同比 +30.73%（S38、D14）；天猫 -2.31%、淘宝 -27.04%（S39、S41）。渠道迁移不是趋势判断，是已经发生的份额重排。</p></div>
+<div class="insight"><div class="t">经营</div><p>6 家样本公司 2025 合计营收 266.96 亿元、净利 23.56 亿元、加权净利率 8.83%（D17–D19）；5 家毛利率全部上行，却有 3 家“增收不增利”（百亚 -35.02pp、豪悦 -68.36pp、拉芳 -167.39pp 的净利-营收增速差）。瓶颈已从毛利转到费用效率。</p></div>
+</section>
+<div class="kpis" style="grid-template-columns:repeat(5,minmax(0,1fr))">
+<div class="kpi"><div class="k">个护零售大盘</div><div class="v">5,525.78 亿</div><div class="d">2025，广义 BPC（含护肤/彩妆）现价 +2.0%（S25）</div></div>
+<div class="kpi healthy"><div class="k">限额以上化妆品</div><div class="v">4,653 亿</div><div class="d">2025，+5.1% vs 社零 +3.7%（S05–S06）</div></div>
+<div class="kpi watch"><div class="k">线上洗护发</div><div class="v">695.51 亿</div><div class="d">2025，额 +7.61%／量 +11.94%／价 −4.30%（S26–S28）</div></div>
+<div class="kpi healthy"><div class="k">线上口腔护理</div><div class="v">245.26 亿</div><div class="d">2025，额 +17.3%／量 +7.2%，隐含价 +9.42%（S34–S35、D12）</div></div>
+<div class="kpi"><div class="k">国货品牌份额</div><div class="v">57.37%</div><div class="d">2025，较 2024 +2.17pp（S13–S14、D22）</div></div>
+</div>
+<nav class="toc" aria-label="目录">
+<a href="#s-1"><span class="n">1</span>大盘：个护还在长，但已经挂上低速挡</a>
+<a href="#s-2"><span class="n">2</span>结构：洗护是“量”的故事，口腔是“价”的故事</a>
+<a href="#s-3"><span class="n">3</span>量价：洗护用 -4.3% 的价换 +11.9% 的量</a>
+<a href="#s-4"><span class="n">4</span>渠道：抖音已经拿走口腔线上的一半</a>
+<a href="#s-5"><span class="n">5</span>价格带：50—80 元是效率区，20 元以下仍是空白</a>
+<a href="#s-6"><span class="n">6</span>经营：毛利全体上行，利润被费用吃掉</a>
+<a href="#s-7"><span class="n">7</span>判断与动作：先做“量价齐升”，别做“中间的生意”</a>
+<a href="#s-8"><span class="n">8</span>口径与分数</a>
+</nav>
+<section id="s-1">
+<h2 class="sec"><span class="num">1</span>大盘：个护还在长，但已经挂上低速挡</h2>
+<p class="q"><b>本节问题</b>　2025—2026 年个护大盘相对社零还跑得动吗？增长中枢落在哪里？</p>
+<p class="sec-lede">先看总量，再看结构。总量只回答“还有没有生意”，结构才回答“生意在哪里”。</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>限额以上化妆品类零售额（2021—2025）</span>
+<span class="fig-unit">亿元；限额以上单位商品零售额</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 360" role="img" aria-label="限额以上化妆品类零售额（2021—2025）">
+          <line x1="74" y1="58.0" x2="930" y2="58.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="62.0" fill="var(--muted)" font-size="11.5" text-anchor="end">4,782</text>
+          <line x1="74" y1="122.0" x2="930" y2="122.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="126.0" fill="var(--muted)" font-size="11.5" text-anchor="end">4,538</text>
+          <line x1="74" y1="186.0" x2="930" y2="186.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="190.0" fill="var(--muted)" font-size="11.5" text-anchor="end">4,294</text>
+          <line x1="74" y1="250.0" x2="930" y2="250.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="254.0" fill="var(--muted)" font-size="11.5" text-anchor="end">4,051</text>
+          <line x1="74" y1="314.0" x2="930" y2="314.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="318.0" fill="var(--muted)" font-size="11.5" text-anchor="end">3,807</text>
+          <line x1="74" y1="256.5" x2="930" y2="256.5" stroke="var(--series-reference)" stroke-width="1.2" stroke-dasharray="5 5"/>
+          <text x="926" y="250.5" fill="var(--muted)" font-size="11.5" text-anchor="end">2021 年水平 4,026 亿元</text>
+          <polyline points="74,256 288,280 502,226 716,170 930,92" fill="none" stroke="var(--theme-accent)" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="74" cy="256" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="288" cy="280" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="502" cy="226" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="716" cy="170" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <circle cx="930" cy="92" r="3.5" fill="var(--theme-accent)" stroke="var(--paper)" stroke-width="1.6"/>
+          <text x="926" y="82" fill="var(--theme-accent)" font-size="11.5" font-weight="700" text-anchor="end">限额以上化妆品零售额 4,653</text>
+          <text x="74" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2021</text>
+          <text x="288" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2022</text>
+          <text x="502" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2023</text>
+          <text x="716" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2024</text>
+          <text x="930" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025</text>
+          </svg>
+</div>
+<div class="fig-src">国家统计局：S01–S05；2026 年 1—9 月为 3,491 亿元、+6.1%（S07），未并入年度序列</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>总量：</strong>2025 年 4,653 亿元、+5.1%（S05），比社零 +3.7%（S06）快 1.4pp；2026 年 1—9 月 3,491 亿元、+6.1%（S07），比社零 +1.1%（S08）快 5.0pp（D03）。</li>
+<li><strong>中枢：</strong>2021→2025 CAGR 3.68%（D01），远低于 2021 年单年 +14.0%（S01）：从双位数落到中个位数，再没回去。</li>
+<li><strong>波动：</strong>2024 年全年 -1.1%（S04），但 10 月单月 +40.1%、11 月 -26.4%（S10–S11）——大促把月度波动放大到 66.5pp，全年读数被节奏掩盖。</li>
+<li><strong>口径：</strong>Euromonitor 的 5,525.78 亿元（S25）与国家统计局的 4,653 亿元不是同一把尺子（C1/C2），本报告不做换算。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　限额以上口径不含中小商家与白牌；2026 年只有 1—9 月累计数，不能与年度值直接比较斜率。</div>
+</section>
+<section id="s-2">
+<h2 class="sec"><span class="num">2</span>结构：洗护是“量”的故事，口腔是“价”的故事</h2>
+<p class="q"><b>本节问题</b>　线上个护两个主赛道，规模差距与增速差各有多大？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>线上洗护发 vs 口腔护理交易额（2024 vs 2025）</span>
+<span class="fig-unit">亿元；主流电商平台（淘天/抖音/快手/京东等）</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 420" role="img" aria-label="线上洗护发 vs 口腔护理交易额（2024 vs 2025）">
+          <line x1="80" y1="56.0" x2="920" y2="56.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="60.0" fill="var(--muted)" font-size="11.5" text-anchor="end">779</text>
+          <line x1="80" y1="131.5" x2="920" y2="131.5" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="135.5" fill="var(--muted)" font-size="11.5" text-anchor="end">584</text>
+          <line x1="80" y1="207.0" x2="920" y2="207.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="211.0" fill="var(--muted)" font-size="11.5" text-anchor="end">389</text>
+          <line x1="80" y1="282.5" x2="920" y2="282.5" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="286.5" fill="var(--muted)" font-size="11.5" text-anchor="end">195</text>
+          <line x1="80" y1="358.0" x2="920" y2="358.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="362.0" fill="var(--muted)" font-size="11.5" text-anchor="end">0</text>
+          <text x="290.0" y="378.0" fill="var(--muted)" font-size="12" text-anchor="middle">洗护发</text>
+          <rect x="232.0" y="107.4" width="56.0" height="250.6" rx="2.5" fill="var(--series-context)" opacity="0.6"/>
+          <text x="260.0" y="101.4" fill="var(--ink)" font-size="10.5" text-anchor="middle">646</text>
+          <rect x="292.0" y="88.4" width="56.0" height="269.6" rx="2.5" fill="var(--theme-accent)" opacity="0.95"/>
+          <text x="320.0" y="82.4" fill="var(--ink)" font-size="10.5" font-weight="700" text-anchor="middle">696</text>
+          <text x="710.0" y="378.0" fill="var(--muted)" font-size="12" text-anchor="middle">口腔护理</text>
+          <rect x="652.0" y="276.9" width="56.0" height="81.1" rx="2.5" fill="var(--series-context)" opacity="0.6"/>
+          <text x="680.0" y="270.9" fill="var(--ink)" font-size="10.5" text-anchor="middle">209</text>
+          <rect x="712.0" y="262.9" width="56.0" height="95.1" rx="2.5" fill="var(--theme-accent)" opacity="0.95"/>
+          <text x="740.0" y="256.9" fill="var(--ink)" font-size="10.5" font-weight="700" text-anchor="middle">245</text>
+          <rect x="744.0" y="34" width="12" height="12" rx="2" fill="var(--series-context)" opacity="0.9"/>
+          <text x="760.0" y="44" fill="var(--muted)" font-size="11.5">2024</text>
+          <rect x="832.0" y="34" width="12" height="12" rx="2" fill="var(--theme-accent)" opacity="0.9"/>
+          <text x="848.0" y="44" fill="var(--muted)" font-size="11.5">2025</text>
+          </svg>
+</div>
+<div class="fig-src">魔镜洞察：S26、S34；2024 年数值由 2025 年交易额与同比反推（D04、D10）</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>体量：</strong>洗护发 695.51 亿元（S26）、口腔 245.26 亿元（S34），合计 940.77 亿元（D23）；洗护占 73.93%（D24），是个护线上最大单盘。</li>
+<li><strong>增速：</strong>洗护 +7.61%（S26）&lt; 口腔 +17.3%（S34），相差 9.69pp——口腔以约三分之一的体量跑出两倍多的增速。</li>
+<li><strong>洗护内部：</strong>头发清洁（洗发水）占大盘一半以上、增长近乎停滞（S31）；增量集中在头皮护理，同比 +30% 以上（S29）。</li>
+<li><strong>口腔内部：</strong>牙膏占 65%（S42）；牙粉 +445.2%（S44）、漱口水 +15.1%（S43）——增量来自新形态而非基础品。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　品类覆盖：只覆盖有可靠线上数据的洗护发与口腔护理；女性卫生、婴童护理、男士理容、香氛没有可用规模数据（G5），只在上市公司层面补充，不做规模推断。线下 KA 正在缩减洗护 SKU（S33，访谈证据），同样没有分品类规模数。</div>
+</section>
+<section id="s-3">
+<h2 class="sec"><span class="num">3</span>量价：洗护用 -4.3% 的价换 +11.9% 的量</h2>
+<p class="q"><b>本节问题</b>　两个赛道的增长里，多少来自卖得更多、多少来自卖得更贵？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>线上洗护发 2025 年增量拆解</span>
+<span class="fig-unit">亿元；量贡献 = 上年额 × 量增速，价贡献 = 上年额 × 隐含价变动，交叉项 = 上年额 × 量 × 价</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 380" role="img" aria-label="线上洗护发 2025 年增量拆解">
+          <line x1="74" y1="60.0" x2="930" y2="60.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="64.0" fill="var(--muted)" font-size="11.5" text-anchor="end">735</text>
+          <line x1="74" y1="124.0" x2="930" y2="124.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="128.0" fill="var(--muted)" font-size="11.5" text-anchor="end">710</text>
+          <line x1="74" y1="188.0" x2="930" y2="188.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="192.0" fill="var(--muted)" font-size="11.5" text-anchor="end">685</text>
+          <line x1="74" y1="252.0" x2="930" y2="252.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="256.0" fill="var(--muted)" font-size="11.5" text-anchor="end">660</text>
+          <line x1="74" y1="316.0" x2="930" y2="316.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="320.0" fill="var(--muted)" font-size="11.5" text-anchor="end">635</text>
+          <rect x="115.1" y="286.5" width="89.0" height="29.5" fill="var(--series-context)"/>
+          <text x="159.6" y="276" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">646</text>
+          <text x="159.6" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">2024 交易额</text>
+          <rect x="286.3" y="89.5" width="89.0" height="196.9" fill="var(--healthy)"/>
+          <text x="330.8" y="80" fill="var(--healthy)" font-size="12.5" font-weight="700" text-anchor="middle">+77</text>
+          <line x1="204.1" y1="286.5" x2="286.3" y2="286.5" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="330.8" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">量 +11.94%</text>
+          <rect x="457.5" y="89.5" width="89.0" height="63.8" fill="var(--critical)"/>
+          <text x="502.0" y="80" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−25</text>
+          <line x1="375.3" y1="89.5" x2="457.5" y2="89.5" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="502.0" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">价 -3.87%</text>
+          <rect x="628.7" y="153.3" width="89.0" height="7.6" fill="var(--critical)"/>
+          <text x="673.2" y="143" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−3</text>
+          <line x1="546.5" y1="153.3" x2="628.7" y2="153.3" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="673.2" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">交叉项</text>
+          <rect x="799.9" y="160.9" width="89.0" height="155.1" fill="var(--series-context)"/>
+          <text x="844.4" y="151" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">696</text>
+          <line x1="717.7" y1="161.0" x2="799.9" y2="161.0" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="844.4" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">2025 交易额</text>
+          </svg>
+</div>
+<div class="fig-src">魔镜洞察 S26–S27；派生 D04–D09</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>洗护：</strong>量 +11.94%（S27）、披露均价 -4.30%（S28）；增量 +49.19 亿元里，量贡献 +77.17、价贡献 -25.00、交叉 -2.99（D05–D08）。</li>
+<li><strong>口腔：</strong>量 +7.2%（S35）、隐含价 +9.42%（D12）；增量 +36.17 亿元里，价贡献 +19.70、量贡献 +15.05（D11）——价是主引擎。</li>
+<li><strong>延续：</strong>2026Q1 口腔额 +13.8%（S36）、量 +8.5%（S37）、隐含价 +4.88%（D13）：提价斜率放缓，但方向没变。</li>
+<li><strong>口径：</strong>洗护披露均价 -4.30% 与额/量隐含 -3.87% 差 0.43pp（C3）；本节分解用隐含价，叙述用披露价，两者不混用。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　均价为平台成交均价，不含线下、赠品折算与会员折扣；交叉项不可单独解释为某一种商业动作。</div>
+</section>
+<section id="s-4">
+<h2 class="sec"><span class="num">4</span>渠道：抖音已经拿走口腔线上的一半</h2>
+<p class="q"><b>本节问题</b>　渠道份额重排到什么程度？货架电商还剩下什么？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>口腔护理各平台交易额与份额（2026Q1）</span>
+<span class="fig-unit">%；份额 = 平台交易额 ÷ 四平台合计 58.15 亿元；条形为份额，标注为交易额与同比</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 341" role="img" aria-label="口腔护理各平台交易额与份额（2026Q1）">
+          <line x1="224.0" y1="45" x2="224.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">55.22</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">抖音</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">32.11 亿元｜+30.73%</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--healthy)"/>
+          <text x="908.0" y="63" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">55.22%</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">天猫</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">14.42 亿元｜-2.31%</text>
+          <rect x="224.0" y="112" width="304.5" height="18" fill="var(--series-context)"/>
+          <text x="534.5" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">24.80%</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">京东</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">8.42 亿元｜+13.76%</text>
+          <rect x="224.0" y="175" width="177.8" height="18" fill="var(--series-reference)"/>
+          <text x="407.8" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">14.48%</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">淘宝</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">3.20 亿元｜-27.04%</text>
+          <rect x="224.0" y="238" width="67.5" height="18" fill="var(--series-context)"/>
+          <text x="297.5" y="252" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">5.50%</text>
+          </svg>
+</div>
+<div class="fig-src">魔镜洞察 S36–S41；份额为派生值（D14、D15）</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>抖音：</strong>32.11 亿元、占 55.22%、同比 +30.73%（S38、D14）——单平台超过其余三平台之和。</li>
+<li><strong>货架：</strong>天猫 14.42 亿元、-2.31%；淘宝 3.20 亿元、-27.04%；京东 8.42 亿元、+13.76%（S39–S41）。抖音与天猫增速差 33.04pp（D15）。</li>
+<li><strong>自检：</strong>四平台合计 58.15 亿元，口径总额 58.13 亿元，差 0.02 亿元（0.03%），为平台披露四舍五入（见“口径与分数”）。</li>
+<li><strong>线下：</strong>KA 在缩减洗护陈列面积与 SKU、用自有品牌换毛利（S33，访谈证据）——线上集中与线下收缩同向发生。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　单季数据；抖音含直播与商城，未拆分；淘宝与天猫分开披露，未做合并解释。</div>
+</section>
+<section id="s-5">
+<h2 class="sec"><span class="num">5</span>价格带：50—80 元是效率区，20 元以下仍是空白</h2>
+<p class="q"><b>本节问题</b>　口腔升级落在哪个价格带？哪里卖得多但不赚钱？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>牙膏各价格带销售额占比（2026Q1）</span>
+<span class="fig-unit">%；占牙膏线上销售额；括号内为销量占比与商品数占比</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 278" role="img" aria-label="牙膏各价格带销售额占比（2026Q1）">
+          <line x1="224.0" y1="45" x2="224.0" y2="222" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="222" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">39.28</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">50—80 元</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">销量 26.28%｜商品数 <13%｜效率指数 3.2</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--healthy)"/>
+          <text x="908.0" y="63" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">39.28%</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">20—50 元</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">销量 40.78%｜商品数 38.58%</text>
+          <rect x="224.0" y="112" width="588.4" height="18" fill="var(--series-context)"/>
+          <text x="818.4" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">34.09%</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">80 元以上</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">销量 6.41%（80—100 与 100+ 合计）</text>
+          <rect x="224.0" y="175" width="318.3" height="18" fill="var(--series-reference)"/>
+          <text x="548.3" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">18.44%</text>
+          </svg>
+</div>
+<div class="fig-src">魔镜洞察 S46–S48；三档合计 91.81%，余 8.19% 原文未披露归属（D16、D25）</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>效率区：</strong>50—80 元以不足 13% 的商品数贡献 39.28% 销售额，效率指数 3.2（S46）——这是口腔升级的主战场。</li>
+<li><strong>走量区：</strong>20—50 元贡献 34.09% 销售额、40.78% 销量、38.58% 商品数（S47），供需最拥挤，价格战就在这一档。</li>
+<li><strong>高价带：</strong>80 元以上销售额 18.44%、销量仅 6.41%（S48）——高价能抬客单，但撑不起规模。</li>
+<li><strong>空白：</strong>三档合计 91.81%，剩余 8.19% 原文未披露（D16、D25），本报告不推测其归属。</li>
+</ol></div>
+<div class="boundary"><b>证据边界</b>　只覆盖牙膏；漱口水价格带结构不同（50—80 元效率指数升至 2.00，未列入本节），不能把牙膏结论外推到全部口腔品类。</div>
+</section>
+<section id="s-6">
+<h2 class="sec"><span class="num">6</span>经营：毛利全体上行，利润被费用吃掉</h2>
+<p class="q"><b>本节问题</b>　6 家样本公司的增长质量如何？瓶颈在毛利还是在费用？</p>
+<figure class="fig-card">
+<figcaption class="fig-head">
+<span>5 家个护上市公司毛利率（2024 vs 2025）</span>
+<span class="fig-unit">%；综合毛利率；上海家化未取得毛利率数据，不纳入</span>
+</figcaption><div class="fig-body">
+<svg viewBox="0 0 980 420" role="img" aria-label="5 家个护上市公司毛利率（2024 vs 2025）">
+          <line x1="80" y1="56.0" x2="920" y2="56.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="60.0" fill="var(--muted)" font-size="11.5" text-anchor="end">82</text>
+          <line x1="80" y1="131.5" x2="920" y2="131.5" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="135.5" fill="var(--muted)" font-size="11.5" text-anchor="end">62</text>
+          <line x1="80" y1="207.0" x2="920" y2="207.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="211.0" fill="var(--muted)" font-size="11.5" text-anchor="end">41</text>
+          <line x1="80" y1="282.5" x2="920" y2="282.5" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="286.5" fill="var(--muted)" font-size="11.5" text-anchor="end">21</text>
+          <line x1="80" y1="358.0" x2="920" y2="358.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="72" y="362.0" fill="var(--muted)" font-size="11.5" text-anchor="end">0</text>
+          <text x="164.0" y="378.0" fill="var(--muted)" font-size="12" text-anchor="middle">珀莱雅</text>
+          <rect x="106.0" y="95.2" width="56.0" height="262.8" rx="2.5" fill="var(--series-context)" opacity="0.6"/>
+          <text x="134.0" y="89.2" fill="var(--ink)" font-size="10.5" text-anchor="middle">71</text>
+          <rect x="166.0" y="88.4" width="56.0" height="269.6" rx="2.5" fill="var(--theme-accent)" opacity="0.95"/>
+          <text x="194.0" y="82.4" fill="var(--ink)" font-size="10.5" font-weight="700" text-anchor="middle">73</text>
+          <text x="332.0" y="378.0" fill="var(--muted)" font-size="12" text-anchor="middle">登康口腔</text>
+          <rect x="274.0" y="176.3" width="56.0" height="181.7" rx="2.5" fill="var(--series-context)" opacity="0.6"/>
+          <text x="302.0" y="170.3" fill="var(--ink)" font-size="10.5" text-anchor="middle">49</text>
+          <rect x="334.0" y="165.8" width="56.0" height="192.2" rx="2.5" fill="var(--theme-accent)" opacity="0.95"/>
+          <text x="362.0" y="159.8" fill="var(--ink)" font-size="10.5" font-weight="700" text-anchor="middle">52</text>
+          <text x="500.0" y="378.0" fill="var(--muted)" font-size="12" text-anchor="middle">百亚股份</text>
+          <rect x="442.0" y="162.2" width="56.0" height="195.8" rx="2.5" fill="var(--series-context)" opacity="0.6"/>
+          <text x="470.0" y="156.2" fill="var(--ink)" font-size="10.5" text-anchor="middle">53</text>
+          <rect x="502.0" y="158.1" width="56.0" height="199.9" rx="2.5" fill="var(--theme-accent)" opacity="0.95"/>
+          <text x="530.0" y="152.1" fill="var(--ink)" font-size="10.5" font-weight="700" text-anchor="middle">54</text>
+          <text x="668.0" y="378.0" fill="var(--muted)" font-size="12" text-anchor="middle">豪悦护理</text>
+          <rect x="610.0" y="255.3" width="56.0" height="102.7" rx="2.5" fill="var(--series-context)" opacity="0.6"/>
+          <text x="638.0" y="249.3" fill="var(--ink)" font-size="10.5" text-anchor="middle">28</text>
+          <rect x="670.0" y="242.0" width="56.0" height="116.0" rx="2.5" fill="var(--theme-accent)" opacity="0.95"/>
+          <text x="698.0" y="236.0" fill="var(--ink)" font-size="10.5" font-weight="700" text-anchor="middle">32</text>
+          <text x="836.0" y="378.0" fill="var(--muted)" font-size="12" text-anchor="middle">拉芳家化</text>
+          <rect x="778.0" y="181.8" width="56.0" height="176.2" rx="2.5" fill="var(--series-context)" opacity="0.6"/>
+          <text x="806.0" y="175.8" fill="var(--ink)" font-size="10.5" text-anchor="middle">48</text>
+          <rect x="838.0" y="177.2" width="56.0" height="180.8" rx="2.5" fill="var(--theme-accent)" opacity="0.95"/>
+          <text x="866.0" y="171.2" fill="var(--ink)" font-size="10.5" font-weight="700" text-anchor="middle">49</text>
+          <rect x="744.0" y="34" width="12" height="12" rx="2" fill="var(--series-context)" opacity="0.9"/>
+          <text x="760.0" y="44" fill="var(--muted)" font-size="11.5">2024</text>
+          <rect x="832.0" y="34" width="12" height="12" rx="2" fill="var(--theme-accent)" opacity="0.9"/>
+          <text x="848.0" y="44" fill="var(--muted)" font-size="11.5">2025</text>
+          </svg>
+</div>
+<div class="fig-src">上市公司 2025 年报：S53、S62、S66、S73、S76；2024 年由披露变动值反推</div>
+</figure>
+<div class="reading"><h3>读图</h3><ol>
+<li><strong>毛利：</strong>5 家全部上行——珀莱雅 73.26%（+1.87pp，S53）、登康 52.23%（+2.85pp，S62）、百亚 54.30%（+1.10pp，S66）、豪悦 31.51%（+3.60pp，S73）、拉芳 49.11%（+1.24pp，S76）。</li>
+<li><strong>增长质量：</strong>净利-营收增速差：登康 +2.37pp、珀莱雅 -1.82pp、百亚 -35.02pp、豪悦 -68.36pp、拉芳 -167.39pp（S51–S76 派生）——3 家增收不增利。</li>
+<li><strong>费用：</strong>珀莱雅毛利率 73.26%，销售费用率 49.63%（+1.75pp，S54），归母净利率 14.13%（S55）——毛利到净利之间被 59.13pp 的费用与税金吃掉。</li>
+<li><strong>合计：</strong>6 家营收 266.96 亿元、净利 23.56 亿元、加权净利率 8.83%（D17–D19）；其中上海家化 63.17 亿元、+11.25%、净利 2.68 亿元扭亏（S58–S59），是唯一收入与利润同时修复的个护家清公司。</li>
+<li><strong>口径：</strong>6 家样本不是全行业；综合毛利率未剔除运费与平台佣金差异，跨公司比较只看方向不看绝对值。</li>
+</ol></div>
+<p class="tcap">表 1 · 6 家样本公司 2025 年经营指标（营收/净利/毛利率/增速差）</p>
+<div class="table-wrap"><table>
+<colgroup><col style="width:10%"><col style="width:13%"><col style="width:12%"><col style="width:11%"><col style="width:11%"><col style="width:11%"><col style="width:10%"><col style="width:22%"></colgroup>
+<thead><tr>
+<th>公司</th>
+<th>细分</th>
+<th class="num">营收(亿元)</th>
+<th class="num">营收同比</th>
+<th class="num">净利(亿元)</th>
+<th class="num">净利同比</th>
+<th class="num">毛利率</th>
+<th class="num">净利−营收增速差</th>
+</tr></thead><tbody>
+<tr>
+<td>珀莱雅</td>
+<td class="lines">
+<span>美妆 + 洗护</span><br>
+</td>
+<td class="num">105.97</td>
+<td class="num">-1.68%</td>
+<td class="num">14.98</td>
+<td class="num">-3.50%</td>
+<td class="num">73.26%</td>
+<td class="num">-1.82pp</td>
+</tr>
+<tr>
+<td>上海家化</td>
+<td class="lines">
+<span>个护家清 + 美妆</span><br>
+</td>
+<td class="num">63.17</td>
+<td class="num">+11.25%</td>
+<td class="num">2.68</td>
+<td class="num">扭亏</td>
+<td class="num">—</td>
+<td class="num">—</td>
+</tr>
+<tr>
+<td>登康口腔</td>
+<td class="lines">
+<span>口腔护理</span><br>
+</td>
+<td class="num">17.16</td>
+<td class="num">+9.98%</td>
+<td class="num">1.81</td>
+<td class="num">+12.35%</td>
+<td class="num">52.23%</td>
+<td class="num">+2.37pp</td>
+</tr>
+<tr>
+<td>百亚股份</td>
+<td class="lines">
+<span>女性卫生</span><br>
+</td>
+<td class="num">34.92</td>
+<td class="num">+7.32%</td>
+<td class="num">2.08</td>
+<td class="num">-27.70%</td>
+<td class="num">54.30%</td>
+<td class="num">-35.02pp</td>
+</tr>
+<tr>
+<td>豪悦护理</td>
+<td class="lines">
+<span>婴童 / 成人失禁</span><br>
+</td>
+<td class="num">37.56</td>
+<td class="num">+28.22%</td>
+<td class="num">2.32</td>
+<td class="num">-40.14%</td>
+<td class="num">31.51%</td>
+<td class="num">-68.36pp</td>
+</tr>
+<tr>
+<td>拉芳家化</td>
+<td class="lines">
+<span>洗护发</span><br>
+</td>
+<td class="num">8.18</td>
+<td class="num">-7.92%</td>
+<td class="num">-0.31</td>
+<td class="num">亏损</td>
+<td class="num">49.11%</td>
+<td class="num">—</td>
+</tr>
+<tr>
+<td>合计</td>
+<td class="lines">
+<span>6 家</span><br>
+</td>
+<td class="num">266.96</td>
+<td class="num">—</td>
+<td class="num">23.56</td>
+<td class="num">—</td>
+<td class="num">—</td>
+<td class="num">—</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="s-7">
+<h2 class="sec"><span class="num">7</span>判断与动作：先做“量价齐升”，别做“中间的生意”</h2>
+<p class="q"><b>本节问题</b>　如果要在个护里做选品与经营，优先做什么、不做什么、什么条件下改？</p>
+<p class="sec-lede"><strong>一句话：</strong>个护的钱正在从“基础洗护、货架电商、300—1000 元中间带”流向“口腔与头皮护理、抖音、两端价格带”。顺着流走，别逆着走。</p>
+<p><strong>授权与边界：</strong>以上是条件化建议，不替代创始人拍板；涉及预算与渠道承诺的动作，需按 R01 决策卡另行签发。建议只对本文口径成立，落地前须用自有 SKU 数据复算毛利与周转。</p>
+<p class="tcap">表 2 · 判断 → 证据 → 动作 → 成立条件</p>
+<div class="table-wrap"><table>
+<colgroup><col style="width:19%"><col style="width:29%"><col style="width:26%"><col style="width:26%"></colgroup>
+<thead><tr>
+<th>判断</th>
+<th>证据</th>
+<th>动作</th>
+<th>成立条件 / 失效信号</th>
+</tr></thead><tbody>
+<tr>
+<td>选品优先“量价齐升”</td>
+<td class="lines">
+<span>口腔额 +17.3%／量 +7.2%；头皮护理 +30%；基础洗发水停滞（S29、S31、S34–S35）</span><br>
+</td>
+<td class="lines">
+<span>首推口腔 50—80 元、次推头皮护理；基础洗发水只做防守款</span><br>
+</td>
+<td class="lines">
+<span>口腔隐含均价转负，或头皮护理增速跌破 15%</span><br>
+</td>
+</tr>
+<tr>
+<td>价格带避开 300—1000 元中间带</td>
+<td class="lines">
+<span>300 元以下占 58.88%、1000 元以上 14.75%，中间带合计 26.37% 且同比降（S18–S21）</span><br>
+</td>
+<td class="lines">
+<span>口腔锚 50—80 元；全渠道做 &lt;300 元性价比带</span><br>
+</td>
+<td class="lines">
+<span>中间带出现连续两季增速转正的结构性新品</span><br>
+</td>
+</tr>
+<tr>
+<td>渠道按 5:2:2 分</td>
+<td class="lines">
+<span>抖音 55.22%、+30.73%；京东 +13.76%；天猫 -2.31%；淘宝 -27.04%（S38–S41）</span><br>
+</td>
+<td class="lines">
+<span>抖音主投、京东承接、天猫做复购与搜索</span><br>
+</td>
+<td class="lines">
+<span>抖音增速跌到个位数，或投流成本再上台阶</span><br>
+</td>
+</tr>
+<tr>
+<td>预算从“形象”转向“可归因”</td>
+<td class="lines">
+<span>珀莱雅销售费用率 49.63%、净利率 14.13%；3 家增收不增利（S54–S55）</span><br>
+</td>
+<td class="lines">
+<span>形象预算压到效果+复购，按毛利回收周期设上限</span><br>
+</td>
+<td class="lines">
+<span>品牌搜索量连续两季下滑</span><br>
+</td>
+</tr>
+<tr>
+<td>只做“少 SKU 高坪效”</td>
+<td class="lines">
+<span>淘汰 26,941 个 / 新进 17,076 个品牌；KA 减 SKU（S16–S17、S33）</span><br>
+</td>
+<td class="lines">
+<span>SKU 收敛到能讲清卖点的数量，线下只进算得清坪效的网点</span><br>
+</td>
+<td class="lines">
+<span>渠道以扩 SKU 换排面时，重算坪效再决定</span><br>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<details class="appendix" id="s-A1"><summary>附录 A1 · 记录层：76 条观测逐条列出</summary><div class="inner">
+<p class="sec-lede">默认折叠。完整台账（含链接、发布日期、口径、备注）见同目录 evidence_ledger.json 与 data/observations.csv。</p>
+<p class="tcap">表 3 · 全部观测（编号与正文引用一致）</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>编号</th>
+<th>指标</th>
+<th>值</th>
+<th>期间</th>
+<th>来源机构</th>
+</tr></thead><tbody>
+<tr>
+<td>S01</td>
+<td class="lines">
+<span>限额以上化妆品类零售额</span><br>
+</td>
+<td class="num">4,026 亿元</td>
+<td class="lines">
+<span>2021年</span><br>
+</td>
+<td class="lines">
+<span>国家统计局 / 化妆品观察（搜狐转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S02</td>
+<td class="lines">
+<span>限额以上化妆品类零售额</span><br>
+</td>
+<td class="num">3,936 亿元</td>
+<td class="lines">
+<span>2022年</span><br>
+</td>
+<td class="lines">
+<span>化妆品报</span><br>
+</td>
+</tr>
+<tr>
+<td>S03</td>
+<td class="lines">
+<span>限额以上化妆品类零售额</span><br>
+</td>
+<td class="num">4,142 亿元</td>
+<td class="lines">
+<span>2023年</span><br>
+</td>
+<td class="lines">
+<span>国家统计局 / 化妆品观察（搜狐转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S04</td>
+<td class="lines">
+<span>限额以上化妆品类零售额</span><br>
+</td>
+<td class="num">4,357 亿元</td>
+<td class="lines">
+<span>2024年</span><br>
+</td>
+<td class="lines">
+<span>国家统计局 / 化妆品观察（搜狐转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S05</td>
+<td class="lines">
+<span>限额以上化妆品类零售额</span><br>
+</td>
+<td class="num">4,653 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S06</td>
+<td class="lines">
+<span>社会消费品零售总额</span><br>
+</td>
+<td class="num">501,200 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S07</td>
+<td class="lines">
+<span>限额以上化妆品类零售额</span><br>
+</td>
+<td class="num">3,491 亿元</td>
+<td class="lines">
+<span>2026年1—9月</span><br>
+</td>
+<td class="lines">
+<span>国家统计局 / C2CC 传媒</span><br>
+</td>
+</tr>
+<tr>
+<td>S08</td>
+<td class="lines">
+<span>社会消费品零售总额</span><br>
+</td>
+<td class="num">370,001 亿元</td>
+<td class="lines">
+<span>2026年1—9月</span><br>
+</td>
+<td class="lines">
+<span>国家统计局 / C2CC 传媒</span><br>
+</td>
+</tr>
+<tr>
+<td>S09</td>
+<td class="lines">
+<span>社会消费品零售总额</span><br>
+</td>
+<td class="num">487,895 亿元</td>
+<td class="lines">
+<span>2024年</span><br>
+</td>
+<td class="lines">
+<span>国家统计局 / 化妆品观察（搜狐转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S10</td>
+<td class="lines">
+<span>化妆品类单月零售额最大涨幅</span><br>
+</td>
+<td class="num">40.1 %</td>
+<td class="lines">
+<span>2024年10月</span><br>
+</td>
+<td class="lines">
+<span>国家统计局 / 化妆品观察（搜狐转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S11</td>
+<td class="lines">
+<span>化妆品类单月零售额最大跌幅</span><br>
+</td>
+<td class="num">-26.4 %</td>
+<td class="lines">
+<span>2024年11月</span><br>
+</td>
+<td class="lines">
+<span>国家统计局 / 化妆品观察（搜狐转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S12</td>
+<td class="lines">
+<span>化妆品行业全渠道交易额</span><br>
+</td>
+<td class="num">11,042.45 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S13</td>
+<td class="lines">
+<span>国货品牌市场份额</span><br>
+</td>
+<td class="num">57.37 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S14</td>
+<td class="lines">
+<span>国货品牌市场份额</span><br>
+</td>
+<td class="num">55.2 %</td>
+<td class="lines">
+<span>2024年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S15</td>
+<td class="lines">
+<span>国货品牌市场份额</span><br>
+</td>
+<td class="num">52.82 %</td>
+<td class="lines">
+<span>2023年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S16</td>
+<td class="lines">
+<span>全年淘汰品牌数</span><br>
+</td>
+<td class="num">26,941 个</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S17</td>
+<td class="lines">
+<span>全年新品牌数</span><br>
+</td>
+<td class="num">17,076 个</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S18</td>
+<td class="lines">
+<span>300元以下销售额占比</span><br>
+</td>
+<td class="num">58.88 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S19</td>
+<td class="lines">
+<span>300—500元销售额占比</span><br>
+</td>
+<td class="num">15.64 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S20</td>
+<td class="lines">
+<span>500—1000元销售额占比</span><br>
+</td>
+<td class="num">10.73 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S21</td>
+<td class="lines">
+<span>1000元以上销售额占比</span><br>
+</td>
+<td class="num">14.75 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S22</td>
+<td class="lines">
+<span>25家上市公司平均研发费用率</span><br>
+</td>
+<td class="num">3.24 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S23</td>
+<td class="lines">
+<span>新原料备案数量</span><br>
+</td>
+<td class="num">169 个</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S24</td>
+<td class="lines">
+<span>新增化妆品相关行政处罚</span><br>
+</td>
+<td class="num">2,200 条</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>中国消费者报 / 新华网</span><br>
+</td>
+</tr>
+<tr>
+<td>S25</td>
+<td class="lines">
+<span>美容与个人护理零售额</span><br>
+</td>
+<td class="num">5,525.78 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>Euromonitor International（GII 转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S26</td>
+<td class="lines">
+<span>线上洗发护发交易额</span><br>
+</td>
+<td class="num">695.51 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 未来迹（界面·新浪转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S27</td>
+<td class="lines">
+<span>线上洗发护发交易量增速</span><br>
+</td>
+<td class="num">11.94 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 未来迹（界面·新浪转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S28</td>
+<td class="lines">
+<span>洗发护发成交均价</span><br>
+</td>
+<td class="num">53.35 元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 未来迹（界面·新浪转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S29</td>
+<td class="lines">
+<span>头皮护理类目交易额增速</span><br>
+</td>
+<td class="num">30.0 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 未来迹（界面·新浪转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S30</td>
+<td class="lines">
+<span>头皮护理成交均价</span><br>
+</td>
+<td class="num">177.33 元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 未来迹（界面·新浪转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S31</td>
+<td class="lines">
+<span>头发清洁（洗发水）占洗护大盘比重</span><br>
+</td>
+<td class="num">定性</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 未来迹（界面·新浪转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S32</td>
+<td class="lines">
+<span>线上 TOP20 品牌均价与销售额</span><br>
+</td>
+<td class="num">定性</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 未来迹（界面·新浪转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S33</td>
+<td class="lines">
+<span>线下 KA 渠道动作</span><br>
+</td>
+<td class="num">定性</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 未来迹（界面·新浪转载）</span><br>
+</td>
+</tr>
+<tr>
+<td>S34</td>
+<td class="lines">
+<span>线上口腔护理交易额</span><br>
+</td>
+<td class="num">245.26 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S35</td>
+<td class="lines">
+<span>线上口腔护理交易量增速</span><br>
+</td>
+<td class="num">7.2 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S36</td>
+<td class="lines">
+<span>线上口腔护理交易额</span><br>
+</td>
+<td class="num">58.13 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S37</td>
+<td class="lines">
+<span>线上口腔护理交易量增速</span><br>
+</td>
+<td class="num">8.5 %</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S38</td>
+<td class="lines">
+<span>抖音口腔护理交易额</span><br>
+</td>
+<td class="num">32.11 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S39</td>
+<td class="lines">
+<span>天猫口腔护理交易额</span><br>
+</td>
+<td class="num">14.42 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S40</td>
+<td class="lines">
+<span>京东口腔护理交易额</span><br>
+</td>
+<td class="num">8.42 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S41</td>
+<td class="lines">
+<span>淘宝口腔护理交易额</span><br>
+</td>
+<td class="num">3.2 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S42</td>
+<td class="lines">
+<span>牙膏交易额</span><br>
+</td>
+<td class="num">37.55 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S43</td>
+<td class="lines">
+<span>漱口水交易额</span><br>
+</td>
+<td class="num">2.93 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S44</td>
+<td class="lines">
+<span>牙粉交易额</span><br>
+</td>
+<td class="num">2.57 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S45</td>
+<td class="lines">
+<span>口腔清新剂交易额</span><br>
+</td>
+<td class="num">1.17 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S46</td>
+<td class="lines">
+<span>牙膏 50—80元 销售额占比</span><br>
+</td>
+<td class="num">39.28 %</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S47</td>
+<td class="lines">
+<span>牙膏 20—50元 销售额占比</span><br>
+</td>
+<td class="num">34.09 %</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S48</td>
+<td class="lines">
+<span>牙膏 80元以上 销售额占比</span><br>
+</td>
+<td class="num">18.44 %</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S49</td>
+<td class="lines">
+<span>线上口腔护理交易额增速</span><br>
+</td>
+<td class="num">-2.9 %</td>
+<td class="lines">
+<span>2023年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S50</td>
+<td class="lines">
+<span>线上口腔护理交易额增速</span><br>
+</td>
+<td class="num">3.6 %</td>
+<td class="lines">
+<span>2024年</span><br>
+</td>
+<td class="lines">
+<span>魔镜洞察 / 日化智云</span><br>
+</td>
+</tr>
+<tr>
+<td>S51</td>
+<td class="lines">
+<span>珀莱雅营业收入</span><br>
+</td>
+<td class="num">105.97 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>证券日报网 / 新浪财经</span><br>
+</td>
+</tr>
+<tr>
+<td>S52</td>
+<td class="lines">
+<span>珀莱雅归母净利润</span><br>
+</td>
+<td class="num">14.98 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>证券日报网 / 新浪财经</span><br>
+</td>
+</tr>
+<tr>
+<td>S53</td>
+<td class="lines">
+<span>珀莱雅毛利率</span><br>
+</td>
+<td class="num">73.26 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>东吴证券</span><br>
+</td>
+</tr>
+<tr>
+<td>S54</td>
+<td class="lines">
+<span>珀莱雅销售费用率</span><br>
+</td>
+<td class="num">49.63 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>东吴证券</span><br>
+</td>
+</tr>
+<tr>
+<td>S55</td>
+<td class="lines">
+<span>珀莱雅归母净利率</span><br>
+</td>
+<td class="num">14.13 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>东吴证券</span><br>
+</td>
+</tr>
+<tr>
+<td>S56</td>
+<td class="lines">
+<span>珀莱雅主品牌营收</span><br>
+</td>
+<td class="num">76.89 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>东吴证券</span><br>
+</td>
+</tr>
+<tr>
+<td>S57</td>
+<td class="lines">
+<span>珀莱雅 OR 品牌营收</span><br>
+</td>
+<td class="num">7.44 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>东吴证券</span><br>
+</td>
+</tr>
+<tr>
+<td>S58</td>
+<td class="lines">
+<span>上海家化营业收入</span><br>
+</td>
+<td class="num">63.17 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>证券时报</span><br>
+</td>
+</tr>
+<tr>
+<td>S59</td>
+<td class="lines">
+<span>上海家化归母净利润</span><br>
+</td>
+<td class="num">2.68 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>证券时报</span><br>
+</td>
+</tr>
+<tr>
+<td>S60</td>
+<td class="lines">
+<span>登康口腔营业收入</span><br>
+</td>
+<td class="num">17.16 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S61</td>
+<td class="lines">
+<span>登康口腔归母净利润</span><br>
+</td>
+<td class="num">1.81 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S62</td>
+<td class="lines">
+<span>登康口腔毛利率</span><br>
+</td>
+<td class="num">52.23 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S63</td>
+<td class="lines">
+<span>登康口腔ROE</span><br>
+</td>
+<td class="num">12.03 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S64</td>
+<td class="lines">
+<span>百亚股份营业收入</span><br>
+</td>
+<td class="num">34.92 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>上海证券报 / 东方财富</span><br>
+</td>
+</tr>
+<tr>
+<td>S65</td>
+<td class="lines">
+<span>百亚股份归母净利润</span><br>
+</td>
+<td class="num">2.08 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>上海证券报 / 东方财富</span><br>
+</td>
+</tr>
+<tr>
+<td>S66</td>
+<td class="lines">
+<span>百亚股份综合毛利率</span><br>
+</td>
+<td class="num">54.3 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>上海证券报 / 东方财富</span><br>
+</td>
+</tr>
+<tr>
+<td>S67</td>
+<td class="lines">
+<span>百亚自由点产品营收</span><br>
+</td>
+<td class="num">33.41 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>上海证券报 / 东方财富</span><br>
+</td>
+</tr>
+<tr>
+<td>S68</td>
+<td class="lines">
+<span>百亚大健康系列收入增速</span><br>
+</td>
+<td class="num">36.3 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>上海证券报 / 东方财富</span><br>
+</td>
+</tr>
+<tr>
+<td>S69</td>
+<td class="lines">
+<span>百亚线下外围省份营收</span><br>
+</td>
+<td class="num">8.34 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>上海证券报 / 东方财富</span><br>
+</td>
+</tr>
+<tr>
+<td>S70</td>
+<td class="lines">
+<span>百亚 2026Q1 归母净利润</span><br>
+</td>
+<td class="num">1.44 亿元</td>
+<td class="lines">
+<span>2026年Q1</span><br>
+</td>
+<td class="lines">
+<span>上海证券报 / 东方财富</span><br>
+</td>
+</tr>
+<tr>
+<td>S71</td>
+<td class="lines">
+<span>豪悦护理营业收入</span><br>
+</td>
+<td class="num">37.56 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S72</td>
+<td class="lines">
+<span>豪悦护理归母净利润</span><br>
+</td>
+<td class="num">2.32 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S73</td>
+<td class="lines">
+<span>豪悦护理毛利率</span><br>
+</td>
+<td class="num">31.51 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S74</td>
+<td class="lines">
+<span>拉芳家化营业收入</span><br>
+</td>
+<td class="num">8.18 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S75</td>
+<td class="lines">
+<span>拉芳家化归母净利润</span><br>
+</td>
+<td class="num">-0.31 亿元</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+<tr>
+<td>S76</td>
+<td class="lines">
+<span>拉芳家化毛利率</span><br>
+</td>
+<td class="num">49.11 %</td>
+<td class="lines">
+<span>2025年</span><br>
+</td>
+<td class="lines">
+<span>界面新闻 / 有连云</span><br>
+</td>
+</tr>
+</tbody></table></div>
+</div></details>
+<section id="s-8">
+<h2 class="sec"><span class="num">8</span>口径与分数</h2>
+<p class="q"><b>本节问题</b>　这份报告的数据够不够、能不能追回去？</p>
+<div class="reading"><h3>要点</h3><ol>
+<li><strong>怎么算的：</strong>保留率 = 报告出现的观测数 ÷ 台账观测数；溯源率 = 正文可回到观测或派生公式的数字占比；弃置率 = 采集但未入报告的观测占比。三项都由 analyze.py 输出后核对，不是自评。</li>
+<li><strong>自检结果：</strong>渠道四项合计 vs 口腔 2026Q1 总额（PASS）；价格带三档合计（PASS）；量价分解可加性（PASS）；均价口径一致性（披露 vs 隐含）（PASS）；观测编号唯一（PASS）；每条观测可追到来源（PASS）。</li>
+<li><strong>边界：</strong>报告没有一手交易数据，所有判断建立在二级来源上；缺口 G1–G5 未补齐前，动作只到“方向”不到“承诺”。</li>
+</ol></div>
+<p class="tcap">表 4 · 自检与保真分数</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>指标</th>
+<th class="num">值</th>
+<th>说明</th>
+</tr></thead><tbody>
+<tr>
+<td>观测数</td>
+<td class="num">76</td>
+<td class="lines">
+<span>台账条目数（evidence_ledger.json）</span><br>
+</td>
+</tr>
+<tr>
+<td>保留率</td>
+<td class="num">100%</td>
+<td class="lines">
+<span>76/76 全部进入附录记录层，无弃置</span><br>
+</td>
+</tr>
+<tr>
+<td>溯源率</td>
+<td class="num">100%</td>
+<td class="lines">
+<span>正文直接值带 S 编号，派生值带 D 编号，公式见 data/derived_metrics.csv</span><br>
+</td>
+</tr>
+<tr>
+<td>弃置率</td>
+<td class="num">0%</td>
+<td class="lines">
+<span>没有采集后未进入报告的观测</span><br>
+</td>
+</tr>
+<tr>
+<td>口径冲突</td>
+<td class="num">3</td>
+<td class="lines">
+<span>C1 市场规模、C2 线上 vs 全渠道、C3 洗护均价两种算法</span><br>
+</td>
+</tr>
+<tr>
+<td>数据缺口</td>
+<td class="num">5</td>
+<td class="lines">
+<span>G1–G5，逐条见口径说明与交付说明</span><br>
+</td>
+</tr>
+<tr>
+<td>自检项</td>
+<td class="num">6/6</td>
+<td class="lines">
+<span>渠道合计、价格带合计、量价可加性、均价口径、编号唯一、来源完整</span><br>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="notes" id="notes">
+<h3 class="notes-title">口径、来源与证据边界</h3>
+<details open><summary>口径、来源与证据边界（含 3 处口径冲突、5 项数据缺口）</summary>
+<div class="notes-copy">
+<p><strong>口径 1（C1）：</strong>中国香妆协会 2025 全渠道交易额 11,042.45 亿元（+2.83%）与 Euromonitor 5,525.78 亿元（+2.0%）不是同一口径，差约 2.0 倍；本报告不做换算，分别用于“行业景气/国货份额”与“个护零售大盘”。</p>
+<p><strong>口径 2（C2）：</strong>魔镜线上数据（洗护发 695.51 亿元、口腔 245.26 亿元）是平台成交口径，不能与限额以上化妆品零售额 4,653 亿元混算；线上只用于结构与增速。</p>
+<p><strong>口径 3（C3）：</strong>洗护发披露均价 -4.30%，额/量隐含 -3.87%，差 0.43pp；价格叙述用披露值，量价分解用隐含值。</p>
+<p><strong>缺口 G1–G5：</strong>无一手交易数据；线下无分品类规模；口腔只有 2026Q1 分平台；上海家化缺毛利率/费用率；头皮护理、牙粉缺绝对规模。</p>
+<p><strong>来源：</strong>国家统计局、中国香妆协会、Euromonitor、魔镜洞察、6 家上市公司 2025 年报，共 76 条观测；全部带链接与发布日期，见 evidence_ledger.json。</p>
+<p><strong>复现：</strong>python analyze.py → python build_report.py；数据改一处，重跑两步即可重渲，报告不手改。</p>
+<p>本报告由 core/report_renderer.py 从 contract 确定性渲染生成；任何手改 HTML 都会在下次重渲时丢失。</p>
+</div></details></section>
+<footer>
+<span>R05 蛙深远（调研）× R06 蛙得清（分析）· core/report_renderer.py 确定性渲染</span>
+<span>数据：国家统计局 / 中国香妆协会 / Euromonitor / 魔镜洞察 / 上市公司年报；台账 evidence_ledger.json</span>
+<span>生成时间 2026-11-12 23:40（Asia/Shanghai）</span>
+</footer>
+</main></div></body></html>

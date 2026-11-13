@@ -1,0 +1,204 @@
+{
+  "chart_type": "line",
+  "title": "洗护发周度成交均价与销量（2026）",
+  "x_field": "week",
+  "y_field": "units",
+  "data": [
+    {
+      "week": "2026-W02",
+      "units": 383,
+      "avg_price": 55.72
+    },
+    {
+      "week": "2026-W03",
+      "units": 480,
+      "avg_price": 51.26
+    },
+    {
+      "week": "2026-W04",
+      "units": 345,
+      "avg_price": 57.31
+    },
+    {
+      "week": "2026-W05",
+      "units": 352,
+      "avg_price": 55.25
+    },
+    {
+      "week": "2026-W06",
+      "units": 421,
+      "avg_price": 47.93
+    },
+    {
+      "week": "2026-W07",
+      "units": 354,
+      "avg_price": 57.85
+    },
+    {
+      "week": "2026-W08",
+      "units": 376,
+      "avg_price": 55.9
+    },
+    {
+      "week": "2026-W09",
+      "units": 341,
+      "avg_price": 56.47
+    },
+    {
+      "week": "2026-W10",
+      "units": 439,
+      "avg_price": 49.43
+    },
+    {
+      "week": "2026-W11",
+      "units": 411,
+      "avg_price": 52.12
+    },
+    {
+      "week": "2026-W12",
+      "units": 436,
+      "avg_price": 50.96
+    },
+    {
+      "week": "2026-W13",
+      "units": 325,
+      "avg_price": 57.94
+    },
+    {
+      "week": "2026-W14",
+      "units": 394,
+      "avg_price": 53.78
+    },
+    {
+      "week": "2026-W15",
+      "units": 385,
+      "avg_price": 56.72
+    },
+    {
+      "week": "2026-W16",
+      "units": 400,
+      "avg_price": 52.19
+    },
+    {
+      "week": "2026-W17",
+      "units": 505,
+      "avg_price": 49.29
+    },
+    {
+      "week": "2026-W18",
+      "units": 377,
+      "avg_price": 52.93
+    },
+    {
+      "week": "2026-W19",
+      "units": 481,
+      "avg_price": 47.69
+    },
+    {
+      "week": "2026-W20",
+      "units": 329,
+      "avg_price": 56.42
+    },
+    {
+      "week": "2026-W21",
+      "units": 363,
+      "avg_price": 54.9
+    },
+    {
+      "week": "2026-W22",
+      "units": 350,
+      "avg_price": 56.01
+    },
+    {
+      "week": "2026-W23",
+      "units": 398,
+      "avg_price": 50.8
+    },
+    {
+      "week": "2026-W24",
+      "units": 393,
+      "avg_price": 58.46
+    },
+    {
+      "week": "2026-W25",
+      "units": 327,
+      "avg_price": 56.89
+    },
+    {
+      "week": "2026-W26",
+      "units": 345,
+      "avg_price": 56.15
+    },
+    {
+      "week": "2026-W27",
+      "units": 454,
+      "avg_price": 49.58
+    },
+    {
+      "week": "2026-W28",
+      "units": 392,
+      "avg_price": 52.24
+    },
+    {
+      "week": "2026-W29",
+      "units": 395,
+      "avg_price": 47.47
+    },
+    {
+      "week": "2026-W30",
+      "units": 389,
+      "avg_price": 48.87
+    },
+    {
+      "week": "2026-W31",
+      "units": 381,
+      "avg_price": 54.89
+    },
+    {
+      "week": "2026-W32",
+      "units": 340,
+      "avg_price": 55.86
+    },
+    {
+      "week": "2026-W33",
+      "units": 328,
+      "avg_price": 57.58
+    },
+    {
+      "week": "2026-W34",
+      "units": 429,
+      "avg_price": 50.49
+    },
+    {
+      "week": "2026-W35",
+      "units": 397,
+      "avg_price": 51.11
+    },
+    {
+      "week": "2026-W36",
+      "units": 371,
+      "avg_price": 52.66
+    },
+    {
+      "week": "2026-W37",
+      "units": 450,
+      "avg_price": 49.12
+    },
+    {
+      "week": "2026-W38",
+      "units": 406,
+      "avg_price": 48.82
+    },
+    {
+      "week": "2026-W39",
+      "units": 366,
+      "avg_price": 52.87
+    },
+    {
+      "week": "2026-W40",
+      "units": 355,
+      "avg_price": 50.22
+    }
+  ],
+  "notes": "价格下行周销量上行，方向与弹性估计一致"
+}

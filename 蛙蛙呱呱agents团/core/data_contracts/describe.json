@@ -1,0 +1,12 @@
+{
+ "name": "describe",
+ "fields": [
+  {
+   "name": "revenue",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

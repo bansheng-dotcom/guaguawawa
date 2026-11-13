@@ -1,0 +1,386 @@
+{
+  "name": "wawa-guagua-agents",
+  "version": "1.0.0",
+  "description": "One-person-company 20-role agent team with a CEO orchestrator: decision governance, strategy & data, product & engineering, marketing, commerce operations, and reliability, each with deterministic gates.",
+  "author": {
+    "name": "蛙蛙呱呱",
+    "email": "noreply@localhost"
+  },
+  "agents": [
+    "./agents/r01-waquanju-ceo.md",
+    "./agents/r02-wapaibu-coo.md",
+    "./agents/r03-washouxian-cfo.md",
+    "./agents/r04-watiaoci-reviewer.md",
+    "./agents/r05-washenyuan-research.md",
+    "./agents/r06-wadeqing-analyst.md",
+    "./agents/r07-wademing-pm.md",
+    "./agents/r08-wajiancheng-mvp.md",
+    "./agents/r09-wawenma-engineer.md",
+    "./agents/r10-wachengmei-design.md",
+    "./agents/r11-wadianti-copy.md",
+    "./agents/r12-wayingliu-growth.md",
+    "./agents/r13-wakecheng-csm.md",
+    "./agents/r14-wajiaoyi-commerce.md",
+    "./agents/r15-wagongying-erp.md",
+    "./agents/r16-warenshi-hr.md",
+    "./agents/r17-wazhiwang-automation.md",
+    "./agents/r18-washucang-dataeng.md",
+    "./agents/r19-wazhimo-ml.md",
+    "./agents/r20-washouzhi-sre.md"
+  ],
+  "expertType": "team",
+  "agentName": "r01-waquanju-ceo",
+  "teamInfo": {
+    "leadAgent": "r01-waquanju-ceo",
+    "memberAgents": [
+      "r02-wapaibu-coo",
+      "r03-washouxian-cfo",
+      "r04-watiaoci-reviewer",
+      "r05-washenyuan-research",
+      "r06-wadeqing-analyst",
+      "r07-wademing-pm",
+      "r08-wajiancheng-mvp",
+      "r09-wawenma-engineer",
+      "r10-wachengmei-design",
+      "r11-wadianti-copy",
+      "r12-wayingliu-growth",
+      "r13-wakecheng-csm",
+      "r14-wajiaoyi-commerce",
+      "r15-wagongying-erp",
+      "r16-warenshi-hr",
+      "r17-wazhiwang-automation",
+      "r18-washucang-dataeng",
+      "r19-wazhimo-ml",
+      "r20-washouzhi-sre"
+    ]
+  },
+  "displayName": {
+    "en": "Wawa Guagua Agents Team",
+    "zh": "蛙蛙呱呱agents团"
+  },
+  "profession": {
+    "en": "One-Person Company Team",
+    "zh": "一人公司智能体团"
+  },
+  "displayDescription": {
+    "en": "20 specialists under one CEO orchestrator: intent decomposition, decision gating, research & analysis, product & engineering, growth & content, commerce & supply chain, and reliability — every deliverable passes a deterministic gate.",
+    "zh": "CEO 主理人统管 20 个专家：意图拆解、决策闸门、研究分析、产品工程、增长内容、交易供应链、自动化可靠性；每类交付物都过确定性门禁。"
+  },
+  "avatar": "avatars/team.png",
+  "categoryId": "01-Business",
+  "defaultInitPrompt": {
+    "zh": "帮我判断一件事该不该做，并给出能签字的决策卡",
+    "en": "Help me decide whether to do something, with a signable decision card."
+  },
+  "tags": [
+    {
+      "en": "Decision Gate",
+      "zh": "决策闸门"
+    },
+    {
+      "en": "Multi-Agent Orchestration",
+      "zh": "多角色编排"
+    },
+    {
+      "en": "Deterministic Gates",
+      "zh": "确定性门禁"
+    }
+  ],
+  "quickPrompts": [
+    {
+      "zh": "这个定价该不该调？给我一张能签字的决策卡",
+      "en": "Should we change pricing? Give me a signable decision card."
+    },
+    {
+      "zh": "帮我做一套电商主图与详情页方案",
+      "en": "Produce an e-commerce main-image and detail-page plan."
+    },
+    {
+      "zh": "分析这份订单数据，找出漏斗卡在哪",
+      "en": "Analyze this order data and find where the funnel leaks."
+    }
+  ],
+  "plugin": "wawa-guagua-agents",
+  "members": [
+    {
+      "id": "r01-waquanju-ceo",
+      "displayName": {
+        "en": "Wa Quanju",
+        "zh": "蛙全局"
+      },
+      "profession": {
+        "en": "CEO / Orchestrator",
+        "zh": "CEO 主理人 / 编排器"
+      },
+      "avatar": "avatars/one-person-company-20-team-lead.png",
+      "role": "lead",
+      "description": "CEO 主理人 / 编排器（蛙全局）。把创始人的一句话意图变成有主责、有验收、有终止条件的任务卡；收口成一份能签字的决策汇报；不替专业部门干活，也不替创始人签字。当需要拆分意图、指派角色、评估决策风险、做董事会汇报时调用。不负责：不替专业部门生产、不签质量结论、不签合同/动资金。"
+    },
+    {
+      "id": "r02-wapaibu-coo",
+      "displayName": {
+        "en": "Wa Paibu",
+        "zh": "蛙排布"
+      },
+      "profession": {
+        "en": "Chief Operating Officer",
+        "zh": "COO 首席运营官"
+      },
+      "avatar": "avatars/chief-operating-officer.png",
+      "role": "member",
+      "description": "COO 首席运营官（蛙排布）。工作拆解与排期（WBS/冲刺/关键路径计算）；容量核算与任务委派（加权负载/8h上限/口径恒等拆分）；跨角色交接与验收追踪（交接包四要素/逐条对证据）。当需要排期拆解、容量与委派、交接验收、复盘与 SOP时调用。不负责：不实现自动化（R17）、不生产业务、不定公司方向。"
+    },
+    {
+      "id": "r03-washouxian-cfo",
+      "displayName": {
+        "en": "Wa Shouxian",
+        "zh": "蛙守线"
+      },
+      "profession": {
+        "en": "Finance & Compliance Officer",
+        "zh": "财务合规官 / 红线负责人"
+      },
+      "avatar": "avatars/finance-compliance-officer.png",
+      "role": "member",
+      "description": "财务合规官 / 红线负责人（蛙守线）。资产负债表与月结对账平衡门禁；CFO 经营诊断（Runway月度现金模拟/单位经济模型LTV:CAC）；税务边界合规（ISO/AMT/RMD/安全港预估税）。当需要月结对账、税务边界、合同红线、隐私与 AI 治理、审计留痕时调用。不负责：不出持牌意见、不执行支付/签约（R14）。"
+    },
+    {
+      "id": "r04-watiaoci-reviewer",
+      "displayName": {
+        "en": "Wa Tiaoci",
+        "zh": "蛙挑刺"
+      },
+      "profession": {
+        "en": "Independent Reviewer",
+        "zh": "独立评审官"
+      },
+      "avatar": "avatars/independent-reviewer.png",
+      "role": "member",
+      "description": "独立评审官（蛙挑刺）。交付物料齐备性盘点与缺失分级阻断；三级证据链（L1存在/L2实质/L3连通）与 Stub 反模式扫描；逐命令 subprocess 硬门禁执行与超时拦截。当需要验收成品、复核硬门禁、给 pass/fail 结论时调用。不负责：不生产、不改稿、无成品不做猜测评价。"
+    },
+    {
+      "id": "r05-washenyuan-research",
+      "displayName": {
+        "en": "Wa Shenyuan",
+        "zh": "蛙深远"
+      },
+      "profession": {
+        "en": "Strategy Researcher",
+        "zh": "战略研究官"
+      },
+      "avatar": "avatars/strategy-researcher.png",
+      "role": "member",
+      "description": "战略研究官（蛙深远）。全覆盖证据台账（Claims 挂 Sources，覆盖率 100% 放行）；行业地图与集中度分析（HHI / CR4 / 利润池）；竞品情报矩阵与战斗卡威胁定级。当需要行业扫描、竞品情报、市场规模测算、商业模式推演时调用。不负责：不替你拍板、无来源标待核实。"
+    },
+    {
+      "id": "r06-wadeqing-analyst",
+      "displayName": {
+        "en": "Wa Deqing",
+        "zh": "蛙得清"
+      },
+      "profession": {
+        "en": "Data Analyst",
+        "zh": "数据分析师"
+      },
+      "avatar": "avatars/data-analyst.png",
+      "role": "member",
+      "description": "数据分析师（蛙得清）。dbt MetricFlow 指标语义建模、指标树与度量对账；六维数据质量审计（缺失/重复/离群/新鲜度）与清洗转换；探索性分析（趋势/漏斗/留存Cohort/RFM/时间序列/K-means分群）。当需要算指标、做漏斗与留存、根因归因、统计检验、出数据报告时调用。不负责：不制造确定性、正式财务/统计意见交 R03。"
+    },
+    {
+      "id": "r07-wademing-pm",
+      "displayName": {
+        "en": "Wa Deming",
+        "zh": "蛙得明"
+      },
+      "profession": {
+        "en": "Product Manager",
+        "zh": "产品经理"
+      },
+      "avatar": "avatars/product-manager.png",
+      "role": "member",
+      "description": "产品经理（蛙得明）。产品发现、问题重构与 JTBD 岗位理论；机会解树（OST）构建与假设影响矩阵优先级排序；规范化用户故事、Given/When/Then 与 PRD 八门禁撰写。当需要写 PRD、拆用户故事、排优先级、做产品发现时调用。不负责：不写生产代码（R09）。"
+    },
+    {
+      "id": "r08-wajiancheng-mvp",
+      "displayName": {
+        "en": "Wa Jiancheng",
+        "zh": "蛙建成"
+      },
+      "profession": {
+        "en": "Prototype Builder",
+        "zh": "产品实现官 (MVP)"
+      },
+      "avatar": "avatars/mvp-builder.png",
+      "role": "member",
+      "description": "产品实现官 (MVP)（蛙建成）。产品切片与 MVP 最小可行性验证设计；工程 Spec 转换、脚手架工程规范与目录树构建；落地页与 H5 高转化结构八要素核验。当需要做原型、切片 MVP、落地页、HTML 报告时调用。不负责：不做生产级工程质量（R09）。"
+    },
+    {
+      "id": "r09-wawenma-engineer",
+      "displayName": {
+        "en": "Wa Wenma",
+        "zh": "蛙稳码"
+      },
+      "profession": {
+        "en": "Software Engineer",
+        "zh": "代码工程官"
+      },
+      "avatar": "avatars/code-engineer.png",
+      "role": "member",
+      "description": "代码工程官（蛙稳码）。技术规格架构设计与模块接口拓扑定义；数据库 Schema 规范化与 RESTful/GraphQL API 契约；前后端全栈功能垂直切片实现与身份认证。当需要写生产代码、建架构、测试与调试、上线与迁移时调用。不负责：不监控备份（R20）、不快速原型（R08）。"
+    },
+    {
+      "id": "r10-wachengmei-design",
+      "displayName": {
+        "en": "Wa Chengmei",
+        "zh": "蛙成美"
+      },
+      "profession": {
+        "en": "Visual Designer",
+        "zh": "视觉设计官"
+      },
+      "avatar": "avatars/visual-designer.png",
+      "role": "member",
+      "description": "视觉设计官（蛙成美）。AI 生图与插画精准提示词工程设计与风格控制；企业 Logo 矢量方案、Favicon 与视觉识别系统（VI）；移动端与 Web 界面 UI/UX 设计规范与可用性审计。当需要做电商主图与详情页、Logo/VI、UI 界面、图像处理时调用。不负责：不写代码（R09）。"
+    },
+    {
+      "id": "r11-wadianti-copy",
+      "displayName": {
+        "en": "Wa Dianti",
+        "zh": "蛙点题"
+      },
+      "profession": {
+        "en": "Content Editor",
+        "zh": "内容主笔"
+      },
+      "avatar": "avatars/content-editor.png",
+      "role": "member",
+      "description": "内容主笔（蛙点题）。内容策略规划与热点选题库构建；面向搜索与 AI 问答引擎（SEO/AEO）的内容优化；强吸引力开头钩子与长文逻辑提纲搭建。当需要写长文与文案、SEO/AEO、多平台适配时调用。不负责：不投放（R12）。"
+    },
+    {
+      "id": "r12-wayingliu-growth",
+      "displayName": {
+        "en": "Wa Yingliu",
+        "zh": "蛙引流"
+      },
+      "profession": {
+        "en": "Growth Operator",
+        "zh": "增长运营官"
+      },
+      "avatar": "avatars/growth-operator.png",
+      "role": "member",
+      "description": "增长运营官（蛙引流）。增长基线诊断与漏斗转化瓶颈定位；有机获客增长飞轮（Flywheel）与病毒传播机制设计；冷启动策略与个性化冷邮件外联序列（Cold Outreach）。当需要做增长诊断、投放与 CRO、冷启动外联、归因时调用。不负责：不写稿（R11）。"
+    },
+    {
+      "id": "r13-wakecheng-csm",
+      "displayName": {
+        "en": "Wa Kecheng",
+        "zh": "蛙客成"
+      },
+      "profession": {
+        "en": "Customer Success Operator",
+        "zh": "客户成功与销售运营官"
+      },
+      "avatar": "avatars/customer-success-operator.png",
+      "role": "member",
+      "description": "客户成功与销售运营官（蛙客成）。CRM 客户档案、组织关系与生命周期阶段精细化管理；销售管道（Pipeline）阶段流转、停滞线索识别与加权价值预测；客户跟进活动记录与承诺履约追踪。当需要管客户与管道、做客服与 VOC、算健康分与续约时调用。不负责：不处理支付/履约（R14）。"
+    },
+    {
+      "id": "r14-wajiaoyi-commerce",
+      "displayName": {
+        "en": "Wa Jiaoyi",
+        "zh": "蛙交易"
+      },
+      "profession": {
+        "en": "Commerce Fulfillment Officer",
+        "zh": "交易与收入履约官"
+      },
+      "avatar": "avatars/commerce-fulfillment-officer.png",
+      "role": "member",
+      "description": "交易与收入履约官（蛙交易）。电商商品目录、类目属性与多币种价格策略管理；购物车状态、行项目校验与订单多轴履约状态编排；SaaS 订阅计量计费模型与周期性账单账单流水生成。当需要下单收款签约、订阅计费、支付集成、履约编排时调用。不负责：不出财务意见（R03）。"
+    },
+    {
+      "id": "r15-wagongying-erp",
+      "displayName": {
+        "en": "Wa Gongying",
+        "zh": "蛙供应"
+      },
+      "profession": {
+        "en": "ERP & Supply Chain Officer",
+        "zh": "ERP 与供应链运营官"
+      },
+      "avatar": "avatars/erp-supply-chain-officer.png",
+      "role": "member",
+      "description": "ERP 与供应链运营官（蛙供应）。供应商全生命周期管理、询比价（RFQ）与采购订单审批流；多级仓库物料档案、批次序列号追踪与动态出入库事务台账；销售发货履约记录、交付单勾稽与对账发票匹配。当需要采购与库存、供应商管理、ERP 账务与主数据时调用。不负责：不出财务意见（R03）。"
+    },
+    {
+      "id": "r16-warenshi-hr",
+      "displayName": {
+        "en": "Wa Renshi",
+        "zh": "蛙人事"
+      },
+      "profession": {
+        "en": "People Operations Officer",
+        "zh": "人员与组织运营官"
+      },
+      "avatar": "avatars/people-operations-officer.png",
+      "role": "member",
+      "description": "人员与组织运营官（蛙人事）。招聘需求发布、候选人面试流转与录用审批流程管理；员工花名册、电子合同与全生命周期人事档案维护；考勤排班排查、请休假配额勾稽与打卡异常处理。当需要招聘入职、绩效考勤、薪酬准备、组织运营时调用。不负责：薪酬输入交 R03 复核。"
+    },
+    {
+      "id": "r17-wazhiwang-automation",
+      "displayName": {
+        "en": "Wa Zhiwang",
+        "zh": "蛙织网"
+      },
+      "profession": {
+        "en": "Automation Integration Engineer",
+        "zh": "自动化与集成工程师"
+      },
+      "avatar": "avatars/automation-integration-engineer.png",
+      "role": "member",
+      "description": "自动化与集成工程师（蛙织网）。跨 SaaS 平台 API 集成架构设计与安全凭证管理规范；Webhook 接收端设计、输入数据格式校验与路由分发；多系统异构数据字段身份映射与数据表转换逻辑。当需要接 SaaS/API、设计 webhook 与重试、做定时批处理时调用。不负责：不实现业务逻辑（R09）。"
+    },
+    {
+      "id": "r18-washucang-dataeng",
+      "displayName": {
+        "en": "Wa Shucang",
+        "zh": "蛙数仓"
+      },
+      "profession": {
+        "en": "Data Pipeline Engineer",
+        "zh": "数据工程与管道官"
+      },
+      "avatar": "avatars/data-pipeline-engineer.png",
+      "role": "member",
+      "description": "数据工程与管道官（蛙数仓）。源数据库及 API 的连接配置与增量数据提取（ELT）；基于 dbt 的数仓分层转换模型构建与引用关系编排；Airflow/Dagster 管道 DAG 拓扑定义与任务调度监控。当需要建数据管道、数仓转换、调度、数据质量门禁时调用。不负责：不做分析结论（R06）。"
+    },
+    {
+      "id": "r19-wazhimo-ml",
+      "displayName": {
+        "en": "Wa Zhimo",
+        "zh": "蛙智模"
+      },
+      "profession": {
+        "en": "ML Evaluation Engineer",
+        "zh": "模型工程与 AI 评估官"
+      },
+      "avatar": "avatars/ml-evaluation-engineer.png",
+      "role": "member",
+      "description": "模型工程与 AI 评估官（蛙智模）。机器学习与大模型实验参数、运行指标及超参追踪记录；模型中心（Model Registry）版本化纳管与部署阶段流转；评测数据集（Benchmark）构建与多维度自动评分器开发。当需要跑实验、做评测与红队、模型注册与回归时调用。不负责：模型监控接口归 R20。"
+    },
+    {
+      "id": "r20-washouzhi-sre",
+      "displayName": {
+        "en": "Wa Shouzhi",
+        "zh": "蛙值守"
+      },
+      "profession": {
+        "en": "Reliability & Recovery Officer",
+        "zh": "可靠性与恢复官"
+      },
+      "avatar": "avatars/reliability-recovery-officer.png",
+      "role": "member",
+      "description": "可靠性与恢复官（蛙值守）。系统服务可用性（Uptime）与网络端点健康探测规范；分级告警规则设计与值班工程师阶梯式升级通知链路；对外公开状态页（Status Page）运维与故障透明沟通公告。当需要配监控告警、做备份与恢复演练、写故障复盘时调用。不负责：不做应用实现（R09）。"
+    }
+  ]
+}

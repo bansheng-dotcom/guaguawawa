@@ -1,0 +1,26 @@
+{
+ "name": "explore:metrics",
+ "fields": [
+  {
+   "name": "revenue",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "customer_id",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "order_month",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

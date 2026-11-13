@@ -1,0 +1,13 @@
+{
+ "skill": "selfmedia",
+ "args": [
+  "report",
+  "--input",
+  "{AGENTS}/tests/fixtures/selfmedia_dash.json",
+  "--output",
+  "{AGENTS}/tests/fixtures/_daily_tmp.md"
+ ],
+ "expect": {
+  "status": "partial"
+ }
+}

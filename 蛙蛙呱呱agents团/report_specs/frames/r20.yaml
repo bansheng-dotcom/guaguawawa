@@ -1,0 +1,50 @@
+role: r20
+domain: 可靠性
+objects:
+- SLO
+- 事件
+- 备份
+- 告警
+value_chain: []
+decisions:
+- 扩容
+- 降级
+- 演练
+- 通报
+questions:
+- id: Q1
+  question: SLA 还守得住吗？
+  needs:
+  - 可用性
+  - 错误预算
+  ops: []
+  decision: 要不要降级
+- id: Q2
+  question: 这周哪里抖了？
+  needs:
+  - 事件
+  - MTTR
+  ops: []
+  decision: 先修哪条链路
+- id: Q3
+  question: 数据真能回来吗？
+  needs:
+  - 备份记录
+  - 恢复演练
+  - RPO/RTO
+  ops: []
+  decision: 要不要重做演练
+- id: Q4
+  question: 告警有没有疲劳？
+  needs:
+  - 告警量
+  - 误报率
+  ops: []
+  decision: 阈值怎么调
+- id: Q5
+  question: 对外怎么说？
+  needs:
+  - 状态页
+  - 影响面
+  ops: []
+  decision: 什么时候通报

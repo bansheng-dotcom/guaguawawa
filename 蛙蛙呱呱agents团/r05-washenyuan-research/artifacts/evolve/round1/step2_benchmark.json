@@ -1,0 +1,37 @@
+{
+  "round": 1,
+  "timestamp": "2026-11-10T19:36:34",
+  "benchmarks": [
+    {
+      "project": "OpenBB-finance/OpenBB",
+      "stars": 28000,
+      "url": "https://github.com/OpenBB-finance/OpenBB",
+      "absorbed": "可插拔研究数据供应商注册表 + 逐供应商健康探针"
+    },
+    {
+      "project": "stanfordnlp/dspy",
+      "stars": 19000,
+      "url": "https://github.com/stanfordnlp/dspy",
+      "absorbed": "把自然语言签名编译成可执行声明式计算图（DAG）"
+    },
+    {
+      "project": "noahshinn/reflexion",
+      "stars": 5800,
+      "url": "https://github.com/noahshinn/reflexion",
+      "absorbed": "Reflexion 反思-自愈-复检闭环（含失败记忆）"
+    },
+    {
+      "project": "All-Hands-AI/OpenHands",
+      "stars": 40000,
+      "url": "https://github.com/All-Hands-AI/OpenHands",
+      "absorbed": "Guardrail 硬红线阻断与跨角色 handoff 契约"
+    }
+  ],
+  "absorbed_mechanisms": [
+    "可插拔研究数据供应商注册表 + 逐供应商健康探针",
+    "把自然语言签名编译成可执行声明式计算图（DAG）",
+    "Reflexion 反思-自愈-复检闭环（含失败记忆）",
+    "Guardrail 硬红线阻断与跨角色 handoff 契约"
+  ],
+  "policy": "每个标杆必须说明被吸收的具体机制，禁止只贴 star 数"
+}

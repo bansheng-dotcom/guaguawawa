@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "services": [
+    {
+      "name": "order-api",
+      "modules": 6,
+      "endpoints": 18,
+      "breaking_changes": 2,
+      "test_cases": 142,
+      "coverage": 0.71,
+      "p95_ms": 380,
+      "callers": [
+        "miniapp",
+        "erp"
+      ]
+    },
+    {
+      "name": "payment-gateway",
+      "modules": 4,
+      "endpoints": 9,
+      "breaking_changes": 0,
+      "test_cases": 88,
+      "coverage": 0.83,
+      "p95_ms": 210,
+      "callers": [
+        "order-api"
+      ]
+    },
+    {
+      "name": "supply-adapter",
+      "modules": 3,
+      "endpoints": 7,
+      "breaking_changes": 3,
+      "test_cases": 41,
+      "coverage": 0.52,
+      "p95_ms": 640,
+      "callers": [
+        "erp"
+      ]
+    }
+  ]
+}

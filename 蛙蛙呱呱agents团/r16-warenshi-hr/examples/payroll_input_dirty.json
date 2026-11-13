@@ -1,0 +1,7 @@
+{
+  "employee": "EMP-0001",
+  "payroll_frequency": "Yearly",
+  "components": [
+    {"name": "基本工资", "type": "Bonus", "amount": 20000.0}
+  ]
+}

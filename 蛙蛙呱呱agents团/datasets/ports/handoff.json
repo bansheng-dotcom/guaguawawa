@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "packages": [
+    {
+      "id": "H01",
+      "from": "r03",
+      "to": "r01",
+      "artifacts": 4,
+      "complete": true,
+      "verified_by": "r04",
+      "note": "含现金模型与敏感性"
+    },
+    {
+      "id": "H02",
+      "from": "r15",
+      "to": "r14",
+      "artifacts": 3,
+      "complete": false,
+      "verified_by": null,
+      "note": "缺到货准时率"
+    }
+  ]
+}

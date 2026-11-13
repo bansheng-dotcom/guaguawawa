@@ -1,0 +1,20 @@
+{
+ "skill": "abtest",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_ab.csv",
+  "--group",
+  "group",
+  "--control",
+  "A",
+  "--treatment",
+  "B",
+  "--metric",
+  "click"
+ ],
+ "expect": {
+  "abtest.lift_pct": {
+   "not_null": true
+  }
+ }
+}

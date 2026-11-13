@@ -1,0 +1,19 @@
+{
+ "skill": "regression",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--x",
+  "unit_price,qty",
+  "--y",
+  "returned",
+  "--model",
+  "logit"
+ ],
+ "expect": {
+  "multivariate.model": "logit",
+  "multivariate.auc": {
+   "not_null": true
+  }
+ }
+}

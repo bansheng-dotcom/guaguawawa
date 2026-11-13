@@ -1,0 +1,92 @@
+{
+  "_note": "R10 蛙成美·视觉设计官的全局阈值，harness 与各技能统一引用（T9 外置，改口径不改代码）。键名与 skills/_common._DEFAULT_THRESHOLDS 严格一致。",
+  "imagegen": {
+    "_note": "output_media=载体轴（12）；style_types=风格轴的 core 投影（10），必须与 experience/style_registry.json 里 level=core 的记录一一对应；extended/experimental 由 registry 提供，不进本数组。",
+    "output_media": ["image", "illustration", "icon", "poster", "banner",
+                     "packaging", "mockup", "ui-screen", "infographic",
+                     "pattern", "comic", "character-sheet"],
+    "output_media_extended": ["social-card", "thumbnail", "sticker", "sprite",
+                              "dieline", "storyboard"],
+    "text_policy_by_media": {
+      "poster": "overlay-later", "banner": "overlay-later",
+      "infographic": "overlay-later", "ui-screen": "overlay-later",
+      "packaging": "overlay-later", "comic": "overlay-later",
+      "character-sheet": "overlay-later", "mockup": "overlay-later",
+      "social-card": "overlay-later", "thumbnail": "overlay-later",
+      "storyboard": "overlay-later"
+    },
+    "image_sizes": {"1:1": "square_hd", "4:3": "landscape_4_3",
+                    "3:4": "portrait_4_3", "16:9": "landscape_16_9"},
+    "style_types": ["flat", "line-art", "gradient", "duotone", "watercolor",
+                    "pixel", "isometric", "3d", "photo", "collage"],
+    "style_registry": "experience/style_registry.json",
+    "text_policy": ["none", "overlay-later", "render-attempt"],
+    "negative_min": 1
+  },
+  "logo": {
+    "mark_types": ["wordmark", "monogram", "letterform", "pictorial",
+                   "abstract", "emblem", "mascot", "combination"],
+    "test_ladders": [16, 32, 64],
+    "test_min": 4,
+    "trademark_min": 1,
+    "color_min": 2
+  },
+  "brand": {
+    "stylescape_dirs_min": 3,
+    "palette_roles": ["primary", "secondary", "accent", "neutral"],
+    "typography_roles": ["heading", "body"],
+    "voice_dimensions": ["tone", "word_choice", "cadence", "forbidden"]
+  },
+  "uiux": {
+    "states": ["normal", "loading", "empty", "error", "disabled"],
+    "zones_min": 3,
+    "a11y_min": 3
+  },
+  "motion": {
+    "personalities": ["playful", "premium", "corporate", "energetic"],
+    "duration_ms": {
+      "playful": [150, 300],
+      "premium": [350, 600],
+      "corporate": [200, 400],
+      "energetic": [100, 250]
+    },
+    "reduced_motion": true
+  },
+  "imaging": {
+    "operations": ["resize", "crop", "rotate", "convert", "compress",
+                   "flip", "grayscale"],
+    "overwrite": ["never", "suffix"],
+    "allowed_formats": ["jpg", "jpeg", "png", "webp", "bmp", "tiff"]
+  },
+  "media": {
+    "operations": ["transcode", "cut", "concat", "extract_audio", "fade",
+                   "scale", "add_watermark"],
+    "container_formats": ["mp4", "webm", "mov", "mkv"],
+    "audio_formats": ["mp3", "aac", "wav", "ogg", "m4a"],
+    "scale_rule": ["even", "n2"]
+  },
+  "transcribe": {
+    "model_sizes": ["tiny", "base", "small", "medium", "large-v2", "large-v3"],
+    "vad": true,
+    "word_timestamps": true,
+    "temperature_fallback": true,
+    "segment_min": 1
+  },
+  "review": {
+    "vague_words": ["待定", "TODO", "TBD", "占位", "随便", "大概",
+                    "稍后补充", "后续完善", "以后再写", "占位符", "lorem",
+                    "Lorem", "placeholder"],
+    "scope_terms": ["高可用", "灾备", "CI/CD", "多机房", "横向扩容",
+                    "生产级训练", "服务端渲染", "GPU 集群"],
+    "concrete_keys": ["asset", "assets", "file_path", "spec", "prompt",
+                      "directions", "tokens", "checks", "ok", "artifacts",
+                      "fields", "mark_type"],
+    "conclusion_keys": ["summary", "note", "next", "description", "text",
+                        "rationale", "style", "prompt", "negative_prompt",
+                        "content", "body", "label", "title", "name", "value",
+                        "subject", "headline", "subhead", "purpose",
+                        "statement", "goal"],
+    "handoff_keys": ["handoff", "owner"],
+    "verdict_enum": ["PASS", "FAIL"]
+  }
+}

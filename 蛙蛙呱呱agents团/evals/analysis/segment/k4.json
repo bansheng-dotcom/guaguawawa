@@ -1,0 +1,22 @@
+{
+ "skill": "explore",
+ "args": [
+  "segment",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_customers.csv",
+  "--features",
+  "orders,revenue,recency_days,aov",
+  "--k",
+  "4",
+  "--user",
+  "customer_id",
+  "--seed",
+  "42"
+ ],
+ "expect": {
+  "k": 4,
+  "clusters.0.size": {
+   "gt": 0
+  }
+ }
+}

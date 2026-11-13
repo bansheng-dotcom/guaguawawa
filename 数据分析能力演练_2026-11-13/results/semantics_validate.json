@@ -1,0 +1,33 @@
+{
+  "ok": true,
+  "semantic_models": 1,
+  "metrics": 3,
+  "measures": 4,
+  "errors": [],
+  "valid_agg": [
+    "avg",
+    "count",
+    "count_distinct",
+    "max",
+    "min",
+    "sum"
+  ],
+  "valid_metric_type": [
+    "cumulative",
+    "derived",
+    "ratio",
+    "simple"
+  ],
+  "valid_dim_type": [
+    "categorical",
+    "numeric",
+    "time"
+  ],
+  "valid_entity_type": [
+    "foreign",
+    "natural",
+    "primary",
+    "unique"
+  ],
+  "runtime_ms": 0
+}

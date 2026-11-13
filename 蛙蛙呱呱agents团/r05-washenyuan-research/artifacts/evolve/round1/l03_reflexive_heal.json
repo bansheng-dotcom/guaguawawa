@@ -1,0 +1,80 @@
+{
+  "healed": {
+    "shares": [
+      50.0,
+      50.0
+    ],
+    "conclusion": "我们建议权衡评估这个赛道，建议权衡评估",
+    "claims": [
+      {
+        "id": "c1",
+        "text": "行业增速40%",
+        "evidence_refs": [
+          "default_ref:待核实"
+        ]
+      }
+    ],
+    "tam_top": 100.0,
+    "tam_bottom": 160.0,
+    "payment": {
+      "action": "代付款给供应商",
+      "amount": 50000
+    },
+    "_critic_reflections": [
+      "反思：CROSS_ROLE_PAYMENT 位于 payment.action，登记 R03 移交；R05 只呈现证据与选项，决策权不在研究域",
+      "反思：DECISION_REDLINE 位于 conclusion，登记 R01 移交；R05 只呈现证据与选项，决策权不在研究域",
+      "自愈修复：份额按比例归一并调平余数 （[40, 40] → [50.0, 50.0]）",
+      "自愈修复：为孤立断言 [c1] 补 default_ref:待核实",
+      "自愈修复：字段 conclusion 中 2 处越权拍板词替换为「建议权衡评估」"
+    ],
+    "handoff": [
+      {
+        "to": "R03",
+        "code": "CROSS_ROLE_PAYMENT",
+        "reason": "跨角色资金动作超出 R05 研究域，须移交 R03 复核结算口径"
+      },
+      {
+        "to": "R01",
+        "code": "DECISION_REDLINE",
+        "reason": "越权替决策人下结论，R05 只提供选项与权衡，最终决定权归属 R01"
+      }
+    ]
+  },
+  "reflections": [
+    "反思：CROSS_ROLE_PAYMENT 位于 payment.action，登记 R03 移交；R05 只呈现证据与选项，决策权不在研究域",
+    "反思：DECISION_REDLINE 位于 conclusion，登记 R01 移交；R05 只呈现证据与选项，决策权不在研究域",
+    "自愈修复：份额按比例归一并调平余数 （[40, 40] → [50.0, 50.0]）",
+    "自愈修复：为孤立断言 [c1] 补 default_ref:待核实",
+    "自愈修复：字段 conclusion 中 2 处越权拍板词替换为「建议权衡评估」"
+  ],
+  "residual_findings": [
+    {
+      "code": "CROSS_ROLE_PAYMENT",
+      "severity": "critical",
+      "message": "文本出现越权资金动作「代付款」，研究域无权代付/垫付",
+      "path": "payment.action",
+      "handoff": "R03"
+    },
+    {
+      "code": "TAM_VARIANCE_WIDE",
+      "severity": "warning",
+      "message": "双口径规模方差 60.0% >= 30%，须收敛口径或标注置信区间",
+      "path": "tam_top",
+      "handoff": ""
+    }
+  ],
+  "clean": false,
+  "handoff": [
+    {
+      "to": "R03",
+      "code": "CROSS_ROLE_PAYMENT",
+      "reason": "跨角色资金动作超出 R05 研究域，须移交 R03 复核结算口径"
+    },
+    {
+      "to": "R01",
+      "code": "DECISION_REDLINE",
+      "reason": "越权替决策人下结论，R05 只提供选项与权衡，最终决定权归属 R01"
+    }
+  ],
+  "iterations": 2
+}

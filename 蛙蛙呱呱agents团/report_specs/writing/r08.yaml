@@ -1,0 +1,44 @@
+role: r08
+doc_type: MVP 报告 · 蛙建成
+title: 'MVP：切片
+
+  与验证'
+title_highlight: 与验证
+title_highlight_style: underline
+meta:
+- 读者：创始人 / 研发
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r08 · shared/report_writer + core/report_renderer
+sections:
+- title: 切片
+  question: 最小可验证的链路是哪条？
+  intro: 切片是一条能走通的路径，不是一堆页面。
+  boundary: 切片范围以用户主路径为准。
+- title: 成本
+  question: 做出来要多少人日？
+  intro: 估时不含联调与返工，就是低估。
+  boundary: 人日为粗略估算，误差 ±30%。
+- title: 验证
+  question: 怎么算通过/失败？
+  intro: 没有杀死标准的 MVP，会一直活着。
+  boundary: 标准需可观测、可判定。
+- title: 转化要素
+  question: 页面结构够不够？
+  intro: 落地页八要素，缺一项就少一层转化。
+  boundary: 要素核验为主观评分，需人工复核。
+- title: 判断与动作
+  question: 先做哪条、什么时候停？
+  intro: 时间盒到了就停，不看进度。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 切片
+- label: 关键
+  section: 验证
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

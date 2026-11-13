@@ -1,0 +1,19 @@
+{
+ "name": "rdd",
+ "fields": [
+  {
+   "name": "paid_value",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "cart_value",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

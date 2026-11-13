@@ -1,0 +1,11 @@
+{
+  "table": "orders",
+  "owner": "",
+  "updated_at": "updated_at",
+  "fields": [
+    {
+      "name": "order_id",
+      "type": "uuid"
+    }
+  ]
+}

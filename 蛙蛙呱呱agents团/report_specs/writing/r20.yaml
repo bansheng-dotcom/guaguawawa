@@ -1,0 +1,44 @@
+role: r20
+doc_type: 可靠性报告 · 蛙值守
+title: '可靠性：SLO
+
+  与恢复'
+title_highlight: 与恢复
+title_highlight_style: underline
+meta:
+- 读者：创始人 / 运维
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r20 · shared/report_writer + core/report_renderer
+sections:
+- title: SLO
+  question: SLA 还守得住吗？
+  intro: 错误预算烧完之前，必须做取舍。
+  boundary: SLO 按可用性与延迟双口径。
+- title: 事件
+  question: 这周哪里抖了？
+  intro: MTTR 比 MTBF 更能说明恢复能力。
+  boundary: 事件分级按影响面与时长。
+- title: 恢复
+  question: 数据真能回来吗？
+  intro: 没演练过的备份，不能算备份。
+  boundary: RPO/RTO 必须是实测值。
+- title: 告警
+  question: 告警有没有疲劳？
+  intro: 误报超过三成，值班就会开始忽略。
+  boundary: 告警按量与误报率评估。
+- title: 判断与动作
+  question: 先补哪条链路？
+  intro: 先补会影响承诺的那条。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: SLO
+- label: 关键
+  section: 恢复
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

@@ -1,0 +1,8 @@
+{
+  "skill": "spec",
+  "action": "arch",
+  "result": {
+    "summary": "架构拓扑连线完整，模块边界清晰",
+    "next": "架构拓扑连线完整"
+  }
+}

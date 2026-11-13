@@ -1,0 +1,36 @@
+{
+  "_note": "feature-coldstart 案例级阈值：覆盖角色全局阈值，未列出的沿用以 experience/thresholds.json 为底。",
+  "kpis": {
+    "prd_grade": {
+      "name": "PRD 门禁得分",
+      "formula": "通过门禁数 / 总门禁数 × 100",
+      "unit": "分",
+      "target": "≥ 80",
+      "alert": "< 60 禁止进开发"
+    },
+    "jump_loss": {
+      "name": "主流程跳失率增幅",
+      "formula": "上线后跳失率 − 上线前跳失率",
+      "unit": "%",
+      "target": "≤ 2%",
+      "alert": "> 5% 停止扩量"
+    }
+  },
+  "gates": {
+    "G1": {
+      "when": "PRD 缺验收判据",
+      "verdict": "BLOCKER",
+      "action": "退回补验收标准"
+    },
+    "G2": {
+      "when": "北极星指标无法定义",
+      "verdict": "BLOCKER",
+      "action": "退回定义指标"
+    },
+    "G3": {
+      "when": "需求变更 > 3 次",
+      "verdict": "WARN",
+      "action": "冻结迭代"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+role: r04
+domain: 独立评审
+objects:
+- 物料
+- 证据链
+- 门禁
+- 缺陷
+value_chain: []
+decisions:
+- 放行
+- 退回
+- 复评
+questions:
+- id: Q1
+  question: 物料齐不齐？
+  needs:
+  - 交付清单
+  - 文件存在性
+  ops: []
+  decision: 能不能开评
+- id: Q2
+  question: 证据是真是假？
+  needs:
+  - L1 存在
+  - L2 实质
+  - L3 连通
+  ops: []
+  decision: 有没有 Stub
+- id: Q3
+  question: 哪里最容易被骗过？
+  needs:
+  - 门禁执行记录
+  - 反模式扫描
+  ops: []
+  decision: 要不要加强门禁
+- id: Q4
+  question: 缺陷严重到什么程度？
+  needs:
+  - 缺陷清单
+  - 严重度
+  ops: []
+  decision: PASS 还是 FAIL
+- id: Q5
+  question: 整改后能不能放行？
+  needs:
+  - 复评记录
+  - 保留清单
+  ops: []
+  decision: 签收还是再退

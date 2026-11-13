@@ -1,0 +1,49 @@
+{
+  "_comment": "正例：6 页（在 6–30 内）、封面第 1 页、收尾最后一页、每页有 title 与 message",
+  "title": "Q4 增长复盘",
+  "slides": [
+    {
+      "title": "Q4 增长复盘",
+      "message": "三个月把环比从 3% 做到 12%",
+      "is_cover": true,
+      "bullets": []
+    },
+    {
+      "title": "背景",
+      "message": "上季度环比仅 3%",
+      "bullets": [
+        "投放 ROI 1.2",
+        "官网无案例页"
+      ]
+    },
+    {
+      "title": "问题",
+      "message": "新客转化卡在 2%",
+      "bullets": [
+        "落地页跳出 78%",
+        "试用入口埋点缺失"
+      ]
+    },
+    {
+      "title": "动作",
+      "message": "重做落地页并补埋点",
+      "bullets": [
+        "A/B 两版",
+        "补 6 个事件"
+      ]
+    },
+    {
+      "title": "结果",
+      "message": "转化 2% → 3.4%",
+      "bullets": [
+        "获客成本降 27%"
+      ]
+    },
+    {
+      "title": "下一步",
+      "message": "把同一套打法复制到续费",
+      "bullets": [],
+      "is_closing": true
+    }
+  ]
+}

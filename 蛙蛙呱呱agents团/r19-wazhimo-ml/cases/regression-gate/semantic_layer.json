@@ -1,0 +1,35 @@
+{
+  "_note": "R19「无回归证据 + 主观放行」语义层。枚举口径来自 mlflow__mlflow 的 mlflow-evaluation（scorer 类型/反馈来源）与 mlflow-agent-improvement（回归四步、fail-before/pass-after、诊断层）。门禁与边界是对 R19 红线 2（不许「效果看起来不错」直接上线）的可执行化。",
+  "artifact_type": "release_candidate",
+  "terms": [
+    {"term": "regression", "meaning": "回归报告：证明旧版失败、新版通过，是发布的上线关卡", "source": "mlflow-agent-improvement"},
+    {"term": "fail_before", "meaning": "旧版在回归用例上失败（回归的核心左半证据）", "source": "mlflow-agent-improvement"},
+    {"term": "pass_after", "meaning": "新版在同一用例上通过（回归的核心右半证据）", "source": "mlflow-agent-improvement"},
+    {"term": "existing_green", "meaning": "既有测试不回退，证明没有破坏已有行为", "source": "mlflow-agent-improvement"},
+    {"term": "diagnosis_layer", "meaning": "根因诊断层：capability/data/routing/instruction/knowledge/reward", "source": "mlflow-agent-improvement"},
+    {"term": "verdict", "meaning": "发布候选三裁决：PASS/BLOCK/NEEDS_REVIEW", "source": "R19 发布口径"},
+    {"term": "evidence", "meaning": "发布证据链：评估结果/回归结论/测试结论，缺了不许放行", "source": "R19 红线"},
+    {"term": "fake_pass", "meaning": "凭「效果不错/应该没问题/主观感觉」绕过评估，属红线", "source": "R19 红线"}
+  ],
+  "gates": [
+    {"id": "G1", "when": "regression.fail_before != true", "verdict": "BLOCKER", "action": "拒绝，回归未证明旧版失败"},
+    {"id": "G2", "when": "regression.pass_after != true", "verdict": "BLOCKER", "action": "拒绝，回归未证明新版通过"},
+    {"id": "G3", "when": "regression.existing_green != true", "verdict": "BLOCKER", "action": "拒绝，既有测试回退"},
+    {"id": "G4", "when": "candidate.verdict == 'PASS' 但 regression_id 为空", "verdict": "BLOCKER", "action": "拒绝，PASS 必须挂回归报告"},
+    {"id": "G5", "when": "candidate.evidence 为空", "verdict": "BLOCKER", "action": "拒绝，无证据链不许放行"},
+    {"id": "G6", "when": "结论文本含「效果不错/应该没问题/主观感觉」且未声明 handoff", "verdict": "BLOCKER", "action": "拒绝，补回归与证据链"},
+    {"id": "G7", "when": "candidate.verdict == 'NEEDS_REVIEW'", "verdict": "WARN", "action": "挂起，交人工复核后再裁"}
+  ],
+  "boundary": [
+    {"out_of_scope": "实际生产部署 / 灰度发布 / 流量切分", "owner": "R09 蛙联调 + 人工", "r19_role": "只产出发布候选工件 + 证据链，不执行发布"},
+    {"out_of_scope": "「这个模型好不好/该不该上线」的业务结论", "owner": "R06 蛙得清", "r19_role": "移交，R19 只保证回归与证据齐备"},
+    {"out_of_scope": "模型权重打包 / 推理服务部署", "owner": "R09 服务集成", "r19_role": "移交，R19 只管理候选与版本"}
+  ],
+  "decision_order": [
+    "先校验回归报告：fail-before 与 pass-after 必须都为 true，否则不谈放行",
+    "再校验既有测试不回退（existing_green）",
+    "再校验发布候选：裁决在白名单内、证据链非空",
+    "若裁决为 PASS，必须挂回归报告；否则退 NEEDS_REVIEW 或 BLOCK",
+    "任何主观感受类结论一律不进执行面，退回补评估证据"
+  ]
+}

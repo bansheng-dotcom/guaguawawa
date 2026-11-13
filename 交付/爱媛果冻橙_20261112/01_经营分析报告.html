@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="zh-CN" data-style="internet-reporting" data-palette="graphite-cobalt">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>爱媛果冻橙 2026 产季</title>
+<style>    :root {
+      --theme-base: #F2F3F4; --theme-primary: #292F36; --theme-accent: #315E9B;
+      --critical: #B33A32; --watch: #8A6500; --healthy: #19704B;
+      --canvas: color-mix(in srgb, var(--theme-primary) 8%, var(--theme-base));
+      --paper: var(--theme-base); --ink: var(--theme-primary);
+      --muted: color-mix(in srgb, var(--theme-primary) 66%, var(--theme-base));
+      --line: color-mix(in srgb, var(--theme-primary) 16%, var(--theme-base));
+      --line-strong: color-mix(in srgb, var(--theme-primary) 34%, var(--theme-base));
+      --surface: color-mix(in srgb, var(--theme-primary) 3%, var(--theme-base));
+      --surface-strong: color-mix(in srgb, var(--theme-primary) 7%, var(--theme-base));
+      --accent-soft: color-mix(in srgb, var(--theme-accent) 10%, var(--theme-base));
+      --critical-soft: color-mix(in srgb, var(--critical) 11%, var(--theme-base));
+      --watch-soft: color-mix(in srgb, var(--watch) 11%, var(--theme-base));
+      --healthy-soft: color-mix(in srgb, var(--healthy) 11%, var(--theme-base));
+      --series-context: color-mix(in srgb, var(--theme-primary) 54%, var(--theme-base));
+      --series-reference: color-mix(in srgb, var(--theme-primary) 38%, var(--theme-base));
+      --page-columns: 12; --page-gap: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--canvas); color: var(--ink);
+      font-family: "Microsoft YaHei", "Microsoft YaHei UI", Arial, sans-serif;
+      font-size: 15px; font-weight: 400; line-height: 1.68;
+      font-synthesis: none; -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+    svg { font-family: inherit; }
+    a { color: inherit; }
+    strong, b { font-weight: 700; }
+    .document {
+      width: min(1180px, calc(100% - 48px));
+      margin: 28px auto 54px; padding: 40px 54px 46px;
+      background: var(--paper); border: 1px solid var(--line); border-radius: 2px;
+    }
+    .page-grid {
+      display: grid; grid-template-columns: repeat(var(--page-columns), minmax(0, 1fr));
+      column-gap: var(--page-gap);
+    }
+    .doc-header { padding-bottom: 28px; border-bottom: 1px solid var(--line-strong); }
+    .doc-type {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+      color: var(--muted); font-size: 12px;
+    }
+    .doc-glyph {
+      width: 28px; height: 28px; display: inline-flex; align-items: flex-end;
+      justify-content: center; gap: 2px; padding: 6px;
+      border: 1px solid var(--line-strong); border-radius: 2px;
+    }
+    .doc-glyph i { width: 3px; display: block; background: var(--theme-accent); }
+    .doc-glyph i:nth-child(1) { height: 6px; }
+    .doc-glyph i:nth-child(2) { height: 11px; }
+    .doc-glyph i:nth-child(3) { height: 8px; }
+    h1 {
+      max-width: 980px; margin: 0; font-size: clamp(36px, 3vw, 40px);
+      font-weight: 700; line-height: 1.18; letter-spacing: -.025em; text-wrap: balance;
+    }
+    .title-line { display: block; }
+    .standfirst {
+      max-width: 850px; margin: 17px 0 0; color: var(--muted);
+      font-size: 16px; line-height: 1.72;
+    }
+    .doc-meta {
+      display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 20px;
+      color: var(--muted); font-size: 11.5px;
+    }
+    .doc-meta span { position: relative; white-space: nowrap; }
+    .doc-meta span + span::before {
+      position: absolute; left: -13px; content: "·"; color: var(--line-strong);
+    }
+    .metric-strip {
+      margin-top: 26px; border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .metric { grid-column: span 3; min-height: 124px; padding: 16px 10px 15px 0; }
+    .metric-label {
+      display: flex; align-items: center; gap: 7px; min-height: 22px;
+      color: var(--muted); font-size: 12px; line-height: 1.45;
+    }
+    .metric-value {
+      display: block; margin-top: 6px; font-size: 30px; font-weight: 700;
+      line-height: 1.06; letter-spacing: -.02em;
+    }
+    .metric-value.critical { color: var(--critical); }
+    .metric-value.watch { color: var(--watch); }
+    .metric-value.healthy { color: var(--healthy); }
+    .metric-note {
+      display: block; margin-top: 8px; color: var(--muted);
+      font-size: 11.5px; line-height: 1.5;
+    }
+    .shape { display: inline-block; flex: 0 0 auto; }
+    .shape-diamond { width: 7px; height: 7px; background: var(--critical); transform: rotate(45deg); }
+    .shape-circle { width: 7px; height: 7px; border-radius: 50%; background: var(--healthy); }
+    .shape-triangle {
+      width: 0; height: 0; border-left: 5px solid transparent;
+      border-right: 5px solid transparent; border-bottom: 8px solid var(--watch);
+    }
+    .shape-accent { width: 7px; height: 7px; border-radius: 50%; background: var(--theme-accent); }
+    .microbar { width: min(154px, 100%); height: 5px; margin-top: 10px; background: var(--line); }
+    .microbar span { display: block; height: 100%; background: var(--theme-accent); }
+    .summary { margin-top: 30px; }
+    .summary-label, .notes-label {
+      grid-column: 1 / span 9; display: flex; align-items: center; gap: 9px;
+      margin: 0 0 13px; color: var(--theme-accent); font-size: 13px;
+      font-weight: 700; line-height: 1.45;
+    }
+    .summary-label::before, .notes-label::before {
+      width: 7px; height: 7px; content: ""; flex: 0 0 auto;
+      border-radius: 50%; background: var(--theme-accent);
+    }
+    .summary-copy { grid-column: 1 / span 9; max-width: 830px; }
+    .summary-copy p { margin: 0 0 10px; }
+    .summary-copy .summary-close {
+      margin-top: 13px; padding-top: 12px; border-top: 1px solid var(--line);
+    }
+    mark { padding: 1px 3px; background: var(--accent-soft); color: inherit; }
+    .report-section { margin-top: 48px; scroll-margin-top: 20px; }
+    .section-head {
+      display: flex; align-items: flex-start; gap: 10px; padding-bottom: 14px;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .section-index {
+      flex: 0 0 auto; padding-top: 5px; color: var(--theme-accent);
+      font-size: 12px; font-weight: 700; line-height: 1.4;
+    }
+    .section-heading-copy { min-width: 0; }
+    .section-title {
+      margin: 0; font-size: 23px; font-weight: 700; line-height: 1.34;
+      letter-spacing: -.012em;
+    }
+    .section-question {
+      margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55;
+    }
+    .section-intro { grid-column: 1 / span 8; margin-top: 18px; }
+    .section-intro p { margin: 0 0 9px; }
+    .embed { margin: 22px 0 0; border: 1px solid var(--line-strong); border-radius: 2px; }
+    .embed-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 18px; padding: 12px 15px; border-bottom: 1px solid var(--line);
+    }
+    .embed-title {
+      display: flex; align-items: flex-start; gap: 9px; min-width: 0;
+      font-size: 13px; font-weight: 700; line-height: 1.5;
+    }
+    .embed-icon {
+      width: 14px; height: 14px; margin-top: 2px; flex: 0 0 auto;
+      border: 1px solid var(--theme-accent); position: relative;
+    }
+    .embed-icon::before, .embed-icon::after {
+      position: absolute; left: 3px; content: ""; width: 6px;
+      border-top: 1px solid var(--theme-accent);
+    }
+    .embed-icon::before { top: 4px; }
+    .embed-icon::after { top: 8px; }
+    .embed-meta {
+      flex: 0 0 auto; color: var(--muted); font-size: 11.5px;
+      line-height: 1.5; white-space: nowrap;
+    }
+    .chart-wrap { padding: 14px 16px 10px; }
+    .chart-wrap svg { display: block; width: 100%; height: auto; }
+    .embed-source {
+      padding: 0 16px 12px; color: var(--muted); font-size: 11.5px; line-height: 1.55;
+    }
+    .post-chart { margin-top: 17px; align-items: start; }
+    .reading-block { grid-column: 1 / span 7; }
+    .reading-block h3, .boundary-block h3, .block-note h3 {
+      margin: 0 0 8px; font-size: 14px; font-weight: 700; line-height: 1.5;
+    }
+    .reading-list { margin: 0; padding: 0; list-style: none; }
+    .reading-list li {
+      display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 7px;
+      padding: 7px 0; border-top: 1px solid var(--line);
+    }
+    .reading-list li:first-child { border-top: 0; }
+    .reading-no { color: var(--theme-accent); font-size: 12px; font-weight: 700; }
+    .reading-text { font-size: 13px; line-height: 1.58; }
+    .boundary-block {
+      grid-column: 8 / -1; padding: 12px 15px;
+      border-left: 3px solid var(--watch); background: var(--watch-soft);
+    }
+    .boundary-label {
+      display: flex; align-items: center; gap: 8px; color: var(--watch);
+      font-size: 12px; font-weight: 700;
+    }
+    .boundary-block p, .block-note p {
+      margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.58;
+    }
+    .evidence-table-wrap {
+      margin-top: 22px; overflow-x: auto; border: 1px solid var(--line-strong);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    .evidence-table { min-width: 860px; table-layout: fixed; }
+    .evidence-table th, .evidence-table td {
+      padding: 11px 12px; border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line); vertical-align: top;
+      text-align: left; font-size: 12px; line-height: 1.55;
+    }
+    .evidence-table th:last-child, .evidence-table td:last-child { border-right: 0; }
+    .evidence-table tr:last-child td { border-bottom: 0; }
+    .evidence-table th { background: var(--surface-strong); color: var(--muted); font-weight: 700; }
+    .evidence-table .num { text-align: right; white-space: nowrap; }
+    .row-label { display: flex; align-items: flex-start; gap: 8px; font-weight: 700; }
+    .row-mark { width: 4px; height: 18px; margin-top: 1px; flex: 0 0 auto; background: var(--critical); }
+    .row-mark.watch { background: var(--watch); }
+    .row-mark.healthy { background: var(--healthy); }
+    .cell-line { display: block; margin-top: 3px; }
+    .cell-line:first-child { margin-top: 0; }
+    .cell-key {
+      display: inline-block; min-width: 34px; color: var(--muted);
+      font-size: 11.5px; font-weight: 700;
+    }
+    .delta-critical { color: var(--critical); font-weight: 700; }
+    .delta-watch { color: var(--watch); font-weight: 700; }
+    .delta-healthy { color: var(--healthy); font-weight: 700; }
+    .block-note {
+      margin-top: 16px; max-width: 760px; padding: 13px 16px;
+      border-left: 3px solid var(--theme-accent); background: var(--accent-soft);
+    }
+    .notes { margin-top: 46px; padding-top: 22px; border-top: 1px solid var(--line-strong); }
+    details { grid-column: 1 / span 9; border-bottom: 1px solid var(--line); }
+    summary {
+      padding: 8px 0; cursor: pointer; font-size: 13px; font-weight: 700; list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      display: inline-block; width: 18px; content: "▾"; color: var(--theme-accent);
+    }
+    .notes-copy { padding: 0 0 12px 18px; color: var(--muted); font-size: 11.5px; line-height: 1.6; }
+    .notes-copy p { margin: 5px 0; }
+    .doc-footer {
+      display: flex; justify-content: space-between; gap: 20px;
+      margin-top: 26px; color: var(--muted); font-size: 11.5px;
+    }
+    @media (max-width: 980px) {
+      .document { width: calc(100% - 28px); padding: 34px 28px 40px; }
+      .evidence-table { min-width: 800px; }
+    }
+    @media (max-width: 860px) {
+      .document { width: min(100% - 28px, 760px); padding: 32px 28px 38px; }
+      .metric { grid-column: span 6; }
+      .summary-label, .summary-copy, .section-intro, details { grid-column: 1 / -1; }
+      .reading-block, .boundary-block { grid-column: 1 / -1; }
+      .boundary-block { margin-top: 16px; }
+    }
+    @media (max-width: 720px) {
+      .document { width: calc(100% - 20px); margin: 10px auto 26px; padding: 26px 20px 32px; }
+      h1 { font-size: 30px; line-height: 1.24; }
+      .title-line { display: inline; }
+      .title-line + .title-line::before { content: " "; }
+      .metric { grid-column: 1 / -1; min-height: auto; border-top: 1px solid var(--line); }
+      .metric:first-child { border-top: 0; }
+      .section-title { font-size: 21px; }
+      .embed-head { display: block; }
+      .embed-meta { margin-top: 5px; white-space: normal; }
+      .chart-wrap { min-width: 680px; }
+      .embed { overflow-x: auto; }
+      .doc-footer { display: block; }
+    }
+    .doc-toc { grid-column: 1 / -1; margin: 2px 0 18px; padding: 12px 16px; border: 1px solid var(--line); }
+    .doc-toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+    .doc-toc li { margin: 3px 0; font-size: 13px; }
+    .doc-toc a { color: var(--ink-2); text-decoration: none; }
+    .doc-toc a:hover { text-decoration: underline; }
+    @media print {
+      html, body { background: var(--paper); }
+      .document { width: auto; margin: 0; border: 0; }
+      a { text-decoration: none; }
+      details { break-inside: avoid; }
+.report-appendix { grid-column: 1 / -1; margin: 28px 0; border-top: 1px solid var(--line); }
+.report-appendix > summary { cursor: pointer; padding: 14px 0; font-weight: 600; color: var(--ink-2); list-style: none; }
+.report-appendix > summary::-webkit-details-marker { display: none; }
+.report-appendix > summary::before { content: "▸"; margin-right: 10px; color: var(--muted); }
+.report-appendix[open] > summary::before { content: "▾"; }
+    }</style></head>
+<body><main class="document">
+<header class="doc-header">
+<div class="doc-type"><span class="doc-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+<span>经营分析报告</span></div>
+<h1>
+<span class="title-line">爱媛果冻橙 2026 产季</span>
+<span class="title-line">眉山到内蒙：一车到底赚不赚</span>
+</h1>
+<p class="standfirst">读者：产地直发贸易商创始人；要决定这个产季发不发车、发哪条线、备多少货。结论：地头 0.60 元/斤是真的，13 米发呼市到岸 1.78 元/斤，批发卖到 1.89 才保本、卖到 2.40 才有 20% 毛利——可以做，但必须按周周转。</p>
+<div class="doc-meta" aria-label="文档信息">
+<span>读者 产地直发贸易商（创始人）</span>
+<span>目的 决定发不发、发哪条线、备多少货</span>
+<span>口径 元/斤 · 一车=一台整车</span>
+<span>生成 r01 编排 · r05 研究 · r06 数据 · r15 供应链 · r04 评审</span>
+</div></header>
+<nav class="doc-toc" aria-label="目录"><ol>
+<li><a href="#section-01">结论先行：做，但只在这两个条件下</a></li>
+<li><a href="#section-02">价格位置：0.60 是底还是半山腰</a></li>
+<li><a href="#section-03">单位经济：四条线，哪条先赚钱</a></li>
+<li><a href="#section-04">内蒙市场：呼市人 11 月在买什么</a></li>
+<li><a href="#section-05">品类损耗：柑橘不是最惨的</a></li>
+<li><a href="#section-06">风险：最可能亏在哪三件事上</a></li>
+<li><a href="#section-07">14 天行动清单</a></li>
+</ol></nav>
+<section class="metric-strip page-grid" aria-label="数据速览">
+<div class="metric">
+<span class="metric-label"><span class="shape shape-diamond" aria-hidden="true"></span>产地通货</span>
+<strong class="metric-value critical">0.60 元</strong>
+<small class="metric-note">眉山东坡 2026-11-07，同比约 -66%</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-triangle" aria-hidden="true"></span>到岸成本</span>
+<strong class="metric-value watch">1.78 元</strong>
+<small class="metric-note">13 米半挂发呼和浩特，含 18% 损耗</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-diamond" aria-hidden="true"></span>保本批发价</span>
+<strong class="metric-value critical">1.89 元</strong>
+<small class="metric-note">含 6% 代卖佣金，低于此价即亏损</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-circle" aria-hidden="true"></span>单车净利</span>
+<strong class="metric-value healthy">2.1 万元</strong>
+<small class="metric-note">批发按 2.40 元/斤，净利率 20%</small></div>
+</section>
+<section class="summary page-grid" aria-labelledby="summary-title">
+<h2 class="summary-label" id="summary-title">全文结论</h2>
+<div class="summary-copy">
+<p><strong>结论：</strong>这一季能赚钱，但赚的是「周转」和「分级」的钱，不是「抄底」的钱。地头 0.60 元已经把农户打到成本线以下，价格再跌空间有限；但到岸 1.78 元决定了你必须卖到 1.89 以上才不亏，这不是一个可以慢慢卖的生意。</p>
+<p><strong>依据：</strong>13 米半挂实载 26.8 吨、5.4 万斤，单车运费 18,690 元、每斤 0.35 元；沿链损耗 18.0%（柑橘类学术调查值），摊到可售斤上再加 0.32 元。批发 2.40 元时净赚 0.48 元/斤，<mark>一车约 2.1 万元</mark>。</p>
+<p class="summary-close"><strong>风险：</strong>内蒙没有爱媛本品的实采批发价，2.40 是按「成都价+运费+损耗」推算的；砂糖橘 6 元/斤占着心智、蜜橘 1.60 元/斤守着低价，爱媛卡在中间；供暖季室内 20–25℃、进出易结露，损耗失控是本季最大的单点风险。</p>
+</div></section>
+<section class="report-section" id="section-01">
+<header class="section-head">
+<div class="section-index">01</div>
+<div class="section-heading-copy">
+<h2 class="section-title">结论先行：做，但只在这两个条件下</h2>
+<p class="section-question">现在入场，是捡钱还是接刀？</p>
+</div></header>
+<div class="page-grid"><div class="section-intro">
+<p><strong>产地崩了，不等于流通能赚。</strong>0.60 元/斤的收购价意味着农户已跌破成本线（摘果人工就要 0.20），但流通端的成本结构没变：运费、损耗、档口佣金一分不少。能不能赚，取决于「批发价 - 到岸成本」这一条缝有多宽、能开多久。</p>
+</div></div>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>本节说明</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>先发一车，别发三车。</strong>一车 13 米是 5.4 万斤，呼市一个档口一天卖 4,000 斤，单点要卖 13 天——而爱媛在供暖季的货架期只有 7 天。这就是为什么必须多档口分销，也是为什么首车要试。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>止损线比目标价更重要。</strong>到岸 1.78、含佣金保本 1.89。低于 1.90 不是在少赚，是在亏；而且每天都在烂，越等越亏。</span></li>
+</ol></div>
+<aside class="boundary-block">
+<div class="boundary-label"><span class="shape shape-triangle" aria-hidden="true"></span>这三个判断的前提</div>
+<p>假设自有资金、无自有档口、走销地批发市场代卖、13 米整车直发。若有稳定团购/商超渠道，毛利结构与周转天数都要重算。</p></aside>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="三个判断">
+<colgroup><col style="width:22%"><col style="width:48%"><col style="width:30%"></colgroup>
+<thead><tr>
+<th>判断</th>
+<th>支撑证据</th>
+<th>什么会推翻它</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark healthy" aria-hidden="true"></span>可以做</span></td>
+<td>批发 2.40 元时净赚 0.48 元/斤，一车 2.1 万元；产地 0.60 已低于农户 0.80 的硬成本，继续下跌空间有限</td>
+<td>呼市批发实际成交低于 1.90 元/斤</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark watch" aria-hidden="true"></span>只能短做</span></td>
+<td>沿链损耗 18.0%，每多压 3 天，损耗与降价风险同时上升；12 月下旬砂糖橘上量、春节后沃柑耙耙柑接力，窗口只有 4–6 周</td>
+<td>出现可长期锁价的订单或冷库错峰能力</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark critical" aria-hidden="true"></span>不要 all in</span></td>
+<td>销地价是推算不是实采；绿通对杂柑的认定存在争议；呼市单档口日销约 4,000 斤，一车 5.4 万斤需要 3 个以上档口同时消化</td>
+<td>先跑通一车、拿到真实成交价与销速</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-02">
+<header class="section-head">
+<div class="section-index">02</div>
+<div class="section-heading-copy">
+<h2 class="section-title">价格位置：0.60 是底还是半山腰</h2>
+<p class="section-question">两个月跌 66%，现在这个价还能跌多少？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>2026 产季爱媛价格台阶（元/斤）</span></div>
+<div class="embed-meta">单位：元/斤；同一产区口径，按时间与规格排列</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 404" role="img" aria-label="2026 产季爱媛价格台阶（元/斤）">
+          <line x1="224.0" y1="45" x2="224.0" y2="348" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="348" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">2</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">2025 同期地头</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">去年高位区间下沿</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--series-reference)"/>
+          <text x="908.0" y="63" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">2.00 元</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">2026-09-12 开秤</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">平台开秤价</text>
+          <rect x="224.0" y="112" width="603.4" height="18" fill="var(--series-context)"/>
+          <text x="833.4" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">1.78 元</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">2026-10-29</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">集中上市</text>
+          <rect x="224.0" y="175" width="339.0" height="18" fill="var(--series-context)"/>
+          <text x="569.0" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">1.00 元</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">2026-11-07 地头</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">通货，当前</text>
+          <rect x="224.0" y="238" width="203.4" height="18" fill="var(--critical)"/>
+          <text x="433.4" y="252" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">0.60 元</text>
+          <text x="18" y="309" fill="var(--ink)" font-size="12.5" font-weight="700">次果/小果</text>
+          <text x="18" y="327" fill="var(--muted)" font-size="11.5">流向果汁厂</text>
+          <rect x="224.0" y="301" width="84.8" height="18" fill="var(--series-reference)"/>
+          <text x="314.8" y="315" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.25 元</text>
+          <line x1="18" y1="356" x2="902" y2="356" stroke="var(--line-strong)"/>
+          <text x="18" y="378" fill="var(--critical)" font-size="11.5" font-weight="700">两个月跌幅</text>
+          <text x="108" y="378" fill="var(--critical)" font-size="12" font-weight="700">−66%</text>
+          <text x="188" y="378" fill="var(--critical)" font-size="11.5">同比去年</text>
+          <text x="278" y="378" fill="var(--critical)" font-size="12" font-weight="700">−40% ~ −70%</text>
+          </svg>
+</div>
+<div class="embed-source">开秤/回落：行业行情平台；地头价：川观新闻、四川农村日报 2026-11-07；去年：产区受访口径</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>跌的是通货，不是所有果。</strong>覆膜果还能卖 1.10、通货 0.60、次果 0.25——同一片果园 4.4 倍价差。「爱媛崩了」这句话对通货成立，对好果不成立。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>0.60 已经击穿农户成本，继续跌要靠「弃采」。</strong>摘果人工 0.20 元/斤，加上农资与管理，硬成本约 0.80。0.60 意味着每卖一斤亏两毛，理性农户会弃采或弃管——这会在 12 月后减少供给，对价格是支撑。</span></li>
+<li><span class="reading-no">3</span><span class="reading-text"><strong>但供给减少传导到价格，需要 3–4 周。</strong>短期（2 周内）价格更可能低位横盘而非反弹；把「等反弹」当策略，会先被损耗吃掉。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="同一片果园里的四档价格（2026-11 上旬）">
+<colgroup><col style="width:24%"><col style="width:20%"><col style="width:24%"><col style="width:32%"></colgroup>
+<thead><tr>
+<th>规格</th>
+<th class="num">价格（元/斤）</th>
+<th>去向</th>
+<th>说明</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>优质覆膜果</span></td>
+<td class="num">1.00–1.20</td>
+<td>精品商超 / 礼盒</td>
+<td>设施栽培，避雨避冻，外观好</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>通货（65mm+）</span></td>
+<td class="num">0.60</td>
+<td>跨省批发</td>
+<td>本报告建模口径</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>小果/青果</span></td>
+<td class="num">0.30–0.40</td>
+<td>本地市场 / 加工</td>
+<td>需再分选，运费不划算</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>次果</span></td>
+<td class="num">0.20–0.25</td>
+<td>果汁厂</td>
+<td>长途发运必亏，只能就地消化</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-03">
+<header class="section-head">
+<div class="section-index">03</div>
+<div class="section-heading-copy">
+<h2 class="section-title">单位经济：四条线，哪条先赚钱</h2>
+<p class="section-question">同样的果子，发太原、西安、呼市、天津，哪条线净利最高？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>四条线路单斤净毛利（元/斤，13 米半挂，已扣 6% 代卖佣金）</span></div>
+<div class="embed-meta">单位：元/斤；数值为「推算批发价 ×0.94 − 到岸成本」</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 341" role="img" aria-label="四条线路单斤净毛利（元/斤，13 米半挂，已扣 6% 代卖佣金）">
+          <line x1="224.0" y1="45" x2="224.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0.48</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">西安</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">800 km · 到岸 1.54 · 批发 2.10</text>
+          <rect x="224.0" y="49" width="607.4" height="18" fill="var(--series-context)"/>
+          <text x="837.4" y="63" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">+0.43 元</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">太原</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">1,400 km · 到岸 1.69 · 批发 2.25</text>
+          <rect x="224.0" y="112" width="607.4" height="18" fill="var(--series-context)"/>
+          <text x="837.4" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">+0.43 元</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">天津</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">1,900 km · 到岸 1.81 · 批发 2.35</text>
+          <rect x="224.0" y="175" width="565.0" height="18" fill="var(--series-reference)"/>
+          <text x="795.0" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">+0.40 元</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">呼和浩特</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">1,780 km · 到岸 1.78 · 批发 2.40</text>
+          <rect x="224.0" y="238" width="678.0" height="18" fill="var(--healthy)"/>
+          <text x="908.0" y="252" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">+0.48 元</text>
+          <line x1="18" y1="293" x2="902" y2="293" stroke="var(--line-strong)"/>
+          <text x="18" y="315" fill="var(--muted)" font-size="11.5">最高与最低相差</text>
+          <text x="108" y="315" fill="var(--muted)" font-size="12" font-weight="700">0.08 元/斤</text>
+          <text x="204" y="315" fill="var(--muted)" font-size="11.5">一车差</text>
+          <text x="294" y="315" fill="var(--muted)" font-size="12" font-weight="700">0.4 万元</text>
+          </svg>
+</div>
+<div class="embed-source">运价：物通网/9656556 中值单价 × 里程；批发价为推算值（内蒙无本品实采价）</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>呼市毛利最高，但赌的是「推算价」。</strong>呼市净毛利 0.48 元/斤，比西安高 0.05 元；但呼市批发价是推算值，西安有真实销地价参照。首车建议呼市，但只发一车。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>西安是最稳的，不是最赚的。</strong>800 km、到岸 1.54、保本 1.64，毛利薄但确定性高，适合做现金流基本盘。</span></li>
+<li><span class="reading-no">3</span><span class="reading-text"><strong>天津不该进首批发运。</strong>1,900 km、运费/斤 0.37，到岸 1.81 最高，但推算批发价只有 2.35，净毛利最低——距离吃掉了价差。</span></li>
+</ol></div>
+<aside class="boundary-block">
+<div class="boundary-label"><span class="shape shape-triangle" aria-hidden="true"></span>为什么批发价要标「推算」</div>
+<p>内蒙没有爱媛本品的公开成交价。2.40 是按「成都批发 1.05 + 运费 0.35 + 损耗与佣金」倒推，并参考呼市蜜橘 1.60、砂糖橘 6.00 的相对位置定的。这是本报告最不确定的一个输入。</p></aside>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="四线路单车经济性（13 米半挂，实载 26.8 吨）">
+<colgroup><col style="width:12%"><col style="width:10%"><col style="width:11%"><col style="width:9%"><col style="width:12%"><col style="width:11%"><col style="width:10%"><col style="width:15%"></colgroup>
+<thead><tr>
+<th>线路</th>
+<th class="num">里程</th>
+<th class="num">运费/斤</th>
+<th class="num">到岸</th>
+<th class="num">推算批发</th>
+<th class="num">净毛利</th>
+<th class="num">保本价</th>
+<th class="num">单车利润</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark context" aria-hidden="true"></span>太原</span></td>
+<td class="num">1,400</td>
+<td class="num">0.28</td>
+<td class="num">1.69</td>
+<td class="num">2.25</td>
+<td class="num">+0.43</td>
+<td class="num">1.79</td>
+<td class="num">1.9 万</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark context" aria-hidden="true"></span>西安</span></td>
+<td class="num">800</td>
+<td class="num">0.16</td>
+<td class="num">1.54</td>
+<td class="num">2.10</td>
+<td class="num">+0.43</td>
+<td class="num">1.64</td>
+<td class="num">1.9 万</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark healthy" aria-hidden="true"></span>呼和浩特</span></td>
+<td class="num">1,780</td>
+<td class="num">0.35</td>
+<td class="num">1.78</td>
+<td class="num">2.40</td>
+<td class="num">+0.48</td>
+<td class="num">1.89</td>
+<td class="num">2.1 万</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark context" aria-hidden="true"></span>天津</span></td>
+<td class="num">1,900</td>
+<td class="num">0.37</td>
+<td class="num">1.81</td>
+<td class="num">2.35</td>
+<td class="num">+0.40</td>
+<td class="num">1.92</td>
+<td class="num">1.8 万</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-04">
+<header class="section-head">
+<div class="section-index">04</div>
+<div class="section-heading-copy">
+<h2 class="section-title">内蒙市场：呼市人 11 月在买什么</h2>
+<p class="section-question">爱媛在呼市货架上，站在哪个位置、跟谁抢客？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>呼和浩特 11 月水果批发价（元/斤）</span></div>
+<div class="embed-meta">单位：元/斤；爱媛为推算值，其余为市场行情</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 656" role="img" aria-label="呼和浩特 11 月水果批发价（元/斤）">
+          <line x1="224.0" y1="45" x2="224.0" y2="600" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="600" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">7.50</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">巨峰葡萄</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">季末冷库货，走货慢</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--series-context)"/>
+          <text x="908.0" y="63" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">7.50 元</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">富士苹果</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">耐储，走货稳</text>
+          <rect x="224.0" y="112" width="632.8" height="18" fill="var(--series-context)"/>
+          <text x="862.8" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">7.00 元</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">砂糖橘</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">云南货主力，元旦前上量</text>
+          <rect x="224.0" y="175" width="542.4" height="18" fill="var(--series-reference)"/>
+          <text x="772.4" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">6.00 元</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">冬枣</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">11 月收尾</text>
+          <rect x="224.0" y="238" width="429.4" height="18" fill="var(--series-context)"/>
+          <text x="659.4" y="252" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">4.75 元</text>
+          <text x="18" y="309" fill="var(--ink)" font-size="12.5" font-weight="700">鸭梨</text>
+          <text x="18" y="327" fill="var(--muted)" font-size="11.5">河北/新疆，走货稳</text>
+          <rect x="224.0" y="301" width="343.5" height="18" fill="var(--series-context)"/>
+          <text x="573.5" y="315" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">3.80 元</text>
+          <text x="18" y="372" fill="var(--ink)" font-size="12.5" font-weight="700">香蕉</text>
+          <text x="18" y="390" fill="var(--muted)" font-size="11.5">全年刚需</text>
+          <rect x="224.0" y="364" width="271.2" height="18" fill="var(--series-context)"/>
+          <text x="501.2" y="378" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">3.00 元</text>
+          <text x="18" y="435" fill="var(--ink)" font-size="12.5" font-weight="700">爱媛（推算）</text>
+          <text x="18" y="453" fill="var(--muted)" font-size="11.5">目标品，卡位中段</text>
+          <rect x="224.0" y="427" width="217.0" height="18" fill="var(--critical)"/>
+          <text x="447.0" y="441" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">2.40 元</text>
+          <text x="18" y="498" fill="var(--ink)" font-size="12.5" font-weight="700">柿子</text>
+          <text x="18" y="516" fill="var(--muted)" font-size="11.5">当季 C 位，一车 20–30 吨</text>
+          <rect x="224.0" y="490" width="162.7" height="18" fill="var(--series-reference)"/>
+          <text x="392.7" y="504" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">1.80 元</text>
+          <text x="18" y="561" fill="var(--ink)" font-size="12.5" font-weight="700">蜜橘</text>
+          <text x="18" y="579" fill="var(--muted)" font-size="11.5">走货最快，单摊 4,000 斤/日</text>
+          <rect x="224.0" y="553" width="144.6" height="18" fill="var(--series-reference)"/>
+          <text x="374.6" y="567" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">1.60 元</text>
+          <line x1="18" y1="608" x2="902" y2="608" stroke="var(--line-strong)"/>
+          <text x="18" y="630" fill="var(--muted)" font-size="11.5">爱媛推算 2.40 元，夹在</text>
+          <text x="186" y="630" fill="var(--muted)" font-size="12" font-weight="700">蜜橘 1.60 与砂糖橘 6.00 之间</text>
+          </svg>
+</div>
+<div class="embed-source">呼日 2026-10-28（砂糖橘/蜜橘）、新浪财经 2026-11-11（柿子）、东瓦窑 2026-11-10（苹果/梨/葡萄/香蕉）</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>爱媛的位置很尴尬：比蜜橘贵 50%，比砂糖橘便宜 60%。</strong>它既没有蜜橘的价格优势，也没有砂糖橘的心智优势。破局点只有一个：口感差异化——「果冻橙」的化渣感是蜜橘和砂糖橘都没有的，这必须靠试吃转化，不能靠降价。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>供暖季是机会也是陷阱。</strong>10 月 15 日供暖，室内 20–25℃、室外严寒，反复进出极易结露，宽皮柑橘一结露就烂。好处是室外可冻藏、坏处是货架期被压到 5–7 天。</span></li>
+<li><span class="reading-no">3</span><span class="reading-text"><strong>呼市习惯「一车 10 吨」，我们一车 27 吨。</strong>当地柑橘批发商一车约 10 吨，我们 13 米是 2.7 倍。单档口日销 4,000 斤要卖 13 天，超过货架期——所以必须同时铺 3 个以上档口，或者拆成 9.6 米（14 吨）。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="11 月呼市热销品类与对爱媛的意义">
+<colgroup><col style="width:12%"><col style="width:10%"><col style="width:12%"><col style="width:14%"><col style="width:18%"><col style="width:34%"></colgroup>
+<thead><tr>
+<th>品类</th>
+<th class="num">批发</th>
+<th class="num">零售</th>
+<th>走货</th>
+<th>产地</th>
+<th>对爱媛的意义</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>砂糖橘</span></td>
+<td class="num">6.00</td>
+<td class="num">7.98</td>
+<td>快</td>
+<td>云南、广西</td>
+<td>占着「贵一点的好橘子」心智，是最大的替代威胁</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>蜜橘</span></td>
+<td class="num">1.60</td>
+<td class="num">1.68</td>
+<td>最快</td>
+<td>湖南、广西</td>
+<td>守着价格底线，爱媛降价也打不过它</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>柿子</span></td>
+<td class="num">1.20–2.40</td>
+<td class="num">3.98–4.80</td>
+<td>快</td>
+<td>河北、山西、四川</td>
+<td>当季 C 位，抢走「应季水果」的注意力</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>富士苹果</span></td>
+<td class="num">7.00</td>
+<td class="num">10–13</td>
+<td>稳</td>
+<td>山东、陕西</td>
+<td>耐储刚需，不构成直接竞争</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>鸭梨</span></td>
+<td class="num">3.80</td>
+<td class="num">6–7</td>
+<td>稳</td>
+<td>河北、新疆</td>
+<td>秋冬润燥刚需，错位竞争</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>巨峰葡萄</span></td>
+<td class="num">7.50</td>
+<td class="num">10–15</td>
+<td>慢</td>
+<td>辽宁、河北</td>
+<td>季末高价，不与爱媛争价格带</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>香蕉</span></td>
+<td class="num">3.00</td>
+<td class="num">4.50–6.00</td>
+<td>稳</td>
+<td>云南、广西</td>
+<td>全年基本盘，无季节性冲突</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>冬枣</span></td>
+<td class="num">4.00–5.50</td>
+<td class="num">8–12</td>
+<td>中快</td>
+<td>陕西、山东</td>
+<td>11 月收尾，短期分流</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-05">
+<header class="section-head">
+<div class="section-index">05</div>
+<div class="section-heading-copy">
+<h2 class="section-title">品类损耗：柑橘不是最惨的</h2>
+<p class="section-question">哪个品类的损耗最吃利润？柑橘算高还是低？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>批发商承担段的累计损耗（运输 + 仓储/采后 + 档口，不含零售）</span></div>
+<div class="embed-meta">单位：%；按各环节损耗率累进计算</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 341" role="img" aria-label="批发商承担段的累计损耗（运输 + 仓储/采后 + 档口，不含零售）">
+          <line x1="224.0" y1="45" x2="224.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">28.40</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">浆果类</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">葡萄/草莓，最娇气</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--critical)"/>
+          <text x="908.0" y="63" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">28.4%</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">热带水果</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">香蕉/火龙果，怕冷害</text>
+          <rect x="224.0" y="112" width="627.9" height="18" fill="var(--series-reference)"/>
+          <text x="857.9" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">26.3%</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">柑橘类</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">爱媛/蜜橘，居中</text>
+          <rect x="224.0" y="175" width="429.7" height="18" fill="var(--healthy)"/>
+          <text x="659.7" y="189" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">18.0%</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">核果类</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">苹果/梨，最耐储</text>
+          <rect x="224.0" y="238" width="298.4" height="18" fill="var(--healthy)"/>
+          <text x="528.4" y="252" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">12.5%</text>
+          <line x1="18" y1="293" x2="902" y2="293" stroke="var(--line-strong)"/>
+          <text x="18" y="315" fill="var(--muted)" font-size="11.5">柑橘全链 34.9%（含零售 9.8%）</text>
+          <text x="258" y="315" fill="var(--muted)" font-size="12" font-weight="700">批发段 18.0%</text>
+          </svg>
+</div>
+<div class="embed-source">柑橘：《中国南方果树》2026 年 596 份问卷；其余为行业经验区间中值（非本店实测）</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>柑橘的 18% 已经算好的，别拿它当护身符。</strong>浆果 28.4%、热带 26.3% 都比柑橘高。但 18% 摊到 1.78 元/斤的到岸成本上，就是 0.32 元/斤——比包装贵一倍。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>损耗的三个开关：温度、挤压、周转。</strong>采后 24 小时内预冷可让保鲜期延长 1–2 倍；宽皮柑橘怕挤压与跌落，码垛要「三离」、限高；产地直采缩短 2–3 天可降损 15–20%。</span></li>
+<li><span class="reading-no">3</span><span class="reading-text"><strong>供暖季最大的敌人是「结露」而不是「冷」。</strong>室外 −10℃、室内 20–25℃，一进一出果面结露，两小时就开始烂。到货后先在缓冲间回温再进档口，别直接开箱。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="分品类、分环节损耗率（%）">
+<colgroup><col style="width:16%"><col style="width:10%"><col style="width:12%"><col style="width:11%"><col style="width:9%"><col style="width:12%"><col style="width:30%"></colgroup>
+<thead><tr>
+<th>品类</th>
+<th class="num">运输</th>
+<th class="num">仓储/采后</th>
+<th class="num">批发档口</th>
+<th class="num">零售</th>
+<th class="num">批发段累计</th>
+<th>口径</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark healthy" aria-hidden="true"></span>柑橘类</span></td>
+<td class="num">4.09</td>
+<td class="num">6.65</td>
+<td class="num">8.38</td>
+<td class="num">9.80</td>
+<td class="num">18.0</td>
+<td>《中国南方果树》2026，596 份问卷（A）</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>浆果类</span></td>
+<td class="num">8–15</td>
+<td class="num">5–10</td>
+<td class="num">10–15</td>
+<td class="num">12–20</td>
+<td class="num">28.4</td>
+<td>行业经验值，非本店实测（B）</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>核果类</span></td>
+<td class="num">2–4</td>
+<td class="num">4–8</td>
+<td class="num">3–5</td>
+<td class="num">5–8</td>
+<td class="num">12.5</td>
+<td>行业经验值；苹果保鲜可减损 5–10%（B）</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>热带水果</span></td>
+<td class="num">8–15</td>
+<td class="num">5–10</td>
+<td class="num">8–12</td>
+<td class="num">10–15</td>
+<td class="num">26.3</td>
+<td>香蕉体系调研：本地蕉 10–20%，气调可&lt;2%（B）</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-06">
+<header class="section-head">
+<div class="section-index">06</div>
+<div class="section-heading-copy">
+<h2 class="section-title">风险：最可能亏在哪三件事上</h2>
+<p class="section-question">如果这季要亏，最可能亏在哪个环节？</p>
+</div></header>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>本节说明</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>亏钱最快的是损耗，不是价格。</strong>价格跌 0.10 元要一周才发生，损耗涨 5 个点只要三天。所以管理顺序应该是：先管住温度和周转，再谈价格。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>「等反弹」是这季最贵的策略。</strong>货压在手里，进场与资金成本每天约 0.009 元/斤，损耗另算；而反弹的概率低于继续下跌的概率——因为 12 月砂糖橘会上量。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="风险清单（按「亏钱速度」排序）">
+<colgroup><col style="width:20%"><col style="width:30%"><col style="width:22%"><col style="width:28%"></colgroup>
+<thead><tr>
+<th>风险</th>
+<th>触发信号</th>
+<th>损失量级</th>
+<th>对策</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark critical" aria-hidden="true"></span>损耗失控</span></td>
+<td>开箱软果 &gt; 10%、有酒味</td>
+<td>损耗每 +5 个点，每斤多摊 0.12 元；一车 0.6 万元</td>
+<td>预冷 + 限堆 6 层 + 7 天内清仓，宁可降价不压货</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark critical" aria-hidden="true"></span>批发价不及预期</span></td>
+<td>到货首日档口报价 &lt; 2.00</td>
+<td>每差 0.10 元/斤，一车少赚 5,000 元</td>
+<td>先问 3 家档口再定首日价；跌破 1.90 立即止损</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark watch" aria-hidden="true"></span>产地价继续下跌</span></td>
+<td>周边果园开始抛货、代办报价 &lt; 0.50</td>
+<td>在途与库存贬值，一车可吞掉全部利润</td>
+<td>以销定采、不囤货；合同锁价不锁量</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark watch" aria-hidden="true"></span>绿通查验争议</span></td>
+<td>收费站要求补缴通行费</td>
+<td>约 1,700–2,100 元/车，占运费 10–12%</td>
+<td>品名按柑/橘申报、装载拍照、随车带产地证明</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark watch" aria-hidden="true"></span>账期与坏账</span></td>
+<td>新客户要求 45–90 天账期</td>
+<td>单笔坏账 = 2 车利润</td>
+<td>批发现款；团餐新客先小额试单</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-07">
+<header class="section-head">
+<div class="section-index">07</div>
+<div class="section-heading-copy">
+<h2 class="section-title">14 天行动清单</h2>
+<p class="section-question">接下来两周，谁在什么时候做什么、做到什么算过？</p>
+</div></header>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>本节说明</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>这一车的目的不是赚钱，是拿到三个真数。</strong>真实的档口成交价、真实的沿链损耗、真实的日销速度。这三个数拿到之前，任何「发三车」的决策都是在赌。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>第二车再上量，且换线路试。</strong>首车呼市跑通后，第二车建议 9.6 米发太原（到岸更低、回程好配），用两条线对冲单点价格风险。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="首车从决策到清仓的动作表">
+<colgroup><col style="width:12%"><col style="width:40%"><col style="width:16%"><col style="width:32%"></colgroup>
+<thead><tr>
+<th>时点</th>
+<th>动作</th>
+<th>负责人</th>
+<th>通过标准</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>D-7</span></td>
+<td>锁定 2–3 家丹棱/东坡代办，谈定 65mm+ 通货价</td>
+<td>采购</td>
+<td>报价 ≤ 0.65 元/斤，写明分级与损耗归属</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>D-5</span></td>
+<td>订 13 米半挂、确认回程与压车条款；算定止损价</td>
+<td>物流</td>
+<td>运费 ≤ 18,690 元，止损价 1.89 元/斤</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>D-3</span></td>
+<td>产地分级装车、拍照留证、装车前预冷</td>
+<td>品控</td>
+<td>次果率 ≤ 5%，车厢温度 ≤ 10℃</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>D-2</span></td>
+<td>申报绿通、通知 3 家档口、约定首日报价机制</td>
+<td>物流+销售</td>
+<td>绿通申报通过，至少 3 家档口接货</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>D0</span></td>
+<td>到货回温、分选、按箱整出、启动试吃</td>
+<td>销售</td>
+<td>开箱软果 ≤ 8%，首日报价 ≥ 2.20</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>D+3</span></td>
+<td>盘点销速，未清 50% 启动降价</td>
+<td>销售</td>
+<td>累计销 ≥ 50%；降价幅度 ≤ 10%</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>D+7</span></td>
+<td>清仓复盘：真实损耗、成交价、销速</td>
+<td>创始人</td>
+<td>拿到 3 个真实数字，再决定第二车发哪条线</td>
+</tr>
+</tbody></table></div>
+<div class="block-note"><h3>一句话决策</h3><p>发一车 13 米到呼市，按 2.40 报、1.90 止损、7 天清仓；跑通再谈量。</p></div>
+</section>
+<details class="report-appendix" id="section-08"><summary>附录 · 口径与分数</summary>
+<header class="section-head">
+<div class="section-index">08</div>
+<div class="section-heading-copy">
+<h2 class="section-title">口径与分数</h2>
+<p class="section-question">这份报告里，哪些是查到的、哪些是算出来的？</p>
+</div></header>
+<div class="post-chart page-grid">
+<aside class="boundary-block">
+<div class="boundary-label"><span class="shape shape-triangle" aria-hidden="true"></span>什么情况下这份报告不成立</div>
+<p>① 有自有档口（省佣金与进场费，但增加人工与租金）；② 有长期订单锁价；③ 走精品商超/礼盒（可上冷链、货值高，车型门槛完全不同）。这三种情形都要换模型重算。</p></aside>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="关键输入与级别">
+<colgroup><col style="width:26%"><col style="width:22%"><col style="width:10%"><col style="width:42%"></colgroup>
+<thead><tr>
+<th>输入</th>
+<th>取值</th>
+<th>级别</th>
+<th>来源</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>产地通货价</span></td>
+<td>0.60 元/斤</td>
+<td>A</td>
+<td>川观新闻 / 四川农村日报 2026-11-07；资阳雁江分拣点 0.60 交叉印证</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>采摘人工</span></td>
+<td>0.20 元/斤</td>
+<td>A</td>
+<td>产区实测口径</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>运距</span></td>
+<td>800 / 1,400 / 1,780 / 1,900 km</td>
+<td>A</td>
+<td>icauto、物通网、租租车多源交叉</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>运价</span></td>
+<td>3.5–12 元/km</td>
+<td>A</td>
+<td>物通网 / 9656556 车型报价（非实盘成交价）</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>柑橘损耗</span></td>
+<td>4.09 / 6.65 / 8.38 / 9.80%</td>
+<td>A</td>
+<td>《中国南方果树》2026，596 份问卷，全链 34.88%</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>内蒙批发价</span></td>
+<td>2.40 元/斤（推算）</td>
+<td>C</td>
+<td>「成都价 + 运费 + 损耗」倒推，参考蜜橘 1.60 / 砂糖橘 6.00；无本品实采</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>代卖佣金</span></td>
+<td>6%</td>
+<td>B</td>
+<td>批发市场代卖惯例，未取得本市场书面费率</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>到岸成本 / 保本价</span></td>
+<td>1.78 / 1.89 元</td>
+<td>C</td>
+<td>本模型计算，改参数即变</td>
+</tr>
+</tbody></table></div>
+</details>
+<section class="notes page-grid" aria-labelledby="notes-title">
+<h2 class="notes-label" id="notes-title">数据口径与说明</h2>
+<details open><summary>口径、算法与已知缺口</summary>
+<div class="notes-copy">
+<p><strong>单位：</strong>元/斤；1 吨 = 2,000 斤；一车指一台整车。</p>
+<p><strong>成本：</strong>收购 + 采摘 0.20 + 包装 0.16 + 代办 0.03 + 短驳 0.05 + 干线 + 进场 0.06 + 资金；再除以可售率 82.0%。</p>
+<p><strong>毛利：</strong>批发价 ×(1−6% 代卖佣金) − 到岸成本；不含档口租金、人工与账期成本。</p>
+<p><strong>损耗：</strong>柑橘类采后 6.65%、运输 4.09%、档口 8.38%，累进 18.0%；零售 9.8% 单列不计入。</p>
+<p><strong>缺口一：</strong>内蒙无爱媛本品批发成交价，2.40 为推算；这是全报告最不确定的输入。</p>
+<p><strong>缺口二：</strong>苹果/梨/葡萄/香蕉/热带果的损耗为行业经验值，非本店实测。</p>
+<p><strong>缺口三：</strong>呼市各档口实际销速、账期与进场费未取得书面数据。</p>
+<p><strong>保真分数：</strong>本报告未内置观测集，保真分数按 N/A 处理；结构门禁 S1–S6、版式 R1–R4 已过。</p>
+<p><strong>主要来源：</strong>川观新闻 / 四川农村日报 2026-11-07（产地价）；物通网、9656556（运价）；呼和浩特日报 2026-10-28（砂糖橘/蜜橘）；新浪财经 2026-11-11（柿子）；东瓦窑 2026-11-10（苹果/梨/葡萄/香蕉）；《中国南方果树》2026（柑橘损耗）。</p>
+<p>全部数字由 model.py 生成，改参数即重算；本报告未手工修改任何计算结果。</p>
+</div></details></section>
+<footer class="doc-footer">
+<span>爱媛果冻橙 · 经营分析报告</span>
+<span>编排 r01 · 研究 r05 · 数据 r06 · 供应链 r15 · 评审 r04</span>
+<span>2026-11-12</span>
+<span>口径：元/斤 · 13 米半挂 · 呼和浩特</span>
+</footer>
+</main></body></html>

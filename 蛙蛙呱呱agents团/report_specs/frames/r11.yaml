@@ -1,0 +1,48 @@
+role: r11
+domain: 内容与选题
+objects:
+- 选题
+- 关键词
+- 结构
+- 合规
+value_chain: []
+decisions:
+- 写/不写
+- 先发哪篇
+- 改标题
+questions:
+- id: Q1
+  question: 这个题有没有需求？
+  needs:
+  - 搜索量
+  - 竞品内容
+  ops: []
+  decision: 写不写
+- id: Q2
+  question: 读者能不能一句话复述？
+  needs:
+  - 大纲
+  - 标题
+  ops: []
+  decision: 结构要不要改
+- id: Q3
+  question: 能不能被搜到/AI 引用？
+  needs:
+  - 核心词
+  - 埋词位置
+  ops: []
+  decision: 改标题还是改正文
+- id: Q4
+  question: 有没有合规风险？
+  needs:
+  - 禁词表
+  - 声明要求
+  ops: []
+  decision: 能不能发
+- id: Q5
+  question: 先发哪篇？
+  needs:
+  - 选题分
+  - 排期
+  ops: []
+  decision: 发布顺序

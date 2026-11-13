@@ -1,0 +1,18 @@
+{
+  "initial_score": 100,
+  "penalty_score": 25,
+  "final_score": 75,
+  "verdict": "CONDITIONAL",
+  "details": [
+    {
+      "pattern": "P-SLOP",
+      "penalty": 10,
+      "critical": false
+    },
+    {
+      "pattern": "P-UNBOUND",
+      "penalty": 15,
+      "critical": false
+    }
+  ]
+}

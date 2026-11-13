@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>蛙蛙呱呱 · HTML 报告风格对照（7 种主题）</title>
+<style>
+  :root{
+    --ink:#161B18; --muted:#5F6B64; --line:#E3E0D8; --bg:#F5F3EC;
+    --card:#FFFFFF; --accent:#1F5C4A;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);line-height:1.7;
+    font-family:"PingFang SC","Microsoft YaHei","Microsoft YaHei UI","Noto Sans SC",-apple-system,"Segoe UI",sans-serif;
+    font-size:15px;
+  }
+  .top{max-width:1500px;margin:0 auto;padding:54px 32px 10px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border:1px solid #CFC9BC;border-radius:999px;font-size:12px;letter-spacing:.08em;color:var(--muted);background:#fff}
+  h1{font-size:34px;letter-spacing:-.02em;margin:18px 0 10px;line-height:1.25}
+  h1 small{display:block;font-size:16px;font-weight:400;color:var(--muted);margin-top:8px;letter-spacing:0}
+  .lede{max-width:860px;color:#3C4A42;margin:0 0 22px}
+  .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:0 0 14px}
+  .fact{background:#fff;padding:16px 18px}
+  .fact b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--accent)}
+  .fact span{font-size:12.5px;color:var(--muted)}
+  .note{font-size:13px;color:var(--muted);margin:0 0 30px}
+  .grid{max-width:1500px;margin:0 auto;padding:0 32px 60px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+  .card{background:var(--card);border:1px solid var(--line);box-shadow:0 10px 30px rgba(30,40,34,.07);display:flex;flex-direction:column;overflow:hidden}
+  .card header{padding:20px 22px 16px;border-bottom:1px solid var(--line)}
+  .card h2{font-size:19px;margin:0;display:flex;align-items:baseline;gap:10px;letter-spacing:-.01em}
+  .card h2 code{font-size:12.5px;font-weight:600;color:#fff;background:var(--accent);padding:2px 8px;border-radius:3px;letter-spacing:0}
+  .card p{margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+  .swatches{display:flex;gap:6px;margin-top:12px;align-items:center}
+  .sw{width:30px;height:12px;border:1px solid rgba(0,0,0,.14)}
+  .swatches em{font-style:normal;font-size:11.5px;color:#8A948D;margin-left:4px;letter-spacing:.02em}
+  .frame{position:relative;height:660px;overflow:hidden;background:#EDEAE2}
+  .frame iframe{width:1440px;height:1460px;border:0;transform:scale(.47);transform-origin:top left;pointer-events:none}
+  .frame a.cover-link{position:absolute;inset:0;display:block}
+  .frame::after{content:"点击查看完整页";position:absolute;right:12px;bottom:12px;font-size:11.5px;color:#fff;background:rgba(22,27,24,.72);padding:3px 9px;border-radius:999px;opacity:0;transition:.2s}
+  .card:hover .frame::after{opacity:1}
+  footer{max-width:1500px;margin:0 auto;padding:0 32px 70px;color:#8A948D;font-size:12.5px}
+  @media (max-width:1040px){
+    .grid{grid-template-columns:1fr}
+    .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <span class="kicker">Wawaguagua Agents · Report Kernel</span>
+    <h1>HTML 报告风格对照
+      <small>同一份样例内容，由 core/report_renderer.py 确定性渲染出 7 种版式主题</small>
+    </h1>
+    <p class="lede">风格不是换皮：所有主题共用同一套契约与语义色令牌（critical / watch / healthy / accent），
+      切换主题只改视觉语气，不改结论、图表坐标与证据表结构。</p>
+    <div class="facts">
+      <div class="fact"><b>7</b><span>版式主题</span></div>
+      <div class="fact"><b>5</b><span>报告类型（分析/方案/执行/设计/评审）</span></div>
+      <div class="fact"><b>3</b><span>汇报层级（L1 执行 / L2 汇总 / L3 评审）</span></div>
+      <div class="fact"><b>1</b><span>确定性渲染内核，零手写 HTML</span></div>
+    </div>
+    <p class="note">下方缩略图为真实渲染结果（1440px 视口等比缩放）；点击任一卡片查看完整 HTML。</p>
+  </div>
+
+  <div class="grid">
+    <article class="card">
+      <header>
+        <h2><code>paper</code> 白纸研究风</h2>
+        <p>米白纸面 + 墨绿点缀，去阴影、去圆角，最像一份打印出来的研究稿。日常经营分析与调研报告默认选择。</p>
+        <div class="swatches"><i class="sw" style="background:#FFFFFF"></i><i class="sw" style="background:#1F2937"></i><i class="sw" style="background:#B45309"></i><em>白纸 · 深墨 · 赭石</em></div>
+      </header>
+      <div class="frame"><a class="cover-link" href="style_paper.html" target="_blank" aria-label="打开 paper 完整页"></a><iframe src="style_paper.html" loading="lazy" title="paper 主题预览"></iframe></div>
+    </article>
+
+    <article class="card">
+      <header>
+        <h2><code>editorial</code> 深色封面杂志风</h2>
+        <p>内核默认主题。深绿渐变封面 + 石墨正文 + 金色细节点，编辑级杂志观感，适合对外正式发布。</p>
+        <div class="swatches"><i class="sw" style="background:#101D18"></i><i class="sw" style="background:#1F5C4A"></i><i class="sw" style="background:#A8894F"></i><em>墨绿 · 深林 · 古金</em></div>
+      </header>
+      <div class="frame"><a class="cover-link" href="style_editorial.html" target="_blank" aria-label="打开 editorial 完整页"></a><iframe src="style_editorial.html" loading="lazy" title="editorial 主题预览"></iframe></div>
+    </article>
+
+    <article class="card">
+      <header>
+        <h2><code>mono</code> 麦肯锡式黑白</h2>
+        <p>纯黑白排版，去掉一切装饰色，靠字重、分栏与留白建立层级。适合董事会材料与需要严肃感的评审报告。</p>
+        <div class="swatches"><i class="sw" style="background:#111111"></i><i class="sw" style="background:#FFFFFF"></i><i class="sw" style="background:#E6E6E6"></i><em>纯黑 · 纯白 · 浅灰</em></div>
+      </header>
+      <div class="frame"><a class="cover-link" href="style_mono.html" target="_blank" aria-label="打开 mono 完整页"></a><iframe src="style_mono.html" loading="lazy" title="mono 主题预览"></iframe></div>
+    </article>
+
+    <article class="card">
+      <header>
+        <h2><code>annual</code> 年报衬线风</h2>
+        <p>米纸底 + 酒红 + 金线，标题全部改用衬线体，对标上市公司年报。适合年度总结、财务与对外汇报。</p>
+        <div class="swatches"><i class="sw" style="background:#FCFAF4"></i><i class="sw" style="background:#7A2E2E"></i><i class="sw" style="background:#A8894F"></i><em>米纸 · 酒红 · 金线</em></div>
+      </header>
+      <div class="frame"><a class="cover-link" href="style_annual.html" target="_blank" aria-label="打开 annual 完整页"></a><iframe src="style_annual.html" loading="lazy" title="annual 主题预览"></iframe></div>
+    </article>
+
+    <article class="card">
+      <header>
+        <h2><code>swiss</code> 瑞士网格风</h2>
+        <p>纯白 + 正红 + 超粗黑体，粗线与网格分割版面，强理性气质。适合指标看板式分析与方法论说明。</p>
+        <div class="swatches"><i class="sw" style="background:#FFFFFF"></i><i class="sw" style="background:#E30613"></i><i class="sw" style="background:#000000"></i><em>纯白 · 正红 · 纯黑</em></div>
+      </header>
+      <div class="frame"><a class="cover-link" href="style_swiss.html" target="_blank" aria-label="打开 swiss 完整页"></a><iframe src="style_swiss.html" loading="lazy" title="swiss 主题预览"></iframe></div>
+    </article>
+
+    <article class="card">
+      <header>
+        <h2><code>slate</code> 科技商务风</h2>
+        <p>深蓝封面 + 亮蓝强调，圆角卡片与轻投影，偏 SaaS 与咨询提案气质。适合产品、增长与数据类汇报。</p>
+        <div class="swatches"><i class="sw" style="background:#0B1220"></i><i class="sw" style="background:#2563EB"></i><i class="sw" style="background:#EEF2F8"></i><em>深蓝 · 亮蓝 · 雾白</em></div>
+      </header>
+      <div class="frame"><a class="cover-link" href="style_slate.html" target="_blank" aria-label="打开 slate 完整页"></a><iframe src="style_slate.html" loading="lazy" title="slate 主题预览"></iframe></div>
+    </article>
+
+    <article class="card">
+      <header>
+        <h2><code>noir</code> 深色高端风</h2>
+        <p>炭黑底 + 香槟金，暗色长文阅读体验。适合品牌提案、高客单产品与需要仪式感的对外材料。</p>
+        <div class="swatches"><i class="sw" style="background:#121418"></i><i class="sw" style="background:#C9A227"></i><i class="sw" style="background:#EDEAE3"></i><em>炭黑 · 香槟金 · 暖白</em></div>
+      </header>
+      <div class="frame"><a class="cover-link" href="style_noir.html" target="_blank" aria-label="打开 noir 完整页"></a><iframe src="style_noir.html" loading="lazy" title="noir 主题预览"></iframe></div>
+    </article>
+  </div>
+
+  <footer>
+    样例内容为虚构演示数据，仅用于版式对照 · 渲染内核 core/report_renderer.py · 蛙蛙呱呱agents团 · 2026-11-12
+  </footer>
+</body>
+</html>

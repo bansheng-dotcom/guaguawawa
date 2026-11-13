@@ -1,0 +1,14 @@
+{
+  "venture": "企业 AI 编程平台",
+  "blocks": {
+    "customer_segments": "中大型企业研发团队",
+    "value_propositions": "私有化部署的 AI 编程效率",
+    "channels": "直销 + 渠道伙伴",
+    "customer_relationships": "客户成功 + 社区",
+    "revenue_streams": "年费订阅 + 实施服务",
+    "key_resources": "模型能力 + 企业客户关系",
+    "key_activities": "产品研发 + 私有化交付",
+    "key_partnerships": "模型厂 + 云厂商",
+    "cost_structure": "研发 + 算力 + 销售"
+  }
+}

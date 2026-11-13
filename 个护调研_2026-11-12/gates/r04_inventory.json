@@ -1,0 +1,211 @@
+{
+ "ok": true,
+ "checks": [
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析报告_2026-11-12.html（94287B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析报告_2026-11-12.html",
+   "size_bytes": 94287
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析报告_2026-11-12.pdf（661190B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析报告_2026-11-12.pdf",
+   "size_bytes": 661190
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析_快读版.md（2458B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析_快读版.md",
+   "size_bytes": 2458
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/交付说明.md（3148B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/交付说明.md",
+   "size_bytes": 3148
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/evidence_ledger.json（44090B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/evidence_ledger.json",
+   "size_bytes": 44090
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/analysis_results.json（12595B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/analysis_results.json",
+   "size_bytes": 12595
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/data/observations.csv（19564B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/data/observations.csv",
+   "size_bytes": 19564
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/data/derived_metrics.csv（2135B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/data/derived_metrics.csv",
+   "size_bytes": 2135
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/analyze.py（14717B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/analyze.py",
+   "size_bytes": 14717
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/build_report.py（34751B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/build_report.py",
+   "size_bytes": 34751
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/个护调研_2026-11-12/gates/report_gate.json（1089B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/gates/report_gate.json",
+   "size_bytes": 1089
+  }
+ ],
+ "items": [
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析报告_2026-11-12.html",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\个护品类数据与经营分析报告_2026-11-12.html",
+   "size_bytes": 94287,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析报告_2026-11-12.pdf",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\个护品类数据与经营分析报告_2026-11-12.pdf",
+   "size_bytes": 661190,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析_快读版.md",
+   "type": "doc",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\个护品类数据与经营分析_快读版.md",
+   "size_bytes": 2458,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/交付说明.md",
+   "type": "doc",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\交付说明.md",
+   "size_bytes": 3148,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/evidence_ledger.json",
+   "type": "data",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\evidence_ledger.json",
+   "size_bytes": 44090,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/analysis_results.json",
+   "type": "data",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\analysis_results.json",
+   "size_bytes": 12595,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/data/observations.csv",
+   "type": "data",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\data\\observations.csv",
+   "size_bytes": 19564,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/data/derived_metrics.csv",
+   "type": "data",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\data\\derived_metrics.csv",
+   "size_bytes": 2135,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/analyze.py",
+   "type": "code",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\analyze.py",
+   "size_bytes": 14717,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/build_report.py",
+   "type": "code",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\build_report.py",
+   "size_bytes": 34751,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/个护调研_2026-11-12/gates/report_gate.json",
+   "type": "config",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\个护调研_2026-11-12\\gates\\report_gate.json",
+   "size_bytes": 1089,
+   "empty": false,
+   "status": "ok"
+  }
+ ],
+ "item_count": 11,
+ "missing_required": [],
+ "missing_required_count": 0,
+ "missing_optional": [],
+ "verdict": "COMPLETE",
+ "next": "物料齐备，可进入三级证据链 verify"
+}

@@ -1,0 +1,11 @@
+﻿id: decision
+tier: B
+doc_type: 方案报告
+sections:
+  - { id: summary,  title: 结论先行, min_chars: 80 }
+  - { id: options,  title: 方案与取舍, min_tables: 1, min_chars: 150 }
+  - { id: evidence, title: 证据与依赖, min_tables: 1 }
+  - { id: boundary, title: 边界与风险, min_chars: 60 }
+fidelity: { retention_min: 0.90, trace_min: 1.0 }
+dimensions:
+  - { id: option, min_obs: 2 }

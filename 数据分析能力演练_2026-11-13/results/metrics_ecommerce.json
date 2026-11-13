@@ -1,0 +1,11 @@
+{
+  "type": "metrics",
+  "model": "ecommerce",
+  "gmv": 1903705.87,
+  "orders": 20000,
+  "customer_count": 5345,
+  "aov": 95.19,
+  "repeat_purchase_share": 0.7328,
+  "note": "conversion/ROAS 需独立访客与投放数据，不在该输入契约内",
+  "runtime_ms": 80
+}

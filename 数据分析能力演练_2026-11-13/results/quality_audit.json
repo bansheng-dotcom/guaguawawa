@@ -1,0 +1,88 @@
+{
+  "rows": 20000,
+  "fields": 17,
+  "missing": {},
+  "duplicate_rows": 0,
+  "findings": [
+    {
+      "dim": "accuracy",
+      "sev": "MEDIUM",
+      "note": "unit_price IQR 离群 522 个（只标记不删除）",
+      "outlier_count": 522,
+      "outliers_sample": [
+        83.59,
+        83.6,
+        83.62,
+        83.63,
+        83.64,
+        83.7,
+        83.74,
+        83.76,
+        83.77,
+        83.78
+      ]
+    },
+    {
+      "dim": "accuracy",
+      "sev": "MEDIUM",
+      "note": "qty IQR 离群 61 个（只标记不删除）",
+      "outlier_count": 61,
+      "outliers_sample": [
+        7.0,
+        8.0
+      ]
+    },
+    {
+      "dim": "accuracy",
+      "sev": "MEDIUM",
+      "note": "revenue IQR 离群 591 个（只标记不删除）",
+      "outlier_count": 591,
+      "outliers_sample": [
+        236.61,
+        236.66,
+        236.69,
+        236.86,
+        237.18,
+        237.2,
+        237.27,
+        237.31,
+        237.33,
+        237.35
+      ]
+    },
+    {
+      "dim": "accuracy",
+      "sev": "MEDIUM",
+      "note": "discount IQR 离群 166 个（只标记不删除）",
+      "outlier_count": 166,
+      "outliers_sample": [
+        0.295,
+        0.296,
+        0.297,
+        0.298,
+        0.299,
+        0.3,
+        0.301,
+        0.302,
+        0.303,
+        0.304
+      ]
+    },
+    {
+      "dim": "timeliness",
+      "sev": "CRITICAL",
+      "note": "order_date 最新数据距今 40 天 (>14天 SLA)"
+    }
+  ],
+  "dimension_score": {
+    "completeness": 10,
+    "accuracy": 8,
+    "consistency": 10,
+    "timeliness": 0,
+    "uniqueness": 10,
+    "validity": 10
+  },
+  "overall_score": 8.1,
+  "grade": "可用-仅小问题",
+  "runtime_ms": 360
+}

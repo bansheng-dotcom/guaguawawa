@@ -1,0 +1,650 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>内蒙古七类蛋白经营报告</title>
+<style>
+    :root {
+      --theme-primary: #2c3e50;
+      --theme-accent: #3498db;
+      --ink: #0F172A;
+      --muted: #475569;
+      --line: #E2E8F0;
+      --line-strong: #94A3B8;
+      --canvas: #F8FAFC;
+      --paper: #FFFFFF;
+      --surface: #F1F5F9;
+      --surface-strong: #E2E8F0;
+      --accent-soft: rgba(37, 99, 235, 0.08);
+      --critical: #B91C1C;
+      --critical-soft: #FEF2F2;
+      --healthy: #15803D;
+      --healthy-soft: #F0FDF4;
+      --watch: #B45309;
+      --watch-soft: #FFFBEB;
+      --page-columns: 12;
+      --page-gap: 24px;
+      
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--canvas); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14.5px; font-weight: 400; line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+    .document {
+      max-width: 1120px;
+      margin: 32px auto 64px;
+      padding: 48px 56px 60px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+    }
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--page-columns), minmax(0, 1fr));
+      column-gap: var(--page-gap);
+    }
+    .doc-header {
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 28px;
+    }
+    .doc-type-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .doc-glyph {
+      width: 24px; height: 24px; display: inline-flex; align-items: flex-end;
+      justify-content: center; gap: 2px; padding: 4px;
+      border: 1px solid var(--line-strong); border-radius: 2px;
+    }
+    .doc-glyph i { width: 2.5px; display: block; background: var(--theme-accent); }
+    .doc-glyph i:nth-child(1) { height: 5px; }
+    .doc-glyph i:nth-child(2) { height: 11px; }
+    .doc-glyph i:nth-child(3) { height: 8px; }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 27px;
+      font-weight: 700;
+      line-height: 1.32;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .standfirst {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 960px;
+    }
+    .doc-meta {
+      display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 18px;
+      color: var(--muted); font-size: 12px;
+    }
+    .doc-meta span { position: relative; white-space: nowrap; }
+    .doc-meta span + span::before {
+      position: absolute; left: -11px; content: "·"; color: var(--line-strong);
+    }
+    .metric-strip {
+      margin: 28px 0;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+      padding: 18px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .metric-cell {
+      border-left: 2px solid var(--line);
+      padding-left: 14px;
+    }
+    .metric-cell.accent { border-left-color: var(--theme-accent); }
+    .metric-cell.critical { border-left-color: var(--critical); }
+    .metric-cell.healthy { border-left-color: var(--healthy); }
+    .metric-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .metric-value {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .metric-value.critical { color: var(--critical); }
+    .metric-value.healthy { color: var(--healthy); }
+    .metric-note {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    
+    .report-section {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--theme-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h2 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    p {
+      margin: 0 0 12px;
+      color: var(--ink);
+    }
+    .executive-card {
+      background: var(--surface);
+      border-left: 4px solid var(--theme-primary);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border-radius: 2px;
+    }
+    .directive-box {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--theme-primary);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .executive-body {
+      font-size: 14.5px;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+    
+    /* 三级归因台阶 */
+    .rca-block {
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .rca-tier {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+    .rca-tier:last-child { border-bottom: none; }
+    .rca-badge-col {
+      background: var(--surface);
+      padding: 16px;
+      border-right: 1px solid var(--line);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .rca-content-col {
+      padding: 16px 20px;
+      background: var(--paper);
+    }
+    .rca-content-col h4 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .rca-content-col p {
+      margin: 0 0 8px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .rca-evidence-list {
+      margin: 0; padding-left: 18px;
+      font-size: 12.5px; color: var(--muted);
+    }
+    .rca-evidence-list li { margin-bottom: 4px; }
+
+    /* 图表容器 */
+    .embed-figure {
+      margin: 20px 0;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: var(--paper);
+    }
+    .embed-figure-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .embed-figure-body {
+      padding: 16px;
+    }
+    .embed-figure-body svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .embed-figure-note {
+      padding: 8px 16px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px dashed var(--line);
+    }
+
+    /* 表格 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: var(--surface);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    tr:hover td { background: rgba(241, 245, 249, 0.5); }
+    .tag-critical {
+      color: var(--critical);
+      font-weight: 700;
+    }
+    .tag-healthy {
+      color: var(--healthy);
+      font-weight: 700;
+    }
+
+    /* 灰度时间轴 */
+    .roadmap-list {
+      margin: 16px 0;
+      padding: 0;
+      list-style: none;
+      border-left: 2px solid var(--line-strong);
+      padding-left: 18px;
+    }
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .roadmap-item::before {
+      position: absolute;
+      left: -24px;
+      top: 5px;
+      content: "";
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--theme-accent);
+      border: 2px solid var(--paper);
+    }
+    .roadmap-phase {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .roadmap-scope {
+      margin-left: 8px;
+      font-weight: 600;
+      color: var(--theme-accent);
+      font-size: 13px;
+    }
+    .roadmap-meta {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* 审计与证据抽屉 */
+    details.audit-ledger {
+      margin-top: 36px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+    details.audit-ledger summary {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    details.audit-ledger summary::-webkit-details-marker { display: none; }
+    details.audit-ledger summary::before {
+      content: "▸";
+      color: var(--theme-accent);
+    }
+    details.audit-ledger[open] summary::before {
+      content: "▾";
+    }
+    .audit-body {
+      margin-top: 14px;
+      padding: 16px;
+      background: var(--surface);
+      border-radius: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .audit-body table td {
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 11.5px;
+    }
+
+    .doc-footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 11.5px;
+    }
+
+    ul, ol { padding-left: 20px; margin: 8px 0; }
+    li { margin-bottom: 5px; }
+
+    @media print {
+      body { background: #fff; }
+      .document { border: none; box-shadow: none; padding: 0; width: 100%; max-width: none; }
+      details.audit-ledger { display: block; }
+      details.audit-ledger[open] summary { display: none; }
+    }
+
+/* —— 本报告的少量补充件，全部使用主题变量，不引入新色值 —— */
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+th.num{text-align:right}
+table th:first-child,table td:first-child{width:24%}
+.nm{font-weight:600;color:var(--ink)}
+.up{color:var(--critical);font-weight:600}
+.down{color:var(--healthy);font-weight:600}
+.flat{color:var(--muted)}
+.callout{margin:16px 0;padding:14px 18px;border-left:3px solid var(--watch);
+  background:var(--watch-soft);font-size:13.5px;line-height:1.7;color:var(--ink);border-radius:2px}
+.callout.risk{border-left-color:var(--critical);background:var(--critical-soft)}
+.callout b{font-weight:700}
+.bars{margin:6px 0}
+.bar{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:14px;
+  margin:7px 0;font-size:12.5px}
+.bar .lb{text-align:right;color:var(--muted);font-weight:600}
+.bar .tr{background:var(--surface);height:14px;position:relative;overflow:hidden;border-radius:1px}
+.bar .fl{height:100%}
+.bar .vl{font-variant-numeric:tabular-nums;font-weight:700;font-size:12px}
+.quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.quad{border:1px solid var(--line);border-radius:2px;padding:16px 18px;background:var(--paper)}
+.quad .qh{font-size:12px;font-weight:700;color:var(--theme-accent);letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:6px}
+.quad .qb{font-size:13.3px;line-height:1.72;color:var(--ink)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}
+.node{border:1px solid var(--line);border-radius:2px;padding:12px 10px;text-align:center;background:var(--paper)}
+.node .nt{font-size:12.5px;font-weight:700;color:var(--ink)}
+.node .nv{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+.chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;
+  border:1px solid var(--line-strong);color:var(--muted);letter-spacing:.03em}
+.chip.p0{border-color:var(--critical);color:var(--critical)}
+.chip.p1{border-color:var(--watch);color:var(--watch)}
+.chip.p2{border-color:var(--healthy);color:var(--healthy)}
+.src{font-size:12px;color:var(--muted);margin:6px 0;line-height:1.6}
+.src a{color:var(--theme-accent);text-decoration:none;word-break:break-all}
+.src a:hover{text-decoration:underline}
+.id{display:inline-block;min-width:34px;font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.stat{border-left:2px solid var(--line-strong);padding-left:14px}
+.stat .h{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.stat .big{font-size:24px;font-weight:700;letter-spacing:-.02em}
+.stat ul{margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--muted)}
+@media (max-width:820px){.quad-grid,.grid2,.flow{grid-template-columns:1fr}.bar{grid-template-columns:96px 1fr 74px}}
+</style></head><body><div class="document">
+<header class="doc-header">
+  <div class="doc-type-bar"><span class="doc-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span>底稿版 · 同一批 1,196 个观测点，换一个问法：哪些品类该投人、哪些该缩量</span></div>
+  <h1>内蒙古七类蛋白经营报告</h1>
+  <div class="doc-meta"><span>报告日 2026-11-12</span><span>适用 区域生鲜/商超</span><span>口径 元/斤含损耗冷链</span><span>配套 调研底稿 / 链路报告</span></div>
+</header>
+<div class="executive-card">
+  <div class="directive-box">经营上只有三件事：把蛋缩到 3 天、把牛锁到 50%、把鸡的加价率收回来。</div>
+  <div class="executive-body">全国日度给了明确方向：鸡蛋 −14.71%、猪肉 −9.55% 还在跌，牛肉 +3.82% 在涨，白条鸡 −0.98% 横盘。
+  内蒙零售滞后 3—4 周，意味着<b>接下来 2—4 周是"本地价还没跟上"的窗口</b>：
+  蛋类要抢在补跌前清库存，牛羊肉要抢在出场价传导前锁价。窗口一过，两边都没得做。</div>
+</div>
+<div class="metric-strip">
+  <div class="metric-cell critical">
+    <div class="metric-label">负毛利品类</div>
+    <div class="metric-value critical">3 / 10</div>
+    <div class="metric-note">牛、带鱼、蛋</div>
+  </div>
+  <div class="metric-cell accent">
+    <div class="metric-label">加价率极差</div>
+    <div class="metric-value accent">4.0×</div>
+    <div class="metric-note">1.036× ↔ 1.408×</div>
+  </div>
+  <div class="metric-cell healthy">
+    <div class="metric-label">鸡蛋补跌空间</div>
+    <div class="metric-value healthy">5%—9%</div>
+    <div class="metric-note">5.18 → 4.75—4.92</div>
+  </div>
+  <div class="metric-cell ">
+    <div class="metric-label">跨市净利率</div>
+    <div class="metric-value ">12.3%</div>
+    <div class="metric-note">乌市采、呼市卖</div>
+  </div>
+</div>
+<section class="report-section">
+  <div class="section-head"><span class="section-num">Section 01</span><h2>三条必须先接受的事实</h2></div>
+  
+<div class="quad-grid">
+  <div class="quad"><div class="qh">事实 1 · 高客单价 ≠ 高毛利</div><div class="qb">牛肉 37.28 元/斤、净毛利 −0.48；白条鸡 11.97 元/斤、净毛利 +2.68（22.4%）。按销售额排的重点品类，按毛利排完全反过来。这不是定价问题，是加价率结构问题。</div></div>
+  <div class="quad"><div class="qh">事实 2 · 传导滞后是唯一可预测的东西</div><div class="qb">全国鸡蛋 −14.71%，内蒙 −5.65%，缺口 9.06pp。滞后 3—4 周是规律，不是意外，<b>可以被排进采购节奏</b>。</div></div>
+  <div class="quad"><div class="qh">事实 3 · 成本端没有涨价压力</div><div class="qb">豆粕期货 −7.29%、玉米 +1.01%、呼市饲料走平。任何"成本涨了要提价"的内部说法，用这条直接否掉。</div></div>
+  <div class="quad"><div class="qh">推论 · 动作分三档</div><div class="qb">A 级（牛/羊/鸡/鱼/蛋）做合同与配额；B 级（鸭/虾）做周度比价；C 级（鹅）做订单式，不压库存。</div></div>
+</div>
+<p>这三条事实对应三种完全不同的管理动作：毛利率问题要改 KPI、传导问题要改节奏、成本问题要改话术。
+把三者混在一起谈，就会得出"要么全面涨价、要么全面降价"的结论，而正确做法是按品类分开处理。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 02</span><h2>品类经营矩阵：按加价率 × 趋势分层</h2></div>
+  
+<table>
+<tr><th>象限</th><th>品类</th><th>加价率</th><th>全国 33 日</th><th>本地趋势</th><th>定位</th><th>动作</th></tr>
+<tr><td class="nm">高加价 × 上涨</td><td>鹅（C 级）</td><td class="num">30%</td><td class="num">—</td><td class="num up">+4.76%</td><td>结构品</td><td>订单式，节庆礼盒</td></tr>
+<tr><td class="nm">高加价 × 横盘</td><td>白条鸡、鸭、鲤、草鱼</td><td class="num">33%—41%</td><td class="num flat">−2.1%—+1.2%</td><td class="num flat">−0.6%—+0.4%</td><td><b>利润池</b></td><td>扩 SKU、分割加工</td></tr>
+<tr><td class="nm">低加价 × 上涨</td><td>牛、羊</td><td class="num">3.6%—9.9%</td><td class="num up">+3.82%／+1.28%</td><td class="num up">+0.59%／+0.56%</td><td><b>引流品</b></td><td>锁价 + 跨市配额</td></tr>
+<tr><td class="nm">低加价 × 下跌</td><td>鸡蛋、带鱼</td><td class="num">4.3%—7.5%</td><td class="num down">−14.71%／+0.17%</td><td class="num down">−5.65%／+0.23%</td><td>敏感品</td><td>锁量不锁价；带鱼年限量</td></tr>
+<tr><td class="nm">高客单 × 高损耗</td><td>对虾、淡水虾</td><td class="num">37%</td><td class="num">—</td><td class="num flat">0.00%</td><td>形象品</td><td>规格入合同，超损扣款</td></tr>
+</table>
+<div class="callout"><b>矩阵的关键不是分类，是 KPI 分行：</b>利润池看毛利率、引流品看连带率、敏感品看周转、形象品看动销。
+<b>用一套 KPI 管八个品类，是这类业务最常见的组织性错误。</b>矩阵的价值在于把"八个品类"变成"四个管理对象"，
+每个对象一套指标、一个人负责。</div>
+<p>具体到本批数据：羊肉 CV 0.68% 最稳，适合长协；鸡蛋 CV 6.29% 最抖，适合短周期；
+白条鸡同比 −2.1% 但环比 +1.4%，是唯一出现"底部拐点"信号的品类，可以开始试探性扩量。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 03</span><h2>单位经济：按标准损耗重算</h2></div>
+  
+<table>
+<tr><th>品类</th><th>批发</th><th>零售</th><th>损耗</th><th>冷链</th><th>净毛利</th><th>净利率</th></tr>
+<tr><td class="nm">白条鸡</td><td class="num">8.50</td><td class="num">11.97</td><td class="num">2.0%</td><td class="num">0.55</td><td class="num up">+2.68</td><td class="num up">+22.4%</td></tr><tr><td class="nm">鸭肉</td><td class="num">10.50</td><td class="num">14.50</td><td class="num">2.5%</td><td class="num">0.60</td><td class="num up">+3.04</td><td class="num up">+20.9%</td></tr><tr><td class="nm">对虾</td><td class="num">33.50</td><td class="num">46.00</td><td class="num">6.0%</td><td class="num">1.60</td><td class="num up">+8.14</td><td class="num up">+17.7%</td></tr><tr><td class="nm">鹅肉</td><td class="num">11.00</td><td class="num">14.30</td><td class="num">2.5%</td><td class="num">0.70</td><td class="num up">+2.24</td><td class="num up">+15.7%</td></tr><tr><td class="nm">鲤鱼</td><td class="num">6.50</td><td class="num">8.86</td><td class="num">5.0%</td><td class="num">0.55</td><td class="num up">+1.37</td><td class="num up">+15.4%</td></tr><tr><td class="nm">草鱼</td><td class="num">8.50</td><td class="num">11.31</td><td class="num">5.0%</td><td class="num">0.65</td><td class="num up">+1.59</td><td class="num up">+14.1%</td></tr><tr><td class="nm">羊肉</td><td class="num">36.00</td><td class="num">39.56</td><td class="num">1.5%</td><td class="num">0.90</td><td class="num up">+2.07</td><td class="num up">+5.2%</td></tr><tr><td class="nm">带鱼</td><td class="num">16.00</td><td class="num">17.20</td><td class="num">3.0%</td><td class="num">0.70</td><td class="num down">-0.02</td><td class="num down">-0.1%</td></tr><tr><td class="nm">牛肉</td><td class="num">36.00</td><td class="num">37.28</td><td class="num">1.5%</td><td class="num">0.90</td><td class="num down">-0.18</td><td class="num down">-0.5%</td></tr><tr><td class="nm">鸡蛋</td><td class="num">4.97</td><td class="num">5.18</td><td class="num">1.0%</td><td class="num">0.25</td><td class="num down">-0.09</td><td class="num down">-1.8%</td></tr>
+</table>
+<div class="callout risk"><b>反转：三个"看起来赚钱"的品类其实是负毛利。</b>牛肉 −0.48、带鱼 −0.09、鸡蛋 −1.77%。
+带鱼最危险：加价 7.5%，却要承担 3% 损耗与全程冷链，<b>规模越大亏得越多</b>。</div>
+<h3>3.1 为什么牛肉越卖越亏</h3>
+<p>牛肉零售 37.28、批发 36.00，中间只有 1.28 元；扣 1.5% 损耗（0.56 元）与冷链人工 0.90 元后是 −0.18（按 11/5 价），
+按 11/10 实盘批发 36.00 重算是 −0.48。这意味着：<b>牛肉卖得越多、亏得越多——除非它带来的连带销售能覆盖单品亏损</b>。
+所以牛肉的 KPI 不该是"牛肉毛利率"，而应该是"含连带的门店毛利率"与"客流转化率"。</p>
+<h3>3.2 鸡蛋的负毛利更隐蔽</h3>
+<p>鸡蛋零售 5.18、批发 4.97，中间 0.21 元；扣 1% 损耗与 0.25 元冷链后是 −0.09（净利率 −1.77%）。
+鸡蛋的问题不在单价，在<b>量太大</b>——它是引流主力，销量可能是牛肉的十倍，−1.77% 的净利率会被放大成可观的亏损。
+正确做法是把它明确归为"引流成本"，单独设预算，而不是混在毛利考核里。</p>
+<h3>3.3 利润池：六个品类</h3>
+<p>白条鸡 22.4%、鸭肉 20.9%、对虾 17.7%、鹅肉 15.7%、鲤鱼 15.4%、草鱼 14.1%。这六个的批零倍数都在 1.30× 以上，
+扣完损耗与冷链仍有两位数净利率。<b>经营重心应该从"卖牛肉"转向"用牛肉带客流、用禽鱼赚毛利"。</b></p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 04</span><h2>把传导滞后变成定价窗口</h2></div>
+  
+<table>
+<tr><th>品类</th><th>全国（33 日）</th><th>内蒙（月度）</th><th>缺口</th><th>未来 2—4 周判断</th></tr>
+<tr><td class="nm">鸡蛋</td><td class="num down">−14.71%</td><td class="num down">−5.65%</td><td class="num">9.06pp</td><td>补跌 5%—9%，先清库存</td></tr>
+<tr><td class="nm">牛肉</td><td class="num up">+3.82%</td><td class="num up">+0.59%</td><td class="num">3.23pp</td><td>补涨 3%—4%，锁价优先</td></tr>
+<tr><td class="nm">白条鸡</td><td class="num down">−0.98%</td><td class="num up">+0.42%</td><td class="num">1.40pp</td><td>基本同步，无需动作</td></tr>
+<tr><td class="nm">猪肉</td><td class="num down">−9.55%</td><td class="num">—</td><td class="num">—</td><td>下半场，别压栏</td></tr>
+</table>
+<h3>4.1 两个动作，一个窗口</h3>
+<p><b>鸡蛋：</b>在补跌前把库存压到 3—4 天，等于提前锁定 5%—9% 的价差。这不是"看空蛋价"，而是"不参与下跌"。
+<b>牛肉：</b>在补涨前锁 50% 的量，等于提前锁定 3%—4% 的成本优势。两个动作都只有 2—4 周窗口。</p>
+<h3>4.2 为什么窗口会关</h3>
+<p>因为零售端的价格刚性会被两件事打破：一是竞品先降价，二是本地批发商补货成本下降。
+一旦本地零售开始跟跌/跟涨，缺口消失，窗口关闭。<b>本批数据显示，呼市价格刚性极强（牛肉振幅 0.33%），
+说明本地竞争格局稳定——这既让窗口更长，也让窗口关闭时更突然。</b></p>
+<h3>4.3 一个必须每周复核的例外</h3>
+<p>呼市鸡蛋出场价已从 4.10 回升到 4.48（+9.3%），与全国批发的下跌方向相反。
+如果这个回升持续，鸡蛋的补跌逻辑会被成本端抵消。<b>复核方法：每周看全国批发价（决定上限）与呼市出场价（决定下限），
+两者交叉即可判断补跌是否还成立。</b></p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 05</span><h2>采购三档与 TCO 复核</h2></div>
+  
+<table>
+<tr><th>策略</th><th>品类</th><th>触发条件</th><th>合同要点</th><th>覆盖率</th></tr>
+<tr><td class="nm">锁价</td><td>牛肉、羊肉</td><td>全国上行 + 出场已回落</td><td>锁白条价，约定部位出肉率</td><td class="num">50%—60%</td></tr>
+<tr><td class="nm">锁量不锁价</td><td>鸡蛋、白条鸡</td><td>已从低点反弹、方向不确定</td><td>保底量 + 周度指数浮动</td><td class="num">40%—50%</td></tr>
+<tr><td class="nm">随行就市</td><td>鱼、虾、鸭、鹅</td><td>价格平稳、损耗高</td><td>成活率/冰衣率结算，规格入合同</td><td class="num">—</td></tr>
+</table>
+<h3>5.1 为什么牛羊肉要锁价而不是等跌</h3>
+<p>零售同比 +10.56%／+5.05% 仍在高位，但出场端育肥牛已从 14.80 跌到 14.50（−2.03%）。
+<b>零售滞后出场 3—4 周</b>——现在锁的是"出场价下跌、零售价还没跌"这段窗口，不是赌方向。
+一旦零售开始跟跌，锁价的意义就没了。</p>
+<h3>5.2 TCO 复核</h3>
+<table>
+<tr><th>牛肉货源</th><th>落地成本</th><th>可用斤</th><th>有效单位成本</th><th>交期</th></tr>
+<tr><td class="nm">赤峰敖汉合作屠宰（活牛折算）</td><td class="num">28,460</td><td class="num">985</td><td class="num up">28.95</td><td class="num">3 天</td></tr><tr><td class="nm">乌兰察布集宁跨市（现结）</td><td class="num">33,920</td><td class="num">985</td><td class="num up">34.44</td><td class="num">2 天</td></tr><tr><td class="nm">东瓦窑批发（现结）</td><td class="num">36,900</td><td class="num">985</td><td class="num up">37.46</td><td class="num">0 天</td></tr>
+</table>
+<p>赤峰敖汉 28.95 最优（较次优低 15.9%），但触发 MOQ 1,500 斤 WARN——
+<b>最优链路必须配套拼单，否则不可执行</b>。东瓦窑 37.46 高于零售 37.28，独立复现了牛肉负毛利。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 06</span><h2>跨市场配额与库存</h2></div>
+  
+<div class="grid2">
+  <div class="stat"><div class="h">牛肉：乌市 → 呼市</div><div class="big up">+4.85 元/斤</div>
+    <ul><li>采 33.02 → 零售 39.36</li><li>扣冷链 0.90 + 损耗 1.5%</li><li>净利率 12.3%（本地 −0.5%）</li></ul></div>
+  <div class="stat"><div class="h">配额规则</div><div class="big">≤30%</div>
+    <ul><li>单品类跨市 ≤ 月采购 30%</li><li>价差率 &lt;8% 自动停配</li><li>冷链车回程装载 &lt;60% 不发车</li></ul></div>
+</div>
+<p>价差率 19.2%（牛肉）、20.0%（鸡肉），回归斜率 1.192 &gt; 1——<b>价差随价格水平放大</b>，
+配额不是一次性套利，而是结构性收益。<b>但配额有上限：</b>超过 30% 会挤压本地供应商关系，
+且一旦价差收窄，多余的跨市量反而变成高成本库存。</p>
+<table>
+<tr><th>品类</th><th>周转天数</th><th>损耗上限</th><th>依据</th></tr>
+<tr><td class="nm">鸡蛋</td><td class="num">3—4 天</td><td class="num">1.0%</td><td>全国 −14.71% 仍在补跌</td></tr>
+<tr><td class="nm">白条鸡 / 鸭</td><td class="num">3 天</td><td class="num">2.0%—2.5%</td><td>加价率高，最怕剩货</td></tr>
+<tr><td class="nm">牛羊肉</td><td class="num">5 天（冻 30 天）</td><td class="num">1.5%</td><td>单品负毛利，慢周转放大亏损</td></tr>
+<tr><td class="nm">活鱼</td><td class="num">2 天</td><td class="num">5%</td><td>价格最稳，损耗是唯一变量</td></tr>
+<tr><td class="nm">虾</td><td class="num">2 天（冻 60 天）</td><td class="num">6%</td><td>冰衣率入合同</td></tr>
+<tr><td class="nm">鹅</td><td class="num">0（订单式）</td><td class="num">2.5%</td><td>C 级数据，无法定价</td></tr>
+</table>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 07</span><h2>KPI 与 30 天行动</h2></div>
+  
+<table>
+<tr><th>指标</th><th>基线</th><th>30 天目标</th><th>门禁</th></tr>
+<tr><td class="nm">鸡蛋库存天数</td><td class="num">7 天</td><td class="num">≤4 天</td><td>&gt;7 天禁止补货</td></tr>
+<tr><td class="nm">牛肉锁价覆盖</td><td class="num">0%</td><td class="num">50%</td><td>出场连跌 3 周降至 30%</td></tr>
+<tr><td class="nm">跨市配额占比</td><td class="num">0%</td><td class="num">25%—30%</td><td>价差率 &lt;8% 归零</td></tr>
+<tr><td class="nm">白条鸡净利率</td><td class="num">22.4%</td><td class="num">≥24%</td><td>&lt;18% 查损耗</td></tr>
+<tr><td class="nm">负毛利品类</td><td class="num">3/10</td><td class="num">≤2/10</td><td>连带率 &lt;1.5 下架</td></tr>
+</table>
+<table>
+<tr><th>周次</th><th>动作</th><th>验收</th></tr>
+<tr><td class="nm">第 1 周</td><td>鸡蛋库存压到 4 天，暂停囤货</td><td>周转 ≤4 天</td></tr>
+<tr><td class="nm">第 1 周</td><td>牛肉锁价 50%，与敖汉谈拼单至 1,500 斤</td><td>拿到 MOQ 豁免或拼单方案</td></tr>
+<tr><td class="nm">第 2 周</td><td>开通乌兰察布牛肉配额（≤30%）</td><td>首车到店损耗 ≤1.5%</td></tr>
+<tr><td class="nm">第 3 周</td><td>鸭/虾合同补规格条款</td><td>3 份合同改签</td></tr>
+<tr><td class="nm">第 4 周</td><td>复盘：负毛利品类降到 2 个</td><td>含连带门店毛利率 +1pp</td></tr>
+</table>
+<p>这套动作的共同点是<b>不改变采购总量、只改变节奏与结构</b>：库存从 7 天压到 4 天、锁价从 0 到 50%、配额从 0 到 30%。
+总量不变意味着不需要额外资金，<span style="font-weight:700">执行阻力最小、见效最快</span>。</p>
+</section>
+<section class="report-section">
+  <div class="section-head"><span class="section-num">Section 10</span><h2>猪价下行期的组合调整</h2></div>
+  
+<p>猪肉 33 日 −9.55%、期货 −12.43%，是四季度最大的外生变量。它会通过两条路径影响门店：<b>一是替代</b>，
+猪肉便宜会分流禽肉与牛羊肉的需求；<b>二是价格锚</b>，顾客会拿猪肉价当"蛋白价格锚"，觉得禽肉贵了。</p>
+<p>但本批数据给出了一个反直觉的证据：<b>白条鸡只跌 0.98%</b>，没有跟着猪肉跌。说明替代效应在零售端并不强，
+真正起作用的是"价格锚"心理，而不是实际购买转移。对经营的含义：<b>不要主动下调禽肉价格去"应对"猪价</b>，
+那会把价格锚坐实；正确做法是保持禽肉价格、用组合（猪肉+禽肉套餐）承接客流。</p>
+<p>牛羊肉则相反：猪价跌对它是利好——消费升级的替代方向。当前牛肉同比 +10.56%，正是这个逻辑的体现。
+所以组合策略应该是：<b>猪肉做引流、禽肉做利润、牛羊肉做客单</b>，三条线各司其职，不要互相补贴。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 11</span><h2>三类 KPI 怎么落地</h2></div>
+  
+<p>前面说"要换 KPI"，具体怎么换：</p>
+<table>
+<tr><th>角色</th><th>旧 KPI</th><th>新 KPI</th><th>口径</th></tr>
+<tr><td class="nm">引流品（牛/蛋）</td><td>品类毛利率</td><td>连带率 + 客流转化</td><td>含连带门店毛利率、客单件数</td></tr>
+<tr><td class="nm">利润品（禽/鱼）</td><td>销售额</td><td>净毛利率（含损耗）</td><td>扣损耗与冷链后的毛利率</td></tr>
+<tr><td class="nm">敏感品（蛋/带鱼）</td><td>毛利额</td><td>周转天数 + 损耗率</td><td>库存天数、损耗上限</td></tr>
+<tr><td class="nm">形象品（虾/鹅）</td><td>销量</td><td>动销率 + 规格纠纷数</td><td>周动销、投诉数</td></tr>
+</table>
+<p>换 KPI 的难点不是定义，是<b>数据可得性</b>：连带率需要 POS 关联、损耗率需要盘点、动销率需要库存系统。
+如果这些数据拿不到，退一步的做法是<b>先用"品类毛利率 ÷ 加价率"做替代指标</b>——加价率高的品类，
+毛利率天然应该高，低于这个比值就说明执行出了问题。</p>
+</section><section class="report-section">
+  <div class="section-head"><span class="section-num">Section 12</span><h2>分品类经营口径总表（八品类 × 六件事）</h2></div>
+  
+<table>
+<tr><th>品类</th><th>价格锚</th><th>加价率</th><th>净利率</th><th>定位</th><th>合同</th><th>库存/KPI</th></tr>
+<tr><td class="nm">牛肉</td><td class="num">37.28</td><td class="num">1.036×</td><td class="num down">−0.5%</td><td>引流</td><td>锁价 50%—60%</td><td>5 天 / 连带率</td></tr>
+<tr><td class="nm">羊肉</td><td class="num">39.56</td><td class="num">1.099×</td><td class="num up">+5.2%</td><td>长协</td><td>锁价 60%—90 天</td><td>5 天 / 毛利率</td></tr>
+<tr><td class="nm">鸡肉</td><td class="num">11.97</td><td class="num">1.408×</td><td class="num up">+22.4%</td><td>利润</td><td>锁量不锁价</td><td>3 天 / 净利率</td></tr>
+<tr><td class="nm">鸭肉</td><td class="num">14.50*</td><td class="num">1.381×</td><td class="num up">+20.9%</td><td>利润</td><td>周度比价</td><td>3 天 / 净利率</td></tr>
+<tr><td class="nm">鹅肉</td><td class="num">14.30*</td><td class="num">1.300×</td><td class="num up">+15.7%</td><td>结构</td><td>订单式</td><td>0 / 动销</td></tr>
+<tr><td class="nm">鱼肉</td><td class="num">8.86—17.20</td><td class="num">1.075—1.363×</td><td class="num">−0.1%—+15.4%</td><td>周转</td><td>周度议价</td><td>2 天 / 损耗</td></tr>
+<tr><td class="nm">虾类</td><td class="num">33.50—82.50</td><td class="num">1.373×</td><td class="num up">+17.7%</td><td>形象</td><td>规格合同</td><td>2 天 / 动销</td></tr>
+<tr><td class="nm">蛋类</td><td class="num">5.18</td><td class="num">1.043×</td><td class="num down">−1.8%</td><td>敏感</td><td>锁量不锁价</td><td>3—4 天 / 周转</td></tr>
+</table>
+<p>这张表是经营报告的"总开关"：<b>八个品类、六件事，每格都有唯一答案</b>。
+任何一个采购或店长拿到这张表，都能在不请示的情况下做出 80% 的日常决策。
+剩下的 20%（调价幅度、配额比例）才需要上级判断——这才是"口径统一"的实际收益。</p>
+<p><b>* 标注为估算值</b>：鸭、鹅无公开零售报价，按同类加价率推算，误差约 ±0.5 元/斤，只用于横向比较。</p>
+</section><div class="doc-footer">
+  <span>蛙蛙呱呱 agents 团 · R01 / R05 / R06 / R15 / R04 ｜ 调研底稿版 2026-11-12</span>
+  <span>默认主题 · report_theme 石墨蓝 · 数据底稿 data/底稿指标.json</span>
+</div></div></body></html>

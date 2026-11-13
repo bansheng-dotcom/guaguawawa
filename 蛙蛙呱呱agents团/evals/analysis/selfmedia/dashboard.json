@@ -1,0 +1,17 @@
+{
+ "skill": "selfmedia",
+ "args": [
+  "dashboard",
+  "--input",
+  "{AGENTS}/tests/fixtures/selfmedia_norm.json",
+  "--today",
+  "2026-11-12"
+ ],
+ "expect": {
+  "platform_count": 3,
+  "status": "partial",
+  "conclusion": {
+   "not_null": true
+  }
+ }
+}

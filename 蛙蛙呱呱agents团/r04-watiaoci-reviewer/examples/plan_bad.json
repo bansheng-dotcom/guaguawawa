@@ -1,0 +1,20 @@
+{
+  "_comment": "harness plan 脏夹具：缺 round、analytical_step、stop_condition.if_impact_below_pct → FAIL",
+  "question": "能不能过验收",
+  "query_spec": {
+    "metrics": ["criteria_fail_count"],
+    "group_by": ["criterion"],
+    "date_range": "this_iteration"
+  },
+  "expected_output": {
+    "format": "critique_report",
+    "required_fields": ["verdict"]
+  },
+  "acceptance_criteria": {
+    "min_rows": 4,
+    "all_required_fields": true
+  },
+  "stop_condition": {
+    "reason": "看着办"
+  }
+}

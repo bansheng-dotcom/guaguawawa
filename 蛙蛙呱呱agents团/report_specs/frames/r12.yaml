@@ -1,0 +1,53 @@
+role: r12
+domain: 社区零售增长
+objects:
+- 用户
+- 渠道
+- 漏斗
+- 预算
+value_chain:
+- 曝光
+- 访问
+- 注册
+- 首单
+- 复购
+decisions:
+- 预算分配
+- 渠道取舍
+- 实验投入
+questions:
+- id: Q1
+  question: 漏斗卡在哪一段？
+  needs:
+  - 漏斗
+  ops: []
+  decision: 钱往哪一段投
+- id: Q2
+  question: LTV 和 CAC 谁高？
+  needs:
+  - 渠道花费
+  - 订单金额
+  - 毛利率
+  ops: []
+  decision: 这个渠道还能不能投
+- id: Q3
+  question: 哪个渠道效率最高？
+  needs:
+  - 渠道花费
+  - 订单金额
+  ops: []
+  decision: 预算怎么挪
+- id: Q4
+  question: 新方案真的有效吗？
+  needs:
+  - 实验分组
+  - 实验指标
+  ops: []
+  decision: 要不要放量
+- id: Q5
+  question: 用户能留多久？
+  needs:
+  - 留存曲线
+  - 分群复购
+  ops: []
+  decision: LTV 按几年算

@@ -1,0 +1,11 @@
+{
+  "aha_moment": "首单后 7 天内完成第二次品类交叉购买",
+  "time_to_value": "首单当日拿到当周采价清单与购买顺序",
+  "funnel": "到店 → 首单 → 二次品类 → 30 天复购",
+  "churn_warning_days": 14,
+  "recall_channels": [
+    "短信",
+    "推送",
+    "人工触达"
+  ]
+}

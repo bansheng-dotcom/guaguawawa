@@ -1,0 +1,27 @@
+{
+  "r09": {
+    "role_dir": "r09-wawenma-engineer",
+    "cases": [
+      {"id": "r09-01", "intent": "帮我把这个功能弄好", "expect": "clarify"},
+      {"id": "r09-02", "intent": "设计数据库表", "expect": "clarify"},
+      {"id": "r09-03", "intent": "搭个架构", "expect": "clarify"},
+      {"id": "r09-04", "intent": "用MySQL设计用户表的数据模型", "expect": "route", "expect_action": "data_api.schema"},
+      {"id": "r09-05", "intent": "写份技术规格", "expect": "route", "expect_action": "spec.spec"},
+      {"id": "r09-06", "intent": "做全栈功能，用Python", "expect": "route", "expect_action": "fullstack.feature"},
+      {"id": "r09-07", "intent": "补单元测试和覆盖率", "expect": "route", "expect_action": "testing.suites"},
+      {"id": "r09-08", "intent": "查一下这个bug的根因", "expect": "route", "expect_action": "debug.debug"},
+      {"id": "r09-09", "intent": "做数据迁移，从MySQL到Postgres", "expect": "route", "expect_action": "ops.migration"},
+      {"id": "r09-10", "intent": "设计API契约和错误码", "expect": "route", "expect_action": "data_api.api"},
+      {"id": "r09-11", "intent": "写个浏览器测试，覆盖登录流程", "expect": "route", "expect_action": "testing.browser"},
+      {"id": "r09-12", "intent": "做个安全审计", "expect": "clarify"},
+      {"id": "r09-13", "intent": "给订单模块写一份技术规格和技术方案", "expect": "route", "expect_action": "spec.spec"},
+      {"id": "r09-14", "intent": "把这几个接口设计一下，定义好错误码", "expect": "route", "expect_action": "data_api.api"},
+      {"id": "r09-15", "intent": "给支付模块补集成测试，把覆盖率提上去", "expect": "route", "expect_action": "testing.suites"},
+      {"id": "r09-16", "intent": "线上这个报错反复复现，帮我定位根因", "expect": "route", "expect_action": "debug.debug"},
+      {"id": "r09-17", "intent": "把MySQL的数据迁移到Postgres，准备好回滚方案", "expect": "route", "expect_action": "ops.migration"},
+      {"id": "r09-18", "intent": "把这个服务拆分一下", "expect": "clarify"},
+      {"id": "r09-19", "intent": "设计一下数据库", "expect": "clarify"},
+      {"id": "r09-20", "intent": "帮我看看这个接口有没有问题", "expect": "clarify"}
+    ]
+  }
+}

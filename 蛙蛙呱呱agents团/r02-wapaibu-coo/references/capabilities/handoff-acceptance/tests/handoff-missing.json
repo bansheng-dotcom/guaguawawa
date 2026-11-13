@@ -1,0 +1,11 @@
+{
+  "_comment": "反例：交接包缺验收标准与复现命令 → package 门禁必须判不通过",
+  "process_doc": "发布流程.md",
+  "artifact": "landing_v2.zip",
+  "artifact_type": "code",
+  "owner": "r08",
+  "rev": "r2",
+  "handoff_to": "r09",
+  "repro_commands": [],
+  "downstream_fields": []
+}

@@ -1,0 +1,13 @@
+{
+ "skill": "selfmedia",
+ "args": [
+  "normalize",
+  "--input",
+  "{AGENTS}/tests/fixtures/selfmedia_raw.json",
+  "--output",
+  "{AGENTS}/tests/fixtures/_norm_tmp.json"
+ ],
+ "expect": {
+  "platform_count": 3
+ }
+}

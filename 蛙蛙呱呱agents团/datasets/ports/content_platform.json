@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "CONTRACT",
+  "port": "content_platform",
+  "system": "内容平台后台 / 搜索指数",
+  "note": "r11 需要：搜索量、竞品内容、大纲与标题、核心词位置、禁词表、选题分与排期。",
+  "fields": [
+    "search_volume",
+    "competitor_content",
+    "outline",
+    "title",
+    "core_keywords",
+    "keyword_positions",
+    "ban_words",
+    "ai_disclosure",
+    "topic_score",
+    "schedule"
+  ],
+  "items": []
+}

@@ -1,0 +1,18 @@
+{
+ "skill": "power",
+ "args": [
+  "--baseline",
+  "0.032",
+  "--n-per-group",
+  "50000",
+  "--alpha",
+  "0.05",
+  "--power",
+  "0.8"
+ ],
+ "expect": {
+  "power.mde_solvable": {
+   "not_null": true
+  }
+ }
+}

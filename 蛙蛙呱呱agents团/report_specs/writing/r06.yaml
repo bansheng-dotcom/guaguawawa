@@ -1,0 +1,81 @@
+# R06 蛙得清 · 数据分析报告写作配置
+# 数据类角色的节序：先证明数据可用 → 再看走势与波动 → 再看结构与分布 → 最后检验与动作。
+# 节标题由证据包算出的结论句覆盖（heading）；数字全部来自证据包。
+
+role: r06
+doc_type: 数据分析报告 · 蛙得清
+title: "呼市水果：8 周价格结构\n批零价差与期现关系"
+title_highlight: 批零价差与期现关系
+title_highlight_style: underline
+meta:
+  - 读者：经营决策者与采购
+  - 数据截止：2026-11-12
+  - 口径：全国 6 种批发 · 呼市 8 种零售 · 57 个市场截面 · AP0 期货
+  - 样本：38 个交易日 + 8 周 + 107 条市场报价
+footer:
+  - r06 蛙得清 · 数据分析师
+  - 数据：农业农村部 / 呼市商务局 / 郑商所；台账 r06_pack.json
+  - shared/report_writer + core/report_renderer 确定性渲染
+
+sections:
+  - title: 数据与口径
+    question: 这批数据本身能不能用？
+    intro: 先证明数据可用，再证明结论成立；顺序反了，后面每一节都是负债。
+    boundary: 质量门禁只看完整性、一致性与唯一性，不评估业务合理性。
+  - title: 走势
+    question: 这段时间价格在涨还是在跌？
+    intro: 先看斜率，再看首末。首末只说明两个端点，斜率才说明方向。
+    boundary: 日度均价是 6 种水果篮子，不代表单一品种。
+    chart: 走势
+  - title: 波动结构
+    question: 单日涨跌能不能当信号？
+    intro: 单日噪声远大于趋势时，所有“今天涨了”的动作都是自伤。
+    boundary: 日环比标准差只描述波动强度，不做显著性检验。
+  - title: 批零
+    question: 零售端跟着批发走了吗？
+    intro: 批发讲成本，零售讲加减价；两端不同步时，价差本身就是结论。
+    boundary: 呼市 8 种与全国 6 种篮子品种不同，只比水平差与方向。
+    chart: 批零
+  - title: 分化
+    question: 篮子平稳时，钱在哪些品种之间搬家？
+    intro: 总量平稳从来不是“没变化”，是品种之间互相抵消。
+    boundary: 单周截面受促销与到货节奏影响，不代表长期结构。
+    chart: 分化
+  - title: 分布
+    question: 同一个品种，全国价差有多大？
+    intro: 一个中位数会骗人，分布不会——先看尾部，再看中心。
+    boundary: 两期报价、规格未完全匹配，只作分布参考。
+    chart: 分布
+  - title: 规格与构成
+    question: 均价下跌，是每个规格都在跌吗？
+    intro: 均价是加权结果，规格才是交易对象；不拆开就会把结构变化读成行情变化。
+    boundary: 70-84 档 73 天恒值（报价未更新），只作方向参考；两期报价规格未完全对齐。
+    chart: 综合
+  - title: 期现
+    question: 期货跌了，现货会跟着跌吗？
+    intro: 期货交易预期，现货交易当下；两个价格可以相关，不能互相代入。
+    boundary: 期货标的是标准品，现货含等级差，基差只作方向参考。
+    chart: 期现
+  - title: 检验与局限
+    question: 这份数据能支撑到哪一步结论？
+    intro: 说清不能做什么，比多给一个结论更有价值。
+    boundary: 样本 8 周、口径跨篮子、点数不足；季节性、年际与因果均不在结论范围。
+  - title: 数据缺口
+    question: 这盘生意还有哪些问题本报告答不了？
+    intro: 说清答不了什么，比多给一个结论更值钱——尤其是那些会改变动作的问题。
+    boundary: 缺口项已排除出结论；补齐数据后须重跑本报告，不能直接用旧结论外推。
+  - title: 判断与动作
+    question: 所以改什么动作、什么信号出现就改回来？
+    intro: 结论要落到动作和失效信号上，否则只是对过去的复述。以上是条件化建议，涉资与签约须按 R01 决策卡人工签发。
+    table: decision
+    no_reading: true
+
+summary:
+  - {label: 走势, section: 走势}
+  - {label: 批零, section: 批零}
+  - {label: 结构, section: 分化}
+  - {label: 动作, section: 判断与动作, kind: recommendation}
+
+appendix:
+  sources: true
+  checks: true

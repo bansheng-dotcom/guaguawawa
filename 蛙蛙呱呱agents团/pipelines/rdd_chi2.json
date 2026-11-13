@@ -1,0 +1,51 @@
+{
+ "proposition": "门槛效应与品类差异的联合判断",
+ "steps": [
+  {
+   "id": "rdd",
+   "type": "skill",
+   "skill": "rdd",
+   "args": [
+    "--input",
+    "{AGENTS}/tests/fixtures/analysis_rdd.csv",
+    "--y",
+    "paid_value",
+    "--running",
+    "cart_value",
+    "--cutoff",
+    "99",
+    "--sensitivity"
+   ]
+  },
+  {
+   "id": "a1",
+   "type": "assert",
+   "path": "rdd.rdd.estimate",
+   "equals": null
+  },
+  {
+   "id": "chi",
+   "type": "skill",
+   "skill": "chi2",
+   "args": [
+    "--input",
+    "{AGENTS}/tests/fixtures/analysis_orders.csv",
+    "--row",
+    "category",
+    "--col",
+    "returned"
+   ]
+  },
+  {
+   "id": "a2",
+   "type": "assert",
+   "path": "chi.chi2.p_exact",
+   "equals": null
+  },
+  {
+   "id": "r",
+   "type": "report",
+   "path": "report.md"
+  }
+ ]
+}

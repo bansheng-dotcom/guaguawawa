@@ -1,0 +1,23 @@
+{
+ "skill": "did",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_panel.csv",
+  "--y",
+  "gmv",
+  "--treat",
+  "treat",
+  "--post",
+  "post",
+  "--unit",
+  "city_id",
+  "--time",
+  "week",
+  "--event-study"
+ ],
+ "expect": {
+  "event_study.pretrend_joint.p": {
+   "not_null": true
+  }
+ }
+}

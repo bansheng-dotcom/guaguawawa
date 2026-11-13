@@ -1,0 +1,26 @@
+{
+ "name": "explore:rfm",
+ "fields": [
+  {
+   "name": "customer_id",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "order_date",
+   "dtype": "date",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "revenue",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

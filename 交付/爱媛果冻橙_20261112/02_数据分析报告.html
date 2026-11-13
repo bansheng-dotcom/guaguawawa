@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="zh-CN" data-style="internet-reporting" data-palette="graphite-cobalt">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>爱媛果冻橙 · 价格与成本的数据底盘</title>
+<style>    :root {
+      --theme-base: #F2F3F4; --theme-primary: #292F36; --theme-accent: #315E9B;
+      --critical: #B33A32; --watch: #8A6500; --healthy: #19704B;
+      --canvas: color-mix(in srgb, var(--theme-primary) 8%, var(--theme-base));
+      --paper: var(--theme-base); --ink: var(--theme-primary);
+      --muted: color-mix(in srgb, var(--theme-primary) 66%, var(--theme-base));
+      --line: color-mix(in srgb, var(--theme-primary) 16%, var(--theme-base));
+      --line-strong: color-mix(in srgb, var(--theme-primary) 34%, var(--theme-base));
+      --surface: color-mix(in srgb, var(--theme-primary) 3%, var(--theme-base));
+      --surface-strong: color-mix(in srgb, var(--theme-primary) 7%, var(--theme-base));
+      --accent-soft: color-mix(in srgb, var(--theme-accent) 10%, var(--theme-base));
+      --critical-soft: color-mix(in srgb, var(--critical) 11%, var(--theme-base));
+      --watch-soft: color-mix(in srgb, var(--watch) 11%, var(--theme-base));
+      --healthy-soft: color-mix(in srgb, var(--healthy) 11%, var(--theme-base));
+      --series-context: color-mix(in srgb, var(--theme-primary) 54%, var(--theme-base));
+      --series-reference: color-mix(in srgb, var(--theme-primary) 38%, var(--theme-base));
+      --page-columns: 12; --page-gap: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--canvas); color: var(--ink);
+      font-family: "Microsoft YaHei", "Microsoft YaHei UI", Arial, sans-serif;
+      font-size: 15px; font-weight: 400; line-height: 1.68;
+      font-synthesis: none; -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+    svg { font-family: inherit; }
+    a { color: inherit; }
+    strong, b { font-weight: 700; }
+    .document {
+      width: min(1180px, calc(100% - 48px));
+      margin: 28px auto 54px; padding: 40px 54px 46px;
+      background: var(--paper); border: 1px solid var(--line); border-radius: 2px;
+    }
+    .page-grid {
+      display: grid; grid-template-columns: repeat(var(--page-columns), minmax(0, 1fr));
+      column-gap: var(--page-gap);
+    }
+    .doc-header { padding-bottom: 28px; border-bottom: 1px solid var(--line-strong); }
+    .doc-type {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+      color: var(--muted); font-size: 12px;
+    }
+    .doc-glyph {
+      width: 28px; height: 28px; display: inline-flex; align-items: flex-end;
+      justify-content: center; gap: 2px; padding: 6px;
+      border: 1px solid var(--line-strong); border-radius: 2px;
+    }
+    .doc-glyph i { width: 3px; display: block; background: var(--theme-accent); }
+    .doc-glyph i:nth-child(1) { height: 6px; }
+    .doc-glyph i:nth-child(2) { height: 11px; }
+    .doc-glyph i:nth-child(3) { height: 8px; }
+    h1 {
+      max-width: 980px; margin: 0; font-size: clamp(36px, 3vw, 40px);
+      font-weight: 700; line-height: 1.18; letter-spacing: -.025em; text-wrap: balance;
+    }
+    .title-line { display: block; }
+    .standfirst {
+      max-width: 850px; margin: 17px 0 0; color: var(--muted);
+      font-size: 16px; line-height: 1.72;
+    }
+    .doc-meta {
+      display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 20px;
+      color: var(--muted); font-size: 11.5px;
+    }
+    .doc-meta span { position: relative; white-space: nowrap; }
+    .doc-meta span + span::before {
+      position: absolute; left: -13px; content: "·"; color: var(--line-strong);
+    }
+    .metric-strip {
+      margin-top: 26px; border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .metric { grid-column: span 3; min-height: 124px; padding: 16px 10px 15px 0; }
+    .metric-label {
+      display: flex; align-items: center; gap: 7px; min-height: 22px;
+      color: var(--muted); font-size: 12px; line-height: 1.45;
+    }
+    .metric-value {
+      display: block; margin-top: 6px; font-size: 30px; font-weight: 700;
+      line-height: 1.06; letter-spacing: -.02em;
+    }
+    .metric-value.critical { color: var(--critical); }
+    .metric-value.watch { color: var(--watch); }
+    .metric-value.healthy { color: var(--healthy); }
+    .metric-note {
+      display: block; margin-top: 8px; color: var(--muted);
+      font-size: 11.5px; line-height: 1.5;
+    }
+    .shape { display: inline-block; flex: 0 0 auto; }
+    .shape-diamond { width: 7px; height: 7px; background: var(--critical); transform: rotate(45deg); }
+    .shape-circle { width: 7px; height: 7px; border-radius: 50%; background: var(--healthy); }
+    .shape-triangle {
+      width: 0; height: 0; border-left: 5px solid transparent;
+      border-right: 5px solid transparent; border-bottom: 8px solid var(--watch);
+    }
+    .shape-accent { width: 7px; height: 7px; border-radius: 50%; background: var(--theme-accent); }
+    .microbar { width: min(154px, 100%); height: 5px; margin-top: 10px; background: var(--line); }
+    .microbar span { display: block; height: 100%; background: var(--theme-accent); }
+    .summary { margin-top: 30px; }
+    .summary-label, .notes-label {
+      grid-column: 1 / span 9; display: flex; align-items: center; gap: 9px;
+      margin: 0 0 13px; color: var(--theme-accent); font-size: 13px;
+      font-weight: 700; line-height: 1.45;
+    }
+    .summary-label::before, .notes-label::before {
+      width: 7px; height: 7px; content: ""; flex: 0 0 auto;
+      border-radius: 50%; background: var(--theme-accent);
+    }
+    .summary-copy { grid-column: 1 / span 9; max-width: 830px; }
+    .summary-copy p { margin: 0 0 10px; }
+    .summary-copy .summary-close {
+      margin-top: 13px; padding-top: 12px; border-top: 1px solid var(--line);
+    }
+    mark { padding: 1px 3px; background: var(--accent-soft); color: inherit; }
+    .report-section { margin-top: 48px; scroll-margin-top: 20px; }
+    .section-head {
+      display: flex; align-items: flex-start; gap: 10px; padding-bottom: 14px;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .section-index {
+      flex: 0 0 auto; padding-top: 5px; color: var(--theme-accent);
+      font-size: 12px; font-weight: 700; line-height: 1.4;
+    }
+    .section-heading-copy { min-width: 0; }
+    .section-title {
+      margin: 0; font-size: 23px; font-weight: 700; line-height: 1.34;
+      letter-spacing: -.012em;
+    }
+    .section-question {
+      margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55;
+    }
+    .section-intro { grid-column: 1 / span 8; margin-top: 18px; }
+    .section-intro p { margin: 0 0 9px; }
+    .embed { margin: 22px 0 0; border: 1px solid var(--line-strong); border-radius: 2px; }
+    .embed-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 18px; padding: 12px 15px; border-bottom: 1px solid var(--line);
+    }
+    .embed-title {
+      display: flex; align-items: flex-start; gap: 9px; min-width: 0;
+      font-size: 13px; font-weight: 700; line-height: 1.5;
+    }
+    .embed-icon {
+      width: 14px; height: 14px; margin-top: 2px; flex: 0 0 auto;
+      border: 1px solid var(--theme-accent); position: relative;
+    }
+    .embed-icon::before, .embed-icon::after {
+      position: absolute; left: 3px; content: ""; width: 6px;
+      border-top: 1px solid var(--theme-accent);
+    }
+    .embed-icon::before { top: 4px; }
+    .embed-icon::after { top: 8px; }
+    .embed-meta {
+      flex: 0 0 auto; color: var(--muted); font-size: 11.5px;
+      line-height: 1.5; white-space: nowrap;
+    }
+    .chart-wrap { padding: 14px 16px 10px; }
+    .chart-wrap svg { display: block; width: 100%; height: auto; }
+    .embed-source {
+      padding: 0 16px 12px; color: var(--muted); font-size: 11.5px; line-height: 1.55;
+    }
+    .post-chart { margin-top: 17px; align-items: start; }
+    .reading-block { grid-column: 1 / span 7; }
+    .reading-block h3, .boundary-block h3, .block-note h3 {
+      margin: 0 0 8px; font-size: 14px; font-weight: 700; line-height: 1.5;
+    }
+    .reading-list { margin: 0; padding: 0; list-style: none; }
+    .reading-list li {
+      display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 7px;
+      padding: 7px 0; border-top: 1px solid var(--line);
+    }
+    .reading-list li:first-child { border-top: 0; }
+    .reading-no { color: var(--theme-accent); font-size: 12px; font-weight: 700; }
+    .reading-text { font-size: 13px; line-height: 1.58; }
+    .boundary-block {
+      grid-column: 8 / -1; padding: 12px 15px;
+      border-left: 3px solid var(--watch); background: var(--watch-soft);
+    }
+    .boundary-label {
+      display: flex; align-items: center; gap: 8px; color: var(--watch);
+      font-size: 12px; font-weight: 700;
+    }
+    .boundary-block p, .block-note p {
+      margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.58;
+    }
+    .evidence-table-wrap {
+      margin-top: 22px; overflow-x: auto; border: 1px solid var(--line-strong);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    .evidence-table { min-width: 860px; table-layout: fixed; }
+    .evidence-table th, .evidence-table td {
+      padding: 11px 12px; border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line); vertical-align: top;
+      text-align: left; font-size: 12px; line-height: 1.55;
+    }
+    .evidence-table th:last-child, .evidence-table td:last-child { border-right: 0; }
+    .evidence-table tr:last-child td { border-bottom: 0; }
+    .evidence-table th { background: var(--surface-strong); color: var(--muted); font-weight: 700; }
+    .evidence-table .num { text-align: right; white-space: nowrap; }
+    .row-label { display: flex; align-items: flex-start; gap: 8px; font-weight: 700; }
+    .row-mark { width: 4px; height: 18px; margin-top: 1px; flex: 0 0 auto; background: var(--critical); }
+    .row-mark.watch { background: var(--watch); }
+    .row-mark.healthy { background: var(--healthy); }
+    .cell-line { display: block; margin-top: 3px; }
+    .cell-line:first-child { margin-top: 0; }
+    .cell-key {
+      display: inline-block; min-width: 34px; color: var(--muted);
+      font-size: 11.5px; font-weight: 700;
+    }
+    .delta-critical { color: var(--critical); font-weight: 700; }
+    .delta-watch { color: var(--watch); font-weight: 700; }
+    .delta-healthy { color: var(--healthy); font-weight: 700; }
+    .block-note {
+      margin-top: 16px; max-width: 760px; padding: 13px 16px;
+      border-left: 3px solid var(--theme-accent); background: var(--accent-soft);
+    }
+    .notes { margin-top: 46px; padding-top: 22px; border-top: 1px solid var(--line-strong); }
+    details { grid-column: 1 / span 9; border-bottom: 1px solid var(--line); }
+    summary {
+      padding: 8px 0; cursor: pointer; font-size: 13px; font-weight: 700; list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      display: inline-block; width: 18px; content: "▾"; color: var(--theme-accent);
+    }
+    .notes-copy { padding: 0 0 12px 18px; color: var(--muted); font-size: 11.5px; line-height: 1.6; }
+    .notes-copy p { margin: 5px 0; }
+    .doc-footer {
+      display: flex; justify-content: space-between; gap: 20px;
+      margin-top: 26px; color: var(--muted); font-size: 11.5px;
+    }
+    @media (max-width: 980px) {
+      .document { width: calc(100% - 28px); padding: 34px 28px 40px; }
+      .evidence-table { min-width: 800px; }
+    }
+    @media (max-width: 860px) {
+      .document { width: min(100% - 28px, 760px); padding: 32px 28px 38px; }
+      .metric { grid-column: span 6; }
+      .summary-label, .summary-copy, .section-intro, details { grid-column: 1 / -1; }
+      .reading-block, .boundary-block { grid-column: 1 / -1; }
+      .boundary-block { margin-top: 16px; }
+    }
+    @media (max-width: 720px) {
+      .document { width: calc(100% - 20px); margin: 10px auto 26px; padding: 26px 20px 32px; }
+      h1 { font-size: 30px; line-height: 1.24; }
+      .title-line { display: inline; }
+      .title-line + .title-line::before { content: " "; }
+      .metric { grid-column: 1 / -1; min-height: auto; border-top: 1px solid var(--line); }
+      .metric:first-child { border-top: 0; }
+      .section-title { font-size: 21px; }
+      .embed-head { display: block; }
+      .embed-meta { margin-top: 5px; white-space: normal; }
+      .chart-wrap { min-width: 680px; }
+      .embed { overflow-x: auto; }
+      .doc-footer { display: block; }
+    }
+    .doc-toc { grid-column: 1 / -1; margin: 2px 0 18px; padding: 12px 16px; border: 1px solid var(--line); }
+    .doc-toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+    .doc-toc li { margin: 3px 0; font-size: 13px; }
+    .doc-toc a { color: var(--ink-2); text-decoration: none; }
+    .doc-toc a:hover { text-decoration: underline; }
+    @media print {
+      html, body { background: var(--paper); }
+      .document { width: auto; margin: 0; border: 0; }
+      a { text-decoration: none; }
+      details { break-inside: avoid; }
+.report-appendix { grid-column: 1 / -1; margin: 28px 0; border-top: 1px solid var(--line); }
+.report-appendix > summary { cursor: pointer; padding: 14px 0; font-weight: 600; color: var(--ink-2); list-style: none; }
+.report-appendix > summary::-webkit-details-marker { display: none; }
+.report-appendix > summary::before { content: "▸"; margin-right: 10px; color: var(--muted); }
+.report-appendix[open] > summary::before { content: "▾"; }
+    }</style></head>
+<body><main class="document">
+<header class="doc-header">
+<div class="doc-type"><span class="doc-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+<span>数据分析报告</span></div>
+<h1>
+<span class="title-line">爱媛果冻橙 · 价格与成本的数据底盘</span>
+<span class="title-line">14 条观测、一次质检、一套可复算模型</span>
+</h1>
+<p class="standfirst">读者：采购与数据负责人；要判断「这季能不能做」的结论有没有数据支撑。结论：中位价 1.07 元/斤、到岸成本 1.78 元/斤，数据可用（质检 9.6/10），但关键缺口在销地成交价。</p>
+<div class="doc-meta" aria-label="文档信息">
+<span>读者 采购与数据负责人</span>
+<span>目的 复核口径与结论可信度</span>
+<span>样本 14 条价格观测 + 4 线 4 车型运价</span>
+<span>生成 r06 数据分析 · r05 研究 · r04 评审</span>
+</div></header>
+<nav class="doc-toc" aria-label="目录"><ol>
+<li><a href="#section-01">数据从哪里来：三级证据</a></li>
+<li><a href="#section-02">价格分布：均值骗人</a></li>
+<li><a href="#section-03">成本结构：1.78 元是怎么堆出来的</a></li>
+<li><a href="#section-04">敏感性：哪个变量先杀死利润</a></li>
+<li><a href="#section-05">质检：这套数据过不过门禁</a></li>
+</ol></nav>
+<section class="metric-strip page-grid" aria-label="数据速览">
+<div class="metric">
+<span class="metric-label">价格观测</span>
+<strong class="metric-value">14 条</strong>
+<small class="metric-note">覆盖产地/成都/徐州/呼市四类市场</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-circle" aria-hidden="true"></span>六维质检</span>
+<strong class="metric-value healthy">9.6/10</strong>
+<small class="metric-note">唯一扣分项：1 个离群值</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-accent" aria-hidden="true"></span>价格中位数</span>
+<strong class="metric-value">1.07 元</strong>
+<small class="metric-note">均值 1.60 被离群值拉高</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-diamond" aria-hidden="true"></span>到岸成本</span>
+<strong class="metric-value critical">1.78 元</strong>
+<small class="metric-note">13 米半挂发呼和浩特</small></div>
+</section>
+<section class="summary page-grid" aria-labelledby="summary-title">
+<h2 class="summary-label" id="summary-title">全文结论</h2>
+<div class="summary-copy">
+<p><strong>结论：</strong>这季爱媛的价格数据是「真崩、但<mark>崩得不均匀</mark>」：产地通货 0.60 元/斤是真的，优质覆膜果还能卖 1.10 元/斤也是真的。用平均值看这季会看错，必须看规格和渠道。</p>
+<p><strong>依据：</strong>14 条观测的中位数 1.07 元/斤，均值 1.60 元/斤，偏度 2.07——一个 6.00 元的砂糖橘样本就把均值抬高了 49%。到岸成本 1.78 元/斤里，运费占 20%、损耗摊销占 18%。</p>
+<p class="summary-close"><strong>缺口：</strong>销地（呼市/太原/西安/天津）没有爱媛本品的批发成交价，只有替代品价格；损耗率为行业经验值而非本企业实测。这两项直接决定了利润结论的上限。</p>
+</div></section>
+<section class="report-section" id="section-01">
+<header class="section-head">
+<div class="section-index">01</div>
+<div class="section-heading-copy">
+<h2 class="section-title">数据从哪里来：三级证据</h2>
+<p class="section-question">这些数字，哪些能直接拿去谈判，哪些只能当参考？</p>
+</div></header>
+<div class="page-grid"><div class="section-intro">
+<p><strong>每条数字都标了级别。</strong>A 级是可核的公开报价（产地实测、市场明码）；B 级是媒体行情或区间取中；C 级是本模型算出来的派生值。报告里所有结论都以级别标注为前提。</p>
+</div></div>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>本节说明</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>A 级只有 4 条，且集中在产地。</strong>销地四城（太原/西安/呼市/天津）都没有爱媛本品的批发明码，这是本次分析最大的结构性缺口。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>B 级占了七成。</strong>「区间取中」是一种平滑，会掩盖极端值；本文在涉及结论时优先用中位数而非均值。</span></li>
+</ol></div>
+<aside class="boundary-block">
+<div class="boundary-label"><span class="shape shape-triangle" aria-hidden="true"></span>别把 B 级当成交价用</div>
+<p>B 级数字来源是行业媒体与市场转述，适合判断量级与方向；一旦进入采购合同或发车决策，必须替换为当日现场报价。</p></aside>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="14 条观测的来源结构">
+<colgroup><col style="width:8%"><col style="width:26%"><col style="width:9%"><col style="width:30%"><col style="width:27%"></colgroup>
+<thead><tr>
+<th>级别</th>
+<th>含义</th>
+<th class="num">样本数</th>
+<th>代表观测</th>
+<th>能用来干什么</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark healthy" aria-hidden="true"></span>A</span></td>
+<td>可核公开报价（实测/明码）</td>
+<td class="num">4</td>
+<td>眉山东坡 0.60；资阳雁江 0.60；呼市山西脆柿 2.40；四川脆柿 3.00</td>
+<td>直接用于报价与谈判</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark watch" aria-hidden="true"></span>B</span></td>
+<td>媒体行情 / 区间取中</td>
+<td class="num">10</td>
+<td>开秤 1.78；丹棱 1.00；成都 1.05；徐州 1.40；呼市蜜橘 1.60</td>
+<td>判断趋势与价差，不作为成交依据</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark critical" aria-hidden="true"></span>C</span></td>
+<td>模型派生</td>
+<td class="num">—</td>
+<td>到岸 1.78；止损 1.43–1.68</td>
+<td>随参数变化，必须连同假设一起引用</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-02">
+<header class="section-head">
+<div class="section-index">02</div>
+<div class="section-heading-copy">
+<h2 class="section-title">价格分布：均值骗人</h2>
+<p class="section-question">这季爱媛到底多少钱一斤？为什么「平均 1.60」是个错误答案？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>同一颗橙子在不同规格与渠道的价格（元/斤）</span></div>
+<div class="embed-meta">单位：元/斤；同一时点（2026-11 上旬）可比口径</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 530" role="img" aria-label="同一颗橙子在不同规格与渠道的价格（元/斤）">
+          <line x1="224.0" y1="45" x2="224.0" y2="474" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="474" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">1.78</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">次果小果</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">流向果汁厂</text>
+          <rect x="224.0" y="49" width="95.2" height="18" fill="var(--series-reference)"/>
+          <text x="325.2" y="63" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.25 元</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">眉山地头通货</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">2026-11-07</text>
+          <rect x="224.0" y="112" width="228.5" height="18" fill="var(--critical)"/>
+          <text x="458.5" y="126" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">0.60 元</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">成都雨润批发</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">产地价直接传导</text>
+          <rect x="224.0" y="175" width="228.5" height="18" fill="var(--series-reference)"/>
+          <text x="458.5" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.60 元</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">优质覆膜果</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">设施栽培溢价</text>
+          <rect x="224.0" y="238" width="419.0" height="18" fill="var(--healthy)"/>
+          <text x="649.0" y="252" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">1.10 元</text>
+          <text x="18" y="309" fill="var(--ink)" font-size="12.5" font-weight="700">徐州批发</text>
+          <text x="18" y="327" fill="var(--muted)" font-size="11.5">跨省后仍高于产地</text>
+          <rect x="224.0" y="301" width="533.3" height="18" fill="var(--series-context)"/>
+          <text x="763.3" y="315" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">1.40 元</text>
+          <text x="18" y="372" fill="var(--ink)" font-size="12.5" font-weight="700">呼市蜜橘（替代品）</text>
+          <text x="18" y="390" fill="var(--muted)" font-size="11.5">同市场竞品</text>
+          <rect x="224.0" y="364" width="609.4" height="18" fill="var(--series-context)"/>
+          <text x="839.4" y="378" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">1.60 元</text>
+          <text x="18" y="435" fill="var(--ink)" font-size="12.5" font-weight="700">爱媛到岸成本</text>
+          <text x="18" y="453" fill="var(--muted)" font-size="11.5">13 米发呼市</text>
+          <rect x="224.0" y="427" width="678.0" height="18" fill="var(--critical)"/>
+          <text x="908.0" y="441" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">1.78 元</text>
+          <line x1="18" y1="482" x2="902" y2="482" stroke="var(--line-strong)"/>
+          <text x="18" y="504" fill="var(--critical)" font-size="11.5" font-weight="700">到岸成本</text>
+          <text x="108" y="504" fill="var(--critical)" font-size="12" font-weight="700">1.78 元</text>
+          <text x="188" y="504" fill="var(--critical)" font-size="11.5">比呼市蜜橘批发价高</text>
+          <text x="296" y="504" fill="var(--critical)" font-size="12" font-weight="700">11%</text>
+          </svg>
+</div>
+<div class="embed-source">产地：眉山东坡/资阳雁江实测；销地：成都、徐州、呼市美通行情；到岸成本为本模型派生</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>中位数 1.08，均值 1.60——差 49%。</strong>如果拿均值去做采购预算，每斤会高估 0.5 元；按 5 万斤一车算，就是一车多算 2.6 万元。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>真正拉开价差的是规格，不是产地。</strong>次果 0.25、通货 0.60、覆膜果 1.10——同一片果园里 4.4 倍的价差。这解释了为什么「爱媛崩了」和「好果不愁卖」能同时成立。</span></li>
+<li><span class="reading-no">3</span><span class="reading-text"><strong>到岸成本已经压在呼市蜜橘的价位上。</strong>1.78 元/斤的到岸成本，比呼市蜜橘批发价 1.60 元/斤高 11%。在呼市，爱媛打不了价格战，只能打「比蜜橘好吃」的差异战。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="价格统计量（14 条观测，元/斤）">
+<colgroup><col style="width:22%"><col style="width:16%"><col style="width:62%"></colgroup>
+<thead><tr>
+<th>统计量</th>
+<th class="num">数值</th>
+<th>说明</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>样本数</span></td>
+<td class="num">14</td>
+<td>产地 7 条、销地 7 条</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>中位数</span></td>
+<td class="num">1.07</td>
+<td>更接近真实体感：一半观测低于此价</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>均值</span></td>
+<td class="num">1.60</td>
+<td>被 6.00 元砂糖橘拉高，不代表爱媛</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>标准差</span></td>
+<td class="num">1.42</td>
+<td>变异系数 89%，离散度极高</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>P5–P95</span></td>
+<td class="num">0.48–4.05</td>
+<td>价格带横跨 8 倍，说明「分级」比「品类」更决定价格</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>偏度</span></td>
+<td class="num">2.07</td>
+<td>右偏严重，高价样本少但影响大</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-03">
+<header class="section-head">
+<div class="section-index">03</div>
+<div class="section-heading-copy">
+<h2 class="section-title">成本结构：1.78 元是怎么堆出来的</h2>
+<p class="section-question">从 0.60 的收购价到 1.78 的到岸成本，中间 1.18 元花在哪？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>单位到岸成本的构成（13 米半挂 · 眉山→呼和浩特 · 元/斤）</span></div>
+<div class="embed-meta">单位：元/斤；合计 1.65 元/斤，收购价占 36%</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 656" role="img" aria-label="单位到岸成本的构成（13 米半挂 · 眉山→呼和浩特 · 元/斤）">
+          <line x1="224.0" y1="45" x2="224.0" y2="600" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="600" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0.60</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">收购价</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">地头通货</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--critical)"/>
+          <text x="908.0" y="63" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">0.60 元</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">干线运费</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">13 米 · 1,780 km</text>
+          <rect x="224.0" y="112" width="395.5" height="18" fill="var(--critical)"/>
+          <text x="625.5" y="126" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">0.35 元</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">采摘人工</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">计件 0.20 元/斤</text>
+          <rect x="224.0" y="175" width="226.0" height="18" fill="var(--series-reference)"/>
+          <text x="456.0" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.20 元</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">损耗摊销</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">沿链掉 18.0%</text>
+          <rect x="224.0" y="238" width="361.6" height="18" fill="var(--series-reference)"/>
+          <text x="591.6" y="252" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.32 元</text>
+          <text x="18" y="309" fill="var(--ink)" font-size="12.5" font-weight="700">包装</text>
+          <text x="18" y="327" fill="var(--muted)" font-size="11.5">箱 + 网套 + 标签</text>
+          <rect x="224.0" y="301" width="180.8" height="18" fill="var(--series-reference)"/>
+          <text x="410.8" y="315" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.16 元</text>
+          <text x="18" y="372" fill="var(--ink)" font-size="12.5" font-weight="700">销地进场</text>
+          <text x="18" y="390" fill="var(--muted)" font-size="11.5">档口 + 卸车分摊</text>
+          <rect x="224.0" y="364" width="67.8" height="18" fill="var(--series-context)"/>
+          <text x="297.8" y="378" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.06 元</text>
+          <text x="18" y="435" fill="var(--ink)" font-size="12.5" font-weight="700">产地短驳</text>
+          <text x="18" y="453" fill="var(--muted)" font-size="11.5">果园到集散点</text>
+          <rect x="224.0" y="427" width="56.5" height="18" fill="var(--series-context)"/>
+          <text x="286.5" y="441" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.05 元</text>
+          <text x="18" y="498" fill="var(--ink)" font-size="12.5" font-weight="700">代办费</text>
+          <text x="18" y="516" fill="var(--muted)" font-size="11.5">代收费</text>
+          <rect x="224.0" y="490" width="33.9" height="18" fill="var(--series-context)"/>
+          <text x="263.9" y="504" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.03 元</text>
+          <text x="18" y="561" fill="var(--ink)" font-size="12.5" font-weight="700">资金占用</text>
+          <text x="18" y="579" fill="var(--muted)" font-size="11.5">8% × 30 天</text>
+          <rect x="224.0" y="553" width="11.3" height="18" fill="var(--series-context)"/>
+          <text x="241.3" y="567" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.01 元</text>
+          <line x1="18" y1="608" x2="902" y2="608" stroke="var(--line-strong)"/>
+          <text x="18" y="630" fill="var(--critical)" font-size="11.5" font-weight="700">合计到岸成本</text>
+          <text x="108" y="630" fill="var(--critical)" font-size="12" font-weight="700">1.78 元/斤</text>
+          <text x="204" y="630" fill="var(--muted)" font-size="11.5">其中非收购成本</text>
+          <text x="294" y="630" fill="var(--muted)" font-size="12" font-weight="700">1.18 元</text>
+          </svg>
+</div>
+<div class="embed-source">本模型计算：单价×里程÷实载；损耗按发运量累进摊到可售斤</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>收购价只占 34%，另外 66% 是「把它运过去」的钱。</strong>这意味着：即使收购价跌到 0，到岸成本仍要 1.18 元/斤。只盯着收购价谈判，天花板很低。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>采摘人工 0.20 元/斤，是收购价的三分之一。</strong>这一项在很多测算里被忽略，但它是刚性成本，且随人工涨价只升不降；占成本 11%，比包装贵。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="成本项明细与占比">
+<colgroup><col style="width:18%"><col style="width:12%"><col style="width:12%"><col style="width:16%"><col style="width:42%"></colgroup>
+<thead><tr>
+<th>成本项</th>
+<th class="num">元/斤</th>
+<th class="num">占成本</th>
+<th>能否压降</th>
+<th>压降手段</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>收购价</span></td>
+<td class="num">0.60</td>
+<td class="num">34%</td>
+<td>部分可谈</td>
+<td>分级收货：只要 65mm 以上，通货让给果汁厂</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>采摘人工</span></td>
+<td class="num">0.20</td>
+<td class="num">11%</td>
+<td>难</td>
+<td>计件转包、提高单工效率；这是刚性成本</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>包装</span></td>
+<td class="num">0.16</td>
+<td class="num">9%</td>
+<td>可</td>
+<td>长途用纸箱替代泡沫箱，单斤省 3–5 分</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>干线运费</span></td>
+<td class="num">0.35</td>
+<td class="num">20%</td>
+<td>可</td>
+<td>配满 13 米、报绿通、错峰发车</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>损耗摊销</span></td>
+<td class="num">0.32</td>
+<td class="num">18%</td>
+<td>可</td>
+<td>限堆高、通风、缩短周转</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>其他（代办/短驳/进场/资金）</span></td>
+<td class="num">0.15</td>
+<td class="num">8%</td>
+<td>有限</td>
+<td>合并批次、减少倒短</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-04">
+<header class="section-head">
+<div class="section-index">04</div>
+<div class="section-heading-copy">
+<h2 class="section-title">敏感性：哪个变量先杀死利润</h2>
+<p class="section-question">收购价、批发价、损耗，动哪一个最要命？</p>
+</div></header>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>本节说明</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>批发价 1.90 是保本线，2.40 才有肉。</strong>在 0.60 收购价下，呼市批发价 1.89 元/斤刚好保本；2.20 元赚 0.29 元/斤，2.40 元赚 0.48 元/斤。批发价每 0.10 元，等于每斤 0.09 元净利，一车 5.4 万斤就是 5,000 元。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>收购价每涨 0.10 元，批发价要跟涨 0.13 元。</strong>收购价涨 0.10 元，经 0.82 的可售率放大后，到岸成本涨 0.12 元；再除以 0.94 的到手率，批发价要涨 0.13 元才打平。收购端涨价无法靠「少赚一点」消化，只能同步提价或换规格。</span></li>
+<li><span class="reading-no">3</span><span class="reading-text"><strong>损耗比收购价更容易失控。</strong>沿链损耗 18.0%，到岸 1.78 元/斤。若恶化到 22%，成本升到 1.87；压到 15%，降到 1.72。一来一回 0.15 元/斤的差距，比谈收购价更值钱，也更没人管。</span></li>
+</ol></div>
+<aside class="boundary-block">
+<div class="boundary-label"><span class="shape shape-triangle" aria-hidden="true"></span>矩阵成立的前提</div>
+<p>假设 13 米整车、实载 26.8 吨、走呼市线、损耗按 18.0%、含 6% 代卖佣金、无自有档口。换线路或换车型，整张矩阵要重算。</p></aside>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="单斤毛利矩阵（13 米发呼市；行=收购价，列=销地批发价；元/斤）">
+<colgroup><col style="width:28%"><col style="width:18%"><col style="width:18%"><col style="width:18%"><col style="width:18%"></colgroup>
+<thead><tr>
+<th>收购价 ↓ / 批发价 →</th>
+<th class="num">1.90</th>
+<th class="num">2.20</th>
+<th class="num">2.40</th>
+<th class="num">2.70</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>0.60（当前低点）</span></td>
+<td class="num">+0.01</td>
+<td class="num up">+0.29</td>
+<td class="num up">+0.48</td>
+<td class="num up">+0.76</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>0.85（上月水平）</span></td>
+<td class="num down">-0.30</td>
+<td class="num down">-0.02</td>
+<td class="num">+0.17</td>
+<td class="num up">+0.45</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>1.00（光果尾期）</span></td>
+<td class="num down">-0.48</td>
+<td class="num down">-0.20</td>
+<td class="num down">-0.01</td>
+<td class="num up">+0.27</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>1.20（覆膜好果）</span></td>
+<td class="num down">-0.73</td>
+<td class="num down">-0.45</td>
+<td class="num down">-0.26</td>
+<td class="num">+0.02</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-05">
+<header class="section-head">
+<div class="section-index">05</div>
+<div class="section-heading-copy">
+<h2 class="section-title">质检：这套数据过不过门禁</h2>
+<p class="section-question">14 条观测、9 个字段，六维质检扣分扣在哪？</p>
+</div></header>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>本节说明</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>总分 9.6，评级「可用-仅小问题」。</strong>唯一扣分是准确性：一个 6.00 元的砂糖橘样本。它不属于爱媛，但混在同一列里会污染统计——这正是为什么用中位数而不是均值。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>质检不覆盖「口径是否正确」。</strong>六个维度查的是脏数据，不查「这个数是不是你要的数」。销地缺爱媛本品报价，质检给满分也补不上——这是结构缺口，只能靠补采。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="六维数据质量审计（r06 quality audit 实测，2026-11-12）">
+<colgroup><col style="width:16%"><col style="width:10%"><col style="width:42%"><col style="width:32%"></colgroup>
+<thead><tr>
+<th>维度</th>
+<th class="num">得分</th>
+<th>发现</th>
+<th>处置</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>完整性</span></td>
+<td class="num">10/10</td>
+<td>9 个字段 14 行无缺失</td>
+<td>无需处理</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>准确性</span></td>
+<td class="num">8/10</td>
+<td>IQR 检出 1 个离群：呼市砂糖橘 6.00</td>
+<td>保留但标注，不参与爱媛均价</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>一致性</span></td>
+<td class="num">10/10</td>
+<td>单位统一为元/斤</td>
+<td>无需处理</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>及时性</span></td>
+<td class="num">10/10</td>
+<td>全部观测在 2026-09 至 2026-11</td>
+<td>无需处理</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>唯一性</span></td>
+<td class="num">10/10</td>
+<td>主键 id 无重复，重复行 0</td>
+<td>无需处理</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>有效性</span></td>
+<td class="num">10/10</td>
+<td>价格均为正值、日期可解析</td>
+<td>无需处理</td>
+</tr>
+</tbody></table></div>
+</section>
+<details class="report-appendix" id="section-06"><summary>附录 · 口径与分数</summary>
+<header class="section-head">
+<div class="section-index">06</div>
+<div class="section-heading-copy">
+<h2 class="section-title">口径与分数</h2>
+<p class="section-question">哪些结论现在就能用，哪些要等补数据？</p>
+</div></header>
+<div class="post-chart page-grid">
+<aside class="boundary-block">
+<div class="boundary-label"><span class="shape shape-triangle" aria-hidden="true"></span>本文不做的事</div>
+<p>不做销量预测（无历史销速数据）、不做因果归因（价格下跌的成因是多因素叠加，本文只陈述相关事实）、不给投资建议。</p></aside>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="结论分级">
+<colgroup><col style="width:34%"><col style="width:26%"><col style="width:10%"><col style="width:30%"></colgroup>
+<thead><tr>
+<th>结论</th>
+<th>依赖数据</th>
+<th>级别</th>
+<th>补什么才能升级</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>产地通货 0.60 元/斤处于历史低位</span></td>
+<td>A 级产地实测 + 同比</td>
+<td class="num">A</td>
+<td>无需补充</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>13 米发呼市到岸 1.78 元/斤</span></td>
+<td>运价区间 + 实载假设</td>
+<td class="num">C</td>
+<td>替换为当日报价与实载单</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>呼市批发 1.89 元保本、2.40 才有 20% 毛利</span></td>
+<td>成本模型 + 销地价</td>
+<td class="num">C</td>
+<td>补 1 周爱媛本品批发成交价</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>沿链损耗 18.0%</span></td>
+<td>学术调查（柑橘类）</td>
+<td class="num">A</td>
+<td>已用 596 份问卷调查；可再用本企业实测校准</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>爱媛在呼市打不过蜜橘价格</span></td>
+<td>替代品批发价</td>
+<td class="num">B</td>
+<td>补同类市场蜜橘/砂糖橘周度价</td>
+</tr>
+</tbody></table></div>
+</details>
+<section class="notes page-grid" aria-labelledby="notes-title">
+<h2 class="notes-label" id="notes-title">数据口径与说明</h2>
+<details open><summary>口径、样本与复算方式</summary>
+<div class="notes-copy">
+<p><strong>样本：</strong>14 条价格观测（2026-09-12 至 2026-11-11），覆盖眉山、资阳、成都、徐州、呼和浩特五地。</p>
+<p><strong>质检：</strong>r06 `quality audit` 六维审计，主键 id、日期列 date；得分 9.6/10。</p>
+<p><strong>统计：</strong>r06 `describe` 描述统计；均值/中位数/分位/偏度均为脚本输出，未手工调整。</p>
+<p><strong>成本：</strong>model.py 计算，参数集中在脚本顶部；改参数即重算，报告数字随之变化。</p>
+<p><strong>已知缺口：</strong>销地四城无爱媛本品批发成交价；损耗率为行业经验值；彭山/仁寿/蒲江/内江无量化报价。</p>
+<p><strong>保真分数：</strong>观测集 14 条已内置，可算保留率与溯源率；本版按 N/A 处理，不虚报。</p>
+<p><strong>主要来源：</strong>川观新闻 / 四川农村日报 2026-11-07（地头价）；农资与市场、国际果蔬报道（行情）；r06 quality audit / describe（质检与统计，本报告实测输出）；model.py（成本模型）。</p>
+<p>所有数字可复算：python make_csv.py &amp;&amp; python model.py &amp;&amp; python build_data.py。</p>
+</div></details></section>
+<footer class="doc-footer">
+<span>爱媛果冻橙 · 数据分析报告</span>
+<span>编制 r06 数据分析 · 研究 r05 · 评审 r04</span>
+<span>2026-11-12</span>
+<span>样本 14 条 · 质检 9.6/10</span>
+</footer>
+</main></body></html>

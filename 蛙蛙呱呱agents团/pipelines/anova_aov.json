@@ -1,0 +1,29 @@
+{
+ "proposition": "品类间客单价差异",
+ "steps": [
+  {
+   "id": "a",
+   "type": "skill",
+   "skill": "anova",
+   "args": [
+    "--input",
+    "{AGENTS}/tests/fixtures/analysis_orders.csv",
+    "--value",
+    "revenue",
+    "--group",
+    "category"
+   ]
+  },
+  {
+   "id": "a1",
+   "type": "assert",
+   "path": "a.anova.p_exact",
+   "equals": null
+  },
+  {
+   "id": "r",
+   "type": "report",
+   "path": "report.md"
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "name": "elasticity",
+ "fields": [
+  {
+   "name": "avg_price",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "units",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

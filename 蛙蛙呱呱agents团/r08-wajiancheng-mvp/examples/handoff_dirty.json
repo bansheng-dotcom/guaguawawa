@@ -1,0 +1,12 @@
+{
+  "artifacts": [
+    "index.html"
+  ],
+  "run_commands": [
+    "x"
+  ],
+  "acceptance": [
+    "a"
+  ],
+  "owner": "r09"
+}

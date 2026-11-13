@@ -1,0 +1,19 @@
+{
+ "name": "quality",
+ "fields": [
+  {
+   "name": "order_id",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "order_date",
+   "dtype": "date",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

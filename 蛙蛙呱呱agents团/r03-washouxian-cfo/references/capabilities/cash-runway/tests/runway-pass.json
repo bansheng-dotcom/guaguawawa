@@ -1,0 +1,10 @@
+{
+  "_comment": "正例：现金覆盖 24 个月（不耗尽）+ burn multiple ≤2.0",
+  "starting_cash": 8000000.0,
+  "starting_mrr": 200000.0,
+  "monthly_headcount_cost": 300000.0,
+  "monthly_other_opex": 100000.0,
+  "gross_margin_pct": 0.8,
+  "mrr_growth_rate": 0.1,
+  "model_months": 24
+}

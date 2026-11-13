@@ -1,0 +1,27 @@
+{
+  "r07": {
+    "role_dir": "r07-wademing-pm",
+    "cases": [
+      {"id": "r07-01", "intent": "帮我看看这个需求", "expect": "clarify"},
+      {"id": "r07-02", "intent": "下一个版本做点什么", "expect": "clarify"},
+      {"id": "r07-03", "intent": "做个用户故事", "expect": "route", "expect_action": "prd.story"},
+      {"id": "r07-04", "intent": "写个PRD，给B端商家用", "expect": "route", "expect_action": "prd.prd"},
+      {"id": "r07-05", "intent": "这个功能的优先级排一下", "expect": "route", "expect_action": "priority.rice"},
+      {"id": "r07-06", "intent": "下个季度的路线图", "expect": "route", "expect_action": "roadmap.roadmap"},
+      {"id": "r07-07", "intent": "定个北极星指标", "expect": "clarify"},
+      {"id": "r07-08", "intent": "做个机会树", "expect": "clarify"},
+      {"id": "r07-09", "intent": "帮我决策一下", "expect": "clarify"},
+      {"id": "r07-10", "intent": "调研一下竞品", "expect": "route", "expect_action": "discover.discover"},
+      {"id": "r07-11", "intent": "写个job story，面向B端商家", "expect": "route", "expect_action": "discover.jobstory"},
+      {"id": "r07-12", "intent": "定个okr", "expect": "clarify"},
+      {"id": "r07-13", "intent": "给这个功能补一套用户故事和验收标准", "expect": "route", "expect_action": "prd.story"},
+      {"id": "r07-14", "intent": "面向企业商家，写一份需求文档", "expect": "route", "expect_action": "prd.prd"},
+      {"id": "r07-15", "intent": "把backlog里的功能排个先后顺序", "expect": "route", "expect_action": "priority.rice"},
+      {"id": "r07-16", "intent": "找几个用户聊一聊，做一轮需求挖掘", "expect": "route", "expect_action": "discover.discover"},
+      {"id": "r07-17", "intent": "排一下下半年的发布计划", "expect": "route", "expect_action": "roadmap.roadmap"},
+      {"id": "r07-18", "intent": "这个功能要不要做", "expect": "clarify"},
+      {"id": "r07-19", "intent": "把关键结果对齐一下", "expect": "clarify"},
+      {"id": "r07-20", "intent": "帮我定个核心指标", "expect": "clarify"}
+    ]
+  }
+}

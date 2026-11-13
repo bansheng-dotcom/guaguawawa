@@ -1,0 +1,265 @@
+{
+ "ok": true,
+ "checks": [
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/交付说明.md（5588B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/交付说明.md",
+   "size_bytes": 5588
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/00_总览.html（12646B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/00_总览.html",
+   "size_bytes": 12646
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/01_数据底座体检.html（52634B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/01_数据底座体检.html",
+   "size_bytes": 52634
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/02_增长量价拆解.html（58737B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/02_增长量价拆解.html",
+   "size_bytes": 58737
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/03_定价与门槛.html（50960B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/03_定价与门槛.html",
+   "size_bytes": 50960
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/04_主图AB实验.html（48449B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/04_主图AB实验.html",
+   "size_bytes": 48449
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/05_预算迁移因果.html（55339B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/05_预算迁移因果.html",
+   "size_bytes": 55339
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/06_用户留存与内容.html（64176B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/06_用户留存与内容.html",
+   "size_bytes": 64176
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/results/_run_log.json（18226B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/results/_run_log.json",
+   "size_bytes": 18226
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/data/MANIFEST.json（3262B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/data/MANIFEST.json",
+   "size_bytes": 3262
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/gen_data.py（19200B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/gen_data.py",
+   "size_bytes": 19200
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/run_skills.py（9259B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/run_skills.py",
+   "size_bytes": 9259
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/build_reports.py（77657B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/build_reports.py",
+   "size_bytes": 77657
+  },
+  {
+   "ok": true,
+   "msg": "物料就绪：D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/build_index.py（9864B）",
+   "dim": "artifact:exists",
+   "sev": "OK",
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/build_index.py",
+   "size_bytes": 9864
+  }
+ ],
+ "items": [
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/交付说明.md",
+   "type": "doc",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\交付说明.md",
+   "size_bytes": 5588,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/00_总览.html",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\reports\\00_总览.html",
+   "size_bytes": 12646,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/01_数据底座体检.html",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\reports\\01_数据底座体检.html",
+   "size_bytes": 52634,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/02_增长量价拆解.html",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\reports\\02_增长量价拆解.html",
+   "size_bytes": 58737,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/03_定价与门槛.html",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\reports\\03_定价与门槛.html",
+   "size_bytes": 50960,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/04_主图AB实验.html",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\reports\\04_主图AB实验.html",
+   "size_bytes": 48449,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/05_预算迁移因果.html",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\reports\\05_预算迁移因果.html",
+   "size_bytes": 55339,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/reports/06_用户留存与内容.html",
+   "type": "report",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\reports\\06_用户留存与内容.html",
+   "size_bytes": 64176,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/results/_run_log.json",
+   "type": "data",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\_run_log.json",
+   "size_bytes": 18226,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/data/MANIFEST.json",
+   "type": "config",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\MANIFEST.json",
+   "size_bytes": 3262,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/gen_data.py",
+   "type": "code",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\scripts\\gen_data.py",
+   "size_bytes": 19200,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/run_skills.py",
+   "type": "code",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\scripts\\run_skills.py",
+   "size_bytes": 9259,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/build_reports.py",
+   "type": "code",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\scripts\\build_reports.py",
+   "size_bytes": 77657,
+   "empty": false,
+   "status": "ok"
+  },
+  {
+   "path": "D:/蛙蛙呱呱/数据分析能力演练_2026-11-13/scripts/build_index.py",
+   "type": "code",
+   "required": true,
+   "exists": true,
+   "resolved_to": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\scripts\\build_index.py",
+   "size_bytes": 9864,
+   "empty": false,
+   "status": "ok"
+  }
+ ],
+ "item_count": 14,
+ "missing_required": [],
+ "missing_required_count": 0,
+ "missing_optional": [],
+ "verdict": "COMPLETE",
+ "next": "物料齐备，可进入三级证据链 verify"
+}

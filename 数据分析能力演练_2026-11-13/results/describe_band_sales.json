@@ -1,0 +1,16 @@
+{
+  "describe": {
+    "sales_share_pct": {
+      "count": 3,
+      "mean": 30.6033,
+      "median": 34.09,
+      "std": 8.8579,
+      "min": 18.44,
+      "max": 39.28,
+      "p5": 20.005,
+      "p95": 38.761,
+      "skew": -0.5294
+    }
+  },
+  "runtime_ms": 0
+}

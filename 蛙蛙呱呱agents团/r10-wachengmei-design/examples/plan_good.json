@@ -1,0 +1,9 @@
+{
+  "round": 1,
+  "design_step": "logo",
+  "target_artifact": "Logo 重塑（新品牌视觉）",
+  "style_direction": "三个方向：清朗数据 / 活力增长 / 可信专业",
+  "deliverables": {"assets": "logo.svg", "file_path": "artifacts/logo.svg"},
+  "acceptance_criteria": {"min_assets": 1, "all_gates_pass": true},
+  "stop_condition": {"if_gate_fails": "按 checks 修复后重验", "reason": "不交付未过门禁的工件"}
+}

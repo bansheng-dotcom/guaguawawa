@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "decisions": [
+    {
+      "id": "D01",
+      "intent": "把投放预算从抖音挪到小程序",
+      "option_a": "挪 20%",
+      "option_b": "挪 40%",
+      "reversible": "可改",
+      "budget": 26400,
+      "headcount": 0,
+      "deadline": "2026-11-20",
+      "owner": "r12",
+      "threshold": "CAC 涨超 15% 即停"
+    },
+    {
+      "id": "D02",
+      "intent": "是否关掉一个低效门店",
+      "option_a": "继续观察 1 个月",
+      "option_b": "本月关店",
+      "reversible": "不可撤",
+      "budget": 0,
+      "headcount": 6,
+      "deadline": "2026-11-30",
+      "owner": "r01",
+      "threshold": "月亏损>3 万即关"
+    }
+  ]
+}

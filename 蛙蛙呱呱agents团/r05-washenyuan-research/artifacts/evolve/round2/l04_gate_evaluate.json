@@ -1,0 +1,178 @@
+{
+  "good": {
+    "passed": true,
+    "score": 100.0,
+    "verdict": "PASS",
+    "weight_total": 1.0,
+    "gates": [
+      {
+        "id": "evidence_coverage",
+        "metric": "evidence_coverage",
+        "ok": true,
+        "value": 1.0,
+        "threshold": 1.0,
+        "rule": "min",
+        "weight": 0.15,
+        "points": 15.0
+      },
+      {
+        "id": "tier0_free",
+        "metric": "tier0_count",
+        "ok": true,
+        "value": 0,
+        "threshold": 0,
+        "rule": "max",
+        "weight": 0.1,
+        "points": 10.0
+      },
+      {
+        "id": "tam_convergence",
+        "metric": "tam_variance",
+        "ok": true,
+        "value": 0.1,
+        "threshold": 0.3,
+        "rule": "max",
+        "weight": 0.15,
+        "points": 15.0
+      },
+      {
+        "id": "hhi_declared",
+        "metric": "hhi_declared",
+        "ok": true,
+        "value": 1,
+        "threshold": 1,
+        "rule": "min",
+        "weight": 0.1,
+        "points": 10.0
+      },
+      {
+        "id": "scenario_three",
+        "metric": "scenario_count",
+        "ok": true,
+        "value": 3,
+        "threshold": 3,
+        "rule": "min",
+        "weight": 0.1,
+        "points": 10.0
+      },
+      {
+        "id": "redline_clean",
+        "metric": "redline_clean",
+        "ok": true,
+        "value": 1,
+        "threshold": 1,
+        "rule": "min",
+        "weight": 0.15,
+        "points": 15.0
+      },
+      {
+        "id": "slop_score",
+        "metric": "slop_score",
+        "ok": true,
+        "value": 92,
+        "threshold": 80,
+        "rule": "min",
+        "weight": 0.15,
+        "points": 15.0
+      },
+      {
+        "id": "bundle_manifest",
+        "metric": "bundle_manifest",
+        "ok": true,
+        "value": 1,
+        "threshold": 1,
+        "rule": "min",
+        "weight": 0.1,
+        "points": 10.0
+      }
+    ]
+  },
+  "bad": {
+    "passed": false,
+    "score": 0,
+    "verdict": "FAIL",
+    "weight_total": 1.0,
+    "gates": [
+      {
+        "id": "evidence_coverage",
+        "metric": "evidence_coverage",
+        "ok": false,
+        "value": 0.4,
+        "threshold": 1.0,
+        "rule": "min",
+        "weight": 0.15,
+        "points": 15.0
+      },
+      {
+        "id": "tier0_free",
+        "metric": "tier0_count",
+        "ok": false,
+        "value": 2,
+        "threshold": 0,
+        "rule": "max",
+        "weight": 0.1,
+        "points": 10.0
+      },
+      {
+        "id": "tam_convergence",
+        "metric": "tam_variance",
+        "ok": false,
+        "value": 0.55,
+        "threshold": 0.3,
+        "rule": "max",
+        "weight": 0.15,
+        "points": 15.0
+      },
+      {
+        "id": "hhi_declared",
+        "metric": "hhi_declared",
+        "ok": false,
+        "value": 0,
+        "threshold": 1,
+        "rule": "min",
+        "weight": 0.1,
+        "points": 10.0
+      },
+      {
+        "id": "scenario_three",
+        "metric": "scenario_count",
+        "ok": false,
+        "value": 1,
+        "threshold": 3,
+        "rule": "min",
+        "weight": 0.1,
+        "points": 10.0
+      },
+      {
+        "id": "redline_clean",
+        "metric": "redline_clean",
+        "ok": false,
+        "value": 0,
+        "threshold": 1,
+        "rule": "min",
+        "weight": 0.15,
+        "points": 15.0
+      },
+      {
+        "id": "slop_score",
+        "metric": "slop_score",
+        "ok": false,
+        "value": 40,
+        "threshold": 80,
+        "rule": "min",
+        "weight": 0.15,
+        "points": 15.0
+      },
+      {
+        "id": "bundle_manifest",
+        "metric": "bundle_manifest",
+        "ok": false,
+        "value": 0,
+        "threshold": 1,
+        "rule": "min",
+        "weight": 0.1,
+        "points": 10.0
+      }
+    ]
+  }
+}

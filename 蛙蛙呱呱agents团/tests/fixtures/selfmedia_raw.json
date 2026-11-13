@@ -1,0 +1,25 @@
+{
+  "platforms": {
+    "小红书": {
+      "date": "2026-11-12",
+      "fans": 48210,
+      "new_fans": 312,
+      "revenue": 18600,
+      "posts": 2
+    },
+    "抖音": {
+      "date": "2026-11-12",
+      "fans": 96350,
+      "new_fans": 705,
+      "revenue": 42100,
+      "posts": 3
+    },
+    "知乎": {
+      "date": "2026-11-11",
+      "fans": 15820,
+      "new_fans": 46,
+      "revenue": 2100,
+      "posts": 1
+    }
+  }
+}

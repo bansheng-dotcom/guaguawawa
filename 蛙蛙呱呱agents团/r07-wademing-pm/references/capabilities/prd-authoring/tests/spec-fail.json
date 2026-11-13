@@ -1,0 +1,25 @@
+{
+  "_comment": "反例：P0 缺四段、来源不在枚举内、明确不做只 1 条 → prdguard 必须 exit 1",
+  "title": "做一个更好的引导",
+  "product_contract": {
+    "user": "新用户",
+    "trigger": "进入后用一下",
+    "job": "感受一下产品",
+    "completion": "觉得好"
+  },
+  "p0_features": [
+    {
+      "name": "引导流程",
+      "source": "我觉得这样比较好"
+    }
+  ],
+  "non_goals": [
+    "先不做复杂功能"
+  ],
+  "edge_cases": [],
+  "assumptions": [
+    "用户会喜欢引导"
+  ],
+  "open_questions": [],
+  "summary": "把引导做得更顺畅一些。"
+}

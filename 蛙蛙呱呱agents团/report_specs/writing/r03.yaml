@@ -1,0 +1,60 @@
+role: r03
+doc_type: 财务诊断报告 · 蛙守贤
+title: '呼市鲜果：现金跑道
+
+  与利润结构'
+title_highlight: 与利润结构
+title_highlight_style: underline
+meta:
+- 读者：创始人 / 董事会
+- 数据截止：2026-10-31
+- 口径：月度损益 · 现金收付制
+- 样本：10 个月、96 单、3 家供应商
+footer:
+- r03 · shared/report_writer + core/report_renderer
+- 数据：示例公司（合成，演示用）
+sections:
+- title: 现金与跑道
+  question: 现金还能撑几个月？
+  intro: 跑道是所有决策的约束条件；先算清，再谈增长。
+  boundary: 现金按月末余额，未考虑授信与资产变现。
+  chart: cash
+- title: 利润结构
+  question: 利润被哪一段吃掉？
+  intro: 收入增长不等于利润增长，桥一拆就看见。
+  boundary: 费用按财务口径归集，未摊总部与折旧。
+  chart: bridge
+- title: 费用与杠杆
+  question: 哪一项费用在持续上行？
+  intro: 费用率里藏着经营选择，不只是一个百分比。
+  boundary: 人力与租金为固定成本，投放与物流为变动成本。
+  chart: cost
+- title: 保本与拐点
+  question: 离保本还有多远？
+  intro: 保本点是费用的函数，不是收入的函数。
+  boundary: 边际贡献率按最近一月结构计算。
+  chart: trend
+- title: 敏感性与取舍
+  question: 收入掉 10% 会怎样？
+  intro: 不确定性要用区间表达，不用单点表达。
+  boundary: 敏感性为单变量扰动，不含联动效应。
+- title: 数据缺口
+  question: 还有哪些财务问题答不了？
+  intro: 缺表就写缺表，不要用结论补。
+  boundary: 缺口项已排除出结论。
+- title: 判断与动作
+  question: 所以先做什么、什么信号就停？
+  intro: 结论要落到动作和触发器上。
+  table: decision
+  no_reading: true
+summary:
+- label: 现金
+  section: 现金与跑道
+- label: 利润
+  section: 利润结构
+- label: 杠杆
+  section: 费用与杠杆
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

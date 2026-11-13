@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "CONTRACT",
+  "port": "design_system",
+  "system": "Figma / 设计令牌库",
+  "note": "r10 需要：令牌、物料色值、对比度配对、字号、Logo 变体与尺寸、导出清单、版本对比。",
+  "fields": [
+    "design_tokens",
+    "color_values",
+    "fg_bg_pairs",
+    "font_sizes",
+    "logo_variants",
+    "pixel_sizes",
+    "export_sizes",
+    "formats",
+    "version_diff",
+    "review_notes"
+  ],
+  "tokens": []
+}

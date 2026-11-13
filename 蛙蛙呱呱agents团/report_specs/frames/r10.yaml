@@ -1,0 +1,48 @@
+role: r10
+domain: 品牌与视觉
+objects:
+- 令牌
+- 物料
+- 变体
+- 合规
+value_chain: []
+decisions:
+- 改版
+- 换主色
+- 交付格式
+questions:
+- id: Q1
+  question: 这套物料还是我们吗？
+  needs:
+  - DESIGN 令牌
+  - 物料色值
+  ops: []
+  decision: 打回还是放行
+- id: Q2
+  question: 对比度够不够？
+  needs:
+  - 前景/背景色
+  - 字号
+  ops: []
+  decision: 要不要改色
+- id: Q3
+  question: 小尺寸还认得出吗？
+  needs:
+  - Logo 变体
+  - 像素尺寸
+  ops: []
+  decision: 要不要重画
+- id: Q4
+  question: 多端规格齐不齐？
+  needs:
+  - 导出尺寸
+  - 格式清单
+  ops: []
+  decision: 能不能交付
+- id: Q5
+  question: 哪一版先上线？
+  needs:
+  - 版本对比
+  - 评审意见
+  ops: []
+  decision: 排哪个版本

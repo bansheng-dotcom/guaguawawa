@@ -1,0 +1,44 @@
+role: r17
+doc_type: 集成报告 · 蛙织网
+title: '集成：链路
+
+  与稳定性'
+title_highlight: 与稳定性
+title_highlight_style: underline
+meta:
+- 读者：研发 / 运维
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r17 · shared/report_writer + core/report_renderer
+sections:
+- title: 链路
+  question: 接了什么、断在哪？
+  intro: 链路要先画出来，才谈得上稳定。
+  boundary: 链路以接口清单与数据流向为准。
+- title: 成功率
+  question: 会不会丢事件？
+  intro: 没有重试的回调，等于允许丢失。
+  boundary: 成功率按事件级统计。
+- title: 重试与死信
+  question: 丢了怎么找回？
+  intro: 死信队列是兜底，不是主路径。
+  boundary: 重试需有幂等键与上限。
+- title: 映射与凭据
+  question: 字段与密钥安全吗？
+  intro: 映射歧义会静默写错数据。
+  boundary: 凭据不得落明文，需轮换。
+- title: 判断与动作
+  question: 先补哪一环？
+  intro: 先补会丢数据的那一环。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 链路
+- label: 关键
+  section: 重试与死信
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

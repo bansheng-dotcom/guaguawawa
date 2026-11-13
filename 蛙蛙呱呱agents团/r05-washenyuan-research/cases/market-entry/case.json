@@ -1,0 +1,55 @@
+{
+  "case_id": "market-entry",
+  "display_name": "新市场进入研究（四步闭环）",
+  "description": "从证据台账出发，测市场规模（双口径互证），做失效推演，最后用运行追踪核对研究问题覆盖。演示研究链路的证据可追溯与口径互证。",
+  "default_question": "企业 AI 编程平台是否值得进入中国市场？市场规模、主要风险与研究覆盖如何？",
+  "default_context": {
+    "market": "中国 AI 编程助手（亿元）",
+    "venture": "企业 AI 编程平台"
+  },
+  "steps": [
+    {
+      "skill": "research",
+      "action": "ledger",
+      "input": "inputs/ledger.json",
+      "expect": {
+        "ok": true,
+        "source_count": 2,
+        "claim_count": 3,
+        "orphan_claims": [],
+        "coverage_rate": 1.0
+      }
+    },
+    {
+      "skill": "sizing",
+      "action": "size",
+      "input": "inputs/size.json",
+      "expect": {
+        "ok": true,
+        "tam": 120.0,
+        "variance": 0.0
+      }
+    },
+    {
+      "skill": "scenario",
+      "action": "premortem",
+      "input": "inputs/premortem.json",
+      "expect": {
+        "ok": true,
+        "scenario_count": 3
+      }
+    },
+    {
+      "skill": "auto",
+      "action": "track",
+      "input": "inputs/track.json",
+      "expect": {
+        "ok": true,
+        "run_count": 4,
+        "completed_runs": 3,
+        "completion_rate": 0.75,
+        "coverage_gaps": []
+      }
+    }
+  ]
+}

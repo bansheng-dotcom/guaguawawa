@@ -1,0 +1,8 @@
+{
+  "_comment": "quality critique 脏夹具：禁词 + 无证据完成声明 + 绝对词 → 4 error → FAIL",
+  "claims": [
+    {"id": "C1", "text": "全部测试完美通过", "kind": "completion", "evidence_refs": []},
+    {"id": "C2", "text": "转化追踪应该已经接入", "kind": "completion", "evidence_refs": []},
+    {"id": "C3", "text": "落地页 hero 已按定位改写", "kind": "completion", "evidence_refs": ["landing.html:12"]}
+  ]
+}

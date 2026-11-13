@@ -1,0 +1,132 @@
+{
+  "doc_count": 1440,
+  "token_count": 5940,
+  "vocab_size": 82,
+  "top_words": [
+    {
+      "word": "500ml",
+      "count": 300
+    },
+    {
+      "word": "洗发水",
+      "count": 180
+    },
+    {
+      "word": "牙膏",
+      "count": 180
+    },
+    {
+      "word": "婴儿",
+      "count": 180
+    },
+    {
+      "word": "400ml",
+      "count": 120
+    },
+    {
+      "word": "护龈",
+      "count": 120
+    },
+    {
+      "word": "清新",
+      "count": 120
+    },
+    {
+      "word": "50g",
+      "count": 120
+    },
+    {
+      "word": "保湿",
+      "count": 120
+    },
+    {
+      "word": "滋润",
+      "count": 120
+    },
+    {
+      "word": "卫生巾",
+      "count": 120
+    },
+    {
+      "word": "控油",
+      "count": 60
+    },
+    {
+      "word": "蓬松",
+      "count": 60
+    },
+    {
+      "word": "无硅油",
+      "count": 60
+    },
+    {
+      "word": "去屑",
+      "count": 60
+    }
+  ],
+  "top_bigrams": [
+    {
+      "bigram": "洗发水控油",
+      "count": 60
+    },
+    {
+      "bigram": "控油蓬松",
+      "count": 60
+    },
+    {
+      "bigram": "蓬松无硅油",
+      "count": 60
+    },
+    {
+      "bigram": "无硅油500ml",
+      "count": 60
+    },
+    {
+      "bigram": "500ml洗发水",
+      "count": 60
+    },
+    {
+      "bigram": "洗发水去屑",
+      "count": 60
+    },
+    {
+      "bigram": "去屑止痒",
+      "count": 60
+    },
+    {
+      "bigram": "止痒男士",
+      "count": 60
+    },
+    {
+      "bigram": "男士400ml",
+      "count": 60
+    },
+    {
+      "bigram": "护发素修护",
+      "count": 60
+    },
+    {
+      "bigram": "修护干枯",
+      "count": 60
+    },
+    {
+      "bigram": "干枯毛躁",
+      "count": 60
+    },
+    {
+      "bigram": "毛躁500ml",
+      "count": 60
+    },
+    {
+      "bigram": "头皮护理精华",
+      "count": 60
+    },
+    {
+      "bigram": "精华舒缓",
+      "count": 60
+    }
+  ],
+  "zipf_like_rank1_share": 0.0505,
+  "note": "分词为按空白/标点切分的中英混用简易实现，中文需 spaCy/jieba",
+  "runtime_ms": 8
+}

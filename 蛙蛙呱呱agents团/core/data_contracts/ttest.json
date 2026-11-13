@@ -1,0 +1,22 @@
+{
+ "name": "ttest",
+ "fields": [
+  {
+   "name": "revenue",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "is_new",
+   "dtype": "int",
+   "required": true,
+   "enum": [
+    0,
+    1
+   ],
+   "range": null
+  }
+ ]
+}

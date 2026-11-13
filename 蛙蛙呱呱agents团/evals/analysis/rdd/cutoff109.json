@@ -1,0 +1,19 @@
+{
+ "skill": "rdd",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_rdd.csv",
+  "--y",
+  "paid_value",
+  "--running",
+  "cart_value",
+  "--cutoff",
+  "109",
+  "--sensitivity"
+ ],
+ "expect": {
+  "rdd.estimate": {
+   "not_null": true
+  }
+ }
+}

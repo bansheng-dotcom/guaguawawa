@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "customers": [
+    {
+      "id": "K01",
+      "segment": "连锁餐饮",
+      "owner": "r13",
+      "renew_days": 28,
+      "health": 42,
+      "usage": 0.31,
+      "tickets": 9,
+      "voc": 3,
+      "pipeline": "谈判",
+      "arr": 420000,
+      "sla_hit": 0.86,
+      "csat": 3.4
+    },
+    {
+      "id": "K02",
+      "segment": "社区团购",
+      "owner": "r13",
+      "renew_days": 96,
+      "health": 71,
+      "usage": 0.68,
+      "tickets": 3,
+      "voc": 1,
+      "pipeline": "续约",
+      "arr": 260000,
+      "sla_hit": 0.97,
+      "csat": 4.3
+    },
+    {
+      "id": "K03",
+      "segment": "商超",
+      "owner": "r13",
+      "renew_days": 15,
+      "health": 55,
+      "usage": 0.44,
+      "tickets": 6,
+      "voc": 2,
+      "pipeline": "停滞",
+      "arr": 380000,
+      "sla_hit": 0.91,
+      "csat": 3.9
+    }
+  ]
+}

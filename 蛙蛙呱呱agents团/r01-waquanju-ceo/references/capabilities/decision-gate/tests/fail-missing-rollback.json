@@ -1,0 +1,9 @@
+{
+  "topic": "直接下线旧版 API",
+  "reversibility": "不可逆",
+  "options": [
+    { "label": "明天停用旧版 API", "summary": "不通知，直接 404" }
+  ],
+  "recommendation": "明天停用旧版 API",
+  "rationale": "旧版调用量已经很低了，维护成本不划算。"
+}

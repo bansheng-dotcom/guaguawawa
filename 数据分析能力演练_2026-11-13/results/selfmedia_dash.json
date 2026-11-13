@@ -1,0 +1,44 @@
+{
+  "total_fans": 160380.0,
+  "total_new_fans": 1063.0,
+  "total_revenue": 62800.0,
+  "total_posts": 6,
+  "hhi": 0.461,
+  "hhi_grade": "健康",
+  "platform_count": 3,
+  "stale_count": 0,
+  "status": "partial",
+  "by_platform": [
+    {
+      "platform": "小红书",
+      "fans": 48210.0,
+      "new_fans": 312.0,
+      "revenue": 18600.0,
+      "posts": 2,
+      "updated_at": "2026-11-12",
+      "age_days": 0,
+      "status": "fresh"
+    },
+    {
+      "platform": "抖音",
+      "fans": 96350.0,
+      "new_fans": 705.0,
+      "revenue": 42100.0,
+      "posts": 3,
+      "updated_at": "2026-11-12",
+      "age_days": 0,
+      "status": "fresh"
+    },
+    {
+      "platform": "知乎",
+      "fans": 15820.0,
+      "new_fans": 46.0,
+      "revenue": 2100.0,
+      "posts": 1,
+      "updated_at": "2026-11-11",
+      "age_days": 1,
+      "status": "fresh"
+    }
+  ],
+  "check_date": "2026-11-12"
+}

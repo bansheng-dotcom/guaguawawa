@@ -1,0 +1,58 @@
+role: r15
+doc_type: 供应链报告 · 蛙供应
+title: '呼市鲜果：供应商 TCO
+
+  与集中度'
+title_highlight: 与集中度
+title_highlight_style: underline
+meta:
+- 读者：采购 / 创始人
+- 数据截止：2026-11-13
+- 口径：TCO 含运费/损耗/资金占用
+- 样本：3 家供应商、10 个月采购
+footer:
+- r15 · shared/report_writer + core/report_renderer
+- 数据：示例公司（合成，演示用）
+sections:
+- title: TCO 对比
+  question: 谁的 TCO 最低？
+  intro: 报价只占 TCO 的一半，比错就亏在别处。
+  boundary: TCO 未含仓储折旧与退货处理。
+  chart: tco
+- title: 起订量与交期
+  question: 低价那家能不能用？
+  intro: 约束条件会吃掉报价优势。
+  boundary: 月需求按原料成本折算，精度约 ±10%。
+  chart: cost
+- title: 账期与资金
+  question: 账期值多少钱？
+  intro: 账期是资金成本，不是人情。
+  boundary: 资金成本按年化 8% 折算。
+- title: 集中度与断供
+  question: 断供会怎样？
+  intro: 集中度是风险指标，不是效率指标。
+  boundary: 份额为估计值，HHI 以份额平方和计。
+- title: 供应商评分
+  question: 综合看谁最好？
+  intro: 单一报价会误导，加权才是决策依据。
+  boundary: 权重为成本 50 / 质量 30 / 交期 20。
+- title: 数据缺口
+  question: 还有哪些供应链问题答不了？
+  intro: 缺表就写缺表，不要用结论补。
+  boundary: 缺口项已排除出结论。
+- title: 判断与动作
+  question: 份额怎么调？
+  intro: 先小步验证，再改结构。
+  table: decision
+  no_reading: true
+summary:
+- label: TCO
+  section: TCO 对比
+- label: 约束
+  section: 起订量与交期
+- label: 风险
+  section: 集中度风险
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

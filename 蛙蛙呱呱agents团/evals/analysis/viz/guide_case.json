@@ -1,0 +1,11 @@
+{
+ "skill": "viz",
+ "args": [
+  "guide"
+ ],
+ "expect": {
+  "chart_type_count": {
+   "gt": 0
+  }
+ }
+}

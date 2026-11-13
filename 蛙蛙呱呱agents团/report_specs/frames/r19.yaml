@@ -1,0 +1,49 @@
+role: r19
+domain: 模型与评测
+objects:
+- 实验
+- 指标
+- 样本
+- 门禁
+value_chain: []
+decisions:
+- 发布
+- 回滚
+- 重训
+questions:
+- id: Q1
+  question: 新模型真的更好吗？
+  needs:
+  - 基线
+  - 主指标
+  - 显著性
+  ops: []
+  decision: 发还是不发
+- id: Q2
+  question: 训练稳不稳？
+  needs:
+  - loss 曲线
+  - 超参
+  ops: []
+  decision: 要不要重训
+- id: Q3
+  question: 错在哪类样本？
+  needs:
+  - 失败样本
+  - 错误类型
+  ops: []
+  decision: 补数据还是改模型
+- id: Q4
+  question: 门禁过没过？
+  needs:
+  - 评测集
+  - 评分器
+  ops: []
+  decision: 能不能上线
+- id: Q5
+  question: 上线后会不会退化？
+  needs:
+  - 监控指标
+  - 漂移检测
+  ops: []
+  decision: 回滚阈值

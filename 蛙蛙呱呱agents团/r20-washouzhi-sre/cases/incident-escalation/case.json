@@ -1,0 +1,10 @@
+{
+  "case_id": "incident-escalation",
+  "display_name": "故障通报还没写事件就升级到 CEO",
+  "description": "一次 API 故障，值班同学想「先把 CEO 和全员通知一遍」再补事件时间线。但升级链 level 是 3→1（回退跳级）、渠道不在白名单、告警严重度用了 fatal（不在白名单）、事件时间线 ts 倒挂。需要判定：告警规则是否成立、升级链是否单调、事件时间线是否单调、resolved 是否带结束时间。本质是「先如实通报还是先胡乱升级」的确定性处置。",
+  "default_question": "API 挂了，我想直接通知 CEO 让全公司知道，再慢慢补时间线，这个升级链和状态页能过吗？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": ["alert", "escalation", "incident"],
+  "skills": ["s02_alert", "s03_statuspage"]
+}

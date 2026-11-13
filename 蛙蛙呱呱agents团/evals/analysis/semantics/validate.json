@@ -1,0 +1,12 @@
+{
+ "skill": "semantics",
+ "args": [
+  "validate",
+  "--input",
+  "{AGENTS}/tests/fixtures/semantic_model.json"
+ ],
+ "expect": {
+  "ok": true,
+  "measures": 4
+ }
+}

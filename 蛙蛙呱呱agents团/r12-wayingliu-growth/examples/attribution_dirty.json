@@ -1,0 +1,5 @@
+{
+  "model": "gut_feeling",
+  "dedup_source": "",
+  "tracking_fields": ["随便", "乱写"]
+}

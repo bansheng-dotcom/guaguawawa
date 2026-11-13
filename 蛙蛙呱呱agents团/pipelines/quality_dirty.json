@@ -1,0 +1,36 @@
+{
+ "proposition": "脏数据能否被质量分识别",
+ "steps": [
+  {
+   "id": "q",
+   "type": "skill",
+   "skill": "quality",
+   "args": [
+    "audit",
+    "--input",
+    "{AGENTS}/tests/fixtures/quality_dirty.csv",
+    "--pk",
+    "order_id",
+    "--date",
+    "order_date"
+   ]
+  },
+  {
+   "id": "a1",
+   "type": "assert",
+   "path": "q.dimension_score.validity",
+   "equals": 4
+  },
+  {
+   "id": "a2",
+   "type": "assert",
+   "path": "q.dimension_score.consistency",
+   "equals": 4
+  },
+  {
+   "id": "r",
+   "type": "report",
+   "path": "report.md"
+  }
+ ]
+}

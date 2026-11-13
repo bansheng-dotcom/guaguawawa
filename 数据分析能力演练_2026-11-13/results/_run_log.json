@@ -1,0 +1,717 @@
+[
+  {
+    "group": "P1",
+    "name": "quality_audit",
+    "cmd": "quality audit --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --pk order_id --date order_date",
+    "exit": 0,
+    "ms": 661,
+    "ok": true,
+    "keys": [
+      "dimension_score",
+      "duplicate_rows",
+      "fields",
+      "findings",
+      "grade",
+      "missing",
+      "overall_score",
+      "rows"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "quality_clean",
+    "cmd": "quality clean --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --output D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\orders_clean.csv --pk order_id",
+    "exit": 0,
+    "ms": 506,
+    "ok": true,
+    "keys": [
+      "cleaned_path",
+      "duplicate_rows_removed",
+      "missing",
+      "rows_after",
+      "rows_before",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "semantics_validate",
+    "cmd": "semantics validate --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\semantic_model.json",
+    "exit": 0,
+    "ms": 299,
+    "ok": true,
+    "keys": [
+      "errors",
+      "measures",
+      "metrics",
+      "ok",
+      "runtime_ms",
+      "semantic_models",
+      "valid_agg",
+      "valid_dim_type"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "semantics_compute",
+    "cmd": "semantics compute --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\semantic_model.json --data D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv",
+    "exit": 0,
+    "ms": 387,
+    "ok": true,
+    "keys": [
+      "computed_measures",
+      "measure_count",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "semantics_reconcile_pass",
+    "cmd": "semantics reconcile --a 1904317.5 --b 1904317.5 --domain marketing --label GMV 对账",
+    "exit": 0,
+    "ms": 288,
+    "ok": true,
+    "keys": [
+      "a",
+      "b",
+      "diff",
+      "domain",
+      "metric",
+      "pct_diff",
+      "possible_root_causes",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "semantics_reconcile_fail",
+    "cmd": "semantics reconcile --a 4653 --b 11042.45 --domain marketing --label 化妆品市场规模口径",
+    "exit": 0,
+    "ms": 301,
+    "ok": true,
+    "keys": [
+      "a",
+      "b",
+      "diff",
+      "domain",
+      "metric",
+      "pct_diff",
+      "possible_root_causes",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "scinlp_describe_revenue",
+    "cmd": "scinlp describe --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --col revenue",
+    "exit": 0,
+    "ms": 401,
+    "ok": true,
+    "keys": [
+      "describe",
+      "runtime_ms",
+      "skew_pearson2"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "scinlp_backend",
+    "cmd": "scinlp backend",
+    "exit": 0,
+    "ms": 3634,
+    "ok": true,
+    "keys": [
+      "backends",
+      "note",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "viz_spec",
+    "cmd": "viz spec --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\chart_spec.json",
+    "exit": 0,
+    "ms": 307,
+    "ok": true,
+    "keys": [
+      "canonical",
+      "chart_type",
+      "chart_type_count",
+      "errors",
+      "ok",
+      "prompt_meta",
+      "runtime_ms",
+      "valid_chart_types"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "domain_list",
+    "cmd": "domain list",
+    "exit": 0,
+    "ms": 290,
+    "ok": true,
+    "keys": [
+      "backend",
+      "domain",
+      "runtime_ms",
+      "skill_count",
+      "skills"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "viz_guide",
+    "cmd": "viz guide",
+    "exit": 0,
+    "ms": 301,
+    "ok": true,
+    "keys": [
+      "aliases",
+      "chart_guide",
+      "chart_type_count",
+      "runtime_ms",
+      "valid_chart_types"
+    ]
+  },
+  {
+    "group": "P1",
+    "name": "viz_report",
+    "cmd": "viz report --metrics D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\metrics_for_viz.json --title 个护线上增长拆解 --output D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\viz_report.md",
+    "exit": 0,
+    "ms": 301,
+    "ok": true,
+    "keys": [
+      "qa_checklist",
+      "report_path",
+      "runtime_ms",
+      "sections"
+    ]
+  },
+  {
+    "group": "P2",
+    "name": "describe_unit_price",
+    "cmd": "describe --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --col unit_price",
+    "exit": 0,
+    "ms": 409,
+    "ok": true,
+    "keys": [
+      "describe",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P2",
+    "name": "describe_revenue",
+    "cmd": "describe --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --col revenue",
+    "exit": 0,
+    "ms": 391,
+    "ok": true,
+    "keys": [
+      "describe",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P2",
+    "name": "correlate_discount_revenue",
+    "cmd": "correlate --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --col-a discount --col-b revenue",
+    "exit": 0,
+    "ms": 402,
+    "ok": true,
+    "keys": [
+      "correlation",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P2",
+    "name": "regression_price_qty",
+    "cmd": "regression --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --x unit_price --y qty",
+    "exit": 0,
+    "ms": 417,
+    "ok": true,
+    "keys": [
+      "regression",
+      "runtime_ms",
+      "x",
+      "y"
+    ]
+  },
+  {
+    "group": "P2",
+    "name": "elasticity_weekly",
+    "cmd": "elasticity --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\price_qty_weekly.csv --price avg_price --qty units",
+    "exit": 0,
+    "ms": 307,
+    "ok": true,
+    "keys": [
+      "elasticity",
+      "price",
+      "qty",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P2",
+    "name": "rootcause_decompose",
+    "cmd": "rootcause decompose --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\panel_did.csv --dim city --value gmv --period post --before 0 --after 1",
+    "exit": 0,
+    "ms": 305,
+    "ok": true,
+    "keys": [
+      "dimension",
+      "impact_min_pct",
+      "note",
+      "runtime_ms",
+      "segments",
+      "total_change"
+    ]
+  },
+  {
+    "group": "P2",
+    "name": "rootcause_drilldown",
+    "cmd": "rootcause drilldown --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --dim category --value revenue",
+    "exit": 0,
+    "ms": 382,
+    "ok": true,
+    "keys": [
+      "dimension",
+      "items",
+      "pareto_threshold_pct",
+      "pareto_top_n_for_80pct",
+      "runtime_ms",
+      "total"
+    ]
+  },
+  {
+    "group": "P2",
+    "name": "scinlp_textstats",
+    "cmd": "scinlp textstats --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\sku_titles.csv --text title --top 15",
+    "exit": 0,
+    "ms": 316,
+    "ok": true,
+    "keys": [
+      "doc_count",
+      "note",
+      "runtime_ms",
+      "token_count",
+      "top_bigrams",
+      "top_words",
+      "vocab_size",
+      "zipf_like_rank1_share"
+    ]
+  },
+  {
+    "group": "P3",
+    "name": "describe_band_sales",
+    "cmd": "describe --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\price_bands.csv --col sales_share_pct",
+    "exit": 0,
+    "ms": 344,
+    "ok": true,
+    "keys": [
+      "describe",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P3",
+    "name": "describe_band_volume",
+    "cmd": "describe --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\price_bands.csv --col volume_share_pct",
+    "exit": 0,
+    "ms": 298,
+    "ok": true,
+    "keys": [
+      "describe",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P3",
+    "name": "chi2_category_returned",
+    "cmd": "chi2 --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --row category --col returned",
+    "exit": 0,
+    "ms": 410,
+    "ok": true,
+    "keys": [
+      "chi2",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P3",
+    "name": "anova_revenue_category",
+    "cmd": "anova --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --value revenue --group category",
+    "exit": 0,
+    "ms": 685,
+    "ok": true,
+    "keys": [
+      "anova",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P3",
+    "name": "rdd_paid_value",
+    "cmd": "rdd --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\rdd_carts.csv --y paid_value --running cart_value --cutoff 99 --sensitivity --covariates is_new,douyin,city_tier",
+    "exit": 0,
+    "ms": 430,
+    "ok": true,
+    "keys": [
+      "checks",
+      "ok",
+      "rdd",
+      "running",
+      "runtime_ms",
+      "y"
+    ]
+  },
+  {
+    "group": "P3",
+    "name": "describe_rdd_paid",
+    "cmd": "describe --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\rdd_carts.csv --col paid_value",
+    "exit": 0,
+    "ms": 315,
+    "ok": true,
+    "keys": [
+      "describe",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P4",
+    "name": "power_n",
+    "cmd": "power --baseline 0.032 --mde 0.0025 --alpha 0.05 --power 0.8",
+    "exit": 0,
+    "ms": 281,
+    "ok": true,
+    "keys": [
+      "power",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P4",
+    "name": "power_mde",
+    "cmd": "power --baseline 0.032 --n-per-group 100000 --alpha 0.05 --power 0.8",
+    "exit": 0,
+    "ms": 297,
+    "ok": true,
+    "keys": [
+      "power",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P4",
+    "name": "abtest_convert",
+    "cmd": "abtest --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\ab_clean.csv --group group --control A --treatment B --metric convert",
+    "exit": 0,
+    "ms": 834,
+    "ok": true,
+    "keys": [
+      "abtest",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P4",
+    "name": "abtest_click",
+    "cmd": "abtest --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\ab_clean.csv --group group --control A --treatment B --metric click",
+    "exit": 0,
+    "ms": 838,
+    "ok": true,
+    "keys": [
+      "abtest",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P4",
+    "name": "abtest_srm",
+    "cmd": "abtest --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\ab_srm.csv --group group --control A --treatment B --metric convert",
+    "exit": 0,
+    "ms": 811,
+    "ok": true,
+    "keys": [
+      "abtest",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P4",
+    "name": "ttest_revenue",
+    "cmd": "ttest --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\ab_clean.csv --value revenue --group group --group-a A --group-b B",
+    "exit": 0,
+    "ms": 804,
+    "ok": true,
+    "keys": [
+      "runtime_ms",
+      "welch_t"
+    ]
+  },
+  {
+    "group": "P4",
+    "name": "chi2_device_convert",
+    "cmd": "chi2 --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\ab_clean.csv --row device --col convert",
+    "exit": 0,
+    "ms": 706,
+    "ok": true,
+    "keys": [
+      "chi2",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P5",
+    "name": "did_twfe",
+    "cmd": "did --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\panel_did.csv --y gmv --treat treat --post post --unit city_id --time week --event-study --placebo",
+    "exit": 0,
+    "ms": 628,
+    "ok": true,
+    "keys": [
+      "checks",
+      "did",
+      "event_study",
+      "ok",
+      "placebo",
+      "runtime_ms",
+      "y"
+    ]
+  },
+  {
+    "group": "P5",
+    "name": "did_staggered",
+    "cmd": "did --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\panel_staggered.csv --y gmv --treat treat --post post --unit city_id --time week --staggered",
+    "exit": 0,
+    "ms": 310,
+    "ok": true,
+    "keys": [
+      "checks",
+      "did",
+      "ok",
+      "runtime_ms",
+      "staggered",
+      "y"
+    ]
+  },
+  {
+    "group": "P5",
+    "name": "matched_psm",
+    "cmd": "matched --treat D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\cities_treat.csv --control D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\cities_control.csv --col gmv_growth --covariates population,income_index,douyin_penetration,ecommerce_index --refute",
+    "exit": 0,
+    "ms": 301,
+    "ok": true,
+    "keys": [
+      "checks",
+      "col",
+      "control",
+      "matched",
+      "ok",
+      "refute",
+      "runtime_ms",
+      "treat"
+    ]
+  },
+  {
+    "group": "P5",
+    "name": "causal_backdoor",
+    "cmd": "causal --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\cities_all.csv --outcome gmv_growth --treatment treat --confounders population,income_index,douyin_penetration,ecommerce_index --trials 200",
+    "exit": 0,
+    "ms": 299,
+    "ok": true,
+    "keys": [
+      "causal",
+      "contribution",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "funnel",
+    "cmd": "explore funnel --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\funnel.csv --stage stage --order 曝光,点击,加购,下单,支付",
+    "exit": 0,
+    "ms": 400,
+    "ok": true,
+    "keys": [
+      "drop_warn_pct",
+      "note",
+      "runtime_ms",
+      "stages",
+      "type"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "cohort",
+    "cmd": "explore cohort --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --user customer_id --period order_month",
+    "exit": 0,
+    "ms": 377,
+    "ok": true,
+    "keys": [
+      "matrix",
+      "periods",
+      "runtime_ms",
+      "type"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "rfm",
+    "cmd": "explore rfm --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --user customer_id --date order_date --value revenue",
+    "exit": 0,
+    "ms": 3196,
+    "ok": true,
+    "keys": [
+      "runtime_ms",
+      "segments",
+      "type",
+      "user_count"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "segment",
+    "cmd": "explore segment --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\customer_features.csv --features orders,revenue,recency_days,aov --k 4 --user customer_id --seed 42",
+    "exit": 0,
+    "ms": 4961,
+    "ok": true,
+    "keys": [
+      "clusters",
+      "features",
+      "inertia",
+      "k",
+      "n",
+      "note",
+      "runtime_ms",
+      "silhouette"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "metrics_ecommerce",
+    "cmd": "explore metrics --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --model ecommerce --value revenue --customer customer_id --month order_month --cac_spend 80000",
+    "exit": 0,
+    "ms": 362,
+    "ok": true,
+    "keys": [
+      "aov",
+      "customer_count",
+      "gmv",
+      "model",
+      "note",
+      "orders",
+      "repeat_purchase_share",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "time_series",
+    "cmd": "explore time_series --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --date order_date --value revenue --window 7",
+    "exit": 0,
+    "ms": 382,
+    "ok": true,
+    "keys": [
+      "anomalies",
+      "n",
+      "note",
+      "runtime_ms",
+      "seasonality_strength",
+      "seasonality_strong",
+      "series",
+      "trend"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "ttest_new",
+    "cmd": "ttest --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --value revenue --group is_new --group-a 1 --group-b 0",
+    "exit": 0,
+    "ms": 369,
+    "ok": true,
+    "keys": [
+      "runtime_ms",
+      "welch_t"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "chi2_channel_returned",
+    "cmd": "chi2 --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\orders.csv --row channel --col returned",
+    "exit": 0,
+    "ms": 357,
+    "ok": true,
+    "keys": [
+      "chi2",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "explore_saas",
+    "cmd": "explore saas --mrr 500000 --active_users 1200 --churn_rate 0.04",
+    "exit": 0,
+    "ms": 280,
+    "ok": true,
+    "keys": [
+      "active_users",
+      "arpu",
+      "churn_rate",
+      "expected_lifetime_months",
+      "ltv",
+      "ltv_requires_gross_margin",
+      "mrr",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "selfmedia_normalize",
+    "cmd": "selfmedia normalize --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\selfmedia_raw.json --output D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\selfmedia_norm.json",
+    "exit": 0,
+    "ms": 289,
+    "ok": true,
+    "keys": [
+      "fields",
+      "normalized_path",
+      "platform_count",
+      "records",
+      "runtime_ms"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "selfmedia_dashboard",
+    "cmd": "selfmedia dashboard --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\selfmedia_norm.json --today 2026-11-12 --output D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\selfmedia_dash.json",
+    "exit": 0,
+    "ms": 295,
+    "ok": true,
+    "keys": [
+      "by_platform",
+      "check_date",
+      "hhi",
+      "hhi_grade",
+      "platform_count",
+      "runtime_ms",
+      "stale_count",
+      "status"
+    ]
+  },
+  {
+    "group": "P6",
+    "name": "selfmedia_report",
+    "cmd": "selfmedia report --input D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\selfmedia_dash.json --output D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\selfmedia_daily.md",
+    "exit": 0,
+    "ms": 311,
+    "ok": true,
+    "keys": [
+      "platform_count",
+      "report_path",
+      "runtime_ms",
+      "status",
+      "total_fans",
+      "total_revenue"
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "checks": [],
+  "matched": {
+    "att": 6.0455,
+    "ci95": [
+      4.7564,
+      7.29
+    ],
+    "n_matched": 11,
+    "n_treat": 20,
+    "n_control": 20,
+    "caliper_logit": 0.1678,
+    "smd_before_max": 0.469,
+    "smd_after_max": 0.355,
+    "balanced": false,
+    "cluster_bootstrap": false,
+    "note": "PS 由协变量 logit 估计；ATT 仅对匹配上的处理组",
+    "method": "psm"
+  },
+  "treat": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\cities_treat.csv",
+  "control": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\data\\cities_control.csv",
+  "col": "gmv_growth",
+  "refute": {
+    "original_att": 6.0455,
+    "placebo_att": -0.2767,
+    "subset_att": 5.882,
+    "passed": true,
+    "note": "安慰剂 |ATT| 应远小于主效应；子集应同向"
+  },
+  "runtime_ms": 15
+}

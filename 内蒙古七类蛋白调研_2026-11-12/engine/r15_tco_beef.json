@@ -1,0 +1,36 @@
+{
+  "annual_rate_pct": 4.35,
+  "quotes": [
+    {
+      "supplier": "东瓦窑批发（现结）",
+      "currency": "CNY",
+      "unit_price": 36.0,
+      "qty": 1000,
+      "defects_pct": 1.5,
+      "main_freight": 900,
+      "lead_days": 0,
+      "payment_terms_days": 0
+    },
+    {
+      "supplier": "乌兰察布集宁跨市（现结）",
+      "currency": "CNY",
+      "unit_price": 33.02,
+      "qty": 1000,
+      "defects_pct": 1.5,
+      "main_freight": 900,
+      "lead_days": 2,
+      "payment_terms_days": 0
+    },
+    {
+      "supplier": "赤峰敖汉合作屠宰（活牛折算）",
+      "currency": "CNY",
+      "unit_price": 27.56,
+      "qty": 1000,
+      "defects_pct": 1.5,
+      "main_freight": 900,
+      "lead_days": 3,
+      "payment_terms_days": 15,
+      "moq": 1500
+    }
+  ]
+}

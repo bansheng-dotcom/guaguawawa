@@ -1,0 +1,33 @@
+{
+  "ok": true,
+  "checks": [],
+  "y": "gmv",
+  "did": {
+    "att": 112620.7547,
+    "se_cluster": 7945.1541,
+    "t": 14.17,
+    "p": 0.0,
+    "n": 1040,
+    "n_units": 40,
+    "pretrend": {
+      "coef": -10.7599,
+      "se": 529.777,
+      "p": 0.9838,
+      "passed": true
+    },
+    "note": "unit+time 双向固定效应；SE 聚类到 unit；pretrend p>0.05 才支持平行趋势",
+    "method": "twfe"
+  },
+  "staggered": {
+    "att": 62380.7858,
+    "se": 2292.0983,
+    "n_cells": 670,
+    "cohorts": [
+      "10",
+      "12",
+      "16"
+    ],
+    "note": "简化 CS 估计：not-yet-treated 对照；未做协变量调整"
+  },
+  "runtime_ms": 23
+}

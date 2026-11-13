@@ -1,0 +1,10 @@
+{
+  "correlation": {
+    "col_a": "呼和浩特",
+    "col_b": "乌兰察布",
+    "pearson_r": 0.9993,
+    "strength": "强",
+    "note": "相关≠因果；|r| 高提示可能共线，需回归/混杂控制"
+  },
+  "runtime_ms": 0
+}

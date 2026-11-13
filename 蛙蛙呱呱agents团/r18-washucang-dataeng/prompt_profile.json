@@ -1,0 +1,536 @@
+{
+  "role_id": "r18",
+  "domain": "数据工程与管道",
+  "max_questions": 2,
+  "execution_inputs": {
+    "table": {
+      "resolve": "task_port",
+      "question": "数据表/数据集在哪？",
+      "default": "workspace/artifacts/tables.csv"
+    }
+  },
+  "lexicon": {
+    "dataset": {
+      "table": [
+        "表",
+        "数据集",
+        "table"
+      ],
+      "schema": [
+        "库",
+        "schema"
+      ]
+    },
+    "metric": {
+      "latency": [
+        "延迟",
+        "p95"
+      ],
+      "null_rate": [
+        "空值率",
+        "缺失率"
+      ],
+      "duplicate_rate": [
+        "重复率"
+      ],
+      "row_count": [
+        "行数",
+        "记录数"
+      ]
+    },
+    "time_window": {
+      "today": [
+        "今天",
+        "当日"
+      ],
+      "last_7d": [
+        "近7天",
+        "上周",
+        "近一周"
+      ],
+      "last_30d": [
+        "近30天",
+        "上个月",
+        "近一个月"
+      ]
+    },
+    "scope": {
+      "all": [
+        "全量",
+        "全部"
+      ],
+      "single": [
+        "单表",
+        "单个任务"
+      ]
+    }
+  },
+  "assumptions": {
+    "time_window": "last_30d",
+    "scope": "all"
+  },
+  "assumption_reason": {
+    "time_window": "未指定时间窗，按近30天口径，结论首行标注",
+    "scope": "未指定范围，按全量口径"
+  },
+  "questions": {
+    "action": {
+      "question": "你想处理哪类数据工程事项？",
+      "options": [
+        {
+          "value": "check",
+          "label": "质量门禁"
+        },
+        {
+          "value": "backfill",
+          "label": "回填补数"
+        },
+        {
+          "value": "dag",
+          "label": "调度编排"
+        },
+        {
+          "value": "alert",
+          "label": "告警配置"
+        }
+      ]
+    },
+    "dataset": {
+      "question": "是哪张表/数据集？",
+      "options": [
+        {
+          "value": "table",
+          "label": "指定表名"
+        },
+        {
+          "value": "schema",
+          "label": "整个库"
+        }
+      ]
+    },
+    "metric": {
+      "question": "看哪个质量指标？",
+      "options": [
+        {
+          "value": "null_rate",
+          "label": "空值率"
+        },
+        {
+          "value": "duplicate_rate",
+          "label": "重复率"
+        },
+        {
+          "value": "row_count",
+          "label": "行数"
+        }
+      ]
+    },
+    "time_window": {
+      "question": "看哪个时间窗？",
+      "options": [
+        {
+          "value": "today",
+          "label": "今天"
+        },
+        {
+          "value": "last_7d",
+          "label": "近7天"
+        },
+        {
+          "value": "last_30d",
+          "label": "近30天"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "quality",
+      "action": "check",
+      "label": "质量门禁",
+      "when": [
+        "质量",
+        "门禁",
+        "空值",
+        "重复率",
+        "唯一性",
+        "quality"
+      ],
+      "requires": [
+        "dataset"
+      ],
+      "params": {
+        "dataset": "$dataset"
+      }
+    },
+    {
+      "skill": "quality",
+      "action": "fresh",
+      "label": "新鲜度检查",
+      "when": [
+        "新鲜度",
+        "时效",
+        "延迟",
+        "过期"
+      ],
+      "requires": [
+        "dataset"
+      ],
+      "params": {
+        "dataset": "$dataset"
+      }
+    },
+    {
+      "skill": "incremental",
+      "action": "backfill",
+      "label": "回填补数",
+      "when": [
+        "回填",
+        "补数",
+        "重跑",
+        "backfill"
+      ],
+      "requires": [
+        "time_window"
+      ],
+      "params": {
+        "period": "$time_window"
+      }
+    },
+    {
+      "skill": "pipeline",
+      "action": "dag",
+      "label": "调度编排",
+      "when": [
+        "调度",
+        "编排",
+        "dag",
+        "依赖",
+        "airflow"
+      ],
+      "requires": [
+        "scope"
+      ],
+      "params": {
+        "scope": "$scope"
+      }
+    },
+    {
+      "skill": "catalog",
+      "action": "lineage",
+      "label": "血缘口径",
+      "when": [
+        "血缘",
+        "lineage",
+        "口径",
+        "字段说明"
+      ],
+      "requires": [
+        "dataset"
+      ],
+      "params": {
+        "dataset": "$dataset"
+      }
+    },
+    {
+      "skill": "transform",
+      "action": "model",
+      "label": "建模转换",
+      "when": [
+        "建模",
+        "物化",
+        "dbt模型",
+        "转换"
+      ],
+      "requires": [
+        "dataset"
+      ],
+      "params": {
+        "dataset": "$dataset"
+      }
+    },
+    {
+      "skill": "ops",
+      "action": "alert",
+      "label": "告警配置",
+      "when": [
+        "告警",
+        "报警",
+        "通知",
+        "阈值告警"
+      ],
+      "requires": [
+        "metric"
+      ],
+      "params": {
+        "metric": "$metric"
+      }
+    },
+    {
+      "skill": "elt",
+      "action": "sync",
+      "label": "数据同步",
+      "when": [
+        "同步",
+        "增量同步",
+        "sync"
+      ],
+      "requires": [
+        "dataset"
+      ],
+      "params": {
+        "dataset": "$dataset"
+      }
+    },
+    {
+      "skill": "transform",
+      "action": "test",
+      "label": "模型测试",
+      "when": [
+        "模型测试",
+        "断言测试",
+        "dbt test"
+      ],
+      "requires": [
+        "dataset"
+      ],
+      "params": {
+        "dataset": "$dataset"
+      }
+    },
+    {
+      "skill": "pipeline",
+      "action": "run",
+      "label": "任务运行",
+      "when": [
+        "任务运行",
+        "手动执行",
+        "pipeline run"
+      ],
+      "requires": [
+        "scope"
+      ],
+      "params": {
+        "scope": "$scope"
+      }
+    }
+  ],
+  "semantic_fields": {
+    "elt.connection": [
+      "dataset"
+    ],
+    "incremental.strategy": [
+      "dataset",
+      "time_window"
+    ],
+    "catalog.entry": [
+      "dataset"
+    ],
+    "ops.request": [
+      "scope"
+    ]
+  },
+  "l2_prompt_blocks": [
+    {
+      "name": "分层与测试",
+      "template": "staging→intermediate→mart 三层不可越级；每层声明物化方式（view/table/incremental）；每张模型至少具备 unique / not_null / 枚举 三类测试之一。"
+    },
+    {
+      "name": "增量与回填",
+      "template": "增量必须声明水位字段与幂等口径；回填必须给出范围与重跑成本；DAG 必须无环，依赖显式声明。"
+    }
+  ],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "数据口径",
+      "时间窗",
+      "数据集",
+      "结论",
+      "门禁结果"
+    ]
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "质量",
+        "门禁",
+        "空值",
+        "重复率",
+        "唯一性",
+        "新鲜度",
+        "quality",
+        "fresh",
+        "校验数据"
+      ],
+      "skill": "quality",
+      "action": "check",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "新鲜度",
+        "时效",
+        "延迟",
+        "过期",
+        "freshness"
+      ],
+      "skill": "quality",
+      "action": "fresh",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "增量",
+        "水位",
+        "全量",
+        "快照",
+        "cdc",
+        "迟到",
+        "incremental",
+        "watermark"
+      ],
+      "skill": "incremental",
+      "action": "strategy",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "回填",
+        "补数",
+        "重跑",
+        "backfill"
+      ],
+      "skill": "incremental",
+      "action": "backfill",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "血缘",
+        "目录",
+        "口径",
+        "字段说明",
+        "lineage",
+        "catalog",
+        "owner"
+      ],
+      "skill": "catalog",
+      "action": "lineage",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "目录条目",
+        "字段类型",
+        "登记表",
+        "表结构"
+      ],
+      "skill": "catalog",
+      "action": "entry",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "转换",
+        "模型",
+        "物化",
+        "dbt",
+        "model",
+        "material",
+        "测试声明"
+      ],
+      "skill": "transform",
+      "action": "model",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "dbt测试",
+        "通用测试",
+        "accepted_values",
+        "not_null",
+        "unique测试"
+      ],
+      "skill": "transform",
+      "action": "test",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "调度",
+        "编排",
+        "dag",
+        "依赖",
+        "任务图",
+        "airflow",
+        "pipeline"
+      ],
+      "skill": "pipeline",
+      "action": "dag",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "运行状态",
+        "任务状态",
+        "失败任务",
+        "重试",
+        "task state"
+      ],
+      "skill": "pipeline",
+      "action": "run",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "连接",
+        "connector",
+        "数据源",
+        "来源",
+        "目的地",
+        "connection"
+      ],
+      "skill": "elt",
+      "action": "connection",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "同步",
+        "sync",
+        "拉取",
+        "抽取",
+        "extract"
+      ],
+      "skill": "elt",
+      "action": "sync",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "审批",
+        "授权",
+        "运维",
+        "高风险",
+        "审批单",
+        "request"
+      ],
+      "skill": "ops",
+      "action": "request",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "告警",
+        "报警",
+        "通知",
+        "阈值告警",
+        "alert"
+      ],
+      "skill": "ops",
+      "action": "alert",
+      "defaults": {}
+    }
+  ]
+}

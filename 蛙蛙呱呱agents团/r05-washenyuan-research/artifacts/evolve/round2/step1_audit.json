@@ -1,0 +1,57 @@
+{
+  "round": 2,
+  "stage": 2,
+  "title": "专业深度阶段 (L04~L06)",
+  "timestamp": "2026-11-10T19:36:53",
+  "method": "静态扫描 engines/ 与 RESEARCH_SPEC.md 真实工件，逐层定位断点（非套模板）",
+  "breakpoints": [
+    {
+      "layer": "L04",
+      "file": "engines/ledger.py",
+      "severity": "high",
+      "finding": "RESEARCH_SPEC.md 是纯散文；ledger.py 的 HHI/TAM 方差/证据等级阈值全部硬编码在 Python 字典里，改文档不影响运行；没有 8 维发布门禁，也没有可落盘的 spec 快照，多轮/多 Agent 口径必然漂移。"
+    },
+    {
+      "layer": "L05",
+      "file": "engines/slop_guard.py",
+      "severity": "high",
+      "finding": "只有 5 条正则与按次扣 10 分的粗评分；没有量化证据密度、行动力与 A/B/C/D 分级；无法阻断'相关细节待定'占位与无 DRI 的报告，清洗后也不校验是否仍有硬伤。"
+    },
+    {
+      "layer": "L06",
+      "file": "engines/scenario_matrix.py",
+      "severity": "medium",
+      "finding": "三档情景的服务份额/可获份额/毛利率全部写死；没有 MCDA 权重、ROI 矩阵、评分排序与推荐结论，人类拿到的是三张静态数字表，无法横向权衡。"
+    }
+  ],
+  "scanned_files": [
+    {
+      "layer": "L04",
+      "file": "engines/ledger.py",
+      "exists": true,
+      "path": "engines/ledger.py",
+      "bytes": 2443,
+      "sha256": "876ce9f8532b8c23e9a11af66219083dd76343af13462fc02d762b31bb6ab4cd",
+      "line_count": 66
+    },
+    {
+      "layer": "L05",
+      "file": "engines/slop_guard.py",
+      "exists": true,
+      "path": "engines/slop_guard.py",
+      "bytes": 8491,
+      "sha256": "6f11ed70c4214deb460160dd53cfdd28c86bf1fa6d133a37aba49097c407fc04",
+      "line_count": 178
+    },
+    {
+      "layer": "L06",
+      "file": "engines/scenario_matrix.py",
+      "exists": true,
+      "path": "engines/scenario_matrix.py",
+      "bytes": 11771,
+      "sha256": "aef2c55d584d709925a0d01dc251b54090f941e0c4ee35dad684315944e2522d",
+      "line_count": 241
+    }
+  ],
+  "hard_gate": "无体检结论禁止进入步骤 2"
+}

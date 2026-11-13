@@ -1,0 +1,14 @@
+{
+ "skill": "matched",
+ "args": [
+  "--treat",
+  "{AGENTS}/tests/fixtures/analysis_treat.csv",
+  "--control",
+  "{AGENTS}/tests/fixtures/analysis_control.csv",
+  "--col",
+  "gmv_growth"
+ ],
+ "expect": {
+  "matched.method": "raw_diff"
+ }
+}

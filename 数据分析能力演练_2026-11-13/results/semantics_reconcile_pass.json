@@ -1,0 +1,13 @@
+{
+  "metric": "GMV 对账",
+  "a": 1904317.5,
+  "b": 1904317.5,
+  "diff": 0.0,
+  "pct_diff": 0.0,
+  "domain": "marketing",
+  "tolerance_pct": 1.0,
+  "within_tolerance": true,
+  "status": "pass",
+  "possible_root_causes": [],
+  "runtime_ms": 0
+}

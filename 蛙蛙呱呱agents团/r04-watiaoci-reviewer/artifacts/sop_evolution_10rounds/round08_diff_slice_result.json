@@ -1,0 +1,24 @@
+{
+  "total_findings": 2,
+  "incremental_count": 1,
+  "suppressed_count": 1,
+  "incremental_findings": [
+    {
+      "file_path": "agent.py",
+      "line": 26,
+      "severity": "CRITICAL",
+      "message": "Dangerous eval call"
+    }
+  ],
+  "suppressed_legacy_findings": [
+    {
+      "finding": {
+        "file_path": "agent.py",
+        "line": 200,
+        "severity": "LOW",
+        "message": "Old formatting issue"
+      },
+      "reason": "Suppressed: finding is outside current diff hunk (legacy issue)"
+    }
+  ]
+}

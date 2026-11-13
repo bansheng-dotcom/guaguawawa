@@ -1,0 +1,17 @@
+{
+  "report_path": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\viz_report.md",
+  "sections": [
+    "conclusion",
+    "gmv",
+    "aov",
+    "category"
+  ],
+  "qa_checklist": [
+    "文图互证",
+    "driver分解",
+    "结论边界",
+    "决策授权",
+    "数字上下文"
+  ],
+  "runtime_ms": 2
+}

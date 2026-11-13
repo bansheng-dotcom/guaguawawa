@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "CONTRACT",
+  "port": "product_spec",
+  "system": "产品需求库 / 埋点平台",
+  "note": "r08 需要：主路径、依赖接口、任务拆分与工时、成功/杀死标准、落地页要素、回滚与监控项。",
+  "fields": [
+    "user_path",
+    "deps",
+    "task_breakdown",
+    "estimate_h",
+    "kill_criteria",
+    "landing_elements",
+    "competitor_pages",
+    "rollback",
+    "monitor"
+  ],
+  "items": []
+}

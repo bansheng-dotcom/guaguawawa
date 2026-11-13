@@ -1,0 +1,789 @@
+{
+ "doc_type": "命题 1 · 数据底座体检（R06 数据分析能力演练）",
+ "theme": "sticker",
+ "title_lines": [
+  "这套数据能撑多强的结论？",
+  "个护订单 + 市场台账的六维体检"
+ ],
+ "title_highlight": "能撑多强的结论？",
+ "standfirst": "先别急着算指标。20,000 行订单 + 76 条市场台账，先过质量、语义、对账三道门：能过的结论留下，过不了的当场降级。",
+ "meta": [
+  "读者：需要拿数据做决策的人",
+  "数据：orders.csv（模拟 2 万单）+ 个护台账（真实 76 条）",
+  "口径：订单级明细 + 限额以上/全渠道两套市场口径",
+  "技能：quality / semantics / scinlp / viz"
+ ],
+ "metric_strip": [
+  {
+   "label": "订单行数",
+   "value": "20,000",
+   "note": "17 列，主键唯一（quality）",
+   "status": "accent"
+  },
+  {
+   "label": "质量总分",
+   "value": "8.1/10",
+   "note": "六维规则命中，及时性 0 分",
+   "status": "watch"
+  },
+  {
+   "label": "语义校验",
+   "value": "PASS",
+   "note": "4 measure / 3 metric",
+   "status": "healthy"
+  },
+  {
+   "label": "GMV",
+   "value": "190.4 万",
+   "note": "明细直接求和，可复算",
+   "status": "accent"
+  },
+  {
+   "label": "跨口径对账",
+   "value": "FAIL",
+   "note": "差 -57.9%，已给根因",
+   "status": "critical"
+  }
+ ],
+ "summary": [
+  {
+   "label": "结论：",
+   "text": "这套数据能支撑「结构与对比」，支撑不了「因果与实时」。质量 8.1 分但及时性 0 分，语义层能落地、跨口径对账会失败——失败本身是功能，不是 bug。"
+  },
+  {
+   "label": "能用：",
+   "text": "20,000 行订单完整、无重复、GMV 1,903,705.87 元与客单价 95.19 元可逐行复算；语义模型 4 个 measure、3 个 metric 全部通过校验。"
+  },
+  {
+   "label": "不能用：",
+   "text": "最新订单距统计日 40 天，超过 14 天 SLA，不能用来做日报；订单是模拟数据，任何对外结论都必须标注来源。"
+  }
+ ],
+ "sections": [
+  {
+   "index": 1,
+   "title": "质量：8.1 分不是好消息，及时性是 0 分",
+   "question": "这批订单数据能不能直接进分析？六个维度里哪一维最危险？",
+   "chart": {
+    "type": "hbar",
+    "title": "数据质量六维得分（满分 10）",
+    "unit_meta": "分；分母为各维度规则数",
+    "source": "quality audit（R06 s02）；数据 orders.csv，20,000 行 × 17 列",
+    "bars": [
+     {
+      "label": "完整性",
+      "sub": "缺失字段",
+      "value": 10,
+      "value_label": "10",
+      "weight": "healthy"
+     },
+     {
+      "label": "准确性",
+      "sub": "离群值",
+      "value": 8,
+      "value_label": "8",
+      "weight": "context"
+     },
+     {
+      "label": "一致性",
+      "sub": "字段互证",
+      "value": 10,
+      "value_label": "10",
+      "weight": "healthy"
+     },
+     {
+      "label": "及时性",
+      "sub": "新鲜度 SLA 40 天",
+      "value": 0,
+      "value_label": "0",
+      "weight": "critical"
+     },
+     {
+      "label": "唯一性",
+      "sub": "主键重复",
+      "value": 10,
+      "value_label": "10",
+      "weight": "healthy"
+     },
+     {
+      "label": "有效性",
+      "sub": "类型 / 枚举",
+      "value": 10,
+      "value_label": "10",
+      "weight": "healthy"
+     }
+    ]
+   },
+   "reading": [
+    {
+     "strong": "总分：",
+     "text": "8.1/10，评级「可用-仅小问题」（20,000 行 × 17 列）。"
+    },
+    {
+     "strong": "及时性 0 分：",
+     "text": "订单最新日期距统计日 40 天，超过 14 天 SLA——这不是数据错，是「日报口径」不成立；月末批量数据只能做月度分析。"
+    },
+    {
+     "strong": "准确性 8 分：",
+     "text": "unit_price 离群 522 个、revenue 离群 591 个，只标记不删除；离群集中在高价套装，删掉会低估客单价。"
+    },
+    {
+     "strong": "完整性/一致性/唯一性：",
+     "text": "缺失 0、重复 0，主键唯一，不需要清洗（clean 跑完 20,000 行未删一行）。"
+    }
+   ],
+   "boundary": {
+    "text": "质量分是规则命中率，不是业务正确性；「及时性 0」只说明数据不是当天的，不代表过期。"
+   }
+  },
+  {
+   "index": 2,
+   "title": "语义：口径能落地，但对账必须显式",
+   "question": "指标定义和真实数据对得上吗？对不上时系统能不能说清为什么？",
+   "table": {
+    "caption": "语义层校验与口径对账",
+    "columns": [
+     {
+      "text": "检查项"
+     },
+     {
+      "text": "结果",
+      "num": true
+     },
+     {
+      "text": "说明"
+     }
+    ],
+    "col_widths": [
+     "24%",
+     "16%",
+     "60%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "语义模型校验"
+        }
+       ]
+      },
+      {
+       "text": "PASS",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "1 个模型 / 4 个 measure / 3 个 metric，0 错误"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "GMV（sum revenue）"
+        }
+       ]
+      },
+      {
+       "text": "1,903,705.87 元",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "对 20,000 行订单直接求和"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "客单价（avg revenue）"
+        }
+       ]
+      },
+      {
+       "text": "95.19 元",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "GMV ÷ 订单数 = 95.19，与明细一致"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "GMV 对账（同口径）"
+        }
+       ]
+      },
+      {
+       "text": "PASS",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "两数差 0.0%，容差 1.0%，判定 pass"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "市场规模对账（跨口径）"
+        }
+       ]
+      },
+      {
+       "text": "FAIL",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "4,653 亿 vs 11,042.45 亿，差 -57.86%；系统给出 6 条根因（过滤/粒度/定义漂移等）"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "能落地：",
+     "text": "validate 通过、compute 直接算出 GMV 1,903,705.87 元与客单价 95.19 元，语义定义没有悬空。"
+    },
+    {
+     "strong": "能对账：",
+     "text": "同口径两数差 0% 判 pass；跨口径（统计局限额以上 4,653 亿 vs 香协全渠道 11,042.45 亿）判 fail 并给出根因清单，不让人误以为「数错了」。"
+    },
+    {
+     "strong": "已知缺陷：",
+     "text": "compute 的 count_distinct 返回去重值列表而不是计数（本次未把它写进结论）；这是技能实现缺陷，不是数据问题。"
+    }
+   ],
+   "boundary": {
+    "text": "语义层只覆盖 orders 一张表；跨表 join 的口径一致性没有纳入本次校验。"
+   }
+  },
+  {
+   "index": 3,
+   "title": "分布：客单价右偏，均值不是典型值",
+   "question": "用均值代表客单价会误导吗？哪些统计量更该报？",
+   "chart": {
+    "type": "hbar",
+    "title": "客单价的关键分位（元）",
+    "unit_meta": "元；订单级 revenue",
+    "source": "scinlp describe（R06 s06）与 describe（s05）",
+    "bars": [
+     {
+      "label": "P5",
+      "value": 39.6,
+      "value_label": "39.6",
+      "weight": "reference",
+      "sub": "最低 5% 的订单在此之下"
+     },
+     {
+      "label": "中位数",
+      "value": 76.0,
+      "value_label": "76.0",
+      "weight": "healthy",
+      "sub": "典型订单"
+     },
+     {
+      "label": "均值",
+      "value": 95.2,
+      "value_label": "95.2",
+      "weight": "context",
+      "sub": "被高价单抬高"
+     },
+     {
+      "label": "P95",
+      "value": 212.0,
+      "value_label": "212.0",
+      "weight": "reference",
+      "sub": "最高 5% 的订单在此之上"
+     }
+    ]
+   },
+   "reading": [
+    {
+     "strong": "右偏：",
+     "text": "均值 95.19 元、中位数 75.96 元，偏度 1.52；P95 是 212 元，均值被高价套单抬高。"
+    },
+    {
+     "strong": "报法：",
+     "text": "对外报客单价应同时给均值 + 中位数 + P95；只报均值会把「典型订单」说贵 25%。"
+    },
+    {
+     "strong": "后端：",
+     "text": "scipy/statsmodels/numpy/pandas available，spaCy unavailable；NLP 只有简易分词。"
+    }
+   ],
+   "boundary": {
+    "text": "分位数与偏度只对 orders.csv 成立；不同品类分布不同，不能跨品类套用。"
+   }
+  },
+  {
+   "index": 4,
+   "title": "判断：这套数据能撑多强的结论",
+   "question": "哪些结论可以直接用、哪些只能当方向？",
+   "table": {
+    "caption": "数据可用性分级",
+    "columns": [
+     {
+      "text": "结论类型"
+     },
+     {
+      "text": "能不能下"
+     },
+     {
+      "text": "依据 / 限制"
+     }
+    ],
+    "col_widths": [
+     "26%",
+     "16%",
+     "58%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "总量与结构（GMV、客单价、品类占比）"
+        }
+       ]
+      },
+      {
+       "text": "可以",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "订单级明细完整、语义校验通过、对账 0 差"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "趋势与季节性"
+        }
+       ]
+      },
+      {
+       "text": "方向",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "只有 39 周且为模拟；真实业务需 12 个月以上"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "因果（渠道/折扣的效果）"
+        }
+       ]
+      },
+      {
+       "text": "不行",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "只有观测数据，没有随机分配；需实验或 DID（见 P5）"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "日报级实时性判断"
+        }
+       ]
+      },
+      {
+       "text": "不行",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "最新日期距今 40 天，超过 14 天 SLA"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "结论：",
+     "text": "这套数据可以支撑「结构与对比」，不能支撑「因果与实时」；报告里凡是因果表述都必须换成实验或准实验设计。"
+    },
+    {
+     "strong": "可视化门禁：",
+     "text": "viz spec 校验通过（48 种图表类型可登记）；图表类型选错会被 schema 拦下。"
+    },
+    {
+     "strong": "专业域：",
+     "text": "domain list 返回 30 项生信技能，后端 omicverse 不在本机，登记为 blocked，不假装能跑。"
+    }
+   ],
+   "boundary": {
+    "text": "分级只针对本次 20,000 行模拟订单与 76 条个护台账；换数据要重跑质量与语义两道门。"
+   }
+  },
+  {
+   "index": "A1",
+   "title": "记录层：质量与语义检查逐条",
+   "question": "这次实际跑了哪些技能、输出落在哪里？",
+   "intro": [
+    {
+     "text": "每条命令与完整 JSON 见 results/_run_log.json 与 results/*.json；重跑 scripts/run_skills.py 即可复现。"
+    }
+   ],
+   "table": {
+    "caption": "技能调用记录（可逐条复跑）",
+    "columns": [
+     {
+      "text": "技能 / 动作"
+     },
+     {
+      "text": "输入"
+     },
+     {
+      "text": "关键输出"
+     }
+    ],
+    "col_widths": [
+     "26%",
+     "22%",
+     "52%"
+    ],
+    "rows": [
+     [
+      {
+       "text": "quality audit"
+      },
+      {
+       "lines": [
+        {
+         "text": "orders.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "总分 8.1，六维 {'completeness': 10, 'accuracy': 8, 'consistency': 10, 'timeliness': 0, 'uniqueness': 10, 'validity': 10}"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "quality clean"
+      },
+      {
+       "lines": [
+        {
+         "text": "orders.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "删除重复 0 行，缺失 {}"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "semantics validate"
+      },
+      {
+       "lines": [
+        {
+         "text": "semantic_model.json"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "ok=True，errors=[]"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "semantics compute"
+      },
+      {
+       "lines": [
+        {
+         "text": "semantic_model.json + orders.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "gmv=1903705.87，aov=95.1853，order_count 类型=list"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "semantics reconcile ×2"
+      },
+      {
+       "lines": [
+        {
+         "text": "GMV 对 / 市场规模跨口径"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "pass=pass，fail=fail"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "scinlp describe"
+      },
+      {
+       "lines": [
+        {
+         "text": "orders.csv revenue"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "mean=95.1853，median=75.96，skew=1.5206"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "viz spec"
+      },
+      {
+       "lines": [
+        {
+         "text": "chart_spec.json"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "ok=True，canonical=line"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "viz report"
+      },
+      {
+       "lines": [
+        {
+         "text": "metrics_for_viz.json"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "生成 results/viz_report.md（QA 清单 5 项）"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "appendix": true
+  },
+  {
+   "index": 5,
+   "title": "口径与分数",
+   "question": "这份报告的结论能追回到哪一步？哪些地方是模拟、哪些是真实？",
+   "table": {
+    "caption": "自检与数据边界",
+    "columns": [
+     {
+      "text": "指标"
+     },
+     {
+      "text": "值",
+      "num": true
+     },
+     {
+      "text": "说明"
+     }
+    ],
+    "col_widths": [
+     "22%",
+     "14%",
+     "64%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "技能调用"
+        }
+       ]
+      },
+      {
+       "text": "12",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "P1 共 12 次 R06 调用，全部 exit 0"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "数据规模"
+        }
+       ]
+      },
+      {
+       "text": "20,000 行",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "orders.csv；另有 76 条个护真实台账用于口径对账"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "真实 / 模拟"
+        }
+       ]
+      },
+      {
+       "text": "1 / 1",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "对账用的 4,653 亿与 11,042.45 亿是真实公开数；订单是模拟"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "未采用输出"
+        }
+       ]
+      },
+      {
+       "text": "1",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "count_distinct 返回值类型异常，未写入结论"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "怎么读：",
+     "text": "质量分、语义校验、分布统计都是技能直接输出；报告只做格式化，没有二次计算。"
+    },
+    {
+     "strong": "边界：",
+     "text": "本报告不评价业务好坏，只回答「数据能不能用、能用到什么程度」。"
+    }
+   ]
+  }
+ ],
+ "notes": {
+  "summary": "口径、模拟标注与已知缺陷",
+  "items": [
+   {
+    "label": "真实 vs 模拟：",
+    "text": "orders.csv 为按固定 seed 生成的模拟数据（洗护均价≈53 元、抖音占比 40% 等锚点对齐 2025 公开数据）；4,653 亿、11,042.45 亿为真实公开数。"
+   },
+   {
+    "label": "已知缺陷：",
+    "text": "semantics compute 的 count_distinct 返回去重值列表而非计数；本报告未使用该输出。"
+   },
+   {
+    "label": "复现：",
+    "text": "python scripts/gen_data.py && python scripts/derive.py && python scripts/run_skills.py"
+   }
+  ],
+  "tail": "报告由 core/report_renderer.py 从 contract 确定性渲染；手改 HTML 会在重渲时丢失。"
+ },
+ "footer": [
+  "P1 数据底座体检 · 数据分析能力演练（R06 蛙得清）",
+  "渲染 core/report_renderer.py · 数据 results/*.json",
+  "生成时间 2026-11-13（Asia/Shanghai）"
+ ]
+}

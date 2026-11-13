@@ -1,0 +1,10 @@
+{
+  "correlation": {
+    "col_a": "discount",
+    "col_b": "revenue",
+    "pearson_r": -0.1201,
+    "strength": "弱",
+    "note": "相关≠因果；|r| 高提示可能共线，需回归/混杂控制"
+  },
+  "runtime_ms": 96
+}

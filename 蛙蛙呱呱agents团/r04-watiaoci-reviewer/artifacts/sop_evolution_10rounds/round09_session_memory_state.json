@@ -1,0 +1,58 @@
+{
+  "session_id": "evolution_r09",
+  "turn": 4,
+  "current_findings": [],
+  "current_verdict": "REJECT",
+  "last_inspected_target": "agent.py",
+  "active_scenario": "balanced",
+  "history_snapshots": [
+    {
+      "version": 1,
+      "timestamp": 1794225938.0261674,
+      "description": "Round 1 Initial Review",
+      "turn": 1,
+      "state_copy": {
+        "current_findings": [],
+        "current_verdict": "REJECT",
+        "last_inspected_target": "agent.py",
+        "active_scenario": "balanced"
+      }
+    },
+    {
+      "version": 2,
+      "timestamp": 1794225938.0261674,
+      "description": "Round 2 Approved",
+      "turn": 2,
+      "state_copy": {
+        "current_findings": [],
+        "current_verdict": "PASS",
+        "last_inspected_target": "agent.py",
+        "active_scenario": "balanced"
+      }
+    },
+    {
+      "version": 3,
+      "timestamp": 1794226076.8847706,
+      "description": "Round 1 Initial Review",
+      "turn": 3,
+      "state_copy": {
+        "current_findings": [],
+        "current_verdict": "REJECT",
+        "last_inspected_target": "agent.py",
+        "active_scenario": "balanced"
+      }
+    },
+    {
+      "version": 4,
+      "timestamp": 1794226076.8872733,
+      "description": "Round 2 Approved",
+      "turn": 4,
+      "state_copy": {
+        "current_findings": [],
+        "current_verdict": "PASS",
+        "last_inspected_target": "agent.py",
+        "active_scenario": "balanced"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "usage": [
+    {
+      "metric_code": "api_calls",
+      "quantity": 1200,
+      "aggregation_type": "count_agg"
+    },
+    {
+      "metric_code": "tokens_in",
+      "quantity": 350000,
+      "aggregation_type": "sum_agg"
+    }
+  ]
+}

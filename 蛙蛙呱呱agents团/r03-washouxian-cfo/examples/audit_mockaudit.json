@@ -1,0 +1,47 @@
+{
+  "findings": [
+    {
+      "severity": "observation",
+      "topic": "access_control"
+    },
+    {
+      "severity": "observation",
+      "topic": "monitoring"
+    },
+    {
+      "severity": "observation",
+      "topic": "vendor_management"
+    },
+    {
+      "severity": "observation",
+      "topic": "data_governance"
+    },
+    {
+      "severity": "minor",
+      "topic": "change_management"
+    },
+    {
+      "severity": "minor",
+      "topic": "access_control"
+    },
+    {
+      "severity": "minor",
+      "topic": "monitoring"
+    },
+    {
+      "severity": "major",
+      "topic": "risk_assessment",
+      "owner": "安全负责人"
+    },
+    {
+      "severity": "major",
+      "topic": "incident_response",
+      "owner": "DRI"
+    },
+    {
+      "severity": "critical",
+      "topic": "access_control",
+      "owner": "CTO"
+    }
+  ]
+}

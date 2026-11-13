@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "healed": {
+    "item_id": "CRIT-001",
+    "verdict": "FAIL",
+    "origin": "agent.py",
+    "id": "CRIT-001",
+    "status": "FAIL",
+    "source": "agent.py"
+  },
+  "reflections": [
+    "自愈映射: 字段 'id' 缺失，已成功从别名字段 'item_id' 提取自愈值。",
+    "自愈映射: 字段 'status' 缺失，已成功从别名字段 'verdict' 提取自愈值。",
+    "自愈映射: 字段 'source' 缺失，已成功从别名字段 'origin' 提取自愈值。"
+  ],
+  "violations": []
+}

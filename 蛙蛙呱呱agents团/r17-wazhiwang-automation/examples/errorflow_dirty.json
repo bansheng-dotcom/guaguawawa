@@ -1,0 +1,7 @@
+{
+  "error_workflow_id": "wf_err_123",
+  "target_workflow_id": "wf_main",
+  "published": false,
+  "error_trigger_active": true,
+  "per_target": true
+}

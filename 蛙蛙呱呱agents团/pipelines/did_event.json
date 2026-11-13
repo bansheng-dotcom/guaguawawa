@@ -1,0 +1,37 @@
+{
+ "proposition": "预算迁移的 DID 与预趋势",
+ "steps": [
+  {
+   "id": "d",
+   "type": "skill",
+   "skill": "did",
+   "args": [
+    "--input",
+    "{AGENTS}/tests/fixtures/analysis_panel.csv",
+    "--y",
+    "gmv",
+    "--treat",
+    "treat",
+    "--post",
+    "post",
+    "--unit",
+    "city_id",
+    "--time",
+    "week",
+    "--event-study",
+    "--placebo"
+   ]
+  },
+  {
+   "id": "a",
+   "type": "assert",
+   "path": "d.event_study_engine",
+   "equals": "v2"
+  },
+  {
+   "id": "r",
+   "type": "report",
+   "path": "report.md"
+  }
+ ]
+}

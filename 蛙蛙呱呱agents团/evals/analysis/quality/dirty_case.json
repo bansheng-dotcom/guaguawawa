@@ -1,0 +1,21 @@
+{
+ "skill": "quality",
+ "args": [
+  "audit",
+  "--input",
+  "{AGENTS}/tests/fixtures/quality_dirty.csv",
+  "--pk",
+  "order_id",
+  "--date",
+  "order_date"
+ ],
+ "expect": {
+  "dimension_score.validity": {
+   "lt": 10
+  },
+  "dimension_score.consistency": {
+   "lt": 10
+  },
+  "dims_active": 6
+ }
+}

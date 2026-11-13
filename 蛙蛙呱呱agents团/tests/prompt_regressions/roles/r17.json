@@ -1,0 +1,27 @@
+{
+  "r17": {
+    "role_dir": "r17-wazhiwang-automation",
+    "cases": [
+      {"id": "r17-01", "intent": "帮我弄个自动化", "expect": "clarify"},
+      {"id": "r17-02", "intent": "搭个webhook", "expect": "clarify"},
+      {"id": "r17-03", "intent": "配一下定时任务", "expect": "clarify"},
+      {"id": "r17-04", "intent": "这套集成要幂等重试", "expect": "clarify"},
+      {"id": "r17-05", "intent": "把 CRM 和表单集成成一条工作流", "expect": "route", "expect_action": "integration.workflow"},
+      {"id": "r17-06", "intent": "配置 webhook 回调，运维负责", "expect": "route", "expect_action": "webhook.webhook"},
+      {"id": "r17-07", "intent": "做字段映射，目标是同步两边的表结构", "expect": "route", "expect_action": "mapping.mapping"},
+      {"id": "r17-08", "intent": "定时跑批处理，每天一次", "expect": "route", "expect_action": "schedule.schedule"},
+      {"id": "r17-09", "intent": "发布上线，负责人是老板", "expect": "route", "expect_action": "approval.publish"},
+      {"id": "r17-10", "intent": "审计这条工作流的执行日志", "expect": "route", "expect_action": "audit.audit"},
+      {"id": "r17-11", "intent": "设计异常分支和失败兜底，要有日志，作用在工作流", "expect": "route", "expect_action": "retry.errorflow"},
+      {"id": "r17-12", "intent": "给这条链路加异常分支", "expect": "clarify"},
+      {"id": "r17-13", "intent": "把两张字段表做个字段对照，整理成映射表，目标是数据对齐", "expect": "route", "expect_action": "mapping.table"},
+      {"id": "r17-14", "intent": "这条工作流要加幂等和重试，确保失败能重跑，日志要留全", "expect": "route", "expect_action": "retry.retry"},
+      {"id": "r17-15", "intent": "第三方接口的密钥怎么接进来，还要支持密钥轮换，目标是数据同步，由开发负责", "expect": "route", "expect_action": "integration.credential"},
+      {"id": "r17-16", "intent": "每周一自动跑一次周期任务，cron 你定", "expect": "route", "expect_action": "schedule.schedule"},
+      {"id": "r17-17", "intent": "外部系统推过来的回调要接住，触发器配好，我们运维来维护", "expect": "route", "expect_action": "webhook.webhook"},
+      {"id": "r17-18", "intent": "帮我搞个定时", "expect": "clarify"},
+      {"id": "r17-19", "intent": "这条链路怎么串起来", "expect": "clarify"},
+      {"id": "r17-20", "intent": "接口老是报错怎么办", "expect": "clarify"}
+    ]
+  }
+}

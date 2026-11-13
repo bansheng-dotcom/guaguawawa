@@ -1,0 +1,17 @@
+{
+ "skill": "explore",
+ "args": [
+  "cohort",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--user",
+  "customer_id",
+  "--period",
+  "order_date"
+ ],
+ "expect": {
+  "matrix.0.cohort_size": {
+   "gt": 0
+  }
+ }
+}

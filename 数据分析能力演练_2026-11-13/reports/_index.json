@@ -1,0 +1,236 @@
+[
+ {
+  "key": "P1",
+  "name": "01_数据底座体检",
+  "title": "这套数据能撑多强的结论？",
+  "sub": "个护订单 + 市场台账的六维体检",
+  "doc_type": "命题 1 · 数据底座体检（R06 数据分析能力演练）",
+  "kpis": [
+   {
+    "label": "订单行数",
+    "value": "20,000",
+    "note": "17 列，主键唯一（quality）",
+    "status": "accent"
+   },
+   {
+    "label": "质量总分",
+    "value": "8.1/10",
+    "note": "六维规则命中，及时性 0 分",
+    "status": "watch"
+   },
+   {
+    "label": "语义校验",
+    "value": "PASS",
+    "note": "4 measure / 3 metric",
+    "status": "healthy"
+   },
+   {
+    "label": "GMV",
+    "value": "190.4 万",
+    "note": "明细直接求和，可复算",
+    "status": "accent"
+   },
+   {
+    "label": "跨口径对账",
+    "value": "FAIL",
+    "note": "差 -57.9%，已给根因",
+    "status": "critical"
+   }
+  ]
+ },
+ {
+  "key": "P2",
+  "name": "02_增长量价拆解",
+  "title": "增长是「卖得多」还是「卖得贵」？",
+  "sub": "洗护发量价拆解与价格弹性",
+  "doc_type": "命题 2 · 增长拆解（R06 数据分析能力演练）",
+  "kpis": [
+   {
+    "label": "2025 线上洗护发",
+    "value": "695.51 亿",
+    "note": "真实数据，+7.61%",
+    "status": "accent"
+   },
+   {
+    "label": "量贡献",
+    "value": "+11.94%",
+    "note": "交易量增速（真实）",
+    "status": "healthy"
+   },
+   {
+    "label": "价贡献",
+    "value": "-3.87%",
+    "note": "隐含均价变动",
+    "status": "critical"
+   },
+   {
+    "label": "价格弹性",
+    "value": "-1.344",
+    "note": "R² 0.5692，n=39（模拟）",
+    "status": "watch"
+   },
+   {
+    "label": "前 4 品类 GMV 占比",
+    "value": "80%",
+    "note": "帕累托阈值",
+    "status": "none"
+   }
+  ]
+ },
+ {
+  "key": "P3",
+  "name": "03_定价与门槛",
+  "title": "50—80 元是利润区吗？",
+  "sub": "价格带效率、客单价结构与满减断点",
+  "doc_type": "命题 3 · 定价与门槛（R06 数据分析能力演练）",
+  "kpis": [
+   {
+    "label": "50—80 元销售额占比",
+    "value": "39.28%",
+    "note": "真实；商品数不足 13%",
+    "status": "healthy"
+   },
+   {
+    "label": "效率指数",
+    "value": "3.2",
+    "note": "销售额占比 ÷ 商品数占比",
+    "status": "accent"
+   },
+   {
+    "label": "品类 η²",
+    "value": "0.0591",
+    "note": "客单价方差被品类解释的比例",
+    "status": "watch"
+   },
+   {
+    "label": "满减断点效应",
+    "value": "+12.62 元",
+    "note": "se 0.26，12,000 购物车",
+    "status": "accent"
+   },
+   {
+    "label": "退货 × 品类",
+    "value": "不显著",
+    "note": "χ²=2.59",
+    "status": "none"
+   }
+  ]
+ },
+ {
+  "key": "P4",
+  "name": "04_主图AB实验",
+  "title": "主图改版能不能把转化提上去？",
+  "sub": "一次 20 万人 A/B 的设计、读出与 SRM 门禁",
+  "doc_type": "命题 4 · A/B 实验（R06 数据分析能力演练）",
+  "kpis": [
+   {
+    "label": "样本",
+    "value": "20 万",
+    "note": "10 万/组，满足 80,735/组",
+    "status": "accent"
+   },
+   {
+    "label": "CTR lift",
+    "value": "3.13%",
+    "note": "p=0.200135",
+    "status": "watch"
+   },
+   {
+    "label": "CVR lift",
+    "value": "2.42%",
+    "note": "p=0.435006",
+    "status": "watch"
+   },
+   {
+    "label": "SRM（clean）",
+    "value": "通过",
+    "note": "χ²=0.00",
+    "status": "healthy"
+   },
+   {
+    "label": "决策",
+    "value": "不 ship",
+    "note": "主指标不显著",
+    "status": "critical"
+   }
+  ]
+ },
+ {
+  "key": "P5",
+  "name": "05_预算迁移因果",
+  "title": "把预算搬到抖音，有增量吗？",
+  "sub": "DID + PSM + 后门调整的四重交叉",
+  "doc_type": "命题 5 · 预算迁移的因果增量（R06 数据分析能力演练）",
+  "kpis": [
+   {
+    "label": "TWFE ATT",
+    "value": "+9.9 万/周",
+    "note": "约 +8.9%，p<0.001",
+    "status": "accent"
+   },
+   {
+    "label": "预趋势",
+    "value": "p=0.26",
+    "note": "不拒绝平行趋势",
+    "status": "healthy"
+   },
+   {
+    "label": "安慰剂",
+    "value": "p=0.0",
+    "note": "100 次置换",
+    "status": "healthy"
+   },
+   {
+    "label": "PSM ATT",
+    "value": "6.0455pp",
+    "note": "CI [4.7564, 7.29]",
+    "status": "watch"
+   },
+   {
+    "label": "后门调整",
+    "value": "5.565pp",
+    "note": "混杂偏差 0.88pp",
+    "status": "watch"
+   }
+  ]
+ },
+ {
+  "key": "P6",
+  "name": "06_用户留存与内容",
+  "title": "首单折扣客值不值得投？",
+  "sub": "漏斗、留存、分群与自媒体看板",
+  "doc_type": "命题 6 · 用户留存与内容（R06 数据分析能力演练）",
+  "kpis": [
+   {
+    "label": "整体转化",
+    "value": "3.3%",
+    "note": "曝光→支付",
+    "status": "watch"
+   },
+   {
+    "label": "次月留存",
+    "value": "33%",
+    "note": "cohort 第 1 月",
+    "status": "healthy"
+   },
+   {
+    "label": "复购订单占比",
+    "value": "73.3%",
+    "note": "第 2 单及以后 ÷ 总订单",
+    "status": "accent"
+   },
+   {
+    "label": "核心客（RFM≥444）",
+    "value": "1069",
+    "note": "占 20.0%",
+    "status": "accent"
+   },
+   {
+    "label": "内容看板",
+    "value": "partial",
+    "note": "3/5 平台，不能发日报",
+    "status": "critical"
+   }
+  ]
+ }
+]

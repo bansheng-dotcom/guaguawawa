@@ -1,0 +1,45 @@
+{
+  "case_id": "harness-audit",
+  "display_name": "门禁强度审计",
+  "description": "R04 审计一个 CI 门禁的自证证据：STRENGTH-001（文档写明 never blocks）与 STRENGTH-007（快照 passed:true 但 signals 里检查从未运行）双触发，评分落到 at-risk；修复后复评回到 solid。",
+  "default_question": "这个 CI 门禁是真门禁还是门禁剧场（theatre）？",
+  "owner_role": "r04",
+  "inputs": {
+    "harness": "ci-deploy-gate",
+    "evidence_round": "v1（脏）/ v2（修复后）"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "skill": "gate",
+      "action": "audit",
+      "desc": "审计 v1 脏证据：STRENGTH-001 与 STRENGTH-007 均触发",
+      "expect": {
+        "finding_ids": ["STRENGTH-001", "STRENGTH-007"],
+        "error_count": 2,
+        "warning_count": 0,
+        "score": 70,
+        "tier": "at-risk",
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "step": 2,
+      "skill": "gate",
+      "action": "audit",
+      "desc": "修复后复评：钩子声明改为真阻断、快照 signals 补齐 test 运行记录",
+      "expect": {
+        "finding_ids": [],
+        "error_count": 0,
+        "score": 100,
+        "tier": "solid",
+        "verdict": "PASS"
+      }
+    }
+  ],
+  "cartridges": [
+    {"name": "harness-evidence-v1.json", "for": "gate.audit 脏证据（001+007 触发）"},
+    {"name": "harness-evidence-v2.json", "for": "gate.audit 修复后证据（0 命中）"}
+  ],
+  "verified_numbers_note": "评分=100-error_penalty×2（键：strength.error_penalty）→ 70 落在 at-risk 区间（solid_min/at_risk_min 见 thresholds.json）；error 存活即 FAIL。修复后 0 命中 → 100/solid/PASS。"
+}

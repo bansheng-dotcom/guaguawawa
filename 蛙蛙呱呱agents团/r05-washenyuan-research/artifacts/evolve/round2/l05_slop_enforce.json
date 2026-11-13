@@ -1,0 +1,14 @@
+{
+  "ok": false,
+  "polished": "市场核心指标同比保持增长，后续 12 个月关键指标可验证，按季度预算与用量核算采购，相关细节将在下一里程碑补齐量化口径。TAM 120 亿元（来源 S1/S2），增速 18.5%。责任人 DRI：蛙深远。",
+  "replacements": 4,
+  "score": 100.0,
+  "grade": "A",
+  "blocking_issues": [
+    "PENDING_PLACEHOLDER"
+  ],
+  "dri": "蛙深远",
+  "slop_hits": 0,
+  "evidence_density": 4.444,
+  "quantified_mentions": 4
+}

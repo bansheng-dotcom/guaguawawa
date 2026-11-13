@@ -1,0 +1,18 @@
+{
+  "topic": "把客服外包换成自建团队",
+  "reversibility": "难逆",
+  "options": [
+    { "label": "自建客服团队", "summary": "招 5 人，三个月内切换" },
+    { "label": "继续外包", "summary": "什么都不做，维持现有合约" }
+  ],
+  "recommendation": "自建客服团队",
+  "rationale": "外包响应慢，自建可控。",
+  "rollback_plan": "如有问题再切回外包。",
+  "success_criteria": [
+    { "metric": "首响时长", "threshold": "更快", "deadline": "三个月后" }
+  ],
+  "kill_criteria": [],
+  "owner": "团队",
+  "deadline": "尽快",
+  "announcement_draft": "我们把客服改成自建。"
+}

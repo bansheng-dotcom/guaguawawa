@@ -1,0 +1,11 @@
+{
+ "skill": "semantics",
+ "args": [
+  "tree",
+  "--input",
+  "{AGENTS}/tests/fixtures/semantic_model.json"
+ ],
+ "expect": {
+  "metric_count": 3
+ }
+}

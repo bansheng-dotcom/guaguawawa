@@ -1,0 +1,51 @@
+{
+  "round": 2,
+  "timestamp": "2026-11-10T19:36:53",
+  "benchmarks": [
+    {
+      "project": "dbt-labs/dbt-core",
+      "stars": 9500,
+      "url": "https://github.com/dbt-labs/dbt-core",
+      "absorbed": "语义层单一信任源（SSOT）：指标与阈值集中声明、机器可读消费"
+    },
+    {
+      "project": "great-expectations/great_expectations",
+      "stars": 9800,
+      "url": "https://github.com/great-expectations/great_expectations",
+      "absorbed": "声明式 Expectation Suite + 加权门禁评分"
+    },
+    {
+      "project": "errata-ai/vale",
+      "stars": 4500,
+      "url": "https://github.com/errata-ai/vale",
+      "absorbed": "词库驱动 Lint：告警分级、可配置规则与退出码"
+    },
+    {
+      "project": "reviewdog/reviewdog",
+      "stars": 7500,
+      "url": "https://github.com/reviewdog/reviewdog",
+      "absorbed": "门禁式审查结果回写（阻断/建议分级）"
+    },
+    {
+      "project": "apache/superset",
+      "stars": 62000,
+      "url": "https://github.com/apache/superset",
+      "absorbed": "多维评分决策看板与 ROI 可视化矩阵"
+    },
+    {
+      "project": "vega/vega-lite",
+      "stars": 4600,
+      "url": "https://github.com/vega/vega-lite",
+      "absorbed": "声明式图表描述（下游 R06 直接渲染）"
+    }
+  ],
+  "absorbed_mechanisms": [
+    "语义层单一信任源（SSOT）：指标与阈值集中声明、机器可读消费",
+    "声明式 Expectation Suite + 加权门禁评分",
+    "词库驱动 Lint：告警分级、可配置规则与退出码",
+    "门禁式审查结果回写（阻断/建议分级）",
+    "多维评分决策看板与 ROI 可视化矩阵",
+    "声明式图表描述（下游 R06 直接渲染）"
+  ],
+  "policy": "每个标杆必须说明被吸收的具体机制，禁止只贴 star 数"
+}

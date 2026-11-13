@@ -1,0 +1,22 @@
+{
+ "skill": "explore",
+ "args": [
+  "rfm",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--user",
+  "customer_id",
+  "--date",
+  "order_date",
+  "--value",
+  "revenue"
+ ],
+ "expect": {
+  "user_count": {
+   "gt": 0
+  },
+  "conclusion": {
+   "not_null": true
+  }
+ }
+}

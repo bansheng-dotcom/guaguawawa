@@ -1,0 +1,44 @@
+role: r19
+doc_type: 模型评测报告 · 蛙智模
+title: '模型：胜负
+
+  与门禁'
+title_highlight: 与门禁
+title_highlight_style: underline
+meta:
+- 读者：算法 / 产品
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r19 · shared/report_writer + core/report_renderer
+sections:
+- title: 胜负
+  question: 新模型真的更好吗？
+  intro: 没有基线对比的提升，不算提升。
+  boundary: 对比需同评测集、同评分器。
+- title: 训练
+  question: 训练稳不稳？
+  intro: 曲线不收敛的模型，上线就是事故。
+  boundary: 曲线以 loss 与主指标为准。
+- title: 失败样本
+  question: 错在哪类样本？
+  intro: 错误类型比总体准确率更能指导下一步。
+  boundary: 失败样本需抽样复核。
+- title: 门禁
+  question: 能不能上线？
+  intro: 门禁不过就不发，没有例外。
+  boundary: 门禁含显著性、护栏与模型卡。
+- title: 判断与动作
+  question: 发、缓还是回滚？
+  intro: 上线前先定回滚阈值。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 胜负
+- label: 关键
+  section: 失败样本
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

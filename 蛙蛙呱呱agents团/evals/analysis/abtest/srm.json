@@ -1,0 +1,27 @@
+{
+ "skill": "abtest",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_ab.csv",
+  "--group",
+  "group",
+  "--control",
+  "A",
+  "--treatment",
+  "B",
+  "--metric",
+  "convert"
+ ],
+ "expect": {
+  "abtest.decision": {
+   "in": [
+    "ship",
+    "no_ship",
+    "srm_rerun"
+   ]
+  },
+  "conclusion": {
+   "not_null": true
+  }
+ }
+}

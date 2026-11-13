@@ -1,0 +1,26 @@
+{
+  "annual_rate_pct": 4.35,
+  "quotes": [
+    {
+      "supplier": "通辽开鲁产地直采（白条鹅）",
+      "currency": "CNY",
+      "unit_price": 11.0,
+      "qty": 2000,
+      "defects_pct": 2.0,
+      "main_freight": 1600,
+      "lead_days": 3,
+      "payment_terms_days": 7,
+      "moq": 2000
+    },
+    {
+      "supplier": "呼市批发市场转手（白条鹅）",
+      "currency": "CNY",
+      "unit_price": 12.6,
+      "qty": 500,
+      "defects_pct": 2.0,
+      "main_freight": 60,
+      "lead_days": 0,
+      "payment_terms_days": 0
+    }
+  ]
+}

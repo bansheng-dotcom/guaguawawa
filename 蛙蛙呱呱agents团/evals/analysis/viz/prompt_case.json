@@ -1,0 +1,13 @@
+{
+ "skill": "viz",
+ "args": [
+  "prompt",
+  "--chart",
+  "line"
+ ],
+ "expect": {
+  "prompt": {
+   "not_null": true
+  }
+ }
+}

@@ -1,0 +1,24 @@
+{
+  "_comment": "正例：工程名合法、2 页有路径与标题、tabbar 均指向已定义页",
+  "name": "quote-tool",
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "title": "首页"
+    },
+    {
+      "path": "pages/list/list",
+      "title": "清单"
+    }
+  ],
+  "tabbar": [
+    {
+      "page": "pages/index/index",
+      "text": "首页"
+    },
+    {
+      "page": "pages/list/list",
+      "text": "清单"
+    }
+  ]
+}

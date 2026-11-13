@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>内蒙古酒水数据可视化｜基于数据底稿</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;background:#F6F4EE;color:#1E2622;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 80px}
+header{background:linear-gradient(135deg,#132A24 0%,#1F5C4A 55%,#8A6A33 140%);color:#fff;padding:54px 0 46px;margin-bottom:34px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-110px;top:-130px;width:380px;height:380px;border-radius:50%;background:rgba(200,168,106,.16)}
+header .wrap{padding-bottom:0;position:relative;z-index:1}
+.tag{display:inline-block;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.30);padding:5px 14px;border-radius:100px;font-size:12.5px;letter-spacing:.5px;margin-bottom:15px}
+h1{font-size:32px;line-height:1.3;font-weight:700;letter-spacing:-.4px}
+.sub{font-size:15px;opacity:.92;margin-top:12px;max-width:800px}
+.meta{display:flex;gap:30px;flex-wrap:wrap;margin-top:22px;font-size:12.5px;opacity:.86}
+.meta b{display:block;font-size:10.5px;opacity:.68;letter-spacing:1px;font-weight:400;margin-bottom:2px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.kpi{background:#fff;border:1px solid #E2DDD1;border-radius:14px;padding:18px 17px;box-shadow:0 2px 10px rgba(31,92,74,.045)}
+.kpi .k{font-size:12px;color:#7C8580;margin-bottom:7px}
+.kpi .v{font-size:26px;font-weight:700;color:#1F5C4A;line-height:1.12;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:12.5px;font-weight:600;margin-left:2px}
+.kpi .d{font-size:11.5px;color:#7C8580;margin-top:7px}
+.kpi.watch .v{color:#A36A12}.kpi.critical .v{color:#A8322A}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{background:#fff;border:1px solid #E2DDD1;border-radius:14px;padding:18px 18px 14px;box-shadow:0 2px 10px rgba(31,92,74,.04)}
+.card.span2{grid-column:1/-1}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}
+.head h3{font-size:15.5px;color:#173C32;font-weight:700;line-height:1.4}
+.head span{font-size:11.5px;color:#7C8580;white-space:nowrap}
+.chart{width:100%;height:340px}
+.chart.tall{height:480px}
+.src{font-size:11.5px;color:#8A938E;border-top:1px dashed #E7E2D8;padding-top:8px;margin-top:6px}
+.notes{background:#fff;border:1px solid #E2DDD1;border-radius:14px;padding:22px 24px;margin-top:20px}
+.notes h3{font-size:16px;color:#173C32;margin-bottom:10px}
+.notes p,.notes li{font-size:13.4px;color:#4E5A53}
+.notes ul{margin-left:18px;line-height:1.9}
+.notes .warn{background:#FBF3E4;border-left:4px solid #B48328;border-radius:0 8px 8px 0;padding:12px 16px;margin-top:12px;font-size:13.2px;color:#4B3D2E}
+footer{margin-top:34px;padding-top:18px;border-top:1px solid #D7DED6;font-size:12px;color:#7C8580}
+.fallback{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;color:#A8322A;font-size:13px;padding:20px;line-height:1.8}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.card.span2{grid-column:auto}.kpis{grid-template-columns:1fr 1fr}.chart{height:300px}.chart.tall{height:430px}h1{font-size:25px}}
+</style></head><body>
+
+<header><div class="wrap">
+  <div class="tag">蛙蛙呱呱 · R06 数据分析 / R08 可视化 / R15 供应链</div>
+  <h1>内蒙古酒水数据可视化</h1>
+  <div class="sub">10 张图，把 154 亿总盘、40% 地产份额、5.3% 产能利用率与 0.28 元/瓶物流成本画在同一张底稿上</div>
+  <div class="meta">
+    <div><b>数据底稿</b>data/图表序列.csv 等 6 份</div>
+    <div><b>证据</b>41 个来源 · 24 条结论</div>
+    <div><b>口径</b>2025 财年基准 / 零售口径</div>
+    <div><b>生成日期</b>2026-11-12</div>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<div class="kpis">
+  <div class="kpi"><div class="k">酒水总盘</div><div class="v">154<small> 亿元</small></div><div class="d">白酒 95 亿，占 61.7%</div></div>
+  <div class="kpi"><div class="k">地产白酒份额</div><div class="v">40.1<small>%</small></div><div class="d">38.1 亿；外来名酒 56.9 亿</div></div>
+  <div class="kpi critical"><div class="k">白酒产能利用率</div><div class="v">5.3<small>%</small></div><div class="d">设计 90 万吨 / 产量约 4.8 万吨</div></div>
+  <div class="kpi watch"><div class="k">物流单瓶成本</div><div class="v">0.28<small> 元</small></div><div class="d">呼市→北京，183—207 元/吨</div></div>
+</div>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="head"><h3>01 市场结构：白酒占 61.7%</h3><span>2025E · 亿元</span></div>
+    <div id="c1" class="chart"></div>
+    <p class="src">数据底稿：市场总量与结构.csv｜零售口径，含外来名酒</p>
+  </div>
+
+  <div class="card">
+    <div class="head"><h3>02 价格带：100—300 元最厚，也最危险</h3><span>销售额占比 · %</span></div>
+    <div id="c3" class="chart"></div>
+    <p class="src">数据底稿：图表序列.csv（源自调研报告表 3）｜各段 ±3 个百分点</p>
+  </div>
+
+  <div class="card span2">
+    <div class="head"><h3>03 品牌图谱：河套一家占地产酒 36.5%</h3><span>2025E 销售额 · 亿元</span></div>
+    <div id="c2" class="chart tall"></div>
+    <p class="src">数据底稿：品牌清单.csv｜白酒为终端销售额估算，啤酒/葡萄酒为出厂口径折算</p>
+  </div>
+
+  <div class="card">
+    <div class="head"><h3>04 区域产量：赤峰、包头两座酒城</h3><span>万千升</span></div>
+    <div id="c4" class="chart"></div>
+    <p class="src">数据底稿：区域产量.csv｜赤峰为饮料酒口径，其余为啤酒</p>
+  </div>
+
+  <div class="card">
+    <div class="head"><h3>05 单位经济：25 元光瓶是负毛利</h3><span>厂家净利率 · %</span></div>
+    <div id="c5" class="chart"></div>
+    <p class="src">数据底稿：单位经济.csv｜含消费税 20%+0.5 元/500ml、附加税与期间费用</p>
+  </div>
+
+  <div class="card">
+    <div class="head"><h3>06 盒装酒价值链：终端拿走 31.3%</h3><span>零售 128 元 · 元/瓶</span></div>
+    <div id="c6" class="chart"></div>
+    <p class="src">数据底稿：单位经济.csv｜厂家 62 / 渠道 26 / 终端 40</p>
+  </div>
+
+  <div class="card">
+    <div class="head"><h3>07 生产成本：原粮+包材占 68.3%</h3><span>20.5 元/瓶</span></div>
+    <div id="c7" class="chart"></div>
+    <p class="src">数据底稿：单位经济.csv｜128 元盒装酒生产成本拆解</p>
+  </div>
+
+  <div class="card">
+    <div class="head"><h3>08 产能利用率：白酒 5.3%，啤酒 34.6%</h3><span>%</span></div>
+    <div id="c8" class="chart"></div>
+    <p class="src">数据底稿：供应链成本.csv｜白酒 90 万吨设计产能 / 4.8 万吨产量</p>
+  </div>
+
+  <div class="card">
+    <div class="head"><h3>09 物流单瓶成本：通辽线最贵</h3><span>元/瓶</span></div>
+    <div id="c9" class="chart"></div>
+    <p class="src">数据底稿：供应链成本.csv｜按 30 吨车、500ml×6 箱折算</p>
+  </div>
+
+  <div class="card span2">
+    <div class="head"><h3>10 90 天降本：单瓶可省 1.70 元（中值）</h3><span>元/瓶</span></div>
+    <div id="c10" class="chart"></div>
+    <p class="src">数据底稿：供应链成本.csv｜区间 1.35—2.05 元/瓶，图中取中值</p>
+  </div>
+
+</div>
+
+<div class="notes">
+  <h3>口径与使用说明</h3>
+  <ul>
+    <li><b>数据来源：</b>图表读取 <code>data/图表序列.csv</code>，该文件由 <code>data/市场总量与结构.csv</code>、<code>品牌清单.csv</code>、<code>区域产量.csv</code>、<code>单位经济.csv</code>、<code>供应链成本.csv</code> 汇总而来；原始来源见 <code>data/证据台账.json</code>。</li>
+    <li><b>白酒总盘：</b>采用 95 亿元中值；另有 48.7 亿 / 92 亿 / 100 亿三种口径，详见调研报告第七节。</li>
+    <li><b>品牌销售额：</b>白酒品牌为终端销售额估算；啤酒、葡萄酒为按产量/产值折算的出厂销售额，不与白酒直接相加。</li>
+    <li><b>单位经济：</b>出厂价、费用率为行业基准假设，不是任何一家企业的真实报价；消费税按复合计征，啤酒按甲类 250 元/吨。</li>
+    <li><b>区域产量：</b>赤峰为“饮料酒”口径（以啤酒为主），包头/巴彦淖尔为 2024 年、通辽/呼伦贝尔/乌兰浩特为 2025 年，跨年份只用于量级判断。</li>
+  </ul>
+  <div class="warn"><b>刷新方式：</b>改完 <code>data/图表序列.csv</code> 后，在本目录运行 <code>python charts/build_dashboard.py</code>，脚本会把最新数据写回本页的 <code>chart-data</code> JSON 块，无需改 JS。</div>
+</div>
+
+<footer>
+  <p><b>生成角色：</b>R06 蛙得清（数据分析）· R08 蛙建成（可视化）· R15 蛙供应（供应链口径）｜<b>生成时间：</b>2026-11-12</p>
+  <p><b>技术栈：</b>单文件 HTML + ECharts 5.5（CDN）｜<b>依赖：</b>联网加载 <code>echarts.min.js</code>；离线时请把该文件放到本地并修改 script 路径。</p>
+</footer>
+
+</div>
+
+<script id="chart-data" type="application/json">
+{
+  "market": [
+    {"item": "白酒", "value": 95.0, "unit": "亿元", "note": "占61.7%"},
+    {"item": "啤酒", "value": 50.0, "unit": "亿元", "note": "占32.5%"},
+    {"item": "葡萄酒", "value": 6.0, "unit": "亿元", "note": "占3.9%"},
+    {"item": "保健酒", "value": 2.0, "unit": "亿元", "note": "占1.3%"},
+    {"item": "奶酒/马奶酒", "value": 1.0, "unit": "亿元", "note": "占0.6%"}
+  ],
+  "brand": [
+    {"item": "河套王/河套老窖", "value": 13.9, "unit": "亿元", "note": "白酒"},
+    {"item": "蒙古王", "value": 5.2, "unit": "亿元", "note": "白酒"},
+    {"item": "宁城老窖", "value": 4.0, "unit": "亿元", "note": "白酒"},
+    {"item": "草原王", "value": 3.0, "unit": "亿元", "note": "白酒"},
+    {"item": "骆驼酒", "value": 2.5, "unit": "亿元", "note": "白酒"},
+    {"item": "鄂尔多斯酒", "value": 2.0, "unit": "亿元", "note": "白酒"},
+    {"item": "响沙酒", "value": 1.5, "unit": "亿元", "note": "白酒"},
+    {"item": "其他地产酒", "value": 6.0, "unit": "亿元", "note": "白酒"},
+    {"item": "燕京雪鹿", "value": 8.5, "unit": "亿元", "note": "啤酒"},
+    {"item": "燕京金川", "value": 2.0, "unit": "亿元", "note": "啤酒"},
+    {"item": "华润雪花海拉尔", "value": 1.6, "unit": "亿元", "note": "啤酒"},
+    {"item": "汉森葡萄酒", "value": 0.8, "unit": "亿元", "note": "葡萄酒"},
+    {"item": "鸿茅药酒", "value": 1.97, "unit": "亿元", "note": "保健酒"},
+    {"item": "马苏酸马奶", "value": 0.10, "unit": "亿元", "note": "奶酒"}
+  ],
+  "price_band": [
+    {"item": "100元以下", "value": 30, "unit": "%", "note": "光瓶/裸瓶"},
+    {"item": "100—300元", "value": 35, "unit": "%", "note": "地产盒装主战场"},
+    {"item": "300—800元", "value": 23, "unit": "%", "note": "次高端"},
+    {"item": "千元以上", "value": 12, "unit": "%", "note": "名酒/高端酱酒"}
+  ],
+  "region": [
+    {"item": "赤峰", "value": 26.53, "unit": "万千升", "note": "饮料酒（以啤酒为主）"},
+    {"item": "包头", "value": 10.00, "unit": "万千升", "note": "啤酒"},
+    {"item": "巴彦淖尔", "value": 5.62, "unit": "万千升", "note": "啤酒"},
+    {"item": "呼伦贝尔", "value": 5.60, "unit": "万千升", "note": "啤酒"},
+    {"item": "乌兰浩特", "value": 4.47, "unit": "万千升", "note": "啤酒"},
+    {"item": "通辽", "value": 2.13, "unit": "万千升", "note": "啤酒"},
+    {"item": "其他盟市", "value": 7.92, "unit": "万千升", "note": "含呼市/鄂尔多斯"}
+  ],
+  "unit_margin": [
+    {"item": "盒装128元", "value": 18.6, "unit": "%", "note": "厂家"},
+    {"item": "光瓶25元", "value": -5.1, "unit": "%", "note": "厂家"},
+    {"item": "啤酒新瓶", "value": 6.3, "unit": "%", "note": "厂家"},
+    {"item": "啤酒回收瓶", "value": 27.1, "unit": "%", "note": "厂家"}
+  ],
+  "value_chain": [
+    {"item": "厂家", "value": 62, "unit": "元/瓶", "note": "48.4%"},
+    {"item": "渠道", "value": 26, "unit": "元/瓶", "note": "20.3%"},
+    {"item": "终端", "value": 40, "unit": "元/瓶", "note": "31.3%"}
+  ],
+  "cost_structure": [
+    {"item": "原粮", "value": 7.5, "unit": "元/瓶", "note": "36.6%"},
+    {"item": "包材", "value": 6.5, "unit": "元/瓶", "note": "31.7%"},
+    {"item": "人工能耗", "value": 4.5, "unit": "元/瓶", "note": "22.0%"},
+    {"item": "制造费用", "value": 2.0, "unit": "元/瓶", "note": "9.8%"}
+  ],
+  "capacity": [
+    {"item": "白酒", "value": 5.3, "unit": "%", "note": "90万吨设计产能"},
+    {"item": "啤酒", "value": 34.6, "unit": "%", "note": "180万吨设计产能"}
+  ],
+  "logistics": [
+    {"item": "呼市→北京", "value": 0.28, "unit": "元/瓶", "note": "1—2天"},
+    {"item": "呼市→石家庄", "value": 0.27, "unit": "元/瓶", "note": "2天"},
+    {"item": "呼市→赤峰", "value": 0.39, "unit": "元/瓶", "note": "2—3天"},
+    {"item": "呼市→通辽", "value": 0.49, "unit": "元/瓶", "note": "3—4天"},
+    {"item": "包头→呼市", "value": 0.15, "unit": "元/瓶", "note": "当日/次日"}
+  ],
+  "saving": [
+    {"item": "玻璃瓶集采", "value": 0.125, "unit": "元/瓶", "note": "双源+集采"},
+    {"item": "纸盒简化", "value": 1.25, "unit": "元/瓶", "note": "本地印刷"},
+    {"item": "高粱锁价", "value": 0.25, "unit": "元/瓶", "note": "60%锁价"},
+    {"item": "VMI库存", "value": 0.075, "unit": "元/瓶", "note": "45天→15天"}
+  ]
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script>
+(function () {
+  var charts = document.querySelectorAll('.chart');
+  if (!window.echarts) {
+    charts.forEach(function (el) {
+      el.innerHTML = '<div class="fallback">ECharts 加载失败：请联网后刷新，<br>或把 echarts.min.js 放到本地并修改 script 路径。</div>';
+    });
+    return;
+  }
+
+  var D = JSON.parse(document.getElementById('chart-data').textContent);
+  var C = {
+    green: '#1F5C4A', green2: '#5E8F7A', green3: '#8FB3A5',
+    gold: '#A8894F', gold2: '#C9A227', red: '#A8322A', blue: '#243746',
+    slate: '#5D7C8C', purple: '#6B5B95', sand: '#C9D8D1',
+    ink: '#1E2622', body: '#3D4A44', muted: '#7C8580', grid: '#F0EEE7'
+  };
+  var baseTooltip = {
+    backgroundColor: 'rgba(255,255,255,.97)',
+    borderColor: '#DDD6C8',
+    borderWidth: 1,
+    textStyle: { color: C.ink, fontSize: 12 },
+    extraCssText: 'box-shadow:0 4px 18px rgba(0,0,0,.08);border-radius:8px;'
+  };
+  var axisLabel = { color: C.muted, fontSize: 11 };
+  var axisLine = { lineStyle: { color: '#D7D2C6' } };
+  var splitLine = { lineStyle: { color: C.grid } };
+
+  function init(id) {
+    var el = document.getElementById(id);
+    var chart = echarts.init(el);
+    window.addEventListener('resize', function () { chart.resize(); });
+    return chart;
+  }
+
+  // 01 市场结构
+  var c1 = init('c1');
+  var marketColors = [C.green, C.green2, C.gold, C.red, C.gold2];
+  var marketTotal = D.market.reduce(function (sum, d) { return sum + d.value; }, 0);
+  c1.setOption({
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'item',
+      formatter: function (p) { return p.name + '<br/>' + p.value + ' 亿元（' + p.percent + '%）'; }
+    }),
+    legend: { bottom: 0, icon: 'circle', itemWidth: 8, itemHeight: 8, textStyle: { color: C.muted, fontSize: 11 } },
+    title: {
+      text: String(marketTotal), subtext: '亿元 · 2025E', left: 'center', top: '34%',
+      textStyle: { fontSize: 30, fontWeight: 'bold', color: C.green },
+      subtextStyle: { fontSize: 11.5, color: C.muted }
+    },
+    series: [{
+      type: 'pie', radius: ['46%', '68%'], center: ['50%', '44%'],
+      itemStyle: { borderColor: '#fff', borderWidth: 3 },
+      label: { formatter: '{b}\n{c}亿', color: C.body, fontSize: 11, lineHeight: 15 },
+      labelLine: { length: 8, length2: 7, lineStyle: { color: '#CFC9BB' } },
+      data: D.market.map(function (d, i) {
+        return { name: d.item, value: d.value, itemStyle: { color: marketColors[i] } };
+      })
+    }]
+  });
+
+  // 02 价格带
+  var c3 = init('c3');
+  var priceColors = [C.green3, C.red, C.gold, C.green2];
+  c3.setOption({
+    grid: { left: 46, right: 20, top: 28, bottom: 44 },
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      formatter: function (p) { return p[0].name + '<br/>销售额占比 ' + p[0].value + '%'; }
+    }),
+    xAxis: {
+      type: 'category', data: D.price_band.map(function (d) { return d.item; }),
+      axisLabel: Object.assign({}, axisLabel, { color: C.body, interval: 0 }),
+      axisTick: { show: false }, axisLine: axisLine
+    },
+    yAxis: {
+      type: 'value', name: '占比 %', nameTextStyle: { color: C.muted, fontSize: 11 },
+      axisLabel: Object.assign({}, axisLabel, { formatter: '{value}%' }),
+      axisLine: { show: false }, splitLine: splitLine
+    },
+    series: [{
+      type: 'bar', barWidth: '44%',
+      data: D.price_band.map(function (d, i) {
+        return { value: d.value, itemStyle: { color: priceColors[i], borderRadius: [6, 6, 0, 0] } };
+      }),
+      label: { show: true, position: 'top', formatter: '{c}%', color: C.ink, fontWeight: 'bold', fontSize: 12 }
+    }]
+  });
+
+  // 03 品牌图谱
+  var c2 = init('c2');
+  var brandData = D.brand.slice().sort(function (a, b) { return a.value - b.value; });
+  function brandColor(note) {
+    if (note === '啤酒') return C.gold;
+    if (note === '葡萄酒') return C.purple;
+    if (note === '保健酒') return C.red;
+    if (note === '奶酒') return C.gold2;
+    return C.green;
+  }
+  c2.setOption({
+    grid: { left: 132, right: 58, top: 10, bottom: 18 },
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      formatter: function (p) { return p[0].name + '<br/>' + p[0].data.note + ' · ' + p[0].value + ' 亿元'; }
+    }),
+    xAxis: {
+      type: 'value', axisLabel: axisLabel, axisLine: { show: false }, splitLine: splitLine
+    },
+    yAxis: {
+      type: 'category', data: brandData.map(function (d) { return d.item; }),
+      axisLabel: { color: C.body, fontSize: 11 }, axisTick: { show: false }, axisLine: axisLine
+    },
+    series: [{
+      type: 'bar', barWidth: '52%',
+      data: brandData.map(function (d) {
+        return { value: d.value, note: d.note, itemStyle: { color: brandColor(d.note), borderRadius: [0, 4, 4, 0] } };
+      }),
+      label: { show: true, position: 'right', formatter: '{c}', color: C.muted, fontSize: 10.5 }
+    }]
+  });
+
+  // 04 区域产量
+  var c4 = init('c4');
+  var regionData = D.region.slice().sort(function (a, b) { return a.value - b.value; });
+  c4.setOption({
+    grid: { left: 96, right: 52, top: 10, bottom: 18 },
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      formatter: function (p) { return p[0].name + '<br/>' + p[0].data.note + ' · ' + p[0].value + ' 万千升'; }
+    }),
+    xAxis: { type: 'value', axisLabel: axisLabel, axisLine: { show: false }, splitLine: splitLine },
+    yAxis: {
+      type: 'category', data: regionData.map(function (d) { return d.item; }),
+      axisLabel: { color: C.body, fontSize: 11 }, axisTick: { show: false }, axisLine: axisLine
+    },
+    series: [{
+      type: 'bar', barWidth: '54%',
+      data: regionData.map(function (d) {
+        var color = d.item === '赤峰' ? C.green : (d.item === '其他盟市' ? C.sand : C.slate);
+        return { value: d.value, note: d.note, itemStyle: { color: color, borderRadius: [0, 4, 4, 0] } };
+      }),
+      label: { show: true, position: 'right', formatter: '{c}', color: C.muted, fontSize: 10.5 }
+    }]
+  });
+
+  // 05 单位经济净利率
+  var c5 = init('c5');
+  c5.setOption({
+    grid: { left: 52, right: 20, top: 34, bottom: 38 },
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      formatter: function (p) { return p[0].name + '<br/>厂家净利率 ' + p[0].value + '%'; }
+    }),
+    xAxis: {
+      type: 'category', data: D.unit_margin.map(function (d) { return d.item; }),
+      axisLabel: Object.assign({}, axisLabel, { color: C.body, interval: 0, fontSize: 10.5 }),
+      axisTick: { show: false }, axisLine: axisLine
+    },
+    yAxis: {
+      type: 'value', name: '净利率 %', nameTextStyle: { color: C.muted, fontSize: 11 },
+      axisLabel: Object.assign({}, axisLabel, { formatter: '{value}%' }),
+      axisLine: { show: false }, splitLine: splitLine
+    },
+    series: [{
+      type: 'bar', barWidth: '44%',
+      data: D.unit_margin.map(function (d) {
+        var positive = d.value >= 0;
+        return {
+          value: d.value,
+          itemStyle: {
+            color: positive ? (d.value > 20 ? '#146B52' : C.gold) : C.red,
+            borderRadius: positive ? [6, 6, 0, 0] : [0, 0, 6, 6]
+          },
+          label: { position: positive ? 'top' : 'bottom' }
+        };
+      }),
+      label: { show: true, formatter: '{c}%', color: C.ink, fontWeight: 'bold', fontSize: 12 },
+      markLine: {
+        silent: true, symbol: 'none',
+        lineStyle: { color: C.muted, type: 'dashed', width: 1 },
+        data: [{ yAxis: 0 }]
+      }
+    }]
+  });
+
+  // 06 盒装酒价值链
+  var c6 = init('c6');
+  var vc = D.value_chain;
+  c6.setOption({
+    grid: { left: 24, right: 24, top: 42, bottom: 26 },
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      formatter: function (p) {
+        return p.map(function (x) { return x.seriesName + '：' + x.value + ' 元'; }).join('<br/>');
+      }
+    }),
+    legend: { top: 0, icon: 'circle', itemWidth: 8, itemHeight: 8, textStyle: { color: C.muted, fontSize: 11 } },
+    xAxis: {
+      type: 'value', max: 128, axisLabel: Object.assign({}, axisLabel, { formatter: '{value}元' }),
+      axisLine: { show: false }, splitLine: splitLine
+    },
+    yAxis: { type: 'category', data: ['零售 128 元'], axisLabel: { show: false }, axisTick: { show: false }, axisLine: { show: false } },
+    series: [
+      { name: '厂家', type: 'bar', stack: 'total', data: [vc[0].value], barWidth: '34%',
+        itemStyle: { color: C.green }, label: { show: true, formatter: '{c}', color: '#fff', fontSize: 13, fontWeight: 'bold' } },
+      { name: '渠道', type: 'bar', stack: 'total', data: [vc[1].value],
+        itemStyle: { color: C.gold }, label: { show: true, formatter: '{c}', color: '#fff', fontSize: 12, fontWeight: 'bold' } },
+      { name: '终端', type: 'bar', stack: 'total', data: [vc[2].value],
+        itemStyle: { color: C.gold2, borderRadius: [0, 6, 6, 0] }, label: { show: true, formatter: '{c}', color: '#3A2C08', fontSize: 13, fontWeight: 'bold' } }
+    ]
+  });
+
+  // 07 生产成本结构
+  var c7 = init('c7');
+  var costColors = [C.green, C.gold, C.slate, C.green3];
+  var costTotal = D.cost_structure.reduce(function (sum, d) { return sum + d.value; }, 0);
+  c7.setOption({
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'item',
+      formatter: function (p) { return p.name + '<br/>' + p.value + ' 元/瓶（' + p.percent + '%）'; }
+    }),
+    legend: { bottom: 0, icon: 'circle', itemWidth: 8, itemHeight: 8, textStyle: { color: C.muted, fontSize: 11 } },
+    title: {
+      text: costTotal.toFixed(1), subtext: '元/瓶', left: 'center', top: '36%',
+      textStyle: { fontSize: 26, fontWeight: 'bold', color: C.green },
+      subtextStyle: { fontSize: 11, color: C.muted }
+    },
+    series: [{
+      type: 'pie', radius: ['44%', '66%'], center: ['50%', '44%'],
+      itemStyle: { borderColor: '#fff', borderWidth: 3 },
+      label: { formatter: '{b}\n{c}元', color: C.body, fontSize: 10.5, lineHeight: 14 },
+      labelLine: { length: 8, length2: 6, lineStyle: { color: '#CFC9BB' } },
+      data: D.cost_structure.map(function (d, i) {
+        return { name: d.item, value: d.value, itemStyle: { color: costColors[i] } };
+      })
+    }]
+  });
+
+  // 08 产能利用率
+  var c8 = init('c8');
+  c8.setOption({
+    grid: { left: 52, right: 24, top: 34, bottom: 34 },
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      formatter: function (p) { return p[0].name + '<br/>产能利用率 ' + p[0].value + '%'; }
+    }),
+    xAxis: {
+      type: 'category', data: D.capacity.map(function (d) { return d.item; }),
+      axisLabel: Object.assign({}, axisLabel, { color: C.body, fontSize: 12 }),
+      axisTick: { show: false }, axisLine: axisLine
+    },
+    yAxis: {
+      type: 'value', max: 100, name: '利用率 %', nameTextStyle: { color: C.muted, fontSize: 11 },
+      axisLabel: Object.assign({}, axisLabel, { formatter: '{value}%' }),
+      axisLine: { show: false }, splitLine: splitLine
+    },
+    series: [{
+      type: 'bar', barWidth: '38%',
+      data: D.capacity.map(function (d, i) {
+        return { value: d.value, itemStyle: { color: i === 0 ? C.red : C.gold, borderRadius: [6, 6, 0, 0] } };
+      }),
+      label: { show: true, position: 'top', formatter: '{c}%', color: C.ink, fontWeight: 'bold', fontSize: 13 }
+    }]
+  });
+
+  // 09 物流单瓶成本
+  var c9 = init('c9');
+  var logData = D.logistics.slice().sort(function (a, b) { return a.value - b.value; });
+  c9.setOption({
+    grid: { left: 112, right: 52, top: 10, bottom: 18 },
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      formatter: function (p) { return p[0].name + '<br/>单瓶物流 ' + p[0].value + ' 元（' + p[0].data.note + '）'; }
+    }),
+    xAxis: {
+      type: 'value', name: '元/瓶', nameTextStyle: { color: C.muted, fontSize: 11 },
+      axisLabel: axisLabel, axisLine: { show: false }, splitLine: splitLine
+    },
+    yAxis: {
+      type: 'category', data: logData.map(function (d) { return d.item; }),
+      axisLabel: { color: C.body, fontSize: 11 }, axisTick: { show: false }, axisLine: axisLine
+    },
+    series: [{
+      type: 'bar', barWidth: '54%',
+      data: logData.map(function (d) {
+        return { value: d.value, note: d.note, itemStyle: { color: d.value > 0.4 ? C.red : C.green, borderRadius: [0, 4, 4, 0] } };
+      }),
+      label: { show: true, position: 'right', formatter: '{c} 元', color: C.muted, fontSize: 10.5 }
+    }]
+  });
+
+  // 10 降本瀑布
+  var c10 = init('c10');
+  var items = D.saving.map(function (d) { return d.item; }).concat(['合计']);
+  var values = D.saving.map(function (d) { return d.value; });
+  var bases = [];
+  var acc = 0;
+  values.forEach(function (v) { bases.push(acc); acc += v; });
+  bases.push(0);
+  var total = acc;
+  var steps = values.concat([total]);
+  var saveColors = [C.green, C.gold, C.green2, C.slate, C.blue];
+  c10.setOption({
+    grid: { left: 54, right: 24, top: 34, bottom: 44 },
+    tooltip: Object.assign({}, baseTooltip, {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      formatter: function (p) {
+        var bar = p.filter(function (x) { return x.seriesName === '降本'; })[0];
+        return p[0].name + '<br/>降本 ' + bar.value + ' 元/瓶';
+      }
+    }),
+    xAxis: {
+      type: 'category', data: items,
+      axisLabel: Object.assign({}, axisLabel, { color: C.body, interval: 0, fontSize: 10.5 }),
+      axisTick: { show: false }, axisLine: axisLine
+    },
+    yAxis: {
+      type: 'value', name: '元/瓶', nameTextStyle: { color: C.muted, fontSize: 11 },
+      axisLabel: axisLabel, axisLine: { show: false }, splitLine: splitLine
+    },
+    series: [
+      { name: 'base', type: 'bar', stack: 'w', data: bases, itemStyle: { color: 'transparent' }, barWidth: '46%', silent: true },
+      { name: '降本', type: 'bar', stack: 'w', barWidth: '46%',
+        data: steps.map(function (v, i) {
+          return { value: v, itemStyle: { color: saveColors[i], borderRadius: [4, 4, 0, 0] } };
+        }),
+        label: {
+          show: true, position: 'top',
+          formatter: function (p) { return p.dataIndex === steps.length - 1 ? p.value.toFixed(2) : '+' + p.value; },
+          color: C.ink, fontWeight: 'bold', fontSize: 11
+        }
+      }
+    ]
+  });
+
+})();
+</script>
+</body></html>

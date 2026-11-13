@@ -1,0 +1,16 @@
+{
+  "_comment": "个护调研交付物清点（R04 机械核验：存在/非空/大小）；路径用绝对路径，避免 r04 以自身目录解析相对路径",
+  "items": [
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析报告_2026-11-12.html", "type": "report", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析报告_2026-11-12.pdf", "type": "report", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/个护品类数据与经营分析_快读版.md", "type": "doc", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/交付说明.md", "type": "doc", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/evidence_ledger.json", "type": "data", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/analysis_results.json", "type": "data", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/data/observations.csv", "type": "data", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/data/derived_metrics.csv", "type": "data", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/analyze.py", "type": "code", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/build_report.py", "type": "code", "required": true},
+    {"path": "D:/蛙蛙呱呱/个护调研_2026-11-12/gates/report_gate.json", "type": "config", "required": true}
+  ]
+}

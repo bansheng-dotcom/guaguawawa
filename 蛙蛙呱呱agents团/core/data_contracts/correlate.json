@@ -1,0 +1,22 @@
+{
+ "name": "correlate",
+ "fields": [
+  {
+   "name": "discount",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": [
+    0,
+    1
+   ]
+  },
+  {
+   "name": "revenue",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

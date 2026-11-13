@@ -1,0 +1,25 @@
+{
+ "skill": "rdd",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_rdd.csv",
+  "--y",
+  "paid_value",
+  "--running",
+  "cart_value",
+  "--cutoff",
+  "99",
+  "--sensitivity"
+ ],
+ "expect": {
+  "rdd.placebo_status": {
+   "in": [
+    "ok",
+    "unavailable"
+   ]
+  },
+  "rdd.estimate": {
+   "not_null": true
+  }
+ }
+}

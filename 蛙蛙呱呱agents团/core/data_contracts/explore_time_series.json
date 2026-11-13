@@ -1,0 +1,19 @@
+{
+ "name": "explore:time_series",
+ "fields": [
+  {
+   "name": "order_date",
+   "dtype": "date",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "revenue",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

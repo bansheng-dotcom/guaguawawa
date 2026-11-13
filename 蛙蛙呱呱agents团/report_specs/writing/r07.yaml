@@ -1,0 +1,44 @@
+role: r07
+doc_type: 产品需求报告 · 蛙得明
+title: '产品需求：问题
+
+  与取舍'
+title_highlight: 与取舍
+title_highlight_style: underline
+meta:
+- 读者：研发 / 设计 / 创始人
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r07 · shared/report_writer + core/report_renderer
+sections:
+- title: 问题
+  question: 这个问题是真的吗？
+  intro: 没有问题证据的需求，都是方案在找问题。
+  boundary: 证据以 VOC 与行为数据为准。
+- title: 用户
+  question: 为谁做、最痛的是谁？
+  intro: 服务所有人等于不服务任何人。
+  boundary: 用户分层需可识别、可触达。
+- title: 方案与范围
+  question: 能不能少做几步？
+  intro: 范围每加一项，验证周期就长一截。
+  boundary: P0 必须能独立验证。
+- title: 优先级与指标
+  question: 先做哪个、怎么算成功？
+  intro: 没有基线的目标，等于没有目标。
+  boundary: 指标需可从现有埋点取数。
+- title: 判断与动作
+  question: 先做哪一件？
+  intro: 先做能证伪的那件。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 问题
+- label: 关键
+  section: 方案与范围
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

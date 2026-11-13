@@ -1,0 +1,44 @@
+role: r04
+doc_type: 评审报告 · 蛙挑刺
+title: '独立评审：证据
+
+  与缺陷'
+title_highlight: 与缺陷
+title_highlight_style: underline
+meta:
+- 读者：创始人 + 被评角色
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r04 · shared/report_writer + core/report_renderer
+sections:
+- title: 物料齐备
+  question: 物料齐不齐？
+  intro: 缺件不评，评了也不算数。
+  boundary: 物料清单以交付契约为准。
+- title: 证据链
+  question: 证据是真是假？
+  intro: 存在、实质、连通，三层缺一不可。
+  boundary: L2 实质以可执行命令与输出为准。
+- title: 对抗挑战
+  question: 哪里最容易被骗过？
+  intro: 评审的价值在找出能骗过门禁的手法。
+  boundary: 挑战项需给出 failure_category。
+- title: 门禁强度
+  question: 门禁够不够硬？
+  intro: 门禁能被绕过，等于没有。
+  boundary: 门禁强度按 STRENGTH 七条检查。
+- title: 判断与动作
+  question: 放行还是退回、退给谁？
+  intro: 裁决必须点名责任人与复评条件。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 物料齐备
+- label: 关键
+  section: 对抗挑战
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

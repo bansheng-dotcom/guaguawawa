@@ -1,0 +1,159 @@
+{
+  "name": "guan-yao",
+  "version": "1.0.0",
+  "description": "A five-specialist Chinese divination team covering 16 traditional systems, with script-verified chart casting, classical-text citation, and cross-method validation.",
+  "author": {
+    "name": "WorkBuddy User",
+    "email": "user@local"
+  },
+  "agents": [
+    "./agents/guan-yao-team-lead.md",
+    "./agents/mingli-master.md",
+    "./agents/gua-master.md",
+    "./agents/sanshi-master.md",
+    "./agents/kanyu-master.md",
+    "./agents/xiangzi-master.md"
+  ],
+  "skills": [
+    "./skills/观爻卜算"
+  ],
+  "expertType": "team",
+  "agentName": "guan-yao-team-lead",
+  "teamInfo": {
+    "leadAgent": "guan-yao-team-lead",
+    "memberAgents": [
+      "mingli-master",
+      "gua-master",
+      "sanshi-master",
+      "kanyu-master",
+      "xiangzi-master"
+    ]
+  },
+  "displayName": {
+    "en": "Guan Yao",
+    "zh": "观爻"
+  },
+  "profession": {
+    "en": "Guan Yao",
+    "zh": "观爻"
+  },
+  "displayDescription": {
+    "en": "Sixteen Chinese divination systems with script-cast charts, classical-text citations, and five-specialist cross-validation for outcome, timing, and remedy.",
+    "zh": "十六门术数全开：脚本起盘、典籍原文佐证，五师分断后交叉验证，给出吉凶、应期与趋避建议。"
+  },
+  "avatar": "avatars/team.jpg",
+  "categoryId": "12-IndustryConsultant",
+  "defaultInitPrompt": {
+    "en": "Will this job change work out, and when is the right time to move?",
+    "zh": "这次跳槽能不能成？什么时候动比较合适"
+  },
+  "plugin": "guan-yao",
+  "tags": [
+    {
+      "en": "Divination & Casting",
+      "zh": "占卜起卦"
+    },
+    {
+      "en": "Bazi & Ziwei",
+      "zh": "八字紫微"
+    },
+    {
+      "en": "Feng Shui & Date Selection",
+      "zh": "风水择日"
+    }
+  ],
+  "quickPrompts": [
+    {
+      "en": "Will this job change work out, and when is the right time to move?",
+      "zh": "这次跳槽能不能成？什么时候动比较合适"
+    },
+    {
+      "en": "Cast my Bazi chart and read my career direction plus the next three years.",
+      "zh": "帮我排八字，看事业方向和近三年流年"
+    },
+    {
+      "en": "I'm moving house next month - pick an auspicious day for me.",
+      "zh": "下个月想搬家，帮我挑个吉日"
+    }
+  ],
+  "members": [
+    {
+      "id": "guan-yao-team-lead",
+      "displayName": {
+        "en": "Guan Yao",
+        "zh": "观爻"
+      },
+      "profession": {
+        "en": "Chief Diviner",
+        "zh": "总断全局"
+      },
+      "avatar": "avatars/guan-yao-team-lead.jpg",
+      "role": "lead"
+    },
+    {
+      "id": "mingli-master",
+      "displayName": {
+        "en": "Si Ming",
+        "zh": "司命"
+      },
+      "profession": {
+        "en": "Destiny & Fortune Reader",
+        "zh": "星命推运"
+      },
+      "avatar": "avatars/mingli-master.jpg",
+      "role": "member"
+    },
+    {
+      "id": "gua-master",
+      "displayName": {
+        "en": "Yan Yao",
+        "zh": "演爻"
+      },
+      "profession": {
+        "en": "Hexagram Reader",
+        "zh": "卦象断事"
+      },
+      "avatar": "avatars/gua-master.jpg",
+      "role": "member"
+    },
+    {
+      "id": "sanshi-master",
+      "displayName": {
+        "en": "Yun Chou",
+        "zh": "运筹"
+      },
+      "profession": {
+        "en": "Timing & Strategy Reader",
+        "zh": "三式定时"
+      },
+      "avatar": "avatars/sanshi-master.jpg",
+      "role": "member"
+    },
+    {
+      "id": "kanyu-master",
+      "displayName": {
+        "en": "Xun Long",
+        "zh": "寻龙"
+      },
+      "profession": {
+        "en": "Geomancy & Almanac Reader",
+        "zh": "堪舆择日"
+      },
+      "avatar": "avatars/kanyu-master.jpg",
+      "role": "member"
+    },
+    {
+      "id": "xiangzi-master",
+      "displayName": {
+        "en": "Jian Xing",
+        "zh": "鉴形"
+      },
+      "profession": {
+        "en": "Face & Glyph Reader",
+        "zh": "相字察微"
+      },
+      "avatar": "avatars/xiangzi-master.jpg",
+      "role": "member"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "elasticity": {
+    "elasticity": -1.344,
+    "r2": 0.5692,
+    "n": 39,
+    "note": "弹性 <-1 为富有弹性；仅线性近似"
+  },
+  "price": "avg_price",
+  "qty": "units",
+  "runtime_ms": 0
+}

@@ -1,0 +1,23 @@
+{
+  "_comment": "正例：阶段/唯一北极星/预注册实验/停止条件三件套齐全 → harness plan 应通过",
+  "growth_stage": "成长期",
+  "metrics": {
+    "northstar": "付费用户数",
+    "ltv": 1600,
+    "cac": 150,
+    "payback_months": 2.0,
+    "guardrail": "退款率"
+  },
+  "experiments": {
+    "hypothesis": "简化注册页把激活率从 40% 提到 50%",
+    "metric": "activation_rate",
+    "significance": 0.05,
+    "sample_size": 2400,
+    "duration_days": 14
+  },
+  "stop_condition": {
+    "kill_criteria": "激活率连续四周低于基线 20% 即停",
+    "guardrail": "不刷单、不伪造评价、不诱导分享",
+    "owner": "r12"
+  }
+}

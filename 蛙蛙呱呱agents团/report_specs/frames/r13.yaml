@@ -1,0 +1,51 @@
+role: r13
+domain: 客户成功
+objects:
+- 客户
+- 健康分
+- 管道
+- 工单
+value_chain: []
+decisions:
+- 续约
+- 升级
+- 放弃
+- 补访
+questions:
+- id: Q1
+  question: 谁会跑？
+  needs:
+  - 使用活跃
+  - 工单
+  - VOC
+  - 合同到期
+  ops: []
+  decision: 先救谁
+- id: Q2
+  question: 为什么跑？
+  needs:
+  - 四维健康分
+  - 归因
+  ops: []
+  decision: 改产品还是改服务
+- id: Q3
+  question: 能收多少？
+  needs:
+  - 管道阶段
+  - 加权金额
+  ops: []
+  decision: 预测怎么报
+- id: Q4
+  question: 服务达标吗？
+  needs:
+  - SLA 记录
+  - CSAT
+  ops: []
+  decision: 要不要加人
+- id: Q5
+  question: 谁去救、什么时候？
+  needs:
+  - 客户分层
+  - 负责人
+  ops: []
+  decision: 排谁的日程

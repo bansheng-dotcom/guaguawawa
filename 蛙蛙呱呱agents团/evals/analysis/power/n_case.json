@@ -1,0 +1,18 @@
+{
+ "skill": "power",
+ "args": [
+  "--baseline",
+  "0.05",
+  "--mde",
+  "0.005",
+  "--alpha",
+  "0.05",
+  "--power",
+  "0.8"
+ ],
+ "expect": {
+  "power.required_n_per_group": {
+   "gt": 0
+  }
+ }
+}

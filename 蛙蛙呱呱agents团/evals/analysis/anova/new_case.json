@@ -1,0 +1,16 @@
+{
+ "skill": "anova",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--value",
+  "revenue",
+  "--group",
+  "is_new"
+ ],
+ "expect": {
+  "anova.p_exact": {
+   "not_null": true
+  }
+ }
+}

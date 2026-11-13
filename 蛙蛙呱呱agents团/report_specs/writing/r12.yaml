@@ -1,0 +1,63 @@
+role: r12
+doc_type: 增长诊断报告 · 蛙引流
+title: '呼市鲜果：增长漏斗
+
+  与渠道效率'
+title_highlight: 与渠道效率
+title_highlight_style: underline
+meta:
+- 读者：创始人 / 投放
+- 数据截止：2026-11-13
+- 口径：漏斗 6 个月 · 渠道 CAC
+- 样本：6 个月、4 个渠道
+footer:
+- r12 · shared/report_writer + core/report_renderer
+- 数据：示例公司（合成，演示用）
+sections:
+- title: 漏斗
+  question: 卡在哪一段？
+  intro: 增长不是把每一段都推高，是找最便宜的那一段。
+  boundary: 漏斗为月度去重口径，跨月会重复计人。
+  chart: funnel
+- title: 单位经济
+  question: LTV 和 CAC 差多少？
+  intro: 没有单位经济的增长是借来的。
+  boundary: LTV 按 3.2 次/年、2 年生命周期估算。
+- title: 留存与复购
+  question: 复购在变好还是变差？
+  intro: 复购是增长的复利，首单只是流量。
+  boundary: 复购定义为首单后 90 天内二次下单。
+  chart: trend
+- title: 渠道效率
+  question: 哪个渠道该加、该砍？
+  intro: 预算应该跟着 ROI 走，不跟着 GMV 走。
+  boundary: CAC 为期间均值，未含自然流量。
+  chart: cac
+- title: 预算模拟
+  question: 挪 20% 预算会怎样？
+  intro: 先算再挪，别拿整月预算做实验。
+  boundary: 模拟按当前 CAC 线性外推，未计饱和效应。
+- title: 实验设计
+  question: 新方案怎么验？
+  intro: 预注册假设与停止条件，避免事后解释。
+  boundary: 样本量按 α=0.05、power=0.8 估算。
+- title: 数据缺口
+  question: 还有哪些增长问题答不了？
+  intro: 缺表就写缺表，不要用结论补。
+  boundary: 缺口项已排除出结论。
+- title: 判断与动作
+  question: 预算怎么挪？
+  intro: 先小步，再放量。
+  table: decision
+  no_reading: true
+summary:
+- label: 漏斗
+  section: 漏斗
+- label: 经济
+  section: 单位经济
+- label: 渠道
+  section: 渠道效率
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

@@ -1,0 +1,44 @@
+role: r16
+doc_type: 组织报告 · 蛙人事
+title: '组织：人效
+
+  与缺口'
+title_highlight: 与缺口
+title_highlight_style: underline
+meta:
+- 读者：创始人 / HR
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r16 · shared/report_writer + core/report_renderer
+sections:
+- title: 人效
+  question: 人效在升还是在降？
+  intro: 人效下滑时加人，是把问题放大。
+  boundary: 人效按人均产出与人力成本双口径。
+- title: 缺口
+  question: 补得回来吗？
+  intro: 到岗周期决定缺口能不能等。
+  boundary: 缺口按岗位与到岗周期估算。
+- title: 成本
+  question: 薪酬带宽合理吗？
+  intro: 同岗不同酬是最贵的隐性成本。
+  boundary: 带宽以市场分位为参考。
+- title: 合规
+  question: 有没有用工风险？
+  intro: 合同、考勤、社保，缺一项就是一个洞。
+  boundary: 合规以现行法规为准，不构成法律意见。
+- title: 判断与动作
+  question: 招、缓还是调？
+  intro: 编制动作要与营收挂钩。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 人效
+- label: 关键
+  section: 成本
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

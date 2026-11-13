@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "tasks": [
+    {
+      "id": "T01",
+      "title": "现金跑道诊断",
+      "owner": "r03",
+      "status": "done",
+      "estimate_h": 8,
+      "deps": [],
+      "critical": true,
+      "acceptance": "跑道误差<1个月"
+    },
+    {
+      "id": "T02",
+      "title": "供应商 TCO 复核",
+      "owner": "r15",
+      "status": "running",
+      "estimate_h": 12,
+      "deps": [
+        "T01"
+      ],
+      "critical": true,
+      "acceptance": "三家 TCO 可复算"
+    },
+    {
+      "id": "T03",
+      "title": "渠道预算调整",
+      "owner": "r12",
+      "status": "pending",
+      "estimate_h": 6,
+      "deps": [
+        "T02"
+      ],
+      "critical": false,
+      "acceptance": "CAC 变化可解释"
+    },
+    {
+      "id": "T04",
+      "title": "退款原因码上线",
+      "owner": "r14",
+      "status": "blocked",
+      "estimate_h": 10,
+      "deps": [
+        "T02",
+        "T03"
+      ],
+      "critical": true,
+      "acceptance": "原因码缺失<5%"
+    }
+  ],
+  "capacity": {
+    "r03": 0.62,
+    "r12": 0.91,
+    "r14": 0.78,
+    "r15": 0.55
+  }
+}

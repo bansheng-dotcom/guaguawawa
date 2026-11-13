@@ -1,0 +1,575 @@
+{
+  "role_id": "r04",
+  "domain": "独立评审与质量门禁",
+  "max_questions": 2,
+  "execution_inputs": {
+    "input": {
+      "resolve": "task_port",
+      "question": "待评审成品/证据包在哪？"
+    }
+  },
+  "lexicon": {
+    "artifact": {
+      "deliverable": [
+        "成品",
+        "交付物",
+        "工件"
+      ],
+      "report": [
+        "报告",
+        "prd",
+        "文档"
+      ],
+      "batch": [
+        "批次",
+        "一批",
+        "多份"
+      ]
+    },
+    "objective": {
+      "pass": [
+        "通过",
+        "达标",
+        "放行"
+      ],
+      "block": [
+        "打回",
+        "拦截",
+        "不通过"
+      ],
+      "delta": [
+        "对比",
+        "复评",
+        "差值"
+      ]
+    },
+    "evidence": {
+      "source": [
+        "来源",
+        "引用",
+        "链接"
+      ],
+      "data": [
+        "数据",
+        "数字",
+        "统计"
+      ],
+      "none": [
+        "没有来源",
+        "无来源"
+      ]
+    },
+    "owner": {
+      "reviewer": [
+        "评审官",
+        "我自己"
+      ],
+      "human": [
+        "人工",
+        "老板",
+        "客户"
+      ],
+      "producer": [
+        "生产方",
+        "作者",
+        "负责团队"
+      ]
+    }
+  },
+  "assumptions": {},
+  "assumption_reason": {},
+  "questions": {
+    "action": {
+      "question": "要做哪一类评审动作？",
+      "options": [
+        {
+          "value": "verify",
+          "label": "证据链核验"
+        },
+        {
+          "value": "review",
+          "label": "判据审查"
+        },
+        {
+          "value": "audit",
+          "label": "门禁审计"
+        },
+        {
+          "value": "critique",
+          "label": "质量批评"
+        },
+        {
+          "value": "check",
+          "label": "事实核查"
+        },
+        {
+          "value": "mark",
+          "label": "保留优点"
+        },
+        {
+          "value": "package",
+          "label": "人工评审包"
+        }
+      ]
+    },
+    "artifact": {
+      "question": "评审对象是哪份成品？",
+      "options": [
+        {
+          "value": "deliverable",
+          "label": "单件成品/交付物"
+        },
+        {
+          "value": "report",
+          "label": "报告/PRD 文档"
+        },
+        {
+          "value": "batch",
+          "label": "一批工件"
+        }
+      ]
+    },
+    "objective": {
+      "question": "这轮评审的判定目标是什么？",
+      "options": [
+        {
+          "value": "pass",
+          "label": "确认可放行"
+        },
+        {
+          "value": "block",
+          "label": "找理由打回"
+        },
+        {
+          "value": "delta",
+          "label": "与上轮对比"
+        }
+      ]
+    },
+    "evidence": {
+      "question": "证据来自哪里？",
+      "options": [
+        {
+          "value": "source",
+          "label": "引用来源/链接"
+        },
+        {
+          "value": "data",
+          "label": "数据/统计"
+        },
+        {
+          "value": "none",
+          "label": "暂无来源"
+        }
+      ]
+    },
+    "owner": {
+      "question": "这轮评审由谁拍板？",
+      "options": [
+        {
+          "value": "reviewer",
+          "label": "评审官"
+        },
+        {
+          "value": "human",
+          "label": "人工/老板/客户"
+        },
+        {
+          "value": "producer",
+          "label": "生产方"
+        }
+      ]
+    }
+  },
+  "actions": [
+    {
+      "skill": "artifact",
+      "action": "verify",
+      "label": "三级证据链核验",
+      "when": [
+        "证据链核验",
+        "三级证据链",
+        "孤岛工件",
+        "stub扫描"
+      ],
+      "requires": [
+        "artifact"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "criteria",
+      "action": "review",
+      "label": "外置判据审查",
+      "when": [
+        "判据审查",
+        "外置判据",
+        "验收判据",
+        "验收",
+        "评审",
+        "验收评审",
+        "criteria review"
+      ],
+      "requires": [
+        "artifact",
+        "objective"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "gate",
+      "action": "audit",
+      "label": "门禁强度审计",
+      "when": [
+        "门禁审计",
+        "门禁强度",
+        "形式门禁"
+      ],
+      "requires": [
+        "artifact"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "quality",
+      "action": "critique",
+      "label": "质量批评",
+      "when": [
+        "质量批评",
+        "critique",
+        "禁词扫描",
+        "完成声明"
+      ],
+      "requires": [
+        "artifact"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "facts",
+      "action": "check",
+      "label": "事实核查",
+      "when": [
+        "事实核查",
+        "数字幻觉",
+        "来源质量",
+        "facts check"
+      ],
+      "requires": [
+        "evidence"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "strengths",
+      "action": "mark",
+      "label": "保留优点标记",
+      "when": [
+        "保留优点",
+        "keep_list",
+        "优点标记"
+      ],
+      "requires": [
+        "artifact"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "human",
+      "action": "package",
+      "label": "人工评审包",
+      "when": [
+        "评审包",
+        "人工评审",
+        "发起评审"
+      ],
+      "requires": [
+        "artifact",
+        "owner"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "artifact",
+      "action": "inventory",
+      "label": "工件清单盘点",
+      "when": [
+        "工件清单",
+        "盘点",
+        "清单核对"
+      ],
+      "requires": [
+        "artifact"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "criteria",
+      "action": "delta",
+      "label": "与上轮评审对比",
+      "when": [
+        "上轮对比",
+        "基线对比",
+        "版本对比"
+      ],
+      "requires": [
+        "artifact",
+        "objective"
+      ],
+      "params": {}
+    },
+    {
+      "skill": "quality",
+      "action": "converge",
+      "label": "评审收敛定稿",
+      "when": [
+        "评审收敛",
+        "收敛定稿",
+        "收口意见"
+      ],
+      "requires": [
+        "artifact",
+        "owner"
+      ],
+      "params": {}
+    }
+  ],
+  "semantic_fields": {
+    "gate.run": [
+      "artifact",
+      "owner"
+    ],
+    "facts.trace": [
+      "artifact",
+      "evidence"
+    ],
+    "strengths.recheck": [
+      "artifact",
+      "evidence"
+    ],
+    "human.ingest": [
+      "artifact",
+      "owner"
+    ],
+    "human.ack": [
+      "artifact",
+      "owner"
+    ]
+  },
+  "l2_prompt_blocks": [
+    {
+      "name": "三态判据",
+      "template": "判定只允许 pass/warn/fail 三态，fail 必须绑定证据位置与复现步骤；禁止用「整体不错」这类无语义评语。"
+    },
+    {
+      "name": "身份红线",
+      "template": "评审者与生产者不得为同一方（owner={owner}）；发现自评自审直接判 fail，不进入判据讨论。"
+    }
+  ],
+  "output_contract": {
+    "format": "md",
+    "must_include": [
+      "判定结论（pass/warn/fail）",
+      "证据位置",
+      "不通过项清单",
+      "复评条件"
+    ]
+  },
+  "intent_routes": [
+    {
+      "when": [
+        "三级证据链",
+        "证据链核验",
+        "stub 扫描",
+        "孤岛工件",
+        "artifact verify"
+      ],
+      "skill": "artifact",
+      "action": "verify",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "物料核验",
+        "工件清单",
+        "materials",
+        "inventory",
+        "成品清点"
+      ],
+      "skill": "artifact",
+      "action": "inventory",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "门禁强度",
+        "门禁审计",
+        "strength",
+        "theatre",
+        "gate audit"
+      ],
+      "skill": "gate",
+      "action": "audit",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "跑门禁",
+        "硬门禁",
+        "命令门禁",
+        "gate run"
+      ],
+      "skill": "gate",
+      "action": "run",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "判据对照",
+        "复评对照",
+        "criteria delta",
+        "fixed new remaining"
+      ],
+      "skill": "criteria",
+      "action": "delta",
+      "defaults": {
+        "state": {
+          "__path__": "examples/criteria_delta_state.json"
+        }
+      }
+    },
+    {
+      "when": [
+        "外置判据",
+        "验收判据",
+        "判据审查",
+        "acceptance",
+        "criteria review"
+      ],
+      "skill": "criteria",
+      "action": "review",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "验收",
+        "评审",
+        "验收评审"
+      ],
+      "skill": "criteria",
+      "action": "review",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "收敛",
+        "converge",
+        "不再下降"
+      ],
+      "skill": "quality",
+      "action": "converge",
+      "defaults": {
+        "compare": {
+          "__path__": "examples/quality_converge_v2.json"
+        }
+      }
+    },
+    {
+      "when": [
+        "禁词",
+        "质量批评",
+        "critique",
+        "完成声明",
+        "claims"
+      ],
+      "skill": "quality",
+      "action": "critique",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "单数字",
+        "数字回溯",
+        "facts trace"
+      ],
+      "skill": "facts",
+      "action": "trace",
+      "defaults": {
+        "text": {
+          "__path__": "examples/facts_trace_source.txt"
+        }
+      }
+    },
+    {
+      "when": [
+        "事实核查",
+        "数字幻觉",
+        "来源质量",
+        "facts check",
+        "幻觉"
+      ],
+      "skill": "facts",
+      "action": "check",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "保留优点",
+        "keep_list",
+        "优点标记",
+        "why_keep"
+      ],
+      "skill": "strengths",
+      "action": "mark",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "复评修改",
+        "keep 降级",
+        "recheck",
+        "change 区"
+      ],
+      "skill": "strengths",
+      "action": "recheck",
+      "defaults": {
+        "new": {
+          "__path__": "examples/strengths_recheck_new.json"
+        }
+      }
+    },
+    {
+      "when": [
+        "staged",
+        "复制资产",
+        "human ack",
+        "ack 批次"
+      ],
+      "skill": "human",
+      "action": "ack",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "批次校验",
+        "逐字回填",
+        "human ingest",
+        "edits"
+      ],
+      "skill": "human",
+      "action": "ingest",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "人工评审",
+        "评审包",
+        "human package",
+        "发起评审"
+      ],
+      "skill": "human",
+      "action": "package",
+      "defaults": {}
+    }
+  ]
+}

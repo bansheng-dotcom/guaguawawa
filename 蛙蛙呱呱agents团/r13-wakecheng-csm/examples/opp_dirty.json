@@ -1,0 +1,9 @@
+{
+  "name": "停滞商机",
+  "stage": "NEGOTIATION",
+  "amount": 100000,
+  "close_date": "2026-12-01",
+  "owner": "蛙客成",
+  "next_step": "",
+  "days_in_stage": 30
+}

@@ -1,0 +1,42 @@
+{
+  "normalized_path": "D:\\蛙蛙呱呱\\数据分析能力演练_2026-11-13\\results\\selfmedia_norm.json",
+  "platform_count": 3,
+  "fields": [
+    "platform",
+    "date",
+    "fans",
+    "new_fans",
+    "revenue",
+    "posts"
+  ],
+  "records": [
+    {
+      "platform": "小红书",
+      "date": "2026-11-12",
+      "fans": 48210.0,
+      "new_fans": 312.0,
+      "revenue": 18600.0,
+      "posts": 2,
+      "updated_at": "2026-11-12"
+    },
+    {
+      "platform": "抖音",
+      "date": "2026-11-12",
+      "fans": 96350.0,
+      "new_fans": 705.0,
+      "revenue": 42100.0,
+      "posts": 3,
+      "updated_at": "2026-11-12"
+    },
+    {
+      "platform": "知乎",
+      "date": "2026-11-11",
+      "fans": 15820.0,
+      "new_fans": 46.0,
+      "revenue": 2100.0,
+      "posts": 1,
+      "updated_at": "2026-11-11"
+    }
+  ],
+  "runtime_ms": 1
+}

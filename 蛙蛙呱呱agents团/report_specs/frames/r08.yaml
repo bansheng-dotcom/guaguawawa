@@ -1,0 +1,48 @@
+role: r08
+domain: MVP 实现
+objects:
+- 切片
+- 页面
+- 成本
+- 验证
+value_chain: []
+decisions:
+- 切多大
+- 先做哪条
+- 上线/不上线
+questions:
+- id: Q1
+  question: 最小可验证的链路是哪条？
+  needs:
+  - 用户主路径
+  - 依赖接口
+  ops: []
+  decision: 先做哪条链路
+- id: Q2
+  question: 做出来要多少人日？
+  needs:
+  - 任务拆分
+  - 工时
+  ops: []
+  decision: 要不要砍
+- id: Q3
+  question: 怎么算验证通过/失败？
+  needs:
+  - 成功标准
+  - 杀死标准
+  ops: []
+  decision: 继续还是停
+- id: Q4
+  question: 转化结构够不够？
+  needs:
+  - 落地页要素
+  - 竞品页面
+  ops: []
+  decision: 先改哪一块
+- id: Q5
+  question: 上线会不会翻车？
+  needs:
+  - 回滚方案
+  - 监控项
+  ops: []
+  decision: 灰度还是全量

@@ -1,0 +1,4802 @@
+{
+  "generated_by": "scripts/build_semantic_field_map.py",
+  "note": "profile=路由清单已定义；declared=profile.semantic_fields 显式声明；no_spec_needed=显式判定无需业务口径；heuristic=未声明时的兜底推断（P3 后应为 0）",
+  "fields": {
+    "dataset": "数据来源（文件/表/任务卡端口）",
+    "metric": "衡量指标（成交额/收入/转化率…）",
+    "dimension": "拆分维度（渠道/城市/品类…）",
+    "time_window": "时间窗（近7天/近30天/本季度…）",
+    "comparison": "对比口径（同比/环比/对照组）",
+    "stage": "漏斗或流程阶段字段",
+    "topic": "主题或命题",
+    "platform": "发布平台",
+    "voice": "语气与人格",
+    "audience": "目标受众",
+    "objective": "本次编排要达成的目标",
+    "scope": "范围与不做什么",
+    "evidence": "评审所需证据来源",
+    "artifact": "被评审的成品路径",
+    "owner": "任务归属角色",
+    "deadline": "交付时间",
+    "output_contract": "产物格式与必含段落"
+  },
+  "summary": {
+    "actions": 374,
+    "profile_defined": 200,
+    "declared": 162,
+    "heuristic": 0,
+    "no_spec_needed": 12
+  },
+  "roles": [
+    {
+      "role": "r01",
+      "tier": "C",
+      "actions": [
+        {
+          "skill": "intent",
+          "action": "brief",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "intent",
+          "action": "clarify",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "intent",
+          "action": "triage",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decompose",
+          "action": "taskcard",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope",
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decompose",
+          "action": "wave",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decompose",
+          "action": "route",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decide",
+          "action": "reversibility",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "evidence"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decide",
+          "action": "card",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "evidence"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decide",
+          "action": "escalate",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "redteam",
+          "action": "devil",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "evidence"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "redteam",
+          "action": "crosseval",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "redteam",
+          "action": "grove",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "companyos",
+          "action": "os",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "companyos",
+          "action": "scorecard",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "companyos",
+          "action": "ids",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "companyos",
+          "action": "freeze",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decisionlog",
+          "action": "entry",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decisionlog",
+          "action": "conflict",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "decisionlog",
+          "action": "retro",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "boardroom",
+          "action": "memo",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        },
+        {
+          "skill": "boardroom",
+          "action": "coach",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r01-waquanju-ceo/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r02",
+      "tier": "C",
+      "actions": [
+        {
+          "skill": "schedule",
+          "action": "wbs",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "schedule",
+          "action": "sprint",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "deadline"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "schedule",
+          "action": "critpath",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope",
+            "deadline"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "capacity",
+          "action": "check",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope",
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "capacity",
+          "action": "delegate",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "capacity",
+          "action": "split",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "owner",
+            "deadline"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "handoff",
+          "action": "package",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "handoff",
+          "action": "accept",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "handoff",
+          "action": "trace",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "retro",
+          "action": "postmortem",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "retro",
+          "action": "grade",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "retro",
+          "action": "action",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "owner",
+            "deadline"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "process",
+          "action": "sop",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "process",
+          "action": "waste",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope",
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "process",
+          "action": "meeting",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope",
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "knowledge",
+          "action": "digest",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "knowledge",
+          "action": "entry",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "knowledge",
+          "action": "search",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "portfolio",
+          "action": "status",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "portfolio",
+          "action": "plan",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "owner",
+            "deadline"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        },
+        {
+          "skill": "portfolio",
+          "action": "graph",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r02-wapaibu-coo/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r03",
+      "tier": "B",
+      "actions": [
+        {
+          "skill": "financial",
+          "action": "rollforward",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period"
+          ],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "financial",
+          "action": "recon",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period"
+          ],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "financial",
+          "action": "variance",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period"
+          ],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "cfo",
+          "action": "runway",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period"
+          ],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "cfo",
+          "action": "unitecon",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "cfo",
+          "action": "healthcheck",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "tax",
+          "action": "iso",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "tax",
+          "action": "rmd",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period"
+          ],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "tax",
+          "action": "safeharbor",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period",
+            "ledger"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "contract",
+          "action": "scan",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "contract",
+          "action": "policy",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "contract",
+          "action": "redline",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "privacy",
+          "action": "map",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "privacy",
+          "action": "dsr",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "profile",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "privacy",
+          "action": "minimize",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "aigov",
+          "action": "frameworks",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "aigov",
+          "action": "aiclassify",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "aigov",
+          "action": "disclose",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "audit",
+          "action": "retention",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "audit",
+          "action": "mockaudit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period",
+            "statement"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "audit",
+          "action": "evidence",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "period"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "risk",
+          "action": "kyc",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "risk",
+          "action": "aml",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "period",
+            "ledger"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        },
+        {
+          "skill": "risk",
+          "action": "adreview",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "declared",
+          "source": "r03-washouxian-cfo/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r04",
+      "tier": "C",
+      "actions": [
+        {
+          "skill": "artifact",
+          "action": "inventory",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "artifact",
+          "action": "verify",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "gate",
+          "action": "run",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "gate",
+          "action": "audit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "criteria",
+          "action": "review",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "objective"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "criteria",
+          "action": "delta",
+          "cli_required": [
+            "input",
+            "state"
+          ],
+          "semantic_required": [
+            "artifact",
+            "objective"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "quality",
+          "action": "critique",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "quality",
+          "action": "converge",
+          "cli_required": [
+            "input",
+            "compare"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "facts",
+          "action": "check",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "evidence"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "facts",
+          "action": "trace",
+          "cli_required": [
+            "input",
+            "text"
+          ],
+          "semantic_required": [
+            "artifact",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "strengths",
+          "action": "mark",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "strengths",
+          "action": "recheck",
+          "cli_required": [
+            "input",
+            "new"
+          ],
+          "semantic_required": [
+            "artifact",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "human",
+          "action": "package",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "human",
+          "action": "ingest",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        },
+        {
+          "skill": "human",
+          "action": "ack",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r04-watiaoci-reviewer/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r05",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "research",
+          "action": "ledger",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "research",
+          "action": "report",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "industry",
+          "action": "landscape",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "market"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "industry",
+          "action": "concentration",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "market"
+          ],
+          "status": "declared",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "competitor",
+          "action": "matrix",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "competitor_set"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "competitor",
+          "action": "battlecard",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "competitor_set"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "business",
+          "action": "canvas",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "business",
+          "action": "monetize",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "market"
+          ],
+          "status": "declared",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "sizing",
+          "action": "size",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "market"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "sizing",
+          "action": "sensitivity",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "market"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "scenario",
+          "action": "pestel",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "market"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "scenario",
+          "action": "premortem",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "risk_horizon"
+          ],
+          "status": "profile",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "auto",
+          "action": "plan",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "input"
+          ],
+          "status": "declared",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        },
+        {
+          "skill": "auto",
+          "action": "track",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "input"
+          ],
+          "status": "declared",
+          "source": "r05-washenyuan-research/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r06",
+      "tier": "B",
+      "actions": [
+        {
+          "skill": "semantics",
+          "action": "validate",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "semantics",
+          "action": "tree",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "semantics",
+          "action": "link",
+          "cli_required": [
+            "input",
+            "data"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "semantics",
+          "action": "compute",
+          "cli_required": [
+            "input",
+            "data"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "semantics",
+          "action": "reconcile",
+          "cli_required": [
+            "a",
+            "b"
+          ],
+          "semantic_required": [
+            "metric",
+            "comparison"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "quality",
+          "action": "audit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "quality",
+          "action": "clean",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "trend",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric",
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "groupby",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric",
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "funnel",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "cohort",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "rfm",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "saas",
+          "cli_required": [
+            "mrr",
+            "active_users",
+            "churn_rate"
+          ],
+          "semantic_required": [
+            "metric",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "time_series",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "segment",
+          "cli_required": [
+            "input",
+            "features"
+          ],
+          "semantic_required": [
+            "dimension",
+            "metric"
+          ],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "explore",
+          "action": "metrics",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric",
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "rootcause",
+          "action": "decompose",
+          "cli_required": [
+            "input",
+            "dim",
+            "value",
+            "period",
+            "before",
+            "after"
+          ],
+          "semantic_required": [
+            "metric",
+            "dimension"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "rootcause",
+          "action": "drilldown",
+          "cli_required": [
+            "input",
+            "dim",
+            "value"
+          ],
+          "semantic_required": [
+            "metric",
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "describe",
+          "action": "run",
+          "cli_required": [
+            "input",
+            "col"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "correlate",
+          "action": "run",
+          "cli_required": [
+            "input",
+            "col_a",
+            "col_b"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "ttest",
+          "action": "run",
+          "cli_required": [
+            "input",
+            "value",
+            "group",
+            "group_a",
+            "group_b"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "chi2",
+          "action": "run",
+          "cli_required": [
+            "input",
+            "row",
+            "col"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "anova",
+          "action": "run",
+          "cli_required": [
+            "input",
+            "value",
+            "group"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "regression",
+          "action": "run",
+          "cli_required": [
+            "input",
+            "x",
+            "y"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "abtest",
+          "action": "run",
+          "cli_required": [
+            "input",
+            "group",
+            "control",
+            "treatment",
+            "metric"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "profile",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "power",
+          "action": "run",
+          "cli_required": [
+            "baseline"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "causal",
+          "action": "run",
+          "cli_required": [
+            "input",
+            "outcome",
+            "treatment",
+            "confounders"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "scinlp",
+          "action": "describe",
+          "cli_required": [
+            "input",
+            "col"
+          ],
+          "semantic_required": [
+            "dataset",
+            "metric"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "scinlp",
+          "action": "textstats",
+          "cli_required": [
+            "input",
+            "text"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "scinlp",
+          "action": "backend",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "domain",
+          "action": "list",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "domain",
+          "action": "run",
+          "cli_required": [
+            "data"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "viz",
+          "action": "spec",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric",
+            "dimension"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "viz",
+          "action": "report",
+          "cli_required": [
+            "metrics"
+          ],
+          "semantic_required": [
+            "metric",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "viz",
+          "action": "guide",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "viz",
+          "action": "prompt",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "selfmedia",
+          "action": "normalize",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "selfmedia",
+          "action": "dashboard",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        },
+        {
+          "skill": "selfmedia",
+          "action": "report",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r06-wadeqing-analyst/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r07",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "discover",
+          "action": "jobstory",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "audience"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "discover",
+          "action": "discover",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "discover",
+          "action": "interview",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "audience"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "ost",
+          "action": "ost",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "objective"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "ost",
+          "action": "poc",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "ost",
+          "action": "assumption",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "ost",
+          "action": "research",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "prd",
+          "action": "prd",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "audience"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "prd",
+          "action": "story",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "prd",
+          "action": "acceptance",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "audience"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "priority",
+          "action": "opportunity",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "priority",
+          "action": "ice",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "priority",
+          "action": "rice",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "priority",
+          "action": "backlog",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "roadmap",
+          "action": "roadmap",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "horizon"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "roadmap",
+          "action": "releasenotes",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "audience"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "roadmap",
+          "action": "premortem",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "horizon",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "metrics",
+          "action": "northstar",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "metrics",
+          "action": "metrics",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "metrics",
+          "action": "okr",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "metrics",
+          "action": "vision",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "audience"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "metrics",
+          "action": "canvas",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "techbrief",
+          "action": "techbrief",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "audience"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "techbrief",
+          "action": "uibrief",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "audience"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "techbrief",
+          "action": "codetoprd",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "input",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "techbrief",
+          "action": "releasegate",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "decision",
+          "action": "decision",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "evidence"
+          ],
+          "status": "profile",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "decision",
+          "action": "demand",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        },
+        {
+          "skill": "decision",
+          "action": "experience",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "audience",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r07-wademing-pm/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r08",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "slice",
+          "action": "slice",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "slice",
+          "action": "mvp",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "scaffold",
+          "action": "scaffold",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stack"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "scaffold",
+          "action": "spec",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "stack",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "landing",
+          "action": "landing",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "landing",
+          "action": "form",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "saas",
+          "action": "saas",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "platform",
+            "stack"
+          ],
+          "status": "declared",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "saas",
+          "action": "email",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "prototype",
+          "action": "prototype",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "prototype",
+          "action": "screen",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "design",
+          "action": "design",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "design",
+          "action": "token",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "qa",
+          "action": "qa",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        },
+        {
+          "skill": "qa",
+          "action": "handoff",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r08-wajiancheng-mvp/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r09",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "spec",
+          "action": "spec",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "spec",
+          "action": "arch",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "scale"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "data_api",
+          "action": "schema",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "store"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "data_api",
+          "action": "api",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "fullstack",
+          "action": "feature",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stack"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "fullstack",
+          "action": "auth",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "stack",
+            "store"
+          ],
+          "status": "declared",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "crossplatform",
+          "action": "build",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stack"
+          ],
+          "status": "declared",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "crossplatform",
+          "action": "platform",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stack"
+          ],
+          "status": "declared",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "testing",
+          "action": "suites",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "testing",
+          "action": "browser",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "debug",
+          "action": "debug",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "debug",
+          "action": "refactor",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stack"
+          ],
+          "status": "declared",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "ops",
+          "action": "migration",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "store"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "ops",
+          "action": "security",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stack"
+          ],
+          "status": "profile",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "special",
+          "action": "mcp",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stack"
+          ],
+          "status": "declared",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        },
+        {
+          "skill": "special",
+          "action": "godot",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r09-wawenma-engineer/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r10",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "imagegen",
+          "action": "prompt",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "imagegen",
+          "action": "style",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "style",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "imagegen",
+          "action": "probe",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "imagegen",
+          "action": "generate",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "style"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "imagegen",
+          "action": "edit",
+          "cli_required": [
+            "image",
+            "instruction"
+          ],
+          "semantic_required": [
+            "style",
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "logo",
+          "action": "logo",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "style"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "logo",
+          "action": "favicon",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "style"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "uiux",
+          "action": "screen",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "uiux",
+          "action": "ux",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "brand",
+          "action": "vi",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "brand",
+          "action": "token",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "motion",
+          "action": "motion",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "motion",
+          "action": "prototype",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "imaging",
+          "action": "edit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "input"
+          ],
+          "status": "declared",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "imaging",
+          "action": "probe",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "media",
+          "action": "media",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "input",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "media",
+          "action": "probe",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "transcribe",
+          "action": "transcribe",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "input"
+          ],
+          "status": "declared",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "transcribe",
+          "action": "probe",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "render",
+          "action": "poster",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        },
+        {
+          "skill": "render",
+          "action": "theme",
+          "cli_required": [],
+          "semantic_required": [
+            "platform",
+            "style"
+          ],
+          "status": "declared",
+          "source": "r10-wachengmei-design/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r11",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "topic",
+          "action": "brief",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "topic",
+          "action": "plan",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "declared",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "seo",
+          "action": "keyword",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "seo",
+          "action": "audit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "hook",
+          "action": "hook",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform",
+            "voice"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "hook",
+          "action": "outline",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "copy",
+          "action": "article",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "voice"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "copy",
+          "action": "script",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "voice"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "voice",
+          "action": "guide",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "voice"
+          ],
+          "status": "declared",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "voice",
+          "action": "edit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "voice"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "pr",
+          "action": "ad",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "voice"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "pr",
+          "action": "press",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "platform",
+          "action": "adapt",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform",
+            "voice"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "platform",
+          "action": "publish",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "localize",
+          "action": "term",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "localize",
+          "action": "review",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        },
+        {
+          "skill": "localize",
+          "action": "probe",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r11-wadianti-copy/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r12",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "diagnose",
+          "action": "diagnose",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "diagnose",
+          "action": "unit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "loops",
+          "action": "flywheel",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "loops",
+          "action": "content",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "outreach",
+          "action": "coldemail",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "outreach",
+          "action": "sequence",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "partner",
+          "action": "influencer",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "partner",
+          "action": "comarketing",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "launch",
+          "action": "aso",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "launch",
+          "action": "ph",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "declared",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "paid",
+          "action": "media",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "paid",
+          "action": "cro",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "platform"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "retention",
+          "action": "activation",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "retention",
+          "action": "referral",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "revops",
+          "action": "attribution",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "input"
+          ],
+          "status": "declared",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "revops",
+          "action": "roi",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "selfmedia",
+          "action": "daily",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "platform",
+            "input"
+          ],
+          "status": "declared",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        },
+        {
+          "skill": "selfmedia",
+          "action": "probe",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r12-wayingliu-growth/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r13",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "crm",
+          "action": "person",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "crm",
+          "action": "company",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "pipeline",
+          "action": "pipeline",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "pipeline",
+          "action": "opp",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "input"
+          ],
+          "status": "declared",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "activity",
+          "action": "activity",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "activity",
+          "action": "log",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "channel"
+          ],
+          "status": "declared",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "support",
+          "action": "inbox",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "channel"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "support",
+          "action": "ticket",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "channel"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "voc",
+          "action": "survey",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "channel"
+          ],
+          "status": "declared",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "voc",
+          "action": "voc",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "health",
+          "action": "health",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "health",
+          "action": "risk",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "knowledge",
+          "action": "faq",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "knowledge",
+          "action": "escalation",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "input"
+          ],
+          "status": "declared",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "automation",
+          "action": "automation",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "channel"
+          ],
+          "status": "declared",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        },
+        {
+          "skill": "automation",
+          "action": "probe",
+          "cli_required": [],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r13-wakecheng-csm/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r14",
+      "tier": "B",
+      "actions": [
+        {
+          "skill": "catalog",
+          "action": "product",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "channel"
+          ],
+          "status": "declared",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "catalog",
+          "action": "price",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "channel"
+          ],
+          "status": "declared",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "order",
+          "action": "cart",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "order",
+          "action": "order",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "channel",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "billing",
+          "action": "plan",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "billing",
+          "action": "usage",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "billing",
+          "action": "invoice",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "payment",
+          "action": "payment_intent",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "channel"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "payment",
+          "action": "refund",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "channel"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "signature",
+          "action": "document",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "signature",
+          "action": "signing",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "transactions"
+          ],
+          "status": "declared",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "appointment",
+          "action": "appointment",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "appointment",
+          "action": "calendar",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "workflow",
+          "action": "state",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "workflow",
+          "action": "transition",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "revenue",
+          "action": "events",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        },
+        {
+          "skill": "revenue",
+          "action": "webhook",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r14-wajiaoyi-commerce/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r15",
+      "tier": "B",
+      "actions": [
+        {
+          "skill": "procurement",
+          "action": "supplier",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "declared",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "procurement",
+          "action": "rfq",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "procurement",
+          "action": "quotation",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "procurement",
+          "action": "purchase_order",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "procurement",
+          "action": "receipt",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "inventory",
+          "action": "item",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "declared",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "inventory",
+          "action": "warehouse",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "declared",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "inventory",
+          "action": "bin",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "inventory",
+          "action": "stock_entry",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "fulfillment",
+          "action": "sales_order",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "fulfillment",
+          "action": "delivery",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window",
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "production",
+          "action": "bom",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "production",
+          "action": "material_request",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "finance",
+          "action": "invoice",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "finance",
+          "action": "payment",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "masterdata",
+          "action": "master_data",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "declared",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "masterdata",
+          "action": "permission",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        },
+        {
+          "skill": "report",
+          "action": "report",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r15-wagongying-erp/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r16",
+      "tier": "B",
+      "actions": [
+        {
+          "skill": "recruit",
+          "action": "opening",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "declared",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "recruit",
+          "action": "applicant",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "recruit",
+          "action": "offer",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "people",
+          "action": "employee",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "people",
+          "action": "profile",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "hr_data",
+            "dimension"
+          ],
+          "status": "declared",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "people",
+          "action": "contract",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "attendance",
+          "action": "attendance",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "attendance",
+          "action": "leave",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "performance",
+          "action": "appraisal",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "performance",
+          "action": "goal",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "payroll",
+          "action": "input",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "payroll",
+          "action": "calc",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "expense",
+          "action": "claim",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "expense",
+          "action": "benefit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "report",
+          "action": "headcount",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dimension"
+          ],
+          "status": "profile",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        },
+        {
+          "skill": "report",
+          "action": "report",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r16-warenshi-hr/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r17",
+      "tier": "C",
+      "actions": [
+        {
+          "skill": "integration",
+          "action": "workflow",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "integration",
+          "action": "credential",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "objective",
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "webhook",
+          "action": "webhook",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "webhook",
+          "action": "event",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "evidence"
+          ],
+          "status": "declared",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "mapping",
+          "action": "mapping",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "objective"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "mapping",
+          "action": "table",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "objective"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "schedule",
+          "action": "schedule",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "deadline"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "schedule",
+          "action": "batch",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "deadline"
+          ],
+          "status": "declared",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "approval",
+          "action": "approval",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "approval",
+          "action": "publish",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "owner"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "retry",
+          "action": "retry",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "evidence",
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "retry",
+          "action": "errorflow",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "evidence",
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "aiworkflow",
+          "action": "aiagent",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "objective"
+          ],
+          "status": "declared",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "aiworkflow",
+          "action": "model",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "objective"
+          ],
+          "status": "declared",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "audit",
+          "action": "audit",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "evidence",
+            "artifact"
+          ],
+          "status": "profile",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        },
+        {
+          "skill": "audit",
+          "action": "runlog",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "artifact",
+            "owner"
+          ],
+          "status": "declared",
+          "source": "r17-wazhiwang-automation/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r18",
+      "tier": "B",
+      "actions": [
+        {
+          "skill": "elt",
+          "action": "connection",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "declared",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "elt",
+          "action": "sync",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "transform",
+          "action": "model",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "transform",
+          "action": "test",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "pipeline",
+          "action": "dag",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "pipeline",
+          "action": "run",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "quality",
+          "action": "check",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "quality",
+          "action": "fresh",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "incremental",
+          "action": "strategy",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "incremental",
+          "action": "backfill",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "time_window"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "catalog",
+          "action": "entry",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "declared",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "catalog",
+          "action": "lineage",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "dataset"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "ops",
+          "action": "request",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        },
+        {
+          "skill": "ops",
+          "action": "alert",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "profile",
+          "source": "r18-washucang-dataeng/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r19",
+      "tier": "A",
+      "actions": [
+        {
+          "skill": "tracking",
+          "action": "experiment",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stage"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "tracking",
+          "action": "run",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "input"
+          ],
+          "status": "declared",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "registry",
+          "action": "register",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stage"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "registry",
+          "action": "version",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [],
+          "status": "no_spec_needed",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "evaluation",
+          "action": "dataset",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "evaluation",
+          "action": "scorer",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "trace",
+          "action": "analyze",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "trace",
+          "action": "retrieval",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "input"
+          ],
+          "status": "declared",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "release",
+          "action": "regression",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "release",
+          "action": "candidate",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "monitor",
+          "action": "metrics",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "stage"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "monitor",
+          "action": "drift",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "modelcard",
+          "action": "card",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic"
+          ],
+          "status": "profile",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        },
+        {
+          "skill": "modelcard",
+          "action": "asset",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "topic",
+            "input"
+          ],
+          "status": "declared",
+          "source": "r19-wazhimo-ml/prompt_profile.json"
+        }
+      ]
+    },
+    {
+      "role": "r20",
+      "tier": "B",
+      "actions": [
+        {
+          "skill": "monitor",
+          "action": "monitor",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "metric"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "monitor",
+          "action": "uptime",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "alert",
+          "action": "alert",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "alert",
+          "action": "escalation",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "statuspage",
+          "action": "statuspage",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service"
+          ],
+          "status": "declared",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "statuspage",
+          "action": "incident",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "backup",
+          "action": "backup",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "backup",
+          "action": "snapshot",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "restore",
+          "action": "restore",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service",
+            "time_window"
+          ],
+          "status": "declared",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "restore",
+          "action": "drill",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "dr",
+          "action": "rpo_rto",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "dr",
+          "action": "rollback",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "postmortem",
+          "action": "postmortem",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "scope"
+          ],
+          "status": "profile",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        },
+        {
+          "skill": "postmortem",
+          "action": "improvement",
+          "cli_required": [
+            "input"
+          ],
+          "semantic_required": [
+            "service",
+            "scope"
+          ],
+          "status": "declared",
+          "source": "r20-washouzhi-sre/prompt_profile.json"
+        }
+      ]
+    }
+  ]
+}

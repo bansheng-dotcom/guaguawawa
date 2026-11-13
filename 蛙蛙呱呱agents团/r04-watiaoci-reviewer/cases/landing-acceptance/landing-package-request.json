@@ -1,0 +1,8 @@
+{
+  "artifact": "landing.html",
+  "review_dimensions": ["文案", "转化路径", "移动端"],
+  "criteria_ref": "cases/landing-acceptance/landing-criteria-v1.json",
+  "producer": "r08",
+  "reviewer": "r04",
+  "deadline": "2026-11-06"
+}

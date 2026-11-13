@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "feedback": [
+    {
+      "id": "V01",
+      "segment": "社区家庭",
+      "pain": "晚间到货慢",
+      "severity": 4,
+      "channel": "小程序"
+    },
+    {
+      "id": "V02",
+      "segment": "社区家庭",
+      "pain": "退款慢",
+      "severity": 5,
+      "channel": "美团"
+    },
+    {
+      "id": "V03",
+      "segment": "写字楼白领",
+      "pain": "品类少",
+      "severity": 3,
+      "channel": "门店"
+    },
+    {
+      "id": "V04",
+      "segment": "写字楼白领",
+      "pain": "早高峰缺货",
+      "severity": 4,
+      "channel": "小程序"
+    }
+  ]
+}

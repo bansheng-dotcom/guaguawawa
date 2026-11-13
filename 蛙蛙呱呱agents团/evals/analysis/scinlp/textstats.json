@@ -1,0 +1,20 @@
+{
+ "skill": "scinlp",
+ "args": [
+  "textstats",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_titles.csv",
+  "--text",
+  "title",
+  "--top",
+  "10"
+ ],
+ "expect": {
+  "token_count": {
+   "gt": 0
+  },
+  "conclusion": {
+   "not_null": true
+  }
+ }
+}

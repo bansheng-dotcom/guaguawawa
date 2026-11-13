@@ -1,0 +1,23 @@
+{
+ "skill": "did",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_panel_stag.csv",
+  "--y",
+  "gmv",
+  "--treat",
+  "treat",
+  "--post",
+  "post",
+  "--unit",
+  "city_id",
+  "--time",
+  "week",
+  "--staggered"
+ ],
+ "expect": {
+  "staggered.att": {
+   "not_null": true
+  }
+ }
+}

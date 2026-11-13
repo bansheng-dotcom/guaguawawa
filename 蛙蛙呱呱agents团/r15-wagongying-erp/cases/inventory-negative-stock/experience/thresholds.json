@@ -1,0 +1,14 @@
+{
+  "_note": "「库存负库存（超卖）」案例级阈值覆盖。仅覆盖本案例与全局不同的口径；未出现键沿用 experience/thresholds.json 全局值。",
+  "inventory": {
+    "allow_negative_stock": false,
+    "bin_required": ["warehouse", "item_code", "actual_qty"]
+  },
+  "report": {
+    "negative_stock_report_type": "inventory"
+  },
+  "review": {
+    "conclusion_keys": ["summary", "note", "next", "description",
+                        "conclusion", "recommendation", "reason"]
+  }
+}

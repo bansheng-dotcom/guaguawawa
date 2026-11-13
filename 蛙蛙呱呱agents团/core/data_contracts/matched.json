@@ -1,0 +1,40 @@
+{
+ "name": "matched",
+ "fields": [
+  {
+   "name": "gmv_growth",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "population",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "income_index",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "douyin_penetration",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "ecommerce_index",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

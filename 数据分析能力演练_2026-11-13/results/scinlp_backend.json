@@ -1,0 +1,11 @@
+{
+  "backends": {
+    "scipy": "available",
+    "spacy": "unavailable",
+    "statsmodels": "available",
+    "numpy": "available",
+    "pandas": "available"
+  },
+  "note": "重型后端可用时承载完整科学计算/NLP；不可用则退化到纯标准库子集",
+  "runtime_ms": 3248
+}

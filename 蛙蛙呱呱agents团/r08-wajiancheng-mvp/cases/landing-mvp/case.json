@@ -1,0 +1,35 @@
+{
+  "case_id": "landing-mvp",
+  "display_name": "落地页 MVP 收集邮箱",
+  "description": "把 PRD 里的价值假设切成单页落地页 MVP：单文件 HTML、表单可交付、3 条佐证点、技术约束全锁定，目标=验证需求并收集邮箱。",
+  "default_question": "如何用一个落地页 MVP 验证我的产品需求假设？",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "steps": [
+    {
+      "skill": "slice",
+      "action": "slice",
+      "expect": {
+        "artifact_type": "landing",
+        "slice_count": 1,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "skill": "landing",
+      "action": "landing",
+      "expect": {
+        "proof_count": 3,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "skill": "landing",
+      "action": "form",
+      "expect": {
+        "field_count": 1,
+        "verdict": "PASS"
+      }
+    }
+  ]
+}

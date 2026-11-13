@@ -1,0 +1,32 @@
+{
+ "proposition": "满 99 减 10 的断点效应",
+ "steps": [
+  {
+   "id": "d",
+   "type": "skill",
+   "skill": "rdd",
+   "args": [
+    "--input",
+    "{AGENTS}/tests/fixtures/analysis_rdd.csv",
+    "--y",
+    "paid_value",
+    "--running",
+    "cart_value",
+    "--cutoff",
+    "99",
+    "--sensitivity"
+   ]
+  },
+  {
+   "id": "a",
+   "type": "assert",
+   "path": "d.rdd.estimate",
+   "equals": null
+  },
+  {
+   "id": "r",
+   "type": "report",
+   "path": "report.md"
+  }
+ ]
+}

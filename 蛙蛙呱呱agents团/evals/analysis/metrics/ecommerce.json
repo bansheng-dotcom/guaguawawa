@@ -1,0 +1,24 @@
+{
+ "skill": "explore",
+ "args": [
+  "metrics",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--model",
+  "ecommerce",
+  "--value",
+  "revenue",
+  "--customer",
+  "customer_id",
+  "--month",
+  "order_month"
+ ],
+ "expect": {
+  "gmv": {
+   "gt": 0
+  },
+  "conclusion": {
+   "not_null": true
+  }
+ }
+}

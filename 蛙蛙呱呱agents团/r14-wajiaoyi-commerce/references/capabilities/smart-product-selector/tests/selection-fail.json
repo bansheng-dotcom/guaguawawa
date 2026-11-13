@@ -1,0 +1,20 @@
+{
+  "_comment": "反例：维度 9 分（超 1–5）、来源不在枚举内、假设卡为空、无风险",
+  "products": [
+    {
+      "name": "测试品",
+      "dims": {
+        "capacity": 9,
+        "growth": 3,
+        "entry": 3,
+        "margin": 3,
+        "supply": 3
+      },
+      "source_types": [
+        "随便找的"
+      ],
+      "hypothesis": {},
+      "risks": []
+    }
+  ]
+}

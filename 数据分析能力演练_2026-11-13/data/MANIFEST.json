@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-11-13",
+  "items": [
+    {
+      "file": "orders.csv",
+      "rows": 20000,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "洗护均价≈53 元、抖音占比 40%、退货率≈8%，对齐 2025 个护线上公开数据",
+      "use": "P1/P2/P6（描述、相关、回归、聚类、留存、分群）"
+    },
+    {
+      "file": "ab_clean.csv",
+      "rows": 200000,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "基线 CTR 3.2%、转化率 2.1%，AOV≈132 元",
+      "use": "P4 A/B 实验"
+    },
+    {
+      "file": "ab_srm.csv",
+      "rows": 196000,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "同 ab_clean，但人为 52/48 分流",
+      "use": "P4 SRM 失配检测"
+    },
+    {
+      "file": "panel_did.csv",
+      "rows": 1040,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "40 城 × 26 周，处理组第 10 周起 +8% 真实效应",
+      "use": "P5 DID/事件研究/安慰剂"
+    },
+    {
+      "file": "panel_staggered.csv",
+      "rows": 1040,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "分三批第 8/12/16 周进入，+10% 效应",
+      "use": "P5 交错处理"
+    },
+    {
+      "file": "cities_treat.csv",
+      "rows": 20,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "处理组 +7pp 增速",
+      "use": "P5 PSM"
+    },
+    {
+      "file": "cities_control.csv",
+      "rows": 20,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "对照组无处理",
+      "use": "P5 PSM"
+    },
+    {
+      "file": "rdd_carts.csv",
+      "rows": 12000,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "满 99 减 10，断点处真实跳跃 +12.5 元",
+      "use": "P3 断点回归"
+    },
+    {
+      "file": "funnel.csv",
+      "rows": 69050,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "曝光→支付 3.3% 整体转化",
+      "use": "P6 漏斗"
+    },
+    {
+      "file": "selfmedia_raw.json",
+      "rows": 3,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "三平台粉丝/新增/收入快照",
+      "use": "P6 自媒体看板"
+    },
+    {
+      "file": "sku_titles.csv",
+      "rows": 1440,
+      "kind": "simulated",
+      "seed": 42,
+      "anchors": "商品标题（空格分词）",
+      "use": "P2 文本统计"
+    },
+    {
+      "file": "market_obs.csv",
+      "rows": 76,
+      "kind": "real",
+      "anchors": "个护调研证据台账",
+      "use": "P1 数据体检、P2 量价拆解"
+    },
+    {
+      "file": "price_bands.csv",
+      "rows": 4,
+      "kind": "real",
+      "anchors": "魔镜 2026Q1 牙膏价格带",
+      "use": "P3"
+    },
+    {
+      "file": "platforms.csv",
+      "rows": 4,
+      "kind": "real",
+      "anchors": "魔镜 2026Q1 口腔分平台",
+      "use": "P2/P3"
+    },
+    {
+      "file": "companies.csv",
+      "rows": 6,
+      "kind": "real",
+      "anchors": "6 家上市公司 2025 年报",
+      "use": "P2"
+    },
+    {
+      "file": "haircare_annual.csv",
+      "rows": 2,
+      "kind": "real",
+      "anchors": "魔镜 2024/2025 洗护发",
+      "use": "P2"
+    }
+  ]
+}

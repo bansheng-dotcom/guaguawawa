@@ -1,0 +1,49 @@
+role: r09
+domain: 工程质量
+objects:
+- 模块
+- 接口
+- 测试
+- 性能
+value_chain: []
+decisions:
+- 发版
+- 重构
+- 加缓存
+- 延期
+questions:
+- id: Q1
+  question: 模块边界清不清？
+  needs:
+  - 架构图
+  - 模块职责
+  ops: []
+  decision: 要不要拆
+- id: Q2
+  question: 改这个接口会不会炸？
+  needs:
+  - 接口契约
+  - 调用方
+  ops: []
+  decision: 能不能直接改
+- id: Q3
+  question: 覆盖够不够发版？
+  needs:
+  - 测试用例
+  - 覆盖率
+  ops: []
+  decision: 发还是不发
+- id: Q4
+  question: 撑不撑得住峰值？
+  needs:
+  - 压测数据
+  - P95
+  ops: []
+  decision: 要不要扩容
+- id: Q5
+  question: 技术债先还哪一笔？
+  needs:
+  - 复杂度
+  - 缺陷密度
+  ops: []
+  decision: 排期优先级

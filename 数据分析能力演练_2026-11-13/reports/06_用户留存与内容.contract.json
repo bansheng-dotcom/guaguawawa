@@ -1,0 +1,808 @@
+{
+ "doc_type": "命题 6 · 用户留存与内容（R06 数据分析能力演练）",
+ "theme": "sticker",
+ "title_lines": [
+  "首单折扣客值不值得投？",
+  "漏斗、留存、分群与自媒体看板"
+ ],
+ "title_highlight": "值不值得投？",
+ "standfirst": "用户侧的问题从来不是「留存多少」，而是「哪一段漏水、哪群人不该再花钱」。这篇把漏斗、cohort、RFM、K-means 和内容看板串成一条链路。",
+ "meta": [
+  "读者：增长 / 用户运营 / 内容",
+  "数据：2 万单 + 5,345 用户 + 3 平台快照（模拟）",
+  "口径：订单级；cohort 按月；RFM 四分位",
+  "技能：explore / ttest / chi2 / selfmedia"
+ ],
+ "metric_strip": [
+  {
+   "label": "整体转化",
+   "value": "3.3%",
+   "note": "曝光→支付",
+   "status": "watch"
+  },
+  {
+   "label": "次月留存",
+   "value": "33%",
+   "note": "cohort 第 1 月",
+   "status": "healthy"
+  },
+  {
+   "label": "复购订单占比",
+   "value": "73.3%",
+   "note": "第 2 单及以后 ÷ 总订单",
+   "status": "accent"
+  },
+  {
+   "label": "核心客（RFM≥444）",
+   "value": "1069",
+   "note": "占 20.0%",
+   "status": "accent"
+  },
+  {
+   "label": "内容看板",
+   "value": "partial",
+   "note": "3/5 平台，不能发日报",
+   "status": "critical"
+  }
+ ],
+ "summary": [
+  {
+   "label": "结论：",
+   "text": "漏斗整体 3.3%，瓶颈在曝光→点击（76% 流失）；留存首月后稳定 33%，问题不在留存，在获客。"
+  },
+  {
+   "label": "人群：",
+   "text": "0.56% 的鲸鱼用户人均 53 单；58.3% 是待唤醒群；预算应按群分层，不按全量发券。"
+  },
+  {
+   "label": "内容：",
+   "text": "3 个平台 16 万粉，抖音占 60%，HHI 0.461；缺平台导致看板 partial，日报不能发。"
+  }
+ ],
+ "sections": [
+  {
+   "index": 1,
+   "title": "漏斗：曝光到支付 3.3%，最大漏损在点击前",
+   "question": "用户在哪一步流失最多？先修哪一段？",
+   "chart": {
+    "type": "funnel",
+    "title": "曝光 → 支付 五级漏斗",
+    "unit_meta": "人；同一批用户的累计到达数",
+    "source": "explore funnel（R06 s03）；funnel.csv 69,050 条用户-阶段记录",
+    "stages": [
+     {
+      "label": "曝光",
+      "value": 50000
+     },
+     {
+      "label": "点击",
+      "value": 12000
+     },
+     {
+      "label": "加购",
+      "value": 3600
+     },
+     {
+      "label": "下单",
+      "value": 1800
+     },
+     {
+      "label": "支付",
+      "value": 1650
+     }
+    ]
+   },
+   "reading": [
+    {
+     "strong": "整体：",
+     "text": "曝光 50,000 → 支付 1,650，整体转化 3.3%。"
+    },
+    {
+     "strong": "漏损：",
+     "text": "曝光→点击 76% 流失、点击→加购 70%、加购→下单 50%；前三段都触发 drop_alert（≥20%）。"
+    },
+    {
+     "strong": "优先：",
+     "text": "先修曝光→点击（素材与人群），再修点击→加购（详情页与价格）；支付段只流失 8.3%，不是瓶颈。"
+    }
+   ],
+   "boundary": {
+    "text": "漏斗是累计到达口径；未去重跨设备，也没有归因窗口。"
+   }
+  },
+  {
+   "index": 2,
+   "title": "留存：首月后稳定在 33% 左右，没有「二次下滑」",
+   "question": "用户的复购节奏是什么样？哪个月入组的用户更值钱？",
+   "chart": {
+    "type": "heatmap",
+    "title": "月度 cohort 留存率（%）",
+    "unit_meta": "%；行=入组月，列=入组后第 N 月",
+    "source": "explore cohort（R06 s03），orders.csv 5,345 个用户",
+    "rows": [
+     "2026-01",
+     "2026-02",
+     "2026-03",
+     "2026-04",
+     "2026-05",
+     "2026-06",
+     "2026-07",
+     "2026-08"
+    ],
+    "cols": [
+     "第 1 月",
+     "第 2 月",
+     "第 3 月",
+     "第 4 月",
+     "第 5 月"
+    ],
+    "cells": [
+     [
+      33.0,
+      35.0,
+      34.3,
+      34.7,
+      36.1
+     ],
+     [
+      31.4,
+      30.3,
+      30.6,
+      30.2,
+      31.3
+     ],
+     [
+      24.8,
+      28.1,
+      24.2,
+      27.0,
+      29.9
+     ],
+     [
+      23.1,
+      24.0,
+      24.5,
+      26.4,
+      25.7
+     ],
+     [
+      23.8,
+      24.5,
+      22.3,
+      24.0,
+      null
+     ],
+     [
+      26.5,
+      24.2,
+      22.7,
+      null,
+      null
+     ],
+     [
+      22.9,
+      22.1,
+      null,
+      null,
+      null
+     ],
+     [
+      22.6,
+      null,
+      null,
+      null,
+      null
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "留存：",
+     "text": "入组后第 1 月留存约 33%，之后基本持平（32%—36%），说明复购是「月度节奏」而不是持续衰减。"
+    },
+    {
+     "strong": "cohort：",
+     "text": "1 月入组 1,468 人最大，9 月只有 144 人——越晚入组规模越小，渠道获客在收缩。"
+    },
+    {
+     "strong": "含义：",
+     "text": "留存曲线平，说明用户不是「用完就走」；增长瓶颈在获客（漏斗前段），不在留存。"
+    }
+   ],
+   "boundary": {
+    "text": "cohort 以「有订单」定义活跃，未区分浏览/加购；10 月只有零星订单（数据截止 9 月底），末列留空；9 月 cohort 观察期不足，不参与比较。"
+   }
+  },
+  {
+   "index": 3,
+   "title": "分群：0.6% 的鲸鱼用户贡献 13 倍人均订单",
+   "question": "用户结构长什么样？预算该给哪一群人？",
+   "chart": {
+    "type": "hbar",
+    "title": "K-means 四群规模（人）",
+    "unit_meta": "人；特征：订单数/金额/最近购买/客单价",
+    "source": "explore segment（R06 s03），k=4，silhouette 0.496",
+    "bars": [
+     {
+      "label": "seg_0（Retain & Expand）",
+      "sub": "占 0.56%｜订单均值 53.1",
+      "value": 30,
+      "value_label": "30",
+      "weight": "context"
+     },
+     {
+      "label": "seg_2（Monetise）",
+      "sub": "占 15.14%｜订单均值 2.3",
+      "value": 809,
+      "value_label": "809",
+      "weight": "context"
+     },
+     {
+      "label": "seg_1（Activate）",
+      "sub": "占 26.01%｜订单均值 1.8",
+      "value": 1390,
+      "value_label": "1,390",
+      "weight": "context"
+     },
+     {
+      "label": "seg_3（Win-Back）",
+      "sub": "占 58.3%｜订单均值 4.5",
+      "value": 3116,
+      "value_label": "3,116",
+      "weight": "healthy"
+     }
+    ]
+   },
+   "reading": [
+    {
+     "strong": "结构：",
+     "text": "30 人（0.56%）人均 53 单，是鲸鱼群；58.3% 是待唤醒群。"
+    },
+    {
+     "strong": "RFM：",
+     "text": "R/F/M 全 4 分以上的核心客 1069 人（20.0%）；R≤2 的流失风险客 2115 人（39.6%）。"
+    },
+    {
+     "strong": "预算：",
+     "text": "鲸鱼群做专属服务保留存；待唤醒群用低成本触达；不要给全量发大额券。"
+    }
+   ],
+   "boundary": {
+    "text": "k-means 对量纲敏感，本次特征已同尺度；silhouette 0.496 表示分群可用但不算强分离。"
+   }
+  },
+  {
+   "index": 4,
+   "title": "首单折扣客并不更值钱，退货差异在渠道不在折扣",
+   "question": "首单折扣拉来的用户，客单与留存有差异吗？",
+   "table": {
+    "caption": "新客与退货的两个检验",
+    "columns": [
+     {
+      "text": "检验"
+     },
+     {
+      "text": "统计量",
+      "num": true
+     },
+     {
+      "text": "判读"
+     }
+    ],
+    "col_widths": [
+     "28%",
+     "18%",
+     "54%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "新客 vs 老客客单价（Welch t）"
+        }
+       ]
+      },
+      {
+       "text": "-1.40",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "p=0.161752，d=-0.0222；无显著差异"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "渠道 × 退货（卡方）"
+        }
+       ]
+      },
+      {
+       "text": "80.1",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "p<0.001，V=0.0633；抖音退货率更高"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "折扣：",
+     "text": "新客客单价 94.2 元 vs 老客 95.5 元，差 -1.29 元、p=0.161752——首单折扣没有把客单拉低到显著程度。"
+    },
+    {
+     "strong": "退货：",
+     "text": "渠道与退货显著相关（χ²=80.1），抖音退货率最高；治理要按渠道做，不是按新老客做。"
+    },
+    {
+     "strong": "结论：",
+     "text": "首单折扣不是「养出低质用户」的元凶；真正要管的是渠道退货与获客成本。"
+    }
+   ],
+   "boundary": {
+    "text": "新客定义是「首次下单」，不是「领券用户」；折扣力度未单独建模。"
+   }
+  },
+  {
+   "index": 5,
+   "title": "内容：3 个平台、16 万粉，只能算 partial",
+   "question": "内容侧的数据够不够发日报？哪个平台贡献最大？",
+   "table": {
+    "caption": "自媒体看板与状态",
+    "columns": [
+     {
+      "text": "指标"
+     },
+     {
+      "text": "值",
+      "num": true
+     },
+     {
+      "text": "说明"
+     }
+    ],
+    "col_widths": [
+     "30%",
+     "18%",
+     "52%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "粉丝总量"
+        }
+       ]
+      },
+      {
+       "text": "160,380",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "3 个平台"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "新增粉丝"
+        }
+       ]
+      },
+      {
+       "text": "1,063",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "当日增量"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "当日收入"
+        }
+       ]
+      },
+      {
+       "text": "62,800 元",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "三平台快照"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "平台集中度 HHI"
+        }
+       ]
+      },
+      {
+       "text": "0.461",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "健康；抖音占 60%"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "看板状态"
+        }
+       ]
+      },
+      {
+       "text": "partial",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "缺 2 个平台，不能当 ready 日报"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "集中：",
+     "text": "抖音 96,350 粉占 60%，HHI 0.461 判「健康」——单平台依赖明显。"
+    },
+    {
+     "strong": "状态：",
+     "text": "normalize 只拿到 3 个平台（小红书/抖音/知乎），dashboard 判 partial；缺 B站/公众号，日报不能发。"
+    },
+    {
+     "strong": "SaaS 对照：",
+     "text": "顺手跑了一次订阅模型：MRR 50 万、1,200 活跃、4% 月流失 → LTV 10,417 元、ARPU 417 元，用于和一次性电商模型对比。"
+    }
+   ],
+   "boundary": {
+    "text": "内容是快照数据，不做趋势；HHI 只反映粉丝分布，不代表收入集中度。"
+   }
+  },
+  {
+   "index": "A1",
+   "title": "记录层：漏斗、cohort、RFM、分群、看板",
+   "question": "这次实际跑了哪些技能、输出落在哪里？",
+   "intro": [
+    {
+     "text": "完整输出见 results/funnel.json、cohort.json、rfm.json、segment.json、selfmedia_*.json。"
+    }
+   ],
+   "table": {
+    "caption": "技能调用记录（可逐条复跑）",
+    "columns": [
+     {
+      "text": "技能 / 动作"
+     },
+     {
+      "text": "输入"
+     },
+     {
+      "text": "关键输出"
+     }
+    ],
+    "col_widths": [
+     "26%",
+     "22%",
+     "52%"
+    ],
+    "rows": [
+     [
+      {
+       "text": "explore funnel"
+      },
+      {
+       "lines": [
+        {
+         "text": "funnel.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "5 级，整体 3.3%"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "explore cohort"
+      },
+      {
+       "lines": [
+        {
+         "text": "orders.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "10 个 cohort"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "explore rfm"
+      },
+      {
+       "lines": [
+        {
+         "text": "orders.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "5345 用户；Top combos [('111', 394), ('555', 361), ('211', 204)]"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "explore segment"
+      },
+      {
+       "lines": [
+        {
+         "text": "customer_features.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "k=4，silhouette 0.4958"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "explore metrics"
+      },
+      {
+       "lines": [
+        {
+         "text": "orders.csv"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "GMV 1903706，AOV 95.19，复购订单占比 0.7328"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "explore saas"
+      },
+      {
+       "lines": [
+        {
+         "text": "标量"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "LTV 10416.67，ARPU 416.67"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "text": "selfmedia normalize/dashboard/report"
+      },
+      {
+       "lines": [
+        {
+         "text": "selfmedia_raw.json"
+        }
+       ]
+      },
+      {
+       "lines": [
+        {
+         "text": "3 平台，状态 partial"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "appendix": true
+  },
+  {
+   "index": 6,
+   "title": "口径与分数",
+   "question": "这份报告的结论能追回到哪一步？哪些地方是模拟、哪些是真实？",
+   "table": {
+    "caption": "自检与数据边界",
+    "columns": [
+     {
+      "text": "指标"
+     },
+     {
+      "text": "值",
+      "num": true
+     },
+     {
+      "text": "说明"
+     }
+    ],
+    "col_widths": [
+     "22%",
+     "14%",
+     "64%"
+    ],
+    "rows": [
+     [
+      {
+       "lines": [
+        {
+         "text": "技能调用"
+        }
+       ]
+      },
+      {
+       "text": "12",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "P6：funnel/cohort/rfm/segment/metrics/time_series/ttest/chi2/saas/selfmedia×3"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "用户"
+        }
+       ]
+      },
+      {
+       "text": "5,345",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "订单 20,000；cohort 9 个月"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "真实 / 模拟"
+        }
+       ]
+      },
+      {
+       "text": "全模拟",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "seed=42；留存与分群结构按真实电商节奏设定"
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "lines": [
+        {
+         "text": "看板状态"
+        }
+       ]
+      },
+      {
+       "text": "partial",
+       "num": true
+      },
+      {
+       "lines": [
+        {
+         "text": "3/5 平台，缺 2 个"
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   "reading": [
+    {
+     "strong": "怎么读：",
+     "text": "留存 = 当月活跃用户 ÷ cohort 规模；RFM 按 R/F/M 四分位打分；HHI = Σ份额²。"
+    },
+    {
+     "strong": "边界：",
+     "text": "模拟用户行为不能替代真实留存；结论只演示方法，不承诺复购率。"
+    }
+   ]
+  }
+ ],
+ "notes": {
+  "summary": "模拟用户与看板口径",
+  "items": [
+   {
+    "label": "模拟：",
+    "text": "订单/用户/内容快照均按 seed=42 生成；留存与 RFM 分布按真实电商节奏设定，不承诺复购率。"
+   },
+   {
+    "label": "复购口径：",
+    "text": "repeat_purchase_share =（订单数 − 独立客户数）÷ 订单数，是「第 2 单及以后的订单占比」，不是复购用户占比，也不是留存率。"
+   },
+   {
+    "label": "看板：",
+    "text": "selfmedia 的快照不求和、增长按时段求和；缺平台判 partial，不能当 ready 发日报。"
+   }
+  ],
+  "tail": "RFM 与 k-means 是分群工具，不是因果；分层后的增量仍需实验验证（见 P4）。"
+ },
+ "footer": [
+  "P6 用户留存与内容 · 数据分析能力演练（R06 蛙得清）",
+  "渲染 core/report_renderer.py · 数据 results/*.json",
+  "生成时间 2026-11-13（Asia/Shanghai）"
+ ]
+}

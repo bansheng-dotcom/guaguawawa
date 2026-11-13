@@ -1,0 +1,70 @@
+{
+  "round": 3,
+  "generated_at": "2026-11-10T19:37:12",
+  "cli_commands": [
+    {
+      "argv": [
+        "D:\\anaconda3\\python.exe",
+        "agent.py",
+        "evolution",
+        "bundle",
+        "--output-dir",
+        "D:\\蛙蛙呱呱\\蛙蛙呱呱agents团\\r05-washenyuan-research\\artifacts\\evolve\\round3\\cli_bundle"
+      ],
+      "returncode": 0,
+      "duration_sec": 0.199
+    },
+    {
+      "argv": [
+        "D:\\anaconda3\\python.exe",
+        "agent.py",
+        "evolution",
+        "telemetry"
+      ],
+      "returncode": 0,
+      "duration_sec": 0.208
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/evolve/round3/l07_bundle/research_spec.json",
+      "bytes": 729,
+      "sha256": "73a241e8ee1d4255928c91f65b05d839daea639d968e8668d722a9c12ea35154"
+    },
+    {
+      "path": "artifacts/evolve/round3/l07_bundle/research_chart_spec.json",
+      "bytes": 590,
+      "sha256": "eb3a916de5127b91a4fd5ef3a866ebff4114044d9ecb65a776d01c8ba1997e43"
+    },
+    {
+      "path": "artifacts/evolve/round3/l07_bundle/research_result.sarif.json",
+      "bytes": 4511,
+      "sha256": "d5a959046e7ede93f2419abdae02ede43b21f7cbfa34c4ad610f86a6c99371cb"
+    },
+    {
+      "path": "artifacts/evolve/round3/l07_bundle/bundle.json",
+      "bytes": 749,
+      "sha256": "1bab2da4c571936103d421b1cf194ef9824d5381d7889542ddf36bd9b42ae3de"
+    },
+    {
+      "path": "artifacts/evolve/round3/l08_patch_integrity.json",
+      "bytes": 951,
+      "sha256": "c1c996e1744e1e1fc032b0570464b1f40d89994b0bc6b0a93fb598227a9fd69c"
+    },
+    {
+      "path": "artifacts/evolve/round3/l09_session_evidence.json",
+      "bytes": 2422,
+      "sha256": "7eb5f204bcfdf91153f456ebf9d994cb7cbf84e02eb81aed78f7e46cd63e8d6d"
+    },
+    {
+      "path": "artifacts/evolve/round3/l10_telemetry.jsonl",
+      "bytes": 596,
+      "sha256": "ec9c740c7807b2210771163ec169eaa8dd166d1650d5e2aad48db9d6adda6791"
+    },
+    {
+      "path": "artifacts/evolve/round3/l10_health.json",
+      "bytes": 121,
+      "sha256": "84d0e4253e6e907a8f8758c2d3e4a7f611d51d5cc3429020edcd39ba10c63380"
+    }
+  ]
+}

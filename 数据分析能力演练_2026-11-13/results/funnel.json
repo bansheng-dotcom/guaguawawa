@@ -1,0 +1,48 @@
+{
+  "type": "funnel",
+  "stages": [
+    {
+      "stage": "曝光",
+      "count": 50000,
+      "conversion_overall": 1.0,
+      "conversion_step": 1.0,
+      "step_drop_pct": 0.0,
+      "drop_alert": false
+    },
+    {
+      "stage": "点击",
+      "count": 12000,
+      "conversion_overall": 0.24,
+      "conversion_step": 0.24,
+      "step_drop_pct": 76.0,
+      "drop_alert": true
+    },
+    {
+      "stage": "加购",
+      "count": 3600,
+      "conversion_overall": 0.072,
+      "conversion_step": 0.3,
+      "step_drop_pct": 70.0,
+      "drop_alert": true
+    },
+    {
+      "stage": "下单",
+      "count": 1800,
+      "conversion_overall": 0.036,
+      "conversion_step": 0.5,
+      "step_drop_pct": 50.0,
+      "drop_alert": true
+    },
+    {
+      "stage": "支付",
+      "count": 1650,
+      "conversion_overall": 0.033,
+      "conversion_step": 0.9167,
+      "step_drop_pct": 8.33,
+      "drop_alert": false
+    }
+  ],
+  "drop_warn_pct": 20.0,
+  "note": "相邻步骤转化率骤降≥20.0% 时 drop_alert=true，提示漏斗漏损",
+  "runtime_ms": 100
+}

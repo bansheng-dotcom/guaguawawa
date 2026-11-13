@@ -1,0 +1,40 @@
+{
+  "case_id": "sla-incident",
+  "display_name": "可用性跌破 SLA 的故障演练复盘",
+  "description": "本月可用性 99.93%、RTO 实测 47 分钟，下一次演练该压哪条链路、要不要启动 P0 整改？",
+  "default_question": "本月可用性 99.93%、RTO 实测 47 分钟，下一次演练该压哪条链路、要不要启动 P0 整改？",
+  "artifact_type": "monitor_config",
+  "summary": "可用性跌破 SLA 的故障演练复盘",
+  "semantic_layer": "semantic_layer.json",
+  "experience_dir": "experience",
+  "artifacts": [
+    "monitor_config",
+    "backup_repo"
+  ],
+  "skills": [
+    "monitor",
+    "alert",
+    "restore",
+    "postmortem"
+  ],
+  "required_gates": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "scope_boundary": [
+    "业务功能实现",
+    "发布决策"
+  ],
+  "steps": [
+    {
+      "skill": "monitor",
+      "action": "monitor",
+      "input": "examples/monitor.json",
+      "expect": {
+        "verdict": "PASS",
+        "monitor_count": 1
+      }
+    }
+  ]
+}

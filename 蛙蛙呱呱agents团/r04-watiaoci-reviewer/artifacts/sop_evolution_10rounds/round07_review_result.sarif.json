@@ -1,0 +1,76 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "r04-watiaoci-reviewer",
+          "semanticVersion": "7.0.0",
+          "rules": [
+            {
+              "id": "P-THEATRE",
+              "shortDescription": {
+                "text": "Rule P-THEATRE"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "P-SLOP",
+              "shortDescription": {
+                "text": "Rule P-SLOP"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "P-THEATRE",
+          "level": "error",
+          "message": {
+            "text": "Fake gate exit 0 bypass"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "scripts/ci.sh"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "P-SLOP",
+          "level": "warning",
+          "message": {
+            "text": "Vague feedback without line anchor"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "agent.py"
+                },
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

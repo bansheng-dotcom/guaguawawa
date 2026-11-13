@@ -1,0 +1,19 @@
+{
+ "skill": "explore",
+ "args": [
+  "segment",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_customers.csv",
+  "--features",
+  "orders,revenue,recency_days,aov",
+  "--k",
+  "5",
+  "--user",
+  "customer_id",
+  "--seed",
+  "42"
+ ],
+ "expect": {
+  "k": 5
+ }
+}

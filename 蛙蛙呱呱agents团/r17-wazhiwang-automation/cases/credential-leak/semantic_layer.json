@@ -1,0 +1,46 @@
+{
+  "artifact_type": "credential_gate",
+  "terms": [
+    {
+      "term": "明文密钥",
+      "meaning": "secret/token/api_key 等直接出现在工作流 source",
+      "source": "n8n instance-awareness"
+    },
+    {
+      "term": "newCredential()",
+      "meaning": "凭据引用占位符，而非明文",
+      "source": "n8n credentials"
+    },
+    {
+      "term": "服务专属凭据",
+      "meaning": "dedicated credential 而非通用兜底",
+      "source": "n8n credentials"
+    }
+  ],
+  "gates": [
+    {
+      "id": "g1",
+      "when": "参数含 secret/token/api_key 且非空字符串",
+      "verdict": "BLOCKER",
+      "action": "退回改用凭据引用"
+    },
+    {
+      "id": "g2",
+      "when": "凭据未声明 credential_type",
+      "verdict": "WARN",
+      "action": "要求声明服务专属凭据类型"
+    }
+  ],
+  "boundary": [
+    {
+      "out_of_scope": "凭据实际值的管理",
+      "owner": "业务角色/凭据管理员",
+      "r17_role": "只拦截明文，不接触凭据实际值"
+    }
+  ],
+  "decision_order": [
+    "先扫明文密钥",
+    "再查凭据类型声明",
+    "最后查未解析占位符"
+  ]
+}

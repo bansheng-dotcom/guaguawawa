@@ -1,0 +1,21 @@
+{
+  "chi2": {
+    "chi2_statistic": 2.1022,
+    "df": 2,
+    "critical_0.05": 5.991,
+    "significant_at_0.05": false,
+    "cramers_v": 0.0032,
+    "effect_grade": "small",
+    "min_expected": 419.29,
+    "table": {
+      "Android|0": 88137,
+      "Android|1": 1867,
+      "PC|0": 19567,
+      "PC|1": 447,
+      "iOS|0": 88106,
+      "iOS|1": 1876
+    },
+    "note": "独立性检验；任何 cell 期望频数<5 时卡方近似不可靠"
+  },
+  "runtime_ms": 420
+}

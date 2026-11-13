@@ -1,0 +1,41 @@
+{
+  "patch": [
+    {
+      "op": "replace",
+      "path": "/pricing/unit_price",
+      "value": 1500.0
+    },
+    {
+      "op": "replace",
+      "path": "/sizing/tam",
+      "value": 130.0
+    },
+    {
+      "op": "replace",
+      "path": "/sizing/obtainable_share",
+      "value": 0.08
+    }
+  ],
+  "integrity": {
+    "doc": {
+      "model": "subscription",
+      "pricing": {
+        "unit_price": 1500.0,
+        "cogs": 300.0
+      },
+      "sizing": {
+        "tam": 130.0,
+        "obtainable_share": 0.08
+      }
+    },
+    "applied": [
+      "REPLACE /pricing/unit_price -> 1500.0",
+      "REPLACE /sizing/tam -> 130.0",
+      "REPLACE /sizing/obtainable_share -> 0.08"
+    ],
+    "sha256_before": "2430e27af30b088cb4101cb148e960e300e0b00d8ac7013a49a5185ee10c9756",
+    "sha256_after": "ee230187d441f53c29ae6fd95109e2a0c628ad6a5bb45a57e7c1555b7120d62f",
+    "changed": true
+  },
+  "roundtrip_ok": true
+}

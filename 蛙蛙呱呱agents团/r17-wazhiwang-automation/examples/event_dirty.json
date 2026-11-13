@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "teleported",
+      "entity_id": 1001,
+      "ts": 1700000005
+    },
+    {
+      "type": "created",
+      "entity_id": "",
+      "ts": 1700000001
+    }
+  ],
+  "routes": [],
+  "dead_letter": false
+}

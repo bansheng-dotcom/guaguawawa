@@ -1,0 +1,34 @@
+# manifest.yaml — 单节审查与修订
+name: "section-editor"
+version: "1.0"
+status: "active"
+description: "合并 AI 味、逻辑、结构、术语和文风修订为一次单节编辑"
+
+io:
+  inputs:
+    - "sections/{section_id}/draft.md"
+    - "argument-spine.md"
+    - "paragraph-tags.json"
+    - "ai-tone-context-pack.json"
+    - "ai-tone-scan.json"
+  outputs:
+    - "sections/{section_id}/section-editor-output.json"
+    - "sections/{section_id}/final.md via materializer"
+    - "sections/{section_id}/review-ai-tone.json via materializer"
+
+execution:
+  temperature: 0.30
+  node_type: "agent"
+  parallel: true
+
+prompt_ref: "prompts.yaml#agents.section-editor"
+
+dependencies:
+  agents: []
+  scripts:
+    - "scripts/materialize_section_editor_output.py"
+  references:
+    - "D:/知识库/skills/内容生产/ai-tone-director/SKILL.md"
+    - "style-profiles/style-guide.md"
+    - "style-profiles/cognitive-style-guide.md"
+    - "style-profiles/author-soul.md"

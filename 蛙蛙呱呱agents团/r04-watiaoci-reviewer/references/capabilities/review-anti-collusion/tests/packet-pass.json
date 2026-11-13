@@ -1,0 +1,21 @@
+{
+  "_comment": "正例：身份不同一 + 有证据链 + 无修复声明 + 结论无模糊措辞 → review.py 应通过",
+  "skill": "review",
+  "action": "verdict",
+  "result": {
+    "reviewer": "r04-watiaoci-reviewer",
+    "producer": "r09-wawenma-engineer",
+    "verdict": "PASS",
+    "findings": [],
+    "criteria_results": [
+      {
+        "id": "AC-01",
+        "criterion": "首屏 3 秒内可读出核心利益",
+        "status": "pass",
+        "reason": "evidence_specific",
+        "evidence": "landing.html:12 首屏主标题"
+      }
+    ],
+    "summary": "逐条核对四项验收标准，全部有可定位证据，无阻断项。"
+  }
+}

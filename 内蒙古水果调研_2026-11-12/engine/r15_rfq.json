@@ -1,0 +1,23 @@
+{
+ "id": "RFQ-APPLE-2026-11",
+ "status": "Submitted",
+ "required_by": "2026-11-20",
+ "currency": "CNY",
+ "suppliers": [
+  {
+   "supplier": "宁城县合作社"
+  },
+  {
+   "supplier": "赤峰西城经销商"
+  },
+  {
+   "supplier": "北京新发地调运商"
+  }
+ ],
+ "items": [
+  {
+   "item_code": "APPLE-FUJI",
+   "qty": 10000
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "skill": "viz",
+ "args": [
+  "spec",
+  "--input",
+  "{AGENTS}/tests/fixtures/chart_spec.json"
+ ],
+ "expect": {
+  "ok": true,
+  "canonical": "line"
+ }
+}

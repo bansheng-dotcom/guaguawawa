@@ -1,0 +1,44 @@
+role: r02
+doc_type: 交付报告 · 蛙排布
+title: '交付节奏：卡点
+
+  与容量'
+title_highlight: 与容量
+title_highlight_style: underline
+meta:
+- 读者：创始人与各 owner
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r02 · shared/report_writer + core/report_renderer
+sections:
+- title: 交付日
+  question: 什么时候能交？
+  intro: 关键路径决定交付日，工作量决定不了。
+  boundary: 交付日按当前资源与依赖推算，未含外部审批。
+- title: 容量
+  question: 谁已经满了？
+  intro: 负载超过 85% 的人，再加活就是延期。
+  boundary: 负载按任务工时加权，未含会议与支持。
+- title: 依赖与交接
+  question: 卡在谁那里？
+  intro: 跨角色交接是唯一不可自愈的阻塞。
+  boundary: 交接包四要素缺一即视为未交接。
+- title: 取舍
+  question: 不动交付日怎么办？
+  intro: 砍范围、加人、延期，三选一，没有第四种。
+  boundary: 取舍方案需附验收口径。
+- title: 判断与动作
+  question: 本周谁做什么？
+  intro: 排期要落到人天与日期。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 交付日
+- label: 关键
+  section: 依赖与交接
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

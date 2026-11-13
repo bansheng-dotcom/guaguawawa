@@ -1,0 +1,14 @@
+{
+ "skill": "describe",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--col",
+  "unit_price"
+ ],
+ "expect": {
+  "describe.unit_price.mean": {
+   "gt": 0
+  }
+ }
+}

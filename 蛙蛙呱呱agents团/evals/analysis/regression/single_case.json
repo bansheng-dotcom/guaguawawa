@@ -1,0 +1,16 @@
+{
+ "skill": "regression",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--x",
+  "unit_price",
+  "--y",
+  "qty"
+ ],
+ "expect": {
+  "regression.r_squared": {
+   "not_null": true
+  }
+ }
+}

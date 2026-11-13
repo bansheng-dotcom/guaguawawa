@@ -1,0 +1,15 @@
+{
+ "skill": "scinlp",
+ "args": [
+  "describe",
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_orders.csv",
+  "--col",
+  "revenue"
+ ],
+ "expect": {
+  "describe.mean": {
+   "gt": 0
+  }
+ }
+}

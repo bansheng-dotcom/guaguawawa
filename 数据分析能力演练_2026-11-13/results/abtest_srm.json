@@ -1,0 +1,17 @@
+{
+  "abtest": {
+    "control_mean": 0.0198,
+    "treatment_mean": 0.0216,
+    "lift_pct": 8.89,
+    "impact_min_pct": 3.0,
+    "t": -2.7393,
+    "p_value_approx": 0.006157,
+    "significant": true,
+    "srm_chi2": 81.5914,
+    "srm_critical_chi2": 3.841,
+    "srm_flag": true,
+    "decision": "srm_rerun",
+    "note": "决策表：显著正且 lift≥impact_min 且无SRM=ship；否则 no_ship；SRM 异常=重跑"
+  },
+  "runtime_ms": 508
+}

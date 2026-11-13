@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "gates": [
+    {
+      "id": "G01",
+      "subject": "TCO 复核交付",
+      "artifacts": 4,
+      "l1": 4,
+      "l2": 3,
+      "l3": 2,
+      "stub": 1,
+      "blocking": 1,
+      "severity": "HIGH",
+      "recheck": "未复评"
+    },
+    {
+      "id": "G02",
+      "subject": "增长报告交付",
+      "artifacts": 3,
+      "l1": 3,
+      "l2": 3,
+      "l3": 3,
+      "stub": 0,
+      "blocking": 0,
+      "severity": "OK",
+      "recheck": "已复评通过"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+role: r09
+doc_type: 工程报告 · 蛙稳码
+title: '工程质量：契约
+
+  与风险'
+title_highlight: 与风险
+title_highlight_style: underline
+meta:
+- 读者：研发负责人
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r09 · shared/report_writer + core/report_renderer
+sections:
+- title: 模块与契约
+  question: 模块边界清不清？
+  intro: 边界不清的模块，最后都会长成一张网。
+  boundary: 边界以接口与数据所有权为准。
+- title: 风险接口
+  question: 改这个接口会不会炸？
+  intro: 破坏性变更必须提前列出调用方。
+  boundary: 风险按调用方数量与兼容性分级。
+- title: 覆盖
+  question: 覆盖够不够发版？
+  intro: 覆盖率不是目的，未覆盖的关键路径才是风险。
+  boundary: 覆盖率按语句覆盖统计，不含集成测试。
+  chart: coverage
+- title: 性能
+  question: 撑不撑得住峰值？
+  intro: 压测缺峰值场景，等于没压。
+  boundary: 性能数字需附压测环境与并发。
+  chart: p95
+- title: 判断与动作
+  question: 发还是不发？
+  intro: 发版结论必须带回滚方案。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 模块与契约
+- label: 关键
+  section: 覆盖
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

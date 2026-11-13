@@ -1,0 +1,18 @@
+{
+ "skill": "matched",
+ "args": [
+  "--treat",
+  "{AGENTS}/tests/fixtures/analysis_treat.csv",
+  "--control",
+  "{AGENTS}/tests/fixtures/analysis_control.csv",
+  "--col",
+  "gmv_growth",
+  "--covariates",
+  "population,income_index,douyin_penetration,ecommerce_index"
+ ],
+ "expect": {
+  "matched.att": {
+   "not_null": true
+  }
+ }
+}

@@ -1,0 +1,510 @@
+# workflows/topology.yaml — 文章生产工作流拓扑
+# 人类可读的流程图 + 机器可解析的节点定义
+# 提示词引用 prompts.yaml 中的 task_prefixes 和 strategies
+
+_version: "2.0"
+_updated: "2026-06-25"
+
+meta:
+  name: article-director-workflow
+  description: 知识科普文章多阶段生产工作流
+  two_phase: true
+  config_ref: config.py                    # 阈值参数的权威来源
+  file_conventions: file-conventions.yaml  # 文件生成与管理规范
+  human_gates:
+    - id: outline-confirmation
+      position: bootstrap/outline-confirmation-01
+      message: "大纲和细纲已生成并完成检查，请先人工确认后再进入正文分包与写作。"
+    - id: final-article-approval
+      position: expanded/human-approval-01
+      message: "全文终审完成，请人工确认最终文章是否通过。"
+
+profiles:
+  lean-v1:
+    description: "4 个核心职责 + section-editor 内部支撑节点 + 确定性脚本门禁。默认用于新文章工作流。"
+    core_agents:
+      - topic-architect
+      - section-writer
+      - section-editor
+      - final-integrator
+    implementation_support_agents:
+      - section-reviewer
+      - paragraph-rewrite-designer
+      - section-rewriter
+    optional_support:
+      - deep-dive-researcher
+      - image-ui
+    section_loop:
+      - "build-argument-spine-{section_id} (script)"
+      - "build-writer-context-window-{section_id} (script)"
+      - "section-writer-{section_id} (agent)"
+      - "prepare-section-review-source-{section_id} (script)"
+      - "tag-paragraphs-{section_id} (script)"
+      - "prepare-ai-tone-call-{section_id} (script)"
+      - "review-ai-tone-{section_id} (agent; fan-out)"
+      - "review-style-{section_id} (agent; fan-out)"
+      - "review-logic-{section_id} (agent; fan-out)"
+      - "review-structure-{section_id} (agent; fan-out)"
+      - "review-simplify-{section_id} (agent; fan-out)"
+      - "merge-edit-brief-{section_id} (script)"
+      - "paragraph-rewrite-designer-{section_id} (agent; paragraph rewrite design)"
+      - "section-editor-{section_id} (agent; section-rewriter skill, legacy output name)"
+      - "section-rewrite-gate-{section_id} (script)"
+      - "materialize-section-editor-{section_id} (script)"
+      - "validate-ai-tone-audit-{section_id} (script)"
+      - "build-ai-tone-repair-plan-{section_id} (script)"
+      - "ai-tone-regression-{section_id} (script)"
+      - "section-complete-{section_id} (script)"
+    convergence:
+      - draft-assembler-01
+      - final-integrator-01
+      - style-harmonizer-check-01
+      - source-map-repair-01
+      - appendix-agent-01
+      - finalize-draft-01
+      - final-draft-integrity-01
+      - argument-flow-check-01
+      - code-check-01
+      - human-approval-01
+    expected_llm_calls_for_8_sections: 65
+
+  standard-legacy:
+    description: "历史多 agent 链路，保留用于回归、对照和兼容。"
+
+# ══════════════════════════════════════════════════════════════
+# 阈值与参数（与 config.py 同步）
+# ══════════════════════════════════════════════════════════════
+
+thresholds:
+  # 文章质量
+  min_chars: 2000                         # 标准 profile 最少字符（config.MIN_CHARS）
+  min_chars_short: 1000                   # 短文 profile 最少字符（config.MIN_CHARS_SHORT）
+  min_packages: 2                         # 最少分包数（config.MIN_PACKAGES）
+  max_packages: 6                         # 最多分包数（config.MAX_PACKAGES）
+  min_section_char_ratio: 0.05            # section 最小字符占比
+  max_section_char_ratio: 2.60            # section 最大字符占比
+
+  # 双审共识
+  review_score_pass: 70                   # 通过分数线（config.REVIEW_SCORE_PASS）
+  review_max_retries: 3                   # 修订最大重试（config.REVIEW_MAX_RETRIES）
+
+  # 节点重试
+  max_node_retries: 3                     # 单节点最大重试（config.MAX_NODE_RETRIES）
+  max_revision_chain: 5                   # 修订链最大长度（config.MAX_REVISION_CHAIN）
+  max_parallel_sections: 3                # 段落并行上限（config.MAX_PARALLEL_SECTIONS）
+  section_soft_token_cap: 24000           # 段落软预算上限
+  section_hard_token_cap: 40000           # 段落硬预算上限
+
+section_workflow:
+  description: "每个二级章节作为一个 section job；section job 可并行，最大并行数为 3。大纲/细纲由 topic-architect 作为第一 agent 规划，article-architect 暂为兼容别名。"
+  parallel_limit: 3
+  required_context:
+    - "outputs/{topic_id}/article-requirements.json"
+    - "outputs/{topic_id}/section-manifest.json"
+    - "tmp/{topic_id}-detailed-outline.md"
+  review_chain:
+    - id: "build-argument-spine-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/argument-spine.md"
+      rule: "每节写作前生成逻辑骨架；逻辑链、去 AI 前置表达约束和个人文风共同进入 writer 契约，供 writer/review/revision 共同消费。"
+    - id: "build-writer-context-window-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/writer-context-window.json"
+      rule: "从 section-manifest、article-requirements 和当前 argument-spine 生成 previous/current/next 上下文窗口；上一节和下一节只作上下文，不引入串行写作依赖。"
+    - id: "section-writer-{section_id}"
+      temperature: 0.35
+      output: "sections/{section_id}/draft.md"
+      rule: "writer 作为局部总控，读取 previous/current/next、argument-spine、ai-tone-prewrite-context 和作者风格资产，先在 HTML 注释中写 reader-use-contract，再输出当前 section 正文；不再单独生成 plan-writer-controller 节点。"
+    - id: "prepare-section-review-source-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/review-source.md"
+      rule: "确定性剥离 draft.md 顶部 writer-contract HTML 注释；后续 paragraph tag、AI 味扫描、review fan-out 和 section-rewriter 均以 review-source.md 作为正文源。"
+    - id: "tag-paragraphs-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/paragraph-tags.json"
+      rule: "基于 review-source.md 生成段落功能标签；标签只作为 review hints，不强迫每段都承担完整论证链。"
+    - id: "prepare-ai-tone-call-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/ai-tone-context-pack.json"
+      rule: "由 ai-tone-director invocation_log.py 生成独立上下文、扫描结果和幂等日志。"
+    - id: "review-ai-tone-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/review-ai-tone-findings.json"
+      rule: "fan-out 审查节点；消费 ai-tone-context-pack.json 和 ai-tone-scan.json，必须包含 ai_tone_invocation；只提意见，不改正文。"
+    - id: "review-style-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/review-style.json"
+      rule: "fan-out 审查节点；只审作者文风、认知路径、节奏和通用化表达，不改正文。"
+    - id: "review-logic-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/review-logic.json"
+      rule: "fan-out 审查节点；只审论点、因果、跳步、证据支撑、是否符合 argument-spine、是否存在观点串联和短气口；不改正文。"
+    - id: "review-structure-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/review-structure.json"
+      rule: "fan-out 审查节点；只审分段、分点、表格、清单、例子和步骤化需求；不改正文。"
+    - id: "review-simplify-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/review-simplify.json"
+      rule: "fan-out 审查节点；只审抽象 filler、低信息桥接句、过度解释和可压缩位置；不改正文。"
+    - id: "merge-edit-brief-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/section-edit-brief.json"
+      rule: "确定性汇总五类审查意见；审查 agent 只提意见，集中修改由 section-rewriter 负责。"
+    - id: "paragraph-rewrite-designer-{section_id}"
+      temperature: 0.35
+      output: "sections/{section_id}/paragraph-rewrite-design.json"
+      rule: "消费 section-edit-brief 与五类审查，输出 v2 改写单元；所有正文段落至少有 micro_polish，需要重构的完整语义单元生成 2-4 个候选并按固定权重评分选择；不直接输出最终 Markdown。"
+  revision_chain:
+    - id: "section-editor-{section_id}"
+      temperature: 0.30
+      output: "sections/{section_id}/section-editor-output.json"
+      rule: "独立集中修改 agent；先根据 section heading 输出 supervisor_judgment，再消费 paragraph-rewrite-design.json 的选中草稿和 micro edits，只做合稿、顺句、段间连接和残留 AI 味处理，保留原意，不重新评选候选或重跑审查 fan-out。"
+    - id: "section-rewrite-gate-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/section-rewrite-gate.json"
+      rule: "校验集中修改结果是否先输出 supervisor_judgment、消费 brief、保留 ai_tone_invocation、移除 writer-contract；失败时只回到 section-rewriter/gate，不重跑审查 fan-out。"
+    - id: "materialize-section-editor-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/section-editor-materialize.json"
+      rule: "保持旧下游契约：从 section-editor-output.json 物化 final.md、review-ai-tone.json 和 terms.json。"
+    - id: "validate-ai-tone-audit-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/ai-tone-audit-gate.json"
+      rule: "校验物化后的 canonical review-ai-tone.json 是否消费本节 context、source_hash 和 idempotency_key。"
+    - id: "build-ai-tone-repair-plan-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/ai-tone-repair-plan.md"
+      rule: "从物化后的 AI 味审查结果生成本节修订计划，供 regression 和后续日志消费。"
+    - id: "ai-tone-regression-{section_id}"
+      temperature: 0.00
+      output: "sections/{section_id}/ai-tone-regression.json"
+      rule: "从 review-source.md 到 final.md 做去 AI 味回归，使用 canonical review-ai-tone.json。"
+
+# ══════════════════════════════════════════════════════════════
+# 路由规则（硬编码，LLM 不可覆盖）
+# 参考：data-analysis-report-agent/workflow.py _should_stop()
+# ══════════════════════════════════════════════════════════════
+
+routing:
+
+  # ── 双审共识路由（对应 review_diff.py determine_rollback）──
+  review_diff:
+    - condition: "conflicts exist"
+      action: "human-review"
+      rollback: "manual-triage"
+      reason: "双审结论冲突，需人工裁决"
+    - condition: "either_fail AND both_scores >= 70"
+      action: "human-review"
+      reason: "避免死循环（高分但仍失败）"
+    - condition: "either_fail AND low_scores"
+      action: "revise"
+      rollback: "infer from issue dimension"
+      reason: "低分失败，自动修订"
+    - condition: "both_pass BUT blocking_issues"
+      action: "human-review"
+      reason: "通过但有阻断性问题"
+
+  # ── 失败恢复路由（对应 workflow_runner.py mark_failed）──
+  failure_recovery:
+    - condition: "retry_count < max_node_retries"
+      action: "generate_revision_micro_plan"
+      script: scripts/build_revision_micro_plan.py
+    - condition: "retry_count >= max_node_retries"
+      action: "escalate_to_human"
+      reason: "超过最大重试次数"
+
+  # ── 覆盖度检查（对应 supervisor.py）──
+  supervisor:
+    trigger: "after all packages converge, before dual_review"
+    checks:
+      - "package_count >= min_packages"
+      - "all manifest sections covered by packages"
+      - "strategy-specific key sections present"
+    action_on_fail: "log warning, suggest追加包"
+
+  # ── 条件分支 guards ──
+  guards:
+    tutorial_gate:
+      condition: "strategy == 'teaching-playbook'"
+      insert_after: validate-strategy-manifest-rules-01
+      reason: "教程类文章需要事实核查门控"
+    image_chain:
+      condition: "config.include_images == true"
+      insert_after: balance-article-packages-01
+      reason: "包含图片时启用图片处理链"
+    experiment_chain:
+      condition: "config.include_experiments == true"
+      insert_after: balance-image-packages-01
+      reason: "包含实验时启用实验链"
+
+# ══════════════════════════════════════════════════════════════
+# 阶段一：Bootstrap（线性 + 条件分支）
+# 目标：从选题到分包完成，产出 Phase 2 脚本
+# ══════════════════════════════════════════════════════════════
+
+bootstrap:
+
+  # ── 主链（始终执行）──
+  main_chain:
+    - id: topic-architect-01-plan
+      type: agent
+      agent: topic-architect
+      prompt_ref: "prompts.yaml#task_prefixes.topic-architect-01-plan"
+      outputs:
+        - "tmp/{topic_id}-outline.md"
+      notes: "选题规划：读者画像、知识结构、大纲"
+
+    - id: topic-architect-01-exec
+      type: agent
+      agent: topic-architect
+      prompt_ref: "prompts.yaml#task_prefixes.topic-architect-01-exec"
+      depends_on: [topic-architect-01-plan]
+      outputs:
+        - "tmp/{topic_id}-detailed-outline.md"
+      notes: "细纲展开：论点/解释/引用/案例/待研究"
+
+    - id: normalize-detailed-outline-01
+      type: script
+      script: scripts/normalize_detailed_outline.py
+      depends_on: [topic-architect-01-exec]
+      notes: "标准化细纲格式"
+
+    - id: derive-outline-01
+      type: script
+      script: scripts/derive_outline_from_detailed.py
+      depends_on: [normalize-detailed-outline-01]
+      outputs:
+        - "tmp/{topic_id}-outline.md"
+      notes: "从细纲反推大纲"
+
+    - id: director-inspect-01
+      type: agent
+      agent: director
+      prompt_ref: "prompts.yaml#task_prefixes.director-inspect-01"
+      depends_on: [derive-outline-01]
+      notes: "审查大纲完整性、边界和缺口"
+
+    - id: outline-confirmation-01
+      type: human-approval
+      gate: outline-confirmation
+      depends_on: [director-inspect-01]
+      notes: "人工确认大纲和细纲"
+
+    - id: build-section-manifest-01
+      type: script
+      script: scripts/build_section_manifest.py
+      depends_on: [outline-confirmation-01]
+      outputs:
+        - "outputs/{topic_id}/section-manifest.json"
+
+    - id: validate-strategy-manifest-rules-01
+      type: script
+      script: scripts/validate_strategy_manifest_rules.py
+      depends_on: [build-section-manifest-01]
+      notes: "验证策略规则一致性"
+
+    - id: score-article-workload-01
+      type: script
+      script: scripts/score_article_workload.py
+      depends_on: [validate-strategy-manifest-rules-01]
+      notes: "为每个 section 评分"
+
+    - id: balance-article-packages-01
+      type: script
+      script: scripts/balance_article_packages.py
+      depends_on: [score-article-workload-01]
+      outputs:
+        - "outputs/{topic_id}/article-packages.json"
+      notes: "将 section 打包为 writer 包"
+
+    - id: compile-expanded-workflow-01
+      type: script
+      script: scripts/compile_expanded_workflow.py
+      depends_on: [balance-article-packages-01]
+      outputs:
+        - "outputs/{topic_id}/run_{topic_id}_expanded.py"
+      notes: "生成 Phase 2 脚本"
+
+  # ── 条件分支：教程研究门控（teaching-playbook 策略时启用）──
+  conditional_tutorial_gate:
+    trigger: strategy == "teaching-playbook"
+    insert_after: validate-strategy-manifest-rules-01
+    nodes:
+      - id: tutorial-research-gate-01
+        type: script
+        script: scripts/prepare_tutorial_research_gate.py
+        notes: "教程类文章事实核查门控"
+
+  # ── 条件分支：图片链（可选）──
+  conditional_image_chain:
+    trigger: config.include_images == true
+    insert_after: balance-article-packages-01
+    nodes:
+      - id: build-image-manifest-01
+        type: script
+        script: scripts/build_image_manifest.py
+      - id: score-image-workload-01
+        type: script
+        script: scripts/score_image_workload.py
+        depends_on: [build-image-manifest-01]
+      - id: build-image-components-01
+        type: script
+        script: scripts/build_image_components.py
+        depends_on: [score-image-workload-01]
+      - id: balance-image-packages-01
+        type: script
+        script: scripts/balance_image_packages.py
+        depends_on: [build-image-components-01]
+
+  # ── 条件分支：实验链（可选）──
+  conditional_experiment_chain:
+    trigger: config.include_experiments == true
+    insert_after: balance-image-packages-01
+    nodes:
+      - id: prepare-experiment-manifest-01
+        type: script
+        script: scripts/prepare_experiment_manifest.py
+      - id: run-cost-analysis-experiment-01
+        type: script
+        script: scripts/run_cost_analysis_experiment.py
+        depends_on: [prepare-experiment-manifest-01]
+      - id: summarize-experiment-results-01
+        type: script
+        script: scripts/summarize_experiment_results.py
+        depends_on: [run-cost-analysis-experiment-01]
+
+
+# ══════════════════════════════════════════════════════════════
+# 阶段二：Expanded（动态 fan-out/fan-in）
+# 由 compile_expanded_workflow.py 根据包数量动态生成
+# ══════════════════════════════════════════════════════════════
+
+expanded:
+
+  # ── 初始化 ──
+  init:
+    - id: build-node-micro-plans-01
+      type: script
+      script: scripts/build_node_micro_plans.py
+      notes: "为每个节点生成微计划"
+
+    - id: seed-longform-memory-01
+      type: script
+      script: scripts/seed_longform_article_memory.py
+      notes: "初始化长文记忆（term-registry, source-map）"
+
+  # ── 每个包的模板（fan-out 并行）──
+  per_package_template:
+    description: "每个 article-package 实例化以下两个节点，parallel=true"
+    validation: harness/package_validator.py   # 每个包输出的校验器
+    nodes:
+      - id: "writer-{package_id}"
+        type: agent
+        agent: writer-research
+        prompt_ref: "prompts.yaml#task_prefixes.writer-package"
+        parallel: true
+        notes: "证据填充 + 段落写作"
+
+      - id: "adversarial-reviewer-{package_id}"
+        type: agent
+        agent: adversarial-reviewer
+        prompt_ref: "prompts.yaml#task_prefixes.adversarial-reviewer-package"
+        depends_on: ["writer-{package_id}"]
+        parallel: true
+        notes: "对抗审查 + 直接修补"
+
+  # ── 收敛链（fan-in 线性）──
+  convergence_chain:
+    - id: draft-assembler-01
+      type: script
+      script: scripts/assemble_draft.py
+      depends_on: "all:adversarial-reviewer-package-*"
+      notes: "所有包收敛：组装完整草稿"
+
+    - id: style-harmonizer-01
+      type: agent
+      agent: style-harmonizer
+      prompt_ref: "prompts.yaml#task_prefixes.style-harmonizer-01"
+      depends_on: [draft-assembler-01]
+      notes: "整稿风格统一；对齐 style-guide.md、cognitive-style-guide.md、author-soul.md；AI 味相关修订只消费 ai-tone-director 的 repair plan"
+
+    - id: style-harmonizer-check-01
+      type: script
+      script: scripts/validate_style_harmonizer_output.py
+      depends_on: [style-harmonizer-01]
+      notes: "整稿风格输出结构检查：必须保留 section-manifest 主段标题，禁止 assistant-tail。"
+
+    - id: source-map-repair-01
+      type: script
+      script: scripts/repair_source_map_from_draft.py
+      depends_on: [style-harmonizer-check-01]
+      notes: "修复来源映射"
+
+    - id: appendix-agent-01
+      type: script
+      script: scripts/build_longform_appendix.py
+      depends_on: [source-map-repair-01]
+      notes: "打包附录（术语速查、参考资料、延伸阅读）"
+
+    - id: finalize-draft-01
+      type: script
+      script: scripts/finalize_draft.py
+      depends_on: [appendix-agent-01]
+      notes: "终稿格式化"
+
+    - id: final-draft-integrity-01
+      type: script
+      script: scripts/validate_full_draft_integrity.py
+      depends_on: [finalize-draft-01]
+      notes: "终稿结构完整性检查：正文主段必须与 section-manifest 一致，缺失、错序、空段时阻断双审。"
+
+    - id: argument-flow-check-01
+      type: script
+      script: scripts/validate_argument_flow.py
+      depends_on: [final-draft-integrity-01]
+      notes: "终稿论证流与段落气口检查：连续短气口、观点串联等影响理解的问题阻断双审；缺少长推理段仅作为 warning，提醒人工确认机制/边界/方法/核心判断是否被压掉。"
+
+  # ── 双审门控（fan-out 并行）──
+  dual_review:
+    description: "两个独立审查 agent 并行运行，不同温度以增加多样性"
+    consensus_routing: routing/review_diff   # 共识路由规则引用
+    nodes:
+      - id: article-review-a-01
+        type: agent
+        agent: article-review
+        prompt_ref: "prompts.yaml#task_prefixes.article-review-a-01"
+        temperature: 0.00
+        depends_on: [argument-flow-check-01]
+        parallel: true
+        notes: "双审-A：严格审查"
+
+      - id: article-review-b-01
+        type: agent
+        agent: article-review
+        prompt_ref: "prompts.yaml#task_prefixes.article-review-b-01"
+        temperature: 0.15
+        depends_on: [argument-flow-check-01]
+        parallel: true
+        notes: "双审-B：读者体验视角"
+
+  # ── 终审链（线性）──
+  final_chain:
+    - id: review-diff-01
+      type: script
+      script: scripts/review_diff.py
+      depends_on: [article-review-a-01, article-review-b-01]
+      notes: "合并双审结果，生成差异报告"
+      routing: routing/review_diff           # 路由规则引用
+
+    - id: code-check-01
+      type: script
+      script: harness/article_validator.py   # 校验模块（整合 check_article.py）
+      depends_on: [review-diff-01]
+      notes: "确定性代码检查（ai-tone-director 证据词 + 结构 + 字数）"
+
+    - id: human-approval-01
+      type: human-approval
+      gate: final-article-approval
+      depends_on: [code-check-01]
+      notes: "人工终审"

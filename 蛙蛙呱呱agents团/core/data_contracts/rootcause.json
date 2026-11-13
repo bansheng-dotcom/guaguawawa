@@ -1,0 +1,19 @@
+{
+ "name": "rootcause",
+ "fields": [
+  {
+   "name": "category",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "revenue",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

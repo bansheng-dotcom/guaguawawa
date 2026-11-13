@@ -1,0 +1,12 @@
+{
+  "report_type": "inventory",
+  "period": "2026-11",
+  "kpis": [
+    {
+      "name": "库存周转率",
+      "numerator": 1200,
+      "denominator": 300,
+      "value": 4.0
+    }
+  ]
+}

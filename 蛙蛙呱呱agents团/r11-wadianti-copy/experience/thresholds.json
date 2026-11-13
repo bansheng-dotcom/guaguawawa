@@ -1,0 +1,98 @@
+{
+  "_note": "R11 蛙点题·内容主笔的全局阈值，harness 与各技能统一引用（T9 外置，改口径不改代码）。键名与 skills/_common._DEFAULT_THRESHOLDS 严格一致。",
+  "topic": {
+    "channels": ["公众号", "知乎", "小红书", "抖音", "B站", "微博", "X",
+                 "官网", "知识星球", "视频号"],
+    "brief_required": ["audience", "pain_point", "channel", "differentiator"],
+    "plan_required": ["topic", "owner", "due", "status"],
+    "status_enum": ["idea", "briefed", "drafting", "editing", "ready",
+                    "published"]
+  },
+  "seo": {
+    "eeat_weights": {"experience": 25, "expertise": 25,
+                     "authoritativeness": 25, "trustworthiness": 25},
+    "authoritative_domains": ["gov", "edu", "harvard", "stanford", "mit",
+                              "who.int", "cdc.gov", "nih.gov", "ieee",
+                              "wikipedia", "sciencedirect", "nature.com"],
+    "priority_enum": ["critical", "high", "medium", "low"],
+    "intent_enum": ["informational", "commercial", "transactional",
+                    "navigational", "comparison"],
+    "min_external_links": 3,
+    "keywords_required": ["primary", "longtail", "intent", "difficulty",
+                          "aeo_opportunity"]
+  },
+  "hook": {
+    "hook_types": ["数字", "反常识", "问题", "场景", "对比", "悬念"],
+    "title_min": 3,
+    "outline_h2_min": 3,
+    "stance_required": ["claim", "audience", "boundary"]
+  },
+  "copy": {
+    "min_chars": 800,
+    "min_chars_longform": 2000,
+    "forbidden_zh": ["总而言之", "综上所述", "值得注意的是", "不难发现",
+                     "众所周知", "毫无疑问", "显而易见", "简单来说",
+                     "说白了", "更准确地说", "从这个角度看", "换个角度看",
+                     "可以这样理解", "先给结论", "如果只用一句最不绕的话来解释",
+                     "有待进一步分析", "值得我们深思", "不可否认", "毋庸置疑",
+                     "在此背景下", "越来越多的人", "随着科技的不断发展",
+                     "需要我们注意的是", "需要关注的是", "归根结底"],
+    "forbidden_en": ["delve", "tapestry", "game-changer", "game changer",
+                     "in today's fast-paced", "unlock the power",
+                     "revolutionize"],
+    "soft_connectives": ["首先", "其次", "再次", "最后", "因此", "所以", "于是"],
+    "required_sections": ["延伸阅读", "后续阅读", "延伸话题"]
+  },
+  "voice": {
+    "dimensions": ["称呼", "口吻", "术语", "禁词", "语法", "标点"],
+    "guide_required": ["audience", "tone", "terms", "forbidden", "grammar"],
+    "edit_required": ["text", "forbidden_hits", "term_fixes"]
+  },
+  "pr": {
+    "cta_types": ["点击", "注册", "购买", "咨询", "下载", "预约", "关注"],
+    "ad_required": ["headline", "benefit", "cta"],
+    "press_required": ["headline", "dateline", "lead", "body",
+                       "boilerplate", "contact"],
+    "ad_forbidden": ["最", "第一", "绝对", "保证", "百分百", "100%有效",
+                     "无副作用", "根治", "国家级", "顶级", "全网最低"]
+  },
+  "platform": {
+    "platforms": ["微信公众号", "小红书", "抖音", "B站", "知乎", "微博",
+                  "X", "LinkedIn"],
+    "adapt_required": ["platform", "title", "length_limit", "tone_shift",
+                       "hashtags"],
+    "publish_required": ["platform", "url", "status", "authorized"]
+  },
+  "localize": {
+    "languages": ["zh-CN", "zh-TW", "en", "ja", "ko", "de", "fr", "es"],
+    "terms_required": ["source", "target", "glossary"],
+    "review_required": ["term", "source_lang", "target_lang", "status",
+                        "reviewer"],
+    "status_enum": ["pending", "approved", "rejected", "needs-review"]
+  },
+  "review": {
+    "ai_fluff_words": ["总而言之", "综上所述", "值得注意的是", "不难发现",
+                       "众所周知", "毫无疑问", "显而易见", "简单来说",
+                       "说白了", "更准确地说", "从这个角度看", "换个角度看",
+                       "可以这样理解", "先给结论", "有待进一步分析",
+                       "值得我们深思", "不可否认", "毋庸置疑", "在此背景下",
+                       "越来越多的人", "随着科技的不断发展", "需要我们注意的是",
+                       "需要关注的是", "归根结底", "总之", "换句话说"],
+    "vague_words": ["待定", "TODO", "TBD", "占位", "随便", "大概",
+                    "稍后补充", "后续完善", "以后再写", "占位符", "lorem",
+                    "Lorem", "placeholder"],
+    "source_keys": ["source", "sources", "references", "citation",
+                    "citations", "data_source", "source_map"],
+    "concrete_keys": ["title", "headline", "draft", "content", "body",
+                      "outline", "guide", "keywords", "glossary", "cta",
+                      "adaptation", "term", "channel", "platform", "text",
+                      "checks", "ok"],
+    "conclusion_keys": ["summary", "note", "next", "description", "text",
+                        "content", "body", "draft", "title", "headline",
+                        "lead", "boilerplate", "claim", "benefit", "tone",
+                        "grammar", "forbidden", "term_fixes", "adaptation",
+                        "hashtags", "differentiator", "pain_point"],
+    "publish_terms": ["发布", "上线", "publish", "对外发布", "上线发布"],
+    "handoff_keys": ["authorized", "approval", "handoff", "owner"]
+  }
+}

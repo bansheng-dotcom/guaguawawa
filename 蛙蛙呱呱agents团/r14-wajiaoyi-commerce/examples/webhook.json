@@ -1,0 +1,7 @@
+{
+  "event": "payment.succeeded",
+  "endpoint": "https://example.com/hooks/stripe",
+  "reconciliation": "按 payment_intent 幂等键对账",
+  "retries": 3,
+  "approval": ""
+}

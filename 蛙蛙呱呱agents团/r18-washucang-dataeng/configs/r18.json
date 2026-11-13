@@ -1,0 +1,84 @@
+{
+  "_note": "蛙数仓（DataEng / 数仓架构）运行配置：阈值/维度/数据源外置，改规则不改代码（META-001 Stage 3）。",
+  "role": "r18",
+  "language": "zh",
+  "enable_cache": true,
+  "enable_vector": false,
+  "report": {
+    "engine": "agents/shared/report_engine.py",
+    "generator": "agents/shared/report_generator.py",
+    "doc_type": "DataEng / 数仓架构",
+    "formats": [
+      "html",
+      "md"
+    ],
+    "sections": [
+      "决策指令",
+      "KPI 格栅",
+      "三级归因",
+      "护栏熔断",
+      "灰度+下一步"
+    ]
+  },
+  "kpis": [
+    {
+      "id": "reconcile_diff",
+      "name": "跨表对账差异率",
+      "formula": "|A − B| / A",
+      "unit": "%",
+      "target": "≤ 0.05",
+      "alert": "> 0.1 阻断下游"
+    },
+    {
+      "id": "freshness",
+      "name": "数据延迟",
+      "formula": "当前时间 − 最新分区时间",
+      "unit": "h",
+      "target": "≤ 1",
+      "alert": "> 6 标记不可用"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G1",
+      "when": "对账差异 > 0.1%",
+      "verdict": "BLOCKER",
+      "action": "阻断下游消费"
+    },
+    {
+      "id": "G2",
+      "when": "主键唯一率 < 99.9%",
+      "verdict": "BLOCKER",
+      "action": "停止入仓"
+    },
+    {
+      "id": "G3",
+      "when": "血缘缺失",
+      "verdict": "WARN",
+      "action": "补血缘后再发布"
+    }
+  ],
+  "guardrails": [
+    {
+      "dim": "跨表对账差异率",
+      "metric": "跨表对账差异率",
+      "base": "≤ 0.05",
+      "threshold": "> 0.1 阻断下游"
+    },
+    {
+      "dim": "数据延迟",
+      "metric": "数据延迟",
+      "base": "≤ 1",
+      "threshold": "> 6 标记不可用"
+    }
+  ],
+  "data_sources": [
+    {
+      "name": "examples/",
+      "type": "local_json",
+      "permission": "read_only",
+      "note": "本轮真实执行所用输入，报告页脚记录 SHA256"
+    }
+  ],
+  "case": "metric-reconcile"
+}

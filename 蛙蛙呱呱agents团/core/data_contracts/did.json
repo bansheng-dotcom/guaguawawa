@@ -1,0 +1,49 @@
+{
+ "name": "did",
+ "fields": [
+  {
+   "name": "gmv",
+   "dtype": "float",
+   "required": true,
+   "enum": null,
+   "range": [
+    0,
+    1000000000000.0
+   ]
+  },
+  {
+   "name": "treat",
+   "dtype": "int",
+   "required": true,
+   "enum": [
+    0,
+    1
+   ],
+   "range": null
+  },
+  {
+   "name": "post",
+   "dtype": "int",
+   "required": true,
+   "enum": [
+    0,
+    1
+   ],
+   "range": null
+  },
+  {
+   "name": "city_id",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  },
+  {
+   "name": "week",
+   "dtype": "int",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

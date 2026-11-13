@@ -1,0 +1,44 @@
+role: r13
+doc_type: 客户健康报告 · 蛙客成
+title: '客户健康：续约
+
+  与风险'
+title_highlight: 与风险
+title_highlight_style: underline
+meta:
+- 读者：销售 / 创始人
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r13 · shared/report_writer + core/report_renderer
+sections:
+- title: 续约
+  question: 谁会跑？
+  intro: 续约风险要先看到期，再看健康分。
+  boundary: 到期日以合同为准。
+- title: 健康
+  question: 为什么跑？
+  intro: 四维健康分里，最低的那一维就是答案。
+  boundary: 健康分为加权模型，需按行业校准。
+- title: 管道
+  question: 能收多少？
+  intro: 加权管道比乐观预测更接近现实。
+  boundary: 加权按阶段概率折算。
+- title: 服务
+  question: 服务达标吗？
+  intro: SLA 与 CSAT 是先行指标。
+  boundary: SLA 按首响与解决时长双口径。
+- title: 判断与动作
+  question: 谁去救、什么时候？
+  intro: 高风险客户必须有归因和责任人。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 续约
+- label: 关键
+  section: 管道
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

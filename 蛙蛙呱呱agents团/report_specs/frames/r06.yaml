@@ -1,0 +1,44 @@
+# R06 业务框架：数据分析师要先知道「这盘生意靠什么变量驱动」，再决定算哪些。
+# 缺数据的问题进「数据缺口」节，不靠话术补。
+
+role: r06
+domain: 价格与渠道分析
+objects: [品种, 规格, 市场, 渠道, 时间]
+value_chain: [批发, 零售]
+decisions: [定价节奏, 采购市场, 是否跟期货]
+questions:
+  - id: Q1
+    question: 价格有没有趋势？
+    needs: [日度价格序列]
+    ops: [benchmark]
+    decision: 按日定价还是按周定价
+  - id: Q2
+    question: 单日涨跌是信号还是噪声？
+    needs: [日度价格序列]
+    ops: [sensitivity]
+    decision: 要不要对单日波动做反应
+  - id: Q3
+    question: 零售跟批发同步吗？
+    needs: [零售序列, 批发序列]
+    ops: [correlation]
+    decision: 批发跌了要不要改零售价
+  - id: Q4
+    question: 价差是市场造成的还是时间造成的？
+    needs: [市场截面报价]
+    ops: [variance_share]
+    decision: 议价靠选市场还是等时机
+  - id: Q5
+    question: 均价变化里，多少是价格、多少是结构？
+    needs: [分规格价格, 分规格权重]
+    ops: []
+    decision: 提价还是调结构
+  - id: Q6
+    question: 期货能不能指导现货采购？
+    needs: [期货序列, 现货序列, 基差历史]
+    ops: []
+    decision: 锁价还是锁量
+  - id: Q7
+    question: 需求弹性多大？
+    needs: [价格, 销量]
+    ops: []
+    decision: 降价能不能换来量

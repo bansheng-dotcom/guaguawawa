@@ -1,0 +1,50 @@
+role: r02
+domain: 交付与容量
+objects:
+- 任务
+- 依赖
+- 容量
+- 交接
+value_chain: []
+decisions:
+- 排期
+- 加人
+- 砍范围
+- 延期
+questions:
+- id: Q1
+  question: 什么时候能交？
+  needs:
+  - WBS
+  - 关键路径
+  ops: []
+  decision: 承诺哪个交付日
+- id: Q2
+  question: 谁已经满了？
+  needs:
+  - 人力负载
+  - 任务工时
+  ops: []
+  decision: 要不要加人
+- id: Q3
+  question: 卡在谁那里？
+  needs:
+  - 跨角色交接
+  - 依赖状态
+  ops: []
+  decision: 去催谁
+- id: Q4
+  question: 不动交付日怎么办？
+  needs:
+  - 范围
+  - 关键路径
+  - 可并行度
+  ops: []
+  decision: 砍范围还是延期
+- id: Q5
+  question: 交接有没有信息折损？
+  needs:
+  - 交接包
+  - 验收记录
+  ops: []
+  decision: 退回还是签收

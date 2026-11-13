@@ -1,0 +1,49 @@
+role: r17
+domain: 系统集成
+objects:
+- 链路
+- 事件
+- 字段映射
+- 凭据
+value_chain: []
+decisions:
+- 上线
+- 加重试
+- 改路由
+questions:
+- id: Q1
+  question: 接了什么、断在哪？
+  needs:
+  - API 契约
+  - Webhook 端点
+  ops: []
+  decision: 先接哪条
+- id: Q2
+  question: 会不会丢事件？
+  needs:
+  - 成功率
+  - 重试记录
+  - 死信
+  ops: []
+  decision: 要不要加幂等
+- id: Q3
+  question: 字段对得上吗？
+  needs:
+  - 映射表
+  - 样例数据
+  ops: []
+  decision: 改映射还是改源
+- id: Q4
+  question: 凭据安全吗？
+  needs:
+  - 密钥存放
+  - 轮换记录
+  ops: []
+  decision: 能不能上线
+- id: Q5
+  question: 失败怎么恢复？
+  needs:
+  - 补偿脚本
+  - 回放机制
+  ops: []
+  decision: 要不要人工兜底

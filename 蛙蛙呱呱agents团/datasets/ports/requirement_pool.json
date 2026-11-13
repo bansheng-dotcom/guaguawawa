@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "DEMO",
+  "items": [
+    {
+      "id": "R01",
+      "problem": "晚间到货慢",
+      "segment": "社区家庭",
+      "pain": 4,
+      "reach": 5200,
+      "impact": 2.0,
+      "confidence": 0.8,
+      "effort": 5,
+      "north_star": "复购率",
+      "baseline": 0.254,
+      "target": 0.3
+    },
+    {
+      "id": "R02",
+      "problem": "退款慢",
+      "segment": "社区家庭",
+      "pain": 5,
+      "reach": 1800,
+      "impact": 2.5,
+      "confidence": 0.7,
+      "effort": 3,
+      "north_star": "退款时长",
+      "baseline": 3.2,
+      "target": 1.5
+    },
+    {
+      "id": "R03",
+      "problem": "品类太少",
+      "segment": "写字楼白领",
+      "pain": 3,
+      "reach": 2400,
+      "impact": 1.5,
+      "confidence": 0.6,
+      "effort": 8,
+      "north_star": "客单价",
+      "baseline": 82,
+      "target": 95
+    }
+  ]
+}

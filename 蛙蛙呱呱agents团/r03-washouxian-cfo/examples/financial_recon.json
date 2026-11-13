@@ -1,0 +1,72 @@
+{
+  "gl_entries": [
+    {
+      "key": "t1",
+      "amount": 10000.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t2",
+      "amount": 2500.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t3",
+      "amount": 800.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t5",
+      "amount": 4100.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t6",
+      "amount": 1200.0,
+      "quantity": 1,
+      "posting_date": "2026-09-28"
+    }
+  ],
+  "subledger_entries": [
+    {
+      "key": "t1",
+      "amount": 10000.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t2",
+      "amount": 2500.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t3",
+      "amount": 760.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t4",
+      "amount": 3300.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t5",
+      "amount": 4100.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    },
+    {
+      "key": "t6",
+      "amount": 1200.0,
+      "quantity": 1,
+      "posting_date": "2026-09-30"
+    }
+  ]
+}

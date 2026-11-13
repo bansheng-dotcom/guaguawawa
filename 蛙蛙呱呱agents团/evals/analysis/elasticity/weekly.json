@@ -1,0 +1,19 @@
+{
+ "skill": "elasticity",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_weekly.csv",
+  "--price",
+  "avg_price",
+  "--qty",
+  "units"
+ ],
+ "expect": {
+  "elasticity.elasticity": {
+   "not_null": true
+  },
+  "conclusion": {
+   "not_null": true
+  }
+ }
+}

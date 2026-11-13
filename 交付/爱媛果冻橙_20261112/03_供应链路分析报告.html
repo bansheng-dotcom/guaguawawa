@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="zh-CN" data-style="internet-reporting" data-palette="graphite-cobalt">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>爱媛果冻橙 · 眉山到晋陕蒙津</title>
+<style>    :root {
+      --theme-base: #F2F3F4; --theme-primary: #292F36; --theme-accent: #315E9B;
+      --critical: #B33A32; --watch: #8A6500; --healthy: #19704B;
+      --canvas: color-mix(in srgb, var(--theme-primary) 8%, var(--theme-base));
+      --paper: var(--theme-base); --ink: var(--theme-primary);
+      --muted: color-mix(in srgb, var(--theme-primary) 66%, var(--theme-base));
+      --line: color-mix(in srgb, var(--theme-primary) 16%, var(--theme-base));
+      --line-strong: color-mix(in srgb, var(--theme-primary) 34%, var(--theme-base));
+      --surface: color-mix(in srgb, var(--theme-primary) 3%, var(--theme-base));
+      --surface-strong: color-mix(in srgb, var(--theme-primary) 7%, var(--theme-base));
+      --accent-soft: color-mix(in srgb, var(--theme-accent) 10%, var(--theme-base));
+      --critical-soft: color-mix(in srgb, var(--critical) 11%, var(--theme-base));
+      --watch-soft: color-mix(in srgb, var(--watch) 11%, var(--theme-base));
+      --healthy-soft: color-mix(in srgb, var(--healthy) 11%, var(--theme-base));
+      --series-context: color-mix(in srgb, var(--theme-primary) 54%, var(--theme-base));
+      --series-reference: color-mix(in srgb, var(--theme-primary) 38%, var(--theme-base));
+      --page-columns: 12; --page-gap: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--canvas); color: var(--ink);
+      font-family: "Microsoft YaHei", "Microsoft YaHei UI", Arial, sans-serif;
+      font-size: 15px; font-weight: 400; line-height: 1.68;
+      font-synthesis: none; -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+    svg { font-family: inherit; }
+    a { color: inherit; }
+    strong, b { font-weight: 700; }
+    .document {
+      width: min(1180px, calc(100% - 48px));
+      margin: 28px auto 54px; padding: 40px 54px 46px;
+      background: var(--paper); border: 1px solid var(--line); border-radius: 2px;
+    }
+    .page-grid {
+      display: grid; grid-template-columns: repeat(var(--page-columns), minmax(0, 1fr));
+      column-gap: var(--page-gap);
+    }
+    .doc-header { padding-bottom: 28px; border-bottom: 1px solid var(--line-strong); }
+    .doc-type {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+      color: var(--muted); font-size: 12px;
+    }
+    .doc-glyph {
+      width: 28px; height: 28px; display: inline-flex; align-items: flex-end;
+      justify-content: center; gap: 2px; padding: 6px;
+      border: 1px solid var(--line-strong); border-radius: 2px;
+    }
+    .doc-glyph i { width: 3px; display: block; background: var(--theme-accent); }
+    .doc-glyph i:nth-child(1) { height: 6px; }
+    .doc-glyph i:nth-child(2) { height: 11px; }
+    .doc-glyph i:nth-child(3) { height: 8px; }
+    h1 {
+      max-width: 980px; margin: 0; font-size: clamp(36px, 3vw, 40px);
+      font-weight: 700; line-height: 1.18; letter-spacing: -.025em; text-wrap: balance;
+    }
+    .title-line { display: block; }
+    .standfirst {
+      max-width: 850px; margin: 17px 0 0; color: var(--muted);
+      font-size: 16px; line-height: 1.72;
+    }
+    .doc-meta {
+      display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 20px;
+      color: var(--muted); font-size: 11.5px;
+    }
+    .doc-meta span { position: relative; white-space: nowrap; }
+    .doc-meta span + span::before {
+      position: absolute; left: -13px; content: "·"; color: var(--line-strong);
+    }
+    .metric-strip {
+      margin-top: 26px; border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .metric { grid-column: span 3; min-height: 124px; padding: 16px 10px 15px 0; }
+    .metric-label {
+      display: flex; align-items: center; gap: 7px; min-height: 22px;
+      color: var(--muted); font-size: 12px; line-height: 1.45;
+    }
+    .metric-value {
+      display: block; margin-top: 6px; font-size: 30px; font-weight: 700;
+      line-height: 1.06; letter-spacing: -.02em;
+    }
+    .metric-value.critical { color: var(--critical); }
+    .metric-value.watch { color: var(--watch); }
+    .metric-value.healthy { color: var(--healthy); }
+    .metric-note {
+      display: block; margin-top: 8px; color: var(--muted);
+      font-size: 11.5px; line-height: 1.5;
+    }
+    .shape { display: inline-block; flex: 0 0 auto; }
+    .shape-diamond { width: 7px; height: 7px; background: var(--critical); transform: rotate(45deg); }
+    .shape-circle { width: 7px; height: 7px; border-radius: 50%; background: var(--healthy); }
+    .shape-triangle {
+      width: 0; height: 0; border-left: 5px solid transparent;
+      border-right: 5px solid transparent; border-bottom: 8px solid var(--watch);
+    }
+    .shape-accent { width: 7px; height: 7px; border-radius: 50%; background: var(--theme-accent); }
+    .microbar { width: min(154px, 100%); height: 5px; margin-top: 10px; background: var(--line); }
+    .microbar span { display: block; height: 100%; background: var(--theme-accent); }
+    .summary { margin-top: 30px; }
+    .summary-label, .notes-label {
+      grid-column: 1 / span 9; display: flex; align-items: center; gap: 9px;
+      margin: 0 0 13px; color: var(--theme-accent); font-size: 13px;
+      font-weight: 700; line-height: 1.45;
+    }
+    .summary-label::before, .notes-label::before {
+      width: 7px; height: 7px; content: ""; flex: 0 0 auto;
+      border-radius: 50%; background: var(--theme-accent);
+    }
+    .summary-copy { grid-column: 1 / span 9; max-width: 830px; }
+    .summary-copy p { margin: 0 0 10px; }
+    .summary-copy .summary-close {
+      margin-top: 13px; padding-top: 12px; border-top: 1px solid var(--line);
+    }
+    mark { padding: 1px 3px; background: var(--accent-soft); color: inherit; }
+    .report-section { margin-top: 48px; scroll-margin-top: 20px; }
+    .section-head {
+      display: flex; align-items: flex-start; gap: 10px; padding-bottom: 14px;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .section-index {
+      flex: 0 0 auto; padding-top: 5px; color: var(--theme-accent);
+      font-size: 12px; font-weight: 700; line-height: 1.4;
+    }
+    .section-heading-copy { min-width: 0; }
+    .section-title {
+      margin: 0; font-size: 23px; font-weight: 700; line-height: 1.34;
+      letter-spacing: -.012em;
+    }
+    .section-question {
+      margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55;
+    }
+    .section-intro { grid-column: 1 / span 8; margin-top: 18px; }
+    .section-intro p { margin: 0 0 9px; }
+    .embed { margin: 22px 0 0; border: 1px solid var(--line-strong); border-radius: 2px; }
+    .embed-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 18px; padding: 12px 15px; border-bottom: 1px solid var(--line);
+    }
+    .embed-title {
+      display: flex; align-items: flex-start; gap: 9px; min-width: 0;
+      font-size: 13px; font-weight: 700; line-height: 1.5;
+    }
+    .embed-icon {
+      width: 14px; height: 14px; margin-top: 2px; flex: 0 0 auto;
+      border: 1px solid var(--theme-accent); position: relative;
+    }
+    .embed-icon::before, .embed-icon::after {
+      position: absolute; left: 3px; content: ""; width: 6px;
+      border-top: 1px solid var(--theme-accent);
+    }
+    .embed-icon::before { top: 4px; }
+    .embed-icon::after { top: 8px; }
+    .embed-meta {
+      flex: 0 0 auto; color: var(--muted); font-size: 11.5px;
+      line-height: 1.5; white-space: nowrap;
+    }
+    .chart-wrap { padding: 14px 16px 10px; }
+    .chart-wrap svg { display: block; width: 100%; height: auto; }
+    .embed-source {
+      padding: 0 16px 12px; color: var(--muted); font-size: 11.5px; line-height: 1.55;
+    }
+    .post-chart { margin-top: 17px; align-items: start; }
+    .reading-block { grid-column: 1 / span 7; }
+    .reading-block h3, .boundary-block h3, .block-note h3 {
+      margin: 0 0 8px; font-size: 14px; font-weight: 700; line-height: 1.5;
+    }
+    .reading-list { margin: 0; padding: 0; list-style: none; }
+    .reading-list li {
+      display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 7px;
+      padding: 7px 0; border-top: 1px solid var(--line);
+    }
+    .reading-list li:first-child { border-top: 0; }
+    .reading-no { color: var(--theme-accent); font-size: 12px; font-weight: 700; }
+    .reading-text { font-size: 13px; line-height: 1.58; }
+    .boundary-block {
+      grid-column: 8 / -1; padding: 12px 15px;
+      border-left: 3px solid var(--watch); background: var(--watch-soft);
+    }
+    .boundary-label {
+      display: flex; align-items: center; gap: 8px; color: var(--watch);
+      font-size: 12px; font-weight: 700;
+    }
+    .boundary-block p, .block-note p {
+      margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.58;
+    }
+    .evidence-table-wrap {
+      margin-top: 22px; overflow-x: auto; border: 1px solid var(--line-strong);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    .evidence-table { min-width: 860px; table-layout: fixed; }
+    .evidence-table th, .evidence-table td {
+      padding: 11px 12px; border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line); vertical-align: top;
+      text-align: left; font-size: 12px; line-height: 1.55;
+    }
+    .evidence-table th:last-child, .evidence-table td:last-child { border-right: 0; }
+    .evidence-table tr:last-child td { border-bottom: 0; }
+    .evidence-table th { background: var(--surface-strong); color: var(--muted); font-weight: 700; }
+    .evidence-table .num { text-align: right; white-space: nowrap; }
+    .row-label { display: flex; align-items: flex-start; gap: 8px; font-weight: 700; }
+    .row-mark { width: 4px; height: 18px; margin-top: 1px; flex: 0 0 auto; background: var(--critical); }
+    .row-mark.watch { background: var(--watch); }
+    .row-mark.healthy { background: var(--healthy); }
+    .cell-line { display: block; margin-top: 3px; }
+    .cell-line:first-child { margin-top: 0; }
+    .cell-key {
+      display: inline-block; min-width: 34px; color: var(--muted);
+      font-size: 11.5px; font-weight: 700;
+    }
+    .delta-critical { color: var(--critical); font-weight: 700; }
+    .delta-watch { color: var(--watch); font-weight: 700; }
+    .delta-healthy { color: var(--healthy); font-weight: 700; }
+    .block-note {
+      margin-top: 16px; max-width: 760px; padding: 13px 16px;
+      border-left: 3px solid var(--theme-accent); background: var(--accent-soft);
+    }
+    .notes { margin-top: 46px; padding-top: 22px; border-top: 1px solid var(--line-strong); }
+    details { grid-column: 1 / span 9; border-bottom: 1px solid var(--line); }
+    summary {
+      padding: 8px 0; cursor: pointer; font-size: 13px; font-weight: 700; list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      display: inline-block; width: 18px; content: "▾"; color: var(--theme-accent);
+    }
+    .notes-copy { padding: 0 0 12px 18px; color: var(--muted); font-size: 11.5px; line-height: 1.6; }
+    .notes-copy p { margin: 5px 0; }
+    .doc-footer {
+      display: flex; justify-content: space-between; gap: 20px;
+      margin-top: 26px; color: var(--muted); font-size: 11.5px;
+    }
+    @media (max-width: 980px) {
+      .document { width: calc(100% - 28px); padding: 34px 28px 40px; }
+      .evidence-table { min-width: 800px; }
+    }
+    @media (max-width: 860px) {
+      .document { width: min(100% - 28px, 760px); padding: 32px 28px 38px; }
+      .metric { grid-column: span 6; }
+      .summary-label, .summary-copy, .section-intro, details { grid-column: 1 / -1; }
+      .reading-block, .boundary-block { grid-column: 1 / -1; }
+      .boundary-block { margin-top: 16px; }
+    }
+    @media (max-width: 720px) {
+      .document { width: calc(100% - 20px); margin: 10px auto 26px; padding: 26px 20px 32px; }
+      h1 { font-size: 30px; line-height: 1.24; }
+      .title-line { display: inline; }
+      .title-line + .title-line::before { content: " "; }
+      .metric { grid-column: 1 / -1; min-height: auto; border-top: 1px solid var(--line); }
+      .metric:first-child { border-top: 0; }
+      .section-title { font-size: 21px; }
+      .embed-head { display: block; }
+      .embed-meta { margin-top: 5px; white-space: normal; }
+      .chart-wrap { min-width: 680px; }
+      .embed { overflow-x: auto; }
+      .doc-footer { display: block; }
+    }
+    .doc-toc { grid-column: 1 / -1; margin: 2px 0 18px; padding: 12px 16px; border: 1px solid var(--line); }
+    .doc-toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+    .doc-toc li { margin: 3px 0; font-size: 13px; }
+    .doc-toc a { color: var(--ink-2); text-decoration: none; }
+    .doc-toc a:hover { text-decoration: underline; }
+    @media print {
+      html, body { background: var(--paper); }
+      .document { width: auto; margin: 0; border: 0; }
+      a { text-decoration: none; }
+      details { break-inside: avoid; }
+.report-appendix { grid-column: 1 / -1; margin: 28px 0; border-top: 1px solid var(--line); }
+.report-appendix > summary { cursor: pointer; padding: 14px 0; font-weight: 600; color: var(--ink-2); list-style: none; }
+.report-appendix > summary::-webkit-details-marker { display: none; }
+.report-appendix > summary::before { content: "▸"; margin-right: 10px; color: var(--muted); }
+.report-appendix[open] > summary::before { content: "▾"; }
+    }</style></head>
+<body><main class="document">
+<header class="doc-header">
+<div class="doc-type"><span class="doc-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+<span>供应链路分析报告</span></div>
+<h1>
+<span class="title-line">爱媛果冻橙 · 眉山到晋陕蒙津</span>
+<span class="title-line">四种车型的运距、运价与沿链损耗</span>
+</h1>
+<p class="standfirst">读者：产地直发贸易商负责人；要决定下周发哪条线、配哪种车。结论：13 米半挂到呼和浩特，运费 0.35 元/斤，占全部到岸成本 20%——这条路只有整车才成立。</p>
+<div class="doc-meta" aria-label="文档信息">
+<span>读者 产地直发贸易商（货主）</span>
+<span>目的 选线选车与止损定价</span>
+<span>口径 元/斤、元/车，1 吨=2000 斤</span>
+<span>生成 r15 供应链 · r06 数据 · r05 研究 · r04 评审</span>
+</div></header>
+<nav class="doc-toc" aria-label="目录"><ol>
+<li><a href="#section-01">链路全貌：钱在哪个节点被拿走</a></li>
+<li><a href="#section-02">运距与运价：四条线、四种车</a></li>
+<li><a href="#section-03">车型门槛：多少货才配得上大车</a></li>
+<li><a href="#section-04">绿通、冷链与货拉拉</a></li>
+<li><a href="#section-05">损耗：发 100 斤，档口还剩几斤</a></li>
+<li><a href="#section-06">发运建议：下周怎么排车</a></li>
+</ol></nav>
+<section class="metric-strip page-grid" aria-label="数据速览">
+<div class="metric">
+<span class="metric-label"><span class="shape shape-circle" aria-hidden="true"></span>13 米吨公里</span>
+<strong class="metric-value healthy">0.39 元</strong>
+<small class="metric-note">四车型里最低，4.2 米是它的 5.7 倍</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-diamond" aria-hidden="true"></span>运费占成本</span>
+<strong class="metric-value critical">20%</strong>
+<small class="metric-note">呼市线 1,780 km，13 米中值运价</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-triangle" aria-hidden="true"></span>沿链损耗</span>
+<strong class="metric-value watch">18.0%</strong>
+<small class="metric-note">采后+运输+档口，未含零售</small></div>
+<div class="metric">
+<span class="metric-label"><span class="shape shape-accent" aria-hidden="true"></span>绿通可省</span>
+<strong class="metric-value">12%</strong>
+<small class="metric-note">9.6 米呼市线过路费占运费比</small></div>
+</section>
+<section class="summary page-grid" aria-labelledby="summary-title">
+<h2 class="summary-label" id="summary-title">全文结论</h2>
+<div class="summary-copy">
+<p><strong>结论：</strong>爱媛是低货值、高含水、耐短途的品类，运价结构决定它<mark>只能走整车干线</mark>：13 米半挂把每斤运费压到 0.35 元，6.8 米翻一倍，4.2 米直接贵到 2 元/斤，比果子本身还贵。</p>
+<p><strong>依据：</strong>以呼和浩特 1,780 km 为例，13 米实载约 27 吨、5.4 万斤，单车运费 18,690 元；同样一车货<mark>拆给 6.8 米要发 3.5 车</mark>，总运费反而更高，且破损与压车风险成倍上升。</p>
+<p class="summary-close"><strong>风险：</strong>绿通免的是过路费不是运费，柑橘装不满 80% 或混装普货即失效；呼和浩特<mark>回程货少</mark>，13 米实际报价常贴上限（21,360 元），运价上浮 14% 就吞掉一半净利。</p>
+</div></section>
+<section class="report-section" id="section-01">
+<header class="section-head">
+<div class="section-index">01</div>
+<div class="section-heading-copy">
+<h2 class="section-title">链路全貌：钱在哪个节点被拿走</h2>
+<p class="section-question">一颗橙子从丹棱果园到呼市档口，中间被谁拿走了多少钱？</p>
+</div></header>
+<div class="page-grid"><div class="section-intro">
+<p><strong>链路只有五段，但成本分布极不均。</strong>果园收购、采后处理、干线运输、销地进场、损耗摊销——五段里干线一段就占了近两成，而损耗摊销这一项在报价单上根本看不见，却比包装还贵。</p>
+</div></div>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>本节说明</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>干线 + 损耗 = 到岸成本的 38%。</strong>收购价只占 34%，剩下的是「把果子运过去、并在路上烂掉」的钱——其中采摘人工 0.20 元/斤这一项，已经相当于收购价的 33%。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>损耗摊销比包装更贵。</strong>0.32 元/斤的损耗摊销，是包装成本 0.16 元/斤的 2.0 倍。它在报价单上是隐形的，在账上是真实的。</span></li>
+</ol></div>
+<aside class="boundary-block">
+<div class="boundary-label"><span class="shape shape-triangle" aria-hidden="true"></span>这一格的证据边界</div>
+<p>收购价为 2026 年 11 月眉山通货行情中值；损耗率为行业经验区间取中，非本企业实测；进场费各地市场差异大，取值仅供建模。</p></aside>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="单位到岸成本拆解（13 米半挂 · 眉山→呼和浩特 · 元/斤）">
+<colgroup><col style="width:16%"><col style="width:34%"><col style="width:12%"><col style="width:12%"><col style="width:26%"></colgroup>
+<thead><tr>
+<th>节点</th>
+<th>具体动作</th>
+<th class="num">元/斤</th>
+<th class="num">占成本</th>
+<th>谁在收</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark critical" aria-hidden="true"></span>果园收购</span></td>
+<td>通货、地头过磅</td>
+<td class="num">0.60</td>
+<td class="num">34%</td>
+<td>果农 / 代办</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>采后处理</span></td>
+<td>采摘计件 + 泡沫箱网套 + 代收费</td>
+<td class="num">0.39</td>
+<td class="num">22%</td>
+<td>采摘队 / 包装厂 / 代办</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>产地短驳</span></td>
+<td>果园到集散点、装车</td>
+<td class="num">0.05</td>
+<td class="num">3%</td>
+<td>本地小车 / 装卸队</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark critical" aria-hidden="true"></span>干线运输</span></td>
+<td>13 米半挂 1,780 km，单价 10.5 元/km</td>
+<td class="num">0.35</td>
+<td class="num">20%</td>
+<td>车队 / 信息部</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>销地进场</span></td>
+<td>批发市场档口、卸车、进场费</td>
+<td class="num">0.06</td>
+<td class="num">3%</td>
+<td>市场 / 档口</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark watch" aria-hidden="true"></span>损耗摊销</span></td>
+<td>沿链掉 18.0%，摊到可售斤上</td>
+<td class="num">0.32</td>
+<td class="num">18%</td>
+<td>没人收，但你要付</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>资金占用</span></td>
+<td>年化 8%，周转 30 天</td>
+<td class="num">0.01</td>
+<td class="num">1%</td>
+<td>利息机会成本</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-02">
+<header class="section-head">
+<div class="section-index">02</div>
+<div class="section-heading-copy">
+<h2 class="section-title">运距与运价：四条线、四种车</h2>
+<p class="section-question">同样一车橙子，换一条线、换一种车，每斤运费差多少？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>每斤干线运费（眉山→呼和浩特 1,780 km，各车型取中值单价）</span></div>
+<div class="embed-meta">单位：元/斤；按实载 85% 核定载重折算</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 341" role="img" aria-label="每斤干线运费（眉山→呼和浩特 1,780 km，各车型取中值单价）">
+          <line x1="224.0" y1="45" x2="224.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">1.98</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">4.2 米</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">实载 1.9 吨 · 7,565 元/车</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--critical)"/>
+          <text x="908.0" y="63" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">1.98 元</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">6.8 米</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">实载 7.6 吨 · 10,680 元/车</text>
+          <rect x="224.0" y="112" width="239.3" height="18" fill="var(--series-reference)"/>
+          <text x="469.3" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.70 元</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">9.6 米</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">实载 14.0 吨 · 14,240 元/车</text>
+          <rect x="224.0" y="175" width="174.1" height="18" fill="var(--series-context)"/>
+          <text x="404.1" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.51 元</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">13 米半挂</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">实载 26.8 吨 · 18,690 元/车</text>
+          <rect x="224.0" y="238" width="119.6" height="18" fill="var(--healthy)"/>
+          <text x="349.6" y="252" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">0.35 元</text>
+          <line x1="18" y1="293" x2="902" y2="293" stroke="var(--line-strong)"/>
+          <text x="18" y="315" fill="var(--critical)" font-size="11.5" font-weight="700">4.2 米每斤运费</text>
+          <text x="126" y="315" fill="var(--critical)" font-size="12" font-weight="700">1.98 元</text>
+          <text x="206" y="315" fill="var(--critical)" font-size="11.5">≈ 果子收购价的</text>
+          <text x="302" y="315" fill="var(--critical)" font-size="12" font-weight="700">3.3 倍</text>
+          </svg>
+</div>
+<div class="embed-source">运价：物通网/9656556 四车型报价；里程：icauto、物通网、租租车多源交叉</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>呼和浩特不是最远，但是最难谈。</strong>天津 1,900 km 总价最高，可呼市回程货最少、议价能力最弱，13 米实际常按上限走，单车比太原贵 5,000 元上下。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>西安线是唯一适合小车的线。</strong>800 km 上 4.2 米每斤 0.89 元、6.8 米 0.31 元，配送半径内用小车换时效是划算的；超过 1,400 km 就不成立。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="四条线路 × 四种车型：单车运费区间（元/车，按下限–上限单价 × 里程）">
+<colgroup><col style="width:16%"><col style="width:14%"><col style="width:16%"><col style="width:16%"><col style="width:16%"><col style="width:16%"></colgroup>
+<thead><tr>
+<th>线路</th>
+<th class="num">高速里程</th>
+<th class="num">4.2 米</th>
+<th class="num">6.8 米</th>
+<th class="num">9.6 米</th>
+<th class="num">13 米半挂</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>西安</span></td>
+<td class="num">800 km</td>
+<td class="num">2,800–4,000</td>
+<td class="num">4,000–5,600</td>
+<td class="num">5,600–7,200</td>
+<td class="num">7,200–9,600</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>太原</span></td>
+<td class="num">1,400 km</td>
+<td class="num">4,900–7,000</td>
+<td class="num">7,000–9,800</td>
+<td class="num">9,800–12,600</td>
+<td class="num">12,600–16,800</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>呼和浩特</span></td>
+<td class="num">1,780 km</td>
+<td class="num">6,230–8,900</td>
+<td class="num">8,900–12,460</td>
+<td class="num">12,460–16,020</td>
+<td class="num">16,020–21,360</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>天津</span></td>
+<td class="num">1,900 km</td>
+<td class="num">6,650–9,500</td>
+<td class="num">9,500–13,300</td>
+<td class="num">13,300–17,100</td>
+<td class="num">17,100–22,800</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-03">
+<header class="section-head">
+<div class="section-index">03</div>
+<div class="section-heading-copy">
+<h2 class="section-title">车型门槛：多少货才配得上大车</h2>
+<p class="section-question">一次发多少斤，13 米半挂才开始比 6.8 米便宜？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>吨公里成本（元/吨·公里，按中值单价与实载折算）</span></div>
+<div class="embed-meta">单位：元/吨·公里；越低越有效率</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 341" role="img" aria-label="吨公里成本（元/吨·公里，按中值单价与实载折算）">
+          <line x1="224.0" y1="45" x2="224.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">2.22</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">4.2 米</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">4.25 元/km ÷ 1.91 吨</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--critical)"/>
+          <text x="908.0" y="63" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="start">2.22 元</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">6.8 米</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">6.0 元/km ÷ 7.65 吨</text>
+          <rect x="224.0" y="112" width="238.2" height="18" fill="var(--series-reference)"/>
+          <text x="468.2" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.78 元</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">9.6 米</text>
+          <text x="18" y="201" fill="var(--muted)" font-size="11.5">8.0 元/km ÷ 14.03 吨</text>
+          <rect x="224.0" y="175" width="174.1" height="18" fill="var(--series-context)"/>
+          <text x="404.1" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">0.57 元</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">13 米半挂</text>
+          <text x="18" y="264" fill="var(--muted)" font-size="11.5">10.5 元/km ÷ 26.77 吨</text>
+          <rect x="224.0" y="238" width="119.1" height="18" fill="var(--healthy)"/>
+          <text x="349.1" y="252" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">0.39 元</text>
+          <line x1="18" y1="293" x2="902" y2="293" stroke="var(--line-strong)"/>
+          <text x="18" y="315" fill="var(--critical)" font-size="11.5" font-weight="700">4.2 米吨公里成本是 13 米的</text>
+          <text x="222" y="315" fill="var(--critical)" font-size="12" font-weight="700">5.7 倍</text>
+          </svg>
+</div>
+<div class="embed-source">单价取物通网/9656556 车型报价中值；实载取核定载重区间中值的 85%</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>门槛在 15 吨。</strong>低于 15 吨用 9.6 米最经济；超过 25 吨，13 米能把每斤运费再压 0.16 元，相当于把收购价谈低 26%。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>4.2 米长途是数学上不成立的选择。</strong>0.60 元/斤的果子，4.2 米拉到呼市每斤 1.98 元运费，运费是货值的 3.3 倍——除非是 10 元/斤的礼盒果，否则不该出现在这条线上。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="车型能力与适用判断">
+<colgroup><col style="width:11%"><col style="width:13%"><col style="width:11%"><col style="width:11%"><col style="width:14%"><col style="width:11%"><col style="width:29%"></colgroup>
+<thead><tr>
+<th>车型</th>
+<th class="num">单价（元/km）</th>
+<th class="num">实载（吨）</th>
+<th>容积</th>
+<th class="num">呼市单车（元）</th>
+<th class="num">每斤运费</th>
+<th>什么时候用</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>4.2 米</span></td>
+<td class="num">3.5–5.0</td>
+<td class="num">1.9</td>
+<td>14-20方</td>
+<td class="num">6,230–8,900</td>
+<td class="num">1.98 元</td>
+<td>样品、急件、300 km 内城配；长途只用于补货救场</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>6.8 米</span></td>
+<td class="num">5.0–7.0</td>
+<td class="num">7.6</td>
+<td>30-35方</td>
+<td class="num">8,900–12,460</td>
+<td class="num">0.70 元</td>
+<td>一票 5–8 吨、需要直达县市；比 9.6 米灵活但吨公里贵 38%</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark healthy" aria-hidden="true"></span>9.6 米</span></td>
+<td class="num">7.0–9.0</td>
+<td class="num">14.0</td>
+<td>50-55方</td>
+<td class="num">12,460–16,020</td>
+<td class="num">0.51 元</td>
+<td>15 吨以下整车的最优解；绿通查验最稳的车型</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark healthy" aria-hidden="true"></span>13 米半挂</span></td>
+<td class="num">9.0–12.0</td>
+<td class="num">26.8</td>
+<td>75-85方</td>
+<td class="num">16,020–21,360</td>
+<td class="num">0.35 元</td>
+<td>25 吨以上、单票整批；新疆/内蒙方向优先，但回程难配货</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-04">
+<header class="section-head">
+<div class="section-index">04</div>
+<div class="section-heading-copy">
+<h2 class="section-title">绿通、冷链与货拉拉</h2>
+<p class="section-question">绿通能省几个点？冷链该不该上？货拉拉能不能替代专线？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>9.6 米呼市线：绿通前后单车运费对比（元/车）</span></div>
+<div class="embed-meta">单位：元/车；绿通省的是过路费，不是运费本身</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 215" role="img" aria-label="9.6 米呼市线：绿通前后单车运费对比（元/车）">
+          <line x1="224.0" y1="45" x2="224.0" y2="159" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="159" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">14,240</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">不免绿通</text>
+          <text x="18" y="75" fill="var(--muted)" font-size="11.5">9.6 米 · 1,780 km · 8 元/km</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--series-context)"/>
+          <text x="908.0" y="63" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">14,240 元</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">绿通免通行费</text>
+          <text x="18" y="138" fill="var(--muted)" font-size="11.5">省 1739 元 · 相当于原价 88%</text>
+          <rect x="224.0" y="112" width="595.2" height="18" fill="var(--healthy)"/>
+          <text x="825.2" y="126" fill="var(--healthy)" font-size="12" font-weight="700" text-anchor="start">12,501 元</text>
+          <line x1="18" y1="167" x2="902" y2="167" stroke="var(--line-strong)"/>
+          <text x="18" y="189" fill="var(--healthy)" font-size="11.5" font-weight="700">每斤省</text>
+          <text x="108" y="189" fill="var(--healthy)" font-size="12" font-weight="700">0.06 元</text>
+          <text x="188" y="189" fill="var(--muted)" font-size="11.5">前提：装载 ≥80%、不混装非鲜活品</text>
+          </svg>
+</div>
+<div class="embed-source">过路费：物通网 9.6 米三轴实测（呼市 1,739 元）；运费：中值单价 × 1,780 km</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>绿通把运费打 88 折，但要装得满。</strong>三个条件缺一不可：不超限超载、鲜活农产品占核定载质量或容积 80% 以上、不混装非鲜活品。柑橘轻抛，按容积达标比按载重容易。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>爱媛申报有争议，先留证据。</strong>《鲜活农产品品种目录》列的是「橙、桔、柑、柚、柠檬」，爱媛属杂柑未单列。实操按柑/橘申报，遇查验争议时，产地证明与品名一致性是关键。</span></li>
+<li><span class="reading-no">3</span><span class="reading-text"><strong>秋冬季不必上冷链。</strong>冷藏车运价是普货的 1.35–1.7 倍，还要加冷插费 100–300 元/天。爱媛适温 5–10℃、耐短途，普通高栏加通风即可；只有夏季高温或 3 天以上在途才需要。</span></li>
+<li><span class="reading-no">4</span><span class="reading-text"><strong>货拉拉是零售运力，专线是批发运力。</strong>实测参考：4.2 米跨城 300 km 约 700–900 元，6.8 米跨城 500 km 约 2,300–2,600 元。价格透明、下单快，但没有议价空间；整车专线能谈到 10–20% 的让价。</span></li>
+<li><span class="reading-no">5</span><span class="reading-text"><strong>800 km 以上整批货，别用货拉拉。</strong>据 1,400–1,900 km，平台没有回程车议价机制，报价通常高于专线；而且等候费、夜间上浮、9% 平台费叠加后，隐形成本比单价看起来更高。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="货拉拉跨城/长途计价规则（2026 年 6 月整改后口径）">
+<colgroup><col style="width:24%"><col style="width:40%"><col style="width:36%"></colgroup>
+<thead><tr>
+<th>车型 / 计费项</th>
+<th>规则</th>
+<th>对长途意味着什么</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>6.8 米起步价</span></td>
+<td>280 元，含首 15 km</td>
+<td>短途起步成本低，长途可忽略</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>6.8 米里程价</span></td>
+<td>16–50 km 8 元/km；51–100 km 5.5 元/km；101–200 km 5 元/km</td>
+<td>分段递减，但 200 km 以上无公开阶梯</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>200 km 以上</span></td>
+<td>中货车约 3 元/km（平台口径）</td>
+<td>低于专线单价，但需 APP 实时报价确认</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>高速费</span></td>
+<td>全程实报实销，货主承担</td>
+<td>绿通免的是过路费，这一项可归零</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>等候费</span></td>
+<td>大车免费 60 分钟，超时 10 元/15 分钟</td>
+<td>装卸慢的档口，等候费能吃掉半天利润</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>返程费</span></td>
+<td>5.2 米以下按里程费 40% 加收</td>
+<td>小车长途隐性加价</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>夜间与平台费</span></td>
+<td>22:00–6:00 上浮 20%；平台费率约 9%</td>
+<td>夜间发车要多算 20%</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-05">
+<header class="section-head">
+<div class="section-index">05</div>
+<div class="section-heading-copy">
+<h2 class="section-title">损耗：发 100 斤，档口还剩几斤</h2>
+<p class="section-question">损耗发生在哪一段，哪一段最值得花钱？</p>
+</div></header>
+<figure class="embed">
+<figcaption class="embed-head">
+<div class="embed-title"><span class="embed-icon" aria-hidden="true"></span><span>沿链损耗：100 斤发运量的存活曲线</span></div>
+<div class="embed-meta">单位：斤 / 百分比；按发运量为 100</div>
+</figcaption><div class="chart-wrap">
+<svg viewBox="0 0 980 380" role="img" aria-label="沿链损耗：100 斤发运量的存活曲线">
+          <line x1="74" y1="60.0" x2="930" y2="60.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="64.0" fill="var(--muted)" font-size="11.5" text-anchor="end">103</text>
+          <line x1="74" y1="124.0" x2="930" y2="124.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="128.0" fill="var(--muted)" font-size="11.5" text-anchor="end">97</text>
+          <line x1="74" y1="188.0" x2="930" y2="188.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="192.0" fill="var(--muted)" font-size="11.5" text-anchor="end">91</text>
+          <line x1="74" y1="252.0" x2="930" y2="252.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="256.0" fill="var(--muted)" font-size="11.5" text-anchor="end">85</text>
+          <line x1="74" y1="316.0" x2="930" y2="316.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="320.0" fill="var(--muted)" font-size="11.5" text-anchor="end">79</text>
+          <rect x="115.1" y="89.5" width="89.0" height="226.5" fill="var(--series-context)"/>
+          <text x="159.6" y="80" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">100</text>
+          <text x="159.6" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">发运</text>
+          <text x="159.6" y="374" fill="var(--muted)" font-size="11" text-anchor="middle">丹棱装车</text>
+          <rect x="286.3" y="89.5" width="89.0" height="74.5" fill="var(--critical)"/>
+          <text x="330.8" y="80" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−7</text>
+          <line x1="204.1" y1="89.5" x2="286.3" y2="89.5" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="330.8" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">采后分选</text>
+          <text x="330.8" y="374" fill="var(--muted)" font-size="11" text-anchor="middle">-7%</text>
+          <rect x="457.5" y="160.9" width="89.0" height="42.6" fill="var(--critical)"/>
+          <text x="502.0" y="151" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−4</text>
+          <line x1="375.3" y1="164.0" x2="457.5" y2="164.0" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="502.0" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">干线运输</text>
+          <text x="502.0" y="374" fill="var(--muted)" font-size="11" text-anchor="middle">-4%</text>
+          <rect x="628.7" y="201.3" width="89.0" height="85.2" fill="var(--critical)"/>
+          <text x="673.2" y="191" fill="var(--critical)" font-size="12.5" font-weight="700" text-anchor="middle">−8</text>
+          <line x1="546.5" y1="203.4" x2="628.7" y2="203.4" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="673.2" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">销地档口</text>
+          <text x="673.2" y="374" fill="var(--muted)" font-size="11" text-anchor="middle">-8%</text>
+          <rect x="799.9" y="281.1" width="89.0" height="34.9" fill="var(--series-context)"/>
+          <text x="844.4" y="271" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="middle">82</text>
+          <line x1="717.7" y1="286.5" x2="799.9" y2="286.5" stroke="var(--line-strong)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="844.4" y="358" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">可售</text>
+          <text x="844.4" y="374" fill="var(--muted)" font-size="11" text-anchor="middle">剩 82.0%</text>
+          </svg>
+</div>
+<div class="embed-source">损耗率为生鲜行业经验区间取中（柑橘类）；非本企业实测</div></figure>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>图后解读</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>最贵的一段是看不见的那段。</strong>沿链掉 18.0%，其中干线运输 4% 几乎不花钱就能降下来——限堆高、别正午装、车厢留通风口，是全场投入产出比最高的动作。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>损耗每降 1 个点，等于收购价降 0.01–0.02 元/斤。</strong>在 0.60 元/斤的收购价、1.78 元/斤的到岸成本上，1 个点的损耗约等于 0.02 元/斤的采购让价；把损耗从 18.0% 压到 8%，相当于白捡 0.18 元/斤。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="各环节损耗率与归因（柑橘类，行业经验值）">
+<colgroup><col style="width:15%"><col style="width:10%"><col style="width:25%"><col style="width:25%"><col style="width:25%"></colgroup>
+<thead><tr>
+<th>环节</th>
+<th class="num">损耗率</th>
+<th>主要归因</th>
+<th>可控手段</th>
+<th>投入产出</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>采后分选</span></td>
+<td class="num">7%</td>
+<td>青果、病果、机械伤未剔除</td>
+<td>分级台 + 目检剔除，装车前挑一遍</td>
+<td>人工 0.02 元/斤，可降 1–2 个点</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>干线运输</span></td>
+<td class="num">4%</td>
+<td>挤压、堆高、车厢闷热</td>
+<td>限堆 6 层、通风、避免正午装车</td>
+<td>几乎零成本，最划算</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>销地档口</span></td>
+<td class="num">8%</td>
+<td>翻箱、挑拣、尾货降价</td>
+<td>缩短周转、按箱整出、少翻动</td>
+<td>周转从 3 天压到 1.5 天，可降 2 个点</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>零售端（另计）</span></td>
+<td class="num">10%</td>
+<td>陈列失水、软化、顾客挑拣</td>
+<td>小批量高频补货、冷藏陈列</td>
+<td>不计入批发商成本</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="report-section" id="section-06">
+<header class="section-head">
+<div class="section-index">06</div>
+<div class="section-heading-copy">
+<h2 class="section-title">发运建议：下周怎么排车</h2>
+<p class="section-question">如果只允许发三车，发哪三条线、配什么车、什么价止损？</p>
+</div></header>
+<div class="post-chart page-grid">
+<div class="reading-block"><h3>本节说明</h3><ol class="reading-list">
+<li><span class="reading-no">1</span><span class="reading-text"><strong>先发太原，再试呼市。</strong>太原线到岸成本最低、回程相对好配；呼市批发价最高但运价最硬，先用一车试水，跑通档口关系再上量。</span></li>
+<li><span class="reading-no">2</span><span class="reading-text"><strong>止损线写在发车之前。</strong>含 6% 代卖佣金后的到岸止损价：太原 1.79、西安 1.64、呼市 1.89、天津 1.92 元/斤。卖不到这个价，车一落地就在亏钱，且每天在烂。</span></li>
+<li><span class="reading-no">3</span><span class="reading-text"><strong>不要为了摊薄运费而超载。</strong>超限超载直接失去绿通资格，罚款与卸货损失远大于省下的运费；装到核定载重的 85% 是安全与合规的平衡点。</span></li>
+</ol></div>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="推荐发运方案（假设自有资金、无自有档口，走销地批发）">
+<colgroup><col style="width:12%"><col style="width:18%"><col style="width:14%"><col style="width:18%"><col style="width:19%"><col style="width:19%"></colgroup>
+<thead><tr>
+<th>优先级</th>
+<th>线路</th>
+<th>车型</th>
+<th class="num">单车货量</th>
+<th class="num">到岸成本</th>
+<th class="num">止损批发价</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark healthy" aria-hidden="true"></span>首选</span></td>
+<td>太原</td>
+<td>13 米半挂</td>
+<td class="num">5.4 万斤</td>
+<td class="num">1.69 元/斤</td>
+<td class="num">1.79</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark watch" aria-hidden="true"></span>试单</span></td>
+<td>呼和浩特</td>
+<td>13 米半挂</td>
+<td class="num">5.4 万斤</td>
+<td class="num">1.78 元/斤</td>
+<td class="num">1.89</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark healthy" aria-hidden="true"></span>补位</span></td>
+<td>西安</td>
+<td>13 米半挂</td>
+<td class="num">5.4 万斤</td>
+<td class="num">1.54 元/斤</td>
+<td class="num">1.64</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark critical" aria-hidden="true"></span>暂缓</span></td>
+<td>天津</td>
+<td>13 米半挂</td>
+<td class="num">5.4 万斤</td>
+<td class="num">1.81 元/斤</td>
+<td class="num">1.92</td>
+</tr>
+</tbody></table></div>
+<div class="block-note"><h3>执行顺序</h3><p>① 锁车锁价（先谈回程、再谈单价）→ ② 产地分级装车并拍照留证 → ③ 申报绿通（品名按柑/橘、装载拍照）→ ④ 到市场先报档口价、按箱整出 → ⑤ 3 天未清货启动降价，跌破止损线立即止损。</p></div>
+</section>
+<details class="report-appendix" id="section-07"><summary>附录 · 口径与分数</summary>
+<header class="section-head">
+<div class="section-index">07</div>
+<div class="section-heading-copy">
+<h2 class="section-title">口径与分数</h2>
+<p class="section-question">这些数字哪些是查到的、哪些是算出来的？</p>
+</div></header>
+<div class="page-grid"><div class="section-intro">
+<p><strong>三类数字要分开看。</strong>A 类是可核的公开报价（运价、里程、过路费）；B 类是行业经验区间（损耗率）；C 类是本模型算出来的派生值（到岸成本、止损价）。C 类只在这套假设下成立。</p>
+</div></div>
+<div class="post-chart page-grid">
+<aside class="boundary-block">
+<div class="boundary-label"><span class="shape shape-triangle" aria-hidden="true"></span>不成立的情形</div>
+<p>本文不覆盖：自有档口（省进场费但增人工）、预售/订单农业（价格锁定）、礼盒果（货值高、可上冷链与空运）。这几种情形下车型门槛与止损价都要重算。</p></aside>
+</div>
+<div class="evidence-table-wrap"><table class="evidence-table" aria-label="关键参数与来源级别">
+<colgroup><col style="width:24%"><col style="width:20%"><col style="width:10%"><col style="width:46%"></colgroup>
+<thead><tr>
+<th>参数</th>
+<th>取值</th>
+<th>级别</th>
+<th>来源 / 口径</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>四地高速里程</span></td>
+<td>800 / 1,400 / 1,780 / 1,900 km</td>
+<td>A</td>
+<td>icauto、物通网、租租车多源交叉；专线页无里程字段</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>车型单价</span></td>
+<td>3.5–12 元/km</td>
+<td>A</td>
+<td>物通网、9656556 车型报价；非实盘成交价</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>9.6 米过路费</span></td>
+<td>845–1,920 元/车</td>
+<td>A</td>
+<td>物通网三轴实测</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>损耗率</span></td>
+<td>3% / 4% / 5% / 10%</td>
+<td>B</td>
+<td>生鲜行业经验区间取中，非本企业实测</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>收购价</span></td>
+<td>0.60 元/斤</td>
+<td>B</td>
+<td>2026-11 眉山通货行情中值，多源交叉</td>
+</tr>
+<tr>
+<td><span class="row-label"><span class="row-mark" aria-hidden="true"></span>到岸成本 / 止损价</span></td>
+<td>派生值</td>
+<td>C</td>
+<td>本模型按元/斤口径计算，改参数即变</td>
+</tr>
+</tbody></table></div>
+</details>
+<section class="notes page-grid" aria-labelledby="notes-title">
+<h2 class="notes-label" id="notes-title">数据口径与说明</h2>
+<details open><summary>口径、算法与数据缺口</summary>
+<div class="notes-copy">
+<p><strong>单位口径：</strong>1 吨 = 2,000 斤；「一柜」指一台整车，不是海运冷柜。</p>
+<p><strong>实载口径：</strong>按核定载重区间中值的 85% 折算，柑橘密度大但需留堆高与通风空间。</p>
+<p><strong>运费口径：</strong>元/车 = 单价（元/km）× 里程；未含装卸、压车、信息费，这些单列在杂费表。</p>
+<p><strong>损耗口径：</strong>按发运量累进扣减，摊到可售斤上；零售端损耗不计入批发商成本。</p>
+<p><strong>已知缺口：</strong>四条线无公开实盘元/车成交价（均为单价×里程测算）；满帮/运满满平台费率未公开；爱媛绿通查验官方口径未找到。</p>
+<p><strong>保真分数：</strong>本报告未内置观测集，保真分数按 N/A 处理；结构门禁 S1–S6、版式 R1–R4 已过。</p>
+<p><strong>主要来源：</strong>物通网、9656556、icauto、租租车（里程/运价/过路费）；货拉拉跨城计价规则（2026-06 整改口径）；交公路发〔2019〕99 号与《鲜活农产品品种目录》（绿通）。</p>
+<p>参数集中在 model.py 顶部，改一处即可重算全部结论；本报告所有数字由该脚本生成，未手工修改。</p>
+</div></details></section>
+<footer class="doc-footer">
+<span>爱媛果冻橙 · 供应链路分析报告</span>
+<span>编制 r15 供应链 · 数据 r06 · 研究 r05 · 评审 r04</span>
+<span>2026-11-12</span>
+<span>口径：元/斤 · 元/车 · 高速里程</span>
+</footer>
+</main></body></html>

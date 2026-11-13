@@ -1,0 +1,19 @@
+{
+ "skill": "abtest",
+ "args": [
+  "--input",
+  "{AGENTS}/tests/fixtures/analysis_ab_srm.csv",
+  "--group",
+  "group",
+  "--control",
+  "A",
+  "--treatment",
+  "B",
+  "--metric",
+  "convert"
+ ],
+ "expect": {
+  "abtest.srm_flag": true,
+  "abtest.decision": "srm_rerun"
+ }
+}

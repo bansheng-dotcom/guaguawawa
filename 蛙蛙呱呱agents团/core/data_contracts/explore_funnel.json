@@ -1,0 +1,12 @@
+{
+ "name": "explore:funnel",
+ "fields": [
+  {
+   "name": "stage",
+   "dtype": "str",
+   "required": true,
+   "enum": null,
+   "range": null
+  }
+ ]
+}

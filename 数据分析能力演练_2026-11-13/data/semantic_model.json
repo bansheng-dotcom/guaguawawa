@@ -1,0 +1,113 @@
+{
+  "semantic_models": [
+    {
+      "name": "orders",
+      "model": "fct_orders",
+      "description": "个护订单语义模型（模拟数据）",
+      "entities": [
+        {
+          "name": "order",
+          "type": "primary",
+          "expr": "order_id",
+          "description": "订单主键"
+        },
+        {
+          "name": "customer",
+          "type": "foreign",
+          "expr": "customer_id",
+          "description": "用户外键"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "channel",
+          "type": "categorical",
+          "expr": "channel",
+          "description": "渠道"
+        },
+        {
+          "name": "category",
+          "type": "categorical",
+          "expr": "category",
+          "description": "品类"
+        },
+        {
+          "name": "order_date",
+          "type": "time",
+          "expr": "order_date",
+          "description": "下单日期",
+          "type_params": {
+            "time_granularity": "day"
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "gmv",
+          "agg": "sum",
+          "expr": "revenue",
+          "description": "成交金额",
+          "unit": "元"
+        },
+        {
+          "name": "aov",
+          "agg": "avg",
+          "expr": "revenue",
+          "description": "客单价",
+          "unit": "元"
+        },
+        {
+          "name": "order_count",
+          "agg": "count_distinct",
+          "expr": "order_id",
+          "description": "订单数",
+          "unit": "单"
+        },
+        {
+          "name": "user_count",
+          "agg": "count_distinct",
+          "expr": "customer_id",
+          "description": "去重用户",
+          "unit": "人"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "name": "gmv_total",
+      "label": "成交总额",
+      "description": "全部订单成交金额",
+      "type": "simple",
+      "type_params": {
+        "measure": {
+          "name": "gmv"
+        }
+      }
+    },
+    {
+      "name": "aov",
+      "label": "客单价",
+      "description": "平均订单金额",
+      "type": "simple",
+      "type_params": {
+        "measure": {
+          "name": "aov"
+        }
+      }
+    },
+    {
+      "name": "orders_per_user",
+      "label": "人均订单数",
+      "type": "ratio",
+      "type_params": {
+        "numerator": {
+          "name": "order_count"
+        },
+        "denominator": {
+          "name": "user_count"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "_comment": "artifact inventory 干净夹具：3 项物料，2 存在 + 1 可选缺失（不阻断）→ verdict COMPLETE",
+  "items": [
+    {"path": "experience/thresholds.json", "type": "config", "required": true},
+    {"path": "SKILL.md", "type": "doc", "required": true},
+    {"path": "references/optional-notes.md", "type": "doc", "required": false}
+  ]
+}

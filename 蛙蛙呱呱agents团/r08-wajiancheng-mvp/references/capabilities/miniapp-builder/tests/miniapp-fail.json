@@ -1,0 +1,16 @@
+{
+  "_comment": "反例：工程名中文、页面无标题、tabbar 指向未定义页",
+  "name": "报价小工具",
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "title": ""
+    }
+  ],
+  "tabbar": [
+    {
+      "page": "pages/not-exist/not-exist",
+      "text": "首页"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+ "proposition": "质量分能否识别脏数据",
+ "steps": [
+  {
+   "id": "dirty",
+   "type": "skill",
+   "skill": "quality",
+   "args": [
+    "audit",
+    "--input",
+    "{AGENTS}/tests/fixtures/quality_dirty.csv",
+    "--pk",
+    "order_id",
+    "--date",
+    "order_date"
+   ]
+  },
+  {
+   "id": "check",
+   "type": "assert",
+   "path": "dirty.dimension_score.validity",
+   "equals": null
+  },
+  {
+   "id": "report",
+   "type": "report",
+   "path": "report.md"
+  }
+ ]
+}

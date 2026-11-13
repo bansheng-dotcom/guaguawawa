@@ -1,0 +1,44 @@
+role: r10
+doc_type: 视觉报告 · 蛙成美
+title: '视觉：主张
+
+  与合规'
+title_highlight: 与合规
+title_highlight_style: underline
+meta:
+- 读者：品牌负责人
+- 口径：按证据包（端口/台账）
+- 样本：由数据端口决定
+footer:
+- r10 · shared/report_writer + core/report_renderer
+sections:
+- title: 主张
+  question: 这套物料要说什么？
+  intro: 先有主张，再谈风格。
+  boundary: 主张为方向性描述，不替代策略。
+- title: 令牌
+  question: 体系立得住吗？
+  intro: 主色唯一、字体不超过两款，是底线不是建议。
+  boundary: 令牌以 DESIGN.md 为准。
+- title: 合规
+  question: 能不能过审？
+  intro: 对比度不够，再好看也不能用。
+  boundary: 对比度按 WCAG AA 4.5:1 判定。
+- title: 变体
+  question: 小尺寸还认得出吗？
+  intro: 16px 认不出，等于没有 favicon。
+  boundary: 变体需逐档给出可辨证据。
+- title: 判断与动作
+  question: 先改哪一版？
+  intro: 先改会被投诉的那版。
+  table: decision
+  no_reading: true
+summary:
+- label: 判断
+  section: 主张
+- label: 关键
+  section: 合规
+- label: 动作
+  section: 判断与动作
+appendix:
+  sources: true

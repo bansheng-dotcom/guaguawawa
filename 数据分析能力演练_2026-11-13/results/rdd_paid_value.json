@@ -1,0 +1,59 @@
+{
+  "ok": true,
+  "checks": [],
+  "rdd": {
+    "estimate": 12.6235,
+    "se": 0.2643,
+    "bandwidth_grid": [
+      {
+        "bandwidth": 50.454,
+        "estimate": 12.6187,
+        "se": 0.2734,
+        "t": 46.15
+      },
+      {
+        "bandwidth": 67.272,
+        "estimate": 12.6182,
+        "se": 0.2664,
+        "t": 47.37
+      },
+      {
+        "bandwidth": 84.09,
+        "estimate": 12.6235,
+        "se": 0.2643,
+        "t": 47.76
+      },
+      {
+        "bandwidth": 100.908,
+        "estimate": 12.6213,
+        "se": 0.2641,
+        "t": 47.79
+      },
+      {
+        "bandwidth": 126.135,
+        "estimate": 12.6195,
+        "se": 0.2645,
+        "t": 47.71
+      }
+    ],
+    "placebo_estimates": [],
+    "p_placebo": null,
+    "density_p": 0.8359,
+    "quadratic_estimate": 12.6493,
+    "covariate_balance": {
+      "smd": [
+        0.013,
+        0.036,
+        0.035
+      ],
+      "max_abs_smd": 0.036,
+      "balanced": true
+    },
+    "robust": false,
+    "note": "带宽越小越局部；安慰剂 p<0.1 才算通过；密度 p<0.05 提示操纵",
+    "method": "sensitivity"
+  },
+  "y": "paid_value",
+  "running": "cart_value",
+  "runtime_ms": 130
+}

@@ -1,0 +1,4 @@
+extends: analyst
+role: r05
+title_prefix: 调研
+adapter: r05

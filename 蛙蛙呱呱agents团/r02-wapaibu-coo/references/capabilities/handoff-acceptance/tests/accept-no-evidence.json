@@ -1,0 +1,8 @@
+{
+  "_comment": "反例：验收项声明 passed=true 却无 evidence → accept 门禁必须判不通过",
+  "package_id": "HP-a1b2c3d4",
+  "criteria": [
+    {"criterion": "Lighthouse ≥ 90", "passed": true, "evidence": ""},
+    {"criterion": "首屏 < 1.5s", "passed": true}
+  ]
+}

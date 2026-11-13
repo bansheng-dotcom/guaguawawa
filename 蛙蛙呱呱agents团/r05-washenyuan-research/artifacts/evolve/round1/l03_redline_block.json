@@ -1,0 +1,6 @@
+{
+  "blocked": true,
+  "code": "CROSS_ROLE_PAYMENT",
+  "handoff": "R03",
+  "message": "[REDLINE BLOCKED] 硬红线命中 CROSS_ROLE_PAYMENT（path=payment.action）：文本出现越权资金动作「代付款」，研究域无权代付/垫付；R05 无权自行处置，须移交 R03 蛙金算（财务/结算域） 处理。"
+}

@@ -1,0 +1,31 @@
+{
+ "proposition": "单价与折扣对金额的联合影响",
+ "steps": [
+  {
+   "id": "m",
+   "type": "skill",
+   "skill": "regression",
+   "args": [
+    "--input",
+    "{AGENTS}/tests/fixtures/analysis_orders.csv",
+    "--x",
+    "unit_price,discount",
+    "--y",
+    "revenue",
+    "--cluster",
+    "channel"
+   ]
+  },
+  {
+   "id": "a",
+   "type": "assert",
+   "path": "m.multivariate.r2",
+   "equals": null
+  },
+  {
+   "id": "r",
+   "type": "report",
+   "path": "report.md"
+  }
+ ]
+}

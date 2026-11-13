@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-11-13",
+  "source": "CONTRACT",
+  "port": "hr_system",
+  "system": "HR 系统（花名册/考勤/薪酬）",
+  "note": "r16 需要：人均产出、人力成本、招聘漏斗与到岗周期、薪酬带宽、合同考勤社保、目标评分。",
+  "fields": [
+    "output_per_head",
+    "labor_cost",
+    "recruit_funnel",
+    "time_to_hire",
+    "salary_band",
+    "market_percentile",
+    "contract",
+    "attendance",
+    "social_insurance",
+    "goals",
+    "rating"
+  ],
+  "employees": []
+}
