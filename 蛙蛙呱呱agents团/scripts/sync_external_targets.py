@@ -27,6 +27,9 @@ TEAM = Path(__file__).resolve().parent.parent
 SKIP_DIRS = {"workspace", ".cache", "__pycache__", ".pytest_cache", ".git",
              "projects", "node_modules", ".mypy_cache", "real_check"}
 SKIP_FILES = {".DS_Store"}
+# 镜像同步时，目标侧这些运行期目录一并清掉
+RUNTIME_DIRS = ("workspace", "projects", ".cache", "__pycache__", ".pytest_cache",
+                "node_modules", ".mypy_cache", "real_check")
 
 WORKBUDDY = Path(r"C:\Users\18238\.workbuddy\plugins\marketplaces\my-experts\plugins\wawa-guagua-agents")
 TRAE = Path(r"C:\Users\18238\.trae-cn\skills\wawa-guagua-agents")
@@ -66,9 +69,13 @@ def sync_tree(src: Path, dst: Path, check: bool) -> tuple[int, int]:
 
 
 def prune_tree(src: Path, dst: Path, check: bool) -> list[Path]:
-    """删除目标侧独有文件（严格镜像）。返回被删/将被删的相对路径。"""
+    """删除目标侧独有文件（严格镜像），并清掉运行期目录。
+
+    返回被删/将被删的相对路径（文件 + 运行期目录）。
+    """
     src_rel = set(iter_files(src))
     extra = sorted((rel for rel in iter_files(dst) if rel not in src_rel))
+    runtime = [d for d in RUNTIME_DIRS if (dst / d).exists()]
     if not check:
         for rel in extra:
             (dst / rel).unlink(missing_ok=True)
@@ -79,7 +86,19 @@ def prune_tree(src: Path, dst: Path, check: bool) -> list[Path]:
                 d.rmdir()
             except OSError:
                 pass
-    return extra
+        for name in runtime:
+            shutil.rmtree(dst / name, ignore_errors=True)
+        # 任意层级的运行期目录（如 r10/workspace、agents/workspace）一并清掉
+        for d in sorted((p for p in dst.rglob("*") if p.is_dir() and p.name in RUNTIME_DIRS),
+                        key=lambda p: -len(p.parts)):
+            shutil.rmtree(d, ignore_errors=True)
+        # 嵌套 __pycache__ 与散落的 .pyc
+        for d in list(dst.rglob("__pycache__")):
+            if d.is_dir():
+                shutil.rmtree(d, ignore_errors=True)
+        for f in dst.rglob("*.pyc"):
+            f.unlink(missing_ok=True)
+    return extra + [Path(d + "/") for d in runtime]
 
 
 def main(argv=None) -> int:
