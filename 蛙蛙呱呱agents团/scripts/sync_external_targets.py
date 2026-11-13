@@ -3,18 +3,22 @@
 
 规则：
   * 只同步代码与文档；跳过运行期目录 workspace/ .cache/ projects/ __pycache__/ .git
-  * 合并覆盖，不删除目标侧独有文件（插件自己的 skills/、bin/workspace/ 保留）
+  * 默认合并覆盖，不删除目标侧独有文件
+  * `--prune`：目标侧严格镜像仓库（删除目标独有文件），仅对白名单内的镜像目标生效
   * WorkBuddy 额外同步 agents/*.md（来自 agent-packs/agents）
 
 用法：
-  python scripts/sync_external_targets.py            # 全部同步
-  python scripts/sync_external_targets.py --check    # 只比对，不写
+  python scripts/sync_external_targets.py              # 合并同步
+  python scripts/sync_external_targets.py --check      # 只比对，不写
+  python scripts/sync_external_targets.py --prune      # 镜像同步（会删目标侧多余文件）
+  python scripts/sync_external_targets.py --prune --check   # 先看会删什么
 """
 from __future__ import annotations
 
 import argparse
 import filecmp
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -28,6 +32,9 @@ WORKBUDDY = Path(r"C:\Users\18238\.workbuddy\plugins\marketplaces\my-experts\plu
 TRAE = Path(r"C:\Users\18238\.trae-cn\skills\wawa-guagua-agents")
 # 历史遗留的第二个 Trae 安装位（无连字符，曾被 report_bridge 直接引用）；两处必须同源
 TRAE_LEGACY = Path(r"C:\Users\18238\.trae-cn\skills\wawaguagua-agents")
+
+# 允许 --prune 的镜像目标（防止误删宿主专有目录）
+MIRROR_ALLOWED = {TRAE.resolve(), TRAE_LEGACY.resolve()}
 
 
 def iter_files(root: Path):
@@ -58,20 +65,39 @@ def sync_tree(src: Path, dst: Path, check: bool) -> tuple[int, int]:
     return changed, same
 
 
+def prune_tree(src: Path, dst: Path, check: bool) -> list[Path]:
+    """删除目标侧独有文件（严格镜像）。返回被删/将被删的相对路径。"""
+    src_rel = set(iter_files(src))
+    extra = sorted((rel for rel in iter_files(dst) if rel not in src_rel))
+    if not check:
+        for rel in extra:
+            (dst / rel).unlink(missing_ok=True)
+        # 清掉因此变空的目录（自底向上）
+        for d in sorted((p for p in dst.rglob("*") if p.is_dir()),
+                        key=lambda p: -len(p.parts)):
+            try:
+                d.rmdir()
+            except OSError:
+                pass
+    return extra
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--prune", action="store_true",
+                    help="镜像同步：删除目标侧独有文件（仅 Trae 技能目录）")
     args = ap.parse_args(argv)
 
     # 注意：不覆盖 WorkBuddy 的 agents/*.md —— 那是宿主侧生成物（138 行，含 hosts 专有字段），
     # 用仓库的 76 行版本覆盖会丢字段。它的代码入口是 bin/runtime。
     jobs = [
-        ("WorkBuddy runtime", TEAM, WORKBUDDY / "bin" / "runtime"),
-        ("Trae 技能目录", TEAM, TRAE),
-        ("Trae 技能目录（旧名）", TEAM, TRAE_LEGACY),
+        ("WorkBuddy runtime", TEAM, WORKBUDDY / "bin" / "runtime", False),
+        ("Trae 技能目录", TEAM, TRAE, True),
+        ("Trae 技能目录（旧名）", TEAM, TRAE_LEGACY, True),
     ]
-    total_changed = 0
-    for label, src, dst in jobs:
+    total_changed = total_pruned = 0
+    for label, src, dst, mirrorable in jobs:
         if not dst.parent.exists():
             print(f"[skip] {label}: 目标不存在 {dst}")
             continue
@@ -83,7 +109,19 @@ def main(argv=None) -> int:
         flag = "需同步" if args.check else "已同步"
         print(f"[{label}] {flag}：变更 {changed} 个，已一致 {same} 个 → {dst}")
 
-    print(f"\n合计变更 {total_changed} 个文件" + ("（--check 未写入）" if args.check else ""))
+        if args.prune and mirrorable and dst.resolve() in MIRROR_ALLOWED:
+            extra = prune_tree(src, dst, args.check)
+            total_pruned += len(extra)
+            verb = "将删除" if args.check else "已删除"
+            print(f"    {verb}目标独有 {len(extra)} 个", end="")
+            if extra:
+                print("：", "、".join(str(e) for e in extra[:5]),
+                      "…" if len(extra) > 5 else "")
+            else:
+                print()
+
+    tail = "（--check 未写入）" if args.check else ""
+    print(f"\n合计变更 {total_changed} 个文件，镜像删除 {total_pruned} 个{tail}")
     return 0
 
 
