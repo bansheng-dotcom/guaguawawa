@@ -143,6 +143,9 @@ def small_mult(chart: Dict[str, Any], theme: str) -> str:
     rows = (k + cols - 1) // cols
     h = 96.0 + rows * 132.0
     fig, _ax, T = canvas(h, theme, "", "", chart.get("source", ""), pad_t=10, pad_b=28, pad_l=10, pad_r=10)
+    # canvas 会建一张满幅底轴；小倍数图自己排版，底轴必须关掉，
+    # 否则 0—1.0 的默认刻度会压在每个面板下面（旧版重叠的根因）。
+    _ax.set_axis_off()
     fig.text(0.0, 1.0 - 12.0 / h, str(chart.get("title", "")), fontsize=13.0,
              fontweight="bold", color=T["ink"], va="top")
     if chart.get("unit_meta"):
