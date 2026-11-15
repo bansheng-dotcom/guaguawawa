@@ -352,9 +352,7 @@ def main(argv=None) -> int:
     proj.add_argument("--md-name", default="report", help="产物前缀")
     proj.add_argument("--theme", choices=["sticker", "paper", "editorial", "mono",
                                           "annual", "swiss", "slate", "noir"], default=None)
-    proj.add_argument("--pdf", dest="pdf", action="store_true", default=True,
-                      help="导出 PDF（默认开启）")
-    proj.add_argument("--no-pdf", dest="pdf", action="store_false", help="只出 HTML，不出 PDF")
+    proj.add_argument("--pdf", action="store_true", help="同时导出 PDF（默认只出 HTML）")
     proj.set_defaults(func=cmd_project)
     ana = sub.add_parser("analysis", help="问题驱动分析报告：analysis_pack → core")
     ana.add_argument("--pack", required=True, help="analysis_pack.json")

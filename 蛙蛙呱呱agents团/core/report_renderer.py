@@ -1219,32 +1219,71 @@ CSS = """
     body[data-theme="sticker"] mark { background: #FFD43B; }
 
     @media print {
-      @page { size: A4; margin: 16mm 15mm; }
+      @page { size: A4; margin: 18mm 16mm 18mm; }
       * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      html, body { background: #fff; }
-      body[data-theme="editorial"] .cover { background: linear-gradient(135deg, #101D18 0%, #1F5C4A 62%, #6B5730 138%) !important; }
-      .cover { break-after: page; }
-      .fig-body { overflow: hidden !important; padding: 10px 12px 4px !important; }
-      .fig-body svg { min-width: 0 !important; width: 100% !important; height: auto !important; }
-      table { max-width: 100%; }
-      .page { margin: 0 !important; max-width: none !important; border: 0 !important; box-shadow: none !important; }
-      body[data-theme="paper"] { background: #fff !important; }
-      body[data-theme="sticker"] { background: #fff !important; }
+      html, body { background: #fff; font-size: 10pt; line-height: 1.68; }
+
+      /* 封面：不再是整页空白，压成 1/3 页的题头，正文紧随其后 */
+      .cover {
+        break-after: auto !important;
+        margin: 0 0 6mm !important; max-width: none !important;
+        border-radius: 0 !important; box-shadow: none !important;
+        padding: 0 0 5mm !important; border-bottom: 1.2pt solid #14231C;
+        min-height: 0 !important; max-height: none !important; display: block !important;
+      }
+      .cover .wrap { padding: 0 0 0 !important; max-width: none !important; }
+      .cover .meta { margin-bottom: 0 !important; }
+      .cover::after, .cover::before { display: none !important; }
       body[data-theme="sticker"] .cover {
         background: linear-gradient(135deg, #0E2F22 0%, #2F6F4F 100%) !important;
-        margin: 0 !important; max-width: none !important; border-radius: 0 !important; box-shadow: none !important;
-        border-bottom: 7px solid #FFD43B !important;
-        min-height: 250mm; display: flex; align-items: center;
+        padding: 9mm 8mm 8mm !important; border-bottom: 5pt solid #FFD43B !important;
+        min-height: 0 !important; display: block !important;
       }
-      body[data-theme="sticker"] .cover .wrap { width: 100%; }
-      body[data-theme="sticker"] .cover::before { display: none; }
-      body[data-theme="sticker"] main.wrap { padding: 0 0 40px !important; max-width: none !important; }
-      .fig-card, .kpi, .insight { break-inside: avoid; box-shadow: none; }
-      /* A4 宽度下 KPI 值不得折行（“3,126 亿元”被拆成两行是印刷事故） */
-      .kpi .v { font-size: 21px; white-space: nowrap; }
+      body[data-theme="editorial"] .cover { background: linear-gradient(135deg, #101D18 0%, #1F5C4A 62%, #6B5730 138%) !important; }
+      h1 { font-size: 21pt !important; line-height: 1.25 !important; margin: 3mm 0 0 !important; }
+      .h1-sub { font-size: 11pt !important; margin-top: 2mm !important; }
+      .deck { font-size: 9.6pt !important; line-height: 1.66 !important; }
+      .meta { font-size: 8.6pt !important; margin-top: 3mm !important; }
+      .kicker { font-size: 8pt !important; padding: 2px 9px !important; }
+
+      /* 正文节奏：标题不与正文分页、图表/表格不跨页、表头跨页重复 */
+      main.wrap, .page { margin: 0 !important; max-width: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; }
+      .body-top { display: none !important; }
+      h2.sec {
+        font-size: 14pt !important; margin: 5mm 0 2.5mm !important;
+        break-after: avoid-page; break-inside: avoid;
+      }
+      #summary { margin-top: 0 !important; }
+      h2.sec .num { font-size: 12pt !important; }
+      .q, .why { font-size: 9pt !important; break-inside: avoid; break-after: avoid-page; margin: 2mm 0 3mm !important; }
+      .reading li { font-size: 9.8pt !important; line-height: 1.7 !important; break-inside: avoid; }
+      p { orphans: 2; widows: 2; }
+
+      .toc { font-size: 8.6pt !important; break-inside: avoid; margin: 2mm 0 0 !important; padding: 2mm 0 !important; }
+      .kpis { break-inside: avoid; gap: 3mm !important; margin: 4mm 0 3mm !important; }
+      .kpi .v { font-size: 16pt !important; white-space: nowrap; }
+      .kpi .k, .kpi .d { font-size: 8pt !important; }
+
+      .fig-card {
+        break-inside: avoid; margin: 3mm 0 4mm !important;
+        border: .8pt solid #D9D6CC !important; box-shadow: none !important;
+      }
+      .fig-head { font-size: 9pt !important; padding: 2mm 3mm !important; break-after: avoid; }
+      .fig-body { overflow: hidden !important; padding: 2mm 2.4mm 1mm !important; }
+      .fig-body svg { min-width: 0 !important; width: 100% !important; height: auto !important; max-height: 92mm; }
+      .fig-src { font-size: 7.6pt !important; padding: 1.4mm 3mm 2mm !important; }
+
+      .table-wrap { break-inside: auto; margin: 3mm 0 4mm !important; }
+      table { max-width: 100%; font-size: 8.2pt !important; }
+      thead { display: table-header-group; }
       tr { break-inside: avoid; }
-      .table-wrap { break-inside: auto; }
-      h2.sec { break-after: avoid; }
+      th { font-size: 8pt !important; padding: 1.6mm 2mm !important; }
+      td { padding: 1.5mm 2mm !important; }
+      .tcap { font-size: 8.4pt !important; break-after: avoid; }
+
+      .boundary { font-size: 8.4pt !important; break-inside: avoid; margin: 3mm 0 !important; }
+      details.appendix { break-inside: auto; }
+      footer { font-size: 7.8pt !important; margin-top: 6mm !important; }
       a { text-decoration: none; }
     }
 """
@@ -1367,12 +1406,6 @@ def vbar_compare(title: str, vbars: List[Dict[str, Any]], annotate: Optional[Dic
 
 def render_chart(chart: Dict[str, Any], theme: str = "sticker", engine: str = "") -> str:
     """内建 hbar/vbar；engine="v2" 时优先走研报级图表引擎，失败自动回退 v1。"""
-    if str(engine) == "v2":
-        # 负值柱：v2 的 hbar/vbar 只按正值排布，负值会压到分类标签上；
-        # 内建的 hbar_chart/vbar_compare 有零轴与左右分向，负值必须走 v1。
-        _vals = [b.get("value", 0) for b in (chart.get("bars") or chart.get("vbars") or [])]
-        if any(float(v) < 0 for v in _vals):
-            engine = "v1"
     if str(engine) == "v2":
         try:
             from core.charts.v2 import render as v2_render  # 延迟导入

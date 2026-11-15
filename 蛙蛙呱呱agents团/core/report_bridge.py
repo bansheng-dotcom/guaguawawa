@@ -76,10 +76,13 @@ use_kernel = _use_kernel
 
 
 def build_kernel_contract(role, name, title, result, skill, action, intent,
-                          dataset=None, doc_type="角色报告", data=None):
-    """data：技能的输入 JSON（PRD 类角色内容在输入不在 result，必须透传）。"""
+                          dataset=None, doc_type="角色报告", data=None, spec=None):
+    """data：技能的输入 JSON（PRD 类角色内容在输入不在 result，必须透传）。
+
+    spec：可选，显式指定 report spec（如 r06 深度稿用 r06_deep），默认按 role 加载。
+    """
     from core.report_kernel import layers as _layers, spec as _spec
-    s = _spec.load(role)
+    s = spec or _spec.load(role)
     return _layers.build_contract(role, name, title, result, s, skill, action, intent,
                                   dataset=dataset, data=data)
 
@@ -223,7 +226,7 @@ def render_html(contract: Dict[str, Any], out_html: str,
                 chart_dir: Optional[str] = None, theme: Optional[str] = None) -> Dict[str, Any]:
     """contract → core 渲染器 → HTML。返回 {ok, output?, errors?}。
 
-    theme: "sticker"（墨绿封面 + 粗黑描边 + 贴纸卡片，默认）/ "paper"（白纸研究风）。
+    theme: "paper"（白纸研究风，2026-11-15 起默认）/ "sticker"（墨绿封面 + 粗黑描边 + 贴纸卡片，历史）。
     """
     tmp = out_html + ".contract.json"
     os.makedirs(os.path.dirname(os.path.abspath(tmp)), exist_ok=True)
@@ -246,6 +249,18 @@ def render_html(contract: Dict[str, Any], out_html: str,
     except json.JSONDecodeError:
         return {"ok": proc.returncode == 0, "output": out_html,
                 "errors": [out or proc.stderr or "渲染失败"]}
+
+
+def _md_cell(c: Any) -> str:
+    """markdown 表格单元格：兼容 {"text":...} / {"lines":[...]} / 裸字符串。"""
+    if isinstance(c, dict):
+        if c.get("text") not in (None, ""):
+            return str(c["text"])
+        if c.get("lines"):
+            return " / ".join(str(x.get("text", "")) if isinstance(x, dict) else str(x)
+                              for x in c["lines"])
+        return ""
+    return str(c)
 
 
 def write_markdown(contract: Dict[str, Any], out_md: str) -> None:
@@ -272,17 +287,53 @@ def write_markdown(contract: Dict[str, Any], out_md: str) -> None:
         L.append(f"## {s['index']}. {s['title']}")
         if s.get("question"):
             L.append(f"> {s['question']}")
+        if s.get("why"):
+            L.append(f"> 为什么做：{s['why']}")
         L.append("")
+        for p in (s.get("intro") or []):
+            st = f"**{p['strong']}**" if p.get("strong") else ""
+            L.append(st + str(p.get("text", "")))
+            L.append("")
+        for para in (s.get("prose") or []):
+            L.append(str(para))
+            L.append("")
+        for b in (s.get("blocks") or []):
+            t = b.get("type")
+            if t == "subhead":
+                L.append(f"### {b.get('text', '')}")
+                L.append("")
+            elif t == "bullets":
+                for it in (b.get("items") or []):
+                    L.append(f"- {it}")
+                L.append("")
+            elif t == "table" and b.get("table"):
+                tb = b["table"]
+                cols = tb.get("columns", [])
+                L.append("| " + " | ".join(_md_cell(c) for c in cols) + " |")
+                L.append("|" + "---|" * len(cols))
+                for row in tb.get("rows", []):
+                    L.append("| " + " | ".join(_md_cell(c) for c in row) + " |")
+                L.append("")
+            elif t == "callout":
+                L.append(f"> {b.get('text', '')}")
+                L.append("")
+            else:
+                L.append(str(b.get("text", "")))
+                L.append("")
         if s.get("reading"):
             for r in s["reading"]:
                 strong = f"**{r['strong']}**" if r.get("strong") else ""
                 L.append(f"- {strong}{r['text']}")
+        sec_tables = list(s.get("tables") or [])
         if s.get("table"):
-            cols = s["table"]["columns"]
-            L.append("| " + " | ".join(c["text"] for c in cols) + " |")
+            sec_tables.insert(0, s["table"])
+        for tb in sec_tables:
+            L.append("")
+            cols = tb["columns"]
+            L.append("| " + " | ".join(_md_cell(c) for c in cols) + " |")
             L.append("|" + "---|" * len(cols))
-            for row in s["table"]["rows"]:
-                L.append("| " + " | ".join(cell["text"] for cell in row) + " |")
+            for row in tb["rows"]:
+                L.append("| " + " | ".join(_md_cell(cell) for cell in row) + " |")
         L.append("")
     # 边界
     if contract.get("notes"):
@@ -305,9 +356,35 @@ def render_pdf(html_path: str, pdf_path: str) -> Dict[str, Any]:
     if not browser:
         return {"ok": False, "status": "blocked", "errors": ["Chrome/Edge headless executable not found"]}
     os.makedirs(os.path.dirname(os.path.abspath(pdf_path)), exist_ok=True)
-    proc = subprocess.run([browser, "--headless", "--disable-gpu", "--no-sandbox", "--print-to-pdf=" + os.path.abspath(pdf_path), "file:///" + os.path.abspath(html_path).replace('\\\\', '/')], capture_output=True, text=True, encoding="utf-8", errors="replace")
+    proc = subprocess.run([browser, "--headless", "--disable-gpu", "--no-sandbox",
+                           "--no-pdf-header-footer",
+                           "--print-to-pdf=" + os.path.abspath(pdf_path), "file:///" + os.path.abspath(html_path).replace('\\\\', '/')], capture_output=True, text=True, encoding="utf-8", errors="replace")
     ok = proc.returncode == 0 and os.path.exists(pdf_path)
+    if ok:
+        _stamp_page_numbers(pdf_path)
     return {"ok": ok, "status": "created" if ok else "failed", "output": pdf_path if ok else None, "errors": [] if ok else [proc.stderr or "PDF rendering failed"]}
+
+
+def _stamp_page_numbers(pdf_path: str) -> None:
+    """给 PDF 逐页加「第 x / y 页」页脚。Chrome 的 @page margin box 不支持，只能后处理。"""
+    try:
+        import pymupdf  # PyMuPDF
+    except Exception:  # noqa: BLE001
+        return
+    try:
+        doc = pymupdf.open(pdf_path)
+        n = doc.page_count
+        for i, page in enumerate(doc):
+            w, h = page.rect.width, page.rect.height
+            label = f"{i + 1} / {n}"
+            page.insert_text((w / 2 - 14, h - 16), label, fontsize=8,
+                             color=(0.45, 0.45, 0.42), fontname="helv")
+        tmp = pdf_path + ".tmp"
+        doc.save(tmp)
+        doc.close()
+        os.replace(tmp, pdf_path)
+    except Exception:  # noqa: BLE001
+        return
 
 
 
