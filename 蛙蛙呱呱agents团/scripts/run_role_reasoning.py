@@ -24,7 +24,6 @@ sys.path.insert(0, str(AGENTS))
 
 from core import report_bridge, report_renderer  # noqa: E402
 from core.reasoning import Trace  # noqa: E402
-from core.question_bank import FOLLOWUPS  # noqa: E402
 
 
 def run_skill(role: str, argv: list[str]) -> dict:
@@ -77,14 +76,21 @@ def dig(obj, path: str):
     return cur
 
 
-def followup_for(role: str, qid: str, data_dir: str):
-    """某题被推翻时，从深度链里取一道追问，把报告从一层变成两层。"""
-    fu = FOLLOWUPS.get((role, qid))
-    if not fu:
+def take_followup(pool: list, current: dict):
+    """被推翻时，从同一张表的未用问题里取一道追问：深度来自数据，不来自预设链。"""
+    src = next((c for c in current.get("command", []) if c.endswith(".csv")), None)
+    if not src:
         return None
-    q = dict(fu)
-    q["command"] = [c.replace("{data}", data_dir) for c in fu["command"]]
-    return q
+    for i, q in enumerate(pool):
+        if src in q.get("command", []):
+            return pool.pop(i)
+    return None
+
+
+def _same_input(a: dict, b: dict) -> bool:
+    sa = {c for c in a.get("command", []) if c.endswith(".csv")}
+    sb = {c for c in b.get("command", []) if c.endswith(".csv")}
+    return bool(sa & sb)
 
 
 def judge(res: dict, rule: dict, nums: dict) -> tuple[str, str]:
@@ -129,6 +135,7 @@ def main(argv=None) -> int:
     trace = Trace(brief["role"], brief["subject"], brief.get("dataset", ""))
     skill_results = {}
     queue = list(brief["questions"])
+    pool = list(brief.get("_pool") or [])
     i = 0
     while i < len(queue):
         q = queue[i]
@@ -157,14 +164,20 @@ def main(argv=None) -> int:
             trace.choose_chart(step, q["chart"]["shape"], q["chart"]["data"])
         # 被推翻的问题触发追问：报告因此有第二层，而不是并列的一层
         if verdict == "rejected":
-            fu = followup_for(brief["role"], q.get("id"), brief.get("_data_dir", ""))
+            fu = take_followup(pool, q)
             if fu:
                 queue.append(fu)
 
-    contract = trace.to_contract(
-        title=brief["title"], standfirst=brief["standfirst"],
-        doc_type=brief.get("doc_type", "推理驱动报告"), meta=brief.get("meta", []),
-        footer=brief.get("footer", []))
+    try:
+        contract = trace.to_contract(
+            title=brief["title"], standfirst=brief["standfirst"],
+            doc_type=brief.get("doc_type", "推理驱动报告"), meta=brief.get("meta", []),
+            footer=brief.get("footer", []))
+    except ValueError as exc:
+        done = [s for s in trace.steps if s.verdict in ("supported", "rejected")]
+        print(f"不出报告：{exc}。本次 {len(trace.steps)} 步里只有 {len(done)} 步有判定——"
+              "通常是技能与角色不匹配，或该角色的数据还没有可推导的表。")
+        return 2
     errs = report_renderer.validate_contract(contract)
     if errs:
         print("contract 校验失败：", errs[:4])
