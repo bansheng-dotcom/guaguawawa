@@ -317,26 +317,42 @@ def _score(tags: List[str], intent: str) -> int:
 
 
 def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6,
-                derive: bool = True, card: str | None = None) -> Dict[str, Any]:
+                derive: bool = True, card: str | None = None,
+                focus_path: str | None = None) -> Dict[str, Any]:
     data = str(Path(data_dir).resolve()).replace("\\", "/")
     bank = BANK.get(role, [])
     picked: List[Dict[str, Any]] = []
     origin = "bank"
-    focus_note = ""
+    focus_note_text = ""
 
-    # 任务卡：决定「该问什么」（主表/主指标）；数据画像决定「能问什么」
+    # 主表/主指标：优先用模型给的 focus.json（规则校验），没有才退回任务卡词对齐
     focus = None
-    if card:
+    if focus_path:
+        from core.data_profile import profile_dir
+        from core.focus_contract import focus_note, load_focus, validate_focus
+        prof = profile_dir(data)
+        raw = load_focus(focus_path)
+        errs = validate_focus(raw, prof)
+        if errs:
+            raise SystemExit("focus.json 校验失败：" + "；".join(errs))
+        table = next(t for t in prof["tables"]
+                     if Path(t["file"]).name == raw["table"] or t["file"].endswith(raw["table"]))
+        focus = {"table": table, "measure": raw["measure"], "dimension": raw.get("dimension"),
+                 "reason": raw.get("reason"), "confidence": raw.get("confidence")}
+        focus_note_text = focus_note(raw, table)
+        if not intent:
+            intent = str(raw.get("task_title") or "按模型选定的主表分析")
+    elif card:
         try:
             from core.data_profile import profile_dir
             from core.task_card import focus_brief_text, load_card, select_focus
             c = load_card(card)
             focus = select_focus(profile_dir(data), c)
-            focus_note = focus_brief_text(focus, c)
+            focus_note_text = "（词表兜底）" + focus_brief_text(focus, c)
             if not intent:
                 intent = c["title"]
         except Exception as exc:  # noqa: BLE001
-            focus_note = f"任务卡读取失败（{type(exc).__name__}），按意图推导。"
+            focus_note_text = f"任务卡读取失败（{type(exc).__name__}），按意图推导。"
 
     # 先让数据说话：按画像推导问题；推导不出足够题时才回落到题库
     if derive:
@@ -376,7 +392,7 @@ def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6,
         "subject": intent,
         "_data_dir": data,
         "_origin": origin,
-        "dataset": (focus_note + " " if focus_note else "")
+        "dataset": (focus_note_text + " " if focus_note_text else "")
                    + f"{'数据画像推导' if origin == 'derived' else '问题库'}（{len(questions)} 题）",
         "title": f"{intent}：{len(questions)} 个可判定的问题",
         "standfirst": (
