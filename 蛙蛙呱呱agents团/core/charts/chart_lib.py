@@ -21,6 +21,8 @@ import json
 import sys
 from typing import Any, Dict, List, Optional
 
+_CAT = [f"var(--cat-{i})" for i in range(1, 9)]
+
 # --------------------------------------------------------------------------- #
 # 48 图谱注册（对齐 ai-data-visualization-prompts/prompts/index.json）
 # --------------------------------------------------------------------------- #
@@ -187,7 +189,9 @@ def line_chart(chart: Dict[str, Any]) -> str:
     all_v = [v for s in series for v in s["values"]]
     vmax, vmin = max(all_v), min(all_v)
     pad = (vmax - vmin) * 0.18 or 1.0
-    vmax, vmin = vmax + pad, vmin - pad
+    vmax = vmax + pad
+    # 正数序列不要画出负数刻度：下限压到 0，而不是 min-pad
+    vmin = max(0.0, vmin - pad) if vmin >= 0 else vmin - pad
     plot_h = H - TOP - BOT
     n = len(xlabels)
     def X(i: int) -> float: return L + (R - L) * i / max(n - 1, 1)
@@ -213,10 +217,10 @@ def line_chart(chart: Dict[str, Any]) -> str:
         out.append(f'<line x1="{L}" y1="{ry:.1f}" x2="{R}" y2="{ry:.1f}" stroke="var(--series-reference)" stroke-width="1.2" stroke-dasharray="5 5"/>')
         out.append(f'<text x="{R - 4}" y="{ry - 6:.1f}" fill="var(--muted)" font-size="11.5" text-anchor="end">{ref["label"]}</text>')
     # 系列
-    for s in series:
+    for si, s in enumerate(series):
         vals = s["values"]
         pts = " ".join(f"{X(i):.0f},{Y(v):.0f}" for i, v in enumerate(vals))
-        color = "var(--theme-accent)" if s.get("accent") else "var(--series-context)"
+        color = "var(--theme-accent)" if s.get("accent") else _CAT[si % len(_CAT)]
         width = 2.8 if s.get("accent") else 2.2
         out.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="{width}" stroke-linejoin="round" stroke-linecap="round"/>')
         # 普通点小圆
@@ -230,8 +234,8 @@ def line_chart(chart: Dict[str, Any]) -> str:
             out.append(f'<text x="{X(i):.0f}" y="{Y(vals[i]) + dy:.0f}" fill="{color}" font-size="12" font-weight="700" text-anchor="middle">{label}</text>')
         # 终点直接标注系列名+最新值
         out.append(f'<text x="{R - 4}" y="{Y(vals[-1]) - 10:.0f}" fill="{color}" font-size="11.5" font-weight="700" text-anchor="end">{s["name"]} {vals[-1]:,.{nd}f}</text>')
-    # x 轴标签
-    step = max(1, n // 12)
+    # x 轴标签：最多约 12 个，避免 20+ 个月份挤在一起
+    step = max(1, (n + 11) // 12)
     for i in range(0, n, step):
         out.append(f'<text x="{X(i):.0f}" y="{H - 12}" fill="var(--muted)" font-size="11.5" text-anchor="middle">{xlabels[i]}</text>')
     out.append("</svg>")
@@ -339,7 +343,8 @@ def box_compare_chart(chart: Dict[str, Any]) -> str:
     all_v = [v for g in groups for v in g["values"]]
     vmax, vmin = max(all_v), min(all_v)
     pad = (vmax - vmin) * 0.2 or 1.0
-    vmax, vmin = vmax + pad, vmin - pad
+    vmax = vmax + pad
+    vmin = max(0.0, vmin - pad) if vmin >= 0 else vmin - pad
     def Y(v: float) -> float: return TOP + plot_h * (1 - (v - vmin) / (vmax - vmin))
     zone = (W - 160) / len(groups)
     out = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{chart["title"]}">']
@@ -422,7 +427,7 @@ def control_chart(chart: Dict[str, Any]) -> str:
         if ooc:
             out.append(f'<text x="{X(i):.0f}" y="{Y(v) + 24:.0f}" fill="var(--critical)" font-size="12" font-weight="700" text-anchor="middle">{v:,.0f}（越限）</text>')
     out.append(f'<text x="{R - 4}" y="{Y(vals[-1]) - 12:.0f}" fill="var(--theme-accent)" font-size="11.5" font-weight="700" text-anchor="end">{s["name"]}</text>')
-    step = max(1, n // 12)
+    step = max(1, (n + 11) // 12)
     for i in range(0, n, step):
         out.append(f'<text x="{X(i):.0f}" y="{H - 12}" fill="var(--muted)" font-size="11.5" text-anchor="middle">{xlabels[i]}</text>')
     out.append("</svg>")
@@ -614,7 +619,7 @@ def grouped_bar_chart(chart: Dict[str, Any]) -> str:
             v = s["values"][ci]
             h = plot_h * v / vmax
             x = gx + bw * si
-            col = "var(--theme-accent)" if s.get("accent") else "var(--series-context)"
+            col = "var(--theme-accent)" if s.get("accent") else _CAT[si % len(_CAT)]
             op = "0.95" if s.get("accent") else "0.6"
             out.append(f'<rect x="{x + 2:.1f}" y="{TOP + plot_h - h:.1f}" width="{bw - 4:.1f}" height="{h:.1f}" rx="2.5" fill="{col}" opacity="{op}"/>')
             fw = ' font-weight="700"' if s.get("accent") else ""
