@@ -519,13 +519,11 @@ def _run_script(script: str, argv: list[str]) -> int:
 
 
 def cmd_reason(args: argparse.Namespace) -> int:
-    if not args.intent and not args.card and not args.focus:
-        print("需要 --intent / --card / --focus 之一")
+    if not args.intent and not args.focus:
+        print("需要 --intent 或 --focus 之一")
         return 2
     argv = ["--role", args.role, "--intent", args.intent or "",
             "--data", args.data, "--out", args.out, "--max-q", str(args.max_q)]
-    if args.card:
-        argv += ["--card", args.card]
     if args.focus:
         argv += ["--focus", args.focus]
     if args.pdf:
@@ -671,7 +669,6 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("reason", help="意图 → 问题库 brief → 跑技能 → 出报告 → 自动验收")
     p.add_argument("--role", required=True)
     p.add_argument("--intent", default="")
-    p.add_argument("--card", default=None)
     p.add_argument("--focus", default=None)
     p.add_argument("--data", required=True)
     p.add_argument("--out", required=True)

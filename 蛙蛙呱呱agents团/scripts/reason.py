@@ -22,7 +22,6 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="意图 → 问题库 → 推理报告 → 自动验收")
     ap.add_argument("--role", required=True, help="角色 ID，如 r06")
     ap.add_argument("--intent", default="", help="一句话意图（与 --card 二选一）")
-    ap.add_argument("--card", default=None, help="任务卡 JSON：词表兜底选主表")
     ap.add_argument("--focus", default=None, help="模型选定的主表/主指标 JSON（规则校验）")
     ap.add_argument("--data", required=True, help="数据目录（含 panel_annual.csv 等）")
     ap.add_argument("--out", required=True, help="输出目录")
@@ -30,8 +29,7 @@ def main(argv=None) -> int:
     ap.add_argument("--max-q", type=int, default=6)
     a = ap.parse_args(argv)
 
-    brief = build_brief(a.role, a.intent, a.data, max_q=a.max_q, card=a.card,
-                        focus_path=a.focus)
+    brief = build_brief(a.role, a.intent, a.data, max_q=a.max_q, focus_path=a.focus)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     brief_p = out / "brief.json"
