@@ -141,6 +141,176 @@ BANK: Dict[str, List[Dict[str, Any]]] = {
 
 DEFAULT_IDS = {"r06": ["trend_slope", "co_movement", "significance"]}
 
+# --------------------------------------------------------------------------- #
+# R05 研究：口径 → 规模 → 敏感性 → 集中度 → 情景
+# --------------------------------------------------------------------------- #
+BANK["r05"] = [
+    {
+        "id": "sizing",
+        "tags": ["规模", "市场", "多大", "TAM", "测算"],
+        "question": "市场规模的两条路径收敛吗？",
+        "hypothesis": "自上而下与自下而上两条口径的方差小于 0.3，可以给区间。",
+        "skill": "sizing.size",
+        "command": ["sizing", "size", "--input", "{data}/sizing.json"],
+        "numbers": {"TAM": "tam", "双口径方差": "variance"},
+        "judge": {"kind": "threshold", "field": "双口径方差", "value": 0.3, "op": "<="},
+        "falsify": "换一套品类权重重跑，若方差超过 0.3，说明两条口径不可比。",
+        "chart": {
+            "shape": "composition",
+            "data": {"title": "六个品类的规模构成", "unit": "亿元", "source": "sizing.json",
+                     "items": [{"label": "家纺", "value": 54.3}, {"label": "厨具", "value": 45.3},
+                               {"label": "收纳清洁", "value": 66.4}, {"label": "家居饰品", "value": 30.2},
+                               {"label": "日用百货", "value": 60.4}, {"label": "小家电", "value": 45.3}]},
+        },
+    },
+    {
+        "id": "sensitivity",
+        "tags": ["敏感", "驱动", "风险", "哪个因素"],
+        "question": "规模的不确定性第一个被哪个驱动放大？",
+        "hypothesis": "家庭户数每摆动 10%，规模随之摆动 10% 以上。",
+        "skill": "sizing.sensitivity",
+        "command": ["sizing", "sensitivity", "--input", "{data}/sizing_sens.json"],
+        "numbers": {"第一驱动摆动": "sensitivity_matrix.0.swing_pct"},
+        "judge": {"kind": "threshold", "field": "第一驱动摆动", "value": 0.1},
+        "falsify": "换成三档更窄的区间重跑，若第一驱动换人，敏感性判断作废。",
+    },
+    {
+        "id": "concentration",
+        "tags": ["集中", "区域", "格局", "CR", "HHI"],
+        "question": "区域集中度有多高？",
+        "hypothesis": "区域集中度属于中等（HHI 1000—1800）。",
+        "skill": "industry.concentration",
+        "command": ["industry", "concentration", "--input", "{data}/concentration.json"],
+        "numbers": {"HHI": "hhi", "CR4": "cr4"},
+        "judge": {"kind": "threshold", "field": "HHI", "value": 1000},
+        "falsify": "把未披露盟市拆开重算，若 HHI 跌破 1000，集中度判断失效。",
+        "chart": {
+            "shape": "cross_section",
+            "data": {"title": "分盟市社零（亿元）", "unit": "亿元", "source": "concentration.json",
+                     "items": [{"label": "呼和浩特", "value": 1232.3}, {"label": "包头", "value": 939.5},
+                               {"label": "赤峰", "value": 668.4}, {"label": "呼伦贝尔", "value": 365.7},
+                               {"label": "巴彦淖尔", "value": 246.6}, {"label": "锡林郭勒", "value": 236.5},
+                               {"label": "兴安盟", "value": 185.5}]},
+        },
+    },
+    {
+        "id": "pestel",
+        "tags": ["情景", "政策", "风险", "宏观", "PESTEL"],
+        "question": "宏观上有几个高影响因子？",
+        "hypothesis": "至少 3 个高影响因子（政策、地产、人口）。",
+        "skill": "scenario.pestel",
+        "command": ["scenario", "pestel", "--input", "{data}/pestel.json"],
+        "numbers": {"因子数": "total_factors", "证据覆盖": "evidence_coverage"},
+        "judge": {"kind": "threshold", "field": "因子数", "value": 5},
+        "falsify": "若有因子无证据支撑，高影响因子数会下降，情景假设需重写。",
+    },
+    {
+        "id": "sizing_spread",
+        "tags": ["规模", "区间", "上下限", "多大"],
+        "question": "规模区间的上下限差多少？",
+        "hypothesis": "上下限差距在 5% 以内，区间够窄、可以对外说。",
+        "skill": "sizing.size",
+        "command": ["sizing", "size", "--input", "{data}/sizing.json"],
+        "numbers": {"上限": "tam_top", "下限": "tam_bottom"},
+        "judge": {"kind": "threshold", "field": "上限", "value": 300},
+        "falsify": "换一套品类权重后若上下限差超过 20%，区间不能对外。",
+    },
+    {
+        "id": "evidence",
+        "tags": ["证据", "来源", "覆盖", "可信"],
+        "question": "情景因子的证据覆盖够不够？",
+        "hypothesis": "每个高影响因子都有证据支撑（覆盖率 90% 以上）。",
+        "skill": "scenario.pestel",
+        "command": ["scenario", "pestel", "--input", "{data}/pestel.json"],
+        "numbers": {"证据覆盖": "evidence_coverage", "因子数": "total_factors"},
+        "judge": {"kind": "threshold", "field": "证据覆盖", "value": 0.9},
+        "falsify": "若任一因子证据为空，覆盖率跌破 90%，情景假设降级。",
+    },
+]
+
+# --------------------------------------------------------------------------- #
+# R15 供应链：TCO → 价差
+# --------------------------------------------------------------------------- #
+BANK["r15"] = [
+    {
+        "id": "tco",
+        "tags": ["成本", "采购", "TCO", "便宜", "比价"],
+        "question": "三个货源的有效单位成本差多少？",
+        "hypothesis": "最优与最差货源的价差超过 20%，值得换源。",
+        "skill": "tco.compare",
+        "command": ["tco", "compare", "--input", "{data}/tco.json"],
+        "numbers": {"最优单价": "ranked.0.effective_unit_cost", "最差单价": "ranked.2.effective_unit_cost"},
+        "judge": {"kind": "threshold", "field": "最优单价", "value": 9.0, "op": "<="},
+        "falsify": "把运费与账期计入后重跑，若最优货源换人，本步结论作废。",
+        "chart": {
+            "shape": "cross_section",
+            "data": {"title": "三货源有效单位成本（元/件）", "unit": "元/件", "source": "tco.json",
+                     "items": [{"label": "义乌直采", "value": 8.5}, {"label": "临沂批发", "value": 9.2},
+                               {"label": "呼市本地", "value": 11.0}]},
+        },
+    },
+    {
+        "id": "tco_spread",
+        "tags": ["价差", "MOQ", "起订", "批量", "采购量"],
+        "question": "最差货源贵到什么程度？值得为它调整采购结构吗？",
+        "hypothesis": "最差货源比最优贵 20% 以上，值得换源。",
+        "skill": "tco.compare",
+        "command": ["tco", "compare", "--input", "{data}/tco.json"],
+        "numbers": {"最差单价": "ranked.2.effective_unit_cost", "最优单价": "ranked.0.effective_unit_cost"},
+        "judge": {"kind": "threshold", "field": "最差单价", "value": 10},
+        "falsify": "把运费与账期计入后重跑，若价差收窄到 10% 以内，换源不成立。",
+    },
+    {
+        "id": "tco_second",
+        "tags": ["次优", "备选", "第二货源"],
+        "question": "次优货源够不够便宜？",
+        "hypothesis": "次优货源单价在 9.5 元/件以内，可作为备选。",
+        "skill": "tco.compare",
+        "command": ["tco", "compare", "--input", "{data}/tco.json"],
+        "numbers": {"次优单价": "ranked.1.effective_unit_cost"},
+        "judge": {"kind": "threshold", "field": "次优单价", "value": 9.5, "op": "<="},
+        "falsify": "若次优与最优差价超过 1 元/件，备选价值下降。",
+    },
+    {
+        "id": "tco_cap",
+        "tags": ["上限", "最差", "贵"],
+        "question": "最差货源贵到超出可接受区间了吗？",
+        "hypothesis": "最差货源单价超过 12 元/件，不具备可比性。",
+        "skill": "tco.compare",
+        "command": ["tco", "compare", "--input", "{data}/tco.json"],
+        "numbers": {"最差单价": "ranked.2.effective_unit_cost"},
+        "judge": {"kind": "threshold", "field": "最差单价", "value": 12},
+        "falsify": "若最差货源降到 12 元以下，说明本地采购仍有空间。",
+    },
+]
+
+# --------------------------------------------------------------------------- #
+# 深度链：某题被推翻后自动追问（不是固定题单）
+# --------------------------------------------------------------------------- #
+FOLLOWUPS = {
+    ("r06", "significance"): {
+        "id": "significance_followup",
+        "question": "既然整体不显著，是不是被某个品类带偏的？",
+        "hypothesis": "均值差主要由通讯器材一个品类贡献。",
+        "skill": "describe",
+        "command": ["describe", "--input", "{data}/category_compare.csv", "--col", "nmg_g25"],
+        "numbers": {"最大值": "describe.nmg_g25.max", "中位数": "describe.nmg_g25.median"},
+        "judge": {"kind": "threshold", "field": "最大值", "value": 0.5},
+        "falsify": "若最大品类只比中位数高 1 倍以内，带偏判断不成立。",
+    },
+    ("r06", "elasticity"): {
+        "id": "elasticity_followup",
+        "question": "放大效应是普遍存在还是单点？",
+        "hypothesis": "剔除通讯器材后弹性仍大于 1。",
+        "skill": "describe",
+        "command": ["describe", "--input", "{data}/category_compare.csv", "--col", "nmg_g25"],
+        "numbers": {"中位数": "describe.nmg_g25.median"},
+        "judge": {"kind": "threshold", "field": "中位数", "value": 0.05},
+        "falsify": "若中位数低于 5%，说明放大只发生在少数品类。",
+    },
+}
+
+
 
 def _score(tags: List[str], intent: str) -> int:
     return sum(1 for t in tags if t and t in intent)
@@ -162,12 +332,13 @@ def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6)
             picked.append(t)
     questions = []
     for t in picked:
-        q = {k: v for k, v in t.items() if k not in ("id", "tags")}
+        q = {k: v for k, v in t.items() if k != "tags"}
         q["command"] = [c.replace("{data}", data) for c in t["command"]]
         questions.append(q)
     return {
         "role": role,
         "subject": intent,
+        "_data_dir": data,
         "dataset": f"问题库自动生成（{len(questions)} 题，命中意图：{intent}）",
         "title": f"{intent}：{len(questions)} 个可判定的问题",
         "standfirst": f"按意图「{intent}」从 R06 问题库选了 {len(questions)} 个可判定问题，逐个调用技能验证；"

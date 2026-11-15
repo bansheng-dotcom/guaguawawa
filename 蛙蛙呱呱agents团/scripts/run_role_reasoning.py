@@ -24,6 +24,7 @@ sys.path.insert(0, str(AGENTS))
 
 from core import report_bridge, report_renderer  # noqa: E402
 from core.reasoning import Trace  # noqa: E402
+from core.question_bank import FOLLOWUPS  # noqa: E402
 
 
 def run_skill(role: str, argv: list[str]) -> dict:
@@ -69,9 +70,21 @@ def dig(obj, path: str):
     for k in path.split("."):
         if isinstance(cur, dict) and k in cur:
             cur = cur[k]
+        elif isinstance(cur, list) and k.isdigit() and int(k) < len(cur):
+            cur = cur[int(k)]
         else:
             return None
     return cur
+
+
+def followup_for(role: str, qid: str, data_dir: str):
+    """某题被推翻时，从深度链里取一道追问，把报告从一层变成两层。"""
+    fu = FOLLOWUPS.get((role, qid))
+    if not fu:
+        return None
+    q = dict(fu)
+    q["command"] = [c.replace("{data}", data_dir) for c in fu["command"]]
+    return q
 
 
 def judge(res: dict, rule: dict, nums: dict) -> tuple[str, str]:
@@ -115,7 +128,11 @@ def main(argv=None) -> int:
 
     trace = Trace(brief["role"], brief["subject"], brief.get("dataset", ""))
     skill_results = {}
-    for q in brief["questions"]:
+    queue = list(brief["questions"])
+    i = 0
+    while i < len(queue):
+        q = queue[i]
+        i += 1
         step = trace.ask(q["question"], q["hypothesis"])
         res = run_skill(brief["role"], q["command"])
         skill_results[q["question"]] = res
@@ -138,6 +155,11 @@ def main(argv=None) -> int:
         step.falsify = q.get("falsify", "")
         if q.get("chart"):
             trace.choose_chart(step, q["chart"]["shape"], q["chart"]["data"])
+        # 被推翻的问题触发追问：报告因此有第二层，而不是并列的一层
+        if verdict == "rejected":
+            fu = followup_for(brief["role"], q.get("id"), brief.get("_data_dir", ""))
+            if fu:
+                queue.append(fu)
 
     contract = trace.to_contract(
         title=brief["title"], standfirst=brief["standfirst"],
