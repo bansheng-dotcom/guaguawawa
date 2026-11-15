@@ -106,11 +106,15 @@ R04 独立出具，**不得与执行角色同稿**，`reviewer == producer` 即 
 
 正式 `.html` 报告**五件套缺一不可**：
 
-0. **版式主题（v2.2 起）**：默认 `sticker`（墨绿封面 + 粗黑描边 + 贴纸卡片 + 暖黄高亮，对齐总览/点名页）；
-   备选 `paper`（白纸 + 细线 + 暖橙强调，研究风）。其余 `editorial/mono/annual/swiss/slate/noir` 保留为历史主题，
-   新报告不再默认使用。
-   封面与正文统一为 **1040px 内容列**，左右留白（1440px 屏约 200px/侧），封面是内缩的圆角卡片，
-   与正文卡片左右边界对齐；标题下沿带 7px 暖黄条。打印时保留 16mm/15mm 页边距。
+0. **版式主题（2026-11-15 起）**：默认 `paper`——**研究性报告样式**：白纸、细线、
+   暖橙强调色、1120px 内容列、封面无深色底（顶部细线收口），KPI 带上下细线 + 左侧色标。
+   与《内蒙古七类蛋白》基准报告同一视觉语言。
+   备选 `sticker`（墨绿封面 + 粗黑描边 + 贴纸卡片 + 暖黄高亮，历史主题）。
+   其余 `editorial/mono/annual/swiss/slate/noir` 保留为历史主题，新报告不再默认使用。
+   打印时保留页边距；封面与正文同一内容列，左右留白对齐。
+   已生成的历史 HTML 可用 python scripts/migrate_report_theme.py --root ../workspace --to paper
+   一次切换（只改 data-theme，备份写到 _archive/theme_swap/；加 --pdf 可重出 PDF）。
+   单个报告要回退旧样式，生成时传 --theme sticker。
    角色的标准报告出口（`role_runtime.emit` → kernel）与深度报告（`deep`/`depth`，经
    `shared/kernel_report_adapter.py` 把 REP-001 spec 映射成 contract）都走这套版式；
    旧模板可用 `GUAGUA_REPORT_ENGINE=legacy` / `GUAGUA_DEEP_ENGINE=legacy` 回滚。
@@ -194,7 +198,7 @@ R04 独立出具，**不得与执行角色同稿**，`reviewer == producer` 即 
 
 ## 八、版式硬规则（内核级，20 个角色自动继承）
 
-这四条写进 `core/report_kernel` 与渲染器，不由角色自由发挥；违反时 `scripts/contract_test.py` 直接报错。
+这五条写进 `core/report_kernel` 与渲染器，不由角色自由发挥；违反时 `scripts/contract_test.py` 直接报错。
 
 | # | 规则 | 为什么 |
 |---|---|---|
@@ -202,6 +206,7 @@ R04 独立出具，**不得与执行角色同稿**，`reviewer == producer` 即 
 | R2 | **正文最后一节固定是「口径与分数」**，集中放 观测数 / 保留率 / 溯源率 / 弃置率 / 规格 | 自检信息该被看见，但不必挡在结论前面 |
 | R3 | **记录层（全量观测表）标 `appendix: true`，渲染为默认折叠** | 数据一条不少（保真），但不占首屏 |
 | R4 | **不生成"结论清单/摘要复述"章节** | 正文已说过的再总结一遍就是冗余；回指靠正文内联编号与证据台账 |
+| R5 | **全篇禁用斜体**：标题、表头、图注、强调一律正体；标题/表头/图注不得用衬线体 | 中文斜体在 Windows 与 PDF 里是伪斜体（剪切变形），表头最糊；门禁 `scripts/check_report_style.py` |
 
 落到数据结构上：
 
@@ -239,3 +244,171 @@ python scripts/check_report_layout.py a.html b.html  # 指定文件
 检查器只看 HTML 结果，**不关心报告是内核产的还是项目自绘的**，所以两条产线都管得住。
 它同时挂在两处：`scripts/ci_report_checks.py`（第 6 项）与 `guagua report build` 的出厂自检。
 规则自身也有例外：含保真分数的报告才强制末节为「口径与分数」；纯业务报告（经营/链路）可以以行动表收尾。
+
+---
+
+## 九、报告路径：默认 core，单智能体按需（2026-11-13）
+
+| 路径 | 入口 | 什么时候用 |
+|---|---|---|
+| **core（默认）** | `shared/role_runtime.emit` → `core/report_pipeline.build_one` | 所有角色出报告；一次调用 = 一份 L1 + `manifest.json` |
+| **单智能体（按需）** | `GUAGUA_REPORT_PATH=single` 或 `python guagua.py report one ... --path single` | 只在明确要旧 REP-001 / 角色专用模板时用；兼容 `GUAGUA_REPORT_ENGINE=legacy` |
+| **项目级单份** | `python guagua.py report project --dir <项目目录>` | 跨角色/跨证据源的一份报告（如 R05 调研 × R06 分析）；输入 `data/report.contract.json` |
+| **项目层（多角色）** | `python guagua.py report build --project <pid>` | 多角色汇总 L1×N → L2 → L3；单次调用不建 project |
+
+默认 core 做的事：
+
+```
+result(+data+dataset)
+  → 角色 spec + adapter 组 L1 contract
+  → contract 校验 + spec_compliance + layout_errors + writing_errors
+  → core/report_renderer 进程内渲染 HTML/MD
+  → manifest.json（contract_hash / 三道自检 / fidelity / engine=core）
+```
+
+**自检现阶段只记录、不阻断**：`manifest.checks.policy = "warn"`、`blocking = false`。
+`spec_compliance` 先按 `section_id` 匹配，再退回 `title`；研究稿的结论句标题因此可以动态生成。
+
+当前对齐状态（2026-11-13）：
+
+| 角色 | 稿子形状 | spec | 状态 |
+|---|---|---|---|
+| r07 | `decision` 四段 | 原生 | 31 个动作 `spec/layout/writing = 0/0/0` |
+| r05 | `research` 10 节研究稿 | 原生（`section_id`） | `0/0/0`，标题仍是证据包结论句 |
+| r06 单动作 | `data` 四段 + 图表 | 原生 | `0/0/0` |
+| r06 深度稿 | `analysis` 11 节 | 原生（`section_id`） | `0/0/0`；`r06_deep` 单独一份 spec |
+
+下一步：把 `policy` 从 `warn` 切 `hard`（需要加 no-fallback 的拦截逻辑，避免失败后回落旧引擎）。
+
+项目级单份报告的出厂检查（个护报告为 golden）：
+
+```bash
+python guagua.py report project --dir 个护调研_2026-11-12 --pdf
+python scripts/check_report_project.py --dir 个护调研_2026-11-12 \
+    --sections 9 --charts 6 --tables 4
+```
+
+`report project` 读 `data/report.contract.json`，补 `section_id`（p1…p7 / A1 / p8），
+按 `project` archetype 过 spec/layout/writing 三闸，输出 HTML/MD/PDF + `manifest.json`。
+`project` 的 `policy` 是 `hard`：三闸任一失败，CLI 返回 1 并在 manifest 留痕。
+
+单角色出报告的标准命令：
+
+```bash
+python guagua.py report one --role r07 --result r.json --input in.json \
+  --skill prd --action prd --out workspace/out --name 蛙得明 --title 产品经理
+# 只有明确要旧路径时：
+python guagua.py report one ... --path single
+```
+
+
+---
+
+## 十、图表引擎 v2 与报告分级（2026-11-15）
+
+### 10.1 图表：v2 默认开启，v1 兜底
+
+`core/charts/v2/` 是研报级图表引擎（matplotlib → 确定性内联 SVG）。
+报告 contract 里 `"chart_engine": "v2"` 即生效，模块管线（20 角色）已默认开启；
+v2 不支持的图型或数据不足时**自动回退** `chart_lib`，48 型能力不退化
+（`python -m core.chart_capabilities --check` 仍须 48/48）。
+
+六条设计规则（改图之前先读 `core/charts/v2/README.md`）：
+
+1. 标题即结论——`chart.title` 必须是一句带数字的判断；
+2. 固定几何——宽 980px、标题 13px、右上单位、左下来源，多图上下对齐；
+3. 一个强调色——其余灰阶；红/绿只表达好坏，不表达类别；
+4. 直接标注——≤3 系列不用图例，线末端标「系列名 + 末值」；
+5. 去装饰——无外框、无纵网格、刻度取整；
+6. 数据不够不画——schema 不合就回退，绝不出空白图。
+
+画廊：`python scripts/chart_gallery_v2.py`（16 型单页预览）。
+
+### 10.2 报告分级（L0—L4）
+
+`scripts/grade_report_level.py` 只看 HTML 结果，不看报告怎么来的：
+
+| 档位 | 判据（全部满足） |
+|---|---|
+| L0 日志 | 无结论、无表、无图 |
+| L1 摘要 | ≥3 条带数字的结论 + ≥5 节 |
+| L2 研究稿 | + ≥5 张表/40 格、≥4000 字、≥8 段、≥8 节、有口径/假设说明、无禁用词 |
+| L3 分析稿 | + ≥3 张图且图图有来源、有口径冲突节、有统计复核节、数字密度 ≥1.2、字段回显 ≤30%、段落均长 ≥80 字 |
+| L4 决策级 | + 图标题含数字（结论式）、≥1/3 表头带单位、结论带动作/停止条件、≥6000 字 |
+
+基准（内蒙古七类蛋白 · 默认主题）= **L2**，是产线的最低线。
+2026-11-15 现状：20 个角色报告 **L3**，宠物调研 **L4**。
+
+```bash
+python scripts/grade_report_level.py --dir workspace/all_role_reports
+```
+
+---
+
+## 十一、实质门禁与 v2 生成线（2026-11-15）
+
+### 11.1 为什么加这道门禁
+
+分级（§10.2）数图、数表、数字符，模板填空能刷到 L3；2026-11-15 实测 20 份角色报告
+被判 L3，但同时存在 260 个空小节、14.2% 的逐字重复句、100 处套话，正文数字来自
+代码里的常量而不是语料。判断一份报告是不是「分析稿」，需要另一把尺子。
+
+### 11.2 七条判据（`scripts/check_report_substance.py`）
+
+| # | 判据 | 阈值 | 抓什么 |
+|---|---|---|---|
+| 1 | 空小节 | = 0 | 有标题没内容（旧报告每份 13 个） |
+| 2 | 数字密度 | ≥ 55 个/千字 | 铺形容词（旧 36.1，基准 89.9） |
+| 3 | 跨报告逐字重复句 | ≤ 10% | 20 份是同一份（旧 14.2%，新 3.0%） |
+| 4 | 套话命中 | = 0 | 「先可逆再结构」这类放之四海皆准 |
+| 5 | 表格有效数字格 | ≥ 35% | 表格里全是「—/无」 |
+| 6 | 每节有数字判断 | 全部 | 章节只有标题与免责声明 |
+| 7 | 数字可溯源 | ≥ 70% | 数字能在语料/台账里找到（新 100%，基准 96.4%） |
+
+阈值用基准报告与旧报告双向标定：基准 100 分通过，旧报告 0/20 通过，新报告 20/20 通过。
+
+```bash
+python scripts/check_report_substance.py --dir workspace/all_role_reports \
+    --evidence workspace/all_role_reports/r*_evidence.json
+python scripts/check_report_substance.py --html <基准报告.html> \
+    --evidence <计算指标.json> <证据台账_ledger.json>
+```
+
+### 11.3 v2 生成线：语料 → 观测 → 报告
+
+```
+角色语料（examples / cases / datasets/ports）
+  → core/corpus_analysis.py：观测（source+path+formula）/ 画像 / 分层 / 核验 / 冲突 / 可行性
+  → scripts/generate_role_reports_v2.py：结论先行 → 数据基础 → 字段覆盖 → 分布分层 → 越界
+      → 核验 → 口径冲突 → 可行性 → 数据合同 → 动作 → 台账 → 记录层
+  → core/report_writer + report_modules：HTML / MD / PDF + manifest
+```
+
+三条硬约束：
+
+1. **正文每个数字来自观测**；算不出来写「算不出」，进「数据合同」，不补形容词。
+2. **角色无关**：20 个角色跑同一套代码，差异来自数据，不来自每角色一段手写文案。
+3. **报告长度由数据决定**：角色语料中位数 41.5 个数值，报告平均 2,037 字；基准有 869 个数字，
+   8,591 字。要更长，先补数据，不改模板。
+
+```bash
+python scripts/generate_role_reports_v2.py --out ../workspace/all_role_reports --pdf
+python scripts/ci_report_checks.py        # 第 [7] 步 = 实质门禁，不过即 CI 失败
+```
+
+两条硬规则（2026-11-15 追加）：
+
+- **章节内不写小标题**：「构成 / 覆盖 / 分布 / 分层 / 判断」这类词只是复述章节名，
+  一律不渲染（分组保留，标题层清空）。
+- **CI 必须跑实质门禁**：`scripts/ci_report_checks.py` 第 [7] 步检查 20 份成品；
+  旧版 20 份在这里是 0/20，新版是 20/20。
+
+### 11.4 已修的历史缺陷
+
+`core/report_writer.py` 曾同时按「句子」和「数字签名」去重：数字组合相同的不同句子会被整句删除
+（「6 条观测/20 条门槛」与「6 个指标/20 条记录」被视为同一句），每份报告因此丢约 57 句、
+留下 13 个空小节。现已只保留精确句级去重。
+
+> 结论：报告质量 = f(数据)。模板能把 2,000 字撑到 4,700 字，但撑不出一个可复算的数字；
+> 引擎已经能在真实语料上产出基准级数字（内蒙古 8 份 CSV → -5.65%~+4.76% 的分化结论），
+> 剩下的差距是每个角色缺自己的「8 份 CSV」。

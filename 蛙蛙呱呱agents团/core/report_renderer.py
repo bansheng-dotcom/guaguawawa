@@ -67,7 +67,7 @@ def _load_chart_lib():
 REQUIRED_TOP = ["doc_type", "title_lines", "standfirst", "metric_strip",
                 "summary", "sections", "notes", "footer"]
 REQUIRED_METRIC = ["label", "value", "note"]
-REQUIRED_SECTION = ["index", "title", "question"]
+REQUIRED_SECTION = ["index", "title"]
 VALID_STATUS = {"critical", "watch", "healthy", "accent", "none"}
 VALID_WEIGHT = {"critical", "context", "reference", "healthy"}
 
@@ -384,6 +384,9 @@ CSS = """
       --watch: #9A6A12; --watch-soft: #FBF3E4;
       --healthy: #146B52; --healthy-soft: #EAF4EF;
       --series-context: #8A948D; --series-reference: #B9B3A5;
+      /* 分类色板：最多 8 类；图表按类别/系列取色，不靠单一灰 */
+      --cat-1: #1F5C4A; --cat-2: #C26A3A; --cat-3: #B08A2E; --cat-4: #3E6A8A;
+      --cat-5: #6B5B8E; --cat-6: #2F7F7A; --cat-7: #A85B6A; --cat-8: #6F7A3F;
       /* 兼容 38 型扩展图沿用的旧令牌 */
       --theme-base: #FBFAF7; --theme-primary: #18211D; --theme-accent: #1F5C4A;
       --surface: #F4F2EB; --surface-strong: #EBE8DF;
@@ -400,6 +403,8 @@ CSS = """
     }
     a { color: inherit; }
     strong, b { font-weight: 600; }
+    /* 全篇禁用斜体：标题、表头、图注、强调一律正体（REPORT-STANDARD §四·排版硬规则） */
+    em, i, cite, var, th, figcaption { font-style: normal; }
 
     /* ---------- 封面 ---------- */
     .cover {
@@ -459,8 +464,8 @@ CSS = """
       letter-spacing: -.01em; color: var(--accent);
     }
     h2.sec .num {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 20px; font-weight: 400; color: var(--accent-2);
+      font-family: inherit;
+      font-size: 20px; font-weight: 700; color: var(--accent-2);
       letter-spacing: .02em; min-width: 26px;
     }
     h3 { margin: 26px 0 8px; font-size: 16px; color: var(--ink-2); }
@@ -507,6 +512,22 @@ CSS = """
     .insight.lead p { font-size: 15.2px; }
     mark { background: #F6E3A8; color: #3A2C08; padding: 0 3px; border-radius: 3px; }
 
+    /* ---------- 结论列表（summary_style=list 时启用，编辑级紧凑版） ---------- */
+    .concl {
+      margin: 14px 0 6px; padding: 0; list-style: none; counter-reset: concl;
+    }
+    .concl li {
+      position: relative; padding-left: 34px; margin: 10px 0;
+      font-size: 14.9px; line-height: 1.82; color: var(--ink-2);
+    }
+    .concl li::before {
+      counter-increment: concl; content: counter(concl) ".";
+      position: absolute; left: 0; top: 0;
+      color: var(--accent-2); font-family: inherit;
+      font-size: 15px; font-weight: 600;
+    }
+    .concl li b { color: var(--ink); font-weight: 700; }
+
     /* ---------- 目录 ---------- */
     .toc {
       margin: 30px 0 0; padding: 13px 0;
@@ -516,9 +537,15 @@ CSS = """
     }
     .toc a { color: var(--ink-2); text-decoration: none; border: 0; }
     .toc a:hover { color: var(--accent); }
-    .toc .n { color: var(--accent-2); margin-right: 7px; font-family: Georgia, serif; }
+    .toc .n { color: var(--accent-2); margin-right: 7px; font-family: inherit; }
 
     /* ---------- 图表 ---------- */
+    .fig-grid {
+      display: grid; grid-template-columns: 1fr;
+      gap: 12px; margin: 16px 0 8px;
+    }
+    .fig-grid .fig-card { margin: 0; }
+    @media (max-width: 760px) { .fig-grid { grid-template-columns: 1fr; } }
     .fig-card {
       background: var(--card); border: 1px solid var(--line);
       border-radius: 14px; margin: 22px 0 6px; overflow: hidden;
@@ -556,8 +583,82 @@ CSS = """
     }
     .reading li strong { color: var(--ink); }
 
+    /* ---------- 正文段落（厚报告） ---------- */
+    .prose { margin: 12px 0 6px; width: 100%; }
+    .prose p {
+      margin: 0 0 14px; font-size: 15px; line-height: 1.92;
+      color: var(--ink-2); text-align: left;
+      word-break: normal; overflow-wrap: break-word; hyphens: none;
+    }
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* ---------- 结构化块（拆长段：小标题 + 项目符号） ---------- */
+    .blocks { margin: 12px 0 6px; }
+    .blocks p {
+      margin: 0 0 14px; font-size: 15px; line-height: 1.92;
+      color: var(--ink-2); text-align: left; max-width: none;
+    }
+    .blocks h3.subhead {
+      margin: 16px 0 8px; font-size: 13px; font-weight: 700;
+      color: var(--accent-2); letter-spacing: .08em;
+    }
+    .blocks ul.fact-list {
+      margin: 0 0 14px 0; padding-left: 20px; list-style: disc;
+    }
+    .blocks ul.fact-list li {
+      margin: 6px 0; font-size: 14.6px; line-height: 1.8; color: var(--ink-2);
+    }
+    .blocks ul.fact-list li::marker { color: var(--accent); }
+    .blocks-callout {
+      margin: 12px 0; padding: 12px 14px; border-left: 4px solid var(--accent);
+      background: var(--accent-soft); color: var(--ink); font-size: 14.4px; line-height: 1.8;
+    }
+    .chapter-conclusion {
+      margin: 20px 0 8px; padding: 16px 18px 15px;
+      border: 1px solid var(--line-strong); border-left: 5px solid var(--accent);
+      background: #FBFAF7; border-radius: 3px;
+    }
+    .chapter-conclusion .cc-label {
+      display: block; font-size: 11px; letter-spacing: .16em; font-weight: 700;
+      color: var(--accent-2); margin-bottom: 7px;
+    }
+    .chapter-conclusion p {
+      margin: 0; font-size: 15.5px; line-height: 1.85; font-weight: 600; color: var(--ink);
+    }
+    .option-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0 8px;
+    }
+    .option-card {
+      border: 1px solid var(--line-strong); background: #fff; padding: 12px 13px; border-radius: 3px;
+    }
+    .option-card.recommended { border-top: 4px solid var(--accent); background: #F7FBF8; }
+    .option-card h4 { margin: 0 0 6px; font-size: 14px; color: var(--ink); }
+    .option-card .oc-row { font-size: 12.5px; color: var(--ink-2); margin: 4px 0; }
+    .option-card .oc-roi { font-size: 20px; font-weight: 800; color: var(--accent); margin: 6px 0 2px; }
+    .option-card .oc-note { font-size: 11px; color: var(--muted); }
+    .chain-strip {
+      display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
+      margin: 16px 0 8px; align-items: stretch;
+    }
+    .chain-node {
+      border: 1px solid var(--line-strong); background: #fff; border-radius: 3px;
+      padding: 10px 9px; min-height: 104px;
+    }
+    .chain-node .cn-k { font-size: 10px; letter-spacing: .08em; color: var(--accent-2); font-weight: 700; }
+    .chain-node .cn-v { font-size: 15px; font-weight: 800; color: var(--ink); margin: 5px 0 4px; }
+    .chain-node .cn-n { font-size: 11px; line-height: 1.55; color: var(--muted); }
+    .chain-node.critical { border-top: 4px solid var(--critical); }
+    .chain-node.watch { border-top: 4px solid var(--watch); }
+    .chain-node.healthy { border-top: 4px solid var(--healthy); }
+    @media (max-width: 760px) { .chain-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .why {
+      margin: -4px 0 14px; font-size: 13.6px; line-height: 1.8; color: var(--muted);
+    }
+    .why b { color: var(--accent-2); }
+
     /* ---------- 表 ---------- */
     .table-wrap { overflow-x: auto; margin: 14px 0 2px; }
+    .table-wrap table { table-layout: fixed; }
     table { width: 100%; border-collapse: collapse; font-size: 13.2px; }
     th {
       background: #EFF2EE; color: var(--accent); font-weight: 600;
@@ -573,6 +674,14 @@ CSS = """
     tbody tr:hover td { background: #FAFBF8; }
     td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
     td.lines { text-align: left; }
+    td.tleft, th.tleft { text-align: left; white-space: normal; padding-left: 18px; }
+    td.up { color: var(--healthy); font-variant-numeric: tabular-nums; }
+    td.down { color: var(--critical); font-variant-numeric: tabular-nums; }
+    td.flat { color: var(--muted); font-variant-numeric: tabular-nums; }
+    tfoot tr.total td {
+      border-top: 2px solid var(--line-strong); border-bottom: 0;
+      font-weight: 700; color: var(--ink); padding-top: 10px;
+    }
     .tcap { margin: 6px 0 22px; font-size: 11.8px; color: var(--faint); }
 
     /* ---------- 边界 ---------- */
@@ -631,7 +740,7 @@ CSS = """
     }
     body[data-theme="paper"] .cover {
       background: var(--paper); color: var(--ink);
-      border-bottom: 2px solid var(--ink); padding: 42px 56px 24px;
+      border-bottom: 2px solid var(--ink); padding: 40px 56px 20px;
     }
     body[data-theme="paper"] .cover .wrap { padding: 0; max-width: none; }
     body[data-theme="paper"] main.wrap { padding: 0 56px 56px; max-width: none; }
@@ -645,10 +754,10 @@ CSS = """
     body[data-theme="paper"] .deck { color: var(--muted); font-size: 15px; }
     body[data-theme="paper"] .meta { color: var(--muted); }
     body[data-theme="paper"] .meta span + span::before { background: var(--line-strong); }
-    body[data-theme="paper"] .body-top { padding-top: 26px; }
+    body[data-theme="paper"] .body-top { padding-top: 18px; }
     body[data-theme="paper"] .wrap { max-width: 1120px; }
     body[data-theme="paper"] h2.sec {
-      margin: 40px 0 10px; padding: 22px 0 0; border-left: 0;
+      margin: 30px 0 8px; padding: 18px 0 0; border-left: 0;
       border-top: 1px solid var(--line); font-size: 19px; color: var(--ink);
     }
     body[data-theme="paper"] h2.sec .num { color: var(--accent); font-size: 15px; }
@@ -1115,6 +1224,9 @@ CSS = """
       html, body { background: #fff; }
       body[data-theme="editorial"] .cover { background: linear-gradient(135deg, #101D18 0%, #1F5C4A 62%, #6B5730 138%) !important; }
       .cover { break-after: page; }
+      .fig-body { overflow: hidden !important; padding: 10px 12px 4px !important; }
+      .fig-body svg { min-width: 0 !important; width: 100% !important; height: auto !important; }
+      table { max-width: 100%; }
       .page { margin: 0 !important; max-width: none !important; border: 0 !important; box-shadow: none !important; }
       body[data-theme="paper"] { background: #fff !important; }
       body[data-theme="sticker"] { background: #fff !important; }
@@ -1128,6 +1240,10 @@ CSS = """
       body[data-theme="sticker"] .cover::before { display: none; }
       body[data-theme="sticker"] main.wrap { padding: 0 0 40px !important; max-width: none !important; }
       .fig-card, .kpi, .insight { break-inside: avoid; box-shadow: none; }
+      /* A4 宽度下 KPI 值不得折行（“3,126 亿元”被拆成两行是印刷事故） */
+      .kpi .v { font-size: 21px; white-space: nowrap; }
+      tr { break-inside: avoid; }
+      .table-wrap { break-inside: auto; }
       h2.sec { break-after: avoid; }
       a { text-decoration: none; }
     }
@@ -1249,8 +1365,23 @@ def vbar_compare(title: str, vbars: List[Dict[str, Any]], annotate: Optional[Dic
     return "\n          ".join(out)
 
 
-def render_chart(chart: Dict[str, Any]) -> str:
-    """内建 hbar/vbar；其余型走 --chart-dir 注入的 chart_lib.RENDERERS。"""
+def render_chart(chart: Dict[str, Any], theme: str = "sticker", engine: str = "") -> str:
+    """内建 hbar/vbar；engine="v2" 时优先走研报级图表引擎，失败自动回退 v1。"""
+    if str(engine) == "v2":
+        # 负值柱：v2 的 hbar/vbar 只按正值排布，负值会压到分类标签上；
+        # 内建的 hbar_chart/vbar_compare 有零轴与左右分向，负值必须走 v1。
+        _vals = [b.get("value", 0) for b in (chart.get("bars") or chart.get("vbars") or [])]
+        if any(float(v) < 0 for v in _vals):
+            engine = "v1"
+    if str(engine) == "v2":
+        try:
+            from core.charts.v2 import render as v2_render  # 延迟导入
+            # 图卡外框已经有标题/单位/来源，图里不再重复
+            svg = v2_render({**chart, "_embed": True}, theme)
+            if svg:
+                return svg
+        except Exception:
+            pass  # v2 画不了就用 v1，不让报告因为一张图失败
     if chart["type"] == "hbar":
         return hbar_chart(chart["title"], chart["bars"], chart.get("footnote"))
     if chart["type"] == "vbar":
@@ -1307,14 +1438,16 @@ def render(c: Dict[str, Any]) -> str:
     A('<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">')
     A(f'<title>{esc(c["title_lines"][0])}</title>')
     A(f'<style>{CSS}</style></head>')
-    theme = str(c.get("theme", "sticker"))
+    theme = str(c.get("theme", "paper"))
     if theme not in THEMES:
-        theme = "sticker"
+        theme = "paper"
+    engine = str(c.get("chart_engine") or os.environ.get("GUAGUA_CHART_ENGINE") or "")
     A(f'<body data-theme="{theme}"><div class="page">')
 
     # ---------------- 封面 ----------------
     A('<header class="cover"><div class="wrap">')
-    A(f'<div class="kicker"><span class="glyph"><i></i><i></i><i></i></span>{esc(c.get("doc_type", ""))}</div>')
+    if c.get("doc_type"):
+        A(f'<div class="kicker"><span class="glyph"><i></i><i></i><i></i></span>{esc(c.get("doc_type", ""))}</div>')
     lines = c["title_lines"]
     sub = f'<span class="h1-sub">{esc(lines[1])}</span>' if len(lines) > 1 and lines[1] else ""
     t0 = esc(lines[0]).replace("\n", "<br>")
@@ -1354,20 +1487,26 @@ def render(c: Dict[str, Any]) -> str:
     if c.get("summary") or lead:
         A('<section id="summary">')
         A('<h2 class="sec"><span class="num">00</span>结论先行</h2>')
-        for i, p in enumerate(c.get("summary", [])):
-            label = str(p.get("label", "") or "").rstrip("：:")
-            body = esc(p["text"])
-            if p.get("mark"):
-                body = body.replace(esc(p["mark"]), f'<mark>{esc(p["mark"])}</mark>', 1)
-            cls = "insight lead" if i == 0 else "insight"
-            t = f'<div class="t">{esc(label)}</div>' if label else ""
-            A(f'<div class="{cls}">{t}<p>{body}</p></div>')
-        if lead and lead.get("reading"):
-            A('<div class="reading"><h3>支撑事实</h3><ol>')
-            for r in lead["reading"]:
-                st = f'<strong>{esc(r["strong"])}</strong>' if r.get("strong") else ""
-                A(f'<li>{st}{esc(r["text"])}</li>')
-            A('</ol></div>')
+        _sum_style = str(c.get("summary_style") or "cards")
+        if _sum_style == "list":
+            # 紧凑结论列表：一行一条「判断（加粗）+ 数字证据」，对齐编辑级研究稿
+            A('<ol class="concl">')
+            for p in c.get("summary", []):
+                body = esc(p["text"])
+                if p.get("mark"):
+                    body = body.replace(esc(p["mark"]), f'<mark>{esc(p["mark"])}</mark>', 1)
+                lead_t = str(p.get("lead") or "").strip()
+                A(f'<li><b>{esc(lead_t)}</b>{body}</li>' if lead_t else f'<li>{body}</li>')
+            A('</ol>')
+        else:
+            for i, p in enumerate(c.get("summary", [])):
+                label = str(p.get("label", "") or "").rstrip("：:")
+                body = esc(p["text"])
+                if p.get("mark"):
+                    body = body.replace(esc(p["mark"]), f'<mark>{esc(p["mark"])}</mark>', 1)
+                cls = "insight lead" if i == 0 else "insight"
+                t = f'<div class="t">{esc(label)}</div>' if label else ""
+                A(f'<div class="{cls}">{t}<p>{body}</p></div>')
         A('</section>')
 
     # ---------------- 指标带 ----------------
@@ -1407,6 +1546,9 @@ def render(c: Dict[str, Any]) -> str:
                 q = q[len(str(s["title"])) + 1:]
             if q:
                 A(f'<p class="q"><b>本节问题</b>　{esc(q)}</p>')
+            w = str(s.get("why") or "")
+            if w:
+                A(f'<p class="why"><b>为什么做</b>　{esc(w)}</p>')
 
         intro = s.get("intro") or []
         for i, p in enumerate(intro):
@@ -1414,33 +1556,95 @@ def render(c: Dict[str, Any]) -> str:
             cls = ' class="sec-lede"' if i == 0 else ""
             A(f'<p{cls}>{st}{esc(p["text"])}</p>')
 
-        ch = s.get("chart")
-        if ch:
-            A('<figure class="fig-card">')
-            A('<figcaption class="fig-head">')
-            A(f'<span>{esc(ch["title"])}</span>')
-            A(f'<span class="fig-unit">{esc(ch.get("unit_meta", ""))}</span>')
-            A('</figcaption><div class="fig-body">')
-            A(render_chart(ch))
-            A('</div>')
-            if ch.get("source"):
-                A(f'<div class="fig-src">{esc(ch["source"])}</div>')
-            A('</figure>')
-
-        if s.get("reading"):
-            label = "读图" if ch else ("缺口" if "边界" in str(s.get("title", "")) else "要点")
-            A(f'<div class="reading"><h3>{label}</h3><ol>')
-            for r in s["reading"]:
-                st = f'<strong>{esc(r["strong"])}</strong>' if r.get("strong") else ""
-                A(f'<li>{st}{esc(r["text"])}</li>')
+        readings = s.get("reading") or []
+        if readings:
+            A('<div class="reading"><ol>')
+            for r in readings:
+                if isinstance(r, str):
+                    A(f'<li>{esc(r)}</li>')
+                else:
+                    st = f'<strong>{esc(r["strong"])}</strong>' if r.get("strong") else ""
+                    A(f'<li>{st}{esc(r.get("text", ""))}</li>')
             A('</ol></div>')
+
+        charts = s.get("charts") or ([s["chart"]] if s.get("chart") else [])
+        if charts:
+            grid = len(charts) > 1
+            if grid:
+                A('<div class="fig-grid">')
+            for ch in charts:
+                A('<figure class="fig-card">')
+                A('<figcaption class="fig-head">')
+                A(f'<span>{esc(ch["title"])}</span>')
+                A(f'<span class="fig-unit">{esc(ch.get("unit_meta", ""))}</span>')
+                A('</figcaption><div class="fig-body">')
+                A(render_chart(ch, theme=theme, engine=engine))
+                A('</div>')
+                if ch.get("source"):
+                    A(f'<div class="fig-src">{esc(ch["source"])}</div>')
+                A('</figure>')
+            if grid:
+                A('</div>')
+
+        if s.get("blocks"):
+            A('<div class="blocks">')
+            for b in s["blocks"]:
+                t = b.get("type")
+                if t == "subhead":
+                    A(f'<h3 class="subhead">{esc(b.get("text", ""))}</h3>')
+                elif t == "bullets":
+                    A('<ul class="fact-list">')
+                    for item in (b.get("items") or []):
+                        A(f'<li>{esc(item)}</li>')
+                    A('</ul>')
+                elif t == "table" and b.get("table"):
+                    tb = b["table"]
+                    A('<div class="table-wrap"><table>')
+                    A("<thead><tr>" + "".join(f"<th>{esc(c.get('text', c))}</th>" for c in tb.get("columns", [])) + "</tr></thead><tbody>")
+                    for row in (tb.get("rows") or []):
+                        A("<tr>" + "".join(f"<td>{esc(c.get('text', c))}</td>" for c in row) + "</tr>")
+                    A("</tbody></table></div>")
+                elif t == "callout":
+                    A(f'<div class="blocks-callout">{esc(b.get("text", ""))}</div>')
+                elif t == "options":
+                    A('<div class="option-grid">')
+                    for c in (b.get("cards") or []):
+                        cls = "option-card recommended" if c.get("recommended") else "option-card"
+                        A(f'<div class="{cls}">')
+                        A(f'<h4>{esc(c.get("name", ""))}</h4>')
+                        A(f'<div class="oc-row">投入：{esc(c.get("invest", ""))}</div>')
+                        A(f'<div class="oc-row">预计收益：{esc(c.get("benefit", ""))}</div>')
+                        A(f'<div class="oc-roi">ROI {esc(c.get("roi", ""))}</div>')
+                        A(f'<div class="oc-note">{esc(c.get("note", ""))}</div>')
+                        A('</div>')
+                    A('</div>')
+                elif t == "chain":
+                    A('<div class="chain-strip">')
+                    for n in (b.get("nodes") or []):
+                        A(f'<div class="chain-node {esc(n.get("status", ""))}">')
+                        A(f'<div class="cn-k">{esc(n.get("label", ""))}</div>')
+                        A(f'<div class="cn-v">{esc(n.get("value", ""))}</div>')
+                        A(f'<div class="cn-n">{esc(n.get("note", ""))}</div>')
+                        A('</div>')
+                    A('</div>')
+                else:
+                    A(f'<p>{esc(b.get("text", ""))}</p>')
+            A('</div>')
+        elif s.get("prose"):
+            A('<div class="prose">')
+            for para in s["prose"]:
+                A(f'<p>{esc(para)}</p>')
+            A('</div>')
 
         if s.get("boundary"):
             b = s["boundary"]
             A(f'<div class="boundary"><b>{esc(b.get("title", "证据边界"))}</b>　{esc(b["text"])}</div>')
 
-        t = s.get("table")
-        if t:
+        # 一节可放多张表（sections[].tables），按出现顺序连续编号；旧的单表键继续可用
+        sec_tables = list(s.get("tables") or [])
+        if s.get("table"):
+            sec_tables.insert(0, s["table"])
+        for t in sec_tables:
             table_no += 1
             if t.get("caption"):
                 A(f'<p class="tcap">表 {table_no} · {esc(t["caption"])}</p>')
@@ -1449,7 +1653,12 @@ def render(c: Dict[str, Any]) -> str:
                 A('<colgroup>' + ''.join(f'<col style="width:{w}">' for w in t["col_widths"]) + '</colgroup>')
             A('<thead><tr>')
             for h in t["columns"]:
-                cls = ' class="num"' if h.get("num") else ""
+                if h.get("num"):
+                    cls = ' class="num"'
+                elif h.get("left"):
+                    cls = ' class="tleft"'
+                else:
+                    cls = ""
                 A(f'<th{cls}>{esc(h["text"])}</th>')
             A('</tr></thead><tbody>')
             for row in t["rows"]:
@@ -1464,12 +1673,31 @@ def render(c: Dict[str, Any]) -> str:
                         A('</td>')
                     elif cell.get("num"):
                         A(f'<td class="num">{esc(cell["text"])}</td>')
+                    elif cell.get("left"):
+                        A(f'<td class="tleft">{esc(cell["text"])}</td>')
+                    elif cell.get("tone") in ("up", "down", "flat"):
+                        A(f'<td class="{cell["tone"]}">{esc(cell["text"])}</td>')
                     else:
                         A(f'<td>{esc(cell["text"])}</td>')
                 A('</tr>')
-            A('</tbody></table></div>')
+            A('</tbody>')
+            total_row = t.get("total_row")
+            if total_row:
+                A('<tfoot><tr class="total">')
+                for i, cell in enumerate(total_row):
+                    if isinstance(cell, dict):
+                        txt, is_num = cell.get("text", ""), bool(cell.get("num"))
+                    else:
+                        txt, is_num = str(cell), i > 0
+                    A(f'<td class="num">{esc(txt)}</td>' if is_num else f'<td>{esc(txt)}</td>')
+                A('</tr></tfoot>')
+            A('</table></div>')
             if not t.get("caption"):
                 A('<p class="tcap">　</p>')
+
+        if s.get("conclusion"):
+            A('<div class="chapter-conclusion"><span class="cc-label">本章结论</span>')
+            A(f'<p>{esc(s["conclusion"])}</p></div>')
 
         A('</div></details>' if appendix else '</section>')
 
@@ -1488,7 +1716,10 @@ def render(c: Dict[str, Any]) -> str:
 
     # ---------------- 页脚 ----------------
     A('<footer>')
-    for f in c.get("footer", []):
+    fs = c.get("footer") or []
+    if isinstance(fs, str):
+        fs = [fs]
+    for f in fs:
         A(f'<span>{esc(f)}</span>')
     A('</footer>')
     A('</main></div></body></html>')

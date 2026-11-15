@@ -5,12 +5,17 @@
   python guagua.py report build --project demo_2026q4
   python guagua.py report audit --project demo_2026q4
   python guagua.py report seal  --project demo_2026q4 --by 张三
+  python guagua.py report one --role r07 --result r.json --input in.json \
+      --skill prd --action prd --out workspace/out     # 默认 core
+  python guagua.py report one ... --path single        # 明确要旧路径才用
+  python guagua.py report project --dir <项目目录>      # 项目级单份报告（contract → core）
 """
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import os
 import shutil
 import sys
 from datetime import datetime
@@ -219,6 +224,102 @@ def cmd_diff(args) -> int:
     return 0
 
 
+def cmd_one(args) -> int:
+    """单角色报告：默认 core（L1+manifest），--path single 才走旧路径。"""
+    from shared import role_runtime
+    result = json.loads(Path(args.result).read_text(encoding="utf-8-sig"))
+    data = (json.loads(Path(args.input).read_text(encoding="utf-8-sig"))
+            if args.input else None)
+    dataset = (json.loads(Path(args.dataset).read_text(encoding="utf-8-sig"))
+               if args.dataset else None)
+    if args.path == "single":
+        os.environ["GUAGUA_REPORT_PATH"] = "single"
+    else:
+        os.environ.pop("GUAGUA_REPORT_PATH", None)
+    ports = role_runtime.emit(
+        role=args.role, name=args.name or args.role, title=args.title or "",
+        result=result, skill=args.skill, action=args.action, intent=args.intent,
+        out_dir=args.out, md_name=args.md_name, data=data, dataset=dataset)
+    man = Path(args.out) / "manifest.json"
+    print(json.dumps({
+        "engine": "single" if args.path == "single" else "core",
+        "ports": [p.name for p in ports],
+        "manifest": str(man) if man.exists() else None,
+    }, ensure_ascii=False))
+    return 0
+
+
+def cmd_project(args) -> int:
+    """项目级单份报告：contract → core 渲染 + manifest。"""
+    from core.report_project import build_project
+    res = build_project(args.dir, out_dir=args.out, theme=args.theme,
+                        pdf=args.pdf, md_name=args.md_name)
+    print(json.dumps({
+        "ok": res["ok"],
+        "counts": res["counts"],
+        "checks": res["checks"],
+        "files": res["files"],
+        "manifest": res["manifest"],
+    }, ensure_ascii=False))
+    return 0 if res["ok"] else 1
+
+
+def cmd_analysis(args) -> int:
+    """问题驱动分析报告：analysis_pack → core 渲染 + manifest。"""
+    from core.report_analysis import build_from_pack
+    res = build_from_pack(args.pack, args.out, args.md_name,
+                          theme=args.theme, pdf=args.pdf)
+    print(json.dumps({
+        "ok": res["ok"], "counts": res["counts"], "checks": res["checks"],
+        "files": res["files"], "manifest": res["manifest"],
+    }, ensure_ascii=False))
+    return 0 if res["ok"] else 1
+
+
+def cmd_blueprint(args) -> int:
+    """通用报告蓝图：角色 × 对象 × 层级 × 领域 → 骨架。"""
+    import json as _json
+    from core.report_blueprint import build_outline, to_markdown
+    domains = [x.strip() for x in (args.domains or "").split(",") if x.strip()] or None
+    o = build_outline(args.role, args.tier, domains, args.object, args.external)
+    print(_json.dumps(o, ensure_ascii=False, indent=2) if args.json else to_markdown(o))
+    return 0
+
+
+def cmd_modules(args) -> int:
+    """通用模块报告：M0—M9 + 领域模块 → core 渲染。"""
+    from core.report_modules import build_from_modules
+    res = build_from_modules(args.pack, args.out, args.md_name,
+                             theme=args.theme, pdf=args.pdf)
+    print(json.dumps({"ok": res["ok"], "counts": res["counts"], "checks": res["checks"],
+                      "files": res["files"], "manifest": res["manifest"]},
+                     ensure_ascii=False))
+    return 0 if res["ok"] else 1
+
+
+def cmd_charts(args) -> int:
+    from core.chart_capabilities import check, CATALOG
+    r = check()
+    if args.json:
+        print(json.dumps({"ok": r["ok"], "count": r["count"], "items": CATALOG}, ensure_ascii=False, indent=2))
+    else:
+        print(f"图表能力：{r['count']}/48，渲染器 {r['renderers']}/48，ok={r['ok']}")
+        for c in CATALOG:
+            print(f"{c['id']:>6}  {c['key']:<14} {c['title']:<8} {c.get('use_when','')}")
+    return 0 if r["ok"] else 1
+
+
+def cmd_write(args) -> int:
+    """证据包 → 核心 writer 扩写 → 模块报告。"""
+    from core.report_writer import write_and_render
+    res = write_and_render(args.evidence, args.out, args.md_name,
+                           theme=args.theme, pdf=args.pdf)
+    print(json.dumps({"ok": res["ok"], "counts": res["counts"], "checks": res["checks"],
+                      "files": res["files"], "written_pack": res["written_pack"]},
+                     ensure_ascii=False))
+    return 0 if res["ok"] else 1
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="guagua report")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -231,6 +332,63 @@ def main(argv=None) -> int:
     s = sub.add_parser("seal"); s.add_argument("--project", required=True)
     s.add_argument("--by", default=None); s.set_defaults(func=cmd_seal)
     d = sub.add_parser("diff"); d.add_argument("--project", required=True); d.set_defaults(func=cmd_diff)
+    one = sub.add_parser("one", help="单角色报告：默认 core，--path single 才走旧路径")
+    one.add_argument("--role", required=True)
+    one.add_argument("--result", required=True)
+    one.add_argument("--input", default=None)
+    one.add_argument("--dataset", default=None)
+    one.add_argument("--skill", required=True)
+    one.add_argument("--action", required=True)
+    one.add_argument("--intent", default="")
+    one.add_argument("--out", required=True)
+    one.add_argument("--md-name", default="role_report")
+    one.add_argument("--name", default="")
+    one.add_argument("--title", default="")
+    one.add_argument("--path", choices=["core", "single"], default="core")
+    one.set_defaults(func=cmd_one)
+    proj = sub.add_parser("project", help="项目级单份报告：contract → core 渲染 + manifest")
+    proj.add_argument("--dir", required=True, help="项目目录（含 data/report.contract.json）")
+    proj.add_argument("--out", default=None, help="输出目录，默认 <dir>/out")
+    proj.add_argument("--md-name", default="report", help="产物前缀")
+    proj.add_argument("--theme", choices=["sticker", "paper", "editorial", "mono",
+                                          "annual", "swiss", "slate", "noir"], default=None)
+    proj.add_argument("--pdf", dest="pdf", action="store_true", default=True,
+                      help="导出 PDF（默认开启）")
+    proj.add_argument("--no-pdf", dest="pdf", action="store_false", help="只出 HTML，不出 PDF")
+    proj.set_defaults(func=cmd_project)
+    ana = sub.add_parser("analysis", help="问题驱动分析报告：analysis_pack → core")
+    ana.add_argument("--pack", required=True, help="analysis_pack.json")
+    ana.add_argument("--out", required=True)
+    ana.add_argument("--md-name", default="report")
+    ana.add_argument("--theme", choices=["sticker", "paper", "editorial", "mono",
+                                         "annual", "swiss", "slate", "noir"], default=None)
+    ana.add_argument("--pdf", action="store_true")
+    ana.set_defaults(func=cmd_analysis)
+    bp = sub.add_parser("blueprint", help="通用报告蓝图：角色 × 对象 × 层级 × 领域")
+    bp.add_argument("--role", required=True, help="r01—r20")
+    bp.add_argument("--tier", default="L3", choices=["L1", "L2", "L3"])
+    bp.add_argument("--domains", default="", help="逗号分隔：market,customer,product,operations,finance,organization,technology,risk,transaction,data,model")
+    bp.add_argument("--object", default=None, help="覆盖角色默认报告对象")
+    bp.add_argument("--external", action="store_true", help="已有外部市场/竞品数据")
+    bp.add_argument("--json", action="store_true")
+    bp.set_defaults(func=cmd_blueprint)
+    mod = sub.add_parser("modules", help="通用模块报告：M0—M9 + 领域模块 → core")
+    mod.add_argument("--pack", required=True)
+    mod.add_argument("--out", required=True)
+    mod.add_argument("--md-name", default="report")
+    mod.add_argument("--theme", default=None)
+    mod.add_argument("--pdf", action="store_true")
+    mod.set_defaults(func=cmd_modules)
+    wr = sub.add_parser("write", help="证据包 → core writer 扩写 → 模块报告")
+    wr.add_argument("--evidence", required=True)
+    wr.add_argument("--out", required=True)
+    wr.add_argument("--md-name", default="report")
+    wr.add_argument("--theme", default=None)
+    wr.add_argument("--pdf", action="store_true")
+    wr.set_defaults(func=cmd_write)
+    ch = sub.add_parser("charts", help="列出核心 48 型图表能力")
+    ch.add_argument("--json", action="store_true")
+    ch.set_defaults(func=cmd_charts)
     args = ap.parse_args(argv)
     return args.func(args)
 
