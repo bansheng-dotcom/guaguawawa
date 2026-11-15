@@ -317,11 +317,26 @@ def _score(tags: List[str], intent: str) -> int:
 
 
 def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6,
-                derive: bool = True) -> Dict[str, Any]:
+                derive: bool = True, card: str | None = None) -> Dict[str, Any]:
     data = str(Path(data_dir).resolve()).replace("\\", "/")
     bank = BANK.get(role, [])
     picked: List[Dict[str, Any]] = []
     origin = "bank"
+    focus_note = ""
+
+    # 任务卡：决定「该问什么」（主表/主指标）；数据画像决定「能问什么」
+    focus = None
+    if card:
+        try:
+            from core.data_profile import profile_dir
+            from core.task_card import focus_brief_text, load_card, select_focus
+            c = load_card(card)
+            focus = select_focus(profile_dir(data), c)
+            focus_note = focus_brief_text(focus, c)
+            if not intent:
+                intent = c["title"]
+        except Exception as exc:  # noqa: BLE001
+            focus_note = f"任务卡读取失败（{type(exc).__name__}），按意图推导。"
 
     # 先让数据说话：按画像推导问题；推导不出足够题时才回落到题库
     if derive:
@@ -330,6 +345,12 @@ def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6,
             derived = derive_questions(role, intent, data)
         except Exception:  # noqa: BLE001
             derived = []
+        if focus:
+            ft = focus["table"]["file"]
+            fm = focus["measure"]
+            head = [q for q in derived if ft in q["command"]]
+            head.sort(key=lambda q: 0 if fm in q["question"] else 1)
+            derived = head + [q for q in derived if q not in head]
         if len(derived) >= 3:
             picked, origin = derived[:max_q], "derived"
 
@@ -355,7 +376,8 @@ def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6,
         "subject": intent,
         "_data_dir": data,
         "_origin": origin,
-        "dataset": f"{'数据画像推导' if origin == 'derived' else '问题库'}（{len(questions)} 题，意图：{intent}）",
+        "dataset": (focus_note + " " if focus_note else "")
+                   + f"{'数据画像推导' if origin == 'derived' else '问题库'}（{len(questions)} 题）",
         "title": f"{intent}：{len(questions)} 个可判定的问题",
         "standfirst": (
             ("按数据画像（时间轴/维度/度量）自动推导出" if origin == "derived" else "按意图从问题库选出")

@@ -65,10 +65,30 @@ def profile_dir(data_dir: str | Path) -> Dict[str, Any]:
     d = Path(data_dir)
     tables = []
     for p in sorted(d.glob("*.csv")):
+        if re.search(r"template|sample|demo|placeholder", p.stem, re.I):
+            continue  # 空模板不参与画像，否则会被任务卡误选成主表
         t = profile_csv(p)
-        if t:
+        if not t:
+            continue
+        # 全零/全空的度量没有信息量，整表跳过
+        rows = _read_rows(p)
+        informative = False
+        for m in t["measures"]:
+            vals = [v for v in (r.get(m) for r in rows) if _is_num(v)]
+            if vals and len(set(vals)) > 1 and any(float(v) != 0 for v in vals):
+                informative = True
+                break
+        if informative:
             tables.append(t)
     return {"dir": str(d).replace("\\", "/"), "tables": tables}
+
+
+def _read_rows(path: Path) -> List[Dict[str, str]]:
+    try:
+        with path.open(encoding="utf-8-sig", newline="") as fh:
+            return list(csv.DictReader(fh))
+    except Exception:  # noqa: BLE001
+        return []
 
 
 if __name__ == "__main__":
