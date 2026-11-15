@@ -39,6 +39,31 @@ def run_skill(role: str, argv: list[str]) -> dict:
     return {"status": "error", "stderr": (p.stderr or "")[:400]}
 
 
+EXTRA_KEYS = ("slope", "intercept", "r_squared", "p_exact", "pearson_r", "diff",
+              "n_a", "n_b", "cohens_d", "mean", "median", "std", "min", "max", "count")
+
+
+def auto_numbers(res: Any) -> dict:
+    """把技能结果里所有可解释的统计量都收进来，报告的数字密度由数据决定。"""
+    out = {}
+
+    def walk(o, depth=0):
+        if depth > 4:
+            return
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k in ("provenance", "contract_warnings", "checks", "runtime_ms"):
+                    continue
+                if isinstance(v, (int, float)) and not isinstance(v, bool):
+                    if k in EXTRA_KEYS:
+                        out.setdefault(k, float(v))
+                else:
+                    walk(v, depth + 1)
+
+    walk(res)
+    return out
+
+
 def dig(obj, path: str):
     cur = obj
     for k in path.split("."):
@@ -99,7 +124,15 @@ def main(argv=None) -> int:
             v = dig(res, path)
             if isinstance(v, (int, float)):
                 nums[name] = float(v)
+        for k, v in auto_numbers(res).items():
+            nums.setdefault(k, v)
         verdict, reason = judge(res, q.get("judge", {}), nums)
+        jd = q.get("judge", {})
+        if jd.get("field") in nums and isinstance(jd.get("value"), (int, float)):
+            gap = nums[jd["field"]] - float(jd["value"])
+            nums.setdefault("判定线", float(jd["value"]))
+            nums.setdefault("距判定线", round(gap, 4))
+            reason = f"{reason}（判定线 {jd['value']:g}，距线 {gap:+.4g}）"
         step.result(q["skill"], " ".join(q["command"]), res, nums, verdict, reason,
                     boundary=q.get("boundary", ""), source=q.get("source", ""))
         step.falsify = q.get("falsify", "")
@@ -125,7 +158,7 @@ def main(argv=None) -> int:
         json.dumps(skill_results, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"report: {html_p}")
 
-    checks = run_acceptance(html_p, a.pdf and pdf_res and pdf_res.get("ok"), brief, out)
+    checks = run_acceptance(html_p, (pdf_res.get("ok") if pdf_res else None), brief, out)
     acc = out / "acceptance.json"
     acc.write_text(json.dumps(checks, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"acceptance: {acc}  pass={checks['pass']}")

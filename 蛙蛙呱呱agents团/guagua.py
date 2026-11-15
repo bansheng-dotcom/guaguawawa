@@ -518,8 +518,15 @@ def _run_script(script: str, argv: list[str]) -> int:
     return int(subprocess.call([PYTHON, str(ROOT / "scripts" / script), *argv], cwd=str(ROOT)))
 
 
-def cmd_consult(args: argparse.Namespace) -> int:
-    return _run_script("consult.py", list(args.consult_args))
+def cmd_reason(args: argparse.Namespace) -> int:
+    argv = ["--role", args.role, "--intent", args.intent,
+            "--data", args.data, "--out", args.out, "--max-q", str(args.max_q)]
+    if args.pdf:
+        argv.append("--pdf")
+    return _run_script("reason.py", argv)
+
+
+def cmd_consult(args: argparse.Namespace) -> int:    return _run_script("consult.py", list(args.consult_args))
 
 
 def cmd_mcp(args: argparse.Namespace) -> int:
@@ -653,6 +660,15 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("report", help="报告体系：L1→L2→L3（build/audit/seal/diff）")
     p.add_argument("report_args", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_report)
+
+    p = sub.add_parser("reason", help="意图 → 问题库 brief → 跑技能 → 出报告 → 自动验收")
+    p.add_argument("--role", required=True)
+    p.add_argument("--intent", required=True)
+    p.add_argument("--data", required=True)
+    p.add_argument("--out", required=True)
+    p.add_argument("--pdf", action="store_true")
+    p.add_argument("--max-q", type=int, default=6)
+    p.set_defaults(func=cmd_reason)
 
     p = sub.add_parser("consult", help="咨询 8 阶段：start/submit/sign/advance/status/render/check")
     p.add_argument("consult_args", nargs=argparse.REMAINDER)

@@ -46,6 +46,7 @@ class Step:
         self.chart: Optional[Dict[str, Any]] = None
         self.source = ""
         self.falsify = ""
+        self.why = ""
 
     def result(self, skill: str, command: str, payload: Any, numbers: Dict[str, float],
                verdict: str, reason: str, *, boundary: str = "", source: str = "") -> "Step":
@@ -125,6 +126,7 @@ class Trace:
                 f"换一组样本重跑 {s.skill}，若「{first_key}」的符号或量级跨过判定线，本步作废。"
                 if first_key else f"重跑 {s.skill} 得到相反判定，本步作废。")
             readings = [
+                {"strong": "为什么问：", "text": s.why or f"这个问题决定后面几步的方向：假设「{s.hypothesis.rstrip('。')}」若被推翻，结论要改写。"},
                 {"strong": "假设：", "text": s.hypothesis},
                 {"strong": "怎么验：", "text": f"调用 {s.skill}（{s.command}），输入哈希 {s.input_hash}。"},
                 {"strong": "拿到什么：", "text": "；".join(f"{k} = {v:g}" for k, v in s.numbers.items())},
@@ -136,14 +138,15 @@ class Trace:
             if s.numbers:
                 sec["table"] = {
                     "caption": f"{s.skill} 的输出（输入哈希 {s.input_hash}）",
-                    "columns": [{"text": "指标"}, {"text": "数值（原始单位）"}, {"text": "来源"}],
-                    "rows": [[{"text": k}, {"text": f"{v:g}"}, {"text": s.source}]
-                             for k, v in s.numbers.items()],
+                    "columns": [{"text": "指标"}, {"text": "数值（原始单位）"}],
+                    "rows": [[{"text": k}, {"text": f"{v:g}"}] for k, v in s.numbers.items()],
                 }
             if s.chart:
                 sec["chart"] = {k: v for k, v in s.chart.items() if not k.startswith("_")}
             if s.boundary:
                 sec["boundary"] = {"text": s.boundary}
+            else:
+                sec["boundary"] = {"text": f"只对 {s.skill} 的本次输入成立；输入哈希 {s.input_hash} 一变，结论要重跑。"}
             sections.append(sec)
 
         # 报告结尾两条固定元信息：记录层 + 口径与分数（版式硬规则）
