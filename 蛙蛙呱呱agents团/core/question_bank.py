@@ -316,20 +316,35 @@ def _score(tags: List[str], intent: str) -> int:
     return sum(1 for t in tags if t and t in intent)
 
 
-def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6) -> Dict[str, Any]:
+def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6,
+                derive: bool = True) -> Dict[str, Any]:
     data = str(Path(data_dir).resolve()).replace("\\", "/")
-    bank = BANK.get(role)
-    if not bank:
-        raise SystemExit(f"角色 {role} 还没有问题库，先在 core/question_bank.py 里加")
-    scored = sorted((( _score(t["tags"], intent), i, t) for i, t in enumerate(bank)),
-                    key=lambda x: (-x[0], x[1]))
-    picked = [t for sc, _, t in scored if sc > 0][:max_q]
-    # 命中不足 5 题时，按问题库顺序补齐：宁可多问一题，也不交一份问不全的报告
-    for _sc, _i, t in scored:
-        if len(picked) >= min(6, len(bank)):
-            break
-        if t not in picked:
-            picked.append(t)
+    bank = BANK.get(role, [])
+    picked: List[Dict[str, Any]] = []
+    origin = "bank"
+
+    # 先让数据说话：按画像推导问题；推导不出足够题时才回落到题库
+    if derive:
+        try:
+            from core.question_derive import derive_questions
+            derived = derive_questions(role, intent, data)
+        except Exception:  # noqa: BLE001
+            derived = []
+        if len(derived) >= 3:
+            picked, origin = derived[:max_q], "derived"
+
+    if not picked:
+        if not bank:
+            raise SystemExit(f"角色 {role} 没有问题库，也没有可推导的数据表")
+        scored = sorted(((_score(t["tags"], intent), i, t) for i, t in enumerate(bank)),
+                        key=lambda x: (-x[0], x[1]))
+        picked = [t for sc, _, t in scored if sc > 0][:max_q]
+        for _sc, _i, t in scored:
+            if len(picked) >= min(6, len(bank)):
+                break
+            if t not in picked:
+                picked.append(t)
+
     questions = []
     for t in picked:
         q = {k: v for k, v in t.items() if k != "tags"}
@@ -339,10 +354,12 @@ def build_brief(role: str, intent: str, data_dir: str | Path, *, max_q: int = 6)
         "role": role,
         "subject": intent,
         "_data_dir": data,
-        "dataset": f"问题库自动生成（{len(questions)} 题，命中意图：{intent}）",
+        "_origin": origin,
+        "dataset": f"{'数据画像推导' if origin == 'derived' else '问题库'}（{len(questions)} 题，意图：{intent}）",
         "title": f"{intent}：{len(questions)} 个可判定的问题",
-        "standfirst": f"按意图「{intent}」从 R06 问题库选了 {len(questions)} 个可判定问题，逐个调用技能验证；"
-                      "每步留下输入哈希与判定，跑完自动验收。",
+        "standfirst": (
+            ("按数据画像（时间轴/维度/度量）自动推导出" if origin == "derived" else "按意图从问题库选出")
+            + f" {len(questions)} 个可判定问题，逐个调用技能验证；每步留输入哈希与判定，跑完自动验收。"),
         "doc_type": f"推理驱动报告 · {role.upper()}",
         "meta": ["读者：创始人 / 经营分析",
                  f"意图：{intent}",
