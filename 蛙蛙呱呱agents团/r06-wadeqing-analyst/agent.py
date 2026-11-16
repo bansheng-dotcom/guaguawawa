@@ -131,8 +131,8 @@ def build_parser() -> argparse.ArgumentParser:
     dp.add_argument("--intent", default="全盘利润异动归因与行动决策", help="分析命题与意图")
     dp.add_argument("--out-dir", default=None, help="输出目录")
 
-    # 七步深度分析报告（REP-001，pipelines/deep_report.py）
-    dr = sp.add_parser("depth", help="出具七步深度分析决策报告 (REP-001)")
+    # 七步深度分析报告（REP-001）已下线：仅保留命令占位，执行返回 DEPRECATED
+    dr = sp.add_parser("depth", help="已下线：旧七步深度分析报告（REP-001）")
     dr.add_argument("--input", required=True, help="时序/明细 CSV")
     dr.add_argument("--value", required=True, help="指标数值列")
     dr.add_argument("--date", default="date", help="时间列")
