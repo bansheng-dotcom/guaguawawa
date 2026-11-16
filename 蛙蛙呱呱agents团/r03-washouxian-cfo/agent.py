@@ -148,7 +148,7 @@ def _register_parsers() -> argparse.ArgumentParser:
     return parser
 
 def _register_deep(sub) -> None:
-    dp = sub.add_parser("deep", help="CFO 深度财务流水线 (Runway Deep Dive)")
+    dp = sub.add_parser("deep", help="已下线：CFO 深度财务流水线（Runway Deep Dive）")
     dp.add_argument("--input", required=True, help="财务数据输入 JSON")
     dp.add_argument("--intent", default="现金流跑道与财务深度诊断", help="分析意图")
     dp.add_argument("--out-dir", default=None, help="输出目录")

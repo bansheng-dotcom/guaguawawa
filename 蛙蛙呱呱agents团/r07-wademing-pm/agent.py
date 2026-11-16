@@ -149,7 +149,7 @@ def build_parser() -> argparse.ArgumentParser:
     _register_review(sp)
 
     # 深度产品机会树与 PRD 流水线
-    dp = sp.add_parser("deep", help="PM 深度产品机会树与 PRD 流水线")
+    dp = sp.add_parser("deep", help="已下线：PM 深度产品机会树与 PRD 流水线")
     dp.add_argument("--input", required=True, help="JTBD / 需求输入 JSON")
     dp.add_argument("--intent", default="产品机会树与PRD深度诊断", help="分析意图")
     dp.add_argument("--out-dir", default=None, help="输出目录")

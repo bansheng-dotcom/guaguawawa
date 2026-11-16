@@ -823,12 +823,13 @@ python guagua.py call r06 explore funnel \
 │  ├─ ORG.md                     # 组织章程（谁负责什么）
 │  ├─ PROTOCOL.md                # 协同协议（任务怎么流动）
 │  ├─ TEAM.md                    # 编排实例
-│  ├─ REPORT-STANDARD.md         # 汇报标准
-│  ├─ core/                      # registry / protocol / runner / workspace
+│  ├─ REPORT-STANDARD.md         # 汇报标准（唯一产线：R01 出具）
+│  ├─ REPORT-BRIDGE-GUIDE.md     # 接入唯一产线（角色只交 result）
+│  ├─ core/                      # registry / protocol / runner / workspace / report_flow
 │  ├─ r01-waquanju-ceo/          # R01 蛙全局（… r02 ~ r19 同构）
 │  ├─ r20-washouzhi-sre/         # R20 蛙值守
 │  ├─ agent-packs/               # 宿主可直接加载的角色包
-│  ├─ shared/                    # 报告引擎、共享能力
+│  ├─ shared/                    # 共享能力（运行时、治理、方法、知识）
 │  ├─ docs/                      # SOP、能力地图、字段语义
 │  └─ scripts/                   # 批量生成、基准、演练、打包脚本
 ├─ traeskills/                   # Trae 侧技能镜像（3 个技能包）
