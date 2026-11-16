@@ -209,19 +209,6 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "html": _out(["out", "size_bytes"]),
         },
     },
-    "htmlreport": {
-        "desc": "单文件 HTML 报告：plan/html",
-        "input": {
-            "plan": _REQ({"title": _STR, "chapters": _ARR({"type": "object"})},
-                         ["title", "chapters"]),
-            "html": _REQ({"title": _STR, "chapters": _ARR({"type": "object"})},
-                         ["title", "chapters"]),
-        },
-        "output": {
-            "plan": _out(["chapter_count"]),
-            "html": _out(["out", "size_bytes"]),
-        },
-    },
     "miniapp": {
         "desc": "小程序工程脚手架：plan/scaffold",
         "input": {

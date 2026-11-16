@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "role": "r06",
+  "skill": "semantics",
+  "action": "validate",
+  "intent": "2 月经营诊断",
+  "conclusion": "2月GMV环比下降 3.2%，主要由订单量下滑拖累",
+  "gmv": {"feb": 512300, "jan": 529200, "delta_pct": -3.2},
+  "orders": {"feb": 6421, "jan": 6712},
+  "aov": {"feb": 79.8, "jan": 78.8}
+}

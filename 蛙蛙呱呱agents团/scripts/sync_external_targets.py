@@ -32,12 +32,11 @@ RUNTIME_DIRS = ("workspace", "projects", ".cache", "__pycache__", ".pytest_cache
                 "node_modules", ".mypy_cache", "real_check")
 
 WORKBUDDY = Path(r"C:\Users\18238\.workbuddy\plugins\marketplaces\my-experts\plugins\wawa-guagua-agents")
-TRAE = Path(r"C:\Users\18238\.trae-cn\skills\wawa-guagua-agents")
-# 历史遗留的第二个 Trae 安装位（无连字符，曾被 report_bridge 直接引用）；两处必须同源
-TRAE_LEGACY = Path(r"C:\Users\18238\.trae-cn\skills\wawaguagua-agents")
+# Trae 唯一安装位：目录名与 skill-config.json 的登记名一致（无连字符）
+TRAE = Path(r"C:\Users\18238\.trae-cn\skills\wawaguagua-agents")
 
 # 允许 --prune 的镜像目标（防止误删宿主专有目录）
-MIRROR_ALLOWED = {TRAE.resolve(), TRAE_LEGACY.resolve()}
+MIRROR_ALLOWED = {TRAE.resolve()}
 
 
 def iter_files(root: Path):
@@ -108,12 +107,11 @@ def main(argv=None) -> int:
                     help="镜像同步：删除目标侧独有文件（仅 Trae 技能目录）")
     args = ap.parse_args(argv)
 
-    # 注意：不覆盖 WorkBuddy 的 agents/*.md —— 那是宿主侧生成物（138 行，含 hosts 专有字段），
-    # 用仓库的 76 行版本覆盖会丢字段。它的代码入口是 bin/runtime。
+    # 注意：WorkBuddy 只同步 skills/wawa-guagua-core/source（代码镜像）；不覆盖包内
+    # SKILL.md 与 agents/*.md —— 那是宿主侧生成物（含 hosts 专有字段与包名）。
     jobs = [
-        ("WorkBuddy runtime", TEAM, WORKBUDDY / "bin" / "runtime", False),
+        ("WorkBuddy runtime", TEAM, WORKBUDDY / "skills" / "wawa-guagua-core" / "source", False),
         ("Trae 技能目录", TEAM, TRAE, True),
-        ("Trae 技能目录（旧名）", TEAM, TRAE_LEGACY, True),
     ]
     total_changed = total_pruned = 0
     for label, src, dst, mirrorable in jobs:

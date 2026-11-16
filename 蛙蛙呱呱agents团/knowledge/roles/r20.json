@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r20",
+  "name": "蛙守智",
+  "title": "SRE / 可靠性",
+  "domain": "可靠性与运维",
+  "keywords": [
+    "稳定性",
+    "故障",
+    "SLO",
+    "容量",
+    "演练",
+    "可用性"
+  ],
+  "books": [
+    {
+      "title": "Site Reliability Engineering",
+      "author": "Beyer 等",
+      "year": 2016,
+      "lang": "en",
+      "concept": "SLO 与错误预算",
+      "move": "可靠性是预算"
+    },
+    {
+      "title": "The Site Reliability Workbook",
+      "author": "Beyer 等",
+      "year": 2018,
+      "lang": "en",
+      "concept": "落地实践",
+      "move": "从原则到流程"
+    },
+    {
+      "title": "Chaos Engineering",
+      "author": "Casey Rosenthal",
+      "year": 2017,
+      "lang": "en",
+      "concept": "主动注入故障",
+      "move": "验证假设"
+    },
+    {
+      "title": "SRE：Google 运维解密",
+      "author": "Beyer 等",
+      "year": 2016,
+      "lang": "zh",
+      "concept": "SLO/复盘",
+      "move": "工程化运维"
+    },
+    {
+      "title": "凤凰项目",
+      "author": "Gene Kim",
+      "year": 2013,
+      "lang": "zh",
+      "concept": "IT 价值流",
+      "move": "瓶颈在交付"
+    }
+  ],
+  "methods": [
+    {
+      "name": "SLO/错误预算",
+      "formula": "SLI→SLO→预算；1-预算=可接受风险",
+      "when": "投多少可靠性"
+    },
+    {
+      "name": "故障复盘",
+      "formula": "时间线/影响/根因/行动",
+      "when": "不 blaming"
+    },
+    {
+      "name": "容量规划",
+      "formula": "峰值×增长×冗余",
+      "when": "提前扩容"
+    },
+    {
+      "name": "混沌",
+      "formula": "注入延迟/错误/分区",
+      "when": "验证韧性"
+    },
+    {
+      "name": "变更管理",
+      "formula": "灰度/回滚/冻结窗",
+      "when": "降爆炸半径"
+    },
+    {
+      "name": "黄金指标",
+      "formula": "延迟 P99/流量 QPS/错误率/饱和度四件套",
+      "when": "监控四件套"
+    }
+  ],
+  "kpis": [
+    "可用性",
+    "MTTR",
+    "MTBF",
+    "变更失败率",
+    "P99",
+    "错误预算消耗"
+  ],
+  "decisions": [
+    "投可靠性多少",
+    "何时冻结",
+    "容量",
+    "可靠性投入比例"
+  ],
+  "foresight": [
+    "流量增长",
+    "依赖",
+    "单点"
+  ],
+  "failure_modes": [
+    "100% 可用性目标",
+    "无复盘",
+    "只救火",
+    "把 SLO 当 KPI 考核"
+  ],
+  "report_sections": [
+    "SLO",
+    "故障",
+    "容量",
+    "风险",
+    "演练",
+    "改进"
+  ]
+}

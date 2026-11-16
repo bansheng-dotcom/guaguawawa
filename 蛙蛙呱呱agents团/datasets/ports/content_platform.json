@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13",
-  "source": "CONTRACT",
+  "generated_at": "2026-11-15",
+  "source": "DEMO",
   "port": "content_platform",
   "system": "内容平台后台 / 搜索指数",
   "note": "r11 需要：搜索量、竞品内容、大纲与标题、核心词位置、禁词表、选题分与排期。",
@@ -16,5 +16,51 @@
     "topic_score",
     "schedule"
   ],
-  "items": []
+  "items": [
+    {
+      "id": "C01",
+      "title": "社区生鲜怎么挑",
+      "search_volume": 12800,
+      "competitor": 46,
+      "topic_score": 74,
+      "keywords": 5,
+      "schedule": "2026-11-18"
+    },
+    {
+      "id": "C02",
+      "title": "晚高峰买菜攻略",
+      "search_volume": 6400,
+      "competitor": 12,
+      "topic_score": 68,
+      "keywords": 4,
+      "schedule": "2026-11-20"
+    },
+    {
+      "id": "C03",
+      "title": "退款多久到账",
+      "search_volume": 9100,
+      "competitor": 8,
+      "topic_score": 81,
+      "keywords": 3,
+      "schedule": "2026-11-22"
+    },
+    {
+      "id": "C04",
+      "title": "门店自提值不值",
+      "search_volume": 3200,
+      "competitor": 31,
+      "topic_score": 52,
+      "keywords": 4,
+      "schedule": "2026-11-25"
+    },
+    {
+      "id": "C05",
+      "title": "春季新品试吃",
+      "search_volume": 2100,
+      "competitor": 5,
+      "topic_score": 61,
+      "keywords": 3,
+      "schedule": "2026-11-27"
+    }
+  ]
 }

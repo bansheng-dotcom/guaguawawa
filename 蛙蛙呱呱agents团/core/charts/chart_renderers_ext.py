@@ -50,6 +50,8 @@ import math
 from datetime import date
 from typing import Any, Dict, List, Optional
 
+_CAT = [f"var(--cat-{i})" for i in range(1, 9)]
+
 W = 980
 
 
@@ -248,6 +250,8 @@ def area_chart(chart: Dict[str, Any]) -> str:
     plot_h = H - TOP - BOT
     vmax = max(vals) * 1.12 or 1.0
     n = len(vals)
+    if n < 2:
+        raise ValueError("area: 至少需要 2 个点（单点无法构成面积）")
     def X(i): return L + (R - L) * i / (n - 1)
     def Y(v): return TOP + plot_h * (1 - v / vmax)
     out = _svg(chart["title"], H)
@@ -291,7 +295,7 @@ def pie_chart(chart: Dict[str, Any]) -> str:
         x0, y0 = cx + r * math.cos(math.radians(a0)), cy + r * math.sin(math.radians(a0))
         x1, y1 = cx + r * math.cos(math.radians(a1)), cy + r * math.sin(math.radians(a1))
         large = 1 if (a1 - a0) > 180 else 0
-        col = "var(--theme-accent)" if it.get("accent") else f"var(--series-{'reference' if i % 2 else 'context'})"
+        col = "var(--theme-accent)" if it.get("accent") else _CAT[i % len(_CAT)]
         op = "0.95" if it.get("accent") else "0.78"
         out.append(f'<path d="M {cx:.1f} {cy:.1f} L {x0:.1f} {y0:.1f} A {r} {r} 0 {large} 1 {x1:.1f} {y1:.1f} Z" fill="{col}" opacity="{op}" stroke="var(--paper)" stroke-width="2"/>')
         am = math.radians((a0 + a1) / 2)
@@ -331,7 +335,7 @@ def donut_chart(chart: Dict[str, Any]) -> str:
             large = 1 if (a_to - a_from) > 180 else 0
             sweep = 0 if back else 1
             return f"{x0:.1f} {y0:.1f} A {radius} {radius} 0 {large} {sweep} {x1:.1f} {y1:.1f}"
-        col = "var(--theme-accent)" if it.get("accent") else f"var(--series-{'reference' if i % 2 else 'context'})"
+        col = "var(--theme-accent)" if it.get("accent") else _CAT[i % len(_CAT)]
         d = (f'M {arc(r, a0, a1)} L {arc(r - rw, a1, a0, back=True)} Z')
         out.append(f'<path d="{d}" fill="{col}" opacity="{"0.95" if it.get("accent") else "0.78"}" stroke="var(--paper)" stroke-width="2"/>')
         am = math.radians((a0 + a1) / 2)
@@ -341,8 +345,7 @@ def donut_chart(chart: Dict[str, Any]) -> str:
         out.append(f'<text x="{lx + (6 if anchor == "start" else -6):.1f}" y="{ly + 4:.1f}" fill="var(--muted)" font-size="12.5"{fw} text-anchor="{anchor}">{it["label"]} {frac:.1%}</text>')
         a0 = a1
     out.append(f'<text x="{cx}" y="{cy - 2}" fill="var(--ink)" font-size="30" font-weight="700" text-anchor="middle">{center["value"]:,.0f}</text>')
-    out.append(f'<text x="{cx}" y="{cy + 24}" fill="var(--muted)" font-size="12.5" text-anchor="middle">{center["label"]}（与圆环同口径）</text>')
-    out.append(f'<text x="{cx}" y="{cy + r + 62}" fill="var(--muted)" font-size="11.5" text-anchor="middle">合计 {total:,.0f} · 校验：中心值=圆环合计口径</text>')
+    out.append(f'<text x="{cx}" y="{cy + 24}" fill="var(--muted)" font-size="12.5" text-anchor="middle">{center["label"]}</text>')
     out.append("</svg>")
     return "\n          ".join(out)
 
@@ -873,8 +876,8 @@ def bullet_chart(chart: Dict[str, Any]) -> str:
     # 目标线（画在实际条之后 —— 不被遮挡，viz-30 纪律）
     xt = X(target)
     out.append(f'<line x1="{xt:.1f}" y1="{TOP + 6:.1f}" x2="{xt:.1f}" y2="{TOP + 50:.1f}" stroke="var(--critical)" stroke-width="3.5"/>')
-    out.append(f'<text x="{xt:.1f}" y="{TOP - 4:.1f}" fill="var(--critical)" font-size="11.5" font-weight="700" text-anchor="middle">目标 {target:,.0f}</text>')
-    out.append(f'<text x="{xv + 10:.1f}" y="{TOP + 34:.1f}" fill="var(--ink)" font-size="13.5" font-weight="700">实际 {value:,.0f}{unit}（{(value / target * 100 if target else 0):.0f}% 达成）</text>')
+    out.append(f'<text x="{xt:.1f}" y="{TOP - 4:.1f}" fill="var(--critical)" font-size="11.5" font-weight="700" text-anchor="middle">目标 {target:,.1f}</text>')
+    out.append(f'<text x="{xv + 10:.1f}" y="{TOP + 34:.1f}" fill="var(--ink)" font-size="13.5" font-weight="700">实际 {value:,.1f}{unit}（{(value / target * 100 if target else 0):.0f}% 达成）</text>')
     out.append(f'<text x="{L}" y="{H - 10}" fill="var(--muted)" font-size="11.5">图例：背景=绩效区间 · 深色条=实际 · 红色竖线=目标 · 不展示时间趋势</text>')
     out.append("</svg>")
     return "\n          ".join(out)
@@ -1305,9 +1308,9 @@ def treemap_chart(chart: Dict[str, Any]) -> str:
     _squarify(items, L, T, TW, TH, rects)
     H = TH + 64
     out = _svg(chart["title"], H)
-    for r in rects:
+    for i, r in enumerate(rects):
         pct = r["value"] / total * 100
-        col = "var(--theme-accent)" if r.get("accent") else "var(--series-context)"
+        col = "var(--theme-accent)" if r.get("accent") else _CAT[i % len(_CAT)]
         op = "0.88" if r.get("accent") else "0.5"
         out.append(f'<rect x="{r["x"]:.1f}" y="{r["y"]:.1f}" width="{max(r["w"] - GP, 1):.1f}" height="{max(r["h"] - GP, 1):.1f}" fill="{col}" opacity="{op}" rx="2"/>')
         # 小矩形文字不溢出：按宽高判断是否放标签
@@ -1342,7 +1345,7 @@ def sunburst_chart(chart: Dict[str, Any]) -> str:
     for i, c in enumerate(children):
         frac = c["value"] / total
         a1 = a0 + frac * 360
-        col = "var(--theme-accent)" if c.get("accent") else f"var(--series-{'reference' if i % 2 else 'context'})"
+        col = "var(--theme-accent)" if c.get("accent") else _CAT[i % len(_CAT)]
         _sun_ring(out, cx, cy, r1, r2, a0, a1, col, c.get("accent", False))
         # 子层
         if c.get("children"):

@@ -1,0 +1,123 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r02",
+  "name": "蛙排布",
+  "title": "COO 运营官",
+  "domain": "运营与流程",
+  "keywords": [
+    "运营",
+    "产能",
+    "排程",
+    "流程",
+    "交付",
+    "效率",
+    "瓶颈"
+  ],
+  "books": [
+    {
+      "title": "The Goal",
+      "author": "Eliyahu Goldratt",
+      "year": 1984,
+      "lang": "en",
+      "concept": "约束理论：瓶颈决定产出",
+      "move": "先找瓶颈，再谈效率"
+    },
+    {
+      "title": "Lean Thinking",
+      "author": "Womack & Jones",
+      "year": 1996,
+      "lang": "en",
+      "concept": "价值流与浪费",
+      "move": "画价值流，找不增值环节"
+    },
+    {
+      "title": "The Checklist Manifesto",
+      "author": "Atul Gawande",
+      "year": 2009,
+      "lang": "en",
+      "concept": "清单与标准化",
+      "move": "把关键步骤变成可检查项"
+    },
+    {
+      "title": "丰田生产方式",
+      "author": "大野耐一",
+      "year": 1978,
+      "lang": "zh",
+      "concept": "准时化与自働化",
+      "move": "节拍、看板、停线权"
+    },
+    {
+      "title": "运营管理",
+      "author": "Heizer & Render",
+      "year": 2020,
+      "lang": "zh",
+      "concept": "产能/库存/排程",
+      "move": "用排队论与产能模型算"
+    }
+  ],
+  "methods": [
+    {
+      "name": "约束理论",
+      "formula": "产出=瓶颈节拍；非瓶颈优化不增加产出",
+      "when": "判断先扩哪段产能"
+    },
+    {
+      "name": "价值流图",
+      "formula": "增值时间/总周期=增值比",
+      "when": "定位等待与搬运浪费"
+    },
+    {
+      "name": "OEE",
+      "formula": "OEE=可用率×性能×良率",
+      "when": "设备效率的真实损失"
+    },
+    {
+      "name": "标准作业",
+      "formula": "节拍×作业顺序×标准在制",
+      "when": "把经验变成可复制"
+    },
+    {
+      "name": "鼓-缓冲-绳",
+      "formula": "瓶颈排程+缓冲+投料控制",
+      "when": "防止在制品淹没瓶颈"
+    },
+    {
+      "name": "排队模型",
+      "formula": "M/M/c 等待时间与利用率非线性",
+      "when": "解释为什么 90% 利用率会爆"
+    }
+  ],
+  "kpis": [
+    "周期时间",
+    "在制品",
+    "OEE",
+    "一次通过率",
+    "履约准时率",
+    "单位人工成本"
+  ],
+  "decisions": [
+    "产能投放",
+    "排程",
+    "外包",
+    "自动化"
+  ],
+  "foresight": [
+    "订单结构变化",
+    "瓶颈转移",
+    "人力供给"
+  ],
+  "failure_modes": [
+    "局部效率最大化",
+    "忽略瓶颈",
+    "用平均值排产",
+    "只降本不看流量"
+  ],
+  "report_sections": [
+    "瓶颈诊断",
+    "价值流",
+    "产能方案",
+    "排程规则",
+    "指标与门禁",
+    "90 天行动"
+  ]
+}

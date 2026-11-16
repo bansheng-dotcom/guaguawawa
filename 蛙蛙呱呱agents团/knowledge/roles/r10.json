@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r10",
+  "name": "蛙成美",
+  "title": "视觉设计官",
+  "domain": "设计与品牌",
+  "keywords": [
+    "设计",
+    "视觉",
+    "品牌",
+    "界面",
+    "体验",
+    "物料"
+  ],
+  "books": [
+    {
+      "title": "Refactoring UI",
+      "author": "Wathan & Schoger",
+      "year": 2018,
+      "lang": "en",
+      "concept": "层级/间距/颜色",
+      "move": "先解决可读性"
+    },
+    {
+      "title": "Design Systems",
+      "author": "Alla Kholmatova",
+      "year": 2017,
+      "lang": "en",
+      "concept": "组件与令牌",
+      "move": "一致性靠系统"
+    },
+    {
+      "title": "The Design of Everyday Things",
+      "author": "Don Norman",
+      "year": 1988,
+      "lang": "en",
+      "concept": "可供性/反馈",
+      "move": "设计是沟通"
+    },
+    {
+      "title": "写给大家看的设计书",
+      "author": "Robin Williams",
+      "year": 2004,
+      "lang": "zh",
+      "concept": "对比/重复/对齐/亲密",
+      "move": "四原则"
+    },
+    {
+      "title": "设计心理学",
+      "author": "Don Norman",
+      "year": 2013,
+      "lang": "zh",
+      "concept": "心智模型",
+      "move": "用户怎么理解"
+    }
+  ],
+  "methods": [
+    {
+      "name": "设计令牌",
+      "formula": "颜色/字体/间距/圆角",
+      "when": "跨端一致"
+    },
+    {
+      "name": "对比度",
+      "formula": "WCAG 4.5:1 / 3:1",
+      "when": "可读性底线"
+    },
+    {
+      "name": "栅格与间距",
+      "formula": "8pt 刻度与断点",
+      "when": "排版稳定"
+    },
+    {
+      "name": "五态",
+      "formula": "默认/hover/active/disabled/loading",
+      "when": "状态完整"
+    },
+    {
+      "name": "可用性测试",
+      "formula": "5 人×任务完成率",
+      "when": "早发现大问题"
+    },
+    {
+      "name": "视觉层级",
+      "formula": "主/次/辅助信息三级",
+      "when": "首屏能读懂"
+    }
+  ],
+  "kpis": [
+    "任务完成率",
+    "错误率",
+    "可访问性",
+    "一致性",
+    "首屏理解时间",
+    "转化率"
+  ],
+  "decisions": [
+    "改哪一屏",
+    "用什么组件",
+    "品牌怎么落",
+    "设计系统先行还是单点改版"
+  ],
+  "foresight": [
+    "设备/输入方式",
+    "品牌迁移",
+    "可访问性法规"
+  ],
+  "failure_modes": [
+    "装饰优先",
+    "对比度不足",
+    "五态缺失",
+    "只做桌面"
+  ],
+  "report_sections": [
+    "目标与用户",
+    "信息层级",
+    "视觉规范",
+    "组件",
+    "验证",
+    "交付"
+  ]
+}

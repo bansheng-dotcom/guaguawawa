@@ -1,0 +1,123 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r03",
+  "name": "蛙手先",
+  "title": "CFO / 合规",
+  "domain": "财务与资本",
+  "keywords": [
+    "财务",
+    "现金",
+    "融资",
+    "成本",
+    "利润",
+    "估值",
+    "预算"
+  ],
+  "books": [
+    {
+      "title": "Financial Intelligence",
+      "author": "Berman & Knight",
+      "year": 2006,
+      "lang": "en",
+      "concept": "三表与利润质量",
+      "move": "把会计数字翻译成经营语言"
+    },
+    {
+      "title": "Valuation",
+      "author": "Aswath Damodaran",
+      "year": 2012,
+      "lang": "en",
+      "concept": "DCF 与相对估值",
+      "move": "现金流、增长、风险三件事"
+    },
+    {
+      "title": "Financial Shenanigans",
+      "author": "Howard Schilit",
+      "year": 2018,
+      "lang": "en",
+      "concept": "财务粉饰识别",
+      "move": "看现金流与收入确认"
+    },
+    {
+      "title": "手把手教你读财报",
+      "author": "唐朝",
+      "year": 2015,
+      "lang": "zh",
+      "concept": "三表勾稽",
+      "move": "用老板视角读财报"
+    },
+    {
+      "title": "公司理财",
+      "author": "Ross 等",
+      "year": 2019,
+      "lang": "zh",
+      "concept": "资本预算与资本结构",
+      "move": "NPV/IRR/WACC"
+    }
+  ],
+  "methods": [
+    {
+      "name": "杜邦分解",
+      "formula": "ROE=净利率×总资产周转×权益乘数",
+      "when": "定位 ROE 变化来自哪一项"
+    },
+    {
+      "name": "现金流折现",
+      "formula": "EV=ΣFCF/(1+WACC)^t + 终值",
+      "when": "给业务估值与取舍"
+    },
+    {
+      "name": "三表勾稽",
+      "formula": "利润→经营现金流→资产负债表变动",
+      "when": "识别利润是否变成现金"
+    },
+    {
+      "name": "敏感性/情景",
+      "formula": "关键假设 ±20% 对 NPV/利润的影响",
+      "when": "给区间，不给点值"
+    },
+    {
+      "name": "单位经济",
+      "formula": "单客/单店/单吨贡献毛利与回本周期",
+      "when": "判断规模是否放大亏损"
+    },
+    {
+      "name": "营运资金周期",
+      "formula": "DSO+DIO-DPO",
+      "when": "现金被谁占用"
+    }
+  ],
+  "kpis": [
+    "毛利率",
+    "净利率",
+    "ROE",
+    "经营现金流/净利",
+    "应收周转",
+    "现金跑道"
+  ],
+  "decisions": [
+    "投/不投",
+    "融资",
+    "定价",
+    "成本削减"
+  ],
+  "foresight": [
+    "利率/汇率",
+    "账期恶化",
+    "存货周转"
+  ],
+  "failure_modes": [
+    "用净利代替现金",
+    "忽略资本开支",
+    "把一次性收益当经常性",
+    "不折现"
+  ],
+  "report_sections": [
+    "财务体检",
+    "利润质量",
+    "现金与跑道",
+    "情景",
+    "融资/投资建议",
+    "红线"
+  ]
+}

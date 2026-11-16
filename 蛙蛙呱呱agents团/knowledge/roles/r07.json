@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r07",
+  "name": "蛙得明",
+  "title": "产品经理",
+  "domain": "产品与需求",
+  "keywords": [
+    "产品",
+    "需求",
+    "用户",
+    "功能",
+    "体验",
+    "路线图"
+  ],
+  "books": [
+    {
+      "title": "Inspired",
+      "author": "Marty Cagan",
+      "year": 2008,
+      "lang": "en",
+      "concept": "产品发现与交付",
+      "move": "先发现价值再交付"
+    },
+    {
+      "title": "Continuous Discovery Habits",
+      "author": "Teresa Torres",
+      "year": 2021,
+      "lang": "en",
+      "concept": "机会解决方案树",
+      "move": "每周接触用户"
+    },
+    {
+      "title": "The Lean Startup",
+      "author": "Eric Ries",
+      "year": 2011,
+      "lang": "en",
+      "concept": "最小验证",
+      "move": "先验证再放大"
+    },
+    {
+      "title": "人人都是产品经理",
+      "author": "苏杰",
+      "year": 2010,
+      "lang": "zh",
+      "concept": "需求与文档",
+      "move": "把需求翻译成方案"
+    },
+    {
+      "title": "俞军产品方法论",
+      "author": "俞军",
+      "year": 2019,
+      "lang": "zh",
+      "concept": "用户价值公式",
+      "move": "用户价值=新体验-旧体验-替换成本"
+    }
+  ],
+  "methods": [
+    {
+      "name": "JTBD",
+      "formula": "用户雇这个产品完成什么任务",
+      "when": "从任务而不是功能出发"
+    },
+    {
+      "name": "机会解决方案树",
+      "formula": "目标→机会→方案→实验",
+      "when": "把需求和方案分开"
+    },
+    {
+      "name": "RICE",
+      "formula": "触达×影响×信心÷成本",
+      "when": "排优先级"
+    },
+    {
+      "name": "用户故事地图",
+      "formula": "任务链×步骤×痛点",
+      "when": "找断点"
+    },
+    {
+      "name": "漏斗",
+      "formula": "各步转化率=下一步人数÷上一步人数；整体=末步÷首步",
+      "when": "定位卡点"
+    },
+    {
+      "name": "留存",
+      "formula": "R_t=第 t 期回访人数÷首期人数，按队列算",
+      "when": "判断价值是否持续"
+    }
+  ],
+  "kpis": [
+    "激活率",
+    "留存",
+    "任务完成率",
+    "NPS",
+    "需求交付周期",
+    "采用率"
+  ],
+  "decisions": [
+    "做哪个需求",
+    "先做哪一步",
+    "砍什么",
+    "自建/采购/合作"
+  ],
+  "foresight": [
+    "用户行为迁移",
+    "平台规则",
+    "替代方案"
+  ],
+  "failure_modes": [
+    "功能清单当产品",
+    "不听用户",
+    "优先级拍脑袋",
+    "忽略非用户"
+  ],
+  "report_sections": [
+    "问题",
+    "用户与场景",
+    "方案取舍",
+    "指标",
+    "验证",
+    "路线"
+  ]
+}

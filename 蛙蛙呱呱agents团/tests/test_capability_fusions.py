@@ -245,21 +245,6 @@ def test_r07_prd_guard_and_render(tmp_path):
     assert not out3["ok"]
 
 
-def test_r08_html_report(tmp_path):
-    report = {"title": "Q4 复盘", "meta": {"audience": "管理层", "purpose": "决定加投"},
-              "chapters": [{"title": "结论", "summary": "复购是主因", "paragraphs": ["+18%"]},
-                           {"title": "流量", "summary": "自然升转化降"},
-                           {"title": "动作", "summary": "先修履约"}],
-              "thesis": ["复购 62%", "履约漏点", "只投 ROI>2"],
-              "sources": [{"label": "生意参谋"}, {"label": "财务月报"}, {"label": "履约系统"}]}
-    target = str(tmp_path / "report.html")
-    rc, out = _run("r08-wajiancheng-mvp", ["htmlreport", "html", "--input",
-                                           _write(tmp_path, "r.json", report), "--out", target])
-    assert out["verdict"] == "PASS", out.get("checks")
-    body = open(target, encoding="utf-8").read()
-    assert body.startswith("<!doctype html>") and "http" not in body
-
-
 def test_r08_miniapp_scaffold(tmp_path):
     spec = {"name": "wawa-shop", "pages": [{"path": "pages/home/index", "title": "首页"},
                                            {"path": "pages/cart/index", "title": "购物车"}],

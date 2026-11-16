@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r09",
+  "name": "蛙文码",
+  "title": "工程师",
+  "domain": "软件工程与架构",
+  "keywords": [
+    "工程",
+    "架构",
+    "代码",
+    "性能",
+    "重构",
+    "发布"
+  ],
+  "books": [
+    {
+      "title": "Clean Code",
+      "author": "Robert Martin",
+      "year": 2008,
+      "lang": "en",
+      "concept": "可读性与边界",
+      "move": "代码是写给人看的"
+    },
+    {
+      "title": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "year": 2017,
+      "lang": "en",
+      "concept": "一致性/分区/复制",
+      "move": "先选取舍再选技术"
+    },
+    {
+      "title": "Refactoring",
+      "author": "Martin Fowler",
+      "year": 2018,
+      "lang": "en",
+      "concept": "小步重构",
+      "move": "行为不变，结构变好"
+    },
+    {
+      "title": "代码整洁之道",
+      "author": "Robert Martin",
+      "year": 2010,
+      "lang": "zh",
+      "concept": "命名/函数/测试",
+      "move": "坏味道清单"
+    },
+    {
+      "title": "深入理解计算机系统",
+      "author": "Bryant & O'Hallaron",
+      "year": 2016,
+      "lang": "zh",
+      "concept": "性能与内存",
+      "move": "从硬件看性能"
+    }
+  ],
+  "methods": [
+    {
+      "name": "契约测试",
+      "formula": "输入/输出/错误码固定",
+      "when": "防接口漂移"
+    },
+    {
+      "name": "分层架构",
+      "formula": "接口/领域/基础设施",
+      "when": "隔离变化"
+    },
+    {
+      "name": "性能预算",
+      "formula": "P99/吞吐/内存上限",
+      "when": "先定预算再优化"
+    },
+    {
+      "name": "可观测性",
+      "formula": "日志/指标/追踪三件套",
+      "when": "线上可诊断"
+    },
+    {
+      "name": "灰度发布",
+      "formula": "按流量/用户分批",
+      "when": "控制爆炸半径"
+    },
+    {
+      "name": "技术债台账",
+      "formula": "债务/利息/偿还计划",
+      "when": "不无限累积"
+    }
+  ],
+  "kpis": [
+    "变更失败率",
+    "MTTR",
+    "部署频率",
+    "覆盖率",
+    "P99",
+    "缺陷逃逸率"
+  ],
+  "decisions": [
+    "重构/重写",
+    "技术选型",
+    "发布策略",
+    "发布节奏（灰度比例）"
+  ],
+  "foresight": [
+    "流量增长",
+    "依赖风险",
+    "团队规模"
+  ],
+  "failure_modes": [
+    "过早优化",
+    "无测试重构",
+    "大爆炸发布",
+    "只追覆盖率"
+  ],
+  "report_sections": [
+    "现状与约束",
+    "方案",
+    "风险",
+    "迁移",
+    "回滚",
+    "验收"
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r14",
+  "name": "蛙交易",
+  "title": "交易与电商",
+  "domain": "交易与零售",
+  "keywords": [
+    "交易",
+    "电商",
+    "零售",
+    "门店",
+    "SKU",
+    "定价",
+    "履约",
+    "退款"
+  ],
+  "books": [
+    {
+      "title": "The Everything Store",
+      "author": "Brad Stone",
+      "year": 2013,
+      "lang": "en",
+      "concept": "飞轮与履约",
+      "move": "规模来自履约效率"
+    },
+    {
+      "title": "零售的哲学",
+      "author": "铃木敏文",
+      "year": 2007,
+      "lang": "zh",
+      "concept": "单品管理",
+      "move": "假设-验证-订货"
+    },
+    {
+      "title": "数据化管理",
+      "author": "黄成明",
+      "year": 2014,
+      "lang": "zh",
+      "concept": "零售数据",
+      "move": "人货场指标"
+    },
+    {
+      "title": "平台革命",
+      "author": "Parker 等",
+      "year": 2016,
+      "lang": "zh",
+      "concept": "双边网络",
+      "move": "补贴与临界规模"
+    },
+    {
+      "title": "定价制胜",
+      "author": "Hermann Simon",
+      "year": 2015,
+      "lang": "zh",
+      "concept": "价格与利润",
+      "move": "价格是最强利润杠杆"
+    }
+  ],
+  "methods": [
+    {
+      "name": "交易三态",
+      "formula": "订单/支付/履约状态机",
+      "when": "防状态矛盾"
+    },
+    {
+      "name": "履约漏斗",
+      "formula": "下单→支付→发货→签收→退款",
+      "when": "定位卡点"
+    },
+    {
+      "name": "选品 ABC",
+      "formula": "销量×毛利×周转",
+      "when": "汰换 SKU"
+    },
+    {
+      "name": "定价带",
+      "formula": "价格带分布与竞品锚",
+      "when": "找空档"
+    },
+    {
+      "name": "复购",
+      "formula": "复购率=二次购买人数÷首购人数；间隔=相邻购买天数中位数",
+      "when": "判断粘性"
+    },
+    {
+      "name": "退款归因",
+      "formula": "质量/描述/物流/尺码",
+      "when": "降退款"
+    }
+  ],
+  "kpis": [
+    "GMV",
+    "客单",
+    "转化率",
+    "履约时效",
+    "退款率",
+    "复购"
+  ],
+  "decisions": [
+    "上什么品",
+    "定什么价",
+    "履约怎么排",
+    "自营/联营/平台"
+  ],
+  "foresight": [
+    "平台规则",
+    "物流成本",
+    "品类生命周期"
+  ],
+  "failure_modes": [
+    "GMV 当利润",
+    "忽略退款",
+    "选品凭感觉",
+    "用平均值掩盖门店差异"
+  ],
+  "report_sections": [
+    "交易结构",
+    "品类",
+    "定价",
+    "履约",
+    "退款",
+    "增长"
+  ]
+}

@@ -1,0 +1,1120 @@
+{
+ "r01": {
+  "intent": {
+   "desc": "意图识别与任务分级：brief/clarify/triage",
+   "actions": [
+    "brief",
+    "clarify",
+    "triage"
+   ]
+  },
+  "decompose": {
+   "desc": "跨部门拆解：taskcard/wave/route",
+   "actions": []
+  },
+  "decide": {
+   "desc": "经营与硬决策：reversibility/card/escalate",
+   "actions": []
+  },
+  "redteam": {
+   "desc": "反方质询：devil/crosseval/grove",
+   "actions": [
+    "crosseval",
+    "devil",
+    "grove"
+   ]
+  },
+  "companyos": {
+   "desc": "公司OS与治理：os/scorecard/ids/freeze",
+   "actions": []
+  },
+  "decisionlog": {
+   "desc": "决策留痕与复盘：entry/conflict/retro",
+   "actions": []
+  },
+  "boardroom": {
+   "desc": "高层汇报与创始人陪练：memo/coach",
+   "actions": []
+  },
+  "ev": {
+   "desc": "决策期望值：EV 排序 + 盈亏平衡 p + 敏感性",
+   "actions": []
+  },
+  "interpret": {
+   "desc": "解读：result → 带数字的判断（结论/驱动/边界/动作），供 R01 出唯一报告",
+   "actions": [
+    "check",
+    "judge",
+    "sections"
+   ]
+  }
+ },
+ "r02": {
+  "schedule": {
+   "desc": "工作拆解与排期：wbs/sprint/critpath",
+   "actions": []
+  },
+  "capacity": {
+   "desc": "容量与委派：check/delegate/split",
+   "actions": []
+  },
+  "handoff": {
+   "desc": "交接与验收追踪：package/accept/trace",
+   "actions": []
+  },
+  "retro": {
+   "desc": "复盘与事故分析：postmortem/grade/action",
+   "actions": []
+  },
+  "process": {
+   "desc": "流程与 SOP：sop/waste/meeting",
+   "actions": []
+  },
+  "knowledge": {
+   "desc": "知识运营：digest/entry/search",
+   "actions": []
+  },
+  "portfolio": {
+   "desc": "项目群与 Agent 编排：status/plan/graph",
+   "actions": []
+  },
+  "little": {
+   "desc": "利特尔法则：WIP = 到达率 × 周期（瓶颈判断）",
+   "actions": []
+  },
+  "queue": {
+   "desc": "排队等待：Kingman 近似（利用率/等待/在制品）",
+   "actions": []
+  }
+ },
+ "r03": {
+  "financial": {
+   "desc": "财务报表与月结：rollforward/recon/variance",
+   "actions": []
+  },
+  "cfo": {
+   "desc": "CFO 经营诊断：runway/unitecon/healthcheck",
+   "actions": []
+  },
+  "tax": {
+   "desc": "税务与申报边界：iso/rmd/safeharbor",
+   "actions": []
+  },
+  "contract": {
+   "desc": "合同与政策：scan/policy/redline",
+   "actions": []
+  },
+  "privacy": {
+   "desc": "隐私与数据安全：map/dsr/minimize",
+   "actions": []
+  },
+  "aigov": {
+   "desc": "AI 治理与披露：frameworks/aiclassify/disclose",
+   "actions": []
+  },
+  "audit": {
+   "desc": "认证与审计留痕：retention/mockaudit/evidence",
+   "actions": []
+  },
+  "risk": {
+   "desc": "广告/KYC-AML/投资风控：kyc/aml/adreview",
+   "actions": []
+  }
+ },
+ "r04": {
+  "artifact": {
+   "desc": "成品实体核验：inventory（存在/非空/大小）与 verify（EXISTS/SUBSTANTIVE/WIRED 三级证据链）",
+   "actions": []
+  },
+  "gate": {
+   "desc": "硬门禁复核：run（逐命令真实执行、退出码是唯一信号）与 audit（STRENGTH-001..007 门禁强度审计）",
+   "actions": []
+  },
+  "criteria": {
+   "desc": "外置判据审查：review（三态 pass/warn/fail，PASS 仅当 0 fail）与 delta（复跑全查 + fixed/new/remaining 对照）",
+   "actions": [
+    "delta",
+    "review"
+   ]
+  },
+  "quality": {
+   "desc": "独立质量评价：critique（禁词/证据链/绝对词三查 + soundness findings）与 converge（总 issue 不再下降即收敛）",
+   "actions": [
+    "converge",
+    "critique"
+   ]
+  },
+  "facts": {
+   "desc": "事实与来源检查：check（五维核查：可追溯/来源质量/引用/精度/覆盖）与 trace（单数字回溯）",
+   "actions": [
+    "check",
+    "trace"
+   ]
+  },
+  "strengths": {
+   "desc": "保留优点与复评：mark（keep_list 必带 why_keep/evidence）与 recheck（只评本轮修改：降级须理由/新 FAIL 须落在 change 区/resolved 不重报）",
+   "actions": [
+    "mark",
+    "recheck"
+   ]
+  },
+  "human": {
+   "desc": "人工评审工作流：package（评审包，reviewer≠producer 红线）/ ingest（批次契约校验+逐字回填计划）/ ack（staged_assets 全部 copied 才可确认）",
+   "actions": []
+  }
+ },
+ "r05": {
+  "research": {
+   "desc": "深度研究：证据台账与研究报告",
+   "actions": []
+  },
+  "industry": {
+   "desc": "行业与市场扫描：格局、集中度、利润结构",
+   "actions": []
+  },
+  "competitor": {
+   "desc": "公司与竞品情报：矩阵、Battlecard",
+   "actions": []
+  },
+  "business": {
+   "desc": "商业模式与变现：画布、单位经济",
+   "actions": []
+  },
+  "sizing": {
+   "desc": "市场规模测算：TAM/SAM/SOM 双口径互证与敏感性",
+   "actions": []
+  },
+  "scenario": {
+   "desc": "宏观与情景推演：PESTEL、事前尸检",
+   "actions": []
+  },
+  "auto": {
+   "desc": "自动化研究辅助：研究计划与运行追踪",
+   "actions": []
+  },
+  "matched": {
+   "desc": "匹配差分：两组均值差 + 自助法 CI + 置换 p",
+   "actions": []
+  },
+  "tam-mc": {
+   "desc": "TAM 蒙特卡洛：渗透率×ARPU，输出 p10/p50/p90",
+   "actions": []
+  }
+ },
+ "r06": {
+  "semantics": {
+   "desc": "指标与语义建模：validate / tree / link / compute / reconcile",
+   "actions": [
+    "compute",
+    "link",
+    "reconcile",
+    "tree",
+    "validate"
+   ]
+  },
+  "quality": {
+   "desc": "数据清洗与质量：六维质检 / 脏数据清洗 / IQR 离群标记",
+   "actions": [
+    "audit",
+    "clean"
+   ]
+  },
+  "explore": {
+   "desc": "",
+   "actions": [
+    "cohort",
+    "funnel",
+    "groupby",
+    "metrics",
+    "rfm",
+    "saas",
+    "segment",
+    "time_series",
+    "trend"
+   ]
+  },
+  "rootcause": {
+   "desc": "根因与贡献度：贡献分解 / 下钻与帕累托",
+   "actions": [
+    "decompose",
+    "drilldown"
+   ]
+  },
+  "abtest": {
+   "desc": "A/B 实验：lift + 显著性 + SRM 失配检测（能力域5拆细）",
+   "actions": []
+  },
+  "anova": {
+   "desc": "单因素 ANOVA + η² 效应量（能力域5拆细）",
+   "actions": []
+  },
+  "causal": {
+   "desc": "因果推断四步（dowhy 口径）：混淆识别/后门调整/安慰剂反驳（能力域5拆细）",
+   "actions": []
+  },
+  "chi2": {
+   "desc": "卡方独立性检验 + Cramér's V（能力域5拆细）",
+   "actions": []
+  },
+  "correlate": {
+   "desc": "Pearson 相关：两数值列线性相关强度（能力域5拆细）",
+   "actions": []
+  },
+  "describe": {
+   "desc": "描述统计：均值/中位数/分位/极值/离散（能力域5拆细）",
+   "actions": []
+  },
+  "did": {
+   "desc": "DID：2×2 / TWFE / 事件研究 / 安慰剂 / 交错处理",
+   "actions": []
+  },
+  "elasticity": {
+   "desc": "价格弹性：log-log OLS + R²（能力域5拆细·新增）",
+   "actions": []
+  },
+  "matched": {
+   "desc": "匹配差分：原味 / PSM（协变量+平衡+卡尺）/ PSM+反驳",
+   "actions": []
+  },
+  "power": {
+   "desc": "A/B 设计功效：样本量/MDE/达成功效（能力域5拆细）",
+   "actions": []
+  },
+  "rdd": {
+   "desc": "断点回归：局部线性 / 敏感性（带宽+安慰剂+密度+二次校正+协变量）",
+   "actions": []
+  },
+  "regression": {
+   "desc": "回归：一元 OLS（兼容）+ 多元 OLS / Logit + 聚类稳健 SE",
+   "actions": []
+  },
+  "ttest": {
+   "desc": "两独立样本 Welch t 检验 + Cohen's d（能力域5拆细）",
+   "actions": []
+  },
+  "scinlp": {
+   "desc": "科学计算与NLP：describe / textstats / backend 探测",
+   "actions": [
+    "backend",
+    "describe",
+    "textstats"
+   ]
+  },
+  "domain": {
+   "desc": "专业领域分析：omicverse 生信技能注册表 / 后端门禁 / 管线脚手架",
+   "actions": [
+    "list",
+    "run"
+   ]
+  },
+  "viz": {
+   "desc": "可视化与报告：图表规格校验 / 报告组装 / 图表选型",
+   "actions": [
+    "guide",
+    "prompt",
+    "report",
+    "spec"
+   ]
+  },
+  "selfmedia": {
+   "desc": "自媒体数据运营：normalize / dashboard / report",
+   "actions": [
+    "dashboard",
+    "normalize",
+    "report"
+   ]
+  }
+ },
+ "r07": {
+  "discover": {
+   "desc": "产品发现、JTBD 与用户访谈验证",
+   "actions": []
+  },
+  "ost": {
+   "desc": "机会树与用户研究",
+   "actions": []
+  },
+  "prd": {
+   "desc": "用户故事与 PRD",
+   "actions": []
+  },
+  "priority": {
+   "desc": "优先级与 Backlog",
+   "actions": []
+  },
+  "roadmap": {
+   "desc": "路线图与发布",
+   "actions": []
+  },
+  "metrics": {
+   "desc": "产品愿景与指标",
+   "actions": []
+  },
+  "techbrief": {
+   "desc": "技术翻译与代码反推需求",
+   "actions": []
+  },
+  "decision": {
+   "desc": "经验检索与决策汇报",
+   "actions": []
+  },
+  "prdguard": {
+   "desc": "PRD 结构门禁：check/render",
+   "actions": [
+    "check",
+    "render"
+   ]
+  },
+  "rice": {
+   "desc": "RICE 排序：Reach×Impact×Confidence/Effort + 敏感性",
+   "actions": []
+  }
+ },
+ "r08": {
+  "slice": {
+   "desc": "产品切片与MVP：slice/mvp",
+   "actions": [
+    "mvp",
+    "slice"
+   ]
+  },
+  "scaffold": {
+   "desc": "Spec转仓库：scaffold/spec",
+   "actions": [
+    "scaffold",
+    "spec"
+   ]
+  },
+  "landing": {
+   "desc": "落地页与H5：landing/form",
+   "actions": [
+    "form",
+    "landing"
+   ]
+  },
+  "saas": {
+   "desc": "SaaS与邮件脚手架：saas/email",
+   "actions": [
+    "email",
+    "saas"
+   ]
+  },
+  "prototype": {
+   "desc": "跨平台原型：prototype/screen",
+   "actions": [
+    "prototype",
+    "screen"
+   ]
+  },
+  "design": {
+   "desc": "组件与设计实现：design/token/from-md",
+   "actions": [
+    "design",
+    "from-md",
+    "token"
+   ]
+  },
+  "qa": {
+   "desc": "质量验证与交接：qa/handoff",
+   "actions": [
+    "handoff",
+    "qa"
+   ]
+  },
+  "deck": {
+   "desc": "单文件 HTML 幻灯片：plan/html",
+   "actions": [
+    "html",
+    "plan"
+   ]
+  },
+  "miniapp": {
+   "desc": "小程序工程脚手架：plan/scaffold",
+   "actions": [
+    "plan",
+    "scaffold"
+   ]
+  },
+  "office": {
+   "desc": "Office 交付物：probe/xlsx/docx",
+   "actions": [
+    "docx",
+    "probe",
+    "xlsx"
+   ]
+  }
+ },
+ "r09": {
+  "spec": {
+   "desc": "技术规格与架构：模块边界、拓扑、工程约束",
+   "actions": []
+  },
+  "data_api": {
+   "desc": "数据库与 API：Schema 设计、索引、API 契约与错误码",
+   "actions": []
+  },
+  "fullstack": {
+   "desc": "前端后端全栈：UI、状态、服务、认证与端到端功能",
+   "actions": []
+  },
+  "crossplatform": {
+   "desc": "跨端生产工程：构建、测试、平台差异",
+   "actions": []
+  },
+  "testing": {
+   "desc": "测试与浏览器验证：单元/集成/契约/E2E 与真实浏览器关键路径",
+   "actions": []
+  },
+  "debug": {
+   "desc": "调试性能重构：稳定复现、定位根因、剖析热点、测试保护重构",
+   "actions": []
+  },
+  "ops": {
+   "desc": "迁移 CI/CD 安全：数据迁移、回滚、流水线、依赖与密钥审计",
+   "actions": []
+  },
+  "special": {
+   "desc": "特殊技术载体：Godot、MCP 与工程 Agent 工作流",
+   "actions": []
+  }
+ },
+ "r10": {
+  "imagegen": {
+   "desc": "AI生图与插画：prompt / style / generate (LLM + VLM + Engines)",
+   "actions": [
+    "admit",
+    "catalog",
+    "compose",
+    "edit",
+    "engines",
+    "generate",
+    "inspire",
+    "pack",
+    "probe",
+    "prompt",
+    "refs",
+    "score",
+    "style"
+   ]
+  },
+  "logo": {
+   "desc": "Logo图标与品牌VI：logo/favicon",
+   "actions": [
+    "favicon",
+    "logo"
+   ]
+  },
+  "uiux": {
+   "desc": "产品与UI/UX：screen/ux",
+   "actions": [
+    "screen",
+    "ux"
+   ]
+  },
+  "brand": {
+   "desc": "品牌VI与设计令牌：vi/token",
+   "actions": [
+    "token",
+    "vi"
+   ]
+  },
+  "motion": {
+   "desc": "交互原型与动效：motion/prototype",
+   "actions": [
+    "motion",
+    "prototype"
+   ]
+  },
+  "imaging": {
+   "desc": "修图与图像工程：edit/probe",
+   "actions": [
+    "edit",
+    "probe"
+   ]
+  },
+  "media": {
+   "desc": "视频与音频处理：media/probe",
+   "actions": [
+    "media",
+    "probe"
+   ]
+  },
+  "transcribe": {
+   "desc": "转写与字幕素材：transcribe/probe",
+   "actions": [
+    "probe",
+    "transcribe"
+   ]
+  },
+  "render": {
+   "desc": "数据视觉与营销物料：poster/theme",
+   "actions": [
+    "poster",
+    "theme"
+   ]
+  },
+  "designsys": {
+   "desc": "设计系统库：list/recommend/show/apply/audit",
+   "actions": [
+    "apply",
+    "audit",
+    "list",
+    "recommend",
+    "show"
+   ]
+  },
+  "aihive": {
+   "desc": "AI 图片生成与编辑（Nano Banana Pro）：probe/preview/generate/task",
+   "actions": [
+    "generate",
+    "preview",
+    "probe",
+    "task"
+   ]
+  },
+  "h3prompt": {
+   "desc": "MiniMax H3 视频提示词：build/audit（T2VA/I2VA/FL2VA/L2VA/Ref2VA）",
+   "actions": []
+  },
+  "brandcheck": {
+   "desc": "品牌一致性检查：check（颜色/字体/对比度）",
+   "actions": [
+    "check"
+   ]
+  },
+  "imgops": {
+   "desc": "本地图片处理：info/resize/crop/compress/pad/watermark",
+   "actions": []
+  }
+ },
+ "r11": {
+  "topic": {
+   "desc": "内容策略与选题：brief/plan",
+   "actions": [
+    "brief",
+    "plan"
+   ]
+  },
+  "seo": {
+   "desc": "SEO/AEO 与搜索发现：keyword/audit",
+   "actions": [
+    "audit",
+    "keyword"
+   ]
+  },
+  "hook": {
+   "desc": "钩子提纲立场：hook/outline",
+   "actions": [
+    "hook",
+    "outline"
+   ]
+  },
+  "copy": {
+   "desc": "文案与长文：article/script",
+   "actions": [
+    "article",
+    "script"
+   ]
+  },
+  "voice": {
+   "desc": "品牌语调与编辑：guide/edit",
+   "actions": [
+    "edit",
+    "guide"
+   ]
+  },
+  "pr": {
+   "desc": "广告公关新闻稿：ad/press",
+   "actions": [
+    "ad",
+    "press"
+   ]
+  },
+  "platform": {
+   "desc": "多平台适配：adapt/publish/visual",
+   "actions": [
+    "adapt",
+    "publish",
+    "visual"
+   ]
+  },
+  "localize": {
+   "desc": "持续本地化：term/review/probe",
+   "actions": [
+    "probe",
+    "review",
+    "term"
+   ]
+  },
+  "xhs": {
+   "desc": "小红书发布包：note/score/compliance",
+   "actions": []
+  }
+ },
+ "r12": {
+  "diagnose": {
+   "desc": "增长诊断与基线：diagnose/unit",
+   "actions": [
+    "diagnose",
+    "unit"
+   ]
+  },
+  "loops": {
+   "desc": "增长循环与自然获客：flywheel/content",
+   "actions": [
+    "content",
+    "flywheel"
+   ]
+  },
+  "outreach": {
+   "desc": "冷启动与外联：coldemail/sequence",
+   "actions": [
+    "coldemail",
+    "sequence"
+   ]
+  },
+  "partner": {
+   "desc": "红人与合作增长：influencer/comarketing",
+   "actions": [
+    "comarketing",
+    "influencer"
+   ]
+  },
+  "launch": {
+   "desc": "ASO 与发布：aso/ph",
+   "actions": [
+    "aso",
+    "ph"
+   ]
+  },
+  "paid": {
+   "desc": "付费投放与 CRO：media/cro",
+   "actions": [
+    "cro",
+    "media"
+   ]
+  },
+  "retention": {
+   "desc": "激活留存推荐：activation/referral",
+   "actions": [
+    "activation",
+    "referral"
+   ]
+  },
+  "revops": {
+   "desc": "归因与 RevOps：attribution/roi",
+   "actions": [
+    "attribution",
+    "roi"
+   ]
+  },
+  "selfmedia": {
+   "desc": "自媒体运营：daily/probe",
+   "actions": [
+    "daily",
+    "probe"
+   ]
+  },
+  "ltv-cac": {
+   "desc": "LTV/CAC：回收月数 + 健康判定",
+   "actions": []
+  },
+  "mmm": {
+   "desc": "MMM：OLS / 深度（adstock+饱和+ridge+留出）/ 预算分配 / 贡献 CI",
+   "actions": []
+  },
+  "power": {
+   "desc": "实验功效：两比例样本量（baseline/MDE/alpha/power）",
+   "actions": []
+  }
+ },
+ "r13": {
+  "crm": {
+   "desc": "客户与联系人管理：person/company",
+   "actions": [
+    "company",
+    "person"
+   ]
+  },
+  "pipeline": {
+   "desc": "销售管道：pipeline/opp",
+   "actions": [
+    "opp",
+    "pipeline"
+   ]
+  },
+  "activity": {
+   "desc": "销售活动与跟进：activity/log",
+   "actions": [
+    "activity",
+    "log"
+   ]
+  },
+  "support": {
+   "desc": "全渠道客服：inbox/ticket",
+   "actions": [
+    "inbox",
+    "ticket"
+   ]
+  },
+  "voc": {
+   "desc": "客户反馈与 VOC：survey/voc",
+   "actions": [
+    "survey",
+    "voc"
+   ]
+  },
+  "health": {
+   "desc": "客户健康与续约输入：health/risk",
+   "actions": [
+    "health",
+    "risk"
+   ]
+  },
+  "knowledge": {
+   "desc": "服务知识与升级：faq/escalation",
+   "actions": [
+    "escalation",
+    "faq"
+   ]
+  },
+  "automation": {
+   "desc": "客户运营自动化接口：automation/probe",
+   "actions": [
+    "automation",
+    "probe"
+   ]
+  }
+ },
+ "r14": {
+  "catalog": {
+   "desc": "商品与电商后端：product/price/image",
+   "actions": [
+    "image",
+    "price",
+    "product"
+   ]
+  },
+  "order": {
+   "desc": "购物车与订单编排：cart/order",
+   "actions": [
+    "cart",
+    "order"
+   ]
+  },
+  "billing": {
+   "desc": "订阅与计量计费：plan/usage/invoice",
+   "actions": [
+    "invoice",
+    "plan",
+    "usage"
+   ]
+  },
+  "payment": {
+   "desc": "支付服务端集成：payment_intent/refund",
+   "actions": [
+    "payment_intent",
+    "refund"
+   ]
+  },
+  "signature": {
+   "desc": "电子签与签署审计：document/signing",
+   "actions": [
+    "document",
+    "signing"
+   ]
+  },
+  "appointment": {
+   "desc": "服务预约：appointment/calendar",
+   "actions": [
+    "appointment",
+    "calendar"
+   ]
+  },
+  "workflow": {
+   "desc": "交易状态编排：state/transition",
+   "actions": [
+    "state",
+    "transition"
+   ]
+  },
+  "revenue": {
+   "desc": "收入数据接口与交易自动化：events/webhook",
+   "actions": [
+    "events",
+    "webhook"
+   ]
+  },
+  "selection": {
+   "desc": "选品评分：score/profit（五维加权 + 利润红线 + 假设卡门禁）",
+   "actions": [
+    "profit",
+    "score"
+   ]
+  },
+  "elasticity": {
+   "desc": "价格弹性：log-log OLS / 面板 FE / 2SLS（带 CI 与诊断）",
+   "actions": []
+  }
+ },
+ "r15": {
+  "procurement": {
+   "desc": "采购与供应商：supplier/rfq/quotation/purchase_order/receipt",
+   "actions": []
+  },
+  "inventory": {
+   "desc": "库存与仓库：item/warehouse/bin/stock_entry",
+   "actions": []
+  },
+  "fulfillment": {
+   "desc": "销售与履约记录：sales_order/delivery",
+   "actions": [
+    "delivery",
+    "sales_order"
+   ]
+  },
+  "production": {
+   "desc": "生产/服务资源：bom/material_request",
+   "actions": [
+    "bom",
+    "material_request"
+   ]
+  },
+  "finance": {
+   "desc": "ERP财务业务接口：invoice/payment",
+   "actions": [
+    "invoice",
+    "payment"
+   ]
+  },
+  "masterdata": {
+   "desc": "主数据与权限：master_data/permission",
+   "actions": [
+    "master_data",
+    "permission"
+   ]
+  },
+  "report": {
+   "desc": "运营报表：report",
+   "actions": [
+    "report"
+   ]
+  },
+  "tco": {
+   "desc": "采购总拥有成本：compare/lifecycle（landed cost + TCO）",
+   "actions": [
+    "compare",
+    "lifecycle"
+   ]
+  },
+  "safety-stock": {
+   "desc": "安全库存：z × σ_d × √LT（库存优化）",
+   "actions": []
+  },
+  "fulfill-sim": {
+   "desc": "履约仿真：履约率/缺货/库存；可选 (s,S)+随机提前期",
+   "actions": []
+  }
+ },
+ "r16": {
+  "recruit": {
+   "desc": "招聘与入职：opening/applicant/offer",
+   "actions": []
+  },
+  "people": {
+   "desc": "人员与合同档案：employee/profile/contract",
+   "actions": []
+  },
+  "attendance": {
+   "desc": "考勤与休假：attendance/leave",
+   "actions": [
+    "attendance",
+    "leave"
+   ]
+  },
+  "performance": {
+   "desc": "绩效与目标：appraisal/goal",
+   "actions": []
+  },
+  "payroll": {
+   "desc": "薪酬准备：input/calc",
+   "actions": []
+  },
+  "expense": {
+   "desc": "费用与福利：claim/benefit",
+   "actions": []
+  },
+  "report": {
+   "desc": "组织运营报表：headcount/report",
+   "actions": []
+  },
+  "funnel": {
+   "desc": "招聘漏斗：投递→筛选→面试→Offer→入职转化与瓶颈",
+   "actions": []
+  }
+ },
+ "r17": {
+  "integration": {
+   "desc": "SaaS/API 集成：workflow/credential",
+   "actions": [
+    "credential",
+    "workflow"
+   ]
+  },
+  "webhook": {
+   "desc": "Webhook 与事件处理：webhook/event",
+   "actions": [
+    "event",
+    "webhook"
+   ]
+  },
+  "mapping": {
+   "desc": "字段与身份映射：mapping/table",
+   "actions": [
+    "mapping",
+    "table"
+   ]
+  },
+  "schedule": {
+   "desc": "定时与批处理：schedule/batch",
+   "actions": [
+    "batch",
+    "schedule"
+   ]
+  },
+  "approval": {
+   "desc": "人工审批节点：approval/publish",
+   "actions": [
+    "approval",
+    "publish"
+   ]
+  },
+  "retry": {
+   "desc": "失败处理与重试：retry/errorflow",
+   "actions": [
+    "errorflow",
+    "retry"
+   ]
+  },
+  "aiworkflow": {
+   "desc": "AI 工作流接入：aiagent/model",
+   "actions": [
+    "aiagent",
+    "model"
+   ]
+  },
+  "audit": {
+   "desc": "自动化审计：audit/runlog",
+   "actions": [
+    "audit",
+    "runlog"
+   ]
+  },
+  "retry-model": {
+   "desc": "重试可靠性模型（retry-model）：最终成功率/期望尝试/失败概率",
+   "actions": []
+  }
+ },
+ "r18": {
+  "elt": {
+   "desc": "数据连接与 ELT：connection/sync",
+   "actions": []
+  },
+  "transform": {
+   "desc": "数仓转换：model/test",
+   "actions": []
+  },
+  "pipeline": {
+   "desc": "管道调度与编排：dag/run",
+   "actions": []
+  },
+  "quality": {
+   "desc": "数据质量门禁：check/fresh",
+   "actions": []
+  },
+  "incremental": {
+   "desc": "批流与增量边界：strategy/backfill",
+   "actions": []
+  },
+  "catalog": {
+   "desc": "数据目录与口径接口：entry/lineage",
+   "actions": []
+  },
+  "ops": {
+   "desc": "人工审批与运维接口：request/alert",
+   "actions": []
+  },
+  "profile": {
+   "desc": "数据画像：缺失率/基数/重复 + 时间切分 PSI",
+   "actions": []
+  }
+ },
+ "r19": {
+  "tracking": {
+   "desc": "实验追踪：experiment/run",
+   "actions": []
+  },
+  "registry": {
+   "desc": "模型注册与版本：register/version",
+   "actions": []
+  },
+  "evaluation": {
+   "desc": "评估数据集与评分器：dataset/scorer",
+   "actions": []
+  },
+  "trace": {
+   "desc": "Agent Trace 与调试：analyze/retrieval",
+   "actions": []
+  },
+  "release": {
+   "desc": "回归与发布候选：regression/candidate",
+   "actions": []
+  },
+  "monitor": {
+   "desc": "模型监控接口：metrics/drift",
+   "actions": []
+  },
+  "modelcard": {
+   "desc": "模型卡与资产证据：card/asset",
+   "actions": []
+  },
+  "eval-ci": {
+   "desc": "评测成功率 Wilson 置信区间（小样本稳）",
+   "actions": []
+  }
+ },
+ "r20": {
+  "monitor": {
+   "desc": "可用性监控：monitor/uptime",
+   "actions": []
+  },
+  "alert": {
+   "desc": "告警与升级：alert/escalation",
+   "actions": []
+  },
+  "statuspage": {
+   "desc": "状态页与事件沟通：statuspage/incident",
+   "actions": []
+  },
+  "backup": {
+   "desc": "加密增量备份：backup/snapshot",
+   "actions": []
+  },
+  "restore": {
+   "desc": "恢复演练：restore/drill",
+   "actions": []
+  },
+  "dr": {
+   "desc": "灾难恢复与回滚接口：rpo_rto/rollback",
+   "actions": []
+  },
+  "postmortem": {
+   "desc": "运行复盘：postmortem/improvement",
+   "actions": []
+  },
+  "slo": {
+   "desc": "SLO 错误预算：允许停机、已用、剩余、燃尽率",
+   "actions": []
+  }
+ }
+}

@@ -512,6 +512,16 @@ def cmd_report(args: argparse.Namespace) -> int:
     return int(report_cli.main(args.report_args))
 
 
+def cmd_domain(args: argparse.Namespace) -> int:
+    from core import domain_pack
+    argv = ["--intent", args.intent]
+    if args.out:
+        argv += ["--out", args.out]
+    if args.json:
+        argv += ["--json"]
+    return int(domain_pack.main(argv))
+
+
 def _run_script(script: str, argv: list[str]) -> int:
     """把子命令透传给 scripts/ 下的独立脚本（保持零依赖与可单独运行）。"""
     import subprocess
@@ -665,6 +675,12 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("report", help="报告体系：L1→L2→L3（build/audit/seal/diff）")
     p.add_argument("report_args", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_report)
+
+    p = sub.add_parser("domain", help="业务线 → 领域编队 + 专家作战计划（20 角色领域包）")
+    p.add_argument("--intent", required=True, help="业务线或经营意图")
+    p.add_argument("--out", default=None, help="输出 Markdown（同名 .json 一并落盘）")
+    p.add_argument("--json", action="store_true", help="输出机器可读计划")
+    p.set_defaults(func=cmd_domain)
 
     p = sub.add_parser("reason", help="意图 → 问题库 brief → 跑技能 → 出报告 → 自动验收")
     p.add_argument("--role", required=True)

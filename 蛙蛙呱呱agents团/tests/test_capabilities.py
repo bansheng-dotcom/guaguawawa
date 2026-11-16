@@ -69,7 +69,7 @@ def test_executable_capabilities_point_to_real_skills():
 def test_repository_has_no_platform_traces():
     """**运行时**代码不得绑外部平台（分发脚本与文档可以提到镜像，不算依赖）。"""
     tokens = ("tra" + "e", "work" + "buddy")
-    runtime_roots = ["core", "shared", "report_specs", "configs", "styles", "templates"]
+    runtime_roots = ["core", "shared", "configs", "styles", "templates"]
     hits = []
     for rel in runtime_roots:
         base_dir = os.path.join(ROOT, rel)

@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r17",
+  "name": "蛙智网",
+  "title": "自动化工程师",
+  "domain": "自动化与流程编排",
+  "keywords": [
+    "自动化",
+    "流程",
+    "RPA",
+    "编排",
+    "重试",
+    "告警"
+  ],
+  "books": [
+    {
+      "title": "The Phoenix Project",
+      "author": "Gene Kim",
+      "year": 2013,
+      "lang": "en",
+      "concept": "IT 价值流",
+      "move": "约束在交付链"
+    },
+    {
+      "title": "The DevOps Handbook",
+      "author": "Gene Kim 等",
+      "year": 2016,
+      "lang": "en",
+      "concept": "流动/反馈/学习",
+      "move": "小批量与自动化"
+    },
+    {
+      "title": "流程圣经",
+      "author": "Rummler & Brache",
+      "year": 1990,
+      "lang": "zh",
+      "concept": "流程与绩效",
+      "move": "跨职能流程图"
+    },
+    {
+      "title": "Work the System",
+      "author": "Sam Carpenter",
+      "year": 2008,
+      "lang": "en",
+      "concept": "系统化运营",
+      "move": "把例外变成流程"
+    },
+    {
+      "title": "精益流程",
+      "author": "Womack & Jones",
+      "year": 2003,
+      "lang": "zh",
+      "concept": "价值流",
+      "move": "消除等待"
+    }
+  ],
+  "methods": [
+    {
+      "name": "流程挖掘",
+      "formula": "事件日志→实际路径",
+      "when": "找真实瓶颈"
+    },
+    {
+      "name": "RPA",
+      "formula": "规则明确、高频、稳定",
+      "when": "先自动化这类"
+    },
+    {
+      "name": "幂等/重试",
+      "formula": "幂等键+指数退避+死信",
+      "when": "防重复扣款"
+    },
+    {
+      "name": "编排",
+      "formula": "DAG+超时+补偿",
+      "when": "长流程可靠"
+    },
+    {
+      "name": "SLA",
+      "formula": "SLA=达标请求数÷总请求数；时延取 P95/P99",
+      "when": "可观测"
+    },
+    {
+      "name": "异常队列",
+      "formula": "异常率=异常单÷总单；兜底时长=人工完成−触发",
+      "when": "不静默失败"
+    }
+  ],
+  "kpis": [
+    "自动化率",
+    "人工时长",
+    "失败率",
+    "重试成功率",
+    "平均处理时长",
+    "成本节省"
+  ],
+  "decisions": [
+    "先自动化哪段",
+    "自建/买",
+    "人机边界",
+    "人工兜底比例"
+  ],
+  "foresight": [
+    "系统变更",
+    "数据量",
+    "合规"
+  ],
+  "failure_modes": [
+    "为自动化而自动化",
+    "忽略异常",
+    "无回滚",
+    "自动化了错的流程"
+  ],
+  "report_sections": [
+    "流程现状",
+    "瓶颈",
+    "方案",
+    "人机",
+    "风险",
+    "验收"
+  ]
+}

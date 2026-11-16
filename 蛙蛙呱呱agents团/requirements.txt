@@ -1,0 +1,7 @@
+# 蛙蛙呱呱agents团 · 运行依赖（Python >= 3.10）
+# 图表引擎 v2 依赖；缺失时 v2 会静默回退 v1 素图，请务必先装。
+matplotlib>=3.8
+numpy>=1.26
+
+# 可选：PDF 页脚编号（report_bridge._stamp_page_numbers）
+# pymupdf>=1.24

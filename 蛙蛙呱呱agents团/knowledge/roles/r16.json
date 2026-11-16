@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r16",
+  "name": "蛙人石",
+  "title": "HR / 组织",
+  "domain": "组织与人才",
+  "keywords": [
+    "招聘",
+    "人效",
+    "组织",
+    "绩效",
+    "薪酬",
+    "编制"
+  ],
+  "books": [
+    {
+      "title": "Work Rules",
+      "author": "Laszlo Bock",
+      "year": 2015,
+      "lang": "en",
+      "concept": "招聘与授权",
+      "move": "数据驱动人事"
+    },
+    {
+      "title": "Who",
+      "author": "Smart & Street",
+      "year": 2008,
+      "lang": "en",
+      "concept": "A 级招聘",
+      "move": "评分卡与背调"
+    },
+    {
+      "title": "The Talent Delusion",
+      "author": "Tomas Chamorro-Premuzic",
+      "year": 2017,
+      "lang": "en",
+      "concept": "人才科学",
+      "move": "别信直觉"
+    },
+    {
+      "title": "绩效使能",
+      "author": "况阳",
+      "year": 2018,
+      "lang": "zh",
+      "concept": "OKR 与绩效",
+      "move": "从考核到赋能"
+    },
+    {
+      "title": "OKR 工作法",
+      "author": "John Doerr",
+      "year": 2018,
+      "lang": "zh",
+      "concept": "目标与关键结果",
+      "move": "对齐与拉伸"
+    }
+  ],
+  "methods": [
+    {
+      "name": "招聘评分卡",
+      "formula": "必须项/加分项/证据",
+      "when": "结构化面试"
+    },
+    {
+      "name": "人效模型",
+      "formula": "收入/人、毛利/人、支持比",
+      "when": "组织效率"
+    },
+    {
+      "name": "编制测算",
+      "formula": "工作量×频次÷人均产能",
+      "when": "编制有据"
+    },
+    {
+      "name": "离职归因",
+      "formula": "薪酬/发展/管理/通勤",
+      "when": "找真因"
+    },
+    {
+      "name": "OKR",
+      "formula": "目标 3 个、KR 可量化",
+      "when": "对齐"
+    },
+    {
+      "name": "九宫格",
+      "formula": "绩效×潜力两维各 3 档，9 格对应动作",
+      "when": "人才盘点"
+    }
+  ],
+  "kpis": [
+    "人均产出",
+    "招聘周期",
+    "到岗率",
+    "离职率",
+    "关键岗空缺",
+    "培训 ROI"
+  ],
+  "decisions": [
+    "招/不招",
+    "裁/转",
+    "薪酬",
+    "内部培养/外部招聘"
+  ],
+  "foresight": [
+    "人才供给",
+    "组织规模",
+    "合规"
+  ],
+  "failure_modes": [
+    "凭感觉招人",
+    "用离职率单一指标",
+    "编制拍脑袋",
+    "用高绩效掩盖管理问题"
+  ],
+  "report_sections": [
+    "组织",
+    "编制",
+    "招聘",
+    "绩效",
+    "风险",
+    "计划"
+  ]
+}

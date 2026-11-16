@@ -1,0 +1,13 @@
+{
+ "deliverables": {
+  "summary": "一页纸",
+  "main": "建议书",
+  "appendix": "证据台账"
+ },
+ "value_tracking": {
+  "baseline": "6.74",
+  "target": "6.12",
+  "metric": "单公斤成本",
+  "review_date": "2026-12-31"
+ }
+}

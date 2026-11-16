@@ -129,15 +129,26 @@ def test_contract_check_cli_warns_on_bad_enum():
     assert out["ok"] is True or out["errors"]
 
 
-def test_report_status_kpi_and_caveats():
-    from core import report_bridge
-    c = report_bridge.generic_contract(
-        {"ok": True, "status": "warn", "conclusion": "结论", "caveats": ["边界A", "边界B"]},
-        "r06", "蛙得清", "数据分析师", "ttest", "run", "测试")
-    assert any(m.get("label") == "技能状态" and m.get("status") == "watch"
-               for m in c["metric_strip"])
-    notes = " ".join(str(x.get("text")) for x in c["notes"]["items"])
-    assert "边界A" in notes
+def test_flow_contract_structure_and_traceability():
+    """唯一产线：契约末节固定「口径与分数」，记录层折叠，数字带来源。"""
+    from core import report_flow
+    j = {"headline": "GMV 下降 3.2%",
+         "conclusions": [{"text": "GMV 下降 3.2%", "number": "-3.2",
+                          "source": "r06/semantics", "kind": "finding"}],
+         "drivers": [], "boundary": ["只对本次输入成立"],
+         "actions": [{"do": "复算", "condition": "对外时", "stop": "不一致即停"}],
+         "gaps": []}
+    ev = [{"role": "r06", "skill": "semantics", "action": "validate",
+           "source": "x.json", "source_hash": "h"}]
+    nums = [{"path": "gmv.delta_pct", "value": -3.2, "text": "-3.2",
+             "source": "r06/semantics"}]
+    c = report_flow.build_contract(j, "测试诊断", "A", ev, nums,
+                                   [{"id": "x", "ok": True}], "rule")
+    assert c["title_lines"][0] == "测试诊断"
+    assert c["sections"][-1]["title"] == "口径与分数"
+    assert c["sections"][-2].get("appendix") is True
+    assert c["metric_strip"][0]["note"].startswith("来源 ")
+    assert c["footer"][0].startswith("协作")
 
 
 def test_json_contract_blocks_bad_viz_spec():

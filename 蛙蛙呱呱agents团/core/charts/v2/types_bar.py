@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
+from . import base as _base
 from .base import bar_width, canvas, fmt_num, label_of, nice_height, style_ylabels, svg_of
 
 _MAX_LABEL = 14
@@ -43,6 +44,7 @@ def hbar(chart: Dict[str, Any], theme: str) -> str:
     n = max(len(bars), 1)
     fig, ax, T = canvas(nice_height(n, row=44), theme, chart.get("title", ""),
                         chart.get("unit_meta", ""), chart.get("source", ""),
+                        subtitle=chart.get("subtitle", ""), note=chart.get("note", ""),
                         pad_b=34, pad_r=96)
     for side in ("top", "right", "left", "bottom"):
         ax.spines[side].set_visible(False)
@@ -88,14 +90,17 @@ def vbar(chart: Dict[str, Any], theme: str) -> str:
     bars = [b for b in (chart.get("bars") or chart.get("vbars") or []) if b.get("value") is not None]
     n = max(len(bars), 1)
     fig, ax, T = canvas(300, theme, chart.get("title", ""), chart.get("unit_meta", ""),
-                        chart.get("source", ""), pad_l=40, pad_r=40, pad_b=58)
+                        chart.get("source", ""), subtitle=chart.get("subtitle", ""),
+                        note=chart.get("note", ""), pad_l=40, pad_r=40, pad_b=58)
     for side in ("top", "right", "left", "bottom"):
         ax.spines[side].set_visible(False)
     ax.grid(axis="y", color=T["line"], linewidth=0.8)
     ax.set_axisbelow(True)
     vals = [float(b["value"]) for b in bars]
-    vmax = max(vals + [0.0]) if vals else 1.0
-    vmin = min(vals + [0.0]) if vals else 0.0
+    ref = chart.get("ref") if isinstance(chart.get("ref"), dict) else None
+    ref_v = float(ref["value"]) if ref and ref.get("value") is not None else None
+    vmax = max(vals + ([ref_v] if ref_v is not None else []) + [0.0]) if vals else 1.0
+    vmin = min(vals + ([ref_v] if ref_v is not None else []) + [0.0]) if vals else 0.0
     span = (vmax - vmin) or 1.0
     ax.set_ylim(vmin - span * (0.24 if vmin < 0 else 0.06), vmax + span * 0.18)
     ax.set_xlim(-0.62, n - 0.38)
@@ -115,6 +120,16 @@ def vbar(chart: Dict[str, Any], theme: str) -> str:
     ax.set_xticklabels([_short(b.get("label"), 10) for b in bars], fontsize=9.8, color=T["ink"])
     ax.tick_params(axis="x", length=0, pad=8, labelbottom=True)
     ax.set_yticks([])
+    if ref_v is not None:
+        ax.axhline(ref_v, color=T["reference"], linewidth=1.0, linestyle=(0, (4, 3)),
+                   zorder=2, clip_on=False)
+        ax.text(n - 0.40, ref_v, f"{ref.get('label', '')} ", ha="right", va="bottom",
+                fontsize=8.2, color=T["reference"], zorder=6)
+    if bars and not _base.EMBED:
+        peak = max(bars, key=lambda b: float(b["value"]))
+        fig.text(1.0, 1.0 - 33.0 / (fig.get_size_inches()[1] * 100.0),
+                 f"峰值 {_short(peak.get('label'), 8)} {fmt_num(peak['value'])}",
+                 ha="right", va="top", fontsize=8.4, color=T["accent"])
     return svg_of(fig)
 
 
@@ -125,6 +140,7 @@ def dot(chart: Dict[str, Any], theme: str) -> str:
     n = max(len(items), 1)
     fig, ax, T = canvas(nice_height(n, row=40), theme, chart.get("title", ""),
                         chart.get("unit_meta", ""), chart.get("source", ""),
+                        subtitle=chart.get("subtitle", ""), note=chart.get("note", ""),
                         pad_b=34, pad_r=96)
     for side in ("top", "right", "left", "bottom"):
         ax.spines[side].set_visible(False)
@@ -132,6 +148,10 @@ def dot(chart: Dict[str, Any], theme: str) -> str:
     ax.set_axisbelow(True)
     ys = list(range(n))[::-1]
     vmax = max(float(i["value"]) for i in items) if items else 1.0
+    ref = chart.get("ref") if isinstance(chart.get("ref"), dict) else None
+    ref_v = float(ref["value"]) if ref and ref.get("value") is not None else None
+    if ref_v is not None:
+        vmax = max(vmax, ref_v)
     ax.set_xlim(0, vmax * 1.30)
     ax.set_ylim(-0.5, n - 0.5)
     for y, it in zip(ys, items):
@@ -145,6 +165,16 @@ def dot(chart: Dict[str, Any], theme: str) -> str:
     ax.set_yticklabels([_short(i.get("label")) for i in items])
     style_ylabels(ax, T)
     ax.set_xticks([])
+    if ref_v is not None:
+        ax.axvline(ref_v, color=T["reference"], linewidth=1.0, linestyle=(0, (4, 3)),
+                   zorder=5, clip_on=False)
+        ax.text(ref_v, n - 0.48, f" {ref.get('label', '')}", ha="left", va="bottom",
+                fontsize=8.2, color=T["reference"], zorder=6)
+    if items and not _base.EMBED:
+        top = items[0]
+        fig.text(1.0, 1.0 - 33.0 / (fig.get_size_inches()[1] * 100.0),
+                 f"最高：{_short(top.get('label'), 10)} {label_of(top)}",
+                 ha="right", va="top", fontsize=8.4, color=T["accent"])
     return svg_of(fig)
 
 
@@ -196,7 +226,8 @@ def waterfall(chart: Dict[str, Any], theme: str) -> str:
     steps = [s for s in (chart.get("steps") or []) if s.get("value") is not None]
     n = max(len(steps), 1)
     fig, ax, T = canvas(320, theme, chart.get("title", ""), chart.get("unit_meta", ""),
-                        chart.get("source", ""), pad_l=40, pad_b=72)
+                        chart.get("source", ""), subtitle=chart.get("subtitle", ""),
+                        note=chart.get("note", ""), pad_l=40, pad_b=72)
     for side in ("top", "right", "left", "bottom"):
         ax.spines[side].set_visible(False)
 
@@ -249,6 +280,19 @@ def waterfall(chart: Dict[str, Any], theme: str) -> str:
     ax.set_xticklabels([_short(s.get("label"), 9) for s in steps], fontsize=9.4, color=T["ink"])
     ax.tick_params(axis="x", length=0, pad=8, labelbottom=True)
     ax.set_yticks([])
+    if totals:
+        ax.axhline(totals[0], color=T["reference"], linewidth=1.0, linestyle=(0, (4, 3)),
+                   zorder=2, clip_on=False)
+        ax.text(-0.55, totals[0], f"期初 {fmt_num(totals[0])}", ha="left", va="bottom",
+                fontsize=8.2, color=T["reference"], zorder=5)
+    d_idx = [i for i, (_, _, is_total) in enumerate(bars) if not is_total]
+    if d_idx and not _base.EMBED:
+        k = max(d_idx, key=lambda i: abs(float(steps[i]["value"])))
+        fig.text(1.0, 1.0 - 33.0 / (fig.get_size_inches()[1] * 100.0),
+                 f"最大贡献：{_short(steps[k].get('label'), 8)} "
+                 f"{'+' if float(steps[k]['value']) >= 0 else '−'}"
+                 f"{fmt_num(abs(float(steps[k]['value'])))}",
+                 ha="right", va="top", fontsize=8.4, color=T["accent"])
     return svg_of(fig)
 
 
@@ -259,6 +303,7 @@ def dumbbell(chart: Dict[str, Any], theme: str) -> str:
     n = max(len(items), 1)
     fig, ax, T = canvas(nice_height(n, row=44), theme, chart.get("title", ""),
                         chart.get("unit_meta", ""), chart.get("source", ""),
+                        subtitle=chart.get("subtitle", ""), note=chart.get("note", ""),
                         pad_b=44, pad_r=104)
     for side in ("top", "right", "left", "bottom"):
         ax.spines[side].set_visible(False)
@@ -284,10 +329,24 @@ def dumbbell(chart: Dict[str, Any], theme: str) -> str:
     ax.set_yticklabels([_short(i.get("label")) for i in items])
     style_ylabels(ax, T)
     ax.set_xticks([])
+    if allv:
+        med = sorted(allv)[len(allv) // 2]
+        ax.axvline(med, color=T["reference"], linewidth=1.0, linestyle=(0, (4, 3)),
+                   zorder=1, clip_on=False)
+        ax.text(med, -0.44, f"全体中位 {fmt_num(med)}", ha="center", va="top",
+                fontsize=8.0, color=T["reference"], zorder=5)
     h = fig.get_size_inches()[1] * 100
-    fig.text(1.0, 1.0 - (34.0 if chart.get("unit_meta") else 15.0) / h,
-             f"● {chart.get('a_label') or 'A'}（灰）　● {chart.get('b_label') or 'B'}（强调）",
-             ha="right", va="top", fontsize=8.8, color=T["muted"])
+    if not _base.EMBED:
+        fig.text(1.0, 1.0 - (34.0 if chart.get("unit_meta") else 15.0) / h,
+                 f"● {chart.get('a_label') or 'A'}（灰）　● {chart.get('b_label') or 'B'}（强调）",
+                 ha="right", va="top", fontsize=8.8, color=T["muted"])
+    if items and not _base.EMBED:
+        top = items[0]
+        d = float(top["b"]) - float(top["a"])
+        fig.text(1.0, 1.0 - 48.0 / h,
+                 f"变化最大：{_short(top.get('label'), 8)} "
+                 f"{'+' if d >= 0 else '−'}{fmt_num(abs(d))}",
+                 ha="right", va="top", fontsize=8.2, color=T["accent"])
     return svg_of(fig)
 
 
@@ -298,7 +357,8 @@ def grouped_bar(chart: Dict[str, Any], theme: str) -> str:
     n = max(len(cats), 1)
     m = max(len(series), 1)
     fig, ax, T = canvas(320, theme, chart.get("title", ""), chart.get("unit_meta", ""),
-                        chart.get("source", ""), pad_l=40, pad_b=72)
+                        chart.get("source", ""), subtitle=chart.get("subtitle", ""),
+                        note=chart.get("note", ""), pad_l=40, pad_b=72)
     for side in ("top", "right", "left", "bottom"):
         ax.spines[side].set_visible(False)
     ax.grid(axis="y", color=T["line"], linewidth=0.8)
@@ -323,6 +383,21 @@ def grouped_bar(chart: Dict[str, Any], theme: str) -> str:
     ax.set_xticklabels([_short(c, 9) for c in cats], fontsize=9.4, color=T["ink"])
     ax.tick_params(axis="x", length=0, pad=8, labelbottom=True)
     ax.set_yticks([])
+    if vals:
+        mid = sum(vals) / len(vals)
+        ax.axhline(mid, color=T["reference"], linewidth=1.0, linestyle=(0, (4, 3)),
+                   zorder=2, clip_on=False)
+        ax.text(n - 0.44, mid, f"整体均值 {fmt_num(mid)} ", ha="right", va="bottom",
+                fontsize=8.2, color=T["reference"], zorder=5)
+        k = max(range(len(vals)), key=lambda i: vals[i])
+        si = k // n
+        ci = k % n
+        if not _base.EMBED:
+            # 放画布左下（轴下方空白），避免与顶部图例挤在同一行
+            fig.text(0.0, 24.0 / (fig.get_size_inches()[1] * 100.0),
+                     f"最高：{_short(series[si].get('name'), 6)} · "
+                     f"{_short(cats[ci], 6)} {fmt_num(vals[k])}",
+                     ha="left", va="bottom", fontsize=8.4, color=T["accent"])
     if m > 1:
         leg = ax.legend(loc="upper right", frameon=False, fontsize=8.8, ncol=m,
                         handlelength=0.9, columnspacing=1.1, handletextpad=0.4,
@@ -338,7 +413,8 @@ def stacked_bar(chart: Dict[str, Any], theme: str) -> str:
     segs = [s for s in (chart.get("segments") or []) if s.get("values")]
     n = max(len(cats), 1)
     fig, ax, T = canvas(320, theme, chart.get("title", ""), chart.get("unit_meta", ""),
-                        chart.get("source", ""), pad_l=40, pad_b=72)
+                        chart.get("source", ""), subtitle=chart.get("subtitle", ""),
+                        note=chart.get("note", ""), pad_l=40, pad_b=72)
     for side in ("top", "right", "left", "bottom"):
         ax.spines[side].set_visible(False)
     ax.grid(axis="y", color=T["line"], linewidth=0.8)
@@ -359,6 +435,18 @@ def stacked_bar(chart: Dict[str, Any], theme: str) -> str:
     for x, total in enumerate(bottoms):
         ax.text(x, total, fmt_num(total), ha="center", va="bottom", fontsize=9.6,
                 fontweight="bold", color=T["ink"], zorder=4)
+    if bottoms:
+        avg = sum(bottoms) / len(bottoms)
+        ax.axhline(avg, color=T["reference"], linewidth=1.0, linestyle=(0, (4, 3)),
+                   zorder=2, clip_on=False)
+        ax.text(n - 0.42, avg, f"均值 {fmt_num(avg)} ", ha="right", va="bottom",
+                fontsize=8.2, color=T["reference"], zorder=5)
+        k = max(range(n), key=lambda i: bottoms[i])
+        if not _base.EMBED:
+            # 放画布左下（轴下方空白），避免与顶部图例挤在同一行
+            fig.text(0.0, 24.0 / (fig.get_size_inches()[1] * 100.0),
+                     f"最高：{_short(cats[k], 8)} 合计 {fmt_num(bottoms[k])}",
+                     ha="left", va="bottom", fontsize=8.4, color=T["accent"])
     if len(segs) > 1:
         leg = ax.legend(loc="upper right", frameon=False, fontsize=8.8, ncol=min(len(segs), 4),
                         handlelength=0.9, columnspacing=1.1, handletextpad=0.4,

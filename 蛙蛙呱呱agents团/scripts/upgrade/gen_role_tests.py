@@ -269,8 +269,7 @@ def main() -> int:
             "test_contracts.py": TEST_CONTRACTS,
             "test_skills.py": _fill(TEST_SKILL, skill=skill, action=action,
                                     example=example),
-            "test_report.py": _fill(TEST_REPORT, role=role, skill=skill,
-                                    action=action, example=example),
+            # 报告引擎已收敛到 core/report_flow，旧的 report_engine 五段式规格不再生成
         }
         for fname, content in files.items():
             target = os.path.join(tests_dir, fname)

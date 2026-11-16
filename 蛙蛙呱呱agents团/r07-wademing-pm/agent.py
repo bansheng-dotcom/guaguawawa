@@ -68,7 +68,6 @@ import cases  # noqa: E402
 import contracts  # noqa: E402
 import harness  # noqa: E402
 import review  # noqa: E402
-import report_contract  # noqa: E402
 
 ROLE = "r07"
 WORKSPACE_ROOT = workspace.default_root()
@@ -373,7 +372,7 @@ def run_task(task_id: str) -> Dict[str, Any]:
         role=ROLE, name="蛙得明", title="产品经理",
         result=result, skill=skill_name, action=action, intent=intent,
         out_dir=out_dir, input_path=in_file, md_name="prd_report",
-        specialist=report_contract.r07_contract, data=_data)
+        data=_data)
     outputs.extend(ports)
 
     ws.update_task(task_id, {"outputs": [p.to_dict() for p in outputs],
@@ -596,41 +595,16 @@ def main() -> int:
             emit_result(out)
             return 0 if out.get("ok") else 1
 
-    if args.skill == "deep":
-        from deep_analysis import run_deep_analysis
-        from agents.shared.kernel_report_adapter import render_deep_report
-        from agents.shared.role_profiles import get as get_profile
-
-        out_dir = getattr(args, "out_dir", None) or os.path.join(workspace.role_workspace(os.path.dirname(__file__)), "deep_report")
-        res = run_deep_analysis(args.input)
-        profile = get_profile(ROLE)
-        
-        spec = {
-            "role_id": ROLE,
-            "agent_name": profile["name"],
-            "report_title": f"{profile['name']} · {args.intent}",
-            "executive_summary": res["decision"]["summary"],
-            "decision_directive": res["decision"]["directive"],
-            "kpi_metrics": [
-                {"label": "门禁通过", "value": f"{len([c for c in res['checks'] if c.get('ok')])}/{len(res['checks'])}", "status": "normal"},
-            ],
-            "analysis_sections": [
-                {"title": "1. JTBD 需求发现", "content": "已完成核心用户场景的 JTBD 映射。"},
-                {"title": "2. 机会树映射", "content": "已构建产品机会树，覆盖核心增长空间。"},
-                {"title": "3. 风险边界校验", "content": "风险控制点已纳入 PRD 规划。"},
-                {"title": "4. PRD 生成", "content": "规格书已定稿。"},
-            ],
-            "figures": [],
-            "guardrails": profile["guardrails"],
-            "rollout_plan": profile["rollout"],
-            "next_steps": profile["next_steps"],
-            "rca": res["decision"]["rca"],
-            "provenance": {"input": args.input, "tokens": res["tokens_in"] + res["tokens_out"]},
-        }
-        files = render_deep_report(spec, out_dir, "pm_deep_report")
-        emit_result({"ok": True, "report_html": files["html"], "report_md": files["md"]})
-        return 0
-
+    # 2026-11-15 产线收敛：深度报告支线已删除。报告由 R01 统一出具。
+    if getattr(args, "skill", None) in ("deep", "depth"):
+        out = {"ok": False,
+               "message": "deep/depth 支线已下线（报告产线收敛为 R01 唯一出口）",
+               "next": "python guagua.py report run --intent <意图> --results <result.json...> --out <目录>"}
+        try:
+            c.emit(out)
+        except NameError:
+            emit_result(out)
+        return 1
     t0 = time.time()
     mod = SKILL_BY_NAME[args.skill]
     result = _invoke_skill(mod, args)

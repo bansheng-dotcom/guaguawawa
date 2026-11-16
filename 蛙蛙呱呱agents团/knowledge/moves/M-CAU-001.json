@@ -1,0 +1,46 @@
+{
+  "id": "M-CAU-001",
+  "name": "识别检查（能不能说因果）",
+  "version": "1.0",
+  "status": "draft",
+  "domain": "causal",
+  "source": {
+    "book": "Mostly Harmless Econometrics",
+    "author": "Joshua Angrist & Jörn-Steffen Pischke",
+    "year": 2009,
+    "concept": "潜在结果框架与选择偏差；IV / DiD / RDD / 回归作为识别策略，而不是「跑个回归」"
+  },
+  "trigger": {
+    "decision": ["要不要改策略", "某个差异是不是结构性的"],
+    "data_shape": ["多期", "有对照地区/品类", "有政策或外生冲击"],
+    "min_evidence": "至少 6 期，或有一个可比对照组；否则只能到 L2"
+  },
+  "inputs": ["处理组与对照组", "政策/冲击时点", "共同趋势的检验数据"],
+  "procedure": [
+    "先写明反事实：如果没有这个因素，结果会是什么",
+    "列出至少 2 个混杂因素，并说明数据能否排除",
+    "能实验就实验；不能实验找 DiD/IV/RDD 之一，并写识别假设",
+    "识别假设不成立时，把结论降级为「相关」，禁止用「导致/替代/驱动」"
+  ],
+  "output_claim": {
+    "kind": "gap",
+    "headline_template": "{现象} 与 {因素} 同期出现，识别策略为 {DiD/IV/RDD/实验}，结论等级 {L2/L3}",
+    "level": "L3"
+  },
+  "counterexample": "只有两期数据、且没有对照组时，任何「因为 A 所以 B」都是把时间先后当因果。",
+  "failure_mode": "用回归系数代替识别策略；忽略共同冲击（如补贴退坡同时影响所有品类）。",
+  "landing": {
+    "method": "none（待接入：core/claims.py 增加 Claim.level 与因果词门禁）",
+    "claim_kind": "gap",
+    "frame": "market / operations",
+    "gate": "待接入：C1_causal_language（当前是软告警）",
+    "test": "tests/test_deep_line.py::test_claim_finalize_requires_tags"
+  },
+  "acceptance": {
+    "fixture": "家居百货内蒙调研_2026-11-15（金银珠宝 -22.8pp）",
+    "expected": "该节从「需求或渠道被替代」降级为「1 期单点背离，3 种候选解释，待 2 期验证」",
+    "tolerance": "无"
+  },
+  "owner": "r05",
+  "last_reviewed": "2026-11-15"
+}

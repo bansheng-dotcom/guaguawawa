@@ -1,0 +1,45 @@
+{
+  "id": "M-XXX-000",
+  "name": "一条分析动作的名字（动词开头，不超过 12 字）",
+  "version": "1.0",
+  "status": "draft",
+  "domain": "problem_solving | causal | statistics | strategy | marketing | retail | supply_chain | systems | communication",
+  "source": {
+    "book": "书名（原文）",
+    "author": "作者",
+    "year": 2019,
+    "concept": "书里的哪个概念/章节，不是整本书的摘要"
+  },
+  "trigger": {
+    "decision": ["这条 move 服务的决策类型：是否进入/怎么整改/先做哪一段/定什么价"],
+    "data_shape": ["需要的数据形状：多品类/多区域/多期/单店/队列"],
+    "min_evidence": "最低证据要求；不满足就不许用这条 move"
+  },
+  "inputs": ["输入 1", "输入 2"],
+  "procedure": [
+    "第 1 步（可执行动词）",
+    "第 2 步",
+    "第 3 步"
+  ],
+  "output_claim": {
+    "kind": "size | trend | gap | mix | volume | unit | concentration | spread | coverage | demand | channel | supply | policy | region",
+    "headline_template": "带占位符的结论句，必须能被数据填满",
+    "level": "L0 | L1 | L2 | L3 | L4"
+  },
+  "counterexample": "什么情况下这条 move 会给出错误结论（至少 15 字，必须具体）",
+  "failure_mode": "最常见的误用方式",
+  "landing": {
+    "method": "core/methods/xxx.py::m_xxx（没有就写 none）",
+    "claim_kind": "落到 claims.py 的哪个 kind",
+    "frame": "落到哪个问题链（market/operations/chain/remediation）",
+    "gate": "哪条门禁会拦住误用（Q1—Q7 / F1—F9）",
+    "test": "tests/test_xxx.py::test_xxx"
+  },
+  "acceptance": {
+    "fixture": "用哪个真实项目回归",
+    "expected": "期望输出（可判定的句子/数字/结构）",
+    "tolerance": "允许的误差或范围"
+  },
+  "owner": "r06",
+  "last_reviewed": "2026-11-15"
+}

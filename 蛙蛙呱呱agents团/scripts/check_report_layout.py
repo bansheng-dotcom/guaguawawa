@@ -77,9 +77,22 @@ def check_html(path: Path) -> dict:
     # R4 重复章节
     r4 = [h for _, h in heads if any(k in h for k in DUP_TITLES)]
 
-    # 参考指标（不作判定，只报数）
-    sentences = [s.strip() for s in re.split(r"(?<=[。；！？])", text_all) if len(s.strip()) >= 12]
-    dup = [k for k, v in Counter(sentences).items() if v > 1]
+    # 重复句只看正文段落：排除 TOC/nav/header/footer/标题；
+    # 标题在目录与正文各出现一次是结构需要，不算“重复句”。
+    body = re.sub(r"<nav[\s\S]*?</nav>", " ", html, flags=re.I)
+    body = re.sub(r"<header[\s\S]*?</header>", " ", body, flags=re.I)
+    body = re.sub(r"<footer[\s\S]*?</footer>", " ", body, flags=re.I)
+    # 重复句只统计“同一节内”的重复；跨节复述同一指标是分析需要，不算堆砌。
+    dup = []
+    for sec in re.findall(r"<section[\s\S]*?</section>", body, flags=re.I):
+        paras = re.findall(r"<p[^>]*>([\s\S]*?)</p>", sec, flags=re.I)
+        ss = []
+        for p in paras:
+            for s in re.split(r"(?<=[。；！？])", _text(p)):
+                s = s.strip()
+                if len(s) >= 12:
+                    ss.append(s)
+        dup.extend(k for k, v in Counter(ss).items() if v > 1)
 
     violations = []
     for w in r1:

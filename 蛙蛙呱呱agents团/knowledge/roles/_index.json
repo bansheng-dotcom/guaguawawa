@@ -1,0 +1,165 @@
+{
+  "schema": "dsh.role_domain_index/v1",
+  "roles": [
+    {
+      "role": "r01",
+      "name": "蛙全局",
+      "title": "CEO 主理人 / 编排器",
+      "domain": "战略与经营决策",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r02",
+      "name": "蛙排布",
+      "title": "COO 运营官",
+      "domain": "运营与流程",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r03",
+      "name": "蛙手先",
+      "title": "CFO / 合规",
+      "domain": "财务与资本",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r04",
+      "name": "蛙挑刺",
+      "title": "独立评审",
+      "domain": "评审与审计",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r05",
+      "name": "蛙深研",
+      "title": "研究员",
+      "domain": "行业与市场研究",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r06",
+      "name": "蛙得清",
+      "title": "数据分析师",
+      "domain": "数据分析与因果推断",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r07",
+      "name": "蛙得明",
+      "title": "产品经理",
+      "domain": "产品与需求",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r08",
+      "name": "蛙建成",
+      "title": "MVP 工程",
+      "domain": "快速验证与工程",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r09",
+      "name": "蛙文码",
+      "title": "工程师",
+      "domain": "软件工程与架构",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r10",
+      "name": "蛙成美",
+      "title": "视觉设计官",
+      "domain": "设计与品牌",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r11",
+      "name": "蛙点题",
+      "title": "内容主笔",
+      "domain": "内容与文案",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r12",
+      "name": "蛙引流",
+      "title": "增长负责人",
+      "domain": "增长与投放",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r13",
+      "name": "蛙客成",
+      "title": "客户成功",
+      "domain": "客户成功与留存",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r14",
+      "name": "蛙交易",
+      "title": "交易与电商",
+      "domain": "交易与零售",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r15",
+      "name": "蛙供应",
+      "title": "供应链 / 采购",
+      "domain": "供应链与采购",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r16",
+      "name": "蛙人石",
+      "title": "HR / 组织",
+      "domain": "组织与人才",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r17",
+      "name": "蛙智网",
+      "title": "自动化工程师",
+      "domain": "自动化与流程编排",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r18",
+      "name": "蛙数仓",
+      "title": "数据工程",
+      "domain": "数据仓库与治理",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r19",
+      "name": "蛙智模",
+      "title": "模型工程师",
+      "domain": "机器学习与评测",
+      "books": 5,
+      "methods": 6
+    },
+    {
+      "role": "r20",
+      "name": "蛙守智",
+      "title": "SRE / 可靠性",
+      "domain": "可靠性与运维",
+      "books": 5,
+      "methods": 6
+    }
+  ]
+}

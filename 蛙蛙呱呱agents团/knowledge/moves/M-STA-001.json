@@ -1,0 +1,46 @@
+{
+  "id": "M-STA-001",
+  "name": "基准率与回归均值检查",
+  "version": "1.0",
+  "status": "active",
+  "domain": "statistics",
+  "source": {
+    "book": "Thinking, Fast and Slow / Superforecasting",
+    "author": "Daniel Kahneman / Philip Tetlock",
+    "year": 2011,
+    "concept": "基准率忽视、锚定、回归均值；先问「这类事通常怎样」，再问「这次为什么不同」"
+  },
+  "trigger": {
+    "decision": ["这个差异是不是真的", "要不要为单点异常立项"],
+    "data_shape": ["多期", "同类实体可横向比较"],
+    "min_evidence": "至少 3 个同类样本或 6 期历史；否则只能写「待验证」"
+  },
+  "inputs": ["历史分布或同类基准", "本期值", "样本量"],
+  "procedure": [
+    "先找基准：同类品类/地区/年份的通常水平",
+    "算偏离：比基准高/低多少，是几个标准差",
+    "问回归均值：极端值下一期大概率回落多少",
+    "偏离在正常范围内就降级；超出范围也要给样本量，不直接归因"
+  ],
+  "output_claim": {
+    "kind": "gap",
+    "headline_template": "{实体} 偏离基准 {X} 个标准差，样本 {N} 期；{是否}足以判定结构变化",
+    "level": "L2"
+  },
+  "counterexample": "基准期本身处在异常年份（如补贴高峰），基准率会把异常当正常，反而掩盖问题。",
+  "failure_mode": "拿一个季度的背离讲结构性替代；不写样本量。",
+  "landing": {
+    "method": "core/claims.py::_mech_gap",
+    "claim_kind": "gap",
+    "frame": "market",
+    "gate": "Q4",
+    "test": "tests/test_deep_line.py::test_claim_finalize_requires_tags"
+  },
+  "acceptance": {
+    "fixture": "家居百货内蒙调研_2026-11-15",
+    "expected": "结构节对最大背离给出样本期数与「单点/结构」判定，而不是直接归因",
+    "tolerance": "偏离判定阈值 ±0.5 个标准差"
+  },
+  "owner": "r06",
+  "last_reviewed": "2026-11-15"
+}

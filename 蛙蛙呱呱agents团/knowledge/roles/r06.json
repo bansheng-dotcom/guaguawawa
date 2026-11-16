@@ -1,0 +1,124 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r06",
+  "name": "蛙得清",
+  "title": "数据分析师",
+  "domain": "数据分析与因果推断",
+  "keywords": [
+    "分析",
+    "归因",
+    "实验",
+    "AB",
+    "因果",
+    "预测",
+    "留存",
+    "漏斗"
+  ],
+  "books": [
+    {
+      "title": "Mostly Harmless Econometrics",
+      "author": "Angrist & Pischke",
+      "year": 2009,
+      "lang": "en",
+      "concept": "潜在结果与识别",
+      "move": "先问反事实，再跑回归"
+    },
+    {
+      "title": "The Book of Why",
+      "author": "Pearl & Mackenzie",
+      "year": 2018,
+      "lang": "en",
+      "concept": "因果阶梯与混杂",
+      "move": "画 DAG，找后门路径"
+    },
+    {
+      "title": "Exploratory Data Analysis",
+      "author": "John Tukey",
+      "year": 1977,
+      "lang": "en",
+      "concept": "先看分布与残差",
+      "move": "不画分布不做检验"
+    },
+    {
+      "title": "Data Science for Business",
+      "author": "Provost & Fawcett",
+      "year": 2013,
+      "lang": "en",
+      "concept": "期望值与过拟合",
+      "move": "用业务损失选模型"
+    },
+    {
+      "title": "统计学习方法",
+      "author": "李航",
+      "year": 2012,
+      "lang": "zh",
+      "concept": "模型与正则",
+      "move": "偏差方差与泛化"
+    }
+  ],
+  "methods": [
+    {
+      "name": "量价/结构归因",
+      "formula": "Δ=Σ(率效应+结构效应+交叉项)",
+      "when": "定位变化来自价、量还是结构"
+    },
+    {
+      "name": "DiD",
+      "formula": "y=α+β·treat+γ·post+δ·treat×post；δ 为效应",
+      "when": "政策/改版前后，有对照"
+    },
+    {
+      "name": "A/B 检验",
+      "formula": "两比例 z 检验；MDE 与功效",
+      "when": "线上实验，随机分流"
+    },
+    {
+      "name": "回归",
+      "formula": "OLS/固定效应，聚类稳健标准误",
+      "when": "控制混杂，估边际效应"
+    },
+    {
+      "name": "队列留存",
+      "formula": "cohort×period 留存矩阵",
+      "when": "看留存而不是平均值"
+    },
+    {
+      "name": "弹性",
+      "formula": "log q = a + b·log p；b 为价格弹性",
+      "when": "定价与促销"
+    }
+  ],
+  "kpis": [
+    "效应量",
+    "p 值/CI",
+    "检验功效",
+    "样本量",
+    "归因贡献 pp",
+    "预测误差"
+  ],
+  "decisions": [
+    "哪个因素",
+    "是否显著",
+    "要不要扩量",
+    "预测"
+  ],
+  "foresight": [
+    "领先指标",
+    "结构断点",
+    "数据漂移"
+  ],
+  "failure_modes": [
+    "相关当因果",
+    "多重比较",
+    "peeking",
+    "忽略选择偏差"
+  ],
+  "report_sections": [
+    "问题与识别",
+    "描述",
+    "归因",
+    "因果",
+    "稳健性",
+    "决策"
+  ]
+}

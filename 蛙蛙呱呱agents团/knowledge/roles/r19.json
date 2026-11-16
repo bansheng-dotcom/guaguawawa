@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r19",
+  "name": "蛙智模",
+  "title": "模型工程师",
+  "domain": "机器学习与评测",
+  "keywords": [
+    "模型",
+    "机器学习",
+    "评测",
+    "漂移",
+    "特征",
+    "上线"
+  ],
+  "books": [
+    {
+      "title": "Designing Machine Learning Systems",
+      "author": "Chip Huyen",
+      "year": 2022,
+      "lang": "en",
+      "concept": "ML 系统全链路",
+      "move": "数据/评测/监控"
+    },
+    {
+      "title": "Hands-On Machine Learning",
+      "author": "Aurélien Géron",
+      "year": 2019,
+      "lang": "en",
+      "concept": "工程实践",
+      "move": "从基线到上线"
+    },
+    {
+      "title": "Pattern Recognition and Machine Learning",
+      "author": "Christopher Bishop",
+      "year": 2006,
+      "lang": "en",
+      "concept": "概率模型",
+      "move": "不确定性"
+    },
+    {
+      "title": "机器学习",
+      "author": "周志华",
+      "year": 2016,
+      "lang": "zh",
+      "concept": "模型与评估",
+      "move": "西瓜书"
+    },
+    {
+      "title": "统计学习方法",
+      "author": "李航",
+      "year": 2012,
+      "lang": "zh",
+      "concept": "监督学习",
+      "move": "三要素"
+    }
+  ],
+  "methods": [
+    {
+      "name": "交叉验证",
+      "formula": "K 折/时间序列切分",
+      "when": "防泄漏"
+    },
+    {
+      "name": "校准",
+      "formula": "可靠性曲线/ECE/Brier",
+      "when": "概率要准"
+    },
+    {
+      "name": "漂移",
+      "formula": "PSI/KL/KS",
+      "when": "输入分布变化"
+    },
+    {
+      "name": "A/B",
+      "formula": "影子/灰度/分流",
+      "when": "线上验证"
+    },
+    {
+      "name": "评测集",
+      "formula": "分层+困难样本+回归集",
+      "when": "可复现"
+    },
+    {
+      "name": "特征重要性",
+      "formula": "置换重要性=打乱特征后误差上升幅度；SHAP 为边际贡献",
+      "when": "解释与排错"
+    }
+  ],
+  "kpis": [
+    "AUC/F1",
+    "校准误差",
+    "漂移",
+    "推理延迟",
+    "覆盖率",
+    "失败率"
+  ],
+  "decisions": [
+    "上不上",
+    "换不换模型",
+    "阈值",
+    "自研/采购模型"
+  ],
+  "foresight": [
+    "数据漂移",
+    "对抗",
+    "成本"
+  ],
+  "failure_modes": [
+    "离线好线上差",
+    "不校准",
+    "泄漏",
+    "用准确率掩盖业务损失"
+  ],
+  "report_sections": [
+    "问题",
+    "数据",
+    "模型",
+    "评测",
+    "上线",
+    "监控"
+  ]
+}

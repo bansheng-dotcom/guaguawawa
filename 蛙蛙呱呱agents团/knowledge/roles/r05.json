@@ -1,0 +1,124 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r05",
+  "name": "蛙深研",
+  "title": "研究员",
+  "domain": "行业与市场研究",
+  "keywords": [
+    "调研",
+    "行业",
+    "市场",
+    "规模",
+    "竞争",
+    "区域",
+    "赛道"
+  ],
+  "books": [
+    {
+      "title": "Competitive Strategy",
+      "author": "Michael Porter",
+      "year": 1980,
+      "lang": "en",
+      "concept": "五力与结构",
+      "move": "先看结构再看玩家"
+    },
+    {
+      "title": "Business Model Generation",
+      "author": "Osterwalder",
+      "year": 2010,
+      "lang": "en",
+      "concept": "商业模式画布",
+      "move": "把生意拆成九块"
+    },
+    {
+      "title": "The Craft of Research",
+      "author": "Booth 等",
+      "year": 2008,
+      "lang": "en",
+      "concept": "研究问题与证据",
+      "move": "问题比答案重要"
+    },
+    {
+      "title": "蓝海战略",
+      "author": "Kim & Mauborgne",
+      "year": 2005,
+      "lang": "zh",
+      "concept": "价值创新与边界",
+      "move": "看非顾客与替代品"
+    },
+    {
+      "title": "如何阅读一本书",
+      "author": "Adler",
+      "year": 1940,
+      "lang": "zh",
+      "concept": "主题阅读",
+      "move": "多源交叉而不是单源"
+    }
+  ],
+  "methods": [
+    {
+      "name": "五力",
+      "formula": "五力逐项打分并给证据",
+      "when": "判断行业吸引力"
+    },
+    {
+      "name": "PESTEL",
+      "formula": "政策/经济/社会/技术/环境/法律",
+      "when": "扫外部变量"
+    },
+    {
+      "name": "规模三路径",
+      "formula": "自上而下/自下而上/类比，给区间",
+      "when": "不给单点规模"
+    },
+    {
+      "name": "集中度",
+      "formula": "CR3/CR5、HHI 上下界",
+      "when": "判断竞争格局"
+    },
+    {
+      "name": "价值链",
+      "formula": "逐段加价与利润池",
+      "when": "钱在哪一段"
+    },
+    {
+      "name": "情景",
+      "formula": "两轴四情景 + 触发信号",
+      "when": "给远见"
+    }
+  ],
+  "kpis": [
+    "市场规模",
+    "增速",
+    "CR3/HHI",
+    "渗透率",
+    "客单",
+    "渠道占比"
+  ],
+  "decisions": [
+    "进哪个细分",
+    "用什么口径",
+    "信哪个源",
+    "进入顺序（先哪个区域/细分）"
+  ],
+  "foresight": [
+    "政策",
+    "技术替代",
+    "人口结构",
+    "渠道迁移"
+  ],
+  "failure_modes": [
+    "单一路径估规模",
+    "把产值当零售",
+    "用全国代替本地",
+    "不标口径"
+  ],
+  "report_sections": [
+    "口径与来源",
+    "规模",
+    "结构",
+    "竞争",
+    "区域",
+    "缺口"
+  ]
+}

@@ -61,9 +61,10 @@ class RoleInvariantTests(unittest.TestCase):
 
     def test_core_exposes_shared_modules(self):
         core = AGENTS / "core"
-        for module in ("artifact_registry.py", "approvals.py", "report_bridge.py",
-                       "report_renderer.py", "workspace.py", "registry.py"):
+        for module in ("report_bridge.py", "report_renderer.py",
+                       "workspace.py", "registry.py"):
             self.assertTrue((core / module).exists(), module)
+        # _legacy 暂存区已按 SOP 清理（旧编排器/渲染器无业务调用链），不再断言其存在
 
 
 if __name__ == "__main__":

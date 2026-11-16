@@ -173,7 +173,7 @@ def result(checks: List[Dict[str, Any]], **fields) -> Dict[str, Any]:
 _DEFAULT_THRESHOLDS: Dict[str, Any] = {
     "research": {
         "claim_kinds": ["fact", "estimate", "calculation", "projection", "opinion", "recommendation"],
-        "source_types": ["primary", "secondary", "tertiary", "database", "government", "industry_report", "company_filing", "news", "unsourced"],
+        "source_types": ["primary", "secondary", "tertiary", "database", "government", "industry_report", "company_filing", "news", "ecommerce", "unsourced"],
         "min_sources_per_claim": 1,
         "verdict_enum": ["PASS", "FAIL", "BLOCKED"],
     },

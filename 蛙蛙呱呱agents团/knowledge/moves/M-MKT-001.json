@@ -1,0 +1,58 @@
+{
+  "id": "M-MKT-001",
+  "name": "渗透率分解与双危校验",
+  "version": "1.0",
+  "status": "draft",
+  "domain": "marketing",
+  "source": {
+    "book": "How Brands Grow",
+    "author": "Byron Sharp",
+    "year": 2010,
+    "concept": "增长主要来自渗透率而非忠诚度；双重危险（小品牌渗透低、忠诚也低）；心智与物理可得性"
+  },
+  "trigger": {
+    "decision": [
+      "增长从哪来",
+      "要不要做会员/复购",
+      "渠道怎么排"
+    ],
+    "data_shape": [
+      "有购买频次与人数",
+      "有品类/品牌份额"
+    ],
+    "min_evidence": "至少两期购买人数与频次；否则只能做定性"
+  },
+  "inputs": [
+    "购买人数",
+    "购买频次",
+    "客单价",
+    "品类总人数"
+  ],
+  "procedure": [
+    "把销售额拆成 人数 × 频次 × 客单",
+    "看增长来自人数还是频次；人数优先",
+    "用双危校验：份额低的品牌，忠诚度通常也低，不要预设「小而忠」",
+    "检查可得性：铺货、陈列、搜索排位，而不是只讲品牌偏好"
+  ],
+  "output_claim": {
+    "kind": "mix",
+    "headline_template": "增长 {X}% 里，人数贡献 {a}pp、频次 {b}pp、客单 {c}pp；主变量是 {人数/频次/客单}",
+    "level": "L2"
+  },
+  "counterexample": "在渗透率已接近饱和的品类里，继续拉新会烧钱；这时频次与客单才是主变量。",
+  "failure_mode": "把复购率当增长引擎，却不算新客获取成本；用小样本会员数据代替全量。",
+  "landing": {
+    "method": "core/methods/market.py::m_channel",
+    "claim_kind": "mix",
+    "frame": "market",
+    "gate": "Q2",
+    "test": "tests/test_deep_line.py::test_market_methods_produce_claims_and_refs"
+  },
+  "acceptance": {
+    "fixture": "待接入：workspace/olist_v4_demo（有客户与订单）",
+    "expected": "输出人数/频次/客单三段贡献，且与复购率交叉校验",
+    "tolerance": "贡献合计与总增长差 ≤0.2pp"
+  },
+  "owner": "r12",
+  "last_reviewed": "2026-11-15"
+}

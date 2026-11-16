@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r18",
+  "name": "蛙数仓",
+  "title": "数据工程",
+  "domain": "数据仓库与治理",
+  "keywords": [
+    "数仓",
+    "数据",
+    "口径",
+    "血缘",
+    "建模",
+    "质量"
+  ],
+  "books": [
+    {
+      "title": "The Data Warehouse Toolkit",
+      "author": "Ralph Kimball",
+      "year": 2013,
+      "lang": "en",
+      "concept": "维度建模",
+      "move": "星型模型与一致性维度"
+    },
+    {
+      "title": "Fundamentals of Data Engineering",
+      "author": "Reis & Housley",
+      "year": 2022,
+      "lang": "en",
+      "concept": "数据生命周期",
+      "move": "存储/管道/服务"
+    },
+    {
+      "title": "Designing Data-Intensive Applications",
+      "author": "Kleppmann",
+      "year": 2017,
+      "lang": "en",
+      "concept": "一致性与分区",
+      "move": "选型先看取舍"
+    },
+    {
+      "title": "大数据之路",
+      "author": "阿里巴巴",
+      "year": 2017,
+      "lang": "zh",
+      "concept": "阿里数据实践",
+      "move": "分层与指标"
+    },
+    {
+      "title": "数据仓库",
+      "author": "Kimball",
+      "year": 2013,
+      "lang": "zh",
+      "concept": "维度建模",
+      "move": "事实与维度"
+    }
+  ],
+  "methods": [
+    {
+      "name": "维度建模",
+      "formula": "事实表+维度表+一致性维度",
+      "when": "可分析"
+    },
+    {
+      "name": "分层",
+      "formula": "ODS→DWD→DWS→ADS",
+      "when": "复用与口径"
+    },
+    {
+      "name": "质量六维",
+      "formula": "完整/准确/一致/及时/唯一/有效",
+      "when": "数据可信"
+    },
+    {
+      "name": "血缘",
+      "formula": "表→字段→指标的有向图；影响面=下游节点数",
+      "when": "影响分析"
+    },
+    {
+      "name": "增量/全量",
+      "formula": "CDC/快照/拉链",
+      "when": "成本与时效"
+    },
+    {
+      "name": "SCD",
+      "formula": "缓慢变化维类型 1/2/3",
+      "when": "历史可追溯"
+    }
+  ],
+  "kpis": [
+    "数据延迟",
+    "准确率",
+    "完整率",
+    "重复率",
+    "血缘覆盖",
+    "成本"
+  ],
+  "decisions": [
+    "建模方式",
+    "实时/离线",
+    "治理优先级",
+    "实时/离线链路"
+  ],
+  "foresight": [
+    "数据量",
+    "上游变更",
+    "合规"
+  ],
+  "failure_modes": [
+    "无分层",
+    "无测试",
+    "指标口径不一",
+    "只建表不治理"
+  ],
+  "report_sections": [
+    "口径",
+    "模型",
+    "质量",
+    "血缘",
+    "成本",
+    "治理"
+  ]
+}

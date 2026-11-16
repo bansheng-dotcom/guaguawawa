@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r13",
+  "name": "蛙客成",
+  "title": "客户成功",
+  "domain": "客户成功与留存",
+  "keywords": [
+    "客户",
+    "续约",
+    "留存",
+    "流失",
+    "满意度",
+    "服务"
+  ],
+  "books": [
+    {
+      "title": "Customer Success",
+      "author": "Mehta 等",
+      "year": 2016,
+      "lang": "en",
+      "concept": "续约与扩展",
+      "move": "从被动支持到主动成功"
+    },
+    {
+      "title": "The Customer-Base Audit",
+      "author": "Fader 等",
+      "year": 2022,
+      "lang": "en",
+      "concept": "客户资产审计",
+      "move": "看队列与价值分层"
+    },
+    {
+      "title": "The Effortless Experience",
+      "author": "Dixon 等",
+      "year": 2013,
+      "lang": "en",
+      "concept": "降低费力",
+      "move": "服务不是越热情越好"
+    },
+    {
+      "title": "SaaS 创业路线图",
+      "author": "吴昊",
+      "year": 2020,
+      "lang": "zh",
+      "concept": "SaaS 指标",
+      "move": "NRR/流失/回本"
+    },
+    {
+      "title": "运营之光",
+      "author": "黄有璨",
+      "year": 2016,
+      "lang": "zh",
+      "concept": "用户运营",
+      "move": "分层与触达"
+    }
+  ],
+  "methods": [
+    {
+      "name": "健康分",
+      "formula": "使用/支持/VOC/互动四维加权",
+      "when": "预警续约风险"
+    },
+    {
+      "name": "续约风险",
+      "formula": "到期×健康分×关键人",
+      "when": "排救火顺序"
+    },
+    {
+      "name": "NPS/CSAT",
+      "formula": "NPS=推荐者占比−贬损者占比；CSAT=满意数÷回收数",
+      "when": "看口碑"
+    },
+    {
+      "name": "队列留存",
+      "formula": "按签约月看收入留存",
+      "when": "NRR 拆解"
+    },
+    {
+      "name": "QBR",
+      "formula": "目标-进展-风险-下一步",
+      "when": "对齐价值"
+    },
+    {
+      "name": "流失归因",
+      "formula": "产品/价格/服务/关系",
+      "when": "定位真因"
+    }
+  ],
+  "kpis": [
+    "NRR",
+    "GRR",
+    "流失率",
+    "健康分",
+    "首响",
+    "解决时长"
+  ],
+  "decisions": [
+    "谁要救",
+    "谁该放",
+    "投多少服务",
+    "服务分层（高触达/低触达）"
+  ],
+  "foresight": [
+    "使用深度",
+    "关键人变动",
+    "合同到期"
+  ],
+  "failure_modes": [
+    "用满意度代替续约",
+    "平均健康分",
+    "救所有人",
+    "只看 NPS 不看续约"
+  ],
+  "report_sections": [
+    "客户分层",
+    "健康分",
+    "风险",
+    "动作",
+    "QBR",
+    "指标"
+  ]
+}

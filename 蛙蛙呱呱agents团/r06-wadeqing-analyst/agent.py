@@ -65,9 +65,8 @@ import cases  # noqa: E402
 import contracts  # noqa: E402
 import harness  # noqa: E402
 import review  # noqa: E402
-from core import report_bridge  # noqa: E402
+from agents.shared import role_runtime  # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
-import report_contract  # noqa: E402
 
 ROLE = "r06"
 WORKSPACE_ROOT = workspace.default_root()
@@ -374,20 +373,16 @@ def run_task(task_id: str) -> Dict[str, Any]:
     result["skill"] = skill_name
     result["action"] = action
 
-    # 落产物 + 报告
+    # 落产物：只交证据，报告由 R01 统一出具（2026-11-15 产线收敛）
     outputs: List[protocol.Port] = []
-    result_path = os.path.join(out_dir, f"{skill_name}.json")
+    result_path = os.path.join(out_dir, "result.json")
     with open(result_path, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-    outputs.append(protocol.Port(f"{skill_name}.json", "data"))
-
-    report_path = os.path.join(out_dir, "analysis_report.md")
-    ports = report_bridge.emit(
+    outputs.append(protocol.Port("result.json", "data", "application/json"))
+    outputs.extend(role_runtime.emit(
         role=ROLE, name="蛙得清", title="数据分析师",
         result=result, skill=skill_name, action=action, intent=intent,
-        out_dir=out_dir, md_name="analysis_report",
-        specialist=report_contract.r06_contract, chart_dir=CHART_DIR)
-    outputs.extend(ports)
+        out_dir=out_dir, md_name="result"))
 
     ws.update_task(task_id, {"outputs": [p.to_dict() for p in outputs],
                              "status": "done"})
@@ -555,52 +550,20 @@ def main() -> int:
             })
         return 0
 
-    # 七步深度分析报告（REP-001）
-    if args.skill == "depth":
-        from pipelines import deep_report as DR
-        from agents.shared.kernel_report_adapter import render_deep_report
-
-        out_dir = args.out_dir or os.path.join(WORKSPACE_ROOT, "deep_report")
-        spec = DR.build(
-            os.path.abspath(args.input), args.value, args.date, args.dim,
-            args.period, args.before, args.after, args.intent, args.pk,
-            decompose_input=(os.path.abspath(args.decompose_input)
-                             if args.decompose_input else None))
-        files = render_deep_report(spec, out_dir, args.slug)
+    # 旧深链已下线（2026-11-15）：报告产线收敛为 R01 唯一出口。
+    # 新路径：python guagua.py report run --intent <意图> --results <result.json...> --out <目录>
+    if args.skill in ("depth", "deep"):
         emit_result({
-            "ok": True,
-            "status": "出具成功",
-            "report_html": files["html"],
-            "report_md": files["md"],
-            "figures_count": len(spec["figures"]),
-            "sections_count": len(spec["analysis_sections"]),
+            "ok": False,
+            "status": "DEPRECATED",
+            "skill": args.skill,
+            "message": "旧深链（REP-001 deep_report/consulting_report）已下线；"
+                       "R06 只交 result，报告由 R01 统一出具。",
+            "next": "python guagua.py report run --intent <意图> "
+                    "--results <result.json...> --out <目录>",
         })
-        return 0
+        return 1
 
-    # 咨询级深度决策研报分支
-    if args.skill == "deep":
-        from pipelines.consulting_report import build_consulting_report
-        from agents.shared.kernel_report_adapter import render_deep_report
-        
-        out_dir = args.out_dir or os.path.join(WORKSPACE_ROOT, "consulting_report")
-        spec = build_consulting_report(
-            series_csv=args.series,
-            cross_csv=args.cross,
-            before=args.before,
-            after=args.after,
-            intent=args.intent
-        )
-        files = render_deep_report(spec, out_dir, "consulting_report")
-        emit_result({
-            "ok": True,
-            "status": "出具成功",
-            "report_html": files["html"],
-            "report_md": files["md"],
-            "figures_count": len(spec["figures"])
-        })
-        return 0
-
-    # 真实适配器分支
     if args.skill == "quality_real":
         import pandas as pd
         from skills.quality_adapter import QualityAuditAdapter

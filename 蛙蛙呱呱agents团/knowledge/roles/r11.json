@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r11",
+  "name": "蛙点题",
+  "title": "内容主笔",
+  "domain": "内容与文案",
+  "keywords": [
+    "内容",
+    "文案",
+    "写作",
+    "选题",
+    "传播",
+    "钩子"
+  ],
+  "books": [
+    {
+      "title": "Building a StoryBrand",
+      "author": "Donald Miller",
+      "year": 2017,
+      "lang": "en",
+      "concept": "顾客是主角",
+      "move": "把主张写成故事"
+    },
+    {
+      "title": "Ogilvy on Advertising",
+      "author": "David Ogilvy",
+      "year": 1983,
+      "lang": "en",
+      "concept": "标题与承诺",
+      "move": "广告要说人话"
+    },
+    {
+      "title": "The Copywriter's Handbook",
+      "author": "Robert Bly",
+      "year": 2005,
+      "lang": "en",
+      "concept": "AIDA 与卖点",
+      "move": "从注意到行动"
+    },
+    {
+      "title": "文案训练手册",
+      "author": "Joseph Sugarman",
+      "year": 1998,
+      "lang": "zh",
+      "concept": "滑梯与钩子",
+      "move": "第一句只为第二句"
+    },
+    {
+      "title": "爆款文案",
+      "author": "关健明",
+      "year": 2017,
+      "lang": "zh",
+      "concept": "卖点翻译",
+      "move": "把参数翻成利益"
+    }
+  ],
+  "methods": [
+    {
+      "name": "AIDA",
+      "formula": "注意→兴趣→欲望→行动",
+      "when": "结构文案"
+    },
+    {
+      "name": "钩子矩阵",
+      "formula": "数字/冲突/身份/场景",
+      "when": "批量测标题"
+    },
+    {
+      "name": "卖点翻译",
+      "formula": "FAB：属性→作用→利益",
+      "when": "说人话"
+    },
+    {
+      "name": "内容日历",
+      "formula": "主题×渠道×频率",
+      "when": "稳定供给"
+    },
+    {
+      "name": "转化文案",
+      "formula": "主张+证据+风险逆转+CTA",
+      "when": "提转化"
+    },
+    {
+      "name": "渠道适配",
+      "formula": "同一主张，不同长度与语气",
+      "when": "不一套打全渠道"
+    }
+  ],
+  "kpis": [
+    "打开率",
+    "完读率",
+    "点击率",
+    "转化率",
+    "获客成本",
+    "内容复用率"
+  ],
+  "decisions": [
+    "写什么",
+    "发哪",
+    "用什么钩子",
+    "内容自制/外包/达人合作"
+  ],
+  "foresight": [
+    "平台算法",
+    "用户注意力",
+    "合规"
+  ],
+  "failure_modes": [
+    "自嗨",
+    "无受众",
+    "夸大承诺",
+    "一套文案全渠道"
+  ],
+  "report_sections": [
+    "受众",
+    "主张",
+    "证据",
+    "内容矩阵",
+    "分发",
+    "复盘"
+  ]
+}

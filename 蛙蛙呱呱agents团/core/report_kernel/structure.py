@@ -122,7 +122,7 @@ STRIP_META_WORDS = ("门禁", "结果条目", "有效观测", "观测日", "观�
 
 def _section_texts(sec: Dict[str, Any]) -> List[str]:
     out: List[str] = []
-    for key in ("verdict", "intro", "reading", "notes", "boundary"):
+    for key in ("verdict", "intro", "prose", "reading", "notes", "boundary"):
         v = sec.get(key)
         if isinstance(v, str):
             out.append(v)
@@ -134,6 +134,14 @@ def _section_texts(sec: Dict[str, Any]) -> List[str]:
                     out.append(str(it))
         elif isinstance(v, dict):
             out.append(str(v.get("text", "")))
+    # 结构化块（长段拆成小标题 + 项目符号）
+    for b in (sec.get("blocks") or []):
+        if not isinstance(b, dict):
+            continue
+        if b.get("text"):
+            out.append(str(b["text"]))
+        for it in (b.get("items") or []):
+            out.append(str(it))
     # 表格也算这一节的正文：细胞里常有阈值、样本量、金额
     tb = sec.get("table") or {}
     for cell in (tb.get("rows") or []):
@@ -190,95 +198,3 @@ def writing_errors(contract: Dict[str, Any], *, require_digits: bool = True) -> 
     if require_digits and concl.strip() and not re.search(r"\d", concl):
         errs.append("R7 结论句不含任何数字")
     return errs
-
-
-def to_contract(report: Dict[str, Any], *, doc_type: str = "单文件 HTML 报告",
-                author: str = "r08") -> Dict[str, Any]:
-    """把「报告 JSON」翻译成内核 contract（交给唯一渲染器）。
-
-    数字全部来自 report 自身：`dataset` 给了才算保真分数，没给就是 N/A，
-    不估、不填。
-    """
-    from .layers import (compute_fidelity, fidelity_section, normalize_tables,
-                         record_table)
-
-    meta = report.get("meta") or {}
-    title = str(report.get("title", "")).strip()
-    chapters = [c for c in (report.get("chapters") or []) if isinstance(c, dict)]
-    thesis = [str(t) for t in (report.get("thesis") or []) if str(t).strip()]
-    sources = [s for s in (report.get("sources") or []) if isinstance(s, dict)]
-    dataset = report.get("dataset") or []
-    claims = [c for c in (report.get("claims") or []) if isinstance(c, dict)]
-
-    used = {str(r.get("item")) for r in dataset} if dataset else set()
-    fid = compute_fidelity(dataset, used, claims)
-
-    def _count(label: str, value: int, note: str) -> Dict[str, Any]:
-        return {"label": label, "value": str(value), "note": note, "status": "none"}
-
-    strip = [_count("章节", len(chapters), "正文分节数"),
-             _count("论点", len(thesis), "可被反驳的核心判断"),
-             _count("来源", len(sources), "可核来源数")]
-    if dataset:
-        strip.append({"label": "观测", "value": f"{len(dataset):,}",
-                      "note": "参与计算的观测条数", "status": "accent"})
-
-    sections: List[Dict[str, Any]] = []
-    for i, ch in enumerate(chapters, 1):
-        sec: Dict[str, Any] = {
-            "index": i,
-            "title": str(ch.get("title", "")),
-            "question": str(ch.get("summary", "")) or f'{ch.get("title", "")}：结论是什么？',
-        }
-        paras = [str(p) for p in (ch.get("paragraphs") or []) if str(p).strip()]
-        if paras:
-            sec["reading"] = [{"text": p} for p in paras]
-        if ch.get("table"):
-            sec["table"] = ch["table"]
-        sections.append(sec)
-
-    if sources:
-        sections.append({
-            "index": len(sections) + 1,
-            "title": "来源",
-            "question": "每个结论靠哪条来源支撑？",
-            "table": {"caption": "来源清单",
-                      "columns": ["编号", "来源", "链接"],
-                      "rows": [[f"[{i}]", str(s.get("label", "")), str(s.get("url", "—"))]
-                               for i, s in enumerate(sources, 1)]},
-        })
-
-    if dataset:
-        sections.append({
-            "index": f"A{1}",
-            "title": "记录层",
-            "question": "观测明细是否可复核？",
-            "table": record_table(dataset),
-            "reading": [{"text": "全量观测逐条列出，供审计复算；默认折叠，不占首屏。"}],
-            "appendix": True,
-        })
-
-    sections.append(fidelity_section(fid, {"role": author, "extends": "report-json",
-                                           "tier": "—"}, len(sections) + 1))
-
-    contract = {
-        "doc_type": doc_type,
-        "toc": True,
-        "fidelity": fid,
-        "title_lines": [title, str(meta.get("purpose", "")).strip() or "单文件 HTML 报告"],
-        "standfirst": str(report.get("standfirst", "")).strip()
-                      or f'读者：{meta.get("audience", "—")}；{thesis[0] if thesis else title}',
-        "metric_strip": strip,
-        "meta": [f'读者 {meta.get("audience", "—")}',
-                 f'目的 {meta.get("purpose", "—")}',
-                 f"生成 {author}"],
-        "summary": ([{"label": "结论：", "text": thesis[0]}] if thesis else [])
-                   + [{"label": "依据：", "text": t} for t in thesis[1:2]],
-        "sections": sections,
-        "notes": {"summary": "口径、来源与证据边界",
-                  "items": [{"label": "结构门禁：", "text": "S1–S6 由 core/report_kernel/structure.py 判定"},
-                            {"label": "来源：", "text": f"{len(sources)} 条，逐条可核，见「来源」节"},
-                            {"label": "边界：", "text": "结论只对本文列出的章节与来源成立"}]},
-        "footer": [f"{author} · {doc_type}", "core/report_kernel.structure + report_renderer"],
-    }
-    return normalize_tables(contract)

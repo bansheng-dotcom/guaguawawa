@@ -1,0 +1,46 @@
+{
+  "id": "M-STR-002",
+  "name": "战略内核三件套",
+  "version": "1.0",
+  "status": "active",
+  "domain": "strategy",
+  "source": {
+    "book": "Good Strategy Bad Strategy",
+    "author": "Richard Rumelt",
+    "year": 2011,
+    "concept": "战略内核 = 诊断（diagnosis）+ 指导方针（guiding policy）+ 连贯动作（coherent actions）；坏战略 = 空话、目标当战略、模板"
+  },
+  "trigger": {
+    "decision": ["怎么整改", "是否进入", "资源往哪压"],
+    "data_shape": ["多品类", "多环节", "有明确亏损或瓶颈"],
+    "min_evidence": "能指出一个具体 bottleneck，且能列出 3 条以上互相支撑的动作"
+  },
+  "inputs": ["负毛利/瓶颈清单", "成本结构", "可选动作清单"],
+  "procedure": [
+    "先写诊断：把问题收敛到一个 bottleneck，不写三个以上",
+    "再写指导方针：一句话说明资源往哪压、放弃什么",
+    "最后写连贯动作：动作之间必须互相加强，不能各干各的",
+    "用坏战略体检：有没有把目标当战略、有没有形容词堆砌"
+  ],
+  "output_claim": {
+    "kind": "gap",
+    "headline_template": "诊断：{bottleneck}；方针：{policy}；连贯动作 {N} 条",
+    "level": "L1"
+  },
+  "counterexample": "诊断写成「加价率低、损耗高、冷链贵」三个并列原因时，等于没有诊断，动作会互相抵消。",
+  "failure_mode": "把「提升毛利率」当指导方针；把动作清单当战略。",
+  "landing": {
+    "method": "core/frames.py::build_remediation",
+    "claim_kind": "gap",
+    "frame": "remediation",
+    "gate": "Q1/Q4",
+    "test": "tests/test_deep_line.py::test_frames_do_not_share_one_skeleton"
+  },
+  "acceptance": {
+    "fixture": "内蒙古肉禽蛋调研_2026-11-12",
+    "expected": "整改帧第一节给出单一诊断，指导方针明确放弃项，动作 3 条以上且互相支撑",
+    "tolerance": "诊断原因数 ≤1"
+  },
+  "owner": "r01",
+  "last_reviewed": "2026-11-15"
+}

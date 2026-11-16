@@ -1,0 +1,1006 @@
+{
+  "schema": "dsh.skill_map/v1",
+  "source_inventory": "knowledge/skills_inventory.json",
+  "roles": {
+    "r01": {
+      "战略内核": {
+        "skill_role": "r01",
+        "skill": "decide",
+        "action": "",
+        "fit": "partial",
+        "note": "决策卡可承载诊断/方针/动作，需补战略内核模板",
+        "command": "python guagua.py call r01 -- decide"
+      },
+      "五力": {
+        "skill_role": "r05",
+        "skill": "industry",
+        "action": "",
+        "fit": "partial",
+        "note": "行业分析技能可承载，需补五力打分表",
+        "command": "python guagua.py call r05 -- industry"
+      },
+      "价值链": {
+        "skill_role": "r05",
+        "skill": "business",
+        "action": "",
+        "fit": "partial",
+        "note": "商业模式技能可承载，需补逐段加价",
+        "command": "python guagua.py call r05 -- business"
+      },
+      "情景规划": {
+        "skill_role": "r05",
+        "skill": "scenario",
+        "action": "",
+        "fit": "exact",
+        "note": "情景技能已做两轴四情景",
+        "command": "python guagua.py call r05 -- scenario"
+      },
+      "取舍矩阵": {
+        "skill_role": "r01",
+        "skill": "decide",
+        "action": "",
+        "fit": "partial",
+        "note": "决策卡可承载，需补做/不做/何时做",
+        "command": "python guagua.py call r01 -- decide"
+      },
+      "北极星与护栏": {
+        "skill_role": "r01",
+        "skill": "decompose",
+        "action": "",
+        "fit": "partial",
+        "note": "任务卡可承载指标树，需补护栏",
+        "command": "python guagua.py call r01 -- decompose"
+      }
+    },
+    "r02": {
+      "约束理论": {
+        "skill_role": "r02",
+        "skill": "capacity",
+        "action": "",
+        "fit": "partial",
+        "note": "产能技能可算瓶颈，需补鼓-缓冲-绳",
+        "command": "python guagua.py call r02 -- capacity"
+      },
+      "价值流图": {
+        "skill_role": "r02",
+        "skill": "process",
+        "action": "",
+        "fit": "partial",
+        "note": "流程技能可画价值流，需补增值比",
+        "command": "python guagua.py call r02 -- process"
+      },
+      "OEE": {
+        "skill_role": "r02",
+        "skill": "capacity",
+        "action": "",
+        "fit": "partial",
+        "note": "产能技能可算，需补可用率/性能/良率",
+        "command": "python guagua.py call r02 -- capacity"
+      },
+      "标准作业": {
+        "skill_role": "r02",
+        "skill": "schedule",
+        "action": "",
+        "fit": "exact",
+        "note": "排程技能已做节拍与作业顺序",
+        "command": "python guagua.py call r02 -- schedule"
+      },
+      "鼓-缓冲-绳": {
+        "skill_role": "r02",
+        "skill": "schedule",
+        "action": "",
+        "fit": "partial",
+        "note": "排程可承载，需补缓冲与投料控制",
+        "command": "python guagua.py call r02 -- schedule"
+      },
+      "排队模型": {
+        "skill_role": "r02",
+        "skill": "queue",
+        "action": "",
+        "fit": "exact",
+        "note": "排队技能已做等待时间",
+        "command": "python guagua.py call r02 -- queue"
+      }
+    },
+    "r03": {
+      "杜邦分解": {
+        "skill_role": "r03",
+        "skill": "financial",
+        "action": "",
+        "fit": "partial",
+        "note": "财务技能可算比率，需补三因子分解",
+        "command": "python guagua.py call r03 -- financial"
+      },
+      "现金流折现": {
+        "skill_role": "r03",
+        "skill": "cfo",
+        "action": "",
+        "fit": "partial",
+        "note": "CFO 技能可承载，需补 WACC 与终值",
+        "command": "python guagua.py call r03 -- cfo"
+      },
+      "三表勾稽": {
+        "skill_role": "r03",
+        "skill": "financial",
+        "action": "",
+        "fit": "exact",
+        "note": "财务技能已做三表勾稽",
+        "command": "python guagua.py call r03 -- financial"
+      },
+      "敏感性/情景": {
+        "skill_role": "r03",
+        "skill": "risk",
+        "action": "",
+        "fit": "exact",
+        "note": "风险技能已做敏感性",
+        "command": "python guagua.py call r03 -- risk"
+      },
+      "单位经济": {
+        "skill_role": "r03",
+        "skill": "cfo",
+        "action": "",
+        "fit": "partial",
+        "note": "CFO 可承载，需补单位定义",
+        "command": "python guagua.py call r03 -- cfo"
+      },
+      "营运资金周期": {
+        "skill_role": "r03",
+        "skill": "financial",
+        "action": "",
+        "fit": "partial",
+        "note": "财务技能可算，需补 DSO/DIO/DPO",
+        "command": "python guagua.py call r03 -- financial"
+      }
+    },
+    "r04": {
+      "证据链": {
+        "skill_role": "r04",
+        "skill": "facts",
+        "action": "trace",
+        "fit": "exact",
+        "note": "facts trace 已做来源追踪",
+        "command": "python guagua.py call r04 -- facts trace"
+      },
+      "反例测试": {
+        "skill_role": "r04",
+        "skill": "criteria",
+        "action": "review",
+        "fit": "partial",
+        "note": "评审判据可承载，需补反例样本",
+        "command": "python guagua.py call r04 -- criteria review"
+      },
+      "抽样": {
+        "skill_role": "r04",
+        "skill": "artifact",
+        "action": "",
+        "fit": "new",
+        "note": "现有评审技能无 Wilson 抽样，需新增",
+        "command": "python guagua.py call r04 -- artifact"
+      },
+      "交叉复核": {
+        "skill_role": "r04",
+        "skill": "facts",
+        "action": "check",
+        "fit": "exact",
+        "note": "facts check 已做交叉核对",
+        "command": "python guagua.py call r04 -- facts check"
+      },
+      "评分卡": {
+        "skill_role": "r04",
+        "skill": "criteria",
+        "action": "review",
+        "fit": "partial",
+        "note": "判据可承载，需补权重与证据等级",
+        "command": "python guagua.py call r04 -- criteria review"
+      },
+      "红队": {
+        "skill_role": "r04",
+        "skill": "criteria",
+        "action": "delta",
+        "fit": "partial",
+        "note": "差异评审可承载，需补指定反方",
+        "command": "python guagua.py call r04 -- criteria delta"
+      }
+    },
+    "r05": {
+      "五力": {
+        "skill_role": "r05",
+        "skill": "industry",
+        "action": "",
+        "fit": "exact",
+        "note": "行业技能已做五力",
+        "command": "python guagua.py call r05 -- industry"
+      },
+      "PESTEL": {
+        "skill_role": "r05",
+        "skill": "scenario",
+        "action": "",
+        "fit": "partial",
+        "note": "情景技能可承载，需补六类外部变量",
+        "command": "python guagua.py call r05 -- scenario"
+      },
+      "规模三路径": {
+        "skill_role": "r05",
+        "skill": "sizing",
+        "action": "",
+        "fit": "exact",
+        "note": "规模技能已做 TAM/SAM/SOM 多路径",
+        "command": "python guagua.py call r05 -- sizing"
+      },
+      "集中度": {
+        "skill_role": "r05",
+        "skill": "industry",
+        "action": "",
+        "fit": "partial",
+        "note": "行业技能可承载，需补 CR/HHI",
+        "command": "python guagua.py call r05 -- industry"
+      },
+      "价值链": {
+        "skill_role": "r05",
+        "skill": "business",
+        "action": "",
+        "fit": "exact",
+        "note": "商业模式技能已做价值链",
+        "command": "python guagua.py call r05 -- business"
+      },
+      "情景": {
+        "skill_role": "r05",
+        "skill": "scenario",
+        "action": "",
+        "fit": "exact",
+        "note": "情景技能已做两轴四情景",
+        "command": "python guagua.py call r05 -- scenario"
+      }
+    },
+    "r06": {
+      "量价/结构归因": {
+        "skill_role": "r06",
+        "skill": "rootcause",
+        "action": "decompose",
+        "fit": "partial",
+        "note": "贡献分解可承载，需补率效应/结构效应",
+        "command": "python guagua.py call r06 -- rootcause decompose"
+      },
+      "DiD": {
+        "skill_role": "r06",
+        "skill": "did",
+        "action": "",
+        "fit": "exact",
+        "note": "DID 技能已做 2×2/TWFE/事件研究/安慰剂",
+        "command": "python guagua.py call r06 -- did"
+      },
+      "A/B 检验": {
+        "skill_role": "r06",
+        "skill": "abtest",
+        "action": "",
+        "fit": "exact",
+        "note": "A/B 技能已做 lift/显著性/SRM",
+        "command": "python guagua.py call r06 -- abtest"
+      },
+      "回归": {
+        "skill_role": "r06",
+        "skill": "regression",
+        "action": "",
+        "fit": "exact",
+        "note": "回归技能已做 OLS/Logit/聚类 SE",
+        "command": "python guagua.py call r06 -- regression"
+      },
+      "队列留存": {
+        "skill_role": "r06",
+        "skill": "explore",
+        "action": "cohort",
+        "fit": "exact",
+        "note": "explore cohort 已做留存矩阵",
+        "command": "python guagua.py call r06 -- explore cohort"
+      },
+      "弹性": {
+        "skill_role": "r06",
+        "skill": "elasticity",
+        "action": "",
+        "fit": "exact",
+        "note": "弹性技能已做 log-log OLS",
+        "command": "python guagua.py call r06 -- elasticity"
+      }
+    },
+    "r07": {
+      "JTBD": {
+        "skill_role": "r07",
+        "skill": "discover",
+        "action": "",
+        "fit": "partial",
+        "note": "发现技能可承载，需补 JTBD 访谈模板",
+        "command": "python guagua.py call r07 -- discover"
+      },
+      "机会解决方案树": {
+        "skill_role": "r07",
+        "skill": "ost",
+        "action": "",
+        "fit": "exact",
+        "note": "OST 技能已做机会-方案树",
+        "command": "python guagua.py call r07 -- ost"
+      },
+      "RICE": {
+        "skill_role": "r07",
+        "skill": "rice",
+        "action": "",
+        "fit": "exact",
+        "note": "RICE 技能已做四因子打分",
+        "command": "python guagua.py call r07 -- rice"
+      },
+      "用户故事地图": {
+        "skill_role": "r07",
+        "skill": "prd",
+        "action": "",
+        "fit": "partial",
+        "note": "PRD 技能可承载，需补任务链",
+        "command": "python guagua.py call r07 -- prd"
+      },
+      "漏斗": {
+        "skill_role": "r07",
+        "skill": "metrics",
+        "action": "",
+        "fit": "partial",
+        "note": "指标技能可承载，需补漏斗",
+        "command": "python guagua.py call r07 -- metrics"
+      },
+      "留存": {
+        "skill_role": "r07",
+        "skill": "metrics",
+        "action": "",
+        "fit": "partial",
+        "note": "指标技能可承载，需补队列",
+        "command": "python guagua.py call r07 -- metrics"
+      }
+    },
+    "r08": {
+      "假设卡": {
+        "skill_role": "r08",
+        "skill": "slice",
+        "action": "mvp",
+        "fit": "partial",
+        "note": "MVP 切片可承载，需补假设/判据字段",
+        "command": "python guagua.py call r08 -- slice mvp"
+      },
+      "MVP 切片": {
+        "skill_role": "r08",
+        "skill": "slice",
+        "action": "mvp",
+        "fit": "exact",
+        "note": "slice mvp 已做最小切片",
+        "command": "python guagua.py call r08 -- slice mvp"
+      },
+      "预注册": {
+        "skill_role": "r08",
+        "skill": "qa",
+        "action": "",
+        "fit": "new",
+        "note": "现有技能无预注册实验协议，需新增",
+        "command": "python guagua.py call r08 -- qa"
+      },
+      "五天冲刺": {
+        "skill_role": "r08",
+        "skill": "prototype",
+        "action": "",
+        "fit": "partial",
+        "note": "原型技能可承载，需补五天节奏",
+        "command": "python guagua.py call r08 -- prototype"
+      },
+      "漏斗": {
+        "skill_role": "r08",
+        "skill": "qa",
+        "action": "",
+        "fit": "partial",
+        "note": "QA 可承载验证漏斗，需补转化",
+        "command": "python guagua.py call r08 -- qa"
+      },
+      "停止规则": {
+        "skill_role": "r07",
+        "skill": "decision",
+        "action": "",
+        "fit": "partial",
+        "note": "产品决策技能可承载，需补杀死标准",
+        "command": "python guagua.py call r07 -- decision"
+      }
+    },
+    "r09": {
+      "契约测试": {
+        "skill_role": "r09",
+        "skill": "testing",
+        "action": "",
+        "fit": "exact",
+        "note": "测试技能已做契约测试",
+        "command": "python guagua.py call r09 -- testing"
+      },
+      "分层架构": {
+        "skill_role": "r09",
+        "skill": "spec",
+        "action": "",
+        "fit": "partial",
+        "note": "规格技能可承载，需补分层图",
+        "command": "python guagua.py call r09 -- spec"
+      },
+      "性能预算": {
+        "skill_role": "r09",
+        "skill": "ops",
+        "action": "",
+        "fit": "partial",
+        "note": "运维技能可承载，需补预算阈值",
+        "command": "python guagua.py call r09 -- ops"
+      },
+      "可观测性": {
+        "skill_role": "r09",
+        "skill": "ops",
+        "action": "",
+        "fit": "exact",
+        "note": "运维技能已做日志/指标/追踪",
+        "command": "python guagua.py call r09 -- ops"
+      },
+      "灰度发布": {
+        "skill_role": "r09",
+        "skill": "ops",
+        "action": "",
+        "fit": "partial",
+        "note": "运维技能可承载，需补分批策略",
+        "command": "python guagua.py call r09 -- ops"
+      },
+      "技术债台账": {
+        "skill_role": "r09",
+        "skill": "spec",
+        "action": "",
+        "fit": "partial",
+        "note": "规格技能可承载，需补债务/利息",
+        "command": "python guagua.py call r09 -- spec"
+      }
+    },
+    "r10": {
+      "设计令牌": {
+        "skill_role": "r10",
+        "skill": "designsys",
+        "action": "audit",
+        "fit": "exact",
+        "note": "设计系统审计已做令牌",
+        "command": "python guagua.py call r10 -- designsys audit"
+      },
+      "对比度": {
+        "skill_role": "r10",
+        "skill": "brandcheck",
+        "action": "check",
+        "fit": "exact",
+        "note": "品牌检查已做对比度",
+        "command": "python guagua.py call r10 -- brandcheck check"
+      },
+      "栅格与间距": {
+        "skill_role": "r10",
+        "skill": "uiux",
+        "action": "ux",
+        "fit": "partial",
+        "note": "UX 技能可承载，需补 8pt 刻度",
+        "command": "python guagua.py call r10 -- uiux ux"
+      },
+      "五态": {
+        "skill_role": "r10",
+        "skill": "designsys",
+        "action": "apply",
+        "fit": "partial",
+        "note": "设计系统可承载，需补五态",
+        "command": "python guagua.py call r10 -- designsys apply"
+      },
+      "可用性测试": {
+        "skill_role": "r10",
+        "skill": "uiux",
+        "action": "screen",
+        "fit": "partial",
+        "note": "界面技能可承载，需补任务测试",
+        "command": "python guagua.py call r10 -- uiux screen"
+      },
+      "视觉层级": {
+        "skill_role": "r10",
+        "skill": "uiux",
+        "action": "screen",
+        "fit": "partial",
+        "note": "界面技能可承载，需补三级层级",
+        "command": "python guagua.py call r10 -- uiux screen"
+      }
+    },
+    "r11": {
+      "AIDA": {
+        "skill_role": "r11",
+        "skill": "copy",
+        "action": "article",
+        "fit": "partial",
+        "note": "文案技能可承载，需补 AIDA 结构",
+        "command": "python guagua.py call r11 -- copy article"
+      },
+      "钩子矩阵": {
+        "skill_role": "r11",
+        "skill": "hook",
+        "action": "hook",
+        "fit": "exact",
+        "note": "钩子技能已做标题矩阵",
+        "command": "python guagua.py call r11 -- hook hook"
+      },
+      "卖点翻译": {
+        "skill_role": "r11",
+        "skill": "copy",
+        "action": "article",
+        "fit": "partial",
+        "note": "文案技能可承载，需补 FAB",
+        "command": "python guagua.py call r11 -- copy article"
+      },
+      "内容日历": {
+        "skill_role": "r11",
+        "skill": "topic",
+        "action": "plan",
+        "fit": "exact",
+        "note": "选题技能已做内容计划",
+        "command": "python guagua.py call r11 -- topic plan"
+      },
+      "转化文案": {
+        "skill_role": "r11",
+        "skill": "copy",
+        "action": "script",
+        "fit": "exact",
+        "note": "文案技能已做转化脚本",
+        "command": "python guagua.py call r11 -- copy script"
+      },
+      "渠道适配": {
+        "skill_role": "r11",
+        "skill": "platform",
+        "action": "adapt",
+        "fit": "exact",
+        "note": "平台技能已做渠道适配",
+        "command": "python guagua.py call r11 -- platform adapt"
+      }
+    },
+    "r12": {
+      "AARRR": {
+        "skill_role": "r12",
+        "skill": "diagnose",
+        "action": "diagnose",
+        "fit": "exact",
+        "note": "增长诊断已做漏斗/渠道",
+        "command": "python guagua.py call r12 -- diagnose diagnose"
+      },
+      "漏斗": {
+        "skill_role": "r12",
+        "skill": "diagnose",
+        "action": "diagnose",
+        "fit": "exact",
+        "note": "增长诊断已做漏斗",
+        "command": "python guagua.py call r12 -- diagnose diagnose"
+      },
+      "队列留存": {
+        "skill_role": "r06",
+        "skill": "explore",
+        "action": "cohort",
+        "fit": "exact",
+        "note": "跨角色复用留存技能",
+        "command": "python guagua.py call r06 -- explore cohort"
+      },
+      "RFM": {
+        "skill_role": "r06",
+        "skill": "explore",
+        "action": "rfm",
+        "fit": "exact",
+        "note": "跨角色复用 RFM",
+        "command": "python guagua.py call r06 -- explore rfm"
+      },
+      "增量实验": {
+        "skill_role": "r06",
+        "skill": "abtest",
+        "action": "",
+        "fit": "exact",
+        "note": "跨角色复用 A/B",
+        "command": "python guagua.py call r06 -- abtest"
+      },
+      "渠道归因": {
+        "skill_role": "r12",
+        "skill": "revops",
+        "action": "attribution",
+        "fit": "exact",
+        "note": "归因技能已做渠道归因",
+        "command": "python guagua.py call r12 -- revops attribution"
+      }
+    },
+    "r13": {
+      "健康分": {
+        "skill_role": "r13",
+        "skill": "health",
+        "action": "health",
+        "fit": "exact",
+        "note": "健康分技能已做四维加权",
+        "command": "python guagua.py call r13 -- health health"
+      },
+      "续约风险": {
+        "skill_role": "r13",
+        "skill": "health",
+        "action": "risk",
+        "fit": "exact",
+        "note": "续约风险技能已做",
+        "command": "python guagua.py call r13 -- health risk"
+      },
+      "NPS/CSAT": {
+        "skill_role": "r13",
+        "skill": "voc",
+        "action": "survey",
+        "fit": "exact",
+        "note": "VOC 技能已做 NPS/CSAT",
+        "command": "python guagua.py call r13 -- voc survey"
+      },
+      "队列留存": {
+        "skill_role": "r06",
+        "skill": "explore",
+        "action": "cohort",
+        "fit": "exact",
+        "note": "跨角色复用留存",
+        "command": "python guagua.py call r06 -- explore cohort"
+      },
+      "QBR": {
+        "skill_role": "r13",
+        "skill": "activity",
+        "action": "log",
+        "fit": "partial",
+        "note": "活动技能可承载，需补 QBR 模板",
+        "command": "python guagua.py call r13 -- activity log"
+      },
+      "流失归因": {
+        "skill_role": "r13",
+        "skill": "voc",
+        "action": "voc",
+        "fit": "partial",
+        "note": "VOC 可承载，需补流失归因编码",
+        "command": "python guagua.py call r13 -- voc voc"
+      }
+    },
+    "r14": {
+      "交易三态": {
+        "skill_role": "r14",
+        "skill": "workflow",
+        "action": "state",
+        "fit": "exact",
+        "note": "工作流技能已做状态机",
+        "command": "python guagua.py call r14 -- workflow state"
+      },
+      "履约漏斗": {
+        "skill_role": "r14",
+        "skill": "order",
+        "action": "order",
+        "fit": "partial",
+        "note": "订单技能可承载，需补履约漏斗",
+        "command": "python guagua.py call r14 -- order order"
+      },
+      "选品 ABC": {
+        "skill_role": "r14",
+        "skill": "selection",
+        "action": "score",
+        "fit": "exact",
+        "note": "选品技能已做评分",
+        "command": "python guagua.py call r14 -- selection score"
+      },
+      "定价带": {
+        "skill_role": "r14",
+        "skill": "catalog",
+        "action": "price",
+        "fit": "partial",
+        "note": "目录技能可承载，需补价格带",
+        "command": "python guagua.py call r14 -- catalog price"
+      },
+      "复购": {
+        "skill_role": "r14",
+        "skill": "revenue",
+        "action": "events",
+        "fit": "partial",
+        "note": "收入事件可承载，需补复购队列",
+        "command": "python guagua.py call r14 -- revenue events"
+      },
+      "退款归因": {
+        "skill_role": "r14",
+        "skill": "payment",
+        "action": "refund",
+        "fit": "partial",
+        "note": "退款技能可承载，需补归因",
+        "command": "python guagua.py call r14 -- payment refund"
+      }
+    },
+    "r15": {
+      "TCO": {
+        "skill_role": "r15",
+        "skill": "tco",
+        "action": "compare",
+        "fit": "exact",
+        "note": "TCO 技能已做落地成本",
+        "command": "python guagua.py call r15 -- tco compare"
+      },
+      "EOQ": {
+        "skill_role": "r15",
+        "skill": "safety-stock",
+        "action": "",
+        "fit": "partial",
+        "note": "库存技能可承载，需补 EOQ 公式",
+        "command": "python guagua.py call r15 -- safety-stock"
+      },
+      "安全库存": {
+        "skill_role": "r15",
+        "skill": "safety-stock",
+        "action": "",
+        "fit": "exact",
+        "note": "安全库存技能已做 z×σ×√LT",
+        "command": "python guagua.py call r15 -- safety-stock"
+      },
+      "供应商评分": {
+        "skill_role": "r15",
+        "skill": "procurement",
+        "action": "",
+        "fit": "partial",
+        "note": "采购技能可承载，需补五维评分",
+        "command": "python guagua.py call r15 -- procurement"
+      },
+      "牛鞭": {
+        "skill_role": "r15",
+        "skill": "fulfill-sim",
+        "action": "",
+        "fit": "partial",
+        "note": "履约仿真可承载，需补牛鞭",
+        "command": "python guagua.py call r15 -- fulfill-sim"
+      },
+      "卡拉杰克矩阵": {
+        "skill_role": "r15",
+        "skill": "procurement",
+        "action": "",
+        "fit": "partial",
+        "note": "采购技能可承载，需补品类矩阵",
+        "command": "python guagua.py call r15 -- procurement"
+      }
+    },
+    "r16": {
+      "招聘评分卡": {
+        "skill_role": "r16",
+        "skill": "recruit",
+        "action": "",
+        "fit": "exact",
+        "note": "招聘技能已做评分卡",
+        "command": "python guagua.py call r16 -- recruit"
+      },
+      "人效模型": {
+        "skill_role": "r16",
+        "skill": "people",
+        "action": "",
+        "fit": "exact",
+        "note": "人效技能已做人均产出",
+        "command": "python guagua.py call r16 -- people"
+      },
+      "编制测算": {
+        "skill_role": "r16",
+        "skill": "people",
+        "action": "",
+        "fit": "partial",
+        "note": "人效技能可承载，需补工作量法",
+        "command": "python guagua.py call r16 -- people"
+      },
+      "离职归因": {
+        "skill_role": "r16",
+        "skill": "people",
+        "action": "",
+        "fit": "partial",
+        "note": "人效技能可承载，需补归因编码",
+        "command": "python guagua.py call r16 -- people"
+      },
+      "OKR": {
+        "skill_role": "r16",
+        "skill": "performance",
+        "action": "",
+        "fit": "exact",
+        "note": "绩效技能已做 OKR",
+        "command": "python guagua.py call r16 -- performance"
+      },
+      "九宫格": {
+        "skill_role": "r16",
+        "skill": "performance",
+        "action": "",
+        "fit": "partial",
+        "note": "绩效技能可承载，需补绩效×潜力",
+        "command": "python guagua.py call r16 -- performance"
+      }
+    },
+    "r17": {
+      "流程挖掘": {
+        "skill_role": "r17",
+        "skill": "audit",
+        "action": "audit",
+        "fit": "partial",
+        "note": "流程审计可承载，需补事件日志",
+        "command": "python guagua.py call r17 -- audit audit"
+      },
+      "RPA": {
+        "skill_role": "r17",
+        "skill": "integration",
+        "action": "workflow",
+        "fit": "exact",
+        "note": "集成技能已做工作流",
+        "command": "python guagua.py call r17 -- integration workflow"
+      },
+      "幂等/重试": {
+        "skill_role": "r17",
+        "skill": "retry",
+        "action": "retry",
+        "fit": "exact",
+        "note": "重试技能已做幂等/退避/死信",
+        "command": "python guagua.py call r17 -- retry retry"
+      },
+      "编排": {
+        "skill_role": "r17",
+        "skill": "integration",
+        "action": "workflow",
+        "fit": "exact",
+        "note": "工作流技能已做编排",
+        "command": "python guagua.py call r17 -- integration workflow"
+      },
+      "SLA": {
+        "skill_role": "r17",
+        "skill": "audit",
+        "action": "audit",
+        "fit": "partial",
+        "note": "审计可承载，需补 SLA 指标",
+        "command": "python guagua.py call r17 -- audit audit"
+      },
+      "异常队列": {
+        "skill_role": "r17",
+        "skill": "retry",
+        "action": "errorflow",
+        "fit": "exact",
+        "note": "异常流技能已做",
+        "command": "python guagua.py call r17 -- retry errorflow"
+      }
+    },
+    "r18": {
+      "维度建模": {
+        "skill_role": "r18",
+        "skill": "transform",
+        "action": "",
+        "fit": "exact",
+        "note": "转换技能已做维度建模",
+        "command": "python guagua.py call r18 -- transform"
+      },
+      "分层": {
+        "skill_role": "r18",
+        "skill": "pipeline",
+        "action": "",
+        "fit": "exact",
+        "note": "管道技能已做 ODS/DWD/DWS/ADS",
+        "command": "python guagua.py call r18 -- pipeline"
+      },
+      "质量六维": {
+        "skill_role": "r18",
+        "skill": "quality",
+        "action": "",
+        "fit": "exact",
+        "note": "质量技能已做六维",
+        "command": "python guagua.py call r18 -- quality"
+      },
+      "血缘": {
+        "skill_role": "r18",
+        "skill": "catalog",
+        "action": "",
+        "fit": "exact",
+        "note": "目录技能已做血缘",
+        "command": "python guagua.py call r18 -- catalog"
+      },
+      "增量/全量": {
+        "skill_role": "r18",
+        "skill": "incremental",
+        "action": "",
+        "fit": "exact",
+        "note": "增量技能已做 CDC/拉链",
+        "command": "python guagua.py call r18 -- incremental"
+      },
+      "SCD": {
+        "skill_role": "r18",
+        "skill": "transform",
+        "action": "",
+        "fit": "partial",
+        "note": "转换技能可承载，需补 SCD 类型",
+        "command": "python guagua.py call r18 -- transform"
+      }
+    },
+    "r19": {
+      "交叉验证": {
+        "skill_role": "r19",
+        "skill": "evaluation",
+        "action": "",
+        "fit": "exact",
+        "note": "评测技能已做交叉验证",
+        "command": "python guagua.py call r19 -- evaluation"
+      },
+      "校准": {
+        "skill_role": "r19",
+        "skill": "evaluation",
+        "action": "",
+        "fit": "partial",
+        "note": "评测技能可承载，需补 ECE/Brier",
+        "command": "python guagua.py call r19 -- evaluation"
+      },
+      "漂移": {
+        "skill_role": "r19",
+        "skill": "monitor",
+        "action": "",
+        "fit": "exact",
+        "note": "监控技能已做漂移",
+        "command": "python guagua.py call r19 -- monitor"
+      },
+      "A/B": {
+        "skill_role": "r06",
+        "skill": "abtest",
+        "action": "",
+        "fit": "exact",
+        "note": "跨角色复用 A/B",
+        "command": "python guagua.py call r06 -- abtest"
+      },
+      "评测集": {
+        "skill_role": "r19",
+        "skill": "eval-ci",
+        "action": "",
+        "fit": "exact",
+        "note": "评测 CI 已做回归集",
+        "command": "python guagua.py call r19 -- eval-ci"
+      },
+      "特征重要性": {
+        "skill_role": "r19",
+        "skill": "trace",
+        "action": "",
+        "fit": "partial",
+        "note": "追踪技能可承载，需补置换/SHAP",
+        "command": "python guagua.py call r19 -- trace"
+      }
+    },
+    "r20": {
+      "SLO/错误预算": {
+        "skill_role": "r20",
+        "skill": "slo",
+        "action": "",
+        "fit": "exact",
+        "note": "SLO 技能已做错误预算",
+        "command": "python guagua.py call r20 -- slo"
+      },
+      "故障复盘": {
+        "skill_role": "r20",
+        "skill": "postmortem",
+        "action": "",
+        "fit": "exact",
+        "note": "复盘技能已做时间线/根因",
+        "command": "python guagua.py call r20 -- postmortem"
+      },
+      "容量规划": {
+        "skill_role": "r20",
+        "skill": "monitor",
+        "action": "",
+        "fit": "partial",
+        "note": "监控技能可承载，需补容量模型",
+        "command": "python guagua.py call r20 -- monitor"
+      },
+      "混沌": {
+        "skill_role": "r20",
+        "skill": "dr",
+        "action": "",
+        "fit": "partial",
+        "note": "容灾技能可承载，需补混沌注入",
+        "command": "python guagua.py call r20 -- dr"
+      },
+      "变更管理": {
+        "skill_role": "r09",
+        "skill": "ops",
+        "action": "",
+        "fit": "partial",
+        "note": "复用工程运维的发布/变更能力",
+        "command": "python guagua.py call r09 -- ops"
+      },
+      "黄金指标": {
+        "skill_role": "r20",
+        "skill": "monitor",
+        "action": "",
+        "fit": "exact",
+        "note": "监控技能已做四件套",
+        "command": "python guagua.py call r20 -- monitor"
+      }
+    }
+  }
+}

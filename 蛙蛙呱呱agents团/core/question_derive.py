@@ -74,6 +74,8 @@ def derive_questions(role: str, intent: str, data_dir: str) -> List[Dict[str, An
                     "falsify": f"换一段 {tm} 重跑，若斜率转负，趋势判断作废。",
                     "chart": {"shape": "time_series", "data": {
                         "title": f"{me} 随 {tm} 的变化", "unit": "—", "source": Path(f).name,
+                        "subtitle": f"{len(xl)} 期 · 单序列 · 时间轴按源表顺序",
+                        "note": "斜率为最小二乘拟合，不解释季节性",
                         "x": xl, "y": ys, "name": me}},
                 })
 
@@ -97,6 +99,8 @@ def derive_questions(role: str, intent: str, data_dir: str) -> List[Dict[str, An
                 "falsify": "加一组样本重算，若 r 掉到 0.5 以下，同向不成立。",
                 "chart": {"shape": "relationship", "data": {
                     "title": f"{a} vs {b}", "unit": "—", "source": Path(f).name,
+                    "subtitle": f"{len(pts)} 个样本 · 两列原始值 · 未剔除离群点",
+                    "note": "同向不等于因果，相关系数需配合业务解释",
                     "xlabel": a, "ylabel": b, "points": pts}},
             })
 
@@ -132,6 +136,8 @@ def derive_questions(role: str, intent: str, data_dir: str) -> List[Dict[str, An
                     "falsify": "若头部三组累计不到 50%，集中判断不成立。",
                     "chart": {"shape": "cross_section", "data": {
                         "title": f"分 {dm} 的 {me}", "unit": "—", "source": Path(f).name,
+                        "subtitle": f"{len(items)} 个 {dm} 分组 · {me} · 降序",
+                        "note": "按量级排序，长尾组不代表无价值",
                         "items": items}},
                 })
 

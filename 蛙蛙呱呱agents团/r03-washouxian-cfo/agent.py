@@ -262,41 +262,16 @@ def main(argv=None) -> int:
         return clarify_cli(ROLE, args.intent)
     if getattr(args, "skill", None) == "case":
         return _run_case_cli(args)
-    if getattr(args, "skill", None) == "deep":
-        from deep_analysis import run_deep_analysis
-        from agents.shared.kernel_report_adapter import render_deep_report
-        from agents.shared.role_profiles import get as get_profile
-        
-        out_dir = getattr(args, "out_dir", None) or os.path.join(role_workspace(os.path.dirname(__file__)), "deep_report")
-        res = run_deep_analysis(args.input)
-        
-        profile = get_profile(ROLE)
-        spec = {
-            "role_id": ROLE,
-            "agent_name": profile["name"],
-            "report_title": f"{profile['name']} · {args.intent}",
-            "executive_summary": res["decision"]["summary"],
-            "decision_directive": res["decision"]["directive"],
-            "kpi_metrics": [
-                {"label": "现金耗尽月", "value": f"{res['simulation'].get('cash_out_month', '—')} 个月", "status": "red"},
-                {"label": "烧钱倍数", "value": f"{res['simulation'].get('burn_multiple', '—')}x", "status": "red" if res['simulation'].get('burn_multiple', 0) > 2.0 else "green"},
-                {"label": "门禁通过", "value": f"{len([c for c in res['checks'] if c.get('ok')])}/{len(res['checks'])}", "status": "normal"},
-            ],
-            "analysis_sections": [
-                {"title": "1. 预算基线校验与滚动调节 (Rollforward)", "content": f"资产负债表与预算基线门禁核验完成，发现平衡差额 {res['base'].get('broken', [{}])[0].get('diff', 0) if res['base'].get('broken') else 0}。"},
-                {"title": "2. 现金流仿真与跑道预测 (Runway Simulation)", "content": f"模拟期现金预计于第 {res['simulation'].get('cash_out_month', '—')} 个月耗尽，触发预警项 {len(res['simulation'].get('triggers', []))} 个。"},
-                {"title": "3. 单位经济模型压力测试 (Unit Economics)", "content": f"对获客成本 (CAC) 与生命周期价值 (LTV) 做压力测试，安全边际面临收窄。"},
-            ],
-            "figures": [],
-            "guardrails": profile["guardrails"],
-            "rollout_plan": profile["rollout"],
-            "next_steps": profile["next_steps"],
-            "rca": res["decision"]["rca"],
-            "provenance": {"input": args.input, "tokens": res["tokens_in"] + res["tokens_out"]},
-        }
-        files = render_deep_report(spec, out_dir, "cfo_deep_report")
-        c.emit({"ok": True, "report_html": files["html"], "report_md": files["md"]})
-        return 0
+    # 2026-11-15 产线收敛：深度报告支线已删除。报告由 R01 统一出具。
+    if getattr(args, "skill", None) in ("deep", "depth"):
+        out = {"ok": False,
+               "message": "deep/depth 支线已下线（报告产线收敛为 R01 唯一出口）",
+               "next": "python guagua.py report run --intent <意图> --results <result.json...> --out <目录>"}
+        try:
+            c.emit(out)
+        except NameError:
+            emit_result(out)
+        return 1
     out = dispatch(args.skill, args.action, args.input)
     c.emit(out)
     return 0 if out.get("ok") else 1

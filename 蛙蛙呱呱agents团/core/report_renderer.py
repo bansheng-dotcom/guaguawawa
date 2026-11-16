@@ -156,6 +156,15 @@ def validate_contract(c: Dict[str, Any]) -> List[str]:
                     errs.append(f"sections[{i}].chart grouped_bar 系列超过 3（viz-03 纪律）")
             else:
                 errs.extend(_validate_ext_chart(ch, i))
+    # charts（复数）与 chart 走同一套渲染，至少要校验到不会 KeyError 的字段
+    for i, sec in enumerate(c.get("sections", [])):
+        for j, ch in enumerate(sec.get("charts") or []):
+            if not isinstance(ch, dict):
+                errs.append(f"sections[{i}].charts[{j}] 不是对象")
+                continue
+            for k in ("title", "type"):
+                if not ch.get(k):
+                    errs.append(f"sections[{i}].charts[{j}] 缺 {k}")
     return errs
 
 
@@ -557,8 +566,13 @@ CSS = """
       border-bottom: 1px solid var(--line); font-size: 12.6px; font-weight: 600;
     }
     .fig-unit { color: var(--muted); font-weight: 400; font-size: 11.8px; white-space: nowrap; }
+    .fig-sub {
+      padding: 0 18px 9px; background: var(--surface); border-bottom: 1px solid var(--line);
+      font-size: 11.4px; color: var(--muted);
+    }
     .fig-body { padding: 16px 16px 8px; overflow-x: auto; }
-    .fig-body svg { display: block; width: 100%; height: auto; min-width: 660px; }
+    /* 图按容器宽度等比缩放：固定 min-width 会在窄屏把右端标注切掉 */
+    .fig-body svg { display: block; width: 100%; height: auto; }
     .fig-src {
       padding: 8px 18px 12px; font-size: 11.6px; color: var(--faint);
       border-top: 1px dashed var(--line);
@@ -571,15 +585,11 @@ CSS = """
     }
     .reading ol { margin: 0; padding: 0; list-style: none; counter-reset: rd; }
     .reading li {
-      position: relative; padding-left: 30px; margin: 8px 0;
+      position: static; padding-left: 0; margin: 9px 0;
       font-size: 14.2px; line-height: 1.72; color: var(--ink-2);
     }
     .reading li::before {
-      counter-increment: rd; content: counter(rd);
-      position: absolute; left: 0; top: 3px; width: 20px; height: 20px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 50%; background: var(--accent-soft);
-      color: var(--accent); font-size: 11.4px; font-weight: 700;
+      counter-increment: none; content: none;
     }
     .reading li strong { color: var(--ink); }
 
@@ -1112,7 +1122,8 @@ CSS = """
     @media (max-width: 560px) {
       .kpis { grid-template-columns: 1fr; }
       .toc { grid-template-columns: 1fr; }
-      .fig-body svg { min-width: 560px; }
+      /* 图继续等比缩放；靠放大浏览器读图，不做横向滚动或裁切 */
+      .fig-body { padding: 10px 10px 6px; }
     }
     /* ================= 默认主题：sticker（墨绿封面 + 粗黑描边 + 贴纸卡片） ================= */
     body[data-theme="sticker"] {
@@ -1404,17 +1415,37 @@ def vbar_compare(title: str, vbars: List[Dict[str, Any]], annotate: Optional[Dic
     return "\n          ".join(out)
 
 
+_CHART_STATS: Dict[str, int] = {"total": 0, "v2": 0, "v1": 0, "fallback": 0, "error": 0}
+
+
+def chart_stats() -> Dict[str, int]:
+    """图表引擎出图计数：v2 成功 / 回退 v1 / 异常，供 CI 与门禁读取。"""
+    return dict(_CHART_STATS)
+
+
+def reset_chart_stats() -> None:
+    for key in _CHART_STATS:
+        _CHART_STATS[key] = 0
+
+
 def render_chart(chart: Dict[str, Any], theme: str = "sticker", engine: str = "") -> str:
     """内建 hbar/vbar；engine="v2" 时优先走研报级图表引擎，失败自动回退 v1。"""
+    _CHART_STATS["total"] += 1
     if str(engine) == "v2":
         try:
             from core.charts.v2 import render as v2_render  # 延迟导入
             # 图卡外框已经有标题/单位/来源，图里不再重复
             svg = v2_render({**chart, "_embed": True}, theme)
             if svg:
+                _CHART_STATS["v2"] += 1
                 return svg
-        except Exception:
-            pass  # v2 画不了就用 v1，不让报告因为一张图失败
+            _CHART_STATS["fallback"] += 1  # 数据不足，按设计回退
+        except Exception as exc:  # noqa: BLE001
+            _CHART_STATS["error"] += 1  # v2 画不了就用 v1，不让报告因为一张图失败
+            # 但降级必须留痕：否则报告「有图」其实是素图，没人知道
+            print(f"[chart] v2 渲染异常，回退 v1：{chart.get('type')} / "
+                  f"{type(exc).__name__}: {exc}", file=sys.stderr)
+    _CHART_STATS["v1"] += 1
     if chart["type"] == "hbar":
         return hbar_chart(chart["title"], chart["bars"], chart.get("footnote"))
     if chart["type"] == "vbar":
@@ -1474,7 +1505,9 @@ def render(c: Dict[str, Any]) -> str:
     theme = str(c.get("theme", "paper"))
     if theme not in THEMES:
         theme = "paper"
-    engine = str(c.get("chart_engine") or os.environ.get("GUAGUA_CHART_ENGINE") or "")
+    # 默认走研报级引擎 v2；契约显式写 chart_engine 或环境变量可覆盖（回滚开关）
+    engine = str(os.environ.get("GUAGUA_CHART_ENGINE")
+                 or c.get("chart_engine") or "v2")
     A(f'<body data-theme="{theme}"><div class="page">')
 
     # ---------------- 封面 ----------------
@@ -1519,7 +1552,7 @@ def render(c: Dict[str, Any]) -> str:
 
     if c.get("summary") or lead:
         A('<section id="summary">')
-        A('<h2 class="sec"><span class="num">00</span>结论先行</h2>')
+        A('<h2 class="sec">结论先行</h2>')
         _sum_style = str(c.get("summary_style") or "cards")
         if _sum_style == "list":
             # 紧凑结论列表：一行一条「判断（加粗）+ 数字证据」，对齐编辑级研究稿
@@ -1560,20 +1593,24 @@ def render(c: Dict[str, Any]) -> str:
     if len(visible) >= 3:
         A('<nav class="toc" aria-label="目录">')
         for s in visible:
-            A(f'<a href="#s-{esc(s["index"])}"><span class="n">{esc(s["index"])}</span>{esc(s["title"])}</a>')
+            A(f'<a href="#s-{esc(s["index"])}">{esc(s["title"])}</a>')
         A('</nav>')
 
     # ---------------- 分节 ----------------
     table_no = 0
+    app_no = 0
     for s in sections:
-        sid = f's-{s["index"]}'
         appendix = bool(s.get("appendix"))
         if appendix:
-            A(f'<details class="appendix" id="{sid}"><summary>附录 {esc(s["index"])} · {esc(s["title"])}</summary>'
+            # 附录单独编号 A1/A2：不能沿用正文序号，否则与末节同号
+            app_no += 1
+            sid = f's-A{app_no}'
+            A(f'<details class="appendix" id="{sid}"><summary>附录 A{app_no} · {esc(s["title"])}</summary>'
               '<div class="inner">')
         else:
+            sid = f's-{s["index"]}'
             A(f'<section id="{sid}">')
-            A(f'<h2 class="sec"><span class="num">{esc(s["index"])}</span>{esc(s["title"])}</h2>')
+            A(f'<h2 class="sec">{esc(s["title"])}</h2>')
             q = str(s.get("question") or "")
             if q.startswith(str(s["title"]) + "："):
                 q = q[len(str(s["title"])) + 1:]
@@ -1585,9 +1622,9 @@ def render(c: Dict[str, Any]) -> str:
 
         intro = s.get("intro") or []
         for i, p in enumerate(intro):
-            st = f'<strong>{esc(p["strong"])}</strong>' if p.get("strong") else ""
+            lb = f' data-label="{esc(p["strong"])}"' if p.get("strong") else ""
             cls = ' class="sec-lede"' if i == 0 else ""
-            A(f'<p{cls}>{st}{esc(p["text"])}</p>')
+            A(f'<p{cls}{lb}>{esc(p["text"])}</p>')
 
         readings = s.get("reading") or []
         if readings:
@@ -1596,8 +1633,8 @@ def render(c: Dict[str, Any]) -> str:
                 if isinstance(r, str):
                     A(f'<li>{esc(r)}</li>')
                 else:
-                    st = f'<strong>{esc(r["strong"])}</strong>' if r.get("strong") else ""
-                    A(f'<li>{st}{esc(r.get("text", ""))}</li>')
+                    lb = f' data-label="{esc(r["strong"])}"' if r.get("strong") else ""
+                    A(f'<li{lb}>{esc(r.get("text", ""))}</li>')
             A('</ol></div>')
 
         charts = s.get("charts") or ([s["chart"]] if s.get("chart") else [])
@@ -1610,11 +1647,18 @@ def render(c: Dict[str, Any]) -> str:
                 A('<figcaption class="fig-head">')
                 A(f'<span>{esc(ch["title"])}</span>')
                 A(f'<span class="fig-unit">{esc(ch.get("unit_meta", ""))}</span>')
-                A('</figcaption><div class="fig-body">')
+                A('</figcaption>')
+                # 口径副标题由卡框承担：图内已清空标题/副标题/单位/来源，避免双层标题
+                if ch.get("subtitle"):
+                    A(f'<div class="fig-sub">{esc(ch["subtitle"])}</div>')
+                A('<div class="fig-body">')
                 A(render_chart(ch, theme=theme, engine=engine))
                 A('</div>')
-                if ch.get("source"):
-                    A(f'<div class="fig-src">{esc(ch["source"])}</div>')
+                _src = str(ch.get("source") or "").strip()
+                _note = str(ch.get("note") or "").strip()
+                _foot = "　·　".join(x for x in (_src, _note) if x)
+                if _foot:
+                    A(f'<div class="fig-src">{esc(_foot)}</div>')
                 A('</figure>')
             if grid:
                 A('</div>')
@@ -1686,6 +1730,8 @@ def render(c: Dict[str, Any]) -> str:
                 A('<colgroup>' + ''.join(f'<col style="width:{w}">' for w in t["col_widths"]) + '</colgroup>')
             A('<thead><tr>')
             for h in t["columns"]:
+                if isinstance(h, str):
+                    h = {"text": h}
                 if h.get("num"):
                     cls = ' class="num"'
                 elif h.get("left"):
@@ -1697,6 +1743,8 @@ def render(c: Dict[str, Any]) -> str:
             for row in t["rows"]:
                 A('<tr>')
                 for cell in row:
+                    if isinstance(cell, str):
+                        cell = {"text": cell}
                     if cell.get("row_label"):
                         A(f'<td>{esc(cell["text"])}</td>')
                     elif cell.get("lines"):
@@ -1737,12 +1785,10 @@ def render(c: Dict[str, Any]) -> str:
     # ---------------- 口径 ----------------
     if c.get("notes"):
         A('<section class="notes" id="notes">')
-        A('<h3 class="notes-title">口径、来源与证据边界</h3>')
         A(f'<details open><summary>{esc(c["notes"].get("summary", "口径、来源与证据边界"))}</summary>')
         A('<div class="notes-copy">')
         for it in c["notes"].get("items", []):
-            label = f'<strong>{esc(it["label"])}</strong>' if it.get("label") else ""
-            A(f'<p>{label}{esc(it["text"])}</p>')
+            A(f'<p>{esc(it["text"])}</p>')
         if c["notes"].get("tail"):
             A(f'<p>{esc(c["notes"]["tail"])}</p>')
         A('</div></details></section>')
@@ -1797,7 +1843,8 @@ def main() -> int:
     print(json.dumps({"ok": True, "output": os.path.abspath(args.output),
                       "bytes": len(html.encode("utf-8")),
                       "sections": len(c["sections"]),
-                      "metrics": len(c["metric_strip"])}, ensure_ascii=False))
+                      "metrics": len(c["metric_strip"]),
+                      "chart_stats": chart_stats()}, ensure_ascii=False))
     return 0
 
 

@@ -1,0 +1,122 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r08",
+  "name": "蛙建成",
+  "title": "MVP 工程",
+  "domain": "快速验证与工程",
+  "keywords": [
+    "MVP",
+    "验证",
+    "原型",
+    "实验",
+    "上线",
+    "迭代"
+  ],
+  "books": [
+    {
+      "title": "The Lean Startup",
+      "author": "Eric Ries",
+      "year": 2011,
+      "lang": "en",
+      "concept": "构建-测量-学习",
+      "move": "最小切片先行"
+    },
+    {
+      "title": "Sprint",
+      "author": "Jake Knapp",
+      "year": 2016,
+      "lang": "en",
+      "concept": "五天冲刺",
+      "move": "一周内拿到用户反馈"
+    },
+    {
+      "title": "Testing Business Ideas",
+      "author": "Bland & Osterwalder",
+      "year": 2019,
+      "lang": "en",
+      "concept": "假设与实验库",
+      "move": "按证据强度选实验"
+    },
+    {
+      "title": "精益创业",
+      "author": "Eric Ries",
+      "year": 2011,
+      "lang": "zh",
+      "concept": "最小可行产品",
+      "move": "避免做完整产品"
+    },
+    {
+      "title": "四步创业法",
+      "author": "Steve Blank",
+      "year": 2005,
+      "lang": "zh",
+      "concept": "客户开发",
+      "move": "先走出办公室"
+    }
+  ],
+  "methods": [
+    {
+      "name": "假设卡",
+      "formula": "假设/证据/判据/实验",
+      "when": "把想法变成可验证"
+    },
+    {
+      "name": "MVP 切片",
+      "formula": "只保留验证核心假设的最小功能",
+      "when": "省时间"
+    },
+    {
+      "name": "预注册",
+      "formula": "先写指标、样本、停止条件",
+      "when": "防事后解释"
+    },
+    {
+      "name": "五天冲刺",
+      "formula": "地图→草图→决策→原型→测试",
+      "when": "快速拿反馈"
+    },
+    {
+      "name": "漏斗",
+      "formula": "曝光→点击→激活→付费",
+      "when": "定位卡点"
+    },
+    {
+      "name": "停止规则",
+      "formula": "达到/未达到判据即停",
+      "when": "防沉没成本"
+    }
+  ],
+  "kpis": [
+    "验证周期",
+    "假设通过率",
+    "获客成本",
+    "激活率",
+    "付费转化",
+    "留存"
+  ],
+  "decisions": [
+    "做/不做",
+    "先验证哪个假设",
+    "继续/停止",
+    "继续迭代/转向/放弃"
+  ],
+  "foresight": [
+    "需求真伪",
+    "渠道成本",
+    "合规"
+  ],
+  "failure_modes": [
+    "做完整产品才验证",
+    "无杀死标准",
+    "样本偏",
+    "把意见当需求"
+  ],
+  "report_sections": [
+    "假设",
+    "最小切片",
+    "实验设计",
+    "结果",
+    "决策",
+    "下一步"
+  ]
+}

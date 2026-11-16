@@ -3,21 +3,23 @@
 
 给 R01~R20 的 `agent.py` 提供三件公共能力，避免 20 份重复实现（META-001 反模式 #8）：
 
-1. `bootstrap()`   —— 把仓库根 / agents 根注入 sys.path，修掉「异构 cwd 下
-                      `ModuleNotFoundError: No module named 'agents'`」这类历史故障。
-2. `emit(...)`     —— 与旧 `core.report_bridge.emit` **签名兼容**的报告出口，
-                      内部改走《DSH-SOP-REP-001》商业决策报告引擎
-                      （五段式 + 三级归因 + 护栏熔断 + 阶梯灰度）。
-3. `log_event(...)` —— 结构化运行日志，按角色分文件落盘到
-                      `agents/workspace/logs/<role>.jsonl`，替代 print 当日志。
+1. `bootstrap()`   —— 把仓库根 / agents 根注入 sys.path。
+2. `emit(...)`     —— **证据出口**（2026-11-15 起）。执行角色不再自己出报告，
+                      只把本次技能的真实 result 落成 `result.json` + `evidence.json`，
+                      交给 R01 解读后统一出具唯一报告（core/report_flow.py）。
+3. `log_event(...)` —— 结构化运行日志，按角色分文件落盘到 `workspace/logs/<role>.jsonl`。
+
+为什么改：过去每个角色各有报告模板/引擎（REP-001 五段式、内核 spec、v2/v3 批量线），
+同一次执行能产出 20 种版式、20 套口径。收敛后「报告」只有一个作者（R01），
+执行角色只对**数字与证据**负责。
 
 设计纪律：
-    - 报告失败**不静默**：写 `REPORT_FAILED.md` 说明失败原因与堆栈摘要，
-      并返回 ERROR 日志，绝不假装产出成功。
-    - 报告内容全部来自本次 result，不注入任何演示数字。
+    - result 落盘失败不静默：写 `EVIDENCE_FAILED.md` 并返回 ERROR 日志。
+    - 证据内容全部来自本次 result，不注入任何演示数字。
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import sys
@@ -43,7 +45,6 @@ def bootstrap() -> None:
 
 bootstrap()
 
-from agents.shared.report_engine import emit_role_report  # noqa: E402
 from core import protocol  # noqa: E402
 
 
@@ -69,162 +70,94 @@ def log_event(role: str, event: str, payload: Optional[Dict[str, Any]] = None,
 
 
 # --------------------------------------------------------------------------- #
-# 报告出口（签名兼容 core.report_bridge.emit）
+# 证据出口（唯一职责：把 result 交给 R01，不出报告）
 # --------------------------------------------------------------------------- #
-ENGINE_ENV = "GUAGUA_REPORT_ENGINE"   # auto（默认）| kernel | legacy
-
-
-def _engine_choice(role: str) -> str:
-    """选引擎：auto 时按 spec 是否存在决定；可用环境变量强制回滚。"""
-    forced = os.environ.get(ENGINE_ENV, "auto").strip().lower()
-    if forced in ("kernel", "legacy"):
-        return forced
-    try:
-        from core import report_bridge
-        return "kernel" if report_bridge.use_kernel(role) else "legacy"
-    except Exception:  # noqa: BLE001  内核不可用不该挡住出报告
-        return "legacy"
-
-
-def _emit_kernel(role, name, title, result, skill, action, intent,
-                 out_dir, md_name, dataset, data=None):
-    """内核路径：result → L1 contract → core/report_renderer（唯一渲染器）。
-
-    渲染**在进程内**完成（不走 report_bridge.render_html 的子进程）：
-    角色测试本身常以「子进程 + 捕获输出」运行，再嵌套一层 subprocess 会在
-    Windows 上出现管道继承导致的挂起（实测 r14 pytest 卡死）。渲染器是纯函数，
-    进程内调用既快又不会死锁；`report_bridge` 的子进程路径保留给独立 CLI 用。
-    """
-    from core import protocol, report_bridge, report_renderer
-
-    contract, _fid = report_bridge.build_kernel_contract(
-        role, name, title, result, skill, action, intent, dataset=dataset,
-        data=data)
-    errs = report_renderer.validate_contract(contract)
-    if errs:
-        raise RuntimeError("contract: " + "；".join(errs[:3]))
-
-    charts = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                          "core", "charts")
-    if os.path.isdir(charts):
-        report_renderer.set_chart_dir(charts)
-    doc = report_renderer.render(contract)
-
-    out_html = os.path.join(out_dir, md_name + ".html")
-    out_md = os.path.join(out_dir, md_name + ".md")
-    with open(out_html, "w", encoding="utf-8", newline="\n") as f:
-        f.write(doc)
-    report_bridge.write_markdown(contract, out_md)
-    return [protocol.Port(md_name + ".md", "report", "text/markdown"),
-            protocol.Port(md_name + ".html", "report", "text/html")]
-
-
 def emit(role: str, name: str, title: str, result: Dict[str, Any],
          skill: str, action: str, intent: str, out_dir: str,
-         md_name: str, html_name: Optional[str] = None,
+         md_name: str = "result", html_name: Optional[str] = None,
          input_path: Optional[str] = None,
          report_slug: Optional[str] = None,
          dataset: Optional[List[Dict[str, Any]]] = None,
          data: Optional[Dict[str, Any]] = None,
          **legacy: Any) -> List[Any]:
-    """把一次技能真实运行结果，渲染成 REP-001 双格式报告，返回 Port 列表。
+    """执行角色的出口：落 `result.json` + `evidence.json`，返回 data Port。
 
-    引擎选择（2026-11-12 起）：
-      - 该角色有 report_specs/roles/<role>.yaml 且不在 legacy 名单 → **内核**
-        （core/report_kernel + core/report_renderer：版式四规则、保真分数、
-        规格校验、可 seal/可 diff）；
-      - 否则回落 REP-001 五段式引擎（旧路径，保留不删，可用环境变量强制）。
-    回滚：`GUAGUA_REPORT_ENGINE=legacy python agent.py ...`
+    与旧签名兼容（md_name/html_name/dataset/data/legacy 全部接受并忽略渲染语义），
+    但**不再生成 HTML/MD 报告**：报告由 R01 在 core/report_flow.py 里统一出具。
 
-    :param role: 角色 id（r01..r20）
-    :param name: 角色名（蛙全局…），仅用于日志
-    :param title: 角色职称，仅用于日志
-    :param result: 技能 run() 的原始返回（必须是真实执行结果）
-    :param skill/action: 本次技能与动作，用于报告标题与可复现命令
-    :param intent: 任务意图，进报告标题
-    :param out_dir: 产物目录
-    :param md_name: 产物前缀（如 coo_report → coo_report.md / .html）
-    :param html_name: 兼容旧签名，忽略（HTML 名与 md_name 同名）
-    :param input_path: 本次输入文件绝对路径，用于计算 SHA256 供复算
-    :param dataset: 观测集（可选）；给了才产出保留率/溯源率/弃置率
-    :param data: 技能输入 JSON（可选）；PRD 类角色内容在输入不在 result，必须透传
-    :param legacy: 兼容旧调用（specialist/chart_dir/doc_type/pdf 等），忽略
-    :return: [Port(.md), Port(.html)]
+    兼容字段（dataset/data/report_slug）只记录在 evidence 里供 R01 取用：
+    PRD 类角色的内容在输入不在 result，R01 仍能从 evidence.data 拿到。
+
+    :return: [Port("result.json", "data")] —— 交给 R01 的唯一产物。
     """
     os.makedirs(out_dir, exist_ok=True)
-    slug = report_slug or md_name
+    result = result if isinstance(result, dict) else {"ok": True, "value": result}
+    result.setdefault("skill", skill)
+    result.setdefault("action", action)
+    result.setdefault("role", role)
+    result.setdefault("intent", intent)
+
+    result_path = os.path.join(out_dir, "result.json")
     payload = {
-        "skill": skill, "action": action, "ok": bool(result.get("ok")),
-        "out_dir": out_dir, "md_name": md_name,
+        "role": role, "name": name, "title": title,
+        "skill": skill, "action": action, "intent": intent,
+        "ok": bool(result.get("ok")),
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime()),
+        "result_file": os.path.basename(result_path),
+        "input_path": input_path,
         "has_data": bool(data),
-        "ignored_legacy": sorted(legacy) if legacy else [],
+        "dataset_rows": len(dataset or []),
+        "legacy_kwargs": sorted(legacy) if legacy else [],
     }
-
-    engine = _engine_choice(role)
-    if engine == "kernel":
-        try:
-            ports = _emit_kernel(role, name, title, result, skill, action, intent,
-                                 out_dir, md_name, dataset, data=data)
-            payload.update({"engine": "kernel",
-                            "html": ports[1].name,
-                            "md": ports[0].name})
-            log_event(role, "report_emitted", payload)
-            return ports
-        except Exception as exc:  # noqa: BLE001  内核失败回落旧引擎，但必须留痕
-            payload.update({"engine": "kernel->legacy",
-                            "kernel_error": f"{type(exc).__name__}: {exc}"})
-            log_event(role, "report_kernel_fallback", payload, level="WARN")
-
     try:
-        files = emit_role_report(role, result, skill, action, intent, out_dir,
-                                 input_path=input_path, report_slug=slug)
-        payload.update({"engine": "legacy-rep001",
-                        "html": os.path.basename(files["html"]),
-                        "md": os.path.basename(files["md"])})
-        log_event(role, "report_emitted", payload)
-        return [
-            protocol.Port(md_name + ".md", "report", "text/markdown"),
-            protocol.Port(md_name + ".html", "report", "text/html"),
-        ]
-    except Exception as exc:  # noqa: BLE001  报告失败必须可见，不得静默
+        with open(result_path, "w", encoding="utf-8", newline="\n") as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+        payload["result_hash"] = hashlib.sha256(
+            json.dumps(result, ensure_ascii=False, sort_keys=True,
+                       default=str).encode("utf-8")).hexdigest()[:16]
+        with open(os.path.join(out_dir, "evidence.json"), "w",
+                  encoding="utf-8", newline="\n") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+        if data is not None:
+            with open(os.path.join(out_dir, "input.json"), "w",
+                      encoding="utf-8", newline="\n") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+    except OSError as exc:  # 证据落盘失败必须可见
         tb = traceback.format_exc()
-        fail_md = os.path.join(out_dir, "REPORT_FAILED.md")
-        with open(fail_md, "w", encoding="utf-8", newline="\n") as f:
-            f.write(
-                f"# 报告出具失败 · {role.upper()} {name}\n\n"
-                f"- 技能：`{skill}/{action}`\n"
-                f"- 意图：{intent}\n"
-                f"- 异常：`{type(exc).__name__}: {exc}`\n\n"
-                "## 说明\n\n"
-                "本次技能已真实执行，但报告渲染未通过 REP-001 门禁。"
-                "请按下方堆栈修复后重跑，禁止把本文件当作交付物。\n\n"
-                f"```\n{tb}\n```\n")
-        payload.update({"engine": "legacy-rep001", "error": f"{type(exc).__name__}: {exc}"})
-        log_event(role, "report_failed", payload, level="ERROR")
-        return [protocol.Port("REPORT_FAILED.md", "report", "text/markdown")]
+        try:
+            with open(os.path.join(out_dir, "EVIDENCE_FAILED.md"), "w",
+                      encoding="utf-8", newline="\n") as f:
+                f.write(f"# 证据落盘失败 · {role}\n\n- 技能：`{skill}/{action}`\n"
+                        f"- 异常：`{type(exc).__name__}: {exc}`\n\n```\n{tb}\n```\n")
+        except OSError:
+            pass
+        log_event(role, "evidence_failed", {**payload, "error": str(exc)},
+                  level="ERROR")
+        return [protocol.Port("EVIDENCE_FAILED.md", "artifact", "text/markdown")]
+
+    log_event(role, "evidence_emitted", payload)
+    return [protocol.Port("result.json", "data", "application/json")]
 
 
 # --------------------------------------------------------------------------- #
-# 一次技能执行 + 报告的便捷封装（供新增角色与回归脚本使用）
+# 一次技能执行的便捷封装（供新增角色与回归脚本使用）
 # --------------------------------------------------------------------------- #
-def run_and_report(role: str, name: str, title: str, skill: str, action: str,
-                   intent: str, out_dir: str, run_callable,
-                   input_path: Optional[str] = None,
-                   md_name: Optional[str] = None) -> Dict[str, Any]:
-    """执行 run_callable() 拿到 result，落 result.json + 双格式报告并返回结果。"""
+def run_and_capture(role: str, name: str, title: str, skill: str, action: str,
+                    intent: str, out_dir: str, run_callable,
+                    input_path: Optional[str] = None,
+                    md_name: Optional[str] = None) -> Dict[str, Any]:
+    """执行 run_callable() 拿到 result，落 result.json + evidence.json 并返回。"""
     result = run_callable()
     if not isinstance(result, dict):
         result = {"ok": True, "value": result}
-    result.setdefault("skill", skill)
-    result.setdefault("action", action)
-    os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, f"{skill}.json"), "w",
-              encoding="utf-8") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
     emit(role=role, name=name, title=title, result=result, skill=skill,
          action=action, intent=intent, out_dir=out_dir,
-         md_name=md_name or f"{role}_report", input_path=input_path)
+         md_name=md_name or "result", input_path=input_path)
     return result
+
+
+# 兼容旧名（外部脚本/回归可能还在用）
+run_and_report = run_and_capture
 
 
 # --------------------------------------------------------------------------- #
@@ -240,6 +173,7 @@ def _role_dir(role: str) -> str:
 _META_HELP = """\
 用法：
   python agent.py report <skill> <action> --input <file> [--intent <一句话意图>]
+      ↑ 跑技能并把 result 落成证据（不再出报告；报告由 R01 统一出具）
   python agent.py test                 # 跑本角色 tests/（pytest 绝对路径）
   python agent.py logs [--n 5]         # 查看本角色最近运行日志
 """
@@ -340,21 +274,20 @@ def handle_meta_command(argv: List[str], role: str) -> Optional[int]:
     if not isinstance(result, dict):
         result = {"ok": True, "value": result}
 
-    out_dir = os.path.join(default_root(), "reports", role,
+    out_dir = os.path.join(default_root(), "artifacts", role, "evidence",
                            f"{skill}-{action}")
-    res = run_and_report(role=role, name=profile["name"],
-                         title=profile["title"], skill=skill, action=action,
-                         intent=intent, out_dir=out_dir,
-                         run_callable=lambda: result, input_path=input_path,
-                         md_name="report")
+    res = run_and_capture(role=role, name=profile["name"],
+                          title=profile["title"], skill=skill, action=action,
+                          intent=intent, out_dir=out_dir,
+                          run_callable=lambda: result, input_path=input_path,
+                          md_name="result")
     print(json.dumps({
         "ok": bool(res.get("ok")), "role": role, "skill": skill, "action": action,
         "verdict": res.get("verdict"), "checks": len(res.get("checks") or []),
-        "report_html": os.path.join(out_dir, "report.html"),
-        "report_md": os.path.join(out_dir, "report.md"),
+        "evidence": os.path.join(out_dir, "result.json"),
     }, ensure_ascii=False))
     return 0 if res.get("ok") else 1
 
 
-__all__ = ["bootstrap", "emit", "log_event", "run_and_report",
+__all__ = ["bootstrap", "emit", "log_event", "run_and_capture", "run_and_report",
            "handle_meta_command", "LOG_DIR"]

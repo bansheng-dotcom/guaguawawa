@@ -1,0 +1,2276 @@
+[
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "intent",
+  "desc": "意图识别与任务分级：brief/clarify/triage",
+  "actions": [
+   "brief",
+   "clarify",
+   "triage"
+  ],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s01_intent.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "decompose",
+  "desc": "跨部门拆解：taskcard/wave/route",
+  "actions": [],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s02_decompose.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "decide",
+  "desc": "经营与硬决策：reversibility/card/escalate",
+  "actions": [],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s03_decide.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "redteam",
+  "desc": "反方质询：devil/crosseval/grove",
+  "actions": [
+   "crosseval",
+   "devil",
+   "grove"
+  ],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s04_redteam.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "companyos",
+  "desc": "公司OS与治理：os/scorecard/ids/freeze",
+  "actions": [],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s05_companyos.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "decisionlog",
+  "desc": "决策留痕与复盘：entry/conflict/retro",
+  "actions": [],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s06_decisionlog.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "boardroom",
+  "desc": "高层汇报与创始人陪练：memo/coach",
+  "actions": [],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s07_boardroom.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "ev",
+  "desc": "决策期望值：EV 排序 + 盈亏平衡 p + 敏感性",
+  "actions": [],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s08_ev.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r01-waquanju-ceo",
+  "skill": "interpret",
+  "desc": "解读：result → 带数字的判断（结论/驱动/边界/动作），供 R01 出唯一报告",
+  "actions": [
+   "check",
+   "judge",
+   "sections"
+  ],
+  "required": [],
+  "file": "r01-waquanju-ceo/skills/s09_interpret.py",
+  "role": "r01"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "schedule",
+  "desc": "工作拆解与排期：wbs/sprint/critpath",
+  "actions": [],
+  "required": [],
+  "file": "r02-wapaibu-coo/skills/s01_schedule.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "capacity",
+  "desc": "容量与委派：check/delegate/split",
+  "actions": [],
+  "required": [],
+  "file": "r02-wapaibu-coo/skills/s02_capacity.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "handoff",
+  "desc": "交接与验收追踪：package/accept/trace",
+  "actions": [],
+  "required": [],
+  "file": "r02-wapaibu-coo/skills/s03_handoff.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "retro",
+  "desc": "复盘与事故分析：postmortem/grade/action",
+  "actions": [],
+  "required": [],
+  "file": "r02-wapaibu-coo/skills/s04_retro.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "process",
+  "desc": "流程与 SOP：sop/waste/meeting",
+  "actions": [],
+  "required": [],
+  "file": "r02-wapaibu-coo/skills/s05_process.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "knowledge",
+  "desc": "知识运营：digest/entry/search",
+  "actions": [],
+  "required": [],
+  "file": "r02-wapaibu-coo/skills/s06_knowledge.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "portfolio",
+  "desc": "项目群与 Agent 编排：status/plan/graph",
+  "actions": [],
+  "required": [],
+  "file": "r02-wapaibu-coo/skills/s07_portfolio.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "little",
+  "desc": "利特尔法则：WIP = 到达率 × 周期（瓶颈判断）",
+  "actions": [],
+  "required": [
+   "--arrival",
+   "--cycle"
+  ],
+  "file": "r02-wapaibu-coo/skills/s10_little.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r02-wapaibu-coo",
+  "skill": "queue",
+  "desc": "排队等待：Kingman 近似（利用率/等待/在制品）",
+  "actions": [],
+  "required": [
+   "--arrivals",
+   "--service"
+  ],
+  "file": "r02-wapaibu-coo/skills/s11_queue.py",
+  "role": "r02"
+ },
+ {
+  "role_path": "r03-washouxian-cfo",
+  "skill": "financial",
+  "desc": "财务报表与月结：rollforward/recon/variance",
+  "actions": [],
+  "required": [],
+  "file": "r03-washouxian-cfo/skills/s01_financial.py",
+  "role": "r03"
+ },
+ {
+  "role_path": "r03-washouxian-cfo",
+  "skill": "cfo",
+  "desc": "CFO 经营诊断：runway/unitecon/healthcheck",
+  "actions": [],
+  "required": [],
+  "file": "r03-washouxian-cfo/skills/s02_cfo.py",
+  "role": "r03"
+ },
+ {
+  "role_path": "r03-washouxian-cfo",
+  "skill": "tax",
+  "desc": "税务与申报边界：iso/rmd/safeharbor",
+  "actions": [],
+  "required": [],
+  "file": "r03-washouxian-cfo/skills/s03_tax.py",
+  "role": "r03"
+ },
+ {
+  "role_path": "r03-washouxian-cfo",
+  "skill": "contract",
+  "desc": "合同与政策：scan/policy/redline",
+  "actions": [],
+  "required": [],
+  "file": "r03-washouxian-cfo/skills/s04_contract.py",
+  "role": "r03"
+ },
+ {
+  "role_path": "r03-washouxian-cfo",
+  "skill": "privacy",
+  "desc": "隐私与数据安全：map/dsr/minimize",
+  "actions": [],
+  "required": [],
+  "file": "r03-washouxian-cfo/skills/s05_privacy.py",
+  "role": "r03"
+ },
+ {
+  "role_path": "r03-washouxian-cfo",
+  "skill": "aigov",
+  "desc": "AI 治理与披露：frameworks/aiclassify/disclose",
+  "actions": [],
+  "required": [],
+  "file": "r03-washouxian-cfo/skills/s06_aigov.py",
+  "role": "r03"
+ },
+ {
+  "role_path": "r03-washouxian-cfo",
+  "skill": "audit",
+  "desc": "认证与审计留痕：retention/mockaudit/evidence",
+  "actions": [],
+  "required": [],
+  "file": "r03-washouxian-cfo/skills/s07_audit.py",
+  "role": "r03"
+ },
+ {
+  "role_path": "r03-washouxian-cfo",
+  "skill": "risk",
+  "desc": "广告/KYC-AML/投资风控：kyc/aml/adreview",
+  "actions": [],
+  "required": [],
+  "file": "r03-washouxian-cfo/skills/s08_risk.py",
+  "role": "r03"
+ },
+ {
+  "role_path": "r04-watiaoci-reviewer",
+  "skill": "artifact",
+  "desc": "成品实体核验：inventory（存在/非空/大小）与 verify（EXISTS/SUBSTANTIVE/WIRED 三级证据链）",
+  "actions": [
+   "inventory",
+   "verify"
+  ],
+  "required": [],
+  "file": "r04-watiaoci-reviewer/skills/s01_artifact.py",
+  "role": "r04"
+ },
+ {
+  "role_path": "r04-watiaoci-reviewer",
+  "skill": "gate",
+  "desc": "硬门禁复核：run（逐命令真实执行、退出码是唯一信号）与 audit（STRENGTH-001..007 门禁强度审计）",
+  "actions": [
+   "audit",
+   "run"
+  ],
+  "required": [],
+  "file": "r04-watiaoci-reviewer/skills/s02_gate.py",
+  "role": "r04"
+ },
+ {
+  "role_path": "r04-watiaoci-reviewer",
+  "skill": "criteria",
+  "desc": "外置判据审查：review（三态 pass/warn/fail，PASS 仅当 0 fail）与 delta（复跑全查 + fixed/new/remaining 对照）",
+  "actions": [
+   "delta",
+   "review"
+  ],
+  "required": [
+   "--state"
+  ],
+  "file": "r04-watiaoci-reviewer/skills/s03_criteria.py",
+  "role": "r04"
+ },
+ {
+  "role_path": "r04-watiaoci-reviewer",
+  "skill": "quality",
+  "desc": "独立质量评价：critique（禁词/证据链/绝对词三查 + soundness findings）与 converge（总 issue 不再下降即收敛）",
+  "actions": [
+   "converge",
+   "critique"
+  ],
+  "required": [
+   "--compare"
+  ],
+  "file": "r04-watiaoci-reviewer/skills/s04_quality.py",
+  "role": "r04"
+ },
+ {
+  "role_path": "r04-watiaoci-reviewer",
+  "skill": "facts",
+  "desc": "事实与来源检查：check（五维核查：可追溯/来源质量/引用/精度/覆盖）与 trace（单数字回溯）",
+  "actions": [
+   "check",
+   "trace"
+  ],
+  "required": [
+   "--text"
+  ],
+  "file": "r04-watiaoci-reviewer/skills/s05_facts.py",
+  "role": "r04"
+ },
+ {
+  "role_path": "r04-watiaoci-reviewer",
+  "skill": "strengths",
+  "desc": "保留优点与复评：mark（keep_list 必带 why_keep/evidence）与 recheck（只评本轮修改：降级须理由/新 FAIL 须落在 change 区/resolved 不重报）",
+  "actions": [
+   "mark",
+   "recheck"
+  ],
+  "required": [
+   "--new"
+  ],
+  "file": "r04-watiaoci-reviewer/skills/s06_strengths.py",
+  "role": "r04"
+ },
+ {
+  "role_path": "r04-watiaoci-reviewer",
+  "skill": "human",
+  "desc": "人工评审工作流：package（评审包，reviewer≠producer 红线）/ ingest（批次契约校验+逐字回填计划）/ ack（staged_assets 全部 copied 才可确认）",
+  "actions": [
+   "ack",
+   "ingest",
+   "package"
+  ],
+  "required": [],
+  "file": "r04-watiaoci-reviewer/skills/s07_human.py",
+  "role": "r04"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "research",
+  "desc": "深度研究：证据台账与研究报告",
+  "actions": [
+   "ledger",
+   "report"
+  ],
+  "required": [],
+  "file": "r05-washenyuan-research/skills/s01_research.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "industry",
+  "desc": "行业与市场扫描：格局、集中度、利润结构",
+  "actions": [
+   "concentration",
+   "landscape"
+  ],
+  "required": [],
+  "file": "r05-washenyuan-research/skills/s02_industry.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "competitor",
+  "desc": "公司与竞品情报：矩阵、Battlecard",
+  "actions": [
+   "battlecard",
+   "matrix"
+  ],
+  "required": [],
+  "file": "r05-washenyuan-research/skills/s03_competitor.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "business",
+  "desc": "商业模式与变现：画布、单位经济",
+  "actions": [
+   "canvas",
+   "monetize"
+  ],
+  "required": [],
+  "file": "r05-washenyuan-research/skills/s04_business.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "sizing",
+  "desc": "市场规模测算：TAM/SAM/SOM 双口径互证与敏感性",
+  "actions": [
+   "sensitivity",
+   "size"
+  ],
+  "required": [],
+  "file": "r05-washenyuan-research/skills/s05_sizing.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "scenario",
+  "desc": "宏观与情景推演：PESTEL、事前尸检",
+  "actions": [
+   "pestel",
+   "premortem"
+  ],
+  "required": [],
+  "file": "r05-washenyuan-research/skills/s06_scenario.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "auto",
+  "desc": "自动化研究辅助：研究计划与运行追踪",
+  "actions": [
+   "plan",
+   "track"
+  ],
+  "required": [],
+  "file": "r05-washenyuan-research/skills/s07_auto.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "matched",
+  "desc": "匹配差分：两组均值差 + 自助法 CI + 置换 p",
+  "actions": [],
+  "required": [
+   "--treat",
+   "--control",
+   "--col"
+  ],
+  "file": "r05-washenyuan-research/skills/s09_matched.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r05-washenyuan-research",
+  "skill": "tam-mc",
+  "desc": "TAM 蒙特卡洛：渗透率×ARPU，输出 p10/p50/p90",
+  "actions": [],
+  "required": [
+   "--population",
+   "--pen-low",
+   "--pen-high",
+   "--arpu-low",
+   "--arpu-high"
+  ],
+  "file": "r05-washenyuan-research/skills/s10_tam_mc.py",
+  "role": "r05"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "semantics",
+  "desc": "指标与语义建模：validate / tree / link / compute / reconcile",
+  "actions": [
+   "compute",
+   "link",
+   "reconcile",
+   "tree",
+   "validate"
+  ],
+  "required": [
+   "--data",
+   "--data",
+   "--a",
+   "--b"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s01_semantics.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "quality",
+  "desc": "数据清洗与质量：六维质检 / 脏数据清洗 / IQR 离群标记",
+  "actions": [
+   "audit",
+   "clean"
+  ],
+  "required": [],
+  "file": "r06-wadeqing-analyst/skills/s02_quality.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "explore",
+  "desc": "",
+  "actions": [
+   "cohort",
+   "funnel",
+   "groupby",
+   "metrics",
+   "rfm",
+   "saas",
+   "segment",
+   "time_series",
+   "trend"
+  ],
+  "required": [
+   "--mrr",
+   "--active_users",
+   "--churn_rate",
+   "--features"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s03_explore.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "rootcause",
+  "desc": "根因与贡献度：贡献分解 / 下钻与帕累托",
+  "actions": [
+   "decompose",
+   "drilldown"
+  ],
+  "required": [
+   "--dim",
+   "--value",
+   "--period",
+   "--before",
+   "--after",
+   "--dim",
+   "--value"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s04_rootcause.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "abtest",
+  "desc": "A/B 实验：lift + 显著性 + SRM 失配检测（能力域5拆细）",
+  "actions": [],
+  "required": [
+   "--group",
+   "--control",
+   "--treatment",
+   "--metric"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_abtest.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "anova",
+  "desc": "单因素 ANOVA + η² 效应量（能力域5拆细）",
+  "actions": [],
+  "required": [
+   "--value",
+   "--group"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_anova.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "causal",
+  "desc": "因果推断四步（dowhy 口径）：混淆识别/后门调整/安慰剂反驳（能力域5拆细）",
+  "actions": [],
+  "required": [
+   "--outcome",
+   "--treatment",
+   "--confounders"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_causal.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "chi2",
+  "desc": "卡方独立性检验 + Cramér's V（能力域5拆细）",
+  "actions": [],
+  "required": [
+   "--row",
+   "--col"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_chi2.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "correlate",
+  "desc": "Pearson 相关：两数值列线性相关强度（能力域5拆细）",
+  "actions": [],
+  "required": [
+   "--col-a",
+   "--col-b"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_correlate.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "describe",
+  "desc": "描述统计：均值/中位数/分位/极值/离散（能力域5拆细）",
+  "actions": [],
+  "required": [
+   "--col"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_describe.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "did",
+  "desc": "DID：2×2 / TWFE / 事件研究 / 安慰剂 / 交错处理",
+  "actions": [],
+  "required": [
+   "--y",
+   "--treat",
+   "--post"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_did.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "elasticity",
+  "desc": "价格弹性：log-log OLS + R²（能力域5拆细·新增）",
+  "actions": [],
+  "required": [
+   "--price",
+   "--qty"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_elasticity.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "matched",
+  "desc": "匹配差分：原味 / PSM（协变量+平衡+卡尺）/ PSM+反驳",
+  "actions": [],
+  "required": [
+   "--treat",
+   "--control",
+   "--col"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_matched.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "power",
+  "desc": "A/B 设计功效：样本量/MDE/达成功效（能力域5拆细）",
+  "actions": [],
+  "required": [
+   "--baseline"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_power.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "rdd",
+  "desc": "断点回归：局部线性 / 敏感性（带宽+安慰剂+密度+二次校正+协变量）",
+  "actions": [],
+  "required": [
+   "--y",
+   "--running",
+   "--cutoff"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_rdd.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "regression",
+  "desc": "回归：一元 OLS（兼容）+ 多元 OLS / Logit + 聚类稳健 SE",
+  "actions": [],
+  "required": [
+   "--x",
+   "--y"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_regression.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "ttest",
+  "desc": "两独立样本 Welch t 检验 + Cohen's d（能力域5拆细）",
+  "actions": [],
+  "required": [
+   "--value",
+   "--group",
+   "--group-a",
+   "--group-b"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s05_ttest.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "scinlp",
+  "desc": "科学计算与NLP：describe / textstats / backend 探测",
+  "actions": [
+   "backend",
+   "describe",
+   "textstats"
+  ],
+  "required": [
+   "--col",
+   "--text"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s06_scinlp.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "domain",
+  "desc": "专业领域分析：omicverse 生信技能注册表 / 后端门禁 / 管线脚手架",
+  "actions": [
+   "list",
+   "run"
+  ],
+  "required": [
+   "--data"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s07_domain.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "viz",
+  "desc": "可视化与报告：图表规格校验 / 报告组装 / 图表选型",
+  "actions": [
+   "guide",
+   "prompt",
+   "report",
+   "spec"
+  ],
+  "required": [
+   "--metrics"
+  ],
+  "file": "r06-wadeqing-analyst/skills/s08_viz.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r06-wadeqing-analyst",
+  "skill": "selfmedia",
+  "desc": "自媒体数据运营：normalize / dashboard / report",
+  "actions": [
+   "dashboard",
+   "normalize",
+   "report"
+  ],
+  "required": [],
+  "file": "r06-wadeqing-analyst/skills/s09_selfmedia.py",
+  "role": "r06"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "discover",
+  "desc": "产品发现、JTBD 与用户访谈验证",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s01_discover.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "ost",
+  "desc": "机会树与用户研究",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s02_ost.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "prd",
+  "desc": "用户故事与 PRD",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s03_prd.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "priority",
+  "desc": "优先级与 Backlog",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s04_priority.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "roadmap",
+  "desc": "路线图与发布",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s05_roadmap.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "metrics",
+  "desc": "产品愿景与指标",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s06_metrics.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "techbrief",
+  "desc": "技术翻译与代码反推需求",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s07_techbrief.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "decision",
+  "desc": "经验检索与决策汇报",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s08_decision.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "prdguard",
+  "desc": "PRD 结构门禁：check/render",
+  "actions": [
+   "check",
+   "render"
+  ],
+  "required": [
+   "--out"
+  ],
+  "file": "r07-wademing-pm/skills/s09_prdguard.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r07-wademing-pm",
+  "skill": "rice",
+  "desc": "RICE 排序：Reach×Impact×Confidence/Effort + 敏感性",
+  "actions": [],
+  "required": [],
+  "file": "r07-wademing-pm/skills/s10_rice.py",
+  "role": "r07"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "slice",
+  "desc": "产品切片与MVP：slice/mvp",
+  "actions": [
+   "mvp",
+   "slice"
+  ],
+  "required": [],
+  "file": "r08-wajiancheng-mvp/skills/s01_slice.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "scaffold",
+  "desc": "Spec转仓库：scaffold/spec",
+  "actions": [
+   "scaffold",
+   "spec"
+  ],
+  "required": [],
+  "file": "r08-wajiancheng-mvp/skills/s02_scaffold.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "landing",
+  "desc": "落地页与H5：landing/form",
+  "actions": [
+   "form",
+   "landing"
+  ],
+  "required": [],
+  "file": "r08-wajiancheng-mvp/skills/s03_landing.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "saas",
+  "desc": "SaaS与邮件脚手架：saas/email",
+  "actions": [
+   "email",
+   "saas"
+  ],
+  "required": [],
+  "file": "r08-wajiancheng-mvp/skills/s04_saas.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "prototype",
+  "desc": "跨平台原型：prototype/screen",
+  "actions": [
+   "prototype",
+   "screen"
+  ],
+  "required": [],
+  "file": "r08-wajiancheng-mvp/skills/s05_prototype.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "design",
+  "desc": "组件与设计实现：design/token/from-md",
+  "actions": [
+   "design",
+   "token"
+  ],
+  "required": [],
+  "file": "r08-wajiancheng-mvp/skills/s06_design.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "qa",
+  "desc": "质量验证与交接：qa/handoff",
+  "actions": [
+   "handoff",
+   "qa"
+  ],
+  "required": [],
+  "file": "r08-wajiancheng-mvp/skills/s07_qa.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "deck",
+  "desc": "单文件 HTML 幻灯片：plan/html",
+  "actions": [
+   "html",
+   "plan"
+  ],
+  "required": [
+   "--out"
+  ],
+  "file": "r08-wajiancheng-mvp/skills/s08_deck.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "miniapp",
+  "desc": "小程序工程脚手架：plan/scaffold",
+  "actions": [
+   "plan",
+   "scaffold"
+  ],
+  "required": [
+   "--out"
+  ],
+  "file": "r08-wajiancheng-mvp/skills/s10_miniapp.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r08-wajiancheng-mvp",
+  "skill": "office",
+  "desc": "Office 交付物：probe/xlsx/docx",
+  "actions": [
+   "docx",
+   "probe",
+   "xlsx"
+  ],
+  "required": [
+   "--out",
+   "--out"
+  ],
+  "file": "r08-wajiancheng-mvp/skills/s11_office.py",
+  "role": "r08"
+ },
+ {
+  "role_path": "r09-wawenma-engineer",
+  "skill": "spec",
+  "desc": "技术规格与架构：模块边界、拓扑、工程约束",
+  "actions": [
+   "arch",
+   "spec"
+  ],
+  "required": [],
+  "file": "r09-wawenma-engineer/skills/s01_spec.py",
+  "role": "r09"
+ },
+ {
+  "role_path": "r09-wawenma-engineer",
+  "skill": "data_api",
+  "desc": "数据库与 API：Schema 设计、索引、API 契约与错误码",
+  "actions": [
+   "api",
+   "schema"
+  ],
+  "required": [],
+  "file": "r09-wawenma-engineer/skills/s02_data_api.py",
+  "role": "r09"
+ },
+ {
+  "role_path": "r09-wawenma-engineer",
+  "skill": "fullstack",
+  "desc": "前端后端全栈：UI、状态、服务、认证与端到端功能",
+  "actions": [
+   "auth",
+   "feature"
+  ],
+  "required": [],
+  "file": "r09-wawenma-engineer/skills/s03_fullstack.py",
+  "role": "r09"
+ },
+ {
+  "role_path": "r09-wawenma-engineer",
+  "skill": "crossplatform",
+  "desc": "跨端生产工程：构建、测试、平台差异",
+  "actions": [
+   "build",
+   "platform"
+  ],
+  "required": [],
+  "file": "r09-wawenma-engineer/skills/s04_crossplatform.py",
+  "role": "r09"
+ },
+ {
+  "role_path": "r09-wawenma-engineer",
+  "skill": "testing",
+  "desc": "测试与浏览器验证：单元/集成/契约/E2E 与真实浏览器关键路径",
+  "actions": [
+   "browser",
+   "suites"
+  ],
+  "required": [],
+  "file": "r09-wawenma-engineer/skills/s05_testing.py",
+  "role": "r09"
+ },
+ {
+  "role_path": "r09-wawenma-engineer",
+  "skill": "debug",
+  "desc": "调试性能重构：稳定复现、定位根因、剖析热点、测试保护重构",
+  "actions": [
+   "debug",
+   "refactor"
+  ],
+  "required": [],
+  "file": "r09-wawenma-engineer/skills/s06_debug.py",
+  "role": "r09"
+ },
+ {
+  "role_path": "r09-wawenma-engineer",
+  "skill": "ops",
+  "desc": "迁移 CI/CD 安全：数据迁移、回滚、流水线、依赖与密钥审计",
+  "actions": [
+   "migration",
+   "security"
+  ],
+  "required": [],
+  "file": "r09-wawenma-engineer/skills/s07_ops.py",
+  "role": "r09"
+ },
+ {
+  "role_path": "r09-wawenma-engineer",
+  "skill": "special",
+  "desc": "特殊技术载体：Godot、MCP 与工程 Agent 工作流",
+  "actions": [
+   "godot",
+   "mcp"
+  ],
+  "required": [],
+  "file": "r09-wawenma-engineer/skills/s08_special.py",
+  "role": "r09"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "imagegen",
+  "desc": "AI生图与插画：prompt / style / generate (LLM + VLM + Engines)",
+  "actions": [
+   "admit",
+   "catalog",
+   "compose",
+   "edit",
+   "engines",
+   "generate",
+   "inspire",
+   "pack",
+   "probe",
+   "prompt",
+   "refs",
+   "score",
+   "style"
+  ],
+  "required": [
+   "--need",
+   "--dir",
+   "--image",
+   "--instruction"
+  ],
+  "file": "r10-wachengmei-design/skills/s01_imagegen.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "logo",
+  "desc": "Logo图标与品牌VI：logo/favicon",
+  "actions": [
+   "favicon",
+   "logo"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s02_logo.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "uiux",
+  "desc": "产品与UI/UX：screen/ux",
+  "actions": [
+   "screen",
+   "ux"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s03_uiux.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "brand",
+  "desc": "品牌VI与设计令牌：vi/token",
+  "actions": [
+   "token",
+   "vi"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s04_brand.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "motion",
+  "desc": "交互原型与动效：motion/prototype",
+  "actions": [
+   "motion",
+   "prototype"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s05_motion.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "imaging",
+  "desc": "修图与图像工程：edit/probe",
+  "actions": [
+   "edit",
+   "probe"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s06_imaging.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "media",
+  "desc": "视频与音频处理：media/probe",
+  "actions": [
+   "media",
+   "probe"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s07_media.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "transcribe",
+  "desc": "转写与字幕素材：transcribe/probe",
+  "actions": [
+   "probe",
+   "transcribe"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s08_transcribe.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "render",
+  "desc": "数据视觉与营销物料：poster/theme",
+  "actions": [
+   "poster",
+   "theme"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s09_render.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "designsys",
+  "desc": "设计系统库：list/recommend/show/apply/audit",
+  "actions": [
+   "apply",
+   "audit",
+   "list",
+   "recommend",
+   "show"
+  ],
+  "required": [
+   "--brand",
+   "--brand"
+  ],
+  "file": "r10-wachengmei-design/skills/s11_designsys.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "aihive",
+  "desc": "AI 图片生成与编辑（Nano Banana Pro）：probe/preview/generate/task",
+  "actions": [
+   "generate",
+   "preview",
+   "probe",
+   "task"
+  ],
+  "required": [
+   "--prompt",
+   "--prompt",
+   "--task-id"
+  ],
+  "file": "r10-wachengmei-design/skills/s12_aihive.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "h3prompt",
+  "desc": "MiniMax H3 视频提示词：build/audit（T2VA/I2VA/FL2VA/L2VA/Ref2VA）",
+  "actions": [],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s13_h3prompt.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "brandcheck",
+  "desc": "品牌一致性检查：check（颜色/字体/对比度）",
+  "actions": [
+   "check"
+  ],
+  "required": [],
+  "file": "r10-wachengmei-design/skills/s14_brandcheck.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r10-wachengmei-design",
+  "skill": "imgops",
+  "desc": "本地图片处理：info/resize/crop/compress/pad/watermark",
+  "actions": [],
+  "required": [
+   "--out",
+   "--left",
+   "--top",
+   "--right",
+   "--bottom",
+   "--text"
+  ],
+  "file": "r10-wachengmei-design/skills/s15_imgops.py",
+  "role": "r10"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "topic",
+  "desc": "内容策略与选题：brief/plan",
+  "actions": [
+   "brief",
+   "plan"
+  ],
+  "required": [],
+  "file": "r11-wadianti-copy/skills/s01_topic.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "seo",
+  "desc": "SEO/AEO 与搜索发现：keyword/audit",
+  "actions": [
+   "audit",
+   "keyword"
+  ],
+  "required": [],
+  "file": "r11-wadianti-copy/skills/s02_seo.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "hook",
+  "desc": "钩子提纲立场：hook/outline",
+  "actions": [
+   "hook",
+   "outline"
+  ],
+  "required": [],
+  "file": "r11-wadianti-copy/skills/s03_hook.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "copy",
+  "desc": "文案与长文：article/script",
+  "actions": [
+   "article",
+   "script"
+  ],
+  "required": [],
+  "file": "r11-wadianti-copy/skills/s04_copy.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "voice",
+  "desc": "品牌语调与编辑：guide/edit",
+  "actions": [
+   "edit",
+   "guide"
+  ],
+  "required": [],
+  "file": "r11-wadianti-copy/skills/s05_voice.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "pr",
+  "desc": "广告公关新闻稿：ad/press",
+  "actions": [
+   "ad",
+   "press"
+  ],
+  "required": [],
+  "file": "r11-wadianti-copy/skills/s06_pr.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "platform",
+  "desc": "多平台适配：adapt/publish/visual",
+  "actions": [
+   "adapt",
+   "publish",
+   "visual"
+  ],
+  "required": [
+   "--need"
+  ],
+  "file": "r11-wadianti-copy/skills/s07_platform.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "localize",
+  "desc": "持续本地化：term/review/probe",
+  "actions": [
+   "probe",
+   "review",
+   "term"
+  ],
+  "required": [],
+  "file": "r11-wadianti-copy/skills/s08_localize.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r11-wadianti-copy",
+  "skill": "xhs",
+  "desc": "小红书发布包：note/score/compliance",
+  "actions": [],
+  "required": [],
+  "file": "r11-wadianti-copy/skills/s11_xhs.py",
+  "role": "r11"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "diagnose",
+  "desc": "增长诊断与基线：diagnose/unit",
+  "actions": [
+   "diagnose",
+   "unit"
+  ],
+  "required": [],
+  "file": "r12-wayingliu-growth/skills/s01_diagnose.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "loops",
+  "desc": "增长循环与自然获客：flywheel/content",
+  "actions": [
+   "content",
+   "flywheel"
+  ],
+  "required": [],
+  "file": "r12-wayingliu-growth/skills/s02_loops.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "outreach",
+  "desc": "冷启动与外联：coldemail/sequence",
+  "actions": [
+   "coldemail",
+   "sequence"
+  ],
+  "required": [],
+  "file": "r12-wayingliu-growth/skills/s03_outreach.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "partner",
+  "desc": "红人与合作增长：influencer/comarketing",
+  "actions": [
+   "comarketing",
+   "influencer"
+  ],
+  "required": [],
+  "file": "r12-wayingliu-growth/skills/s04_partner.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "launch",
+  "desc": "ASO 与发布：aso/ph",
+  "actions": [
+   "aso",
+   "ph"
+  ],
+  "required": [],
+  "file": "r12-wayingliu-growth/skills/s05_launch.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "paid",
+  "desc": "付费投放与 CRO：media/cro",
+  "actions": [
+   "cro",
+   "media"
+  ],
+  "required": [],
+  "file": "r12-wayingliu-growth/skills/s06_paid.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "retention",
+  "desc": "激活留存推荐：activation/referral",
+  "actions": [
+   "activation",
+   "referral"
+  ],
+  "required": [],
+  "file": "r12-wayingliu-growth/skills/s07_retention.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "revops",
+  "desc": "归因与 RevOps：attribution/roi",
+  "actions": [
+   "attribution",
+   "roi"
+  ],
+  "required": [],
+  "file": "r12-wayingliu-growth/skills/s08_revops.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "selfmedia",
+  "desc": "自媒体运营：daily/probe",
+  "actions": [
+   "daily",
+   "probe"
+  ],
+  "required": [
+   "--skill"
+  ],
+  "file": "r12-wayingliu-growth/skills/s09_selfmedia.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "ltv-cac",
+  "desc": "LTV/CAC：回收月数 + 健康判定",
+  "actions": [],
+  "required": [
+   "--arpu",
+   "--gm",
+   "--churn",
+   "--cac"
+  ],
+  "file": "r12-wayingliu-growth/skills/s10_ltv_cac.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "mmm",
+  "desc": "MMM：OLS / 深度（adstock+饱和+ridge+留出）/ 预算分配 / 贡献 CI",
+  "actions": [],
+  "required": [
+   "--y",
+   "--channels"
+  ],
+  "file": "r12-wayingliu-growth/skills/s11_mmm.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r12-wayingliu-growth",
+  "skill": "power",
+  "desc": "实验功效：两比例样本量（baseline/MDE/alpha/power）",
+  "actions": [],
+  "required": [
+   "--baseline",
+   "--mde"
+  ],
+  "file": "r12-wayingliu-growth/skills/s12_power.py",
+  "role": "r12"
+ },
+ {
+  "role_path": "r13-wakecheng-csm",
+  "skill": "crm",
+  "desc": "客户与联系人管理：person/company",
+  "actions": [
+   "company",
+   "person"
+  ],
+  "required": [],
+  "file": "r13-wakecheng-csm/skills/s01_crm.py",
+  "role": "r13"
+ },
+ {
+  "role_path": "r13-wakecheng-csm",
+  "skill": "pipeline",
+  "desc": "销售管道：pipeline/opp",
+  "actions": [
+   "opp",
+   "pipeline"
+  ],
+  "required": [],
+  "file": "r13-wakecheng-csm/skills/s02_pipeline.py",
+  "role": "r13"
+ },
+ {
+  "role_path": "r13-wakecheng-csm",
+  "skill": "activity",
+  "desc": "销售活动与跟进：activity/log",
+  "actions": [
+   "activity",
+   "log"
+  ],
+  "required": [],
+  "file": "r13-wakecheng-csm/skills/s03_activity.py",
+  "role": "r13"
+ },
+ {
+  "role_path": "r13-wakecheng-csm",
+  "skill": "support",
+  "desc": "全渠道客服：inbox/ticket",
+  "actions": [
+   "inbox",
+   "ticket"
+  ],
+  "required": [],
+  "file": "r13-wakecheng-csm/skills/s04_support.py",
+  "role": "r13"
+ },
+ {
+  "role_path": "r13-wakecheng-csm",
+  "skill": "voc",
+  "desc": "客户反馈与 VOC：survey/voc",
+  "actions": [
+   "survey",
+   "voc"
+  ],
+  "required": [],
+  "file": "r13-wakecheng-csm/skills/s05_voc.py",
+  "role": "r13"
+ },
+ {
+  "role_path": "r13-wakecheng-csm",
+  "skill": "health",
+  "desc": "客户健康与续约输入：health/risk",
+  "actions": [
+   "health",
+   "risk"
+  ],
+  "required": [],
+  "file": "r13-wakecheng-csm/skills/s06_health.py",
+  "role": "r13"
+ },
+ {
+  "role_path": "r13-wakecheng-csm",
+  "skill": "knowledge",
+  "desc": "服务知识与升级：faq/escalation",
+  "actions": [
+   "escalation",
+   "faq"
+  ],
+  "required": [],
+  "file": "r13-wakecheng-csm/skills/s07_knowledge.py",
+  "role": "r13"
+ },
+ {
+  "role_path": "r13-wakecheng-csm",
+  "skill": "automation",
+  "desc": "客户运营自动化接口：automation/probe",
+  "actions": [
+   "automation",
+   "probe"
+  ],
+  "required": [],
+  "file": "r13-wakecheng-csm/skills/s08_automation.py",
+  "role": "r13"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "catalog",
+  "desc": "商品与电商后端：product/price/image",
+  "actions": [
+   "image",
+   "price",
+   "product"
+  ],
+  "required": [
+   "--need"
+  ],
+  "file": "r14-wajiaoyi-commerce/skills/s01_catalog.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "order",
+  "desc": "购物车与订单编排：cart/order",
+  "actions": [
+   "cart",
+   "order"
+  ],
+  "required": [],
+  "file": "r14-wajiaoyi-commerce/skills/s02_order.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "billing",
+  "desc": "订阅与计量计费：plan/usage/invoice",
+  "actions": [
+   "invoice",
+   "plan",
+   "usage"
+  ],
+  "required": [],
+  "file": "r14-wajiaoyi-commerce/skills/s03_billing.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "payment",
+  "desc": "支付服务端集成：payment_intent/refund",
+  "actions": [
+   "payment_intent",
+   "refund"
+  ],
+  "required": [],
+  "file": "r14-wajiaoyi-commerce/skills/s04_payment.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "signature",
+  "desc": "电子签与签署审计：document/signing",
+  "actions": [
+   "document",
+   "signing"
+  ],
+  "required": [],
+  "file": "r14-wajiaoyi-commerce/skills/s05_signature.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "appointment",
+  "desc": "服务预约：appointment/calendar",
+  "actions": [
+   "appointment",
+   "calendar"
+  ],
+  "required": [],
+  "file": "r14-wajiaoyi-commerce/skills/s06_appointment.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "workflow",
+  "desc": "交易状态编排：state/transition",
+  "actions": [
+   "state",
+   "transition"
+  ],
+  "required": [],
+  "file": "r14-wajiaoyi-commerce/skills/s07_workflow.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "revenue",
+  "desc": "收入数据接口与交易自动化：events/webhook",
+  "actions": [
+   "events",
+   "webhook"
+  ],
+  "required": [],
+  "file": "r14-wajiaoyi-commerce/skills/s08_revenue.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "selection",
+  "desc": "选品评分：score/profit（五维加权 + 利润红线 + 假设卡门禁）",
+  "actions": [
+   "profit",
+   "score"
+  ],
+  "required": [],
+  "file": "r14-wajiaoyi-commerce/skills/s09_selection.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r14-wajiaoyi-commerce",
+  "skill": "elasticity",
+  "desc": "价格弹性：log-log OLS / 面板 FE / 2SLS（带 CI 与诊断）",
+  "actions": [],
+  "required": [
+   "--price",
+   "--qty"
+  ],
+  "file": "r14-wajiaoyi-commerce/skills/s10_elasticity.py",
+  "role": "r14"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "procurement",
+  "desc": "采购与供应商：supplier/rfq/quotation/purchase_order/receipt",
+  "actions": [],
+  "required": [],
+  "file": "r15-wagongying-erp/skills/s01_procurement.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "inventory",
+  "desc": "库存与仓库：item/warehouse/bin/stock_entry",
+  "actions": [],
+  "required": [],
+  "file": "r15-wagongying-erp/skills/s02_inventory.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "fulfillment",
+  "desc": "销售与履约记录：sales_order/delivery",
+  "actions": [
+   "delivery",
+   "sales_order"
+  ],
+  "required": [],
+  "file": "r15-wagongying-erp/skills/s03_fulfillment.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "production",
+  "desc": "生产/服务资源：bom/material_request",
+  "actions": [
+   "bom",
+   "material_request"
+  ],
+  "required": [],
+  "file": "r15-wagongying-erp/skills/s04_production.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "finance",
+  "desc": "ERP财务业务接口：invoice/payment",
+  "actions": [
+   "invoice",
+   "payment"
+  ],
+  "required": [],
+  "file": "r15-wagongying-erp/skills/s05_finance.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "masterdata",
+  "desc": "主数据与权限：master_data/permission",
+  "actions": [
+   "master_data",
+   "permission"
+  ],
+  "required": [],
+  "file": "r15-wagongying-erp/skills/s06_masterdata.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "report",
+  "desc": "运营报表：report",
+  "actions": [
+   "report"
+  ],
+  "required": [],
+  "file": "r15-wagongying-erp/skills/s07_report.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "tco",
+  "desc": "采购总拥有成本：compare/lifecycle（landed cost + TCO）",
+  "actions": [
+   "compare",
+   "lifecycle"
+  ],
+  "required": [],
+  "file": "r15-wagongying-erp/skills/s08_tco.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "safety-stock",
+  "desc": "安全库存：z × σ_d × √LT（库存优化）",
+  "actions": [],
+  "required": [
+   "--sigma",
+   "--lead"
+  ],
+  "file": "r15-wagongying-erp/skills/s11_safety_stock.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r15-wagongying-erp",
+  "skill": "fulfill-sim",
+  "desc": "履约仿真：履约率/缺货/库存；可选 (s,S)+随机提前期",
+  "actions": [],
+  "required": [
+   "--demand",
+   "--sd",
+   "--lead",
+   "--capacity"
+  ],
+  "file": "r15-wagongying-erp/skills/s12_fulfill_sim.py",
+  "role": "r15"
+ },
+ {
+  "role_path": "r16-warenshi-hr",
+  "skill": "recruit",
+  "desc": "招聘与入职：opening/applicant/offer",
+  "actions": [],
+  "required": [],
+  "file": "r16-warenshi-hr/skills/s01_recruit.py",
+  "role": "r16"
+ },
+ {
+  "role_path": "r16-warenshi-hr",
+  "skill": "people",
+  "desc": "人员与合同档案：employee/profile/contract",
+  "actions": [],
+  "required": [],
+  "file": "r16-warenshi-hr/skills/s02_people.py",
+  "role": "r16"
+ },
+ {
+  "role_path": "r16-warenshi-hr",
+  "skill": "attendance",
+  "desc": "考勤与休假：attendance/leave",
+  "actions": [
+   "attendance",
+   "leave"
+  ],
+  "required": [],
+  "file": "r16-warenshi-hr/skills/s03_attendance.py",
+  "role": "r16"
+ },
+ {
+  "role_path": "r16-warenshi-hr",
+  "skill": "performance",
+  "desc": "绩效与目标：appraisal/goal",
+  "actions": [],
+  "required": [],
+  "file": "r16-warenshi-hr/skills/s04_performance.py",
+  "role": "r16"
+ },
+ {
+  "role_path": "r16-warenshi-hr",
+  "skill": "payroll",
+  "desc": "薪酬准备：input/calc",
+  "actions": [],
+  "required": [],
+  "file": "r16-warenshi-hr/skills/s05_payroll.py",
+  "role": "r16"
+ },
+ {
+  "role_path": "r16-warenshi-hr",
+  "skill": "expense",
+  "desc": "费用与福利：claim/benefit",
+  "actions": [],
+  "required": [],
+  "file": "r16-warenshi-hr/skills/s06_expense.py",
+  "role": "r16"
+ },
+ {
+  "role_path": "r16-warenshi-hr",
+  "skill": "report",
+  "desc": "组织运营报表：headcount/report",
+  "actions": [],
+  "required": [],
+  "file": "r16-warenshi-hr/skills/s07_report.py",
+  "role": "r16"
+ },
+ {
+  "role_path": "r16-warenshi-hr",
+  "skill": "funnel",
+  "desc": "招聘漏斗：投递→筛选→面试→Offer→入职转化与瓶颈",
+  "actions": [],
+  "required": [
+   "--applied",
+   "--screened",
+   "--interviewed",
+   "--offers",
+   "--hires"
+  ],
+  "file": "r16-warenshi-hr/skills/s08_funnel.py",
+  "role": "r16"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "integration",
+  "desc": "SaaS/API 集成：workflow/credential",
+  "actions": [
+   "credential",
+   "workflow"
+  ],
+  "required": [],
+  "file": "r17-wazhiwang-automation/skills/s01_integration.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "webhook",
+  "desc": "Webhook 与事件处理：webhook/event",
+  "actions": [
+   "event",
+   "webhook"
+  ],
+  "required": [],
+  "file": "r17-wazhiwang-automation/skills/s02_webhook.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "mapping",
+  "desc": "字段与身份映射：mapping/table",
+  "actions": [
+   "mapping",
+   "table"
+  ],
+  "required": [],
+  "file": "r17-wazhiwang-automation/skills/s03_mapping.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "schedule",
+  "desc": "定时与批处理：schedule/batch",
+  "actions": [
+   "batch",
+   "schedule"
+  ],
+  "required": [],
+  "file": "r17-wazhiwang-automation/skills/s04_schedule.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "approval",
+  "desc": "人工审批节点：approval/publish",
+  "actions": [
+   "approval",
+   "publish"
+  ],
+  "required": [],
+  "file": "r17-wazhiwang-automation/skills/s05_approval.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "retry",
+  "desc": "失败处理与重试：retry/errorflow",
+  "actions": [
+   "errorflow",
+   "retry"
+  ],
+  "required": [],
+  "file": "r17-wazhiwang-automation/skills/s06_retry.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "aiworkflow",
+  "desc": "AI 工作流接入：aiagent/model",
+  "actions": [
+   "aiagent",
+   "model"
+  ],
+  "required": [],
+  "file": "r17-wazhiwang-automation/skills/s07_aiworkflow.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "audit",
+  "desc": "自动化审计：audit/runlog",
+  "actions": [
+   "audit",
+   "runlog"
+  ],
+  "required": [],
+  "file": "r17-wazhiwang-automation/skills/s08_audit.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r17-wazhiwang-automation",
+  "skill": "retry-model",
+  "desc": "重试可靠性模型（retry-model）：最终成功率/期望尝试/失败概率",
+  "actions": [],
+  "required": [
+   "--success-prob",
+   "--max-attempts"
+  ],
+  "file": "r17-wazhiwang-automation/skills/s09_retry_model.py",
+  "role": "r17"
+ },
+ {
+  "role_path": "r18-washucang-dataeng",
+  "skill": "elt",
+  "desc": "数据连接与 ELT：connection/sync",
+  "actions": [],
+  "required": [],
+  "file": "r18-washucang-dataeng/skills/s01_elt.py",
+  "role": "r18"
+ },
+ {
+  "role_path": "r18-washucang-dataeng",
+  "skill": "transform",
+  "desc": "数仓转换：model/test",
+  "actions": [],
+  "required": [],
+  "file": "r18-washucang-dataeng/skills/s02_transform.py",
+  "role": "r18"
+ },
+ {
+  "role_path": "r18-washucang-dataeng",
+  "skill": "pipeline",
+  "desc": "管道调度与编排：dag/run",
+  "actions": [],
+  "required": [],
+  "file": "r18-washucang-dataeng/skills/s03_pipeline.py",
+  "role": "r18"
+ },
+ {
+  "role_path": "r18-washucang-dataeng",
+  "skill": "quality",
+  "desc": "数据质量门禁：check/fresh",
+  "actions": [],
+  "required": [],
+  "file": "r18-washucang-dataeng/skills/s04_quality.py",
+  "role": "r18"
+ },
+ {
+  "role_path": "r18-washucang-dataeng",
+  "skill": "incremental",
+  "desc": "批流与增量边界：strategy/backfill",
+  "actions": [],
+  "required": [],
+  "file": "r18-washucang-dataeng/skills/s05_incremental.py",
+  "role": "r18"
+ },
+ {
+  "role_path": "r18-washucang-dataeng",
+  "skill": "catalog",
+  "desc": "数据目录与口径接口：entry/lineage",
+  "actions": [],
+  "required": [],
+  "file": "r18-washucang-dataeng/skills/s06_catalog.py",
+  "role": "r18"
+ },
+ {
+  "role_path": "r18-washucang-dataeng",
+  "skill": "ops",
+  "desc": "人工审批与运维接口：request/alert",
+  "actions": [],
+  "required": [],
+  "file": "r18-washucang-dataeng/skills/s07_ops.py",
+  "role": "r18"
+ },
+ {
+  "role_path": "r18-washucang-dataeng",
+  "skill": "profile",
+  "desc": "数据画像：缺失率/基数/重复 + 时间切分 PSI",
+  "actions": [],
+  "required": [
+   "--columns"
+  ],
+  "file": "r18-washucang-dataeng/skills/s08_profile.py",
+  "role": "r18"
+ },
+ {
+  "role_path": "r19-wazhimo-ml",
+  "skill": "tracking",
+  "desc": "实验追踪：experiment/run",
+  "actions": [],
+  "required": [],
+  "file": "r19-wazhimo-ml/skills/s01_tracking.py",
+  "role": "r19"
+ },
+ {
+  "role_path": "r19-wazhimo-ml",
+  "skill": "registry",
+  "desc": "模型注册与版本：register/version",
+  "actions": [],
+  "required": [],
+  "file": "r19-wazhimo-ml/skills/s02_registry.py",
+  "role": "r19"
+ },
+ {
+  "role_path": "r19-wazhimo-ml",
+  "skill": "evaluation",
+  "desc": "评估数据集与评分器：dataset/scorer",
+  "actions": [],
+  "required": [],
+  "file": "r19-wazhimo-ml/skills/s03_evaluation.py",
+  "role": "r19"
+ },
+ {
+  "role_path": "r19-wazhimo-ml",
+  "skill": "trace",
+  "desc": "Agent Trace 与调试：analyze/retrieval",
+  "actions": [],
+  "required": [],
+  "file": "r19-wazhimo-ml/skills/s04_trace.py",
+  "role": "r19"
+ },
+ {
+  "role_path": "r19-wazhimo-ml",
+  "skill": "release",
+  "desc": "回归与发布候选：regression/candidate",
+  "actions": [],
+  "required": [],
+  "file": "r19-wazhimo-ml/skills/s05_release.py",
+  "role": "r19"
+ },
+ {
+  "role_path": "r19-wazhimo-ml",
+  "skill": "monitor",
+  "desc": "模型监控接口：metrics/drift",
+  "actions": [],
+  "required": [],
+  "file": "r19-wazhimo-ml/skills/s06_monitor.py",
+  "role": "r19"
+ },
+ {
+  "role_path": "r19-wazhimo-ml",
+  "skill": "modelcard",
+  "desc": "模型卡与资产证据：card/asset",
+  "actions": [],
+  "required": [],
+  "file": "r19-wazhimo-ml/skills/s07_modelcard.py",
+  "role": "r19"
+ },
+ {
+  "role_path": "r19-wazhimo-ml",
+  "skill": "eval-ci",
+  "desc": "评测成功率 Wilson 置信区间（小样本稳）",
+  "actions": [],
+  "required": [
+   "--successes",
+   "--n"
+  ],
+  "file": "r19-wazhimo-ml/skills/s08_eval_ci.py",
+  "role": "r19"
+ },
+ {
+  "role_path": "r20-washouzhi-sre",
+  "skill": "monitor",
+  "desc": "可用性监控：monitor/uptime",
+  "actions": [],
+  "required": [],
+  "file": "r20-washouzhi-sre/skills/s01_monitor.py",
+  "role": "r20"
+ },
+ {
+  "role_path": "r20-washouzhi-sre",
+  "skill": "alert",
+  "desc": "告警与升级：alert/escalation",
+  "actions": [],
+  "required": [],
+  "file": "r20-washouzhi-sre/skills/s02_alert.py",
+  "role": "r20"
+ },
+ {
+  "role_path": "r20-washouzhi-sre",
+  "skill": "statuspage",
+  "desc": "状态页与事件沟通：statuspage/incident",
+  "actions": [],
+  "required": [],
+  "file": "r20-washouzhi-sre/skills/s03_statuspage.py",
+  "role": "r20"
+ },
+ {
+  "role_path": "r20-washouzhi-sre",
+  "skill": "backup",
+  "desc": "加密增量备份：backup/snapshot",
+  "actions": [],
+  "required": [],
+  "file": "r20-washouzhi-sre/skills/s04_backup.py",
+  "role": "r20"
+ },
+ {
+  "role_path": "r20-washouzhi-sre",
+  "skill": "restore",
+  "desc": "恢复演练：restore/drill",
+  "actions": [],
+  "required": [],
+  "file": "r20-washouzhi-sre/skills/s05_restore.py",
+  "role": "r20"
+ },
+ {
+  "role_path": "r20-washouzhi-sre",
+  "skill": "dr",
+  "desc": "灾难恢复与回滚接口：rpo_rto/rollback",
+  "actions": [],
+  "required": [],
+  "file": "r20-washouzhi-sre/skills/s06_dr.py",
+  "role": "r20"
+ },
+ {
+  "role_path": "r20-washouzhi-sre",
+  "skill": "postmortem",
+  "desc": "运行复盘：postmortem/improvement",
+  "actions": [],
+  "required": [],
+  "file": "r20-washouzhi-sre/skills/s07_postmortem.py",
+  "role": "r20"
+ },
+ {
+  "role_path": "r20-washouzhi-sre",
+  "skill": "slo",
+  "desc": "SLO 错误预算：允许停机、已用、剩余、燃尽率",
+  "actions": [],
+  "required": [
+   "--slo",
+   "--downtime-min"
+  ],
+  "file": "r20-washouzhi-sre/skills/s08_slo.py",
+  "role": "r20"
+ }
+]

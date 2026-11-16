@@ -11,6 +11,9 @@
   s07 boardroom    高层汇报与创始人陪练
 
 （编排器本体 plan/status/run-all 保留在 agent.py，不属技能域。）
+
+2026-11-15 产线收敛后新增：
+  s09 interpret    解读：result → 带数字的判断，R01 据此出唯一报告
 """
 from __future__ import annotations
 
@@ -18,6 +21,7 @@ from . import (s01_intent, s02_decompose, s03_decide, s04_redteam,
                s05_companyos, s06_decisionlog, s07_boardroom)
 
 from . import s08_ev
+from . import s09_interpret
 
 SKILLS = [
     s01_intent,
@@ -28,4 +32,5 @@ SKILLS = [
     s06_decisionlog,
     s07_boardroom,
     s08_ev,
+    s09_interpret,
 ]

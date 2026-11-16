@@ -2,7 +2,7 @@
   "_comment": "R05 蛙深远全局阈值：研究类角色，所有枚举/禁词/模式清单/评分口径在此，改口径不改代码。键名与 skills/_common._DEFAULT_THRESHOLDS 严格一致（验证链：本文件 → load_thresholds() → 技能代码）。",
   "research": {
     "claim_kinds": ["fact", "estimate", "calculation", "projection", "opinion", "recommendation"],
-    "source_types": ["primary", "secondary", "tertiary", "database", "government", "industry_report", "company_filing", "news", "unsourced"],
+    "source_types": ["primary", "secondary", "tertiary", "database", "government", "industry_report", "company_filing", "news", "ecommerce", "unsourced"],
     "min_sources_per_claim": 1,
     "verdict_enum": ["PASS", "FAIL", "BLOCKED"]
   },

@@ -82,26 +82,34 @@ class Trace:
         unit = data.get("unit", "")
         src = data.get("source", self.dataset or "技能输出")
         if shape == "time_series" and data.get("x") and data.get("y"):
+            # v2 认 ref（{value,label} 或纯数值）；v1 的 ref_line 已由 v2 归一兼容
+            ref = data.get("ref")
+            ref_obj = (ref if isinstance(ref, dict) else {"value": ref}) if ref is not None else None
             step.chart = {"type": "line", "title": title, "unit_meta": unit, "source": src,
+                          "subtitle": data.get("subtitle", ""), "note": data.get("note", ""),
                           "xlabels": [str(x) for x in data["x"]],
                           "series": [{"name": data.get("name", "值"), "values": data["y"], "accent": True}],
-                          **({"ref_line": data["ref"]} if data.get("ref") else {})}
+                          **({"ref": ref_obj} if ref_obj else {})}
         elif shape == "cross_section" and data.get("items"):
             items = data["items"]
             has_neg = any(float(i["value"]) < 0 for i in items)
             step.chart = {"type": "hbar", "title": title, "unit_meta": unit, "source": src,
+                          "subtitle": data.get("subtitle", ""), "note": data.get("note", ""),
                           "bars": [{"label": str(i["label"]), "value": i["value"],
                                     "weight": i.get("weight", "context")} for i in items],
                           "_has_neg": has_neg}
         elif shape == "composition" and data.get("items"):
             step.chart = {"type": "donut", "title": title, "unit_meta": unit, "source": src,
+                          "subtitle": data.get("subtitle", ""), "note": data.get("note", ""),
                           "items": [{"label": str(i["label"]), "value": i["value"]} for i in data["items"]]}
         elif shape == "relationship" and data.get("points"):
             step.chart = {"type": "scatter", "title": title, "unit_meta": unit, "source": src,
+                          "subtitle": data.get("subtitle", ""), "note": data.get("note", ""),
                           "xlabel": data.get("xlabel", "x"), "ylabel": data.get("ylabel", "y"),
                           "points": data["points"]}
         elif shape == "flow" and data.get("steps"):
             step.chart = {"type": "waterfall", "title": title, "unit_meta": unit, "source": src,
+                          "subtitle": data.get("subtitle", ""), "note": data.get("note", ""),
                           "steps": data["steps"]}
 
     # ---------- 投影成 contract ----------

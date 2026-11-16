@@ -1,0 +1,123 @@
+{
+  "schema": "dsh.role_domain/v1",
+  "role": "r12",
+  "name": "蛙引流",
+  "title": "增长负责人",
+  "domain": "增长与投放",
+  "keywords": [
+    "增长",
+    "投放",
+    "获客",
+    "转化",
+    "复购",
+    "渠道",
+    "ROI"
+  ],
+  "books": [
+    {
+      "title": "Hacking Growth",
+      "author": "Ellis & Brown",
+      "year": 2017,
+      "lang": "en",
+      "concept": "增长团队与实验",
+      "move": "北极星+高频实验"
+    },
+    {
+      "title": "Lean Analytics",
+      "author": "Croll & Yoskovitz",
+      "year": 2013,
+      "lang": "en",
+      "concept": "唯一关键指标",
+      "move": "阶段决定指标"
+    },
+    {
+      "title": "How Brands Grow",
+      "author": "Byron Sharp",
+      "year": 2010,
+      "lang": "en",
+      "concept": "渗透率与双危",
+      "move": "增长先看渗透"
+    },
+    {
+      "title": "增长黑客",
+      "author": "范冰",
+      "year": 2015,
+      "lang": "zh",
+      "concept": "AARRR",
+      "move": "渠道与漏斗"
+    },
+    {
+      "title": "精益数据分析",
+      "author": "Croll & Yoskovitz",
+      "year": 2013,
+      "lang": "zh",
+      "concept": "OMTM",
+      "move": "别用虚荣指标"
+    }
+  ],
+  "methods": [
+    {
+      "name": "AARRR",
+      "formula": "获客/激活/留存/推荐/收入",
+      "when": "定位漏点"
+    },
+    {
+      "name": "漏斗",
+      "formula": "各步转化率=下一步人数÷上一步人数；整体=末步÷首步",
+      "when": "先修最窄段"
+    },
+    {
+      "name": "队列留存",
+      "formula": "按首单月份看回访",
+      "when": "区分新老"
+    },
+    {
+      "name": "RFM",
+      "formula": "最近/频次/金额",
+      "when": "分层运营"
+    },
+    {
+      "name": "增量实验",
+      "formula": "对照组/分流/显著性",
+      "when": "防自然增长冒充"
+    },
+    {
+      "name": "渠道归因",
+      "formula": "首触/末触/线性/Shapley",
+      "when": "分配预算"
+    }
+  ],
+  "kpis": [
+    "CAC",
+    "LTV",
+    "留存",
+    "转化率",
+    "复购",
+    "回本周期"
+  ],
+  "decisions": [
+    "投哪",
+    "先修哪段",
+    "预算怎么分",
+    "预算在渠道间怎么分"
+  ],
+  "foresight": [
+    "渠道成本",
+    "平台政策",
+    "竞争出价"
+  ],
+  "failure_modes": [
+    "只看 GMV",
+    "忽略留存",
+    "归因窗口错",
+    "不显著就上线"
+  ],
+  "report_sections": [
+    "北极星",
+    "漏斗",
+    "渠道",
+    "实验",
+    "预算",
+    "停止"
+  ]
+}

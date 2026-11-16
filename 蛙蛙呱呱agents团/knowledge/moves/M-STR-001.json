@@ -1,0 +1,46 @@
+{
+  "id": "M-STR-001",
+  "name": "问题树与关键分支",
+  "version": "1.0",
+  "status": "active",
+  "domain": "problem_solving",
+  "source": {
+    "book": "Bulletproof Problem Solving",
+    "author": "Charles Conn & Robert McLean",
+    "year": 2019,
+    "concept": "七步法：定义问题 → 拆解（issue tree）→ 排序 → 工作计划 → 分析 → 综合 → 沟通"
+  },
+  "trigger": {
+    "decision": ["先做哪一段", "怎么整改", "是否进入"],
+    "data_shape": ["多品类", "多区域", "多环节"],
+    "min_evidence": "至少有 3 个互斥的切分维度，且每个维度能取到数"
+  },
+  "inputs": ["决策问题", "可切分维度", "每个维度的数据可得性"],
+  "procedure": [
+    "把母问题改写成「是否 / 如何 / 为什么」",
+    "用 MECE 切 3—5 支，每支写成一句可证伪假设",
+    "标出最可能推翻结论的 critical branch",
+    "只给 critical branch 配数据与方法，其余分支降级"
+  ],
+  "output_claim": {
+    "kind": "gap",
+    "headline_template": "{N} 个分支里，{critical} 是决定结论的那一支",
+    "level": "L1"
+  },
+  "counterexample": "分支不 MECE（重叠或漏项）时，会把同一原因算两次，或漏掉真正的驱动，后面的计算再准也没用。",
+  "failure_mode": "所有分支平均用力，报告变成一张清单，没有主次。",
+  "landing": {
+    "method": "core/frames.py::build_operations",
+    "claim_kind": "gap",
+    "frame": "operations",
+    "gate": "Q1/Q2",
+    "test": "tests/test_deep_line.py::test_frames_do_not_share_one_skeleton"
+  },
+  "acceptance": {
+    "fixture": "内蒙古肉禽蛋调研_2026-11-12",
+    "expected": "经营帧至少 4 个互斥分支，且有一节明确标出 critical branch",
+    "tolerance": "分支数 3—5"
+  },
+  "owner": "r06",
+  "last_reviewed": "2026-11-15"
+}

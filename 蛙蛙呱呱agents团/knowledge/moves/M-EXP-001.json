@@ -1,0 +1,56 @@
+{
+  "id": "M-EXP-001",
+  "name": "图表先写要证明哪句话",
+  "version": "1.0",
+  "status": "active",
+  "domain": "communication",
+  "source": {
+    "book": "Storytelling with Data",
+    "author": "Cole Nussbaumer Knaflic",
+    "year": 2015,
+    "concept": "先定 context 与 audience，再选图；一图只证一句；去掉与结论无关的装饰"
+  },
+  "trigger": {
+    "decision": [
+      "这张图要不要放",
+      "放什么图",
+      "图里标什么"
+    ],
+    "data_shape": [
+      "任何图表"
+    ],
+    "min_evidence": "能写出一句由这张图独家支持的结论"
+  },
+  "inputs": [
+    "要证明的句子",
+    "完整数据域",
+    "对比基准"
+  ],
+  "procedure": [
+    "先写 claim_to_prove：这张图证明哪一句，写不出就不画",
+    "列 required_series：必须出现的完整数据域，不能只画高亮段",
+    "标 required_annotations：起止值、差值、目标线、样本量",
+    "设 fail_if_missing：缺哪个字段就退回分析层补数"
+  ],
+  "output_claim": {
+    "kind": "trend",
+    "headline_template": "{图} 证明：{结论句}（{差值}，样本 {N}）",
+    "level": "L1"
+  },
+  "counterexample": "图很漂亮但删掉后结论不受影响，说明它只是装饰，不是证据。",
+  "failure_mode": "截断坐标轴夸大差异；只画高亮段隐藏全貌；用 3D 饼图。",
+  "landing": {
+    "method": "core/report_quality.py::audit",
+    "claim_kind": "trend",
+    "frame": "all",
+    "gate": "F7 + Q7",
+    "test": "tests/test_deep_line.py::test_market_report_passes_both_gates"
+  },
+  "acceptance": {
+    "fixture": "四份 v7 报告",
+    "expected": "每张图都有标题结论、来源、完整序列；无来源的图被 F7 拦下",
+    "tolerance": "0 张无来源图"
+  },
+  "owner": "r10",
+  "last_reviewed": "2026-11-15"
+}

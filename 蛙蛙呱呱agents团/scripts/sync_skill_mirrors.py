@@ -26,7 +26,7 @@ TARGETS = [
 ]
 
 RUNTIME_DIRS = ["core", "configs", "shared", "scripts", "styles", "templates",
-                "knowledge", "report_specs", "agents"]
+                "knowledge", "agents"]
 DOCS = ["docs/方法代码深度升级SOP.md", "docs/技能深度审计_2026-11-12.md",
         "docs/深度地图核对.md", "docs/升级改动地图.md"]
 TESTS = ["tests/test_methods_core.py", "tests/test_methods_deep.py",
