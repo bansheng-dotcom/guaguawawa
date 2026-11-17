@@ -44,8 +44,19 @@ REPORT_CLAIM_CARD_GATE=1 python guagua.py report build ...  # 完整 ClaimCard �
 `REPORT_CLAIM_CARD_GATE=0`（默认）只审计 `comparability/rivals`，不阻断；  
 `=1` 时 `full_schema_ok=false` 会降级头条。
 
-当前 pipeline 的 `full_schema_ok=false`，原因是第一条 claim 跨多个期次/单位：
+P11 时 pipeline 的 `full_schema_ok=false`，原因是第一条 claim 跨多个期次/单位：
 `same_period=unknown`、`same_unit=unknown`。这不是代码错，是 claim 还没做可比性收敛。
+
+### P12：可比切片
+
+`claim_gate._narrow()` 把 ClaimCard 收敛到同 `(period, unit)` 的一组 refs：
+
+```json
+"scope": {"narrowed": true, "refs_total": 102, "refs_used": 12}
+```
+
+正文仍可跨期/跨单位；**ClaimCard 只对可比切片负责**。  
+P12 后四个 lens 的 `full_schema_ok=true`；`scope` 明确写出缩到哪一组。
 
 ## 4. 与完整 ClaimCard 的关系
 

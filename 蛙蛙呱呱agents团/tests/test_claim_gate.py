@@ -62,3 +62,18 @@ def test_full_card_strict_flag_demotes(monkeypatch):
     assert info["full_schema_ok"] is False
     assert info["demoted"] is True
     assert any("完整 ClaimCard" in r for r in info["reasons"])
+
+
+def test_narrowing_makes_comparable_card():
+    pack = {"numbers": [
+        {"id": "E1", "period": "2026-11-01", "unit": "元", "source_file": "a.csv"},
+        {"id": "E2", "period": "2026-11-01", "unit": "元", "source_file": "a.csv"},
+        {"id": "E3", "period": "2026-10-01", "unit": "%", "source_file": "a.csv"},
+    ]}
+    d = {"intent": "是否继续", "falsifier": "若方向反转",
+         "sections": [{"refs": ["E1", "E2", "E3"]}]}
+    info = claim_gate.assess(d, pack)
+    assert info["scope"]["narrowed"] is True
+    assert info["comparability"]["same_period"] == "yes"
+    assert info["comparability"]["same_unit"] == "yes"
+    assert info["full_schema_ok"] is True

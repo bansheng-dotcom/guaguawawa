@@ -66,6 +66,34 @@ def _falsifier(draft: Dict[str, Any], findings: List[Any] | None = None) -> str:
     return ""
 
 
+def _narrow(refs: List[str], pack: Dict[str, Any]) -> Tuple[List[str], bool]:
+    """把头条 ClaimCard 收敛到同 (period, unit) 的可比切片（P12）。
+
+    正文仍可跨期/跨单位；ClaimCard 只对可比切片负责，并用 scope 标明。
+    """
+    nums = {str(n.get("id")): n for n in (pack.get("numbers") or [])}
+    valid: List[str] = []
+    for ref in refs:
+        sid = str(ref).split("#")[0]
+        if sid in nums or re.fullmatch(r"S\d+", sid) or sid.startswith("FILE:"):
+            valid.append(ref)
+    if not valid:
+        return list(refs), False
+    groups: Dict[Tuple[str, str], List[str]] = {}
+    for ref in valid:
+        sid = str(ref).split("#")[0]
+        n = nums.get(sid) or {}
+        key = (str(n.get("period") or ""), str(n.get("unit") or ""))
+        groups.setdefault(key, []).append(ref)
+    if len(groups) <= 1:
+        return valid, len(valid) != len(refs)
+    # 优先有期次/单位、且样本最多的组
+    best = max(groups.items(),
+               key=lambda kv: (bool(kv[0][0] and kv[0][1]), bool(kv[0][0] or kv[0][1]),
+                               len(kv[1])))
+    return list(best[1]), True
+
+
 def assess(draft: Dict[str, Any], pack: Dict[str, Any],
            findings: List[Any] | None = None) -> Dict[str, Any]:
     """返回 {ok, actionable, demoted, reasons, sources, grades, falsifier}。"""
@@ -87,6 +115,8 @@ def assess(draft: Dict[str, Any], pack: Dict[str, Any],
                 break
     if not refs and sections:
         refs = [str(x) for x in (sections[0].get("refs") or [])]
+    raw_refs = list(refs)
+    refs, narrowed = _narrow(refs, pack)
     sources = _resolve(refs, pack)
     recs, _ = _source_map(pack)
     grades: List[str] = []
@@ -145,7 +175,8 @@ def assess(draft: Dict[str, Any], pack: Dict[str, Any],
     grade = "A" if grades and all(g == "A" for g in grades) else (
         "B" if grades and all(g in ("A", "B") for g in grades) else "C")
     card = ClaimCard(
-        id="H1", statement=str(draft.get("standfirst") or ""), refs=refs,
+        id="H1", statement=(str(draft.get("standfirst") or "")
+                            or str((sections[0].get("title") if sections else "") or "headline")), refs=refs,
         values={"sources": len(sources)}, comparability=comparability,
         rivals=rivals, falsifier=falsifier, confidence="medium", grade=grade,
         actionable=actionable, headline=actionable, decision=decision,
@@ -170,6 +201,8 @@ def assess(draft: Dict[str, Any], pack: Dict[str, Any],
         "decision": decision,
         "comparability": comparability,
         "rivals": [r.__dict__ for r in rivals],
+        "scope": {"narrowed": narrowed, "refs_total": len(raw_refs),
+                  "refs_used": len(refs)},
         "full_schema_ok": full_ok,
         "card_errors": v["errors"],
         "card": card.to_dict(),
