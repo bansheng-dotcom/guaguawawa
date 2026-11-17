@@ -84,6 +84,8 @@ def _section_from(f) -> Dict[str, Any]:
         "refs": list(dict.fromkeys(f.refs)),
         "reading": [dict(r) for r in f.reading],
         "assumptions": list(dict.fromkeys(round(float(a), 6) for a in f.assumptions)),
+        "falsifier": (getattr(f, "falsifier", "") or
+                      f"若下一期数据与「{f.title}」方向相反，本节判断作废。"),
     }
     if f.chart:
         sec["chart"] = f.chart
@@ -459,6 +461,12 @@ def build(intent: str, project_dir: str, out_dir: str,
         gap_sec = _gap_section(cite, missing + vg, gaps, risk)
         if gap_sec:
             sections.append(gap_sec)
+
+    # P10：每节都有可证伪条件；有专属 falsifier 的保留，没有的给方向反转条件。
+    for s in sections:
+        if not str(s.get("falsifier") or "").strip():
+            s["falsifier"] = (f"若下一期数据与「{s.get('title') or '本节'}」"
+                              "方向相反，本节判断作废。")
 
     spec = report_thesis.THESES.get(th) or report_thesis.THESES[report_thesis.DEFAULT_THESIS]
     # 项目可自带标题（data/meta.json），避免从目录名硬拼出「家居百货内蒙市场调研报告」这种别扭名

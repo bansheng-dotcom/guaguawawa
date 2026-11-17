@@ -44,3 +44,12 @@ def test_headline_without_falsifier_demoted():
     info = claim_gate.apply(d, _pack())
     assert info["demoted"] is True
     assert "没有 falsifier" in info["reasons"]
+
+
+def test_section_falsifier_counts():
+    d = _draft()
+    d["falsifier"] = ""
+    d["sections"][0]["falsifier"] = "若下期方向反转，本节作废"
+    info = claim_gate.apply(d, _pack())
+    assert info["actionable"] is True
+    assert info["demoted"] is False

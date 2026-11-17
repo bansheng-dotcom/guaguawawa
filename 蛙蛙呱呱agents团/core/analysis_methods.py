@@ -218,6 +218,7 @@ class Finding:
     chart: Optional[Dict[str, Any]] = None
     table: Optional[Dict[str, Any]] = None
     boundary: str = ""
+    falsifier: str = ""
     so_what: str = ""
     actions: List[Dict[str, str]] = field(default_factory=list)
     weight: float = 1.0

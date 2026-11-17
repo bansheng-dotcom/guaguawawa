@@ -54,6 +54,9 @@ def _falsifier(draft: Dict[str, Any], findings: List[Any] | None = None) -> str:
         if cl is not None and str(getattr(cl, "falsifier", "") or "").strip():
             return str(cl.falsifier)
     for s in draft.get("sections") or []:
+        if str(s.get("falsifier") or "").strip():
+            return str(s["falsifier"])
+    for s in draft.get("sections") or []:
         for r in s.get("reading") or []:
             if "证伪" in str(r.get("strong") or "") or "证伪" in str(r.get("text") or "")[:8]:
                 return str(r.get("text") or "")
@@ -65,7 +68,21 @@ def assess(draft: Dict[str, Any], pack: Dict[str, Any],
     """返回 {ok, actionable, demoted, reasons, sources, grades, falsifier}。"""
     sections = draft.get("sections") or []
     refs: List[str] = []
-    if sections:
+    lead_falsifier = ""
+    for f in findings or []:
+        cl = getattr(f, "claim", None) or (getattr(f, "meta", None) or {}).get("claim")
+        if cl is not None and str(getattr(cl, "falsifier", "") or "").strip() \
+                and (getattr(cl, "refs", None) or []):
+            refs = [str(x) for x in cl.refs]
+            lead_falsifier = str(cl.falsifier)
+            break
+    if not refs:
+        for s in sections:
+            if s.get("falsifier") and s.get("refs"):
+                refs = [str(x) for x in (s.get("refs") or [])]
+                lead_falsifier = str(s.get("falsifier"))
+                break
+    if not refs and sections:
         refs = [str(x) for x in (sections[0].get("refs") or [])]
     sources = _resolve(refs, pack)
     recs, _ = _source_map(pack)
@@ -78,7 +95,7 @@ def assess(draft: Dict[str, Any], pack: Dict[str, Any],
         else:
             grades.append(str((recs.get(s) or {}).get("grade") or "D").upper()[:1])
             statuses.append(str((recs.get(s) or {}).get("quote_status") or "unverified"))
-    falsifier = _falsifier(draft, findings)
+    falsifier = lead_falsifier or _falsifier(draft, findings)
     decision = str(draft.get("intent") or "")
 
     reasons: List[str] = []
