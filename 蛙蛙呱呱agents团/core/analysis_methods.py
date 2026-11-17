@@ -50,6 +50,20 @@ CAT_RULES: List[Tuple[str, Dict[str, float]]] = [
     ("鲫鱼", {"loss": 0.05, "cold": 0.55, "shelf": 1}),
     ("白条鸡", {"loss": 0.02, "cold": 0.55, "shelf": 2}),
     ("鸡蛋", {"loss": 0.01, "cold": 0.25, "shelf": 4}),
+    # 水果：仁果/柑橘耐放，浆果与热带果货架期短、冷链贵
+    ("苹果", {"loss": 0.020, "cold": 0.35, "shelf": 14}),
+    ("梨", {"loss": 0.020, "cold": 0.35, "shelf": 14}),
+    ("柑橘", {"loss": 0.020, "cold": 0.35, "shelf": 14}),
+    ("葡萄", {"loss": 0.050, "cold": 0.55, "shelf": 5}),
+    ("香蕉", {"loss": 0.040, "cold": 0.45, "shelf": 5}),
+    ("芒果", {"loss": 0.050, "cold": 0.55, "shelf": 5}),
+    ("菠萝", {"loss": 0.040, "cold": 0.45, "shelf": 7}),
+    ("西瓜", {"loss": 0.030, "cold": 0.40, "shelf": 7}),
+    ("桃", {"loss": 0.035, "cold": 0.50, "shelf": 5}),
+    ("猕猴桃", {"loss": 0.050, "cold": 0.60, "shelf": 7}),
+    ("火龙果", {"loss": 0.040, "cold": 0.50, "shelf": 7}),
+    ("橙", {"loss": 0.020, "cold": 0.35, "shelf": 14}),
+    ("红枣", {"loss": 0.010, "cold": 0.20, "shelf": 30}),
     ("虾", {"loss": 0.06, "cold": 1.60, "shelf": 1}),
     ("蛋", {"loss": 0.01, "cold": 0.25, "shelf": 4}),
     ("牛", {"loss": 0.015, "cold": 0.90, "shelf": 3}),
@@ -65,9 +79,12 @@ DEFAULT_RULE = {"loss": 0.02, "cold": 0.50, "shelf": 3}
 
 # 跨品类通用词：肉禽蛋之外也认（水果/蔬菜/家居百货的常见品类）
 EXTRA_KEYS = ("苹果", "葡萄", "香蕉", "西瓜", "柑橘", "芒果", "菠萝",
-              "梨", "红枣", "土豆", "白菜", "番茄", "黄瓜", "辣椒", "大葱")
+              "梨", "红枣", "桃", "猕猴桃", "火龙果", "橙",
+              "土豆", "白菜", "番茄", "黄瓜", "辣椒", "大葱")
 KNOWN_KEYS = sorted({k for k, _ in CAT_RULES} | set(EXTRA_KEYS),
-                    key=len, reverse=True)
+                    # 同长度时优先果蔬类词：避免「鸭梨」被归到「鸭」（集合序不稳定）
+                    key=lambda k: (len(k), k in EXTRA_KEYS),
+                    reverse=True)
 _ORIGIN_BAN = ("当地", "零售", "批发", "市场价", "下架鸡", "肥牛",
                "活牛", "育肥", "活羊", "羔羊", "绒山羊")
 _ORIGIN_PREFER = {
@@ -347,6 +364,18 @@ def _clean_label(name: str) -> str:
     return s.strip() or str(name)
 
 
+def obs_name(obs) -> str:
+    """品类字段的原始展示名：与 obs_cat 同一判定顺序（sub → entity → 文件名）。
+
+    长表的主/次维顺序不固定（市场×品类 / 品类×地区），直接取 `sub or entity`
+    会把「地区/市场」当成品类名。这里只认能归一到 KNOWN_KEYS 的那个字段。
+    """
+    for cand in (obs.sub, obs.entity, Path(obs.file).stem):
+        if cand and cat_key(cand) in KNOWN_KEYS:
+            return str(cand)
+    return str(obs.entity or obs.sub or "")
+
+
 def _score_retail_ds(d) -> Tuple[int, int, int, int]:
     """快照表优先级：非 engine/ 派生物 > 列就是期次 > 文件名带采价/零售 > 品类多。"""
     name = d.file
@@ -377,7 +406,7 @@ def build_views(desk) -> Views:
         val, unit = o.per_jin()
         v.snapshot[cat] = (val, o.time)
         v.snapshot_unit = unit
-        v.labels.setdefault(cat, _clean_label(o.sub or o.entity))
+        v.labels.setdefault(cat, _clean_label(obs_name(o)))
     v.primary = t0.file
     v.source_notes.append(f"快照取 {t0.file} 的 {last}")
 
@@ -436,8 +465,11 @@ def build_views(desk) -> Views:
     for o in desk.obs:
         if o.channel != "origin" or o.pct or o.value <= 0:
             continue
+        cat = obs_cat(o)
+        if cat not in KNOWN_KEYS:
+            continue  # 产地列写的是地名/规格而非品类：不能拿它冒充品类价
         val, _ = o.per_jin()
-        v.origins.append({"cat": obs_cat(o), "label": o.sub or o.entity,
+        v.origins.append({"cat": cat, "label": obs_name(o),
                           "place": o.entity, "time": o.time, "value": val})
 
     # 6) 地区零售（区域价格表：地区 × 品类 × 两期）
@@ -451,9 +483,10 @@ def build_views(desk) -> Views:
         for o in d.obs:
             if o.time != last or o.pct:
                 continue
-            cat = cat_key(o.sub or o.entity)
+            cat = obs_cat(o)
+            place = str(o.sub) if cat_key(o.entity) in KNOWN_KEYS else str(o.entity)
             val, _ = o.per_jin()
-            v.region[(o.entity, cat)] = val
+            v.region[(place, cat)] = val
 
     # 7) 批发市场逐市场报价
     for o in desk.obs:
@@ -468,8 +501,9 @@ def build_views(desk) -> Views:
     return v
 
 
-def pick_origin(v: Views, cat: str) -> Optional[Dict[str, Any]]:
+def pick_origin(v: Views, cat: str, floor: float = 0.0) -> Optional[Dict[str, Any]]:
     rows = [o for o in v.origins if o["cat"] == cat
+            and o["value"] >= floor
             and not any(b in str(o["label"]) for b in _ORIGIN_BAN)]
     if not rows:
         return None
@@ -871,21 +905,22 @@ def m_economics(ctx: Ctx) -> Optional[Finding]:
     top = rows[0]
     worst = min(rows, key=lambda r: r["v"])
     title = (f"单位经济：{len(rows)} 个品类里 {len(neg)} 个扣损耗冷链后为负，"
-             f"{top['cat']} +{top['nv'].value:.2f} 元/斤（{top['margin'].p()}）、"
-             f"{worst['cat']} {worst['nv'].value:.2f} 元/斤")
+             f"最好的是 {top['cat']} {top['nv'].value:+.2f} 元/斤"
+             f"（{top['margin'].p()}）、最差的是 {worst['cat']} "
+             f"{worst['nv'].value:+.2f} 元/斤")
     f = _finding("economics", title,
                  "批零差价看起来有钱赚，扣掉损耗和冷链还剩多少？", c, mark)
     f.assumptions = assumptions
     f.add(f"{top['cat']} 批零加价 {top['markup'].p()}，扣 {top['loss'].p()} 损耗与 "
-          f"{top['cold']} 元/斤冷链后净毛利 +{top['nv'].value:.2f} 元/斤，"
-          f"净利率 {top['margin'].p()}——这是利润品。",
+          f"{top['cold']} 元/斤冷链后净毛利 {top['nv'].value:+.2f} 元/斤，"
+          f"净利率 {top['margin'].p()}——"
+          + ("这是利润品。" if top["nv"].value > 0 else "连最好的品类也没覆盖成本。"),
           _ids(top["markup"], top["loss"], top["cold"], top["nv"], top["margin"]))
     if neg:
         names = _names([f"{r['cat']}（{r['nv'].value:+.2f} 元、{r['margin'].p()}）"
                         for r in neg], 3)
         deep = [r for r in neg if r["v"] <= -0.5]
-        tail = ("其中真正深亏的是"
-                + _names([f"{r['cat']} {r['margin'].p()}" for r in deep], 2) + "；"
+        tail = ("其中 " + _names([r["cat"] for r in deep], 2) + " 失血最快；"
                 if deep else "三者都只是擦线为负；")
         f.add(f"扣完成本转负的是{names}。{tail}"
               "共同点是加价率撑不住损耗与冷链，规模放大只会放大亏损。",
@@ -910,8 +945,10 @@ def m_economics(ctx: Ctx) -> Optional[Finding]:
     }
     f.so_what = ("按净毛利分配品类角色：正的做利润品、负但有客流的做引流品、"
                  "负且无量又占资金的直接停采。")
-    f.boundary = ("损耗率与冷链成本是品类经验值（牛羊 1.5%/0.90、禽 2%/0.55、"
-                  "蛋 1%/0.25、活鱼 5%/0.55），不是企业台账；净毛利不含门店租金、"
+    shown = "、".join(f"{r['cat']} {r['loss'].p()}/{str(r['cold'])}" for r in rows[:4])
+    more = "等" if len(rows) > 4 else ""
+    f.boundary = (f"损耗率与冷链成本是品类经验值（{shown}{more}；前者为损耗率，"
+                  "后者为冷链元/斤），不是企业台账；净毛利不含门店租金、"
                   "人力与税，不能直接当财务口径。")
     f.meta = {"rows": rows}
     ctx.memo["economics"] = rows
@@ -925,10 +962,16 @@ def m_transmission(ctx: Ctx) -> Optional[Finding]:
     v, c = ctx.views, ctx.cite
     mark = c.begin()
     rows = []
+    dropped = []
     for k in v.snapshot:
-        o = pick_origin(v, k)
         w = v.wholesale.get(k)
-        if not o or not w:
+        if not w:
+            continue
+        # 产地报价低于销地批发三成的，按口径异常剔除（规格/单位错配），不当倒挂结论
+        o = pick_origin(v, k, floor=0.3 * w[0])
+        if not o:
+            if pick_origin(v, k):
+                dropped.append(v.label(k))
             continue
         r = v.snapshot[k][0]
         no = c.n(f"{k} 产地价", o["value"], "元/斤", o["time"], o["place"])
@@ -997,12 +1040,15 @@ def m_transmission(ctx: Ctx) -> Optional[Finding]:
             {"name": "批发→零售", "values": [round(r["dn"].value, 2) for r in rows]},
         ],
     }
-    f.so_what = ("锁价锁在活畜/产地这一端，不锁产地零售价；"
+    f.so_what = ("锁价锁在产地/一级批发这一端，不锁零售价；"
                  "跨市采购前先算倒挂，倒挂的直接关闭。")
     f.meta = {"rows": rows}
     f.boundary = ("产地价是出场/装车口径，与销地批发不是同一交易环节；价差只能看方向，"
-                  "不能当套利收益。牛羊只有活畜或部位价，与白条批发不同环节，"
-                  "未纳入本表——这不是漏算，是口径不可比。")
+                  "不能当套利收益。只有同品类、同规格、同一时点的两段价才可比，"
+                  "跨环节直接相减不是套利收益。")
+    if dropped:
+        f.boundary += (f"；{_names(dropped)} 的产地报价低于销地批发三成，"
+                       "按口径异常（规格或单位错配）剔除，未纳入本表。")
     return f
 
 
@@ -1015,6 +1061,12 @@ def m_arbitrage(ctx: Ctx) -> Optional[Finding]:
     by_cat: Dict[str, Dict[str, float]] = {}
     for (region, cat), val in v.region.items():
         by_cat.setdefault(cat, {})[region] = val
+    # 批发市场逐市场报价也是跨市场价差：同品类、同时点、不同市场
+    # 只纳入有零售价的品类，避免与本报告主线（零售品类）串台
+    for (place, cat), val in v.quotes.items():
+        if cat not in v.snapshot:
+            continue
+        by_cat.setdefault(cat, {})[place] = val
     rows = []
     for cat, prices in by_cat.items():
         if len(prices) < 2:
@@ -1056,7 +1108,7 @@ def m_arbitrage(ctx: Ctx) -> Optional[Finding]:
               "价差被运费和损耗吃掉，跨市反而亏。", _ids([r["net"] for r in bad]))
     else:
         f.add(f"最差的是{worst['cat']}，净 {worst['nv'].value:.2f} 元/斤；"
-              "所有品类都还能覆盖运费，但草鱼、鲤鱼这类活鲜只剩几分钱容错。",
+              "所有品类都还能覆盖运费，但单价低的品类只剩几分钱容错。",
               _ids(worst["net"]))
     f.table = _table(
         "跨市场套利测算（元/斤）",
@@ -1074,7 +1126,7 @@ def m_arbitrage(ctx: Ctx) -> Optional[Finding]:
         "bars": [{"label": r["cat"], "value": round(r["v"], 2)} for r in rows],
     }
     f.so_what = ("配额按价差分档：价差大于两倍运费才扩量，低于运费不启动；"
-                 "活鲜只在价差能覆盖损耗时试单。")
+                 "低单价品类只在价差能覆盖损耗时试单。")
     f.boundary = ("两地区价格不是同一交易环节的报价，且未计入冷链装载率；"
                   "净利是情景值，首单必须实测运费与到店损耗。")
     f.meta = {"rows": rows}
@@ -1115,7 +1167,7 @@ def m_breakeven(ctx: Ctx) -> Optional[Finding]:
                 nshare = c.n(f"{cat} 保本直采占比", share / 100, "%")
         rows.append({"cat": r["cat"], "need": nneed, "up": nuplift,
                      "share": nshare, "w": r["w"], "v": uplift,
-                     "loss": r["nv"].value})
+                     "loss": r["nv"].value, "nv": r["nv"]})
     if not rows:
         return None
     rows.sort(key=lambda x: x["v"])
@@ -1131,9 +1183,9 @@ def m_breakeven(ctx: Ctx) -> Optional[Finding]:
                 f"{r['need']} 元，需提价 {r['up'].p()}。")
         if r["share"] is not None:
             line += f"若走产地直采，直采占比到 {r['share'].p()} 即可不动价保本。"
-        f.add(line, _ids(r["need"], r["up"], r["share"]))
+        f.add(line, _ids(r["nv"], r["need"], r["up"], r["share"]))
     f.add("提价与直采是两条不同的路：单价高的品类提一点就够，单价低的高频品只能降本，"
-          "否则提价 2% 就足以打掉客流。", _ids(rows[0]["up"], rows[0]["need"]))
+          "否则稍微提价就足以打掉客流。", _ids(rows[0]["up"], rows[0]["need"]))
     f.table = _table(
         "保本测算（元/斤）",
         ["品类", "现状净毛利", "保本零售价", "需提价", "保本直采占比"],
@@ -1216,7 +1268,8 @@ def m_risk(ctx: Ctx) -> Optional[Finding]:
     f.so_what = ("先补三类数：批发基准价、至少 12 期序列、产地→到店的实际运费；"
                  "补不齐就在报告里保留缺口，不用估算值冒充实测。")
     f.boundary = "缺口来自源数据本身，不是本项目拒绝计算；有数据的部分仍按实际值计算。"
-    f.meta = {"no_base": no_base, "no_base_count": len(no_base)}
+    f.meta = {"no_base": no_base, "no_base_count": len(no_base),
+              "min_periods": 8}
     return f
 
 
@@ -1265,11 +1318,14 @@ def m_sample(ctx: Ctx) -> Optional[Finding]:
         ["口径", "值", "含义"],
         [["可用期数", str(n), "序列长度"],
          ["同向品类", str(k), "首末价格方向"],
-         ["每组所需样本", (str(nreq) if nreq else "—"), "MDE 1pp、α 0.05"],
-         ["95% 区间", (f"{lo.p()}—{hi.p()}" if lo and hi else "—"), "Wilson"]])
+         ["每组所需样本", (str(nreq) if nreq else "—"), "均值差异口径"],
+         ["置信区间", (f"{lo.p()}—{hi.p()}" if lo and hi else "—"), "Wilson"]])
     f.so_what = ("把结论强度降一档：方向可以说，显著性不能说；"
                  "要升级成显著结论，先补到每组所需样本量。")
     f.boundary = "Wilson 区间对二项比例有效，不适用于价格均值；均值检验的样本量按 MDE 1pp 估算。"
+    f.assumptions = [95, 0.05, 0.01]
+    f.meta = {"n_periods": n_periods, "min_same": same_dir,
+              "min_effect_pp": 1, "required_n": req}
     return f
 
 
@@ -1438,10 +1494,11 @@ def collect(ctx: Ctx) -> Tuple[Dict[str, Finding], List[str]]:
         try:
             f = fn(ctx)
         except Exception as exc:  # noqa: BLE001  单方法失败降级
-            gaps.append(f"{key} 计算失败：{type(exc).__name__}: {exc}")
+            # 异常原文不进报告；需要排查时看 analysis_trace 里 plan 的 errors
+            gaps.append(f"「{key}」本轮计算未完成，相关结论不采用。")
             continue
         if f is None:
-            gaps.append(f"{key} 未命中（缺对应数据）")
+            gaps.append(f"「{key}」本轮未命中（缺对应数据）")
         else:
             out[key] = f
     led = m_ledger(ctx, list(out.values()))

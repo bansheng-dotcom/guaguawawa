@@ -103,6 +103,80 @@ def _section_of(f) -> Dict[str, Any]:
     return _section_from(f)
 
 
+def _counts(views, sections: List[Dict[str, Any]], picked: List[Any],
+            desk) -> Dict[str, int]:
+    """P8b：把“计数”登记成可校验集合，替代 <31 的整段放行。"""
+    vals: set = set()
+
+    def add(x):
+        try:
+            n = int(x)
+        except (TypeError, ValueError):
+            return
+        if n >= 0:
+            vals.add(n)
+
+    for obj in (getattr(views, "snapshot", {}), getattr(views, "series", {}),
+                getattr(views, "wholesale", {}), getattr(views, "origins", []),
+                getattr(views, "region", {}), getattr(views, "quotes", {}),
+                getattr(views, "momentum", {})):
+        try:
+            add(len(obj))
+        except TypeError:
+            pass
+    for s in (getattr(views, "series", {}) or {}).values():
+        add(len(s))
+    add(len(sections))
+    add(len(picked))
+    for f in picked:
+        meta = getattr(f, "meta", None) or {}
+        for key in ("rows", "stats"):
+            try:
+                add(len(meta.get(key) or []))
+            except TypeError:
+                pass
+        ch = getattr(f, "chart", None) or {}
+        for key in ("bars", "series"):
+            try:
+                add(len(ch.get(key) or []))
+            except TypeError:
+                pass
+        tb = getattr(f, "table", None) or {}
+        try:
+            add(len(tb.get("rows") or []))
+        except TypeError:
+            pass
+    for attr in ("facts", "assumptions", "derived"):
+        try:
+            add(len(getattr(desk, attr, []) or []))
+        except TypeError:
+            pass
+    try:
+        add(len((getattr(desk, "pack", None) or {}).get("sources") or []))
+    except TypeError:
+        pass
+    # 方法把阈值（最少期数/最小样本/窗口）写在 finding.meta 里；这些也是“计数”。
+    for f in picked:
+        meta = getattr(f, "meta", None) or {}
+        cl = meta.get("claim")
+        if isinstance(cl, dict):
+            for k in ("n", "count", "missing_count"):
+                if isinstance(cl.get(k), (int, float)) and not isinstance(cl.get(k), bool):
+                    add(int(cl[k]))
+        else:
+            tags = getattr(cl, "tags", None) or {}
+            for k in ("n", "count", "missing_count"):
+                if isinstance(tags.get(k), (int, float)) and not isinstance(tags.get(k), bool):
+                    add(int(tags[k]))
+        for k, v in meta.items():
+            key = str(k).lower()
+            if not any(t in key for t in ("min", "period", "window", "threshold", "sample", "n_")):
+                continue
+            if isinstance(v, (int, float)) and not isinstance(v, bool):
+                add(int(v))
+    return {f"count_{i}": v for i, v in enumerate(sorted(vals))}
+
+
 def _metrics(picked: List[Any], label_of: Dict[str, int]) -> List[Dict[str, Any]]:
     """指标带：只用正文里真的出现的节，避免「第 - 节」这种空洞指向。"""
     out: List[Dict[str, Any]] = []
@@ -420,7 +494,39 @@ def build(intent: str, project_dir: str, out_dir: str,
         "boundary": [f.boundary for f in picked if f.boundary][:6] + [
             "所有价格为采集价/报价口径，不是企业结算价；净毛利为情景测算，不含租金、人力与税。"],
         "derived": desk.derived,
+        "counts": _counts(views, sections, picked, desk),
     }
+    # 缺口清单也是“计数”：缺 5 项/缺 8 项属于已登记缺口数，不再靠 <31 放行。
+    draft["counts"]["gaps"] = len(missing) + len(vg) + len(gaps)
+
+    # P8b：假设契约。每个假设必须有来源（数据假设 / 方法 / 本节显式声明）。
+    records: List[Dict[str, Any]] = []
+    seen_ass: set = set()
+
+    def _ass(v, source: str, sensitivity: Any = "unknown"):
+        try:
+            fv = abs(float(v))
+        except (TypeError, ValueError):
+            return
+        if fv in seen_ass:
+            return
+        seen_ass.add(fv)
+        records.append({"value": fv, "source": source,
+                        "sensitivity": sensitivity})
+
+    for i, a in enumerate(getattr(desk, "assumptions", []) or []):
+        if isinstance(a, dict):
+            _ass(a.get("value"), f"assumption:{a.get('id') or i + 1}",
+                 a.get("sensitivity"))
+        else:
+            _ass(a, f"assumption:{i + 1}")
+    for f in picked:
+        for v in getattr(f, "assumptions", []) or []:
+            _ass(v, f"method:{f.key}")
+    for s in sections:
+        for v in s.get("assumptions") or []:
+            _ass(v, f"declared:{s.get('title') or 'section'}")
+    draft["assumption_records"] = records
     # 非假设型边界不再逐节挂「本节边界」，集中到末节口径里（减少同一个壳）
     agg = []
     for sec in sections:

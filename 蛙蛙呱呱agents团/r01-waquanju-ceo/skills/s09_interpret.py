@@ -479,9 +479,6 @@ def _explainable(x: float, refs: List[Dict[str, Any]]) -> bool:
                 continue
             cand.add(abs(a - b))
             cand.add(abs(a + b))
-            if b:
-                cand.add(abs(a / b))
-                cand.add(abs(a / b - 1) * 100)
     return any(_close(x, c) for c in cand)
 
 
@@ -503,6 +500,26 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
     idx = _pack_index(pack)
     banned = BANNED
     checks: List[Dict[str, Any]] = []
+    # P8b：计数注册表。只允许登记过的整数，不再对 0–30 整段放行。
+    count_values: set = set()
+    for v in (draft.get("counts") or {}).values():
+        try:
+            fv = float(v)
+        except (TypeError, ValueError):
+            continue
+        if fv.is_integer():
+            count_values.add(fv)
+    for n in pack.get("numbers") or []:
+        name = str(n.get("name") or "")
+        if not any(k in name for k in ("数", "期", "品类", "条", "个", "市场",
+                                       "样本", "动作", "发现", "节", "类别")):
+            continue
+        try:
+            fv = float(n.get("value"))
+        except (TypeError, ValueError):
+            continue
+        if fv.is_integer():
+            count_values.add(fv)
 
     # 派生量：写稿时用公式算出来的中间量（人口、单点年销…），先验算再进 refs
     # 允许多轮：后面的派生量可以引用前面刚算出的（X10 = X9*1e4/X19）。
@@ -561,17 +578,30 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                 errs.append(f"refs 不存在: {missing}")
             return [idx[x] for x in ids if x in idx]
 
-        # 假设参数（200 元/㎡、65 岁…）显式声明后允许出现在正文，不当成编造
-        params = {abs(float(x)) for x in (s.get("assumptions") or [])}
+        # P8b：假设必须有来源（数据假设 / 方法 / 本节显式声明）；没有记录就不放行。
+        ass_records = {}
+        for r in draft.get("assumption_records") or []:
+            try:
+                ass_records[abs(float(r.get("value")))] = r
+            except (TypeError, ValueError):
+                continue
+        params = set()
+        for x in s.get("assumptions") or []:
+            try:
+                ax = abs(float(x))
+            except (TypeError, ValueError):
+                continue
+            rec = ass_records.get(ax)
+            if rec and str(rec.get("source") or "").strip():
+                params.add(ax)
 
         def ok_num(x: float, refs: List[Dict[str, Any]]) -> bool:
             if _is_year(x):
                 return True
             if x in params or any(_close(x, p) for p in params):
                 return True
-            # P4.1：小整数仍放行，但这些多是“品类数/期数/条数”；
-            # 彻底删掉需要先把计数登记成 ref（P5 做）。先保留，避免误杀。
-            if x < 31 and float(x).is_integer():
+            # P8b：整数只允许“登记过的计数”，不再放行 0–30。
+            if float(x).is_integer() and float(x) in count_values:
                 return True
             return _explainable(x, refs)
 
