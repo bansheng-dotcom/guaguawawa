@@ -27,7 +27,7 @@ from core import analysis_methods as A
 register_need("price.retail", lambda c: bool(c.views.snapshot))
 register_need("price.wholesale", lambda c: len(c.views.wholesale) >= 3)
 register_need("price.origin", lambda c: bool(c.views.origins))
-register_need("price.region", lambda c: len(c.views.region) >= 2)
+register_need("price.region", lambda c: len(c.views.region) >= 2 or len(c.views.quotes) >= 4)
 register_need("price.momentum", lambda c: sum(
     1 for m in c.views.momentum.values() if "mom" in m and "yoy" in m) >= 3)
 register_need("price.series2", lambda c: any(len(s) >= 2 for s in c.views.series.values()))
@@ -105,6 +105,10 @@ def run(plan_obj: Dict[str, Any], ctx):
     led = A.m_ledger(ctx, list(findings.values()))
     if led:
         findings["ledger"] = led
+    # P11：逐方法专属 falsifier（没有的留空，report_compose 会补方向反转兜底）
+    for key, f in findings.items():
+        if not getattr(f, "falsifier", ""):
+            f.falsifier = A.FALSIFIERS.get(key, "")
     return findings, gaps
 
 

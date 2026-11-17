@@ -1,7 +1,14 @@
 # ClaimCard 头条门禁（REPORT-CLAIM-GATE.md）
 
-> 版本：v0.1 · 2026-11-17（P9）
+> 版本：v0.2 · 2026-11-17（P11）
 > 实现：`core/claim_gate.py`，接入 `core/report_compose.py`。
+
+## 0. P11 补丁
+
+- 每条 finding 有逐方法 `falsifier`（`analysis_methods.FALSIFIERS`）；
+- `claim_gate` 构建完整 `ClaimCard`（comparability/rivals/decision），跑 `validate`；
+- `full_schema_ok` 写进 `manifest.claims`；
+- `REPORT_CLAIM_CARD_GATE=1` 时，完整 schema 不过也会降级；默认 **0**（审计，不阻断）。
 
 ## 1. 规则
 
@@ -30,10 +37,15 @@ P9 接入后，水果 pipeline 的四份报告头条都被降级，原因主要�
 ## 3. 开关
 
 ```bash
-REPORT_CLAIM_GATE=0 python guagua.py report build ...
+REPORT_CLAIM_GATE=0 python guagua.py report build ...      # 关闭三条硬规则
+REPORT_CLAIM_CARD_GATE=1 python guagua.py report build ...  # 完整 ClaimCard 硬门禁
 ```
 
-只用于排障/回滚；默认 `1`。
+`REPORT_CLAIM_CARD_GATE=0`（默认）只审计 `comparability/rivals`，不阻断；  
+`=1` 时 `full_schema_ok=false` 会降级头条。
+
+当前 pipeline 的 `full_schema_ok=false`，原因是第一条 claim 跨多个期次/单位：
+`same_period=unknown`、`same_unit=unknown`。这不是代码错，是 claim 还没做可比性收敛。
 
 ## 4. 与完整 ClaimCard 的关系
 

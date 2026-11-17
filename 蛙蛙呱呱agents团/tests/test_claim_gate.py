@@ -53,3 +53,12 @@ def test_section_falsifier_counts():
     info = claim_gate.apply(d, _pack())
     assert info["actionable"] is True
     assert info["demoted"] is False
+
+
+def test_full_card_strict_flag_demotes(monkeypatch):
+    monkeypatch.setenv("REPORT_CLAIM_CARD_GATE", "1")
+    d = _draft()
+    info = claim_gate.apply(d, _pack())
+    assert info["full_schema_ok"] is False
+    assert info["demoted"] is True
+    assert any("完整 ClaimCard" in r for r in info["reasons"])

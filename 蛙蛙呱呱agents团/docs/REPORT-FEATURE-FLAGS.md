@@ -10,6 +10,7 @@
 | `REPORT_ENGINE` | `v9` / `v10` | `v9` | 当前唯一引擎；`v8` 已下线，传 `v8` 直接报错 |
 | `REPORT_QUOTE_GATE` | `0` / `1` | `1` | `0` = 临时关闭 quote 门禁（等同 `--quote-mode off`） |
 | `REPORT_CLAIM_GATE` | `0` / `1` | `1` | `0` = 临时关闭 ClaimCard 头条门禁 |
+| `REPORT_CLAIM_CARD_GATE` | `0` / `1` | `0` | `1` = 完整 ClaimCard（comparability/rivals）硬门禁 |
 
 ## 2. 用法
 
@@ -19,6 +20,9 @@ REPORT_QUOTE_GATE=0 python guagua.py report build --intent "…" --dir <项目> 
 
 # 临时关闭 claim 头条门禁
 REPORT_CLAIM_GATE=0 python guagua.py report build --intent "…" --dir <项目> --out <目录>
+
+# 完整 ClaimCard（comparability/rivals）硬门禁
+REPORT_CLAIM_CARD_GATE=1 python guagua.py report build --intent "…" --dir <项目> --out <目录>
 ```
 
 PowerShell：

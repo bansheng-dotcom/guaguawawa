@@ -1484,6 +1484,22 @@ METHODS = {
 }
 
 
+FALSIFIERS: Dict[str, str] = {
+    "structure": "若下期涨跌方向反转，或离散度收敛到 5% 以内，结构分化判断作废。",
+    "momentum": "若下期环比与同比同向，或拐点消失，节奏判断作废。",
+    "trajectory": "若新增 3 期后斜率翻转，趋势判断作废。",
+    "contribution": "若下期贡献方向反转，换手判断作废。",
+    "economics": "若损耗率或冷链成本比假设低 2 个百分点、净利转正，负毛利判断作废。",
+    "transmission": "若产地→批发价差方向反转，传导判断作废。",
+    "arbitrage": "若扣运费与损耗后价差为负，跨市机会作废。",
+    "breakeven": "若零售价跌破保本价，或提价后销量下滑超过 20%，保本判断作废。",
+    "forecast": "若实际值落在区间外，外推作废。",
+    "risk": "若补数后缺口消失，或回撤/波动收敛到阈值内，风险判断作废。",
+    "sample": "若样本补到每组所需量后显著性改变，样本判断作废。",
+    "ledger": "若来源-结论映射变化，台账结论作废。",
+}
+
+
 def collect(ctx: Ctx) -> Tuple[Dict[str, Finding], List[str]]:
     """按依赖顺序跑方法；单点失败只记缺口，不中断整环。"""
     out: Dict[str, Finding] = {}
@@ -1505,5 +1521,8 @@ def collect(ctx: Ctx) -> Tuple[Dict[str, Finding], List[str]]:
     led = m_ledger(ctx, list(out.values()))
     if led:
         out["ledger"] = led
+    for key, f in out.items():
+        if not f.falsifier:
+            f.falsifier = FALSIFIERS.get(key, "")
     return out, gaps
 

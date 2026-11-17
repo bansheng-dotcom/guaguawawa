@@ -12,8 +12,11 @@
 """
 from __future__ import annotations
 
+import os
 import re
 from typing import Any, Dict, List, Tuple
+
+from core.claim_card import ClaimCard, Rival, validate
 
 SAFE_HEADLINE = "本报告含 1 条待验证判断；标题不承载未核验断言，见正文。"
 
@@ -115,6 +118,46 @@ def assess(draft: Dict[str, Any], pack: Dict[str, Any],
         reasons.append("没有 decision")
 
     actionable = not reasons
+
+    # P11：完整 ClaimCard（comparability/rivals）审计；REPORT_CLAIM_CARD_GATE=1 时硬门禁。
+    nums = {str(n.get("id")): n for n in (pack.get("numbers") or [])}
+    periods = set()
+    units = set()
+    files = set()
+    for ref in refs:
+        sid = str(ref).split("#")[0]
+        n = nums.get(sid) or {}
+        if n.get("period"):
+            periods.add(str(n["period"]))
+        if n.get("unit"):
+            units.add(str(n["unit"]))
+        if n.get("source_file"):
+            files.add(str(n["source_file"]))
+    all_file = bool(sources) and all(s.startswith("FILE:") for s in sources)
+    comparability = {
+        "same_product": "yes" if all_file and len(files) == 1 else "n/a",
+        "same_period": "yes" if periods and len(periods) == 1 else "unknown",
+        "same_unit": "yes" if units and len(units) == 1 else "unknown",
+        "same_channel": "n/a" if all_file else "unknown",
+    }
+    rivals = [Rival("口径/时点差异", "partially_ruled",
+                    "引用同项目来源；期次与单位已记录")] if sources else []
+    grade = "A" if grades and all(g == "A" for g in grades) else (
+        "B" if grades and all(g in ("A", "B") for g in grades) else "C")
+    card = ClaimCard(
+        id="H1", statement=str(draft.get("standfirst") or ""), refs=refs,
+        values={"sources": len(sources)}, comparability=comparability,
+        rivals=rivals, falsifier=falsifier, confidence="medium", grade=grade,
+        actionable=actionable, headline=actionable, decision=decision,
+        owner="r01", kind="headline",
+    )
+    v = validate(card)
+    full_ok = bool(v["ok"])
+    if (os.environ.get("REPORT_CLAIM_CARD_GATE", "0") == "1"
+            and actionable and not full_ok):
+        actionable = False
+        reasons = reasons + ["完整 ClaimCard：" + e for e in v["errors"]]
+
     return {
         "schema": "dsh.claim_gate/v1",
         "ok": True,                 # 门禁本身可用；是否降级看 demoted
@@ -125,6 +168,11 @@ def assess(draft: Dict[str, Any], pack: Dict[str, Any],
         "grades": grades,
         "falsifier": falsifier,
         "decision": decision,
+        "comparability": comparability,
+        "rivals": [r.__dict__ for r in rivals],
+        "full_schema_ok": full_ok,
+        "card_errors": v["errors"],
+        "card": card.to_dict(),
     }
 
 
