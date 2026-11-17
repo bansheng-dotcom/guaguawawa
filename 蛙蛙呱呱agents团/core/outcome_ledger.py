@@ -156,6 +156,25 @@ def seed_from_trace(report_id: str, intent: str, trace: Dict[str, Any],
     return out
 
 
+def calibrate(path: Optional[str | Path] = None,
+              month: Optional[str] = None) -> Dict[str, Any]:
+    """月度校准：没有到期结果时明确返回 NO_DUE_DATA，不编命中率。"""
+    s = summary(path)
+    entries = load(path)["entries"]
+    due = [e for e in entries if e.get("status") == "open"
+           and str(e.get("deadline") or "") <= (s.get("as_of") or _today())]
+    return {
+        "schema": "dsh.outcome_calibration/v1",
+        "month": month or (s.get("as_of") or _today())[:7],
+        "summary": s,
+        "due_unreviewed": [e["id"] for e in due],
+        "verdict": ("NO_DUE_DATA" if s.get("hit_rate") is None
+                    else "CALIBRATED"),
+        "note": ("没有到期回填，不计算命中率" if s.get("hit_rate") is None
+                 else "命中率只用于校准置信度，不做角色排名"),
+    }
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(prog="outcome_ledger",
                                  description="结果台账：登记预测 / 到期回填 / 命中率")

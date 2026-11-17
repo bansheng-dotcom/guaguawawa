@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -88,6 +89,11 @@ def build(intent: str, project_dir: str, out_dir: str,
           pdf: bool = False, audience: str = "业务负责人",
           record_outcomes: bool = False,
           outcome_deadline: Optional[str] = None) -> Dict[str, Any]:
+    engine = os.environ.get("REPORT_ENGINE", "v9")
+    if engine not in ("v9", "v10"):
+        raise ValueError("REPORT_ENGINE=v8 已下线；只支持 v9/v10，回滚请用 git tag")
+    if os.environ.get("REPORT_QUOTE_GATE") == "0":
+        quote_mode = "off"
     desk = analysis_desk.scan(project_dir)
     prof = analysis_desk.profile(desk)
     graph = capability_graph.build()
@@ -146,6 +152,15 @@ def build(intent: str, project_dir: str, out_dir: str,
                              "capability": q["capability"]} for q in qs]
         man["generated_by"] = "core/report_build.py"
         man["quotes_ok"] = quotes_ok
+        man["claims"] = res.get("claim_gate")
+        man["gates"] = {
+            "quote": "pass" if quotes_ok else "block",
+            "coverage": "pass" if cov["verdict"] == "COMPLETE" else "block",
+            "claim": ("pass" if (res.get("claim_gate") or {}).get("ok", True)
+                      else "block"),
+            "quality": "pass" if (res.get("quality") or {}).get("ok", True) else "warn",
+            "render": "pass" if res.get("files", {}).get("html") else "block",
+        }
         man["ok"] = (bool(man.get("ok")) and cov["verdict"] == "COMPLETE"
                      and quotes_ok)
         man_path.write_text(json.dumps(man, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -167,6 +182,11 @@ def build(intent: str, project_dir: str, out_dir: str,
         "coverage": cov["coverage"],
         "coverage_verdict": cov["verdict"],
         "quotes_ok": quotes_ok,
+        "claims": res.get("claim_gate"),
+        "gates": {"quote": "pass" if quotes_ok else "block",
+                  "coverage": cov["verdict"],
+                  "claim": ("pass" if (res.get("claim_gate") or {}).get("ok", True)
+                            else "block")},
         "questions": [q["id"] for q in qs],
         "lens": lens,
         "lens_fallback": fallback,

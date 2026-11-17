@@ -66,3 +66,15 @@ def test_hit_rate_with_hit_miss_void(tmp_path):
     s = ol.summary(path=p, today="2026-12-01")
     assert s["hit"] == 1 and s["miss"] == 1 and s["void"] == 1
     assert s["hit_rate"] == 0.5
+
+
+def test_calibration_no_data_then_calibrated(tmp_path):
+    p = tmp_path / "ledger.json"
+    e = ol.add("RPT-1", "a", "A", "D", "2026-12-31", path=p)
+    cal = ol.calibrate(path=p, month="2026-11")
+    assert cal["verdict"] == "NO_DUE_DATA"
+    assert cal["summary"]["hit_rate"] is None
+    ol.review(e["id"], "hit", "方向一致", path=p)
+    cal2 = ol.calibrate(path=p, month="2026-11")
+    assert cal2["verdict"] == "CALIBRATED"
+    assert cal2["summary"]["hit_rate"] == 1.0

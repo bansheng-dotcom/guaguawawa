@@ -194,7 +194,20 @@ DIMENSION_BY_CAPABILITY: Dict[str, str] = {
     "data.pipeline": "risk",
     "data.quality6": "risk",
     "model.eval": "risk",
-    "model.regression": "risk",
+    "model.regression": "data",
+}
+
+# P9：未逐条映射的能力按前缀落到新增维度；0 = 已覆盖 20 角色域。
+DIMENSION_BY_PREFIX: Dict[str, str] = {
+    "market": "market_size", "competition": "competition", "product": "product",
+    "channel": "channel", "content": "content", "growth": "growth",
+    "customer": "customer", "finance": "unit_economics", "supply": "supply",
+    "commerce": "transaction", "reliability": "reliability", "risk": "risk",
+    "decision": "risk", "review": "risk", "data": "data", "model": "data",
+    "org": "org", "people": "org", "delivery": "execution", "process": "execution",
+    "tech": "tech", "integration": "tech", "mvp": "tech", "design": "product",
+    "brand": "content", "compliance": "policy", "research": "customer",
+    "strategy": "capital_return",
 }
 
 EVIDENCE_BY_PREFIX: Dict[str, str] = {
@@ -240,7 +253,8 @@ def build() -> List[Dict[str, Any]]:
                 "text": text,
                 "capability": cap,
                 "group": GROUP_BY_PREFIX.get(prefix, "risk"),
-                "dimension": DIMENSION_BY_CAPABILITY.get(cap),
+                "dimension": (DIMENSION_BY_CAPABILITY.get(cap)
+                              or DIMENSION_BY_PREFIX.get(prefix)),
                 "primary": bool(primary),
                 "providers": list(providers),
                 "needs": [cap],

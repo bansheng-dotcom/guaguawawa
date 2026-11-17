@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
-"""report CLI —— 唯一产线入口（2026-11-15 收敛后）。
+"""report CLI —— 唯一报告产线入口（v10）。
 
-    意图 → R01 路由（A 单角色 / B 跨角色）→ 收集 result → R01 解读
-         → core/report_renderer 渲染 → 一份报告 + manifest
+主入口：
+    report build   问题树 → coverage → v9 → 报告（唯一出报告入口）
+    report check   验一份成品报告
+    report gaps    看项目的 quote 缺口
+    report charts  48 型图表能力盘点
+    report capabilities / plan  诊断
 
-命令只有三个：
-    report run     跑产线，出一份报告
-    report check   验一份成品报告（结论带数、数字有源、边界、禁用词）
-    report charts  48 型图表能力盘点（能力自检，不产报告）
-
-历史入口（build/audit/dispatch/seal/diff/one/project/analysis/blueprint/
-modules/write）已于 2026-11-15 删除；旧产物归档在 workspace/_archive/。
+兼容别名（P9，至少保留一个版本）：
+    run / pack / produce / research → 打印 deprecation 后转到 build 或旧原子能力。
 """
 from __future__ import annotations
 
@@ -85,6 +84,67 @@ def cmd_build(args) -> int:
     return 0 if res.get("ok") else 1
 
 
+def _deprecated(name: str) -> None:
+    print(f"[deprecated] report {name} 已下线；请用 report build（v10）",
+          file=sys.stderr)
+
+
+def cmd_produce_alias(args) -> int:
+    """兼容别名：produce --thesis → build --lens。"""
+    from core import report_build, report_thesis
+    _deprecated("produce")
+    lens = report_thesis.LEGACY_LENS.get(args.thesis or "", None)
+    res = report_build.build(
+        intent=args.intent or "经营分析", project_dir=args.dir, out_dir=args.out,
+        lens=lens, quote_mode=args.quote_mode, theme=args.theme, pdf=args.pdf,
+        audience=getattr(args, "audience", "业务负责人"))
+    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
+    return 0 if res.get("ok") else 1
+
+
+def cmd_pack_alias(args) -> int:
+    """兼容别名：pack 仍产出证据包 + brief。"""
+    from core import evidence_pack
+    _deprecated("pack")
+    try:
+        pack = evidence_pack.build(args.dir)
+    except FileNotFoundError as e:
+        print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False))
+        return 2
+    files = evidence_pack.write(pack, args.out)
+    print(json.dumps({"ok": True, "counts": pack["counts"], **files},
+                     ensure_ascii=False))
+    return 0
+
+
+def cmd_research_alias(args) -> int:
+    """兼容别名：research → build --lens market。"""
+    from core import report_build
+    _deprecated("research")
+    res = report_build.build(
+        intent=args.topic, project_dir=args.dir, out_dir=args.out,
+        lens="market", quote_mode="warn", theme=args.theme, pdf=args.pdf)
+    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
+    return 0 if res.get("ok") else 1
+
+
+def cmd_run_alias(args) -> int:
+    """兼容别名：run 只在显式给 evidence+draft 时可用。"""
+    from core import report_flow
+    _deprecated("run")
+    if not (args.evidence and args.draft):
+        print(json.dumps({"ok": False,
+                          "error": "run 已下线；请用 report build --intent … --dir … --out …"},
+                         ensure_ascii=False))
+        return 2
+    draft = json.loads(Path(args.draft).read_text(encoding="utf-8-sig"))
+    res = report_flow.run(intent=args.intent, out_dir=args.out, draft=draft,
+                          evidence=args.evidence, theme=args.theme,
+                          pdf=args.pdf, quote_mode=args.quote_mode)
+    print(json.dumps(res, ensure_ascii=False))
+    return 0 if res.get("ok") else 1
+
+
 def cmd_check(args) -> int:
     sys.path.insert(0, str(ROOT / "scripts"))
     from check_report_flow import check_html
@@ -115,6 +175,7 @@ def cmd_gaps(args) -> int:
 
 def main(argv=None) -> int:
     from core.report_flow import THEMES, DEFAULT_THEME
+    from core import report_thesis as _thesis
     ap = argparse.ArgumentParser(prog="guagua report",
                                  description="唯一报告产线：R01 出具，角色只交 result")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -134,6 +195,46 @@ def main(argv=None) -> int:
                    help="把 findings 登记进结果台账（默认 90 天到期）")
     b.add_argument("--outcome-deadline", default=None, help="YYYY-MM-DD；默认 +90 天")
     b.set_defaults(func=cmd_build)
+
+    # P9：兼容别名（隐藏）。至少保留一个版本，旧脚本不炸。
+    pr = sub.add_parser("produce", help="[deprecated] produce → build")
+    pr.add_argument("--intent", default=None)
+    pr.add_argument("--profile", default=None)
+    pr.add_argument("--dir", required=True)
+    pr.add_argument("--out", required=True)
+    pr.add_argument("--thesis", default=None,
+                    choices=list(_thesis.THESES) + list(_thesis.LEGACY_LENS))
+    pr.add_argument("--draft", default=None)
+    pr.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
+    pr.add_argument("--pdf", action="store_true")
+    pr.add_argument("--audience", default="业务负责人")
+    pr.add_argument("--require-contract", action="store_true")
+    pr.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn")
+    pr.set_defaults(func=cmd_produce_alias)
+
+    pk = sub.add_parser("pack", help="[deprecated] pack → 证据包")
+    pk.add_argument("--dir", required=True)
+    pk.add_argument("--out", required=True)
+    pk.set_defaults(func=cmd_pack_alias)
+
+    rs = sub.add_parser("research", help="[deprecated] research → build --lens market")
+    rs.add_argument("--topic", required=True)
+    rs.add_argument("--dir", required=True)
+    rs.add_argument("--out", required=True)
+    rs.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
+    rs.add_argument("--pdf", action="store_true")
+    rs.set_defaults(func=cmd_research_alias)
+
+    r = sub.add_parser("run", help="[deprecated] run 仅兼容 evidence+draft")
+    r.add_argument("--intent", required=True)
+    r.add_argument("--out", required=True)
+    r.add_argument("--evidence", default=None)
+    r.add_argument("--draft", default=None)
+    r.add_argument("--results", nargs="*", default=[])
+    r.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
+    r.add_argument("--pdf", action="store_true")
+    r.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn")
+    r.set_defaults(func=cmd_run_alias)
 
     c = sub.add_parser("check", help="验一份成品报告")
     c.add_argument("--html", required=True)

@@ -10,6 +10,7 @@
 """
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import sys
@@ -111,6 +112,12 @@ def test_market_report_passes_both_gates():
         qa = report_quality.audit(str(out / "report.html"))
         assert qa["ok"], [c for c in qa["checks"] if not c["ok"]]
         assert qa["score"] >= 70
+        ship = json.loads((out / "report_ship.json").read_text(encoding="utf-8"))
+        render = json.loads((out / "contract.json").read_text(encoding="utf-8"))
+        assert ship["schema"] == "dsh.report.contract/v10"
+        assert ship["render_contract"] == "contract.json"
+        assert render["schema"] == "dsh.report.contract/v10"
+        assert render["ship_contract"] == "report_ship.json"
     finally:
         shutil.rmtree(out, ignore_errors=True)
 

@@ -527,6 +527,16 @@ def build(intent: str, project_dir: str, out_dir: str,
         for v in s.get("assumptions") or []:
             _ass(v, f"declared:{s.get('title') or 'section'}")
     draft["assumption_records"] = records
+
+    # P9：ClaimCard 头条门禁。不满足 actionable / falsifier / verified+grade≤B
+    # 的断言不进标题；正文保留，standfirst 降级。
+    if os.environ.get("REPORT_CLAIM_GATE", "1") != "0":
+        from core import claim_gate
+        draft["claim_gate"] = claim_gate.apply(draft, desk.pack, picked)
+    else:
+        draft["claim_gate"] = {"schema": "dsh.claim_gate/v1", "ok": True,
+                              "disabled": True, "actionable": None,
+                              "demoted": False, "reasons": []}
     # 非假设型边界不再逐节挂「本节边界」，集中到末节口径里（减少同一个壳）
     agg = []
     for sec in sections:
@@ -647,6 +657,26 @@ def build(intent: str, project_dir: str, out_dir: str,
 
     if not keep_tmp:
         shutil.rmtree(tmpdir, ignore_errors=True)
+
+    # P9：契约合并。report_ship.json 是唯一业务契约，contract.json 保留为
+    # 渲染别名；两份都带 schema/指向，旧字段只增不删。
+    try:
+        ship_path = os.path.join(out_dir, "report_ship.json")
+        render_path = os.path.join(out_dir, "contract.json")
+        if os.path.exists(ship_path) and os.path.exists(render_path):
+            ship = json.loads(Path(ship_path).read_text(encoding="utf-8"))
+            render = json.loads(Path(render_path).read_text(encoding="utf-8"))
+            ship["schema"] = "dsh.report.contract/v10"
+            ship["render_contract"] = "contract.json"
+            render["schema"] = "dsh.report.contract/v10"
+            render["ship_contract"] = "report_ship.json"
+            with open(ship_path, "w", encoding="utf-8", newline="\n") as fh:
+                json.dump(ship, fh, ensure_ascii=False, indent=2)
+            with open(render_path, "w", encoding="utf-8", newline="\n") as fh:
+                json.dump(render, fh, ensure_ascii=False, indent=2)
+    except (OSError, json.JSONDecodeError):
+        pass
+
     return {
         "ok": bool(res.get("ok")) and quality_ok,
         "thesis": th,
@@ -657,6 +687,7 @@ def build(intent: str, project_dir: str, out_dir: str,
         "files": files,
         "r04": inv_verdict,
         "quotes": res.get("quotes"),
+        "claim_gate": draft.get("claim_gate"),
         "contract": {"ok": cob["check"]["ok"],
                      "required": bool(require_contract),
                      "report_id": cob["contract"].get("report_id"),

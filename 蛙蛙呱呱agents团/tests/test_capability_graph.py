@@ -46,3 +46,12 @@ def test_question_ids_unique_and_groups_valid():
         assert q["group"] in groups, q
         assert q["capability"]
         assert q["text"]
+
+
+def test_every_capability_has_v9_dimension():
+    from core import report_framework as rf
+    assert ql.summary()["without_v9_dimension"] == []
+    dims = {d["key"] for d in rf.DIMENSIONS}
+    assert {"org", "tech", "reliability", "transaction", "content", "data"} <= dims
+    for q in ql.QUESTIONS:
+        assert q["dimension"] in dims, q
