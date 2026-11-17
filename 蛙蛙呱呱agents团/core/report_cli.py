@@ -82,6 +82,23 @@ def cmd_research(args) -> int:
     return 0 if res.get("ok") else 1
 
 
+def cmd_build(args) -> int:
+    """P4 唯一入口：问题树 → coverage → v9 → 报告。"""
+    from core import report_build
+    try:
+        res = report_build.build(
+            intent=args.intent, project_dir=args.dir, out_dir=args.out,
+            lens=args.lens, quote_mode=args.quote_mode,
+            min_coverage=args.min_coverage, theme=args.theme,
+            pdf=args.pdf, audience=args.audience)
+    except Exception as e:  # noqa: BLE001
+        print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
+                         ensure_ascii=False))
+        return 2
+    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
+    return 0 if res.get("ok") else 1
+
+
 def cmd_run(args) -> int:
     from core import report_flow
     draft = None
@@ -172,6 +189,19 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="guagua report",
                                  description="唯一报告产线：R01 出具，角色只交 result")
     sub = ap.add_subparsers(dest="cmd", required=True)
+
+    b = sub.add_parser("build",
+                       help="P4 唯一入口：问题树 → coverage → v9 → 报告")
+    b.add_argument("--intent", required=True)
+    b.add_argument("--dir", required=True)
+    b.add_argument("--out", required=True)
+    b.add_argument("--lens", choices=("market", "ops", "chain", "fix"), default=None)
+    b.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn")
+    b.add_argument("--min-coverage", type=float, default=0.8)
+    b.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
+    b.add_argument("--pdf", action="store_true")
+    b.add_argument("--audience", default="业务负责人")
+    b.set_defaults(func=cmd_build)
 
     r = sub.add_parser("run", help="跑产线，出一份报告")
     r.add_argument("--intent", required=True)

@@ -541,7 +541,8 @@ def cmd_reason(args: argparse.Namespace) -> int:
     return _run_script("reason.py", argv)
 
 
-def cmd_consult(args: argparse.Namespace) -> int:    return _run_script("consult.py", list(args.consult_args))
+def cmd_consult(args: argparse.Namespace) -> int:
+    return _run_script("consult.py", list(args.consult_args))
 
 
 def cmd_mcp(args: argparse.Namespace) -> int:
@@ -672,7 +673,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--broken", action="store_true", help="只显示 frontmatter 解析异常的技能包")
     p.set_defaults(func=cmd_skills)
 
-    p = sub.add_parser("report", help="报告体系：L1→L2→L3（build/audit/seal/diff）")
+    p = sub.add_parser("report",
+        help="唯一报告产线：build / run / produce / pack / check / charts / capabilities / plan",
+        description="报告只有一个作者（R01）。子命令：run / check / charts / capabilities / plan；"
+                    "产线地图见 docs/REPORT-LINES.md，放进 manifest 的唯一渲染器在 core/。")
     p.add_argument("report_args", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_report)
 

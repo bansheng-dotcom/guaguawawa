@@ -32,6 +32,21 @@ from core.report_kernel import contract as kernel_contract
 
 PRODUCER = "r01"
 
+# P4：lens 只做方法权重（选哪些方法进报告），不改章节结构、不改门禁。
+LENS_METHODS: Dict[str, List[str]] = {
+    "market": ["size", "sizing_multi", "growth", "demand", "structure", "mix",
+               "trend", "volume", "channel", "region", "supply", "policy",
+               "consistency", "coverage", "concentration", "momentum",
+               "trajectory", "contribution", "economics", "transmission",
+               "arbitrage", "risk", "sample"],
+    "ops": ["economics", "cost", "margin", "unit_econ", "breakeven", "structure",
+            "contribution", "momentum", "trajectory", "transmission", "risk",
+            "sample"],
+    "chain": ["transmission", "chain", "economics", "arbitrage", "contribution",
+              "risk"],
+    "fix": ["economics", "breakeven", "transmission", "contribution", "risk"],
+}
+
 # 装配器注册表：每个装配模块用 FRAMES 声明自己负责哪些纲领，这里只做汇总。
 # 新增一个域 = 在所属模块的 FRAMES 里加一行，不改本文件的控制流；
 # 同一纲领被两个模块注册会直接报错，避免又长出一份「都能装配」的隐式 fallback。
@@ -283,7 +298,8 @@ def build(intent: str, project_dir: str, out_dir: str,
           pdf: bool = False, keep_tmp: bool = False,
           audience: str = "业务负责人",
           require_contract: bool = False,
-          quote_mode: str = "off") -> Dict[str, Any]:
+          quote_mode: str = "off",
+          lens: Optional[str] = None) -> Dict[str, Any]:
     desk = analysis_desk.scan(project_dir)
     prof = analysis_desk.profile(desk)
     views = analysis_methods.build_views(desk)
@@ -306,6 +322,10 @@ def build(intent: str, project_dir: str, out_dir: str,
         # （v8：从 market 专属放宽到所有有明确问题链的纲领，含奶酪零食五类）
         allowed = set(order)
         plan_obj["mounted"] = [m for m in plan_obj["mounted"] if m["key"] in allowed]
+    if lens:
+        allowed = set(LENS_METHODS.get(lens) or [])
+        if allowed:
+            plan_obj["mounted"] = [m for m in plan_obj["mounted"] if m["key"] in allowed]
     findings, gaps = methods.run(plan_obj, ctx)
     picked, missing = report_thesis.resolve(th, findings)
     prim = report_thesis.PRIMARY.get(th) or []

@@ -54,6 +54,31 @@ IDENT = ("实验", "DiD", "双差", "工具变量", "断点", "回归", "控制�
          "排除", "反事实", "识别策略", "样本外", "回测", "对照")
 
 
+# 两档深度口径（2026-11-17 判据统一）：
+#   research —— 调研/诊断级报告（多节、万字级、图表齐备），全量判据
+#   baseline —— 单/双 result 的快速汇报（A/B 分支、复检稿），只保「有落点、不套壳、不复读、有最低深度」
+# 两档共用同一个 audit 实现，避免「同一份 HTML、三个判据、三种结论」。
+PROFILES: Dict[str, Dict[str, Any]] = {
+    "research": {
+        "Q1": 0.85, "Q2": 0.50, "Q3": 0.50, "Q4": 0.40,
+        "Q7": {"sections": 6, "chars": 4000, "numbers": 100, "exhibits": 4},
+        "hard": ("Q2", "Q3", "Q5", "Q6", "Q7"),
+    },
+    "baseline": {
+        "Q1": 0.0, "Q2": 0.0, "Q3": 0.30, "Q4": 0.0,
+        "Q7": {"sections": 4, "chars": 800, "numbers": 30, "exhibits": 1},
+        "hard": ("Q3", "Q5", "Q6", "Q7"),
+    },
+}
+
+
+def infer_profile(html: str) -> str:
+    """按体量判档：6 节以上且 3000 字以上视为研究级，否则按基线稿处理。"""
+    secs = _sections(html)
+    chars = len(" ".join(s["body"] for s in secs))
+    return "research" if (len(secs) >= 6 and chars >= 3000) else "baseline"
+
+
 def _text(html: str) -> str:
     s = re.sub(r"<style[\s\S]*?</style>", " ", html, flags=re.I)
     s = re.sub(r"<script[\s\S]*?</script>", " ", s, flags=re.I)
@@ -99,8 +124,12 @@ def _shingle_repeat(texts: Sequence[str], n: int = 12) -> float:
     return repeated / len(sh)
 
 
-def audit(path: str) -> Dict[str, Any]:
+def audit(path: str, profile: str = "auto") -> Dict[str, Any]:
     html = Path(path).read_text(encoding="utf-8", errors="replace")
+    prof_name = infer_profile(html) if profile in ("auto", "", None) else str(profile)
+    if prof_name not in PROFILES:
+        prof_name = "research"
+    prof = PROFILES[prof_name]
     secs = _sections(html)
     body = " ".join(s["body"] for s in secs)
     sentences = [x.strip() for x in re.split(r"[。；\n]", body) if len(x.strip()) >= 12]
@@ -127,39 +156,53 @@ def audit(path: str) -> Dict[str, Any]:
     causal_no_id = [s for s in causal_secs if not any(w in s["body"] for w in IDENT)]
     causal_share = len(causal_no_id) / max(1, len(secs))
 
+    q7 = prof["Q7"]
+    hard = set(prof["hard"])
+
+    def is_hard(cid: str) -> bool:
+        return cid.split("_")[0] in hard
+
     checks = [
-        {"id": "Q1_claim_titles", "ok": q1 >= 0.85, "value": round(q1, 3),
-         "need": "≥0.85", "hard": False, "msg": "标题即判断（带数字 + 判断词）"},
-        {"id": "Q2_comparison", "ok": q2 >= 0.50, "value": round(q2, 3),
-         "need": "≥0.50", "hard": True, "msg": "每节有对照（跟谁比、差多少）"},
-        {"id": "Q3_implication", "ok": q3 >= 0.50, "value": round(q3, 3),
-         "need": "≥0.50", "hard": True, "msg": "至少一半的节有落点（所以该做什么）"},
-        {"id": "Q4_mechanism", "ok": q4 >= 0.40, "value": round(q4, 3),
-         "need": "≥0.40", "hard": False, "msg": "有机理或判别方法（软指标）"},
-        {"id": "Q5_no_shell", "ok": boundary_share < 0.30,
+        {"id": "Q1_claim_titles", "ok": q1 >= prof["Q1"], "value": round(q1, 3),
+         "need": f"≥{prof['Q1']}", "hard": is_hard("Q1"),
+         "msg": "标题即判断（带数字 + 判断词）"},
+        {"id": "Q2_comparison", "ok": q2 >= prof["Q2"], "value": round(q2, 3),
+         "need": f"≥{prof['Q2']}", "hard": is_hard("Q2"),
+         "msg": "每节有对照（跟谁比、差多少）"},
+        {"id": "Q3_implication", "ok": q3 >= prof["Q3"], "value": round(q3, 3),
+         "need": f"≥{prof['Q3']}", "hard": is_hard("Q3"),
+         "msg": "至少一半的节有落点（所以该做什么）"},
+        {"id": "Q4_mechanism", "ok": q4 >= prof["Q4"], "value": round(q4, 3),
+         "need": f"≥{prof['Q4']}", "hard": is_hard("Q4"),
+         "msg": "有机理或判别方法（软指标）"},
+        {"id": "Q5_no_shell", "ok": boundary_share < 0.30 and uniform < 0.80,
          "value": {"uniform_item_share": round(uniform, 3),
                    "boundary_share": round(boundary_share, 3)},
-         "need": "「本节边界」覆盖<0.30", "hard": True, "msg": "不套同一个壳"},
+         "need": "「本节边界」覆盖<0.30 且 同一条数覆盖率<0.80",
+         "hard": is_hard("Q5"), "msg": "不套同一个壳"},
         {"id": "Q6_no_repeat", "ok": q6 < 0.15 and dup_rate <= 0.10,
          "value": {"shingle3": round(q6, 3), "dup_rate": round(dup_rate, 3)},
-         "need": "12字片段<0.15 且 重复句≤0.10", "hard": True, "msg": "跨节不复读"},
-        {"id": "Q7_depth_floor", "ok": len(secs) >= 6 and len(body) >= 4000
-         and len(NUM.findall(body)) >= 100 and (tables + figures) >= 4,
+         "need": "12字片段<0.15 且 重复句≤0.10", "hard": is_hard("Q6"), "msg": "跨节不复读"},
+        {"id": "Q7_depth_floor",
+         "ok": (len(secs) >= q7["sections"] and len(body) >= q7["chars"]
+                and len(NUM.findall(body)) >= q7["numbers"]
+                and (tables + figures) >= q7["exhibits"]),
          "value": {"sections": len(secs), "chars": len(body),
                    "numbers": len(NUM.findall(body)), "exhibits": tables + figures},
-         "need": "节≥6 字≥4000 数≥100 图表≥4",
-         "hard": True, "msg": "深度下限"},
+         "need": (f"节≥{q7['sections']} 字≥{q7['chars']} "
+                  f"数≥{q7['numbers']} 图表≥{q7['exhibits']}"),
+         "hard": is_hard("Q7"), "msg": "深度下限"},
         {"id": "C1_causal_language", "ok": causal_share <= 0.20,
          "value": {"sections_with_causal": len(causal_secs),
                    "without_identification": len(causal_no_id),
                    "share": round(causal_share, 3)},
          "need": "断言式因果词但无识别证据的节 ≤20%",
-         "hard": False,
+         "hard": is_hard("C1"),
          "msg": "因果语气要和证据等级匹配（SOP-LEARN-001 §6）"},
     ]
     hard_ok = all(c["ok"] for c in checks if c.get("hard"))
     score = round(100 * sum(1 for c in checks if c["ok"]) / len(checks), 1)
-    return {"file": str(path), "ok": hard_ok, "score": score,
+    return {"file": str(path), "ok": hard_ok, "score": score, "profile": prof_name,
             "sections": len(secs), "chars": len(body),
             "numbers": len(NUM.findall(body)),
             "density": round(len(NUM.findall(body)) / max(1, len(body)) * 1000, 1),
@@ -208,7 +251,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 0 if r["ok"] else 1
     res = [audit(p) for p in a.files]
     for r in res:
-        print(("PASS " if r["ok"] else "FAIL ") + r["file"])
+        print(("PASS " if r["ok"] else "FAIL ") + r["file"] + f"  [档位 {r['profile']}]")
         for c in r["checks"]:
             if not c["ok"]:
                 print(f"  - {c['id']}: {c['value']}（需 {c['need']}）{c['msg']}")

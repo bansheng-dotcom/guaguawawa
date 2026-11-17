@@ -120,6 +120,7 @@ def check_html(path) -> dict:
     notes_txt = _text(notes_m.group(0)) if notes_m else ""
     if not (any("边界" in h for h in heads) or "本节边界" in text
             or "本节边界" in html  # 渲染器把标签放在 data-label 属性里
+            or "结论前提" in html  # v9 把边界写成“结论前提”
             or "边界" in notes_txt):
         v.append({"id": "F5_boundary", "msg": "没有「边界」章节：没说清结论只对什么成立"})
 
