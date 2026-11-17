@@ -254,7 +254,7 @@ def build_contract(j: Dict[str, Any], intent: str, branch: str,
     idx = 1
 
     sections.append({
-        "index": idx, "title": "结论与证据",
+        "index": idx, "title": "结论与证据", "reading_style": "list",
         "question": "这些数字支持什么判断，判断挂在哪份结果上？",
         "reading": [{"strong": f"结论{i}　",
                      "text": f"{c['text']}　｜　来源 {c['source']}"}
@@ -288,7 +288,7 @@ def build_contract(j: Dict[str, Any], intent: str, branch: str,
 
     if actions:
         sections.append({
-            "index": idx, "title": "动作与停止条件",
+            "index": idx, "title": "动作与停止条件", "reading_style": "list",
             "question": "接下来做什么，什么情况下必须停？",
             "reading": [{"strong": f"动作{i}　",
                          "text": f"{a['do']}；前置：{a['condition']}；停止：{a['stop']}"}
@@ -317,7 +317,7 @@ def build_contract(j: Dict[str, Any], intent: str, branch: str,
 
     passed = sum(1 for c in checks if c.get("ok"))
     sections.append({
-        "index": idx, "title": "口径与分数",
+        "index": idx, "title": "口径与分数", "reading_style": "list",
         "question": "这份报告是怎么生成的，哪些校验过了？",
         "reading": [
             {"strong": "生成方式　", "text":
@@ -343,7 +343,7 @@ def build_contract(j: Dict[str, Any], intent: str, branch: str,
                    [{"text": headline, "emphasis": True}],
         "sections": sections,
         "notes": {
-            "summary": "口径、来源与证据边界",
+            "summary": "证据包与回溯",
             "items": [
                 {"label": "数据来源　", "text": "；".join(
                     f"{e['role']}（{Path(e['source']).name}）" for e in evidences)},
@@ -429,8 +429,8 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
         }
         if s.get("chart"):
             sec["chart"] = s["chart"]
-        # 复数图、导语、分块、为什么做、引用 id：以前在中转时被丢掉，这里按白名单直通
-        for key in ("charts", "intro", "blocks", "why", "refs"):
+        # 复数图、导语、分块、为什么做、引用 id、叙事/枚举模式：以前在中转时被丢掉，这里按白名单直通
+        for key in ("charts", "intro", "blocks", "why", "refs", "reading_style"):
             if s.get(key):
                 sec[key] = s[key]
         if s.get("table"):
@@ -449,20 +449,27 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     })
     n_files = pack.get("counts", {}).get("files", 0)
     n_nums = len(pack.get("numbers") or [])
+    bounds = [str(b) for b in (draft.get("boundaries") or []) if str(b).strip()]
+    meta_rows = [
+        {"strong": "生成方式　", "text":
+         "R01 编排与收口；方法库（core/methods）出数与论证；"
+         f"两道门禁（质量 / 流程）独立校验；渲染 core/report_renderer（{theme}）。"},
+        {"strong": "证据规模　", "text":
+         f"{n_files} 个来源文件 / {n_nums} 个可寻址数字。"},
+        {"strong": "逐节校验　", "text":
+         "每节标题带数字、解读有 refs、数字可由 refs 解释、图带来源；结果见 section_check.json。"},
+    ]
+    if bounds:
+        # 边界不是评分项，和上面三条元信息混排会让人分不清「哪些是校验、哪些是前提」
+        meta_rows.append({"strong": "结论前提　", "text":
+                          f"以下 {len(bounds)} 条不是评分项，是结论成立的条件；"
+                          "任一条不成立，对应结论作废。"})
+        meta_rows += [{"strong": "前提　", "text": b} for b in bounds]
     secs_out.append({
         "index": len(secs_out) + 1,
-        "title": "口径与分数",
+        "title": "口径与分数", "reading_style": "list",
         "question": "这份报告是怎么生成的，哪些校验过了？",
-        "reading": [
-            {"strong": "生成方式　", "text":
-             "R01 编排与收口；方法库（core/methods）出数与论证；"
-             f"三道门禁（质量 / 流程 / 专业标准）独立校验；渲染 core/report_renderer（{theme}）。"},
-            {"strong": "证据规模　", "text":
-             f"{n_files} 个来源文件 / {n_nums} 个可寻址数字。"},
-            {"strong": "逐节校验　", "text":
-             "每节标题带数字、解读有 refs、数字可由 refs 解释、图带来源；结果见 section_check.json。"},
-        ] + [{"strong": "边界　", "text": str(b)}
-             for b in (draft.get("boundaries") or []) if str(b).strip()],
+        "reading": meta_rows,
     })
 
     summary = [{"text": t, "emphasis": i == 0}
@@ -479,13 +486,13 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
         "summary": summary,
         "sections": secs_out,
         "notes": draft.get("notes") or {
-            "summary": "口径、来源与证据边界",
+            "summary": "证据包与回溯",
             "items": [{"label": "数字来源　", "text":
                        f"证据包 {pack.get('project', '')}，共 {len(pack.get('numbers') or [])} 条"}],
             "tail": "每节结论的数字均可回溯到记录层来源。",
         },
         "footer": draft.get("footer") or [
-            "协作：R01 编排与收口 · 方法库出数与论证 · 三道门禁独立校验",
+            "协作：R01 编排与收口 · 方法库出数与论证 · 两道门禁独立校验",
             f"产线：report_flow / profile {draft.get('profile') or '-'}",
             f"生成时间：{datetime.now().strftime('%Y-%m-%d %H:%M')}",
         ],
@@ -509,7 +516,8 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         roles: Optional[List[str]] = None, draft: Optional[Dict[str, Any]] = None,
         theme: str = DEFAULT_THEME, pdf: bool = False,
         md_name: str = "report",
-        evidence: Optional[str] = None) -> Dict[str, Any]:
+        evidence: Optional[str] = None,
+        quote_mode: str = "warn") -> Dict[str, Any]:
     """跑完整条产线，返回 {ok, branch, files, manifest, checks}。"""
     if theme not in THEMES:
         raise FlowError(f"未知主题 {theme}；可选 {', '.join(THEMES)}")
@@ -520,8 +528,18 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
     if evidence and draft and draft.get("sections"):
         from core import evidence_pack
         pack = evidence_pack.load(evidence)
+        qgate: Dict[str, Any] = {"mode": quote_mode, "ok": True, "verdict": "SKIP"}
+        project = str(pack.get("root") or pack.get("project") or "")
+        if quote_mode != "off" and project:
+            from core import research_intake
+            refs = research_intake.collect_refs(draft)
+            qgate = research_intake.quote_gate(project, refs=refs or None,
+                                               mode=quote_mode)
         chk = check_sections(draft, pack, out_dir)
         contract = build_sections_contract(draft, pack, theme)
+        from core.report_kernel import specs as report_specs
+        spec_res = ({"skipped": True} if os.environ.get("GUAGUA_SPEC_INFER", "1") == "0"
+                    else report_specs.apply_specs(contract))
         lay = layout_errors(contract, require_appendix=True)
         ok = bool(chk.get("ok")) and not lay
         files: Dict[str, Any] = {}
@@ -540,14 +558,17 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
                               "checks": chk.get("checks")},
             "contract_hash": _sha(contract),
             "layout_errors": lay, "files": files,
+            "spec_stats": spec_res,
             "chart_stats": files.get("chart_stats") or {},
+            "quotes": {k: v for k, v in qgate.items() if k != "items"},
             "ok": ok,
         }
         _write_json(os.path.join(out_dir, "manifest.json"), manifest)
         _write_json(os.path.join(out_dir, "contract.json"), contract)
         return {"ok": manifest["ok"], "branch": "sections", "files": files,
                 "manifest": os.path.join(out_dir, "manifest.json"),
-                "checks": chk.get("checks"), "layout_errors": lay}
+                "checks": chk.get("checks"), "layout_errors": lay,
+                "quotes": {k: v for k, v in qgate.items() if k != "items"}}
 
     r = route(intent, roles)
     evidences = collect(results or [])
@@ -569,6 +590,9 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
     contract = build_contract(interp["judgement"], intent, r["branch"], evidences,
                               interp.get("numbers") or [], interp.get("checks") or [],
                               interp.get("mode") or "rule", theme)
+    from core.report_kernel import specs as report_specs
+    spec_res = ({"skipped": True} if os.environ.get("GUAGUA_SPEC_INFER", "1") == "0"
+                else report_specs.apply_specs(contract))
     lay = layout_errors(contract, require_appendix=True)
     ok = not lay
     files: Dict[str, Any] = {}
@@ -591,6 +615,7 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         "contract_hash": _sha(contract),
         "layout_errors": lay,
         "files": files,
+        "spec_stats": spec_res,
         "chart_stats": files.get("chart_stats") or {},
         "ok": ok,
     }
@@ -611,11 +636,13 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--theme", default=DEFAULT_THEME)
     ap.add_argument("--pdf", action="store_true")
     ap.add_argument("--md-name", default="report")
+    ap.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn",
+                    help="数据 intake：quote 回抓校验模式")
     a = ap.parse_args(argv)
     roles = [x.strip() for x in a.roles.split(",") if x.strip()] or None
     try:
         res = run(a.intent, a.results, a.out, roles=roles, theme=a.theme,
-                  pdf=a.pdf, md_name=a.md_name)
+                  pdf=a.pdf, md_name=a.md_name, quote_mode=a.quote_mode)
     except FlowError as e:
         print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False))
         return 2

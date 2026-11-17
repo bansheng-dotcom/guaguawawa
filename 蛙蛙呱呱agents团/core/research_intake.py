@@ -37,12 +37,48 @@ def _norm(s: str) -> str:
     return re.sub(r"\s+", "", s)
 
 
+def _open(req: urllib.request.Request, timeout: int, insecure: bool = False):
+    if insecure:
+        import ssl
+        ctx = ssl._create_unverified_context()
+        return urllib.request.urlopen(req, timeout=timeout, context=ctx)
+    return urllib.request.urlopen(req, timeout=timeout)
+
+
 def _fetch(url: str, timeout: int = 25) -> Tuple[str, str]:
+    import time
     req = urllib.request.Request(url, headers={"User-Agent": UA,
                                                "Accept-Language": "zh-CN,zh;q=0.9"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        raw = r.read()
-        enc = (r.headers.get("Content-Encoding") or "").lower()
+
+    def _read_once(insecure: bool = False):
+        with _open(req, timeout, insecure=insecure) as r:
+            return (r.read(),
+                    (r.headers.get("Content-Encoding") or "").lower(),
+                    (r.headers.get_content_type() or "").lower())
+
+    raw = enc = ctype = None
+    last: Optional[Exception] = None
+    for attempt in range(3):
+        try:
+            raw, enc, ctype = _read_once()
+            break
+        except Exception as exc:  # noqa: BLE001
+            msg = str(exc).upper()
+            if "CERTIFICATE" in msg or "SSL" in msg:
+                # 政府站点常见过期/链不全证书；只读核验允许降级为不校验证书。
+                try:
+                    raw, enc, ctype = _read_once(insecure=True)
+                    break
+                except Exception as exc2:  # noqa: BLE001
+                    last = exc2
+            elif any(code in msg for code in ("502", "503", "504")):
+                last = exc
+                time.sleep(1 + attempt)
+            else:
+                last = exc
+                break
+    if raw is None:
+        raise last or RuntimeError("fetch failed")
     if "gzip" in enc:
         import gzip
         raw = gzip.decompress(raw)
@@ -54,6 +90,16 @@ def _fetch(url: str, timeout: int = 25) -> Tuple[str, str]:
             import brotli  # type: ignore
             raw = brotli.decompress(raw)
         except Exception:  # noqa: BLE001
+            pass
+    if ctype == "application/pdf" or url.lower().split("?")[0].endswith(".pdf"):
+        try:
+            import io
+            from PyPDF2 import PdfReader
+            reader = PdfReader(io.BytesIO(raw))
+            text = "\n".join((p.extract_text() or "") for p in reader.pages)
+            if text.strip():
+                return text, ""
+        except Exception:  # noqa: BLE001  解析失败退回字节解码
             pass
     for charset in ("utf-8", "gb18030", "latin-1"):
         try:
@@ -71,27 +117,52 @@ def load_sources(project: str) -> List[Dict[str, Any]]:
     return list(obj.get("sources") or [])
 
 
-def verify(project: str, write_raw: bool = True) -> Dict[str, Any]:
-    """回抓每条来源，核对 quote；结果写 data/quote_check.json。"""
+def verify(project: str, write_raw: bool = False,
+           only_ids: Optional[List[str]] = None) -> Dict[str, Any]:
+    """回抓来源，核对 quote；结果写 data/quote_check.json。
+
+    - 没有 quote 的来源：标 unverified，不发请求（避免拿标题当证据）；
+    - only_ids：只校验指定来源（报告实际引用的 S 编号），其余标 skipped；
+    - 抓取失败 / quote 未命中：unreachable / mismatch，绝不伪造 ok。
+    """
     base = Path(project)
     sources = load_sources(project)
+    only = {str(x) for x in only_ids} if only_ids else None
     raw_dir = base / "raw"
     if write_raw:
         raw_dir.mkdir(parents=True, exist_ok=True)
     out = []
     for s in sources:
         sid, url, quote = s.get("id"), s.get("url", ""), s.get("quote", "")
-        rec = {"id": sid, "url": url, "quote": quote, "status": "unverified"}
+        grade = str(s.get("grade") or "").upper()[:1]
+        rec = {"id": sid, "url": url, "quote": quote, "grade": grade,
+               "status": "unverified"}
+        if only is not None and sid not in only:
+            rec["status"] = "skipped"
+            rec["detail"] = "未被本次报告引用"
+            out.append(rec)
+            continue
+        if not quote:
+            rec["detail"] = "缺 quote（未回填），不能当证据"
+            out.append(rec)
+            continue
         try:
-            text, err = _fetch(url)
-            if write_raw:
-                (raw_dir / f"{sid}.txt").write_text(text[:400000], encoding="utf-8")
+            cache = raw_dir / f"{sid}.txt"
+            if cache.exists():
+                text = cache.read_text(encoding="utf-8", errors="replace")
+                via = "cache"
+            else:
+                text, err = _fetch(url)
+                via = "live"
+                if write_raw:
+                    cache.write_text(text[:400000], encoding="utf-8")
             if quote and _norm(quote) in _norm(text):
                 rec["status"] = "ok"
             else:
                 rec["status"] = "mismatch"
                 rec["detail"] = "quote 未在原文命中（页面可能改版或需登录）"
             rec["chars"] = len(text)
+            rec["via"] = via
         except Exception as exc:  # noqa: BLE001  抓取失败标 unverified，不伪造
             rec["status"] = "unreachable"
             rec["detail"] = f"{type(exc).__name__}: {exc}"[:200]
@@ -100,14 +171,84 @@ def verify(project: str, write_raw: bool = True) -> Dict[str, Any]:
         "schema": "dsh.quote_check/v1",
         "checked_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
         "total": len(out),
+        "checked": sum(1 for r in out if r["status"] in ("ok", "mismatch", "unreachable")),
         "ok": sum(1 for r in out if r["status"] == "ok"),
         "mismatch": sum(1 for r in out if r["status"] == "mismatch"),
         "unreachable": sum(1 for r in out if r["status"] == "unreachable"),
+        "unverified": sum(1 for r in out if r["status"] == "unverified"),
+        "skipped": sum(1 for r in out if r["status"] == "skipped"),
+        "grades": {g: sum(1 for s in sources if str(s.get("grade") or "").upper()[:1] == g)
+                   for g in ("A", "B", "C", "D")},
         "items": out,
     }
+    (base / "data").mkdir(parents=True, exist_ok=True)
     (base / "data" / "quote_check.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
     return summary
+
+
+def collect_refs(draft: Optional[Dict[str, Any]]) -> List[str]:
+    """从 draft 的 refs 里收 S 编号（S01/S03#…），用于只校验被引用的来源。"""
+    ids: set = set()
+
+    def walk(obj: Any) -> None:
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                if k == "refs":
+                    for x in (v or []):
+                        ids.update(re.findall(r"\b(S\d+)\b", str(x)))
+                else:
+                    walk(v)
+        elif isinstance(obj, list):
+            for x in obj:
+                walk(x)
+
+    walk(draft or {})
+    return sorted(ids)
+
+
+def quote_gate(project: str, refs: Optional[List[str]] = None,
+               mode: str = "warn") -> Dict[str, Any]:
+    """数据 intake 门禁：被引用的来源必须 quote 命中。
+
+    mode:
+        off    跳过
+        warn   记录 verdict，不阻断（P3 默认，P4 收紧）
+        strict 有未核验来源就抛 FlowError，不出报告
+    """
+    if mode == "off":
+        return {"mode": "off", "ok": True, "verdict": "SKIP", "status": "skipped"}
+    base = Path(project)
+    if not (base / "data" / "sources.json").exists():
+        return {"mode": mode, "ok": True, "verdict": "SKIP", "status": "no_sources"}
+    q = verify(project, write_raw=False, only_ids=refs or None)
+    used = sorted(set(refs or [s.get("id") for s in load_sources(project)]))
+    by_id = {r["id"]: r for r in q["items"]}
+    used_unverified = [i for i in used
+                       if (by_id.get(i) or {}).get("status") != "ok"]
+    ok = not used_unverified
+    res = {
+        "mode": mode,
+        "ok": ok,
+        "verdict": "PASS" if ok else "FAIL",
+        "total": q["total"],
+        "checked": q["checked"],
+        "ok_count": q["ok"],
+        "mismatch": q["mismatch"],
+        "unreachable": q["unreachable"],
+        "unverified": q["unverified"],
+        "skipped": q["skipped"],
+        "used": used,
+        "used_unverified": used_unverified,
+        "grades": q["grades"],
+        "items": q["items"],
+    }
+    if mode == "strict" and not ok:
+        raise report_flow.FlowError(
+            "quote 门禁未过：被引用的来源未核验 " + ", ".join(used_unverified) +
+            "；先补 quote 或改引已核验来源")
+    return res
+
 
 
 def ledger(project: str) -> Dict[str, Any]:
@@ -171,3 +312,34 @@ def run(topic: str, project: str, out_dir: str, thesis: str = "market_entry",
                 "ledger": {"verdict": led.get("verdict"),
                            "coverage": led.get("coverage_rate")}})
     return res
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    import argparse
+    ap = argparse.ArgumentParser(prog="research_intake",
+                                 description="研究数据 intake：quote 回抓校验 + 门禁")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+
+    v = sub.add_parser("verify", help="回抓来源、核对 quote")
+    v.add_argument("--project", required=True)
+    v.add_argument("--refs", default="", help="逗号分隔的 S 编号；空=全部")
+    v.add_argument("--raw", action="store_true", help="保存原始页面到 raw/")
+
+    g = sub.add_parser("gate", help="数据 intake 门禁")
+    g.add_argument("--project", required=True)
+    g.add_argument("--refs", default="", help="逗号分隔的 S 编号；空=全部")
+    g.add_argument("--mode", choices=("off", "warn", "strict"), default="warn")
+
+    a = ap.parse_args(argv)
+    refs = [x.strip() for x in (a.refs or "").split(",") if x.strip()] or None
+    if a.cmd == "verify":
+        out = verify(a.project, write_raw=a.raw, only_ids=refs)
+    else:
+        out = quote_gate(a.project, refs=refs, mode=a.mode)
+    slim = {k: v for k, v in out.items() if k != "items"}
+    print(json.dumps(slim, ensure_ascii=False, indent=2))
+    return 0 if out.get("ok") else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

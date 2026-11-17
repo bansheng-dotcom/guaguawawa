@@ -25,6 +25,7 @@ from typing import Any, Dict, Iterable, List, Optional
 
 SKIP_DIRS = {"raw", "screens", "__pycache__", "out", "node_modules", ".git",
              ".chrome8", "_archive"}
+SKIP_FILES = {"sources.json", "quote_check.json", "_ledger_input.json"}
 MAX_FILE_BYTES = 8 * 1024 * 1024
 MAX_CSV_ROWS = 5000
 
@@ -147,8 +148,11 @@ def build(root: str, exclude_raw: bool = True) -> Dict[str, Any]:
     sources: List[Dict[str, Any]] = []
     for dirpath, dirnames, filenames in os.walk(base):
         dirnames[:] = [d for d in dirnames
-                       if d not in SKIP_DIRS and not d.startswith(".")]
+                       if d not in SKIP_DIRS and not d.startswith(".")
+                       and not d.startswith("out_")]
         for fn in sorted(filenames):
+            if fn in SKIP_FILES:
+                continue
             p = Path(dirpath) / fn
             rel = str(p.relative_to(base)).replace("\\", "/")
             if p.stat().st_size > MAX_FILE_BYTES:
@@ -177,6 +181,34 @@ def build(root: str, exclude_raw: bool = True) -> Dict[str, Any]:
         "sources": sources,
         "counts": {"files": len(sources), "numbers": len(numbers)},
     }
+    # 来源台账：把 A/B/C/D 等级与 quote 核验状态带进证据包，
+    # 写稿与门禁读到的是同一份来源记录，而不是去正文里猜。
+    src_path = base / "data" / "sources.json"
+    if src_path.exists():
+        try:
+            raw = json.loads(src_path.read_text(encoding="utf-8-sig"))
+            qc_path = base / "data" / "quote_check.json"
+            qc: Dict[str, Dict[str, Any]] = {}
+            if qc_path.exists():
+                qc_obj = json.loads(qc_path.read_text(encoding="utf-8-sig"))
+                qc = {str(r.get("id")): r for r in (qc_obj.get("items") or [])}
+            records = []
+            for s in (raw.get("sources") or []):
+                sid = str(s.get("id") or "")
+                records.append({
+                    "id": sid,
+                    "title": s.get("title", ""),
+                    "org": s.get("org", ""),
+                    "type": s.get("type", ""),
+                    "grade": str(s.get("grade") or "").upper()[:1],
+                    "url": s.get("url", ""),
+                    "quote": s.get("quote", ""),
+                    "quote_status": (qc.get(sid) or {}).get("status", "unverified"),
+                })
+            pack["source_records"] = records
+            pack["counts"]["source_records"] = len(records)
+        except (OSError, json.JSONDecodeError):
+            pass
     return pack
 
 
@@ -195,6 +227,17 @@ def _brief(pack: Dict[str, Any]) -> str:
     L = [f"# 证据包 · {pack['project']}", "",
          f"{pack['counts']['files']} 个来源文件 / {pack['counts']['numbers']} 个数字。",
          "写稿时引用 id；正文里的数字必须能在下表找到。", ""]
+    recs = pack.get("source_records") or []
+    if recs:
+        L += ["## 来源等级与核验", "",
+              "| id | 机构 | 类型 | 等级 | quote 状态 |",
+              "|---|---|---|---|---|"]
+        for r in recs[:40]:
+            L.append(f"| `{r['id']}` | {r.get('org', '')} | {r.get('type', '')} | "
+                     f"{r.get('grade', '')} | {r.get('quote_status', '')} |")
+        if len(recs) > 40:
+            L.append(f"| … | 另有 {len(recs) - 40} 条 | | | |")
+        L.append("")
     by_file: Dict[str, List[Dict[str, Any]]] = {}
     for n in pack["numbers"]:
         by_file.setdefault(n["source_file"], []).append(n)

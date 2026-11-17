@@ -18,17 +18,35 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import tempfile
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from core import (analysis_desk, analysis_methods, claims, frames, frames_cheese,
-                  frames_framework, frames_v10, methods, report_flow, report_thesis,
+                  frames_framework, methods, report_flow, report_thesis,
                   runner)
+from core.report_kernel import contract as kernel_contract
 
 PRODUCER = "r01"
+
+# 装配器注册表：每个装配模块用 FRAMES 声明自己负责哪些纲领，这里只做汇总。
+# 新增一个域 = 在所属模块的 FRAMES 里加一行，不改本文件的控制流；
+# 同一纲领被两个模块注册会直接报错，避免又长出一份「都能装配」的隐式 fallback。
+_ASSEMBLERS: Dict[str, Any] = {}
+for _mod in (frames, frames_cheese, frames_framework):
+    for _key in getattr(_mod, "FRAMES", {}):
+        if _key in _ASSEMBLERS:
+            raise RuntimeError(f"纲领 {_key} 被多个装配器注册，先删掉旧的那一份")
+        _ASSEMBLERS[_key] = _mod.build
+
+
+def _assemble(th: str, ctx, findings: Dict[str, Any]):
+    """按纲领找装配器；没有注册的走通用「按 finding 出节」。"""
+    fn = _ASSEMBLERS.get(th)
+    return fn(th, ctx, findings) if fn else None
 
 
 # --------------------------------------------------------------------------- #
@@ -83,6 +101,8 @@ def _metrics(picked: List[Any], label_of: Dict[str, int]) -> List[Dict[str, Any]
                 break
             continue
         idx = label_of.get(f.key, "-")
+        if idx in ("-", "", None):
+            continue
         rows = (f.meta or {}).get("rows") or (f.meta or {}).get("stats") or []
         if f.key == "economics" and rows:
             r = rows[0]
@@ -139,7 +159,7 @@ def _actions_section(cite, findings: Dict[str, Any],
         reading.append({"text": "动作只有一条时，先按前置条件做单点验证；"
                                 "验证窗口不通过就不扩面。", "refs": [anchor.id]})
     return {
-        "title": f"动作：{len(acts)} 条动作、{stops} 条停止条件",
+        "title": f"动作：{len(acts)} 条动作、{stops} 条停止条件", "reading_style": "list",
         "question": "接下来做什么，什么情况下必须停？",
         "reading": reading,
         # 阈值（配额 40%、履约 95%）是策略假设，显式声明后允许出现在正文
@@ -158,8 +178,18 @@ def _gap_section(cite, missing: List[str], gaps: List[str],
              "contribution": "两期贡献", "economics": "单位经济", "transmission": "上下游传导",
              "arbitrage": "跨市场价差", "breakeven": "保本线", "risk": "风险",
              "sample": "样本充分性"}
+    # 同一个方法只留一句：方法层已经给出更准确的原因（算不下去 / 数据不足）时，
+    # 不再补一句「未命中：数据里没有支撑字段」，否则同一件事会被说两遍。
+    said = set()
+    for g in gaps:
+        m = re.match(r"^「([^」]+)」", g)
+        if m:
+            said.add(m.group(1))
     for k in missing:
-        items.append(f"「{label.get(k, k)}」本轮未命中：数据里没有支撑该判断的字段。")
+        name = label.get(k, k)
+        if name in said:
+            continue
+        items.append(f"「{name}」本轮未命中：数据里没有支撑该判断的字段。")
     for g in gaps:
         items.append(g)
     if not items:
@@ -170,7 +200,7 @@ def _gap_section(cite, missing: List[str], gaps: List[str],
         reading.append({"text": "缺口不影响已观测部分的数字；本节只说明哪些判断现在还不能下。",
                         "refs": [anchor.id]})
     sec = {
-        "title": f"缺口：{len(items)} 项未观测，相关结论不写",
+        "title": f"缺口：{len(items)} 项未观测，相关结论不写", "reading_style": "list",
         "question": "哪些结论现在还不能下？",
         "reading": reading,
         "assumptions": [],
@@ -187,11 +217,73 @@ def _count_numbers(pack: Dict[str, Any]) -> int:
 
 
 # --------------------------------------------------------------------------- #
+# 开工前契约：动笔之前先回答六件事（判定规则见 core/report_kernel/contract.py）
+# --------------------------------------------------------------------------- #
+def _contract(intent: str, th: str, spec: Dict[str, Any], title: str,
+              desk, views, picked: List[Any], sections: List[Dict[str, Any]],
+              audience: str) -> Dict[str, Any]:
+    """从纲领 + 数据 + 已选节推导契约。
+
+    能从数据里算出来的字段（截止日、期数、跨度、跨市、来源数）一律实算；
+    算不出来的（受众）由调用方给，给不出就留空让 validate 报 blocker——
+    不允许用「通用」「待定」这类字眼把必填项糊过去。
+    """
+    qs: List[str] = []
+    for q in ([str(spec.get("ask") or "")] +
+              [str(getattr(f, "question", "") or "") for f in picked] +
+              [str(s.get("question") or "") for s in sections]):
+        q = q.strip()
+        if q and q not in qs:
+            qs.append(q)
+
+    dates = sorted(d for d in (analysis_methods._iso_date(str(t))
+                               for pts in (views.series or {}).values()
+                               for t, _ in pts) if d)
+    cutoff = dates[-1] if dates else ""
+    periods = max((len(v) for v in (views.series or {}).values()), default=0)
+    span = 0
+    if dates:
+        try:
+            span = (date.fromisoformat(dates[-1]) - date.fromisoformat(dates[0])).days
+        except ValueError:
+            span = 0
+    # 期次对齐是可验证的：所有品类共用同一组期标签才算对齐
+    sets = {tuple(t for t, _ in pts) for pts in (views.series or {}).values()}
+    aligned = bool(sets) and len(sets) == 1
+    regions = {k[0] for k in (views.region or {})} | {k[0] for k in (views.quotes or {})}
+    src_n = len((desk.pack or {}).get("sources") or [])
+
+    raw = {
+        "report_id": f"RPT-{datetime.now():%Y%m%d}-{th.replace('_', '-')[:12]}",
+        "title": title,
+        "decision": intent,
+        "audience": audience,
+        "questions": qs[:5],
+        "data_cutoff": cutoff,
+        "target_level": "L4",
+        "owner": PRODUCER,
+        "reviewer": "r04",
+        "source_count": src_n,
+        "series_periods": periods,
+        "time_span_days": span,
+        "cross_market": len(regions) >= 2,
+        "alignment_note": "各品类期次已对齐（同一批采集期）" if span > 1 and aligned else "",
+        "trend_required": bool(th == "forecast" and periods >= 12),
+    }
+    v = kernel_contract.validate(raw)
+    return {"contract": v["normalized"],
+            "check": {"ok": v["ok"], "errors": v["errors"], "warnings": v["warnings"]}}
+
+
+# --------------------------------------------------------------------------- #
 # 主流程
 # --------------------------------------------------------------------------- #
 def build(intent: str, project_dir: str, out_dir: str,
           thesis: Optional[str] = None, theme: str = "paper",
-          pdf: bool = False, keep_tmp: bool = False) -> Dict[str, Any]:
+          pdf: bool = False, keep_tmp: bool = False,
+          audience: str = "业务负责人",
+          require_contract: bool = False,
+          quote_mode: str = "off") -> Dict[str, Any]:
     desk = analysis_desk.scan(project_dir)
     prof = analysis_desk.profile(desk)
     views = analysis_methods.build_views(desk)
@@ -238,13 +330,7 @@ def build(intent: str, project_dir: str, out_dir: str,
     opening = report_thesis.opening(th, ctx, findings)
     if opening:
         sections.append(opening)
-    frame_secs = frames.build(th, ctx, findings)
-    if frame_secs is None:
-        frame_secs = frames_cheese.build(th, ctx, findings)
-    if frame_secs is None:
-        frame_secs = frames_v10.build(th, ctx, findings)
-    if frame_secs is None:
-        frame_secs = frames_framework.build(th, ctx, findings)
+    frame_secs = _assemble(th, ctx, findings)
     if frame_secs:
         # 价格类经营/链路/整改 + 奶酪零食整改：按问题链装配，不按 finding 顺序平铺
         sections.extend(frame_secs)
@@ -261,7 +347,7 @@ def build(intent: str, project_dir: str, out_dir: str,
             sections.append(_section_of(f))
     # 整改帧（肉禽蛋）与奶酪零食整改帧已经把动作拆进根因/分段/拍板/不做，
     # 不再追加一份通用的动作清单，避免同一件事说两遍。
-    if th not in ("remediation", "cheese_fix", "analysis", "analysis_v10"):
+    if th not in ("remediation", "cheese_fix", "analysis"):
         acts = report_thesis.actions(th, findings)
         act_sec = _actions_section(cite, findings, acts)
         label_of["actions"] = len(sections) + 1
@@ -271,7 +357,7 @@ def build(intent: str, project_dir: str, out_dir: str,
     if not any(f.key in ("structure", "economics") for f in picked):
         vg = [g for g in vg if "零售价" not in g and "价格" not in g]
     # 已经有专门的「覆盖缺口」节时，不再追加一份重复的缺口节
-    if "coverage" not in findings and th not in ("analysis", "analysis_v10"):
+    if "coverage" not in findings and th != "analysis":
         gap_sec = _gap_section(cite, missing + vg, gaps, risk)
         if gap_sec:
             sections.append(gap_sec)
@@ -286,6 +372,15 @@ def build(intent: str, project_dir: str, out_dir: str,
         except (json.JSONDecodeError, OSError):
             title = ""
     title = title or f"{_subject(desk.project)}{spec.get('doc_name') or spec['label']}"
+    # 契约先立后写：字段算不出来就 blocker，不靠文案兜底。
+    # 文件名必须用 report_ship.json：out_dir/contract.json 是渲染契约（report_flow 写），
+    # 两者语义不同，同名会互相覆盖。
+    cob = _contract(intent, th, spec, title, desk, views, picked, sections, audience)
+    os.makedirs(out_dir, exist_ok=True)
+    kernel_contract.save(os.path.join(out_dir, "report_ship.json"), cob["contract"])
+    if require_contract and not cob["check"]["ok"]:
+        raise report_flow.FlowError(
+            "开工前契约不成立：" + "；".join(cob["check"]["errors"]))
     sf = report_thesis.standfirst(th, findings)
     titles = [t for t in report_thesis.summary(th, findings) if t != sf]
     summ = titles if th == "market" else [sf] + titles
@@ -336,7 +431,8 @@ def build(intent: str, project_dir: str, out_dir: str,
         json.dump(draft, f, ensure_ascii=False, indent=2)
 
     res = report_flow.run(intent=intent, evidence=pack_path, draft=draft,
-                          out_dir=out_dir, theme=theme, pdf=pdf)
+                          out_dir=out_dir, theme=theme, pdf=pdf,
+                          quote_mode=quote_mode)
 
     # R04 独立评审：物料清点（存在/非空）
     files = res.get("files") or {}
@@ -362,8 +458,7 @@ def build(intent: str, project_dir: str, out_dir: str,
         json.dump(qa, f, ensure_ascii=False, indent=2)
     STRICT = {"market", "operations", "chain", "remediation",
               "cheese_market", "cheese_ops", "cheese_chain",
-              "cheese_content", "cheese_fix", "cheese_data", "analysis",
-              "analysis_v10"}
+              "cheese_content", "cheese_fix", "cheese_data", "analysis"}
     quality_ok = bool(qa.get("ok")) if th in STRICT else True
 
     # 分析轨迹 + manifest 追写
@@ -392,7 +487,8 @@ def build(intent: str, project_dir: str, out_dir: str,
         "derived": len(desk.derived),
         "gate": {"section_check": bool(res.get("ok")),
                  "r04": inv_verdict,
-                 "r04_missing": inv.get("missing_required") or []},
+                 "r04_missing": inv.get("missing_required") or [],
+                 "contract": cob["check"]},
     }
     with open(os.path.join(out_dir, "analysis_trace.json"), "w",
               encoding="utf-8", newline="\n") as f:
@@ -405,6 +501,9 @@ def build(intent: str, project_dir: str, out_dir: str,
                     "covered": skills.covered(), "gaps": gaps, "missing": missing,
                     "r04": {"verdict": inv_verdict,
                             "missing": inv.get("missing_required") or []},
+                    "contract": {"ok": cob["check"]["ok"],
+                                 "report_id": cob["contract"].get("report_id"),
+                                 "errors": cob["check"]["errors"]},
                     "quality": {"ok": quality_ok, "score": qa.get("score"),
                                 "sections": qa.get("sections"),
                                 "checks": [{"id": c["id"], "ok": c["ok"],
@@ -427,6 +526,11 @@ def build(intent: str, project_dir: str, out_dir: str,
         "numbers": desk.counts(),
         "files": files,
         "r04": inv_verdict,
+        "contract": {"ok": cob["check"]["ok"],
+                     "required": bool(require_contract),
+                     "report_id": cob["contract"].get("report_id"),
+                     "errors": cob["check"]["errors"],
+                     "warnings": cob["check"]["warnings"]},
         "quality": {"ok": quality_ok, "score": qa.get("score"),
                     "sections": qa.get("sections"), "chars": qa.get("chars"),
                     "density": qa.get("density")},
@@ -444,8 +548,13 @@ def main(argv: Optional[List[str]] = None) -> int:
                     choices=list(report_thesis.THESES) + [None])
     ap.add_argument("--theme", default="paper")
     ap.add_argument("--pdf", action="store_true")
+    ap.add_argument("--audience", default="业务负责人")
+    ap.add_argument("--require-contract", action="store_true")
+    ap.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
     a = ap.parse_args(argv)
-    res = build(a.intent, a.dir, a.out, thesis=a.thesis, theme=a.theme, pdf=a.pdf)
+    res = build(a.intent, a.dir, a.out, thesis=a.thesis, theme=a.theme, pdf=a.pdf,
+                audience=a.audience, require_contract=a.require_contract,
+                quote_mode=a.quote_mode)
     print(json.dumps(res, ensure_ascii=False, indent=1))
     return 0 if res["ok"] else 1
 

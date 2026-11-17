@@ -1,5 +1,10 @@
 # 报告产线（REPORT-LINES.md）
 
+> **升级冻结（2026-11-17 起）**：本文件描述的 22 纲领 / 3 走法 / 2 分支进入改造期，
+> 执行计划见 [`报告产线升级SOP-2026-11-17.md`](../../交付/报告产线升级SOP-2026-11-17.md)。
+> 升级期间**不得新增** thesis / frame / 入口；新能力先进 `core/report_framework.py` 的维度库，
+> 等 P4 统一后再放开。
+>
 > 2026-11-15 收敛结果：**12 条产线 → 1 条产线、2 个分支、1 份报告**。
 > 本文是产线的唯一地图；写报告的标准见 `REPORT-STANDARD.md`，
 > 接入方式见 `REPORT-BRIDGE-GUIDE.md`。
@@ -20,21 +25,37 @@ R01 s01（意图识别）→ s02（路由 / 拆卡 / 波次）
                                    │
                       R01 s09 解读（带数字的判断）
                                    │
-                core/report_flow.py → core/report_renderer.py
+        core/report_flow.py → core/report_bridge.py → core/report_renderer.py
                                    │
                      一份报告：HTML + MD + manifest（署名 R01）
 ```
 
-入口只有五条命令：
+入口命令（以本表为准）：
 
 | 命令 | 作用 |
 |---|---|
-| `python guagua.py report produce --profile … --dir … --out …` | **v3 主线**：章节计划 → 技能调度 → 证据图 → 报告 → 评测 |
+| `python guagua.py report produce --intent … --dir … --out …` | **主线**：数据台 → 方法库 → 纲领 → 章节稿 → 报告 |
+| `python guagua.py report produce --profile … --dir … --out …` | v3 兼容入口：章节计划 → 技能调度 → 证据图 → 评测 |
 | `python guagua.py report run --intent … --results … --out …` | 出一份报告（A/B 分支） |
 | `python guagua.py report pack --dir … --out …` | 证据打包 → 可寻址数字索引 + 写作简报 |
 | `python guagua.py report run --evidence pack.json --draft sections.json --out …` | 调研级：章节稿逐节过账后出一份报告 |
 | `python guagua.py report check --html …` | 验一份成品（CI 同款） |
 | `python guagua.py report charts` | 48 型图表能力盘点 |
+
+### 开工前契约（`produce --intent`）
+
+动笔前先立契约，落在 `out/report_ship.json`（判定规则见 `core/report_kernel/contract.py`）：
+
+```
+给谁看 audience / 支持哪个决定 decision / 必答 3—5 问 questions
+数据截止 data_cutoff / 档位 target_level / 签字 owner-reviewer
++ 实算字段：来源数、期数、时间跨度、是否跨市、期次是否对齐
+```
+
+`--require-contract` 时契约不成立就中止、不出报告；不带该参数只记录不拦截，
+结果写进 `manifest.json`、`analysis_trace.json` 与命令返回值。
+
+注意：`out/contract.json` 是**渲染契约**（report_flow 写），与 `report_ship.json` 语义不同，不要混用。
 
 ### v3：技能编排（2026-11 新增）
 
@@ -89,13 +110,9 @@ profile → section_plan.json（每节声明要跑哪个角色的哪个技能）
 `core/report_kernel/{spec,layers,aggregate,guard}`、角色侧 `report_contract.py`、
 7 类报告门禁脚本（合并为 `check_report_flow.py`）、21 份历史 SOP 文档。
 
-归档（可恢复）：
-
-```
-workspace/_archive/report-lines-2026-11-15.tar.gz   # 77 个代码文件
-workspace/_archive/report-docs-2026-11-15.tar.gz    # 21 份文档
-workspace/_archive/_report_specs_snapshot/          # report_specs 全量快照
-```
+归档说明：收敛时的 77 个代码文件与 21 份文档**未随本仓提供**
+（`workspace/_archive/` 已不存在，2026-11-17 体检确认）。需要恢复时从 git 历史
+（2026-11-15 前后的提交）取，不要再引用 tar.gz 路径。
 
 ---
 

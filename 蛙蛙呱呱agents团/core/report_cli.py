@@ -27,6 +27,15 @@ if str(ROOT) not in sys.path:
 def cmd_capabilities(args) -> int:
     """角色适配层：20 角色 / 195 技能，哪些能进报告、输出什么 claim。"""
     from core import report_roles
+    if getattr(args, "graph", False) or getattr(args, "graph_write", None):
+        from core import capability_graph
+        g = capability_graph.build()
+        if getattr(args, "graph_write", None):
+            p = capability_graph.write(args.graph_write)
+            print(f"graph: {p}")
+        if getattr(args, "graph", False):
+            print(json.dumps(g["counts"], ensure_ascii=False, indent=1))
+        return 0
     cat = report_roles.classify()
     if args.write:
         p = report_roles.write_catalog(cat)
@@ -83,7 +92,7 @@ def cmd_run(args) -> int:
             intent=args.intent, results=args.results, out_dir=args.out,
             roles=[x.strip() for x in (args.roles or "").split(",") if x.strip()] or None,
             draft=draft, theme=args.theme, pdf=args.pdf, md_name=args.md_name,
-            evidence=args.evidence)
+            evidence=args.evidence, quote_mode=args.quote_mode)
     except report_flow.FlowError as e:
         print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False))
         return 2
@@ -104,7 +113,9 @@ def cmd_produce(args) -> int:
             res = report_compose.build(
                 intent=args.intent or "经营分析", project_dir=args.dir,
                 out_dir=args.out, thesis=args.thesis, theme=args.theme,
-                pdf=args.pdf)
+                pdf=args.pdf, audience=getattr(args, "audience", "业务负责人"),
+                require_contract=bool(getattr(args, "require_contract", False)),
+                quote_mode=getattr(args, "quote_mode", "warn"))
         except Exception as e:  # noqa: BLE001  产线失败要可见
             print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
                              ensure_ascii=False))
@@ -157,6 +168,7 @@ def cmd_charts(args) -> int:
 
 def main(argv=None) -> int:
     from core.report_flow import THEMES, DEFAULT_THEME
+    from core import report_thesis as _thesis
     ap = argparse.ArgumentParser(prog="guagua report",
                                  description="唯一报告产线：R01 出具，角色只交 result")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -173,6 +185,8 @@ def main(argv=None) -> int:
     r.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
     r.add_argument("--md-name", default="report")
     r.add_argument("--pdf", action="store_true")
+    r.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn",
+                   help="数据 intake：quote 回抓校验模式")
     r.set_defaults(func=cmd_run)
 
     pk = sub.add_parser("pack", help="证据打包：项目目录 → evidence_pack.json + brief.md")
@@ -186,13 +200,19 @@ def main(argv=None) -> int:
                     help="market_research / business_review；留空则按 --intent 自动选纲领")
     pr.add_argument("--intent", default=None,
                     help="v4 自动纲领的意图（不传 --profile 时生效）")
-    pr.add_argument("--thesis", default=None,
-                    help="强制纲领：research / operations / remediation / chain / forecast")
+    pr.add_argument("--thesis", default=None, choices=list(_thesis.THESES),
+                    help="强制纲领；可选值以 core/report_thesis.THESES 为准")
     pr.add_argument("--dir", required=True, help="项目目录")
     pr.add_argument("--out", required=True)
     pr.add_argument("--draft", default=None, help="可选：覆盖自动章节稿")
     pr.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
     pr.add_argument("--pdf", action="store_true")
+    pr.add_argument("--audience", default="业务负责人",
+                    help="开工前契约：这份报告给谁看（写进 report_ship.json）")
+    pr.add_argument("--require-contract", action="store_true",
+                    help="契约不成立就中止，不出报告（默认只记录不拦截）")
+    pr.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn",
+                    help="数据 intake：quote 回抓校验模式")
     pr.set_defaults(func=cmd_produce)
 
     c = sub.add_parser("check", help="验一份成品报告")
@@ -206,6 +226,8 @@ def main(argv=None) -> int:
     cp = sub.add_parser("capabilities", help="角色适配层：20 角色 / 195 技能的入报资格与 claim")
     cp.add_argument("--json", action="store_true")
     cp.add_argument("--write", action="store_true", help="写 configs/report_capabilities.json")
+    cp.add_argument("--graph", action="store_true", help="角色 × 问题 × 能力 × 状态图")
+    cp.add_argument("--graph-write", default=None, help="把能力图写到指定 JSON")
     cp.set_defaults(func=cmd_capabilities)
 
     pl = sub.add_parser("plan", help="只看方法挂载计划（不执行、不出报告）")

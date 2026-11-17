@@ -1,0 +1,301 @@
+{
+ "schema": "dsh.quote_check/v1",
+ "checked_at": "2026-11-17T19:37:41",
+ "total": 32,
+ "checked": 23,
+ "ok": 20,
+ "mismatch": 3,
+ "unreachable": 0,
+ "unverified": 9,
+ "skipped": 0,
+ "grades": {
+  "A": 14,
+  "B": 3,
+  "C": 15,
+  "D": 0
+ },
+ "items": [
+  {
+   "id": "S01",
+   "url": "https://futures.stockstar.com/IG2026111600013402.shtml",
+   "quote": "富士苹果 14.00",
+   "grade": "A",
+   "status": "ok",
+   "chars": 27138,
+   "via": "live"
+  },
+  {
+   "id": "S02",
+   "url": "https://futures.stockstar.com/IG2026111100024831.shtml",
+   "quote": "香蕉 3.00",
+   "grade": "A",
+   "status": "ok",
+   "chars": 25006,
+   "via": "live"
+  },
+  {
+   "id": "S03",
+   "url": "https://futures.stockstar.com/IG2026111600013404.shtml",
+   "quote": "富士苹果 6.00",
+   "grade": "A",
+   "status": "ok",
+   "chars": 24807,
+   "via": "live"
+  },
+  {
+   "id": "S04",
+   "url": "http://swj.huhhot.gov.cn/tjxx/202611/t20261110_2049154.html",
+   "quote": "苹果 13.88",
+   "grade": "A",
+   "status": "ok",
+   "chars": 110383,
+   "via": "live"
+  },
+  {
+   "id": "S05",
+   "url": "https://cif.mofcom.gov.cn/site/html/neimenggu/html/15362952/2026/11/3/1793696966731.html",
+   "quote": "苹果13.99元/公斤",
+   "grade": "A",
+   "status": "ok",
+   "chars": 397,
+   "via": "cache"
+  },
+  {
+   "id": "S06",
+   "url": "https://cif.mofcom.gov.cn/cif/html/market_scanner/2026/11/1794367457799.html",
+   "quote": "苹果13.63元/公斤",
+   "grade": "A",
+   "status": "ok",
+   "chars": 378,
+   "via": "cache"
+  },
+  {
+   "id": "S07",
+   "url": "https://m.cnhnb.com/p/pingguo-0-98-0-0-1/",
+   "quote": "2.50",
+   "grade": "C",
+   "status": "ok",
+   "chars": 88758,
+   "via": "live"
+  },
+  {
+   "id": "S08",
+   "url": "http://nmj.chifeng.gov.cn/zwxx/sndt/nmsz/202610/t20261022_2837524.html",
+   "quote": "酵素苹果",
+   "grade": "A",
+   "status": "ok",
+   "chars": 27548,
+   "via": "live"
+  },
+  {
+   "id": "S09",
+   "url": "https://www.tongliao.gov.cn/zjtl/fztl/tltf/nmy/202512/t20251216_1021786.html",
+   "quote": "塞外红",
+   "grade": "A",
+   "status": "ok",
+   "chars": 72975,
+   "via": "live"
+  },
+  {
+   "id": "S10",
+   "url": "https://notice.10jqka.com.cn/api/original/ec1fbea01275842.pdf",
+   "quote": "3.5",
+   "grade": "B",
+   "status": "ok",
+   "chars": 5852,
+   "via": "live"
+  },
+  {
+   "id": "S11",
+   "url": "https://m.cnhnb.com/p/liz-0-3-0-111_41316-4/",
+   "quote": "",
+   "grade": "C",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S12",
+   "url": "https://m.cnhnb.com/p/liz-0-3-1146-21_21597-1/",
+   "quote": "雪花梨",
+   "grade": "C",
+   "status": "ok",
+   "chars": 93391,
+   "via": "live"
+  },
+  {
+   "id": "S13",
+   "url": "https://m.cnhnb.com/p/xiangj-0-25-0-0-10/",
+   "quote": "",
+   "grade": "C",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S14",
+   "url": "https://m.cnhnb.com/p/putao-0-0-1594-0-250/",
+   "quote": "",
+   "grade": "C",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S15",
+   "url": "https://www.cnhnb.com/hangqing/cdlist-2001324-1594-0-0-0-1/",
+   "quote": "昌黎",
+   "grade": "C",
+   "status": "mismatch",
+   "detail": "quote 未在原文命中（页面可能改版或需登录）",
+   "chars": 171,
+   "via": "live"
+  },
+  {
+   "id": "S16",
+   "url": "https://m.cnhnb.com/p/ganju-0-0-4622-78_31057,21_1035-6/",
+   "quote": "3.20",
+   "grade": "C",
+   "status": "ok",
+   "chars": 94046,
+   "via": "live"
+  },
+  {
+   "id": "S17",
+   "url": "https://www.cnhnb.com/hangqing/cdlist-2001686-2943-20-0-0-2/",
+   "quote": "1.30",
+   "grade": "C",
+   "status": "mismatch",
+   "detail": "quote 未在原文命中（页面可能改版或需登录）",
+   "chars": 171,
+   "via": "live"
+  },
+  {
+   "id": "S18",
+   "url": "https://www.cnhnb.com/hangqing/q-2003191-0-0-25/",
+   "quote": "0.34",
+   "grade": "C",
+   "status": "mismatch",
+   "detail": "quote 未在原文命中（页面可能改版或需登录）",
+   "chars": 171,
+   "via": "live"
+  },
+  {
+   "id": "S19",
+   "url": "https://m.ymt.com/hangqing/juhe-7252",
+   "quote": "",
+   "grade": "C",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S20",
+   "url": "http://www.agri.cn/sj/jcyj/202611/t20261116_8884013.htm",
+   "quote": "6.64",
+   "grade": "A",
+   "status": "ok",
+   "chars": 40060,
+   "via": "live"
+  },
+  {
+   "id": "S21",
+   "url": "http://lcj.nmg.gov.cn/xxgk/gzdt/202512/t20251230_2843352.html",
+   "quote": "年产果品16.8万吨，产值8.2亿元",
+   "grade": "A",
+   "status": "ok",
+   "chars": 405,
+   "via": "cache"
+  },
+  {
+   "id": "S22",
+   "url": "http://www.yurun.com/news/news-detail.html?id=263&classfy=1",
+   "quote": "",
+   "grade": "C",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S23",
+   "url": "https://www.cawa.org.cn/content/details_13790_17221.html",
+   "quote": "423家",
+   "grade": "B",
+   "status": "ok",
+   "chars": 64696,
+   "via": "live"
+  },
+  {
+   "id": "S24",
+   "url": "http://ha.xinhuanet.com/20260929/6d6b126b5a034e8c8ffacc0116734ba1/c.html",
+   "quote": "1500万吨",
+   "grade": "C",
+   "status": "ok",
+   "chars": 11161,
+   "via": "live"
+  },
+  {
+   "id": "S25",
+   "url": "https://4g.stockstar.com/detail/IG2026110900006757",
+   "quote": "11月9日",
+   "grade": "A",
+   "status": "ok",
+   "chars": 24432,
+   "via": "live"
+  },
+  {
+   "id": "S26",
+   "url": "http://www.nmgjgjc.com.cn/jgjcwz/",
+   "quote": "6.53",
+   "grade": "A",
+   "status": "ok",
+   "chars": 112354,
+   "via": "live"
+  },
+  {
+   "id": "S27",
+   "url": "https://cif.mofcom.gov.cn/cif/html/mobile/dataDetail.html?id=224089",
+   "quote": "",
+   "grade": "A",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S28",
+   "url": "http://futures.stockstar.com/IG2026111100024473.shtml",
+   "quote": "",
+   "grade": "A",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S29",
+   "url": "http://xinfadi.com.cn:8099/minipricedetail.html",
+   "quote": "",
+   "grade": "B",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S30",
+   "url": "http://zjnews.zjol.com.cn/zjnews/202611/t20261116_32029456.shtml",
+   "quote": "",
+   "grade": "C",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S31",
+   "url": "https://finance.sina.com.cn/jjxw/2026-11-12/doc-iniymsif1223760.shtml",
+   "quote": "66.7万吨",
+   "grade": "C",
+   "status": "ok",
+   "chars": 90340,
+   "via": "live"
+  },
+  {
+   "id": "S32",
+   "url": "http://www.sqsm.com/article/list/25/navid/3.html",
+   "quote": "1000吨",
+   "grade": "C",
+   "status": "ok",
+   "chars": 12792,
+   "via": "live"
+  }
+ ]
+}

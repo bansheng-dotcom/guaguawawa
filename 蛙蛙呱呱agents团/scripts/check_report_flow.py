@@ -118,7 +118,9 @@ def check_html(path) -> dict:
     # F5 边界：独立边界节，或每节带「本节边界」，或口径说明里写了边界
     notes_m = re.search(r'<section class="notes"[\s\S]*?</section>', html, re.I)
     notes_txt = _text(notes_m.group(0)) if notes_m else ""
-    if not (any("边界" in h for h in heads) or "本节边界" in text or "边界" in notes_txt):
+    if not (any("边界" in h for h in heads) or "本节边界" in text
+            or "本节边界" in html  # 渲染器把标签放在 data-label 属性里
+            or "边界" in notes_txt):
         v.append({"id": "F5_boundary", "msg": "没有「边界」章节：没说清结论只对什么成立"})
 
     # F6 末节口径与分数
@@ -146,7 +148,24 @@ def check_html(path) -> dict:
     if hits:
         v.append({"id": "F9_banned", "msg": "禁用词：" + "、".join(hits)})
 
-    return {"file": str(path), "ok": not v, "violations": v, "stats": stats}
+    # F10 深度：与 core.report_quality 共用同一判据（按体量自动分档 research/baseline），
+    # 不再出现「flow 说 PASS、深度门禁说 FAIL」的两套结论。
+    depth = None
+    try:
+        from core import report_quality  # noqa: PLC0415
+        depth = report_quality.audit(path, "auto")
+        if not depth["ok"]:
+            for c in depth["checks"]:
+                if c.get("hard") and not c["ok"]:
+                    v.append({"id": "F10_depth",
+                              "msg": f"[{depth['profile']}] {c['id']}: "
+                                     f"{c['value']} 需 {c['need']}（{c['msg']}）"})
+    except Exception as exc:  # noqa: BLE001
+        v.append({"id": "F10_depth", "msg": f"深度门禁不可用: {exc}"})
+
+    return {"file": str(path), "ok": not v, "violations": v, "stats": stats,
+            "depth": ({"profile": depth["profile"], "ok": depth["ok"],
+                       "score": depth["score"]} if depth else None)}
 
 
 def main(argv=None) -> int:
@@ -164,8 +183,10 @@ def main(argv=None) -> int:
     results = [check_html(p) for p in targets]
     for r in results:
         mark = "PASS" if r["ok"] else "FAIL"
+        prof = (r.get("depth") or {}).get("profile", "?")
         print(f"{mark}  {r['file']}  密度 {r['stats']['density']}  "
-              f"图 {r['stats']['figures']}  重复句 {r['stats']['duplicate_rate']:.0%}")
+              f"图 {r['stats']['figures']}  重复句 {r['stats']['duplicate_rate']:.0%}"
+              f"  深度档 {prof}")
         for x in r["violations"]:
             print(f"      - [{x['id']}] {x['msg']}")
     if a.json:

@@ -44,9 +44,13 @@ def invoke(role_id: str, argv: List[str], cwd: Optional[str] = None,
     cmd = [sys.executable, agent_py(role_id), *argv]
     env = dict(os.environ)
     env["PYTHONPATH"] = _load_path() + os.pathsep + env.get("PYTHONPATH", "")
+    # Windows 控制台默认 GBK，子进程若按 GBK 输出会导致父进程按 UTF-8 解码崩溃。
+    # 统一让子进程输出 UTF-8；父进程仍保留 errors=replace 兜底。
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["PYTHONUTF8"] = "1"
     proc = subprocess.run(
         cmd, cwd=cwd or agents_root(), capture_output=True,
-        text=True, encoding="utf-8", timeout=timeout, env=env,
+        text=True, encoding="utf-8", errors="replace", timeout=timeout, env=env,
     )
     out = proc.stdout or ""
     result: Dict[str, Any] = {
