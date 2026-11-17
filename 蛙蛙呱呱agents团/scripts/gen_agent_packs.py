@@ -347,7 +347,7 @@ def render_agent(role: dict, yaml_conf: dict, profile: dict, members: list) -> s
         # 默认主流程（取 prompt_profile 前 5 个动作，作为建议顺序）
         L.append("## 默认工作流程")
         L.append("")
-        L.append("1. **接单与澄清**：先看 intent 里是否已含必需字段；缺则一轮问清（≤4 问，每问带候选），"
+        L.append("1. **接单与澄清**：先看 intent 里是否已含必需字段；缺则一轮问清（≤8 问，每问带候选），"
                  "能按经验补全的写进「关键假设清单」而不是问。")
         L.append("2. **选动作**：按上面任务表的触发词选一个主任务；选不出再澄清，不猜。")
         L.append(f"3. **执行与自检**：跑对应子命令，产物过 `python harness.py verify` 或本角色门禁。")
@@ -497,7 +497,7 @@ def build_agents_md(roles: list) -> str:
         "| 谁负责什么、向谁汇报、与谁交接 | `ORG.md` |",
         "| 任务怎样展开、下发、移交、编排 | `PROTOCOL.md` |",
         "| 汇报写什么、什么文笔、什么排版 | `REPORT-STANDARD.md` |",
-        "| 报告产线（只有一条：R01 出具） | `REPORT-BRIDGE-GUIDE.md` · `docs/REPORT-LINES.md` |",
+        "| 报告产线（唯一出具人 R01） | `REPORT-BRIDGE-GUIDE.md` · `docs/REPORT-LINES.md` |",
         "| 每个角色的完整定义（宿主可直接加载） | `agent-packs/agents/*.md` |",
         "| 专家团清单 / 成员与头像 | `agent-packs/plugin.json` |",
         "| 技能层规格（怎么写出合格 SKILL.md） | `docs/SKILL-LAYER-SPEC.md` |",
@@ -511,27 +511,36 @@ def build_agents_md(roles: list) -> str:
         "python guagua.py call r06 --help           # 看它能做什么",
         "python guagua.py skills                    # 看已升级的技能包",
         "python guagua.py plan \"你的经营目标\"         # 让 R01 拆任务卡",
-        "python guagua.py report run --intent \"…\" --results <result.json…> --out <目录>  # 唯一报告产线",
-        "python guagua.py report produce --profile market_research --dir <项目> --out <目录>  # v3：技能编排出报告",
-        "python guagua.py report pack --dir <项目目录> --out <目录>                     # 调研级：证据打包",
+        "python guagua.py report build --intent \"…\" --dir <项目> --out <目录> --lens market  # v10 唯一入口：问题树 → coverage → 报告",
+        "python guagua.py report check --html <报告>                                  # 验收成品",
+        "# 旧 run / pack / produce / research 已在 v10 删除；诊断用 capabilities / plan",
+        "# 完整入口与产线地图见 docs/REPORT-LINES.md；旧 --profile 已删除",
         "```",
         "",
-        "## 三条铁律",
+        "## 四条铁律",
         "",
         "1. **一个任务一个 owner**——「共同负责」等于没人负责。",
         "2. **生成与校验分离**——谁生产谁不验收，验收归 `r04-watiaoci-reviewer`。",
         "3. **不可逆动作必须创始人签字**——裁员/关停/签合同/动资金不接受口头豁免。",
+        "4. **报告只有一个作者（R01）且只加方法不加章节**——执行角色只交 `result.json`；"
+        "新能力进 `core/analysis_methods.py` 或 `report_framework` 维度；新增章节须先扩"
+        " `core/report_kernel/contract.py` 的契约并过 CI。",
         "",
-        "## 提交前自检（七条，全绿才算完）",
+        "## 提交前自检（全绿才算完）",
         "",
         "```bash",
         "python guagua.py check                     # 20 角色入口不回归",
-        "python scripts/ci_report_checks.py         # 唯一报告产线：A/B 两分支 + 门禁 + 图型",
+        "python scripts/ci_report_checks.py         # 报告产线：build market/ops + 门禁 + 图型 + 风格",
+        "python scripts/ci_upgrade_checks.py        # 方法与评测：方法包 / 评测回归 / 技能结论",
         "python scripts/check_skill_gate.py         # 技能包门槛 + 黄金快照无退化",
-        "python scripts/audit_skill_layer.py --check-refs   # SKILL.md 结构分 + 悬空指针",
+        "python scripts/audit_skill_layer.py --check-refs --min 75   # 技能卡 ≥75 分 + 悬空指针 0",
         "python scripts/gen_agent_packs.py --check  # 专家团包与源无漂移",
         "python scripts/check_threshold_consistency.py      # 跨卡阈值一致（单一出处）",
         "python scripts/sync_dsh_skills.py --check  # DSH 技能镜像无分叉（否则模型读旧技能）",
+        "python scripts/check_prompt_system.py     # 意图目录/画像/回归三项一致",
+        "python scripts/check_third_party_licenses.py   # 第三方许可状态（分发前加 --strict）",
+        "python scripts/check_role_tests.py         # 20 角色 run_tests.py 全绿（端到端验收）",
+        "python -m pytest tests -q -p no:cacheprovider   # 根目录单测",
         "```",
         "",
         "## 改这份文件之前",
@@ -643,9 +652,27 @@ def write_files(out_dir: str, payload: dict, with_avatars: bool) -> int:
         for fname in sorted(set(AVATARS.values()) | {"team.png"}):
             src = os.path.join(ROOT, "avatars", fname)
             if os.path.isfile(src):
-                shutil.copy2(src, os.path.join(av_dir, fname))
+                _link_or_copy(src, os.path.join(av_dir, fname))
                 n_avatar += 1
     return n_avatar
+
+
+def _link_or_copy(src: str, dst: str) -> None:
+    """同卷优先硬链接：包内路径仍在（可独立分发），但不重复占 5.6 MB。
+
+    跨卷 / 不支持硬链接的文件系统自动回退到复制。
+    注意：硬链接下编辑包内副本会同时改动 `avatars/` 源文件——图片只读，可接受；
+    需要独立修改时先 `--no-avatars` 重新生成，或手工 `cp` 替换。
+    """
+    if os.path.exists(dst):
+        try:
+            os.remove(dst)
+        except OSError:
+            pass
+    try:
+        os.link(src, dst)
+    except OSError:
+        shutil.copy2(src, dst)
 
 
 def check_drift(out_dir: str, payload: dict) -> list:

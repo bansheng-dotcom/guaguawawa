@@ -7,7 +7,9 @@
    "org": "农业农村部信息中心",
    "date": "2026-11-16",
    "type": "government",
-   "url": "https://futures.stockstar.com/IG2026111600013402.shtml"
+   "url": "https://futures.stockstar.com/IG2026111600013402.shtml",
+   "grade": "A",
+   "quote": "富士苹果 14.00"
   },
   {
    "id": "S02",
@@ -15,7 +17,9 @@
    "org": "农业农村部信息中心",
    "date": "2026-11-11",
    "type": "government",
-   "url": "https://futures.stockstar.com/IG2026111100024831.shtml"
+   "url": "https://futures.stockstar.com/IG2026111100024831.shtml",
+   "grade": "A",
+   "quote": "香蕉 3.00"
   },
   {
    "id": "S03",
@@ -23,7 +27,9 @@
    "org": "农业农村部信息中心",
    "date": "2026-11-16",
    "type": "government",
-   "url": "https://futures.stockstar.com/IG2026111600013404.shtml"
+   "url": "https://futures.stockstar.com/IG2026111600013404.shtml",
+   "grade": "A",
+   "quote": "富士苹果 6.00"
   },
   {
    "id": "S04",
@@ -31,7 +37,9 @@
    "org": "呼和浩特市商务局",
    "date": "2026-11-10",
    "type": "government",
-   "url": "http://swj.huhhot.gov.cn/tjxx/202611/t20261110_2049154.html"
+   "url": "http://swj.huhhot.gov.cn/tjxx/202611/t20261110_2049154.html",
+   "grade": "A",
+   "quote": "苹果 13.88"
   },
   {
    "id": "S05",
@@ -39,7 +47,9 @@
    "org": "赤峰市商务局",
    "date": "2026-11-03",
    "type": "government",
-   "url": "https://cif.mofcom.gov.cn/site/html/neimenggu/html/15362952/2026/11/3/1793696966731.html"
+   "url": "https://cif.mofcom.gov.cn/site/html/neimenggu/html/15362952/2026/11/3/1793696966731.html",
+   "grade": "A",
+   "quote": "苹果13.99元/公斤"
   },
   {
    "id": "S06",
@@ -47,7 +57,9 @@
    "org": "赤峰市商务局",
    "date": "2026-11-11",
    "type": "government",
-   "url": "https://cif.mofcom.gov.cn/cif/html/market_scanner/2026/11/1794367457799.html"
+   "url": "https://cif.mofcom.gov.cn/cif/html/market_scanner/2026/11/1794367457799.html",
+   "grade": "A",
+   "quote": "苹果13.63元/公斤"
   },
   {
    "id": "S07",
@@ -55,7 +67,9 @@
    "org": "惠农网",
    "date": "2026-11-15",
    "type": "marketplace",
-   "url": "https://m.cnhnb.com/p/pingguo-0-98-0-0-1/"
+   "url": "https://m.cnhnb.com/p/pingguo-0-98-0-0-1/",
+   "grade": "C",
+   "quote": "2.50"
   },
   {
    "id": "S08",
@@ -63,7 +77,9 @@
    "org": "赤峰市农牧局",
    "date": "2026-10-22",
    "type": "government",
-   "url": "http://nmj.chifeng.gov.cn/zwxx/sndt/nmsz/202610/t20261022_2837524.html"
+   "url": "http://nmj.chifeng.gov.cn/zwxx/sndt/nmsz/202610/t20261022_2837524.html",
+   "grade": "A",
+   "quote": "酵素苹果"
   },
   {
    "id": "S09",
@@ -71,7 +87,9 @@
    "org": "通辽市林草局",
    "date": "2025-12-16",
    "type": "government",
-   "url": "https://www.tongliao.gov.cn/zjtl/fztl/tltf/nmy/202512/t20251216_1021786.html"
+   "url": "https://www.tongliao.gov.cn/zjtl/fztl/tltf/nmy/202512/t20251216_1021786.html",
+   "grade": "A",
+   "quote": "塞外红"
   },
   {
    "id": "S10",
@@ -79,7 +97,9 @@
    "org": "生鲜果品日度策略报告",
    "date": "2026-11-14",
    "type": "industry_report",
-   "url": "https://notice.10jqka.com.cn/api/original/ec1fbea01275842.pdf"
+   "url": "https://notice.10jqka.com.cn/api/original/ec1fbea01275842.pdf",
+   "grade": "B",
+   "quote": "3.5"
   },
   {
    "id": "S11",
@@ -87,7 +107,8 @@
    "org": "惠农网",
    "date": "2026-11-15",
    "type": "marketplace",
-   "url": "https://m.cnhnb.com/p/liz-0-3-0-111_41316-4/"
+   "url": "https://m.cnhnb.com/p/liz-0-3-0-111_41316-4/",
+   "grade": "C"
   },
   {
    "id": "S12",
@@ -95,7 +116,9 @@
    "org": "惠农网",
    "date": "2026-11-15",
    "type": "marketplace",
-   "url": "https://m.cnhnb.com/p/liz-0-3-1146-21_21597-1/"
+   "url": "https://m.cnhnb.com/p/liz-0-3-1146-21_21597-1/",
+   "grade": "C",
+   "quote": "雪花梨"
   },
   {
    "id": "S13",
@@ -103,7 +126,8 @@
    "org": "惠农网/一亩田",
    "date": "2026-11-14",
    "type": "marketplace",
-   "url": "https://m.cnhnb.com/p/xiangj-0-25-0-0-10/"
+   "url": "https://m.cnhnb.com/p/xiangj-0-25-0-0-10/",
+   "grade": "C"
   },
   {
    "id": "S14",
@@ -111,7 +135,8 @@
    "org": "惠农网",
    "date": "2026-11-15",
    "type": "marketplace",
-   "url": "https://m.cnhnb.com/p/putao-0-0-1594-0-250/"
+   "url": "https://m.cnhnb.com/p/putao-0-0-1594-0-250/",
+   "grade": "C"
   },
   {
    "id": "S15",
@@ -119,7 +144,9 @@
    "org": "惠农网",
    "date": "2026-11-14",
    "type": "marketplace",
-   "url": "https://www.cnhnb.com/hangqing/cdlist-2001324-1594-0-0-0-1/"
+   "url": "https://www.cnhnb.com/hangqing/cdlist-2001324-1594-0-0-0-1/",
+   "grade": "C",
+   "quote": "昌黎"
   },
   {
    "id": "S16",
@@ -127,7 +154,9 @@
    "org": "惠农网",
    "date": "2026-11-15",
    "type": "marketplace",
-   "url": "https://m.cnhnb.com/p/ganju-0-0-4622-78_31057,21_1035-6/"
+   "url": "https://m.cnhnb.com/p/ganju-0-0-4622-78_31057,21_1035-6/",
+   "grade": "C",
+   "quote": "3.20"
   },
   {
    "id": "S17",
@@ -135,7 +164,9 @@
    "org": "惠农网",
    "date": "2026-11-15",
    "type": "marketplace",
-   "url": "https://www.cnhnb.com/hangqing/cdlist-2001686-2943-20-0-0-2/"
+   "url": "https://www.cnhnb.com/hangqing/cdlist-2001686-2943-20-0-0-2/",
+   "grade": "C",
+   "quote": "1.30"
   },
   {
    "id": "S18",
@@ -143,7 +174,9 @@
    "org": "惠农网",
    "date": "2026-11-14",
    "type": "marketplace",
-   "url": "https://www.cnhnb.com/hangqing/q-2003191-0-0-25/"
+   "url": "https://www.cnhnb.com/hangqing/q-2003191-0-0-25/",
+   "grade": "C",
+   "quote": "0.34"
   },
   {
    "id": "S19",
@@ -151,7 +184,8 @@
    "org": "惠农网/一亩田",
    "date": "2026-11-15",
    "type": "marketplace",
-   "url": "https://m.ymt.com/hangqing/juhe-7252"
+   "url": "https://m.ymt.com/hangqing/juhe-7252",
+   "grade": "C"
   },
   {
    "id": "S20",
@@ -159,7 +193,9 @@
    "org": "农业农村部市场与信息化司",
    "date": "2026-11-16",
    "type": "government",
-   "url": "http://www.agri.cn/sj/jcyj/202611/t20261116_8884013.htm"
+   "url": "http://www.agri.cn/sj/jcyj/202611/t20261116_8884013.htm",
+   "grade": "A",
+   "quote": "6.64"
   },
   {
    "id": "S21",
@@ -167,7 +203,10 @@
    "org": "赤峰市农牧局",
    "date": "2026-10-22",
    "type": "government",
-   "url": "http://nmj.chifeng.gov.cn/zwxx/sndt/nmsz/202610/t20261022_2837524.html"
+   "url": "http://nmj.chifeng.gov.cn/zwxx/sndt/nmsz/202610/t20261022_2837524.html",
+   "grade": "A",
+   "quote": "年产果品16.8万吨，产值8.2亿元",
+   "note": "替代来源：原赤峰农牧局页面为 13 万亩/20 元/公斤，不含 25 万亩/16.8 万吨/8.2 亿元"
   },
   {
    "id": "S22",
@@ -175,7 +214,8 @@
    "org": "雨润集团/内蒙古新闻网",
    "date": "2026",
    "type": "media",
-   "url": "http://www.yurun.com/news/news-detail.html?id=263&classfy=1"
+   "url": "http://www.yurun.com/news/news-detail.html?id=263&classfy=1",
+   "grade": "C"
   },
   {
    "id": "S23",
@@ -183,7 +223,9 @@
    "org": "全国城市农贸中心联合会",
    "date": "2026",
    "type": "industry_report",
-   "url": "https://www.cawa.org.cn/content/details_13790_17221.html"
+   "url": "https://www.cawa.org.cn/content/details_13790_17221.html",
+   "grade": "B",
+   "quote": "423家"
   },
   {
    "id": "S24",
@@ -191,7 +233,9 @@
    "org": "新华网河南频道",
    "date": "2026-09-29",
    "type": "media",
-   "url": "http://ha.xinhuanet.com/20260929/6d6b126b5a034e8c8ffacc0116734ba1/c.html"
+   "url": "http://ha.xinhuanet.com/20260929/6d6b126b5a034e8c8ffacc0116734ba1/c.html",
+   "grade": "C",
+   "quote": "1500万吨"
   },
   {
    "id": "S25",
@@ -199,7 +243,9 @@
    "org": "农业农村部信息中心",
    "date": "2026-11-09",
    "type": "government",
-   "url": "https://4g.stockstar.com/detail/IG2026110900006757"
+   "url": "https://4g.stockstar.com/detail/IG2026110900006757",
+   "grade": "A",
+   "quote": "11月9日"
   },
   {
    "id": "S26",
@@ -207,7 +253,9 @@
    "org": "内蒙古价格监测综合信息服务平台",
    "date": "2026-11-05",
    "type": "government",
-   "url": "http://www.nmgjgjc.com.cn/jgjcwz/"
+   "url": "http://www.nmgjgjc.com.cn/jgjcwz/",
+   "grade": "A",
+   "quote": "6.53"
   },
   {
    "id": "S27",
@@ -215,7 +263,8 @@
    "org": "商务部商务预报",
    "date": "2026-11-06",
    "type": "government",
-   "url": "https://cif.mofcom.gov.cn/cif/html/mobile/dataDetail.html?id=224089"
+   "url": "https://cif.mofcom.gov.cn/cif/html/mobile/dataDetail.html?id=224089",
+   "grade": "A"
   },
   {
    "id": "S28",
@@ -223,7 +272,8 @@
    "org": "农业农村部信息中心",
    "date": "2026-11-11",
    "type": "government",
-   "url": "http://futures.stockstar.com/IG2026111100024473.shtml"
+   "url": "http://futures.stockstar.com/IG2026111100024473.shtml",
+   "grade": "A"
   },
   {
    "id": "S29",
@@ -231,7 +281,8 @@
    "org": "北京新发地",
    "date": "2026-11-12",
    "type": "database",
-   "url": "http://xinfadi.com.cn:8099/minipricedetail.html"
+   "url": "http://xinfadi.com.cn:8099/minipricedetail.html",
+   "grade": "B"
   },
   {
    "id": "S30",
@@ -239,7 +290,8 @@
    "org": "浙江在线",
    "date": "2026-11-16",
    "type": "media",
-   "url": "http://zjnews.zjol.com.cn/zjnews/202611/t20261116_32029456.shtml"
+   "url": "http://zjnews.zjol.com.cn/zjnews/202611/t20261116_32029456.shtml",
+   "grade": "C"
   },
   {
    "id": "S31",
@@ -247,7 +299,9 @@
    "org": "新浪财经/光明网",
    "date": "2026-11-12",
    "type": "media",
-   "url": "https://finance.sina.com.cn/jjxw/2026-11-12/doc-iniymsif1223760.shtml"
+   "url": "https://finance.sina.com.cn/jjxw/2026-11-12/doc-iniymsif1223760.shtml",
+   "grade": "C",
+   "quote": "66.7万吨"
   },
   {
    "id": "S32",
@@ -255,7 +309,9 @@
    "org": "食全食美集团",
    "date": "2026",
    "type": "media",
-   "url": "http://www.sqsm.com/article/list/25/navid/3.html"
+   "url": "http://www.sqsm.com/article/list/25/navid/3.html",
+   "grade": "C",
+   "quote": "1000吨"
   }
  ]
 }

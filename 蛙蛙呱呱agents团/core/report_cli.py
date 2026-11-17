@@ -74,7 +74,9 @@ def cmd_build(args) -> int:
             intent=args.intent, project_dir=args.dir, out_dir=args.out,
             lens=args.lens, quote_mode=args.quote_mode,
             min_coverage=args.min_coverage, theme=args.theme,
-            pdf=args.pdf, audience=args.audience)
+            pdf=args.pdf, audience=args.audience,
+            record_outcomes=getattr(args, "record_outcomes", False),
+            outcome_deadline=getattr(args, "outcome_deadline", None))
     except Exception as e:  # noqa: BLE001
         print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
                          ensure_ascii=False))
@@ -112,11 +114,14 @@ def main(argv=None) -> int:
     b.add_argument("--dir", required=True)
     b.add_argument("--out", required=True)
     b.add_argument("--lens", choices=("market", "ops", "chain", "fix"), default=None)
-    b.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn")
+    b.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="strict")
     b.add_argument("--min-coverage", type=float, default=0.8)
     b.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
     b.add_argument("--pdf", action="store_true")
     b.add_argument("--audience", default="业务负责人")
+    b.add_argument("--record-outcomes", action="store_true",
+                   help="把 findings 登记进结果台账（默认 90 天到期）")
+    b.add_argument("--outcome-deadline", default=None, help="YYYY-MM-DD；默认 +90 天")
     b.set_defaults(func=cmd_build)
 
     c = sub.add_parser("check", help="验一份成品报告")

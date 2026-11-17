@@ -83,9 +83,11 @@ def select_questions(intent: str, profile: Dict[str, Any],
 
 
 def build(intent: str, project_dir: str, out_dir: str,
-          lens: Optional[str] = None, quote_mode: str = "warn",
+          lens: Optional[str] = None, quote_mode: str = "strict",
           min_coverage: float = 0.8, theme: str = "paper",
-          pdf: bool = False, audience: str = "业务负责人") -> Dict[str, Any]:
+          pdf: bool = False, audience: str = "业务负责人",
+          record_outcomes: bool = False,
+          outcome_deadline: Optional[str] = None) -> Dict[str, Any]:
     desk = analysis_desk.scan(project_dir)
     prof = analysis_desk.profile(desk)
     graph = capability_graph.build()
@@ -110,6 +112,7 @@ def build(intent: str, project_dir: str, out_dir: str,
 
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    trace: Dict[str, Any] = {}
     # 用“报告实际回答的问题”重算覆盖度：不是先拍一个问题清单再硬套
     trace_path = out / "analysis_trace.json"
     if trace_path.exists():
@@ -121,6 +124,8 @@ def build(intent: str, project_dir: str, out_dir: str,
                 cov = coverage.compute(qs, graph, min_coverage=min_coverage)
         except (OSError, json.JSONDecodeError):
             pass
+    quotes = res.get("quotes") or {}
+    quotes_ok = bool(quotes.get("ok", True)) if quotes else True
     cov_path = out / "coverage.json"
     cov_path.write_text(json.dumps(cov, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -140,14 +145,28 @@ def build(intent: str, project_dir: str, out_dir: str,
         man["questions"] = [{"id": q["id"], "text": q["text"],
                              "capability": q["capability"]} for q in qs]
         man["generated_by"] = "core/report_build.py"
-        man["ok"] = bool(man.get("ok")) and cov["verdict"] == "COMPLETE"
+        man["quotes_ok"] = quotes_ok
+        man["ok"] = (bool(man.get("ok")) and cov["verdict"] == "COMPLETE"
+                     and quotes_ok)
         man_path.write_text(json.dumps(man, ensure_ascii=False, indent=2), encoding="utf-8")
+
+        if record_outcomes and trace:
+            from core import outcome_ledger
+            rid = ((man.get("contract") or {}).get("report_id")
+                   or man.get("report_id") or f"RPT-{datetime.now():%Y%m%d}-{lens or 'analysis'}")
+            seeded = outcome_ledger.seed_from_trace(
+                rid, intent, trace, deadline=outcome_deadline)
+            man["outcomes"] = {"seeded": len(seeded),
+                               "path": str(outcome_ledger.DEFAULT_PATH)}
+            man_path.write_text(json.dumps(man, ensure_ascii=False, indent=2),
+                                encoding="utf-8")
 
     return {
         **res,
-        "ok": bool(res.get("ok")) and cov["verdict"] == "COMPLETE",
+        "ok": (bool(res.get("ok")) and cov["verdict"] == "COMPLETE" and quotes_ok),
         "coverage": cov["coverage"],
         "coverage_verdict": cov["verdict"],
+        "quotes_ok": quotes_ok,
         "questions": [q["id"] for q in qs],
         "lens": lens,
         "lens_fallback": fallback,
@@ -163,15 +182,18 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--dir", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--lens", choices=("market", "ops", "chain", "fix"), default=None)
-    ap.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn")
+    ap.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="strict")
     ap.add_argument("--min-coverage", type=float, default=0.8)
     ap.add_argument("--theme", default="paper")
     ap.add_argument("--pdf", action="store_true")
     ap.add_argument("--audience", default="业务负责人")
+    ap.add_argument("--record-outcomes", action="store_true")
+    ap.add_argument("--outcome-deadline", default=None)
     a = ap.parse_args(argv)
     res = build(a.intent, a.dir, a.out, lens=a.lens, quote_mode=a.quote_mode,
                 min_coverage=a.min_coverage, theme=a.theme, pdf=a.pdf,
-                audience=a.audience)
+                audience=a.audience, record_outcomes=a.record_outcomes,
+                outcome_deadline=a.outcome_deadline)
     print(json.dumps(res, ensure_ascii=False, indent=2)[:8000])
     return 0 if res.get("ok") else 1
 
