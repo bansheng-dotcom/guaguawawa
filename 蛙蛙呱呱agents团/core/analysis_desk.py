@@ -6,7 +6,7 @@
 - `evidence_pack` 只把 CSV 压成 last/max/min/mean 四条，**丢掉了行内结构**
   （哪个品类、哪一周、哪个市场），所以只能写"均值 7.45%"，写不出
   "白条鸡加价 40.8%、牛肉只有 3.6%"这种判断；
-- `report_produce` 把「哪张表、哪一列」写死在 profile 里，换个项目就跑不动，
+- 旧 `report_produce`（已删除）把「哪张表、哪一列」写死在 profile 里，换个项目就跑不动，
   这是"模板化"的根源；
 - 旧 `deep_analysis` 会算趋势/贡献，但只看一列数值，不认价格、单位、市场。
 
@@ -442,7 +442,8 @@ def scan(project_dir: str) -> Desk:
         if not p.is_file():
             continue
         rel = str(p.relative_to(desk.root)).replace("\\", "/")
-        if any(part in SKIP_DIRS or part.startswith(".") for part in Path(rel).parts):
+        if any(part in SKIP_DIRS or part.startswith(".") or part.startswith("out_")
+               for part in Path(rel).parts):
             continue
         if p.suffix.lower() == ".csv":
             d = _load_csv(p, rel)

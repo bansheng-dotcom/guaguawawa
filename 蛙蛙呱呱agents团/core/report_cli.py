@@ -102,6 +102,17 @@ def cmd_charts(args) -> int:
     return 0 if r["ok"] else 1
 
 
+def cmd_gaps(args) -> int:
+    """看项目的 quote gap 清单（诊断，不产报告）。"""
+    p = Path(args.project) / "data" / "quote_gaps.json"
+    if not p.exists():
+        print(json.dumps({"ok": False, "error": f"没有 {p}"}, ensure_ascii=False))
+        return 2
+    data = json.loads(p.read_text(encoding="utf-8-sig"))
+    print(json.dumps(data, ensure_ascii=False, indent=2)[:12000])
+    return 0 if int(data.get("unverified") or 0) == 0 else 1
+
+
 def main(argv=None) -> int:
     from core.report_flow import THEMES, DEFAULT_THEME
     ap = argparse.ArgumentParser(prog="guagua report",
@@ -146,6 +157,10 @@ def main(argv=None) -> int:
                     help="research / operations / remediation / chain / forecast / growth / "
                          "product / support / people / sre / marketing / sku / store")
     pl.set_defaults(func=cmd_plan)
+
+    g = sub.add_parser("gaps", help="看项目的 quote gap 清单（不产报告）")
+    g.add_argument("--project", required=True)
+    g.set_defaults(func=cmd_gaps)
 
     args = ap.parse_args(argv)
     return args.func(args)

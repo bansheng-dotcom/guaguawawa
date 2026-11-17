@@ -1,30 +1,33 @@
 # 接入唯一报告产线（REPORT-BRIDGE-GUIDE）
 
-> 2026-11-15 起，原来的「结果 → contract → 渲染」桥（`core/report_bridge.emit`）
-> 已删除。角色不再出报告，只交证据；报告由 R01 在 `core/report_flow.py` 统一出具。
-> 本文是给「新增角色 / 新增报告类型」维护者看的三步接入说明。
+> **P5/v10（2026-11-17）**：`run / pack / produce / research` 已删除，统一入口是
+> `python guagua.py report build --intent … --dir … --out … --lens …`；
+> 本文件以下内容是旧接入说明，保留作历史对照。
 
----
-
-## 0. 一句话原理
-
-```
-技能真实运行 → result JSON
-        │
-        ▼
-role_runtime.emit()          ← 执行角色的唯一出口：落 result.json + evidence.json
-        │
-        ▼
-R01 s09 解读（judge）        ← 决定这份报告说什么（带数字的结论/驱动/边界/动作）
-        │
-        ▼
-core/report_flow.build_contract()
-        │
-        ▼
-core/report_renderer.py      ← 唯一渲染器（HTML + MD + manifest）
-```
-
-角色侧**没有任何**报告模板、报告 spec、报告引擎；只有 `result`。
+> 2026-11-15 产线收敛；2026-11-17 校正本文与实际代码的偏差。
+> 现实是三层，不是两层：
+>
+> ```
+> 技能真实运行 → result.json
+>         │
+>         ▼
+> role_runtime.emit()          ← 执行角色唯一出口：落 result.json + evidence.json（不写报告）
+>         │
+>         ▼
+> R01 s09 解读（judge）        ← 决定这份报告说什么（带数字的结论/驱动/边界/动作）
+>         │
+>         ▼
+> core/report_flow.build_contract()
+>         │
+>         ▼
+> core/report_bridge.py        ← 渲染薄层：render_html / write_markdown / render_pdf
+>         │
+>         ▼
+> core/report_renderer.py      ← 唯一 HTML 渲染器（48 型图 + 主题）
+> ```
+>
+> `report_bridge.emit` **确实已删除**；但 `core/report_bridge.py` 作为「渲染薄层」仍在，
+> 由 `core/report_flow.py` 调用。不要再新增第二套渲染/排版实现。
 
 ---
 
@@ -35,33 +38,34 @@ core/report_renderer.py      ← 唯一渲染器（HTML + MD + manifest）
 ```python
 from agents.shared import role_runtime  # 顶部
 
-# run_task 末尾：把本次技能真实结果交出去
+# run_task / 技能执行末尾：把本次真实结果交出去
 outputs.extend(role_runtime.emit(
-    role=ROLE, name="蛙得清", title="数据分析师",
+    role=ROLE, name=role["name"], title=role["title"],
     result=result, skill=skill_name, action=action, intent=intent,
-    out_dir=out_dir, md_name="analysis_report"))
+    out_dir=out_dir, md_name="result"))
 ```
 
-`emit` 会写两个文件并返回一个 data Port：
+`emit` 写两个文件并返回一个 data Port：
 
 - `<out_dir>/result.json` —— 本次技能结果（报告的唯一数据源）
 - `<out_dir>/evidence.json` —— 谁、用什么技能、产出于何时、结果哈希
 
-`dataset / data / specialist / chart_dir` 这些历史参数仍然接受，但**不再影响出报告**，
-只把 `data` 另存为 `input.json` 供 R01 取用。
+`md_name / html_name / dataset / data / report_slug` 这些历史参数仍然接受，但**不产报告**：
+`data` 会另存为 `input.json` 供 R01 取用。
 
 ### 第 2 步：不要写报告
 
-- 不要拼 markdown、不要生成 HTML、不要调用渲染器。
-- 不要新增 `report_contract.py` / 角色专属模板。
+- 不要拼 markdown、不要生成 HTML、不要调用渲染器、不要新增角色专属模板。
 - 有结论想表达，写进 `result` 的 `conclusion` / `insight` 字段——R01 解读时会引用它，
   但**必须带数字**，否则这条结论不会进报告。
+- 角色目录里出现 `report.py` / `generate_html_report*.py` / `*.html` 成品，都是产线收敛前的残留，
+  应删除（R03 的 `report.py` 已在 2026-11-17 移除）。
 
 ---
 
 ## 2. R01 解读怎么用你的 result
 
-`s09_interpret` 会：
+`r01/skills/s09_interpret.py` 会：
 
 1. 递归收集 result 里的数值叶子，记下 `path`（如 `gmv.delta_pct`）与来源（`r06/semantics`）；
 2. 优先引用你 `conclusion` 里点到的那个数字（按数值比对，符号/格式不敏感）；
@@ -98,20 +102,22 @@ python guagua.py check
 
 # ② 让该角色真跑一次，拿到 result
 python <role>/agent.py run --task <task_id>
-ls <out_dir>            # 期望：result.json + evidence.json，不应有 report.html
+ls <out_dir>            # 期望：result.json + evidence.json，不应有 report.html / report.md
 
 # ③ 用它跑产线
 python guagua.py report run --intent "<意图>" \
     --results <out_dir>/result.json --out /tmp/flow_check
 
-# ④ 过门禁
+# ④ 过唯一门禁（九条 flow + 深度，按体量自动分档）
 python guagua.py report check --html /tmp/flow_check/report.html
 ```
 
 判据：
+
 - 角色目录下**不应**出现 `.html` / `.md` 报告；
-- `manifest.json` 里 `producer=r01`、`branch` 与参与角色数一致；
-- 门禁九条全过。
+- `manifest.json` 里 `producer=r01`，`branch` 与参与角色数一致；
+- `report check` 与 `python -m core.report_quality` 对同一文件给出**同一结论**
+  （2026-11-17 起二者共用 `core/report_quality.PROFILES`，research / baseline 两档）。
 
 ---
 
@@ -120,7 +126,7 @@ python guagua.py report check --html /tmp/flow_check/report.html
 ```
 新增角色：1) run_task 末尾调 role_runtime.emit   2) 不写任何报告
 新增报告类型：改 build_contract + 门禁，不新开产线
-铁律：报告只有一个作者（R01）；数字必须来自 result；渲染器只有 core 一份
+铁律：报告只有一个作者（R01）；数字必须来自 result；HTML 渲染器只有 core 一份
 历史：旧 report_bridge.emit / report_pipeline / report_engine 已删除
-      （归档见 workspace/_archive/report-lines-2026-11-15.tar.gz）
+      （代码归档未随仓提供；需要时从 git 历史取）
 ```
