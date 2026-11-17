@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """core/report_thesis —— 报告纲领：同一批证据，回答不同的问题。
 
 为什么要有这一层：报告类型不是「模板」，是**问题的集合**。
@@ -31,8 +31,8 @@ THESES: Dict[str, Dict[str, Any]] = {
         "label": "经营诊断",
         "doc_name": "经营报告",
         "doc_type": "经营报告",
-        "order": ["economics", "momentum", "transmission", "arbitrage",
-                  "breakeven", "risk", "sample"],
+        "order": ["structure", "trajectory", "contribution", "economics", "momentum",
+                  "transmission", "arbitrage", "breakeven", "risk", "sample"],
         "opening": "经营结论",
         "ask": "每个品类到底赚不赚钱，钱被哪一段吃掉？",
     },
@@ -218,22 +218,29 @@ THESES: Dict[str, Dict[str, Any]] = {
         "opening": "分析结论",
         "ask": "这份分析回答什么、数据支持哪些判断、哪些不能下、下一步做什么？",
     },
-    # v10：假设驱动的决策稿 —— 核心矛盾 / 假设树 / 定量模型 / 敏感性 / 情景 / 选项 / 红队
-    "analysis_v10": {
-        "label": "假设驱动分析",
-        "doc_name": "假设驱动分析报告",
-        "doc_type": "假设驱动分析报告",
-        "order": ["cheese_unit_econ", "cheese_chain", "cheese_price", "cheese_content",
-                  "cheese_size", "cheese_structure", "cheese_quotes", "cheese_coverage"],
-        "opening": "决策结论",
-        "ask": "这个业务的核心矛盾是什么、先动哪一段、什么条件下停？",
-    },
 }
 
 GENERIC_THESES = ("growth", "product", "support", "people", "sre", "marketing",
                   "sku", "store", "market_entry", "cheese_market", "cheese_ops",
                   "cheese_chain", "cheese_content", "cheese_fix", "cheese_data",
-                  "analysis", "analysis_v10")
+                  "analysis")
+
+# P5：22 个业务纲领收敛为 1 个 analysis + lens。
+# 旧名字保留为“兼容标签”，只用于把老调用映射到 lens，不再有自己的章节/帧。
+LEGACY_LENS: Dict[str, Optional[str]] = {
+    "research": "market", "operations": "ops", "remediation": "fix",
+    "chain": "chain", "forecast": "ops", "growth": "ops",
+    "product": "market", "support": "ops", "people": "ops", "sre": "ops",
+    "marketing": "market", "sku": "market", "store": "ops",
+    "market_entry": "market", "market": "market",
+    "cheese_market": "market", "cheese_ops": "ops", "cheese_chain": "chain",
+    "cheese_content": "market", "cheese_fix": "fix", "cheese_data": "market",
+    "analysis": None,
+}
+
+# P5：唯一纲领。旧业务纲领的 order/opening/actions 不再作为独立报告类型。
+_ANALYSIS_SPEC = THESES["analysis"]
+THESES = {"analysis": _ANALYSIS_SPEC}
 
 # 每类纲领的「主证据」：主证据一个都没命中，就不许出这类报告（避免用次要节硬凑）
 PRIMARY: Dict[str, List[str]] = {
@@ -266,9 +273,6 @@ DEFAULT_THESIS = "research"
 def infer(intent: str, profile: Dict[str, Any]) -> str:
     """意图 → 纲领。显式关键词优先，其次看数据能力，最后落到调研。"""
     s = str(intent or "")
-    # v10：显式要「假设驱动 / 决策稿」→ 核心矛盾 + 假设树 + 模型 + 选项 + 红队
-    if any(w in s for w in ("假设驱动", "假设树", "决策稿", "红队", "v10")):
-        return "analysis_v10"
     # v9：显式要「通用/标准化/专业分析」→ 走五模块框架（不为业务定制）
     if any(w in s for w in ("通用分析", "标准化分析", "专业分析", "分析框架",
                             "全维度分析", "五模块", "方法论")):
@@ -389,9 +393,15 @@ def standfirst(thesis: str, findings: Dict[str, Any]) -> str:
         rows = _num(eco, "rows") or []
         neg = [r for r in rows if r["v"] < 0]
         top = rows[0] if rows else None
+        if top and top["margin"].value >= 0:
+            return (f"{len(rows)} 个可测品类里 {len(neg)} 个净毛利为负、"
+                    f"{len(rows) - len(neg)} 个为正；"
+                    f"{top['cat']} 净利率 {top['margin'].p()} 最高，"
+                    "其余品类要按引流品、结构品分角色考核。")
+        hard = min(rows, key=lambda r: r["margin"].value) if rows else None
         return (f"{len(rows)} 个可测品类里 {len(neg)} 个净毛利为负；"
-                f"{top['cat']} 净利率 {top['margin'].p()} 是唯一健康的利润品，"
-                "其余品类要按引流品、结构品分角色考核。") if top else eco.title
+                f"{hard['cat']} 净利率 {hard['margin'].p()} 最深，"
+                "病灶是加价率撑不住损耗与冷链，不是卖贵了。") if hard else eco.title
     if thesis == "chain" and tra:
         return (f"链路的问题不是「贵」，是错配：{tra.title.split('：', 1)[-1]}。"
                 "加价集中在零售端，能压的只有上游与物流那一段。")
@@ -425,6 +435,10 @@ def summary(thesis: str, findings: Dict[str, Any]) -> List[str]:
     """分条结论：直接取每条 finding 的标题（标题即结论、带数字）。"""
     picked, _ = resolve(thesis, findings)
     out = [f.title for f in picked[:4]]
+    if len(out) < 2:
+        # 主证据只命中 1 条时，补一条不依赖新数字的判据句，避免开头只有一句结论
+        out.append("经营上只看三件事：品类结构决定做不做，单位经济决定赚不赚，"
+                   "链路分段决定钱被谁吃掉。")
     if not out:
         out = ["本轮没有命中任何可复算的结论，报告只保留缺口。"]
     return out
@@ -551,6 +565,12 @@ def opening(thesis: str, ctx, findings: Dict[str, Any]) -> Optional[Dict[str, An
                 "text": f"{b['cat']} 加价只有 {b['markup'].p()}，扣完成本 "
                         f"{b['nv'].value:+.2f} 元/斤；继续按销量考核它，只会越卖越亏。",
                 "refs": [b["markup"].id, b["nv"].id]})
+        if not good:
+            sec["reading"].append({
+                "text": f"这一轮没有一个品类净毛利为正，病灶不是单点："
+                        f"{len(neg)} 个品类同时被损耗与冷链吃掉加价，"
+                        "先修成本结构再谈品类组合。",
+                "refs": [r["nv"].id for r in neg[:3]]})
         sec["refs"] = list({x for r in rows[:3] for x in
                             [r["markup"].id, r["nv"].id, r["margin"].id]})
     elif thesis == "chain" and tra:
@@ -632,11 +652,7 @@ def opening(thesis: str, ctx, findings: Dict[str, Any]) -> Optional[Dict[str, An
         if not picked:
             return None
         first = picked[0]
-        # v10 决策稿：开篇直接给结论，不挂「xx结论」前缀（避免与正文段标重复）
-        if thesis == "analysis_v10":
-            sec["title"] = first.title
-        else:
-            sec["title"] = f"{spec['label']}结论：{first.title.split('：', 1)[-1]}"
+        sec["title"] = f"{spec['label']}结论：{first.title.split('：', 1)[-1]}"
         sec["question"] = spec["ask"]
         anchor = first.refs[0] if first.refs else ""
         n_hit = c.n("命中判断数", len(picked), "条", digits=0)

@@ -16,6 +16,8 @@ import shutil
 import sys
 from pathlib import Path
 
+import pytest
+
 TEAM = Path(__file__).resolve().parent.parent
 for _p in (str(TEAM), str(TEAM.parent)):
     if _p not in sys.path:
@@ -24,6 +26,12 @@ for _p in (str(TEAM), str(TEAM.parent)):
 from core import analysis_desk, analysis_methods, report_thesis  # noqa: E402
 
 PROJECT = TEAM.parent / "内蒙古肉禽蛋调研_2026-11-12"
+
+
+def _sample(*paths: Path):
+    """样本目录缺失时跳过：缺样本是环境问题，不是代码回归。"""
+    missing = [p.name for p in paths if not Path(p).exists()]
+    return pytest.mark.skipif(bool(missing), reason="样本目录缺失：" + "、".join(missing))
 
 
 def _workdir(name: str) -> str:
@@ -43,6 +51,7 @@ def _ctx(tmp: str):
     return desk, views, ctx
 
 
+@_sample(PROJECT)
 def test_scan_normalizes_price_units():
     desk = analysis_desk.scan(str(PROJECT))
     views = analysis_methods.build_views(desk)
@@ -53,6 +62,7 @@ def test_scan_normalizes_price_units():
     assert views.series["鸡蛋"][0][1] > 0
 
 
+@_sample(PROJECT)
 def test_unit_economics_reproduces_reference_numbers():
     tmp = _workdir("_test_v4_eco")
     try:
@@ -68,6 +78,7 @@ def test_unit_economics_reproduces_reference_numbers():
     assert abs(rows["白条鸡"]["margin"].value * 100 - 22.39) < 0.1
 
 
+@_sample(PROJECT)
 def test_transmission_excludes_non_comparable_live_cattle():
     tmp = _workdir("_test_v4_trans")
     try:
@@ -89,6 +100,7 @@ def test_thesis_inference():
     assert report_thesis.infer("内蒙古肉禽蛋市场调研", {}) == "research"
 
 
+@_sample(PROJECT)
 def test_end_to_end_passes_gate():
     from core import report_compose
     from scripts.check_report_flow import check_html
@@ -118,6 +130,7 @@ def test_end_to_end_passes_gate():
 NEW_BIZ = TEAM.parent / "新业务_内蒙古特色奶酪零食_2026-11-15"
 
 
+@_sample(NEW_BIZ)
 def test_market_entry_plan_mounts_research_methods():
     from core import analysis_desk, analysis_methods, methods
     desk = analysis_desk.scan(str(NEW_BIZ))
@@ -132,6 +145,7 @@ def test_market_entry_plan_mounts_research_methods():
     assert "economics" in {s["key"] for s in plan["skipped"]}
 
 
+@_sample(NEW_BIZ)
 def test_market_entry_report_and_ledger():
     from core import report_compose, research_intake
     from scripts.check_report_flow import check_html
@@ -171,6 +185,7 @@ def test_method_registry_declares_capabilities():
     assert all(c["needs"] for c in cat if c["key"] != "ledger")
 
 
+@_sample(OLIST)
 def test_plan_mounts_by_data_shape():
     from core import analysis_desk, analysis_methods, methods
     desk = analysis_desk.scan(str(OLIST))
@@ -205,10 +220,12 @@ def test_thesis_inference_cross_domain():
     assert report_thesis.infer("SLO 稳定性复盘", {}) == "sre"
     assert report_thesis.infer("商品结构诊断", {}) == "sku"
     assert report_thesis.infer("单店模型测算", {}) == "store"
+    assert set(report_thesis.THESES) == {"analysis"}
     assert {"product", "growth", "support", "people", "sre",
-            "marketing", "sku", "store"} <= set(report_thesis.THESES)
+            "marketing", "sku", "store"} <= set(report_thesis.LEGACY_LENS)
 
 
+@_sample(OLIST)
 def test_growth_report_passes_gate():
     from core import report_compose
     from scripts.check_report_flow import check_html
@@ -217,9 +234,9 @@ def test_growth_report_passes_gate():
     try:
         res = report_compose.build(
             intent="Olist 增长诊断", project_dir=str(OLIST),
-            out_dir=str(out), thesis="growth")
+            out_dir=str(out), thesis="analysis", lens="ops")
         assert res["ok"], res
-        assert res["thesis"] == "growth"
+        assert res["thesis"] == "analysis"
         assert {"funnel", "retention"} <= set(res["findings"])
         gate = check_html(out / "report.html")
         assert gate["ok"], gate["violations"]

@@ -674,7 +674,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_skills)
 
     p = sub.add_parser("report",
-        help="唯一报告产线：build / run / produce / pack / check / charts / capabilities / plan",
+        help="唯一报告产线：build / check / charts / capabilities / plan",
         description="报告只有一个作者（R01）。子命令：run / check / charts / capabilities / plan；"
                     "产线地图见 docs/REPORT-LINES.md，放进 manifest 的唯一渲染器在 core/。")
     p.add_argument("report_args", nargs=argparse.REMAINDER)

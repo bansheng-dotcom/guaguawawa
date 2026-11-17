@@ -1,5 +1,10 @@
 # 报告产线（REPORT-LINES.md）
 
+> **P5 已收敛（2026-11-17）**：22 个业务纲领 → **1 个 `analysis` + `lens`**；
+> `run / pack / produce / research` 已删除，统一入口是 **`python guagua.py report build`**；
+> `core/frames.py` / `core/frames_cheese.py` 已删除，只留 `frames_framework.py`。
+> 以下内容是收敛前的历史地图，保留作对照；新写法见 `docs/REPORT-DECISION-GRADE.md` 与 `交付/报告产线P5-Gate-2026-11-17.md`。
+>
 > **升级冻结（2026-11-17 起）**：本文件描述的 22 纲领 / 3 走法 / 2 分支进入改造期，
 > 执行计划见 [`报告产线升级SOP-2026-11-17.md`](../../交付/报告产线升级SOP-2026-11-17.md)。
 > 升级期间**不得新增** thesis / frame / 入口；新能力先进 `core/report_framework.py` 的维度库，

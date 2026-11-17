@@ -66,22 +66,6 @@ def cmd_plan(args) -> int:
     return 0
 
 
-def cmd_research(args) -> int:
-    """新业务研究：quote 回抓校验 → r05 台账 → market_entry 报告。"""
-    from core import research_intake
-    try:
-        res = research_intake.run(
-            topic=args.topic, project=args.dir, out_dir=args.out,
-            thesis=args.thesis, theme=args.theme, pdf=args.pdf,
-            skip_verify=args.skip_verify, skip_ledger=args.skip_ledger)
-    except Exception as e:  # noqa: BLE001  研究失败要可见
-        print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
-                         ensure_ascii=False))
-        return 2
-    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
-    return 0 if res.get("ok") else 1
-
-
 def cmd_build(args) -> int:
     """P4 唯一入口：问题树 → coverage → v9 → 报告。"""
     from core import report_build
@@ -97,73 +81,6 @@ def cmd_build(args) -> int:
         return 2
     print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
     return 0 if res.get("ok") else 1
-
-
-def cmd_run(args) -> int:
-    from core import report_flow
-    draft = None
-    if args.draft:
-        draft = json.loads(Path(args.draft).read_text(encoding="utf-8-sig"))
-    try:
-        res = report_flow.run(
-            intent=args.intent, results=args.results, out_dir=args.out,
-            roles=[x.strip() for x in (args.roles or "").split(",") if x.strip()] or None,
-            draft=draft, theme=args.theme, pdf=args.pdf, md_name=args.md_name,
-            evidence=args.evidence, quote_mode=args.quote_mode)
-    except report_flow.FlowError as e:
-        print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False))
-        return 2
-    print(json.dumps(res, ensure_ascii=False))
-    return 0 if res["ok"] else 1
-
-
-def cmd_produce(args) -> int:
-    """v3/v4：画像 → 章节计划 → 技能调度 → 证据图 → 报告 → 评测。
-
-    两种模式：
-      --profile market_research        旧的固定画像（保留兼容）
-      --intent "…"（不传 profile）      v4 自动纲领：按数据能力选题，再跑方法库
-    """
-    if args.intent or args.profile in (None, "", "auto"):
-        from core import report_compose
-        try:
-            res = report_compose.build(
-                intent=args.intent or "经营分析", project_dir=args.dir,
-                out_dir=args.out, thesis=args.thesis, theme=args.theme,
-                pdf=args.pdf, audience=getattr(args, "audience", "业务负责人"),
-                require_contract=bool(getattr(args, "require_contract", False)),
-                quote_mode=getattr(args, "quote_mode", "warn"))
-        except Exception as e:  # noqa: BLE001  产线失败要可见
-            print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
-                             ensure_ascii=False))
-            return 2
-        print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
-        return 0 if res.get("ok") else 1
-    from core import report_produce
-    try:
-        res = report_produce.produce(
-            profile=args.profile, project_dir=args.dir, out_dir=args.out,
-            draft_path=args.draft, theme=args.theme, pdf=args.pdf)
-    except Exception as e:  # noqa: BLE001  产线失败要可见
-        print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
-                         ensure_ascii=False))
-        return 2
-    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
-    return 0 if res.get("ok") else 1
-
-
-def cmd_pack(args) -> int:
-    """把项目目录里的 JSON/CSV 收成证据包 + 写作简报。"""
-    from core import evidence_pack
-    try:
-        pack = evidence_pack.build(args.dir)
-    except FileNotFoundError as e:
-        print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False))
-        return 2
-    files = evidence_pack.write(pack, args.out)
-    print(json.dumps({"ok": True, "counts": pack["counts"], **files},
-                     ensure_ascii=False))
-    return 0
 
 
 def cmd_check(args) -> int:
@@ -185,7 +102,6 @@ def cmd_charts(args) -> int:
 
 def main(argv=None) -> int:
     from core.report_flow import THEMES, DEFAULT_THEME
-    from core import report_thesis as _thesis
     ap = argparse.ArgumentParser(prog="guagua report",
                                  description="唯一报告产线：R01 出具，角色只交 result")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -202,48 +118,6 @@ def main(argv=None) -> int:
     b.add_argument("--pdf", action="store_true")
     b.add_argument("--audience", default="业务负责人")
     b.set_defaults(func=cmd_build)
-
-    r = sub.add_parser("run", help="跑产线，出一份报告")
-    r.add_argument("--intent", required=True)
-    r.add_argument("--results", nargs="*", default=[],
-                   help="执行角色的 result JSON（文件或目录）；空则报错，不接受空报告")
-    r.add_argument("--roles", default="", help="显式指定参与角色，逗号分隔（复现时用）")
-    r.add_argument("--out", required=True)
-    r.add_argument("--draft", default=None, help="判断稿（模型/人写），传入则只校验不代写")
-    r.add_argument("--evidence", default=None,
-                   help="证据包（report pack 产物）；与 --draft 的 sections 一起用")
-    r.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    r.add_argument("--md-name", default="report")
-    r.add_argument("--pdf", action="store_true")
-    r.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn",
-                   help="数据 intake：quote 回抓校验模式")
-    r.set_defaults(func=cmd_run)
-
-    pk = sub.add_parser("pack", help="证据打包：项目目录 → evidence_pack.json + brief.md")
-    pk.add_argument("--dir", required=True, help="项目目录（含 data/、gates/ 等）")
-    pk.add_argument("--out", required=True)
-    pk.set_defaults(func=cmd_pack)
-
-    pr = sub.add_parser("produce",
-                        help="画像/纲领 → 分析方法 → 章节稿 → 报告 → 评测")
-    pr.add_argument("--profile", default=None,
-                    help="market_research / business_review；留空则按 --intent 自动选纲领")
-    pr.add_argument("--intent", default=None,
-                    help="v4 自动纲领的意图（不传 --profile 时生效）")
-    pr.add_argument("--thesis", default=None, choices=list(_thesis.THESES),
-                    help="强制纲领；可选值以 core/report_thesis.THESES 为准")
-    pr.add_argument("--dir", required=True, help="项目目录")
-    pr.add_argument("--out", required=True)
-    pr.add_argument("--draft", default=None, help="可选：覆盖自动章节稿")
-    pr.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    pr.add_argument("--pdf", action="store_true")
-    pr.add_argument("--audience", default="业务负责人",
-                    help="开工前契约：这份报告给谁看（写进 report_ship.json）")
-    pr.add_argument("--require-contract", action="store_true",
-                    help="契约不成立就中止，不出报告（默认只记录不拦截）")
-    pr.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn",
-                    help="数据 intake：quote 回抓校验模式")
-    pr.set_defaults(func=cmd_produce)
 
     c = sub.add_parser("check", help="验一份成品报告")
     c.add_argument("--html", required=True)
@@ -267,17 +141,6 @@ def main(argv=None) -> int:
                     help="research / operations / remediation / chain / forecast / growth / "
                          "product / support / people / sre / marketing / sku / store")
     pl.set_defaults(func=cmd_plan)
-
-    rs = sub.add_parser("research", help="新业务研究：quote 回抓校验 + r05 台账 + 可行性报告")
-    rs.add_argument("--topic", required=True)
-    rs.add_argument("--dir", required=True, help="研究项目目录（含 data/sources.json）")
-    rs.add_argument("--out", required=True)
-    rs.add_argument("--thesis", default="market_entry")
-    rs.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    rs.add_argument("--pdf", action="store_true")
-    rs.add_argument("--skip-verify", action="store_true")
-    rs.add_argument("--skip-ledger", action="store_true")
-    rs.set_defaults(func=cmd_research)
 
     args = ap.parse_args(argv)
     return args.func(args)

@@ -30,11 +30,11 @@
   "counterexample": "诊断写成「加价率低、损耗高、冷链贵」三个并列原因时，等于没有诊断，动作会互相抵消。",
   "failure_mode": "把「提升毛利率」当指导方针；把动作清单当战略。",
   "landing": {
-    "method": "core/frames.py::build_remediation",
+    "method": "core/frames_framework.py::build_analysis",
     "claim_kind": "gap",
-    "frame": "remediation",
+    "frame": "analysis",
     "gate": "Q1/Q4",
-    "test": "tests/test_deep_line.py::test_frames_do_not_share_one_skeleton"
+    "test": "tests/test_report_build.py::test_questions_from_findings_maps_known_keys"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",

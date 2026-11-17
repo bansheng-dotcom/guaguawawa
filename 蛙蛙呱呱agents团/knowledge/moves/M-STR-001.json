@@ -30,11 +30,11 @@
   "counterexample": "分支不 MECE（重叠或漏项）时，会把同一原因算两次，或漏掉真正的驱动，后面的计算再准也没用。",
   "failure_mode": "所有分支平均用力，报告变成一张清单，没有主次。",
   "landing": {
-    "method": "core/frames.py::build_operations",
+    "method": "core/frames_framework.py::build_analysis",
     "claim_kind": "gap",
-    "frame": "operations",
+    "frame": "analysis",
     "gate": "Q1/Q2",
-    "test": "tests/test_deep_line.py::test_frames_do_not_share_one_skeleton"
+    "test": "tests/test_report_build.py::test_select_questions_market_has_at_least_three"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",

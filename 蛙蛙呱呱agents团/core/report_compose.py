@@ -25,7 +25,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from core import (analysis_desk, analysis_methods, claims, frames, frames_cheese,
+from core import (analysis_desk, analysis_methods, claims,
                   frames_framework, methods, report_flow, report_thesis,
                   runner)
 from core.report_kernel import contract as kernel_contract
@@ -47,11 +47,9 @@ LENS_METHODS: Dict[str, List[str]] = {
     "fix": ["economics", "breakeven", "transmission", "contribution", "risk"],
 }
 
-# 装配器注册表：每个装配模块用 FRAMES 声明自己负责哪些纲领，这里只做汇总。
-# 新增一个域 = 在所属模块的 FRAMES 里加一行，不改本文件的控制流；
-# 同一纲领被两个模块注册会直接报错，避免又长出一份「都能装配」的隐式 fallback。
+# P5：只保留通用装配器。旧 frames / frames_cheese 已删除。
 _ASSEMBLERS: Dict[str, Any] = {}
-for _mod in (frames, frames_cheese, frames_framework):
+for _mod in (frames_framework,):
     for _key in getattr(_mod, "FRAMES", {}):
         if _key in _ASSEMBLERS:
             raise RuntimeError(f"纲领 {_key} 被多个装配器注册，先删掉旧的那一份")
@@ -315,6 +313,10 @@ def build(intent: str, project_dir: str, out_dir: str,
                                profile=prof, tmpdir=tmpdir,
                                ft=getattr(desk, "ft", None))
     th = thesis or report_thesis.infer(intent, prof)
+    if th not in report_thesis.THESES:
+        # P5：旧业务纲领名只作为兼容标签，映射到 analysis + lens
+        lens = lens or report_thesis.LEGACY_LENS.get(th)
+        th = "analysis"
     ctx.frame = th
     ctx.intent = intent
     plan_obj = methods.plan(desk, views, prof, th)
@@ -567,7 +569,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--dir", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--thesis", default=None,
-                    choices=list(report_thesis.THESES) + [None])
+                    choices=list(report_thesis.THESES) + list(report_thesis.LEGACY_LENS) + [None])
     ap.add_argument("--theme", default="paper")
     ap.add_argument("--pdf", action="store_true")
     ap.add_argument("--audience", default="业务负责人")

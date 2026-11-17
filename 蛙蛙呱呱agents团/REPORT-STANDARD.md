@@ -1,5 +1,9 @@
 # 报告标准（REPORT-STANDARD.md）
 
+> **P5 收敛（2026-11-17）**：报告类型收敛为 `analysis` + `lens`；`run/pack/produce/research` 已删除，
+> 统一入口是 `python guagua.py report build --intent … --dir … --out … --lens …`。
+> 本文以下关于“两个分支 / 22 纲领”的内容是历史标准，保留作对照。
+
 > 2026-11-15 产线收敛：**报告只有一个作者 —— R01 蛙全局**。
 > 20 个执行角色只交 `result`（数字与证据），不再各自出报告。
 > 本文规定这一份报告写什么、怎么判合格、怎么验。
@@ -48,7 +52,7 @@ R01 s01 意图识别 → s02 路由 / 拆卡（任务卡六段）
 
 ---
 
-## 三、命令（只有这四条）
+## 三、命令（以 `core/report_cli.py` 注册为准：run / check / charts / capabilities / plan）
 
 ```bash
 # 0) 证据打包：项目目录 → 可寻址的数字索引（调研级报告的前提）
@@ -183,10 +187,12 @@ python scripts/check_report_flow.py --dir <输出目录>
 python scripts/ci_report_checks.py      # CI：角色入口 + A/B 两条分支 + 门禁 + 图型
 ```
 
-`scripts/check_report_flow.py` 的九条判据：F1 版式四规则（复用
+`scripts/check_report_flow.py` 的十条判据：F1 版式四规则（复用
 `check_report_layout.py`）、F2 标题带数字、F3 结论段带数字、F4 每节带数字、
 F5 有边界节、F6 末节口径与分数、F7 图有来源、F8 无 JSON 回显、F9 重复句 ≤10%
-且数字密度 ≥25/千字且禁用词为 0。
+且数字密度 ≥25/千字且禁用词为 0、**F10 深度**（共用 `core/report_quality.py`，
+按体量自动分 `research` / `baseline` 两档；同一份报告 `report check` 与
+`python -m core.report_quality` 必须给出同一结论）。
 
 历史七件套（depth / style / substance / diversity / project / analysis / spec+contract
 测试）已删除：它们的前提是「20 个角色各出一份报告」，该前提已不存在。

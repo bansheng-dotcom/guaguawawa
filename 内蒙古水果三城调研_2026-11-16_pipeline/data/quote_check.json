@@ -1,0 +1,275 @@
+{
+ "schema": "dsh.quote_check/v1",
+ "checked_at": "2026-11-17T19:54:17",
+ "total": 32,
+ "checked": 0,
+ "ok": 0,
+ "mismatch": 0,
+ "unreachable": 0,
+ "unverified": 32,
+ "skipped": 0,
+ "grades": {
+  "A": 0,
+  "B": 0,
+  "C": 0,
+  "D": 0
+ },
+ "items": [
+  {
+   "id": "S01",
+   "url": "https://futures.stockstar.com/IG2026111600013402.shtml",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S02",
+   "url": "https://futures.stockstar.com/IG2026111100024831.shtml",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S03",
+   "url": "https://futures.stockstar.com/IG2026111600013404.shtml",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S04",
+   "url": "http://swj.huhhot.gov.cn/tjxx/202611/t20261110_2049154.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S05",
+   "url": "https://cif.mofcom.gov.cn/site/html/neimenggu/html/15362952/2026/11/3/1793696966731.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S06",
+   "url": "https://cif.mofcom.gov.cn/cif/html/market_scanner/2026/11/1794367457799.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S07",
+   "url": "https://m.cnhnb.com/p/pingguo-0-98-0-0-1/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S08",
+   "url": "http://nmj.chifeng.gov.cn/zwxx/sndt/nmsz/202610/t20261022_2837524.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S09",
+   "url": "https://www.tongliao.gov.cn/zjtl/fztl/tltf/nmy/202512/t20251216_1021786.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S10",
+   "url": "https://notice.10jqka.com.cn/api/original/ec1fbea01275842.pdf",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S11",
+   "url": "https://m.cnhnb.com/p/liz-0-3-0-111_41316-4/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S12",
+   "url": "https://m.cnhnb.com/p/liz-0-3-1146-21_21597-1/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S13",
+   "url": "https://m.cnhnb.com/p/xiangj-0-25-0-0-10/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S14",
+   "url": "https://m.cnhnb.com/p/putao-0-0-1594-0-250/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S15",
+   "url": "https://www.cnhnb.com/hangqing/cdlist-2001324-1594-0-0-0-1/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S16",
+   "url": "https://m.cnhnb.com/p/ganju-0-0-4622-78_31057,21_1035-6/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S17",
+   "url": "https://www.cnhnb.com/hangqing/cdlist-2001686-2943-20-0-0-2/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S18",
+   "url": "https://www.cnhnb.com/hangqing/q-2003191-0-0-25/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S19",
+   "url": "https://m.ymt.com/hangqing/juhe-7252",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S20",
+   "url": "http://www.agri.cn/sj/jcyj/202611/t20261116_8884013.htm",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S21",
+   "url": "http://nmj.chifeng.gov.cn/zwxx/sndt/nmsz/202610/t20261022_2837524.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S22",
+   "url": "http://www.yurun.com/news/news-detail.html?id=263&classfy=1",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S23",
+   "url": "https://www.cawa.org.cn/content/details_13790_17221.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S24",
+   "url": "http://ha.xinhuanet.com/20260929/6d6b126b5a034e8c8ffacc0116734ba1/c.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S25",
+   "url": "https://4g.stockstar.com/detail/IG2026110900006757",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S26",
+   "url": "http://www.nmgjgjc.com.cn/jgjcwz/",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S27",
+   "url": "https://cif.mofcom.gov.cn/cif/html/mobile/dataDetail.html?id=224089",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S28",
+   "url": "http://futures.stockstar.com/IG2026111100024473.shtml",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S29",
+   "url": "http://xinfadi.com.cn:8099/minipricedetail.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S30",
+   "url": "http://zjnews.zjol.com.cn/zjnews/202611/t20261116_32029456.shtml",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S31",
+   "url": "https://finance.sina.com.cn/jjxw/2026-11-12/doc-iniymsif1223760.shtml",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  },
+  {
+   "id": "S32",
+   "url": "http://www.sqsm.com/article/list/25/navid/3.html",
+   "quote": "",
+   "grade": "",
+   "status": "unverified",
+   "detail": "缺 quote（未回填），不能当证据"
+  }
+ ]
+}

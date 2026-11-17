@@ -43,9 +43,9 @@
   "counterexample": "只比单价时，起订量 1500 斤的低价货源会因为压库存和损耗，落地成本反而更高。",
   "failure_mode": "漏掉资金占用与不良率；用产地零售价代替到店成本。",
   "landing": {
-    "method": "core/frames.py::build_operations",
+    "method": "core/frames_framework.py::build_analysis",
     "claim_kind": "unit",
-    "frame": "operations",
+    "frame": "analysis",
     "gate": "Q2/Q4",
     "test": "tests/test_analysis_line.py::test_unit_economics_reproduces_reference_numbers"
   },
