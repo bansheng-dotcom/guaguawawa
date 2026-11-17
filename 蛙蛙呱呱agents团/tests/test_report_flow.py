@@ -20,6 +20,7 @@ for _p in (str(TEAM), str(REPO)):
 
 from core import report_flow  # noqa: E402
 from core.report_kernel import structure  # noqa: E402
+import pytest  # noqa: E402
 
 GOOD_REPORT = {
     "title": "Q4 复盘",
@@ -61,21 +62,6 @@ def test_build_contract_shape():
     assert structure.layout_errors(c, require_appendix=True) == []
 
 
-def test_end_to_end_branch_b(tmp_path):
-    out = tmp_path / "b"
-    res = report_flow.run(
-        intent="2月经营诊断",
-        results=[str(FIX / "r06_result.json"), str(FIX / "r13_result.json")],
-        out_dir=str(out))
-    assert res["ok"], res
-    assert res["branch"] == "B"
-    man = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
-    assert man["producer"] == "r01" and man["ok"] is True
-    assert len(man["evidence"]) == 2
-    assert (out / "report.html").stat().st_size > 15000
-
-    sys.path.insert(0, str(TEAM / "scripts"))
-    from check_report_flow import check_html
-    r = check_html(out / "report.html")
-    assert r["ok"], r["violations"]
-    assert r["stats"]["density"] >= r["stats"]["density_floor"]
+def test_run_requires_evidence_and_draft(tmp_path):
+    with pytest.raises(report_flow.FlowError):
+        report_flow.run(intent="2月经营诊断", out_dir=str(tmp_path / "b"))

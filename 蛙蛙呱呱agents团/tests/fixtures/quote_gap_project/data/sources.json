@@ -1,0 +1,23 @@
+{
+  "topic": "quote gap fixture",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "测试来源 A",
+      "org": "测试机构",
+      "type": "government",
+      "grade": "A",
+      "url": "http://example.invalid/a",
+      "quote": "苹果 10.00 元/公斤"
+    },
+    {
+      "id": "S02",
+      "title": "测试来源 B（缺 quote）",
+      "org": "测试机构",
+      "type": "industry_report",
+      "grade": "B",
+      "url": "http://example.invalid/b",
+      "quote": ""
+    }
+  ]
+}

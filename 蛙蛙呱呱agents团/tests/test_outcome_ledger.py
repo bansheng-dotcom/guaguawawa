@@ -52,3 +52,17 @@ def test_review_requires_result(tmp_path):
         assert "result" in str(exc)
     else:
         raise AssertionError("空 result 应报错")
+
+
+def test_hit_rate_with_hit_miss_void(tmp_path):
+    """不等 2027：合成 hit/miss/void，验证命中率分母排除 void。"""
+    p = tmp_path / "ledger.json"
+    a = ol.add("RPT-1", "a", "A", "D", "2026-12-31", path=p)
+    b = ol.add("RPT-1", "b", "B", "D", "2026-12-31", path=p)
+    c = ol.add("RPT-1", "c", "C", "D", "2026-12-31", path=p)
+    ol.review(a["id"], "hit", "方向一致", path=p)
+    ol.review(b["id"], "miss", "方向反了", path=p)
+    ol.review(c["id"], "void", "口径变了", path=p)
+    s = ol.summary(path=p, today="2026-12-01")
+    assert s["hit"] == 1 and s["miss"] == 1 and s["void"] == 1
+    assert s["hit_rate"] == 0.5

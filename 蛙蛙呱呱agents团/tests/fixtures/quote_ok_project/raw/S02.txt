@@ -1,0 +1,3 @@
+测试来源 B
+香蕉 5.00 元/公斤，环比下降 1%。
+captured_by: fixture

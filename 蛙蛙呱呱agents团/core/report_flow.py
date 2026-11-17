@@ -74,14 +74,6 @@ def _sha(obj: Any) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
 
 
-def _sha_file(p: str) -> str:
-    h = hashlib.sha256()
-    with open(p, "rb") as f:
-        for chunk in iter(lambda: f.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()[:16]
-
-
 def _write_json(path: str, obj: Any) -> None:
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="\n") as f:
@@ -99,114 +91,12 @@ def _call_r01(argv: List[str], timeout: int = 180) -> Dict[str, Any]:
 # --------------------------------------------------------------------------- #
 # 1. 路由：A 单角色 / B 跨角色
 # --------------------------------------------------------------------------- #
-def route(intent: str, roles: Optional[List[str]] = None) -> Dict[str, Any]:
-    """R01 判断这件事需要几个角色。roles 显式给了就不再猜（用于复现）。"""
-    if roles:
-        picked, boardroom, signals = list(roles), False, {}
-    else:
-        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False,
-                                         encoding="utf-8") as f:
-            json.dump({"intent": intent}, f, ensure_ascii=False)
-            tmp = f.name
-        try:
-            out = _call_r01(["decompose", "route", "--input", tmp])
-        finally:
-            try:
-                os.unlink(tmp)
-            except OSError:
-                pass
-        picked = [str(x) for x in (out.get("roles") or [])]
-        boardroom = bool(out.get("boardroom"))
-        signals = out.get("hits") or out.get("signals") or {}
-    if not picked:
-        raise FlowError(f"R01 无法路由该意图（没有匹配到任何角色）：{intent}")
-    branch = "B" if (len(picked) >= 2 or boardroom) else "A"
-    return {"branch": branch, "roles": picked, "boardroom": boardroom,
-            "signals": signals,
-            "reason": ("需要跨角色技能" if branch == "B" else "单角色即可")}
-
-
 # --------------------------------------------------------------------------- #
 # 2. 收集：执行角色的 result（唯一输入）
 # --------------------------------------------------------------------------- #
-def _role_of(path: str, payload: Dict[str, Any]) -> str:
-    r = payload.get("role") or payload.get("owner")
-    if isinstance(r, str) and r.startswith("r"):
-        return r
-    stem = Path(path).stem.lower()
-    for part in [p.lower() for p in Path(path).parts]:
-        if len(part) >= 3 and part[0] == "r" and part[1:3].isdigit():
-            return part[:3]
-    if stem[:3].startswith("r") and stem[1:3].isdigit():
-        return stem[:3]
-    return PRODUCER
-
-
-def collect(paths: List[str]) -> List[Dict[str, Any]]:
-    """把文件/目录读成 evidence[]。目录里按 result.json > *.result.json > 第一个 json。"""
-    evs: List[Dict[str, Any]] = []
-    for raw in paths:
-        p = Path(raw)
-        if not p.exists():
-            raise FlowError(f"result 不存在: {raw}")
-        files: List[Path]
-        if p.is_dir():
-            pref = [p / "result.json"] + sorted(p.glob("*.result.json"))
-            files = [x for x in pref if x.exists()] or sorted(p.glob("*.json"))[:1]
-            if not files:
-                raise FlowError(f"目录里没有 result JSON: {raw}")
-        else:
-            files = [p]
-        for fp in files:
-            try:
-                payload = json.loads(fp.read_text(encoding="utf-8-sig"))
-            except json.JSONDecodeError as e:
-                raise FlowError(f"result 不是合法 JSON: {fp} ({e})") from e
-            if not isinstance(payload, dict):
-                raise FlowError(f"result 必须是 JSON 对象: {fp}")
-            evs.append({
-                "role": _role_of(str(fp), payload),
-                "skill": str(payload.get("skill") or ""),
-                "action": str(payload.get("action") or ""),
-                "intent": str(payload.get("intent") or ""),
-                "source": str(fp.resolve()),
-                "source_hash": _sha_file(str(fp)),
-                "result": payload,
-            })
-    if not evs:
-        raise FlowError("没有可用的 result：报告必须有真实执行结果，不接受空输入")
-    return evs
-
-
 # --------------------------------------------------------------------------- #
 # 3. 解读：R01 决定这份报告说什么
 # --------------------------------------------------------------------------- #
-def interpret(intent: str, branch: str, evidences: List[Dict[str, Any]],
-              draft: Optional[Dict[str, Any]] = None,
-              out_dir: Optional[str] = None) -> Dict[str, Any]:
-    payload = {"intent": intent, "branch": branch, "evidences": evidences}
-    if draft:
-        payload["draft"] = draft
-    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False,
-                                     encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False)
-        tmp = f.name
-    try:
-        out = _call_r01(["interpret", "judge", "--input", tmp])
-    finally:
-        try:
-            os.unlink(tmp)
-        except OSError:
-            pass
-    if out_dir:
-        _write_json(os.path.join(out_dir, "judgement.json"), out)
-    if not out.get("ok"):
-        fails = [c for c in (out.get("checks") or []) if not c.get("ok")]
-        raise FlowError("解读未通过校验，不渲染：" +
-                        "；".join(f"{c['id']}: {c.get('msg', '')}" for c in fails))
-    return out
-
-
 # --------------------------------------------------------------------------- #
 # 4. 判断 → 报告契约
 # --------------------------------------------------------------------------- #
@@ -524,6 +414,11 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
     os.makedirs(out_dir, exist_ok=True)
     _clear_outputs(out_dir, md_name)
 
+    if not (evidence and draft and draft.get("sections")):
+        raise FlowError(
+            "v10 只支持 evidence + draft sections；A/B 分支已删除。"
+            "请用 python guagua.py report build --intent … --dir … --out …")
+
     # 调研级：模型写章节稿 + 证据包逐节过账（家居百货 / 肉禽蛋那种报告）
     if evidence and draft and draft.get("sections"):
         from core import evidence_pack
@@ -570,68 +465,16 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
                 "checks": chk.get("checks"), "layout_errors": lay,
                 "quotes": {k: v for k, v in qgate.items() if k != "items"}}
 
-    r = route(intent, roles)
-    evidences = collect(results or [])
-    # 分支以「实际参与的角色」为准：路由说 A 但真拿到两个角色的 result，就是 B；
-    # 路由说要 3 个角色但只回来 1 份，就按 A 出，并把缺口写进边界（不许假装跨角色）。
-    real_roles = {e["role"] for e in evidences}
-    expected = set(r["roles"])
-    r["branch_expected"] = r["branch"]
-    r["branch"] = "B" if len(real_roles) >= 2 else "A"
-    r["missing_roles"] = sorted(expected - real_roles)
-    if r["branch"] != r["branch_expected"]:
-        r["reason"] = (f"路由预计 {r['branch_expected']}（{', '.join(sorted(expected))}），"
-                       f"实际收到 {len(real_roles)} 个角色的 result")
-    interp = interpret(intent, r["branch"], evidences, draft=draft, out_dir=out_dir)
-    if r["missing_roles"]:
-        interp["judgement"]["boundary"].append(
-            f"路由要求 {', '.join(r['missing_roles'])} 参与，本次未收到其 result；"
-            f"缺口未观测，报告不据此下结论。")
-    contract = build_contract(interp["judgement"], intent, r["branch"], evidences,
-                              interp.get("numbers") or [], interp.get("checks") or [],
-                              interp.get("mode") or "rule", theme)
-    from core.report_kernel import specs as report_specs
-    spec_res = ({"skipped": True} if os.environ.get("GUAGUA_SPEC_INFER", "1") == "0"
-                else report_specs.apply_specs(contract))
-    lay = layout_errors(contract, require_appendix=True)
-    ok = not lay
-    files: Dict[str, Any] = {}
-    if ok:  # 门禁不过就不落盘，避免半份报告
-        files = render(contract, out_dir, md_name=md_name, pdf=pdf)
+    raise FlowError("v10 sections 路径未返回；这是内部错误")
 
-    manifest = {
-        "schema": "dsh.report.flow/v1",
-        "producer": PRODUCER,
-        "producer_name": PRODUCER_NAME,
-        "intent": intent,
-        "branch": r["branch"],
-        "route": r,
-        "generated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-        "evidence": [{"role": e["role"], "skill": e["skill"],
-                      "source": e["source"], "hash": e["source_hash"]}
-                     for e in evidences],
-        "interpret": {"mode": interp.get("mode"), "checks": interp.get("checks"),
-                      "numbers": len(interp.get("numbers") or [])},
-        "contract_hash": _sha(contract),
-        "layout_errors": lay,
-        "files": files,
-        "spec_stats": spec_res,
-        "chart_stats": files.get("chart_stats") or {},
-        "ok": ok,
-    }
-    _write_json(os.path.join(out_dir, "manifest.json"), manifest)
-    _write_json(os.path.join(out_dir, "contract.json"), contract)
-    return {"ok": manifest["ok"], "branch": r["branch"], "files": files,
-            "manifest": os.path.join(out_dir, "manifest.json"),
-            "checks": interp.get("checks"), "layout_errors": lay}
 
 
 def main(argv: Optional[List[str]] = None) -> int:
     import argparse
     ap = argparse.ArgumentParser(prog="report_flow")
     ap.add_argument("--intent", required=True)
-    ap.add_argument("--results", nargs="*", default=[])
-    ap.add_argument("--roles", default="")
+    ap.add_argument("--evidence", required=True, help="证据包 evidence_pack.json")
+    ap.add_argument("--draft", required=True, help="章节稿 draft_sections.json")
     ap.add_argument("--out", required=True)
     ap.add_argument("--theme", default=DEFAULT_THEME)
     ap.add_argument("--pdf", action="store_true")
@@ -639,10 +482,11 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn",
                     help="数据 intake：quote 回抓校验模式")
     a = ap.parse_args(argv)
-    roles = [x.strip() for x in a.roles.split(",") if x.strip()] or None
+    draft = json.loads(Path(a.draft).read_text(encoding="utf-8-sig"))
     try:
-        res = run(a.intent, a.results, a.out, roles=roles, theme=a.theme,
-                  pdf=a.pdf, md_name=a.md_name, quote_mode=a.quote_mode)
+        res = run(a.intent, out_dir=a.out, draft=draft, theme=a.theme,
+                  pdf=a.pdf, md_name=a.md_name, evidence=a.evidence,
+                  quote_mode=a.quote_mode)
     except FlowError as e:
         print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False))
         return 2

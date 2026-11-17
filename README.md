@@ -3,7 +3,10 @@
 > 专为**一人公司**打造的全栈商业与技术智能体协作系统。
 > 用「组织语义 + 契约化端口 + 生成与校验分离」把 20 个专业角色组织成一家可运行的公司，而不是 20 个互不相干的聊天机器人。
 
-**版本：v2.1 · 2026-11-12**（仓库瘦身与分发打包）
+**版本：v2.3 · 2026-11-17**（报告产线 v10：`build` 单入口 / `analysis + lens` / coverage / 结果台账）
+
+> **v10 报告入口**：`python guagua.py report build --intent "…" --dir <项目> --out <目录> --lens market|ops|chain|fix`。
+> 旧 `run / pack / produce / research` 已删除；报告只有一个作者（R01），成品验收用 `report check`。
 
 **统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)
 
@@ -174,7 +177,7 @@ python guagua.py chat --role r06 --intent "分析订单漏斗、留存和渠道�
 ① 澄清 Clarify → ② 自查 Self-check → ③ 展开 Expand → ④ 自评 Self-assess → ⑤ 汇报 Report
 ```
 
-- **澄清**：只问真正缺的六件事——交付物、目标/成功标准、边界、输入、验收判据、时限/依赖。
+- **澄清**：只问真正缺的事（六项骨架 + 最多 2 个场景补充，总问数 ≤ 8）——交付物、目标/成功标准、边界、输入、验收判据、时限/依赖。
 - **自查**：我的哪个技能域能覆盖？契约输入齐不齐？有没有越界？
 - **展开**：走技能子命令，产物写入 `workspace/artifacts/{task_id}/`。
 - **自评**：过 harness 门禁；脏数据、缺证据、超边界都不许硬交。
@@ -912,6 +915,25 @@ python verify_loop.py
 ---
 
 ## 十、版本与更新记录
+
+### v2.2（2026-11-17）· 全面体检修复
+
+- **报告判据唯一**：`check_report_flow` 增加 F10 深度判据，与 `core/report_quality` 共用
+  `research` / `baseline` 两档口径；同一份 HTML 不再出现「CI 绿、深度门禁红」。
+- **20 角色自检全绿**：14 个角色 `run_tests.py` 由红转绿（动态期望值 + r17 契约键修复 +
+  r06 证据边界误报修复 + r10 四档图标尺 + r20 错误预算/ RTO 对齐）。
+- **三态归位**：`capability_status` 不再一键覆盖；支付/ERP 写入/外部发布按技能声明
+  `blocked` / `simulated`，失败载荷不再冒充 `real`。
+- **R03 可编排**：补 `run --task`（合规/税务/审计任务不再必然失败）。
+- **契约异常不再放行**：r11–r15 评审器把「校验器崩溃」判 FAIL 并记 `contract_error`。
+- **角色名归一**：`role_profiles` / `report_roles` / `knowledge/roles` / 角色 configs 一律读
+  `core/registry.py`，清掉 10 个旧花名变体。
+- **阈值单源**：r01 记分卡、r03 现金流触发器、r06 质量、r07 RICE、r10 Logo、r16 薪酬容差、
+  r20 RTO/RPO 各自收敛到一个出处。
+- **仓净**：清 591 个 `.pyc`、`.pytest_cache`、19 份 configs 里的死 report 段、14 个角色里的
+  `_write_report` 死码、`r03/report.py`、r06 手写 HTML 脚本与成品报告、109 条断链。
+- **自检清单**：新增 `scripts/check_role_tests.py`（20 角色端到端）与 `pytest tests` 两条，
+  9 条自检在干净工作区全绿。
 
 ### v2.1（2026-11-12）
 

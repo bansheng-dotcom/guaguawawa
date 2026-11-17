@@ -1,0 +1,3 @@
+测试来源 A
+苹果 10.00 元/公斤，环比持平。
+captured_by: fixture
