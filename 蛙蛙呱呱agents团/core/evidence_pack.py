@@ -87,6 +87,7 @@ def _walk(obj: Any, path: str, rel: str, out: List, seen: Dict, depth: int = 0) 
                 "period": str(obj.get("period") or obj.get("date") or ""),
                 "region": str(obj.get("region") or ""),
                 "source_file": rel,
+                "source_ref": str(obj.get("source") or ""),
                 "org": str(obj.get("source_org") or obj.get("org") or ""),
                 "formula": str(obj.get("formula") or ""),
                 "inputs": str(obj.get("inputs") or ""),

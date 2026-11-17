@@ -299,8 +299,13 @@ def _norm_draft(draft: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _check(j: Dict[str, Any], nums: List[Dict[str, Any]],
-           evidences: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """判断的硬校验。每条都带判据，不通过就是不合格，不静默放行。"""
+           evidences: List[Dict[str, Any]],
+           strict_numbers: bool = False) -> List[Dict[str, Any]]:
+    """判断的硬校验。每条都带判据，不通过就是不合格，不静默放行。
+
+    strict_numbers=True：结论里每个数字都要可追溯（模型/人写的 draft 用）；
+    False：至少一个数字可追溯（规则模式兜底，P5 删除 A/B 后不再需要）。
+    """
     checks: List[Dict[str, Any]] = []
     known = {n["text"] for n in nums} | {str(n["value"]) for n in nums}
     known |= {n["text"].lstrip("-") for n in nums}
@@ -314,11 +319,18 @@ def _check(j: Dict[str, Any], nums: List[Dict[str, Any]],
                    "msg": "标题即结论，且结论必须带数字"})
     checks.append({"id": "has_conclusion", "ok": bool(j["conclusions"]),
                    "msg": "至少一条结论"})
-    bad_num = [c0["text"] for c0 in j["conclusions"]
-               if not _NUM_RE.search(c0["text"]) or
-               not any(x in known for x in _NUM_RE.findall(c0["text"]))]
+    if strict_numbers:
+        bad_num = [c0["text"] for c0 in j["conclusions"]
+                   if not _NUM_RE.search(c0["text"]) or
+                   not all(x in known for x in _NUM_RE.findall(c0["text"]))]
+    else:
+        bad_num = [c0["text"] for c0 in j["conclusions"]
+                   if not _NUM_RE.search(c0["text"]) or
+                   not any(x in known for x in _NUM_RE.findall(c0["text"]))]
     checks.append({"id": "conclusion_number_traceable", "ok": not bad_num,
-                   "msg": "每条结论的数字必须能在 result 里找到",
+                   "msg": ("每条结论的每个数字都必须能在 result 里找到"
+                           if strict_numbers else
+                           "每条结论至少一个数字能在 result 里找到"),
                    "fail": bad_num[:3]})
     bad_src = [c0["text"] for c0 in j["conclusions"]
                if not c0["source"] or not any(c0["source"].startswith(s.split("|")[0])
@@ -354,7 +366,7 @@ def _run_interpret(args) -> Dict[str, Any]:
     draft = data.get("draft")
     if isinstance(draft, dict) and draft:
         j = _norm_draft(draft)
-        checks = _check(j, nums, evidences)
+        checks = _check(j, nums, evidences, strict_numbers=True)
         if all(x["ok"] for x in checks):
             mode = "draft"
         else:
@@ -363,7 +375,7 @@ def _run_interpret(args) -> Dict[str, Any]:
             j, mode = fallback, "rule"
     else:
         j = _rule_judgement(intent, branch, evidences, nums, per)
-        checks = _check(j, nums, evidences)
+        checks = _check(j, nums, evidences, strict_numbers=False)
         mode = "rule"
 
     # 边界：没有数字时把 gap 显式写出来（诚实边界，不是免责声明）
@@ -386,7 +398,7 @@ def _run_check(args) -> Dict[str, Any]:
     j = _norm_draft(data if "judgement" not in data else data)
     evidences = [e for e in (data.get("evidences") or []) if isinstance(e, dict)]
     nums, _ = _harvest(evidences)
-    checks = _check(j, nums, evidences)
+    checks = _check(j, nums, evidences, strict_numbers=True)
     return {"ok": all(x["ok"] for x in checks), "checks": checks,
             "numbers": len(nums)}
 
@@ -557,6 +569,8 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                 return True
             if x in params or any(_close(x, p) for p in params):
                 return True
+            # P4.1：小整数仍放行，但这些多是“品类数/期数/条数”；
+            # 彻底删掉需要先把计数登记成 ref（P5 做）。先保留，避免误杀。
             if x < 31 and float(x).is_integer():
                 return True
             return _explainable(x, refs)

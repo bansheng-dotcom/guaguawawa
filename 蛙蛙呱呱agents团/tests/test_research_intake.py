@@ -25,6 +25,12 @@ def test_collect_refs_nested():
     assert ri.collect_refs(draft) == ["S01", "S02", "S03"]
 
 
+def test_collect_refs_resolves_derived_to_source():
+    draft = {"sections": [{"refs": ["D_common6_hohhot_mean", "S03"]}]}
+    pack = {"numbers": [{"id": "D_common6_hohhot_mean", "source_ref": "S01"}]}
+    assert ri.collect_refs(draft, pack) == ["S01", "S03"]
+
+
 def test_gate_off_skips():
     out = ri.quote_gate("/nonexistent", refs=["S01"], mode="off")
     assert out["ok"] is True

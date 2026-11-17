@@ -267,6 +267,8 @@ def _contract(intent: str, th: str, spec: Dict[str, Any], title: str,
     aligned = bool(sets) and len(sets) == 1
     regions = {k[0] for k in (views.region or {})} | {k[0] for k in (views.quotes or {})}
     src_n = len((desk.pack or {}).get("sources") or [])
+    # 档位由证据规模决定，不再一律自称 L4
+    target_level = "L4" if (src_n >= 10 and periods >= 6) else "L3"
 
     raw = {
         "report_id": f"RPT-{datetime.now():%Y%m%d}-{th.replace('_', '-')[:12]}",
@@ -275,7 +277,7 @@ def _contract(intent: str, th: str, spec: Dict[str, Any], title: str,
         "audience": audience,
         "questions": qs[:5],
         "data_cutoff": cutoff,
-        "target_level": "L4",
+        "target_level": target_level,
         "owner": PRODUCER,
         "reviewer": "r04",
         "source_count": src_n,

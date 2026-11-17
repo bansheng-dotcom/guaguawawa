@@ -187,16 +187,22 @@ def verify(project: str, write_raw: bool = False,
     return summary
 
 
-def collect_refs(draft: Optional[Dict[str, Any]]) -> List[str]:
-    """从 draft 的 refs 里收 S 编号（S01/S03#…），用于只校验被引用的来源。"""
-    ids: set = set()
+def collect_refs(draft: Optional[Dict[str, Any]],
+                 pack: Optional[Dict[str, Any]] = None) -> List[str]:
+    """从 draft 的 refs 里收来源编号。
+
+    - 直接写 S01/S03 的，直接用；
+    - 写派生量 D_* 的，用 evidence_pack 的 source_ref 回溯到 S*；
+    - 没有 pack 时退化为只收 S*。
+    """
+    raw: set = set()
 
     def walk(obj: Any) -> None:
         if isinstance(obj, dict):
             for k, v in obj.items():
                 if k == "refs":
                     for x in (v or []):
-                        ids.update(re.findall(r"\b(S\d+)\b", str(x)))
+                        raw.add(str(x))
                 else:
                     walk(v)
         elif isinstance(obj, list):
@@ -204,6 +210,21 @@ def collect_refs(draft: Optional[Dict[str, Any]]) -> List[str]:
                 walk(x)
 
     walk(draft or {})
+    ids: set = set()
+    for r in raw:
+        ids.update(re.findall(r"\b(S\d+)\b", r))
+    if pack:
+        by_id = {str(n.get("id")): n for n in (pack.get("numbers") or [])}
+        for r in raw:
+            base = r.split("#", 1)[0]
+            n = by_id.get(base) or by_id.get(r)
+            if not n:
+                continue
+            src = str(n.get("source_ref") or "")
+            ids.update(re.findall(r"\b(S\d+)\b", src))
+            # 派生量的 formula/inputs 里若直接写了 S 编号，也收
+            ids.update(re.findall(r"\b(S\d+)\b",
+                                  f"{n.get('formula') or ''} {n.get('inputs') or ''}"))
     return sorted(ids)
 
 

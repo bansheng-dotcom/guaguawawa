@@ -532,7 +532,7 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         project = str(pack.get("root") or pack.get("project") or "")
         if quote_mode != "off" and project:
             from core import research_intake
-            refs = research_intake.collect_refs(draft)
+            refs = research_intake.collect_refs(draft, pack)
             qgate = research_intake.quote_gate(project, refs=refs or None,
                                                mode=quote_mode)
         chk = check_sections(draft, pack, out_dir)
