@@ -105,6 +105,47 @@ def _section_of(f) -> Dict[str, Any]:
     return _section_from(f)
 
 
+def _add_slice_section(sections: List[Dict[str, Any]],
+                       pack: Dict[str, Any]) -> bool:
+    """P13：插入一个同 (period, unit) 的可比切片节。
+
+    正文的宽口径节保留；切片节只对同口径负责，便于头条 ClaimCard 落到可比较证据。
+    """
+    nums = {str(n.get("id")): n for n in (pack.get("numbers") or [])}
+    for i, s in enumerate(sections):
+        refs = [str(x) for x in (s.get("refs") or [])]
+        groups: Dict[tuple, List[str]] = {}
+        for ref in refs:
+            sid = ref.split("#")[0]
+            n = nums.get(sid) or {}
+            key = (str(n.get("period") or ""), str(n.get("unit") or ""))
+            groups.setdefault(key, []).append(ref)
+        if len(groups) <= 1:
+            continue
+        best = max(groups.items(),
+                   key=lambda kv: (bool(kv[0][0] and kv[0][1]),
+                                   bool(kv[0][0] or kv[0][1]), len(kv[1])))
+        (period, unit), group = best
+        if len(group) < 2:
+            continue
+        sec = {
+            "title": f"可比切片：1 组同口径（{period or '本期'}·{unit or '同单位'}）",
+            "question": "同一期次/单位下，结论是否成立？",
+            "refs": group,
+            "reading": [
+                {"text": f"同期同单位共 {len(group)} 个可比点；跨期/跨单位不混算。",
+                 "refs": group},
+                {"text": "切片只对本期同单位负责；宽口径结论见正文，不纳入本切片。",
+                 "refs": group},
+            ],
+            "falsifier": "若同口径下方向反转，切片结论作废。",
+            "slice": {"period": period, "unit": unit, "n": len(group)},
+        }
+        sections.insert(i + 1, sec)
+        return True
+    return False
+
+
 def _counts(views, sections: List[Dict[str, Any]], picked: List[Any],
             desk) -> Dict[str, int]:
     """P8b：把“计数”登记成可校验集合，替代 <31 的整段放行。"""
@@ -467,6 +508,9 @@ def build(intent: str, project_dir: str, out_dir: str,
         if not str(s.get("falsifier") or "").strip():
             s["falsifier"] = (f"若下一期数据与「{s.get('title') or '本节'}」"
                               "方向相反，本节判断作废。")
+
+    # P13：正文加一个同口径切片节（宽口径节保留，切片只对同口径负责）。
+    _add_slice_section(sections, desk.pack)
 
     spec = report_thesis.THESES.get(th) or report_thesis.THESES[report_thesis.DEFAULT_THESIS]
     # 项目可自带标题（data/meta.json），避免从目录名硬拼出「家居百货内蒙市场调研报告」这种别扭名

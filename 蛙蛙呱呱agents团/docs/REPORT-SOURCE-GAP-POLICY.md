@@ -75,3 +75,17 @@ manifest.ok = 渲染 ok
 3. 缺口进 `data/quote_gaps.json`，并在报告边界/风险节写出来；
 4. strict 是默认，warn 只是过渡；不要把 `off` 当默认；
 5. 台账里对引用缺口来源的判断标 `void`，不要用“命中”掩盖。
+
+## 6. 自动处置清单（P13）
+
+```bash
+python scripts/dispose_quote_gaps.py --project <项目>
+```
+
+输出 `data/quote_gap_disposition.json`：
+
+- 反爬/不可复现 → `void`；
+- 页面无引用值 → `downgrade`。
+
+**只出处置，不补 quote、不改核验状态。** strict 仍会阻断。
+
