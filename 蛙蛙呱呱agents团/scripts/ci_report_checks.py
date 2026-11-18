@@ -62,46 +62,50 @@ def main() -> int:
     if rc:
         fails.append("roles")
 
-    # [2] build(market)：v9 单入口，market lens
+    # [2] run-line：v11 唯一入口（一条命令）；下面两个只差意图，用来证明同一数据不同问题
     out_a = OUT / "a"
-    rc, out = run([sys.executable, "guagua.py", "report", "build",
+    rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                    "--intent", "内蒙古三城水果市场调研",
                    "--dir", str(PIPE), "--out", str(out_a),
-                   "--lens", "market", "--quote-mode", "off"])
-    print(f"[2] build(market) rc={rc}")
+                   "--quote-mode", "off"])
+    print(f"[2] run-line(调研) rc={rc}")
     if rc:
         fails.append("flow-A")
         print("   ", out.strip()[:200])
     rc, out = run([sys.executable, "scripts/check_report_flow.py",
                    "--dir", str(out_a)])
-    print(f"[2] gate(market) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+    print(f"[2] gate(调研) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
     if rc:
         fails.append("gate-A")
 
-    # [3] build(ops)：v9 单入口，ops lens
+    # [3] run-line：换意图必须换内容（P2 之前 hash 会相同，这里先只验能跑）
     out_b = OUT / "b"
-    rc, out = run([sys.executable, "guagua.py", "report", "build",
+    rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                    "--intent", "内蒙古三城水果经营分析",
                    "--dir", str(PIPE), "--out", str(out_b),
-                   "--lens", "ops", "--quote-mode", "off"])
-    print(f"[3] build(ops) rc={rc}")
+                   "--quote-mode", "off"])
+    print(f"[3] run-line(经营) rc={rc}")
     if rc:
         fails.append("flow-B")
         print("   ", out.strip()[:200])
     rc, out = run([sys.executable, "scripts/check_report_flow.py",
                    "--dir", str(out_b)])
-    print(f"[3] gate(ops) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+    print(f"[3] gate(经营) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
     if rc:
         fails.append("gate-B")
 
-    # [3b] 报告只有一份，且出具人是 R01；coverage 必须 COMPLETE
+    # [3b] 报告只有一份，且出具人是 R01；决策契约可审计、binding 达标
     man = out_b / "manifest.json"
     if man.exists():
         m = json.loads(man.read_text(encoding="utf-8"))
-        cov = (m.get("coverage") or {}).get("verdict")
-        one = (m.get("producer") == "r01" and cov == "COMPLETE"
+        dec = m.get("decision") or {}
+        qs = dec.get("questions") or []
+        binding = (dec.get("binding") or {}).get("binding")
+        one = (m.get("producer") == "r01" and len(qs) >= 3
+               and (m.get("gates") or {}).get("binding") == "pass"
                and m.get("ok"))
-        print(f"[3b] manifest producer={m.get('producer')} coverage={cov} ok={m.get('ok')}")
+        print(f"[3b] manifest producer={m.get('producer')} questions={len(qs)} "
+              f"binding={binding} ok={m.get('ok')}")
         if not one:
             fails.append("manifest")
     else:
@@ -202,35 +206,45 @@ def main() -> int:
         if rc:
             fails.append(f"style-{tag}")
 
-    # [14] 开工前契约：build 的四个 lens 各跑一遍，证明契约按数据推导
+    # [14] 决策契约：3 个意图各跑一遍，证明「问题先于证据」且 binding 可审计
     src_fruit = PIPE
     if not src_fruit.exists():
-        print(f"[14] SKIP(contract) :: 缺样本目录 {src_fruit.name}")
+        print(f"[14] SKIP(decision) :: 缺样本目录 {src_fruit.name}")
         env.append("fruit-sample-missing")
     else:
-        for lens in ("market", "ops", "chain", "fix"):
-            out_c = OUT / f"contract_{lens}"
-            rc, out = run([sys.executable, "guagua.py", "report", "build",
-                           "--intent", "经营分析",
+        for tag, intent in (("market", "内蒙古三城水果市场调研"),
+                            ("ops", "内蒙古三城水果经营分析"),
+                            ("risk", "内蒙古三城水果：停采换源与止损")):
+            out_c = OUT / f"decision_{tag}"
+            rc, out = run([sys.executable, "guagua.py", "report", "decide",
+                           "--intent", intent,
                            "--dir", str(src_fruit), "--out", str(out_c),
-                           "--lens", lens, "--quote-mode", "off",
+                           "--quote-mode", "off",
                            "--audience", "水果品类经营负责人"])
-            ship = out_c / "report_ship.json"
+            dec = out_c / "decision.json"
+            bind = out_c / "binding.json"
             c: dict = {}
-            if ship.exists():
-                c = json.loads(ship.read_text(encoding="utf-8"))
-            fields_ok = (len(c.get("questions") or []) >= 3
-                         and bool(c.get("data_cutoff")) and bool(c.get("audience")))
-            print(f"[14] contract({lens}) rc={rc} fields={'OK' if fields_ok else 'MISSING'}"
-                  f" :: {c.get('report_id', '-')} / {c.get('data_cutoff', '-')}")
+            b: dict = {}
+            if dec.exists():
+                c = json.loads(dec.read_text(encoding="utf-8"))
+            if bind.exists():
+                b = json.loads(bind.read_text(encoding="utf-8"))
+            qs = c.get("questions") or []
+            fields_ok = (3 <= len(qs) <= 5
+                         and all(q.get("comparison") and q.get("chart")
+                                 and q.get("falsifier") for q in qs)
+                         and b.get("declared") == len(qs)
+                         and isinstance(b.get("binding"), (int, float)))
+            print(f"[14] decision({tag}) rc={rc} questions={len(qs)} "
+                  f"binding={b.get('binding')} fields={'OK' if fields_ok else 'MISSING'}")
             if rc or not fields_ok:
-                fails.append(f"contract-{lens}")
+                fails.append(f"decision-{tag}")
                 print("   ", out.strip()[-200:])
 
     # [15] 报告线单测：缺样本的用例已改为 skip，绿灯只代表代码没回归
     rc, out = run([sys.executable, "-m", "pytest",
-                   "tests/test_analysis_line.py", "tests/test_deep_line.py",
                    "tests/test_report_flow.py", "tests/test_report_flow_opt.py",
+                   "tests/test_decision_report.py", "tests/test_report_sections.py",
                    "-q"])
     tail15 = [l for l in out.strip().splitlines() if "passed" in l or "failed" in l]
     print(f"[15] line tests rc={rc} :: {tail15[-1] if tail15 else out.strip()[-60:]}")

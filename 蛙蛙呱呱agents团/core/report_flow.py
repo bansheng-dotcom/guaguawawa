@@ -21,10 +21,10 @@
 3. 判断不合规（结论无数字/来源缺失/禁用词）→ 不渲染，返回非 0，不留半份报告。
 4. 渲染只走 core/report_renderer，禁止手写一次性 HTML。
 
-用法：
-    python guagua.py report run --intent "2 月经营诊断" --results a.json b.json --out out
-    python guagua.py report run --intent "..." --out out --plan      # 让 R01 自己拆卡
-    python guagua.py report check --html out/report.html
+用法（v11）：
+    唯一入口:  python guagua.py report run-line --intent "…" --dir <项目> --out <目录>
+    本模块是被调用的渲染/过账层，不再直接面向用户；命令行入口见 core/report_cli.py。
+    验成品:    python guagua.py report check --html out/report.html
 """
 from __future__ import annotations
 

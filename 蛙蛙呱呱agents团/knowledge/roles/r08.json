@@ -2,7 +2,7 @@
   "schema": "dsh.role_domain/v1",
   "role": "r08",
   "name": "蛙建成",
-  "title": "MVP 工程",
+  "title": "产品实现官 (MVP)",
   "domain": "快速验证与工程",
   "keywords": [
     "MVP",
@@ -118,5 +118,14 @@
     "结果",
     "决策",
     "下一步"
+  ],
+  "capabilities": [
+    "产品切片MVP",
+    "Spec转仓库",
+    "落地页H5",
+    "SaaS邮件脚手架",
+    "跨平台原型",
+    "组件设计实现",
+    "质量验证交接"
   ]
 }

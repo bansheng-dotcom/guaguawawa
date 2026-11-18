@@ -66,14 +66,12 @@ def cmd_plan(args) -> int:
 
 
 def cmd_build(args) -> int:
-    """单入口（v10.2）：决策契约 → 逐问作答 → 图由对照选型。
+    """[deprecated] 兼容名：等同 decide。
 
-    与 decide 是同一个实现：build 保留为兼容名，lens 已退役并被忽略。
+    v11 起「按报告类型筛方法」的参数已彻底删除（不再是「忽略的参数」，是不存在的参数）。
+    build 与 decide 都是 run-line 的过渡别名，P5 删除。
     """
     from core import decision_report
-    if getattr(args, "lens", None):
-        print("[deprecated] --lens 已退役：报告不再按 lens 砍问题/方法；该参数被忽略",
-              file=sys.stderr)
     try:
         res = decision_report.build(
             intent=args.intent, project_dir=args.dir, out_dir=args.out,
@@ -123,67 +121,8 @@ def cmd_run_line(args) -> int:
 
 
 def _deprecated(name: str) -> None:
-    print(f"[deprecated] report {name} 已下线；请用 report build（v10）",
+    print(f"[deprecated] report {name} 已下线；请用 report run-line（v11）",
           file=sys.stderr)
-
-
-def cmd_produce_alias(args) -> int:
-    """兼容别名：produce --thesis → decide（lens 已退役，仅提示）。"""
-    from core import decision_report, report_thesis
-    _deprecated("produce")
-    lens = report_thesis.LEGACY_LENS.get(args.thesis or "", None)
-    if lens:
-        print(f"[deprecated] --thesis {args.thesis} 原映射到 lens={lens}；"
-              "lens 已退役，按决策契约重新出题", file=sys.stderr)
-    res = decision_report.build(
-        intent=args.intent or "经营分析", project_dir=args.dir, out_dir=args.out,
-        min_binding=0.8, theme=args.theme, pdf=args.pdf, quote_mode=args.quote_mode,
-        audience=getattr(args, "audience", "业务负责人"))
-    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
-    return 0 if res.get("ok") else 1
-
-
-def cmd_pack_alias(args) -> int:
-    """兼容别名：pack 仍产出证据包 + brief。"""
-    from core import evidence_pack
-    _deprecated("pack")
-    try:
-        pack = evidence_pack.build(args.dir)
-    except FileNotFoundError as e:
-        print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False))
-        return 2
-    files = evidence_pack.write(pack, args.out)
-    print(json.dumps({"ok": True, "counts": pack["counts"], **files},
-                     ensure_ascii=False))
-    return 0
-
-
-def cmd_research_alias(args) -> int:
-    """兼容别名：research → decide（lens 已退役）。"""
-    from core import decision_report
-    _deprecated("research")
-    res = decision_report.build(
-        intent=args.topic, project_dir=args.dir, out_dir=args.out,
-        min_binding=0.8, quote_mode="warn", theme=args.theme, pdf=args.pdf)
-    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
-    return 0 if res.get("ok") else 1
-
-
-def cmd_run_alias(args) -> int:
-    """兼容别名：run 只在显式给 evidence+draft 时可用。"""
-    from core import report_flow
-    _deprecated("run")
-    if not (args.evidence and args.draft):
-        print(json.dumps({"ok": False,
-                          "error": "run 已下线；请用 report build --intent … --dir … --out …"},
-                         ensure_ascii=False))
-        return 2
-    draft = json.loads(Path(args.draft).read_text(encoding="utf-8-sig"))
-    res = report_flow.run(intent=args.intent, out_dir=args.out, draft=draft,
-                          evidence=args.evidence, theme=args.theme,
-                          pdf=args.pdf, quote_mode=args.quote_mode)
-    print(json.dumps(res, ensure_ascii=False))
-    return 0 if res.get("ok") else 1
 
 
 def cmd_check(args) -> int:
@@ -216,9 +155,8 @@ def cmd_gaps(args) -> int:
 
 def main(argv=None) -> int:
     from core.report_flow import THEMES, DEFAULT_THEME
-    from core import report_thesis as _thesis
     ap = argparse.ArgumentParser(prog="guagua report",
-                                 description="唯一报告产线：R01 出具，角色只交 result")
+                                 description="唯一报告产线：一条命令 + 四种输入（v11）")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     rl = sub.add_parser("run-line", help="v11 唯一入口（P1 转发）：一条命令 + 四种输入")
@@ -235,20 +173,14 @@ def main(argv=None) -> int:
     rl.set_defaults(func=cmd_run_line)
 
     b = sub.add_parser("build",
-                       help="兼容入口：等同 decide（决策契约优先；lens 已退役）")
+                       help="[deprecated] 兼容名：等同 decide；请用 run-line")
     b.add_argument("--intent", required=True)
     b.add_argument("--dir", required=True)
     b.add_argument("--out", required=True)
-    b.add_argument("--lens", choices=("market", "ops", "chain", "fix"), default=None,
-                   help="[deprecated] lens 已退役，传了也会被忽略")
     b.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="strict")
-    b.add_argument("--min-coverage", type=float, default=0.8,
-                   help="[deprecated] 覆盖度不再决定放行；改用 --min-binding")
     b.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
     b.add_argument("--pdf", action="store_true")
     b.add_argument("--audience", default="业务负责人")
-    b.add_argument("--record-outcomes", action="store_true",
-                   help="[deprecated] 结果台账改由 decide 的 outcome 绑定负责")
     b.add_argument("--outcome-deadline", default=None, help="YYYY-MM-DD")
     b.set_defaults(func=cmd_build)
 
@@ -267,45 +199,8 @@ def main(argv=None) -> int:
     d.add_argument("--audience", default="业务负责人")
     d.set_defaults(func=cmd_decide)
 
-    # P9：兼容别名（隐藏）。至少保留一个版本，旧脚本不炸。
-    pr = sub.add_parser("produce", help="[deprecated] produce → build")
-    pr.add_argument("--intent", default=None)
-    pr.add_argument("--profile", default=None)
-    pr.add_argument("--dir", required=True)
-    pr.add_argument("--out", required=True)
-    pr.add_argument("--thesis", default=None,
-                    choices=list(_thesis.THESES) + list(_thesis.LEGACY_LENS))
-    pr.add_argument("--draft", default=None)
-    pr.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    pr.add_argument("--pdf", action="store_true")
-    pr.add_argument("--audience", default="业务负责人")
-    pr.add_argument("--require-contract", action="store_true")
-    pr.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn")
-    pr.set_defaults(func=cmd_produce_alias)
-
-    pk = sub.add_parser("pack", help="[deprecated] pack → 证据包")
-    pk.add_argument("--dir", required=True)
-    pk.add_argument("--out", required=True)
-    pk.set_defaults(func=cmd_pack_alias)
-
-    rs = sub.add_parser("research", help="[deprecated] research → build --lens market")
-    rs.add_argument("--topic", required=True)
-    rs.add_argument("--dir", required=True)
-    rs.add_argument("--out", required=True)
-    rs.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    rs.add_argument("--pdf", action="store_true")
-    rs.set_defaults(func=cmd_research_alias)
-
-    r = sub.add_parser("run", help="[deprecated] run 仅兼容 evidence+draft")
-    r.add_argument("--intent", required=True)
-    r.add_argument("--out", required=True)
-    r.add_argument("--evidence", default=None)
-    r.add_argument("--draft", default=None)
-    r.add_argument("--results", nargs="*", default=[])
-    r.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    r.add_argument("--pdf", action="store_true")
-    r.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="warn")
-    r.set_defaults(func=cmd_run_alias)
+    # v11：produce / pack / research / run 四个别名已删除（SOP P1.7）。
+    # 过渡期只保留 build 与 decide 两个名，P5 一起删，最终只剩 run-line。
 
     c = sub.add_parser("check", help="验一份成品报告")
     c.add_argument("--html", required=True)

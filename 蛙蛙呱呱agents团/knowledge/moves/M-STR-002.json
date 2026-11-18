@@ -11,11 +11,23 @@
     "concept": "战略内核 = 诊断（diagnosis）+ 指导方针（guiding policy）+ 连贯动作（coherent actions）；坏战略 = 空话、目标当战略、模板"
   },
   "trigger": {
-    "decision": ["怎么整改", "是否进入", "资源往哪压"],
-    "data_shape": ["多品类", "多环节", "有明确亏损或瓶颈"],
+    "decision": [
+      "怎么整改",
+      "是否进入",
+      "资源往哪压"
+    ],
+    "data_shape": [
+      "多品类",
+      "多环节",
+      "有明确亏损或瓶颈"
+    ],
     "min_evidence": "能指出一个具体 bottleneck，且能列出 3 条以上互相支撑的动作"
   },
-  "inputs": ["负毛利/瓶颈清单", "成本结构", "可选动作清单"],
+  "inputs": [
+    "负毛利/瓶颈清单",
+    "成本结构",
+    "可选动作清单"
+  ],
   "procedure": [
     "先写诊断：把问题收敛到一个 bottleneck，不写三个以上",
     "再写指导方针：一句话说明资源往哪压、放弃什么",
@@ -34,7 +46,7 @@
     "claim_kind": "gap",
     "frame": "analysis",
     "gate": "Q1/Q4",
-    "test": "tests/test_report_build.py::test_questions_from_findings_maps_known_keys"
+    "test": "tests/test_decision_report.py::test_validate_rejects_chart_that_cannot_encode_comparison"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",

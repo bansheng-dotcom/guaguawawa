@@ -47,7 +47,7 @@
     "claim_kind": "unit",
     "frame": "analysis",
     "gate": "Q2/Q4",
-    "test": "tests/test_analysis_line.py::test_unit_economics_reproduces_reference_numbers"
+    "test": "tests/test_report_sections.py::test_sections_validate_and_render"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",

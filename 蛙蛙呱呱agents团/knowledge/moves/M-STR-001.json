@@ -11,11 +11,23 @@
     "concept": "七步法：定义问题 → 拆解（issue tree）→ 排序 → 工作计划 → 分析 → 综合 → 沟通"
   },
   "trigger": {
-    "decision": ["先做哪一段", "怎么整改", "是否进入"],
-    "data_shape": ["多品类", "多区域", "多环节"],
+    "decision": [
+      "先做哪一段",
+      "怎么整改",
+      "是否进入"
+    ],
+    "data_shape": [
+      "多品类",
+      "多区域",
+      "多环节"
+    ],
     "min_evidence": "至少有 3 个互斥的切分维度，且每个维度能取到数"
   },
-  "inputs": ["决策问题", "可切分维度", "每个维度的数据可得性"],
+  "inputs": [
+    "决策问题",
+    "可切分维度",
+    "每个维度的数据可得性"
+  ],
   "procedure": [
     "把母问题改写成「是否 / 如何 / 为什么」",
     "用 MECE 切 3—5 支，每支写成一句可证伪假设",
@@ -34,7 +46,7 @@
     "claim_kind": "gap",
     "frame": "analysis",
     "gate": "Q1/Q2",
-    "test": "tests/test_report_build.py::test_select_questions_market_has_at_least_three"
+    "test": "tests/test_decision_report.py::test_decision_build_end_to_end"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",

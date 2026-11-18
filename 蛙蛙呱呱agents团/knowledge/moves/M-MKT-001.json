@@ -46,7 +46,7 @@
     "claim_kind": "mix",
     "frame": "market",
     "gate": "Q2",
-    "test": "tests/test_deep_line.py::test_market_methods_produce_claims_and_refs"
+    "test": "tests/test_decision_report.py::test_choose_chart_follows_comparison_and_fills_contract"
   },
   "acceptance": {
     "fixture": "待接入：workspace/olist_v4_demo（有客户与订单）",

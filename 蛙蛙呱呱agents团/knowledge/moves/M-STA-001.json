@@ -11,11 +11,21 @@
     "concept": "基准率忽视、锚定、回归均值；先问「这类事通常怎样」，再问「这次为什么不同」"
   },
   "trigger": {
-    "decision": ["这个差异是不是真的", "要不要为单点异常立项"],
-    "data_shape": ["多期", "同类实体可横向比较"],
+    "decision": [
+      "这个差异是不是真的",
+      "要不要为单点异常立项"
+    ],
+    "data_shape": [
+      "多期",
+      "同类实体可横向比较"
+    ],
     "min_evidence": "至少 3 个同类样本或 6 期历史；否则只能写「待验证」"
   },
-  "inputs": ["历史分布或同类基准", "本期值", "样本量"],
+  "inputs": [
+    "历史分布或同类基准",
+    "本期值",
+    "样本量"
+  ],
   "procedure": [
     "先找基准：同类品类/地区/年份的通常水平",
     "算偏离：比基准高/低多少，是几个标准差",
@@ -34,7 +44,7 @@
     "claim_kind": "gap",
     "frame": "market",
     "gate": "Q4",
-    "test": "tests/test_deep_line.py::test_claim_finalize_requires_tags"
+    "test": "tests/test_analysis_upgrade.py::test_flow_contract_structure_and_traceability"
   },
   "acceptance": {
     "fixture": "家居百货内蒙调研_2026-11-15",

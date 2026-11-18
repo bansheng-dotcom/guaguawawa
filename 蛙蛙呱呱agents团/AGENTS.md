@@ -28,10 +28,10 @@ python guagua.py info r06                  # 看某个角色的契约
 python guagua.py call r06 --help           # 看它能做什么
 python guagua.py skills                    # 看已升级的技能包
 python guagua.py plan "你的经营目标"         # 让 R01 拆任务卡
-python guagua.py report build --intent "…" --dir <项目> --out <目录> --lens market  # v10 唯一入口：问题树 → coverage → 报告
+python guagua.py report run-line --intent "…" --dir <项目> --out <目录>  # v11 唯一入口：一条命令 + 四种输入
 python guagua.py report check --html <报告>                                  # 验收成品
-# 旧 run / pack / produce / research 已在 v10 删除；诊断用 capabilities / plan
-# 完整入口与产线地图见 docs/REPORT-LINES.md；旧 --profile 已删除
+# 旧 run / pack / produce / research / --lens / --thesis 已退役；诊断用 capabilities / plan
+# 完整入口与产线地图见 docs/REPORT-LINES.md
 ```
 
 ## 四条铁律
@@ -45,7 +45,7 @@ python guagua.py report check --html <报告>                                  #
 
 ```bash
 python guagua.py check                     # 20 角色入口不回归
-python scripts/ci_report_checks.py         # 报告产线：build market/ops + 门禁 + 图型 + 风格
+python scripts/ci_report_checks.py         # 报告产线：run-line + 门禁 + 图型 + 风格
 python scripts/ci_upgrade_checks.py        # 方法与评测：方法包 / 评测回归 / 技能结论
 python scripts/check_skill_gate.py         # 技能包门槛 + 黄金快照无退化
 python scripts/audit_skill_layer.py --check-refs --min 75   # 技能卡 ≥75 分 + 悬空指针 0

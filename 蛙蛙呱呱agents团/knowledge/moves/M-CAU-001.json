@@ -11,11 +11,22 @@
     "concept": "潜在结果框架与选择偏差；IV / DiD / RDD / 回归作为识别策略，而不是「跑个回归」"
   },
   "trigger": {
-    "decision": ["要不要改策略", "某个差异是不是结构性的"],
-    "data_shape": ["多期", "有对照地区/品类", "有政策或外生冲击"],
+    "decision": [
+      "要不要改策略",
+      "某个差异是不是结构性的"
+    ],
+    "data_shape": [
+      "多期",
+      "有对照地区/品类",
+      "有政策或外生冲击"
+    ],
     "min_evidence": "至少 6 期，或有一个可比对照组；否则只能到 L2"
   },
-  "inputs": ["处理组与对照组", "政策/冲击时点", "共同趋势的检验数据"],
+  "inputs": [
+    "处理组与对照组",
+    "政策/冲击时点",
+    "共同趋势的检验数据"
+  ],
   "procedure": [
     "先写明反事实：如果没有这个因素，结果会是什么",
     "列出至少 2 个混杂因素，并说明数据能否排除",
@@ -34,7 +45,7 @@
     "claim_kind": "gap",
     "frame": "market / operations",
     "gate": "待接入：C1_causal_language（当前是软告警）",
-    "test": "tests/test_deep_line.py::test_claim_finalize_requires_tags"
+    "test": "tests/test_report_sections.py::test_fabricated_number_is_rejected"
   },
   "acceptance": {
     "fixture": "家居百货内蒙调研_2026-11-15（金银珠宝 -22.8pp）",

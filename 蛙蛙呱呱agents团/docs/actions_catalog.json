@@ -3,8 +3,8 @@
   "python": "3.12.7",
   "summary": {
     "roles": 20,
-    "skills": 174,
-    "actions": 411
+    "skills": 195,
+    "actions": 443
   },
   "errors": [],
   "roles": [
@@ -13,8 +13,8 @@
       "name": "蛙全局",
       "title": "CEO 主理人 / 编排器",
       "dir": "r01-waquanju-ceo",
-      "skill_count": 7,
-      "action_count": 21,
+      "skill_count": 9,
+      "action_count": 25,
       "skills": [
         {
           "name": "intent",
@@ -498,6 +498,104 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "ev",
+          "desc": "决策期望值：EV 排序 + 盈亏平衡 p + 敏感性",
+          "file": "r01-waquanju-ceo/skills/s08_ev.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "JSON，含 options[]"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "interpret",
+          "desc": "解读：result → 带数字的判断（结论/驱动/边界/动作），供 R01 出唯一报告",
+          "file": "r01-waquanju-ceo/skills/s09_interpret.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "judge",
+              "help": "result(s) → 带数字的判断",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "{\"intent\",\"branch\",\"evidences\":[...],\"draft\"?}"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "check",
+              "help": "只校验一份判断稿，不产出",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "sections",
+              "help": "章节级校验：每节标题带数、refs 可解释、图带来源",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "{\"draft\":{...sections...},\"pack\":{...}}"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -506,8 +604,8 @@
       "name": "蛙排布",
       "title": "COO 首席运营官",
       "dir": "r02-wapaibu-coo",
-      "skill_count": 7,
-      "action_count": 21,
+      "skill_count": 9,
+      "action_count": 23,
       "skills": [
         {
           "name": "schedule",
@@ -988,6 +1086,103 @@
                 }
               ],
               "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "little",
+          "desc": "利特尔法则：WIP = 到达率 × 周期（瓶颈判断）",
+          "file": "r02-wapaibu-coo/skills/s10_little.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "arrival",
+                "cycle"
+              ],
+              "required_detail": [
+                {
+                  "name": "arrival",
+                  "flags": [
+                    "--arrival"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "件/天"
+                },
+                {
+                  "name": "cycle",
+                  "flags": [
+                    "--cycle"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "周期（天）"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "queue",
+          "desc": "排队等待：Kingman 近似（利用率/等待/在制品）",
+          "file": "r02-wapaibu-coo/skills/s11_queue.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "arrivals",
+                "service"
+              ],
+              "required_detail": [
+                {
+                  "name": "arrivals",
+                  "flags": [
+                    "--arrivals"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "日均到达"
+                },
+                {
+                  "name": "service",
+                  "flags": [
+                    "--service"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "日均服务能力"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "cv_arrival",
+                  "flags": [
+                    "--cv-arrival"
+                  ],
+                  "type": "float",
+                  "default": 1.0,
+                  "help": ""
+                },
+                {
+                  "name": "cv_service",
+                  "flags": [
+                    "--cv-service"
+                  ],
+                  "type": "float",
+                  "default": 1.0,
+                  "help": ""
+                }
+              ],
               "positional": []
             }
           ]
@@ -1974,8 +2169,8 @@
       "name": "蛙深远",
       "title": "战略研究官",
       "dir": "r05-washenyuan-research",
-      "skill_count": 7,
-      "action_count": 14,
+      "skill_count": 9,
+      "action_count": 16,
       "skills": [
         {
           "name": "research",
@@ -2319,6 +2514,134 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "matched",
+          "desc": "匹配差分：两组均值差 + 自助法 CI + 置换 p",
+          "file": "r05-washenyuan-research/skills/s09_matched.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "treat",
+                "control",
+                "col"
+              ],
+              "required_detail": [
+                {
+                  "name": "treat",
+                  "flags": [
+                    "--treat"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "control",
+                  "flags": [
+                    "--control"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "col",
+                  "flags": [
+                    "--col"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "tam-mc",
+          "desc": "TAM 蒙特卡洛：渗透率×ARPU，输出 p10/p50/p90",
+          "file": "r05-washenyuan-research/skills/s10_tam_mc.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "population",
+                "pen_low",
+                "pen_high",
+                "arpu_low",
+                "arpu_high"
+              ],
+              "required_detail": [
+                {
+                  "name": "population",
+                  "flags": [
+                    "--population"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "pen_low",
+                  "flags": [
+                    "--pen-low"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "pen_high",
+                  "flags": [
+                    "--pen-high"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "arpu_low",
+                  "flags": [
+                    "--arpu-low"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "arpu_high",
+                  "flags": [
+                    "--arpu-high"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "n",
+                  "flags": [
+                    "--n"
+                  ],
+                  "type": "int",
+                  "default": 10000,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -2327,8 +2650,8 @@
       "name": "蛙得清",
       "title": "数据分析师",
       "dir": "r06-wadeqing-analyst",
-      "skill_count": 17,
-      "action_count": 39,
+      "skill_count": 21,
+      "action_count": 43,
       "skills": [
         {
           "name": "semantics",
@@ -3386,7 +3709,7 @@
         },
         {
           "name": "regression",
-          "desc": "一元 OLS 线性回归 + R² + 标准化 beta（能力域5拆细·新增）",
+          "desc": "回归：一元 OLS（兼容）+ 多元 OLS / Logit + 聚类稳健 SE",
           "file": "r06-wadeqing-analyst/skills/s05_regression.py",
           "extract_mode": "argparse_single",
           "error": "",
@@ -3416,7 +3739,7 @@
                   ],
                   "type": "str",
                   "default": null,
-                  "help": "自变量（连续）"
+                  "help": "自变量；逗号分隔多列（多列或给 --cluster/--model 时走多元路径）"
                 },
                 {
                   "name": "y",
@@ -3425,10 +3748,38 @@
                   ],
                   "type": "str",
                   "default": null,
-                  "help": "因变量（连续）"
+                  "help": "因变量"
                 }
               ],
-              "optional": [],
+              "optional": [
+                {
+                  "name": "cluster",
+                  "flags": [
+                    "--cluster"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "聚类列（按簇稳健 SE）"
+                },
+                {
+                  "name": "model",
+                  "flags": [
+                    "--model"
+                  ],
+                  "type": "str",
+                  "default": "ols",
+                  "help": "ols=线性；logit=二分类（y 必须 0/1）"
+                },
+                {
+                  "name": "categorical",
+                  "flags": [
+                    "--categorical"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "逗号分隔的类别自变量（自动哑变量）"
+                }
+              ],
               "positional": []
             }
           ]
@@ -3651,6 +4002,237 @@
                   "help": ""
                 }
               ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "matched",
+          "desc": "匹配差分：原味 / PSM（协变量+平衡+卡尺）/ PSM+反驳",
+          "file": "r06-wadeqing-analyst/skills/s05_matched.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "treat",
+                "control",
+                "col"
+              ],
+              "required_detail": [
+                {
+                  "name": "treat",
+                  "flags": [
+                    "--treat"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "control",
+                  "flags": [
+                    "--control"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "col",
+                  "flags": [
+                    "--col"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "结果列"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "covariates",
+                  "flags": [
+                    "--covariates"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "逗号分隔协变量；给了才走 PSM"
+                },
+                {
+                  "name": "cluster",
+                  "flags": [
+                    "--cluster"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "聚类列（按簇自助）"
+                },
+                {
+                  "name": "refute",
+                  "flags": [
+                    "--refute"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "安慰剂+子集反驳"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "did",
+          "desc": "DID：2×2 / TWFE / 事件研究 / 安慰剂 / 交错处理",
+          "file": "r06-wadeqing-analyst/skills/s05_did.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "input",
+                "y",
+                "treat",
+                "post"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "y",
+                  "flags": [
+                    "--y"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "treat",
+                  "flags": [
+                    "--treat"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "post",
+                  "flags": [
+                    "--post"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "unit",
+                  "flags": [
+                    "--unit"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "time",
+                  "flags": [
+                    "--time"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "event_study",
+                  "flags": [
+                    "--event-study"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": ""
+                },
+                {
+                  "name": "placebo",
+                  "flags": [
+                    "--placebo"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": ""
+                },
+                {
+                  "name": "staggered",
+                  "flags": [
+                    "--staggered"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "elasticity",
+          "desc": "价格弹性：log-log OLS + R²（能力域5拆细·新增）",
+          "file": "r06-wadeqing-analyst/skills/s05_elasticity.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "input",
+                "price",
+                "qty"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "price",
+                  "flags": [
+                    "--price"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "价格列"
+                },
+                {
+                  "name": "qty",
+                  "flags": [
+                    "--qty"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "销量列"
+                }
+              ],
+              "optional": [],
               "positional": []
             }
           ]
@@ -4010,6 +4592,93 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "rdd",
+          "desc": "断点回归：局部线性 / 敏感性（带宽+安慰剂+密度+二次校正+协变量）",
+          "file": "r06-wadeqing-analyst/skills/s05_rdd.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "input",
+                "y",
+                "running",
+                "cutoff"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "y",
+                  "flags": [
+                    "--y"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "running",
+                  "flags": [
+                    "--running"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "cutoff",
+                  "flags": [
+                    "--cutoff"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "bandwidth",
+                  "flags": [
+                    "--bandwidth"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "sensitivity",
+                  "flags": [
+                    "--sensitivity"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": ""
+                },
+                {
+                  "name": "covariates",
+                  "flags": [
+                    "--covariates"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "逗号分隔协变量，用于断点平衡"
+                }
+              ],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -4018,8 +4687,8 @@
       "name": "蛙得明",
       "title": "产品经理",
       "dir": "r07-wademing-pm",
-      "skill_count": 9,
-      "action_count": 31,
+      "skill_count": 10,
+      "action_count": 32,
       "skills": [
         {
           "name": "prdguard",
@@ -4731,6 +5400,35 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "rice",
+          "desc": "RICE 排序：Reach×Impact×Confidence/Effort + 敏感性",
+          "file": "r07-wademing-pm/skills/s10_rice.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "JSON，含 items[]"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -4739,8 +5437,8 @@
       "name": "蛙建成",
       "title": "产品实现官 (MVP)",
       "dir": "r08-wajiancheng-mvp",
-      "skill_count": 11,
-      "action_count": 24,
+      "skill_count": 10,
+      "action_count": 22,
       "skills": [
         {
           "name": "slice",
@@ -5189,65 +5887,6 @@
                   "help": "主色（十六进制）"
                 }
               ],
-              "positional": []
-            }
-          ]
-        },
-        {
-          "name": "htmlreport",
-          "desc": "单文件 HTML 报告：plan/html",
-          "file": "r08-wajiancheng-mvp/skills/s09_htmlreport.py",
-          "extract_mode": "argparse",
-          "error": "",
-          "actions": [
-            {
-              "name": "plan",
-              "help": "校验报告结构",
-              "required": [
-                "input"
-              ],
-              "required_detail": [
-                {
-                  "name": "input",
-                  "flags": [
-                    "--input"
-                  ],
-                  "type": "str",
-                  "default": null,
-                  "help": ""
-                }
-              ],
-              "optional": [],
-              "positional": []
-            },
-            {
-              "name": "html",
-              "help": "渲染单文件 HTML",
-              "required": [
-                "input",
-                "out"
-              ],
-              "required_detail": [
-                {
-                  "name": "input",
-                  "flags": [
-                    "--input"
-                  ],
-                  "type": "str",
-                  "default": null,
-                  "help": ""
-                },
-                {
-                  "name": "out",
-                  "flags": [
-                    "--out"
-                  ],
-                  "type": "str",
-                  "default": null,
-                  "help": ""
-                }
-              ],
-              "optional": [],
               "positional": []
             }
           ]
@@ -5828,7 +6467,7 @@
       "title": "视觉设计官",
       "dir": "r10-wachengmei-design",
       "skill_count": 14,
-      "action_count": 39,
+      "action_count": 47,
       "skills": [
         {
           "name": "imagegen",
@@ -5837,6 +6476,162 @@
           "extract_mode": "argparse",
           "error": "",
           "actions": [
+            {
+              "name": "compose",
+              "help": "确定性出提示词（不依赖 LLM / 引擎，拿来就能用）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "设计需求 JSON（与 --need 至少给一个）"
+                },
+                {
+                  "name": "need",
+                  "flags": [
+                    "--need"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "一句话需求，如：中秋蔬菜礼盒主图，暖色调，突出新鲜"
+                },
+                {
+                  "name": "ref",
+                  "flags": [
+                    "--ref"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "参考设计系统（如 linear / apple / notion），注入其配色与氛围"
+                },
+                {
+                  "name": "style",
+                  "flags": [
+                    "--style"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "风格名，如 flat / 3d-food / kawaii"
+                },
+                {
+                  "name": "media",
+                  "flags": [
+                    "--media"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "载体，如 image / poster / packaging"
+                },
+                {
+                  "name": "output_dir",
+                  "flags": [
+                    "--output-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "format",
+                  "flags": [
+                    "--format"
+                  ],
+                  "type": "str",
+                  "default": "md",
+                  "help": "输出格式（都会落盘）"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "refs",
+              "help": "设计参考库：知名网站的设计系统（颜色/字体/氛围）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "query",
+                  "flags": [
+                    "--query"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "关键词检索，如 dark cinematic / playful"
+                },
+                {
+                  "name": "site",
+                  "flags": [
+                    "--site"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "按名称取细节，如 linear"
+                },
+                {
+                  "name": "rebuild",
+                  "flags": [
+                    "--rebuild"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "重建索引"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "inspire",
+              "help": "灵感检索计划：站点清单 + 搜索词 + 版权规则",
+              "required": [
+                "need"
+              ],
+              "required_detail": [
+                {
+                  "name": "need",
+                  "flags": [
+                    "--need"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "灵感主题，如：高原蔬菜包装的高级感"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "category",
+                  "flags": [
+                    "--category"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "限定类别：ui/web/brand/packaging/type/illustration/photo/color/motion/cn/trend"
+                },
+                {
+                  "name": "fetch",
+                  "flags": [
+                    "--fetch"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "尝试抓取公开页面元信息（需联网）"
+                },
+                {
+                  "name": "limit",
+                  "flags": [
+                    "--limit"
+                  ],
+                  "type": "int",
+                  "default": 6,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
             {
               "name": "prompt",
               "help": "校验生图提示词包",
@@ -5886,6 +6681,105 @@
               "positional": []
             },
             {
+              "name": "catalog",
+              "help": "生成能力目录：载体 × 风格矩阵 + catalog.html",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "output_dir",
+                  "flags": [
+                    "--output-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "目录输出位置"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "admit",
+              "help": "按准入判据给出升降级建议（只报不改）",
+              "required": [],
+              "required_detail": [],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "engines",
+              "help": "列出可接入的生图引擎与接入开关（env）",
+              "required": [],
+              "required_detail": [],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "pack",
+              "help": "生成基准提示词包（每风格 N 份，不调用渲染器）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "output_dir",
+                  "flags": [
+                    "--output-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "seeds",
+                  "flags": [
+                    "--seeds"
+                  ],
+                  "type": "int",
+                  "default": 3,
+                  "help": ""
+                },
+                {
+                  "name": "subject",
+                  "flags": [
+                    "--subject"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "统一主体（覆盖默认轮换）"
+                },
+                {
+                  "name": "subjects",
+                  "flags": [
+                    "--subjects"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "逗号分隔的多个主体，按 seed 轮换，如 \"陶瓷杯,青蛙吉祥物,高原菜田\""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "score",
+              "help": "对已生成图做客观评分（占位检测 + 色板/画幅）",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
               "name": "generate",
               "help": "执行全自动 AI 生图、LLM 扩写、VLM 质检反思与商用排版闭环管线",
               "required": [
@@ -5929,6 +6823,15 @@
                   "type": "str",
                   "default": null,
                   "help": "高清大图输出目录"
+                },
+                {
+                  "name": "dry_run",
+                  "flags": [
+                    "--dry-run"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": "只出「最终会发出去的 prompt/负向/尺寸/风险」，不调用任何引擎"
                 }
               ],
               "positional": []
@@ -5978,6 +6881,15 @@
                   "type": "str",
                   "default": null,
                   "help": "指定生图引擎"
+                },
+                {
+                  "name": "style",
+                  "flags": [
+                    "--style"
+                  ],
+                  "type": "str",
+                  "default": "commercial-photography",
+                  "help": "改稿风格（走注册表解析，如 flat / 3d-food）"
                 },
                 {
                   "name": "output_dir",
@@ -7124,7 +8036,7 @@
       "title": "内容主笔",
       "dir": "r11-wadianti-copy",
       "skill_count": 9,
-      "action_count": 20,
+      "action_count": 21,
       "skills": [
         {
           "name": "topic",
@@ -7422,7 +8334,7 @@
         },
         {
           "name": "platform",
-          "desc": "多平台适配：adapt/publish",
+          "desc": "多平台适配：adapt/publish/visual",
           "file": "r11-wadianti-copy/skills/s07_platform.py",
           "extract_mode": "argparse",
           "error": "",
@@ -7465,6 +8377,45 @@
                 }
               ],
               "optional": [],
+              "positional": []
+            },
+            {
+              "name": "visual",
+              "help": "配图需求 → 调用 R10 生图提示词",
+              "required": [
+                "need"
+              ],
+              "required_detail": [
+                {
+                  "name": "need",
+                  "flags": [
+                    "--need"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "一句话配图需求，如：中秋节蔬菜礼盒封面图"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "style",
+                  "flags": [
+                    "--style"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选风格，如 3d-food / flat"
+                },
+                {
+                  "name": "media",
+                  "flags": [
+                    "--media"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选载体，如 poster / social-card"
+                }
+              ],
               "positional": []
             }
           ]
@@ -7602,8 +8553,8 @@
       "name": "蛙引流",
       "title": "增长运营官",
       "dir": "r12-wayingliu-growth",
-      "skill_count": 9,
-      "action_count": 18,
+      "skill_count": 12,
+      "action_count": 21,
       "skills": [
         {
           "name": "diagnose",
@@ -8033,6 +8984,200 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "ltv-cac",
+          "desc": "LTV/CAC：回收月数 + 健康判定",
+          "file": "r12-wayingliu-growth/skills/s10_ltv_cac.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "arpu",
+                "gm",
+                "churn",
+                "cac"
+              ],
+              "required_detail": [
+                {
+                  "name": "arpu",
+                  "flags": [
+                    "--arpu"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "gm",
+                  "flags": [
+                    "--gm"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "毛利率 0—1"
+                },
+                {
+                  "name": "churn",
+                  "flags": [
+                    "--churn"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "月流失率 0—1"
+                },
+                {
+                  "name": "cac",
+                  "flags": [
+                    "--cac"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "mmm",
+          "desc": "MMM：OLS / 深度（adstock+饱和+ridge+留出）/ 预算分配 / 贡献 CI",
+          "file": "r12-wayingliu-growth/skills/s11_mmm.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "input",
+                "y",
+                "channels"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "y",
+                  "flags": [
+                    "--y"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "channels",
+                  "flags": [
+                    "--channels"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "deep",
+                  "flags": [
+                    "--deep"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": ""
+                },
+                {
+                  "name": "budget",
+                  "flags": [
+                    "--budget"
+                  ],
+                  "type": "float",
+                  "default": 0.0,
+                  "help": "总预算；>0 时给分配"
+                },
+                {
+                  "name": "bootstrap",
+                  "flags": [
+                    "--bootstrap"
+                  ],
+                  "type": "int",
+                  "default": 0,
+                  "help": "贡献 CI 的自助次数"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "power",
+          "desc": "实验功效：两比例样本量（baseline/MDE/alpha/power）",
+          "file": "r12-wayingliu-growth/skills/s12_power.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "baseline",
+                "mde"
+              ],
+              "required_detail": [
+                {
+                  "name": "baseline",
+                  "flags": [
+                    "--baseline"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "mde",
+                  "flags": [
+                    "--mde"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "alpha",
+                  "flags": [
+                    "--alpha"
+                  ],
+                  "type": "float",
+                  "default": 0.05,
+                  "help": ""
+                },
+                {
+                  "name": "power",
+                  "flags": [
+                    "--power"
+                  ],
+                  "type": "float",
+                  "default": 0.8,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -8431,12 +9576,12 @@
       "name": "蛙交易",
       "title": "交易与收入履约官",
       "dir": "r14-wajiaoyi-commerce",
-      "skill_count": 9,
-      "action_count": 19,
+      "skill_count": 10,
+      "action_count": 21,
       "skills": [
         {
           "name": "catalog",
-          "desc": "商品与电商后端：product/price",
+          "desc": "商品与电商后端：product/price/image",
           "file": "r14-wajiaoyi-commerce/skills/s01_catalog.py",
           "extract_mode": "argparse",
           "error": "",
@@ -8479,6 +9624,45 @@
                 }
               ],
               "optional": [],
+              "positional": []
+            },
+            {
+              "name": "image",
+              "help": "商品图需求 → 调用 R10 生图提示词",
+              "required": [
+                "need"
+              ],
+              "required_detail": [
+                {
+                  "name": "need",
+                  "flags": [
+                    "--need"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "一句话需求，如：冷凉蔬菜礼盒白底主图"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "style",
+                  "flags": [
+                    "--style"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选风格，如 3d-food / studio-still"
+                },
+                {
+                  "name": "media",
+                  "flags": [
+                    "--media"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选载体，如 image / poster"
+                }
+              ],
               "positional": []
             }
           ]
@@ -8894,6 +10078,92 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "elasticity",
+          "desc": "价格弹性：log-log OLS / 面板 FE / 2SLS（带 CI 与诊断）",
+          "file": "r14-wajiaoyi-commerce/skills/s10_elasticity.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "input",
+                "price",
+                "qty"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "price",
+                  "flags": [
+                    "--price"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "qty",
+                  "flags": [
+                    "--qty"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "unit",
+                  "flags": [
+                    "--unit"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "time",
+                  "flags": [
+                    "--time"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "instrument",
+                  "flags": [
+                    "--instrument"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "controls",
+                  "flags": [
+                    "--controls"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "逗号分隔控制变量"
+                }
+              ],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -8902,8 +10172,8 @@
       "name": "蛙供应",
       "title": "ERP 与供应链运营官",
       "dir": "r15-wagongying-erp",
-      "skill_count": 8,
-      "action_count": 20,
+      "skill_count": 10,
+      "action_count": 22,
       "skills": [
         {
           "name": "procurement",
@@ -9376,6 +10646,169 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "safety-stock",
+          "desc": "安全库存：z × σ_d × √LT（库存优化）",
+          "file": "r15-wagongying-erp/skills/s11_safety_stock.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "sigma",
+                "lead"
+              ],
+              "required_detail": [
+                {
+                  "name": "sigma",
+                  "flags": [
+                    "--sigma"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "日需求标准差"
+                },
+                {
+                  "name": "lead",
+                  "flags": [
+                    "--lead"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "提前期（天）"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "z",
+                  "flags": [
+                    "--z"
+                  ],
+                  "type": "float",
+                  "default": 1.65,
+                  "help": "服务水平系数，默认 95%"
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "fulfill-sim",
+          "desc": "履约仿真：履约率/缺货/库存；可选 (s,S)+随机提前期",
+          "file": "r15-wagongying-erp/skills/s12_fulfill_sim.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "demand",
+                "sd",
+                "lead",
+                "capacity"
+              ],
+              "required_detail": [
+                {
+                  "name": "demand",
+                  "flags": [
+                    "--demand"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "sd",
+                  "flags": [
+                    "--sd"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "lead",
+                  "flags": [
+                    "--lead"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "capacity",
+                  "flags": [
+                    "--capacity"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "days",
+                  "flags": [
+                    "--days"
+                  ],
+                  "type": "int",
+                  "default": 30,
+                  "help": ""
+                },
+                {
+                  "name": "sims",
+                  "flags": [
+                    "--sims"
+                  ],
+                  "type": "int",
+                  "default": 1000,
+                  "help": ""
+                },
+                {
+                  "name": "lead_sd",
+                  "flags": [
+                    "--lead-sd"
+                  ],
+                  "type": "float",
+                  "default": 0.0,
+                  "help": "提前期标准差；>0 走深度"
+                },
+                {
+                  "name": "s",
+                  "flags": [
+                    "--s"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "补货点"
+                },
+                {
+                  "name": "S",
+                  "flags": [
+                    "--S"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "补货上限"
+                },
+                {
+                  "name": "warmup",
+                  "flags": [
+                    "--warmup"
+                  ],
+                  "type": "float",
+                  "default": 0.1,
+                  "help": "预热比例"
+                }
+              ],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -9384,8 +10817,8 @@
       "name": "蛙人事",
       "title": "人员与组织运营官",
       "dir": "r16-warenshi-hr",
-      "skill_count": 7,
-      "action_count": 16,
+      "skill_count": 8,
+      "action_count": 17,
       "skills": [
         {
           "name": "recruit",
@@ -9769,6 +11202,75 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "funnel",
+          "desc": "招聘漏斗：投递→筛选→面试→Offer→入职转化与瓶颈",
+          "file": "r16-warenshi-hr/skills/s08_funnel.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "applied",
+                "screened",
+                "interviewed",
+                "offers",
+                "hires"
+              ],
+              "required_detail": [
+                {
+                  "name": "applied",
+                  "flags": [
+                    "--applied"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "screened",
+                  "flags": [
+                    "--screened"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "interviewed",
+                  "flags": [
+                    "--interviewed"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "offers",
+                  "flags": [
+                    "--offers"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "hires",
+                  "flags": [
+                    "--hires"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -9777,8 +11279,8 @@
       "name": "蛙织网",
       "title": "自动化与集成工程师",
       "dir": "r17-wazhiwang-automation",
-      "skill_count": 8,
-      "action_count": 16,
+      "skill_count": 9,
+      "action_count": 17,
       "skills": [
         {
           "name": "integration",
@@ -10171,6 +11673,45 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "retry-model",
+          "desc": "重试可靠性模型（retry-model）：最终成功率/期望尝试/失败概率",
+          "file": "r17-wazhiwang-automation/skills/s09_retry_model.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "success_prob",
+                "max_attempts"
+              ],
+              "required_detail": [
+                {
+                  "name": "success_prob",
+                  "flags": [
+                    "--success-prob"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "max_attempts",
+                  "flags": [
+                    "--max-attempts"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -10179,8 +11720,8 @@
       "name": "蛙数仓",
       "title": "数据工程与管道官",
       "dir": "r18-washucang-dataeng",
-      "skill_count": 7,
-      "action_count": 14,
+      "skill_count": 8,
+      "action_count": 15,
       "skills": [
         {
           "name": "elt",
@@ -10524,6 +12065,55 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "profile",
+          "desc": "数据画像：缺失率/基数/重复 + 时间切分 PSI",
+          "file": "r18-washucang-dataeng/skills/s08_profile.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "input",
+                "columns"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "columns",
+                  "flags": [
+                    "--columns"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "逗号分隔列"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "time",
+                  "flags": [
+                    "--time"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "时间列；用于 PSI"
+                }
+              ],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -10532,8 +12122,8 @@
       "name": "蛙智模",
       "title": "模型工程与 AI 评估官",
       "dir": "r19-wazhimo-ml",
-      "skill_count": 7,
-      "action_count": 14,
+      "skill_count": 8,
+      "action_count": 15,
       "skills": [
         {
           "name": "tracking",
@@ -10877,6 +12467,45 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "eval-ci",
+          "desc": "评测成功率 Wilson 置信区间（小样本稳）",
+          "file": "r19-wazhimo-ml/skills/s08_eval_ci.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "successes",
+                "n"
+              ],
+              "required_detail": [
+                {
+                  "name": "successes",
+                  "flags": [
+                    "--successes"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "n",
+                  "flags": [
+                    "--n"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -10885,8 +12514,8 @@
       "name": "蛙值守",
       "title": "可靠性与恢复官",
       "dir": "r20-washouzhi-sre",
-      "skill_count": 7,
-      "action_count": 14,
+      "skill_count": 8,
+      "action_count": 15,
       "skills": [
         {
           "name": "monitor",
@@ -11227,6 +12856,64 @@
                 }
               ],
               "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "slo",
+          "desc": "SLO 错误预算：允许停机、已用、剩余、燃尽率",
+          "file": "r20-washouzhi-sre/skills/s08_slo.py",
+          "extract_mode": "argparse_single",
+          "error": "",
+          "actions": [
+            {
+              "name": "run",
+              "help": "",
+              "required": [
+                "slo",
+                "downtime_min"
+              ],
+              "required_detail": [
+                {
+                  "name": "slo",
+                  "flags": [
+                    "--slo"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": "如 99.9"
+                },
+                {
+                  "name": "downtime_min",
+                  "flags": [
+                    "--downtime-min"
+                  ],
+                  "type": "float",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "window_days",
+                  "flags": [
+                    "--window-days"
+                  ],
+                  "type": "int",
+                  "default": 30,
+                  "help": ""
+                },
+                {
+                  "name": "requests",
+                  "flags": [
+                    "--requests"
+                  ],
+                  "type": "float",
+                  "default": 0,
+                  "help": ""
+                }
+              ],
               "positional": []
             }
           ]

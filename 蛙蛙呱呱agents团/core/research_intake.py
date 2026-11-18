@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """core/research_intake —— 新业务研究的「采集 → 校验 → 台账 → 成稿」入口。
 
 它把「新业务研究报告」的前三步产品化（v6）：
@@ -7,7 +7,7 @@
     ② 采集    项目目录里的 data/sources.json（每条带 url + quote）
     ③ 校验    回抓原文，quote 必须能在正文里找到；找不到就标 unverified，不许当证据
     ④ 台账    claims.json + sources.json → r05 research ledger（覆盖率/悬空引用/类型白名单）
-    ⑤ 成稿    交给 report_compose（market_entry 纲领）→ 同一套过账与渲染
+    ⑤ 成稿    交给唯一入口 report run-line → 同一套过账与渲染（v11 起）
 
 采集本身仍由 agent/人完成（找来源、写 quote），本模块只负责「不信你，回抓核对」。
 """
@@ -22,7 +22,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from core import report_compose, report_flow, runner
+from core import report_flow, runner
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
@@ -311,28 +311,16 @@ def ledger(project: str) -> Dict[str, Any]:
 def run(topic: str, project: str, out_dir: str, thesis: str = "market_entry",
         theme: str = "paper", pdf: bool = False, skip_verify: bool = False,
         skip_ledger: bool = False) -> Dict[str, Any]:
-    base = Path(project)
-    if not base.exists():
-        raise report_flow.FlowError(f"项目目录不存在: {project}")
-    q = {"total": 0, "ok": 0, "skipped": True} if skip_verify else verify(project)
-    led = {"verdict": "SKIP", "coverage_rate": None} if skip_ledger else ledger(project)
-    if not skip_verify and q.get("mismatch"):
-        bad = [r["id"] for r in q["items"] if r["status"] == "mismatch"]
-        raise report_flow.FlowError(
-            f"quote 校验失败：{bad} 的引文未能在原文命中，先修正来源再出报告")
-    res = report_compose.build(intent=topic, project_dir=project, out_dir=out_dir,
-                               thesis=thesis, theme=theme, pdf=pdf)
-    man_path = os.path.join(out_dir, "manifest.json")
-    if os.path.exists(man_path):
-        man = json.loads(Path(man_path).read_text(encoding="utf-8"))
-        man["research"] = {"quotes": q, "ledger": led}
-        with open(man_path, "w", encoding="utf-8", newline="\n") as f:
-            json.dump(man, f, ensure_ascii=False, indent=2)
-    res.update({"quotes": {"ok": q.get("ok"), "total": q.get("total"),
-                           "mismatch": q.get("mismatch", 0)},
-                "ledger": {"verdict": led.get("verdict"),
-                           "coverage": led.get("coverage_rate")}})
-    return res
+    """[已下线] 旧「采集 → 校验 → 台账 → 成稿」入口。
+
+    v11：成稿这一步不再由本模块调 report_compose（已删除），改为走唯一入口
+    `report run-line --research`。采集/校验/台账三件事保留为独立子命令，
+    供 P3 的采集型专家复用。
+    """
+    raise report_flow.FlowError(
+        "research_intake.run 已下线（成稿阶段归唯一入口）。\n"
+        "请用: python guagua.py report run-line --intent \"…\" --research --dir <项目> --out <目录>\n"
+        "quote 校验/台账仍可单独跑: python -m core.research_intake verify|ledger")
 
 
 def main(argv: Optional[List[str]] = None) -> int:

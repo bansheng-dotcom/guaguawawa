@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """core/report_assembly —— finding → 节/指标/计数（从 report_compose 拆出的唯一实现）。
 
 为什么单独成模块（v11 / P1.4）：
 
-`core/report_compose.py` 曾是 v9 的「装配器 + 22 纲领 + lens」大杂烩。
+`core/report_compose.py` 曾是 v9 的「装配器 + 22 纲领」大杂烩。
 v10 起 `decision_report` 只用到它的四个私有函数：
 
     _section_of(f)                        finding → 节

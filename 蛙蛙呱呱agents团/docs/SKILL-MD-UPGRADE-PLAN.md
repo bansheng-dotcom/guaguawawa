@@ -13,7 +13,7 @@
 | [`SKILL-LAYER-SPEC.md`](SKILL-LAYER-SPEC.md) | 技能层规格：写出一份合格 SKILL.md 的硬标准 |
 | [`templates/SKILL.template.md`](../templates/SKILL.template.md) | 可复制骨架（十节固定结构） |
 | [`scripts/audit_skill_layer.py`](../scripts/audit_skill_layer.py) | 体检脚本，100 分制，可作 CI 门禁 |
-| [`research/`](research/) | 三份外部调研原文（技术角色 / 商业角色 / 生态标准） |
+| `research/`（外部调研原文未随仓） | 三份外部调研原文（技术角色 / 商业角色 / 生态标准） |
 
 ---
 
@@ -186,7 +186,7 @@ scripts/（校验）                  L2  references/    ← 已有
 
 ## 4. GitHub 对标：按角色找"该抄哪一个"
 
-> 全部条目于 2026-11-11 通过 GitHub API / 仓库实盘核对；三项调研原文见 [`research/`](research/)。
+> 全部条目于 2026-11-11 通过 GitHub API / 仓库实盘核对；三项调研原文见 `research/`（外部调研原文未随仓）。
 > 星数为当日快照。**标注"未验证"的路径不写进方案**——宁可少写，不要写错。
 
 ### 4.1 权威基线（三份必须读）
@@ -446,7 +446,7 @@ python guagua.py check                    # 20 角色入口不回归
 | 交付骨架 | 两包各 `templates/` | ✅ 七件套 / 决策卡示例（已过 15 项门禁） |
 | 门禁脚本 | 包① `verify_delivery.py`；包② `gate_selftest.py` | ✅ self-test 分别 PASS 3/3、4/4 |
 | 负向测试 | 两包各 `tests/misuse.md` | ✅ 18 条 / 16 条；13 条实测被拦（exit 1） |
-| 调研原文 | [`docs/research/`](research/) | ✅ 3 份（技术 / 商业 / 生态），共约 160KB |
+| 调研原文 | [`docs/research/`](#research) | ✅ 3 份（技术 / 商业 / 生态），共约 160KB |
 | **角色层专家团包** | [`agent-packs/`](../agent-packs/)（20 份 `agents/*.md` + `plugin.json`） | ✅ 生成器 + `--check` 漂移检测实测生效 |
 | **生成器** | [`scripts/gen_agent_packs.py`](../scripts/gen_agent_packs.py) | ✅ 单向渲染 4 处事实来源；改一次源，重跑即同步 20 份 |
 | **跨宿主入口** | [`AGENTS.md`](../AGENTS.md) | ✅ 根目录，符合 agents.md 标准 |

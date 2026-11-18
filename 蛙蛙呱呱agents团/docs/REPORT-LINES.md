@@ -1,5 +1,12 @@
 # 报告产线（REPORT-LINES.md）
 
+> **v10.2 单入口（2026-11-18）**：`report build` 与 `report decide` 现在是**同一个实现**：
+> 决策契约（3–5 问）→ 逐问作答 → 图由对照选型 → binding/图/质量门禁。
+> **lens 已退役**：`--lens` 保留只为兼容，传了会被忽略并打 deprecation。
+> 旧的三环（数据定题 / 答案定考题 / lens 砍方法）在 CLI 路径上已不存在；
+> `core/report_compose.py` 的 lens 参数仅内部遗留，下一版删除。
+> 单环定义与收口过程见 [`交付/报告质量与图表系统-根因与修复-2026-11-18.md`](../../交付/报告质量与图表系统-根因与修复-2026-11-18.md) §八·补三。
+
 > **P5 已收敛（2026-11-17）**：22 个业务纲领 → **1 个 `analysis` + `lens`**；
 > `run / pack / produce / research` 已删除，统一入口是 **`python guagua.py report build`**；
 > `core/frames.py` / `core/frames_cheese.py` 已删除，只留 `frames_framework.py`。
