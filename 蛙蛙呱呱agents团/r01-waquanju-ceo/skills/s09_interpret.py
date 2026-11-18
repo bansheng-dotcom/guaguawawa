@@ -626,7 +626,10 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
             if ch.get("title") and not _NUM_RE.search(str(ch["title"])):
                 errs.append("图标题没有数字（标题即结论）")
             refs = refs_of(ch)
-            pts = ch.get("bars") or ch.get("series") or []
+            # 数据点按图型取：柱/线用 bars|series，瀑布用 steps，帕累托用 items，
+            # 散点用 points。只认 bars/series 会把 48 型里一半判成「没有数据点」。
+            pts = (ch.get("bars") or ch.get("series") or ch.get("steps")
+                   or ch.get("items") or ch.get("points") or [])
             if not pts:
                 errs.append("图没有数据点")
             for p in pts:

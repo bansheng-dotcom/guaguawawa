@@ -66,7 +66,7 @@ PROFILES: Dict[str, Dict[str, Any]] = {
         "Q7": {"sections": 6, "chars": 4000, "numbers": 100, "exhibits": 4},
         "Q8": 1.00,          # 每节必须有可证伪条件（v11 / P3 新增，硬门禁）
         "Q9": 1.00,          # 每节必须有「解释 + 判别方法」（v11 / P3 新增，硬门禁）
-        "hard": ("Q2", "Q3", "Q5", "Q6", "Q7", "Q8", "Q9"),
+        "hard": ("Q2", "Q3", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"),
     },
     "baseline": {
         "Q1": 0.0, "Q2": 0.0, "Q3": 0.30, "Q4": 0.0,
@@ -215,6 +215,26 @@ def audit(path: str, profile: str = "auto") -> Dict[str, Any]:
     def is_hard(cid: str) -> bool:
         return cid.split("_")[0] in hard
 
+    # 逐节下限：按最高档（research）的整份下限折算到每节，向上取整
+    _top = PROFILES.get("research", {})
+    _q7top = _top.get("Q7") or {}
+    if _q7top:
+        floor = {
+            "chars": int(round(_q7top.get("chars", 4000) / max(1, _q7top.get("sections", 6)))),
+            "numbers": int(round(_q7top.get("numbers", 100) / max(1, _q7top.get("sections", 6)))),
+            "exhibits": 1,
+        }
+    else:
+        floor = {"chars": 400, "numbers": 8, "exhibits": 1}
+    floor_bad = []
+    for st in secs:
+        raw = str(st.get("raw") or "")
+        have_ex = ("<table" in raw) or ("<svg" in raw)
+        if (st["chars"] < floor["chars"] or st["numbers"] < floor["numbers"]
+                or (floor["exhibits"] and not have_ex)):
+            floor_bad.append({"title": st["title"][:28], "chars": st["chars"],
+                              "numbers": st["numbers"], "exhibit": have_ex})
+
     checks = [
         {"id": "Q1_claim_titles", "ok": q1 >= prof["Q1"], "value": round(q1, 3),
          "need": f"≥{prof['Q1']}", "hard": is_hard("Q1"),
@@ -253,6 +273,14 @@ def audit(path: str, profile: str = "auto") -> Dict[str, Any]:
          "value": round(q9, 3), "need": f"≥{prof.get('Q9', 1.0)}",
          "hard": is_hard("Q9"),
          "msg": "每节有「一种解释 + 判别方法」（只给结论不给机理不算深）"},
+        {"id": "Q10_section_floor",
+         # 用户要的「下限每一节都达到最高标准」：
+         # 报告级平均会被长节掩盖；这里逐节卡最小值，任何一节不达标即整份不过。
+         "ok": not floor_bad,
+         "value": {"floor": floor, "bad_sections": floor_bad},
+         "need": (f"每节字≥{floor['chars']} 数≥{floor['numbers']} 图表≥{floor['exhibits']}"),
+         "hard": is_hard("Q10"),
+         "msg": "逐节深度下限（不许用长节拉平均）"},
         {"id": "C1_causal_language", "ok": causal_share <= 0.20,
          "value": {"sections_with_causal": len(causal_secs),
                    "without_identification": len(causal_no_id),
