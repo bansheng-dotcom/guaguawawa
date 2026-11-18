@@ -64,6 +64,8 @@ def _load_chart_lib():
 # 以下为移植自 R06 report_renderer.py 的确定性部分（校验 + CSS + 渲染）
 # ------------------------------------------------------------------------- #
 
+_SENT_END = ("。", "；", "！", "？", "：", "，", "、")
+
 REQUIRED_TOP = ["doc_type", "title_lines", "standfirst", "metric_strip",
                 "summary", "sections", "notes", "footer"]
 REQUIRED_METRIC = ["label", "value", "note"]
@@ -480,6 +482,7 @@ CSS = """
     h3 { margin: 26px 0 8px; font-size: 16px; color: var(--ink-2); }
     p { margin: 11px 0; color: var(--ink-2); }
     .sec-lede { font-size: 15.8px; color: var(--ink); }
+.sec-owner { font-size: 12.5px; color: var(--muted); letter-spacing: .02em; }
 
     .q {
       margin: 12px 0 20px; padding: 10px 16px;
@@ -487,6 +490,10 @@ CSS = """
       border-radius: 0 8px 8px 0; font-size: 13.6px; color: #2C4A40;
     }
     .q b { color: var(--accent); }
+    .sec-question {
+      margin: 8px 0 16px; font-size: 14px; line-height: 1.7;
+      color: var(--muted);
+    }
 
     /* ---------- 指标 ---------- */
     .kpis {
@@ -583,14 +590,15 @@ CSS = """
       margin: 0 0 8px; font-size: 12.6px; font-weight: 700;
       color: var(--accent-2); letter-spacing: .10em;
     }
-    .reading ol { margin: 0; padding: 0; list-style: none; counter-reset: rd; }
+    .reading.prose .reading-p {
+      margin: 0; font-size: 15px; line-height: 1.92; color: var(--ink-2);
+    }
+    .reading.prose .reading-p span { display: inline; }
+    .reading ul { margin: 0; padding: 0 0 0 20px; list-style: disc; }
     .reading li {
-      position: static; padding-left: 0; margin: 9px 0;
-      font-size: 14.2px; line-height: 1.72; color: var(--ink-2);
+      margin: 9px 0; font-size: 14.6px; line-height: 1.8; color: var(--ink-2);
     }
-    .reading li::before {
-      counter-increment: none; content: none;
-    }
+    .reading li::marker { color: var(--accent); }
     .reading li strong { color: var(--ink); }
 
     /* ---------- 正文段落（厚报告） ---------- */
@@ -624,16 +632,8 @@ CSS = """
       background: var(--accent-soft); color: var(--ink); font-size: 14.4px; line-height: 1.8;
     }
     .chapter-conclusion {
-      margin: 20px 0 8px; padding: 16px 18px 15px;
-      border: 1px solid var(--line-strong); border-left: 5px solid var(--accent);
-      background: #FBFAF7; border-radius: 3px;
-    }
-    .chapter-conclusion .cc-label {
-      display: block; font-size: 11px; letter-spacing: .16em; font-weight: 700;
-      color: var(--accent-2); margin-bottom: 7px;
-    }
-    .chapter-conclusion p {
-      margin: 0; font-size: 15.5px; line-height: 1.85; font-weight: 600; color: var(--ink);
+      margin: 16px 0 8px; font-size: 15.5px; line-height: 1.85;
+      font-weight: 600; color: var(--ink);
     }
     .option-grid {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0 8px;
@@ -699,6 +699,10 @@ CSS = """
       margin: 18px 0; padding: 12px 16px;
       background: #F7F5EF; border: 1px dashed var(--line-strong);
       border-radius: 10px; font-size: 12.8px; color: #5D665F;
+    }
+    .boundary .b-label {
+      font-size: 11px; letter-spacing: .14em; font-weight: 700;
+      color: var(--accent-2); margin-right: 2px;
     }
     .boundary b { color: #3B4A42; }
 
@@ -1115,12 +1119,17 @@ CSS = """
       .cover { padding: 40px 0 34px; }
       h1 { font-size: 26px; }
       .h1-sub { font-size: 16px; }
-      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
       .toc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       h2.sec { font-size: 19px; margin-top: 44px; }
     }
+    @media (max-width: 760px) {
+      /* 窄屏表格保留可读列宽，靠容器横向滚动，避免压字与截断 */
+      .table-wrap table { min-width: 680px; }
+      .table-wrap th { white-space: normal; line-height: 1.35; }
+    }
     @media (max-width: 560px) {
-      .kpis { grid-template-columns: 1fr; }
+      .kpis { grid-template-columns: 1fr !important; }
       .toc { grid-template-columns: 1fr; }
       /* 图继续等比缩放；靠放大浏览器读图，不做横向滚动或裁切 */
       .fig-body { padding: 10px 10px 6px; }
@@ -1614,11 +1623,15 @@ def render(c: Dict[str, Any]) -> str:
             q = str(s.get("question") or "")
             if q.startswith(str(s["title"]) + "："):
                 q = q[len(str(s["title"])) + 1:]
+            owner = str(s.get("owner") or "")
+            owner_name = str(s.get("owner_name") or "")
             if q:
-                A(f'<p class="q"><b>本节问题</b>　{esc(q)}</p>')
-            w = str(s.get("why") or "")
-            if w:
-                A(f'<p class="why"><b>为什么做</b>　{esc(w)}</p>')
+                if owner:
+                    who = esc(owner_name or owner)
+                    A(f'<p class="sec-question">{esc(q)}'
+                      f'<span class="sec-owner">　· {esc(owner)} {who} 作答</span></p>')
+                else:
+                    A(f'<p class="sec-question">{esc(q)}</p>')
 
         intro = s.get("intro") or []
         for i, p in enumerate(intro):
@@ -1628,14 +1641,34 @@ def render(c: Dict[str, Any]) -> str:
 
         readings = s.get("reading") or []
         if readings:
-            A('<div class="reading"><ol>')
-            for r in readings:
-                if isinstance(r, str):
-                    A(f'<li>{esc(r)}</li>')
-                else:
-                    lb = f' data-label="{esc(r["strong"])}"' if r.get("strong") else ""
-                    A(f'<li{lb}>{esc(r.get("text", ""))}</li>')
-            A('</ol></div>')
+            reading_style = s.get("reading_style") or "prose"
+            A(f'<div class="reading {reading_style}">')
+            if reading_style == "prose":
+                A('<p class="reading-p">')
+                prev_end = True
+                for r in readings:
+                    if isinstance(r, str):
+                        txt, lb = r, ""
+                    else:
+                        txt = r.get("text", "")
+                        lb = (f' data-label="{esc(r["strong"])}"'
+                              if r.get("strong") else "")
+                    t = str(txt)
+                    if t and not prev_end and not t.startswith(_SENT_END):
+                        A("。")
+                    A(f'<span{lb}>{esc(t)}</span>')
+                    prev_end = t.endswith(_SENT_END) if t else prev_end
+                A('</p>')
+            else:
+                A('<ul>')
+                for r in readings:
+                    if isinstance(r, str):
+                        A(f'<li>{esc(r)}</li>')
+                    else:
+                        lb = f' data-label="{esc(r["strong"])}"' if r.get("strong") else ""
+                        A(f'<li{lb}>{esc(r.get("text", ""))}</li>')
+                A('</ul>')
+            A('</div>')
 
         charts = s.get("charts") or ([s["chart"]] if s.get("chart") else [])
         if charts:
@@ -1715,7 +1748,7 @@ def render(c: Dict[str, Any]) -> str:
 
         if s.get("boundary"):
             b = s["boundary"]
-            A(f'<div class="boundary"><b>{esc(b.get("title", "证据边界"))}</b>　{esc(b["text"])}</div>')
+            A(f'<div class="boundary"><span class="b-label">边界</span>　{esc(b["text"])}</div>')
 
         # 一节可放多张表（sections[].tables），按出现顺序连续编号；旧的单表键继续可用
         sec_tables = list(s.get("tables") or [])
@@ -1777,8 +1810,7 @@ def render(c: Dict[str, Any]) -> str:
                 A('<p class="tcap">　</p>')
 
         if s.get("conclusion"):
-            A('<div class="chapter-conclusion"><span class="cc-label">本章结论</span>')
-            A(f'<p>{esc(s["conclusion"])}</p></div>')
+            A(f'<p class="chapter-conclusion">{esc(s["conclusion"])}</p>')
 
         A('</div></details>' if appendix else '</section>')
 

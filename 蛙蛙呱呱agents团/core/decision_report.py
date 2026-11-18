@@ -136,6 +136,9 @@ def build(intent: str, project_dir: str, out_dir: str,
         sec["question"] = q["text"]
         sec["decision"] = q["decision"]
         sec["falsifier"] = sec.get("falsifier") or q["falsifier"]
+        # 专家归属：报告页要能看出「这一节是哪位专家答的」（问→专家→证据 可追溯）
+        sec["owner"] = str(q.get("owner") or "")
+        sec["owner_name"] = str(q.get("owner_name") or "")
         sections.append(sec)
         label_of[f.key] = len(sections)
         picked.append(f)
