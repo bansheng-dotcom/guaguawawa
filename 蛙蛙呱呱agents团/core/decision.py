@@ -179,6 +179,29 @@ QBANK: List[Dict[str, Any]] = [
      "comparison": {"kind": "compare_categories", "left": "团队", "right": "目标",
                     "metric": "人均产出", "unit": ""},
      "falsifier": "若业务口径变化，人均产出作废。"},
+    # ---------------- 调研族（v11 / 调味料起）---------------- #
+    # 这些 finding 来自 core/methods/market.py 与 core/methods/seasoning.py；
+    # 没有这几条，r05 出场也问不出问题，调研型报告会被判「无可答问题」。
+    {"id": "q.market_size", "finding": "seasoning_size", "priority": 5,
+     "text": "这个盘子有多大，几条口径互证？", "decision": "预算按哪条口径做",
+     "comparison": {"kind": "compare_two_points", "left": "社零占比法", "right": "餐饮成本法",
+                    "metric": "规模（亿元）", "unit": "亿元"},
+     "falsifier": "若补到一手采购数据后偏离本区间 30% 以上，本区间作废。"},
+    {"id": "q.market_structure", "finding": "seasoning_structure", "priority": 6,
+     "text": "钱在哪个品类，份额在往哪边挪？", "decision": "选品与资源投向",
+     "comparison": {"kind": "compare_categories", "left": "品类", "right": "行业均值",
+                    "metric": "份额（%）", "unit": "%"},
+     "falsifier": "若下期酱油份额转负、酱腌菜转正，结构判断作废。"},
+    {"id": "q.market_channel", "finding": "seasoning_channel", "priority": 7,
+     "text": "货该铺在哪，各渠道差多少？", "decision": "渠道与陈列投入",
+     "comparison": {"kind": "compare_categories", "left": "渠道", "right": "第一入口",
+                    "metric": "购买占比（%）", "unit": "%"},
+     "falsifier": "若电商占比反超超市，渠道判断作废。"},
+    {"id": "q.market_growth", "finding": "seasoning_growth", "priority": 8,
+     "text": "行业增速和本地消费大盘，谁快谁慢？", "decision": "增长从哪来、能不能吃到",
+     "comparison": {"kind": "compare_categories", "left": "行业增速", "right": "本地大盘",
+                    "metric": "同比增速（%）", "unit": "%"},
+     "falsifier": "若行业增速回落到本地大盘以下，增长来自结构升级的判断作废。"},
 ]
 
 BY_ID = {q["id"]: q for q in QBANK}
@@ -204,6 +227,9 @@ _INTENT_HINTS: Dict[str, tuple] = {
     "roi": ("投产", "roi", "回本", "投放"),
     "priority": ("优先级", "先做", "排期"),
     "headcount": ("招聘", "编制", "人效", "组织"),
+    "seasoning_size": ("规模", "多大", "盘子", "市场多大", "调研", "市场研究"),
+    "seasoning_structure": ("品类", "结构", "份额", "酱油", "哪个品类"),
+    "seasoning_channel": ("渠道", "铺货", "超市", "电商", "场景"),
     "capacity": ("产能", "容量", "瓶颈"),
     "sla": ("sla", "可用性", "响应"),
     "reviews": ("评价", "口碑", "差评"),
@@ -314,17 +340,14 @@ def draft_from_roster(intent: str, roster: Iterable[Dict[str, Any]],
             + "、".join(f"{e.get('role')}:{','.join(e.get('methods') or []) or '无方法'}"
                         for e in roster))
 
-    # 问题数随意图宽窄变化：
-    #   意图没有任何具体指向（如「经营诊断」）→ 问满 max_q，先铺开再收口；
-    #   意图明确指向某几件事（如「哪些品类在涨」）→ 只问命中的 + 补齐到 min_q。
+    # 选几问：始终问到 max_q（研究报告需要足够节数才过深度门禁），
+    # 但**顺序**由意图决定——命中的问题排前面。
+    # 这样「哪些品类在涨」与「经营诊断」用同一批方法，却从不同的问题开始讲。
     hit = [x for x in cand if x[0] > 0]
-    if not hit:
-        picked = cand[:max_q]
-    elif len(hit) <= min_q:
-        picked = (hit + [x for x in cand if x[0] == 0])[:min_q]
-    else:
-        picked = hit[:max_q]
-    picked = picked[:max_q]
+    rest = [x for x in cand if x[0] == 0]
+    picked = (hit + rest)[:max_q]
+    if len(picked) < min_q:
+        picked = cand[:min_q]
     qs = []
     for i, (_, _, q, e) in enumerate(picked, 1):
         qs.append({

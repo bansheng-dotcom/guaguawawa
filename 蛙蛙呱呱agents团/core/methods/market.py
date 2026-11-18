@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """core/methods/market —— 区域消费市场研究的方法族（v7）。
 
 与价格类方法（analysis_methods）的区别：
@@ -834,7 +834,7 @@ def m_consistency(ctx) -> Optional[Finding]:
               "这是五经普后的统计修订，不是 2025 年经营突然变差。",
               _ids(n_base, n_amt, n_diff))
     claim.add("处理方式：跨年比较只用增速，不用绝对值相减；两套基数并列披露，"
-              "不做平滑、不取平均。任何『2025 比 2024 少 4.3%』的写法都是口径错误。",
+              "不做平滑、不取平均。任何把两套基数直接相减写成百分比降幅的，都是口径错误。",
               _ids(n_pub, n_imp))
     claim.tags = {"published": pub.as_pct(), "implied": implied * 100,
                   "diff": abs(diff), "amount": abs(amount)}

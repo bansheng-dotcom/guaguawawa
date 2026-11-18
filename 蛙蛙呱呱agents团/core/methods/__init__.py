@@ -76,6 +76,8 @@ from core.methods import research  # noqa: E402,F401
 from core.methods import market  # noqa: E402,F401
 # v8 奶酪零食（特色乳制品零食）方法族（带来源事实表 + 电商报价驱动）
 from core.methods import cheese  # noqa: E402,F401
+# v11 调味料（调味品）方法族（公开事实表驱动：规模区间/品类结构/渠道场景）
+from core.methods import seasoning  # noqa: E402,F401
 
 # 方法别名：同一实现，不同纲领里叫法不同
 _ALIAS = {

@@ -116,8 +116,13 @@ def build(intent: str, project_dir: str, out_dir: str,
                 sec["boundary"] = boundary
             elif boundary not in boundaries_all:
                 boundaries_all.append(str(boundary))
-        # 每节以「所以」收口：读者要的是动作，不是又一段描述
-        if f.so_what:
+        # 每节以「所以」收口：读者要的是动作，不是又一段描述。
+        # 但 Claim 型 finding 的落点已经作为「落点　」一句渲染过，再抄一遍就是复读（Q6 判红）。
+        has_implication = any(
+            str(r.get("strong") or "").startswith(("落点", "含义"))
+            or str(r.get("text") or "").startswith(("所以", "因此"))
+            for r in (sec.get("reading") or []) if isinstance(r, dict))
+        if f.so_what and not has_implication:
             refs = list(dict.fromkeys(sec.get("refs") or []))[:6]
             sec.setdefault("reading", []).append(
                 {"text": f"所以：{f.so_what}", "refs": refs})
@@ -161,6 +166,10 @@ def build(intent: str, project_dir: str, out_dir: str,
     #     前置条件取该节的数据前提，停止条件取该节的证伪条件——三者同源，可回溯。
     acts: List[Dict[str, str]] = []
     for f, sec in zip(picked, sections[:len(picked)]):
+        # Claim 型 finding 的落点已经渲染成「落点　」一句；再抄进动作节会变成
+        # 跨节复读（Q6 判红）。动作节只服务「有 so_what 但没有落点句」的方法族。
+        if (getattr(f, "meta", None) or {}).get("claim") is not None:
+            continue
         so = str(getattr(f, "so_what", "") or "").strip()
         if not so:
             for r in (sec.get("reading") or []):
@@ -250,6 +259,13 @@ def build(intent: str, project_dir: str, out_dir: str,
                   for u in unanswered]
     for b in boundaries_all:
         if b not in boundaries:
+            boundaries.append(b)
+    # finding 自带的边界（Claim.boundary）也要进「边界与缺口」：
+    # 它们原本只在 inline_boundary=True 时进正文，其余会被静默丢掉，
+    # 结果是一份「每条判断都有前提」的报告却过不了「至少写一处边界」的门禁。
+    for f in picked:
+        b = str(getattr(f, "boundary", "") or "").strip()
+        if b and b not in boundaries:
             boundaries.append(b)
 
     draft = {

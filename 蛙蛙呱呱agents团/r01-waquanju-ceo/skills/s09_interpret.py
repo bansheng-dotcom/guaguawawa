@@ -661,7 +661,8 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
     hits = [w for w in banned if w in all_text]
     checks.append({"id": "banned_words", "ok": not hits, "msg": "禁用词清零", "fail": hits})
     checks.append({"id": "boundary",
-                   "ok": bool(draft.get("boundary") or
+                   # 兼容三种写法：单数（旧）、复数（decision_report 的「边界与缺口」）、节内
+                   "ok": bool(draft.get("boundary") or draft.get("boundaries") or
                               any(s.get("boundary") for s in (draft.get("sections") or []))),
                    "msg": "至少写一处边界"})
     return checks

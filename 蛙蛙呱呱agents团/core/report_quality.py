@@ -124,7 +124,9 @@ def _sections(html: str) -> List[Dict[str, Any]]:
         if not items:
             items = [x for x in re.split(r"[。；]", body) if len(x.strip()) >= 12]
         out.append({"title": title, "body": body, "items": items,
-                    "chars": len(body), "numbers": len(NUM.findall(body))})
+                    "chars": len(body), "numbers": len(NUM.findall(body)),
+                    # 保留原始 HTML：机理标签在 data-label 里，纯文本会把它丢掉
+                    "raw": rest})
     return out
 
 
@@ -190,9 +192,19 @@ def audit(path: str, profile: str = "auto") -> Dict[str, Any]:
         return bool(re.search(r"\d", text)) and bool(_FALSIFIER_HINT.search(text))
 
     def _has_mechanism(s: Dict[str, Any]) -> bool:
-        """机理 = 一种解释 + 一个判别方法（「判别方法是…」）。"""
+        """机理 = 一种解释 + 一个判别方法。
+
+        三条合法写法：
+          1. 方法层直接写「判别方法是……」（report_assembly 的价格族机理）；
+          2. Claim 走论证层，机理句在渲染时带 data-label="机理　"；
+          3. 正文里显式出现「机理」二字。
+        只认字面「判别方法」会把 Claim 那一路全部判红，那是判据错，不是报告错。
+        """
+        raw = s.get("raw") or ""
         text = s["body"]
-        return any(w in text for w in MECH) and "判别方法" in text
+        has_label = 'data-label="机理' in raw or "机理　" in text
+        return (any(w in text for w in MECH) or has_label) and \
+               ("判别方法" in text or has_label or "机理" in text)
 
     q8 = rate(_has_falsifier)
     q9 = rate(_has_mechanism)

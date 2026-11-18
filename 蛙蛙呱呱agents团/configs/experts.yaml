@@ -570,10 +570,15 @@
       - "concentration"
       - "consistency"
       - "coverage"
+      - "seasoning_size"
+      - "seasoning_structure"
+      - "seasoning_channel"
+      - "seasoning_growth"
     "needs":
       - "facts.market"
       - "facts.obs"
       - "facts.region"
+      - "facts.seasoning"
       - "facts.shares"
     "produces":
       - "市场规模多路径"
@@ -583,6 +588,10 @@
       - "集中度"
       - "口径冲突"
       - "数据覆盖缺口"
+      - "调味料市场规模（区间）"
+      - "品类结构"
+      - "购买渠道与场景"
+      - "增速对比"
     "inputs":
       - "topic"
       - "scope"

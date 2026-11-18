@@ -459,12 +459,17 @@ def scan(project_dir: str) -> Desk:
             desk.obs.extend(d.obs)
     desk.files = [d.file for d in desk.datasets]
     # 研究类项目：带来源的事实表（data/facts.json）
+    # 两种合法外层：{"facts": [...], "assumptions": [...]} 或直接是列表（fact_table 两者都吃，
+    # 这里曾经只认 dict，导致「列表形态的 facts.json」在扫描阶段就崩，报告出不来）。
     facts_path = desk.root / "data" / "facts.json"
     if facts_path.exists():
         try:
             obj = json.loads(facts_path.read_text(encoding="utf-8-sig"))
-            desk.facts = list(obj.get("facts") or [])
-            desk.assumptions = list(obj.get("assumptions") or [])
+            if isinstance(obj, list):
+                desk.facts = [x for x in obj if isinstance(x, dict)]
+            elif isinstance(obj, dict):
+                desk.facts = list(obj.get("facts") or [])
+                desk.assumptions = list(obj.get("assumptions") or [])
         except (json.JSONDecodeError, OSError):
             pass
     return desk
