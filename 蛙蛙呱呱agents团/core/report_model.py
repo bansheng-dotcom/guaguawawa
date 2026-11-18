@@ -22,7 +22,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from core import chart_capabilities, methods, question_library, report_framework
+from core import chart_capabilities, methods
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "configs"
@@ -60,36 +60,22 @@ def _role_specs() -> Dict[str, Any]:
 
 
 def build() -> Dict[str, Any]:
-    qs = question_library.QUESTIONS
-    dims = report_framework.DIMENSIONS
     reg = methods.REGISTRY
     charts = chart_capabilities.CATALOG
 
-    dim_keys = {d["key"] for d in dims}
     method_keys = set(reg)
     chart_keys = {c["key"] for c in charts}
     chart_cfg = _chart_config()
 
     nodes = {
-        "questions": len(qs),
-        "dimensions": len(dims),
         "methods": len(reg),
         "charts": len(charts),
         "roles": len(__import__("core.registry", fromlist=["ROLES"]).ROLES),
         "chart_config": len(chart_cfg),
     }
 
-    # 1) 问题 → 维度
-    q_bad_dim = [q["id"] for q in qs if q.get("dimension") not in dim_keys]
-    # 2) 维度 → 方法
-    d_bad_method = {}
-    for d in dims:
-        miss = [m for m in (d.get("methods") or []) if m not in method_keys]
-        if miss:
-            d_bad_method[d["key"]] = miss
-    # 3) 方法有没有被任何维度引用
-    used = {m for d in dims for m in (d.get("methods") or [])}
-    orphan_methods = sorted(method_keys - used)
+    # v12：静态维度层与静态题库已退场。调研要查什么由 core/research_protocol
+    # 按任务动态生成，不再有一份固定清单可以「悬空」或「漏挂」。
     # 4) 图型配置：是否真的被选图代码读取（P4：decision 已读 chart_by_relation.yaml）
     from core import decision as _decision
     chart_cfg_types = {t for ts in _relation_charts().values() for t in ts}
@@ -105,9 +91,6 @@ def build() -> Dict[str, Any]:
         "schema": "dsh.report_model/v1",
         "nodes": nodes,
         "integrity": {
-            "questions_with_bad_dimension": q_bad_dim,
-            "dimensions_with_unknown_method": d_bad_method,
-            "methods_used_by_no_dimension": orphan_methods,
             "chart_config_keys": len(chart_cfg_types),
             "chart_config_read_by_code": read_by_code,
             "chart_types_not_in_config": charts_unconfigured,
@@ -127,9 +110,6 @@ def audit() -> Dict[str, Any]:
     m = build()
     i = m["integrity"]
     issues = {
-        "问题挂空维度": len(i["questions_with_bad_dimension"]),
-        "维度挂未知方法": sum(len(v) for v in i["dimensions_with_unknown_method"].values()),
-        "方法未被维度引用": len(i["methods_used_by_no_dimension"]),
         "图型配置未被代码读取": 0 if i["chart_config_read_by_code"] else i["chart_config_keys"],
         "图型未进配置": len(i["chart_types_not_in_config"]),
         "角色章节无图型规则": len(i["role_sections_without_chart_rule"]),

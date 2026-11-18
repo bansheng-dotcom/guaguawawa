@@ -2,7 +2,7 @@
   "id": "M-STR-001",
   "name": "问题树与关键分支",
   "version": "1.0",
-  "status": "active",
+  "status": "draft",
   "domain": "problem_solving",
   "source": {
     "book": "Bulletproof Problem Solving",
@@ -42,11 +42,12 @@
   "counterexample": "分支不 MECE（重叠或漏项）时，会把同一原因算两次，或漏掉真正的驱动，后面的计算再准也没用。",
   "failure_mode": "所有分支平均用力，报告变成一张清单，没有主次。",
   "landing": {
-    "method": "core/frames_framework.py::build_analysis",
+    "method": "none（v12：frames_framework 已退场，改由 agent 研究路径承接）",
     "claim_kind": "gap",
     "frame": "analysis",
     "gate": "Q1/Q2",
-    "test": "tests/test_decision_report.py::test_decision_build_end_to_end"
+    "test": "",
+    "landed_by": "core/research_protocol.py + 智能体 claims"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",
@@ -54,5 +55,6 @@
     "tolerance": "分支数 3—5"
   },
   "owner": "r06",
-  "last_reviewed": "2026-11-15"
+  "last_reviewed": "2026-11-15",
+  "note": "方法层（core/frames_framework.py）已在 v12 删除；本卡保留为分析动作用语，由智能体按调研简报执行，不再有专用 Python 实现"
 }

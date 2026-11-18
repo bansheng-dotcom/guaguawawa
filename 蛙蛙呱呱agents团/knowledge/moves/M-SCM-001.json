@@ -2,7 +2,7 @@
   "id": "M-SCM-001",
   "name": "到店总成本（TCO）排序",
   "version": "1.0",
-  "status": "active",
+  "status": "draft",
   "domain": "supply_chain",
   "source": {
     "book": "Supply Chain Management: Strategy, Planning, and Operation",
@@ -43,11 +43,12 @@
   "counterexample": "只比单价时，起订量 1500 斤的低价货源会因为压库存和损耗，落地成本反而更高。",
   "failure_mode": "漏掉资金占用与不良率；用产地零售价代替到店成本。",
   "landing": {
-    "method": "core/frames_framework.py::build_analysis",
+    "method": "none（v12：frames_framework 已退场，改由 agent 研究路径承接）",
     "claim_kind": "unit",
     "frame": "analysis",
     "gate": "Q2/Q4",
-    "test": "tests/test_report_sections.py::test_sections_validate_and_render"
+    "test": "",
+    "landed_by": "core/research_protocol.py + 智能体 claims"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",
@@ -55,5 +56,6 @@
     "tolerance": "±0.02 元/斤"
   },
   "owner": "r15",
-  "last_reviewed": "2026-11-15"
+  "last_reviewed": "2026-11-15",
+  "note": "方法层（core/frames_framework.py）已在 v12 删除；本卡保留为分析动作用语，由智能体按调研简报执行，不再有专用 Python 实现"
 }

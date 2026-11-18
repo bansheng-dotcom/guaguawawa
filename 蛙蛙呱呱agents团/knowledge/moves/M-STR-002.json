@@ -2,7 +2,7 @@
   "id": "M-STR-002",
   "name": "战略内核三件套",
   "version": "1.0",
-  "status": "active",
+  "status": "draft",
   "domain": "strategy",
   "source": {
     "book": "Good Strategy Bad Strategy",
@@ -42,11 +42,12 @@
   "counterexample": "诊断写成「加价率低、损耗高、冷链贵」三个并列原因时，等于没有诊断，动作会互相抵消。",
   "failure_mode": "把「提升毛利率」当指导方针；把动作清单当战略。",
   "landing": {
-    "method": "core/frames_framework.py::build_analysis",
+    "method": "none（v12：frames_framework 已退场，改由 agent 研究路径承接）",
     "claim_kind": "gap",
     "frame": "analysis",
     "gate": "Q1/Q4",
-    "test": "tests/test_decision_report.py::test_validate_rejects_chart_that_cannot_encode_comparison"
+    "test": "",
+    "landed_by": "core/research_protocol.py + 智能体 claims"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",
@@ -54,5 +55,6 @@
     "tolerance": "诊断原因数 ≤1"
   },
   "owner": "r01",
-  "last_reviewed": "2026-11-15"
+  "last_reviewed": "2026-11-15",
+  "note": "方法层（core/frames_framework.py）已在 v12 删除；本卡保留为分析动作用语，由智能体按调研简报执行，不再有专用 Python 实现"
 }
