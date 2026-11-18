@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """core/decision_report —— 决策优先的报告装配（report decide）。
 
 与 `report build` 的区别只有一处，但顺序相反：
@@ -21,9 +21,12 @@ import json
 import os
 import re
 import shutil
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+ROOT = Path(__file__).resolve().parent.parent
 
 from core import (analysis_desk, analysis_methods, decision, methods,
                   orchestrator, report_assembly, report_flow)
@@ -287,7 +290,18 @@ def build(intent: str, project_dir: str, out_dir: str,
     chart_ratio = chart_ok / len(chart_rows) if chart_rows else 0.0
     chart_gate = chart_ratio >= 0.8
     bind_ok = binding["binding"] >= min_binding
-    ok = bool(res.get("ok")) and bind_ok and chart_gate
+    # 呈现层门禁（v11 / P4）：斜体 / 打印规则 / 对比度 / 字阶 / 图四件套 / 主题串色
+    pres: Dict[str, Any] = {"ok": True, "violations": []}
+    if html:
+        try:
+            sys.path.insert(0, str(ROOT / "scripts"))
+            from check_report_presentation import check_html as _pres_check
+            pres = _pres_check(Path(html))
+        except Exception as exc:  # noqa: BLE001  门禁坏了不能拖垮出报告
+            pres = {"ok": False, "violations": [{"id": "P0", "msg": str(exc)}]}
+    _json(os.path.join(out_dir, "presentation.json"), pres)
+    pres_ok = bool(pres.get("ok"))
+    ok = bool(res.get("ok")) and bind_ok and chart_gate and pres_ok
 
     man_path = os.path.join(out_dir, "manifest.json")
     man: Dict[str, Any] = {}
@@ -316,10 +330,15 @@ def build(intent: str, project_dir: str, out_dir: str,
                 "render": "pass" if res.get("ok") else "block",
                 "binding": "pass" if bind_ok else "block",
                 "chart": "pass" if chart_gate else "block",
+                "presentation": "pass" if pres_ok else "block",
                 "quality": "pass" if qa.get("ok") else "warn",
             },
             "quality": {"ok": qa.get("ok"), "score": qa.get("score"),
                         "sections": qa.get("sections"), "density": qa.get("density")},
+            "presentation": {"ok": pres_ok,
+                             "violations": pres.get("violations") or [],
+                             "figures": pres.get("figures"),
+                             "type_steps": len(pres.get("type_steps") or [])},
             "ok": ok,
         })
         _json(man_path, man)

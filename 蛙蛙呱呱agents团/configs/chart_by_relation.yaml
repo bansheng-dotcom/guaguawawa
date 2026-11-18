@@ -1,0 +1,77 @@
+# 图型选型：按「数据关系」选图，不按「方法」选图（v11 / P4）
+#
+# 为什么要有这份文件：
+#   1. 旧 `CHART_POLICY`（core/decision.py）把「对照类型 → 图型」写死在代码里，
+#      与 `configs/chart_type_by_question.json`（84 条）重复，后者 0 引用；
+#   2. 旧规则只覆盖 17/48 型，剩下 31 型永不出现；
+#   3. 选型依据是「方法给了什么图」，不是「这组数据是什么关系」。
+#
+# 本文件按 FT Visual Vocabulary 的九类数据关系组织：
+#   每一类关系的 allowed 列表就是这一类的合法图型，**第一个是默认**。
+#   `core/decision.py` 只读本文件；改选型 = 改这里，不改代码。
+#
+# 纪律：
+#   - allowed 里的图型必须存在于 48 型注册表（`core/chart_capabilities.py`）；
+#   - 每类关系的第一个必须能被「方法默认产出」的 payload 适配，否则会频繁回退；
+#   - 缺数据时记缺口，不许用别的图型硬凑（见 core/decision.choose_chart）。
+
+schema: dsh.chart_by_relation/v1
+source: "FT Visual Vocabulary（deviation/correlation/ranking/distribution/change/part-to-whole/magnitude/spatial/flow）"
+
+relations:
+  # 与参照点（零/目标/均值）的偏离：有正有负、要看出方向和幅度
+  deviation:
+    allowed: [hbar, vbar, dot, lollipop, waterfall, area, control]
+    why: "正负偏离优先用条形；要拆解构成用瀑布；要强调连续性用面积；对控制带用控制图"
+
+  # 两个连续变量的关系：是否存在同向/反向、是否有异常点
+  correlation:
+    allowed: [scatter, bubble, heatmap, small_mult, parallel]
+    why: "两变量关系用散点；第三维用气泡；分类多时用热力图或小倍数；多变量用平行坐标"
+
+  # 排序：位次比绝对值更重要
+  ranking:
+    allowed: [hbar, vbar, grouped_bar, dot, lollipop, slope, dumbbell, pareto, rose]
+    why: "排序用条形/点/棒棒糖；位次变化用斜率图或哑铃图；集中度用帕累托；周期比较用玫瑰图"
+
+  # 分布：看形状、离散度、异常值
+  distribution:
+    allowed: [histogram, box, violin, dot, ridgeline, error_bar, forest, radar]
+    why: "单变量用直方图；多组比较用箱线/小提琴；估计值用误差棒/森林图；多维轮廓用雷达图"
+
+  # 时间：看方向、拐点、节奏
+  change_over_time:
+    allowed: [line, area, vbar, streamgraph, dual_axis, cal_heatmap, small_mult, candlestick, gantt]
+    why: "连续时间用折线；总量与构成用面积/流图；周期性用日历热力图；行情用K线；排期用甘特"
+
+  # 构成：部分与整体
+  composition:
+    allowed: [stacked_bar, pct_stacked, treemap, sunburst, pie, donut, waffle, rose]
+    why: "构成用堆叠；层级构成用矩形树图/旭日图；少量分块才用饼/环"
+
+  # 量级：只比大小，不强调位次与时间
+  magnitude:
+    allowed: [vbar, hbar, grouped_bar, bullet, gauge, kpi_break, target_band]
+    why: "量级比较用条形；对目标达成用子弹图/仪表/目标带；单指标拆解用 KPI 拆解"
+
+  # 空间：位置本身是信息
+  spatial:
+    allowed: [choropleth, symbol_map, heatmap, geo_flow]
+    why: "比率用分级设色；总量用符号地图；流向用地理流图；无行政边界用网格热力"
+
+  # 流向：量在节点/阶段之间移动
+  flow:
+    allowed: [sankey, waterfall, funnel, network, bridge, gantt]
+    why: "多段流转用桑基；阶段留存用漏斗；增减桥接用瀑布/桥图；时序依赖用甘特"
+
+# 对照类型 → 数据关系（决策契约里写的是对照类型，渲染前要映射到关系）
+# 这是唯一映射处：`core/decision.py` 不再自己写一份。
+comparison_to_relation:
+  compare_categories: ranking
+  compare_to_zero: deviation
+  compare_two_points: ranking
+  change_over_time: change_over_time
+  composition: composition
+  distribution: distribution
+  relationship: correlation
+  vs_threshold: magnitude

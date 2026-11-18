@@ -76,11 +76,27 @@ def test_choose_chart_follows_comparison_and_fills_contract():
     assert decision.chart_contract_ok(chart)["ok"]
 
 
-def test_choose_chart_refuses_when_payload_cannot_be_encoded():
-    # 只有 items，却要求 grouped_bar（需要 categories+series）→ 不硬画，标 unsupported
+def test_choose_chart_adapts_items_to_a_bar():
+    """只有 items 的 payload：v11 起会适配成 hbar（画出真数据），而不是拒绝。
+
+    旧行为是「要求 grouped_bar 就只画 grouped_bar」，于是同一份 items 在
+    compare_two_points 下被判定「无法编码」而丢图；P4 扩了 allowed 列表后
+    应该退到能表达 items 的图型，而不是不画。
+    """
     q = _q(1, "momentum", "compare_two_points", "grouped_bar")
-    chart = decision.choose_chart({"items": [{"label": "a", "value": 1.0}],
-                                   "title": "t"}, q)
+    chart = decision.choose_chart({"items": [{"label": "a", "value": 1.0},
+                                             {"label": "b", "value": 2.0}],
+                                   "title": "a 1.0、b 2.0", "unit_meta": "%",
+                                   "source": "证据包"}, q)
+    assert chart["type"] == "hbar"
+    assert chart["policy"]["fallback"] is True     # 换了图型就要留痕
+    assert chart.get("bars")
+
+
+def test_choose_chart_refuses_when_payload_cannot_be_encoded():
+    """连一个数据点都没有 → 不硬画，标 unsupported。"""
+    q = _q(1, "momentum", "compare_two_points", "grouped_bar")
+    chart = decision.choose_chart({"items": [], "title": "t"}, q)
     assert chart["policy"]["fallback"] is True
     assert chart["policy"]["unsupported"] is True
     assert chart["type"] == ""

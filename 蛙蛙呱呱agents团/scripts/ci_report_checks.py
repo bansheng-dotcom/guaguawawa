@@ -245,11 +245,25 @@ def main() -> int:
     rc, out = run([sys.executable, "-m", "pytest",
                    "tests/test_report_flow.py", "tests/test_report_flow_opt.py",
                    "tests/test_decision_report.py", "tests/test_report_sections.py",
-                   "-q"])
+                   "tests/test_orchestrator.py", "-q"])
     tail15 = [l for l in out.strip().splitlines() if "passed" in l or "failed" in l]
     print(f"[15] line tests rc={rc} :: {tail15[-1] if tail15 else out.strip()[-60:]}")
     if rc:
         fails.append("line-tests")
+
+    # [16] 语义层审计：六项悬空边必须全为 0（P4 起这是硬门禁，不许只记录）
+    rc, out = run([sys.executable, "-m", "core.report_model", "--audit"])
+    line16 = next((l for l in out.splitlines() if '"issues"' in l), "")
+    print(f"[16] report model rc={rc} :: {'六项悬空边全为 0' if rc == 0 else '仍有悬空边'}")
+    if rc:
+        fails.append("report-model")
+
+    # [17] 呈现层：斜体 / 打印规则 / 对比度 / 字阶 / 图四件套
+    rc, out = run([sys.executable, "scripts/check_report_presentation.py",
+                   "--dir", str(out_b)])
+    print(f"[17] presentation rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+    if rc:
+        fails.append("presentation")
 
     if env:
         print(f"\n环境未就绪（不计入失败）：{', '.join(env)}")

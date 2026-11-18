@@ -35,18 +35,56 @@ from core import chart_capabilities, chart_spec
 SCHEMA = "dsh.decision/v1"
 MIN_Q, MAX_Q = 3, 5
 
-# 对照类型 → 允许的图型（按优先级）。
-# 这行表是「图由对照决定」而不是「图由方法决定」的唯一出处。
-CHART_POLICY: Dict[str, List[str]] = {
+# --------------------------------------------------------------------------- #
+# 图型选型：唯一出处是 configs/chart_by_relation.yaml
+#
+# 旧的 CHART_POLICY 是写死在代码里的第二份（与 chart_type_by_question.json 重复，
+# 后者 0 引用）。v11 / P4 起改成「读配置」：
+#   关系（deviation / ranking / ...） → allowed 图型列表
+#   对照类型（compare_categories / ...） → 关系
+# 这里保留 `CHART_POLICY` 这个名字与结构，外部调用方不用改。
+# --------------------------------------------------------------------------- #
+_ROOT = Path(__file__).resolve().parent.parent
+_RELATION_FILE = _ROOT / "configs" / "chart_by_relation.yaml"
+
+# 兜底：配置文件缺失时仍能跑（与 yaml 内容保持一致，避免两套语义）
+_FALLBACK_POLICY: Dict[str, List[str]] = {
     "compare_categories": ["hbar", "vbar", "dot", "lollipop"],
-    "compare_to_zero": ["hbar", "vbar", "dot"],
+    "compare_to_zero": ["vbar", "hbar", "dot"],
     "compare_two_points": ["grouped_bar", "dumbbell", "slope"],
     "change_over_time": ["line", "area"],
     "composition": ["stacked_bar", "pct_stacked"],
-    "distribution": ["dot", "box", "histogram"],
+    "distribution": ["histogram", "box", "dot"],
     "relationship": ["scatter", "bubble"],
     "vs_threshold": ["bullet", "target_band", "vbar"],
 }
+
+
+def _load_policy() -> Tuple[Dict[str, List[str]], Dict[str, str], str]:
+    """读 chart_by_relation.yaml → (对照类型→图型, 对照类型→关系, 来源)。"""
+    if not _RELATION_FILE.exists():
+        return dict(_FALLBACK_POLICY), {}, "fallback(no-file)"
+    try:
+        import yaml
+        doc = yaml.safe_load(_RELATION_FILE.read_text(encoding="utf-8")) or {}
+    except Exception:  # noqa: BLE001  配置坏了不能拖垮出报告
+        return dict(_FALLBACK_POLICY), {}, "fallback(yaml-error)"
+    rels = doc.get("relations") or {}
+    mapping = doc.get("comparison_to_relation") or {}
+    policy: Dict[str, List[str]] = {}
+    for kind, rel in mapping.items():
+        allowed = [t for t in ((rels.get(rel) or {}).get("allowed") or [])
+                   if chart_capabilities.has_chart(t)]
+        if allowed:
+            policy[str(kind)] = allowed
+    if not policy:
+        return dict(_FALLBACK_POLICY), {}, "fallback(empty)"
+    for k, v in _FALLBACK_POLICY.items():   # 配置漏了某类时补上，不让契约校验误伤
+        policy.setdefault(k, v)
+    return policy, {str(k): str(v) for k, v in mapping.items()}, str(_RELATION_FILE.name)
+
+
+CHART_POLICY, COMPARISON_TO_RELATION, CHART_POLICY_SOURCE = _load_policy()
 
 # 问题库：一个 finding 能回答的那个「决策问题」。
 # priority 越小越先入选；问题由编排器决定，本表只决定「同一 finding 里先问哪一问」。
@@ -320,15 +358,35 @@ def _payload_kinds(chart: Dict[str, Any]) -> Tuple[str, ...]:
 
 
 def _adapt(chart: Dict[str, Any], ctype: str) -> Optional[Dict[str, Any]]:
-    """把方法给的 payload 适配到目标图型；不适配返回 None（不硬画）。"""
+    """把方法给的 payload 适配到目标图型；不适配返回 None（不硬画）。
+
+    v11 / P4：图型从 17 型扩到 40+ 型之后，这里必须把 payload 的键名也一起转，
+    否则「适配成功」只是把 type 改了、数据还挂在旧键上，渲染时才炸（vbar 读 vbars）。
+    """
     c = dict(chart)
     bars = c.get("bars") or c.get("vbars")
     if ctype in ("hbar", "vbar"):
         if bars:
+            seq = [{"label": b["label"], "value": b["value"]} for b in bars
+                   if b.get("value") is not None]
+            if not seq:
+                return None
+            if ctype == "hbar":
+                c["bars"] = seq
+                c.pop("vbars", None)
+            else:
+                c["vbars"] = seq
+                c.pop("bars", None)
             return c
         if c.get("items"):
-            c["bars"] = [{"label": i["label"], "value": i["value"]}
-                         for i in c["items"] if i.get("value") is not None]
+            seq = [{"label": i["label"], "value": i["value"]}
+                   for i in c["items"] if i.get("value") is not None]
+            if not seq:
+                return None
+            if ctype == "hbar":
+                c["bars"] = seq
+            else:
+                c["vbars"] = seq
             return c
         return None
     if ctype in ("dot", "lollipop", "pareto"):
@@ -346,40 +404,61 @@ def _adapt(chart: Dict[str, Any], ctype: str) -> Optional[Dict[str, Any]]:
         return c if any(i.get("a") is not None and i.get("b") is not None
                         for i in items) else None
     if ctype == "slope":
-        return c if (c.get("points") or c.get("series")) else None
+        # 渲染器要 items（每项含 a/b 或两期值）；只有 series 的 payload 属于组长图，不适配
+        items = c.get("items") or []
+        return c if any(isinstance(i, dict) and
+                        (i.get("a") is not None or i.get("b") is not None)
+                        for i in items) else None
     if ctype in ("line", "area", "streamgraph"):
         return c if ("points" in c or ("x" in c and "y" in c)
                      or c.get("series")) else None
     if ctype in ("bullet", "target_band"):
         # 需要目标线；没有就不硬画，交给调用方回退
         return c if (bars and c.get("ref")) else None
-    return c
+    # 其余图型（rose / radar / candlestick / gantt / sankey …）的 payload 契约各不相同，
+    # 这里不猜：返 None 让选型继续往下走，最后由调用方记缺口。
+    # 方法自己产出这些类型时会走「native 已在 allowed 里就直接用」那条路，不受影响。
+    return None
 
 
 def choose_chart(chart: Optional[Dict[str, Any]], q: Dict[str, Any]) -> Dict[str, Any]:
-    """按对照类型选图，并补 chart_spec 要求的证明字段。"""
+    """按对照类型选图，并补 chart_spec 要求的证明字段。
+
+    选型规则（v11 / P4 修正）：
+        1. 方法已经给的图型若在该关系的 allowed 列表里 → **直接用**，不重选。
+           方法最了解自己的 payload 形状，硬换成列表里第一个常常要改 payload 键名，
+           是「适配成功、渲染失败」的来源。
+        2. 否则按 allowed 顺序找第一个能适配的。
+        3. 一个都不适配 → type="" + unsupported，交给调用方记缺口（不硬画）。
+    """
     kind = str((q.get("comparison") or {}).get("kind") or "")
     policy = CHART_POLICY.get(kind) or ["hbar"]
     base = dict(chart or {})
     chosen, fallback = "", False
-    for ctype in policy:
-        if not chart_capabilities.has_chart(ctype):
-            continue
-        got = _adapt(base, ctype) if base else None
-        if got:
-            base, chosen = got, ctype
-            break
+    native = str(base.get("type") or "")
+    if native and native in policy:
+        chosen = native
+    else:
+        for ctype in policy:
+            if not chart_capabilities.has_chart(ctype):
+                continue
+            got = _adapt(base, ctype) if base else None
+            if got:
+                base, chosen = got, ctype
+                break
     if not chosen:
-        # 没有一种 policy 内的图型能表达这份 payload：不硬画，交给调用方记缺口
+        # 没有一种允许的图型能表达这份 payload：不硬画，交给调用方记缺口
         base["type"] = ""
         base["policy"] = {"comparison": kind, "allowed": policy, "chosen": "",
                           "fallback": True, "unsupported": True}
         return base
-    if chart and chart.get("type") and chart["type"] != chosen:
+    # fallback = 「选型时改过图型」：方法没给类型、或给的类型不在 allowed 里，都算。
+    # 留痕是为了审计：报告里每张图都能回答「为什么用这个图型，而不是方法原本那个」。
+    if native != chosen:
         fallback = True
     base["type"] = chosen
     base["policy"] = {"comparison": kind, "allowed": policy,
-                      "chosen": chosen, "fallback": fallback}
+                      "chosen": chosen, "native": native, "fallback": fallback}
     base.setdefault("title", q.get("text") or "")
     base.setdefault("unit_meta", (q.get("comparison") or {}).get("unit") or "")
     base.setdefault("source", "证据包（见记录层）")
