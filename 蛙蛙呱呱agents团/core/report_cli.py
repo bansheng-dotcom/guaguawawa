@@ -115,10 +115,10 @@ def cmd_plan_report(args) -> int:
             json.dumps(p, ensure_ascii=False, indent=2), encoding="utf-8")
         (Path(out) / "research_brief.md").write_text(
             research_protocol.to_markdown(p), encoding="utf-8")
-    print(json.dumps({"business_line": p["business_line"],
-                      "data_lane": p["data_lane"],
-                      "experts": p["experts"],
-                      "modules": [m["name"] for m in p["modules"]],
+    print(json.dumps({"data_lane": p["data_lane"],
+                      "what_to_research": p["what_to_research"],
+                      "claim_fields": [c["field"] for c in p["claim_contract"]],
+                      "report_parts": [s["part"] for s in p["report_shape"]],
                       "out": out or "(仅预览)"}, ensure_ascii=False, indent=1))
     return 0
 
