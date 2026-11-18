@@ -88,7 +88,7 @@ CHART_POLICY, COMPARISON_TO_RELATION, CHART_POLICY_SOURCE = _load_policy()
 
 # 问题库：一个 finding 能回答的那个「决策问题」。
 # priority 越小越先入选；问题由编排器决定，本表只决定「同一 finding 里先问哪一问」。
-QBANK: List[Dict[str, Any]] = [
+_BANK_LEGACY: List[Dict[str, Any]] = [
     {"id": "q.move", "finding": "structure", "priority": 10,
      "text": "哪些对象在变、变化多大？", "decision": "调整结构 / 资源投向",
      "comparison": {"kind": "compare_categories", "left": "对象", "right": "零线",
@@ -203,6 +203,39 @@ QBANK: List[Dict[str, Any]] = [
                     "metric": "同比增速（%）", "unit": "%"},
      "falsifier": "若行业增速回落到本地大盘以下，增长来自结构升级的判断作废。"},
 ]
+
+# 动作库 = 方法注册表 × 覆盖项（v12）
+# 手写 22 条降级为覆盖项；没覆盖的方法按自述生成一条问题。
+# 这样「有问题没方法」与「有方法没问题」结构上都不可能发生。
+_DEFAULT_FALSIFIER = "若下期该指标背离本节方向超过 5.0%，本节作废。"
+
+
+def _q_from_method(key: str, spec) -> Dict[str, Any]:
+    produces = str(getattr(spec, "produces", "") or key)
+    desc = str(getattr(spec, "description", "") or "").strip()
+    first = desc.split("；")[0].split("，")[0].strip() if desc else ""
+    return {
+        "id": f"q.{key}",
+        "finding": key,
+        "priority": int(getattr(spec, "priority", 100) or 100),
+        "text": f"{produces}：现在是什么水平，与谁比、差多少？",
+        "decision": "是否调整" + (first or produces),
+        "comparison": {"kind": "compare_categories", "left": produces,
+                       "right": "基准", "metric": produces, "unit": ""},
+        "falsifier": _DEFAULT_FALSIFIER,
+    }
+
+
+def _build_qbank() -> List[Dict[str, Any]]:
+    from core import methods as _m
+    legacy = {q["finding"]: q for q in _BANK_LEGACY}
+    out = [dict(legacy[k]) if k in legacy else _q_from_method(k, sp)
+           for k, sp in _m.REGISTRY.items()]
+    out.sort(key=lambda q: int(q.get("priority", 100)))
+    return out
+
+
+QBANK = _build_qbank()
 
 BY_ID = {q["id"]: q for q in QBANK}
 BY_FINDING = {q["finding"]: q for q in QBANK}
