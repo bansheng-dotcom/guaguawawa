@@ -20,6 +20,7 @@ import json
 import os
 import re
 import shutil
+import sys
 import tempfile
 from datetime import date, datetime
 from pathlib import Path
@@ -410,6 +411,20 @@ def _contract(intent: str, th: str, spec: Dict[str, Any], title: str,
 # --------------------------------------------------------------------------- #
 # 主流程
 # --------------------------------------------------------------------------- #
+def _legacy_guard() -> None:
+    """v10 单入口：本模块的 build() 已下线，只保留装配所需的私有工具函数。
+
+    P1 阶段先封口（不可执行），P2.4 由 core/report_assembly.py 接管后整份删除。
+    设 ALLOW_LEGACY_COMPOSE=1 可临时放行（只用于对照历史产物，不用于交付）。
+    """
+    if os.environ.get("ALLOW_LEGACY_COMPOSE", "0") == "1":
+        return
+    raise RuntimeError(
+        "report_compose.build 已下线（v10 单入口）。\n"
+        "请用: python guagua.py report run-line --intent \"…\" --dir <项目> --out <目录>\n"
+        "本模块现在只保留 _section_of / _metrics / _subject / _counts 等私有工具函数。")
+
+
 def build(intent: str, project_dir: str, out_dir: str,
           thesis: Optional[str] = None, theme: str = "paper",
           pdf: bool = False, keep_tmp: bool = False,
@@ -417,6 +432,7 @@ def build(intent: str, project_dir: str, out_dir: str,
           require_contract: bool = False,
           quote_mode: str = "off",
           lens: Optional[str] = None) -> Dict[str, Any]:
+    _legacy_guard()
     desk = analysis_desk.scan(project_dir)
     prof = analysis_desk.profile(desk)
     views = analysis_methods.build_views(desk)
@@ -766,9 +782,13 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--require-contract", action="store_true")
     ap.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
     a = ap.parse_args(argv)
-    res = build(a.intent, a.dir, a.out, thesis=a.thesis, theme=a.theme, pdf=a.pdf,
-                audience=a.audience, require_contract=a.require_contract,
-                quote_mode=a.quote_mode)
+    try:
+        res = build(a.intent, a.dir, a.out, thesis=a.thesis, theme=a.theme, pdf=a.pdf,
+                    audience=a.audience, require_contract=a.require_contract,
+                    quote_mode=a.quote_mode)
+    except RuntimeError as exc:
+        print(f"[offline] {exc}", file=sys.stderr)
+        return 2
     print(json.dumps(res, ensure_ascii=False, indent=1))
     return 0 if res["ok"] else 1
 
