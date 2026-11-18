@@ -1,7 +1,10 @@
 # 接入唯一报告产线（REPORT-BRIDGE-GUIDE）
 
-> **P5/v10（2026-11-17）**：`run / pack / produce / research` 已删除，统一入口是
-> `python guagua.py report build --intent … --dir … --out … --lens …`；
+> **P1/v11（2026-11-18）**：唯一入口是
+> `python guagua.py report run-line --intent "…" --dir <项目> --out <目录>`；
+> `build / decide` 为过渡别名（P5 删除），`run / pack / produce / research` 与 `--lens / --thesis` 已删除。
+> 新角色/新能力的接入方式是：**在专家卡（`configs/experts.yaml`）里声明「能答什么、要什么数据」**，
+> 由编排器决定是否出场——不再各自写报告。
 > 本文件以下内容是旧接入说明，保留作历史对照。
 
 > 2026-11-15 产线收敛；2026-11-17 校正本文与实际代码的偏差。

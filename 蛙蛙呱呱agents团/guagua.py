@@ -669,9 +669,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_skills)
 
     p = sub.add_parser("report",
-        help="唯一报告产线：build / check / charts / capabilities / plan",
-        description="报告只有一个作者（R01）。子命令：run / check / charts / capabilities / plan；"
-                    "产线地图见 docs/REPORT-LINES.md，放进 manifest 的唯一渲染器在 core/。")
+        help="唯一报告产线：run-line（一条命令 + 四种输入）/ check / charts / capabilities / plan / gaps",
+        description="一条命令出报告：python guagua.py report run-line --intent \"…\" --dir <项目> --out <目录>。"
+                    "build / decide 是过渡别名（P5 删除）。产线地图见 docs/REPORT-LINES.md。")
     p.add_argument("report_args", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_report)
 

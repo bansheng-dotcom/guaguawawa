@@ -1,8 +1,11 @@
 # 报告标准（REPORT-STANDARD.md）
 
-> **P5 收敛（2026-11-17）**：报告类型收敛为 `analysis` + `lens`；`run/pack/produce/research` 已删除，
-> 统一入口是 `python guagua.py report build --intent … --dir … --out … --lens …`。
-> 本文以下关于“两个分支 / 22 纲领”的内容是历史标准，保留作对照。
+> **v11 单入口（2026-11-18 · P1）**：唯一命令是
+> `python guagua.py report run-line --intent "…" --dir <项目> --out <目录>`。
+> `build` / `decide` 是过渡别名（P5 删除）；`produce / pack / research / run` 与 `--lens / --thesis` **已删除**。
+> 报告合格判据仍是 **binding（问几个、答几个）+ 每节有数字 + 有边界 + 图有来源**。
+> 本文以下关于「两个分支 / 22 纲领 / run/pack/produce/research」的内容是历史标准，保留作对照；
+> 命令一律以 `docs/REPORT-LINES.md` 为准。
 
 > 2026-11-15 产线收敛：**报告只有一个作者 —— R01 蛙全局**。
 > 20 个执行角色只交 `result`（数字与证据），不再各自出报告。
