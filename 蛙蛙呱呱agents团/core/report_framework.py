@@ -80,24 +80,22 @@ DIMENSIONS: List[Dict[str, Any]] = [
     # ---------------- 需求侧 ----------------
     {"key": "market_size", "name": "市场规模与空间", "group": "demand",
      "question": "这个市场有多大，用几条互不重叠的口径互证？",
-     "methods": ["size", "sizing_multi", "cheese_size", "seasoning_size"],
+     "methods": ["size", "sizing_multi"],
      "keywords": ["规模", "空间", "体量", "总量", "TAM", "赛道", "市场有多大"],
      "standard": "至少两条独立口径互证，给区间与中位，不交单点值。"},
     {"key": "demand_structure", "name": "需求结构", "group": "demand",
      "question": "需求由哪些细分构成，结构在往哪边换？",
-     "methods": ["structure", "mix", "demand", "contribution", "region",
-                 "seasoning_structure", "cheese_structure"],
+     "methods": ["structure", "mix", "demand", "contribution", "region"],
      "keywords": ["结构", "细分", "品类", "占比", "构成", "需求"],
      "standard": "细分必须互斥；给份额与变化方向，不罗列品类名。"},
     {"key": "growth", "name": "增长与趋势", "group": "demand",
      "question": "增长还在不在，引擎在哪一端？",
-     "methods": ["growth", "momentum", "trajectory", "trend", "seasoning_growth",
-                 "cheese_growth"],
+     "methods": ["growth", "momentum", "trajectory", "trend"],
      "keywords": ["增长", "增速", "趋势", "CAGR", "渗透", "下滑", "拐点", "行情"],
      "standard": "必须给时间序列或两期对照；区分总量增长与结构增长。"},
     {"key": "price", "name": "价格与量价", "group": "demand",
      "question": "价格怎么变，涨跌由量还是价驱动？",
-     "methods": ["volume", "cheese_price", "structure", "cheese_quotes"],
+     "methods": ["volume", "structure"],
      "keywords": ["价格", "量价", "价差", "涨价", "价格带", "客单", "采价"],
      "standard": "价格需有期次与单位；量价拆解要写出交叉项处理方式。"},
     {"key": "customer", "name": "客群与口碑", "group": "demand",
@@ -109,29 +107,29 @@ DIMENSIONS: List[Dict[str, Any]] = [
     # ---------------- 供给侧 ----------------
     {"key": "supply", "name": "供给能力", "group": "supply",
      "question": "供给由谁提供，产能与主体密度够不够？",
-     "methods": ["supply", "capacity", "cheese_supply"],
+     "methods": ["supply", "capacity"],
      "keywords": ["供给", "产能", "企业", "工厂", "作坊", "产量", "供应商"],
      "standard": "供给主体要能落到数量与地域；产能需区分规划与达产。"},
     {"key": "cost", "name": "成本结构", "group": "supply",
      "question": "成本由哪几项构成，哪一项最刚性？",
-     "methods": ["cost", "unit_econ", "economics", "cheese_unit_econ"],
+     "methods": ["cost", "unit_econ", "economics"],
      "keywords": ["成本", "毛利", "净利", "单位经济", "保本", "出厂", "损耗"],
      "standard": "成本栈要逐项拆分；假设项单列并给敏感性。"},
     {"key": "chain", "name": "链路与传导", "group": "supply",
      "question": "从上游到终端，利润被哪一段吃掉？",
-     "methods": ["transmission", "arbitrage", "spread", "chain", "cheese_chain"],
+     "methods": ["transmission", "arbitrage", "spread", "chain"],
      "keywords": ["链路", "供应链", "传导", "加价", "批发", "零售", "物流", "断点"],
      "standard": "至少三段价差；每段给金额与占比，不只给加价率。"},
 
     # ---------------- 竞争与渠道 ----------------
     {"key": "competition", "name": "竞争格局", "group": "competition",
      "question": "市场集中在哪里，正面对打还是找缝隙？",
-     "methods": ["concentration", "cheese_region"],
+     "methods": ["concentration"],
      "keywords": ["竞争", "集中度", "份额", "CR", "HHI", "格局", "对手", "头部"],
      "standard": "给 CR/HHI 或前几名份额；结论要落到进入成本。"},
     {"key": "channel", "name": "渠道与内容", "group": "competition",
      "question": "钱从哪个渠道流走，内容和货架怎么配合？",
-     "methods": ["channel", "seasoning_channel", "cheese_channel", "cheese_content"],
+     "methods": ["channel"],
      "keywords": ["渠道", "电商", "抖音", "天猫", "线下", "内容", "种草", "礼盒", "营销"],
      "standard": "渠道要有份额或增速；内容动作要能落到选题与转化。"},
     {"key": "product", "name": "产品与商品结构", "group": "competition",
@@ -143,7 +141,7 @@ DIMENSIONS: List[Dict[str, Any]] = [
     # ---------------- 财务经营 ----------------
     {"key": "unit_economics", "name": "单位经济与保本", "group": "finance",
      "question": "一单位赚多少，低于什么价不能接？",
-     "methods": ["unit_econ", "economics", "margin", "breakeven", "cheese_unit_econ"],
+     "methods": ["unit_econ", "economics", "margin", "breakeven"],
      "keywords": ["单位经济", "保本", "净利", "毛利", "报价", "定价", "成本"],
      "standard": "收入-成本-渠道-损耗逐项列；给保本价与安全垫。"},
     {"key": "capital_return", "name": "投入与回报", "group": "finance",
@@ -160,12 +158,12 @@ DIMENSIONS: List[Dict[str, Any]] = [
     # ---------------- 风险与执行 ----------------
     {"key": "policy", "name": "政策与合规", "group": "risk",
      "question": "政策在推什么、哪条红线不能碰？",
-     "methods": ["policy", "cheese_policy"],
+     "methods": ["policy"],
      "keywords": ["政策", "补贴", "监管", "标准", "合规", "资质"],
      "standard": "政策要落到条款与金额；合规结论必须可执行（谁去办、办什么）。"},
     {"key": "risk", "name": "风险与数据缺口", "group": "risk",
      "question": "哪些结论现在不能下，什么会推翻它？",
-     "methods": ["risk", "incidents", "sample", "consistency", "coverage", "cheese_coverage"],
+     "methods": ["risk", "incidents", "sample", "consistency", "coverage"],
      "keywords": ["风险", "缺口", "不确定", "假设", "回撤", "波动", "异常"],
      "standard": "风险要按概率×影响排序；缺口要写补数动作，不写「有待观察」。"},
     {"key": "execution", "name": "执行与组织", "group": "risk",
@@ -297,11 +295,11 @@ def guess_methods(profile: Optional[Dict[str, Any]]) -> set:
     ms: set = set()
     if p.get("facts"):
         ms |= {"size", "growth", "structure", "demand", "policy", "coverage",
-               "concentration", "cheese_size", "cheese_growth", "cheese_structure"}
+               "concentration"}
     ch = p.get("channels") or {}
     if (ch.get("retail") or 0) + (ch.get("wholesale") or 0) + (ch.get("origin") or 0) > 0:
         ms |= {"volume", "economics", "transmission", "arbitrage", "breakeven",
-               "risk", "price", "cheese_price", "cheese_chain"}
+               "risk", "price"}
     kinds = p.get("kinds") or {}
     if kinds and sum(kinds.values()) > 2:
         ms |= {"funnel", "retention", "roi", "priority", "store", "sku"}

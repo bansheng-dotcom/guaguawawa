@@ -46,9 +46,7 @@ ROLE_METHODS: Dict[str, List[str]] = {
     "r03": [],                                   # 财务合规：靠角色技能，不产数据方法
     "r04": [],                                   # 独立评审：靠 artifact/criteria 门禁
     "r05": ["size", "sizing_multi", "growth", "demand", "concentration",
-            "consistency", "coverage",
-            "seasoning_size", "seasoning_structure", "seasoning_channel",
-            "seasoning_growth"],
+            "consistency", "coverage",],
                                                  # 研究：规模/格局/来源一致性 + 调味料族
     "r06": ["structure", "momentum", "trajectory", "contribution", "risk",
             "sample", "describe"],               # 分析：结构/节奏/轨迹/贡献
