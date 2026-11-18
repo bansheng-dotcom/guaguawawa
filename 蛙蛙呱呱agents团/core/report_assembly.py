@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """core/report_assembly —— finding → 节/指标/计数（从 report_compose 拆出的唯一实现）。
 
 为什么单独成模块（v11 / P1.4）：
@@ -20,6 +20,7 @@ v10 起 `decision_report` 只用到它的四个私有函数：
 """
 from __future__ import annotations
 
+import re
 from typing import Any, Dict, List, Tuple
 
 from core import claims
@@ -76,9 +77,12 @@ def _section_of(f) -> Dict[str, Any]:
                 {"text": mech, "refs": list(dict.fromkeys(sec.get("refs") or [])),
                  "strong": "机理　"})
         if so_what:
-            sec.setdefault("reading", []).append(
-                {"text": so_what, "refs": list(dict.fromkeys(sec.get("refs") or [])),
-                 "strong": "所以　"})
+            seen = " ".join(str(r.get("text") or "") for r in (sec.get("reading") or []))
+            tail = re.sub(r"[^\u4e00-\u9fff]", "", so_what)[:18]
+            if not tail or tail not in re.sub(r"[^\u4e00-\u9fff]", "", seen):
+                sec.setdefault("reading", []).append(
+                    {"text": so_what, "refs": list(dict.fromkeys(sec.get("refs") or [])),
+                     "strong": "所以　"})
         if falsifier:
             sec["falsifier"] = falsifier
     return sec
