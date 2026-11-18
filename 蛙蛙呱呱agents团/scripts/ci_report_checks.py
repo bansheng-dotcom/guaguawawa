@@ -265,6 +265,14 @@ def main() -> int:
     if rc:
         fails.append("presentation")
 
+    # [18] 死代码：每个 .py 必须有引用者（import / 脚本调用 / 文档）。
+    # 判据是「说不出谁在用就删」，不是「看着像没用就删」。
+    rc, out = run([sys.executable, "scripts/check_dead_code.py", "--check"])
+    print(f"[18] dead-code rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+    if rc:
+        fails.append("dead-code")
+        print(out)
+
     if env:
         print(f"\n环境未就绪（不计入失败）：{', '.join(env)}")
     print(f"\n=== {'FAIL: ' + ','.join(fails) if fails else 'ALL PASS'} ===")
