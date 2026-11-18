@@ -42,11 +42,12 @@
   "counterexample": "在渗透率已接近饱和的品类里，继续拉新会烧钱；这时频次与客单才是主变量。",
   "failure_mode": "把复购率当增长引擎，却不算新客获取成本；用小样本会员数据代替全量。",
   "landing": {
-    "method": "core/methods/market.py::m_channel",
+    "method": "none（v12：market.py 已退场，改由 agent 研究路径承接）",
     "claim_kind": "mix",
     "frame": "market",
     "gate": "Q2",
-    "test": "tests/test_decision_report.py::test_choose_chart_follows_comparison_and_fills_contract"
+    "test": "",
+    "landed_by": "core/research_protocol.py + 智能体 claims"
   },
   "acceptance": {
     "fixture": "待接入：workspace/olist_v4_demo（有客户与订单）",
@@ -54,5 +55,6 @@
     "tolerance": "贡献合计与总增长差 ≤0.2pp"
   },
   "owner": "r12",
-  "last_reviewed": "2026-11-15"
+  "last_reviewed": "2026-11-15",
+  "note": "方法层已删；本卡保留为研究动作用语，落地方式改为 agent 调研，不再有专用 Python 实现"
 }
