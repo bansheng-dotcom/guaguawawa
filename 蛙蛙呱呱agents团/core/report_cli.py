@@ -102,16 +102,55 @@ def cmd_decide(args) -> int:
     return 0 if res.get("ok") else 1
 
 
+def cmd_plan_report(args) -> int:
+    """一句话 → 专业研究方案（不产报告）：告诉 agent 该查什么、按什么等级收证据。"""
+    from core import research_protocol
+    p = research_protocol.plan(args.intent, project_dir=getattr(args, "dir", None),
+                               has_files=bool(getattr(args, "dir", None)))
+    out = getattr(args, "out", None)
+    if out:
+        from pathlib import Path
+        Path(out).mkdir(parents=True, exist_ok=True)
+        (Path(out) / "research_plan.json").write_text(
+            json.dumps(p, ensure_ascii=False, indent=2), encoding="utf-8")
+        (Path(out) / "research_brief.md").write_text(
+            research_protocol.to_markdown(p), encoding="utf-8")
+    print(json.dumps({"business_line": p["business_line"],
+                      "data_lane": p["data_lane"],
+                      "experts": p["experts"],
+                      "modules": [m["name"] for m in p["modules"]],
+                      "out": out or "(仅预览)"}, ensure_ascii=False, indent=1))
+    return 0
+
+
 def cmd_run_line(args) -> int:
     """v11 唯一入口（P1：转发实现）：一条命令 + 四种输入。"""
     from core import report_line
+    # v12：--claims 一步到位：编译（含交叉质询）→ 过闸 → 渲染。
+    # 这样「智能体交一份 claims.json」就是完整交付动作，不用记两个命令。
+    claims_path = getattr(args, "claims", None)
+    if claims_path:
+        import subprocess
+        import sys as _sys
+        from pathlib import Path as _P
+        comp = _P(__file__).resolve().parent.parent / "scripts" / "compile_agent_report.py"
+        proc = subprocess.run([_sys.executable, str(comp), str(claims_path),
+                               "--out", str(_P(args.out) / "_compiled")],
+                              capture_output=True, text=True)
+        if proc.returncode != 0:
+            print(proc.stdout.strip() or proc.stderr.strip())
+            return proc.returncode
+        args.evidence = str(_P(args.out) / "_compiled" / "evidence_pack.json")
+        args.draft = str(_P(args.out) / "_compiled" / "draft_sections.json")
     try:
         res = report_line.build(
             intent=args.intent, project_dir=args.dir, out_dir=args.out,
             input_path=getattr(args, "input", None),
             research=getattr(args, "research", False),
             audience=args.audience, theme=args.theme, pdf=args.pdf,
-            quote_mode=args.quote_mode, min_binding=args.min_binding)
+            quote_mode=args.quote_mode, min_binding=args.min_binding,
+            evidence_path=getattr(args, "evidence", None),
+            draft_path=getattr(args, "draft", None))
     except Exception as e:  # noqa: BLE001
         print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
                          ensure_ascii=False))
@@ -170,6 +209,10 @@ def main(argv=None) -> int:
     rl.add_argument("--pdf", action="store_true")
     rl.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
     rl.add_argument("--min-binding", type=float, default=0.8)
+    rl.add_argument("--evidence", default=None, help="证据包 JSON（智能体写稿路径）")
+    rl.add_argument("--draft", default=None, help="章节稿 JSON（智能体写稿路径）")
+    rl.add_argument("--claims", default=None,
+                    help="claims.json：一步完成 编译+交叉质询+过闸+渲染")
     rl.add_argument("--decision", default=None,
                     help="决策契约 JSON；缺省读 <dir>/data/decision.json，再缺省按出场专家起草")
     rl.set_defaults(func=cmd_run_line)
@@ -200,6 +243,14 @@ def main(argv=None) -> int:
                          "product / support / people / sre / marketing / sku / store")
     pl.set_defaults(func=cmd_plan)
 
+    # v12：一句话 → 专业研究方案。这一步替代「让用户自己定义研究问题」。
+    rp = sub.add_parser("research-plan",
+                        help="一句话 → 专业研究方案（8 个模块 / 专家 / 数据通道），不产报告")
+    rp.add_argument("--intent", required=True)
+    rp.add_argument("--dir", default=None, help="已给数据目录则 data_lane=given")
+    rp.add_argument("--out", default=None)
+    rp.set_defaults(func=cmd_plan_report)
+
     g = sub.add_parser("gaps", help="看项目的 quote gap 清单（不产报告）")
     g.add_argument("--project", required=True)
     g.set_defaults(func=cmd_gaps)
@@ -208,7 +259,7 @@ def main(argv=None) -> int:
     # v11 唯一入口：`report "指令" --dir …` 等价于 `report run-line --intent "指令" …`
     # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
     known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
-             "-h", "--help"}
+             "research-plan", "-h", "--help"}
     if argv and argv[0] not in known:
         rest = argv
         argv = ["run-line", "--intent", rest[0], *rest[1:]]

@@ -67,7 +67,8 @@ def build(intent: str, project_dir: Optional[str] = None,
           out_dir: str = "out", input_path: Optional[str] = None,
           research: bool = False, audience: str = "业务负责人",
           theme: str = "paper", pdf: bool = False, quote_mode: str = "off",
-          min_binding: float = 0.8) -> Dict[str, Any]:
+          min_binding: float = 0.8, evidence_path: Optional[str] = None,
+          draft_path: Optional[str] = None) -> Dict[str, Any]:
     """唯一入口。P1：识别输入形态后转发 decision_report（产物不变）。"""
     mode = detect_mode(project_dir, input_path, research)
     out = Path(out_dir)
@@ -94,9 +95,30 @@ def build(intent: str, project_dir: Optional[str] = None,
         return {"ok": False, "mode": mode,
                 "error": "评审型输入（--input）将在 P2 实现；P1 请用 --dir 提供数据目录"}
 
+    # 智能体写稿路径（v12）：给了证据包 + 章节稿就不再跑方法库。
+    # 这条路才是「能力在模型、规则只管验」的落点：
+    #   谁写：R01 与领域专家（模型 + 工具）→ evidence_pack.json + draft_sections.json
+    #   谁验：core/report_flow 逐节过账 + core/quality_gate 三层闸
+    #   谁印：core/report_renderer（唯一渲染器）
+    if evidence_path and draft_path:
+        from core import report_flow
+        _write(str(out / "input_mode.json"), {
+            "schema": SCHEMA, "mode": "agent", "intent": intent,
+            "evidence": str(evidence_path), "draft": str(draft_path),
+            "detected_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+        })
+        draft_obj = json.loads(Path(draft_path).read_text(encoding="utf-8-sig"))
+        res = report_flow.run(intent=intent, out_dir=out_dir, draft=draft_obj,
+                              evidence=str(evidence_path), theme=theme, pdf=pdf,
+                              quote_mode=quote_mode)
+        res = dict(res)
+        res["mode"] = "agent"
+        res["generated_by"] = "core/report_line.py (agent draft)"
+        return res
+
     if not project_dir:
         return {"ok": False, "mode": mode,
-                "error": "P1 需要 --dir <项目目录>；纯指令型与采集型在 P2/P3 接入"}
+                "error": "需要 --dir <数据项目>，或 --evidence + --draft（智能体写稿）"}
 
     from core import decision_report
     res = decision_report.build(

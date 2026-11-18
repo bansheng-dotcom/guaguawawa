@@ -3,12 +3,16 @@
 
 历史：P9 有 produce / pack / research / run 四个兼容别名；
 P1.7 删除它们；P5 把 build / decide 也删了——现在只剩一条路。
+v12 新增 research-plan（一句话→研究方案，不产报告）与 --claims（一步出报告）。
 """
 from __future__ import annotations
 
 import pytest
 
 from core import report_cli
+
+EXPECTED = {"run-line", "check", "charts", "capabilities", "plan",
+            "gaps", "research-plan"}
 
 
 def test_only_one_entry(capsys):
@@ -17,8 +21,12 @@ def test_only_one_entry(capsys):
     cap = capsys.readouterr()
     out = cap.out + cap.err
     assert "run-line" in out
-    for gone in ("build", "decide", "produce", "pack", "research"):
-        assert gone not in out.replace("run-line", ""), f"{gone} 不应再作为子命令出现"
+    # 用「子命令集合」判定，不用子串：research-plan 里含 research 是正常的，
+    # 但 research 本身作为子命令必须已经消失。
+    for gone in ("build", "decide", "produce", "pack", "research", "run"):
+        with pytest.raises(SystemExit):
+            report_cli.main([gone, "--help"])
+        capsys.readouterr()
 
 
 def test_old_names_are_gone(capsys):

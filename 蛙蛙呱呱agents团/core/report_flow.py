@@ -341,10 +341,16 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     n_files = pack.get("counts", {}).get("files", 0)
     n_nums = len(pack.get("numbers") or [])
     bounds = [str(b) for b in (draft.get("boundaries") or []) if str(b).strip()]
+    # 生成方式要说实话：智能体写的报告不能写成「方法库出数」，
+    # 否则读者会以为每个数字都是从结构化数据算出来的。
+    is_agent = str(draft.get("schema") or "").startswith("dsh.agent")
+    how = ("R01 编排与领域专家（模型 + 工具）调研成稿；规则只做出数与引用核验，不改写结论；"
+           f"两道门禁（质量 / 流程）独立校验；渲染 core/report_renderer（{theme}）。"
+           if is_agent else
+           "R01 编排与收口；方法库（core/methods）出数与论证；"
+           f"两道门禁（质量 / 流程）独立校验；渲染 core/report_renderer（{theme}）。")
     meta_rows = [
-        {"strong": "生成方式　", "text":
-         "R01 编排与收口；方法库（core/methods）出数与论证；"
-         f"两道门禁（质量 / 流程）独立校验；渲染 core/report_renderer（{theme}）。"},
+        {"strong": "生成方式　", "text": how},
         {"strong": "证据规模　", "text":
          f"{n_files} 个来源文件 / {n_nums} 个可寻址数字。"},
         {"strong": "逐节校验　", "text":
