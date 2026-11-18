@@ -25,7 +25,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from core import (analysis_desk, analysis_methods, decision, methods,
-                  report_assembly, report_flow)
+                  orchestrator, report_assembly, report_flow)
 
 
 def _json(path: str, obj: Any) -> None:
@@ -54,13 +54,28 @@ def build(intent: str, project_dir: str, out_dir: str,
     plan = methods.plan(desk, views, prof, "analysis")
     mounted = [m["key"] for m in plan.get("mounted") or []]
 
-    # 1) 决策契约：人给的文件优先；没有就从数据能力起草，并明确标记 auto
+    # 0) 专家编排（v11）：先定「谁出场」，再定「问什么」。
+    #    这是修「问招聘答水果」的关键一步：编排器判 unbound 时整份报告失败，
+    #    不许退回「用数据能算的东西出报告」。
+    orch = orchestrator.plan(intent, method_plan=plan)
+    _json(os.path.join(out_dir, "decisions.json"), orch)
+    if orch.get("mode") == "unbound":
+        raise report_flow.FlowError(
+            "INTENT_UNBOUND: " + str(orch.get("reason"))
+            + "。这份数据回答不了这个问题——补数据后重跑，或换一个与数据匹配的问题。")
+
+    # 1) 决策契约：人给的文件优先；没有就按出场专家起草，并明确标记 auto
     src = decision_path or os.path.join(project_dir, "data", "decision.json")
     auto = not os.path.exists(src)
-    if auto:
-        ctr = decision.draft(intent, mounted, audience=audience)
-    else:
+    if not auto:
         ctr = decision.load(src)
+    else:
+        try:
+            ctr = decision.draft_from_roster(intent, orch.get("roster") or [],
+                                             audience=audience)
+        except ValueError:
+            # 出场专家能答的问题不足 3 个 → 退回数据驱动（decisions.json 已标 mode=data）
+            ctr = decision.draft(intent, mounted, audience=audience)
     v = decision.validate(ctr)
     if not v["ok"]:
         raise report_flow.FlowError("决策契约不成立：" + "；".join(v["errors"]))

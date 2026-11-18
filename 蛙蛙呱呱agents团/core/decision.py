@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """core/decision —— 决策契约：报告的上游唯一对象。
 
 第一性原理：一份报告的最小单位不是「一节文字」，而是
@@ -155,6 +155,9 @@ def draft(intent: str, available: Iterable[str], decision: str = "",
     """从「数据能回答什么」起草契约。auto=true 表示这不是人给的决策问题。
 
     选问题先保「对照类型不重复」：五个 hbar 不是五条判断，是一种判断。
+
+    注意（v11）：这是**兜底**路径。正常路径是 `draft_from_roster()`：
+    问题由编排器选出的专家决定，而不是由数据能算什么决定。
     """
     have = [k for k in available if k in BY_FINDING]
     pool = sorted({k: BY_FINDING[k] for k in have}.values(), key=lambda q: q["priority"])
@@ -186,6 +189,7 @@ def draft(intent: str, available: Iterable[str], decision: str = "",
             "comparison": dict(q["comparison"]),
             "falsifier": q["falsifier"],
             "chart": {"type": CHART_POLICY[q["comparison"]["kind"]][0]},
+            "owner": "",
         })
     return {
         "schema": SCHEMA,
@@ -194,6 +198,66 @@ def draft(intent: str, available: Iterable[str], decision: str = "",
         "audience": audience,
         "data_cutoff": "",
         "auto": True,
+        "drafted_from": "data",
+        "generated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+        "questions": qs,
+    }
+
+
+def draft_from_roster(intent: str, roster: Iterable[Dict[str, Any]],
+                      decision: str = "", audience: str = "业务负责人",
+                      min_q: int = MIN_Q, max_q: int = MAX_Q) -> Dict[str, Any]:
+    """按「专家能答什么」起草契约（v11 正常路径）。
+
+    与 `draft()` 的唯一差别是**问题来源**：
+        draft()             从「挂载了哪些方法」反推问题 → 问招聘也能答水果
+        draft_from_roster() 从「哪些专家出场、它们能答什么」抽问题 → 答不了就不问
+
+    每个候选问题都带 `owner`（哪位专家负责），报告页与 manifest 可据此追溯。
+    候选不足 `min_q` 时抛 ValueError，由编排器决定是「不出报告」还是「数据驱动兜底」。
+    """
+    by_finding = {q["finding"]: q for q in QBANK}
+    cand: List[Tuple[int, Dict[str, Any], Dict[str, Any]]] = []
+    seen_f, seen_id = set(), set()
+    for e in roster:
+        rid = str(e.get("role") or "")
+        for mkey in (e.get("methods") or []):
+            q = by_finding.get(mkey)
+            if not q or q["finding"] in seen_f or q["id"] in seen_id:
+                continue
+            seen_f.add(q["finding"])
+            seen_id.add(q["id"])
+            cand.append((int(q["priority"]), q, e))
+    cand.sort(key=lambda x: x[0])
+    if len(cand) < min_q:
+        raise ValueError(
+            f"出场专家的可答问题只有 {len(cand)} 个（< {min_q}）："
+            + "、".join(f"{e.get('role')}:{','.join(e.get('methods') or []) or '无方法'}"
+                        for e in roster))
+
+    picked = cand[:max_q]
+    qs = []
+    for i, (_, q, e) in enumerate(picked, 1):
+        qs.append({
+            "id": f"dq{i}",
+            "text": q["text"],
+            "decision": decision or q["decision"],
+            "finding": q["finding"],
+            "comparison": dict(q["comparison"]),
+            "falsifier": q["falsifier"],
+            "chart": {"type": CHART_POLICY[q["comparison"]["kind"]][0]},
+            "owner": str(e.get("role") or ""),
+            "owner_name": str(e.get("name") or ""),
+        })
+    return {
+        "schema": SCHEMA,
+        "intent": intent,
+        "decision": decision or "读完这份报告要做的取舍",
+        "audience": audience,
+        "data_cutoff": "",
+        "auto": True,
+        "drafted_from": "roster",
+        "roster": [str(e.get("role") or "") for e in roster],
         "generated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
         "questions": qs,
     }

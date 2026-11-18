@@ -106,6 +106,19 @@ def build(intent: str, project_dir: Optional[str] = None,
 
     res = dict(res)
     res["mode"] = mode
+    # 编排结果：让调用方一眼看到「这次谁出场、是意图驱动还是数据兜底」
+    dec_path = out / "decisions.json"
+    if dec_path.exists():
+        try:
+            dec = json.loads(dec_path.read_text(encoding="utf-8-sig"))
+            res["orchestration"] = {
+                "mode": dec.get("mode"),
+                "reason": dec.get("reason"),
+                "roster": [r["role"] for r in (dec.get("roster") or [])],
+                "blocked": [r["role"] for r in (dec.get("blocked") or [])],
+            }
+        except (OSError, json.JSONDecodeError):
+            pass
     res["generated_by"] = "core/report_line.py"
     return res
 
