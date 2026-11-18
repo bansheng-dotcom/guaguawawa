@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """共享确定性 HTML 报告渲染器（core 层，全 20 角色通用）。
 
 来源：由 R06 蛙得清的 report_renderer.py 抽取上收为核心库（对齐
@@ -483,6 +483,8 @@ CSS = """
     p { margin: 11px 0; color: var(--ink-2); }
     .sec-lede { font-size: 15.8px; color: var(--ink); }
 .sec-owner { font-size: 12.5px; color: var(--muted); letter-spacing: .02em; }
+.sec-falsifier { margin: 10px 0 2px; padding: 8px 12px; border-left: 3px solid var(--rule); font-size: 13.6px; color: var(--muted); background: var(--paper-soft, transparent); }
+.sec-falsifier::before { content: attr(data-label); font-weight: 600; color: var(--ink); }
 
     .q {
       margin: 12px 0 20px; padding: 10px 16px;
@@ -1669,6 +1671,11 @@ def render(c: Dict[str, Any]) -> str:
                         A(f'<li{lb}>{esc(r.get("text", ""))}</li>')
                 A('</ul>')
             A('</div>')
+
+        # 可证伪条件必须出现在正文里：只存字段不渲染 = 读者看不见，门禁也量不到
+        fals = str(s.get("falsifier") or "").strip()
+        if fals:
+            A(f'<p class="sec-falsifier" data-label="什么会推翻它　">{esc(fals)}</p>')
 
         charts = s.get("charts") or ([s["chart"]] if s.get("chart") else [])
         if charts:

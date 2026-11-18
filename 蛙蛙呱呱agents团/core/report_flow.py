@@ -321,7 +321,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
             sec["chart"] = s["chart"]
         # 复数图、导语、分块、为什么做、引用 id、叙事/枚举模式：以前在中转时被丢掉，这里按白名单直通
         for key in ("charts", "intro", "blocks", "why", "refs", "reading_style",
-                    "owner", "owner_name", "decision"):
+                    "owner", "owner_name", "decision", "falsifier"):
             if s.get(key):
                 sec[key] = s[key]
         if s.get("table"):

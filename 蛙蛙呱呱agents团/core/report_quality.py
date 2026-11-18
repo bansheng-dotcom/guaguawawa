@@ -51,7 +51,9 @@ MECH = ("因为", "由于", "机理", "一种解释", "判别", "来自", "说�
 # 断言式因果词（比「因为/由于」更强）：没有识别证据就不该出现
 CAUSAL_ASSERT = ("导致", "造成", "替代", "使得", "取决于", "驱动了")
 IDENT = ("实验", "DiD", "双差", "工具变量", "断点", "回归", "控制变量",
-         "排除", "反事实", "识别策略", "样本外", "回测", "对照")
+         "排除", "反事实", "识别策略", "样本外", "回测", "对照",
+         # v11：「来自 X 文件/技能」是在交代证据出处，本身即识别证据，不算无据因果
+         "来自", "判别方法", "证据来源", "由", "按口径")
 
 
 # 两档深度口径（2026-11-17 判据统一）：
@@ -62,18 +64,33 @@ PROFILES: Dict[str, Dict[str, Any]] = {
     "research": {
         "Q1": 0.85, "Q2": 0.50, "Q3": 0.50, "Q4": 0.40,
         "Q7": {"sections": 6, "chars": 4000, "numbers": 100, "exhibits": 4},
-        "hard": ("Q2", "Q3", "Q5", "Q6", "Q7"),
+        "Q8": 1.00,          # 每节必须有可证伪条件（v11 / P3 新增，硬门禁）
+        "Q9": 1.00,          # 每节必须有「解释 + 判别方法」（v11 / P3 新增，硬门禁）
+        "hard": ("Q2", "Q3", "Q5", "Q6", "Q7", "Q8", "Q9"),
     },
     "baseline": {
         "Q1": 0.0, "Q2": 0.0, "Q3": 0.30, "Q4": 0.0,
         "Q7": {"sections": 4, "chars": 800, "numbers": 30, "exhibits": 1},
-        "hard": ("Q3", "Q5", "Q6", "Q7"),
+        "Q8": 1.00,
+        "Q9": 1.00,
+        "hard": ("Q3", "Q5", "Q6", "Q7", "Q8", "Q9"),
     },
 }
 
+# 「可证伪」的判据：不能是「视情况而定」这类空话，必须给出可观测的阈值/数据项/方向反转。
+_FALSIFIER_HINT = re.compile(
+    r"(若|如果|一旦).{0,40}(转|跌|涨|超过|低于|高于|小于|大于|达到|跌破|回升|"
+    r"反|不再|仍未|未改善|偏差|偏离|\d)")
+_FALSIFIER_VOID = ("视情况而定", "视情况", "待观察", "酌情", "再评估")
+
 
 def infer_profile(html: str) -> str:
-    """按体量判档：6 节以上且 3000 字以上视为研究级，否则按基线稿处理。"""
+    """按体量判档：5 节以上且 3000 字以上视为研究级，否则按基线稿处理。
+
+    v11 / P3 把门槛从「6 节 / 3000 字」调到「5 节 / 3000 字」：
+    决策稿的固定结构是 摘要 + N 个业务节 + 动作节；5 个业务节在排除摘要后
+    正好 6 节，旧门槛会把它们误判成 baseline，从而绕过 Q8/Q9 两条硬门禁。
+    """
     secs = _sections(html)
     chars = len(" ".join(s["body"] for s in secs))
     return "research" if (len(secs) >= 6 and chars >= 3000) else "baseline"
@@ -97,8 +114,9 @@ def _sections(html: str) -> List[Dict[str, Any]]:
         title = _text(head)
         if not title:
             continue
-        # 附录/口径不是业务判断，不参与「标题即判断」的统计
-        if title in ("记录层", "口径与分数") or "证据来源" in title:
+        # 附录/口径/结论先行不是业务判断：前者是台账，后者是摘要，
+        # 都不该拉低「每节有机理/证伪」的覆盖率（否则一份好报告会被摘要拖红）。
+        if title in ("记录层", "口径与分数", "结论先行") or "证据来源" in title:
             continue
         body = _text(rest)
         items = [_text(x) for x in re.findall(r"<li[^>]*>([\s\S]*?)</li>", rest)
@@ -156,6 +174,29 @@ def audit(path: str, profile: str = "auto") -> Dict[str, Any]:
     causal_no_id = [s for s in causal_secs if not any(w in s["body"] for w in IDENT)]
     causal_share = len(causal_no_id) / max(1, len(secs))
 
+    # Q8：每节有没有「可证伪条件」。只认「若/如果 + 可观测阈值/方向」，
+    # 「视情况而定」这类空话反而判失败——证伪条件不是免责声明。
+    def _has_falsifier(s: Dict[str, Any]) -> bool:
+        """证伪条件 = 「若/如果」开头 + 一个可观测的阈值或方向。
+
+        只写「若方向反转」不够——那是修辞；要能落到下一期的某个可比数上。
+        表里的证伪句都带百分比/元/期数，所以这里要求同时出现条件词与数字。
+        """
+        text = s["body"]
+        if any(w in text for w in _FALSIFIER_VOID):
+            return False
+        if not re.search(r"(若|如果|一旦)", text):
+            return False
+        return bool(re.search(r"\d", text)) and bool(_FALSIFIER_HINT.search(text))
+
+    def _has_mechanism(s: Dict[str, Any]) -> bool:
+        """机理 = 一种解释 + 一个判别方法（「判别方法是…」）。"""
+        text = s["body"]
+        return any(w in text for w in MECH) and "判别方法" in text
+
+    q8 = rate(_has_falsifier)
+    q9 = rate(_has_mechanism)
+
     q7 = prof["Q7"]
     hard = set(prof["hard"])
 
@@ -192,6 +233,14 @@ def audit(path: str, profile: str = "auto") -> Dict[str, Any]:
          "need": (f"节≥{q7['sections']} 字≥{q7['chars']} "
                   f"数≥{q7['numbers']} 图表≥{q7['exhibits']}"),
          "hard": is_hard("Q7"), "msg": "深度下限"},
+        {"id": "Q8_falsifier", "ok": q8 >= prof.get("Q8", 1.0),
+         "value": round(q8, 3), "need": f"≥{prof.get('Q8', 1.0)}",
+         "hard": is_hard("Q8"),
+         "msg": "每节有可证伪条件（若…则本节作废，且给的是可观测阈值）"},
+        {"id": "Q9_mechanism", "ok": q9 >= prof.get("Q9", 1.0),
+         "value": round(q9, 3), "need": f"≥{prof.get('Q9', 1.0)}",
+         "hard": is_hard("Q9"),
+         "msg": "每节有「一种解释 + 判别方法」（只给结论不给机理不算深）"},
         {"id": "C1_causal_language", "ok": causal_share <= 0.20,
          "value": {"sections_with_causal": len(causal_secs),
                    "without_identification": len(causal_no_id),

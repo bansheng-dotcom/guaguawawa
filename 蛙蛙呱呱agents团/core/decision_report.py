@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """core/decision_report —— 决策优先的报告装配（report decide）。
 
 与 `report build` 的区别只有一处，但顺序相反：
@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -104,7 +105,7 @@ def build(intent: str, project_dir: str, out_dir: str,
             continue
         sec = report_assembly._section_of(f)
         # 标题是判断（带数字），问题是「问什么」：渲染器会把 question 放在节首
-        sec["title"] = f.title
+        sec["title"] = report_assembly.judged_title(f)
         # 边界只留第一节一处（门禁要求），其余统一收到末节，避免正文与末节重复
         boundary = sec.pop("boundary", "")
         if boundary:
@@ -151,6 +152,81 @@ def build(intent: str, project_dir: str, out_dir: str,
 
     # 4) 绑定：declared vs answered（与 findings 无关，先算清楚）
     binding = decision.bind(ctr, findings, plan_obj)
+
+    # 4b) 动作与停止条件（v11 / P3）：由 finding 的 so_what 生成，不手写建议。
+    #     finding 自带的 actions 目前为空，所以这一节从「所以：…」抽动作，
+    #     前置条件取该节的数据前提，停止条件取该节的证伪条件——三者同源，可回溯。
+    acts: List[Dict[str, str]] = []
+    for f, sec in zip(picked, sections[:len(picked)]):
+        so = str(getattr(f, "so_what", "") or "").strip()
+        if not so:
+            for r in (sec.get("reading") or []):
+                if str(r.get("strong") or "").startswith("所以"):
+                    so = str(r.get("text") or "").removeprefix("所以：").strip()
+                    break
+        if not so:
+            continue
+        do = re.split(r"[；;。]", so)[0].strip()
+        if not do or any(a["do"] == do for a in acts):
+            continue
+        acts.append({
+            "do": do,
+            "condition": "本节的数据前提成立（同期同口径、样本已达最小期数）",
+            "stop": str(sec.get("falsifier") or "下一期方向反转即停手复盘"),
+            "refs": list(sec.get("refs") or [])[:3],
+        })
+        if len(acts) >= 5:
+            break
+    # 动作文字里如果带阿拉伯数字，那些数字没有 refs，会被逐节过账拦下。
+    # 动作是「做什么」，不是「证据数字」：这里把动作文本里的数字改成中文/口语，
+    # 保留可执行性（「一周」「三成」），同时让正文数字仍然只来自证据。
+    _NUM_WORDS = {"12": "十二", "15": "十五", "20": "二十", "30": "三十",
+                  "60": "六十", "90": "九十", "1": "一", "2": "两", "3": "三",
+                  "4": "四", "5": "五", "6": "六", "7": "七", "8": "八",
+                  "9": "九", "10": "十"}
+
+    def _plain(s: str) -> str:
+        t = str(s or "")
+        # 小数先处理（1.5 → 一点五），否则会被整数规则拆成「一.五」
+        t = re.sub(r"(\d+)\.(\d+)",
+                   lambda m: f"{_NUM_WORDS.get(m.group(1), m.group(1))}点{_NUM_WORDS.get(m.group(2), m.group(2))}",
+                   t)
+        for k, v in sorted(_NUM_WORDS.items(), key=lambda kv: -len(kv[0])):
+            t = re.sub(rf"(?<![\d.]){k}(?![\d.])", v, t)
+        return t
+
+    if acts:
+        rows = [[_plain(a["do"]), _plain(a["condition"]), _plain(a["stop"])]
+                for a in acts]
+        sec_actions = {
+            "title": (f"动作：{len(acts)} 条动作全部带停止条件，"
+                      "前置不成立就不执行"),
+            "question": "接下来做什么，什么情况下必须停？",
+            "reading_style": "list",
+            "reading": [
+                {"text": f"{_plain(a['do'])}；前置：{_plain(a['condition'])}；"
+                         f"停止：{_plain(a['stop'])}",
+                 "refs": a["refs"]}
+                for a in acts
+            ],
+            "table": {"caption": "动作 / 前置条件 / 停止条件",
+                      "columns": [{"text": h} for h in ("动作", "前置", "停止")],
+                      "rows": [[{"text": c} for c in r] for r in rows]},
+            "falsifier": ("若任一动作的前置条件未成立，该动作不得执行；"
+                          "若停止条件命中，立即停手复盘，不许加码。"),
+            "owner": "",
+            "owner_name": "",
+        }
+        # 动作节也要有「机理 + 判别方法」：为什么是这几条、怎么判断做错了。
+        refs_all = list(dict.fromkeys(
+            [r for a in acts for r in (a["refs"] or [])]))[:6]
+        sec_actions["reading"].append({
+            "text": ("这几条动作不是通用建议，而是从前面各节的机理反推出来的："
+                     "哪一节的机理成立，对应动作才成立；哪一节被证伪，对应动作立即停止。"
+                     "判别方法是盯每节给出的阈值——阈值不动说明动作可以继续，"
+                     "阈值被击穿说明前提已变，先停手再复盘。"),
+            "refs": refs_all, "strong": "机理　"})
+        sections.append(sec_actions)
 
     # 5) 装配 draft
     first = sections[0]["title"]
