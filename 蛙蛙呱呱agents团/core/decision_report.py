@@ -278,30 +278,32 @@ def build(intent: str, project_dir: str, out_dir: str,
                           out_dir=out_dir, theme=theme, pdf=pdf,
                           quote_mode=quote_mode)
 
-    # 6) 门禁：绑定 + 图契约 + 渲染（质量分只告警：该 rubric 是关键词型，
-    #    会把「问题短、节数少」的决策稿判低，不能拿它当唯一放行依据）
-    from core import report_quality
+    # 6) 三层质检（v11 / P5）：证据 / 编辑 / 呈现，三层全过才放行。
+    #    binding 与图契约是决策稿特有的两道，和三层并列，不互相替代。
+    from core import quality_gate, report_quality
     html = (res.get("files") or {}).get("html") or ""
     qa = report_quality.audit(html) if html else {
         "ok": False, "score": 0, "checks": [], "sections": 0, "chars": 0,
         "numbers": 0, "density": 0}
     _json(os.path.join(out_dir, "quality.json"), qa)
+
+    sc_path = os.path.join(out_dir, "section_check.json")
+    sc: Optional[Dict[str, Any]] = None
+    if os.path.exists(sc_path):
+        try:
+            sc = json.loads(Path(sc_path).read_text(encoding="utf-8-sig"))
+        except (OSError, json.JSONDecodeError):
+            sc = None
+    gate = quality_gate.check(draft=draft, pack=desk.pack, html=html or None,
+                              section_check=sc)
+    _json(os.path.join(out_dir, "quality_gate.json"), gate)
+
     chart_ok = sum(1 for r in chart_rows if r["ok"])
     chart_ratio = chart_ok / len(chart_rows) if chart_rows else 0.0
     chart_gate = chart_ratio >= 0.8
     bind_ok = binding["binding"] >= min_binding
-    # 呈现层门禁（v11 / P4）：斜体 / 打印规则 / 对比度 / 字阶 / 图四件套 / 主题串色
-    pres: Dict[str, Any] = {"ok": True, "violations": []}
-    if html:
-        try:
-            sys.path.insert(0, str(ROOT / "scripts"))
-            from check_report_presentation import check_html as _pres_check
-            pres = _pres_check(Path(html))
-        except Exception as exc:  # noqa: BLE001  门禁坏了不能拖垮出报告
-            pres = {"ok": False, "violations": [{"id": "P0", "msg": str(exc)}]}
-    _json(os.path.join(out_dir, "presentation.json"), pres)
-    pres_ok = bool(pres.get("ok"))
-    ok = bool(res.get("ok")) and bind_ok and chart_gate and pres_ok
+    layers = {l["layer"]: l["ok"] for l in (gate.get("layers") or [])}
+    ok = (bool(res.get("ok")) and bind_ok and chart_gate and bool(gate.get("ok")))
 
     man_path = os.path.join(out_dir, "manifest.json")
     man: Dict[str, Any] = {}
@@ -330,15 +332,13 @@ def build(intent: str, project_dir: str, out_dir: str,
                 "render": "pass" if res.get("ok") else "block",
                 "binding": "pass" if bind_ok else "block",
                 "chart": "pass" if chart_gate else "block",
-                "presentation": "pass" if pres_ok else "block",
-                "quality": "pass" if qa.get("ok") else "warn",
+                "evidence": "pass" if layers.get("evidence") else "block",
+                "editorial": "pass" if layers.get("editorial") else "block",
+                "presentation": "pass" if layers.get("presentation") else "block",
             },
             "quality": {"ok": qa.get("ok"), "score": qa.get("score"),
                         "sections": qa.get("sections"), "density": qa.get("density")},
-            "presentation": {"ok": pres_ok,
-                             "violations": pres.get("violations") or [],
-                             "figures": pres.get("figures"),
-                             "type_steps": len(pres.get("type_steps") or [])},
+            "quality_gate": gate,
             "ok": ok,
         })
         _json(man_path, man)

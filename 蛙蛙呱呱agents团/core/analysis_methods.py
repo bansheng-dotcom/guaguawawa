@@ -1194,6 +1194,19 @@ def m_breakeven(ctx: Ctx) -> Optional[Finding]:
           (r["share"].p() if r["share"] else "—")] for r in rows])
     f.so_what = ("按单价分路径：高单价品类先提价、低单价高频品只降本不涨价；"
                  "两条路径的验收指标不同，不能合成一个毛利率目标。")
+    # 图：保本所需提价幅度（按品类排序）——这一节讲的就是「要提多少」，
+    # 没有图等于让读者自己从表里读出排序（P4 之后图表覆盖率是硬门禁）。
+    f.chart = {
+        "type": "hbar",
+        "title": (f"保本提价：{hard['cat']} 需 {hard['up'].p()}，"
+                  f"{rows[-1]['cat']} 需 {rows[-1]['up'].p()}"),
+        "subtitle": f"{len(rows)} 个负毛利品类 · 只覆盖损耗与冷链",
+        "unit_meta": "%",
+        "source": "证据包（保本价 =（批发价+冷链）÷（1−损耗率））",
+        "refs": _ids(*[r["up"] for r in rows]),
+        "bars": [{"label": r["cat"], "value": round(r["v"], 2)} for r in rows],
+        "note": "线为保本所需提价幅度；超过 5% 的品类优先走直采降本",
+    }
     f.boundary = ("保本价只覆盖损耗与冷链，不含租金与人力；直采成本按产地价 + "
                   f"{FREIGHT_PER_JIN} 元运费 + 0.10 元分拣估算。")
     f.meta = {"rows": rows}

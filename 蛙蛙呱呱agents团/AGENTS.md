@@ -28,9 +28,9 @@ python guagua.py info r06                  # 看某个角色的契约
 python guagua.py call r06 --help           # 看它能做什么
 python guagua.py skills                    # 看已升级的技能包
 python guagua.py plan "你的经营目标"         # 让 R01 拆任务卡
-python guagua.py report run-line --intent "…" --dir <项目> --out <目录>  # v11 唯一入口：一条命令 + 四种输入
-python guagua.py report check --html <报告>                                  # 验收成品
-# 旧 run / pack / produce / research / --lens / --thesis 已退役；诊断用 capabilities / plan
+python guagua.py report "你的问题" --dir <项目> --out <目录>   # v11 唯一入口：一条命令出报告（可加 --pdf）
+python guagua.py report check --html <报告>                    # 验收成品（三层质检）
+# 旧 run / pack / produce / research / --thesis 已退役；诊断用 capabilities / plan
 # 完整入口与产线地图见 docs/REPORT-LINES.md
 ```
 

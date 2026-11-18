@@ -184,6 +184,45 @@ QBANK: List[Dict[str, Any]] = [
 BY_ID = {q["id"]: q for q in QBANK}
 BY_FINDING = {q["finding"]: q for q in QBANK}
 
+# 意图 → finding 的语义提示词。
+# 用途：同一批专家面对不同问题时，问出来的问题必须不同（否则「同数据不同意图」
+# 会得到同一份报告）。这里只做**排序加权**，不做筛选——筛选已经在编排器做过。
+_INTENT_HINTS: Dict[str, tuple] = {
+    "structure": ("涨", "跌", "分化", "哪些", "谁在", "结构", "品类"),
+    "trajectory": ("趋势", "噪声", "轨迹", "波动", "斜率", "拐点"),
+    "momentum": ("环比", "同比", "节奏", "短期", "基数", "反弹"),
+    "contribution": ("贡献", "拉动", "主要", "换手", "净变动", "谁贡献"),
+    "economics": ("毛利", "净利", "成本", "亏", "赚", "单位经济", "加价"),
+    "transmission": ("链路", "传导", "价差", "中间", "批发", "零售"),
+    "arbitrage": ("跨市", "套利", "两地", "调运", "运费"),
+    "breakeven": ("保本", "提价", "直采", "止损", "转正"),
+    "risk": ("风险", "缺口", "样本", "覆盖", "稳不稳", "可靠"),
+    "sample": ("样本", "够不够", "显著性", "功效"),
+    "forecast": ("预测", "下季度", "外推", "情景"),
+    "funnel": ("漏斗", "转化", "流失"),
+    "retention": ("留存", "复购", "回访"),
+    "roi": ("投产", "roi", "回本", "投放"),
+    "priority": ("优先级", "先做", "排期"),
+    "headcount": ("招聘", "编制", "人效", "组织"),
+    "capacity": ("产能", "容量", "瓶颈"),
+    "sla": ("sla", "可用性", "响应"),
+    "reviews": ("评价", "口碑", "差评"),
+}
+
+
+def _intent_match(intent: str, q: Dict[str, Any]) -> int:
+    """这个问题和用户的意图有多像（只用于排序，不用于筛选）。"""
+    s = str(intent or "")
+    score = 0
+    for w in _INTENT_HINTS.get(str(q.get("finding") or ""), ()):
+        if w and w.lower() in s.lower():
+            score += 2
+    # 问题文本与自己写的判断里的 2-gram 重叠（权重低，避免被常见字带偏）
+    blob = f"{q.get('text') or ''}{q.get('decision') or ''}"
+    grams = {s[i:i + 2] for i in range(max(0, len(s) - 1))}
+    score += sum(1 for g in grams if len(g) == 2 and g in blob)
+    return score
+
 
 # --------------------------------------------------------------------------- #
 # 起草
@@ -255,7 +294,7 @@ def draft_from_roster(intent: str, roster: Iterable[Dict[str, Any]],
     候选不足 `min_q` 时抛 ValueError，由编排器决定是「不出报告」还是「数据驱动兜底」。
     """
     by_finding = {q["finding"]: q for q in QBANK}
-    cand: List[Tuple[int, Dict[str, Any], Dict[str, Any]]] = []
+    cand: List[Tuple[int, int, Dict[str, Any], Dict[str, Any]]] = []
     seen_f, seen_id = set(), set()
     for e in roster:
         rid = str(e.get("role") or "")
@@ -265,17 +304,29 @@ def draft_from_roster(intent: str, roster: Iterable[Dict[str, Any]],
                 continue
             seen_f.add(q["finding"])
             seen_id.add(q["id"])
-            cand.append((int(q["priority"]), q, e))
-    cand.sort(key=lambda x: x[0])
+            cand.append((_intent_match(intent, q), int(q["priority"]), q, e))
+    # 先按「和你的问题有多像」排，再按问题库优先级排。
+    # 只按优先级排的后果：同一批专家面对「哪些品类在涨」和「经营诊断」会问出同一组问题。
+    cand.sort(key=lambda x: (-x[0], x[1]))
     if len(cand) < min_q:
         raise ValueError(
             f"出场专家的可答问题只有 {len(cand)} 个（< {min_q}）："
             + "、".join(f"{e.get('role')}:{','.join(e.get('methods') or []) or '无方法'}"
                         for e in roster))
 
-    picked = cand[:max_q]
+    # 问题数随意图宽窄变化：
+    #   意图没有任何具体指向（如「经营诊断」）→ 问满 max_q，先铺开再收口；
+    #   意图明确指向某几件事（如「哪些品类在涨」）→ 只问命中的 + 补齐到 min_q。
+    hit = [x for x in cand if x[0] > 0]
+    if not hit:
+        picked = cand[:max_q]
+    elif len(hit) <= min_q:
+        picked = (hit + [x for x in cand if x[0] == 0])[:min_q]
+    else:
+        picked = hit[:max_q]
+    picked = picked[:max_q]
     qs = []
-    for i, (_, q, e) in enumerate(picked, 1):
+    for i, (_, _, q, e) in enumerate(picked, 1):
         qs.append({
             "id": f"dq{i}",
             "text": q["text"],

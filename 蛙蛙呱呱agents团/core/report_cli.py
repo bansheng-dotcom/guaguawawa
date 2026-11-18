@@ -170,37 +170,12 @@ def main(argv=None) -> int:
     rl.add_argument("--pdf", action="store_true")
     rl.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
     rl.add_argument("--min-binding", type=float, default=0.8)
+    rl.add_argument("--decision", default=None,
+                    help="决策契约 JSON；缺省读 <dir>/data/decision.json，再缺省按出场专家起草")
     rl.set_defaults(func=cmd_run_line)
 
-    b = sub.add_parser("build",
-                       help="[deprecated] 兼容名：等同 decide；请用 run-line")
-    b.add_argument("--intent", required=True)
-    b.add_argument("--dir", required=True)
-    b.add_argument("--out", required=True)
-    b.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="strict")
-    b.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    b.add_argument("--pdf", action="store_true")
-    b.add_argument("--audience", default="业务负责人")
-    b.add_argument("--outcome-deadline", default=None, help="YYYY-MM-DD")
-    b.set_defaults(func=cmd_build)
-
-    d = sub.add_parser("decide",
-                       help="决策优先：决策契约 3–5 问 → 逐问作答 → 图由对照选型")
-    d.add_argument("--intent", required=True)
-    d.add_argument("--dir", required=True)
-    d.add_argument("--out", required=True)
-    d.add_argument("--decision", default=None,
-                   help="决策契约 JSON；缺省读 <dir>/data/decision.json，再缺省自动起草")
-    d.add_argument("--min-binding", type=float, default=0.8,
-                   help="必须答上的问题比例（默认 0.8）")
-    d.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
-    d.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    d.add_argument("--pdf", action="store_true")
-    d.add_argument("--audience", default="业务负责人")
-    d.set_defaults(func=cmd_decide)
-
-    # v11：produce / pack / research / run 四个别名已删除（SOP P1.7）。
-    # 过渡期只保留 build 与 decide 两个名，P5 一起删，最终只剩 run-line。
+    # v11 / P5：build / decide / produce / pack / research / run 六个名字全部删除。
+    # 唯一入口 = `report "指令" --dir … --out …`（也接受 `report run-line …` 写法）。
 
     c = sub.add_parser("check", help="验一份成品报告")
     c.add_argument("--html", required=True)
@@ -228,6 +203,15 @@ def main(argv=None) -> int:
     g = sub.add_parser("gaps", help="看项目的 quote gap 清单（不产报告）")
     g.add_argument("--project", required=True)
     g.set_defaults(func=cmd_gaps)
+
+    argv = list(sys.argv[1:] if argv is None else argv)
+    # v11 唯一入口：`report "指令" --dir …` 等价于 `report run-line --intent "指令" …`
+    # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
+    known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
+             "-h", "--help"}
+    if argv and argv[0] not in known:
+        rest = argv
+        argv = ["run-line", "--intent", rest[0], *rest[1:]]
 
     args = ap.parse_args(argv)
     return args.func(args)

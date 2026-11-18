@@ -1,9 +1,11 @@
 # 报告标准（REPORT-STANDARD.md）
 
-> **v11 单入口（2026-11-18 · P1）**：唯一命令是
-> `python guagua.py report run-line --intent "…" --dir <项目> --out <目录>`。
-> `build` / `decide` 是过渡别名（P5 删除）；`produce / pack / research / run` 与 `--lens / --thesis` **已删除**。
-> 报告合格判据仍是 **binding（问几个、答几个）+ 每节有数字 + 有边界 + 图有来源**。
+> **v11 单入口（2026-11-18 · P1–P5 完成）**：唯一命令是
+> `python guagua.py report "你的问题" --dir <项目> --out <目录> [--pdf]`。
+> `build / decide / produce / pack / research / run` 与 `--lens / --thesis` **已全部删除**。
+> 报告合格由 **三层质检** 判定（`core/quality_gate.py`）：
+> **证据**（数字可复算、来源齐）+ **编辑**（每节有机理与可证伪条件、不复读）+ **呈现**（无斜体、A4 可打印、对比度、字阶、图四件套）。
+> 三层全过才 `ok=true`；另有决策稿特有的 **binding**（问几个答几个）与 **图契约** 两道并列门禁。
 > 本文以下关于「两个分支 / 22 纲领 / run/pack/produce/research」的内容是历史标准，保留作对照；
 > 命令一律以 `docs/REPORT-LINES.md` 为准。
 
