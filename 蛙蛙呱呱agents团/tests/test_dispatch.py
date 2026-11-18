@@ -1,0 +1,94 @@
+# -*- coding: utf-8 -*-
+"""v12.2：名册生成 + 发卡/收卡流水线。
+
+断言三件事：
+    1. 名册从角色目录生成，带技能与动作（不是手写清单）；
+    2. 发卡给每个可进报告的角色一张，卡里只带契约不带题目；
+    3. 收卡会验完整性：缺数字/缺来源/缺证伪的卡不合并。
+"""
+from __future__ import annotations
+
+import json
+import shutil
+from pathlib import Path
+
+from core import dispatch, roster
+
+TMP = Path("workspace/_test_dispatch")
+
+
+def setup_module(module):
+    shutil.rmtree(TMP, ignore_errors=True)
+
+
+def test_roster_is_generated_with_skills():
+    r = roster.build()
+    assert r["count"] == 20
+    assert r["totals"]["actions"] > 150
+    assert r["totals"]["skills"] > 100
+    assert r["totals"]["report_roles"] == 16
+    r05 = r["roles"]["r05"]
+    assert r05["enters_report"] is True
+    assert r05["actions"], "名册必须带动作，否则调不到技能"
+    assert r05["skills"], "名册必须带技能包"
+
+
+def test_roster_find_action_reverse_lookup():
+    r = roster.build()
+    hits = roster.find_action(r, "研究")
+    assert hits, "反查「研究」应能找到角色"
+    assert all(h["role"] for h in hits)
+
+
+def test_brief_writes_one_card_per_report_role():
+    res = dispatch.write_cards("测试用：某行业怎么做", str(TMP))
+    assert res["cards"] == 16
+    r05 = TMP / "cards" / "r05" / "TASK.md"
+    assert r05.is_file()
+    text = r05.read_text(encoding="utf-8")
+    assert "你要判断什么（自己定" in text
+    assert "claims.json" in text
+    # 卡里不许出现预设题目
+    assert "盘子多大" not in text
+
+
+def test_collect_rejects_incomplete_card():
+    dispatch.write_cards("测试用", str(TMP))
+    bad = TMP / "cards" / "r05" / "claims.json"
+    bad.write_text(json.dumps({"role": "r05", "numbers": [],
+                               "sources": [], "sections": []},
+                              ensure_ascii=False), encoding="utf-8")
+    merged, problems = dispatch.collect(str(TMP))
+    assert problems, "空卡必须被拒"
+    assert any("r05" in p for p in problems)
+
+
+def test_collect_namespaces_and_merges():
+    shutil.rmtree(TMP, ignore_errors=True)
+    dispatch.write_cards("测试用", str(TMP))
+    card = {
+        "role": "r05",
+        "numbers": [{"id": "N1", "name": "规模", "value": 100.0,
+                     "unit": "亿元", "period": "2024", "source_file": "S1"}],
+        "derived": [{"id": "D1", "formula": "N1*2", "value": 200.0,
+                     "unit": "亿元", "note": "翻倍"}],
+        "sources": [{"file": "S1", "title": "t", "org": "o", "url": "u",
+                     "grade": "A", "quote": "q"}],
+        "sections": [{"title": "规模 100.0 亿元",
+                      "refs": ["N1"],
+                      "reading": [{"text": "观察：100.0 亿元", "refs": ["N1"]},
+                                  {"text": "机理：判别方法是…", "refs": ["D1"]}],
+                      "falsifier": "若偏离超过 10.0% 则作废"}],
+        "boundaries": ["没有省级数据"],
+        "missing": ["查不到 A"],
+    }
+    (TMP / "cards" / "r05" / "claims.json").write_text(
+        json.dumps(card, ensure_ascii=False), encoding="utf-8")
+    merged, problems = dispatch.collect(str(TMP))
+    assert not problems, problems
+    assert merged["numbers"][0]["id"] == "r05:N1"
+    assert merged["numbers"][0]["source_file"] == "r05:S1"
+    assert merged["derived"][0]["formula"] == "r05:N1*2"
+    assert merged["sections"][0]["refs"] == ["r05:N1"]
+    assert merged["boundaries"], "卡里的边界必须带上来"
+    assert merged["standfirst"].startswith("规模")

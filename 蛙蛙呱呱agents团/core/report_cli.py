@@ -123,6 +123,41 @@ def cmd_plan_report(args) -> int:
     return 0
 
 
+def cmd_brief(args) -> int:
+    """发任务卡：每个可进报告的角色一张，只带契约不带题目。"""
+    from core import dispatch
+    only = [x.strip() for x in (args.only or "").split(",") if x.strip()] or None
+    res = dispatch.write_cards(args.intent, args.out, only)
+    print(json.dumps(res, ensure_ascii=False, indent=1))
+    return 0
+
+
+def cmd_collect(args) -> int:
+    """收卡：验完整性 → 合并 → 编译 → 过闸 → 渲染。"""
+    from core import dispatch
+    merged, problems = dispatch.collect(args.dir)
+    if problems:
+        print(json.dumps({"ok": False, "problems": problems[:12]},
+                         ensure_ascii=False, indent=1))
+        return 2
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    merged_path = out / "claims_merged.json"
+    merged_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2),
+                           encoding="utf-8")
+    args.claims = str(merged_path)
+    args.dir = None
+    args.evidence = None
+    args.draft = None
+    for attr, val in (("intent", "自动汇编报告"), ("audience", None),
+                      ("theme", "paper"), ("quote_mode", "warn"),
+                      ("min_binding", 0.8), ("input", None),
+                      ("research", False)):
+        if not hasattr(args, attr):
+            setattr(args, attr, val)
+    return cmd_run_line(args)
+
+
 def cmd_run_line(args) -> int:
     """v11 唯一入口（P1：转发实现）：一条命令 + 四种输入。"""
     from core import report_line
@@ -136,9 +171,9 @@ def cmd_run_line(args) -> int:
         comp = _P(__file__).resolve().parent.parent / "scripts" / "compile_agent_report.py"
         proc = subprocess.run([_sys.executable, str(comp), str(claims_path),
                                "--out", str(_P(args.out) / "_compiled")],
-                              capture_output=True, text=True)
+                              capture_output=True, text=True, encoding="utf-8", errors="replace")
         if proc.returncode != 0:
-            print(proc.stdout.strip() or proc.stderr.strip())
+            print((proc.stdout or proc.stderr or "").strip() or f"compile rc={proc.returncode}")
             return proc.returncode
         args.evidence = str(_P(args.out) / "_compiled" / "evidence_pack.json")
         args.draft = str(_P(args.out) / "_compiled" / "draft_sections.json")
@@ -255,11 +290,23 @@ def main(argv=None) -> int:
     g.add_argument("--project", required=True)
     g.set_defaults(func=cmd_gaps)
 
+    bf = sub.add_parser("brief", help="按名册发任务卡（不产报告）")
+    bf.add_argument("--intent", required=True)
+    bf.add_argument("--out", required=True)
+    bf.add_argument("--only", default=None, help="只发给这些角色，逗号分隔")
+    bf.set_defaults(func=cmd_brief)
+
+    cl = sub.add_parser("collect", help="收各角色 claims → 合并 → 过闸 → 出报告")
+    cl.add_argument("--dir", required=True)
+    cl.add_argument("--out", required=True)
+    cl.add_argument("--pdf", action="store_true")
+    cl.set_defaults(func=cmd_collect)
+
     argv = list(sys.argv[1:] if argv is None else argv)
     # v11 唯一入口：`report "指令" --dir …` 等价于 `report run-line --intent "指令" …`
     # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
     known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
-             "research-plan", "-h", "--help"}
+             "research-plan", "brief", "collect", "-h", "--help"}
     if argv and argv[0] not in known:
         rest = argv
         argv = ["run-line", "--intent", rest[0], *rest[1:]]
