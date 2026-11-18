@@ -66,16 +66,54 @@ def cmd_plan(args) -> int:
 
 
 def cmd_build(args) -> int:
-    """P4 唯一入口：问题树 → coverage → v9 → 报告。"""
-    from core import report_build
+    """单入口（v10.2）：决策契约 → 逐问作答 → 图由对照选型。
+
+    与 decide 是同一个实现：build 保留为兼容名，lens 已退役并被忽略。
+    """
+    from core import decision_report
+    if getattr(args, "lens", None):
+        print("[deprecated] --lens 已退役：报告不再按 lens 砍问题/方法；该参数被忽略",
+              file=sys.stderr)
     try:
-        res = report_build.build(
+        res = decision_report.build(
             intent=args.intent, project_dir=args.dir, out_dir=args.out,
-            lens=args.lens, quote_mode=args.quote_mode,
-            min_coverage=args.min_coverage, theme=args.theme,
-            pdf=args.pdf, audience=args.audience,
-            record_outcomes=getattr(args, "record_outcomes", False),
-            outcome_deadline=getattr(args, "outcome_deadline", None))
+            decision_path=None, min_binding=0.8, theme=args.theme,
+            pdf=args.pdf, quote_mode=args.quote_mode, audience=args.audience)
+    except Exception as e:  # noqa: BLE001
+        print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
+                         ensure_ascii=False))
+        return 2
+    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
+    return 0 if res.get("ok") else 1
+
+
+def cmd_decide(args) -> int:
+    """决策优先：3–5 个必答问题 → 方法 → 逐问作答 → 图由对照选型。"""
+    from core import decision_report
+    try:
+        res = decision_report.build(
+            intent=args.intent, project_dir=args.dir, out_dir=args.out,
+            decision_path=args.decision, min_binding=args.min_binding,
+            theme=args.theme, pdf=args.pdf, quote_mode=args.quote_mode,
+            audience=args.audience)
+    except Exception as e:  # noqa: BLE001
+        print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
+                         ensure_ascii=False))
+        return 2
+    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
+    return 0 if res.get("ok") else 1
+
+
+def cmd_run_line(args) -> int:
+    """v11 唯一入口（P1：转发实现）：一条命令 + 四种输入。"""
+    from core import report_line
+    try:
+        res = report_line.build(
+            intent=args.intent, project_dir=args.dir, out_dir=args.out,
+            input_path=getattr(args, "input", None),
+            research=getattr(args, "research", False),
+            audience=args.audience, theme=args.theme, pdf=args.pdf,
+            quote_mode=args.quote_mode, min_binding=args.min_binding)
     except Exception as e:  # noqa: BLE001
         print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
                          ensure_ascii=False))
@@ -90,13 +128,16 @@ def _deprecated(name: str) -> None:
 
 
 def cmd_produce_alias(args) -> int:
-    """兼容别名：produce --thesis → build --lens。"""
-    from core import report_build, report_thesis
+    """兼容别名：produce --thesis → decide（lens 已退役，仅提示）。"""
+    from core import decision_report, report_thesis
     _deprecated("produce")
     lens = report_thesis.LEGACY_LENS.get(args.thesis or "", None)
-    res = report_build.build(
+    if lens:
+        print(f"[deprecated] --thesis {args.thesis} 原映射到 lens={lens}；"
+              "lens 已退役，按决策契约重新出题", file=sys.stderr)
+    res = decision_report.build(
         intent=args.intent or "经营分析", project_dir=args.dir, out_dir=args.out,
-        lens=lens, quote_mode=args.quote_mode, theme=args.theme, pdf=args.pdf,
+        min_binding=0.8, theme=args.theme, pdf=args.pdf, quote_mode=args.quote_mode,
         audience=getattr(args, "audience", "业务负责人"))
     print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
     return 0 if res.get("ok") else 1
@@ -118,12 +159,12 @@ def cmd_pack_alias(args) -> int:
 
 
 def cmd_research_alias(args) -> int:
-    """兼容别名：research → build --lens market。"""
-    from core import report_build
+    """兼容别名：research → decide（lens 已退役）。"""
+    from core import decision_report
     _deprecated("research")
-    res = report_build.build(
+    res = decision_report.build(
         intent=args.topic, project_dir=args.dir, out_dir=args.out,
-        lens="market", quote_mode="warn", theme=args.theme, pdf=args.pdf)
+        min_binding=0.8, quote_mode="warn", theme=args.theme, pdf=args.pdf)
     print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
     return 0 if res.get("ok") else 1
 
@@ -180,21 +221,51 @@ def main(argv=None) -> int:
                                  description="唯一报告产线：R01 出具，角色只交 result")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
+    rl = sub.add_parser("run-line", help="v11 唯一入口（P1 转发）：一条命令 + 四种输入")
+    rl.add_argument("--intent", required=True, help="你的指令/问题")
+    rl.add_argument("--dir", default=None, help="数据项目目录（数据型）")
+    rl.add_argument("--input", default=None, help="单份文档（评审型，P2 接入）")
+    rl.add_argument("--research", action="store_true", help="联网采集型（P2/P3 接入）")
+    rl.add_argument("--out", required=True)
+    rl.add_argument("--audience", default="业务负责人")
+    rl.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
+    rl.add_argument("--pdf", action="store_true")
+    rl.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
+    rl.add_argument("--min-binding", type=float, default=0.8)
+    rl.set_defaults(func=cmd_run_line)
+
     b = sub.add_parser("build",
-                       help="P4 唯一入口：问题树 → coverage → v9 → 报告")
+                       help="兼容入口：等同 decide（决策契约优先；lens 已退役）")
     b.add_argument("--intent", required=True)
     b.add_argument("--dir", required=True)
     b.add_argument("--out", required=True)
-    b.add_argument("--lens", choices=("market", "ops", "chain", "fix"), default=None)
+    b.add_argument("--lens", choices=("market", "ops", "chain", "fix"), default=None,
+                   help="[deprecated] lens 已退役，传了也会被忽略")
     b.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="strict")
-    b.add_argument("--min-coverage", type=float, default=0.8)
+    b.add_argument("--min-coverage", type=float, default=0.8,
+                   help="[deprecated] 覆盖度不再决定放行；改用 --min-binding")
     b.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
     b.add_argument("--pdf", action="store_true")
     b.add_argument("--audience", default="业务负责人")
     b.add_argument("--record-outcomes", action="store_true",
-                   help="把 findings 登记进结果台账（默认 90 天到期）")
-    b.add_argument("--outcome-deadline", default=None, help="YYYY-MM-DD；默认 +90 天")
+                   help="[deprecated] 结果台账改由 decide 的 outcome 绑定负责")
+    b.add_argument("--outcome-deadline", default=None, help="YYYY-MM-DD")
     b.set_defaults(func=cmd_build)
+
+    d = sub.add_parser("decide",
+                       help="决策优先：决策契约 3–5 问 → 逐问作答 → 图由对照选型")
+    d.add_argument("--intent", required=True)
+    d.add_argument("--dir", required=True)
+    d.add_argument("--out", required=True)
+    d.add_argument("--decision", default=None,
+                   help="决策契约 JSON；缺省读 <dir>/data/decision.json，再缺省自动起草")
+    d.add_argument("--min-binding", type=float, default=0.8,
+                   help="必须答上的问题比例（默认 0.8）")
+    d.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
+    d.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
+    d.add_argument("--pdf", action="store_true")
+    d.add_argument("--audience", default="业务负责人")
+    d.set_defaults(func=cmd_decide)
 
     # P9：兼容别名（隐藏）。至少保留一个版本，旧脚本不炸。
     pr = sub.add_parser("produce", help="[deprecated] produce → build")

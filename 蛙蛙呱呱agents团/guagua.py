@@ -529,16 +529,11 @@ def _run_script(script: str, argv: list[str]) -> int:
 
 
 def cmd_reason(args: argparse.Namespace) -> int:
-    if not args.intent and not args.focus:
-        print("需要 --intent 或 --focus 之一")
-        return 2
-    argv = ["--role", args.role, "--intent", args.intent or "",
-            "--data", args.data, "--out", args.out, "--max-q", str(args.max_q)]
-    if args.focus:
-        argv += ["--focus", args.focus]
-    if args.pdf:
-        argv.append("--pdf")
-    return _run_script("reason.py", argv)
+    """[已下线] 旧独立报告线（scripts/reason.py）。一个版本后删除本子命令。"""
+    print("[deprecated] guagua.py reason 已下线（它属于第二条报告线）。\n"
+          "           请用: python guagua.py report run-line --intent \"…\" --dir <项目> --out <目录>",
+          file=sys.stderr)
+    return 2
 
 
 def cmd_consult(args: argparse.Namespace) -> int:
@@ -686,12 +681,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true", help="输出机器可读计划")
     p.set_defaults(func=cmd_domain)
 
-    p = sub.add_parser("reason", help="意图 → 问题库 brief → 跑技能 → 出报告 → 自动验收")
-    p.add_argument("--role", required=True)
+    p = sub.add_parser("reason", help="[已下线] 旧独立报告线；请用 report run-line")
+    p.add_argument("--role", default=None)
     p.add_argument("--intent", default="")
     p.add_argument("--focus", default=None)
-    p.add_argument("--data", required=True)
-    p.add_argument("--out", required=True)
+    p.add_argument("--data", nargs="?", default=None)
+    p.add_argument("--out", nargs="?", default=None)
     p.add_argument("--pdf", action="store_true")
     p.add_argument("--max-q", type=int, default=6)
     p.set_defaults(func=cmd_reason)
