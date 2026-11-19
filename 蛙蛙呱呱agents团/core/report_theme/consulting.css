@@ -53,7 +53,7 @@ a:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .brand .bs{font-size:6.8pt;color:var(--faint);letter-spacing:.20em;margin-top:.8mm}
 .chip{font-size:7pt;letter-spacing:.18em;color:var(--muted);border:.5pt solid var(--line2);
   padding:1.6mm 3.2mm;border-radius:20mm}
-.cover .mid{margin-top:26mm}
+.cover .mid{margin-top:12mm}
 .ck{font-size:8pt;letter-spacing:.20em;color:var(--accent);font-weight:700}
 h1.cover-t{
   font-family:var(--serif);font-weight:600;font-size:30pt;line-height:1.28;
@@ -63,8 +63,8 @@ h1.cover-t{
 h1.cover-t .l2{display:block;color:var(--ink)}
 .cover .rule{width:22mm;height:1.2mm;background:var(--accent);margin:8mm 0 6mm}
 .cover .sub{font-size:14.5pt;line-height:1.65;color:var(--ink2);font-weight:500;max-width:150mm}
-.cover .stand{font-size:10pt;line-height:1.95;color:var(--muted);max-width:138mm;margin-top:6mm}
-.cover .logic{display:flex;align-items:stretch;gap:5mm;margin-top:11mm;border-top:.5pt solid var(--line2);
+.cover .stand{font-size:10pt;line-height:1.95;color:var(--muted);max-width:138mm;margin-top:4mm}
+.cover .logic{display:flex;align-items:stretch;gap:5mm;margin-top:8mm;border-top:.5pt solid var(--line2);
   border-bottom:.5pt solid var(--line2);padding:4.2mm 0}
 .cover .logic>div{flex:1;display:flex;flex-direction:column;gap:.8mm}
 .cover .logic span{font-size:7pt;letter-spacing:.16em;color:var(--faint)}
@@ -72,7 +72,7 @@ h1.cover-t .l2{display:block;color:var(--ink)}
 .cover .logic b u{text-decoration:none;font-family:var(--sans);font-size:8pt;color:var(--muted);margin-left:1mm}
 .cover .logic i{font-style:normal;font-size:7.8pt;color:var(--muted)}
 .cover .logic em{font-style:normal;color:var(--line2);font-size:13pt;align-self:center}
-.cover-q{margin-top:11mm;border-left:1.8pt solid var(--accent);padding-left:4.6mm;max-width:132mm}
+.cover-q{margin-top:8mm;border-left:1.8pt solid var(--accent);padding-left:4.6mm;max-width:132mm}
 .cover-q .h{font-size:6.8pt;letter-spacing:.18em;color:var(--faint);margin-bottom:1.4mm}
 .cover-q div{font-size:9.2pt;line-height:1.9;color:var(--ink2)}
 .cover-q b{color:var(--accent);font-weight:700;margin-right:2.4mm;font-family:var(--serif)}
