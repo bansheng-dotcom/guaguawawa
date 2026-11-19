@@ -1,7 +1,7 @@
 {
   "role_id": "r01",
   "domain": "公司治理与编排决策",
-  "max_questions": 2,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -389,6 +389,18 @@
     "boardroom.coach": [
       "objective",
       "owner"
+    ],
+    "ev.run": [
+      "input"
+    ],
+    "interpret.check": [
+      "input"
+    ],
+    "interpret.judge": [
+      "input"
+    ],
+    "interpret.sections": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [

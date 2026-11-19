@@ -1,0 +1,20 @@
+﻿{
+  "file": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out\\report.html",
+  "ok": true,
+  "violations": [],
+  "stats": {
+    "chars": 13611,
+    "numbers": 837,
+    "density": 61.5,
+    "figures": 8,
+    "figure_sources": 8,
+    "duplicate_sentences": 0,
+    "duplicate_rate": 0.0,
+    "density_floor": 25
+  },
+  "depth": {
+    "profile": "research",
+    "ok": true,
+    "score": 100.0
+  }
+}

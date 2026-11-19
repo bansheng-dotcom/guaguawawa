@@ -1,1 +1,0 @@
-__AGENT_RESULT__ {"describe": {"11月5日": {"count": 7, "mean": 18.7657, "median": 11.97, "std": 12.8846, "min": 5.18, "max": 39.56, "p5": 6.284, "p95": 38.876, "skew": 0.7431}}, "runtime_ms": 0}

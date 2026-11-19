@@ -1,4 +1,4 @@
-﻿# 07 · 人工审批与运维接口口径（ops）
+# 07 · 人工审批与运维接口口径（ops）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/engineering/incident-response/SKILL.md
 >
 

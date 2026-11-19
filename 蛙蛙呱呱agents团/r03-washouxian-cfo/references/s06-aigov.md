@@ -1,4 +1,4 @@
-﻿# S06 AI 治理与披露
+# S06 AI 治理与披露
 > 蒸馏自: 补充技能/01-当前能力域/alirezarezvani__claude-skills/compliance-os/SKILL.md
 >
 

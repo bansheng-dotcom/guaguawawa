@@ -441,19 +441,6 @@ def _tmp_intent_json(intent: str) -> str:
     return p
 
 
-def _write_report(result: Dict[str, Any], title: str, path: str) -> None:
-    lines = [f"# {title}", ""]
-    for k, v in result.items():
-        if k in ("checks",):
-            continue
-        lines += [f"## {k}", "", "```json",
-                  json.dumps(v, ensure_ascii=False, indent=2), "```", ""]
-    lines += ["## 门禁", "", "```json",
-              json.dumps(result.get("checks", []), ensure_ascii=False, indent=2),
-              "```"]
-    c.write_text(path, "\n".join(lines))
-
-
 def _route(intent: str):
     low = intent.lower()
     for kws, skill, action, defaults in _INTENT_ROUTES:
@@ -830,7 +817,14 @@ def main() -> int:
         return 0
     if args.skill == "run":
         if args.task:
-            emit_result(run_task(args.task))
+            _run_out = run_task(args.task)
+            emit_result(_run_out)
+            # 转发失败必须反映到退出码，否则编排器会把「没跑成」记成 0
+            if _run_out.get("error"):
+                return 1
+            if _run_out.get("exit_code") not in (0, None):
+                return int(_run_out["exit_code"])
+            return 0
         else:
             run_all(args.limit)
         return 0

@@ -1,4 +1,4 @@
-﻿# S07 认证与审计留痕
+# S07 认证与审计留痕
 > 蒸馏自: 补充技能/01-当前能力域/JoelLewis__finance_skills/books-and-records/SKILL.md
 >
 

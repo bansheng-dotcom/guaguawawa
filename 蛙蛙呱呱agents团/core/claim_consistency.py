@@ -121,6 +121,7 @@ def check(claims: Dict[str, Any]) -> Dict[str, Any]:
         "C4_no_boundary": 0 if bounds else 1,
     }
     blocking = (issues["C1_unexplained_conflict"] > 0
+                or issues["C2_d_only_numbers"] > 0
                 or issues["C3_headline_unbacked"] > 0
                 or issues["C4_no_boundary"] > 0)
     return {

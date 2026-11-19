@@ -1,4 +1,4 @@
-﻿> 蒸馏自: 补充技能/01-当前能力域/virgiliojr94__book-to-skill/SKILL.md
+> 蒸馏自: 补充技能/01-当前能力域/virgiliojr94__book-to-skill/SKILL.md
 
 # 模块6 · 知识运营
 

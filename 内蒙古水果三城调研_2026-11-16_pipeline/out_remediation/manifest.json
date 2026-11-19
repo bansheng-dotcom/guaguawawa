@@ -1,0 +1,257 @@
+{
+  "schema": "dsh.report.flow/v1",
+  "producer": "r01",
+  "producer_name": "蛙全局",
+  "intent": "经营分析",
+  "branch": "sections",
+  "profile": "remediation",
+  "generated_at": "2026-11-17T14:05:48",
+  "evidence": {
+    "pack": "d:\\蛙蛙呱呱\\内蒙古水果三城调研_2026-11-16_pipeline\\out_remediation\\evidence_pack.json",
+    "files": 4,
+    "numbers": 57
+  },
+  "section_check": {
+    "ok": true,
+    "sections": 13,
+    "checks": [
+      {
+        "id": "derived_ok",
+        "ok": true,
+        "msg": "派生量公式可算、声明值与实算一致",
+        "fail": []
+      },
+      {
+        "id": "pack_present",
+        "ok": true,
+        "msg": "证据包里有数字",
+        "count": 299
+      },
+      {
+        "id": "standfirst_number",
+        "ok": true,
+        "msg": "导语必须是带数字的结论"
+      },
+      {
+        "id": "has_sections",
+        "ok": true,
+        "msg": "至少 3 节"
+      },
+      {
+        "id": "sections_valid",
+        "ok": true,
+        "msg": "每节标题带数、有 refs、数字可解释、图带来源",
+        "sections": [
+          {
+            "index": 1,
+            "title": "问题定义：7 个品类净毛利为负，西瓜 -0.96 元/斤最深",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "title": "根因：6 个负毛利的主因都是加价率不足，损耗与冷链不是主因",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 3,
+            "title": "目标：6 个负毛利先止血（2 周）、再转正（6 周）、最后加固（12 周）",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 4,
+            "title": "火龙果整改（加价率不足）：2 条动作，先保本再谈利润",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 5,
+            "title": "菠萝整改（加价率不足）：2 条动作，先保本再谈利润",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 6,
+            "title": "桃整改（加价率不足）：2 条动作，先保本再谈利润",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 7,
+            "title": "柑橘整改（加价率不足）：2 条动作，先保本再谈利润",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 8,
+            "title": "橙整改（加价率不足）：2 条动作，先保本再谈利润",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 9,
+            "title": "西瓜整改（加价率不足）：2 条动作，先保本再谈利润",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 10,
+            "title": "整改后账：每千斤改善 3051 元",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 11,
+            "title": "90 天里程碑：2 周止血、6 周转正、12 周加固，每段一个验收口",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 12,
+            "title": "拍板：3 件事必须创始人签字，不能由执行层自行决定",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 13,
+            "title": "不做清单：4 件事现在不做，避免把亏损换成重资产",
+            "ok": true,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "id": "banned_words",
+        "ok": true,
+        "msg": "禁用词清零",
+        "fail": []
+      },
+      {
+        "id": "boundary",
+        "ok": true,
+        "msg": "至少写一处边界"
+      }
+    ]
+  },
+  "contract_hash": "7db0749d36d78d76",
+  "layout_errors": [],
+  "files": {
+    "html": "d:\\蛙蛙呱呱\\内蒙古水果三城调研_2026-11-16_pipeline\\out_remediation\\report.html",
+    "md": "d:\\蛙蛙呱呱\\内蒙古水果三城调研_2026-11-16_pipeline\\out_remediation\\report.md",
+    "pdf": null,
+    "chart_stats": {
+      "total": 0,
+      "v2": 0,
+      "v1": 0,
+      "fallback": 0,
+      "error": 0
+    }
+  },
+  "spec_stats": {
+    "tables": {
+      "tables": 5,
+      "with_unit": 0,
+      "unit_headers": 0,
+      "numeric": 77,
+      "tone": 19,
+      "total_row": 0
+    },
+    "charts": {
+      "charts": 0,
+      "ref_added": 0,
+      "subtitle_added": 0
+    },
+    "errors": [],
+    "ok": true
+  },
+  "chart_stats": {
+    "total": 0,
+    "v2": 0,
+    "v1": 0,
+    "fallback": 0,
+    "error": 0
+  },
+  "ok": true,
+  "thesis": "remediation",
+  "thesis_label": "整改方案",
+  "covered": {
+    "skills": 3,
+    "roles": 3
+  },
+  "gaps": [],
+  "missing": [],
+  "r04": {
+    "verdict": "COMPLETE",
+    "missing": []
+  },
+  "contract": {
+    "ok": true,
+    "report_id": "RPT-20261117-remediation",
+    "errors": []
+  },
+  "quality": {
+    "ok": true,
+    "score": 100.0,
+    "sections": 14,
+    "checks": [
+      {
+        "id": "Q1_claim_titles",
+        "ok": true,
+        "value": 0.929
+      },
+      {
+        "id": "Q2_comparison",
+        "ok": true,
+        "value": 0.643
+      },
+      {
+        "id": "Q3_implication",
+        "ok": true,
+        "value": 0.929
+      },
+      {
+        "id": "Q4_mechanism",
+        "ok": true,
+        "value": 0.429
+      },
+      {
+        "id": "Q5_no_shell",
+        "ok": true,
+        "value": {
+          "uniform_item_share": 0.5,
+          "boundary_share": 0.0
+        }
+      },
+      {
+        "id": "Q6_no_repeat",
+        "ok": true,
+        "value": {
+          "shingle3": 0.052,
+          "dup_rate": 0.014
+        }
+      },
+      {
+        "id": "Q7_depth_floor",
+        "ok": true,
+        "value": {
+          "sections": 14,
+          "chars": 4486,
+          "numbers": 257,
+          "exhibits": 5
+        }
+      },
+      {
+        "id": "C1_causal_language",
+        "ok": true,
+        "value": {
+          "sections_with_causal": 1,
+          "without_identification": 1,
+          "share": 0.071
+        }
+      }
+    ]
+  },
+  "analysis_trace": "analysis_trace.json"
+}

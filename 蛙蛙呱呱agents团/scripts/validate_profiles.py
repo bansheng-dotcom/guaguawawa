@@ -116,8 +116,9 @@ def validate_role(role_id: str, role_dir: str, catalog: dict) -> dict:
         problems.append("domain 为空")
 
     max_q = profile.get("max_questions", 0)
-    if not isinstance(max_q, int) or not 1 <= max_q <= 3:
-        problems.append("max_questions=%r 必须在 1~3" % (max_q,))
+    # 2026-11-17：澄清问数上限由产品定档为 8（六项骨架 + 最多 2 个场景补充）
+    if not isinstance(max_q, int) or not 1 <= max_q <= 8:
+        problems.append("max_questions=%r 必须在 1~8" % (max_q,))
 
     actions = profile.get("actions", [])
     if not actions:

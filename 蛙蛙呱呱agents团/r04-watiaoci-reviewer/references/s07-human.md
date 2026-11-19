@@ -1,4 +1,4 @@
-﻿# S07 人工评审收尾（package / ingest / ack）
+# S07 人工评审收尾（package / ingest / ack）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/design/design-handoff/SKILL.md
 >
 

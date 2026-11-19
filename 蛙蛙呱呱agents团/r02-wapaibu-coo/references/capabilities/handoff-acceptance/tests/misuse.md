@@ -1,4 +1,4 @@
-﻿# 负向测试集（misuse cases）
+# 负向测试集（misuse cases）
 
 > 运行方式：`python references/capabilities/handoff-acceptance/scripts/gate_selftest.py --self-test`
 > → 必须 `PASS 7/7`（含 2 个反例）。版本：v2.0.0

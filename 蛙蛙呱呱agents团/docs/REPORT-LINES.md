@@ -1,5 +1,9 @@
 # 报告产线地图（REPORT-LINES.md · v12）
 
+> **2026-11-19 起：默认版式已切 flow（一条内容流 + PDF 自动分页），见 [`REPORT-FLOW.md`](REPORT-FLOW.md)。**
+> 默认值在 `configs/report_flow.yaml` 的 `flow.default_layout`；要回一节一页 A4，加 `--layout paper`。
+> flow 版按 `prose_style` 记文笔分（默认只记录不拦），页式版仍走下面的三层质检。
+>
 > 2026-11-18 重构完成（P1–P5）。**一条线、四种输入、一个入口、三层质检。**
 > 旧版地图（12 条产线 → 1 条产线 2 分支 → v10 决策契约）已归档到 `_attic/docs/REPORT-LINES-v10.md`。
 > 施工依据见仓根 `交付/报告产线重构-SOP-2026-11-18.md`，逐阶段验收见 `交付/SOP-P*-验收-*.md`。
@@ -97,6 +101,15 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 | `core/report_flow.py` | 逐节过账（R01 s09）+ 渲染编排 + manifest |
 | `core/quality_gate.py` | 三层质检聚合：证据 / 编辑 / 呈现（三层全过才放行） |
 | `core/report_bridge.py` | 渲染薄层：`render_html / write_markdown / render_pdf` |
+| `core/report_theme/` | consulting 主题：固定 A4 页式 + A/B 两种节页（`docs/REPORT-LAYOUTS.md`） |
+| `core/report_editorial.py` | 旧契约补 verdict/kicker/rail/actions/sources + 契约门禁 |
+| `core/task_research.py` | 覆盖自动化：来源账本 + 50 源/连续 15 源饱和 |
+| `core/task_frame.py` | 覆盖自动化：TaskFrame（单元/维度/深度/地图/页数） |
+| `core/data_shape.py` | 数据形状 → 图型适配（问题 + shape 双约束） |
+| `core/coverage_plan.py` | 覆盖自动化：CoveragePlan + 出稿前门禁 |
+| `core/coverage_cli.py` | `plan → confirm → preflight → audit` |
+| `configs/report_coverage.yaml` | 50 源/15 源/21 页/双地图唯一阈值 |
+| `core/charts/consulting.py` | consulting 主题的 14 型确定性 SVG 图表 |
 | `core/report_renderer.py` | 唯一 HTML 渲染器（48 型图 + 8 套主题 + 呈现层规则） |
 | `core/decision.py` | 决策契约（3–5 问、对照、图型、证伪）与选图（读 `configs/chart_by_relation.yaml`） |
 | `core/report_thesis.py` | 只保留 `analysis` 一条纲领 |

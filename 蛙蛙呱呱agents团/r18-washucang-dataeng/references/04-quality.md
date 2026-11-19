@@ -1,4 +1,4 @@
-﻿# 04 · 数据质量门禁口径（quality）
+# 04 · 数据质量门禁口径（quality）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/data/validate-data/SKILL.md
 >
 

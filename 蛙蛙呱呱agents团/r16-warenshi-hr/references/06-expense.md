@@ -1,4 +1,4 @@
-﻿# 06 · 费用与福利业务口径（expense）
+# 06 · 费用与福利业务口径（expense）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/compliance-tracking/SKILL.md
 >
 

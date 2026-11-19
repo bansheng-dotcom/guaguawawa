@@ -1,4 +1,4 @@
-﻿# S03 税务边界
+# S03 税务边界
 > 蒸馏自: 补充技能/01-当前能力域/JoelLewis__finance_skills/equity-compensation/SKILL.md
 >
 

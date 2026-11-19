@@ -1,7 +1,7 @@
 {
   "role_id": "r20",
   "domain": "可靠性与恢复",
-  "max_questions": 2,
+  "max_questions": 8,
   "execution_inputs": {
     "service": {
       "resolve": "task_port",
@@ -337,18 +337,11 @@
     "postmortem.improvement": [
       "service",
       "scope"
+    ],
+    "slo.run": [
+      "metric"
     ]
   },
-  "l2_prompt_blocks": [
-    {
-      "name": "时间线与根因",
-      "template": "事件时间必须单调递增且带时区；根因不得写「人为失误」，要写清机制与失效点；分级必须按影响面与时长判定，不按情绪。"
-    },
-    {
-      "name": "恢复验证",
-      "template": "恢复必须给实测 RPO/RTO 与验证方式（真的读回来了吗）；演练必须留下证据（时间戳、校验和、抽样比对），不能只写「已恢复」。"
-    }
-  ],
   "output_contract": {
     "format": "md",
     "must_include": [

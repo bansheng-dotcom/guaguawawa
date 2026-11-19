@@ -1,4 +1,4 @@
-﻿# 02 · 库存与仓库口径（inventory）
+# 02 · 库存与仓库口径（inventory）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/small-business/inventory-planner/SKILL.md
 >
 

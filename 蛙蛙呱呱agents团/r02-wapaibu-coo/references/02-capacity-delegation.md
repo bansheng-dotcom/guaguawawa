@@ -1,4 +1,4 @@
-﻿> 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/capacity-plan/SKILL.md
+> 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/capacity-plan/SKILL.md
 
 # 模块2 · 容量与委派
 

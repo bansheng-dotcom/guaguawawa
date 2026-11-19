@@ -145,6 +145,7 @@ def _register_parsers() -> argparse.ArgumentParser:
         m.add_parser(sub)
     _register_case(sub)
     _register_deep(sub)
+    _register_run(sub)
     return parser
 
 def _register_deep(sub) -> None:
@@ -245,6 +246,78 @@ def _run_case_cli(args) -> int:
     return 0 if out["ok"] else 1
 
 
+def _register_run(sub) -> None:
+    rp = sub.add_parser("run", help="协作入口：执行编排器下发的一张任务卡")
+    rp.add_argument("--task", required=True, help="任务卡 ID（workspace/tasks/<id>.json）")
+    rp.add_argument("--all", action="store_true",
+                    help="兼容参数；R03 由编排器逐卡派发，本参数不做事")
+
+
+def _task_input(task) -> str:
+    """任务卡输入端口里第一个真实存在的文件。"""
+    for port in getattr(task, "inputs", []) or []:
+        name = str(getattr(port, "name", "") or "")
+        if name and os.path.exists(name):
+            return name
+    return ""
+
+
+def run_task(task_id: str) -> Dict[str, Any]:
+    """执行一张任务卡：路由 → 跑技能 → 落 result/evidence → 更新状态。
+
+    R03 之前是唯一没有 `run --task` 的执行角色，导致 R01 把合规/税务/审计类
+    任务派给 R03 时必然失败（PROTOCOL.md 的「合规闭环」pattern 跑不起来）。
+    """
+    from core import protocol, workspace as _ws
+    ws = _ws.Workspace(_ws.default_root())
+    task = ws.read_task(task_id)
+    if task is None:
+        return {"ok": False, "error": f"任务不存在: {task_id}"}
+    if task.owner != ROLE:
+        return {"ok": False, "error": f"任务 {task_id} 归属 {task.owner}，非本角色 {ROLE}"}
+
+    ws.set_status(task_id, "running")
+    ws.emit(protocol.Event.now(ROLE, "task_started", task_id))
+
+    intent = " ".join([task.title or "", task.intent or ""] +
+                      [str(getattr(p, "note", "") or "") for p in (task.inputs or [])])
+    skill, action, _defaults = route(intent)
+    if skill == "__clarify__" or not skill:
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "needs_clarification"}))
+        return {"ok": False, "error": "needs_clarification",
+                "questions": _defaults.get("questions", []) if isinstance(_defaults, dict) else []}
+
+    in_file = _task_input(task)
+    if not in_file:
+        ws.set_status(task_id, "failed")
+        ws.emit(protocol.Event.now(ROLE, "task_failed", task_id,
+                                   {"reason": "缺少输入文件"}))
+        return {"ok": False, "error": "缺少输入文件（任务卡 inputs 里没有可读路径）"}
+
+    out = dispatch(skill, action, in_file)
+    if not isinstance(out, dict):
+        out = {"ok": False, "error": "技能返回非结构化结果"}
+    out.setdefault("task_id", task_id)
+    out.setdefault("input", in_file)
+
+    out_dir = ws.artifact(task_id)
+    os.makedirs(out_dir, exist_ok=True)
+    from core import registry as _registry
+    role = _registry.by_id(ROLE)
+    role_runtime.emit(role=ROLE, name=role["name"], title=role["title"],
+                      result=out, skill=skill, action=action, intent=task.intent or "",
+                      out_dir=out_dir, input_path=in_file)
+
+    status = "done" if out.get("ok") else "failed"
+    ws.set_status(task_id, status)
+    ws.emit(protocol.Event.now(ROLE, "task_finished" if status == "done" else "task_failed",
+                               task_id, {"skill": skill, "action": action}))
+    return {"ok": bool(out.get("ok")), "task_id": task_id, "status": status,
+            "skill": skill, "action": action, "artifact": out_dir}
+
+
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     _meta = role_runtime.handle_meta_command(argv, ROLE)
@@ -262,11 +335,15 @@ def main(argv=None) -> int:
         return clarify_cli(ROLE, args.intent)
     if getattr(args, "skill", None) == "case":
         return _run_case_cli(args)
+    if getattr(args, "skill", None) == "run":
+        out = run_task(args.task)
+        c.emit(out)
+        return 0 if out.get("ok") else 1
     # 2026-11-15 产线收敛：深度报告支线已删除。报告由 R01 统一出具。
     if getattr(args, "skill", None) in ("deep", "depth"):
         out = {"ok": False,
                "message": "deep/depth 支线已下线（报告产线收敛为 R01 唯一出口）",
-               "next": "python guagua.py report run --intent <意图> --results <result.json...> --out <目录>"}
+               "next": "python guagua.py report run-line --intent <意图> --dir <项目> --out <目录>"}
         try:
             c.emit(out)
         except NameError:

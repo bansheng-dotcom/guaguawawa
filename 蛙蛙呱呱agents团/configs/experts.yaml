@@ -563,26 +563,17 @@
         "action": "sensitivity"
         "label": "市场规模敏感性分析"
     "methods":
-      - "size"
       - "sizing_multi"
       - "growth"
-      - "demand"
       - "concentration"
-      - "consistency"
-      - "coverage"
     "needs":
       - "facts.market"
-      - "facts.obs"
       - "facts.region"
       - "facts.shares"
     "produces":
-      - "市场规模多路径"
       - "市场规模三路径"
       - "增长与引擎切换"
-      - "需求底座"
       - "集中度"
-      - "口径冲突"
-      - "数据覆盖缺口"
     "inputs":
       - "topic"
       - "scope"
@@ -1397,15 +1388,12 @@
         "label": "推荐与转介绍"
     "methods":
       - "roi"
-      - "channel"
       - "funnel"
     "needs":
-      - "facts.obs"
       - "table.orders"
       - "table.spend"
     "produces":
       - "投放效率"
-      - "渠道换手"
       - "转化漏斗"
     "inputs":
       - "content_draft"

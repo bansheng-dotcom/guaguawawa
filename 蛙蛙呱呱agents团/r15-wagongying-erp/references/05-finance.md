@@ -1,4 +1,4 @@
-﻿# 05 · ERP 财务业务接口口径（finance）
+# 05 · ERP 财务业务接口口径（finance）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/small-business/ap-processor/SKILL.md
 >
 

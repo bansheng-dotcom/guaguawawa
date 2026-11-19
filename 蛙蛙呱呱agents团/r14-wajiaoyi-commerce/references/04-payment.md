@@ -1,4 +1,4 @@
-﻿# 04 · 支付意图与退款口径（payment）
+# 04 · 支付意图与退款口径（payment）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/finance/variance-analysis/SKILL.md
 >
 

@@ -130,7 +130,7 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "publish": _out(["publish_ready"]),
         },
     },
-    "reliability": {
+    "retry": {
         "desc": "失败处理与重试：retry/errorflow",
         "input": {
             "retry": _REQ({"policy": {"type": "object"}}, ["policy"]),

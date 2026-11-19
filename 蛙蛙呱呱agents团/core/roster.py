@@ -77,7 +77,7 @@ def build() -> Dict[str, Any]:
             "dir": dirname,
             "status": r.get("status"),
             "capabilities": list(r.get("capabilities") or []),
-            "enters_report": rid not in ("r08", "r09", "r10", "r17"),
+            "enters_report": bool(r.get("enters_report", True)),
             "actions": actions,
             "skills": _skills(dirname),
             "entry": f"python guagua.py call {rid}",

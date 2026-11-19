@@ -1,4 +1,4 @@
-﻿# 01 · 可用性监控口径（monitor）
+# 01 · 可用性监控口径（monitor）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/skills/status-report/SKILL.md
 >
 

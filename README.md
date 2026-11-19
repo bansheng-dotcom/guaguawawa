@@ -3,10 +3,12 @@
 > 专为**一人公司**打造的全栈商业与技术智能体协作系统。
 > 用「组织语义 + 契约化端口 + 生成与校验分离」把 20 个专业角色组织成一家可运行的公司，而不是 20 个互不相干的聊天机器人。
 
-**版本：v2.3 · 2026-11-17**（报告产线 v10：`build` 单入口 / `analysis + lens` / coverage / 结果台账）
+**版本：v2.4 · 2026-11-18**（报告产线 v10.2：`decide` 单入口 / 决策契约 / binding / 图由对照选型；lens 已退役）
 
-> **v10 报告入口**：`python guagua.py report build --intent "…" --dir <项目> --out <目录> --lens market|ops|chain|fix`。
+> **v10.2 报告入口**：`python guagua.py report decide --intent "…" --dir <项目> --out <目录>`
+> （`report build` 是同实现的兼容名；`--lens` 已退役，传了会被忽略）。
 > 旧 `run / pack / produce / research` 已删除；报告只有一个作者（R01），成品验收用 `report check`。
+> 诊断与修复过程见 [`交付/报告质量与图表系统-根因与修复-2026-11-18.md`](交付/报告质量与图表系统-根因与修复-2026-11-18.md)。
 
 **统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)
 

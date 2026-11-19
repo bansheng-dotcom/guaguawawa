@@ -92,7 +92,7 @@ ROLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "rollout": _STEPS,
     },
     "r03": {
-        "name": "蛙守先", "title": "CFO / 财务风控", "doc_type": "投产比核算与现金流止损决策书",
+        "name": "蛙守线", "title": "CFO / 财务风控", "doc_type": "投产比核算与现金流止损决策书",
         "theme": {"primary": "#744210", "accent": "#d69e2e"},
         "report_title": "渠道投产比(ROI)核算与现金流止损决策书｜{intent}",
         "kill_switch": {"dim": "获客经济性", "metric": "单渠道 CAC 回收期", "base": "≤ 30 天",
@@ -174,7 +174,7 @@ ROLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "rollout": _STEPS,
     },
     "r07": {
-        "name": "蛙得名", "title": "PM / 产品规划", "doc_type": "新功能复盘与需求迭代决策书",
+        "name": "蛙得明", "title": "PM / 产品规划", "doc_type": "新功能复盘与需求迭代决策书",
         "theme": {"primary": "#22543d", "accent": "#38a169"},
         "report_title": "新功能冷启动效果复盘与需求迭代决策书｜{intent}",
         "kill_switch": {"dim": "主流程", "metric": "主流程跳失率增幅", "base": "≤ 2%",
@@ -525,7 +525,7 @@ ROLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "rollout": _STEPS,
     },
     "r20": {
-        "name": "蛙守直", "title": "SRE / 稳定性", "doc_type": "可用性 SLA 与故障演练复盘报告",
+        "name": "蛙值守", "title": "SRE / 稳定性", "doc_type": "可用性 SLA 与故障演练复盘报告",
         "theme": {"primary": "#374151", "accent": "#4b5563"},
         "report_title": "全站可用性 SLA 与故障演练复盘决策报告｜{intent}",
         "kill_switch": {"dim": "可用性", "metric": "系统可用性", "base": "≥ 99.95%",
@@ -602,6 +602,27 @@ _INTENT_HINTS: Dict[str, List[str]] = {
     "r19": ["模型", "推荐", "因果", "增益", "评估", "实验", "多样性"],
     "r20": ["可用性", "sla", "故障", "演练", "备份", "恢复", "监控"],
 }
+
+
+# --------------------------------------------------------------------------- #
+# 角色名/职称的唯一出处是 core/registry.py（2026-11-17 归一）。
+# 本表只保留报告画像，name/title 一律以 registry 为准，避免旧花名漂移
+# （历史：r03 蛙守线 / r07 蛙得明 / r20 蛙值守 曾写进 evidence.json）。
+# --------------------------------------------------------------------------- #
+def _sync_identity() -> None:
+    try:
+        from core.registry import ROLES
+    except Exception:  # noqa: BLE001 - 独立运行时允许没有 core
+        return
+    for role in ROLES:
+        prof = ROLE_PROFILES.get(role["id"])
+        if not prof:
+            continue
+        prof["name"] = role["name"]
+        prof["title"] = role["title"]
+
+
+_sync_identity()
 
 
 def intent_hints(role_id: str) -> List[str]:

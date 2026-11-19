@@ -1,7 +1,7 @@
 {
   "role_id": "r15",
   "domain": "ERP 与供应链运营",
-  "max_questions": 2,
+  "max_questions": 8,
   "execution_inputs": {
     "erp_data": {
       "resolve": "task_port",
@@ -344,18 +344,14 @@
     "tco.lifecycle": [
       "scope",
       "time_window"
+    ],
+    "fulfill-sim.run": [
+      "metric"
+    ],
+    "safety-stock.run": [
+      "metric"
     ]
   },
-  "l2_prompt_blocks": [
-    {
-      "name": "单据链",
-      "template": "每个数量必须能追到单据号；收货数量不得超采购订单；库存分录用途必须在白名单（采购入库/销售出库/调拨/盘盈盘亏）。"
-    },
-    {
-      "name": "数量守恒",
-      "template": "期初+入库-出库=期末；在途与占用分开算，不得合并成「可用」。"
-    }
-  ],
   "output_contract": {
     "format": "md",
     "must_include": [

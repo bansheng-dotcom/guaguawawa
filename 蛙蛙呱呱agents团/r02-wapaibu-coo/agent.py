@@ -329,7 +329,7 @@ def run_task(args, ws) -> int:
         print(json.dumps(payload, ensure_ascii=False))
         return 2
     title, note = _ACTION_HINT[skill]
-    out_dir = os.path.join(ws.artifacts_dir, ROLE, t.task_id)
+    out_dir = ws.artifact(t.task_id)  # 统一落点：workspace/artifacts/<task_id>（与其余 19 角色一致）
     os.makedirs(out_dir, exist_ok=True)
 
     # 真实运行该技能动作，把 result 交给共享报告桥渲染（而非手搓 md）

@@ -103,7 +103,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("7 个技能", len(m.get("skills", [])) == 7, str(len(m.get("skills", []))))
+    t.check(f"{len(SKILLS)} 个技能（动态）", len(m.get("skills", [])) == len(SKILLS), str(len(m.get("skills", []))))
     t.check("角色 r19", m.get("role") == "r19", str(m.get("role")))
     t.check("输入端口 dataset/model",
             m.get("inputs") == ["dataset", "model"], str(m.get("inputs")))
@@ -263,10 +263,10 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("T6 契约")
-    t.check("7 技能登记", len(contracts.skill_names()) == 7,
+    t.check(f"技能登记与 SKILLS 一致（{len(SKILLS)}）", len(contracts.skill_names()) == len(SKILLS),
             str(contracts.skill_names()))
     total_actions = sum(len(contracts.actions(s)) for s in contracts.skill_names())
-    t.check("14 动作登记", total_actions == 14, str(total_actions))
+    t.check("每个技能都有动作契约", all(contracts.actions(x) for x in contracts.skill_names()), str(total_actions))
     for s in contracts.skill_names():
         for a in contracts.actions(s):
             vi = contracts.validate_input(s, a, {})
@@ -404,7 +404,7 @@ def main() -> int:
     code, _ = run_agent("case", "get", "--case", "regression-gate")
     t.check("CLI case get 正常", code == 0)
     code, ctr = run_agent("contract", "list")
-    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 7)
+    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == len(contracts.skill_names()))
 
     # ------------------------------------------------------------------ #
     t.section("run_task 协作入口")

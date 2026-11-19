@@ -22,8 +22,8 @@
   },
   "dr": {
     "recovery_types": ["hot", "warm", "cold"],
-    "rto_max_hours": 24,
-    "rpo_max_hours": 4
+    "rto_max_hours": 4,
+    "rpo_max_hours": 1
   },
   "postmortem": {
     "severities": ["sev1", "sev2", "sev3"],

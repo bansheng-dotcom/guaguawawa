@@ -1,4 +1,4 @@
-﻿# S06 优点标记与复检（mark / recheck）
+# S06 优点标记与复检（mark / recheck）
 > 蒸馏自: 补充技能/01-当前能力域/petergyang__human-review/positive-feedback/SKILL.md
 >
 

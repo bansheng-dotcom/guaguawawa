@@ -23,10 +23,15 @@ def summary_meta(rows: Iterable[tuple[str, str]]) -> str:
 
 
 def compact_sources(rows: List[Any], per_col: int | None = None) -> str:
-    """rows: (id,title,date) 或 (id,title,date,url)。两栏紧凑来源表。"""
+    """rows: (id,title,date) 或 (id,title,date,url)，也接受 contract 里的 dict 来源。"""
     items = []
     for r in rows:
-        sid, title, date = str(r[0]), str(r[1]), str(r[2])
+        if isinstance(r, dict):
+            sid = str(r.get("file") or r.get("id") or "")
+            title = str(r.get("title") or r.get("url") or "")
+            date = str(r.get("date") or r.get("period") or "")
+        else:
+            sid, title, date = str(r[0]), str(r[1]), str(r[2])
         items.append(f'<div class="src-row"><b>{html.escape(sid)}</b>'
                      f'<span>{html.escape(title)}</span><i>{html.escape(date)}</i></div>')
     half = per_col or (len(items) + 1) // 2

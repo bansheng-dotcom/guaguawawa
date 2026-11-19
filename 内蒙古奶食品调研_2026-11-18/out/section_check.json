@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "id": "derived_ok",
+      "ok": true,
+      "msg": "派生量公式可算、声明值与实算一致",
+      "fail": []
+    },
+    {
+      "id": "pack_present",
+      "ok": true,
+      "msg": "证据包里有数字",
+      "count": 86
+    },
+    {
+      "id": "standfirst_number",
+      "ok": true,
+      "msg": "导语必须是带数字的结论"
+    },
+    {
+      "id": "has_sections",
+      "ok": true,
+      "msg": "至少 3 节"
+    },
+    {
+      "id": "sections_valid",
+      "ok": true,
+      "msg": "每节标题带数、有 refs、数字可解释、图带来源",
+      "sections": [
+        {
+          "index": 1,
+          "title": "准入：300.0 平方米以下只能做奶豆腐与奶皮子，奶贝必须持证",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 2,
+          "title": "标准：水分 48.0%、蛋白 30.0% 两条死线，低于即判不合格",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 3,
+          "title": "产能：776.7 万吨原奶只有 11.6% 流进特色奶食，瓶颈不在奶源",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 4,
+          "title": "格局：锡林郭勒占 36.0%，品牌户均只有 159.6 万元",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 5,
+          "title": "大盘：奶酪零售从 92.38 降到 91.22 亿元，不能讲增长故事",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 6,
+          "title": "价格带：零售 79.6 元/公斤，原料吃掉 60.3%",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 7,
+          "title": "履约：一单 63.0 元运费高于半公斤货值 1.58 倍，跨省发必亏",
+          "ok": true,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "banned_words",
+      "ok": true,
+      "msg": "禁用词清零",
+      "fail": []
+    },
+    {
+      "id": "boundary",
+      "ok": true,
+      "msg": "至少写一处边界"
+    }
+  ],
+  "sections": 7,
+  "runtime_ms": 11
+}

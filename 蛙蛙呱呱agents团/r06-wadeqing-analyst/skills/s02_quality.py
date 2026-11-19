@@ -85,7 +85,8 @@ def _audit(rows: List[Dict[str, str]], pk: str, date_col: str) -> Dict[str, Any]
             dup_rows += 1
         seen.add(key)
     if dup_rows:
-        sev = "CRITICAL" if dup_rows / total > t.get("duplicate_critical_pct", 0.01) else "HIGH"
+        sev = ("CRITICAL" if dup_rows / total * 100 > t.get("duplicate_critical_pct", 1.0)
+               else "HIGH")
         findings.append({"dim": "uniqueness", "sev": sev,
                          "note": f"整行重复 {dup_rows} 行", "count": dup_rows})
         score["uniqueness"] = min(score["uniqueness"], 5)

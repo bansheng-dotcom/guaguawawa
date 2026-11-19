@@ -41,7 +41,8 @@ def _json(path: str, obj: Any) -> None:
 def build(intent: str, project_dir: str, out_dir: str,
           decision_path: Optional[str] = None, min_binding: float = 0.8,
           theme: str = "paper", pdf: bool = False,
-          quote_mode: str = "off", audience: str = "业务负责人") -> Dict[str, Any]:
+          quote_mode: str = "off", audience: str = "业务负责人",
+          layout: str = "paper") -> Dict[str, Any]:
     desk = analysis_desk.scan(project_dir)
     prof = analysis_desk.profile(desk)
     views = analysis_methods.build_views(desk)
@@ -63,23 +64,36 @@ def build(intent: str, project_dir: str, out_dir: str,
     #    不许退回「用数据能算的东西出报告」。
     orch = orchestrator.plan(intent, method_plan=plan)
     _json(os.path.join(out_dir, "decisions.json"), orch)
+    blocked = orch.get("blocked") or []
+    review_only = bool(blocked) and all(r.get("review_only") for r in blocked)
     if orch.get("mode") == "unbound":
+        hint = ("。这些专家只产评审/人工交付物，不产数据报告——"
+                "改走 `guagua.py plan` / `chat` 人工线，或换一个数据可答的问题。"
+                if review_only else
+                "。这份数据回答不了这个问题——补数据后重跑，或换一个与数据匹配的问题。")
         raise report_flow.FlowError(
-            "INTENT_UNBOUND: " + str(orch.get("reason"))
-            + "。这份数据回答不了这个问题——补数据后重跑，或换一个与数据匹配的问题。")
+            "INTENT_UNBOUND: " + str(orch.get("reason")) + hint)
 
     # 1) 决策契约：人给的文件优先；没有就按出场专家起草，并明确标记 auto
     src = decision_path or os.path.join(project_dir, "data", "decision.json")
     auto = not os.path.exists(src)
     if not auto:
         ctr = decision.load(src)
+    elif orch.get("mode") == "data":
+        # 没有任何专家命中意图 → 这是**唯一**允许的数据驱动兜底（decisions.json 已标 mode=data）。
+        # 注意：专家命中但答不了不走这里（2026-11-19 体检：那会让「问文案」静默出水果报告）。
+        ctr = decision.draft(intent, mounted, audience=audience)
     else:
         try:
             ctr = decision.draft_from_roster(intent, orch.get("roster") or [],
                                              audience=audience)
-        except ValueError:
-            # 出场专家能答的问题不足 3 个 → 退回数据驱动（decisions.json 已标 mode=data）
-            ctr = decision.draft(intent, mounted, audience=audience)
+        except ValueError as exc:
+            hint = ("。出场专家只产评审/人工交付物，不产数据报告；"
+                    "不许改用「数据能算什么」出报告。"
+                    if review_only else
+                    "。出场专家答不了这个问题——补数据后重跑，或换一个与专家能力匹配的问题；"
+                    "不许改用「数据能算什么」出报告。")
+            raise report_flow.FlowError("INTENT_UNBOUND: " + str(exc) + hint) from exc
     v = decision.validate(ctr)
     if not v["ok"]:
         raise report_flow.FlowError("决策契约不成立：" + "；".join(v["errors"]))
@@ -292,15 +306,24 @@ def build(intent: str, project_dir: str, out_dir: str,
 
     res = report_flow.run(intent=intent, evidence=pack_path, draft=draft,
                           out_dir=out_dir, theme=theme, pdf=pdf,
-                          quote_mode=quote_mode)
+                          quote_mode=quote_mode, layout=layout)
 
     # 6) 三层质检（v11 / P5）：证据 / 编辑 / 呈现，三层全过才放行。
     #    binding 与图契约是决策稿特有的两道，和三层并列，不互相替代。
+    #    flow 版没有 A4 页容器，编辑/呈现两层（按页 DOM 写）不适用，改用文笔门禁。
     from core import quality_gate, report_quality
     html = (res.get("files") or {}).get("html") or ""
-    qa = report_quality.audit(html) if html else {
-        "ok": False, "score": 0, "checks": [], "sections": 0, "chars": 0,
-        "numbers": 0, "density": 0}
+    if layout == "flow":
+        fg = res.get("flow_gate") or {}
+        _hard = os.environ.get("GUAGUA_PROSE_HARD", "0") == "1"
+        qa = {"ok": bool(fg.get("ok")) or not _hard, "score": fg.get("score", 0),
+              "checks": [], "sections": fg.get("sections", 0),
+              "chars": 0, "numbers": 0, "density": 0, "mode": "flow",
+              "prose_hard": _hard}
+    else:
+        qa = report_quality.audit(html) if html else {
+            "ok": False, "score": 0, "checks": [], "sections": 0, "chars": 0,
+            "numbers": 0, "density": 0}
     _json(os.path.join(out_dir, "quality.json"), qa)
 
     sc_path = os.path.join(out_dir, "section_check.json")
@@ -310,8 +333,16 @@ def build(intent: str, project_dir: str, out_dir: str,
             sc = json.loads(Path(sc_path).read_text(encoding="utf-8-sig"))
         except (OSError, json.JSONDecodeError):
             sc = None
-    gate = quality_gate.check(draft=draft, pack=desk.pack, html=html or None,
-                              section_check=sc)
+    if layout == "flow":
+        gate = {"schema": "dsh.quality_gate/v1", "ok": bool(qa.get("ok")),
+                "verdict": "PASS" if qa.get("ok") else "BLOCK",
+                "layers": [{"layer": "prose", "ok": bool(qa.get("ok")),
+                            "detail": {"score": qa.get("score")}}],
+                "failed": [] if qa.get("ok") else ["prose"],
+                "note": "flow 版按文笔门禁判；页式两层不适用"}
+    else:
+        gate = quality_gate.check(draft=draft, pack=desk.pack, html=html or None,
+                                  section_check=sc)
     _json(os.path.join(out_dir, "quality_gate.json"), gate)
 
     chart_ok = sum(1 for r in chart_rows if r["ok"])
@@ -348,9 +379,12 @@ def build(intent: str, project_dir: str, out_dir: str,
                 "render": "pass" if res.get("ok") else "block",
                 "binding": "pass" if bind_ok else "block",
                 "chart": "pass" if chart_gate else "block",
-                "evidence": "pass" if layers.get("evidence") else "block",
-                "editorial": "pass" if layers.get("editorial") else "block",
-                "presentation": "pass" if layers.get("presentation") else "block",
+                **({"prose": "pass" if layers.get("prose") else "block"}
+                   if layout == "flow" else {
+                       "evidence": "pass" if layers.get("evidence") else "block",
+                       "editorial": "pass" if layers.get("editorial") else "block",
+                       "presentation": "pass" if layers.get("presentation") else "block",
+                   }),
             },
             "quality": {"ok": qa.get("ok"), "score": qa.get("score"),
                         "sections": qa.get("sections"), "density": qa.get("density")},

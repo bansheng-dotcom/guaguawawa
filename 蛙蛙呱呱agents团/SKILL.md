@@ -33,18 +33,19 @@ python guagua.py doctor                    # 环境诊断 + 20 角色体检
 
 ## 权威文档
 
-- `AGENTS.md`：入口指引与提交前自检六条。
+- `AGENTS.md`：入口指引与提交前自检清单。
 - `ORG.md`：谁负责什么、汇报线、权力与红线、角色边界。
 - `PROTOCOL.md`：单角色五步、失败移交、多角色 GSD 编排、验收协议。
 - `REPORT-STANDARD.md`：交付报告结构与文风。
 - `agent-packs/agents/*.md`：20 个角色的完整定义（宿主可直接加载）。
 - `docs/SKILL-LAYER-SPEC.md`：技能层 L1/L2/L3 规格。
 
-## 三条铁律
+## 四条铁律
 
 1. 一个任务一个 owner——「共同负责」等于没人负责。
 2. 生成与校验分离——谁生产谁不验收，验收归 R04 蛙挑刺。
 3. 不可逆动作必须创始人签字——裁员/关停/签合同/动资金不接受口头豁免。
+4. 报告只有一个作者（R01）且只加方法不加章节——执行角色只交 `result.json`；新能力进 `core/analysis_methods.py`，`frames_*.py` 冻结。
 
 ## 能力边界
 

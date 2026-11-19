@@ -1,0 +1,29 @@
+{
+ "findings": [
+  {
+   "claim": "直采有效成本 5.23 元/公斤",
+   "evidence": "r15 TCO",
+   "confidence": "A",
+   "falsifier": "实际到货损耗 >10%"
+  },
+  {
+   "claim": "同规格区域溢价 3.09 元/公斤",
+   "evidence": "新发地分规格",
+   "confidence": "B",
+   "falsifier": "匹配后差 <1 元"
+  },
+  {
+   "claim": "损耗 8%→5% 可省 0.22 元",
+   "evidence": "成本卡",
+   "confidence": "C",
+   "falsifier": "实际损耗不降"
+  }
+ ],
+ "conflicts": [
+  {
+   "item": "呼市 14.00 vs 零售 13.88",
+   "reason": "规格不同"
+  }
+ ],
+ "gaps": []
+}

@@ -9,5 +9,15 @@
 | MiniMax H3 提示词规范（已内化为结构规则） | `r10-wachengmei-design/skills/s13_h3prompt.py` | 据公开规范实现的字段顺序/时长/时间戳等校验，无原文拷贝 |
 | AI Hive OpenAPI 客户端脚本 | `r10-wachengmei-design/vendor/aihive/imagegen.py` | 上游公开客户端脚本；调用需自行配置 API Key，费用以服务方实时报价为准 |
 | 报告/主题等共享模块 | `shared/` | 本团队自有实现 |
+| 第三方品牌设计分析（31 份 markdown 摘录） | `r10-wachengmei-design/references/design-library/` | 公开设计系统的**事实性摘录**（配色/字体/版式观察），用于内部设计基线；不包含原文全文，不主张对上述品牌的任何权利。再分发前请自行核对上游条款 |
+| AI Hive 生图客户端（本地脚本） | `r10-wachengmei-design/vendor/aihive/imagegen.py` | 上游公开客户端脚本的本地适配；无随附 LICENSE 文件，调用需自备 API Key。对外分发前必须补齐上游 URL 与许可证，或移除 `vendor/` |
 
 若需对外分发，请保留本文件并核对各上游项目的最新许可条款。
+
+## 机器可读清单与门禁
+
+- 逐项状态：`r10-wachengmei-design/references/design-library/LICENSE_STATUS.json`
+  （每项的 upstream_url / license / redistributable）。
+- 门禁：`python scripts/check_third_party_licenses.py`（报告）；
+  打包/对外分发前跑 `--strict`，存在 `license=unknown` 即退出 1。
+- 当前状态：31 份设计分析 + 1 份 AI Hive 客户端均为 `unknown` → **不得进入对外分发包**。

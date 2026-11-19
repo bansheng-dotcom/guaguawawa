@@ -83,7 +83,10 @@ def _walk_strings(obj: Any) -> List[str]:
 
 # 元说明字段：note/msg/message 里常写「算法阈值/公式说明」（如 "≥0.6"、"×1.4826"），
 # 这些不是「从数据里引用却无法追溯」的结论指标，证据边界检查必须排除它们。
-_NON_EVIDENCE_KEYS = ("note", "msg", "message", "runtime_ms", "note_text", "hint")
+_NON_EVIDENCE_KEYS = ("note", "msg", "message", "runtime_ms", "note_text", "hint",
+                      # 版本/溯源元数据不是证据数字（"skill_version": "2.0" 曾被误判为不可追溯小数）
+                      "provenance", "version", "skill_version", "schema_version",
+                      "input_hash", "runtime_ms_total")
 
 
 def _evidence_texts(obj: Any) -> List[str]:
@@ -93,7 +96,8 @@ def _evidence_texts(obj: Any) -> List[str]:
         out.append(obj)
     elif isinstance(obj, dict):
         for k, v in obj.items():
-            if k in _NON_EVIDENCE_KEYS:
+            kl = str(k).lower()
+            if k in _NON_EVIDENCE_KEYS or kl.endswith("_version") or kl.endswith("_hash"):
                 continue
             out += _evidence_texts(v)
     elif isinstance(obj, list):
@@ -154,8 +158,16 @@ def review_packet(packet: Dict[str, Any],
         except Exception:
             data_nums = []
     traceable = set(result_nums + data_nums)
+
+    def _is_traceable(d: float) -> bool:
+        """允许文本四舍五入/截断：与任一结果数值相差不超过 0.5% 或 0.005 即视为可追溯。"""
+        if round(d, 4) in traceable:
+            return True
+        tol = max(0.005, abs(d) * 0.005)
+        return any(abs(x - d) <= tol for x in traceable)
+
     untraceable = [d for d in _referenced_decimals(evidence_texts)
-                   if round(d, 4) not in traceable]
+                   if not _is_traceable(d)]
     if untraceable:
         issues.append(f"结论引用 {len(untraceable)} 个无法追溯的小数: "
                       f"{sorted(set(untraceable))[:8]}")

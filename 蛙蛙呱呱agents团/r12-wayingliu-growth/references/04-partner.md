@@ -1,4 +1,4 @@
-﻿# s04 红人与合作增长（influencer / comarketing）方法论
+# s04 红人与合作增长（influencer / comarketing）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/marketing/competitive-brief/SKILL.md
 >
 

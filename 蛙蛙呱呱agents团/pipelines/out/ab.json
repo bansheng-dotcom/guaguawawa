@@ -1,0 +1,25 @@
+{
+ "abtest": {
+  "control_mean": 0.0239,
+  "treatment_mean": 0.0186,
+  "lift_pct": -22.3,
+  "impact_min_pct": 3.0,
+  "t": 2.0255,
+  "p_value_approx": 0.042818,
+  "significant": true,
+  "srm_chi2": 0.192,
+  "srm_critical_chi2": 3.841,
+  "srm_flag": false,
+  "decision": "no_ship",
+  "note": "决策表：显著正且 lift≥impact_min 且无SRM=ship；否则 no_ship；SRM 异常=重跑"
+ },
+ "runtime_ms": 30,
+ "provenance": {
+  "skill": "abtest",
+  "skill_version": "2.0",
+  "input_hash": "7ecfbb0aae14",
+  "action": null
+ },
+ "conclusion": "no_ship：lift -22.3%，p=0.0428，SRM=False。",
+ "status": "ok"
+}

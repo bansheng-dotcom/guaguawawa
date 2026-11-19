@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """能力调用频次盘点：从各角色运行日志反推"哪些能力真的被用过"。
 

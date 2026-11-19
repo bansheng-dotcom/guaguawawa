@@ -1,4 +1,4 @@
-﻿# s04 全渠道客服（inbox / ticket）方法论
+# s04 全渠道客服（inbox / ticket）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/customer-support/ticket-triage/SKILL.md
 >
 

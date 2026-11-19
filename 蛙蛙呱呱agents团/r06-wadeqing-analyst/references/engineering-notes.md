@@ -128,16 +128,16 @@ omicverse 生信重后端由 R19 蛙智模承载，本角色统计检验是探�
 
 ## 详细参考（9 个模块）
 
-- [模块A 指标语义与口径](references/01-metric-semantics.md)
-- [模块B 数据清洗与质量门禁](references/02-data-quality.md)
-- [模块C 探索性与产品分析](references/03-exploratory-analysis.md)
-- [模块D 统计与因果推断](references/04-statistics-causal.md)
-- [模块E 可视化与报告输出](references/05-visualization-report.md)
-- [模块F 根因与贡献度](references/06-root-cause.md)
-- [模块G 科学计算与 NLP](references/07-scientific-nlp.md)
-- [模块H 专业领域分析(生信)](references/08-domain-analysis.md)
-- [模块I 自媒体数据运营](references/09-selfmedia-ops.md)
-- [模块J SQL/Schema/元数据](references/15-sql-schema-catalog.md)
+- [模块A 指标语义与口径](01-metric-semantics.md)
+- [模块B 数据清洗与质量门禁](02-data-quality.md)
+- [模块C 探索性与产品分析](03-exploratory-analysis.md)
+- [模块D 统计与因果推断](04-statistics-causal.md)
+- [模块E 可视化与报告输出](05-visualization-report.md)
+- [模块F 根因与贡献度](06-root-cause.md)
+- [模块G 科学计算与 NLP](07-scientific-nlp.md)
+- [模块H 专业领域分析(生信)](08-domain-analysis.md)
+- [模块I 自媒体数据运营](09-selfmedia-ops.md)
+- [模块J SQL/Schema/元数据](15-sql-schema-catalog.md)
 
 ---
 

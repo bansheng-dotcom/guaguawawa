@@ -1,0 +1,97 @@
+# -*- coding: utf-8 -*-
+"""core.source_verify —— 来源逐条回抓：字段齐、URL 可取、quote 能在原文里找到。
+
+分两级，不混为一谈：
+
+    字段级（永远跑）：每条 source 必须有 file / url(http|https) / date / quote。
+    回抓级（--verify-quotes 才跑）：打开 URL，把 quote 去掉空白后做子串匹配。
+
+回抓结果只有三种：verified / quote_not_found / fetch_failed。
+被反爬、需要登录、正文在图片里的，一律记 fetch_failed，不假装已核。
+"""
+from __future__ import annotations
+
+import re
+import urllib.request
+from typing import Any, Callable, Dict, List
+
+QUOTE_MIN = 12
+DATE_RE = re.compile(r"^\d{4}(-\d{1,2}(-\d{1,2})?)?$")
+URL_RE = re.compile(r"^https?://")
+
+Fetch = Callable[[str], str]
+
+
+def _norm(text: Any) -> str:
+    return re.sub(r"\s+", "", str(text or ""))
+
+
+def check_fields(src: Dict[str, Any]) -> List[str]:
+    """一条来源最少要有什么。缺什么回什么，顺序固定。"""
+    miss: List[str] = []
+    if not str(src.get("file") or "").strip():
+        miss.append("file")
+    if not URL_RE.match(str(src.get("url") or "")):
+        miss.append("url(http/https)")
+    if not DATE_RE.match(str(src.get("date") or "").strip()):
+        miss.append("date(YYYY[-MM[-DD]])")
+    if len(_norm(src.get("quote"))) < QUOTE_MIN:
+        miss.append(f"quote(原文≥{QUOTE_MIN}字)")
+    return miss
+
+
+def default_fetch(url: str, timeout: int = 20) -> str:
+    """最小实现：抓 HTML，去 script/style 与标签，返回纯文本。"""
+    req = urllib.request.Request(
+        url, headers={"User-Agent": "Mozilla/5.0 (compatible; guagua-report/1.0)"})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
+        raw = resp.read(2_000_000)
+        ctype = (resp.headers.get("Content-Type") or "").lower()
+    text = raw.decode("utf-8", errors="ignore")
+    if "pdf" in ctype:
+        # PDF 不在此处解析：记为取到但无法逐字匹配，交给人工。
+        return ""
+    text = re.sub(r"<script.*?</script>|<style.*?</style>", " ", text,
+                  flags=re.S | re.I)
+    text = re.sub(r"<[^>]+>", " ", text)
+    return text
+
+
+def verify_source(src: Dict[str, Any], fetch: Fetch | None = None) -> Dict[str, Any]:
+    fields = check_fields(src)
+    row: Dict[str, Any] = {
+        "id": str(src.get("file") or ""),
+        "url": str(src.get("url") or ""),
+        "quote_len": len(_norm(src.get("quote"))),
+        "fields": fields,
+        "status": "unverified",
+    }
+    if fields:
+        row["status"] = "fields_missing"
+        return row
+    if fetch is None:
+        return row
+    try:
+        page = fetch(str(src["url"]))
+    except Exception as exc:  # noqa: BLE001  网络失败只记录，不抛
+        row["status"] = "fetch_failed"
+        row["error"] = f"{type(exc).__name__}: {exc}"[:200]
+        return row
+    if page and _norm(src["quote"]) in _norm(page):
+        row["status"] = "verified"
+        row["ok"] = True
+        return row
+    row["status"] = "quote_not_found"
+    row["page_chars"] = len(_norm(page))
+    return row
+
+
+def verify_sources(sources: List[Dict[str, Any]], fetch: Fetch | None = None) -> Dict[str, Any]:
+    rows = [verify_source(s, fetch) for s in sources]
+    verified = sum(1 for r in rows if r["status"] == "verified")
+    counts: Dict[str, int] = {}
+    for r in rows:
+        counts[r["status"]] = counts.get(r["status"], 0) + 1
+    return {"ok": bool(rows) and verified == len(rows),
+            "total": len(rows), "verified": verified, "counts": counts,
+            "fetch": fetch is not None, "rows": rows}

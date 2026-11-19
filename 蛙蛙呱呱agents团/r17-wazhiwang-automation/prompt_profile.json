@@ -1,7 +1,7 @@
 {
   "role_id": "r17",
   "domain": "自动化与系统集成",
-  "max_questions": 2,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -387,6 +387,9 @@
     "audit.runlog": [
       "artifact",
       "owner"
+    ],
+    "retry-model.run": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [

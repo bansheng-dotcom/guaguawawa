@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """评审门禁自检：验证 harness.py verdict 与 review.py 是否真的会拦住错误。
 

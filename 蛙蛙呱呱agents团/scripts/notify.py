@@ -1,4 +1,4 @@
-﻿import json
+import json
 import urllib.request
 import sys
 sys.stdout.reconfigure(encoding='utf-8')

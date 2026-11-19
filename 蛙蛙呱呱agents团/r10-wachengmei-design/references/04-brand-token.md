@@ -1,4 +1,4 @@
-﻿# s04 品牌 VI 与设计令牌（brand / vi·token）方法论
+# s04 品牌 VI 与设计令牌（brand / vi·token）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/design/design-system/SKILL.md
 >
 

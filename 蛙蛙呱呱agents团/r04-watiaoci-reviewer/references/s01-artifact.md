@@ -1,4 +1,4 @@
-﻿# S01 成品盘点与三级证据链
+# S01 成品盘点与三级证据链
 > 蒸馏自: 补充技能/01-当前能力域/open-gsd__gsd-core/skills/validate-artifact/SKILL.md
 >
 

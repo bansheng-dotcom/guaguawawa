@@ -10,7 +10,7 @@
 
 | 指标代号 | 指标名称 | 目标基准线 | 统计口径说明 |
 | :--- | :--- | :--- | :--- |
-| **PRA** | 薪酬记录准度 (Payroll Record Accuracy) | **>= 100.0%** | 实发净额必须与应发总额扣除社保、公积金、个税及其它扣款完全恒等，净额容差绝对值 = 0.00 |
+| **PRA** | 薪酬记录准度 (Payroll Record Accuracy) | **>= 100.0%** | 实发净额必须与应发总额扣除社保、公积金、个税及其它扣款完全恒等，净额容差绝对值 ≤ 0.01 元（浮点换算误差上限，业务上要求分毫对齐） |
 | **OTA** | 录用接受前置率 (Offer-to-Acceptance Rate) | **= 100.0%** | 发放 Offer 的候选人必须前置通过筛选与面试流程，状态必须来源于 Shortlisted 或 Accepted |
 | **PMR** | 敏感个人信息泄露率 (PII Minimization Rate) | **= 0.00%** | 物理级拦截明文居民身份证号、银行卡账号、详细家庭住址等超范围高敏数据收录 |
 | **LBR** | 休假天数与余额恒等率 (Leave Balance Recalculation) | **= 100.0%** | 申请休假天数必须与周期严格匹配，不得大于可用额度，且同一员工假期区间恒不重叠 |
@@ -22,7 +22,8 @@
 
 1. **薪酬实发净额守恒公式 (Payroll Net Pay Conservation)**：
    $$\text{Net Pay} = \text{Gross Pay} - \sum \text{Statutory Deductions} - \text{IIT Tax} - \sum \text{Other Deductions}$$
-   - 容差绝对值为 0.00，不允许任何不可解释的分位漂移。
+   - 容差绝对值 ≤ 0.01 元（= 1 分，仅吸收浮点误差），不允许任何不可解释的分位漂移。
+  （实现取值见 `experience/thresholds.json` 的 `payroll.tolerance`，文档与代码同源。）
 2. **休假扣减与可用余额守恒模型 (Leave Balance Conservation)**：
    $$\text{Remaining Balance} = \text{Initial Balance} - \text{Requested Leave Days}$$
    - 约束：$\text{Requested Leave Days} \le \text{Initial Balance}$ 且同一员工假期区间严禁重叠。
@@ -44,7 +45,7 @@
 
 | 门禁 ID | 门禁名称 | 刚性校验标准 (Threshold) | 破坏后果与处置策略 |
 | :--- | :--- | :--- | :--- |
-| **GATE-01** | 净额恒等门禁 (Net Balance Gate) | **gross - Σdeduction = net (容差 0.00)** | 净额不恒等直接判定 CRITICAL，禁止生成待发薪清单 |
+| **GATE-01** | 净额恒等门禁 (Net Balance Gate) | **gross - Σdeduction = net (容差 ≤0.01 元)** | 净额不恒等直接判定 CRITICAL，禁止生成待发薪清单 |
 | **GATE-02** | PII 最小化刚性拦截 (PII Minimization Gate) | **身份证号/银行卡号/私密住址泄露数 = 0** | 检出敏感未脱敏 PII 直接阻断工件流转并触发合规告警 |
 | **GATE-03** | 录用前置门禁 (Offer Pre-requisite Gate) | **Offer 状态必须来自 Shortlisted/Accepted** | 跳过初筛/面试直接发放 Offer 判为违规，强制驳回补齐流转记录 |
 | **GATE-04** | 休假天数与余额守恒 (Leave Balance Gate) | **申请天数 ≤ 可用余额 且 天数 > 0** | 超额休假或负数休假直接拦截，判定审批前置无效 |

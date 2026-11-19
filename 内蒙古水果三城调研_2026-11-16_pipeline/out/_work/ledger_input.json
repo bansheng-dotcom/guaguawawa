@@ -1,0 +1,39 @@
+{
+ "claims": [
+  {
+   "id": "C01",
+   "kind": "calculation",
+   "text": "缺口：12 个盟市社零缺失、2026 分品类不全，区域与结构结论只在 0 个已披露盟市上成立",
+   "source_ids": [
+    "S05"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "S01",
+   "name": "data/obs_fruit.json",
+   "type": "database"
+  },
+  {
+   "id": "S02",
+   "name": "data/sources.json",
+   "type": "database"
+  },
+  {
+   "id": "S03",
+   "name": "data/产地价.csv",
+   "type": "database"
+  },
+  {
+   "id": "S04",
+   "name": "data/批发价_市场长表.csv",
+   "type": "database"
+  },
+  {
+   "id": "S05",
+   "name": "data/零售价_周度.csv",
+   "type": "database"
+  }
+ ]
+}

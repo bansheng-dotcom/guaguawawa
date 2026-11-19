@@ -1,0 +1,59 @@
+﻿{
+  "schema": "dsh.quality_gate/v1",
+  "ok": true,
+  "verdict": "PASS",
+  "layers": [
+    {
+      "layer": "evidence",
+      "ok": true,
+      "detail": {
+        "checks": 7,
+        "failed": [],
+        "sections": 10,
+        "pack_numbers": 147
+      }
+    },
+    {
+      "layer": "editorial",
+      "ok": true,
+      "detail": {
+        "profile": "research",
+        "score": 100.0,
+        "sections": 10,
+        "density": 64.3,
+        "hard_failed": []
+      }
+    },
+    {
+      "layer": "presentation",
+      "ok": true,
+      "detail": {
+        "figures": 8,
+        "type_steps": 54,
+        "violations": [],
+        "contrast": [
+          {
+            "name": "正文",
+            "fg": "#18211D",
+            "bg": "#FBFAF7",
+            "ratio": 15.79
+          },
+          {
+            "name": "次要文字",
+            "fg": "#5F6B64",
+            "bg": "#FBFAF7",
+            "ratio": 5.33
+          },
+          {
+            "name": "弱化文字",
+            "fg": "#8A948D",
+            "bg": "#FBFAF7",
+            "ratio": 3.0
+          }
+        ]
+      }
+    }
+  ],
+  "failed": [],
+  "note": "三层全过才放行；LLM 裁判只写诊断，不参与本判定"
+}

@@ -82,7 +82,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("9 个技能", len(m.get("skills", [])) == 9, str(len(m.get("skills", []))))
+    t.check(f"{len(SKILLS)} 个技能（动态）", len(m.get("skills", [])) == len(SKILLS), str(len(m.get("skills", []))))
     t.check("角色 r12", m.get("role") == "r12")
     t.check("输入端口 content_draft/product",
             m.get("inputs") == ["content_draft", "product"])
@@ -274,7 +274,7 @@ def main() -> int:
 
     t.section("T6 契约")
     names = contracts.skill_names()
-    t.check("契约覆盖 9 技能", len(names) == 9, str(len(names)))
+    t.check(f"契约覆盖 {len(SKILLS)} 技能（动态）", len(names) == len(SKILLS), str(len(names)))
     v = contracts.validate_output("diagnose", "diagnose",
                                   s01_diagnose._validate_diagnose(diag))
     t.check("契约校验 diagnose 产出通过", v["ok"], str(v.get("errors")))

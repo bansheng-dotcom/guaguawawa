@@ -1,6 +1,7 @@
 # flow 渲染规范（唯一出处）
 # 设计：HTML 一条内容流；PDF 导出时再分 A4 页。
 flow:
+  default_layout: flow   # 默认版式：flow（连续内容流）；需要一节一页 A4 时加 --layout paper
   cover: hero          # 封面是 hero，不拆成普通 block
   html: continuous     # 无 A4 页卡片、无页码
   pdf_paginate: auto   # 浏览器/导出器自动分页

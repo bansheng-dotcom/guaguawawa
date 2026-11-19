@@ -1,4 +1,4 @@
-﻿# 08 · 收入数据接口与交易自动化接口（revenue）
+# 08 · 收入数据接口与交易自动化接口（revenue）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/finance/close-management/SKILL.md
 >
 

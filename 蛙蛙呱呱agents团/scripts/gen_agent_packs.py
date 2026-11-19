@@ -535,6 +535,8 @@ def build_agents_md(roles: list) -> str:
         "python scripts/check_skill_gate.py         # 技能包门槛 + 黄金快照无退化",
         "python scripts/audit_skill_layer.py --check-refs --min 75   # 技能卡 ≥75 分 + 悬空指针 0",
         "python scripts/gen_agent_packs.py --check  # 专家团包与源无漂移",
+        "python scripts/gen_experts.py --check      # 专家卡与方法库无漂移（防 phantom 方法）",
+        "python scripts/check_convergence.py --baseline .convergence-baseline.json   # 收敛门禁只许下降",
         "python scripts/check_threshold_consistency.py      # 跨卡阈值一致（单一出处）",
         "python scripts/sync_dsh_skills.py --check  # DSH 技能镜像无分叉（否则模型读旧技能）",
         "python scripts/check_prompt_system.py     # 意图目录/画像/回归三项一致",

@@ -1,4 +1,4 @@
-﻿# 01 · 数据连接与 ELT 口径（elt）
+# 01 · 数据连接与 ELT 口径（elt）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/engineering/architecture/SKILL.md
 >
 

@@ -100,6 +100,7 @@ ROLES: List[Dict[str, Any]] = [
     {
         "id": "r08", "name": "蛙建成", "title": "产品实现官 (MVP)",
         "dir": "r08-wajiancheng-mvp", "status": "implemented",
+        "enters_report": False,
         "capabilities": ["产品切片MVP", "Spec转仓库", "落地页H5",
                          "SaaS邮件脚手架", "跨平台原型", "组件设计实现", "质量验证交接"],
         "inputs": ["prd", "ui_brief"], "outputs": ["mvp", "page_assets"],
@@ -109,6 +110,7 @@ ROLES: List[Dict[str, Any]] = [
     {
         "id": "r09", "name": "蛙稳码", "title": "代码工程官",
         "dir": "r09-wawenma-engineer", "status": "implemented",
+        "enters_report": False,
         "capabilities": ["技术规格架构", "数据库API", "前后端全栈",
                          "跨端生产工程", "测试浏览器验证", "调试性能重构",
                          "迁移CI/CD安全", "特殊技术载体"],
@@ -123,6 +125,7 @@ ROLES: List[Dict[str, Any]] = [
     {
         "id": "r10", "name": "蛙成美", "title": "视觉设计官",
         "dir": "r10-wachengmei-design", "status": "implemented",
+        "enters_report": False,
         "capabilities": ["AI生图插画", "Logo图标VI", "产品UI/UX",
                          "交互原型动效", "修图图像工程", "视频音频处理",
                          "转写字幕", "数据视觉营销物料"],
@@ -191,6 +194,7 @@ ROLES: List[Dict[str, Any]] = [
     {
         "id": "r17", "name": "蛙织网", "title": "自动化与集成工程师",
         "dir": "r17-wazhiwang-automation", "status": "implemented",
+        "enters_report": False,
         "capabilities": ["SaaS/API集成", "Webhook事件", "字段身份映射",
                          "定时批处理", "人工审批", "失败重试", "AI工作流", "审计"],
         "inputs": ["rules", "fields"], "outputs": ["workflow", "audit_log"],

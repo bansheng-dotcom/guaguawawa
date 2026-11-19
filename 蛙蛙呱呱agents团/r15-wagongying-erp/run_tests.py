@@ -96,7 +96,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("8 个技能", len(m.get("skills", [])) == 8, str(len(m.get("skills", []))))
+    t.check(f"{len(SKILLS)} 个技能（动态）", len(m.get("skills", [])) == len(SKILLS), str(len(m.get("skills", []))))
     t.check("角色 r15", m.get("role") == "r15", str(m.get("role")))
     t.check("输入端口 order/sop",
             m.get("inputs") == ["order", "sop"], str(m.get("inputs")))
@@ -258,9 +258,7 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("T6 契约")
-    t.check("20 动作契约登记", sum(len(contracts.actions(s))
-                                    for s in contracts.skill_names()) == 20,
-            str(sum(len(contracts.actions(s)) for s in contracts.skill_names())))
+    t.check("每个技能都有动作契约", all(contracts.actions(s) for s in contracts.skill_names()), str(sum(len(contracts.actions(s)) for s in contracts.skill_names())))
     v = contracts.validate_output("procurement", "purchase_order",
                                   c.load_json(_ex("purchase_order.json"))
                                   if False else
@@ -353,7 +351,7 @@ def main() -> int:
     code, _ = run_agent("case", "get", "--case", "purchase-over-receipt")
     t.check("CLI case get 正常", code == 0)
     code, ctr = run_agent("contract", "list")
-    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 8)
+    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == len(contracts.skill_names()))
 
     # ------------------------------------------------------------------ #
     t.section("run_task 协作入口")

@@ -1,4 +1,4 @@
-﻿# s05 客户反馈与 VOC（survey / voc）方法论
+# s05 客户反馈与 VOC（survey / voc）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/sales/customer-voice/SKILL.md
 >
 

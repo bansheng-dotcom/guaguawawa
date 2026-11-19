@@ -1,4 +1,4 @@
-﻿# 参考层 05 —— 人工审批节点（publishing / progressive-building）
+# 参考层 05 —— 人工审批节点（publishing / progressive-building）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/legal/skills/signature-request/SKILL.md
 >
 

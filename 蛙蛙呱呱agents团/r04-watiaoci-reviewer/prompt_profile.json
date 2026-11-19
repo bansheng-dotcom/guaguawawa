@@ -1,7 +1,7 @@
 {
   "role_id": "r04",
   "domain": "独立评审与质量门禁",
-  "max_questions": 2,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",

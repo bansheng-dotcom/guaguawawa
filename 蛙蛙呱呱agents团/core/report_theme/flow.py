@@ -15,6 +15,7 @@ import re
 from typing import Any, Dict, List
 
 FLOW_CSS = r"""
+@page{size:A4;margin:14mm 16mm}
 body.flow-all{background:#E7E5E0}
 .flow-paper{width:210mm;margin:8mm auto;background:#fff;padding:18mm 18mm 12mm;
   box-shadow:0 10px 30px rgba(20,31,42,.08)}
@@ -26,9 +27,8 @@ body.flow-all{background:#E7E5E0}
 .flow-block p{orphans:3;widows:3}
 .flow-block .ex{break-inside:avoid}
 .flow-block .head{break-after:avoid}
-.flow-cover{position:relative;height:272mm;padding:0;border-bottom:1pt solid var(--ink);
-  break-after:page;page-break-after:always}
-.flow-cover .inner{position:absolute;inset:0;padding:0}
+.flow-cover{position:relative;height:auto;min-height:272mm;padding:0;border-bottom:1pt solid var(--ink);break-after:page;page-break-after:always}
+.flow-cover .inner{position:static;inset:auto;padding:0}
 .flow-break{break-before:page;page-break-before:always;height:0;margin:0;padding:0}
 .src-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 7mm;margin-top:3mm}
 .src-row{display:flex;gap:2mm;font-size:6.1pt;line-height:1.35;padding:.62mm 0;border-bottom:.3pt solid var(--line)}
@@ -41,6 +41,8 @@ body.flow-all{background:#E7E5E0}
 .flow-footer img{width:14mm;height:14mm;object-fit:contain;border-radius:2mm;background:#fff}
 .flow-footer b{display:block;font-size:10pt;color:var(--ink);letter-spacing:.05em}
 .flow-footer span{display:block;font-size:7.4pt;color:var(--muted);margin-top:1mm}
+/* flow 的页码由导出后盖，目录里的估算页码会与实际不符，隐掉 */
+.toc-row .pg{display:none}
 @media print{
   body.flow-all{background:#fff}
   .flow-paper{width:auto;margin:0;padding:14mm 16mm 10mm;box-shadow:none}
@@ -73,9 +75,14 @@ def _footer(inner: str) -> str:
 def flowify(html: str, sources: List[Any] | None = None) -> str:
     """把 pages.render_contract 的 A4 页 HTML 变成一条 flow。"""
     cover = ""
-    m = _COVER.search(html)
-    if m:
-        cover = ('<div class="cover flow-cover" id="cover">' + m.group(1) + "</div>"
+    # 封面里套了两层 div，正则非贪婪会在内层 </div> 处截断；用切片取到下一个 section 之前
+    cs = html.find('<div class="page cover">')
+    nxt = html.find('<section class="page ', cs + 1) if cs >= 0 else -1
+    if cs >= 0 and nxt > cs:
+        inner = html[cs + len('<div class="page cover">'):nxt].rstrip()
+        if inner.endswith("</div>"):
+            inner = inner[:-len("</div>")]
+        cover = ('<div class="cover flow-cover" id="cover">' + inner + "</div>"
                  '<div class="flow-break"></div>')
     blocks = []
     for cls, sid, inner in _SEC.findall(html):
@@ -94,9 +101,12 @@ def flowify(html: str, sources: List[Any] | None = None) -> str:
     # 尾页：取 back 的 logo，生成小页脚
     bm = re.search(r'<section class="page back"[^>]*>(.*?)</section>', html, re.S)
     footer = _footer(bm.group(1) if bm else "")
+    # 保留被转页面自带的 <style>（kit/pages 主题），否则 flow 只有 FLOW_CSS，版式会塌
+    sm = re.search(r"<style>(.*?)</style>", html, re.S)
+    base_css = sm.group(1) if sm else ""
     out = ('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
            '<meta name="viewport" content="width=device-width, initial-scale=1">'
-           f'<style>{FLOW_CSS}</style></head><body class="flow-all">'
+           f'<style>{base_css}{FLOW_CSS}</style></head><body class="flow-all" data-theme="paper">'
            f'<main class="flow-paper">{cover}{body}{footer}</main></body></html>')
     return out
 

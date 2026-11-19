@@ -218,11 +218,20 @@ def main(argv=None) -> int:
         print(f"角色 SKILL.md：{len(roles)} 份，平均 {sum(r['score'] for r in roles) // max(1, len(roles))} 分")
         print(table(roles, ["id", "lines", "score", "grade"],
                     ["角色", "行数", "得分", "等级"]))
-        print(f"\n能力卡 README.md：{len(caps)} 份，平均 {sum(c['score'] for c in caps) // max(1, len(caps))} 分")
+        print(f"\n能力卡：{len(caps)} 份（有 SKILL.md 取 SKILL.md，否则取 README.md），"
+              f"平均 {sum(c['score'] for c in caps) // max(1, len(caps))} 分")
         print(table(caps[:12], ["owner", "id", "bytes", "score", "grade"],
                     ["归属", "能力", "字节", "得分", "等级"]))
-        if len(caps) > 12:
-            print(f"... 其余 {len(caps) - 12} 份同规格（全部为 D/E 级占位卡）")
+        # 以前这里写死「其余 69 份同规格（全部为 D/E 占位卡）」，是错的：
+        # 真实分布必须按分数算，否则会冤枉 60+ 张 A 级卡（2026-11-17 修正）。
+        low = [c for c in caps if c["score"] < 75]
+        dist = {}
+        for c in caps:
+            dist[c["grade"]] = dist.get(c["grade"], 0) + 1
+        print("全量分布：" + "、".join(f"{g} {n} 份" for g, n in sorted(dist.items())))
+        if low:
+            print(f"低于 75 分的有 {len(low)} 份：" +
+                  "、".join(f"{c['owner']}/{c['id']}({c['score']})" for c in low[:20]))
         if args.verbose:
             print("\n失分明细（角色）：")
             for r in roles:

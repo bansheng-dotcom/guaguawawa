@@ -1,4 +1,4 @@
-﻿# S02 硬门禁执行与门禁强度审计
+# S02 硬门禁执行与门禁强度审计
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/design/design-critique/SKILL.md
 >
 

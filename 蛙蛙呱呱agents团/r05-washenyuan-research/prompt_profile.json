@@ -1,7 +1,7 @@
 {
   "role_id": "r05",
   "domain": "战略研究",
-  "max_questions": 3,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -306,6 +306,12 @@
     ],
     "auto.track": [
       "input"
+    ],
+    "matched.run": [
+      "input"
+    ],
+    "tam-mc.run": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [
@@ -486,6 +492,30 @@
       ],
       "skill": "auto",
       "action": "track",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "匹配差分",
+        "两组均值",
+        "自助法",
+        "置换检验",
+        "matched"
+      ],
+      "skill": "matched",
+      "action": "matched",
+      "defaults": {}
+    },
+    {
+      "when": [
+        "蒙特卡洛",
+        "渗透率",
+        "p10",
+        "p90",
+        "tam mc"
+      ],
+      "skill": "tam-mc",
+      "action": "tam-mc",
       "defaults": {}
     }
   ]

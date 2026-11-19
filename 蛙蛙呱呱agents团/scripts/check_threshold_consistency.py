@@ -141,6 +141,64 @@ def self_test() -> int:
     return 0
 
 
+
+# --------------------------------------------------------------------------- #
+# 第二层扫描（2026-11-17 新增）：同一角色内 experience/、rules/、configs/ 的同名阈值
+# 只比 JSON 数值叶子。SKILL.md 的「文中数字」由上面的 CANON 扫描负责，两层互补。
+# --------------------------------------------------------------------------- #
+_VOLATILE_LEAVES = {"runtime_ms", "max_questions", "version", "input_hash",
+                    "max_rounds", "timeout", "timeout_ms"}
+
+
+def _num_leaves(obj, prefix=""):
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            key = f"{prefix}.{k}" if prefix else str(k)
+            yield from _num_leaves(v, key)
+    elif isinstance(obj, (int, float)) and not isinstance(obj, bool):
+        yield prefix, float(obj)
+
+
+def scan_role_json(root):
+    """同一角色内，同一路径的阈值在多份 JSON 里取值不同 → 冲突。"""
+    import glob
+    import json
+    out = []
+    for role in sorted(os.listdir(root)):
+        d = os.path.join(root, role)
+        if not os.path.isdir(d) or not re.match(r"^r\d{2}-", role):
+            continue
+        files = [os.path.join(d, "experience", "thresholds.json")]
+        files += sorted(glob.glob(os.path.join(d, "rules", "*.json")))
+        files += sorted(glob.glob(os.path.join(d, "configs", "*.json")))
+        seen = {}
+        for f in files:
+            if not os.path.isfile(f):
+                continue
+            try:
+                data = json.load(open(f, encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            base = os.path.relpath(f, d).replace(os.sep, "/")
+            for path, val in _num_leaves(data):
+                leaf = path.split(".")[-1]
+                if leaf in _VOLATILE_LEAVES or leaf.endswith("_version"):
+                    continue
+                seen.setdefault(path, []).append((base, val))
+        for path, items in seen.items():
+            vals = {round(v, 6) for _, v in items}
+            if len(items) > 1 and len(vals) > 1:
+                out.append({
+                    "card": role[:3], "concept": path, "line": 0,
+                    "source": " / ".join(f"{b}={v:g}" for b, v in items),
+                    "canonical": f"{sorted(vals)[0]:g}",
+                    "found": f"{sorted(vals)[-1]:g}",
+                    "snippet": "同一角色同一阈值出现多个取值",
+                    "note": "experience/ 是唯一出处；rules/ 与 configs/ 不应复制数字",
+                })
+    return out
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="跨卡阈值一致性检查")
     ap.add_argument("--json", action="store_true")
@@ -163,6 +221,8 @@ def main(argv=None) -> int:
         return 2
 
     problems, hits_total = [], 0
+    json_problems = scan_role_json(ROOT)
+    problems.extend(json_problems)
     for cid, path in items:
         if os.path.abspath(path).startswith(os.path.abspath(BASE)):
             continue  # 基准卡本身是权威，不查
@@ -195,7 +255,8 @@ def main(argv=None) -> int:
     if problems:
         print()
         for p in problems:
-            print(f"  [冲突] {p['card']}  第 {p['line']} 行  →  {p['concept']}")
+            loc = f"第 {p['line']} 行" if p.get("line") else p.get("source", "")
+            print(f"  [冲突] {p['card']}  {loc}  →  {p['concept']}")
             print(f"         权威值 {p['canonical']}｜文中 {p['found']}｜依据：{p['note']}")
             print(f"         > {p['snippet']}")
         print()

@@ -1,0 +1,813 @@
+{
+  "schema": "dsh.evidence_pack/v1",
+  "project": "自动汇编报告",
+  "numbers": [
+    {
+      "id": "r03:N1",
+      "name": "小作坊生产经营面积上限",
+      "value": 300.0,
+      "unit": "平方米",
+      "period": "2025",
+      "source_file": "r03:S5"
+    },
+    {
+      "id": "r03:N2",
+      "name": "小作坊违规罚款下限",
+      "value": 5000.0,
+      "unit": "元",
+      "period": "2024",
+      "source_file": "r03:S8"
+    },
+    {
+      "id": "r03:N3",
+      "name": "小作坊违规罚款上限",
+      "value": 20000.0,
+      "unit": "元",
+      "period": "2024",
+      "source_file": "r03:S8"
+    },
+    {
+      "id": "r03:N4",
+      "name": "平台入驻备案时限",
+      "value": 30.0,
+      "unit": "工作日",
+      "period": "2016",
+      "source_file": "r03:S12"
+    },
+    {
+      "id": "r03:N5",
+      "name": "网络经营报告时限",
+      "value": 10.0,
+      "unit": "工作日",
+      "period": "2023",
+      "source_file": "r03:S10"
+    },
+    {
+      "id": "r03:N6",
+      "name": "奶豆腐水分限量",
+      "value": 48.0,
+      "unit": "%",
+      "period": "2017",
+      "source_file": "r03:S2"
+    },
+    {
+      "id": "r03:N7",
+      "name": "奶豆腐蛋白质限量",
+      "value": 30.0,
+      "unit": "%",
+      "period": "2017",
+      "source_file": "r03:S2"
+    },
+    {
+      "id": "r03:N8",
+      "name": "奶豆腐脂肪限量",
+      "value": 10.0,
+      "unit": "%",
+      "period": "2017",
+      "source_file": "r03:S2"
+    },
+    {
+      "id": "r03:N9",
+      "name": "奶豆腐灰分限量",
+      "value": 5.0,
+      "unit": "%",
+      "period": "2017",
+      "source_file": "r03:S2"
+    },
+    {
+      "id": "r03:N10",
+      "name": "奶皮子水分限量",
+      "value": 40.0,
+      "unit": "%",
+      "period": "2016",
+      "source_file": "r03:S3"
+    },
+    {
+      "id": "r03:N11",
+      "name": "奶皮子脂肪限量",
+      "value": 50.0,
+      "unit": "%",
+      "period": "2016",
+      "source_file": "r03:S3"
+    },
+    {
+      "id": "r03:N12",
+      "name": "奶皮子蛋白质限量",
+      "value": 7.0,
+      "unit": "%",
+      "period": "2016",
+      "source_file": "r03:S3"
+    },
+    {
+      "id": "r03:N13",
+      "name": "抽检案违法所得",
+      "value": 252.0,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "r03:S18"
+    },
+    {
+      "id": "r03:N14",
+      "name": "涉事批次生产量",
+      "value": 18.0,
+      "unit": "袋",
+      "period": "2026",
+      "source_file": "r03:S18"
+    },
+    {
+      "id": "r03:N15",
+      "name": "涉事产品单袋售价",
+      "value": 14.0,
+      "unit": "元/袋",
+      "period": "2026",
+      "source_file": "r03:S18"
+    },
+    {
+      "id": "r03:N16",
+      "name": "抽样样品量",
+      "value": 2000.0,
+      "unit": "克",
+      "period": "2025",
+      "source_file": "r03:S17"
+    },
+    {
+      "id": "r03:N17",
+      "name": "呼伦贝尔在产小作坊数",
+      "value": 79.0,
+      "unit": "家",
+      "period": "2026",
+      "source_file": "r03:S15"
+    },
+    {
+      "id": "r05:N1",
+      "name": "内蒙古牛奶产量",
+      "value": 776.7,
+      "unit": "万吨",
+      "period": "2024",
+      "source_file": "r05:S1"
+    },
+    {
+      "id": "r05:N2",
+      "name": "内蒙古地方特色奶制品产业产值",
+      "value": 50.0,
+      "unit": "亿元",
+      "period": "2026-01",
+      "source_file": "r05:S8"
+    },
+    {
+      "id": "r05:N3",
+      "name": "地方特色奶制品加工企业数",
+      "value": 79.0,
+      "unit": "家",
+      "period": "2026-01",
+      "source_file": "r05:S8"
+    },
+    {
+      "id": "r05:N4",
+      "name": "地方特色奶制品手工坊数",
+      "value": 2053.0,
+      "unit": "家",
+      "period": "2026-01",
+      "source_file": "r05:S8"
+    },
+    {
+      "id": "r05:N5",
+      "name": "地方特色奶制品年加工生鲜乳量",
+      "value": 90.0,
+      "unit": "万吨",
+      "period": "2026-01",
+      "source_file": "r05:S8"
+    },
+    {
+      "id": "r05:N6",
+      "name": "锡林郭勒盟奶制品产值",
+      "value": 18.0,
+      "unit": "亿元",
+      "period": "2024",
+      "source_file": "r05:S5"
+    },
+    {
+      "id": "r05:N7",
+      "name": "锡林郭勒奶酪品牌年销售额",
+      "value": 1.58,
+      "unit": "亿元",
+      "period": "2025",
+      "source_file": "r05:S9"
+    },
+    {
+      "id": "r05:N8",
+      "name": "锡林郭勒奶酪品牌产品产量",
+      "value": 2964.0,
+      "unit": "吨",
+      "period": "2025",
+      "source_file": "r05:S9"
+    },
+    {
+      "id": "r05:N9",
+      "name": "中国奶酪零售市场规模2024",
+      "value": 92.38,
+      "unit": "亿元",
+      "period": "2024",
+      "source_file": "r05:S4"
+    },
+    {
+      "id": "r05:N10",
+      "name": "中国奶酪零售市场规模2025",
+      "value": 91.22,
+      "unit": "亿元",
+      "period": "2025",
+      "source_file": "r05:S4"
+    },
+    {
+      "id": "r05:N11",
+      "name": "内蒙古奶业振兴资金",
+      "value": 22.5,
+      "unit": "亿元",
+      "period": "2023-2025",
+      "source_file": "r05:S2"
+    },
+    {
+      "id": "r05:N12",
+      "name": "小作坊升级SC企业一次性奖励",
+      "value": 50.0,
+      "unit": "万元/家",
+      "period": "2023",
+      "source_file": "r05:S3"
+    },
+    {
+      "id": "r05:N13",
+      "name": "骑士乳业营业收入",
+      "value": 12.97,
+      "unit": "亿元",
+      "period": "2024",
+      "source_file": "r05:S11"
+    },
+    {
+      "id": "r05:N14",
+      "name": "伊利股份营业总收入",
+      "value": 1157.8,
+      "unit": "亿元",
+      "period": "2024",
+      "source_file": "r05:S10"
+    },
+    {
+      "id": "r05:N15",
+      "name": "西贝汇通工业总产值",
+      "value": 3102.0,
+      "unit": "万元",
+      "period": "2024",
+      "source_file": "r05:S7"
+    },
+    {
+      "id": "r05:N16",
+      "name": "西贝汇通年产量",
+      "value": 3000.0,
+      "unit": "吨",
+      "period": "2024",
+      "source_file": "r05:S7"
+    },
+    {
+      "id": "r05:N17",
+      "name": "锡林郭勒奶酪授权主体数",
+      "value": 99.0,
+      "unit": "家",
+      "period": "2025",
+      "source_file": "r05:S9"
+    },
+    {
+      "id": "r15:N1",
+      "name": "奶豆腐零售价（500g装）",
+      "value": 39.8,
+      "unit": "元/500克",
+      "period": "2025",
+      "source_file": "r15:S11"
+    },
+    {
+      "id": "r15:N2",
+      "name": "奶皮子零售价（100g装）",
+      "value": 20.0,
+      "unit": "元/100克",
+      "period": "2025",
+      "source_file": "r15:S5"
+    },
+    {
+      "id": "r15:N3",
+      "name": "奶皮子批发价（一件代发）",
+      "value": 19.9,
+      "unit": "元/斤",
+      "period": "2025",
+      "source_file": "r15:S8"
+    },
+    {
+      "id": "r15:N4",
+      "name": "隐含出厂均价",
+      "value": 57.1,
+      "unit": "元/公斤",
+      "period": "2025",
+      "source_file": "r15:S1"
+    },
+    {
+      "id": "r15:N5",
+      "name": "原料成本下限",
+      "value": 24.0,
+      "unit": "元/斤",
+      "period": "2025",
+      "source_file": "r15:S5"
+    },
+    {
+      "id": "r15:N6",
+      "name": "原料成本上限",
+      "value": 30.0,
+      "unit": "元/斤",
+      "period": "2025",
+      "source_file": "r15:S5"
+    },
+    {
+      "id": "r15:N7",
+      "name": "冷链首重",
+      "value": 25.0,
+      "unit": "元/票",
+      "period": "2025",
+      "source_file": "r15:S7"
+    },
+    {
+      "id": "r15:N8",
+      "name": "冷链续重",
+      "value": 19.0,
+      "unit": "元/公斤",
+      "period": "2025",
+      "source_file": "r15:S7"
+    },
+    {
+      "id": "r15:N9",
+      "name": "冷链占生鲜电商成本比",
+      "value": 30.0,
+      "unit": "%",
+      "period": "2024",
+      "source_file": "r15:S6"
+    },
+    {
+      "id": "r15:N10",
+      "name": "冷链占生鲜电商成本比上限",
+      "value": 40.0,
+      "unit": "%",
+      "period": "2024",
+      "source_file": "r15:S6"
+    },
+    {
+      "id": "r15:N11",
+      "name": "传统奶豆腐冷藏保质期",
+      "value": 30.0,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "r15:S10"
+    },
+    {
+      "id": "r15:N12",
+      "name": "预包装奶皮子保质期",
+      "value": 9.0,
+      "unit": "月",
+      "period": "2025",
+      "source_file": "r15:S8"
+    },
+    {
+      "id": "r15:N13",
+      "name": "锡盟企业口径线上占比下限",
+      "value": 30.0,
+      "unit": "%",
+      "period": "2023",
+      "source_file": "r15:S2"
+    },
+    {
+      "id": "r15:N14",
+      "name": "锡盟企业口径线上占比上限",
+      "value": 40.0,
+      "unit": "%",
+      "period": "2023",
+      "source_file": "r15:S2"
+    },
+    {
+      "id": "r15:N15",
+      "name": "区域公用品牌官方店线上占比",
+      "value": 80.0,
+      "unit": "%",
+      "period": "2023",
+      "source_file": "r15:S1"
+    },
+    {
+      "id": "r15:N16",
+      "name": "单链接评价量（头部）",
+      "value": 200000.0,
+      "unit": "条",
+      "period": "2025",
+      "source_file": "r15:S16"
+    },
+    {
+      "id": "r15:N17",
+      "name": "奶皮子出厂价涨幅",
+      "value": 185.7,
+      "unit": "%",
+      "period": "2025-11",
+      "source_file": "r15:S5"
+    },
+    {
+      "id": "r15:N18",
+      "name": "处罚案例奶豆腐零售价",
+      "value": 14.0,
+      "unit": "元/120克",
+      "period": "2026",
+      "source_file": "r15:S18"
+    },
+    {
+      "id": "r15:N19",
+      "name": "奶皮子产地价",
+      "value": 12.0,
+      "unit": "元/100克",
+      "period": "2025",
+      "source_file": "r15:S20"
+    },
+    {
+      "id": "r15:N20",
+      "name": "奶皮子出厂低位",
+      "value": 7.0,
+      "unit": "元/100克",
+      "period": "2025",
+      "source_file": "r15:S20"
+    },
+    {
+      "id": "r15:N21",
+      "name": "奶皮子出厂高位",
+      "value": 20.0,
+      "unit": "元/100克",
+      "period": "2025-11",
+      "source_file": "r15:S20"
+    },
+    {
+      "id": "r15:N22",
+      "name": "奶皮子电商高价档",
+      "value": 30.0,
+      "unit": "元/100克",
+      "period": "2025",
+      "source_file": "r15:S20"
+    }
+  ],
+  "sources": [
+    {
+      "file": "r03:S2",
+      "kind": "web",
+      "title": "生乳制民族传统奶制品生产许可审查细则（2020版）附件2",
+      "org": "内蒙古自治区市场监督管理局",
+      "url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=203500",
+      "grade": "S",
+      "quote": "水分≤48.0% 蛋白质≥30.0% 灰分≤5.0% 脂肪≥10.0%",
+      "numbers": 4,
+      "hash": "b5ff2f1fe464"
+    },
+    {
+      "file": "r03:S3",
+      "kind": "web",
+      "title": "同上 附件3（奶皮子）",
+      "org": "内蒙古自治区市场监督管理局",
+      "url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=203500",
+      "grade": "S",
+      "quote": "水分≤40.0% 脂肪≥50.0% 蛋白质≥7.0%",
+      "numbers": 3,
+      "hash": "f401053fc7f6"
+    },
+    {
+      "file": "r03:S5",
+      "kind": "web",
+      "title": "内蒙古自治区食品小作坊登记管理办法",
+      "org": "内蒙古自治区市场监督管理局",
+      "url": "https://scjdglj.hlbe.gov.cn/News/show/1367858.html",
+      "grade": "S",
+      "quote": "生产经营面积（不含仓储设施）300平方米以下（含300平方米）的食品生产者",
+      "numbers": 1,
+      "hash": "6b4a6d5fad70"
+    },
+    {
+      "file": "r03:S7",
+      "kind": "web",
+      "title": "内蒙古自治区食品小作坊小餐饮店小食杂店和食品摊贩管理条例 第十六条",
+      "org": "内蒙古自治区人大常委会",
+      "url": "https://zhalantun.gov.cn/OpennessContent/show/498218.html",
+      "grade": "S",
+      "quote": "取得登记证的食品小作坊、小餐饮店、小食杂店可以依法从事网络食品经营",
+      "numbers": 0,
+      "hash": "26cede7edffe"
+    },
+    {
+      "file": "r03:S8",
+      "kind": "web",
+      "title": "同上条例 第五十一条",
+      "org": "内蒙古自治区人大常委会",
+      "url": "https://zhalantun.gov.cn/OpennessContent/show/498218.html",
+      "grade": "S",
+      "quote": "货值金额不足1万元的，并处5000元以上2万元以下罚款",
+      "numbers": 2,
+      "hash": "549fdcba34b3"
+    },
+    {
+      "file": "r03:S10",
+      "kind": "web",
+      "title": "食品经营许可和备案管理办法",
+      "org": "市场监管总局令第78号",
+      "url": "https://www.gov.cn/gongbao/2023/issue_10606/202307/content_6894763.html",
+      "grade": "S",
+      "quote": "仅销售预包装食品…不需要取得食品经营许可",
+      "numbers": 1,
+      "hash": "1cc664e72508"
+    },
+    {
+      "file": "r03:S12",
+      "kind": "web",
+      "title": "网络食品安全违法行为查处办法 第八条",
+      "org": "原食药总局令第27号",
+      "url": "https://www.gov.cn/zhengce/2021-04/22/content_5723681.htm",
+      "grade": "S",
+      "quote": "第三方平台…30个工作日内…备案",
+      "numbers": 1,
+      "hash": "8e27f3a8aeca"
+    },
+    {
+      "file": "r03:S13",
+      "kind": "web",
+      "title": "内蒙古禁止小作坊生产加工食品品种目录",
+      "org": "内蒙古自治区食药监局",
+      "url": "http://law.foodmate.net/mobile/index.php?moduleid=23&itemid=188383",
+      "grade": "S",
+      "quote": "1.乳粉、炼乳… 2.含乳固态成型制品",
+      "numbers": 0,
+      "hash": "de99fa4bc135"
+    },
+    {
+      "file": "r03:S15",
+      "kind": "web",
+      "title": "呼伦贝尔市监局建议答复（呼市监办建提字〔2026〕36号）",
+      "org": "呼伦贝尔市市场监督管理局",
+      "url": "https://scjdglj.hlbe.gov.cn/OpennessContent/show/565164.html",
+      "grade": "A",
+      "quote": "乳制品小作坊仅允许生产加工…奶豆腐、奶皮子、楚拉、毕希拉格等",
+      "numbers": 1,
+      "hash": "0ad31c33002b"
+    },
+    {
+      "file": "r03:S17",
+      "kind": "web",
+      "title": "镶黄旗不合格食品核查处置通告",
+      "org": "镶黄旗市场监督管理局",
+      "url": "https://www.abg.gov.cn/eportal/ui?pageId=da649d62c3574d90b17695b89ab523c3&articleKey=c8b74fa2b285494f8a0c02bfb621c2f2&columnId=d46f3d515eed49ad8aa279baaea67564",
+      "grade": "A",
+      "quote": "样品数量:2000g；蛋白质项目不符合DBS15/001.3-2017…不合格",
+      "numbers": 1,
+      "hash": "86806ea221ed"
+    },
+    {
+      "file": "r03:S18",
+      "kind": "web",
+      "title": "鄂温克旗行政处罚决定书（鄂市监处罚〔2025〕Z40号）",
+      "org": "鄂温克族自治旗市场监督管理局",
+      "url": "https://www.ewenke.gov.cn/OpennessContent/show/551287.html",
+      "grade": "A",
+      "quote": "该批次奶豆腐共生产18袋（120克/袋）均被抽检，每袋售价为14元，违法所得共计252元",
+      "numbers": 3,
+      "hash": "cbd2239b6601"
+    },
+    {
+      "file": "r03:S16",
+      "kind": "web",
+      "title": "锡盟市监局答复：小作坊可以生产奶豆腐",
+      "org": "锡林郭勒盟市场监督管理局",
+      "url": "https://ybj.xlgl.gov.cn/eportal/ui?pageId=550d65d542d44bc8a48671bfb48f99c8&msgDataId=f2d0ebbca8d146609d7edba65dabf994",
+      "grade": "A",
+      "quote": "食品小作坊可以生产奶豆腐…不在禁止目录内",
+      "numbers": 0,
+      "hash": "f35c05ebad8b"
+    },
+    {
+      "file": "r05:S1",
+      "kind": "web",
+      "title": "十四五看内蒙古：奶产量全国领先",
+      "org": "人民网内蒙古频道",
+      "url": "http://nm.people.com.cn/n2/2025/1204/c196689-41432473.html",
+      "grade": "A",
+      "quote": "2024年，全区牛肉产量89.1万吨…牛奶产量776.7万吨、占全国的1/5",
+      "numbers": 1,
+      "hash": "0e77edfac9da"
+    },
+    {
+      "file": "r05:S2",
+      "kind": "web",
+      "title": "自治区财政厅提案答复（内财办建提〔2025〕309号）",
+      "org": "内蒙古自治区财政厅",
+      "url": "https://czt.nmg.gov.cn/zwgk/zfxxgk/fdzdgknr/rdjy/202510/t20251015_2803328.html",
+      "grade": "A",
+      "quote": "2023—2025年，自治区财政共安排奶业振兴资金22.5亿元",
+      "numbers": 1,
+      "hash": "9d799f23bd49"
+    },
+    {
+      "file": "r05:S3",
+      "kind": "web",
+      "title": "内政办发〔2023〕58号引文",
+      "org": "内蒙古自治区财政厅",
+      "url": "https://czt.nmg.gov.cn/zwgk/zfxxgk/fdzdgknr/rdjy/202510/t20251015_2803328.html",
+      "grade": "A",
+      "quote": "对小型生产作坊升级成乳制品加工企业的，一次性奖励50万元",
+      "numbers": 1,
+      "hash": "7a0478c6987b"
+    },
+    {
+      "file": "r05:S4",
+      "kind": "web",
+      "title": "中国奶酪市场的流通破局",
+      "org": "《农产品市场》（引欧睿国际）",
+      "url": "http://journal.crnews.net/ncpsczk/2026n/d7q/gz/977691_20260417100639.html",
+      "grade": "B",
+      "quote": "2024年中国奶酪零售市场规模92.38亿元，2025年微降至91.22亿元，同比仅降1%",
+      "numbers": 2,
+      "hash": "ddc9ffa67092"
+    },
+    {
+      "file": "r05:S5",
+      "kind": "web",
+      "title": "看内蒙古如何加快奶业纾困",
+      "org": "中国奶业协会信息网（转农民日报）",
+      "url": "https://www.dac.org.cn/read/newgndt-25111315490907211234.jhtm",
+      "grade": "B",
+      "quote": "全盟奶制品产值从2020年的2亿元…2024年已达到18亿元",
+      "numbers": 1,
+      "hash": "ae45d62c5560"
+    },
+    {
+      "file": "r05:S7",
+      "kind": "web",
+      "title": "西贝汇通牧业案例",
+      "org": "中国奶业协会信息网",
+      "url": "https://www.dac.org.cn/read/newgndt-25111315490907211234.jhtm",
+      "grade": "B",
+      "quote": "年产奶制品3000吨，2024年工业总产值达3102万元",
+      "numbers": 2,
+      "hash": "4665b2ec6223"
+    },
+    {
+      "file": "r05:S8",
+      "kind": "web",
+      "title": "内蒙古奶制品产业产值超50亿元",
+      "org": "内蒙古日报（新浪财经转载）",
+      "url": "https://finance.sina.cn/2026-01-12/detail-inhhaeyp9850008.d.html",
+      "grade": "C",
+      "quote": "已建成地方特色奶制品加工企业79家、手工坊2053家，年可加工生鲜乳90万吨，产值超50亿元",
+      "numbers": 4,
+      "hash": "06a543b6e249"
+    },
+    {
+      "file": "r05:S9",
+      "kind": "web",
+      "title": "锡林郭勒奶酪品牌嬗变",
+      "org": "金台资讯（搜狐转载）",
+      "url": "https://m.sohu.com/a/1012784834_120578424/",
+      "grade": "C",
+      "quote": "2025年，锡林郭勒奶酪授权生产主体达到99家，全年生产品牌产品2964吨，实现销售额1.58亿元",
+      "numbers": 3,
+      "hash": "a9e21e3bf509"
+    },
+    {
+      "file": "r05:S10",
+      "kind": "web",
+      "title": "伊利股份营收1158亿",
+      "org": "证券时报网",
+      "url": "https://www.stcn.com/article/detail/1767544.html",
+      "grade": "C",
+      "quote": "2024年，公司实现营业总收入1157.80亿元",
+      "numbers": 1,
+      "hash": "16d3e3dad924"
+    },
+    {
+      "file": "r05:S11",
+      "kind": "web",
+      "title": "骑士乳业2024年年度报告摘要",
+      "org": "内蒙古骑士乳业（东方财富披露）",
+      "url": "https://xinsanban.eastmoney.com/Article/NoticeContent?id=AN202504251662369295&pageIndex=2",
+      "grade": "A",
+      "quote": "营业收入 1,296,759,671.20",
+      "numbers": 1,
+      "hash": "165f1889b700"
+    },
+    {
+      "file": "r15:S1",
+      "kind": "web",
+      "title": "锡林郭勒奶酪区域公用品牌线上销售",
+      "org": "中国食品安全报",
+      "url": "https://www.cfsn.cn/",
+      "grade": "B",
+      "quote": "官方门店线上占比80%；1.2亿元销售额、2100吨",
+      "numbers": 2,
+      "hash": "796fe78901c5"
+    },
+    {
+      "file": "r15:S2",
+      "kind": "web",
+      "title": "锡盟27户乳企线上销售占比",
+      "org": "锡林郭勒日报",
+      "url": "http://www.xlglrb.com/",
+      "grade": "B",
+      "quote": "27户乳制品加工企业线上销售占比30%—40%",
+      "numbers": 2,
+      "hash": "cbebad67b52c"
+    },
+    {
+      "file": "r15:S5",
+      "kind": "web",
+      "title": "奶皮子涨价与产地价格",
+      "org": "潮新闻/华龙网",
+      "url": "https://www.cqnews.net/",
+      "grade": "B",
+      "quote": "奶皮子由7元/100克涨至20元/100克，涨幅185.7%；赤峰产地12元/100克；8—10斤奶制1斤成品，原奶3元/斤",
+      "numbers": 4,
+      "hash": "788032dcbcb3"
+    },
+    {
+      "file": "r15:S6",
+      "kind": "web",
+      "title": "冷链成本占生鲜电商比重",
+      "org": "新华财经/中物联冷链委",
+      "url": "https://www.xinhua08.com/",
+      "grade": "A",
+      "quote": "冷链成本占生鲜电商总成本30%—40%",
+      "numbers": 2,
+      "hash": "dac1412eb424"
+    },
+    {
+      "file": "r15:S7",
+      "kind": "web",
+      "title": "顺丰冷链内蒙发货报价",
+      "org": "行业站转述（未取得顺丰原文）",
+      "url": "https://www.kuaidi100.com/",
+      "grade": "C",
+      "quote": "首重25元/票，续重19元/公斤；10斤实测约140元/单",
+      "numbers": 2,
+      "hash": "28aa788b39a4"
+    },
+    {
+      "file": "r15:S8",
+      "kind": "web",
+      "title": "惠农网一件代发报价",
+      "org": "惠农网",
+      "url": "https://www.cnhnb.com/",
+      "grade": "C",
+      "quote": "奶皮子19.9元/斤，1斤起批，内蒙古呼和浩特发货",
+      "numbers": 2,
+      "hash": "7c60a3a43126"
+    },
+    {
+      "file": "r15:S10",
+      "kind": "web",
+      "title": "传统奶豆腐保质期与独立站价格",
+      "org": "山珍博味馆独立站",
+      "url": "https://www.tcm58.com/",
+      "grade": "B",
+      "quote": "0—4℃保质期30天；-6℃可存6个月；135元/999克",
+      "numbers": 1,
+      "hash": "851ebb6240cf"
+    },
+    {
+      "file": "r15:S11",
+      "kind": "web",
+      "title": "京东参考价（奶豆腐500g）",
+      "org": "京东（锡林努尔）",
+      "url": "https://www.jd.com/",
+      "grade": "C",
+      "quote": "39.8元/500g",
+      "numbers": 1,
+      "hash": "0fa5a435bb44"
+    },
+    {
+      "file": "r15:S16",
+      "kind": "web",
+      "title": "京东单链接评价量",
+      "org": "京东（草原蒙元牧都）",
+      "url": "https://www.jd.com/",
+      "grade": "C",
+      "quote": "单链接评价20万条；另一链接1万条",
+      "numbers": 1,
+      "hash": "9f694c458e89"
+    },
+    {
+      "file": "r15:S18",
+      "kind": "web",
+      "title": "鄂温克旗行政处罚决定书",
+      "org": "鄂温克族自治旗市场监督管理局",
+      "url": "https://www.ewenke.gov.cn/OpennessContent/show/551287.html",
+      "grade": "A",
+      "quote": "该批次奶豆腐共生产18袋（120克/袋），每袋售价为14元",
+      "numbers": 1,
+      "hash": "94d38759651f"
+    }
+  ],
+  "counts": {
+    "numbers": 56,
+    "sources": 32,
+    "files": 32
+  }
+}

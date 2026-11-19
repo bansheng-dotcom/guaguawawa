@@ -1,0 +1,72 @@
+{
+ "multivariate": {
+  "model": "ols",
+  "n": 3000,
+  "k": 2,
+  "coef": [
+   {
+    "name": "const",
+    "est": 65.470274,
+    "se": 4.29537959,
+    "t": 15.242,
+    "p": 0.0,
+    "ci95": [
+     57.05133001,
+     73.88921799
+    ]
+   },
+   {
+    "name": "unit_price",
+    "est": 0.70961101,
+    "se": 0.08680775,
+    "t": 8.1745,
+    "p": 0.0,
+    "ci95": [
+     0.53946782,
+     0.8797542
+    ]
+   },
+   {
+    "name": "discount",
+    "est": -102.64656775,
+    "se": 7.20016688,
+    "t": -14.2561,
+    "p": 0.0,
+    "ci95": [
+     -116.75889484,
+     -88.53424066
+    ]
+   }
+  ],
+  "r2": 0.034268,
+  "adj_r2": 0.033624,
+  "f_stat": 53.1735,
+  "f_p": 2.0292208587592407e-23,
+  "vif": {
+   "unit_price": 1.001,
+   "discount": 1.001
+  },
+  "condition_number": 1.03,
+  "se_method": "cluster",
+  "warnings": [],
+  "x": [
+   "unit_price",
+   "discount"
+  ],
+  "y": "revenue",
+  "categorical": [],
+  "rows_used": 3000
+ },
+ "runtime_ms": 17,
+ "provenance": {
+  "skill": "regression",
+  "skill_version": "2.0",
+  "input_hash": "d5d146f0185c",
+  "action": null
+ },
+ "conclusion": "ols：unit_price, discount，R²=0.034268，n=3000。",
+ "caveats": [
+  "回归系数是条件相关，不是因果"
+ ],
+ "status": "ok"
+}

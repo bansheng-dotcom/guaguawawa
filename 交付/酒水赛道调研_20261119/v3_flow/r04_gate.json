@@ -1,0 +1,70 @@
+{
+  "schema": "dsh.r04_audit/v1",
+  "ok": false,
+  "verdict": "BLOCK",
+  "failed": [
+    "coverage",
+    "data",
+    "charts"
+  ],
+  "layers": [
+    {
+      "layer": "coverage",
+      "ok": false,
+      "pages": 22,
+      "svgs": 13,
+      "issues": [
+        "未检测到区域地图页"
+      ]
+    },
+    {
+      "layer": "data",
+      "ok": false,
+      "detail": {
+        "sources": 27,
+        "url": 27,
+        "quote": 27,
+        "estimated_cells": 0,
+        "star_marks": 30,
+        "issues": [
+          "来源 27 < 50"
+        ]
+      }
+    },
+    {
+      "layer": "charts",
+      "ok": false,
+      "detail": {
+        "svg": 13,
+        "source_lines": 13,
+        "map_keywords": 1,
+        "issues": [
+          "全国/区域地图不足"
+        ]
+      }
+    },
+    {
+      "layer": "layout",
+      "ok": true,
+      "detail": {
+        "pages": 22,
+        "footers": 20,
+        "a4": true,
+        "issues": []
+      }
+    },
+    {
+      "layer": "prose",
+      "ok": true,
+      "hard": false,
+      "detail": {
+        "sections": 14,
+        "avg_chars": 966.9,
+        "score": 100,
+        "hard_fail": [],
+        "markers_total": 46,
+        "contrast_total": 78
+      }
+    }
+  ]
+}

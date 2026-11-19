@@ -331,18 +331,6 @@ def run_task(task_id: str) -> Dict[str, Any]:
     return result
 
 
-def _write_report(result: Dict[str, Any], title: str, path: str) -> None:
-    lines = [f"# {title}", ""]
-    for k, v in result.items():
-        if k in ("checks",):
-            continue
-        lines += [f"## {k}", "", "```json",
-                  json.dumps(v, ensure_ascii=False, indent=2), "```", ""]
-    lines += ["## 门禁", "", "```json",
-              json.dumps(result.get("checks", []), ensure_ascii=False, indent=2), "```"]
-    c.write_text(path, "\n".join(lines))
-
-
 def _route(intent: str):
     low = intent.lower()
     for kws, skill, action, defaults in _INTENT_ROUTES:
@@ -442,8 +430,9 @@ def main() -> int:
         emit_result({"demo_artifacts": make_demo(artifacts)})
         return 0
     if args.skill == "run":
-        emit_result(run_task(args.task))
-        return 0
+        _run_out = run_task(args.task)
+        emit_result(_run_out)
+        return 0 if (_run_out.get("ok") is not False and not _run_out.get("error")) else 1
     if args.skill == "clarify":
         return clarify_cli(ROLE, args.intent)
     if args.skill == "local-check":

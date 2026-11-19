@@ -1,4 +1,4 @@
-﻿# s02 销售管道（pipeline / opp）方法论
+# s02 销售管道（pipeline / opp）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/sales/pipeline-review/SKILL.md
 >
 

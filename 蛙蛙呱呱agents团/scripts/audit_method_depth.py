@@ -113,6 +113,9 @@ def main() -> None:
                                else "L2 可解释" if got >= total / 2 else "L1 能算"),
                      "gaps": [n for n, ok in checks if not ok]})
     out = ROOT / "workspace" / "method_depth_audit.json"
+    # 干净克隆上 workspace/ 不存在（被 .gitignore 忽略），必须先建父目录，
+    # 否则 CI 第 6 步 depth 直接 FileNotFoundError（2026-11-17 体检发现的冷启动坑）。
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{'方法':<12}{'得分':<8}{'等级':<12}缺口")
     print("-" * 90)

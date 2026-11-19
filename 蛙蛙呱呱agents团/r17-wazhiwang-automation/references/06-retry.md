@@ -1,4 +1,4 @@
-﻿# 参考层 06 —— 失败处理与重试（debugging-executions / error-workflows）
+# 参考层 06 —— 失败处理与重试（debugging-executions / error-workflows）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/engineering/skills/incident-response/SKILL.md
 >
 

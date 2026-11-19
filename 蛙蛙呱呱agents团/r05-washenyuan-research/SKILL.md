@@ -66,10 +66,12 @@ metadata:
 | 事前尸检 | `agent.py scenario premortem` |
 | PESTEL 宏观环境分析 | `agent.py scenario pestel` |
 | 市场规模敏感性分析 | `agent.py sizing sensitivity` |
+| 匹配差分（两组均值差 + 自助法 CI + 置换 p） | `agent.py matched matched` |
+| TAM 蒙特卡洛（渗透率×ARPU，p10/p50/p90） | `agent.py tam-mc tam-mc` |
 
 ## §4 执行流程（Workflow）
 
-1. **接单**：确认 `intent` 是否已含必需字段；缺则一轮问清（≤4 问、每问带候选）。
+1. **接单**：确认 `intent` 是否已含必需字段；缺则一轮问清（≤8 问、每问带候选）。
 2. **选动作**：按 §3 任务表选一个主任务；选不出再澄清，不猜。
 3. **执行**：跑对应子命令（入口见 §3）；产物落 `workspace/`。
 4. **自检**：跑角色根目录 `harness.py` 对应门禁，退出码非 0 不得交付。

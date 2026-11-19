@@ -1,26 +1,10 @@
 {
-  "_note": "蛙得名（PM / 产品规划）运行配置：阈值/维度/数据源外置，改规则不改代码（META-001 Stage 3）。",
+  "_note": "蛙得明（PM / 产品规划）运行配置：阈值/维度/数据源外置，改规则不改代码（META-001 Stage 3）。",
   "role": "r07",
   "language": "zh",
   "enable_cache": true,
   "enable_vector": false,
-  "report": {
-    "engine": "agents/shared/report_engine.py",
-    "generator": "agents/shared/report_generator.py",
-    "doc_type": "PM / 产品规划",
-    "formats": [
-      "html",
-      "md"
-    ],
-    "sections": [
-      "决策指令",
-      "KPI 格栅",
-      "三级归因",
-      "护栏熔断",
-      "灰度+下一步"
-    ]
-  },
-  "kpis": [
+"kpis": [
     {
       "id": "prd_grade",
       "name": "PRD 门禁得分",

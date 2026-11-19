@@ -1,4 +1,4 @@
-﻿> 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/process-doc/SKILL.md
+> 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/process-doc/SKILL.md
 
 # 模块5 · 流程与 SOP
 

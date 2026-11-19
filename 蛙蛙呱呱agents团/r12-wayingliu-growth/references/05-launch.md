@@ -1,4 +1,4 @@
-﻿# s05 ASO 与发布（aso / ph）方法论
+# s05 ASO 与发布（aso / ph）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/marketing/seo-audit/SKILL.md
 >
 

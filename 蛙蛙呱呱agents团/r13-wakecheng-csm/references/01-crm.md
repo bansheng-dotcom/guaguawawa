@@ -1,4 +1,4 @@
-﻿# s01 客户与联系人管理（person / company）方法论
+# s01 客户与联系人管理（person / company）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/sales/crm-hygiene-check/SKILL.md
 >
 

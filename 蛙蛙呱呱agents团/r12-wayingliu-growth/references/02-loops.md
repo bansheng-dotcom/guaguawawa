@@ -1,4 +1,4 @@
-﻿# s02 增长循环与自然获客（flywheel / content）方法论
+# s02 增长循环与自然获客（flywheel / content）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/marketing/content-creation/SKILL.md
 >
 

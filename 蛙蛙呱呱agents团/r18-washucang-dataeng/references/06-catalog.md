@@ -1,4 +1,4 @@
-﻿# 06 · 数据目录与口径接口口径（catalog）
+# 06 · 数据目录与口径接口口径（catalog）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/data/data-context-extractor/SKILL.md
 >
 

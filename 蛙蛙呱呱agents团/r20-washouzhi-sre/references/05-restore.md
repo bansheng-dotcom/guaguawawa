@@ -1,4 +1,4 @@
-﻿# 05 · 恢复演练口径（restore）
+# 05 · 恢复演练口径（restore）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/skills/runbook/SKILL.md
 >
 

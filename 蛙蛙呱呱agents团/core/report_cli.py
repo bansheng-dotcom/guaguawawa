@@ -133,29 +133,107 @@ def cmd_brief(args) -> int:
 
 
 def cmd_collect(args) -> int:
-    """收卡：验完整性 → 合并 → 编译 → 过闸 → 渲染。"""
+    """收卡：验 quote/来源/覆盖 → 合并 → 缺口清单 → 编译 → 过闸 → 渲染。
+
+    证据门禁（2026-11-19）：每条 source 必须 url/date/quote；CLI 默认至少 50 条来源
+    （`--min-sources 0` 关闭）。`--verify-quotes` 联网逐条回抓，`--strict-quotes`
+    时未核过的来源直接失败。
+    """
     from core import dispatch
-    merged, problems = dispatch.collect(args.dir)
-    if problems:
-        print(json.dumps({"ok": False, "problems": problems[:12]},
-                         ensure_ascii=False, indent=1))
-        return 2
+    merged, problems = dispatch.collect(
+        args.dir,
+        require_all=not getattr(args, "allow_partial", False),
+        min_sources=int(getattr(args, "min_sources", 0) or 0),
+        verify_quotes=bool(getattr(args, "verify_quotes", False)),
+        strict_verify=bool(getattr(args, "strict_quotes", False))
+        and bool(getattr(args, "verify_quotes", False)))
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
+    cov = merged.get("coverage") or {}
+    ev = merged.get("evidence") or {}
+    gaps = merged.get("gaps") or {}
+    (out / "gaps.json").write_text(json.dumps(
+        {"coverage": cov, "evidence": ev, "gaps": gaps,
+         "source_verify": merged.get("source_verify") or {}},
+        ensure_ascii=False, indent=2), encoding="utf-8")
+    if merged.get("source_verify"):
+        (out / "source_verify.json").write_text(json.dumps(
+            merged["source_verify"], ensure_ascii=False, indent=2),
+            encoding="utf-8")
+    if cov:
+        print(f"[coverage] 发卡 {cov['expected']} / 收卡 {cov['delivered']}"
+              f"（{cov['rate']:.0%}）；缺 " + ("、".join(cov["missing"]) or "无"),
+              file=sys.stderr)
+    if ev:
+        print(f"[evidence] 来源 {ev['sources']}（字段齐 {ev['sources_fields_ok']}，"
+              f"quote 率 {ev['quote_rate']:.0%}）；数字 {ev['numbers']} / 节 {ev['sections']}",
+              file=sys.stderr)
+    if gaps:
+        print(f"[gaps] 缺单元×维度 {gaps.get('missing_count', 0)}；"
+              f"估算 {gaps.get('estimated_count', 0)}；"
+              f"缺地图 " + ("、".join(gaps.get("maps_missing") or []) or "无"),
+              file=sys.stderr)
+    if problems:
+        print(json.dumps({"ok": False, "problems": problems[:12],
+                          "coverage": cov, "evidence": ev, "gaps": gaps},
+                         ensure_ascii=False, indent=1))
+        return 2
     merged_path = out / "claims_merged.json"
     merged_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2),
                            encoding="utf-8")
-    args.claims = str(merged_path)
-    args.dir = None
-    args.evidence = None
-    args.draft = None
-    for attr, val in (("intent", "自动汇编报告"), ("audience", None),
-                      ("theme", "paper"), ("quote_mode", "warn"),
-                      ("min_binding", 0.8), ("input", None),
-                      ("research", False)):
-        if not hasattr(args, attr):
-            setattr(args, attr, val)
-    return cmd_run_line(args)
+    cov_dir = Path(args.dir) / "coverage"
+    if cov_dir.is_dir():
+        rows = [{"id": s.get("file"), "title": s.get("title"),
+                 "org": s.get("org"), "url": s.get("url"), "date": s.get("date"),
+                 "grade": s.get("grade"), "quote": s.get("quote")}
+                for s in (merged.get("sources") or [])]
+        (cov_dir / "source_ledger.json").write_text(json.dumps(
+            {"sources": rows}, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(json.dumps({"ok": True, "claims": str(merged_path),
+                      "out": str(out), "coverage": cov, "evidence": ev,
+                      "gaps": gaps}, ensure_ascii=False, indent=1))
+    return 0
+
+
+def cmd_research(args) -> int:
+    """并行调研：发卡 → 写提示词 → 并行执行 →（可选）收卡。
+
+    执行器由 --worker-cmd 或 GUAGUA_WORKER_CMD 提供；不给时只出计划与 PROMPT.md。
+    """
+    import os
+    from core import dispatch, parallel_research
+
+    only = [x.strip() for x in (getattr(args, "only", "") or "").split(",") if x.strip()] or None
+    base = Path(args.out)
+    base.mkdir(parents=True, exist_ok=True)
+    brief = dispatch.write_cards(args.intent, str(base), only)
+    worker = (getattr(args, "worker_cmd", None)
+              or os.environ.get("GUAGUA_WORKER_CMD") or None)
+    res = parallel_research.run(str(base), worker, args.workers,
+                                args.timeout, only)
+    if res.get("mode") == "plan" and not worker:
+        print(json.dumps({"ok": True, "mode": "plan", "cards": brief["cards"],
+                          "plan": str(base / "research_plan.json"),
+                          "hint": res.get("hint")}, ensure_ascii=False, indent=1))
+        return 0
+    if not res.get("ok"):
+        print(json.dumps({"ok": False, "mode": res.get("mode"),
+                          "roles": res.get("roles"),
+                          "run": str(base / "research_run.json")},
+                         ensure_ascii=False, indent=1))
+        return 1
+    if not getattr(args, "collect", False):
+        print(json.dumps({"ok": True, "mode": "worker",
+                          "roles": len(res.get("roles") or []),
+                          "run": str(base / "research_run.json")},
+                         ensure_ascii=False, indent=1))
+        return 0
+    return cmd_collect(argparse.Namespace(
+        dir=str(base), out=str(base / "out"),
+        allow_partial=bool(getattr(args, "allow_partial", False)),
+        min_sources=int(getattr(args, "min_sources", 50)),
+        verify_quotes=bool(getattr(args, "verify_quotes", True)),
+        strict_quotes=bool(getattr(args, "strict_quotes", True))))
 
 
 def cmd_run_line(args) -> int:
@@ -185,7 +263,9 @@ def cmd_run_line(args) -> int:
             audience=args.audience, theme=args.theme, pdf=args.pdf,
             quote_mode=args.quote_mode, min_binding=args.min_binding,
             evidence_path=getattr(args, "evidence", None),
-            draft_path=getattr(args, "draft", None))
+            draft_path=getattr(args, "draft", None),
+            layout=getattr(args, "layout", "flow"),
+            prose_hard=bool(getattr(args, "prose_hard", False)))
     except Exception as e:  # noqa: BLE001
         print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
                          ensure_ascii=False))
@@ -197,6 +277,26 @@ def cmd_run_line(args) -> int:
 def _deprecated(name: str) -> None:
     print(f"[deprecated] report {name} 已下线；请用 report run-line（v11）",
           file=sys.stderr)
+
+
+def cmd_flow(args) -> int:
+    """项目化 flow 报告：facts.py + charts.py（+ 可选 prose_specs.py）。"""
+    from core import flow_report
+    from core.report_layout import default_layout
+    layout = "paper" if getattr(args, "paper", False) else (args.layout or default_layout())
+    try:
+        res = flow_report.build(args.project, args.out, pdf=args.pdf,
+                                layout=layout,
+                                use_specs=not getattr(args, "no_specs", False),
+                                author_first=bool(getattr(args, "author_first", False)),
+                                prose_hard=bool(getattr(args, "prose_hard", False)),
+                                gate_hard=bool(getattr(args, "gate_hard", False)))
+    except Exception as exc:  # noqa: BLE001
+        print(json.dumps({"ok": False, "error": f"{type(exc).__name__}: {exc}"},
+                         ensure_ascii=False))
+        return 2
+    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
+    return 0 if res.get("ok") else 1
 
 
 def cmd_check(args) -> int:
@@ -241,6 +341,11 @@ def main(argv=None) -> int:
     rl.add_argument("--out", required=True)
     rl.add_argument("--audience", default="业务负责人")
     rl.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
+    from core.report_layout import default_layout as _default_layout
+    rl.add_argument("--layout", choices=("flow", "paper"), default=_default_layout(),
+                    help="flow=一条内容流（默认，见 configs/report_flow.yaml）；paper=一节一页 A4")
+    rl.add_argument("--prose-hard", action="store_true",
+                    help="flow 模式下把文笔门禁纳入 BLOCK（默认只记录不拦）")
     rl.add_argument("--pdf", action="store_true")
     rl.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
     rl.add_argument("--min-binding", type=float, default=0.8)
@@ -254,6 +359,25 @@ def main(argv=None) -> int:
 
     # v11 / P5：build / decide / produce / pack / research / run 六个名字全部删除。
     # 唯一入口 = `report "指令" --dir … --out …`（也接受 `report run-line …` 写法）。
+
+    fl = sub.add_parser("flow", help="项目化 flow 报告：facts + charts（+ 可选 prose_specs）")
+    fl.add_argument("--project", required=True, help="项目目录（含 facts.py / charts.py）")
+    fl.add_argument("--out", required=True)
+    fl.add_argument("--pdf", action="store_true")
+    fl.add_argument("--layout", choices=("flow", "paper"), default=None)
+    fl.add_argument("--paper", action="store_true", help="等价 --layout paper")
+    fl.add_argument("--prose-hard", dest="prose_hard", action="store_true",
+                    default=True, help="文笔门禁纳入 BLOCK（默认开）")
+    fl.add_argument("--no-prose-hard", dest="prose_hard", action="store_false",
+                    help="文笔只记分，不拦")
+    fl.add_argument("--gate-hard", dest="gate_hard", action="store_true",
+                    default=True, help="有 coverage/ 三件套时，r04 五项不过就 BLOCK（默认开）")
+    fl.add_argument("--no-gate-hard", dest="gate_hard", action="store_false",
+                    help="r04 只记录，不拦")
+    fl.add_argument("--no-specs", action="store_true", help="不跑 prose_specs 生成")
+    fl.add_argument("--author-first", action="store_true",
+                    help="人工正文优先：校验 prose_specs 11 字段，但不生成正文")
+    fl.set_defaults(func=cmd_flow)
 
     c = sub.add_parser("check", help="验一份成品报告")
     c.add_argument("--html", required=True)
@@ -300,13 +424,42 @@ def main(argv=None) -> int:
     cl.add_argument("--dir", required=True)
     cl.add_argument("--out", required=True)
     cl.add_argument("--pdf", action="store_true")
+    cl.add_argument("--allow-partial", action="store_true",
+                    help="允许部分专家缺席仍出报告（默认缺卡即失败）")
+    cl.add_argument("--min-sources", type=int, default=50,
+                    help="来源条数下限（默认 50；传 0 关闭）")
+    cl.add_argument("--verify-quotes", dest="verify_quotes", action="store_true",
+                    default=True, help="联网逐条回抓 url（默认开）")
+    cl.add_argument("--no-verify-quotes", dest="verify_quotes", action="store_false",
+                    help="关闭联网回抓，只查字段")
+    cl.add_argument("--strict-quotes", dest="strict_quotes", action="store_true",
+                    default=True, help="未核过的来源直接失败（默认开）")
+    cl.add_argument("--no-strict-quotes", dest="strict_quotes", action="store_false",
+                    help="未核过只告警，不失败")
     cl.set_defaults(func=cmd_collect)
+
+    rs = sub.add_parser("research", help="并行调研：发卡 → 提示词 → 并行执行 → 可选收卡")
+    rs.add_argument("--intent", required=True)
+    rs.add_argument("--out", required=True)
+    rs.add_argument("--only", default=None, help="只跑这些角色，逗号分隔")
+    rs.add_argument("--worker-cmd", default=None,
+                    help="外部执行器命令；占位符 {role}/{card_dir}/{prompt}/{claims}")
+    rs.add_argument("--workers", type=int, default=8, help="并行度（默认 8）")
+    rs.add_argument("--timeout", type=int, default=1800, help="单卡超时秒数")
+    rs.add_argument("--collect", action="store_true", help="跑完后立即收卡（只产证据）")
+    rs.add_argument("--allow-partial", action="store_true", help="允许缺卡")
+    rs.add_argument("--min-sources", type=int, default=50)
+    rs.add_argument("--no-verify-quotes", dest="verify_quotes", action="store_false",
+                    default=True)
+    rs.add_argument("--no-strict-quotes", dest="strict_quotes", action="store_false",
+                    default=True)
+    rs.set_defaults(func=cmd_research)
 
     argv = list(sys.argv[1:] if argv is None else argv)
     # v11 唯一入口：`report "指令" --dir …` 等价于 `report run-line --intent "指令" …`
     # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
     known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
-             "research-plan", "brief", "collect", "-h", "--help"}
+             "research-plan", "brief", "collect", "research", "flow", "-h", "--help"}
     if argv and argv[0] not in known:
         rest = argv
         argv = ["run-line", "--intent", rest[0], *rest[1:]]

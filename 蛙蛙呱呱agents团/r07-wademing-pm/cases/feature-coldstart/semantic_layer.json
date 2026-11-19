@@ -1,5 +1,5 @@
 {
-  "_note": "蛙得名（PM / 产品规划）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
+  "_note": "蛙得明（PM / 产品规划）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
   "role": "r07",
   "case_id": "feature-coldstart",
   "artifact_type": "prd",

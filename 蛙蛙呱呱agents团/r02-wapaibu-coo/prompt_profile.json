@@ -1,7 +1,7 @@
 {
   "role_id": "r02",
   "domain": "运营编排与项目交付",
-  "max_questions": 2,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -371,6 +371,12 @@
     "portfolio.graph": [
       "artifact",
       "owner"
+    ],
+    "little.run": [
+      "input"
+    ],
+    "queue.run": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [

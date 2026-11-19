@@ -1,4 +1,4 @@
-﻿# s08 客户运营自动化接口（automation / probe）方法论
+# s08 客户运营自动化接口（automation / probe）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/customer-support/customer-escalation/SKILL.md
 >
 

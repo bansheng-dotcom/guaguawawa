@@ -1,4 +1,4 @@
-﻿# S05 隐私与数据安全
+# S05 隐私与数据安全
 > 蒸馏自: 补充技能/01-当前能力域/JoelLewis__finance_skills/privacy-data-security/SKILL.md
 >
 

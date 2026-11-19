@@ -1,7 +1,7 @@
 {
   "role_id": "r12",
   "domain": "增长运营",
-  "max_questions": 3,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -277,7 +277,16 @@
       "platform",
       "input"
     ],
-    "selfmedia.probe": []
+    "selfmedia.probe": [],
+    "ltv-cac.run": [
+      "input"
+    ],
+    "mmm.run": [
+      "input"
+    ],
+    "power.run": [
+      "input"
+    ]
   },
   "l2_prompt_blocks": [
     {

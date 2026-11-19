@@ -1,7 +1,7 @@
 {
   "role_id": "r08",
   "domain": "产品实现（MVP 交付）",
-  "max_questions": 3,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -292,8 +292,6 @@
     "design.from-md": [],
     "deck.plan": [],
     "deck.html": [],
-    "htmlreport.plan": [],
-    "htmlreport.html": [],
     "miniapp.plan": [],
     "miniapp.scaffold": [
       "topic",
@@ -342,17 +340,6 @@
         "汇报材料"
       ],
       "skill": "deck",
-      "action": "plan",
-      "defaults": {}
-    },
-    {
-      "when": [
-        "html 报告",
-        "网页报告",
-        "报告页",
-        "研究报告页"
-      ],
-      "skill": "htmlreport",
       "action": "plan",
       "defaults": {}
     },

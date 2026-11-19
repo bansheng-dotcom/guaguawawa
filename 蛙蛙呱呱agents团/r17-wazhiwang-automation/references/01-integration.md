@@ -1,4 +1,4 @@
-﻿# 参考层 01 —— SaaS/API 集成（workflow-builder / instance-awareness）
+# 参考层 01 —— SaaS/API 集成（workflow-builder / instance-awareness）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/small-business/build-connector/SKILL.md
 >
 

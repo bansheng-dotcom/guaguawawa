@@ -139,15 +139,21 @@ def run(plan_obj: Dict[str, Any], ctx) -> Tuple[Dict[str, Any], List[str]]:
         try:
             f = spec.fn(ctx)
         except Exception as exc:  # noqa: BLE001  单方法失败只降级
-            gaps.append(f"{key} 计算失败：{type(exc).__name__}: {exc}")
+            # 异常原文只进 trace，不进报告：读者要知道的是「哪条判断没跑成」，
+            # 不是 KeyError 的字段名。plan_obj 会整份写进 analysis_trace.json。
+            plan_obj.setdefault("errors", []).append(
+                {"key": key, "error": f"{type(exc).__name__}: {exc}"})
+            gaps.append(f"「{getattr(spec, 'produces', key)}」本轮计算未完成，"
+                        "相关结论不采用。")
             continue
         if f is None:
-            gaps.append(f"{key} 未产出（数据不足）")
+            gaps.append(f"「{getattr(spec, 'produces', key)}」本轮未产出（数据不足）")
             continue
         out[key] = f
     for s in plan_obj["skipped"]:
         if not s["optional"]:
-            gaps.append(f"{s['key']} 关键能力缺失：{', '.join(s['missing'])}")
+            label = getattr(REGISTRY.get(s["key"]), "produces", s["key"])
+            gaps.append(f"「{label}」缺少关键能力：{', '.join(s['missing'])}")
     return out, gaps
 
 

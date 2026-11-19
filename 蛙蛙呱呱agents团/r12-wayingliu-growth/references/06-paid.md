@@ -1,4 +1,4 @@
-﻿# s06 付费投放与 CRO（media / cro）方法论
+# s06 付费投放与 CRO（media / cro）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/marketing/campaign-plan/SKILL.md
 >
 

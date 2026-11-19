@@ -1,4 +1,4 @@
-﻿# s07 视频与音频处理（media / media·probe）方法论
+# s07 视频与音频处理（media / media·probe）方法论
 > 蒸馏自: 补充技能/01-当前能力域/danielgatis__rembg/SKILL.md
 >
 

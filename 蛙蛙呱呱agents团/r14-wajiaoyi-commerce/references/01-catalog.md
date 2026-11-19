@@ -1,4 +1,4 @@
-﻿# 01 · 商品目录与价格口径（catalog）
+# 01 · 商品目录与价格口径（catalog）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/product-management/write-spec/SKILL.md
 >
 

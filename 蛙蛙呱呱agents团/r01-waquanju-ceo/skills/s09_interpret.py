@@ -625,6 +625,10 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                     errs.append(f"图缺 {k}")
             if ch.get("title") and not _NUM_RE.search(str(ch["title"])):
                 errs.append("图标题没有数字（标题即结论）")
+            if ch.get("report_grade"):
+                from core import chart_plan as _cp
+                for _i in _cp.audit(ch):
+                    errs.append(f"报告级图不合格：{_i}")
             refs = refs_of(ch)
             # 数据点按图型取：柱/线用 bars|series，瀑布用 steps，帕累托用 items，
             # 散点用 points。只认 bars/series 会把 48 型里一半判成「没有数据点」。
@@ -632,6 +636,24 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                    or ch.get("items") or ch.get("points") or [])
             if not pts:
                 errs.append("图没有数据点")
+            # 两三个数据点撑不起一张图：画出来是一条扁线，读者看不出差异。
+            # 这种情况要求改用表格，或补足口径，而不是把一张空图塞进报告。
+            else:
+                # 按数据形状选图：形状不匹配就拒，避免「两个数也画柱状图」。
+                _t = str(ch.get("type") or "")
+                _n = len(pts)
+                _need = {
+                    "hbar": (2, 12), "vbar": (2, 12), "bar": (2, 12),
+                    "line": (2, 24), "area": (2, 24),
+                    "pareto": (2, 15), "waterfall": (2, 10),
+                    "pie": (2, 6), "donut": (2, 6),
+                    "stacked_bar": (2, 10), "pct_stacked": (2, 10),
+                }
+                lo, hi = _need.get(_t, (2, 999))
+                if not ch.get("allow_few_points") and (_n < lo or _n > hi):
+                    errs.append(
+                        f"「{_t}」图有 {_n} 个数据点，该图型只接受 {lo}—{hi} 个；"
+                        "少于下限请改用表格，多于上限请换排名或聚合图")
             for p in pts:
                 v = p.get("value") if isinstance(p, dict) else None
                 if not isinstance(v, (int, float)):

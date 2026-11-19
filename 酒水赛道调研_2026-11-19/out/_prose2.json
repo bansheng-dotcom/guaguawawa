@@ -1,0 +1,292 @@
+{
+  "ok": true,
+  "sections": 14,
+  "avg_chars": 929.6,
+  "score": 100,
+  "hard_fail": [],
+  "markers_total": 46,
+  "contrast_total": 78,
+  "bonus": 10,
+  "rows": [
+    {
+      "index": 1,
+      "chars": 896,
+      "numbers": 32,
+      "numbers_per_1000": 35.7,
+      "markers": 2,
+      "contrast": 3,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 2,
+      "chars": 975,
+      "numbers": 56,
+      "numbers_per_1000": 57.4,
+      "markers": 2,
+      "contrast": 7,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 3,
+      "chars": 962,
+      "numbers": 63,
+      "numbers_per_1000": 65.5,
+      "markers": 6,
+      "contrast": 2,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 4,
+      "chars": 969,
+      "numbers": 60,
+      "numbers_per_1000": 61.9,
+      "markers": 4,
+      "contrast": 5,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 5,
+      "chars": 915,
+      "numbers": 47,
+      "numbers_per_1000": 51.4,
+      "markers": 6,
+      "contrast": 12,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 6,
+      "chars": 964,
+      "numbers": 57,
+      "numbers_per_1000": 59.1,
+      "markers": 1,
+      "contrast": 1,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 7,
+      "chars": 910,
+      "numbers": 45,
+      "numbers_per_1000": 49.5,
+      "markers": 4,
+      "contrast": 6,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 8,
+      "chars": 1015,
+      "numbers": 53,
+      "numbers_per_1000": 52.2,
+      "markers": 3,
+      "contrast": 5,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 9,
+      "chars": 927,
+      "numbers": 56,
+      "numbers_per_1000": 60.4,
+      "markers": 2,
+      "contrast": 3,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 10,
+      "chars": 892,
+      "numbers": 55,
+      "numbers_per_1000": 61.7,
+      "markers": 3,
+      "contrast": 2,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 90,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 11,
+      "chars": 925,
+      "numbers": 56,
+      "numbers_per_1000": 60.5,
+      "markers": 2,
+      "contrast": 11,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 0,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 12,
+      "chars": 858,
+      "numbers": 41,
+      "numbers_per_1000": 47.8,
+      "markers": 4,
+      "contrast": 10,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 90,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 13,
+      "chars": 854,
+      "numbers": 35,
+      "numbers_per_1000": 41.0,
+      "markers": 4,
+      "contrast": 8,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 90,
+      "issues": [],
+      "hard": false
+    },
+    {
+      "index": 14,
+      "chars": 953,
+      "numbers": 62,
+      "numbers_per_1000": 65.1,
+      "markers": 3,
+      "contrast": 3,
+      "blocks": [
+        "结论",
+        "事实",
+        "解释",
+        "所以",
+        "边界"
+      ],
+      "banned": [],
+      "suoyi": 1,
+      "score": 100,
+      "issues": [],
+      "hard": false
+    }
+  ]
+}

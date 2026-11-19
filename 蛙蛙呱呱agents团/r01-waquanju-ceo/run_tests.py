@@ -23,6 +23,8 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, AGENTS)
 
 from skills import _common as c  # noqa: E402
+from skills import SKILLS  # noqa: E402
+import contracts  # noqa: E402
 
 PASS, FAIL = 0, 0
 
@@ -71,7 +73,7 @@ print("== manifest / demo ==")
 r = run_cli(["manifest"])
 m = parse_result(r.stdout) or {}
 check("manifest 退出码 0", r.returncode == 0, r.stderr[-200:])
-check("manifest 7 能力域技能", len(m.get("skills", [])) == 7)
+check(f"manifest {len(SKILLS)} 能力域技能（动态）", len(m.get("skills", [])) == len(SKILLS))
 check("manifest 含编排器命令", "plan" in (m.get("orchestrator") or []))
 
 r = run_cli(["demo"])
@@ -363,9 +365,11 @@ check("harness verify 干净 brief+card → PASS", res.get("verdict") == "PASS")
 print("== T6 契约 ==")
 r = run_cli(["contract", "list"])
 res = parse_result(r.stdout) or {}
-check("contract list 7 技能", len(res.get("contracts", [])) == 7)
-check("contract 动作总数 21",
-      sum(len(x["actions"]) for x in res.get("contracts", [])) == 21)
+check(f"contract list {len(contracts.skill_names())} 技能（动态）",
+      len(res.get("contracts", [])) == len(contracts.skill_names()))
+check("contract 动作总数（动态）",
+      sum(len(x["actions"]) for x in res.get("contracts", [])) ==
+      sum(len(contracts.actions(s)) for s in contracts.skill_names()))
 ok_out = {"ok": True, "checks": [], "brief_fields": [], "option_count": 1}
 res = parse_result(run_cli(["contract", "validate", "--skill", "intent",
                             "--action", "brief", "--output", tmp_json(ok_out)]).stdout) or {}
@@ -443,8 +447,8 @@ res = parse_result(r.stdout) or {}
 check("run --task 转发 r06 并完成", res.get("exit_code") == 0)
 from core import workspace as _ws
 art = os.path.join(_ws.default_root(), "artifacts", tid)
-check("产物目录含 r06 报告",
-      any("report" in f for f in os.listdir(art)) if os.path.isdir(art) else False)
+check("产物目录含 r06 result.json/evidence.json（报线收敛后只交证据）",
+      any(f in ("result.json", "evidence.json") for f in os.listdir(art)) if os.path.isdir(art) else False)
 
 # r01 自身任务（决策卡路由）
 from core import protocol as _p
@@ -457,9 +461,9 @@ r = run_cli(["run", "--task", tid2])
 res = parse_result(r.stdout) or {}
 check("run --task owner=r01 路由到 decide/card",
       res.get("skill") == "decide", json.dumps(res, ensure_ascii=False)[:200])
-check("run --task 产出 ceo_report.md",
+check("run --task 产出 result.json（唯一出口）",
       os.path.exists(os.path.join(_ws.default_root(), "artifacts", tid2,
-                                  "ceo_report.md")))
+                                  "result.json")))
 
 print("== T4 可观测性 runlog ==")
 r = run_cli(["harness", "runlog", "--n", "3"])

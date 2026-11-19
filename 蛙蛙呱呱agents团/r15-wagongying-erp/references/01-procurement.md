@@ -1,4 +1,4 @@
-﻿# 01 · 采购与供应商口径（procurement）
+# 01 · 采购与供应商口径（procurement）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/vendor-review/SKILL.md
 >
 

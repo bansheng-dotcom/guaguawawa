@@ -1,4 +1,4 @@
-﻿# 05 · 电子签与签署审计口径（signature）
+# 05 · 电子签与签署审计口径（signature）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/legal/signature-request/SKILL.md
 >
 

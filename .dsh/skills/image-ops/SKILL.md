@@ -1,4 +1,4 @@
-﻿---
+---
 name: image-ops
 description: 本地图片处理技能包。把「这批图能不能批量处理」变成可校验的操作：处理前先探测尺寸/格式/通道与后端依赖，操作必须落在白名单（resize/crop/compress/pad/watermark）并防覆盖，缩放偶数边、格式转换、体积上限都逐项校验。当需要批量改尺寸、批量压缩、加水印、裁剪留白、或判断一张图能不能被安全处理时使用。不负责设计稿创作（见 ecommerce-designer）、不做 AI 生成（见 nano-banana 类工具）、不做印刷色彩管理。
 license: MIT
@@ -13,6 +13,8 @@ metadata:
   consumers: "r14,r11,r08"
   supersedes: "README.md"
 ---
+
+<!-- 本文件由 scripts/sync_dsh_skills.py 生成，请勿手改；改源包后重跑同步 -->
 
 # 本地图片处理（Image Ops）
 

@@ -505,8 +505,9 @@ def main() -> int:
         emit_result({"demo_csv": path, "semantic_model": sem_dst})
         return 0
     if args.skill == "run":
-        emit_result(run_task(args.task))
-        return 0
+        _run_out = run_task(args.task)
+        emit_result(_run_out)
+        return 0 if (_run_out.get("ok") is not False and not _run_out.get("error")) else 1
     if args.skill == "clarify":
         return clarify_cli(ROLE, args.intent)
     if args.skill == "harness":
@@ -551,7 +552,7 @@ def main() -> int:
         return 0
 
     # 旧深链已下线（2026-11-15）：报告产线收敛为 R01 唯一出口。
-    # 新路径：python guagua.py report run --intent <意图> --results <result.json...> --out <目录>
+    # 新路径：python guagua.py report run-line --intent <意图> --dir <项目> --out <目录>
     if args.skill in ("depth", "deep"):
         emit_result({
             "ok": False,
@@ -559,7 +560,7 @@ def main() -> int:
             "skill": args.skill,
             "message": "旧深链（REP-001 deep_report/consulting_report）已下线；"
                        "R06 只交 result，报告由 R01 统一出具。",
-            "next": "python guagua.py report run --intent <意图> "
+            "next": "python guagua.py report run-line --intent <意图> --dir <项目> --out <目录>"
                     "--results <result.json...> --out <目录>",
         })
         return 1
@@ -569,9 +570,8 @@ def main() -> int:
         from skills.quality_adapter import QualityAuditAdapter
         
         try:
-            # 动态加载外置业务配置
-            with open(os.path.join(_HERE, "rules", "business_thresholds.json"), "r") as f:
-                rules = json.load(f).get("quality", {})
+            # 阈值单一出处：experience/thresholds.json 的 quality 段（rules/ 下不再保留第二份）
+            rules = c.load_thresholds().get("quality", {})
         except Exception:
             rules = {}
             

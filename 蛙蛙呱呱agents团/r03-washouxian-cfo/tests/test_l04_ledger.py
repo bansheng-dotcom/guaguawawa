@@ -10,7 +10,7 @@ class TestL04Ledger(unittest.TestCase):
         spec = FinancialLedgerParser.load_spec(force_reload=True)
         self.assertGreater(spec["RUNWAY_ALERT_MONTHS"], 0)
         self.assertEqual(spec["FINANCIAL_RECORD_RETENTION_YEARS"], 7)
-        self.assertIn("保本", spec["LICENSED_GUARANTEE_WORDS"])
+        self.assertIn("淇濇湰", spec["LICENSED_GUARANTEE_WORDS"])
 
 if __name__ == "__main__":
     unittest.main()

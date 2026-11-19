@@ -1,4 +1,4 @@
-﻿# s07 质量验证与交接（qa / handoff）方法论
+# s07 质量验证与交接（qa / handoff）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/engineering/testing-strategy/SKILL.md
 >
 

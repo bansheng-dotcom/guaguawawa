@@ -1,7 +1,7 @@
 # R06 蛙得清 · 十轮 SOP 完整自演进升级交付报告 (Universal Agent SOP v7.0)
 
 > **升级目标智能体**：`D:\蛙蛙呱呱\蛙蛙呱呱agents团\r06-wadeqing-analyst`  
-> **指导规范**：[D:\蛙蛙呱呱\SOP_AGENT_EVOLUTION_UNIVERSAL.md](file:///D:/蛙蛙呱呱/SOP_AGENT_EVOLUTION_UNIVERSAL.md) (v7.0)  
+> **指导规范**：[D:\蛙蛙呱呱\SOP_AGENT_EVOLUTION_UNIVERSAL.md](#D:/蛙蛙呱呱/SOP_AGENT_EVOLUTION_UNIVERSAL.md) (v7.0)  
 > **执行调度引擎**：`workflow` 驱动 10 阶段分布式子智能体（10 Sub-Agents Full Execution）+ 状态机自动演化器  
 > **双轨回归门禁**：**155 / 155 ALL GREEN (100% PASS)**，零衰退零破坏  
 > **演进状态**：**ALL 10 ROUNDS OF FULL SOP COMPLETED**
@@ -76,12 +76,12 @@
    - `session_memory.py` (L09 会话记忆池与代词消歧)
    - `telemetry_watchdog.py` (L10 看门狗熔断与全链路遥测)
 2. **全局统一业务基准账本**：
-   - [METRICS_SPEC.md](file:///D:/蛙蛙呱呱/蛙蛙呱呱agents团/r06-wadeqing-analyst/METRICS_SPEC.md)
+   - [METRICS_SPEC.md](../../METRICS_SPEC.md)
 3. **自动化演进执行与验证套件**：
-   - [auto_evolve_runner.py](file:///D:/蛙蛙呱呱/蛙蛙呱呱agents团/r06-wadeqing-analyst/auto_evolve_runner.py) (物理外循环演进执行器)
-   - [run_sop_evolution_10_iterations.py](file:///D:/蛙蛙呱呱/蛙蛙呱呱agents团/r06-wadeqing-analyst/scripts/run_sop_evolution_10_iterations.py) (10 代演化驱动流水线)
-   - [test_engines_l01_l10.py](file:///D:/蛙蛙呱呱/蛙蛙呱呱agents团/r06-wadeqing-analyst/tests/test_engines_l01_l10.py) (十维演进集成测试套件)
+   - [auto_evolve_runner.py](../../auto_evolve_runner.py) (物理外循环演进执行器)
+   - [run_sop_evolution_10_iterations.py](../../scripts/run_sop_evolution_10_iterations.py) (10 代演化驱动流水线)
+   - [test_engines_l01_l10.py](../../tests/test_engines_l01_l10.py) (十维演进集成测试套件)
 4. **全局 SOP 红线更新**：
-   - [SOP_AGENT_EVOLUTION_UNIVERSAL.md](file:///D:/蛙蛙呱呱/SOP_AGENT_EVOLUTION_UNIVERSAL.md) 已同步补充五大交付红线，严禁合并伪造打卡，确保未来的 Agent 演进全部遵循真外循环驱动。
+   - [SOP_AGENT_EVOLUTION_UNIVERSAL.md](#D:/蛙蛙呱呱/SOP_AGENT_EVOLUTION_UNIVERSAL.md) 已同步补充五大交付红线，严禁合并伪造打卡，确保未来的 Agent 演进全部遵循真外循环驱动。
 
 至此，R06 蛙得清 · 数据分析师已完整历经 10 轮真实的 SOP 演化淬炼，正式蜕变为高确定性、高鲁棒性、具备生产级容灾能力与工业级交付标准的成熟智能体！

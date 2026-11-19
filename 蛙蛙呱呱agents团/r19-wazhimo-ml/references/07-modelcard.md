@@ -1,4 +1,4 @@
-﻿# 07 · 模型卡与资产证据口径（modelcard）
+# 07 · 模型卡与资产证据口径（modelcard）
 > 蒸馏自: 补充技能/01-当前能力域/mlflow__mlflow/mlflow/assistant/skills/mlflow-docs/SKILL.md
 >
 

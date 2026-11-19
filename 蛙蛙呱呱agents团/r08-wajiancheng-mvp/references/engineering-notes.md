@@ -81,13 +81,13 @@ R08 做 MVP/跨端/页面可演示实现；生产工程·CI/CD·可靠性交 R09
 
 ## 详细参考（7 个模块）
 
-- [模块A 产品切片与 MVP](references/01-slice-mvp.md)
-- [模块B Spec 转仓库](references/02-scaffold-spec.md)
-- [模块C 落地页与 H5](references/03-landing-h5.md)
-- [模块D SaaS 与邮件脚手架](references/04-saas-email.md)
-- [模块E 跨平台原型](references/05-prototype-cross-platform.md)
-- [模块F 组件与设计实现](references/06-design-token.md)
-- [模块G 质量验证与交接](references/07-qa-handoff.md)
+- [模块A 产品切片与 MVP](01-slice-mvp.md)
+- [模块B Spec 转仓库](02-scaffold-spec.md)
+- [模块C 落地页与 H5](03-landing-h5.md)
+- [模块D SaaS 与邮件脚手架](04-saas-email.md)
+- [模块E 跨平台原型](05-prototype-cross-platform.md)
+- [模块F 组件与设计实现](06-design-token.md)
+- [模块G 质量验证与交接](07-qa-handoff.md)
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "_note": "蛙守直（SRE / 稳定性）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
+  "_note": "蛙值守（SRE / 稳定性）业务语义层：指标口径 + 门禁 + 边界 + 决策顺序。全部阈值可在 configs/ 内覆盖，改口径不改代码。",
   "role": "r20",
   "case_id": "sla-incident",
   "artifact_type": "monitor_config",

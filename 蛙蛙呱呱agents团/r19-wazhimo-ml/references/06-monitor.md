@@ -1,4 +1,4 @@
-﻿# 06 · 模型监控接口口径（monitor）
+# 06 · 模型监控接口口径（monitor）
 > 蒸馏自: 补充技能/01-当前能力域/mlflow__mlflow/mlflow/assistant/skills/mlflow-trace-metrics/SKILL.md
 >
 

@@ -83,6 +83,35 @@ def _md_cell(c: Any) -> str:
     return str(c)
 
 
+_SENT_END = ("。", "；", "！", "？", "：", "，", "、")
+
+
+def _reading_texts(s: Dict[str, Any]) -> List[str]:
+    """把一个 section 的 reading 归一化成纯文本句子列表（去掉 strong 标签）。"""
+    out: List[str] = []
+    for r in (s.get("reading") or []):
+        t = str(r.get("text", "")).strip() if isinstance(r, dict) else str(r).strip()
+        if t:
+            out.append(t)
+    return out
+
+
+def _join_prose(texts: List[str]) -> str:
+    """把有序句子拼成一个连贯段落：缺句末标点时补句号，不产生 `。。`。"""
+    parts = [t for t in (x.strip() for x in texts) if t]
+    if not parts:
+        return ""
+    out = parts[0]
+    for t in parts[1:]:
+        if out.endswith(_SENT_END) or t.startswith(_SENT_END):
+            out += t
+        else:
+            out += "。" + t
+    if not out.endswith(_SENT_END):
+        out += "。"
+    return out
+
+
 def write_markdown(contract: Dict[str, Any], out_md: str) -> None:
     """从 contract 落一份「结论先行」的 .md 快读摘要（非 JSON 裸转）。"""
     L: List[str] = []
@@ -103,12 +132,9 @@ def write_markdown(contract: Dict[str, Any], out_md: str) -> None:
         L.append("")
     for s in contract.get("sections", []):
         L.append(f"## {s['index']}. {s['title']}")
-        if s.get("question"):
-            L.append(f"> {s['question']}")
         L.append("")
         for p in (s.get("intro") or []):
-            st = f"**{p['strong']}**" if p.get("strong") else ""
-            L.append(st + str(p.get("text", "")))
+            L.append(str(p.get("text", "")))
             L.append("")
         for b in (s.get("blocks") or []):
             t = b.get("type")
@@ -134,9 +160,14 @@ def write_markdown(contract: Dict[str, Any], out_md: str) -> None:
                 L.append(str(b.get("text", "")))
                 L.append("")
         if s.get("reading"):
-            for r in s["reading"]:
-                strong = f"**{r['strong']}**" if r.get("strong") else ""
-                L.append(f"- {strong}{r['text']}")
+            reading_style = s.get("reading_style") or "prose"
+            if reading_style == "prose":
+                L.append(_join_prose(_reading_texts(s)))
+                L.append("")
+            else:
+                for t in _reading_texts(s):
+                    L.append(f"- {t}")
+                L.append("")
         sec_tables = list(s.get("tables") or [])
         if s.get("table"):
             sec_tables.insert(0, s["table"])
@@ -149,11 +180,12 @@ def write_markdown(contract: Dict[str, Any], out_md: str) -> None:
                 L.append("| " + " | ".join(_md_cell(cell) for cell in row) + " |")
         L.append("")
     if contract.get("notes"):
-        L.append("## 口径与边界")
+        # 用 notes.summary 作标题：与 HTML 同一处措辞，避免出现「口径与分数」
+        # 之后又跟一个「口径与边界」，读者分不清是不是两件事。
+        L.append("## " + str(contract["notes"].get("summary") or "证据包与回溯"))
         L.append("")
         for it in contract["notes"].get("items", []):
-            label = f"**{it['label']}**" if it.get("label") else ""
-            L.append(f"- {label}{it['text']}")
+            L.append(str(it.get("text", "")))
         L.append("")
     os.makedirs(os.path.dirname(os.path.abspath(out_md)), exist_ok=True)
     with open(out_md, "w", encoding="utf-8") as f:

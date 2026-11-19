@@ -1,0 +1,263 @@
+{
+  "schema": "dsh.third_party_license_status/v1",
+  "generated_at": "2026-11-17",
+  "note": "本清单只登记状态，不代表授权。license=unknown 的条目不得进入对外分发包。",
+  "entries": [
+    {
+      "file": "airbnb.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "airtable.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "apple.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "bmw.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "cal.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "claude.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "clay.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "clickhouse.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "cohere.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "coinbase.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "composio.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "cursor.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "elevenlabs.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "expo.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "figma.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "framer.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "hashicorp.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "ibm.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "intercom.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "kraken.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "linear.app.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "lovable.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "minimax.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "mintlify.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "miro.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "mistral.ai.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "mongodb.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "notion.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "nvidia.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "ollama.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "opencode.ai.md",
+      "kind": "公开设计系统的事实性摘录（配色/字体/版式观察）",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补 URL 与许可证；无法确认则移出分发包"
+    },
+    {
+      "file": "../vendor/aihive/imagegen.py",
+      "kind": "AI Hive 公开客户端脚本的本地适配",
+      "upstream_url": "",
+      "license": "unknown",
+      "redistributable": false,
+      "action": "对外分发前补上游仓库地址与许可证；无法确认则移除 vendor/"
+    }
+  ]
+}

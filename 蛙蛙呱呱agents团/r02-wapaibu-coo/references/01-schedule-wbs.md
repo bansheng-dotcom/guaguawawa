@@ -1,4 +1,4 @@
-﻿> 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/productivity/task-management/SKILL.md
+> 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/productivity/task-management/SKILL.md
 
 # 模块1 · 工作拆解与排期
 

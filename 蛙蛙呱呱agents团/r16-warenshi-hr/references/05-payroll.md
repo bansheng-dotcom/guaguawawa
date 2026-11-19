@@ -1,4 +1,4 @@
-﻿# 05 · 薪酬准备口径（payroll）—— L4 制度性幻觉防护主战场
+# 05 · 薪酬准备口径（payroll）—— L4 制度性幻觉防护主战场
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/human-resources/comp-analysis/SKILL.md
 >
 

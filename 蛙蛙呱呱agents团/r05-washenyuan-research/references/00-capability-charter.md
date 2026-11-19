@@ -1,4 +1,4 @@
-﻿# R05 蛙深源 · 角色能力说明书
+# R05 蛙深源 · 角色能力说明书
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/product-management/synthesize-research/SKILL.md
 >
 

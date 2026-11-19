@@ -1,4 +1,4 @@
-﻿# 03 · 订阅计量与账单口径（billing）
+# 03 · 订阅计量与账单口径（billing）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/finance/journal-entry/SKILL.md
 >
 

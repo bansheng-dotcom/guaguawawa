@@ -118,16 +118,16 @@ R10 产出视觉资产与设计规格；真实前端代码实现交 R09；数据
 
 ## 详细参考（11 个模块）
 
-- [模块A AI 生图与插画](references/01-imagegen.md)
-- [模块B Logo 与图标](references/02-logo.md)
-- [模块C 产品 UI/UX](references/03-uiux.md)
-- [模块D 品牌 VI 与设计令牌](references/04-brand-token.md)
-- [模块E 交互原型与动效](references/05-motion.md)
-- [模块F 修图与图像工程](references/06-imaging.md)
-- [模块I 品牌设计系统库（31 套 DESIGN.md）](references/09-design-systems.md)
-- [模块J 真实生图与视频提示词（Nano Banana Pro / MiniMax H3）](references/10-ai-generation.md)
-- [模块G 视频与音频处理](references/07-media.md)
-- [模块H 转写与字幕](references/08-transcribe.md)
+- [模块A AI 生图与插画](01-imagegen.md)
+- [模块B Logo 与图标](02-logo.md)
+- [模块C 产品 UI/UX](03-uiux.md)
+- [模块D 品牌 VI 与设计令牌](04-brand-token.md)
+- [模块E 交互原型与动效](05-motion.md)
+- [模块F 修图与图像工程](06-imaging.md)
+- [模块I 品牌设计系统库（31 套 DESIGN.md）](09-design-systems.md)
+- [模块J 真实生图与视频提示词（Nano Banana Pro / MiniMax H3）](10-ai-generation.md)
+- [模块G 视频与音频处理](07-media.md)
+- [模块H 转写与字幕](08-transcribe.md)
 
 ---
 

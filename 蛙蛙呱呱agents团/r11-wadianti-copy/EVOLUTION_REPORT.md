@@ -1,7 +1,7 @@
 # R11 蛙点题 · 内容主笔与文案运营 三轮十阶自演进升级交付报告
 
 > **目标智能体**：`D:\蛙蛙呱呱\蛙蛙呱呱agents团\r11-wadianti-copy`  
-> **指导规范**：[D:\蛙蛙呱呱\SOP_AGENT_EVOLUTION_UNIVERSAL.md](file:///D:/蛙蛙呱呱/SOP_AGENT_EVOLUTION_UNIVERSAL.md) (v9.0)  
+> **指导规范**：[D:\蛙蛙呱呱\SOP_AGENT_EVOLUTION_UNIVERSAL.md](#D:/蛙蛙呱呱/SOP_AGENT_EVOLUTION_UNIVERSAL.md) (v9.0)  
 > **执行调度引擎**：`workflow` 调度器驱动三轮多阶段自动化分布式演化工作流 (`r11-sop-3-rounds-evolution`) + `auto_evolve_runner.py` 物理状态机执行器  
 > **双轨回归门禁**：  
 > - 原有端到端基准回归套件：**88 / 88 ALL GREEN (100% PASS)**  
@@ -46,7 +46,7 @@
 | **第 1 轮<br>执行基石** | **L01<br>工具实体层** | **文案沙箱与确定性排版精算** | 排版纠错、字数统计与敏感词检测依赖简单正则或 print，无真实文本 AST 与格式校验 | **textlint / reviewdog / vale** (Stars > 5k) | 构建 `engines/copy_runtime_engine.py`：实现盘古空格、全半角纠错、阅读时长精算与健康探测探针 | `agent.py evolve probe`<br>健康状态: `healthy`<br>双轨门禁: **PASS** |
 | ^ | **L02<br>意图解构层** | **复合运营意图解构与 Kahn DAG** | 面对“写一篇长文并分发小红书/知乎提炼爆款标题”等复合意图无法自动编排依赖拓扑 | **DSPy / Ray DAG** (Stars > 20k) | 构建 `engines/intent_compiler.py`：编译包含【选题/受众/钩子提纲/正文/分发】5步 Kahn DAG 与工时估算 | `agent.py evolve decompile`<br>拓扑节点: 5 节点 DAG<br>双轨门禁: **PASS** |
 | ^ | **L03<br>自愈反思层** | **合规红线门禁与闭环自愈反思** | 遇到广告法极限词、未授权发布指令或缺少核心 CTA 时直接报错或把垃圾丢给人类 | **Reflexion / Critic-Agent** (Stars > 40k) | 构建 `engines/copy_reflexive_healer.py`：硬拦截未授权发布与极限词，自愈补全黄金3秒钩子与行动号召 | `CopyReflexiveHealer`<br>自愈率: 100%<br>双轨门禁: **PASS** |
-| **第 2 轮<br>专业深度** | **L04<br>领域账本层** | **文案业务规格单一信任源 (SSOT)** | 全平台字数上下限、标题字数、SEO密度、反作弊规则分散硬编码在代码中，多轮易漂移 | **Productboard / StyleGuide / dbt MetricFlow** (Stars > 15k) | 构建 [COPY_SPEC.md](file:///D:/蛙蛙呱呱/蛙蛙呱呱agents团/r11-wadianti-copy/COPY_SPEC.md) + `engines/copy_spec_ledger.py`：动态解析 8 维发布硬门禁与平台矩阵 | `agent.py evolve spec`<br>8 维门禁全量校验<br>双轨门禁: **PASS** |
+| **第 2 轮<br>专业深度** | **L04<br>领域账本层** | **文案业务规格单一信任源 (SSOT)** | 全平台字数上下限、标题字数、SEO密度、反作弊规则分散硬编码在代码中，多轮易漂移 | **Productboard / StyleGuide / dbt MetricFlow** (Stars > 15k) | 构建 [COPY_SPEC.md](COPY_SPEC.md) + `engines/copy_spec_ledger.py`：动态解析 8 维发布硬门禁与平台矩阵 | `agent.py evolve spec`<br>8 维门禁全量校验<br>双轨门禁: **PASS** |
 | ^ | **L05<br>质感去劣化** | **去 AI 塑料感与 Actionability 打分** | 充斥“总而言之”、“毋庸置疑”、“随着科技飞速发展”等假大空废话与无源抒情 | **reviewdog / Vale / StyleGuide** (Stars > 10k) | 构建 `engines/copy_slop_guard.py`：物理拦截清洗假大空词库，计算 Slop 扣分并置换为量化事实行动 | `agent.py evolve slop`<br>置换率: 100%<br>双轨门禁: **PASS** |
 | ^ | **L06<br>横向决策层** | **多维风格版本裂变与 ROI 看板** | 文案交付一锤子买卖，人类只能被动接受单一风格，缺乏横向权衡对比机制 | **Stylescapes / Scenario Planning / MCDA** (Stars > 5k) | 构建 `engines/scenario_matrix.py`：自动裂变【极简数据流 / 故事共鸣流 / 爆款转化流】三维方案与 ROI 矩阵 | `agent.py evolve scenario`<br>裂变 3 套风格对比<br>双轨门禁: **PASS** |
 | **第 3 轮<br>工业交付** | **L07<br>伴生消费层** | **机器可消费资产包与 SARIF 规范** | 产物仅纯 Markdown 文本，下游 CMS、自动化分发引擎与 CI/CD 质量门禁无法机器消费 | **OASIS SARIF v2.1.0 / Content-AST** (Stars > 10k) | 构建 `engines/asset_bundle.py`：伴随导出 `content_bundle.json`、`copy_audit.sarif.json` 与分发元数据 | `agent.py evolve bundle`<br>导出标准 SARIF/JSON<br>双轨门禁: **PASS** |

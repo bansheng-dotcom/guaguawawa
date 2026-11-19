@@ -67,6 +67,7 @@ def main() -> int:
     rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                    "--intent", "内蒙古三城水果市场调研",
                    "--dir", str(PIPE), "--out", str(out_a),
+                   "--layout", "paper",
                    "--quote-mode", "off"])
     print(f"[2] run-line(调研) rc={rc}")
     if rc:
@@ -83,6 +84,7 @@ def main() -> int:
     rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                    "--intent", "内蒙古三城水果经营分析",
                    "--dir", str(PIPE), "--out", str(out_b),
+                   "--layout", "paper",
                    "--quote-mode", "off"])
     print(f"[3] run-line(经营) rc={rc}")
     if rc:
@@ -137,9 +139,10 @@ def main() -> int:
         print(f"[6] SKIP(v7-market) :: 缺样本目录 {src_v7.name}")
         env.append("v7-sample-missing")
     else:
-        rc, out = run([sys.executable, "guagua.py", "report", "produce",
+        rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                        "--intent", "内蒙古家居百货市场调研",
                        "--dir", str(src_v7),
+                       "--layout", "paper",
                        "--out", str(out_v7)])
         print(f"[6] flow(v7-market) rc={rc}")
         if rc:
@@ -216,9 +219,10 @@ def main() -> int:
                             ("ops", "内蒙古三城水果经营分析"),
                             ("risk", "内蒙古三城水果：停采换源与止损")):
             out_c = OUT / f"decision_{tag}"
-            rc, out = run([sys.executable, "guagua.py", "report", "decide",
+            rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                            "--intent", intent,
                            "--dir", str(src_fruit), "--out", str(out_c),
+                           "--layout", "paper",
                            "--quote-mode", "off",
                            "--audience", "水果品类经营负责人"])
             dec = out_c / "decision.json"
@@ -272,6 +276,106 @@ def main() -> int:
     if rc:
         fails.append("dead-code")
         print(out)
+
+    # [19] 收敛门禁（2026-11-19 接入）：同一件事不许第二次新建。
+    # 既有违规冻结在 .convergence-baseline.json（只允许下降）；新增违规直接红。
+    rc, out = run([sys.executable, "scripts/check_convergence.py",
+                   "--baseline", ".convergence-baseline.json"])
+    tail19 = [l for l in out.strip().splitlines() if "PASS" in l or "FAIL" in l]
+    print(f"[19] convergence rc={rc} :: {tail19[-1] if tail19 else out.strip()[:80]}")
+    if rc:
+        fails.append("convergence")
+        print(out)
+
+    # [20] 专家卡漂移：experts.yaml 必须等于生成器重算结果（防 phantom 方法让专家永远 blocked）
+    rc, out = run([sys.executable, "scripts/gen_experts.py", "--check"])
+    print(f"[20] experts-drift rc={rc} :: {out.strip().splitlines()[-1] if out.strip() else ''}")
+    if rc:
+        fails.append("experts-drift")
+
+    # [21] 默认版式 flow：同一份输入用默认 layout 出一份，验「连续流 + 文笔门禁记录」。
+    #      版式回归基线仍走 paper（上面 [2][3][6][14] 显式钉住），这里只验默认入口没坏。
+    out_f = OUT / "flow_default"
+    rc, out = run([sys.executable, "guagua.py", "report", "run-line",
+                   "--intent", "内蒙古三城水果市场调研",
+                   "--dir", str(PIPE), "--out", str(out_f),
+                   "--layout", "flow",
+                   "--quote-mode", "off"])
+    html_f = out_f / "report.html"
+    man_f = out_f / "manifest.json"
+    flow_ok = False
+    if html_f.exists() and man_f.exists():
+        h = html_f.read_text(encoding="utf-8", errors="replace")
+        m = json.loads(man_f.read_text(encoding="utf-8"))
+        flow_ok = ("flow-block" in h and 'class="page ' not in h
+                   and "flow_gate" in m and bool(m.get("files", {}).get("html")))
+    print(f"[21] flow-render rc={rc} :: flow={'OK' if flow_ok else 'MISSING'}")
+    if rc or not flow_ok:
+        fails.append("flow-render")
+        print("   ", out.strip()[-200:])
+
+    # [22] 项目化 flow：模板复制即用；并验 --prose-hard 真的会拦（先证后文闭环）
+    import shutil
+    tmpl = ROOT / "templates" / "flow-report"
+    proj = OUT / "flow_project"
+    if proj.exists():
+        shutil.rmtree(proj, ignore_errors=True)
+    shutil.copytree(tmpl, proj)
+    rc, out = run([sys.executable, "guagua.py", "report", "flow",
+                   "--project", str(proj), "--out", str(proj / "out"),
+                   "--pdf", "--no-specs", "--no-prose-hard"])
+    h = proj / "out" / "report.html"
+    p = proj / "out" / "report.pdf"
+    ok22 = rc == 0 and h.exists() and p.exists()
+    # 硬门禁：同一份短报告加 --prose-hard 必须判 BLOCK，且 manifest 与退出码一致
+    rc_h, _ = run([sys.executable, "guagua.py", "report", "flow",
+                   "--project", str(proj), "--out", str(proj / "out_hard"),
+                   "--no-specs", "--prose-hard"])
+    man_h = proj / "out_hard" / "flow_manifest.json"
+    hard_ok = False
+    if man_h.exists():
+        mh = json.loads(man_h.read_text(encoding="utf-8"))
+        hard_ok = (bool(mh.get("ok")) == (rc_h == 0)) and mh.get("prose_hard") is True
+    print(f"[22] flow-project rc={rc} :: html={h.exists()} pdf={p.exists()} "
+          f"prose-hard rc={rc_h} consistent={hard_ok}")
+    if not ok22 or not hard_ok:
+        fails.append("flow-project")
+        print("   ", out.strip()[-200:])
+
+    # [23] 门禁统一：r04 的页数必须读 PDF 实际页数（flow 没有 class="page" 也能判）
+    covd = OUT / "flow_project" / "coverage"
+    covd.mkdir(parents=True, exist_ok=True)
+    (covd / "task_frame.json").write_text(json.dumps(
+        {"units": [{"id": "U1", "name": "示例"}],
+         "dimensions": [{"id": "D1", "name": "数据"}], "maps": []},
+        ensure_ascii=False), encoding="utf-8")
+    (covd / "coverage_plan.json").write_text(json.dumps(
+        {"core_units": ["U1"], "depth": {"U1": "deep"}, "page_floor": 5,
+         "cells": [{"unit": "U1", "dimension": "D1", "status": "verified",
+                    "sources": ["S1"]}], "charts": []},
+        ensure_ascii=False), encoding="utf-8")
+    (covd / "source_ledger.json").write_text(json.dumps(
+        {"sources": [{"id": "S1", "url": "https://example.com", "quote": "x"}]},
+        ensure_ascii=False), encoding="utf-8")
+    r04_json = covd / "r04_gate.json"
+    run([sys.executable, "-m", "core.r04_audit",
+         "--frame", str(covd / "task_frame.json"),
+         "--plan", str(covd / "coverage_plan.json"),
+         "--sources", str(covd / "source_ledger.json"),
+         "--html", str(OUT / "flow_project" / "out" / "report.html"),
+         "--pdf", str(OUT / "flow_project" / "out" / "report.pdf"),
+         "--min-pages", "5", "--json", str(r04_json)])
+    ok23 = False
+    det: dict = {}
+    if r04_json.exists():
+        g = json.loads(r04_json.read_text(encoding="utf-8"))
+        lay = next((l for l in g.get("layers") or [] if l["layer"] == "layout"), {})
+        det = lay.get("detail") or {}
+        ok23 = (det.get("source") == "pdf" and det.get("pages", 0) >= 5
+                and bool(lay.get("ok")))
+    print(f"[23] gate-unify :: pdf-pages={det.get('pages')} source={det.get('source')}")
+    if not ok23:
+        fails.append("gate-unify")
 
     if env:
         print(f"\n环境未就绪（不计入失败）：{', '.join(env)}")

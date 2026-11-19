@@ -1,0 +1,165 @@
+{
+  "core_units": [
+    "U1",
+    "U2",
+    "U3",
+    "U4",
+    "U5",
+    "U6"
+  ],
+  "cells": [
+    {
+      "unit": "U1",
+      "dimension": "D1",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U1",
+      "dimension": "D2",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U1",
+      "dimension": "D3",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U2",
+      "dimension": "D1",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U2",
+      "dimension": "D2",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U2",
+      "dimension": "D3",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U3",
+      "dimension": "D1",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U3",
+      "dimension": "D2",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U3",
+      "dimension": "D3",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U4",
+      "dimension": "D1",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U4",
+      "dimension": "D2",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U4",
+      "dimension": "D3",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U5",
+      "dimension": "D1",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U5",
+      "dimension": "D2",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U5",
+      "dimension": "D3",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U6",
+      "dimension": "D1",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U6",
+      "dimension": "D2",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    },
+    {
+      "unit": "U6",
+      "dimension": "D3",
+      "status": "verified",
+      "sources": [
+        "S"
+      ]
+    }
+  ],
+  "depth": {
+    "U1": "deep",
+    "U2": "deep",
+    "U3": "deep",
+    "U4": "deep",
+    "U5": "deep",
+    "U6": "deep"
+  },
+  "charts": []
+}

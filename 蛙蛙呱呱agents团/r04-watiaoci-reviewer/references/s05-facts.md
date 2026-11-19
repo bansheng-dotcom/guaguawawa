@@ -1,4 +1,4 @@
-﻿# S05 事实核查（check / trace）
+# S05 事实核查（check / trace）
 > 蒸馏自: 补充技能/01-当前能力域/open-gsd__gsd-core/skills/fact-check/SKILL.md
 >
 

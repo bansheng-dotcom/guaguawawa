@@ -1,4 +1,4 @@
-﻿# s02 Spec 转仓库（scaffold / spec）方法论
+# s02 Spec 转仓库（scaffold / spec）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/engineering/architecture/SKILL.md
 >
 

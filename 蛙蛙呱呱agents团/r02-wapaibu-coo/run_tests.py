@@ -25,6 +25,8 @@ sys.path.insert(0, AGENTS)
 sys.path.insert(0, AGENT_DIR)
 
 from core.workspace import default_root as _default_root  # noqa: E402
+from skills import SKILLS  # noqa: E402
+import contracts  # noqa: E402
 
 EXAMPLES = os.path.join(AGENT_DIR, "examples")
 PY = sys.executable
@@ -87,7 +89,7 @@ def main() -> int:
     m = r["data"]
     ok("manifest 退出码 0", r["code"] == 0)
     ok("manifest role=r02", m.get("role") == "r02", str(m.get("role")))
-    ok("manifest 7 个技能", len(m.get("skills", [])) == 7,
+    ok(f"manifest {len(SKILLS)} 个技能（动态）", len(m.get("skills", [])) == len(SKILLS),
        str(len(m.get("skills", []))))
     ok("manifest 每技能 3 动作",
        all(len(s.get("actions", [])) == 3 for s in m.get("skills", [])))
@@ -422,9 +424,11 @@ def main() -> int:
     print("== 10. contract 契约 ==")
     r = run_agent(["contract", "list"])
     cl = r["data"]
-    ok("contract 7 技能", len(cl.get("skills", [])) == 7)
-    ok("contract 21 动作",
-       sum(len(v) for v in cl.get("actions", {}).values()) == 21)
+    ok(f"contract {len(contracts.list_skills())} 技能（动态）",
+       len(cl.get("skills", [])) == len(contracts.list_skills()))
+    ok("contract 动作数与登记表一致",
+       sum(len(v) for v in cl.get("actions", {}).values()) ==
+       sum(len(contracts.list_actions(s)) for s in contracts.list_skills()))
     r = run_agent(["contract", "validate", "schedule", "sprint",
                    "--data-json", json.dumps({"ok": True, "checks": [],
                                              "schedule": [], "end_date": "x",
@@ -512,8 +516,8 @@ def main() -> int:
     r = run_agent(["run", "--task", tid])
     ok("run_task 路由 schedule 并产出工件", r["code"] == 0
        and r["data"].get("skill") == "schedule", str(r["data"]))
-    art = os.path.join(_default_root(), f"artifacts/r02/{tid}/coo_report.md")
-    ok("run_task 工件落盘", os.path.isfile(art))
+    art = os.path.join(_default_root(), "artifacts", tid, "result.json")
+    ok("run_task 工件落盘（result.json，唯一出口）", os.path.isfile(art), art)
     r = run_agent(["harness", "runlog"])
     runs = r["data"].get("runs", [])
     ok("runlog 留痕可观测", any(x.get("role") == "r02" for x in runs),

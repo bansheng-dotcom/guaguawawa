@@ -1,4 +1,4 @@
-﻿---
+---
 name: brand-guardian
 description: 品牌一致性守卫技能包。把「这套物料还是不是我们」变成可校验的比对：产物用色必须落在 DESIGN.md 令牌内、单页主色数量受限、文本前景/背景对比度达标、字体不超过规定数量，越界即拦。当需要检查物料是否偏离品牌、审新页面前是否合规、或判断一次改版有没有偷偷改色改字体时使用。不负责设计令牌本身（见 design-system）、不做视觉评审与审美判断、不做广告法合规扫描。
 license: MIT
@@ -13,6 +13,8 @@ metadata:
   consumers: "r11,r14,r09"
   supersedes: "README.md"
 ---
+
+<!-- 本文件由 scripts/sync_dsh_skills.py 生成，请勿手改；改源包后重跑同步 -->
 
 # 品牌一致性守卫（Brand Guardian）
 

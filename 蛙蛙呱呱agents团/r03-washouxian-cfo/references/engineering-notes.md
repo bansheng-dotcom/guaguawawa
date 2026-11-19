@@ -1,4 +1,4 @@
-﻿# R03 蛙守线（CFO / 财务合规官）
+# R03 蛙守线（CFO / 财务合规官）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__financial-services/month-end-closer/SKILL.md
 >
 

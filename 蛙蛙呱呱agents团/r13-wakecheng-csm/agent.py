@@ -84,9 +84,27 @@ def _load_intent_routes():
 _INTENT_ROUTES = _load_intent_routes()
 
 
+
+# --------------------------------------------------------------------------- #
+# 能力三态（real / simulated / blocked）
+# 外部系统副作用必须逐技能声明，不允许用默认值「一键覆盖」——
+# 否则支付、ERP 写入、对外发布都会被标成真跑过。
+# --------------------------------------------------------------------------- #
+DEFAULT_CAPABILITY = 'real'
+_SKILL_CAPABILITY = {'automation': 'blocked', 'support': 'simulated'}
+
+
+def _capability_status(skill: str, action: str = "") -> str:
+    key = f"{skill}.{action}" if action else ""
+    return (_SKILL_CAPABILITY.get(key)
+            or _SKILL_CAPABILITY.get(str(skill))
+            or DEFAULT_CAPABILITY)
+
+
 def emit_result(data: Dict[str, Any]) -> None:
-    data.setdefault("capability_status", "real")
-    data.setdefault("capability_evidence", "local records inspected")
+    if isinstance(data, dict) and not data.get("error"):
+        data.setdefault("capability_status", "real")
+        data.setdefault("capability_evidence", "local records inspected")
     c.emit(data)
 
 
@@ -297,7 +315,7 @@ def run_task(task_id: str) -> Dict[str, Any]:
     merged["input"] = in_file
 
     result = mod.run(_mkns(**merged))
-    result.setdefault("capability_status", "real")
+    result.setdefault("capability_status", _capability_status(skill_name, action))
     result.setdefault("capability_evidence", "local records inspected")
     result["task_id"] = task_id
     result["skill"] = skill_name
@@ -320,18 +338,6 @@ def run_task(task_id: str) -> Dict[str, Any]:
     ws.emit(protocol.Event.now(ROLE, "task_finished", task_id,
                                {"outputs": [p.name for p in outputs]}))
     return result
-
-
-def _write_report(result: Dict[str, Any], title: str, path: str) -> None:
-    lines = [f"# {title}", ""]
-    for k, v in result.items():
-        if k in ("checks",):
-            continue
-        lines += [f"## {k}", "", "```json",
-                  json.dumps(v, ensure_ascii=False, indent=2), "```", ""]
-    lines += ["## 门禁", "", "```json",
-              json.dumps(result.get("checks", []), ensure_ascii=False, indent=2), "```"]
-    c.write_text(path, "\n".join(lines))
 
 
 def _route(intent: str):
@@ -411,8 +417,9 @@ def main() -> int:
         emit_result({"demo_artifacts": make_demo(artifacts)})
         return 0
     if args.skill == "run":
-        emit_result(run_task(args.task))
-        return 0
+        _run_out = run_task(args.task)
+        emit_result(_run_out)
+        return 0 if (_run_out.get("ok") is not False and not _run_out.get("error")) else 1
     if args.skill == "clarify":
         return clarify_cli(ROLE, args.intent)
     if args.skill == "local-crm-csv":

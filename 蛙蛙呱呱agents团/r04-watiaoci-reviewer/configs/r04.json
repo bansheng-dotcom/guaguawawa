@@ -4,23 +4,7 @@
   "language": "zh",
   "enable_cache": true,
   "enable_vector": false,
-  "report": {
-    "engine": "agents/shared/report_engine.py",
-    "generator": "agents/shared/report_generator.py",
-    "doc_type": "Reviewer / 对抗质检",
-    "formats": [
-      "html",
-      "md"
-    ],
-    "sections": [
-      "决策指令",
-      "KPI 格栅",
-      "三级归因",
-      "护栏熔断",
-      "灰度+下一步"
-    ]
-  },
-  "kpis": [
+"kpis": [
     {
       "id": "l2_completeness",
       "name": "L2 实质性证据完备度",

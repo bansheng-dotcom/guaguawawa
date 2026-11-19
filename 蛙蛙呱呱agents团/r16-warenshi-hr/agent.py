@@ -91,6 +91,21 @@ def _load_intent_routes():
 _INTENT_ROUTES = _load_intent_routes()
 
 
+
+# --------------------------------------------------------------------------- #
+# 能力三态（real / simulated / blocked）：未声明的技能用角色默认值
+# --------------------------------------------------------------------------- #
+DEFAULT_CAPABILITY = 'real'
+_SKILL_CAPABILITY = {'payroll': 'real'}
+
+
+def _capability_status(skill: str, action: str = "") -> str:
+    key = f"{skill}.{action}" if action else ""
+    return (_SKILL_CAPABILITY.get(key)
+            or _SKILL_CAPABILITY.get(str(skill))
+            or DEFAULT_CAPABILITY)
+
+
 def emit_result(data: Dict[str, Any]) -> None:
     c.emit(data)
 
@@ -314,18 +329,6 @@ def run_task(task_id: str) -> Dict[str, Any]:
     return result
 
 
-def _write_report(result: Dict[str, Any], title: str, path: str) -> None:
-    lines = [f"# {title}", ""]
-    for k, v in result.items():
-        if k in ("checks",):
-            continue
-        lines += [f"## {k}", "", "```json",
-                  json.dumps(v, ensure_ascii=False, indent=2), "```", ""]
-    lines += ["## 门禁", "", "```json",
-              json.dumps(result.get("checks", []), ensure_ascii=False, indent=2), "```"]
-    c.write_text(path, "\n".join(lines))
-
-
 def _route(intent: str):
     low = intent.lower()
     for kws, skill, action, defaults in _INTENT_ROUTES:
@@ -411,8 +414,9 @@ def main() -> int:
         emit_result({"demo_artifacts": make_demo(artifacts)})
         return 0
     if args.skill == "run":
-        emit_result(run_task(args.task))
-        return 0
+        _run_out = run_task(args.task)
+        emit_result(_run_out)
+        return 0 if (_run_out.get("ok") is not False and not _run_out.get("error")) else 1
     if args.skill == "clarify":
         return clarify_cli(ROLE, args.intent)
     if args.skill == "harness":
@@ -510,8 +514,7 @@ def main() -> int:
     result = SKILL_BY_NAME[args.skill].run(args)
     elapsed = int((time.time() - t0) * 1000)
     result = {"result": result} if not isinstance(result, dict) else result
-    result.setdefault("capability_status", "real")
-    result.setdefault("report", {"capability_status": result["capability_status"]})
+    result.setdefault("capability_status", _capability_status(args.skill, getattr(args, "action", None)))
     ok = bool(result.get("ok", True))
     ws.log_run(ROLE, {"skill": args.skill,
                       "action": getattr(args, "action", None),

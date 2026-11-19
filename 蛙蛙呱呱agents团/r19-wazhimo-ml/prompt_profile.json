@@ -1,7 +1,7 @@
 {
   "role_id": "r19",
   "domain": "模型工程与 AI 评估",
-  "max_questions": 3,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -253,6 +253,9 @@
     ],
     "modelcard.asset": [
       "topic",
+      "input"
+    ],
+    "eval-ci.run": [
       "input"
     ]
   },

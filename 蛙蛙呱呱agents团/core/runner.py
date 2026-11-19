@@ -65,4 +65,9 @@ def invoke(role_id: str, argv: List[str], cwd: Optional[str] = None,
             result["json"] = json.loads(line[len(marker):])
         except json.JSONDecodeError:
             result["json"] = {"raw": line[len(marker):]}
+    js = result.get("json")
+    if isinstance(js, dict) and "ok" not in js:
+        # 角色不写 ok 时按退出码判定（2026-11-19 体检：调用方原先默认成成功，
+        # R06 从不输出 ok，于是失败也会被记成成功）。没输出 JSON 也算没成功。
+        js["ok"] = bool(proc.returncode == 0 and not js.get("error"))
     return result

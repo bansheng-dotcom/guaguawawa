@@ -1,4 +1,4 @@
-﻿# S02 CFO 经营诊断
+# S02 CFO 经营诊断
 > 蒸馏自: 补充技能/01-当前能力域/alirezarezvani__claude-skills/cfo-advisor/SKILL.md
 >
 

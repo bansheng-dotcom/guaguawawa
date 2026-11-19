@@ -1,7 +1,7 @@
 {
   "role_id": "r10",
   "domain": "视觉设计",
-  "max_questions": 3,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -361,6 +361,30 @@
     "imgops.watermark": [
       "topic",
       "platform"
+    ],
+    "imagegen.admit": [
+      "input"
+    ],
+    "imagegen.catalog": [
+      "input"
+    ],
+    "imagegen.compose": [
+      "input"
+    ],
+    "imagegen.engines": [
+      "input"
+    ],
+    "imagegen.inspire": [
+      "input"
+    ],
+    "imagegen.pack": [
+      "input"
+    ],
+    "imagegen.refs": [
+      "input"
+    ],
+    "imagegen.score": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [

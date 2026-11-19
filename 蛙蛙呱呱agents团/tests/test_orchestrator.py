@@ -76,3 +76,21 @@ def test_readiness_uses_method_plan():
     assert full["readiness"] == 1.0
     assert none["readiness"] == 0.0
     assert "price.series2" in none["missing"]
+
+
+def test_role_without_methods_is_review_only_not_selected():
+    """无方法的角色不许进数据 roster（2026-11-19 体检：它会被选中却答不了）。
+
+    旧病：r11/r19/r03 readiness=1.0 → 选中 → 出题 0 个 → 静默回退数据题库。
+    新规矩：标 review_only + blocked；命中的专家全答不了 → 整份 unbound。
+    """
+    ex = O.load_experts()["roles"]["r11"]
+    assert not ex["methods"], "r11 若新增了方法，这条用例要改成换一个无方法角色"
+    d = O.plan("小红书笔记怎么写才能带货",
+               method_plan=_method_plan(mounted=["structure", "trajectory"]))
+    rows = {r["role"]: r for r in d["rows"]}
+    assert rows["r11"]["status"] == "blocked"
+    assert rows["r11"].get("review_only") is True
+    assert rows["r11"]["why"].startswith("该角色没有可进报告的方法")
+    assert d["mode"] == "unbound"
+    assert "r11" in d["reason"]

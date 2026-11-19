@@ -1,4 +1,4 @@
-﻿# s07 服务知识与升级（faq / escalation）方法论
+# s07 服务知识与升级（faq / escalation）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/customer-support/kb-article/SKILL.md
 >
 

@@ -13,7 +13,7 @@
 1. **第 1 轮大升级：执行基石阶段（L01 ~ L03）** —— 长出真实代码 AST 沙箱探针、自然语言工程意图解构与 Kahn DAG 拓扑编译、反思自愈与三大不可逾越红线阻断。
 2. **第 2 轮大升级：专业深度阶段（L04 ~ L06）** —— 构建领域工程规格账本 `ENG_SPEC.md` (SSOT)、去虚假占位与工程套话清洗器 `SlopGuard`、三维技术选型与 ROI 权衡矩阵看板。
 
-状态机打卡已落盘至 [evolution_state.json](workspace/evolution_state.json)，当前已完成轮次：**[Round 1, Round 2, Round 3, Round 4, Round 5, Round 6]** 全部绿色通过。
+状态机打卡已落盘至 [evolution_state.json](#workspace/evolution_state.json)，当前已完成轮次：**[Round 1, Round 2, Round 3, Round 4, Round 5, Round 6]** 全部绿色通过。
 
 ---
 
@@ -119,4 +119,4 @@
 3. **自动化调度与集成测试**：
    - [auto_evolve_runner.py](auto_evolve_runner.py)：十维演进自动化调度执行器
    - [test_evolution_l01_l06.py](tests/test_evolution_l01_l06.py)：十维元模型配套双轨集成测试套件
-   - [evolution_state.json](workspace/evolution_state.json)：自动化打卡轨迹与持久化状态机
+   - [evolution_state.json](#workspace/evolution_state.json)：自动化打卡轨迹与持久化状态机

@@ -196,7 +196,7 @@ class Skills:
         except Exception as exc:  # noqa: BLE001  技能失败只降级，不伪造
             js = {"ok": False, "error": f"{type(exc).__name__}: {exc}"}
         self.runs.append({"role": role, "skill": skill, "action": action,
-                          "args": list(args or []), "ok": bool(js.get("ok", True)),
+                          "args": list(args or []), "ok": bool(js.get("ok", False)),
                           "result": js})
         self._cache[key] = js
         return js

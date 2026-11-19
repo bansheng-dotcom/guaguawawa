@@ -1,7 +1,7 @@
 {
   "role_id": "r07",
   "domain": "产品管理",
-  "max_questions": 3,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -420,7 +420,10 @@
       "topic",
       "audience"
     ],
-    "prdguard.render": []
+    "prdguard.render": [],
+    "rice.run": [
+      "input"
+    ]
   },
   "l2_prompt_blocks": [
     {

@@ -1,0 +1,107 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "id": "derived_ok",
+      "ok": true,
+      "msg": "派生量公式可算、声明值与实算一致",
+      "fail": []
+    },
+    {
+      "id": "pack_present",
+      "ok": true,
+      "msg": "证据包里有数字",
+      "count": 238
+    },
+    {
+      "id": "standfirst_number",
+      "ok": true,
+      "msg": "导语必须是带数字的结论"
+    },
+    {
+      "id": "has_sections",
+      "ok": true,
+      "msg": "至少 3 节"
+    },
+    {
+      "id": "sections_valid",
+      "ok": true,
+      "msg": "每节标题带数、有 refs、数字可解释、图带来源",
+      "sections": [
+        {
+          "index": 1,
+          "title": "进入判断：三条路径里，只有轻资产服务能绕开 900 天周转",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 2,
+          "title": "产量 354.9 万千升、只剩 2016 年的 26.13%：缩量不可逆",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 3,
+          "title": "CR6 拿走 87.6% 营收、86% 利润：格局已经锁定",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 4,
+          "title": "飞天散瓶批价 1485 元、倒挂覆盖 60%：价格体系已经失守",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 5,
+          "title": "存货周转 900 天、成品酒库存增 45.18%：渠道已经吃不下更多货",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 6,
+          "title": "毛利率 91.23% 对 74.85%：高端酒与区域酒的盈利模型不是一回事",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 7,
+          "title": "出厂 1169 元、批价 1500 元：链路加价 28.31%，倒挂落在 1019 元的普五",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 8,
+          "title": "线上 300 亿元只占 5.0%：酒水的渠道迁移比想象中慢",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 9,
+          "title": "税负：白酒消费税 20.1%，是葡萄酒 10.0% 的两倍；600 元一瓶先缴 120.5 元",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 10,
+          "title": "合规：广告违规 10 万元起、最高 100 万元，吊证 5 年禁入——红线高于税负",
+          "ok": true,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "banned_words",
+      "ok": true,
+      "msg": "禁用词清零",
+      "fail": []
+    },
+    {
+      "id": "boundary",
+      "ok": true,
+      "msg": "至少写一处边界"
+    }
+  ],
+  "sections": 10,
+  "runtime_ms": 33
+}

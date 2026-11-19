@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-"""report_kernel · 版式与写作门禁（唯一实现）。
+"""report_kernel · 报告质量内核。
 
-2026-11-15 产线收敛后，内核只剩「结构门禁」这一件事：
-  - 四条版式硬规则 R1—R4（首屏无分数 / 末节口径与分数 / 附录折叠 / 无重复章节）
-  - 四条写作判据（指标带业务化 / 每节带数字 / 结论带数字 / 字段回显）
-
-spec / layers / aggregate / guard 已随 20 角色报告产线一并删除；
-报告只剩一条产线（core/report_flow.py），由 R01 出具。
+2026-11-15 产线收敛后，内核只做「结构与写作门禁」；
+2026-11-16 增加四件默认动作，解决「能力有、交付不用」的最后一公里：
+  - contract：开工前的验收契约（读者/决策/问题/截止/档位/签字）
+  - specs：表/图规格推断（单位、对齐、涨跌色、合计行、参考线）
+  - consistency：跨报告数字登记与冲突检查
+  - series：趋势 ≥12 期、跨时点必须对齐
+  - gate：交付门禁（契约/档位/深度/图卡/单位/manifest/来源/一致性）
 """
 from . import structure  # noqa: F401
+from . import contract, specs, consistency, series  # noqa: F401
 
-__all__ = ["structure"]
+__all__ = ["structure", "contract", "specs", "consistency", "series"]

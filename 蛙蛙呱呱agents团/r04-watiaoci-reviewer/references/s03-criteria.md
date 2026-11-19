@@ -1,4 +1,4 @@
-﻿# S03 外置验收判据（review / delta）
+# S03 外置验收判据（review / delta）
 > 蒸馏自: 补充技能/01-当前能力域/petergyang__human-review/acceptance-criteria/SKILL.md
 >
 

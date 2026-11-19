@@ -1,4 +1,4 @@
-﻿# s02 Logo 与图标（logo / favicon）方法论
+# s02 Logo 与图标（logo / favicon）方法论
 > 蒸馏自: 补充技能/01-当前能力域/kaankiziltug__logo-design-skill/SKILL.md
 >
 

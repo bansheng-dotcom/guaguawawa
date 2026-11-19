@@ -1,6 +1,6 @@
 {
   "intent_routing": {
-    "required_questions_count": 6,
+    "required_questions_count": 8,
     "max_strategic_wave_months": 60
   },
   "decomposition": {
@@ -16,6 +16,6 @@
     "require_rejected_alternatives": true
   },
   "company_os": {
-    "max_scorecard_metrics": 5
+    "_note": "记分卡上下限见 experience/thresholds.json 的 scorecard_min/scorecard_max（单一出处）"
   }
 }

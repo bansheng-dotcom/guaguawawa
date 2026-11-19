@@ -24,10 +24,16 @@ class QualityAuditAdapter(BaseAdapter):
         findings = []
         score = {dim: 10 for dim in ["completeness", "uniqueness", "accuracy", "timeliness"]}
         
-        # 从外置配置中取规则阈值（如果没传，用默认值）
-        t_miss_fail = self.rule_config.get("missing_fail_pct", 10.0)
-        t_miss_warn = self.rule_config.get("missing_warn_pct", 5.0)
-        iqr_k = self.rule_config.get("outlier_iqr_k", 1.5)
+        # 阈值单一出处：experience/thresholds.json 的 quality 段（rule_config 只做覆盖）
+        try:
+            from . import _common as _c
+            base = _c.load_thresholds().get("quality", {})
+        except Exception:
+            base = {}
+        rule = {**base, **(self.rule_config or {})}
+        t_miss_fail = rule.get("missing_fail_pct", 30.0)
+        t_miss_warn = rule.get("missing_warn_pct", 5.0)
+        iqr_k = rule.get("outlier_iqr_k", 1.5)
         
         # 1. 真执行：计算缺失率 (Completeness)
         miss_s = df.isnull().sum()

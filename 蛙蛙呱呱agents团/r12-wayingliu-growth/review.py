@@ -52,8 +52,10 @@ def review_packet(packet: Dict[str, Any]) -> Dict[str, Any]:
         try:
             import contracts
             contracted = contracts.validate_output(skill, action, result)["ok"]
-        except Exception:
-            contracted = True
+        except Exception as exc:
+            # 校验器本身崩溃 ≠ 契约符合：按「不可确认」处理（FAIL），并留下证据
+            contracted = False
+            issues.append(f"契约校验异常：{type(exc).__name__}: {exc}"[:200])
     if not contracted:
         issues.append("契约不符（JSON Schema）")
     checks.append(c.ck(contracted, "契约符合（JSON Schema）", "review:contract"))

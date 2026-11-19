@@ -1,4 +1,4 @@
-﻿# 03 · 考勤与休假口径（attendance）
+# 03 · 考勤与休假口径（attendance）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/human-resources/policy-lookup/SKILL.md
 >
 

@@ -91,7 +91,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("14 个技能", len(m.get("skills", [])) == 14, str(len(m.get("skills", []))))
+    t.check(f"{len(SKILLS)} 个技能（动态）", len(m.get("skills", [])) == len(SKILLS), str(len(m.get("skills", []))))
     t.check("角色 r10", m.get("role") == "r10")
     t.check("输入端口 brand_brief/content",
             m.get("inputs") == ["brand_brief", "content"])
@@ -467,7 +467,8 @@ def main() -> int:
     r = s02_logo._validate_logo(logo)
     t.check("logo 干净通过", r["ok"])
     t.check("logo concept_count=3", r["concept_count"] == 3)
-    t.check("logo tests_passed=3", r["tests_passed"] == 3)
+    t.check("logo tests_passed≥4（16/32/64/128 四档）", r["tests_passed"] >= 4,
+            str(r["tests_passed"]))
     bad_logo = dict(logo); bad_logo["tests"] = {"16": True}
     t.check("logo 缺尺寸测试拦截", not s02_logo._validate_logo(bad_logo)["ok"])
     bad_logo2 = dict(logo); bad_logo2["colors"] = {"primary": "blue", "secondary": "yellow"}

@@ -69,3 +69,6 @@ workbuddy专家团/wawa-company-os/
 # 截图与分享包（产物，不入库）
 .screenshots/
 .trae-html-share-packages/
+
+# ---- 重构隔离区（P1 起：删除留档 / 基线快照，不入库）----
+蛙蛙呱呱agents团/_attic/

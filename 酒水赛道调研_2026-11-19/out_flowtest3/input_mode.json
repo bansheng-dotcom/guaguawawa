@@ -1,0 +1,8 @@
+{
+  "schema": "dsh.report.line/v1",
+  "mode": "agent",
+  "intent": "中国酒水赛道全景",
+  "evidence": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out_flowtest3\\_compiled\\evidence_pack.json",
+  "draft": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out_flowtest3\\_compiled\\draft_sections.json",
+  "detected_at": "2026-11-19T18:44:32"
+}

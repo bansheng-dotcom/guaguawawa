@@ -1,7 +1,7 @@
 {
   "role_id": "r18",
   "domain": "数据工程与管道",
-  "max_questions": 2,
+  "max_questions": 8,
   "execution_inputs": {
     "table": {
       "resolve": "task_port",
@@ -328,18 +328,11 @@
     ],
     "ops.request": [
       "scope"
+    ],
+    "profile.run": [
+      "dataset"
     ]
   },
-  "l2_prompt_blocks": [
-    {
-      "name": "分层与测试",
-      "template": "staging→intermediate→mart 三层不可越级；每层声明物化方式（view/table/incremental）；每张模型至少具备 unique / not_null / 枚举 三类测试之一。"
-    },
-    {
-      "name": "增量与回填",
-      "template": "增量必须声明水位字段与幂等口径；回填必须给出范围与重跑成本；DAG 必须无环，依赖显式声明。"
-    }
-  ],
   "output_contract": {
     "format": "md",
     "must_include": [

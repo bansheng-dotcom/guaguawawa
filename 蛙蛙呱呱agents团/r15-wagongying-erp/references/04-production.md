@@ -1,4 +1,4 @@
-﻿# 04 · 生产/服务资源口径（production）
+# 04 · 生产/服务资源口径（production）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/small-business/restock/SKILL.md
 >
 

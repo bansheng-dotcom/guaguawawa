@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """决策闸门自检：用正/反例 fixture 验证 harness.py 的门禁是否真的会拦住错误。
 

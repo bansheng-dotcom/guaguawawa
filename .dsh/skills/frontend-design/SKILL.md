@@ -1,4 +1,4 @@
-﻿---
+---
 name: frontend-design
 description: 前端界面设计技能包。把「这页面能用吗」拆成可判定的六件事：信息层级与视觉动线、间距与字号阶梯、色彩与对比度、组件状态覆盖（含空/错/加载/禁用）、响应式断点、可访问性（焦点/键盘/语义化）。当需要设计或评审一个 Web 界面、给前端写实现规格、或判断现有页面该先改哪里时使用。不负责写生产代码、不做品牌 VI 从零设计、不代替可用性测试。
 license: MIT
@@ -13,6 +13,8 @@ metadata:
   consumers: "r10,r08,r07"
   supersedes: "README.md"
 ---
+
+<!-- 本文件由 scripts/sync_dsh_skills.py 生成，请勿手改；改源包后重跑同步 -->
 
 # 前端界面设计（Frontend Design）
 

@@ -1,7 +1,7 @@
 {
   "role_id": "r09",
   "domain": "代码工程",
-  "max_questions": 3,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",

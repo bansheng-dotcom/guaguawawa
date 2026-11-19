@@ -1,4 +1,4 @@
-﻿# S04 工作质量批判与迭代收敛（critique / converge）
+# S04 工作质量批判与迭代收敛（critique / converge）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/engineering/code-review/SKILL.md
 >
 

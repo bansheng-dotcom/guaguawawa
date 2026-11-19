@@ -1,0 +1,20 @@
+{
+ "workstreams": [
+  {
+   "name": "TCO",
+   "data_source": "报价 + 运价",
+   "method": "TCO 对比",
+   "owner": "r15",
+   "output": "有效单位成本",
+   "fallback": "人工报价"
+  },
+  {
+   "name": "损耗",
+   "data_source": "温控记录",
+   "method": "损耗核算",
+   "owner": "r06",
+   "output": "损耗率区间",
+   "fallback": "行业区间"
+  }
+ ]
+}

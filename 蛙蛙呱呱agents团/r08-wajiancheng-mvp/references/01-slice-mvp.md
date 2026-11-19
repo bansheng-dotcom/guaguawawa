@@ -1,4 +1,4 @@
-﻿# s01 产品切片与 MVP（slice / mvp）方法论
+# s01 产品切片与 MVP（slice / mvp）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/product-management/roadmap-update/SKILL.md
 >
 

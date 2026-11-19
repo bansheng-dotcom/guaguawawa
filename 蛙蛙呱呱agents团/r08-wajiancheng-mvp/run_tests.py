@@ -106,7 +106,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("11 个技能", len(m.get("skills", [])) == 11, str(len(m.get("skills", []))))
+    t.check(f"{len(SKILLS)} 个技能（动态）", len(m.get("skills", [])) == len(SKILLS), str(len(m.get("skills", []))))
     t.check("角色 r08", m.get("role") == "r08")
     t.check("输入端口 prd/ui_brief", m.get("inputs") == ["prd", "ui_brief"])
 
@@ -244,7 +244,7 @@ def main() -> int:
 
     t.section("T6 契约")
     names = contracts.skill_names()
-    t.check("契约覆盖 11 技能", len(names) == 11, str(len(names)))
+    t.check(f"契约覆盖 {len(SKILLS)} 技能（动态）", len(names) == len(SKILLS), str(len(names)))
     v = contracts.validate_output("slice", "slice", s01_slice._validate_slice(slice_data))
     t.check("契约校验 slice 产出通过", v["ok"], str(v.get("errors")))
     t.check("契约校验非法产出拦截", not contracts.validate_output(

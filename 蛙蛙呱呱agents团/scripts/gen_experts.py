@@ -206,7 +206,7 @@ def build() -> Dict[str, Any]:
             "inputs": list(r.get("inputs") or []),
             "outputs": list(r.get("outputs") or []),
             "refuses": ROLE_REFUSES.get(rid, []),
-            "enters_report": rid not in {"r08", "r09", "r10", "r17"},
+            "enters_report": bool(r.get("enters_report", True)),
             "output_form": "finding（带数字的判断 + refs）" if mkeys else "review/judgement",
         }
     return {

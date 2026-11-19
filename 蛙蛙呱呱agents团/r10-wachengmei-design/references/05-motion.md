@@ -1,4 +1,4 @@
-﻿# s05 交互原型与动效（motion / motion·prototype）方法论
+# s05 交互原型与动效（motion / motion·prototype）方法论
 > 蒸馏自: 补充技能/01-当前能力域/LottieFiles__motion-design-skill/SKILL.md
 >
 

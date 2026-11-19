@@ -1,0 +1,24 @@
+{
+ "items": [
+  {
+   "path": "d:\\蛙蛙呱呱\\内蒙古水果三城调研_2026-11-16_pipeline\\out_chain\\report.html",
+   "type": "html",
+   "required": true
+  },
+  {
+   "path": "d:\\蛙蛙呱呱\\内蒙古水果三城调研_2026-11-16_pipeline\\out_chain\\report.md",
+   "type": "md",
+   "required": true
+  },
+  {
+   "path": "d:\\蛙蛙呱呱\\内蒙古水果三城调研_2026-11-16_pipeline\\out_chain\\evidence_pack.json",
+   "type": "json",
+   "required": true
+  },
+  {
+   "path": "d:\\蛙蛙呱呱\\内蒙古水果三城调研_2026-11-16_pipeline\\out_chain\\draft_sections.json",
+   "type": "json",
+   "required": true
+  }
+ ]
+}

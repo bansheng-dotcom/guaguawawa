@@ -1,7 +1,7 @@
 {
   "role_id": "r11",
   "domain": "内容创作",
-  "max_questions": 3,
+  "max_questions": 8,
   "execution_inputs": {
     "input": {
       "resolve": "task_port",
@@ -332,6 +332,9 @@
     "xhs.compliance": [
       "topic",
       "platform"
+    ],
+    "platform.visual": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [

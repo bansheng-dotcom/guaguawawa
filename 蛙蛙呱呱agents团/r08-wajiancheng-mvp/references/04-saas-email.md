@@ -1,4 +1,4 @@
-﻿# s04 SaaS 与邮件脚手架（saas / email）方法论
+# s04 SaaS 与邮件脚手架（saas / email）方法论
 > 蒸馏自: 补充技能/01-当前能力域/duncan-buildroom__freeskills/email-writer/SKILL.md
 >
 

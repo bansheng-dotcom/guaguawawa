@@ -206,7 +206,10 @@ def readiness(expert: Dict[str, Any], plan_obj: Dict[str, Any]) -> Dict[str, Any
     """
     keys = list(expert.get("methods") or [])
     if not keys:
-        return {"readiness": 1.0, "mounted": [], "skipped": [], "missing": [],
+        # 没有可进报告的方法 = 这份数据题它答不了（只能评审/人工交付）。
+        # 2026-11-19 体检：原来给 1.0 会让 r11/r19/r03 被选进数据 roster，
+        # 随后由 decision_report 静默回退数据题库 —— 问文案出水果报告。
+        return {"readiness": 0.0, "mounted": [], "skipped": [], "missing": [],
                 "no_methods": True}
     mounted = {m["key"] for m in (plan_obj.get("mounted") or [])}
     skipped = {s["key"]: list(s.get("missing") or []) for s in (plan_obj.get("skipped") or [])}
@@ -263,6 +266,10 @@ def plan(intent: str, experts: Optional[Dict[str, Any]] = None,
         elif rel["score"] < min_relevance:
             row["status"] = "excluded"
             row["why"] = f"意图相关度 {rel['score']} < {min_relevance}"
+        elif ready["no_methods"]:
+            row["status"] = "blocked"
+            row["review_only"] = True
+            row["why"] = "该角色没有可进报告的方法（只能评审/人工交付）"
         elif ready["readiness"] < min_readiness:
             row["status"] = "blocked"
             row["why"] = (f"数据齐备度 {ready['readiness']} < {min_readiness}；"
@@ -282,8 +289,13 @@ def plan(intent: str, experts: Optional[Dict[str, Any]] = None,
     elif blocked:
         mode = "unbound"
         miss = sorted({m for r in blocked for m in r["missing"]})
-        reason = ("意图命中的专家都答不了：缺 "
-                  + ("、".join(n for n in miss) if miss else "可进报告的数据"))
+        if miss:
+            reason = "意图命中的专家都答不了：缺 " + "、".join(miss)
+        elif all(r.get("review_only") for r in blocked):
+            reason = ("意图命中的专家只能评审/人工交付，没有可进报告的作答方法："
+                      + "、".join(f"{r['role']} {r['name']}" for r in blocked))
+        else:
+            reason = "意图命中的专家都答不了：缺 可进报告的数据"
     else:
         mode, reason = "data", "没有任何专家命中意图，退回数据驱动（auto）"
 

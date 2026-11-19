@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "id": "derived_ok",
+      "ok": true,
+      "msg": "派生量公式可算、声明值与实算一致",
+      "fail": []
+    },
+    {
+      "id": "pack_present",
+      "ok": true,
+      "msg": "证据包里有数字",
+      "count": 322
+    },
+    {
+      "id": "standfirst_number",
+      "ok": true,
+      "msg": "导语必须是带数字的结论"
+    },
+    {
+      "id": "has_sections",
+      "ok": true,
+      "msg": "至少 3 节"
+    },
+    {
+      "id": "sections_valid",
+      "ok": true,
+      "msg": "每节标题带数、有 refs、数字可解释、图带来源",
+      "sections": [
+        {
+          "index": 1,
+          "title": "链路结论：0 个可比品类产地倒挂，利润集中在零售端（葡萄 零售段占 13.59%）",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 2,
+          "title": "分段加价：0 个品类产地倒挂、0 个品类零售段拿走两成以上",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 3,
+          "title": "单位经济：12 个品类里 7 个扣损耗冷链后为负，最好的是 葡萄 +0.23 元/斤（2.51%）、最差的是 西瓜 -0.96 元/斤",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 4,
+          "title": "套利：苹果 赤峰西城 买 5.99、呼和浩特东瓦窑 卖 6.80，扣运费冷链净 0.02 元/斤（0.35%）",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 5,
+          "title": "风险：0 个品类期数不足 8 期，桃 波动最大（CV 5.27%）",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 6,
+          "title": "动作：2 条动作、2 条停止条件",
+          "ok": true,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "banned_words",
+      "ok": true,
+      "msg": "禁用词清零",
+      "fail": []
+    },
+    {
+      "id": "boundary",
+      "ok": true,
+      "msg": "至少写一处边界"
+    }
+  ],
+  "sections": 6,
+  "runtime_ms": 5783
+}

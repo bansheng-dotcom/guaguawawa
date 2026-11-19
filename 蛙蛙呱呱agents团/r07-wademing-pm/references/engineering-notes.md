@@ -92,14 +92,14 @@ python agent.py run --task <task_id>                        # 协作入口
 
 ## 详细参考（8 个模块）
 
-- [模块A 产品发现与 JTBD](references/01-discovery-jtbd.md)
-- [模块B 机会树与用户研究](references/02-opportunity-tree-research.md)
-- [模块C 用户故事与 PRD](references/03-prd-stories.md)
-- [模块D 优先级与 Backlog](references/04-prioritization-backlog.md)
-- [模块E 路线图与发布](references/05-roadmap-release.md)
-- [模块F 产品愿景与指标](references/06-vision-metrics.md)
-- [模块G 技术翻译与代码反推需求](references/07-techbrief-code-to-prd.md)
-- [模块H 经验检索与决策汇报](references/08-experience-decision.md)
+- [模块A 产品发现与 JTBD](01-discovery-jtbd.md)
+- [模块B 机会树与用户研究](02-opportunity-tree-research.md)
+- [模块C 用户故事与 PRD](03-prd-stories.md)
+- [模块D 优先级与 Backlog](04-prioritization-backlog.md)
+- [模块E 路线图与发布](05-roadmap-release.md)
+- [模块F 产品愿景与指标](06-vision-metrics.md)
+- [模块G 技术翻译与代码反推需求](07-techbrief-code-to-prd.md)
+- [模块H 经验检索与决策汇报](08-experience-decision.md)
 
 ---
 

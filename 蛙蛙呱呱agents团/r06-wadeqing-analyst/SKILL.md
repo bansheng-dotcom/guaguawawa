@@ -68,15 +68,16 @@ metadata:
 | RFM 客户价值分层 | `agent.py explore rfm` |
 | 指标口径看板 | `agent.py explore metrics` |
 | AB 实验 | `agent.py abtest run` |
-| 七步深度决策报告 | `agent.py depth` |
-| 咨询级研报 | `agent.py deep` |
+
+> 报告出口已收敛（2026-11-15）：`depth` / `deep` 支线不再作为任务入口，角色只交 `result.json`
+> 与图表配置；报告统一由 R01 出具：`python guagua.py report run --intent <意图> --results <result.json> --out <目录>`。
 
 > 直接可跑：`python agent.py explore funnel --input examples/orders.csv --stage status`
 > `examples/orders.csv` 是 2.7KB 夹具；`python agent.py demo` 会生成到仓库根 `workspace/artifacts/orders.csv`。
 
 ## §4 执行流程（Workflow）
 
-1. **接单**：确认 `intent` 是否已含必需字段；缺则一轮问清（≤4 问、每问带候选）。
+1. **接单**：确认 `intent` 是否已含必需字段；缺则一轮问清（≤8 问、每问带候选）。
 2. **选动作**：按 §3 任务表选一个主任务；选不出再澄清，不猜。
 3. **执行**：跑对应子命令（入口见 §3）；产物落 `workspace/`。
 4. **自检**：跑角色根目录 `harness.py` 对应门禁，退出码非 0 不得交付。
@@ -86,7 +87,7 @@ metadata:
 
 1. 指标计算必须给出确切数学公式与聚合方式
 2. 报告图表配置必须符合 Schema 规范且附带文字结论
-3. 输出结构化 JSON 与 Markdown 报告
+3. 输出结构化 `result.json`（含 `conclusion` 带数字结论）与图表配置；**不写 .md/.html 报告**（报告由 R01 出具）
 4. 角色门禁（`python harness.py ...`）退出码为 0。
 
 ## §6 交付前自检清单

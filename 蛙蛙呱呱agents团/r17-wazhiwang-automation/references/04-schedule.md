@@ -1,4 +1,4 @@
-﻿# 参考层 04 —— 定时与批处理（one-off-operations / compositional-workflows）
+# 参考层 04 —— 定时与批处理（one-off-operations / compositional-workflows）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/productivity/skills/task-management/SKILL.md
 >
 

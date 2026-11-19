@@ -1,6 +1,6 @@
 # 证据包 · 内蒙古水果三城调研_2026-11-16
 
-15 个来源文件 / 531 个数字。
+15 个来源文件 / 532 个数字。
 写稿时引用 id；正文里的数字必须能在下表找到。
 
 ## 来源等级与核验
@@ -399,7 +399,7 @@
 | `csv:spec_ladder:price:min` | price(min) | 5.76 |  |  |  |
 | `csv:spec_ladder:price:mean` | price(mean) | 8.09 |  |  |  |
 
-## _pack/evidence_pack.json（49）
+## _pack/evidence_pack.json（50）
 
 | id | 指标 | 值 | 单位 | 期 | 来源 |
 |---|---|---|---|---|---|
@@ -445,10 +445,11 @@
 | `facts:sources[7].numbers` | sources[7].numbers | 12.0 |  |  |  |
 | `facts:sources[8].numbers` | sources[8].numbers | 37.0 |  |  |  |
 | `facts:sources[9].numbers` | sources[9].numbers | 4.0 |  |  |  |
-| `facts:sources[10].numbers` | sources[10].numbers | 36.0 |  |  |  |
-| `facts:sources[11].numbers` | sources[11].numbers | 24.0 |  |  |  |
-| `facts:sources[12].numbers` | sources[12].numbers | 4.0 |  |  |  |
-| `facts:sources[13].numbers` | sources[13].numbers | 50.0 |  |  |  |
-| `facts:counts.files` | counts.files | 14.0 |  |  |  |
-| `facts:counts.numbers` | counts.numbers | 529.0 |  |  |  |
+| `facts:sources[10].numbers` | sources[10].numbers | 3.0 |  |  |  |
+| `facts:sources[11].numbers` | sources[11].numbers | 36.0 |  |  |  |
+| `facts:sources[12].numbers` | sources[12].numbers | 24.0 |  |  |  |
+| `facts:sources[13].numbers` | sources[13].numbers | 4.0 |  |  |  |
+| `facts:sources[14].numbers` | sources[14].numbers | 49.0 |  |  |  |
+| `facts:counts.files` | counts.files | 15.0 |  |  |  |
+| `facts:counts.numbers` | counts.numbers | 531.0 |  |  |  |
 | `facts:counts.source_records` | counts.source_records | 32.0 |  |  |  |

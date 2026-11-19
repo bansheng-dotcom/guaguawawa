@@ -27,7 +27,12 @@ def add_parser(sp) -> None:
 
 def run(args) -> Dict[str, Any]:
     data = c.load_json(args.input)
-    items = data.get("items", data if isinstance(data, list) else [])
+    if isinstance(data, dict):
+        items = data.get("items", [])
+    elif isinstance(data, list):
+        items = data
+    else:
+        items = []
     if not items:
         return {"ok": False, "checks": [], "error": "缺 items"}
     return {"ok": True, "checks": [], "rice": business.rice(items)}

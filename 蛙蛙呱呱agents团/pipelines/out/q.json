@@ -1,0 +1,153 @@
+{
+ "rows": 100,
+ "fields": 17,
+ "missing": {},
+ "duplicate_rows": 0,
+ "findings": [
+  {
+   "dim": "accuracy",
+   "sev": "MEDIUM",
+   "note": "unit_price IQR 离群 13 个（只标记不删除）",
+   "outlier_count": 13,
+   "outliers_sample": [
+    78.3,
+    78.57,
+    78.68,
+    79.94,
+    80.16,
+    80.28,
+    82.93,
+    84.89,
+    87.06,
+    87.11
+   ]
+  },
+  {
+   "dim": "accuracy",
+   "sev": "MEDIUM",
+   "note": "qty IQR 离群 6 个（只标记不删除）",
+   "outlier_count": 6,
+   "outliers_sample": [
+    -3.0,
+    4.0,
+    5.0,
+    6.0
+   ]
+  },
+  {
+   "dim": "accuracy",
+   "sev": "MEDIUM",
+   "note": "revenue IQR 离群 5 个（只标记不删除）",
+   "outlier_count": 5,
+   "outliers_sample": [
+    225.85,
+    241.59,
+    244.95,
+    290.96,
+    324.74
+   ]
+  },
+  {
+   "dim": "accuracy",
+   "sev": "MEDIUM",
+   "note": "discount IQR 离群 5 个（只标记不删除）",
+   "outlier_count": 5,
+   "outliers_sample": [
+    -0.2,
+    0.256,
+    0.259,
+    0.281,
+    1.4
+   ]
+  },
+  {
+   "dim": "timeliness",
+   "sev": "CRITICAL",
+   "note": "order_date 最新数据距今 47 天 (>14天 SLA)"
+  },
+  {
+   "dim": "validity",
+   "sev": "HIGH",
+   "note": "order_date 有 1 行无法解析为 ISO 日期（1.00%）"
+  },
+  {
+   "dim": "validity",
+   "sev": "HIGH",
+   "note": "discount 越界/非数值 2 行（2.00%）"
+  },
+  {
+   "dim": "validity",
+   "sev": "HIGH",
+   "note": "qty 越界/非数值 1 行（1.00%）"
+  },
+  {
+   "dim": "consistency",
+   "sev": "CRITICAL",
+   "note": "金额恒等式不成立 5 行（5.00%，容差 1%）"
+  },
+  {
+   "dim": "consistency",
+   "sev": "HIGH",
+   "note": "月份与日期不一致 2 行（2.00%）"
+  }
+ ],
+ "dimension_score": {
+  "completeness": 10,
+  "accuracy": 8,
+  "consistency": 4,
+  "timeliness": 0,
+  "uniqueness": 10,
+  "validity": 4
+ },
+ "dims_active": 6,
+ "score_version": "2.0",
+ "violations": [
+  {
+   "rule": "order_date 可解析为日期",
+   "rows": 1,
+   "pct": 1.0
+  },
+  {
+   "rule": "discount ∈ [0.0, 1.0]",
+   "rows": 2,
+   "pct": 2.0
+  },
+  {
+   "rule": "qty ∈ [0, 1000]",
+   "rows": 1,
+   "pct": 1.0
+  },
+  {
+   "rule": "revenue = unit_price × qty × (1 − discount)",
+   "rows": 5,
+   "pct": 5.0
+  },
+  {
+   "rule": "order_month = order_date[:7]",
+   "rows": 2,
+   "pct": 2.0
+  }
+ ],
+ "overall_score": 6.3,
+ "grade": "半数通过",
+ "runtime_ms": 3,
+ "contract_warnings": [
+  {
+   "field": "order_date",
+   "reason": "日期不可解析",
+   "rows": 1
+  }
+ ],
+ "provenance": {
+  "skill": "quality",
+  "skill_version": "2.0",
+  "input_hash": "8a59d0601d8b",
+  "action": "audit"
+ },
+ "conclusion": "数据质量 6.3/10（半数通过），六维中 4 维未满分。",
+ "caveats": [
+  "5 条规则被触发，见 violations",
+  "及时性 0 分：最新数据超过 SLA，不能当日报用"
+ ],
+ "status": "ok"
+}

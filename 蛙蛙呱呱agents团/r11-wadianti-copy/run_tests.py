@@ -90,7 +90,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("9 个技能", len(m.get("skills", [])) == 9, str(len(m.get("skills", []))))
+    t.check(f"{len(SKILLS)} 个技能（动态）", len(m.get("skills", [])) == len(SKILLS), str(len(m.get("skills", []))))
     t.check("角色 r11", m.get("role") == "r11")
     t.check("输入端口 topic/audience",
             m.get("inputs") == ["topic", "audience"])

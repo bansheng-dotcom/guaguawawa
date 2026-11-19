@@ -1,4 +1,4 @@
-﻿# s09 自媒体运营（daily / probe）方法论
+# s09 自媒体运营（daily / probe）方法论
 > 蒸馏自: 补充技能/01-当前能力域/bzwh321__self-media-data-console-bzwh/SKILL.md
 >
 

@@ -1,0 +1,548 @@
+{
+  "schema": "dsh.analysis_transcript/v1",
+  "intent": "经营分析",
+  "project": "D:\\蛙蛙呱呱\\内蒙古水果三城调研_2026-11-16_pipeline",
+  "thesis": "operations",
+  "thesis_label": "经营诊断",
+  "generated_at": "2026-11-17T13:56:20",
+  "profile": {
+    "project": "内蒙古水果三城调研_2026-11-16_pipeline",
+    "datasets": 5,
+    "observations": 2020,
+    "facts": 37,
+    "kinds": {
+      "metric_json": 2,
+      "long_panel": 3
+    },
+    "channels": {
+      "retail": 1404,
+      "wholesale": 468,
+      "origin": 108,
+      "futures": 0
+    },
+    "retail_entities": [
+      "苹果",
+      "梨",
+      "葡萄",
+      "香蕉",
+      "西瓜",
+      "柑橘",
+      "菠萝",
+      "芒果",
+      "桃",
+      "猕猴桃",
+      "火龙果",
+      "橙"
+    ],
+    "wholesale_entities": [
+      "呼和浩特东瓦窑",
+      "包头友谊",
+      "赤峰西城"
+    ],
+    "origin_entities": [
+      "河北赵县",
+      "山东烟台",
+      "陕西洛川"
+    ],
+    "files": [
+      "data/obs_fruit.json",
+      "data/sources.json",
+      "data/产地价.csv",
+      "data/批发价_市场长表.csv",
+      "data/零售价_周度.csv"
+    ]
+  },
+  "views": {
+    "primary": "data/零售价_周度.csv",
+    "snapshot": 12,
+    "series": 12,
+    "wholesale": 12,
+    "region": 0,
+    "origins": 108,
+    "notes": [
+      "快照取 data/零售价_周度.csv 的 2026-11-09~11-15"
+    ]
+  },
+  "findings": [
+    {
+      "key": "structure",
+      "title": "结构：6 个品类在涨、6 个在跌，芒果 4.39%、梨 -3.33%",
+      "refs": 41,
+      "chart": "hbar",
+      "table": true
+    },
+    {
+      "key": "trajectory",
+      "title": "轨迹：13 期里 芒果 4.39%、梨 -3.33%，桃 波动最大（CV 5.27%）",
+      "refs": 30,
+      "chart": "line",
+      "table": true
+    },
+    {
+      "key": "contribution",
+      "title": "贡献：涨的品类合计 +0.64 元、跌的合计 -0.90 元，净变动只有 -0.26 元",
+      "refs": 17,
+      "chart": "hbar",
+      "table": true
+    },
+    {
+      "key": "economics",
+      "title": "单位经济：12 个品类里 7 个扣损耗冷链后为负，最好的是 葡萄 +0.23 元/斤（2.51%）、最差的是 西瓜 -0.96 元/斤",
+      "refs": 84,
+      "chart": "hbar",
+      "table": true
+    },
+    {
+      "key": "momentum",
+      "title": "节奏：西瓜 环比 0.01%、同比 -0.13%，短期反弹·趋势未改",
+      "refs": 24,
+      "chart": "grouped_bar",
+      "table": true
+    },
+    {
+      "key": "transmission",
+      "title": "传导：葡萄 批发到零售吃掉 1.23 元/斤，批零加价 15.73%",
+      "refs": 72,
+      "chart": "grouped_bar",
+      "table": true
+    },
+    {
+      "key": "arbitrage",
+      "title": "套利：苹果 赤峰西城 买 5.99、呼和浩特东瓦窑 卖 6.80，扣运费冷链净 0.02 元/斤（0.35%）",
+      "refs": 60,
+      "chart": "hbar",
+      "table": true
+    },
+    {
+      "key": "breakeven",
+      "title": "保本：香蕉 零售提 0.04% 即转正；西瓜 要提 36.08%",
+      "refs": 21,
+      "chart": null,
+      "table": true
+    },
+    {
+      "key": "risk",
+      "title": "风险：0 个品类期数不足 8 期，桃 波动最大（CV 5.27%）",
+      "refs": 26,
+      "chart": null,
+      "table": true
+    },
+    {
+      "key": "sample",
+      "title": "样本：13 期里 6 个品类同向，同向占比 95% 区间 25.38%—74.62%；判 1 个百分点价差每组要 8158 个样本",
+      "refs": 5,
+      "chart": null,
+      "table": true
+    }
+  ],
+  "method_plan": {
+    "schema": "dsh.method_plan/v1",
+    "mounted": [
+      {
+        "key": "structure",
+        "family": "price",
+        "produces": "横截面分化",
+        "needs": [
+          "price.series2"
+        ]
+      },
+      {
+        "key": "trajectory",
+        "family": "price",
+        "produces": "时间轨迹与波动",
+        "needs": [
+          "price.series3"
+        ]
+      },
+      {
+        "key": "contribution",
+        "family": "price",
+        "produces": "涨跌贡献",
+        "needs": [
+          "price.series2"
+        ]
+      },
+      {
+        "key": "economics",
+        "family": "price",
+        "produces": "单位经济",
+        "needs": [
+          "price.economics"
+        ]
+      },
+      {
+        "key": "momentum",
+        "family": "price",
+        "produces": "环比/同比节奏",
+        "needs": [
+          "price.momentum"
+        ]
+      },
+      {
+        "key": "transmission",
+        "family": "chain",
+        "produces": "上下游传导",
+        "needs": [
+          "price.origin",
+          "price.wholesale"
+        ]
+      },
+      {
+        "key": "arbitrage",
+        "family": "chain",
+        "produces": "跨市场价差",
+        "needs": [
+          "price.region"
+        ]
+      },
+      {
+        "key": "breakeven",
+        "family": "price",
+        "produces": "保本线",
+        "needs": [
+          "price.economics"
+        ]
+      },
+      {
+        "key": "risk",
+        "family": "risk",
+        "produces": "风险与缺口",
+        "needs": [
+          "price.series2"
+        ]
+      },
+      {
+        "key": "sample",
+        "family": "risk",
+        "produces": "样本充分性",
+        "needs": [
+          "price.series2"
+        ]
+      }
+    ],
+    "skipped": [
+      {
+        "key": "funnel",
+        "missing": [
+          "table.orders"
+        ],
+        "optional": true,
+        "produces": "转化漏斗"
+      },
+      {
+        "key": "retention",
+        "missing": [
+          "table.retention"
+        ],
+        "optional": true,
+        "produces": "留存与复购"
+      },
+      {
+        "key": "rfm",
+        "missing": [
+          "table.retention"
+        ],
+        "optional": true,
+        "produces": "RFM 分层"
+      },
+      {
+        "key": "reviews",
+        "missing": [
+          "table.reviews"
+        ],
+        "optional": true,
+        "produces": "评价与 VOC"
+      },
+      {
+        "key": "sla",
+        "missing": [
+          "table.sla"
+        ],
+        "optional": true,
+        "produces": "履约时效"
+      },
+      {
+        "key": "payment_mix",
+        "missing": [
+          "table.payments"
+        ],
+        "optional": true,
+        "produces": "支付结构"
+      },
+      {
+        "key": "roi",
+        "missing": [
+          "table.spend"
+        ],
+        "optional": true,
+        "produces": "投放效率"
+      },
+      {
+        "key": "priority",
+        "missing": [
+          "table.priority"
+        ],
+        "optional": true,
+        "produces": "需求优先级"
+      },
+      {
+        "key": "capacity",
+        "missing": [
+          "table.capacity"
+        ],
+        "optional": true,
+        "produces": "容量与负载"
+      },
+      {
+        "key": "incidents",
+        "missing": [
+          "table.incidents"
+        ],
+        "optional": true,
+        "produces": "故障与可用性"
+      },
+      {
+        "key": "headcount",
+        "missing": [
+          "table.headcount"
+        ],
+        "optional": true,
+        "produces": "招聘与人效"
+      },
+      {
+        "key": "sku",
+        "missing": [
+          "table.sku"
+        ],
+        "optional": true,
+        "produces": "商品结构"
+      },
+      {
+        "key": "store",
+        "missing": [
+          "table.store"
+        ],
+        "optional": true,
+        "produces": "单店经济"
+      },
+      {
+        "key": "sizing_multi",
+        "missing": [
+          "facts.market",
+          "facts.region"
+        ],
+        "optional": true,
+        "produces": "市场规模三路径"
+      },
+      {
+        "key": "growth",
+        "missing": [
+          "facts.market"
+        ],
+        "optional": true,
+        "produces": "增长与引擎切换"
+      },
+      {
+        "key": "concentration",
+        "missing": [
+          "facts.shares"
+        ],
+        "optional": true,
+        "produces": "集中度"
+      },
+      {
+        "key": "unit_econ",
+        "missing": [
+          "facts.cost"
+        ],
+        "optional": true,
+        "produces": "单位经济"
+      },
+      {
+        "key": "entry_gate",
+        "missing": [
+          "facts.cost"
+        ],
+        "optional": true,
+        "produces": "进入闸门"
+      },
+      {
+        "key": "cheese_size",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "市场规模三路径"
+      },
+      {
+        "key": "cheese_growth",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "增长与引擎切换"
+      },
+      {
+        "key": "cheese_structure",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "品类结构"
+      },
+      {
+        "key": "cheese_channel",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "渠道结构"
+      },
+      {
+        "key": "cheese_supply",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "供给密度"
+      },
+      {
+        "key": "cheese_region",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "区域分布"
+      },
+      {
+        "key": "cheese_policy",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "政策与补贴"
+      },
+      {
+        "key": "cheese_unit_econ",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "单位经济"
+      },
+      {
+        "key": "cheese_chain",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "链路分段"
+      },
+      {
+        "key": "cheese_content",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "内容增长"
+      },
+      {
+        "key": "cheese_coverage",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "数据覆盖缺口"
+      },
+      {
+        "key": "cheese_price",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "价格序列与价差"
+      },
+      {
+        "key": "cheese_quotes",
+        "missing": [
+          "cheese.obs"
+        ],
+        "optional": true,
+        "produces": "一手采价台账"
+      }
+    ],
+    "caps": [
+      "facts.obs",
+      "price.economics",
+      "price.momentum",
+      "price.origin",
+      "price.region",
+      "price.series2",
+      "price.series3",
+      "price.series4",
+      "price.wholesale"
+    ],
+    "thesis": "operations"
+  },
+  "missing": [],
+  "gaps": [],
+  "skills": [
+    {
+      "role": "r06",
+      "skill": "explore",
+      "action": "time_series",
+      "ok": true
+    },
+    {
+      "role": "r06",
+      "skill": "describe",
+      "action": "",
+      "ok": true
+    },
+    {
+      "role": "r19",
+      "skill": "eval-ci",
+      "action": "",
+      "ok": true
+    },
+    {
+      "role": "r06",
+      "skill": "power",
+      "action": "",
+      "ok": true
+    },
+    {
+      "role": "r05",
+      "skill": "research",
+      "action": "ledger",
+      "ok": true
+    },
+    {
+      "role": "r04",
+      "skill": "artifact",
+      "action": "inventory",
+      "ok": true
+    }
+  ],
+  "covered": {
+    "skills": 6,
+    "roles": 4
+  },
+  "numbers": {
+    "files": 5,
+    "numbers": 440
+  },
+  "derived": 24,
+  "gate": {
+    "section_check": true,
+    "r04": "COMPLETE",
+    "r04_missing": [],
+    "contract": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "source_count=4 < 10，证据规模偏小"
+      ]
+    }
+  }
+}

@@ -1,4 +1,4 @@
-﻿# R05 蛙深远（战略研究官）
+# R05 蛙深远（战略研究官）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/product-management/synthesize-research/SKILL.md
 >
 

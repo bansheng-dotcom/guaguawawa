@@ -1,4 +1,4 @@
-﻿# 06 · 主数据与权限口径（masterdata）
+# 06 · 主数据与权限口径（masterdata）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/legal/compliance-check/SKILL.md
 >
 

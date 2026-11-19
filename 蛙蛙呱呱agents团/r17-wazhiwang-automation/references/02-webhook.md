@@ -1,4 +1,4 @@
-﻿# 参考层 02 —— Webhook 与事件处理（trigger-input-data-shapes）
+# 参考层 02 —— Webhook 与事件处理（trigger-input-data-shapes）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/partner-built/zoom-plugin/skills/webhooks/SKILL.md
 >
 

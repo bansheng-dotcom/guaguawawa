@@ -43,21 +43,39 @@ def matrix_markdown(frame: Dict[str, Any], plan: Dict[str, Any]) -> str:
     return "\n".join([head, sep, *rows])
 
 
+def _pdf_pages(pdf_path: str | None) -> int | None:
+    if not pdf_path or not Path(pdf_path).exists():
+        return None
+    try:
+        import pymupdf
+        return int(pymupdf.open(pdf_path).page_count)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def audit_coverage(plan: Dict[str, Any], frame: Dict[str, Any],
-                   html_path: str, min_pages: int = 21) -> Dict[str, Any]:
+                   html_path: str, min_pages: int = 21,
+                   pdf_path: str | None = None) -> Dict[str, Any]:
     html = Path(html_path).read_text(encoding="utf-8", errors="replace")
-    pages = html.count('class="page')
+    pages = _pdf_pages(pdf_path)
+    if pages is None:
+        pages = html.count('class="page') or html.count("flow-block")
     svgs = html.count("<svg")
     issues: List[str] = []
     if pages < min_pages:
         issues.append(f"页数 {pages} < {min_pages}")
     if svgs < 2:
         issues.append(f"图表/地图 {svgs} < 2")
-    if "全国" not in html:
-        issues.append("未检测到全国地图页")
-    if "盟市" not in html and "内蒙古" not in html:
-        issues.append("未检测到区域地图页")
+    # 地图只在计划声明时才要求：没有地图项的报告别被这条误杀
+    need_maps = len(frame.get("maps") or [])
+    if need_maps:
+        if "全国" not in html:
+            issues.append("计划声明了地图，但未检测到全国地图页")
+        if "盟市" not in html and "内蒙古" not in html:
+            issues.append("计划声明了地图，但未检测到区域地图页")
     for u in plan.get("core_units") or []:
         if plan.get("depth", {}).get(u) != "deep":
             issues.append(f"核心单元 {u} 非深链")
-    return {"ok": not issues, "pages": pages, "svgs": svgs, "issues": issues}
+    return {"ok": not issues, "pages": pages, "svgs": svgs,
+            "source": "pdf" if pdf_path and Path(pdf_path).exists() else "dom",
+            "issues": issues}

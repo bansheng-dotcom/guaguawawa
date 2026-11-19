@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """PRD 门禁自检：验证 prdguard（执行层）与 harness prd（战略层）真的会拦住错误。
 

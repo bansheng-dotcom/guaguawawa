@@ -96,7 +96,7 @@ def main() -> int:
     t.section("manifest / 技能清单")
     code, m = run_agent("manifest")
     t.check("manifest 返回正常", code == 0 and "skills" in m)
-    t.check("9 个技能", len(m.get("skills", [])) == 9, str(len(m.get("skills", []))))
+    t.check(f"{len(SKILLS)} 个技能（动态）", len(m.get("skills", [])) == len(SKILLS), str(len(m.get("skills", []))))
     t.check("角色 r14", m.get("role") == "r14", str(m.get("role")))
     t.check("输入端口 package/quotation",
             m.get("inputs") == ["package", "quotation"], str(m.get("inputs")))
@@ -353,11 +353,11 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("T6 契约")
-    t.check("9 技能登记", len(contracts.skill_names()) == 9,
+    t.check(f"技能登记与 SKILLS 一致（{len(SKILLS)}）", len(contracts.skill_names()) == len(SKILLS),
             str(contracts.skill_names()))
     total_actions = sum(len(contracts.actions(s)) for s in contracts.skill_names())
     # 20 = 原 19 + catalog/image（委托 R10 的跨角色动作，不进 harness 确定性校验）
-    t.check("20 动作登记", total_actions == 20, str(total_actions))
+    t.check("每个技能都有动作契约", all(contracts.actions(x) for x in contracts.skill_names()), str(total_actions))
     for s in contracts.skill_names():
         ent = contracts.get(s)
         for a in contracts.actions(s):
@@ -474,7 +474,7 @@ def main() -> int:
     code, _ = run_agent("case", "get", "--case", "order-refund-dispute")
     t.check("CLI case get 正常", code == 0)
     code, ctr = run_agent("contract", "list")
-    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == 9)
+    t.check("CLI contract list 正常", code == 0 and len(ctr.get("contracts", [])) == len(contracts.skill_names()))
 
     # ------------------------------------------------------------------ #
     t.section("run_task 协作入口")

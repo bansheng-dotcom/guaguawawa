@@ -1,4 +1,4 @@
-﻿# 03 · 状态页与事件沟通口径（statuspage）
+# 03 · 状态页与事件沟通口径（statuspage）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/skills/status-report/SKILL.md
 >
 

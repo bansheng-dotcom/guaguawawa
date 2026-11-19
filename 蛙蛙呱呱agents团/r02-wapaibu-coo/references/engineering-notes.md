@@ -1,4 +1,4 @@
-﻿---
+---
 name: r02-wapaibu-coo
 description: COO 首席运营官角色技能。七个能力域各自可执行：工作拆解与排期（WBS/冲刺/关键路径）、容量与委派（负载/派工/拆分）、交接与验收追踪（交接包/验收/链路）、复盘与事故分析（事后复盘/五维打分/行动项）、流程与 SOP（SOP/浪费检测/会议）、知识运营（文档技能化/条目/检索）、项目群与 Agent 编排（状态/分波/依赖图）。当需要排期、管容量、交接验收、复盘事故、沉淀 SOP 与知识、编排项目群时使用。已引入真实执行层，不再仅仅是门禁校验。
 ---
@@ -88,13 +88,13 @@ python run_tests.py                                       # 一键验收（107 �
 
 ## 详细参考（按需加载，7 个能力域）
 
-- [模块1 工作拆解与排期](references/01-schedule-wbs.md) —— WBS 白名单、冲刺日历、关键路径正反传
-- [模块2 容量与委派](references/02-capacity-delegation.md) —— 加权负载、8h 上限、口径恒等拆分
-- [模块3 交接与验收追踪](references/03-handoff-acceptance.md) —— 交接包四要素、验收证据链、审计链路
-- [模块4 复盘与事故分析](references/04-retro-incident.md) —— severity 分级、升级时限、五维打分
-- [模块5 流程与 SOP](references/05-process-sop.md) —— 控制点密度、七大浪费、会议时间盒
-- [模块6 知识运营](references/06-knowledge-ops.md) —— 文档技能化、幂等入库、BM25+RRF 检索
-- [模块7 项目群与 Agent 编排](references/07-portfolio-orchestration.md) —— RAG 状态、分波审批门、依赖图置信
+- [模块1 工作拆解与排期](01-schedule-wbs.md) —— WBS 白名单、冲刺日历、关键路径正反传
+- [模块2 容量与委派](02-capacity-delegation.md) —— 加权负载、8h 上限、口径恒等拆分
+- [模块3 交接与验收追踪](03-handoff-acceptance.md) —— 交接包四要素、验收证据链、审计链路
+- [模块4 复盘与事故分析](04-retro-incident.md) —— severity 分级、升级时限、五维打分
+- [模块5 流程与 SOP](05-process-sop.md) —— 控制点密度、七大浪费、会议时间盒
+- [模块6 知识运营](06-knowledge-ops.md) —— 文档技能化、幂等入库、BM25+RRF 检索
+- [模块7 项目群与 Agent 编排](07-portfolio-orchestration.md) —— RAG 状态、分波审批门、依赖图置信
 
 ---
 

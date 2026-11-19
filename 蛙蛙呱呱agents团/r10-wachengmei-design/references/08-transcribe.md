@@ -1,4 +1,4 @@
-﻿# s08 转写与字幕素材（transcribe / transcribe·probe）方法论
+# s08 转写与字幕素材（transcribe / transcribe·probe）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/design/user-research/SKILL.md
 >
 

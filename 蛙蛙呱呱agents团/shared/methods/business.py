@@ -70,9 +70,14 @@ def tam_mc(population: float, pen_low: float, pen_high: float,
 
 def rice(items: Sequence[dict]) -> dict:
     """RICE 排序：Reach×Impact×Confidence/Effort；附 confidence 敏感性。"""
+    def _conf(v) -> float:
+        """Confidence 兼容 0~1 与 0~100 两种量纲（100 分制是常见录入方式）。"""
+        x = float(v)
+        return x / 100.0 if x > 1.0 else x
+
     rows = []
     for it in items:
-        score = (float(it["reach"]) * float(it["impact"]) * float(it["confidence"])
+        score = (float(it["reach"]) * float(it["impact"]) * _conf(it["confidence"])
                  / max(1e-9, float(it["effort"])))
         rows.append({"name": it["name"], "score": round(score, 2),
                      "confidence": float(it["confidence"])})
@@ -81,7 +86,7 @@ def rice(items: Sequence[dict]) -> dict:
     for d in (-0.1, 0.1):
         tmp = []
         for it in items:
-            conf = min(1.0, max(0.0, float(it["confidence"]) + d))
+            conf = min(1.0, max(0.0, _conf(it["confidence"]) + d))
             tmp.append({"name": it["name"],
                         "score": round(float(it["reach"]) * float(it["impact"]) * conf
                                        / max(1e-9, float(it["effort"])), 2)})

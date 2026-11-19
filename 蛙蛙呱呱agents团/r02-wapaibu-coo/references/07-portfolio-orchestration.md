@@ -1,4 +1,4 @@
-﻿> 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/status-report/SKILL.md
+> 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/operations/status-report/SKILL.md
 
 # 模块7 · 项目群与 Agent 编排
 

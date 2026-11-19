@@ -221,7 +221,7 @@ def build_contract(j: Dict[str, Any], intent: str, branch: str,
         ],
     })
 
-    return {
+    contract = {
         "doc_type": "R01 报告",
         # 标题行只给任务名；结论放 standfirst 与「结论先行」段，避免同一句在首屏出现三次
         "title_lines": [intent or "R01 报告"],
@@ -250,6 +250,8 @@ def build_contract(j: Dict[str, Any], intent: str, branch: str,
         "theme": theme,
         "title_highlight": None,
     }
+    from core import report_editorial
+    return report_editorial.enrich(contract)
 
 
 # --------------------------------------------------------------------------- #
@@ -301,7 +303,8 @@ def check_sections(draft: Dict[str, Any], pack: Dict[str, Any],
 
 
 def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
-                            theme: str = DEFAULT_THEME) -> Dict[str, Any]:
+                           theme: str = DEFAULT_THEME,
+                           layout: str = "paper") -> Dict[str, Any]:
     """把「模型写的章节稿」变成报告契约（记录层与口径节由产线补）。"""
     secs_out: List[Dict[str, Any]] = []
     for i, s in enumerate(draft.get("sections") or [], 1):
@@ -375,7 +378,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     metrics = [{"label": m["label"], "value": m["value"],
                 "note": m.get("note") or "来源见记录层", "status": m.get("status") or "none"}
                for m in (draft.get("metrics") or [])]
-    return {
+    contract = {
         "doc_type": draft.get("doc_type") or "R01 报告",
         "title_lines": draft.get("title_lines") or [draft.get("intent") or "R01 报告"],
         "standfirst": draft["standfirst"],
@@ -394,7 +397,10 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
             f"生成时间：{datetime.now().strftime('%Y-%m-%d %H:%M')}",
         ],
         "theme": theme,
+        "layout": layout,
     }
+    from core import report_editorial
+    return report_editorial.enrich(contract, pack)
 
 
 def _clear_outputs(out_dir: str, md_name: str) -> None:
@@ -414,7 +420,13 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         theme: str = DEFAULT_THEME, pdf: bool = False,
         md_name: str = "report",
         evidence: Optional[str] = None,
-        quote_mode: str = "warn") -> Dict[str, Any]:
+        quote_mode: str = "warn",
+        layout: str = "paper",
+        prose_hard: bool = False,
+        coverage_plan_data: Optional[Dict[str, Any]] = None,
+        task_frame_data: Optional[Dict[str, Any]] = None,
+        source_ledger_data: Optional[Dict[str, Any]] = None,
+        confirmation_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """跑完整条产线，返回 {ok, branch, files, manifest, checks}。"""
     if theme not in THEMES:
         raise FlowError(f"未知主题 {theme}；可选 {', '.join(THEMES)}")
@@ -438,15 +450,43 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
             qgate = research_intake.quote_gate(project, refs=refs or None,
                                                mode=quote_mode)
         chk = check_sections(draft, pack, out_dir)
-        contract = build_sections_contract(draft, pack, theme)
+        contract = build_sections_contract(draft, pack, theme, layout)
         from core.report_kernel import specs as report_specs
         spec_res = ({"skipped": True} if os.environ.get("GUAGUA_SPEC_INFER", "1") == "0"
                     else report_specs.apply_specs(contract))
         lay = layout_errors(contract, require_appendix=True)
+        cov_gate: Dict[str, Any] = {}
+        if coverage_plan_data and task_frame_data:
+            from core import coverage_plan as _cp
+            from core import coverage_policy as _policy
+            # 按图表出现顺序把 plan charts 的 shape 贴到 contract sections
+            charts = coverage_plan_data.get("charts") or []
+            chart_sections = [s for s in (contract.get("sections") or []) if s.get("chart")]
+            for sec, ch in zip(chart_sections, charts):
+                sec.setdefault("shape", ch.get("shape"))
+            contract["require_shape"] = True
+            src_status = (source_ledger_data or {}).get("status", source_ledger_data or {})
+            cov_gate = _cp.pre_gate(task_frame_data, coverage_plan_data,
+                                    src_status, confirmation_data,
+                                    _policy.load())
+            if not cov_gate.get("ok"):
+                lay = list(lay) + [f"coverage_gate:{','.join(cov_gate.get('hard_fail') or [])}"]
         ok = bool(chk.get("ok")) and not lay
         files: Dict[str, Any] = {}
+        gate: Dict[str, Any] = {}
+        flow_gate: Dict[str, Any] = {}
         if ok:  # 门禁不过就不落盘，避免半份报告
             files = render(contract, out_dir, md_name=md_name, pdf=pdf)
+            if layout == "flow" and files.get("html"):
+                from core import prose_style
+                flow_gate = prose_style.audit_html(
+                    Path(files["html"]).read_text(encoding="utf-8", errors="replace"))
+                if prose_hard:
+                    ok = ok and bool(flow_gate.get("ok"))
+            if theme == "consulting" and files.get("html"):
+                from core import quality_gate
+                gate = quality_gate.check(contract=contract, html=files["html"])
+                ok = ok and bool(gate.get("ok"))
         manifest = {
             "schema": "dsh.report.flow/v1",
             "producer": PRODUCER, "producer_name": PRODUCER_NAME,
@@ -462,6 +502,11 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
             "layout_errors": lay, "files": files,
             "spec_stats": spec_res,
             "chart_stats": files.get("chart_stats") or {},
+            "gate": gate,
+            "flow_gate": {k: flow_gate.get(k) for k in
+                          ("ok", "sections", "avg_chars", "score", "hard_fail")}
+            if flow_gate else {},
+            "coverage_gate": cov_gate,
             "quotes": {k: v for k, v in qgate.items() if k != "items"},
             "ok": ok,
         }
@@ -470,6 +515,8 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         return {"ok": manifest["ok"], "branch": "sections", "files": files,
                 "manifest": os.path.join(out_dir, "manifest.json"),
                 "checks": chk.get("checks"), "layout_errors": lay,
+                "flow_gate": manifest.get("flow_gate") or {},
+                "layout": layout,
                 "quotes": {k: v for k, v in qgate.items() if k != "items"}}
 
     raise FlowError("v10 sections 路径未返回；这是内部错误")

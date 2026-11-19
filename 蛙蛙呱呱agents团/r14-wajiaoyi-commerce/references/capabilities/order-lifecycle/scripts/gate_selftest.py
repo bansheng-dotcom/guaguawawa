@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """订单生命周期门禁自检：验证 7 道 harness 门禁对正/反例的退出码。
 

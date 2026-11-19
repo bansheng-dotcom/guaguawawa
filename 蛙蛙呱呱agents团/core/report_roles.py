@@ -53,7 +53,7 @@ ROLE_REPORT: Dict[str, Dict[str, Any]] = {
             "contributes": "需求优先级、验收标准", "theses": ["product"]},
     "r08": {"name": "蛙建成", "title": "MVP", "enters": False,
             "contributes": "原型与切片（无稳定数字）", "theses": []},
-    "r09": {"name": "蛙文码", "title": "工程", "enters": False,
+    "r09": {"name": "蛙稳码", "title": "工程", "enters": False,
             "contributes": "实现与测试（不作报告证据）", "theses": []},
     "r10": {"name": "蛙成美", "title": "设计", "enters": False,
             "contributes": "视觉与物料（定性）", "theses": []},
@@ -61,7 +61,7 @@ ROLE_REPORT: Dict[str, Dict[str, Any]] = {
             "contributes": "标题/长文/笔记（定性 claim）", "theses": ["marketing"]},
     "r12": {"name": "蛙引流", "title": "增长", "enters": True,
             "contributes": "漏斗、ROI、激活、渠道", "theses": ["growth", "marketing"]},
-    "r13": {"name": "蛙可成", "title": "客成", "enters": True,
+    "r13": {"name": "蛙客成", "title": "客成", "enters": True,
             "contributes": "健康分、续约、VOC", "theses": ["support"]},
     "r14": {"name": "蛙交易", "title": "交易", "enters": True,
             "contributes": "订单三态、退款、选品", "theses": ["sku", "store"]},
@@ -180,6 +180,20 @@ OVERRIDES: Dict[Tuple[str, str], Dict[str, Any]] = {
     ("r18", "quality"): {"claim": "质量六维得分", "theses": ["*"], "gate": True},
     ("r19", "eval-ci"): {"claim": "Wilson 置信区间", "theses": ["*"]},
 }
+
+
+# 角色名/职称唯一出处是 core/registry.py（2026-11-17 归一，防旧花名漂移）
+def _sync_identity() -> None:
+    try:
+        from core.registry import ROLES
+    except Exception:  # noqa: BLE001
+        return
+    for role in ROLES:
+        if role["id"] in ROLE_REPORT:
+            ROLE_REPORT[role["id"]]["name"] = role["name"]
+
+
+_sync_identity()
 
 
 def _classify_skill(role: str, skill: Dict[str, Any]) -> Dict[str, Any]:

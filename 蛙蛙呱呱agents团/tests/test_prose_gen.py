@@ -28,3 +28,21 @@ def test_compose_no_new_numbers():
     s = {"id": "s2", "verdict": "判断。", "body": "事实：10 个品类。"}
     out = compose(s, {"fact": "事实：10 个品类。", "boundary": "边界。"})
     assert "10 个品类" in out
+
+
+def test_prose_spec_requires_11_fields():
+    """固定 11 字段：facts 的 verdict/question + spec 的 9 个字段。"""
+    from core import prose_spec
+
+    section = {"id": "s1", "verdict": "判断：先做酱油。", "question": "先做哪个品类？"}
+    good = {f: "x" * 8 for f in prose_spec.FIELDS}
+    assert prose_spec.validate({"s1": good}, [section]) == []
+
+    bad = dict(good)
+    bad.pop("mechanism")
+    errs = prose_spec.validate({"s1": bad}, [section])
+    assert any("mechanism" in e for e in errs)
+
+    no_question = {"id": "s2", "verdict": "判断：先做酱油。", "question": ""}
+    errs2 = prose_spec.validate({"s2": good}, [no_question])
+    assert any("question" in e for e in errs2)

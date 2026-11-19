@@ -263,7 +263,7 @@ def _section(s: Dict[str, Any], pn: int, total: int, fig_no: str,
     if layout == "rail" and len(body) > 520:
         layout = "blocks"
     blocks = _reading_blocks(s, body)
-    labels = ("事实", "解释", "所以")
+    labels = ("事实", "机理", "所以")
     kick = s.get("kicker") or "判断"
     verdict = s.get("verdict") or _first_sentence(body)
     head = f"""
@@ -282,7 +282,14 @@ def _section(s: Dict[str, Any], pn: int, total: int, fig_no: str,
                      (f'{str(s.get("index","")).zfill(2)} / 口径', s.get("short_title", "")),
                      f's-{s["index"]}')
     fig = _chart_html(s, fig_no)
+    if fig.strip() and "<svg" not in fig and "<table" not in fig:
+        # 图型画不出来（返回空 svg）时退回本节表格：深度门禁按节验「至少一张图或表」，
+        # 有表却因为 chart 渲染空而丢掉，会被判成空节（2026-11-19 修复）。
+        fig = _chart_html({**s, "chart": None}, fig_no)
     rail = s.get("rail")
+    fals = str(s.get("falsifier") or "").strip()
+    fals_html = (f'<div class="boundary sec-falsifier"><b>什么会推翻它</b>'
+                 f'{esc(fals)}</div>') if fals else ""
     if layout == "rail" and rail:
         items = "".join(
             f'<div class="rail-k"><b>{esc(x[0])}</b><span>{esc(x[1])}</span><i>{esc(x[2])}</i></div>'
@@ -301,6 +308,7 @@ def _section(s: Dict[str, Any], pn: int, total: int, fig_no: str,
         inner = (head + fig + f'<div class="rail-main">{rail_html}{main}</div>'
                  f'<div class="rail-clear"></div>'
                  + (f'<div class="boundary"><b>边界</b>{esc(boundary)}</div>' if boundary else '')
+                 + fals_html
                  + _notes_html(notes))
         return _page(inner, "sec rail-layout", pn, total,
                      (f'{str(s.get("index","")).zfill(2)} / {kick}',
@@ -315,6 +323,7 @@ def _section(s: Dict[str, Any], pn: int, total: int, fig_no: str,
         notes = [f"证据：{len(refs)} 条可寻址数字，附录 / 原报告可回溯。"]
     inner = (head + fig + f'<div class="pblocks">{pb}</div>'
              + (f'<div class="boundary"><b>边界</b>{esc(boundary)}</div>' if boundary else '')
+             + fals_html
              + _notes_html(notes))
     return _page(inner, "sec", pn, total,
                  (f'{str(s.get("index","")).zfill(2)} / {kick}',

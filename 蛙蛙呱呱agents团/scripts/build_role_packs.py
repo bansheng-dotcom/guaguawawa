@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """生成 20 个角色的领域包（knowledge/roles/r01..r20.json）。
 
 每个角色包回答六件事：
@@ -68,7 +68,7 @@ R = [
          failures=["局部效率最大化", "忽略瓶颈", "用平均值排产", "只降本不看流量"],
          sections=["瓶颈诊断", "价值流", "产能方案", "排程规则", "指标与门禁", "90 天行动"]),
 
-    dict(role="r03", name="蛙手先", title="CFO / 合规", domain="财务与资本",
+    dict(role="r03", name="蛙守线", title="CFO / 合规", domain="财务与资本",
          keywords=["财务", "现金", "融资", "成本", "利润", "估值", "预算"],
          books=[
              ("Financial Intelligence", "Berman & Knight", 2006, "en", "三表与利润质量", "把会计数字翻译成经营语言"),
@@ -114,7 +114,7 @@ R = [
          failures=["自审", "抽样偏差", "只看格式不看数字", "用整体不错代替判据"],
          sections=["评审范围", "证据链", "缺陷清单", "复现", "结论", "保留项"]),
 
-    dict(role="r05", name="蛙深研", title="研究员", domain="行业与市场研究",
+    dict(role="r05", name="蛙深远", title="研究员", domain="行业与市场研究",
          keywords=["调研", "行业", "市场", "规模", "竞争", "区域", "赛道"],
          books=[
              ("Competitive Strategy", "Michael Porter", 1980, "en", "五力与结构", "先看结构再看玩家"),
@@ -206,7 +206,7 @@ R = [
          failures=["做完整产品才验证", "无杀死标准", "样本偏", "把意见当需求"],
          sections=["假设", "最小切片", "实验设计", "结果", "决策", "下一步"]),
 
-    dict(role="r09", name="蛙文码", title="工程师", domain="软件工程与架构",
+    dict(role="r09", name="蛙稳码", title="工程师", domain="软件工程与架构",
          keywords=["工程", "架构", "代码", "性能", "重构", "发布"],
          books=[
              ("Clean Code", "Robert Martin", 2008, "en", "可读性与边界", "代码是写给人看的"),
@@ -367,7 +367,7 @@ R = [
          failures=["只比单价", "忽略总成本", "安全库存拍脑袋"],
          sections=["品类", "成本", "供应商", "库存", "风险", "动作"]),
 
-    dict(role="r16", name="蛙人石", title="HR / 组织", domain="组织与人才",
+    dict(role="r16", name="蛙人事", title="HR / 组织", domain="组织与人才",
          keywords=["招聘", "人效", "组织", "绩效", "薪酬", "编制"],
          books=[
              ("Work Rules", "Laszlo Bock", 2015, "en", "招聘与授权", "数据驱动人事"),
@@ -390,7 +390,7 @@ R = [
          failures=["凭感觉招人", "用离职率单一指标", "编制拍脑袋"],
          sections=["组织", "编制", "招聘", "绩效", "风险", "计划"]),
 
-    dict(role="r17", name="蛙智网", title="自动化工程师", domain="自动化与流程编排",
+    dict(role="r17", name="蛙织网", title="自动化工程师", domain="自动化与流程编排",
          keywords=["自动化", "流程", "RPA", "编排", "重试", "告警"],
          books=[
              ("The Phoenix Project", "Gene Kim", 2013, "en", "IT 价值流", "约束在交付链"),
@@ -459,7 +459,7 @@ R = [
          failures=["离线好线上差", "不校准", "泄漏"],
          sections=["问题", "数据", "模型", "评测", "上线", "监控"]),
 
-    dict(role="r20", name="蛙守智", title="SRE / 可靠性", domain="可靠性与运维",
+    dict(role="r20", name="蛙值守", title="SRE / 可靠性", domain="可靠性与运维",
          keywords=["稳定性", "故障", "SLO", "容量", "演练", "可用性"],
          books=[
              ("Site Reliability Engineering", "Beyer 等", 2016, "en", "SLO 与错误预算", "可靠性是预算"),

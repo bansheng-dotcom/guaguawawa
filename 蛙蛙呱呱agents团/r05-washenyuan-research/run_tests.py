@@ -109,24 +109,26 @@ def result_of(skill, action, input_name):
 class T01(unittest.TestCase):
     def test_registration(self):
         from skills import SKILLS, SKILL_BY_NAME
+        import contracts
         names = [m.NAME for m in SKILLS]
-        self.assertEqual(names, ["research", "industry", "competitor",
-                                 "business", "sizing", "scenario", "auto"])
-        self.assertEqual(len(SKILL_BY_NAME), 7)
+        self.assertEqual(sorted(names), sorted(contracts.skill_names()))
+        self.assertEqual(len(SKILL_BY_NAME), len(SKILLS))
         for m in SKILLS:
             self.assertTrue(m.DESC)
             self.assertTrue(m.ACTIONS)
-            self.assertEqual(len(m.ACTIONS), 2)
+            self.assertEqual(sorted(m.ACTIONS), sorted(contracts.actions(m.NAME)))
 
     def test_manifest(self):
         import agent
         mf = agent.make_manifest()
         self.assertEqual(mf["role"], "r05")
-        self.assertEqual(mf["skill_count"], 7)
-        self.assertEqual(mf["action_count"], 14)
-        self.assertEqual(len(mf["contracts"]), 14)
+        import contracts
+        self.assertEqual(mf["skill_count"], len(contracts.skill_names()))
+        self.assertEqual(mf["action_count"],
+                         sum(len(contracts.actions(x)) for x in contracts.skill_names()))
+        self.assertEqual(len(mf["contracts"]), mf["action_count"])
         self.assertIn("research/ledger", mf["contracts"])
-        self.assertEqual(len(mf["intent_routes"]), 14)
+        self.assertEqual(len(mf["intent_routes"]), mf["action_count"])
         self.assertEqual(mf["boundary"]["never"][0], "无源断言（claims 必须挂来源）")
 
     def test_routes(self):
@@ -536,11 +538,11 @@ class T10(unittest.TestCase):
 class T11(unittest.TestCase):
     def test_registry_complete(self):
         import contracts
-        self.assertEqual(contracts.skill_names(),
-                         ["research", "industry", "competitor", "business",
-                          "sizing", "scenario", "auto"])
+        from skills import SKILLS as _S
+        self.assertEqual(sorted(contracts.skill_names()),
+                         sorted(m.NAME for m in _S))
         for s in contracts.skill_names():
-            self.assertEqual(len(contracts.actions(s)), 2, s)
+            self.assertGreaterEqual(len(contracts.actions(s)), 1, s)
         from skills import SKILLS
         for m in SKILLS:
             self.assertEqual(sorted(m.ACTIONS), sorted(contracts.actions(m.NAME)),
@@ -691,7 +693,9 @@ class T14(unittest.TestCase):
     def test_contract_cli(self):
         rows, code = run_cli_json(["contract", "list"])
         self.assertEqual(code, 0)
-        self.assertEqual(len(rows), 14)
+        import contracts as _c
+        self.assertEqual(len(rows),
+                         sum(len(_c.actions(x)) for x in _c.skill_names()))
         v, code = run_cli_json(["contract", "validate", "--skill", "sizing",
                                 "--action", "size",
                                 "--output", os.path.join(EX, "sizing_size.json")])

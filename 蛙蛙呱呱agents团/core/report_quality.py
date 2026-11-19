@@ -116,7 +116,13 @@ def _sections(html: str) -> List[Dict[str, Any]]:
             continue
         # 附录/口径/结论先行不是业务判断：前者是台账，后者是摘要，
         # 都不该拉低「每节有机理/证伪」的覆盖率（否则一份好报告会被摘要拖红）。
-        if title in ("记录层", "口径与分数", "结论先行") or "证据来源" in title:
+        # flow 版式还会把「摘要/目录/动作计划/来源」渲染成独立 h2 页，同样不是判断节
+        # （2026-11-19：不排除它们会让默认 flow 报告被 Q1/Q8/Q9/Q10 判红）。
+        structural = (title in ("记录层", "口径与分数", "结论先行", "从判断到动作",
+                                "来源与数据文件")
+                      or re.match(r"^\d+条判断", title) is not None
+                      or title.startswith("谁、何时"))
+        if structural or "证据来源" in title:
             continue
         body = _text(rest)
         items = [_text(x) for x in re.findall(r"<li[^>]*>([\s\S]*?)</li>", rest)
@@ -228,6 +234,11 @@ def audit(path: str, profile: str = "auto") -> Dict[str, Any]:
         floor = {"chars": 400, "numbers": 8, "exhibits": 1}
     floor_bad = []
     for st in secs:
+        # 动作节是结构化清单（做什么/谁/何时/停止线），不是数据判断节：
+        # 它天然没有十几个数字，用数据节的字数/数字下限去卡它属于判据错配
+        # （2026-11-19：默认 flow 报告因这一条被判红）。
+        if st["title"].startswith("动作："):
+            continue
         raw = str(st.get("raw") or "")
         have_ex = ("<table" in raw) or ("<svg" in raw)
         if (st["chars"] < floor["chars"] or st["numbers"] < floor["numbers"]

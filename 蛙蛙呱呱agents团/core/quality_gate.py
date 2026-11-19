@@ -102,16 +102,67 @@ def _presentation(html_path: str) -> Dict[str, Any]:
     }
 
 
+def _contract(contract: Dict[str, Any]) -> Dict[str, Any]:
+    """契约呈现层：标题带数字 / 图下来源与口径 / B 页 rail 够数。"""
+    from core import report_editorial
+    res = report_editorial.check_contract(contract)
+    return {"layer": "contract", "ok": bool(res.get("ok")),
+            "detail": {"hard": res.get("hard") or [], "warn": res.get("warn") or [],
+                       "sections": res.get("sections")}}
+
+
+def _pages(html_path: str) -> Dict[str, Any]:
+    """consulting 页式：封面/节页/页码/图表 aria；旧 DOM 判据不适用。"""
+    from pathlib import Path
+    h = Path(html_path).read_text(encoding="utf-8", errors="replace")
+    pages = h.count('class="page')
+    charts = h.count("<svg")
+    bad = []
+    if pages < 5:
+        bad.append(f"页数过少（{pages}）")
+    if 'class="page cover"' not in h:
+        bad.append("缺封面")
+    if "rail-float" in h and 'class="page sec rail-layout"' not in h:
+        bad.append("rail 未落在 B 页")
+    return {"layer": "pages", "ok": not bad,
+            "detail": {"pages": pages, "charts": charts, "bad": bad}}
+
+
+def _coverage(coverage: Dict[str, Any]) -> Dict[str, Any]:
+    """覆盖层：R04 五项（覆盖/数据/图表/版式/文笔）的完整审计。"""
+    from core import r04_audit
+    res = r04_audit.audit(
+        coverage.get("frame") or {}, coverage.get("plan") or {},
+        coverage.get("sources") or {}, coverage.get("html") or "",
+        int(coverage.get("min_pages", 21)),
+        bool(coverage.get("prose_hard", True)),
+        coverage.get("pdf"))
+    return {"layer": "coverage", "ok": bool(res.get("ok")), "detail": res}
+
+
 def check(draft: Optional[Dict[str, Any]] = None, pack: Optional[Dict[str, Any]] = None,
           html: Optional[str] = None,
-          section_check: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+          section_check: Optional[Dict[str, Any]] = None,
+          contract: Optional[Dict[str, Any]] = None,
+          coverage: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """三层全过才 ok。缺输入的那层记 skipped（不算过，也不算不过）。"""
     layers: List[Dict[str, Any]] = []
     if draft and pack:
         layers.append(_evidence(draft, pack, section_check))
-    if html and Path(html).exists():
-        layers.append(_editorial(html))
-        layers.append(_presentation(html))
+    if contract:
+        layers.append(_contract(contract))
+    if coverage:
+        layers.append(_coverage(coverage))
+    if html is not None:
+        # 传了 HTML 就必须存在：缺文件 = 编辑/呈现两层没跑，不能当成「跳过而通过」
+        if not Path(html).exists():
+            layers.append({"layer": "presentation", "ok": False,
+                           "detail": {"bad": [f"HTML 不存在：{html}"]}})
+        elif contract and str(contract.get("theme") or "") == "consulting":
+            layers.append(_pages(html))
+        else:
+            layers.append(_editorial(html))
+            layers.append(_presentation(html))
     if not layers:
         return {"schema": SCHEMA, "ok": False, "layers": [],
                 "error": "没有任何可检的输入"}
@@ -128,7 +179,8 @@ def check(draft: Optional[Dict[str, Any]] = None, pack: Optional[Dict[str, Any]]
 
 
 def describe(result: Dict[str, Any]) -> str:
-    marks = {"evidence": "证据", "editorial": "编辑", "presentation": "呈现"}
+    marks = {"evidence": "证据", "editorial": "编辑", "presentation": "呈现",
+             "contract": "契约", "pages": "页式", "coverage": "覆盖"}
     parts = []
     for l in result.get("layers") or []:
         parts.append(f"{marks.get(l['layer'], l['layer'])}={'过' if l['ok'] else '不过'}")
@@ -142,13 +194,16 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--pack", default=None, help="evidence_pack.json")
     ap.add_argument("--section-check", default=None, help="section_check.json（可选）")
     ap.add_argument("--html", default=None, help="report.html")
+    ap.add_argument("--contract", default=None, help="contract.json（可选，查标题/图/rail）")
     ap.add_argument("--json", default=None)
     a = ap.parse_args(argv)
     draft = json.loads(Path(a.draft).read_text(encoding="utf-8-sig")) if a.draft else None
     pack = json.loads(Path(a.pack).read_text(encoding="utf-8-sig")) if a.pack else None
     sc = (json.loads(Path(a.section_check).read_text(encoding="utf-8-sig"))
           if a.section_check else None)
-    res = check(draft, pack, a.html, sc)
+    contract = (json.loads(Path(a.contract).read_text(encoding="utf-8-sig"))
+                if a.contract else None)
+    res = check(draft, pack, a.html, sc, contract)
     if a.json:
         Path(a.json).write_text(json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(res, ensure_ascii=False, indent=2))

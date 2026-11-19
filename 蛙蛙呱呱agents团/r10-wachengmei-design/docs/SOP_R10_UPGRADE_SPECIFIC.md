@@ -124,7 +124,7 @@ python agent.py imagegen generate --input examples/sample_cyber_headphone.json -
 ```bash
 python agent.py imagegen generate --input examples/sample_cyber_headphone.json
 ```
-* **实测验证结果**：流水线成功伴生输出 [`design_layer_spec.json`](../workspace/artifacts/design_layer_spec.json)，其内包含完整的画布尺寸、图层层级（`z_index`）、对齐坐标与 Design Tokens。
+* **实测验证结果**：流水线成功伴生输出 [`design_layer_spec.json`](#workspace/artifacts/design_layer_spec.json)，其内包含完整的画布尺寸、图层层级（`z_index`）、对齐坐标与 Design Tokens。
 
 ---
 

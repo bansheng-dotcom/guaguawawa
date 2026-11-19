@@ -1,4 +1,4 @@
-﻿# s06 修图与图像工程（imaging / edit·probe）方法论
+# s06 修图与图像工程（imaging / edit·probe）方法论
 > 蒸馏自: 补充技能/01-当前能力域/python-pillow__Pillow/SKILL.md
 >
 

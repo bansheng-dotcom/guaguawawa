@@ -1,4 +1,4 @@
-﻿# s08 归因与 RevOps（attribution / roi）方法论
+# s08 归因与 RevOps（attribution / roi）方法论
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/sales/forecast/SKILL.md
 >
 

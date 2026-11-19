@@ -66,10 +66,14 @@ metadata:
 | 验收与交接 | `agent.py qa qa` |
 | 页面拆解与线框 | `agent.py prototype screen` |
 | 开发交付说明 | `agent.py qa handoff` |
+| 演示幻灯片（deck） | `agent.py deck plan` |
+| 小程序骨架 | `agent.py miniapp plan` |
+| Office 交付物 | `agent.py office probe` |
+| SaaS 邮件脚手架 | `agent.py saas saas` |
 
 ## §4 执行流程（Workflow）
 
-1. **接单**：确认 `intent` 是否已含必需字段；缺则一轮问清（≤4 问、每问带候选）。
+1. **接单**：确认 `intent` 是否已含必需字段；缺则一轮问清（≤8 问、每问带候选）。
 2. **选动作**：按 §3 任务表选一个主任务；选不出再澄清，不猜。
 3. **执行**：跑对应子命令（入口见 §3）；产物落 `workspace/`。
 4. **自检**：跑角色根目录 `harness.py` 对应门禁，退出码非 0 不得交付。

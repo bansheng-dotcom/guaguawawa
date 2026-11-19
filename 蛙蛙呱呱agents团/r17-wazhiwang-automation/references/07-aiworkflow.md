@@ -1,4 +1,4 @@
-﻿# 参考层 07 —— AI 工作流接入（intent-recognition / model-selection）
+# 参考层 07 —— AI 工作流接入（intent-recognition / model-selection）
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__knowledge-work-plugins/small-business/skills/build-agent/SKILL.md
 >
 

@@ -220,7 +220,8 @@ def main() -> int:
     if a.json:
         print(json.dumps(out, ensure_ascii=False, indent=2))
     else:
-        print(f"{'档位':<5}{'字':>7}{'节':>4}{'表':>4}{'图':>4}{'结论':>5}{'数字密度':>8}  文件")
+        print("（诊断口径：只给档位参考，不参与放行；放行看 scripts/check_report_flow.py）")
+    print(f"{'档位':<5}{'字':>7}{'节':>4}{'表':>4}{'图':>4}{'结论':>5}{'数字密度':>8}  文件")
         for g in out:
             print(f"{g['level']:<5}{g.get('chars',0):>7}{g.get('sections',0):>4}"
                   f"{g.get('tables',0):>4}{g.get('figures',0):>4}"

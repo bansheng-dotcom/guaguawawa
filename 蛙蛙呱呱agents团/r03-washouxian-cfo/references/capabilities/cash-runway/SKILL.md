@@ -118,8 +118,11 @@ python agent.py cfo runway --input <跑道模型.json>
 |---|---|---|
 | `start_fundraising` | runway ≤ 6–9 个月 | 启动融资 |
 | `cost_reduction` | runway ≤ 6 个月 | 制定降本方案 |
-| `execute_cuts` | runway ≤ 3 个月 | 执行降本 |
-| `emergency` | runway ≤ 2 个月 | 紧急处置 |
+| `execute_cuts` | runway ≤ 4 个月 | 执行降本 |
+| `emergency` | runway ≤ 3 个月 | 紧急处置 |
+
+> 阈值单一出处：`r03/experience/thresholds.json` 的 `cfo.runway_triggers`
+> （start_fundraising 9 / cost_reduction 6 / execute_cuts 4 / emergency 3）。本表与其保持一致。
 
 **触发器命中不等于要立刻做**，但**必须有人对每个触发器给决策**（决策归 `r01`）。
 

@@ -1,0 +1,8 @@
+{
+  "schema": "dsh.report.line/v1",
+  "mode": "agent",
+  "intent": "酒水 claims 硬闸测试",
+  "evidence": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out_hardtest\\_compiled\\evidence_pack.json",
+  "draft": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out_hardtest\\_compiled\\draft_sections.json",
+  "detected_at": "2026-11-19T19:13:22"
+}

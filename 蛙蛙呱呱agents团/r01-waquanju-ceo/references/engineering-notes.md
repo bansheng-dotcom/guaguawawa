@@ -76,11 +76,11 @@ python agent.py run --all                                 # 按依赖调度执�
 
 ## 详细参考（按需加载，7 个能力域）
 
-- [模块A 意图分级](references/01-vision-intent.md) —— 六问澄清、目标分层、战略简报
-- [模块B 跨角色拆解](references/02-orchestration-decomposition.md) —— 五相环、WBS、DRI、路由
-- [模块C 硬决策](references/03-hard-decisions.md) —— 可逆性分级、反方质询、10/10/10
-- [模块D 公司 OS](references/04-company-os.md) —— 六大组件、决策日志、复盘
-- [模块E 治理审计](references/05-governance-audit.md) —— 成熟度、意向授权、漂移、冷却锁
+- [模块A 意图分级](01-vision-intent.md) —— 六问澄清、目标分层、战略简报
+- [模块B 跨角色拆解](02-orchestration-decomposition.md) —— 五相环、WBS、DRI、路由
+- [模块C 硬决策](03-hard-decisions.md) —— 可逆性分级、反方质询、10/10/10
+- [模块D 公司 OS](04-company-os.md) —— 六大组件、决策日志、复盘
+- [模块E 治理审计](05-governance-audit.md) —— 成熟度、意向授权、漂移、冷却锁
 
 ---
 

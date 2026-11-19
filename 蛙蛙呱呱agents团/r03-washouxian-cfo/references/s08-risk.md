@@ -1,4 +1,4 @@
-﻿# S08 广告 / KYC-AML / 投资风控
+# S08 广告 / KYC-AML / 投资风控
 > 蒸馏自: 补充技能/01-当前能力域/anthropics__financial-services/kyc-screener/SKILL.md
 >
 

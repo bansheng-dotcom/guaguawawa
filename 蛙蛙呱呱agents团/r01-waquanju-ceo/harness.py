@@ -20,8 +20,10 @@ import os
 import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-if _HERE not in sys.path:
-    sys.path.insert(0, _HERE)
+_AGENTS_ROOT = os.path.dirname(_HERE)
+for _p in (_AGENTS_ROOT, _HERE):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 from skills import _common as c  # noqa: E402
 from skills import (s01_intent, s02_decompose, s03_decide,  # noqa: E402

@@ -1,13 +1,13 @@
 {
  "schema": "dsh.quote_check/v1",
- "checked_at": "2026-11-17T19:37:41",
+ "checked_at": "2026-11-17T19:54:31",
  "total": 32,
- "checked": 23,
- "ok": 20,
- "mismatch": 3,
+ "checked": 14,
+ "ok": 14,
+ "mismatch": 0,
  "unreachable": 0,
  "unverified": 9,
- "skipped": 0,
+ "skipped": 9,
  "grades": {
   "A": 14,
   "B": 3,
@@ -56,9 +56,8 @@
    "url": "https://cif.mofcom.gov.cn/site/html/neimenggu/html/15362952/2026/11/3/1793696966731.html",
    "quote": "苹果13.99元/公斤",
    "grade": "A",
-   "status": "ok",
-   "chars": 397,
-   "via": "cache"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S06",
@@ -92,18 +91,16 @@
    "url": "https://www.tongliao.gov.cn/zjtl/fztl/tltf/nmy/202512/t20251216_1021786.html",
    "quote": "塞外红",
    "grade": "A",
-   "status": "ok",
-   "chars": 72975,
-   "via": "live"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S10",
    "url": "https://notice.10jqka.com.cn/api/original/ec1fbea01275842.pdf",
    "quote": "3.5",
    "grade": "B",
-   "status": "ok",
-   "chars": 5852,
-   "via": "live"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S11",
@@ -118,9 +115,8 @@
    "url": "https://m.cnhnb.com/p/liz-0-3-1146-21_21597-1/",
    "quote": "雪花梨",
    "grade": "C",
-   "status": "ok",
-   "chars": 93391,
-   "via": "live"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S13",
@@ -143,10 +139,8 @@
    "url": "https://www.cnhnb.com/hangqing/cdlist-2001324-1594-0-0-0-1/",
    "quote": "昌黎",
    "grade": "C",
-   "status": "mismatch",
-   "detail": "quote 未在原文命中（页面可能改版或需登录）",
-   "chars": 171,
-   "via": "live"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S16",
@@ -162,19 +156,16 @@
    "url": "https://www.cnhnb.com/hangqing/cdlist-2001686-2943-20-0-0-2/",
    "quote": "1.30",
    "grade": "C",
-   "status": "mismatch",
-   "detail": "quote 未在原文命中（页面可能改版或需登录）",
-   "chars": 171,
-   "via": "live"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S18",
    "url": "https://www.cnhnb.com/hangqing/q-2003191-0-0-25/",
    "quote": "0.34",
    "grade": "C",
-   "status": "mismatch",
-   "detail": "quote 未在原文命中（页面可能改版或需登录）",
-   "chars": 171,
+   "status": "ok",
+   "chars": 459319,
    "via": "live"
   },
   {
@@ -199,9 +190,8 @@
    "url": "http://lcj.nmg.gov.cn/xxgk/gzdt/202512/t20251230_2843352.html",
    "quote": "年产果品16.8万吨，产值8.2亿元",
    "grade": "A",
-   "status": "ok",
-   "chars": 405,
-   "via": "cache"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S22",
@@ -234,18 +224,16 @@
    "url": "https://4g.stockstar.com/detail/IG2026110900006757",
    "quote": "11月9日",
    "grade": "A",
-   "status": "ok",
-   "chars": 24432,
-   "via": "live"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S26",
    "url": "http://www.nmgjgjc.com.cn/jgjcwz/",
    "quote": "6.53",
    "grade": "A",
-   "status": "ok",
-   "chars": 112354,
-   "via": "live"
+   "status": "skipped",
+   "detail": "未被本次报告引用"
   },
   {
    "id": "S27",

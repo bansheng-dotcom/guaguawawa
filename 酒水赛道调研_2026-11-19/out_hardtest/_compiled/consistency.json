@@ -1,0 +1,15 @@
+{
+  "schema": "dsh.claim_consistency/v1",
+  "ok": true,
+  "issues": {
+    "C1_unexplained_conflict": 0,
+    "C2_d_only_numbers": 0,
+    "C3_headline_unbacked": 0,
+    "C4_no_boundary": 0
+  },
+  "conflicts_resolved": [],
+  "conflicts_unexplained": [],
+  "d_only_numbers": [],
+  "headline_unbacked": [],
+  "note": "C1 不是「有冲突就错」：同一指标不同口径是常态，在 claims.conflicts 里写清 reason 即放行；沉默才是错。"
+}
