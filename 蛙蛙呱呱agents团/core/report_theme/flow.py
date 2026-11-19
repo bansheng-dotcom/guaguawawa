@@ -28,7 +28,7 @@ body.flow-all{background:#E7E5E0}
 .flow-block .head{break-after:avoid}
 .flow-cover{position:relative;height:272mm;padding:0;border-bottom:1pt solid var(--ink);
   break-after:page;page-break-after:always}
-.flow-cover .inner{position:absolute;inset:0}
+.flow-cover .inner{position:absolute;inset:0;padding:0}
 .flow-break{break-before:page;page-break-before:always;height:0;margin:0;padding:0}
 .src-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 7mm;margin-top:3mm}
 .src-row{display:flex;gap:2mm;font-size:6.1pt;line-height:1.35;padding:.62mm 0;border-bottom:.3pt solid var(--line)}
