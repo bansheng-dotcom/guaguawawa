@@ -55,5 +55,5 @@ def test_critic_scores_and_repeats():
             "边界：只覆盖家庭零售。") * 8
     r = prose_critic.score(body)
     assert r["score"] >= 85
-    rep = prose_critic.repeats([body, body, body])
+    rep = prose_critic.repeats([body, body, body], min_count=3)
     assert rep

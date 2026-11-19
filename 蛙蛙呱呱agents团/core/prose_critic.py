@@ -21,7 +21,7 @@ def _ngrams(text: str, n: int = 8) -> List[str]:
     return [t[i:i + n] for i in range(max(0, len(t) - n + 1))]
 
 
-def repeats(texts: Iterable[str], n: int = 8, min_count: int = 3) -> List[Dict[str, Any]]:
+def repeats(texts: Iterable[str], n: int = 8, min_count: int = 5) -> List[Dict[str, Any]]:
     c = Counter()
     for t in texts:
         c.update(set(_ngrams(t, n)))  # 每节最多算一次

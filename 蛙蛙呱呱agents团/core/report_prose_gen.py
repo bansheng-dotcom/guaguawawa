@@ -33,26 +33,28 @@ def compose(s: Dict[str, Any], spec: Dict[str, str]) -> str:
     implication = spec.get("implication", "")
     kicker = s.get("kicker", "这一节")
     method = spec.get("method") or f"放到「{kicker}」里看：{signal}。"
-    method2 = spec.get("method2") or f"如果「{signal}」不出现，判断不成立；反过来，{alternative}。"
-    method3 = spec.get("method3") or f"先做「{action}」；停止线是「{stop or '不设'}」。"
-    check = f"这一节先核「{signal}」，核不出来就不进预算。"
+    method2 = spec.get("method2") or f"若「{signal}」未出现，「{kicker}」作废；{alternative}。"
+    method3 = spec.get("method3") or f"先做「{action}」；停：{stop or '不设'}。"
+    check = f"「{signal}」核不出，「{kicker}」不批。"
     base_body = s.get("body", "")
     paras = [
         verdict,
-        "先把事实摆清：" + fact + ("。" if fact and not fact.endswith("。") else ""),
-        ("原始口径：" + base_body) if base_body and base_body not in fact else "",
+        f"先看「{kicker}」的事实：" + fact + ("。" if fact and not fact.endswith("。") else ""),
+        (f"「{kicker}」原始口径：" + base_body) if base_body and base_body not in fact else "",
+        (f"{kicker}：" + (s.get("fig_src") or s.get("table_title") or "")) if (s.get("fig_src") or s.get("table_title")) else "",
         evidence,
         "为什么？" + mechanism,
-        f"对「{kicker}」有两种解释：" + alternative + "；另一种是" + signal + "。看信号：如果它继续，说明判断成立；如果它反转，说明只是短期波动。",
+        f"对「{kicker}」，{alternative.rstrip('；;。')}；{signal}。{signal}继续则「{kicker}」成立；{signal}反转则作废。",
         implication,
         method,
         method2,
         method3,
-        check,
         "所以，" + action + ("停止线是" + stop + "。" if stop else ""),
         "边界：" + boundary,
     ]
-    return _p(*paras)
+    out = _p(*paras)
+    return (out.replace("这张表回答", "这一节回答")
+               .replace("对进入者的含义", "对你的含义"))
 
 
 def generate(sections: Iterable[Dict[str, Any]], specs: Dict[str, Dict[str, str]]) -> Dict[str, str]:
