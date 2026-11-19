@@ -46,6 +46,16 @@ body.flow-all{background:#E7E5E0}
   .flow-paper{width:auto;margin:0;padding:14mm 16mm 10mm;box-shadow:none}
   .flow-block{break-before:auto;page-break-before:auto}
 }
+@media screen and (max-width:900px){
+  body.flow-all{background:#fff}
+  .flow-paper{width:100%;margin:0;padding:22px 18px 40px;box-shadow:none}
+  .flow-cover{height:auto;min-height:0;padding:0 0 10mm;break-after:auto}
+  .flow-cover .inner{position:static;inset:auto;padding:0;display:block}
+  .flow-block{width:auto;padding:0 0 8mm}
+  .cover .kpis{grid-template-columns:repeat(2,1fr);gap:4mm;margin-top:8mm}
+  .sum-grid,.acts,.toc-cols{grid-template-columns:1fr!important}
+  .flow-footer{padding:8mm 0 2mm}
+}
 """
 
 _SEC = re.compile(r'<section class="page ([^"]+)"(?: id="([^"]*)")?>(.*?)</section>', re.S)
