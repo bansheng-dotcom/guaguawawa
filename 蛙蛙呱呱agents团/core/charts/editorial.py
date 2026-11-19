@@ -8,15 +8,16 @@
 """
 from __future__ import annotations
 
-from typing import Any, Dict, List
+import json
+from typing import Any, Dict, List, Tuple
 
-INK = "#17202A"
-SLATE = "#5B6B7A"
-FOG = "#A7B0B8"
-PAPER = "#FAF9F5"
-ACCENT = "#B4472F"
-BLUE = "#2E5E7E"
-OCHRE = "#B08A3E"
+INK = "#1E1B18"
+SLATE = "#6F685D"
+FOG = "#C9C0B2"
+PAPER = "#F6F1E7"
+ACCENT = "#732F2A"
+BLUE = "#1F4E5A"
+OCHRE = "#A47B42"
 
 
 def _esc(s: Any) -> str:
@@ -85,35 +86,81 @@ def dot_change(title: str, kicker: str, items: List[Dict[str, Any]], source: str
 
 
 def cost_bridge(title: str, kicker: str, items: List[Dict[str, Any]], source: str) -> str:
-    """items: label/value, 最后 total。横向堆叠成本桥 + 图例网格。"""
-    W, H = 1200, 520
-    L, R = 38, 1162
+    """items: label/value, 最后 total。横向成本分项：标签左、数值右、一个高亮。"""
+    W, H = 1200, 440
     total = next((i["value"] for i in items if i.get("total")), sum(i["value"] for i in items))
-    scale = (R - L) / total
     b = _head(title, kicker, W)
-    y = 160
-    cur = 0.0
-    colors = []
-    for i, it in enumerate(items):
-        if it.get("total"):
-            continue
+    rows = [i for i in items if not i.get("total")]
+    L, R = 250, 1080
+    scale = (R - L) / total
+    for i, it in enumerate(rows):
+        y = 150 + i * 38
         v = it["value"]
         col = ACCENT if it.get("highlight") else (SLATE if i % 2 == 0 else FOG)
-        colors.append((it["label"], v, col))
-        b.append(_rect(L + cur * scale, y, max(v * scale, 1), 58, col))
-        cur += v
-    # total
-    b.append(_rect(L, 250, total * scale, 46, INK))
-    b.append(_t(L + 10, 280, f"合计 {total:g} 元", 13, PAPER, weight=700))
-    # legend: 3 columns x 2 rows
-    for i, (lab, v, col) in enumerate(colors):
-        cx = 38 + (i % 3) * 380
-        cy = 340 + (i // 3) * 44
-        b.append(_dot(cx, cy - 4, 4, col))
-        b.append(_t(cx + 12, cy, lab, 11, SLATE))
-        b.append(_t(cx + 100, cy, f"{v:g} 元", 12, INK, weight=700))
-    b.append(_t(38, 455, "每 500ml 零售价 10.0 元；渠道+毛利占 53%，运输只占 5%。", 11, SLATE))
-    b.append(_t(38, 495, source, 9, FOG))
+        b.append(_t(38, y + 14, it["label"], 11, INK if it.get("highlight") else SLATE,
+                    weight=700 if it.get("highlight") else 400))
+        b.append(_rect(L, y, max(v * scale, 2), 18, col))
+        b.append(_t(L + v * scale + 8, y + 14, f"{v:g}", 11, INK, weight=700))
+    b.append(_t(38, 400, f"合计 {total:g} 元 / 500ml；渠道+毛利占 53%，运输只占 5%。", 10, SLATE))
+    b.append(_t(38, 425, source, 8, FOG))
+    return f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg">' + "".join(b) + "</svg>"
+
+
+def flow_map(title: str, kicker: str, china_path: str, inner_path: str,
+             origins: List[Tuple[str, str, float, float]], hub: Tuple[str, float, float],
+             cities: List[Tuple[str, float, float]], source: str) -> str:
+    """中国底图 + 7 产地 → 呼市 → 包头/赤峰；编号节点，不做色块。"""
+    W, H = 1200, 710
+    geo = json.loads(open(china_path, encoding="utf-8").read())
+    inner = json.loads(open(inner_path, encoding="utf-8").read())
+    def polys(f):
+        g = f["geometry"]
+        return [g["coordinates"]] if g["type"] == "Polygon" else g["coordinates"]
+    rings = [r for f in geo["features"] for poly in polys(f) for r in poly]
+    pts = [p for r in rings for p in r if p[1] >= 17.5]
+    lo = min(p[0] for p in pts); hi = max(p[0] for p in pts)
+    la = min(p[1] for p in pts); ha = max(p[1] for p in pts)
+    sc = min((W - 80) / (hi - lo), 470 / (ha - la))
+    ox = (W - (hi - lo) * sc) / 2; oy = 105
+    def P(lon, lat):
+        return ox + (lon - lo) * sc, oy + (ha - lat) * sc
+    b = _head(title, kicker, W)
+    for r in rings:
+        if min(y for _, y in r) < 17.5:
+            continue
+        d = "M " + " L ".join(f"{P(x, y)[0]:.1f},{P(x, y)[1]:.1f}" for x, y in r) + " Z"
+        b.append(f'<path d="{d}" fill="#F2EDE3" stroke="#D8CEBE" stroke-width=".6"/>')
+    for f in inner["features"]:
+        for poly in polys(f):
+            for r in poly:
+                d = "M " + " L ".join(f"{P(x, y)[0]:.1f},{P(x, y)[1]:.1f}" for x, y in r) + " Z"
+                b.append(f'<path d="{d}" fill="#E6DAC6" stroke="#B9A88F" stroke-width="1"/>')
+    hx, hy = P(hub[1], hub[2])
+    for num, name, lon, lat in origins:
+        x, y = P(lon, lat)
+        b.append(_ln(x, y, hx, hy, SLATE, .7, "2 3"))
+        b.append(_dot(x, y, 8, PAPER, SLATE, 1.2))
+        b.append(_t(x, y + 3, num, 7, INK, "middle", 700))
+    b.append(_dot(hx, hy, 9, ACCENT))
+    b.append(_t(hx, hy + 22, hub[0], 11, INK, "middle", 700, "serif"))
+    for i, (name, lon, lat) in enumerate(cities):
+        x, y = P(lon, lat)
+        col = ACCENT if i == 0 else OCHRE
+        b.append(_ln(hx, hy, x, y, col, 1.8 if i == 0 else 1.2))
+        b.append(_dot(x, y, 5, col))
+        if i == 0:
+            b.append(_ln(x - 3, y - 3, x - 30, y - 24, FOG, .7))
+            b.append(_t(x - 32, y - 26, name, 10, INK, "end", 700))
+        else:
+            b.append(_ln(x + 3, y - 3, x + 30, y - 24, FOG, .7))
+            b.append(_t(x + 32, y - 26, name, 10, INK, weight=700))
+    # legend
+    for i, (num, name, lon, lat) in enumerate(origins):
+        cx = 38 + (i // 4) * 420
+        cy = 590 + (i % 4) * 24
+        b.append(_t(cx, cy, f"{num}", 8, ACCENT, weight=700))
+        b.append(_t(cx + 18, cy, name, 9, SLATE))
+    b.append(_t(38, 690, source, 8, FOG))
     return f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg">' + "".join(b) + "</svg>"
 
 
