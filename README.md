@@ -3,12 +3,17 @@
 > 专为**一人公司**打造的全栈商业与技术智能体协作系统。
 > 用「组织语义 + 契约化端口 + 生成与校验分离」把 20 个专业角色组织成一家可运行的公司，而不是 20 个互不相干的聊天机器人。
 
-**版本：v2.4 · 2026-11-18**（报告产线 v10.2：`decide` 单入口 / 决策契约 / binding / 图由对照选型；lens 已退役）
+**版本：v2.5 · 2026-11-19**（报告产线 v12：`report` 单入口 / A、B 双路 / flow 默认版式 / 三层门禁）
 
-> **v10.2 报告入口**：`python guagua.py report decide --intent "…" --dir <项目> --out <目录>`
-> （`report build` 是同实现的兼容名；`--lens` 已退役，传了会被忽略）。
-> 旧 `run / pack / produce / research` 已删除；报告只有一个作者（R01），成品验收用 `report check`。
-> 诊断与修复过程见 [`交付/报告质量与图表系统-根因与修复-2026-11-18.md`](交付/报告质量与图表系统-根因与修复-2026-11-18.md)。
+> **一条命令出报告**：`python guagua.py report "你的问题" --dir <项目> --out <目录> [--pdf]`
+> （等价写法 `report run-line --intent "…" --dir … --out …`）。手上没有数据就走 B 路：
+> `report research-plan` 出研究方案 → 专家按 brief 交 `claims.json` → `report "…" --claims claims.json --out <目录>`。
+> 默认版式 `flow`（一条内容流，PDF 自动分页）；要一节一页 A4 加 `--layout paper`。
+> 旧 `build / decide / produce / pack / run` 与 `--lens / --thesis / --profile / --min-coverage` 已删除
+> （`report research` 现指并行调研子命令）；报告只有一个作者（R01），成品验收用 `report check --html <报告>`。
+> 产线地图见 [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md)，
+> 版式规范见 [`docs/REPORT-FLOW.md`](蛙蛙呱呱agents团/docs/REPORT-FLOW.md)，
+> 重构过程见 [`交付/报告产线重构-SOP-2026-11-18.md`](交付/报告产线重构-SOP-2026-11-18.md)。
 
 **统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)
 
@@ -46,11 +51,14 @@
 
 **三个核心数字：** 20 个角色、6 大事业群、3 种合作形式。
 
-### 本次升级了什么
+### 本次升级了什么（v2.5）
 
-- 重写了本 README，**逐个介绍 20 个角色**：定位、能力、输入/输出、常用命令、协作位置、边界。
-- 新增 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)：从 60 秒上手到 20 角色命令速查、协作流水线、产物路径与排错。
-- 新增统一入口 [`guagua.py`](蛙蛙呱呱agents团/guagua.py)：一个命令调用全部角色和全部技能动作。
+- **报告产线收敛为一条**：`report` 单入口 + A（数据）/ B（调研）双路 + 三层质检（证据 / 编辑 / 呈现）。
+- **flow 成为默认版式**：一条内容流，PDF 自动分页；每节 11 字段、1,000–1,600 字，摘要五项必填。
+- **证据链可回抓**：`report collect` 默认 50 条来源下限并联网逐条核 quote，`report research` 支持 8 路并行发卡。
+- 保留并逐角色介绍 20 个角色：定位、能力、输入/输出、常用命令、协作位置、边界。
+- 统一入口 [`guagua.py`](蛙蛙呱呱agents团/guagua.py)：一个命令调用全部角色和全部技能动作；
+  完整命令手册见 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)。
 - 明确标注「真实执行 / 模拟 / 阻塞」边界，避免把本地校验说成线上已执行。
 
 ---
@@ -119,6 +127,27 @@ python guagua.py chat --role r06 --intent "分析订单漏斗、留存和渠道�
 ```
 
 `chat` 会把该角色的知识域、案例、规则和你的意图组装成一份可直接交给 LLM 的 Prompt。
+
+### 第 7 步：出一条报告
+
+```bash
+# 有数据：问题 + 数据目录（含 CSV/JSON）交给唯一报告产线
+python guagua.py report "这批数据说明什么" --dir <项目目录> --out workspace/report --pdf
+
+# 没数据：先出研究方案（8 模块 / 专家分工 / 检索词 / 证据等级）
+python guagua.py report research-plan --intent "内蒙古调味料市场怎么做" --out workspace/plan
+# 专家按 brief 调研并交 claims.json（每条结论带原文引文 / URL / 来源等级）
+python guagua.py report "内蒙古调味料市场怎么做" --claims workspace/claims.json --out workspace/report --pdf
+
+# 已有 facts.py + charts.py 的项目（本项目最常用的正式稿路径）
+python guagua.py report flow --project workspace/<项目> --out workspace/<项目>/out --pdf
+
+# 验一份成品（九条 flow 门禁 + 深度门禁）
+python guagua.py report check --html workspace/report/report.html
+```
+
+产物固定为 `report.html`（正式版）+ `report.md`（快读版）+ `report.pdf`（带页码）+ `manifest.json`（门禁与证据）。
+完整清单见 [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md)。
 
 ---
 
@@ -789,6 +818,12 @@ python guagua.py call r03 financial rollforward --input examples/financial_rollf
 | `demo --all` | 依次运行全部 demo | `python guagua.py demo --all` |
 | `check` | 体检 20 个入口 | `python guagua.py check` |
 | `doctor` | 环境诊断 + 体检 | `python guagua.py doctor` |
+| `report "…" …` | 唯一报告产线（A 数据 / B 调研） | `python guagua.py report "你的问题" --dir <项目> --out <目录> --pdf` |
+| `report flow` | 项目化 flow 报告（facts + charts） | `python guagua.py report flow --project <项目> --out <目录> --pdf` |
+| `report check` | 验成品报告：九条 flow 门禁 + 深度门禁 | `python guagua.py report check --html report.html` |
+| `report charts` | 48 型图表能力盘点 | `python guagua.py report charts` |
+| `capabilities` | 能力目录：谁拥有 / 谁能用 / 形态 | `python guagua.py capabilities` |
+| `skills` | 技能包索引（SKILL.md 选型） | `python guagua.py skills` |
 
 ### 7.3 如何调用「全部功能」
 
@@ -814,6 +849,7 @@ python guagua.py call r06 explore funnel \
 3. [`ORG.md`](蛙蛙呱呱agents团/ORG.md)（组织章程与红线）
 4. [`PROTOCOL.md`](蛙蛙呱呱agents团/PROTOCOL.md)（任务卡与移交协议）
 5. [`REPORT-STANDARD.md`](蛙蛙呱呱agents团/REPORT-STANDARD.md)（汇报格式）
+6. [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md)（报告产线地图与门禁）
 
 ---
 
@@ -830,7 +866,8 @@ python guagua.py call r06 explore funnel \
 │  ├─ TEAM.md                    # 编排实例
 │  ├─ REPORT-STANDARD.md         # 汇报标准（唯一产线：R01 出具）
 │  ├─ REPORT-BRIDGE-GUIDE.md     # 接入唯一产线（角色只交 result）
-│  ├─ core/                      # registry / protocol / runner / workspace / report_flow
+│  ├─ core/                      # registry / protocol / report_line / flow_report / charts / quality_gate
+│  ├─ configs/                   # 角色职责、专家卡、report_flow / report_coverage 阈值
 │  ├─ r01-waquanju-ceo/          # R01 蛙全局（… r02 ~ r19 同构）
 │  ├─ r20-washouzhi-sre/         # R20 蛙值守
 │  ├─ agent-packs/               # 宿主可直接加载的角色包
@@ -862,8 +899,9 @@ python guagua.py call r06 explore funnel \
 | [`TEAM.md`](蛙蛙呱呱agents团/TEAM.md) | 「营收最大化」编排实例 |
 | [`REPORT-STANDARD.md`](蛙蛙呱呱agents团/REPORT-STANDARD.md) | 交付报告的统一结构与文风 |
 | [`REPORT-BRIDGE-GUIDE.md`](蛙蛙呱呱agents团/REPORT-BRIDGE-GUIDE.md) | 报告桥接指南 |
-| [`docs/智能体团升级SOP_v2.md`](蛙蛙呱呱agents团/docs/智能体团升级SOP_v2.md) | 智能体团升级 / 演进路线（现行 v2） |
-| [`docs/SOP_BUSINESS_ANALYSIS_AND_REPORTING.md`](蛙蛙呱呱agents团/docs/SOP_BUSINESS_ANALYSIS_AND_REPORTING.md) | 商业分析与决策级报告标准 |
+| [`docs/SOP_AGENT_META_UPGRADE.md`](蛙蛙呱呱agents团/docs/SOP_AGENT_META_UPGRADE.md) | 智能体能力升级方法论（体检→对标→硬化→注入→闭环→沉淀） |
+| [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md) | 报告产线地图：单入口、A/B 双路、门禁与保留零件 |
+| [`docs/REPORT-FLOW.md`](蛙蛙呱呱agents团/docs/REPORT-FLOW.md) | flow 版式规范：一条内容流、PDF 分页、摘要必填、文笔门禁 |
 | [`docs/actions_catalog.json`](蛙蛙呱呱agents团/docs/actions_catalog.json) | 全角色动作目录（机器可读） |
 | [`core/registry.py`](蛙蛙呱呱agents团/core/registry.py) | 20 角色能力与端口注册表 |
 | [`core/protocol.py`](蛙蛙呱呱agents团/core/protocol.py) | 任务卡、事件、端口字段契约 |
@@ -917,6 +955,20 @@ python verify_loop.py
 ---
 
 ## 十、版本与更新记录
+
+### v2.5（2026-11-19）· 报告产线 v12：一条线、两种输入、一个入口
+
+- **单入口**：`report "问题" --dir <项目> --out <目录>`（等价 `report run-line`）；旧的
+  `build / decide / produce / pack / run` 与 `--lens / --thesis / --profile / --min-coverage` 全部删除。
+- **双路**：A 数据驱动（方法库从 CSV/JSON 算）与 B 智能体调研（`research-plan` → `claims.json`）
+  共用同一套渲染器、门禁与交付格式。
+- **flow 默认版式**：一条内容流、PDF 自动分页；每节 11 字段（2 条事实 + 9 段论证）、1,000–1,600 字，
+  摘要五项必填；要回一节一页 A4 加 `--layout paper`。
+- **证据链**：`report collect` 默认 50 条来源下限、联网逐条回抓 quote，未核过即失败；
+  `report research` 支持 `--workers 8` 并行发卡；同一指标同期两个值不写 `conflicts` 就拦。
+- **门禁**：`report check` 收九条 flow 门禁 + 深度门禁；`report flow` 里 r04 五项
+  （覆盖 / 数据 / 图表 / 版式 / 文笔）默认 BLOCK，调试才加 `--no-gate-hard` / `--no-prose-hard`。
+- **图表**：48 型图表全量回归（`report charts` 48/48），按数据关系选图，不再手挑。
 
 ### v2.2（2026-11-17）· 全面体检修复
 
