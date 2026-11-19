@@ -31,34 +31,24 @@ def compose(s: Dict[str, Any], spec: Dict[str, str]) -> str:
     stop = spec.get("stop", "")
     boundary = spec.get("boundary", "")
     implication = spec.get("implication", "")
-    method = spec.get("method") or (
-        "把数字放回生意里看：总量只回答盘子多大，结构才回答钱在哪。"
-        "你如果只拿总量做预算，会把资源平均分给所有品类、所有渠道；"
-        "按结构做预算，才会把资源压到增长与毛利同时成立的那一小块。"
-        "这不是文字游戏，是预算科目：先定分母，再定分子，最后定停止线。"
-        "分母错了，后面每个数都会错；分母对了，哪怕只拿到区间，也能做预算、能做取舍。"
-    )
-    method3 = spec.get("method3") or (
-        "落地前做一次反向检查：如果这个结论错了，最可能错在哪个数？"
-        "找到那个数，下一期先核它；核不出来，就不要把它写进预算。"
-        "结论不怕小，怕的是没有证伪条件。"
-    )
-    method2 = spec.get("method2") or (
-        "判断一个品类或渠道值不值得做，不看它今天多大，看它明年还在不在、后年谁付钱。"
-        "把这条标准写进预算：能算清毛利的先做，算不清的只做旁证；"
-        "能复购的先做，只靠一次性促销的后做。这样即使数字不完整，也不会把方向做反。"
-        "反过来，如果一个机会只能靠“再等等看”成立，那它现在就不成立；先做能验证的小单，再谈放量。"
-    )
+    kicker = s.get("kicker", "这一节")
+    method = spec.get("method") or f"放到「{kicker}」里看：{signal}。"
+    method2 = spec.get("method2") or f"如果「{signal}」不出现，判断不成立；反过来，{alternative}。"
+    method3 = spec.get("method3") or f"先做「{action}」；停止线是「{stop or '不设'}」。"
+    check = f"这一节先核「{signal}」，核不出来就不进预算。"
+    base_body = s.get("body", "")
     paras = [
         verdict,
         "先把事实摆清：" + fact + ("。" if fact and not fact.endswith("。") else ""),
+        ("原始口径：" + base_body) if base_body and base_body not in fact else "",
         evidence,
         "为什么？" + mechanism,
-        "一种解释是" + alternative + "另一种解释是" + signal + "。判别方法是看下一期的信号：如果信号继续，说明判断成立；如果信号反转，说明只是短期波动。",
+        f"对「{kicker}」有两种解释：" + alternative + "；另一种是" + signal + "。看信号：如果它继续，说明判断成立；如果它反转，说明只是短期波动。",
         implication,
         method,
         method2,
         method3,
+        check,
         "所以，" + action + ("停止线是" + stop + "。" if stop else ""),
         "边界：" + boundary,
     ]
