@@ -1,0 +1,48 @@
+# 文笔与深度阈值（唯一出处）
+# 口径见 docs/REPORT-PROSE-STYLE.md
+prose:
+  chars_per_section: [1000, 1600]
+  chars_table_section: [850, 1100]
+  chars_hard_min: 850
+  numbers_per_1000_chars_min: 35
+  required_blocks: [结论, 事实, 解释, 所以, 边界]
+  markers: [判别, 证伪, 如果, 若, 下一期, 信号]
+  contrast_markers: [不是, 而是, 一种解释, 另一种解释]
+  max_suoyi_paragraphs: 1
+  voice: "你"
+  cover_questions: 3
+  cover_actions: 3
+  part_dividers: 3
+  footnotes_per_section_min: 1
+
+banned_phrases:
+  - "这张表回答"
+  - "对进入者的含义"
+  - "本节将"
+  - "下面我们来看"
+  - "综上所述"
+  - "值得注意的是"
+  - "不难发现"
+  - "要重视"
+  - "要加强"
+  - "要优化"
+  - "建议进一步研究"
+  - "市场空间很大"
+  - "竞争非常激烈"
+  - "增长潜力巨大"
+
+rubric:
+  pass: 85
+  usable: 70
+  weights:
+    判断力: 20
+    机理: 20
+    判别证伪: 15
+    具体性: 15
+    反方边界: 10
+    节奏人称: 10
+    证据密度: 10
+
+audit:
+  hard: [判断力, 机理, 判别证伪, 具体性, 反方边界]
+  soft: [节奏人称, 证据密度]

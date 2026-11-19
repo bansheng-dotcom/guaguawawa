@@ -1,0 +1,16 @@
+# flow 渲染规范（唯一出处）
+# 设计：HTML 一条内容流；PDF 导出时再分 A4 页。
+flow:
+  cover: hero          # 封面是 hero，不拆成普通 block
+  html: continuous     # 无 A4 页卡片、无页码
+  pdf_paginate: auto   # 浏览器/导出器自动分页
+  page_numbers: export # 导出后盖页码，不在 HTML 里写死
+  footer: small        # 小页脚：logo 左，机构/日期右
+  summary_required:
+    - 读法
+    - 样本
+    - 回答
+    - 必读
+    - 证据
+  appendix_max_pages: 1
+  section_chars: [1000, 1600]

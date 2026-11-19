@@ -8,8 +8,13 @@
 | 文档 | 回答什么 |
 |---|---|
 | `../REPORT-STANDARD.md` | 报告写什么、怎么判合格、怎么验（唯一报告标准） |
+| `PROJECT-RULES.md` | 项目规则（13 条，每条绑定一个自动检查；违反即返工） |
 | `../REPORT-BRIDGE-GUIDE.md` | 新角色/新能力怎么接入唯一产线 |
 | `REPORT-LINES.md` | 报告产线地图（一条线、四种输入、保留零件） |
+| `REPORT-COVERAGE-UPGRADE-SOP.md` | 覆盖升级 SOP：50 源/饱和/矩阵/确认/双门禁/R04 全审 |
+| `REPORT-PROSE-STYLE.md` | 文笔与深度 Style Guide：三问/三动作/PART I–III/论证五段/rubric |
+| `REPORT-FLOW.md` | Flow 报告：HTML 一条流、PDF 自动分页、摘要必填、小页脚 |
+| `REPORT-LAYOUTS.md` | consulting 主题：A/B 两种页式 + 13 型图表（core 可选出口） |
 | `REPORT-DECISION-GRADE.md` | 决策级报告的目标形态（问题→断言→证据→图） |
 | `REPORT-CLAIM-GATE.md` | 断言门禁（头条资格、可比较性） |
 | `REPORT-DATA-INTAKE.md` | 数据 intake：来源、quote 回抓、缺口 |
@@ -45,3 +50,4 @@
 | `报告产线-实际结构与问题-2026-11-18.md` | 改造前的实测诊断（12 环节 / 线路清点 / 24 条问题） |
 | `报告产线重构-SOP-2026-11-18.md` | P1–P5 可执行 SOP |
 | `SOP-P1-验收-2026-11-18.md` | P1 验收记录（删了什么、哈希证据、遗留项） |
+| `复盘-返工根因与项目规则-2026-11-18.md` | 报告产线现状 / 双图表 / 双名册 / 返工根因与红队复盘（最新） |

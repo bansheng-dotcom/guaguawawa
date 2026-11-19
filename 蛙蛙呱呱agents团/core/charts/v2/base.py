@@ -136,5 +136,5 @@ def style_ylabels(ax, T: Dict[str, Any], size: float = 10.6) -> None:
 
 
 def nice_height(n: int, *, row: float = 46.0, extra: float = 0.0,
-                lo: float = 170.0, hi: float = 640.0) -> float:
+                lo: float = 320.0, hi: float = 640.0) -> float:
     return max(lo, min(hi, 96.0 + row * n + extra))

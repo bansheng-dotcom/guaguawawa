@@ -1,0 +1,38 @@
+# 报告覆盖标准（唯一阈值出处）
+# 口径见 docs/REPORT-COVERAGE-UPGRADE-SOP.md
+coverage:
+  cited_sources_min: 50
+  saturation_no_new: 15
+  page_floor: 21
+  maps_required: [national, regional]
+  core_units_min: 3
+  core_units_max: 5
+  long_tail_ratio_max: 0.40
+  core_estimated_ratio_max: 0.30
+  core_missing: block
+  long_tail_missing: context_red
+  quick_tier: false
+
+audit:
+  hard: [coverage, evidence, charts, layout]
+  soft: [prose]
+
+research:
+  # 8 个元维度只用于检索提问，不直接决定报告目录
+  meta_prompts:
+    - 规模与增长
+    - 链路与节点
+    - 竞争与集中度
+    - 渠道与价格
+    - 成本与损耗
+    - 合规与标准
+    - 地理与产区
+    - 风险与情景
+  source_grades:
+    A: 官方统计/标准/法规
+    B: 行业报告/协会/券商/咨询
+    C: 公司披露/年报/招股书
+    D: 学术研究
+    E: 专业社区/从业者（标社区口径）
+    F: 媒体（只做线索）
+  core_source_grades: [A, B, C, D]

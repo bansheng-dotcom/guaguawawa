@@ -387,7 +387,7 @@ def _validate_ext_chart(ch: Dict[str, Any], i: int) -> List[str]:
 # CSS：internet-reporting 风格（自样张移植，色板 graphite-cobalt）
 # --------------------------------------------------------------------------- #
 
-THEMES = ("sticker", "paper", "editorial", "mono", "annual", "swiss", "slate", "noir")
+THEMES = ("sticker", "paper", "editorial", "mono", "annual", "swiss", "slate", "noir", "consulting")
 
 CSS = """
     :root {
@@ -585,7 +585,7 @@ CSS = """
     }
     .fig-body { padding: 16px 16px 8px; overflow-x: auto; }
     /* 图按容器宽度等比缩放：固定 min-width 会在窄屏把右端标注切掉 */
-    .fig-body svg { display: block; width: 100%; height: auto; }
+    .fig-body svg { display: block; width: 100%; height: auto; min-height: 240px; }
     .fig-src {
       padding: 8px 18px 12px; font-size: 11.6px; color: var(--faint);
       border-top: 1px dashed var(--line);
@@ -1335,7 +1335,9 @@ def hbar_chart(title: str, bars: List[Dict[str, Any]], footnote: Optional[List[s
     n = len(bars)
     W, TOP, BOT = 980, 45, 44
     row_h = 63
-    H = TOP + n * row_h + BOT
+    # 高度下限：只有两三根柱子时按公式算出来不足 200px，缩放进正文后像一条扁线。
+    # 报告里的每张图至少要 320px 画布，读者才看得出差异。
+    H = max(320, TOP + n * row_h + BOT)
     vals = [b["value"] for b in bars]
     vmax = max(max(vals), 0)
     vmin = min(min(vals), 0)
@@ -1510,6 +1512,24 @@ def _auto_highlight(title: str) -> str:
 
 
 def render(c: Dict[str, Any]) -> str:
+    # flow：内容一条流，导出时再分页
+    if str(c.get("layout") or "") == "flow" or c.get("flow") is True:
+        import sys as _sys
+        from pathlib import Path as _Path
+        _root = str(_Path(__file__).resolve().parent.parent)
+        if _root not in _sys.path:
+            _sys.path.insert(0, _root)
+        from core.report_theme.flow import render_flow
+        return render_flow(c)
+    # consulting：固定 A4 页式（A/B 两种页型），独立出口，不影响旧文档流
+    if str(c.get("theme") or "") == "consulting" or str(c.get("layout") or "") in ("pages", "hybrid"):
+        import sys as _sys
+        from pathlib import Path as _Path
+        _root = str(_Path(__file__).resolve().parent.parent)
+        if _root not in _sys.path:
+            _sys.path.insert(0, _root)
+        from core.report_theme.pages import render_contract
+        return render_contract(c)
     parts: List[str] = []
     A = parts.append
     A('<!doctype html>')

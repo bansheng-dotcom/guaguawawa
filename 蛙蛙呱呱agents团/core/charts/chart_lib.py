@@ -94,6 +94,13 @@ _RULES: List[Dict[str, Any]] = [
     {"shape": "distribution","intent": "explore",  "charts": ["histogram", "scatter"]},
     {"shape": "xy",          "intent": "relate",   "charts": ["scatter", "bubble", "parallel"]},
     {"shape": "funnel",      "intent": "convert",  "charts": ["funnel", "sankey"]},
+    {"shape": "categories",  "intent": "compare",  "charts": ["grouped_bar", "hbar", "vbar"]},
+    {"shape": "panel",       "intent": "compare",  "charts": ["grouped_bar", "heatmap", "small_mult"]},
+    {"shape": "matrix",      "intent": "compare",  "charts": ["heatmap", "dot"]},
+    {"shape": "breakdown",   "intent": "explain",  "charts": ["waterfall", "stacked_bar", "pct_stacked"]},
+    {"shape": "flow",        "intent": "convert",  "charts": ["geo_flow", "sankey"]},
+    {"shape": "geo",         "intent": "map",      "charts": ["choropleth", "symbol_map", "geo_flow"]},
+    {"shape": "distribution","intent": "range",    "charts": ["error_bar", "target_band"]},
 ]
 
 
