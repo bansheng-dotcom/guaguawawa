@@ -95,6 +95,7 @@ def flowify(html: str, sources: List[Any] | None = None) -> str:
     bm = re.search(r'<section class="page back"[^>]*>(.*?)</section>', html, re.S)
     footer = _footer(bm.group(1) if bm else "")
     out = ('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
+           '<meta name="viewport" content="width=device-width, initial-scale=1">'
            f'<style>{FLOW_CSS}</style></head><body class="flow-all">'
            f'<main class="flow-paper">{cover}{body}{footer}</main></body></html>')
     return out

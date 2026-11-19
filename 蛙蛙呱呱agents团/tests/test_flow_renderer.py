@@ -51,3 +51,10 @@ def test_footer_html():
     from core.report_theme.blocks import footer_html
     assert "flow-footer" in footer_html()
     assert "蛙蛙呱呱专家团" in footer_html()
+
+
+def test_flowify_is_responsive():
+    html = flowify(_pages_like())
+    assert 'name="viewport"' in html
+    assert "max-width:900px" in html
+    assert "width:100%" in html
