@@ -28,15 +28,16 @@ def repeats(texts: Iterable[str], n: int = 8, min_count: int = 5) -> List[Dict[s
     return [{"gram": g, "sections": k} for g, k in c.most_common() if k >= min_count]
 
 
-def score(text: str) -> Dict[str, Any]:
-    base = prose_style.audit_section(text)
+def score(text: str, context: str = "") -> Dict[str, Any]:
+    full = (text + " " + context).strip()
+    base = prose_style.audit_section(full)
     n = base["chars"]
     # 维度分：有证据/机理/判别/反方就给分，缺项扣分
-    has_mech = any(k in text for k in ("因为", "所以", "导致", "来自", "取决于"))
-    has_signal = any(k in text for k in ("判别", "证伪", "如果", "若", "信号", "下一期"))
-    has_rival = any(k in text for k in ("另一种", "反方", "不是", "而是"))
-    has_action = any(k in text for k in ("动作", "先", "停止线", "不做"))
-    has_boundary = "边界" in text
+    has_mech = any(k in full for k in ("因为", "所以", "导致", "来自", "取决于"))
+    has_signal = any(k in full for k in ("判别", "证伪", "如果", "若", "信号", "下一期"))
+    has_rival = any(k in full for k in ("另一种", "反方", "不是", "而是"))
+    has_action = any(k in full for k in ("动作", "先", "停止线", "不做"))
+    has_boundary = "边界" in full
     dims = {
         "判断力": 20 if base["chars"] >= 850 and base["numbers"] >= 8 else 12,
         "机理": 20 if has_mech else 8,
@@ -51,8 +52,10 @@ def score(text: str) -> Dict[str, Any]:
             "ok": total >= 85 and not base["hard"]}
 
 
-def audit_sections(bodies: Dict[str, str], benchmark: Dict[str, str] | None = None) -> Dict[str, Any]:
-    rows = {k: score(v) for k, v in bodies.items()}
+def audit_sections(bodies: Dict[str, str], benchmark: Dict[str, str] | None = None,
+                   context: Dict[str, str] | None = None) -> Dict[str, Any]:
+    context = context or {}
+    rows = {k: score(v, context.get(k, "")) for k, v in bodies.items()}
     rep = repeats(bodies.values())
     avg = sum(r["score"] for r in rows.values()) / max(len(rows), 1)
     return {"ok": all(r["ok"] for r in rows.values()) and not rep,
