@@ -22,7 +22,7 @@
 | 事实 | 唯一源 | 生成物 |
 |---|---|---|
 | 角色身份 / 是否进报告 | `core/registry.py::ROLES` | `roster` / `experts.yaml` / `agent-packs` |
-| 图型集合 | `core/charts/v2/RENDERERS` | `chart_capabilities` / 选型配置 |
+| 图型集合 | `core/report_theme/charts_pro/spec.py`（RENDERERS + ALIASES） | `chart_capabilities` / 选型配置 / 门禁 |
 | 门禁阈值 | `report_quality.PROFILES`（或 policy） | 文档里的表格 |
 
 - 事故：`enters_report` 在 `core/roster.py:80` 与 `scripts/gen_experts.py:209` 各硬编码一份；`experts.yaml` 现在仍列着已删除的 `size/demand/consistency/coverage/channel`。
@@ -103,10 +103,10 @@ README / AGENTS / REPORT-* 不重复正文，只放链接；文档里出现的�
 - 违反：移出主仓。
 
 ### R12. 图表只留一个运行时引擎，另一个只能是显式对照
-默认 `v2`；`v1` 只允许 `engine="v1"` 显式调用（对照/快照），不得作为静默兜底。任何回退必须：写 `chart_stats`、进门禁（`v2==total and fallback==0 and error==0`）、图上显示「数据不足」占位。
+默认 `pro`（`core/report_theme/charts_pro`）；`v1`（`core/charts/chart_lib.py`）只允许 `engine="v1"` 显式调用（对照/快照），不得作为静默兜底。`pro` 映射不到某型时才允许回退 `v1`，且必须：写 `chart_stats`、进门禁（`pro + v1 == total and error == 0`）、图上显示「数据不足」占位。
 
-- 事故：v2 把所有异常吞成 `None`（`core/charts/v2/__init__.py:407-410`），`error` 计数几乎不动；v1 接不住 v2 的 payload（实测 gantt / ridgeline / small_mult 直接抛异常），回退等于把报告打死或画素图。
-- 检查：`scripts/check_chart_fallback.py` + 新增「报告级 chart_stats 断言」。
+- 事故（历史）：v2 吞异常成 `None`，`error` 计数几乎不动；v1 接不住 v2 的 payload，回退等于把报告打死或画素图。v2 已于 2026-11-20 下线。
+- 检查：`scripts/check_charts_pro.py`（70 型逐型渲染 + 样例 + 别名）+ `scripts/ci_report_checks.py [10]`。
 - 违反：图不落盘，或标注「降级图」。
 
 ---

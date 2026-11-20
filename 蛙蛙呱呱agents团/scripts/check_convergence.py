@@ -100,7 +100,7 @@ def s1_membership_hardcoded() -> None:
 
 
 def s1_chart_sets() -> None:
-    """v2 渲染器 / v1 注册表 / 选型配置 三者的图型集合必须一致。"""
+    """charts_pro 图型 / v1 注册表 / 选型配置 三者的图型集合必须自洽。"""
     from core.report_theme.charts_pro import spec as _pro
     from core import chart_capabilities as cc
     v1 = set(cc.CATALOG_KEYS) if hasattr(cc, "CATALOG_KEYS") else {c.get("key") for c in cc.CATALOG}

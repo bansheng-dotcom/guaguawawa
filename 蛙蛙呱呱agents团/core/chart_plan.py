@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
-# 形状 → 可用图型（第一个是首选）。都是 v2 引擎已实现的型。
+# 形状 → 可用图型（第一个是首选）。都是 charts_pro 已实现的型。
 SHAPES: Dict[str, Dict[str, Any]] = {
     # 纯类别排名/比较
     "categorical": {"types": ["hbar", "vbar", "dot"], "min_points": 3,

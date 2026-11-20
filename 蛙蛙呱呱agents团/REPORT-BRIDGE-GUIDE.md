@@ -26,7 +26,7 @@
 > core/report_bridge.py        ← 渲染薄层：render_html / write_markdown / render_pdf
 >         │
 >         ▼
-> core/report_renderer.py      ← 唯一 HTML 渲染器（48 型图 + 主题）
+> core/report_renderer.py      ← 唯一 HTML 渲染器（charts_pro 70 型 + 主题）
 > ```
 >
 > `report_bridge.emit` **确实已删除**；但 `core/report_bridge.py` 作为「渲染薄层」仍在，

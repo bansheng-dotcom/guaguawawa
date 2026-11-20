@@ -1432,11 +1432,11 @@ def vbar_compare(title: str, vbars: List[Dict[str, Any]], annotate: Optional[Dic
     return "\n          ".join(out)
 
 
-_CHART_STATS: Dict[str, int] = {"total": 0, "v2": 0, "v1": 0, "fallback": 0, "error": 0}
+_CHART_STATS: Dict[str, int] = {"total": 0, "pro": 0, "v1": 0, "fallback": 0, "error": 0}
 
 
 def chart_stats() -> Dict[str, int]:
-    """图表引擎出图计数：v2 成功 / 回退 v1 / 异常，供 CI 与门禁读取。"""
+    """图表引擎出图计数：pro 成功 / 回退 v1 / 异常，供 CI 与门禁读取。"""
     return dict(_CHART_STATS)
 
 
@@ -1535,7 +1535,7 @@ def render(c: Dict[str, Any]) -> str:
     theme = str(c.get("theme", "paper"))
     if theme not in THEMES:
         theme = "paper"
-    # 默认走研报级引擎 v2；契约显式写 chart_engine 或环境变量可覆盖（回滚开关）
+    # 默认走 charts_pro；契约显式写 chart_engine 或环境变量可覆盖（回滚开关）
     engine = str(os.environ.get("GUAGUA_CHART_ENGINE")
                  or c.get("chart_engine") or "pro")
     A(f'<body data-theme="{theme}"><div class="page">')

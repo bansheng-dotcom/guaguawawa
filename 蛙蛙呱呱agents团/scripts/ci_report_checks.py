@@ -7,7 +7,7 @@
   [3] 分支 B（跨角色）从两份 result 出一份报告，且过门禁
   [4] 角色侧已无报告引擎（静态扫描：没人再 import 被删除的产线模块）
   [5] 图表能力 48/48 不退化
-  [10] 48 型图表经报告管线嵌入：v2 不回退、无双标题、卡框口径齐备
+  [10] 48 型注册表 / 70 型 charts_pro：嵌入不回退、无双标题、卡框口径齐备
   [13] 交付稿风格：禁斜体、标题/表头禁衬线体
   [14] 开工前契约：四个纲领各跑一遍，契约不成立就不许出报告
   [15] 报告线单测：数据台/方法库/纲领/成稿（缺样本的用例自动 skip，不装绿也不装红）
@@ -180,7 +180,7 @@ def main() -> int:
     if rc:
         fails.append("skill-integration")
 
-    # [10] 图表嵌入：48 型走报告渲染管线，v2 不回退、无双标题、卡框口径齐备
+    # [10] 图表嵌入：走报告渲染管线，charts_pro 不回退、无双标题、卡框口径齐备
     rc, out = run([sys.executable, "scripts/check_chart_report_embed.py"])
     print(f"[10] chart embed rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
     if rc:

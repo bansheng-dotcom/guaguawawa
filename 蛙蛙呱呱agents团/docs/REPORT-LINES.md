@@ -110,14 +110,14 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 | `core/coverage_cli.py` | `plan → confirm → preflight → audit` |
 | `configs/report_coverage.yaml` | 50 源/15 源/21 页/双地图唯一阈值 |
 | `core/charts/consulting.py` | consulting 主题的 14 型确定性 SVG 图表 |
-| `core/report_renderer.py` | 唯一 HTML 渲染器（48 型图 + 8 套主题 + 呈现层规则） |
+| `core/report_renderer.py` | 唯一 HTML 渲染器（charts_pro 70 型 + 8 套主题 + 呈现层规则） |
 | `core/decision.py` | 决策契约（3–5 问、对照、图型、证伪）与选图（读 `configs/chart_by_relation.yaml`） |
 | `core/report_thesis.py` | 只保留 `analysis` 一条纲领 |
 | `core/analysis_desk.py` · `core/methods/*` | 数据台 + 方法库（出带数字的判断） |
 | `core/report_kernel/*` | 版式四规则 + 契约自检 |
 | `core/report_quality.py` | 反模板深度门禁（Q1–Q9） |
 | `configs/experts.yaml` | 20 角色专家卡（由 `scripts/gen_experts.py` 生成） |
-| `configs/chart_by_relation.yaml` | 按数据关系选图（48 型全覆盖） |
+| `configs/chart_by_relation.yaml` | 按数据关系选图（v1 48 型全覆盖） |
 
 已删除（P1/P4）：`core/report_build.py`、`core/report_compose.py`、`core/question_bank.py`、
 `core/question_derive.py`、`core/focus_contract.py`、`scripts/reason.py`、

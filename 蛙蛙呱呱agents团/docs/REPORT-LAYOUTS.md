@@ -117,7 +117,7 @@ consulting 主题在 `quality_gate` 里走 `pages` 层（封面/节页/页码/�
 | `gantt` | `tasks[]`（start,end） | 执行节奏 |
 | `line` / `area` | `series[]` + `xlabels[]` | 连续序列 |
 
-> 地图不在 13 型里：`consulting` 出口暂不接地理边界，地图页请继续用 v2 的
+> 地图不在 13 型里：`consulting` 出口暂不接地理边界，地图页请继续用 charts_pro 的
 > `choropleth/symbol_map/geo_flow`，或把地图作为 `image` block 传入。这样避免在 core
 > 里再存一份 GeoJSON，也不让 48 型注册表出现第二套词汇。
 
