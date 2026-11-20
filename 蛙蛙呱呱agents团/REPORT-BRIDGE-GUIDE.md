@@ -1,5 +1,23 @@
 # 接入唯一报告产线（REPORT-BRIDGE-GUIDE）
 
+## 0. 三种写法（2026-11-20 起，flow 产线）
+
+| facts 里怎么写 | 走哪条 | 适合 |
+|---|---|---|
+| `"chart": {"type": "dot", …}` | charts_pro（**默认**） | 新项目，只写数据 |
+| `"chart_spec": {"type": "dot", …}` | charts_pro（同义，兼容旧写法） | 已有项目 |
+| `"chart": "c_five"`（字符串） | 项目自己的 `charts.py` | 老项目，原样不动 |
+
+验收看 `flow_manifest.json` 的 `files.chart_engine = {pro, legacy, table}`：新项目应为 `legacy == 0`；老项目是 `legacy == 图数`。
+
+**老项目迁移三步**（不改 facts）：
+
+1. `charts.py` 里每个函数体换成 `return spec.render({...})`，函数名不动；
+2. facts 的 `"chart": "c_five"` 不动；
+3. 重跑，看 manifest 的 `chart_engine.legacy` 归零，即可删掉 `charts.py`（改成 facts 内联 spec）。
+
+> 图型与必填字段见 `core/report_theme/charts_pro/spec.py` 的 `REQUIRED`；70 型逐型样例外链 `charts_pro/samples.py`。
+
 > **P1/v11（2026-11-18）**：唯一入口是
 > `python guagua.py report run-line --intent "…" --dir <项目> --out <目录>`；
 > `build / decide` 为过渡别名（P5 删除），`run / pack / produce / research` 与 `--lens / --thesis` 已删除。

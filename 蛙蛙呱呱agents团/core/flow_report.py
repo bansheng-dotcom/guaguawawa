@@ -54,9 +54,17 @@ def _assemble(facts: Any, charts: Any, meta: Dict[str, Any]) -> Dict[str, Any]:
     pages: Dict[str, int] = {}
     p = 4
     figures = tables = 0
+    engines = {"pro": 0, "legacy": 0, "table": 0}
     for s in sections:
+        if isinstance(s.get("chart"), dict) and not s.get("chart_spec"):
+            s["chart_spec"] = s["chart"]
         if s.get("chart_spec"):
             s["chart"] = str((s["chart_spec"] or {}).get("type") or "spec")
+            engines["pro"] += 1
+        elif s.get("chart"):
+            engines["legacy"] += 1
+        else:
+            engines["table"] += 1
         if s.get("chart"):
             figures += 1
             s["_fig_no"] = f"图 {figures}"
@@ -118,7 +126,7 @@ def _assemble(facts: Any, charts: Any, meta: Dict[str, Any]) -> Dict[str, Any]:
             f'<title>{meta["title"]}</title><style>{kit.CSS}</style></head><body>'
             + "".join(body) + "</body></html>")
     return {"html": html, "pages": total, "figures": figures,
-            "tables": tables, "sections": len(sections)}
+            "tables": tables, "sections": len(sections), "engines": engines}
 
 
 def build(project_dir: str, out_dir: str, pdf: bool = True,
@@ -168,7 +176,8 @@ def build(project_dir: str, out_dir: str, pdf: bool = True,
     files: Dict[str, Any] = {"html": str(html_path), "pdf": None,
                              "pages_estimate": built["pages"],
                              "figures": built["figures"], "tables": built["tables"],
-                             "sections": built["sections"]}
+                             "sections": built["sections"],
+                             "chart_engine": built.get("engines", {})}
 
     if md:
         lines = [f"# {meta['title']}", "", meta.get("standfirst", ""), ""]
