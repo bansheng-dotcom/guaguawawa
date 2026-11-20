@@ -55,6 +55,8 @@ def _assemble(facts: Any, charts: Any, meta: Dict[str, Any]) -> Dict[str, Any]:
     p = 4
     figures = tables = 0
     for s in sections:
+        if s.get("chart_spec"):
+            s["chart"] = str((s["chart_spec"] or {}).get("type") or "spec")
         if s.get("chart"):
             figures += 1
             s["_fig_no"] = f"图 {figures}"
@@ -85,7 +87,11 @@ def _assemble(facts: Any, charts: Any, meta: Dict[str, Any]) -> Dict[str, Any]:
     body = [cover, summary, toc]
     for s in sections:
         fn = None
-        if s.get("chart"):
+        if s.get("chart_spec"):
+            from core.report_theme.charts_pro import spec as spec_layer
+            spec_layer.validate(s["chart_spec"])
+            fn = (lambda sp: (lambda: spec_layer.render(sp)))(s["chart_spec"])
+        elif s.get("chart"):
             fn = getattr(charts, s["chart"], None)
             if fn is None:
                 raise AttributeError(f"charts.py 缺图表函数 {s['chart']}")
@@ -122,7 +128,7 @@ def build(project_dir: str, out_dir: str, pdf: bool = True,
           gate_hard: bool = False) -> Dict[str, Any]:
     proj = Path(project_dir)
     facts = _load(proj / "facts.py", "flow_facts")
-    charts = _load(proj / "charts.py", "flow_charts")
+    charts = _load(proj / "charts.py", "flow_charts") if (proj / "charts.py").exists() else None
 
     # 文笔：默认 spec 生成覆盖 body；author_first 只校验 11 字段，保留人工正文
     spec_issues: List[str] = []

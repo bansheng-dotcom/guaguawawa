@@ -598,8 +598,8 @@ def section_page(s: dict, pn: int, total: int, fig_no: str,
         for lab, txt in zip(labels, blocks) if txt.strip()
     )
     inner = f"""
-{head}
-{fig}
+<div class="sec-lead">{head}
+{fig}</div>
 <div class="pblocks">{pb}</div>
 <div class="boundary"><b>边界</b>{s["boundary"]}</div>
 {build.notes_html(s["notes"])}

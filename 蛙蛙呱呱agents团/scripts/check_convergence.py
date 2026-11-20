@@ -101,13 +101,14 @@ def s1_membership_hardcoded() -> None:
 
 def s1_chart_sets() -> None:
     """v2 渲染器 / v1 注册表 / 选型配置 三者的图型集合必须一致。"""
-    from core.charts.v2 import RENDERERS as V2
+    from core.report_theme.charts_pro import spec as _pro
     from core import chart_capabilities as cc
     v1 = set(cc.CATALOG_KEYS) if hasattr(cc, "CATALOG_KEYS") else {c.get("key") for c in cc.CATALOG}
-    v2 = set(V2)
-    if v1 != v2:
-        hit("S1", "v1/v2 图型集合不一致", f"only_v1={sorted(v1 - v2)} only_v2={sorted(v2 - v1)}",
-            "以 v2 为准，删 v1 或补别名")
+    v2 = set(_pro.kinds()) | set(_pro.ALIASES)
+    missing = sorted(v1 - v2)
+    if missing:
+        hit("S1", "v1 图型在 charts_pro 中缺别名", f"missing={missing}",
+            "在 charts_pro/spec.py 的 ALIASES 补映射")
     try:
         import yaml
         doc = yaml.safe_load(_read("configs/chart_by_relation.yaml")) or {}

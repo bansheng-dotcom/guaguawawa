@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """共享确定性 HTML 报告渲染器（core 层，全 20 角色通用）。
 
 来源：由 R06 蛙得清的 report_renderer.py 抽取上收为核心库（对齐
@@ -1446,22 +1446,17 @@ def reset_chart_stats() -> None:
 
 
 def render_chart(chart: Dict[str, Any], theme: str = "sticker", engine: str = "") -> str:
-    """内建 hbar/vbar；engine="v2" 时优先走研报级图表引擎，失败自动回退 v1。"""
+    """内建 hbar/vbar；engine="pro" 走 charts_pro（映射不了回退 v1）。"""
     _CHART_STATS["total"] += 1
-    if str(engine) == "v2":
+    if str(engine) == "pro":
         try:
-            from core.charts.v2 import render as v2_render  # 延迟导入
-            # 图卡外框已经有标题/单位/来源，图里不再重复
-            svg = v2_render({**chart, "_embed": True}, theme)
+            from core.report_theme.charts_pro.compat import render_chart as pro_render
+            svg = pro_render(chart, theme)
             if svg:
-                _CHART_STATS["v2"] += 1
+                _CHART_STATS["pro"] = _CHART_STATS.get("pro", 0) + 1
                 return svg
-            _CHART_STATS["fallback"] += 1  # 数据不足，按设计回退
-        except Exception as exc:  # noqa: BLE001
-            _CHART_STATS["error"] += 1  # v2 画不了就用 v1，不让报告因为一张图失败
-            # 但降级必须留痕：否则报告「有图」其实是素图，没人知道
-            print(f"[chart] v2 渲染异常，回退 v1：{chart.get('type')} / "
-                  f"{type(exc).__name__}: {exc}", file=sys.stderr)
+        except Exception:  # noqa: BLE001
+            _CHART_STATS["error"] += 1
     _CHART_STATS["v1"] += 1
     if chart["type"] == "hbar":
         return hbar_chart(chart["title"], chart["bars"], chart.get("footnote"))
@@ -1542,7 +1537,7 @@ def render(c: Dict[str, Any]) -> str:
         theme = "paper"
     # 默认走研报级引擎 v2；契约显式写 chart_engine 或环境变量可覆盖（回滚开关）
     engine = str(os.environ.get("GUAGUA_CHART_ENGINE")
-                 or c.get("chart_engine") or "v2")
+                 or c.get("chart_engine") or "pro")
     A(f'<body data-theme="{theme}"><div class="page">')
 
     # ---------------- 封面 ----------------

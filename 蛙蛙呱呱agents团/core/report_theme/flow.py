@@ -26,7 +26,8 @@ body.flow-all{background:#E7E5E0}
 .flow-block .boundary{margin-top:3mm}
 .flow-block p{orphans:3;widows:3}
 .flow-block .ex{break-inside:avoid}
-.flow-block .head{break-after:avoid}
+.flow-block .head{break-after:avoid;page-break-after:avoid}
+.sec-lead{break-inside:avoid;page-break-inside:avoid}
 .flow-cover{position:relative;height:auto;min-height:272mm;padding:0;border-bottom:1pt solid var(--ink);break-after:page;page-break-after:always}
 .flow-cover .inner{position:static;inset:auto;padding:0}
 .flow-break{break-before:page;page-break-before:always;height:0;margin:0;padding:0}
