@@ -1,0 +1,147 @@
+# 语义层模板 v2（两层：通用语义 + 案例语义）
+#
+# 设计取舍：
+#   · 固定 5 张 cube → 锁死行业（上一版被否）
+#   · 纯案例 semantic_layer → 换业务就重写，跨案例无法复用
+#   · 本版 = 通用语义（度量代数/粒度/口径/指纹规则，跨业务线复用）
+#           + 案例语义（实体清单、度量清单、别名、边界，按项目替换）
+#   案例层只能"实例化"通用层，不能改写通用规则。
+#
+# 用法：复制到 <项目>/semantic_layer.yaml，删掉不需要的实体/度量。
+# 校验：见 SOP v1.1 的 G7–G12。
+
+schema: dsh.semantic/v2
+inherits: generic_semantics_v1   # 通用规则，见 交付/generic_semantics_v1.yaml
+
+case:
+  id: nmg-personal-care-2026-11
+  domain: retail_fmcg
+  owner: r01
+  decision: 选品与试销
+  audience: 业务负责人
+
+# --------------------------------------------------------------------------- #
+# 实体：这个问题里"谁/在哪/什么时候/怎么分"
+# --------------------------------------------------------------------------- #
+entities:
+  - id: region
+    type: spatial
+    levels: [全国, 省, 盟市, 旗县]
+    key: 行政区划代码
+    note: 盟市以下数据只有统计年鉴有
+
+  - id: category
+    type: hierarchy
+    levels: [大类, 子类, 细类]
+    note: 个护大类下分洗护/口腔/身体/私护
+
+  - id: brand
+    type: party
+    note: 品牌级区域零售额无公开数据，需 POS 或平台口径
+
+  - id: channel
+    type: structural
+    levels: [商超, 便利店, CS, 即时零售, 电商]
+    note: 平台口径不可与统计公报相加
+
+  - id: sku
+    type: item
+
+  - id: period
+    type: time
+    grain: month
+    levels: [年, 季, 月, 周]
+    note: 不同 grain 不得同图
+
+# --------------------------------------------------------------------------- #
+# 度量：能不能加总、能不能算占比，由 type/additive 决定
+#   flow   流量（可加）
+#   stock  存量（不可跨期相加）
+#   ratio  比率（不可加、不可平均）
+#   index  指数（不可加）
+# --------------------------------------------------------------------------- #
+measures:
+  - id: retail_sales
+    name: 零售额
+    type: flow
+    additive: true
+    unit: 元
+    currency: CNY
+    price_basis: nominal
+    grain: [region, category, channel, month]
+    caliber:
+      scope: 限额以上
+      excludes: [个体工商户, 批发市场, 境外购买]
+    aliases: [社零, 零售额, 销售额, 零售规模]
+
+  - id: yoy
+    name: 同比
+    type: ratio
+    additive: false
+    unit: "%"
+    formula: retail_sales / retail_sales@t-1 - 1
+    grain: [region, category, month]
+
+  - id: share
+    name: 份额
+    type: ratio
+    additive: false
+    unit: "%"
+    formula: retail_sales / retail_sales@total
+    grain: [brand, category, channel, year]
+
+  - id: asp
+    name: 均价
+    type: ratio
+    additive: false
+    unit: 元
+    formula: retail_sales / volume
+    grain: [category, channel, month]
+
+# --------------------------------------------------------------------------- #
+# 规则：哪些操作被禁止（这是"专业"和"外行"的分界线）
+# --------------------------------------------------------------------------- #
+rules:
+  - id: no_ratio_sum
+    text: 比率（同比/份额/均价）不得求和、不得求平均
+    applies: [yoy, share, asp]
+  - id: no_grain_mix
+    text: 不同粒度（月/季/年）不得放同一张图
+  - id: no_scope_mix
+    text: 不同口径（限额以上/全渠道/平台）不得相加
+  - id: no_extrapolate
+    text: 省级结论不得外推到盟市，除非声明假设
+  - id: ratio_needs_denominator
+    text: 任何比率必须给出分子/分母
+
+# --------------------------------------------------------------------------- #
+# 新鲜度：超过这个窗口的数，标 stale，不得作为唯一证据
+# --------------------------------------------------------------------------- #
+freshness:
+  default: T-1
+  by_measure:
+    retail_sales: T-30
+    yoy: T-30
+    share: T-90
+
+# --------------------------------------------------------------------------- #
+# 边界：这条数据"只对什么成立"
+# --------------------------------------------------------------------------- #
+boundaries:
+  - id: B1
+    text: 限额以上不含个体工商户与批发市场
+    affects: [retail_sales]
+  - id: B2
+    text: 平台内数据不可与统计公报相加
+    affects: [retail_sales, share]
+  - id: B3
+    text: 品牌级区域零售额无公开数据，平台份额仅代表平台内
+    affects: [share]
+
+# --------------------------------------------------------------------------- #
+# 证据指纹：同指纹 = 同一条事实，可跨报告复用；口径/期次变了才失效
+# --------------------------------------------------------------------------- #
+fingerprint:
+  key: [measure_id, region, category, channel, period]
+  reuse: allowed
+  invalidate_when: [caliber_change, period_update, scope_change]

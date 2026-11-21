@@ -42,6 +42,7 @@ ALLOW: Dict[str, str] = {
     "chat.py": "交互入口",
     "core/__main__.py": "python -m core 入口",
     "core/report_cli.py": "report 子命令分发",
+    "scripts/sync_trae_skill.py": "Trae 技能镜像同步入口（手动执行）",
 }
 
 

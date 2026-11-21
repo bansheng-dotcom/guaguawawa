@@ -16,7 +16,7 @@ DEFAULTS: Dict[str, Any] = {
     "paragraph_max_chars": 300,
     "paragraph_hard_max_chars": 330,
     "section_max_chars": None,
-    "main_claims_max": 7,
+    "main_claims_max": 0,
     "decision_items_max": 5,
     "decision_fields_required": True,
     "title_max_chars": 20,
@@ -66,4 +66,8 @@ def paragraph_hard_max() -> int:
 
 
 def main_claims_max() -> int:
-    return int(load().get("main_claims_max") or 7)
+    """0 = 自适应，不设上限；只有显式正整数才截断正文。"""
+    raw = load().get("main_claims_max")
+    if raw in (None, "", 0, "0"):
+        return 0
+    return int(raw)

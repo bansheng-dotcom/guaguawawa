@@ -146,8 +146,37 @@ def cmd_clarify(args) -> int:
         print(json.dumps({"ok": False, "error": "需要 --intent 与 --out"}, ensure_ascii=False))
         return 2
     res = report_clarify.write(args.intent, args.out, force=bool(args.force))
+    try:
+        from core import intake
+        res["intake"] = intake.start(args.out, args.intent)
+        # 12 问由 R01 在对话里问用户；这里把问题一并吐给调用方，避免“让用户填表”
+        res["ask_user"] = intake.QUESTIONS
+    except Exception as exc:  # noqa: BLE001
+        res["intake"] = {"ok": False, "error": str(exc)}
     print(json.dumps(res, ensure_ascii=False, indent=1))
     return 0 if res.get("ok") else 1
+
+
+def cmd_intake(args) -> int:
+    """R01 接活：12 问的填写与查看（SOP v5）。"""
+    from core import intake
+    if getattr(args, "show", False):
+        import json as _j
+        p = Path(args.dir)
+        data = _j.loads((p / "intake.json").read_text(encoding="utf-8-sig")) if (p / "intake.json").is_file() else {}
+        print(_j.dumps({"questions": intake.QUESTIONS,
+                        "answers": data.get("answers") or {},
+                        "status": data.get("status"),
+                        "min_answers": intake.MIN_ANSWERS},
+                       ensure_ascii=False, indent=1))
+        return 0
+    if not getattr(args, "answer", None):
+        print(json.dumps({"ok": False, "error": "需要 --answer I1=… 或 --show"},
+                         ensure_ascii=False))
+        return 2
+    res = intake.answer(args.dir, args.answer)
+    print(json.dumps(res, ensure_ascii=False, indent=1))
+    return 0 if res.get("ok") else 2
 
 
 def cmd_brief(args) -> int:
@@ -165,6 +194,15 @@ def cmd_brief(args) -> int:
             print(json.dumps({"ok": False, "error": "需要 --dir <项目>"}, ensure_ascii=False))
             return 2
         if getattr(args, "plan", False):
+            # SOP v5：--confirm = 用户给 brief 签字（接活 12 问的确认动作）
+            if getattr(args, "confirm", False):
+                from core import intake
+                if (Path(base) / "intake.json").is_file():
+                    sg = intake.sign_brief(base)
+                    if not sg.get("ok"):
+                        print(json.dumps({"ok": False, "error": sg.get("error")},
+                                         ensure_ascii=False, indent=1))
+                        return 2
             res = report_dispatch.write_plan(base, confirm=bool(args.confirm))
             # v1.5：拆卡 SOP 进产线。--plan 即生成五轴并判 S7 门禁；
             # 门禁不过，--confirm 一律不发卡。
@@ -627,6 +665,12 @@ def main(argv=None) -> int:
     cf.add_argument("--force", action="store_true", help="覆盖已有 clarify.json")
     cf.set_defaults(func=cmd_clarify)
 
+    it = sub.add_parser("intake", help="R01 接活 12 问（SOP v5）：填写或查看")
+    it.add_argument("--dir", required=True)
+    it.add_argument("--answer", action="append", default=None, metavar="I1=答案")
+    it.add_argument("--show", action="store_true")
+    it.set_defaults(func=cmd_intake)
+
     ex = sub.add_parser("exchange", help="卡间协商：路由 needs / INBOX / 闭环台账")
     ex.add_argument("--dir", required=True, help="项目目录（含 cards/）")
     ex.set_defaults(func=cmd_exchange)
@@ -678,7 +722,7 @@ def main(argv=None) -> int:
     # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
     known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
              "research-plan", "brief", "collect", "research", "flow", "attest",
-             "clarify", "exchange", "-h", "--help"}
+             "clarify", "exchange", "intake", "-h", "--help"}
     if argv and argv[0] not in known:
         rest = argv
         argv = ["run-line", "--intent", rest[0], *rest[1:]]

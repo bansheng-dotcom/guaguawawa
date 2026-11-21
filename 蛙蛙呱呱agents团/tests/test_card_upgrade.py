@@ -50,6 +50,17 @@ def main() -> int:
     check("grid_has_quality", all(len(c["quality"]) == 6 for c in grid["cells"]))
     check("grid_has_causal", all(c["causal_level"] in cu.CAUSAL_LEVELS for c in grid["cells"]))
 
+    # 2026-11-21 回归：通用兜底不得内置任何业务线（潮玩）实体与度量
+    tpl = cu._q_template("中国市场规模与份额", ["甲品牌"])
+    check("template_no_foreign_entity",
+          not any(k in x for x in tpl["对象"] for k in ("泡泡玛特", "IP玩具", "潮玩")), tpl)
+    mids = {m["id"] for m in s["case"]["measures"]}
+    check("grid_measures_registered",
+          all(c["measure"] in mids for c in grid["cells"]),
+          [c["measure"] for c in grid["cells"] if c["measure"] not in mids])
+    bad_grid = {"cells": [{"cell_id": "Q1.对象.x", "measure": "ad_cost", "grain": "G1"}]}
+    check("validate_grid_catches_unregistered", bool(cu.validate_grid(bad_grid, s)))
+
     # 语义层校验
     bad = cu.validate_semantic({"generic": s["generic"], "case": {"measures": [
         {"id": "m", "type": "ratio", "unit": "%"}]}})

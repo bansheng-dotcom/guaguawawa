@@ -29,6 +29,25 @@ from core.source_verify import normalize_url
 CARD_SCHEMA = "dsh.task_card/v1"
 
 
+def _rows_to_claims(role: str, doc: Dict[str, Any]) -> Dict[str, Any]:
+    """v5：角色交 rows.json（面板行），转成合并层认识的 numbers。"""
+    nums = []
+    for i, r in enumerate(doc.get("rows") or [], 1):
+        nid = str(r.get("number_id") or r.get("id") or f"R{i}")
+        nums.append({"id": nid,
+                     "name": r.get("metric_name") or r.get("metric_id") or "",
+                     "value": r.get("value"), "unit": r.get("unit"),
+                     "period": r.get("period"),
+                     "entity": r.get("entity") or "",
+                     "segment": r.get("segment") or r.get("category") or "",
+                     "source_file": r.get("source_id") or "S?"})
+    return {"role": role, "numbers": nums,
+            "sources": doc.get("sources") or [],
+            "sections": [], "rows": doc.get("rows") or [],
+            "dispatch": doc.get("dispatch") or {},
+            "meta": doc.get("meta") or {}}
+
+
 def _need(claims: Dict[str, Any]) -> List[str]:
     """一张卡最少要有什么。缺 quote 的来源等于没查，整张卡拒收。"""
     from core import source_verify
@@ -309,6 +328,12 @@ def collect(out_dir: str, require_all: bool = False,
 
     for d in sorted(p for p in base.glob("*") if p.is_dir()):
         f = d / "claims.json"
+        rows_mode = False
+        if not f.is_file():
+            rf = d / "rows.json"
+            if rf.is_file():
+                rows_mode = True
+                f = rf
         if not f.is_file():
             continue
         got += 1
@@ -316,8 +341,10 @@ def collect(out_dir: str, require_all: bool = False,
         try:
             c = json.loads(f.read_text(encoding="utf-8-sig"))
         except (OSError, json.JSONDecodeError):
-            bad.append(f"{d.name}: claims.json 解析失败")
+            bad.append(f"{d.name}: {f.name} 解析失败")
             continue
+        if rows_mode:
+            c = _rows_to_claims(d.name, c)
         if issued:
             okd, reason = report_dispatch.verify_claims(c, d.name, issued)
             if not okd:
@@ -326,7 +353,7 @@ def collect(out_dir: str, require_all: bool = False,
                 rejected.append({"role": d.name, "reasons": [reason]})
                 continue
             verified_cards += 1
-        miss = _need(c)
+        miss = [] if rows_mode else _need(c)
         if miss:
             bad.append(f"{d.name}: " + "；".join(miss[:3]))
             rejected.append({"role": d.name, "reasons": miss[:6]})
@@ -521,4 +548,56 @@ def collect(out_dir: str, require_all: bool = False,
                       "intent": card_meta.get("intent") or intent or "",
                       "profile": card_meta.get("profile") or "baseline",
                       "degraded": merged["degraded"]}
+    # 数据层：把合并后的数字归一成 raw（行/度量/冲突/覆盖），并落 raw.xlsx。
+    # 这是图表的唯一数据源；没有它，图只能从段落里猜。
+    try:
+        from core import data_model
+        raw = data_model.build_raw(merged.get("numbers") or [],
+                                   merged.get("sources") or [])
+        paths = data_model.export(raw, Path(out_dir), merged.get("sources") or [],
+                                  title=str(merged["meta"].get("title") or intent or ""))
+        merged["raw"] = {"coverage": raw["coverage"], "paths": paths}
+    except Exception as exc:  # noqa: BLE001
+        merged["raw"] = {"error": str(exc)}
+    # 面板覆盖 + 论点 + 由论点生成的「节」（无旧 sections 时才接管）
+    try:
+        from core import panel as panel_mod, synthesis
+        clarify = {}
+        cp = Path(out_dir) / "clarify.json"
+        if cp.is_file():
+            try:
+                clarify = json.loads(cp.read_text(encoding="utf-8-sig"))
+            except Exception:  # noqa: BLE001
+                clarify = {}
+        panels = panel_mod.build(intent or "", clarify)
+        cov = panel_mod.coverage(raw["rows"], panels)
+        merged["panel"] = cov
+        th, secs = [], []
+        if cov.get("ok") or not require_all:
+            th = synthesis.theses(raw["rows"], panels)
+            secs = synthesis.sections(th, raw["rows"])
+            if secs and not merged["sections"]:
+                merged["sections"] = secs
+            if secs:
+                merged["boundaries"] = ([str(s.get("boundary")) for s in secs
+                                         if s.get("boundary")]
+                                        or merged.get("boundaries") or [])
+                if not merged.get("standfirst"):
+                    merged["standfirst"] = str(secs[0].get("title") or "")
+                for i, sec in enumerate(secs, 1):
+                    sec["id"] = str(sec.get("id") or i)
+                keys = ("fact", "evidence", "mechanism", "alternative", "signal",
+                        "implication", "action", "stop", "boundary")
+                merged["prose_specs"] = {
+                    str(s.get("id")): {k: s.get(k) for k in keys} for s in secs}
+        else:
+            merged["degraded"] = list(dict.fromkeys(
+                list(merged.get("degraded") or []) + ["panel_shortfall"]))
+        merged["theses"] = th
+        (Path(out_dir) / "panel.json").write_text(
+            json.dumps(cov, ensure_ascii=False, indent=1), encoding="utf-8")
+        (Path(out_dir) / "theses.json").write_text(
+            json.dumps(th, ensure_ascii=False, indent=1), encoding="utf-8")
+    except Exception as exc:  # noqa: BLE001
+        merged["panel"] = {"error": str(exc)}
     return merged, (bad + ([] if got else ["一张 claims 都没收到"]))

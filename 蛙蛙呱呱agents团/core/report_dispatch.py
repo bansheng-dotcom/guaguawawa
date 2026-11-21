@@ -312,6 +312,37 @@ _WORKORDER_CRITERIA = """## 2. 什么算答好（缺一条，这一问不算过�
 """
 
 
+def _role_identity(rid: str) -> Dict[str, str]:
+    """角色名/职称唯一出处 core.report_roles（其又从 core.registry 归一）。"""
+    try:
+        from core.report_roles import ROLE_REPORT
+        meta = ROLE_REPORT.get(rid) or {}
+        return {"name": str(meta.get("name") or ""),
+                "title": str(meta.get("title") or "")}
+    except Exception:  # noqa: BLE001
+        return {"name": "", "title": ""}
+
+
+_PERSPECTIVE_HEAD = """## 1. 你负责回答什么
+
+你不答题，只做**口径校核**。每个视角格交一条「改判」：
+
+- **边界**：主卡的数字在什么口径下不成立（GMV vs 零售、含税/不含税、抽佣前后…）
+- **结构**：主卡的加总在什么维度上会漏项（品类×渠道、性别×品类…）
+- **改判**：这条边界一旦成立，主卡哪句结论要改、改成什么
+"""
+
+_PERSPECTIVE_CRITERIA = """## 2. 什么算答好（缺一条，这一格不算过）
+
+1. 每格至少 **2 个可比口径**（同一指标不同算法/来源/维度），单口径不算校核
+2. 每格必须写「主卡原结论 → 你的改判」，没有改判就是没校核
+3. 每条判断带 `refs`（指向本卡 numbers）与 **falsifier**
+4. 每格必须带 `chart` 或 `chart_skip_reason`
+5. 必须交 **2 条计划外发现**（第 4 段）
+6. 不写 Q1–Q9 的结论；那是主答角色的活
+"""
+
+
 def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
     """按已确认的映射表发卡：每张卡带 nonce + 签名 + 分配到的问句 + 协商协议。"""
     root = Path(base)
@@ -342,17 +373,28 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
     if only:
         contracts = {k: v for k, v in contracts.items() if k in only}
         cells_by_role = {k: v for k, v in cells_by_role.items() if k in only}
+    # R02 签发：问句优先取 plan 的 role→questions；只有 plan 没写才由格子反推。
+    # 格子必须裁到该角色负责的问句，避免「每张卡都被塞进 9 问」。
+    plan_cards = {c.get("role"): c for c in (plan.get("cards") or [])}
     if contracts:
-        # R02 签发：按契约里的 owner 发卡，问句由格子反推
         cards_iter = []
         for rid, ct in contracts.items():
-            qids = []
-            for cell in cells_by_role.get(rid) or []:
-                q = str(cell.get("qid") or "")
-                if q and q not in qids:
-                    qids.append(q)
+            qids = list((plan_cards.get(rid) or {}).get("questions") or [])
+            if not qids:
+                for cell in cells_by_role.get(rid) or []:
+                    q = str(cell.get("qid") or "")
+                    if q and q not in qids:
+                        qids.append(q)
+            allowed = set(qids)
+            if allowed:
+                filtered = [c for c in (cells_by_role.get(rid) or [])
+                            if str(c.get("qid") or "") in allowed]
+                if filtered:
+                    cells_by_role[rid] = filtered
+            ident = _role_identity(rid)
             cards_iter.append({"role": rid, "questions": qids,
-                               "name": rid, "title": "", "contract": ct})
+                               "name": ident["name"] or rid,
+                               "title": ident["title"], "contract": ct})
         peers = list(contracts)
     else:
         cards_iter = plan.get("cards") or []
@@ -368,16 +410,30 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
         sig = sign(rid, nonce, qids)
         d = root / "cards" / rid
         d.mkdir(parents=True, exist_ok=True)
+        dims = {str(c.get("dim") or "") for c in my_cells}
+        # 视角卡（边界/结构）：plan 没给它问句，格子只做口径校核，不领问句
+        perspective = (rid not in plan_cards and bool(dims)
+                       and dims <= {"边界", "结构"})
         lines = [
             f"# 工单：{rid} {card.get('name')}（{card.get('title')}）",
             "",
             f"- 总任务：{plan.get('intent')}",
-            f"- 你负责 **{len(qids)} 问**（逐条答，答不了交 `unanswered`）：",
         ]
-        for q in qids:
-            a = asks.get(q) or {}
-            lines.append(f"  - **{q}**（{a.get('type', '')}"
-                         f"{'，必答' if a.get('must') else '，支撑'}）：{a.get('text', '')}")
+        if perspective:
+            lines += [
+                f"- 你负责 **{len(my_cells)} 个视角格**（边界/结构校核，不领问句）",
+                "- 你不是主答角色：**不要**写 Q1–Q9 的结论，也不要抢主卡的判断；",
+                "  每格交一条「这个口径/边界会让主卡的结论怎么改判」，并给 falsifier。",
+                "",
+                f"- 参照问句（只用来定位，不必逐条答）：{'、'.join(qids)}",
+            ]
+        else:
+            lines.append(f"- 你负责 **{len(qids)} 问**（逐条答，答不了交 `unanswered`）：")
+        if not perspective:
+            for q in qids:
+                a = asks.get(q) or {}
+                lines.append(f"  - **{q}**（{a.get('type', '')}"
+                             f"{'，必答' if a.get('must') else '，支撑'}）：{a.get('text', '')}")
         hints = {h["qid"]: h["into"] for h in (card.get("merge_hints") or [])}
         for q, into in hints.items():
             lines.append(f"    - {q} 是 {into} 的对照：请写进 {into} 那一节的解读里"
@@ -404,14 +460,19 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
                       f"- 验收门禁：{', '.join(ct.get('acceptance') or []) or '—'}",
                       f"- 截止 / 升级：{ct.get('deadline') or '—'} / {ct.get('escalate_to') or 'r02'}",
                       f"- 契约指纹：`{ct.get('content_sha')}`"]
-        lines += ["", _WORKORDER_HEAD, "", _WORKORDER_CRITERIA, "",
+        lines += ["",
+                  _PERSPECTIVE_HEAD if perspective else _WORKORDER_HEAD, "",
+                  _PERSPECTIVE_CRITERIA if perspective else _WORKORDER_CRITERIA, "",
                   f"可协商的同伴：{'、'.join(p for p in peers if p != rid)}",
                   "",
                   "## 6. 交什么、交到哪", "",
                   f"写到 `cards/{rid}/claims.json`；同目录下放 `needs.json` / "
                   f"`answers.json` / `explore`（可并入 claims）。",
                   "每问对应一节，节里加 `\"answers\": [\"" + "\", \"".join(qids[:1])
-                  + "\"]` 声明这节回答的是哪一问——没有这个字段，报告对不上账。",
+                  + "\"]` 声明这节回答的是哪一问——没有这个字段，报告对不上账。"
+                  if not perspective else
+                  "每个视角格对应一节，节里按 `cells[]` 交改判；视角节不挂 "
+                  "`answers`（你不答题），但要挂 `refs` 与 `falsifier`。",
                   "", "## 7. dispatch 块（不填或填错，整卡拒收）", "",
                   "```json",
                   json.dumps({"dispatch": {"nonce": nonce, "role": rid,

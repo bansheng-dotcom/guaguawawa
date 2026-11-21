@@ -26,6 +26,11 @@ def main() -> int:
     check("detect_concentration", "concentration" in types)
 
     claim = {"id": "C1", "claim": "10 万预算只有社区自雇店能打平",
+             "decision_rank": 1,
+             "headline": "社区自雇 5.85 万元/月",
+             "table": {"columns": ["形态", "平衡点"], "rows": [["社区自雇", 5.85]]},
+             "action": "先做社区自雇店，不做前置仓",
+             "falsifier": "若平衡点超过 8 万元/月则本节作废",
              "rows": rows, "encoding": {"mark": "bar", "y": "label"},
              "unit": "万元", "refs": ["N1", "N2", "N3", "N4"],
              "findings": fs, "warrant": "平衡点=固定成本÷(毛利率-变动费用率)",

@@ -810,14 +810,18 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
         if s.get("chart"):
             ch = dict(s["chart"])
             ch["source"] = _readable_figure_source(ch, s, pack)
-            # 语法选型：意图 × 形状 → 图型（2026-11-21，FT Visual Vocabulary + Data to Viz）
-            built = chart_grammar.build(ch, s, pack, _chart_history)
-            if built:
-                keep = {k: ch.get(k) for k in ("title", "source", "refs",
-                                               "accent_note") if ch.get(k)}
-                sec["chart"] = {**ch, **built, **keep}
+            # 面板查询产出的图（heatmap/line/share_bar…）不再二次选型
+            if ch.get("origin") == "panel_query":
+                sec["chart"] = ch
             else:
-                sec["chart"] = chart_chooser.choose(ch, s, _chart_history)
+                # 语法选型：意图 × 形状 → 图型（2026-11-21，FT Visual Vocabulary + Data to Viz）
+                built = chart_grammar.build(ch, s, pack, _chart_history)
+                if built:
+                    keep = {k: ch.get(k) for k in ("title", "source", "refs",
+                                                   "accent_note") if ch.get(k)}
+                    sec["chart"] = {**ch, **built, **keep}
+                else:
+                    sec["chart"] = chart_chooser.choose(ch, s, _chart_history)
         else:
             # 角色没交图：从本节 refs 的数字反推一张（图表覆盖率不再靠自觉）
             derived = _derive_chart_from_refs(s, pack)
@@ -984,13 +988,14 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
         "coverage": cov_panel,
     })
 
-    # 主判断上限：正文最多 7 条，其余进附录（内容不删，只换位置）
+    # 主判断上限：0 = 自适应，不截断；显式正整数才把多余节移入附录
     from core import report_contract
     for s in secs_out:
         if str(s.get("title") or "").startswith("延伸发现"):
             s["appendix"] = True
     business = [s for s in secs_out if not s.get("appendix")]
-    if len(business) > report_contract.main_claims_max():
+    cap = report_contract.main_claims_max()
+    if cap > 0 and len(business) > cap:
         pre = _build_decision(secs_out, pack)
         keep_idx = {int(it["index"]) for it in (pre.get("items") or [])
                     if it.get("index") is not None}
@@ -1174,8 +1179,12 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
             files = render(contract, out_dir, md_name=md_name, pdf=pdf)
             if layout == "flow" and files.get("html"):
                 from core import prose_style
+                skip_titles = tuple(
+                    str(s.get("title") or "") for s in (contract.get("sections") or [])
+                    if str(s.get("title") or "").startswith(("延伸发现", "记录层", "口径与分数")))
                 flow_gate = prose_style.audit_html(
-                    Path(files["html"]).read_text(encoding="utf-8", errors="replace"))
+                    Path(files["html"]).read_text(encoding="utf-8", errors="replace"),
+                    skip_titles=skip_titles)
                 if prose_hard:
                     ok = ok and bool(flow_gate.get("ok"))
             # 九条流程门禁由产线自己跑：结论写进 manifest，不再靠执行者口头宣布。

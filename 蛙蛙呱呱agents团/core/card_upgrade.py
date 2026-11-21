@@ -282,104 +282,89 @@ def _quality(period: str, grade: str = "B") -> Dict[str, str]:
             "validity": "ok"}
 
 
-CITY_DISTRICTS = {
-    "北京": ["北京", "朝阳", "海淀", "丰台", "通州", "昌平"],
-    "上海": ["上海", "浦东", "徐汇", "静安", "闵行", "宝山"],
-    "深圳": ["深圳", "南山", "福田", "罗湖", "宝安", "龙岗"],
-    "广州": ["广州", "天河", "越秀", "海珠", "白云", "番禺"],
-    "成都": ["成都", "锦江", "武侯", "高新", "成华", "双流"],
-}
-
-
 def _regions(clarify: Dict[str, Any], sem: Optional[Dict[str, Any]] = None) -> List[str]:
-    # 1) 只看 clarify 里声明的“研究区域”，不是正文里提到哪个城市就套哪个城市
-    region_text = str((clarify.get("understanding") or {}).get("region") or "")
-    for city, dists in CITY_DISTRICTS.items():
-        if city in region_text:
-            return dists
-    # 2) 本题语义层声明的区域优先级最高
+    """区域只来自两处：本题语义层声明的 levels，其次 clarify 声明的研究区域。
+
+    2026-11-21：删掉写死的城市区县表与「内蒙古」分支——通用模块不得内置
+    任何一条业务线的地名（历史事故：成人用品网格里出现北京朝阳、内蒙五市）。
+    """
     ents = ((sem or {}).get("case") or {}).get("entities") or []
     for e in ents:
         if e.get("id") == "region":
-            levels = [x for x in (e.get("levels") or [])
-                      if str(x).strip() and x not in ("全球",)]
+            levels = [str(x) for x in (e.get("levels") or [])
+                      if str(x).strip() and str(x) not in ("全球",)]
             if levels:
-                return levels[:5]
-    text = json.dumps(clarify, ensure_ascii=False)
-    if "内蒙古" in text:
-        return ["全区", "呼和浩特", "包头", "鄂尔多斯", "赤峰"]
-    for city, dists in CITY_DISTRICTS.items():
-        if city in region_text:
-            return dists
-    return ["全国"]
+                return levels[:6]
+    region_text = str((clarify.get("understanding") or {}).get("region") or "")
+    parts = [x.strip() for x in re.split(r"[、,，/;；\s]+", region_text) if x.strip()]
+    parts = [x for x in parts if x not in ("全国", "中国", "国内")]
+    return parts[:6] or ["全国"]
 
 
-Q_GRID = [
-    (("市场", "份额", "集中度", "CR", "规模"),
-     {"对象": ["中国IP玩具市场", "泡泡玛特份额", "CR3", "CR5"],
-      "结构": ["品类×区域", "玩家×区域"],
-      "机制": ["量价拆解", "份额变化"],
-      "边界": ["IP玩具 vs 潮玩口径", "GMV vs 营收"]}),
-    (("品类", "手办", "毛绒", "MEGA", "积木", "BJD", "衍生品"),
-     {"对象": ["手办", "毛绒", "MEGA", "衍生品及其他"],
-      "结构": ["品类×渠道", "品类×区域"],
-      "机制": ["毛利率桥", "品类贡献度"],
-      "边界": ["品类四分类口径", "MEGA与衍生品合并口径"]}),
-    (("经营质量", "运营", "单店", "复购", "存货", "会员", "渠道"),
-     {"对象": ["门店", "机器人商店", "会员", "存货"],
-      "结构": ["渠道×区域", "线上×线下"],
-      "机制": ["单店产出", "存货周转分解"],
-      "边界": ["会员仅中国内地口径", "门店含合营口径"]}),
-    (("IP", "生命周期", "授权", "续约", "依赖"),
-     {"对象": ["THE MONSTERS", "星星人", "CRYBABY", "DIMOO", "SKULLPANDA", "MOLLY"],
-      "结构": ["IP×品类", "IP×区域"],
-      "机制": ["IP集中度", "单IP贡献"],
-      "边界": ["IP归属口径", "授权 vs 自有"]}),
-    (("竞争", "竞品", "格局", "打法"),
-     {"对象": ["泡泡玛特", "52TOYS", "TOP TOY", "布鲁可", "卡游"],
-      "结构": ["玩家×品类", "玩家×渠道"],
-      "机制": ["毛利率对比", "规模差距"],
-      "边界": ["营收 vs GMV", "市占率口径"]}),
-    (("前景", "趋势", "增长", "出海", "第二曲线", "乐园", "游戏"),
-     {"对象": ["中国市场", "亚太", "美洲", "欧洲及其他"],
-      "结构": ["品类×区域", "渠道×区域"],
-      "机制": ["情景驱动", "海外单位经济"],
-      "边界": ["2026Q3未经审核", "预测口径"]}),
-    (("供应链", "产能", "关税", "代工", "自产", "库存"),
-     {"对象": ["中国基地", "印尼基地", "柬埔寨基地", "墨西哥基地"],
-      "结构": ["基地×市场", "产能×品类"],
-      "机制": ["库存回撤", "交期与关税"],
-      "边界": ["产能为合作工厂口径", "自产比例未披露"]}),
-    (("合规", "监管", "盲盒", "未成年", "诉讼", "侵权"),
-     {"对象": ["盲盒指引", "8岁门槛", "IP诉讼"],
-      "结构": ["风险×影响面", "条款×动作"],
-      "机制": ["合规成本", "维权成本"],
-      "边界": ["指引非强制国标", "个案不外推"]}),
-]
+def _first_measure(measures: Dict[str, Dict[str, Any]], kind: str,
+                   fallback: str) -> str:
+    for mid, m in measures.items():
+        if m.get("type") == kind:
+            return mid
+    return fallback
 
 
-ENTITY_MEASURE = {
-    "中国IP玩具市场": "revenue", "泡泡玛特份额": "share", "CR3": "share", "CR5": "share",
-    "手办": "revenue", "毛绒": "revenue", "MEGA": "revenue", "衍生品及其他": "revenue",
-    "门店": "store_count", "机器人商店": "store_count", "会员": "member_count",
-    "存货": "inventory_days",
-    "THE MONSTERS": "revenue", "星星人": "revenue", "CRYBABY": "revenue",
-    "DIMOO": "revenue", "SKULLPANDA": "revenue", "MOLLY": "revenue",
-    "泡泡玛特": "revenue", "52TOYS": "revenue", "TOP TOY": "revenue",
-    "布鲁可": "revenue", "卡游": "revenue",
-    "中国市场": "revenue", "亚太": "revenue", "美洲": "revenue", "欧洲及其他": "revenue",
-    "中国": "revenue", "全球": "revenue",
-}
+def _entity_measure(entity: str, measures: Dict[str, Dict[str, Any]],
+                    base: str,
+                    channel_levels: Optional[set] = None) -> str:
+    """实体 → 度量：只返回语义层已注册的度量，绝不返回未注册 id。
+
+    2026-11-21：删掉写死的实体→度量表（原表把泡泡玛特、手办、门店、会员
+    钉在里面）。改为按实体语义与已注册度量匹配；匹不上就退回 base。
+    """
+    def has(mid: str) -> bool:
+        return mid in measures
+
+    e = str(entity or "")
+    if channel_levels and e in channel_levels:
+        for c in ("channel_share", "share"):
+            if has(c):
+                return c
+    if "获客" in e and has("ad_cost"):
+        return "ad_cost"
+    if "毛利" in e and has("gross_margin"):
+        return "gross_margin"
+    if any(k in e for k in ("市场", "规模", "大盘", "总额")):
+        for c in ("market_size", "retail_sales", "revenue"):
+            if has(c):
+                return c
+    if "渗透" in e:
+        for c in ("penetration", "buyer_penetration"):
+            if has(c):
+                return c
+    if any(k in e for k in ("成本", "履约", "运费", "仓配")):
+        for c in ("unit_cost", "unit_economics"):
+            if has(c):
+                return c
+    if any(k in e for k in ("价", "倍率", "周期")):
+        for c in ("asp", "unit_cost"):
+            if has(c):
+                return c
+    if any(k in e for k in ("门店", "仓", "网点")):
+        for c in ("store_count", "warehouse_count"):
+            if has(c):
+                return c
+    if has("share"):
+        return "share"
+    return base
 
 
-def _q_template(text: str) -> Dict[str, List[str]]:
-    for keys, tpl in Q_GRID:
-        if any(k in text for k in keys):
-            return tpl
-    return {"对象": ["TOP5 品牌", "长尾合计"],
+def _q_template(text: str, brands: Optional[List[str]] = None) -> Dict[str, List[str]]:
+    """无项目模板时的通用兜底：只用 clarify 里的品牌与通用维度名。
+
+    2026-11-21：原实现按关键词匹配一套写死的潮玩模板（市场/份额→泡泡玛特），
+    是「成人用品卡里出现泡泡玛特」的直接原因。现在只回通用标签，不再猜业务线。
+    """
+    obj = [b for b in (brands or []) if b and b in str(text or "")]
+    return {"对象": obj or (list(brands or [])[:4] or ["TOP5 品牌", "长尾合计"]),
             "结构": ["品类×渠道", "价格带×渠道"],
-            "机制": ["铺货率", "单店动销", "复购"],
-            "边界": ["平台口径 vs 统计公报", "样本覆盖"]}
+            "机制": ["量价拆解", "份额变化"],
+            "边界": ["口径 vs 统计公报", "样本覆盖"]}
 
 
 def build_grid(clarify: Dict[str, Any], sem: Dict[str, Any],
@@ -389,64 +374,64 @@ def build_grid(clarify: Dict[str, Any], sem: Dict[str, Any],
     regions = _regions(clarify, sem)
     case = sem.get("case") or {}
     measures = {m.get("id"): m for m in case.get("measures") or []}
-
-    def _first(kind: str, fallback: str) -> str:
-        for mid, m in measures.items():
-            if m.get("type") == kind:
-                return mid
-        return fallback
+    if not measures:
+        return {"schema": "dsh.grid/v1", "cells": [], "count": 0,
+                "dims": list(DIMS), "error": "语义层未注册任何度量"}
 
     period_grain = "year"
     for e in case.get("entities") or []:
         if e.get("id") == "period" and e.get("grain"):
             period_grain = str(e["grain"])
-    periods = (["2024", "2025", "2026H1"] if period_grain == "half_year"
+    periods = (["2025H1", "2025H2", "2026H1"] if period_grain == "half_year"
                else ["2024", "2025", "2026"])
-
-    def _dim_measure(qtext: str, dim: str, base: str) -> str:
-        pref = "revenue"
-        if dim == "结构":
-            pref = "category_mix"
-        elif dim == "机制":
-            pref = "unit_economics"
-        elif dim == "时间" and any(k in qtext for k in ("前景", "趋势", "增长", "下滑", "Q3")):
-            pref = "yoy"
-        return pref if pref in measures else base
+    grains = [g.get("id") for g in case.get("grain_declarations") or [] if g.get("id")]
+    default_grain = grains[0] if grains else "year"
+    channel_levels = set()
+    for e in case.get("entities") or []:
+        if e.get("id") == "channel":
+            channel_levels |= {str(x) for x in (e.get("levels") or []) if str(x).strip()}
 
     for a in clarify.get("asks") or []:
         if not a.get("must"):
             continue
-        intent = _intent(a["text"])
-        base = _measure_for(intent, sem)
-        tpl = ((template or {}).get(a["id"])
-               or _q_template(str(a.get("text") or "")))
+        qtext = str(a.get("text") or "")
+        base = _measure_for(_intent(qtext), sem)
+        if base not in measures:
+            base = next(iter(measures))
+        tpl = (template or {}).get(a.get("id")) or _q_template(qtext, brands)
         per_q = {
-            "对象": tpl["对象"],
+            "对象": tpl.get("对象") or [],
             "空间": regions,
             "时间": periods,
-            "结构": tpl["结构"],
-            "机制": tpl["机制"],
-            "边界": tpl["边界"],
+            "结构": tpl.get("结构") or [],
+            "机制": tpl.get("机制") or [],
+            "边界": tpl.get("边界") or [],
         }
         for dim, vals in per_q.items():
             for v in vals:
                 if dim == "对象":
-                    m = ENTITY_MEASURE.get(v)
-                    if not m or m not in measures:
-                        m = "share" if "share" in measures else base
+                    m = _entity_measure(str(v), measures, base, channel_levels)
+                elif dim == "时间":
+                    m = ("yoy" if ("yoy" in measures and any(
+                        k in qtext for k in ("增速", "增长", "趋势", "前景", "下滑")))
+                         else base)
                 elif dim == "结构":
-                    m = "category_mix" if "category_mix" in measures else _first("ratio", base)
+                    m = next((c for c in ("category_mix", "share") if c in measures), base)
                 elif dim == "机制":
-                    m = _first("derived", base)
-                elif dim == "边界":
-                    m = "revenue" if "revenue" in measures else base
+                    m = next((c for c in ("unit_cost", "gross_margin",
+                                          "unit_economics", "asp") if c in measures),
+                             _first_measure(measures, "derived", base))
                 else:
-                    m = _dim_measure(str(a.get("text") or ""), dim, base)
-                grain = (measures.get(m) or {}).get("grain") or "year"
+                    m = base
+                if m not in measures:
+                    # 未注册度量不出格：宁可少一格，也不写脏格
+                    continue
+                grain = (measures.get(m) or {}).get("grain") or default_grain
                 period = v if dim == "时间" else (periods[-1] if periods else "2025")
                 cells.append({
                     "cell_id": f"{a['id']}.{dim}.{v}", "qid": a["id"], "dim": dim,
-                    "entity": v, "measure": m, "depth_target": DEPTH_TARGET["must"],
+                    "entity": v, "measure": m, "measure_id": m,
+                    "depth_target": DEPTH_TARGET["must"],
                     "grain": grain, "period": period, "status": "open",
                     "causal_level": _causal_for(dim), "causal_hypothesis": dim == "机制",
                     "quality": _quality(period),
@@ -455,6 +440,27 @@ def build_grid(clarify: Dict[str, Any], sem: Dict[str, Any],
                 })
     return {"schema": "dsh.grid/v1", "cells": cells, "count": len(cells),
             "dims": list(DIMS)}
+
+
+def validate_grid(grid: Dict[str, Any], sem: Dict[str, Any]) -> List[str]:
+    """网格契约校验（G-SEM-1/2）：度量必须在册，grain 必须与度量声明一致。
+
+    2026-11-21：发卡门禁原来只比「度量名在不在集合里」，且判的格集与实际
+    发卡的格集不一致；这里给出一份可复用的硬校验，供 S12 调用。
+    """
+    case = (sem or {}).get("case") or {}
+    measures = {m.get("id"): m for m in case.get("measures") or []}
+    problems: List[str] = []
+    for c in grid.get("cells") or []:
+        cid = str(c.get("cell_id") or "")
+        mid = str(c.get("measure") or c.get("measure_id") or "")
+        if mid not in measures:
+            problems.append(f"{cid}: 度量 {mid or '(空)'} 未在语义层注册")
+            continue
+        want = (measures.get(mid) or {}).get("grain")
+        if want and str(c.get("grain") or "") != str(want):
+            problems.append(f"{cid}: grain {c.get('grain')} 与度量声明 {want} 不一致")
+    return problems
 
 
 def _availability(cell: Dict[str, Any], nums: List[Dict[str, Any]]) -> float:

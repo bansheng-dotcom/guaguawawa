@@ -57,6 +57,12 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
     if clarify.get("status") != "confirmed":
         return {"ok": False, "stage": "clarify", "error": "clarify 未确认"}
 
+    # SOP v5：接活 12 问 + brief 签字，是拆卡的前置门禁
+    from core import intake
+    if (project / "intake.json").is_file() and not intake.signed(project):
+        return {"ok": False, "stage": "intake",
+                "error": "brief 未签字：先答满 12 问里的 10 个，再 report brief --plan --confirm"}
+
     plan = project / "plan"
     plan.mkdir(parents=True, exist_ok=True)
     pack = _pack(project)
@@ -79,14 +85,25 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
     cu._w(plan / "branch_log.json", branches)
 
     cards = cu.agent_cards(roster.build())
-    rows, gaps = cu.assign(grid["cells"], cards)
+    # SOP v5：按问题簇自适应分卡（卡数是算出来的，不是写死）
+    from core import card_plan
+    clusters = card_plan.cluster(grid["cells"])
+    clusters, gaps = card_plan.assign(clusters, cards)
+    rows = [r for r in card_plan.apply_to_cells(clusters, grid["cells"])
+            if r.get("owner")]
+    cu._w(plan / "cards.json", {"cards": [
+        {"card_id": cl["card_id"], "qid": cl["qid"], "owner": cl.get("owner"),
+         "split": cl.get("split"), "match": cl.get("match"),
+         "cells": [c.get("cell_id") for c in cl["cells"]]} for cl in clusters],
+        "count": len(clusters), "gaps": gaps})
     requests = cu.route_requests(gaps, rows, cards)
     dag = cu.build_dag(rows, sem)
     ctr = cu.contracts(rows, cards)
     cu._w(plan / "dispatch.json", {
         "cards": cards,
         "assignments": [{"cell_id": r["cell_id"], "owner": r["owner"],
-                         "why": r["why"], "match": r["match"]} for r in rows],
+                         "why": r.get("why") or f"按问题簇 {r.get('qid')}",
+                         "match": r["match"]} for r in rows],
         "gaps": gaps, "requests": requests, "dag": dag,
         "contracts": ctr["contracts"]})
     cu._w(plan / "requests.json", {"requests": requests})
@@ -100,6 +117,39 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
 
     gate = _gates(clarify, tree, persp, grid, decs, ctr, sem, sem_errs,
                   rows, gaps, branches, handoffs, waves_res)
+    # SOP v5：面板规格 + DoR 9 项（缺一不发）
+    from core import dor as dor_mod
+    from core import panel as panel_mod
+    panels = panel_mod.build(intent, clarify)
+    cu._w(plan / "panels.json", {"panels": panels})
+    by_role: Dict[str, List[Dict[str, Any]]] = {}
+    for r in rows:
+        by_role.setdefault(r["owner"], []).append(r)
+    dor_rows = []
+    for cl in clusters:
+        rid = str(cl.get("owner") or "")
+        if not rid:
+            continue
+        cs = cl["cells"]
+        card = {
+            "question": f"{cl.get('qid')} 的问题簇面板切片",
+            "primary": rid, "cells": cs[:24], "tier": "must",
+            "metrics": sorted({str(c.get("measure")) for c in cs}),
+            "acceptance": ["G1", "G3", "G7"], "panel": panels[0]["id"] if panels else "",
+            "why": "按问题簇采集", "deliverable": "rows.json",
+            "depends_on": [], "redteam": "R04 抽查",
+        }
+        d = dor_mod.check(card)
+        d.update({"role": rid, "card_id": cl.get("card_id"),
+                  "score": dor_mod.score(card), "cells": len(cs)})
+        dor_rows.append(d)
+    dor_ok = bool(dor_rows) and all(d["ok"] for d in dor_rows)
+    cu._w(plan / "dor.json", {"items": dor_rows, "ok": dor_ok})
+    gate = dict(gate)
+    gate["checks"] = list(gate.get("checks") or []) + [
+        {"id": "DOR", "ok": dor_ok,
+         "msg": f"DoR {sum(1 for d in dor_rows if d['ok'])}/{len(dor_rows)} 张卡拉就绪"}]
+    gate["ok"] = bool(gate.get("ok")) and dor_ok
     cu._w(plan / "pre_issue_gates.json", gate)
     return {"ok": gate["ok"], "stage": "pre_issue", "gates": gate,
             "handoffs": {"ok": handoffs.get("ok"), "count": handoffs.get("count")},
@@ -164,13 +214,19 @@ def _gates(clarify, tree, persp, grid, decs, ctr, sem, sem_errs,
 
     # S7-5 语义层必须是本题真实层，且覆盖 grid 用到的度量
     measures = {m.get("id") for m in (sem.get("case") or {}).get("measures") or []}
-    used = {c.get("measure") for c in cells}
-    miss = sorted(x for x in used if x and x not in measures)
+    used = {c.get("measure") for c in cells if c.get("measure")}
+    miss = sorted(x for x in used if x not in measures)
     generated = bool((sem.get("case") or {}).get("generated"))
     ck("S5_semantic", not sem_errs and not (require_real_sem and generated) and not miss,
        f"语义层错误 {sem_errs[:3]}；未定义度量 {miss[:3]}；通用层={generated}"
        if (sem_errs or miss or (require_real_sem and generated)) else
        f"语义层 {len(measures)} 个度量，覆盖 grid 全部 {len(used)} 个")
+
+    # S7-5b 网格契约：度量必须在册，且 grain 与度量声明一致（G-SEM-1 / G-SEM-2）
+    grid_problems = cu.validate_grid(grid, sem)
+    ck("S12_grid_contract", not grid_problems,
+       f"网格契约 {grid_problems[:3]}" if grid_problems
+       else f"{len(cells)} 格度量与 grain 全部在册且一致")
 
     # S7-6 每格字段齐：measure/grain/entity/period/causal/quality 六维
     qdims = ("completeness", "accuracy", "consistency", "timeliness", "uniqueness", "validity")

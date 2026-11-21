@@ -83,11 +83,17 @@ def audit_section(text: str, policy: Dict[str, Any] | None = None,
             "hard": n < int(pol.get("chars_hard_min", 850)) or bool(banned)}
 
 
-def audit_html(html: str, policy: Dict[str, Any] | None = None) -> Dict[str, Any]:
+def audit_html(html: str, policy: Dict[str, Any] | None = None,
+               skip_titles: tuple = ()) -> Dict[str, Any]:
     pol = policy or load_policy()
     secs = _sections(html)
     rows = []
     for i, s in enumerate(secs, 1):
+        # 延伸发现/附录这类清单节不是论证节：按「逐节字数下限」硬判会把
+        # 一条一条的信号清单判成薄稿。跳过它们，但仍计入 sections 计数。
+        head = _text(s)[:60]
+        if any(str(t) and str(t)[:30] in head for t in skip_titles):
+            continue
         table_only = 'class="ex"' in s and "<svg" not in s
         rows.append({"index": i, **audit_section(_text(s), pol, table_only)})
     avg = sum(r["chars"] for r in rows) / max(len(rows), 1)

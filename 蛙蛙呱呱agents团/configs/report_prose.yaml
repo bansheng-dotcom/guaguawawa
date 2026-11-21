@@ -1,9 +1,10 @@
 # 文笔与深度阈值（唯一出处）
 # 口径见 docs/REPORT-PROSE-STYLE.md
 prose:
-  chars_per_section: [300, 600]
-  chars_table_section: [250, 500]
-  chars_hard_min: 250
+  # 与 docs/REPORT-FLOW.md §5 对齐：研究级正文每节 1,000–1,600 字
+  chars_per_section: [1000, 1600]
+  chars_table_section: [800, 1300]
+  chars_hard_min: 800
   numbers_per_1000_chars_min: 15
   required_blocks: [结论, 事实, 机理, 反例, 所以]
   markers: [判别, 证伪, 如果, 若, 下一期, 信号]

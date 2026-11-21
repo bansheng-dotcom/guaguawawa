@@ -19,6 +19,73 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 UNIT_DEFAULT = ""
+CALIBER_KEYS = ("scope", "currency", "price_basis")
+CALIBER_RATIO_EXTRA = ("denominator",)
+QUALITY_KEYS = ("completeness", "accuracy", "consistency",
+                "timeliness", "uniqueness", "validity")
+
+
+def _load_yaml(p: Path, default=None):
+    try:
+        import yaml
+        return yaml.safe_load(Path(p).read_text(encoding="utf-8")) or default
+    except Exception:  # noqa: BLE001
+        return default
+
+
+def cell_contract_problems(cell: Dict[str, Any],
+                           measures: Dict[str, Dict[str, Any]]) -> List[str]:
+    """一格是否满足交付契约（G-SEM-1/2 + 口径五要素 + 质量六维）。
+
+    2026-11-21：收卡原来只查「字段非空」，不查度量是否在册、grain 是否一致、
+    口径是否齐；于是一个 ad_cost 格、一个没写 grain 的格都能过。这里把
+    「对得上」写成可复用的硬校验。
+    """
+    probs: List[str] = []
+    cid = str(cell.get("cell_id") or "")
+    if str(cell.get("status") or "filled") == "unavailable":
+        if not cell.get("tried") or not cell.get("why"):
+            probs.append(f"{cid}: unavailable 缺 tried/why")
+        return probs
+    mid = str(cell.get("measure_id") or cell.get("measure") or "")
+    if mid not in measures:
+        probs.append(f"{cid}: 度量 {mid or '(空)'} 未在语义层注册")
+        return probs
+    want = (measures.get(mid) or {}).get("grain")
+    got = str(cell.get("grain_id") or cell.get("grain") or "")
+    if want and got != str(want):
+        probs.append(f"{cid}: grain {got or '(空)'} 与度量声明 {want} 不一致")
+    cal = cell.get("caliber") or {}
+    need = list(CALIBER_KEYS)
+    if (measures.get(mid) or {}).get("type") == "ratio":
+        need += list(CALIBER_RATIO_EXTRA)
+    miss = [k for k in need if not str(cal.get(k) or "").strip()]
+    if miss:
+        probs.append(f"{cid}: 口径缺 {miss}")
+    q = cell.get("quality") or {}
+    qmiss = [k for k in QUALITY_KEYS if k not in q]
+    if qmiss:
+        probs.append(f"{cid}: quality 缺 {qmiss}")
+    return probs
+
+
+def audit_cards(project: Path) -> Dict[str, Any]:
+    """逐卡审计：现有 claims 的每格过一遍交付契约，输出缺口清单。
+
+    这是「现有 7 卡重跑」的验收入口，不依赖产线重跑，也不改任何卡。
+    """
+    project = Path(project)
+    sem = _load_yaml(project / "semantic_layer.yaml", {}) or {}
+    measures = {m.get("id"): m for m in sem.get("measures") or []}
+    roles: Dict[str, Any] = {}
+    for p in sorted((project / "cards").glob("*/claims.json")):
+        d = _load(p, {}) or {}
+        probs: List[str] = []
+        for c in d.get("cells") or []:
+            probs += cell_contract_problems(c, measures)
+        roles[p.parent.name] = {"cells": len(d.get("cells") or []),
+                               "problems": len(probs), "detail": probs[:12]}
+    return {"semantic_measures": len(measures), "roles": roles}
 
 
 def _period_cn(p: Any) -> str:
@@ -49,6 +116,9 @@ def build(project: Path, cells_path: Optional[Path] = None,
     project = Path(project)
     grid = _load(project / "plan" / "grid.json", {}) or {}
     dispatch = _load(project / "plan" / "dispatch.json", {}) or {}
+    clarify = _load(project / "clarify.json", {}) or {}
+    sem = _load_yaml(project / "semantic_layer.yaml", {}) or {}
+    measures = {m.get("id"): m for m in sem.get("measures") or []}
     cp = cells_path or (project / "out_v3" / "cells_filled.json")
     filled_doc = _load(cp, {}) or {}
     cells = filled_doc.get("cells") or []
@@ -61,6 +131,7 @@ def build(project: Path, cells_path: Optional[Path] = None,
     source_pool = _pick_sources(project)
     by_role: Dict[str, Dict[str, List[Dict[str, Any]]]] = {}
     missing_src = []
+    contract_gaps: List[str] = []
 
     for c in cells:
         cid = str(c.get("cell_id") or "")
@@ -70,6 +141,12 @@ def build(project: Path, cells_path: Optional[Path] = None,
         if c.get("status") != "filled":
             continue
         meta = cell_meta.get(cid) or {}
+        # 交付契约：度量在册、grain 一致、口径四要素与质量六维齐（有语义层才硬判）
+        if measures:
+            probs = cell_contract_problems({**meta, **c}, measures)
+            if probs:
+                contract_gaps += probs
+                continue
         src = str(c.get("source_file") or "")
         if require_sources and src not in source_pool:
             missing_src.append(f"{cid}: {src}")
@@ -105,20 +182,23 @@ def build(project: Path, cells_path: Optional[Path] = None,
         numbers, sections, unanswered = [], [], []
         nid = 0
         seen_sig = set()
-        label = {"revenue": "营收", "share": "份额", "category_mix": "占比",
-                 "yoy": "同比", "unit_economics": "单店产出",
+        label = {"revenue": "营收", "share": "份额", "channel_share": "渠道份额",
+                 "category_mix": "品类占比", "yoy": "同比",
+                 "unit_economics": "单位经济", "unit_cost": "单位成本",
                  "store_count": "门店数", "member_count": "会员数",
-                 "inventory_days": "存货天数", "gross_margin": "毛利率"}
-        action = {
-            "Q1": "先按市场规模定天花板，再看份额判断竞争位置，不用营收替代市场。",
-            "Q2": "先用毛绒与手办的结构变化判断接棒，再决定备货与陈列。",
-            "Q3": "先看存货与单店产出，收入增速放到第二位。",
-            "Q4": "先看头部 IP 集中度，再看第二梯队厚度。",
-            "Q5": "先比毛利率与自有 IP 占比，再比规模。",
-            "Q6": "先看海外降幅与第二曲线进度，再谈修复。",
-            "Q7": "先看库存回撤能力，再看产能覆盖。",
-            "Q8": "先看品控与维权，再看概率公示。",
-        }
+                 "inventory_days": "存货天数", "gross_margin": "毛利率",
+                 "ad_cost": "获客成本", "asp": "客单价"}
+        # 2026-11-21：删掉写死的八条动作（原为潮玩/IP玩具话术）。
+        # 动作由本节问句生成；通用模块不内置任何一条业务线的判断。
+        asks = {str(a.get("id")): str(a.get("text") or "")
+                for a in (clarify.get("asks") or [])}
+
+        def _action(qid: str) -> str:
+            q = asks.get(str(qid), "").strip("？? ")
+            if q:
+                return (f"先用本节最硬的同口径数回答「{q}」；"
+                        f"缺口写进未答清单，不补零、不外推。")
+            return "先用本节最硬的同口径数做判断；缺口写进未答清单，不补零、不外推。"
         for qid, cs in sorted(qmap.items()):
             # 同一 (entity, value, period) 只在一节里出现，避免各问重复同一句
             uniq = []
@@ -141,6 +221,9 @@ def build(project: Path, cells_path: Optional[Path] = None,
                      "name": f"{c.get('entity')}·{c.get('measure')}",
                      "value": c.get("value"), "unit": c.get("unit") or "",
                      "period": c.get("period") or "",
+                     "measure_id": c.get("measure_id") or c.get("measure"),
+                     "grain_id": c.get("grain_id") or c.get("grain"),
+                     "caliber": c.get("caliber") or {},
                      "source_file": src_ids.get(str(c.get("source_file")), "")}
                 numbers.append(n)
                 local.append((n, c))
@@ -180,8 +263,7 @@ def build(project: Path, cells_path: Optional[Path] = None,
                  f"若「{top.get('entity')}」下一期与「{local[1][1].get('entity')}」背离，本节要改写。",
                  "refs": refs[:1]},
                 {"strong": "边界　", "text": boundary, "refs": refs[:1]},
-                {"strong": "所以　", "text": action.get(qid, "先用最硬的数做判断，缺口进未答清单。"),
-                 "refs": refs[:1]},
+                {"strong": "所以　", "text": _action(qid), "refs": refs[:1]},
             ]
             chart_items = [{"label": str(c.get("entity")), "value": c.get("value")}
                            for _, c in local[:5] if isinstance(c.get("value"), (int, float))]
@@ -206,14 +288,17 @@ def build(project: Path, cells_path: Optional[Path] = None,
             "numbers": numbers, "sources": sources, "sections": sections,
             "cells": [c for cs in qmap.values() for c in cs],
             "explore": [], "unanswered": unanswered,
+            "contract_gaps": contract_gaps,
             "boundaries": ["按格交编译：只写已填格，未填格进未答清单。",
-                           "比率格不求和；跨口径不合并。"],
+                           "比率格不求和；跨口径不合并。",
+                           "未过交付契约（度量/grain/口径）的格进 contract_gaps，不进正文。"],
         }
         out = project / "cards" / role / "claims.json"
         out.write_text(json.dumps(claims, ensure_ascii=False, indent=2), encoding="utf-8")
         written.append({"role": role, "sections": len(sections),
                         "numbers": len(numbers), "sources": len(sources),
-                        "cells": len(claims["cells"])})
+                        "cells": len(claims["cells"]), "contract_gaps": len(contract_gaps)})
 
     return {"ok": bool(written), "stage": "compiled", "roles": written,
-            "cells_input": len(cells), "cells_used": sum(r["cells"] for r in written)}
+            "cells_input": len(cells), "cells_used": sum(r["cells"] for r in written),
+            "contract_gaps": len(contract_gaps)}

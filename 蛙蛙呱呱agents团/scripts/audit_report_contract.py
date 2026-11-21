@@ -33,9 +33,9 @@ def audit(c: dict) -> dict:
             n = len(str(r.get("text") or ""))
             if n > limit:
                 hard.append(f"节「{str(s.get('title'))[:16]}」解读{j} {n} 字 > {limit}")
-    # 2) 主判断
-    main_max = int(cfg.get("main_claims_max") or 7)
-    if len(secs) > main_max:
+    # 2) 主判断（0 = 自适应，不设上限）
+    main_max = int(cfg.get("main_claims_max") or 0)
+    if main_max > 0 and len(secs) > main_max:
         warn.append(f"正文 {len(secs)} 节 > 主判断上限 {main_max}；第 {main_max + 1} 节起应进附录")
     if cfg.get("decision_fields_required"):
         for s in secs:

@@ -6,8 +6,8 @@ report:
   paragraph_max_chars: 300
   paragraph_hard_max_chars: 330
   section_max_chars: null
-  # 主判断：正文最多 7 条，其余进附录
-  main_claims_max: 7
+  # 主判断：0 = 自适应，不设上限；封面决策纸仍只取前 5 条
+  main_claims_max: 0
   decision_items_max: 5
   decision_fields_required: true
   title_max_chars: 20

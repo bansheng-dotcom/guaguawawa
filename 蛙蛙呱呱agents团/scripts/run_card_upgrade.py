@@ -59,7 +59,8 @@ def main() -> int:
     sem_errs = cu.validate_semantic(sem)
     tree = cu.build_issue_tree(clarify)
     persp = cu.build_perspectives(clarify, cu._load_yaml(project / "perspectives.yaml"))
-    grid = cu.build_grid(clarify, sem, cu._brands(pack))
+    grid_tpl = load(project / "plan" / "grid.template.json", {}) or {}
+    grid = cu.build_grid(clarify, sem, cu._brands(pack), template=grid_tpl or None)
     decs = [cu.score_decompositions(x, grid["cells"], nums)
             for x in clarify.get("asks") or [] if x.get("must")]
     branches = cu.branch_log(clarify, grid["cells"], nums)

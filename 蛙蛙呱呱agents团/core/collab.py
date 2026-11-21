@@ -71,7 +71,7 @@ def sign(project: Path, contracts: List[Dict[str, Any]], intent: str = "") -> Di
         }
         tmp = project / "plan" / f"_handoff_{owner}.json"
         _write(tmp, inp)
-        res = _call_r02(["handoff", "package", "--input", str(tmp)])
+        res = _call_r02(["handoff", "package", "--input", str(tmp.resolve())])
         try:
             tmp.unlink()
         except OSError:
@@ -125,7 +125,7 @@ def waves(project: Path, contracts: List[Dict[str, Any]],
              for owner, tid in by_owner.items()]
     tmp = project / "plan" / "_portfolio_input.json"
     _write(tmp, {"tasks": tasks, "gates": []})
-    res = _call_r02(["portfolio", "plan", "--input", str(tmp)])
+    res = _call_r02(["portfolio", "plan", "--input", str(tmp.resolve())])
     try:
         tmp.unlink()
     except OSError:

@@ -99,6 +99,38 @@ def _strip_label(text: str) -> str:
     return t
 
 
+def check_11_fields(claims: Dict[str, Any]) -> List[str]:
+    """每节 11 字段硬校验（REPORT-FLOW §0.4）。
+
+    verdict/question/fact/evidence/mechanism/alternative/signal/implication/
+    action/stop/boundary。缺一项就拒绝编译，避免「数字多、论证短」的稿子进渲染。
+    """
+    issues: List[str] = []
+    for i, s in enumerate(claims.get("sections") or [], 1):
+        tag = str(s.get("title") or f"第{i}节")[:24]
+        reads = [r for r in (s.get("reading") or []) if isinstance(r, dict)]
+        strong = " ".join(str(r.get("strong") or "") for r in reads)
+        text = " ".join(str(r.get("text") or "") for r in reads)
+        checks = {
+            "verdict": bool(str(s.get("title") or "").strip()),
+            "question": bool(str(s.get("question") or "").strip()),
+            "fact": ("事实" in strong) or ("事实" in text),
+            "evidence": bool(s.get("refs")),
+            "mechanism": ("机理" in strong) or ("机理" in text),
+            "alternative": ("反例" in strong) or ("反例" in text),
+            "signal": ("判别方法" in text) or ("判别方法" in strong)
+                      or ("信号" in text) or ("信号" in strong),
+            "implication": ("所以" in strong) or ("所以" in text),
+            "action": ("所以" in strong) or ("所以" in text) or bool(s.get("action")),
+            "stop": bool(str(s.get("falsifier") or "").strip()),
+            "boundary": bool(str(s.get("boundary") or "").strip()),
+        }
+        missing = [k for k, ok in checks.items() if not ok]
+        if missing:
+            issues.append(f"{tag}: 缺 {', '.join(missing)}")
+    return issues
+
+
 def build_draft(claims: Dict[str, Any]) -> Dict[str, Any]:
     meta = claims.get("meta") or {}
     sections = []
@@ -173,6 +205,17 @@ def main(argv: List[str] | None = None) -> int:
     claims = json.loads(Path(a.claims).read_text(encoding="utf-8-sig"))
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
+
+    # 每节 11 字段硬校验：缺字段不编译（REPORT-FLOW §0.4）
+    spec_issues = check_11_fields(claims)
+    if spec_issues:
+        print(json.dumps({"ok": False, "stage": "prose_spec",
+                          "issues": spec_issues[:12],
+                          "hint": "每节补 verdict/question/fact/evidence/"
+                                  "mechanism/alternative/signal/implication/"
+                                  "action/stop/boundary 后再编译"},
+                         ensure_ascii=False, indent=2))
+        return 2
 
     # 交叉质询：同一个数两个说法、只有 D 级来源、头条无 A/B 支撑、没写边界。
     # 这一步不通过就不编译——报告宁可不发，也不发一份自相矛盾的稿。

@@ -15,16 +15,16 @@ def test_contract_is_single_source():
     c = report_contract.load()
     assert c["paragraph_max_chars"] == 300
     assert c["paragraph_hard_max_chars"] == 330
-    assert c["main_claims_max"] == 7
+    assert c["main_claims_max"] == 0
     assert c["decision_page"] is True
     assert c["chart_unit_strict"] is True
 
 
-def test_prose_policy_no_longer_rewards_1000():
+def test_prose_policy_matches_flow_standard():
     import yaml
     raw = yaml.safe_load((ROOT / "configs" / "report_prose.yaml").read_text(encoding="utf-8"))
-    assert raw["prose"]["chars_per_section"] == [300, 600]
-    assert raw["prose"]["chars_hard_min"] == 250
+    assert raw["prose"]["chars_per_section"] == [1000, 1600]
+    assert raw["prose"]["chars_hard_min"] == 800
 
 
 def test_chart_units_drop_mixed_units():
@@ -45,7 +45,7 @@ def test_chart_units_drop_mixed_units():
     assert {i["unit"] for i in out["items"]} == {"万元"}
 
 
-def test_claims_cap_main_at_seven():
+def test_claims_section_count_is_adaptive():
     claims = []
     for i in range(9):
         claims.append({
@@ -58,8 +58,8 @@ def test_claims_cap_main_at_seven():
             "table": {"columns": ["a"], "rows": [["1"]]},
         })
     secs = claims_v4.build_sections({"claims": claims})
-    assert sum(1 for s in secs if not s.get("appendix")) == 7
-    assert sum(1 for s in secs if s.get("appendix")) == 2
+    assert sum(1 for s in secs if not s.get("appendix")) == 9
+    assert sum(1 for s in secs if s.get("appendix")) == 0
 
 
 def test_validate_rejects_mixed_unit_and_missing_table():
@@ -164,7 +164,7 @@ def test_decision_rank_controls_order_and_cap():
     claims = [_mk_claim(i, rank=i) for i in range(1, 10)]
     secs = claims_v4.build_sections({"claims": claims})
     assert [s["title"] for s in secs[:3]] == ["判断1", "判断2", "判断3"]
-    assert sum(1 for s in secs if not s.get("appendix")) == 7
+    assert sum(1 for s in secs if not s.get("appendix")) == 9
 
 
 def test_headline_is_authored_not_guessed():

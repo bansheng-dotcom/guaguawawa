@@ -43,6 +43,31 @@ python guagua.py report "…" --dir <项目> --out <目录>   # 报告主线（�
 
 ---
 
+## 报告产线 v5（面板优先）
+
+分析的单位是面板，不是事实点。一次跑批的四件产物：`raw.xlsx`、`theses.json`、`report.html`、`manifest.json`。
+
+```bash
+report clarify --intent "…" --out <项目>        # 接活 12 问（返回 ask_user，R01 对话里问用户）
+report intake --dir <项目> --answer I1=…        # 记录回答（≥10 个才可拆卡）
+report clarify --dir <项目> --confirm
+report brief --dir <项目> --plan --confirm      # 签 brief + DoR 9 项 + 按问题簇自适应发卡
+# 角色交 cards/<role>/rows.json（面板行 + dispatch 块）
+report collect --dir <项目> --out <项目>/out     # rows → raw/panel/theses → 节
+report run-line --intent "…" --claims out/claims_merged.json --out out/report
+```
+
+| 层 | 模块 | 说明 |
+|---|---|---|
+| 接活 | `core/intake.py` | 12 问 + brief 签字；未签不拆卡 |
+| 面板 | `core/panel.py` | 实体×维度×期次×指标，目标行数 |
+| 发卡 | `core/card_plan.py` | 按问题簇切；簇 >24 格再拆；一个角色可多卡 |
+| 就绪 | `core/dor.py` | DoR 9 项硬门禁 |
+| 整备 | `core/data_model.py` | 归一/去重/冲突/覆盖 → `raw.xlsx` 六表 |
+| 论点/图 | `core/synthesis.py` · `core/chart_query.py` | 论点→五块正文；图只许 query(raw) |
+
+---
+
 ## 包内结构
 
 ```

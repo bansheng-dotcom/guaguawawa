@@ -82,9 +82,10 @@ def validate_v4(claims: List[Dict[str, Any]]) -> List[str]:
     if not claims:
         return ["claims 为空"]
     main_n = sum(1 for c in claims if str(c.get("tier") or "main") == "main")
-    if main_n > report_contract.main_claims_max():
-        errs.append(f"主判断 {main_n} 条 > 上限 {report_contract.main_claims_max()}；"
-                    "第 8 条起标 tier=support 进附录")
+    cap = report_contract.main_claims_max()
+    if cap > 0 and main_n > cap:
+        errs.append(f"主判断 {main_n} 条 > 上限 {cap}；"
+                    f"第 {cap + 1} 条起标 tier=support 进附录")
     max_chars = report_contract.paragraph_hard_max()
     main_claims = [c for c in claims if str(c.get("tier") or "main") == "main"]
     ranks = []
@@ -230,8 +231,8 @@ def build_sections(draft: Dict[str, Any]) -> List[Dict[str, Any]]:
     main = [s for s in secs if not s.get("appendix")]
     sup = [s for s in secs if s.get("appendix")]
     cap = report_contract.main_claims_max()
-    if len(main) > cap:
-        # 第 8 条起降为支撑，进附录；正文只留 7 条主判断
+    if cap > 0 and len(main) > cap:
+        # 只有显式设置上限时才截断；0 = 自适应，全部保留在正文
         for s in main[cap:]:
             s["appendix"] = True
         sup = main[cap:] + sup

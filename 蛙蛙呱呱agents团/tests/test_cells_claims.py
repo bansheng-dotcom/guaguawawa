@@ -80,8 +80,11 @@ def _project() -> Path:
                 cid = f"{qid}.{dim}.{k}"
                 cells.append({"cell_id": cid, "qid": qid, "dim": dim,
                               "entity": f"{dim}{k}", "measure": "revenue",
+                              "measure_id": "revenue",
                               "grain": "G_region_year", "period": "2025",
                               "status": "open", "causal_level": "A",
+                              "caliber": {"scope": "全渠道", "currency": "CNY",
+                                          "price_basis": "零售价"},
                               "quality": {x: "ok" for x in (
                                   "completeness", "accuracy", "consistency",
                                   "timeliness", "uniqueness", "validity")}})
