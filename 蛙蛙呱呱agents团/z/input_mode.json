@@ -1,9 +1,0 @@
-{
-  "schema": "dsh.report.line/v1",
-  "mode": "instruction",
-  "intent": "x",
-  "project_dir": "y",
-  "input_path": "",
-  "research": false,
-  "detected_at": "2026-11-18T15:22:21"
-}
