@@ -63,7 +63,7 @@ fingerprint:
 def _project(with_sem: bool = True) -> Path:
     base = Path(tempfile.mkdtemp(prefix="guagua_cardspec_"))
     assert report_clarify.write(INTENT, str(base))["ok"]
-    assert report_clarify.confirm(str(base))["ok"]
+    assert report_clarify.confirm(str(base), user_said="用户确认：按这个意图做")["ok"]
     if with_sem:
         (base / "semantic_layer.yaml").write_text(SEM, encoding="utf-8")
     return base

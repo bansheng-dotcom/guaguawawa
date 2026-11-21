@@ -1,0 +1,279 @@
+{
+  "schema": "dsh.branch_log/v1",
+  "items": [
+    {
+      "qid": "Q1",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q1",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q1",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q2",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q2",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q2",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q3",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q3",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q3",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q4",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q4",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q4",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q5",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q5",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q5",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q6",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q6",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q6",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q7",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q7",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q7",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q8",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q8",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q8",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q9",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q9",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q9",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q10",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q10",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q10",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q11",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q11",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q11",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q12",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q12",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q12",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q13",
+      "branch": "空间下钻到旗县",
+      "decision": "stop",
+      "reason": "缺旗县级公开数据，边际价值中",
+      "marginal_value": "中"
+    },
+    {
+      "qid": "Q13",
+      "branch": "渠道拆到门店级",
+      "decision": "stop",
+      "reason": "需一手 POS，成本高，先不做",
+      "marginal_value": "低"
+    },
+    {
+      "qid": "Q13",
+      "branch": "机制深挖到复购",
+      "decision": "stop",
+      "reason": "现有数据只有铺货，复购无证据，降级为假设",
+      "marginal_value": "中"
+    }
+  ],
+  "count": 39
+}

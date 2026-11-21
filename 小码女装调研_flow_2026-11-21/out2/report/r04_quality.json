@@ -1,0 +1,36 @@
+{
+  "schema": "dsh.r04.quality/v1",
+  "derived_from": {
+    "artifact": "report.html",
+    "artifact_sha256": "f8f8d879c95fe55d84ed582280ab56f48822f693b1cde0d814336404fcc54ee8",
+    "manifest_sha256": "44193bf26a70217deadf590f48b7b5c1e24435758baa1331a724a69667818dd6",
+    "generated_by": "core.r04_derive.derive()",
+    "schema": "dsh.r04.derived/v1"
+  },
+  "claims": [
+    {
+      "id": "R1",
+      "kind": "completion",
+      "text": "verified: 流程门禁 PASS（判据 9 项指标已记录）",
+      "evidence_refs": [
+        "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\manifest.json:1"
+      ]
+    },
+    {
+      "id": "R2",
+      "kind": "completion",
+      "text": "verified: 唯一来源 92 条、数字 434 个",
+      "evidence_refs": [
+        "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\gaps.json:1"
+      ]
+    },
+    {
+      "id": "R3",
+      "kind": "completion",
+      "text": "not verified: 本次未做引文回抓",
+      "evidence_refs": [
+        "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\manifest.json:1"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "schema": "dsh.report.issued/v1",
+  "intent": "中国小码女装市场的规模有多大，身高159厘米以下人群有多少，专属供给有多少？小码女装2025至2026年增速如何，增长来自渗透还是大盘？小码女装竞争格局如何，CR10与头部品牌份额是多少？小码女装的价格带与品类结构如何，哪个价位最赚钱？小码女装的退货率、客单价、毛利与单均贡献如何构成经营模型？小码女装的库存周转与补单模式如何影响现金流？小码女装在小红书与抖音的内容获客与转化效率如何？小码女装的进入策略与90天落地动作是什么，验收指标与停止条件是什么？",
+  "issued_at": "2026-11-22T01:04:58",
+  "plan_sha": "f74b7b29c1bed0eb",
+  "card_spec": {
+    "schema": "dsh.card_spec/pre_issue/v1",
+    "passed": 12,
+    "total": 12,
+    "failed": []
+  },
+  "cards": {
+    "r06": {
+      "nonce": "d0db55008fe39a2c",
+      "sig": "ed7258e57825ca131c1b213a7c2bf2b41365296b3e1304a76448c5bbc84dd3b3",
+      "questions": [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q12"
+      ],
+      "name": "蛙得清",
+      "contract": "T-r06-60e3a2d8aa6c721f",
+      "cells": 56
+    },
+    "r12": {
+      "nonce": "529d084a316e5ce1",
+      "sig": "7bc136a40d88629de8917217f31f6b730bc60ff6e6a2b03c768e911c7bdde066",
+      "questions": [
+        "Q10"
+      ],
+      "name": "蛙引流",
+      "contract": "T-r12-58a66db11ce10fa0",
+      "cells": 14
+    },
+    "r07": {
+      "nonce": "0bf0a735b76bad09",
+      "sig": "8d81a0459a04934d3edb102ac965ba4301aa34fc14e9f482d12d2624ed57c137",
+      "questions": [
+        "Q7",
+        "Q8",
+        "Q11",
+        "Q13"
+      ],
+      "name": "蛙得明",
+      "contract": "T-r07-440897223e30cc00",
+      "cells": 56
+    },
+    "r05": {
+      "nonce": "4d304d056fcde3a9",
+      "sig": "0f53be005740b2dfab62503cc8695c223aefe7c6ca2a020b40c124b84d126e13",
+      "questions": [
+        "Q4",
+        "Q5",
+        "Q6"
+      ],
+      "name": "蛙深远",
+      "contract": "T-r05-82572c253e85176e",
+      "cells": 42
+    },
+    "r15": {
+      "nonce": "1eee169b045854e7",
+      "sig": "03a14267950432fa9fd9d56a53d193879b6599b3a5ff9ab73a1633f8341f5134",
+      "questions": [
+        "Q9"
+      ],
+      "name": "蛙供应",
+      "contract": "T-r15-",
+      "cells": 14
+    }
+  }
+}

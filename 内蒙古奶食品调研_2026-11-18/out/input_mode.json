@@ -1,8 +1,0 @@
-{
-  "schema": "dsh.report.line/v1",
-  "mode": "agent",
-  "intent": "内蒙古奶食品市场调研",
-  "evidence": "D:\\蛙蛙呱呱\\内蒙古奶食品调研_2026-11-18\\out\\_compiled\\evidence_pack.json",
-  "draft": "D:\\蛙蛙呱呱\\内蒙古奶食品调研_2026-11-18\\out\\_compiled\\draft_sections.json",
-  "detected_at": "2026-11-20T19:26:04"
-}

@@ -69,11 +69,17 @@ def start(project: Path, intent: str) -> Dict[str, Any]:
             "questions": len(QUESTIONS), "min_answers": MIN_ANSWERS}
 
 
-def answer(project: Path, pairs: List[str]) -> Dict[str, Any]:
-    """pairs: I1=... I2=..."""
+def answer(project: Path, pairs: List[str], by: str = "user") -> Dict[str, Any]:
+    """pairs: I1=... I2=...
+
+    `by` 记录答案是谁给的（2026-11-22）：只有 user 才算用户确认；
+    agent 代填会留在 answered_by 里，preflight/签 brief 都不认。
+    """
     project = Path(project)
     intake = _r(project / "intake.json") or {}
     answers = intake.get("answers") or {}
+    by_map = intake.get("answered_by") or {}
+    by = "user" if str(by).lower() == "user" else "agent"
     for p in pairs:
         if "=" not in p:
             continue
@@ -81,12 +87,20 @@ def answer(project: Path, pairs: List[str]) -> Dict[str, Any]:
         k = k.strip().upper()
         if any(q["id"] == k for q in QUESTIONS) and v.strip():
             answers[k] = v.strip()
+            by_map[k] = by
     intake["answers"] = answers
+    intake["answered_by"] = by_map
+    user_n = sum(1 for k in answers if by_map.get(k) == "user")
+    intake["user_answers"] = user_n
     ok_count = len(answers)
-    intake["status"] = "complete" if ok_count >= MIN_ANSWERS else "pending"
+    intake["status"] = ("complete" if ok_count >= MIN_ANSWERS and user_n >= MIN_ANSWERS
+                        else "pending")
     _w(project / "intake.json", intake)
     return {"ok": ok_count >= MIN_ANSWERS, "answered": ok_count,
-            "min": MIN_ANSWERS, "status": intake["status"]}
+            "user_answered": user_n, "min": MIN_ANSWERS,
+            "status": intake["status"],
+            "note": ("答案由 agent 代填，未获用户确认；签 brief 会被拒"
+                     if user_n < MIN_ANSWERS else "答案由用户确认")}
 
 
 def complete(project: Path) -> bool:
@@ -94,7 +108,11 @@ def complete(project: Path) -> bool:
     return len(intake.get("answers") or {}) >= MIN_ANSWERS
 
 
-def sign_brief(project: Path, by: str = "user") -> Dict[str, Any]:
+def sign_brief(project: Path, by: str = "user", user_said: str = "") -> Dict[str, Any]:
+    """签 brief（2026-11-22 起）：必须是用户本人确认，并留一句用户原话。
+
+    agent 代答、没有原话、用户答案不足 10 条，三者任一 → 拒签。
+    """
     import hashlib
     import time
     project = Path(project)
@@ -102,10 +120,21 @@ def sign_brief(project: Path, by: str = "user") -> Dict[str, Any]:
     intake = _r(project / "intake.json") or {}
     if not complete(project):
         return {"ok": False, "error": "intake 有效回答不足 10 个，不能签 brief"}
+    user_n = int(intake.get("user_answers") or 0)
+    if user_n < MIN_ANSWERS:
+        return {"ok": False,
+                "error": f"用户确认的回答只有 {user_n} 条（需 ≥{MIN_ANSWERS}）；"
+                         "agent 代填不算，请把问题问给用户后重填"}
+    if str(by).lower() != "user":
+        return {"ok": False, "error": "brief 只能由 user 签；agent 不能代签"}
+    if len(str(user_said or "").strip()) < 6:
+        return {"ok": False,
+                "error": "缺用户原话：--user-said \"用户对目标的一句确认\""}
     brief["problem"] = brief.get("problem") or str(intake.get("intent") or "")
     brief["answers"] = intake.get("answers") or {}
     raw = json.dumps(brief, ensure_ascii=False, sort_keys=True).encode("utf-8")
-    brief["signed"] = {"by": by, "at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+    brief["signed"] = {"by": "user", "user_said": str(user_said).strip(),
+                       "at": time.strftime("%Y-%m-%dT%H:%M:%S"),
                        "sha": hashlib.sha256(raw).hexdigest()[:16]}
     _w(project / "brief.json", brief)
     return {"ok": True, "signed": brief["signed"]}

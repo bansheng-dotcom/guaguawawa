@@ -1,0 +1,144 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "id": "derived_ok",
+      "ok": true,
+      "msg": "派生量公式可算、声明值与实算一致",
+      "fail": []
+    },
+    {
+      "id": "pack_present",
+      "ok": true,
+      "msg": "证据包里有数字",
+      "count": 256
+    },
+    {
+      "id": "standfirst_number",
+      "ok": true,
+      "msg": "导语必须是带数字的结论"
+    },
+    {
+      "id": "has_sections",
+      "ok": true,
+      "msg": "至少 3 节"
+    },
+    {
+      "id": "sections_valid",
+      "ok": true,
+      "msg": "每节标题带数、有 refs、数字可解释、图带来源",
+      "table_warnings": [
+        {
+          "index": 1,
+          "kind": "prose",
+          "msg": "正文数字 3/26 无法逐条解释（12%）：解读2的1688、解读3的680、解读3的900"
+        },
+        {
+          "index": 2,
+          "kind": "prose",
+          "msg": "正文数字 1/17 无法逐条解释（6%）：解读3的680"
+        },
+        {
+          "index": 3,
+          "kind": "prose",
+          "msg": "正文数字 4/28 无法逐条解释（14%）：解读1的28.7、解读2的352、解读2的1271、解读3的99"
+        },
+        {
+          "index": 4,
+          "kind": "prose",
+          "msg": "正文数字 2/24 无法逐条解释（8%）：解读1的1688、解读2的10600"
+        },
+        {
+          "index": 5,
+          "kind": "prose",
+          "msg": "正文数字 1/50 无法逐条解释（2%）：解读3的159"
+        },
+        {
+          "index": 6,
+          "kind": "prose",
+          "msg": "正文数字 2/17 无法逐条解释（12%）：解读1的1688、解读1的1688"
+        },
+        {
+          "index": 9,
+          "kind": "prose",
+          "msg": "正文数字 1/18 无法逐条解释（6%）：解读2的618"
+        }
+      ],
+      "sections": [
+        {
+          "index": 1,
+          "title": "大盘3.2%，小码搜索137%",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 2,
+          "title": "女装CR10仅8.1%，长尾94.6%",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 3,
+          "title": "抖音57.2%销量在99元以下",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 4,
+          "title": "女装大盘1.06万亿，小码无口径",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 5,
+          "title": "身高159以下女性约5.2亿",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 6,
+          "title": "S码搜索增137%，供给百亿级",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 7,
+          "title": "连衣裙与裤子各约13%，羽绒服11%",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 8,
+          "title": "退货55%时单均贡献−35.7元",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 9,
+          "title": "小红书9.4亿话题、抖音转化1.75%",
+          "ok": true,
+          "errors": []
+        },
+        {
+          "index": 10,
+          "title": "36天对386天：周转差如何吃掉现金流",
+          "ok": true,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "banned_words",
+      "ok": true,
+      "msg": "禁用词清零",
+      "fail": []
+    },
+    {
+      "id": "boundary",
+      "ok": true,
+      "msg": "至少写一处边界"
+    }
+  ],
+  "sections": 10,
+  "runtime_ms": 210
+}

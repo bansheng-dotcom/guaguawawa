@@ -1,0 +1,1179 @@
+{
+  "schema": "dsh.agent.claims/v1",
+  "contract": "v2",
+  "card_spec": true,
+  "role": "r15",
+  "dispatch": {
+    "nonce": "1eee169b045854e7",
+    "role": "r15",
+    "by": "worker-r15-20261122",
+    "questions": [
+      "Q9"
+    ]
+  },
+  "meta": {
+    "title": "中国小码女装市场的规模有多大，身高159厘米以下人群有多少，专属供给有多少？小码女装2025至2026年增速如何，增长来自渗透还是大盘？小码女装竞争格局如何，CR10与头部品牌份额是多少？小码女装的价格带与品类结构如何，哪个价位最赚钱？小码女装的退货率、客单价、毛利与单均贡献如何构成经营模型？小码女装的库存周转与补单模式如何影响现金流？小码女装在小红书与抖音的内容获客与转化效率如何？小码女装的进入策略与90天落地动作是什么，验收指标与停止条件是什么？",
+    "intent": "中国小码女装市场的规模有多大，身高159厘米以下人群有多少，专属供给有多少？小码女装2025至2026年增速如何，增长来自渗透还是大盘？小码女装竞争格局如何，CR10与头部品牌份额是多少？小码女装的价格带与品类结构如何，哪个价位最赚钱？小码女装的退货率、客单价、毛利与单均贡献如何构成经营模型？小码女装的库存周转与补单模式如何影响现金流？小码女装在小红书与抖音的内容获客与转化效率如何？小码女装的进入策略与90天落地动作是什么，验收指标与停止条件是什么？",
+    "doc_type": "调研报告",
+    "profile": "research"
+  },
+  "numbers": [
+    {
+      "id": "N01",
+      "name": "SHEIN 2023年库存周转天数",
+      "value": 35,
+      "unit": "天",
+      "period": "2023",
+      "source_file": "S01"
+    },
+    {
+      "id": "N02",
+      "name": "SHEIN 2024年库存周转天数",
+      "value": 34,
+      "unit": "天",
+      "period": "2024",
+      "source_file": "S01"
+    },
+    {
+      "id": "N03",
+      "name": "SHEIN 2025年库存周转天数",
+      "value": 36,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S01"
+    },
+    {
+      "id": "N04",
+      "name": "SHEIN截至2026年3月止十二个月库存周转天数",
+      "value": 38,
+      "unit": "天",
+      "period": "2026Q1",
+      "source_file": "S01"
+    },
+    {
+      "id": "N05",
+      "name": "Inditex（ZARA母公司）2025年库存周转天数",
+      "value": 71,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S02"
+    },
+    {
+      "id": "N06",
+      "name": "迅销（优衣库母公司）2025年库存周转天数",
+      "value": 114,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S02"
+    },
+    {
+      "id": "N07",
+      "name": "阿迪达斯2025年库存周转天数",
+      "value": 164,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S02"
+    },
+    {
+      "id": "N08",
+      "name": "传统服装行业库存周转天数区间上限",
+      "value": 120,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S11"
+    },
+    {
+      "id": "N09",
+      "name": "A股服装家纺板块2025年存货周转天数",
+      "value": 216,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S14"
+    },
+    {
+      "id": "N10",
+      "name": "赢家时尚2025年存货周转天数",
+      "value": 386,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S13"
+    },
+    {
+      "id": "N11",
+      "name": "森马服饰2025年存货周转天数",
+      "value": 144.71,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S17"
+    },
+    {
+      "id": "N12",
+      "name": "森马服饰2024年存货周转天数",
+      "value": 136.43,
+      "unit": "天",
+      "period": "2024",
+      "source_file": "S17"
+    },
+    {
+      "id": "N13",
+      "name": "太平鸟2025年库存周转天数",
+      "value": 208,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S18"
+    },
+    {
+      "id": "N14",
+      "name": "太平鸟2025年库存周转天数同比增加",
+      "value": 16,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S18"
+    },
+    {
+      "id": "N15",
+      "name": "白帆（单品牌样本）小单快反库存周转天数",
+      "value": 29,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S22"
+    },
+    {
+      "id": "N16",
+      "name": "小单快反单款首单量区间上限",
+      "value": 200,
+      "unit": "件",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N17",
+      "name": "小单快反最短补单周期",
+      "value": 5,
+      "unit": "天",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N18",
+      "name": "传统模式单张订单量（佛山案例）",
+      "value": 3000,
+      "unit": "件",
+      "period": "2025",
+      "source_file": "S12"
+    },
+    {
+      "id": "N19",
+      "name": "小单快反单张订单量（佛山案例）",
+      "value": 500,
+      "unit": "件",
+      "period": "2025",
+      "source_file": "S12"
+    },
+    {
+      "id": "N20",
+      "name": "传统外贸模式流动资金占用上限",
+      "value": 6,
+      "unit": "个月",
+      "period": "2026",
+      "source_file": "S03"
+    },
+    {
+      "id": "N21",
+      "name": "传统服装代工账期下限",
+      "value": 60,
+      "unit": "天",
+      "period": "2026",
+      "source_file": "S19"
+    },
+    {
+      "id": "N22",
+      "name": "希音常规供应商账期",
+      "value": 30,
+      "unit": "天",
+      "period": "2026",
+      "source_file": "S19"
+    },
+    {
+      "id": "N23",
+      "name": "希音优质供应商最快回款周期",
+      "value": 7,
+      "unit": "天",
+      "period": "2026",
+      "source_file": "S19"
+    },
+    {
+      "id": "N24",
+      "name": "传统服装业未销售库存率",
+      "value": 30,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S19"
+    },
+    {
+      "id": "N25",
+      "name": "小码女装退货率（单店样本）",
+      "value": 45,
+      "unit": "%",
+      "period": "2023",
+      "source_file": "S06"
+    },
+    {
+      "id": "N26",
+      "name": "大码女装退货率（单店样本）",
+      "value": 65,
+      "unit": "%",
+      "period": "2023",
+      "source_file": "S06"
+    },
+    {
+      "id": "N27",
+      "name": "女装网购退货率区间中值",
+      "value": 55,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S05"
+    },
+    {
+      "id": "N28",
+      "name": "2024年双11女装直播退货率",
+      "value": 80,
+      "unit": "%",
+      "period": "2024",
+      "source_file": "S23"
+    },
+    {
+      "id": "N29",
+      "name": "每件女装退货综合损耗上限",
+      "value": 32,
+      "unit": "元",
+      "period": "2025",
+      "source_file": "S23"
+    },
+    {
+      "id": "N30",
+      "name": "广州十三行单款起批下限",
+      "value": 5,
+      "unit": "件",
+      "period": "2026",
+      "source_file": "S07"
+    },
+    {
+      "id": "N31",
+      "name": "杭州四季青杭派档口混批门槛",
+      "value": 3,
+      "unit": "件",
+      "period": "2026",
+      "source_file": "S08"
+    },
+    {
+      "id": "N32",
+      "name": "普宁工厂睡衣内衣贴牌起订量",
+      "value": 500,
+      "unit": "件",
+      "period": "2026",
+      "source_file": "S09"
+    },
+    {
+      "id": "N33",
+      "name": "普宁工厂定制起订量",
+      "value": 1000,
+      "unit": "件",
+      "period": "2026",
+      "source_file": "S09"
+    },
+    {
+      "id": "N34",
+      "name": "连衣裙占淘天女装销售额比重",
+      "value": 22.2,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S21"
+    },
+    {
+      "id": "N35",
+      "name": "连衣裙占淘天女装销量比重",
+      "value": 13.8,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S21"
+    },
+    {
+      "id": "N36",
+      "name": "100—300元价格带占连衣裙单次消费比重",
+      "value": 38,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S21"
+    },
+    {
+      "id": "N37",
+      "name": "抖音女装87元以下价格带销量占比",
+      "value": 65.2,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S22"
+    },
+    {
+      "id": "N38",
+      "name": "上衣与裤装合计占女装销量比重",
+      "value": 43,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S22"
+    },
+    {
+      "id": "N39",
+      "name": "朗姿股份女装业务毛利率",
+      "value": 64.63,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S15"
+    },
+    {
+      "id": "N40",
+      "name": "朗姿女装毛利率同比提升",
+      "value": 1.2,
+      "unit": "个百分点",
+      "period": "2025",
+      "source_file": "S16"
+    },
+    {
+      "id": "N41",
+      "name": "太平鸟2026年一季度核心主业服饰运营毛利率",
+      "value": 62.92,
+      "unit": "%",
+      "period": "2026Q1",
+      "source_file": "S18"
+    },
+    {
+      "id": "N42",
+      "name": "太平鸟2026年一季度核心主业毛利率同比提升",
+      "value": 2.08,
+      "unit": "个百分点",
+      "period": "2026Q1",
+      "source_file": "S18"
+    },
+    {
+      "id": "N43",
+      "name": "白帆（单品牌样本）小单快反毛利率下限",
+      "value": 45,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S22"
+    },
+    {
+      "id": "N44",
+      "name": "传统秋冬装打版到上架周期下限",
+      "value": 60,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S22"
+    },
+    {
+      "id": "N45",
+      "name": "白帆打版周期",
+      "value": 7,
+      "unit": "天",
+      "period": "2025",
+      "source_file": "S22"
+    }
+  ],
+  "sources": [
+    {
+      "file": "S01",
+      "kind": "pdf",
+      "title": "SHEIN Global Holdings Limited Financial Information（港交所聆讯后资料集）",
+      "org": "香港交易所 / SHEIN",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/12310076/sehk26072600175.pdf",
+      "date": "2026-09-01",
+      "grade": "A",
+      "quote": "Our inventory turnover days were 35, 34, 36 and 38 days in 2023, 2024 and 2025 and the twelve months ended 31 March 2026, respectively.",
+      "verify_note": "已回抓核对（港交所PDF文本层逐字一致）"
+    },
+    {
+      "file": "S02",
+      "kind": "web",
+      "title": "希音中报隐藏的账本：订单、效率与第二张牌",
+      "org": "36氪",
+      "url": "https://36kr.com/p/4005233136865153",
+      "date": "2026-09-30",
+      "grade": "B",
+      "quote": "2025年，希音的库存周转天数是36天，ZARA母公司Inditex是71天，优衣库母公司迅销是114天，阿迪达斯164天。",
+      "verify_note": "已回抓核对"
+    },
+    {
+      "file": "S03",
+      "kind": "web",
+      "title": "链主牵引 数据驱动 赋能产业出海 希音柔性供应链真硬核",
+      "org": "证券时报 / 同花顺财经",
+      "url": "http://news.10jqka.com.cn/20260818/c679025459.shtml",
+      "date": "2026-08-18",
+      "grade": "A",
+      "quote": "传统外贸模式下，工厂需要提前垫资采购大批量面料，流动资金被库存、未结货款占用，时长至少3—6个月。对接希音体系后，常规供应商账期压缩至30天，资质优质工厂最快7天即可回款"
+    },
+    {
+      "file": "S04",
+      "kind": "web",
+      "title": "SHEIN“小单快反”模式最新数据曝光：200万个服装款式，36天库存周转",
+      "org": "新浪科技 / 亿邦动力",
+      "url": "https://finance.sina.com.cn/tech/roll/2026-09-01/doc-iniqhwna1508635.shtml",
+      "date": "2026-09-01",
+      "grade": "B",
+      "quote": "每个新SKU首批仅生产100-200件用于市场测试，验证销售后5天内启动补单，极大地压缩库存风险与反应链路。"
+    },
+    {
+      "file": "S05",
+      "kind": "web",
+      "title": "每周质量报告丨上防盗扣、挂大吊牌 谁在透支网购的信任？",
+      "org": "京报网 / 央视新闻",
+      "url": "https://news.bjd.com.cn/2026/01/11/11517290.shtml",
+      "date": "2026-01-11",
+      "grade": "B",
+      "quote": "女装网购退货率普遍徘徊在50%至60%之间。2025年“双11”期间，电商综合退货率为61.5%，仍处于高位水平，其中服装直播领域退货率超80%"
+    },
+    {
+      "file": "S06",
+      "kind": "web",
+      "title": "女装装不下女性了吗",
+      "org": "中国青年报 / 新华网",
+      "url": "https://app.xinhuanet.com/news/article.html?articleId=1be6374a-04e6-4df9-abc2-dcd00bf6f81a",
+      "date": "2023-08-16",
+      "grade": "B",
+      "quote": "“小码退货率在45%左右，大码在65%左右，一些电商直播售出的服装，大码退货率甚至高达70%。”"
+    },
+    {
+      "file": "S07",
+      "kind": "web",
+      "title": "广州女装批发市场攻略：十三行、沙河、火车站、石井全解析",
+      "org": "搜档网",
+      "url": "https://www.soudangkou.com/%E5%B9%BF%E5%B7%9E%E5%A5%B3%E8%A3%85%E6%89%B9%E5%8F%91%E5%B8%82%E5%9C%BA%E6%94%BB%E7%95%A5%EF%BC%9A%E5%8D%81%E4%B8%89%E8%A1%8C%E3%80%81%E6%B2%99%E6%B2%B3%E3%80%81%E7%81%AB%E8%BD%A6%E7%AB%99%E3%80%81/",
+      "date": "2026",
+      "grade": "C",
+      "quote": "拿货量要求不高，单款5-10件起批，但你要会挑",
+      "verify_note": "已回抓核对"
+    },
+    {
+      "file": "S08",
+      "kind": "web",
+      "title": "杭州新杭派服装城几点开门？营业时间+拿货攻略",
+      "org": "搜档网",
+      "url": "https://www.soudangkou.com/xinhangpai-fuzhuangcheng-kaigong/",
+      "date": "2026",
+      "grade": "C",
+      "quote": "杭派市场通常一手码起批（同色各码一件），部分档口三件混批，新手直接问清楚。",
+      "verify_note": "已回抓核对"
+    },
+    {
+      "file": "S09",
+      "kind": "web",
+      "title": "普宁市流沙贴身秘语服饰厂（1688工厂档案）",
+      "org": "阿里巴巴1688",
+      "url": "https://www.1688.com/factory/b2b-2217585165316a4f19.html",
+      "date": "2026",
+      "grade": "B",
+      "quote": "合作方式定制起订量1000件贴牌起订量500件"
+    },
+    {
+      "file": "S10",
+      "kind": "web",
+      "title": "出海，中国制造正在创造新故事",
+      "org": "SHEIN自营招商",
+      "url": "https://zhaoshang.sheincorp.cn/news/doc?id=193",
+      "date": "2023-12-07",
+      "grade": "B",
+      "quote": "其他家居商家的常规同类产品订单往往要1000件起订，而依照SHEIN所的小单快反模式，周云斌的工厂一般是200-300每批次的订单"
+    },
+    {
+      "file": "S11",
+      "kind": "web",
+      "title": "从小单到IPO，希音做对了什么？",
+      "org": "虎嗅 / 网易",
+      "url": "http://m.163.com/news/article/L3632AL5051188EA.html",
+      "date": "2026-07-31",
+      "grade": "B",
+      "quote": "2025年，其库存周转天数仅36天，而行业平均需要90到120天。"
+    },
+    {
+      "file": "S12",
+      "kind": "web",
+      "title": "“科技+时尚”重塑消费者衣橱体验 智能化提速“跑出”时尚经济新潜力",
+      "org": "央视网",
+      "url": "https://news.cctv.com/2025/07/27/ARTIbyrjqqMvAmlbo3ZNbUyf250727.shtml",
+      "date": "2025-07-27",
+      "grade": "A",
+      "quote": "将单张订单量从3000件压缩至500件，大幅降低商家试错成本，提高打造爆款的效率"
+    },
+    {
+      "file": "S13",
+      "kind": "web",
+      "title": "最敢花钱的人，也带不动这个品牌了？",
+      "org": "中国新闻周刊 / 新浪财经",
+      "url": "https://finance.sina.com.cn/cj/2026-06-20/doc-inieakfr8555927.shtml",
+      "date": "2026-06-20",
+      "grade": "B",
+      "quote": "2020年—2025年，赢家时尚集团存货周转天数分别为172天、184天、256天、233天、320天、386天，5年增加了1倍多"
+    },
+    {
+      "file": "S14",
+      "kind": "pdf",
+      "title": "纺织服装2025年报&26一季报总结：消费复苏渐显，制造景气承压",
+      "org": "东方财富证券研究所",
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202605131822253755_1.pdf",
+      "date": "2026-05-13",
+      "grade": "A",
+      "quote": "存货周转天数下降5.7天至216.0天",
+      "verify_note": "已用WebFetch解析PDF正文并逐字核对"
+    },
+    {
+      "file": "S15",
+      "kind": "web",
+      "title": "朗姿股份有限公司2025年年度报告摘要",
+      "org": "上海证券报 / 朗姿股份",
+      "url": "https://paper.cnstock.com/html/2026-04/25/content_2206503.htm",
+      "date": "2026-04-25",
+      "grade": "A",
+      "quote": "女装业务板块实现营业收入199,908.63万元，较上年同期增长3.85%；实现毛利润129,196.53万元，毛利率64.63%。"
+    },
+    {
+      "file": "S16",
+      "kind": "web",
+      "title": "【开源商社|朗姿股份：2025年业绩亮眼彰显韧性，医美版图持续扩容】",
+      "org": "新浪财经（开源证券）",
+      "url": "https://finance.sina.com.cn/wm/2026-04-27/doc-inhvxxww8981950.shtml",
+      "date": "2026-04-27",
+      "grade": "B",
+      "quote": "女装：营收19.99亿元（+3.9%）、毛利率64.6%（+1.2pct）"
+    },
+    {
+      "file": "S17",
+      "kind": "web",
+      "title": "关店1236家，利润下滑21%，森马的“壮士断腕”为何没换来轻盈？",
+      "org": "钛媒体APP / 新浪财经",
+      "url": "https://finance.sina.com.cn/cj/2026-03-31/doc-inhswpmw5707041.shtml",
+      "date": "2026-03-31",
+      "grade": "B",
+      "quote": "2025年，公司期末存货金额从34.81亿元下降至31.78亿元，账面上减少了8.71%；然而存货周转天数却从136.43天上升到144.71天，增加6.07天，整体存货周转率下滑5.68%。"
+    },
+    {
+      "file": "S18",
+      "kind": "web",
+      "title": "全年净关店375家！“折翼”太平鸟如何加速？",
+      "org": "投资时报 / 证券之星",
+      "url": "https://wap.stockstar.com/detail/IG2026042000028597",
+      "date": "2026-04-20",
+      "grade": "B",
+      "quote": "从营运能力来看，太平鸟库存周转天数同比增加16天至208天，创下上市以来新高。"
+    },
+    {
+      "file": "S19",
+      "kind": "web",
+      "title": "从一件礼服说起，希音如何赋能供应商“高质量出海”？",
+      "org": "界面新闻",
+      "url": "https://m.jiemian.com/article/14295422.html",
+      "date": "2026-04-22",
+      "grade": "B",
+      "quote": "这种“以销定产”的模式，能将行业平均约30%的未销售库存率降至个位数。"
+    },
+    {
+      "file": "S20",
+      "kind": "web",
+      "title": "ESG典型案例｜从一件世界杯球衣，看希音如何把ESG嵌入全球化经营底座",
+      "org": "中国经营报 / 新浪财经",
+      "url": "https://finance.sina.com.cn/jjxw/2026-10-13/doc-inivawnc8039941.shtml",
+      "date": "2026-10-13",
+      "grade": "B",
+      "quote": "每款新品先以约100到200件的小批量首发订单测试市场，根据实时消费者反馈评估表现，热门产品可在最短五天内补货。2025年，希音库存周转天数仅为36天，未售库存占比保持在低个位数水平。"
+    },
+    {
+      "file": "S21",
+      "kind": "web",
+      "title": "女生买条喜欢的连衣裙，为什么越来越难了？",
+      "org": "36氪",
+      "url": "https://36kr.com/p/3847191687694594",
+      "date": "2026-06-10",
+      "grade": "B",
+      "quote": "据知衣科技发布的《2025淘宝天猫618女装复盘与分析》报告，连衣裙在女装品类销量和销售额的占比均排行前三，对应的数字分别是13.8%和22.2%。",
+      "verify_note": "已回抓核对"
+    },
+    {
+      "file": "S22",
+      "kind": "web",
+      "title": "百元价格带是女装品牌的“生命线”（《2025年中国女装市场洞察报告》解读）",
+      "org": "尚普咨询集团",
+      "url": "https://survey.shangpu-china.com/scdc/29877.html",
+      "date": "2026-02-07",
+      "grade": "C",
+      "quote": "以杭州某新锐品牌“白帆”为例，其把打版周期压到7天，首单200件测试市场，爆款48小时内追加5000件，滞销款立即停止原料采购。通过“小单快返”，白帆把库存周转天数降到29天，比行业均值快一半，毛利率却维持在45%以上。"
+    },
+    {
+      "file": "S23",
+      "kind": "web",
+      "title": "为啥女装越做越小？",
+      "org": "新京报 / 新浪财经",
+      "url": "https://finance.sina.com.cn/wm/2025-06-16/doc-infaftun1012812.shtml",
+      "date": "2025-06-16",
+      "grade": "B",
+      "quote": "根据估算，每件女装退货会造成约20至32元的综合损耗，包括运费、商品折旧、仓储及人工处理成本。"
+    }
+  ],
+  "conflicts": [
+    {
+      "metric": "库存周转天数",
+      "values": "SHEIN 36天（2025，公司整体合并报表）；白帆29天（单品牌样本）；森马144.71天（公司整体）；A股板块216天（板块合计）",
+      "caliber_diff": "公司整体 vs 单品牌/单店 vs 板块合计，不可直接比较；单店缺公开披露。"
+    },
+    {
+      "metric": "女装退货率",
+      "values": "小码单店45%（2023）；网购综合50%—60%（2026）；2024双11直播80%",
+      "caliber_diff": "按渠道与年份分列：单店样本、综合电商、直播大促三种口径，不可连成趋势。"
+    },
+    {
+      "metric": "100—300元价格带占比",
+      "values": "连衣裙单次消费38%（S21）；女装单次支出43%（S22）",
+      "caliber_diff": "前者限于连衣裙品类，后者为女装整体；品类范围不同，不能互相替代。"
+    }
+  ],
+  "sections": [
+    {
+      "title": "36天对216天：周转差吃现金",
+      "question": "小码女装的库存周转与补单模式如何影响现金流",
+      "answers": [
+        "Q9"
+      ],
+      "refs": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N08",
+        "N09",
+        "N10",
+        "N11",
+        "N12",
+        "N13",
+        "N14",
+        "N15",
+        "N16",
+        "N17",
+        "N18",
+        "N19",
+        "N20",
+        "N21",
+        "N22",
+        "N23",
+        "N24",
+        "N25",
+        "N29",
+        "N30",
+        "N32",
+        "N33",
+        "N34",
+        "N35",
+        "N37",
+        "N38",
+        "N42",
+        "N43",
+        "N44",
+        "N45"
+      ],
+      "boundary": "库存周转分两层：公司整体口径为SHEIN合并报表、森马/太平鸟/赢家集团合并及A股服装家纺板块216天；单店口径无公开数据，只能用单品牌样本白帆29天近似，二者不可并列比较。行业120天为媒体口径。小码女装无专属库存周转披露，本节为机制外推。品类与价格带占比为淘天/抖音单渠道口径，不能等同全国份额。",
+      "reading": [
+        {
+          "strong": "事实　",
+          "text": "公司整体口径：SHEIN 2023—2025及截至2026年3月TTM库存周转为35/34/36/38天；同期Inditex 71天、迅销114天、阿迪达斯164天。国内样本A股服装家纺板块216天、赢家时尚386天，森马144.71天且同比增6.07天，太平鸟208天。单品牌样本白帆29天。补单端首单100—200件、最短5天返单。",
+          "refs": [
+            "N01",
+            "N02",
+            "N03",
+            "N04",
+            "N05",
+            "N06",
+            "N07",
+            "N09",
+            "N10",
+            "N11",
+            "N12",
+            "N13",
+            "N14",
+            "N15",
+            "N16",
+            "N17"
+          ]
+        },
+        {
+          "strong": "机理　",
+          "text": "周转天数就是现金被存货占用的天数。首单100—200件把一次3000件备货拆成500件级多轮小赌，滞销立即停采，行业约30%的未售库存率可压到个位数；资金占用由3—6个月缩到30天账期、最快7天回款。同样的年销货成本，36天比216天少占约八成存货资金。现金循环=备货+在途+账期+退货处理，四段同时缩短才成立。",
+          "refs": [
+            "N03",
+            "N09",
+            "N16",
+            "N17",
+            "N18",
+            "N19",
+            "N20",
+            "N21",
+            "N22",
+            "N23",
+            "N24"
+          ]
+        },
+        {
+          "strong": "反例　",
+          "text": "快周转不等于现金流好。白帆29天是单品牌样本；森马存货金额降8.71%、周转反升6.07天，压金额没有换来速度。小码尺码越细，冷门码越易沉淀，单店小码退货率仍达45%，每件退货综合损耗20—32元，还会带来库存积压、资金流动受阻。产业带小单有门槛：十三行单款5件，但普宁贴牌500件、定制1000件，跨品类复制不免费。",
+          "refs": [
+            "N15",
+            "N11",
+            "N12",
+            "N25",
+            "N29",
+            "N30",
+            "N32",
+            "N33"
+          ]
+        }
+      ],
+      "chart": {
+        "type": "hbar",
+        "title": "库存周转：SHEIN 36天 vs A股板块216天",
+        "source": "港交所聆讯资料、东方财富证券、公司年报、尚普咨询",
+        "refs": [
+          "N03",
+          "N08",
+          "N09",
+          "N10",
+          "N11",
+          "N15"
+        ],
+        "baseline": 120,
+        "annotate": "SHEIN 36天，约为A股服装家纺板块216天的1/6",
+        "bars": [
+          {
+            "label": "白帆（单品牌）",
+            "value": 29
+          },
+          {
+            "label": "SHEIN（公司整体）",
+            "value": 36
+          },
+          {
+            "label": "传统行业上限",
+            "value": 120
+          },
+          {
+            "label": "森马（公司整体）",
+            "value": 144.71
+          },
+          {
+            "label": "A股服装家纺",
+            "value": 216
+          },
+          {
+            "label": "赢家时尚",
+            "value": 386
+          }
+        ],
+        "items": [
+          {
+            "label": "白帆（单品牌）",
+            "value": 29
+          },
+          {
+            "label": "SHEIN（公司整体）",
+            "value": 36
+          },
+          {
+            "label": "传统行业上限",
+            "value": 120
+          },
+          {
+            "label": "森马（公司整体）",
+            "value": 144.71
+          },
+          {
+            "label": "A股服装家纺",
+            "value": 216
+          },
+          {
+            "label": "赢家时尚",
+            "value": 386
+          }
+        ]
+      },
+      "falsifier": "若抽样小码品牌实测单店周转≤60天、补单≤7天且退货率<35%，同时账期>60天仍保持经营现金流为正，则“小码款多量浅→压货→现金流紧”作废；若SHEIN周转连续两年>90天或未售库存率回到20%以上，则小单快反的周转优势不成立。"
+    }
+  ],
+  "cells": [
+    {
+      "cell_id": "Q9.对象.TOP5 品牌",
+      "qid": "Q9",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "京东小个子连衣裙品牌排行榜（只有名次，无销售额份额）",
+        "豆丁《2026中国女装市占率报告》（只有女装整体CR5/CR10，非小码）",
+        "36氪连衣裙品牌分布（只列UR、ZARA等高销店铺，无份额）"
+      ],
+      "why": "小码女装品牌级销售额份额无公开披露；可得的CR5/CR10为女装整体口径，落不到G_brand_channel_year。"
+    },
+    {
+      "cell_id": "Q9.对象.长尾合计",
+      "qid": "Q9",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "豆丁女装市占率报告（CR5 12.7%、CR10 19.3%，为女装整体且来源可信度低）",
+        "京东小个子品牌榜（无份额，无法倒算长尾）"
+      ],
+      "why": "缺少口径一致的小码品牌份额基数，长尾合计不能由女装整体CR10倒算，否则混用口径。"
+    },
+    {
+      "cell_id": "Q9.空间.全国",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 43,
+      "unit": "%",
+      "source_file": "S22",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "grade_C",
+        "consistency": "checked",
+        "timeliness": "stale",
+        "uniqueness": "ok",
+        "validity": "ok"
+      },
+      "caliber": {
+        "scope": "中国女装线上销量口径，上衣+裤装合计占比；原报告为2025年前三季度，2026年无更新，取最近可得值",
+        "currency": "CNY",
+        "price_basis": "销量口径（非金额）"
+      },
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q9.空间.省",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "各省统计公报与社零数据（只有零售额，无服装品类结构）",
+        "省级女装品类结构报道（未检索到公开口径）"
+      ],
+      "why": "省级女装品类结构无公开统计，统计公报不发布品类占比，无法按省拆分。"
+    },
+    {
+      "cell_id": "Q9.空间.城市",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "城市级社零数据（无服装品类拆分）",
+        "平台城市榜单（只有排名与销量，无品类结构）"
+      ],
+      "why": "城市级女装品类结构无公开可核数据，平台榜单不披露品类销售额占比。"
+    },
+    {
+      "cell_id": "Q9.时间.2024",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2024",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "知衣科技《2025淘宝天猫618女装复盘与分析》（最早到2025Q2）",
+        "尚普《2025年1—8月连衣裙市场洞察报告》（无2024同口径品类结构）"
+      ],
+      "why": "可得的品类结构披露集中在2025年，2024年同口径（淘天/抖音女装销售额占比）未见公开数据。"
+    },
+    {
+      "cell_id": "Q9.时间.2025",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 22.2,
+      "unit": "%",
+      "source_file": "S21",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "grade_B",
+        "consistency": "checked",
+        "timeliness": "fresh",
+        "uniqueness": "ok",
+        "validity": "ok"
+      },
+      "caliber": {
+        "scope": "淘天平台2025年618女装销售额中连衣裙占比（渠道=淘天）",
+        "currency": "CNY",
+        "price_basis": "含税成交价"
+      },
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q9.时间.2026",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "2026年618女装品类复盘（检索时未发布）",
+        "2026年平台品类榜（只有销量排名，无销售额结构）"
+      ],
+      "why": "2026年品类结构无公开数据；可得最新为2025年618与2025Q2（21.14%），不能当作2026年值。"
+    },
+    {
+      "cell_id": "Q9.结构.品类×渠道",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 13.8,
+      "unit": "%",
+      "source_file": "S21",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "grade_B",
+        "consistency": "checked",
+        "timeliness": "stale",
+        "uniqueness": "ok",
+        "validity": "ok"
+      },
+      "caliber": {
+        "scope": "淘天2025年618女装销量中连衣裙占比（渠道=淘天，销量口径）；作为2026年最近可得渠道结构",
+        "currency": "CNY",
+        "price_basis": "销量口径（非金额）"
+      },
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q9.结构.价格带×渠道",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 65.2,
+      "unit": "%",
+      "source_file": "S22",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "grade_C",
+        "consistency": "checked",
+        "timeliness": "stale",
+        "uniqueness": "ok",
+        "validity": "ok"
+      },
+      "caliber": {
+        "scope": "抖音女装销量中87元以下价格带占比（渠道=抖音）；原报告为2025年前三季度",
+        "currency": "CNY",
+        "price_basis": "到手价（含折扣）"
+      },
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q9.机制.量价拆解",
+      "qid": "Q9",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 45,
+      "unit": "%",
+      "source_file": "S22",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "grade_C",
+        "consistency": "checked",
+        "timeliness": "stale",
+        "uniqueness": "ok",
+        "validity": "ok"
+      },
+      "caliber": {
+        "scope": "杭州新锐品牌白帆单一样本：小单快返下库存周转29天、毛利率维持45%以上；非行业均值",
+        "currency": "CNY",
+        "price_basis": "含税成交价"
+      },
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q9.机制.份额变化",
+      "qid": "Q9",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 2.08,
+      "unit": "个百分点",
+      "source_file": "S18",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "grade_B",
+        "consistency": "checked",
+        "timeliness": "fresh",
+        "uniqueness": "ok",
+        "validity": "ok"
+      },
+      "caliber": {
+        "scope": "太平鸟2026年一季度核心主业服饰运营毛利率同比+2.08个百分点至62.92%，用于代理渠道结构变化带来的毛利变化，非销售额份额",
+        "currency": "CNY",
+        "price_basis": "含税收入"
+      },
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q9.边界.口径 vs 统计公报",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "国家统计局社零数据（服装鞋帽针纺织品类，无库存周转与品类结构）",
+        "国民经济和社会发展统计公报（无库存、退货指标）",
+        "上市公司年报（有周转天数，但为公司整体口径）"
+      ],
+      "why": "统计公报只发布零售额与增速，不发布库存周转、退货率或品类结构，无法与行业口径做官方对照。"
+    },
+    {
+      "cell_id": "Q9.边界.样本覆盖",
+      "qid": "Q9",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "尚普咨询1484份消费者问卷（消费行为样本，非门店库存样本）",
+        "白帆案例（单品牌，n=1，仅作机制示例）",
+        "森马、太平鸟、赢家时尚（上市公司合并口径，非单店）"
+      ],
+      "why": "公开样本分三类：消费者问卷、单品牌案例、上市公司合并报表，均无法代表小码女装单店库存周转与补单命中率，故不给单一数值。"
+    }
+  ],
+  "explore": [
+    {
+      "text": "森马存货金额降8.71%但周转天数反升6.07天：压金额不等于提速度",
+      "value": 6.07,
+      "unit": "天",
+      "source_file": "S17",
+      "why_important": "若把小码现金流改善寄托在“少备货”上会失效，必须盯卖出速度与补单命中率，而不是存货余额"
+    },
+    {
+      "text": "抖音65.2%的女装销量集中在87元以下：低价走量周转快，但单件贡献薄",
+      "value": 65.2,
+      "unit": "%",
+      "source_file": "S22",
+      "why_important": "小码品牌若为追周转把价格压到87元以下，现金流会变成“快而薄”，需设毛利率下限作停止条件"
+    }
+  ],
+  "unanswered": []
+}

@@ -753,9 +753,15 @@ def _build_decision(secs: List[Dict[str, Any]], pack: Dict[str, Any]) -> Dict[st
                       "stop": _clip_text(stop or "待验证", 70),
                       "index": _i})
     first = items[0]["claim"] if items else "报告"
+    meta = pack.get("meta") or {}
+    # 封面默认取作者声明的 meta（2026-11-22）：没有才退回首节结论。
+    # 之前一律用首节标题，导致「封面 = 第一节」，读者拿不到文档名。
+    title = str(meta.get("title") or "").strip() or _decision_title(first)
+    subtitle = (str(meta.get("subtitle") or "").strip()
+                or "给一人公司：做不做 / 先做哪个 / 钱怎么分")
     return {
-        "title": _decision_title(first),
-        "subtitle": "给一人公司：做不做 / 先做哪个 / 钱怎么分",
+        "title": title,
+        "subtitle": subtitle,
         "items": items,
         "one_thing": items[0].get("action") if items else "",
         "boundary": "以上判断的证据、口径与缺口见附录。",
@@ -1040,9 +1046,17 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     summary = [{"text": t, "emphasis": i == 0}
                for i, t in enumerate(draft.get("summary") or [])] or \
               [{"text": draft["standfirst"], "emphasis": True}]
+    meta = pack.get("meta") or {}
+    declared_meta = [m for m in (meta.get("metrics") or [])
+                     if isinstance(m, dict) and str(m.get("value") or "").strip()]
     metrics = [{"label": m["label"], "value": m["value"],
                 "note": m.get("note") or "来源见记录层", "status": m.get("status") or "none"}
                for m in (draft.get("metrics") or [])]
+    if declared_meta:
+        metrics = [{"label": str(m.get("label") or "")[:24],
+                    "value": str(m.get("value")),
+                    "note": str(m.get("note") or "作者声明")[:24],
+                    "status": "none"} for m in declared_meta[:4]]
     # 决策纸：5–7 条主判断，每条 1 个数字 + 1 个动作 + 1 个停止条件。
     # 新稿用 draft.decision；老稿从正文前 7 节里挑「最像决策」的节。
     cand = draft.get("decision") or {}
@@ -1050,21 +1064,25 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     if decision:
         summary = [{"text": f"{it.get('claim', '')}（{it.get('number', '')}）",
                     "emphasis": i == 0} for i, it in enumerate(decision.get("items") or [])]
-        # 封面指标只放决策数，不再拿「本节第一个 ref」；同值去重
+        # 封面指标只放决策数，不再拿「本节第一个 ref」；作者声明了就不覆盖
         seen_m = set()
-        metrics = []
-        for it in (decision.get("items") or []):
-            val = it.get("number")
-            if not val or val in seen_m:
-                continue
-            seen_m.add(val)
-            metrics.append({"label": it.get("claim", "")[:24], "value": val,
-                            "note": "决策纸", "status": "none"})
-            if len(metrics) >= 3:
-                break
-        title0 = str(decision.get("title") or draft.get("short_title") or
-                     (draft.get("intent") or "报告"))[:20]
-        title_lines = [title0, "给一人公司：做不做 / 先做哪个 / 钱怎么分"]
+        if not declared_meta:
+            metrics = []
+            for it in (decision.get("items") or []):
+                val = it.get("number")
+                if not val or val in seen_m:
+                    continue
+                seen_m.add(val)
+                metrics.append({"label": it.get("claim", "")[:24], "value": val,
+                                "note": "决策纸", "status": "none"})
+                if len(metrics) >= 3:
+                    break
+        title0 = str(meta.get("title") or decision.get("title")
+                     or draft.get("short_title")
+                     or (draft.get("intent") or "报告"))[:20]
+        subtitle = (str(meta.get("subtitle") or decision.get("subtitle") or "").strip()
+                    or "给一人公司：做不做 / 先做哪个 / 钱怎么分")
+        title_lines = [title0, subtitle]
     else:
         title_lines = draft.get("title_lines") or [draft.get("intent") or "R01 报告"]
     from core import report_structure

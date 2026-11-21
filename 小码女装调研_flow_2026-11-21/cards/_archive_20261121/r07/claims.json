@@ -1,0 +1,1822 @@
+{
+  "schema": "dsh.agent.claims/v1",
+  "contract": "v2",
+  "card_spec": true,
+  "role": "r07",
+  "dispatch": {
+    "nonce": "98c73dd90cab57f1",
+    "role": "r07",
+    "by": "worker-r07-20261121",
+    "questions": [
+      "Q7",
+      "Q8"
+    ]
+  },
+  "meta": {
+    "title": "中国小码女装市场的规模有多大，身高159厘米以下人群有多少，专属供给有多少？小码女装2025至2026年增速如何，增长来自渗透还是大盘？小码女装竞争格局如何，CR10与头部品牌份额是多少？小码女装的价格带与品类结构如何，哪个价位最赚钱？小码女装的退货率、客单价、毛利与单均贡献如何构成经营模型？",
+    "intent": "小码女装品类结构、爆品价位与经营模型（UE）",
+    "doc_type": "调研报告",
+    "profile": "research"
+  },
+  "numbers": [
+    {
+      "id": "N01",
+      "name": "抖音女装裤子销售额占比",
+      "value": 13.3,
+      "unit": "%",
+      "period": "2022Q1",
+      "source_file": "S01",
+      "note": "蝉妈妈口径，2021Q1—2022Q1；抖音渠道，非全国"
+    },
+    {
+      "id": "N02",
+      "name": "抖音女装连衣裙销售额占比",
+      "value": 13.1,
+      "unit": "%",
+      "period": "2022Q1",
+      "source_file": "S01"
+    },
+    {
+      "id": "N03",
+      "name": "抖音女装羽绒服销售额占比",
+      "value": 11.4,
+      "unit": "%",
+      "period": "2022Q1",
+      "source_file": "S01"
+    },
+    {
+      "id": "N04",
+      "name": "抖音女装前三品类合计占比（计算值）",
+      "value": 37.8,
+      "unit": "%",
+      "period": "2022Q1",
+      "source_file": "S01",
+      "derived": true,
+      "formula": "13.3+13.1+11.4"
+    },
+    {
+      "id": "N05",
+      "name": "抖音裙装100—300元价格带销售额占比",
+      "value": 40,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S04"
+    },
+    {
+      "id": "N06",
+      "name": "抖音裙装主力价格带下限",
+      "value": 100,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S04"
+    },
+    {
+      "id": "N07",
+      "name": "抖音裙装主力价格带上限",
+      "value": 300,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S04"
+    },
+    {
+      "id": "N08",
+      "name": "抖音裙装直播带货销售额占比",
+      "value": 69,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N09",
+      "name": "抖音裙装达人推广销售额占比",
+      "value": 64,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N10",
+      "name": "抖音裙装Top5品牌集中度",
+      "value": 2.94,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N11",
+      "name": "抖音连衣裙退货率下限",
+      "value": 60,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S04"
+    },
+    {
+      "id": "N12",
+      "name": "抖音连衣裙退货率上限",
+      "value": 90,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S04"
+    },
+    {
+      "id": "N13",
+      "name": "1688连衣裙出厂价下限",
+      "value": 84,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S16"
+    },
+    {
+      "id": "N14",
+      "name": "1688连衣裙出厂价上限",
+      "value": 164,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S16"
+    },
+    {
+      "id": "N15",
+      "name": "淘宝小个子定制阔腿裤到手价",
+      "value": 29.8,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S07"
+    },
+    {
+      "id": "N16",
+      "name": "淘宝小个子冰丝阔腿裤到手价",
+      "value": 35.8,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S07"
+    },
+    {
+      "id": "N17",
+      "name": "淘宝小个子西装裤到手价",
+      "value": 179.9,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S09"
+    },
+    {
+      "id": "N18",
+      "name": "淘宝小码连衣裙到手价",
+      "value": 129.9,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S08"
+    },
+    {
+      "id": "N19",
+      "name": "抖音女装羽绒服11月月环比",
+      "value": 100,
+      "unit": "%",
+      "period": "2025-11",
+      "source_file": "S25"
+    },
+    {
+      "id": "N20",
+      "name": "天猫稳定经营连衣裙品牌数下限",
+      "value": 3000,
+      "unit": "个",
+      "period": "2025",
+      "source_file": "S03"
+    },
+    {
+      "id": "N21",
+      "name": "天猫稳定经营连衣裙品牌数上限",
+      "value": 5000,
+      "unit": "个",
+      "period": "2025",
+      "source_file": "S03"
+    },
+    {
+      "id": "N22",
+      "name": "1688小个子关键词搜索量同比",
+      "value": 172,
+      "unit": "%",
+      "period": "2026Q1",
+      "source_file": "S17"
+    },
+    {
+      "id": "N23",
+      "name": "小个子专属尺码表询盘转化率提升",
+      "value": 34,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S17"
+    },
+    {
+      "id": "N24",
+      "name": "抖音服饰鞋包客单价均值",
+      "value": 127.5,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S13",
+      "note": "易通行业参考值，非平台官方统计"
+    },
+    {
+      "id": "N25",
+      "name": "抖音服饰鞋包毛利率均值",
+      "value": 55.0,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N26",
+      "name": "单均获客成本（计算值）",
+      "value": 50.0,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S13",
+      "derived": true,
+      "formula": "客单价÷ROAS=127.5÷2.55"
+    },
+    {
+      "id": "N27",
+      "name": "单均履约成本（计算值）",
+      "value": 6,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S16",
+      "derived": true,
+      "formula": "快递下限5元+包装下限1元"
+    },
+    {
+      "id": "N28",
+      "name": "单笔退货综合成本（计算值）",
+      "value": 20.5,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S10",
+      "derived": true,
+      "formula": "退货综合成本16—25元取中值"
+    },
+    {
+      "id": "N29",
+      "name": "抖音服饰鞋包退货率均值",
+      "value": 40.5,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N30",
+      "name": "退货40.5%时单均贡献（计算值）",
+      "value": -22.6,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S13",
+      "derived": true,
+      "formula": "127.5×55%×(1−40.5%)−50−6−40.5%×20.5"
+    },
+    {
+      "id": "N31",
+      "name": "综合电商退货率中值",
+      "value": 55,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S10"
+    },
+    {
+      "id": "N32",
+      "name": "退货55%时单均贡献（计算值）",
+      "value": -35.7,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S10",
+      "derived": true,
+      "formula": "127.5×55%×(1−55%)−50−6−55%×20.5"
+    },
+    {
+      "id": "N33",
+      "name": "直播退货率中值",
+      "value": 70,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S26"
+    },
+    {
+      "id": "N34",
+      "name": "服饰鞋包达人佣金率下限",
+      "value": 15,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S24"
+    },
+    {
+      "id": "N35",
+      "name": "退货70%加15%佣金时单均贡献（计算值）",
+      "value": -55.1,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S26",
+      "derived": true,
+      "formula": "127.5×55%×(1−70%)−50−6−70%×20.5−127.5×(1−70%)×15%"
+    },
+    {
+      "id": "N36",
+      "name": "退货40.5%时退货后有效客单（计算值）",
+      "value": 75.9,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S13",
+      "derived": true,
+      "formula": "127.5×(1−40.5%)"
+    },
+    {
+      "id": "N37",
+      "name": "退货55%时退货后有效客单（计算值）",
+      "value": 57.4,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S10",
+      "derived": true,
+      "formula": "127.5×(1−55%)"
+    },
+    {
+      "id": "N38",
+      "name": "退货70%时退货后有效客单（计算值）",
+      "value": 38.3,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S26",
+      "derived": true,
+      "formula": "127.5×(1−70%)"
+    },
+    {
+      "id": "N39",
+      "name": "退货40.5%时获客占有效客单比（计算值）",
+      "value": 65.9,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S13",
+      "derived": true,
+      "formula": "50÷75.9"
+    },
+    {
+      "id": "N40",
+      "name": "退货70%时获客占有效客单比（计算值）",
+      "value": 130.7,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S26",
+      "derived": true,
+      "formula": "50÷38.25"
+    },
+    {
+      "id": "N41",
+      "name": "退货40.5%时保本ROAS（计算值）",
+      "value": 3.06,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S15",
+      "derived": true,
+      "formula": "1÷55%÷(1−40.5%)"
+    },
+    {
+      "id": "N42",
+      "name": "退货55%时保本ROAS（计算值）",
+      "value": 4.04,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S15",
+      "derived": true,
+      "formula": "1÷55%÷(1−55%)"
+    },
+    {
+      "id": "N43",
+      "name": "退货70%时保本ROAS（计算值）",
+      "value": 6.06,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S26",
+      "derived": true,
+      "formula": "1÷55%÷(1−70%)"
+    },
+    {
+      "id": "N44",
+      "name": "抖音服饰鞋包ROAS均值",
+      "value": 2.55,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N45",
+      "name": "京东连衣裙高端段客单价门槛",
+      "value": 746,
+      "unit": "元",
+      "period": "2025-08",
+      "source_file": "S03"
+    },
+    {
+      "id": "N46",
+      "name": "京东连衣裙746元以上销量占比",
+      "value": 11.5,
+      "unit": "%",
+      "period": "2025-08",
+      "source_file": "S03"
+    },
+    {
+      "id": "N47",
+      "name": "京东连衣裙746元以上销售额占比",
+      "value": 46.3,
+      "unit": "%",
+      "period": "2025-08",
+      "source_file": "S03"
+    },
+    {
+      "id": "N48",
+      "name": "江南布衣会员零售额占比",
+      "value": 80,
+      "unit": "%",
+      "period": "FY2026",
+      "source_file": "S23",
+      "note": "原文为逾八成"
+    },
+    {
+      "id": "N49",
+      "name": "退货口径差导致的单均贡献高估（计算值）",
+      "value": 32.5,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S13",
+      "derived": true,
+      "formula": "(-22.6)-(-55.1)"
+    },
+    {
+      "id": "N50",
+      "name": "女装行业退货率2025下限",
+      "value": 65,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S11"
+    },
+    {
+      "id": "N51",
+      "name": "女装行业退货率2025上限",
+      "value": 80,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S11"
+    },
+    {
+      "id": "N52",
+      "name": "退货综合成本下限",
+      "value": 16,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S10"
+    },
+    {
+      "id": "N53",
+      "name": "退货综合成本上限",
+      "value": 25,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S10"
+    },
+    {
+      "id": "N54",
+      "name": "传统裤装打版身高下限",
+      "value": 160,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S18"
+    },
+    {
+      "id": "N55",
+      "name": "传统裤装打版身高上限",
+      "value": 165,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S18"
+    },
+    {
+      "id": "N56",
+      "name": "京东小个子连衣裙榜席位",
+      "value": 10,
+      "unit": "个",
+      "period": "2026",
+      "source_file": "S05"
+    },
+    {
+      "id": "N57",
+      "name": "京东甜美羽绒服短款榜席位",
+      "value": 10,
+      "unit": "个",
+      "period": "2026",
+      "source_file": "S06"
+    },
+    {
+      "id": "N58",
+      "name": "女装商家投流加佣金占GMV比重",
+      "value": 50,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S19"
+    },
+    {
+      "id": "N59",
+      "name": "女装第一品牌市场份额",
+      "value": 1.7,
+      "unit": "%",
+      "period": "2023",
+      "source_file": "S21"
+    }
+  ],
+  "sources": [
+    {
+      "file": "S01",
+      "kind": "web",
+      "title": "抖音服饰箱包报告出炉：女装占超七成份额 内衣裤袜强势增长",
+      "org": "蝉妈妈 / 鸟哥笔记",
+      "url": "https://www.niaogebiji.com/article-119714-1.html",
+      "date": "2022-05-13",
+      "grade": "B",
+      "quote": "占据前三位置的裤子、连衣裙、羽绒服在2021年一季度-2022年一季度期间的销售额占比分别为13.3%、13.1%、11.4%。"
+    },
+    {
+      "file": "S02",
+      "kind": "web",
+      "title": "抖音裙装品类销售情况分析：升温明显，黑马品牌突围",
+      "org": "飞瓜数据",
+      "url": "http://m.toutiao.com/group/7640003986925437494/",
+      "date": "2026",
+      "grade": "B",
+      "quote": "在带货渠道结构上，直播带货占比高达69%，成为裙装品类绝对核心的成交场景。",
+      "verify_note": "站点反爬，未能回抓"
+    },
+    {
+      "file": "S03",
+      "kind": "web",
+      "title": "女生买条喜欢的连衣裙，为什么越来越难了？",
+      "org": "钛媒体 / 新莓",
+      "url": "https://www.tmtpost.com/8022829.html",
+      "date": "2026-06-11",
+      "grade": "B",
+      "quote": "客单价大于746元的仅占销量11.5%，却贡献46.3%的销售额，高端化战略突出。"
+    },
+    {
+      "file": "S04",
+      "kind": "web",
+      "title": "女生买条喜欢的连衣裙，为什么越来越难了？",
+      "org": "澎湃新闻 / 新莓",
+      "url": "https://m.thepaper.cn/newsDetail_forward_33351812",
+      "date": "2026-06-11",
+      "grade": "B",
+      "quote": "飞瓜数据显示，抖音平台100-300元价位区间的裙装商品，贡献了近40%的销售额，该价格带下覆盖了大量高性价比款式，是达人和直播间走量最集中的区间。"
+    },
+    {
+      "file": "S05",
+      "kind": "web",
+      "title": "小个子女装连衣裙品牌排行榜 - 十大品牌 - 京东",
+      "org": "京东",
+      "url": "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "小个子女装连衣裙品牌排行榜"
+    },
+    {
+      "file": "S06",
+      "kind": "web",
+      "title": "甜美羽绒服短款品牌排行榜 - 十大品牌 - 京东",
+      "org": "京东",
+      "url": "https://www.jd.com/phb/13159ffbfbabbd95ef12.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "甜美羽绒服短款品牌排行榜"
+    },
+    {
+      "file": "S07",
+      "kind": "web",
+      "title": "小个子定制优品女装 - 淘宝",
+      "org": "淘宝",
+      "url": "https://mobile-phone.taobao.com/chanpin/6f4c194b4faf1e3e56b5713f92d128065814d20ee14ed32f0b2f1814cb7798b4.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "145cm小个子窄版阔腿裤女春秋2026年新款雪尼尔垂感休闲直筒裤子"
+    },
+    {
+      "file": "S08",
+      "kind": "web",
+      "title": "小小个小码女装定制 - 淘宝",
+      "org": "淘宝",
+      "url": "https://mobile-phone.taobao.com/chanpin/767a0656f1fca7c7c907f02b7db80fe4354999055a86c82e059ad788e7547d89.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "小个子150XS夏季温柔气质包臀短裙收腰显身材蕾丝无袖连衣裙约会"
+    },
+    {
+      "file": "S09",
+      "kind": "web",
+      "title": "巧巧女装 - 淘宝",
+      "org": "淘宝",
+      "url": "https://mobile-phone.taobao.com/chanpin/5e66f453ead19908c079c1b59811a8b0.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "150小矮个子高级感毛呢西装裤女冬设计感纽扣九分高腰直筒阔腿145"
+    },
+    {
+      "file": "S10",
+      "kind": "web",
+      "title": "你双十一退掉的衣服，在经历什么？",
+      "org": "苏州日报 / 新浪财经",
+      "url": "https://finance.sina.com.cn/wm/2026-11-18/doc-inizcrpf4883789.shtml",
+      "date": "2026-11-18",
+      "grade": "B",
+      "quote": "算上往返运费、折损费、包装费、吊牌费和人工费，七天无理由退货的背后，是一件商品16元至25元的综合成本。"
+    },
+    {
+      "file": "S11",
+      "kind": "web",
+      "title": "淘宝抖音放低退换货门槛：一年82亿逆向快件，谁在承担成本？",
+      "org": "中国物流与采购 / 澎湃新闻",
+      "url": "https://m.thepaper.cn/newsDetail_forward_34343223",
+      "date": "2026-10-27",
+      "grade": "B",
+      "quote": "我国女装服饰行业平均退货率从2019年的30%攀升至2025年的65%～80%，直播电商的退货率更是惊人，高达80%～90%。"
+    },
+    {
+      "file": "S12",
+      "kind": "web",
+      "title": "退货率最高80%！同价不同料 女装正在遭遇质量双标",
+      "org": "网经社",
+      "url": "https://imgs-b2b.100ec.cn/detail--6662394.html",
+      "date": "2026-08-05",
+      "grade": "B",
+      "quote": "有女装品牌透露，每月因退货产生的仓储、物流成本就超过20万元，全行业2024年因退货损耗更是超过500亿元。"
+    },
+    {
+      "file": "S13",
+      "kind": "web",
+      "title": "抖音服饰鞋包类目参考 - 转化率、ROAS、CPC多少正常",
+      "org": "易通",
+      "url": "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing",
+      "date": "2026",
+      "grade": "C",
+      "quote": "抖音服饰鞋包品类客单价的行业参考均值为127.5元"
+    },
+    {
+      "file": "S14",
+      "kind": "web",
+      "title": "精品女装抖音合作案例 阶段放量与后续回落复盘",
+      "org": "杭州品融电商",
+      "url": "https://pinkroon.com/news/detail/763",
+      "date": "2026-09-16",
+      "grade": "C",
+      "quote": "11月整体成交金额201,510.35元、成交3,004单"
+    },
+    {
+      "file": "S15",
+      "kind": "web",
+      "title": "一个做服饰的老板自白：把千川素材的净成交ROI从1.2救回2.5",
+      "org": "有数（YouCloud）",
+      "url": "https://resources.youcloud.com/youshu/blog/4228/",
+      "date": "2026-09-18",
+      "grade": "C",
+      "quote": "算保本ROI，公式是：1÷毛利率÷(1−退货率)"
+    },
+    {
+      "file": "S16",
+      "kind": "web",
+      "title": "女装采购数据分析怎么辅助决策？从成本拆解到利润核算的实操框架",
+      "org": "1688百科",
+      "url": "https://wiki.1688.com/zh/WKfxruttrh18u8",
+      "date": "2026",
+      "grade": "C",
+      "quote": "退货率从15%升至35%，月利润下降约60%。"
+    },
+    {
+      "file": "S17",
+      "kind": "web",
+      "title": "小个子穿搭爆发，1688服饰工厂如何接住这波红利？",
+      "org": "1688百科",
+      "url": "https://wiki.1688.com/zh/WKfkssmw0z9wjk",
+      "date": "2026-05-02",
+      "grade": "C",
+      "quote": "在1688平台上，2026年Q1“小个子”相关关键词在服饰类目的搜索量同比猛增172%"
+    },
+    {
+      "file": "S18",
+      "kind": "web",
+      "title": "小个子女生裤装专供版型指南",
+      "org": "1688百科",
+      "url": "https://wiki.1688.com/zh/WKfz6bfofrz2tc",
+      "date": "2026-09-24",
+      "grade": "C",
+      "quote": "传统批发市场的裤装多以160-165cm身高为打版基准。"
+    },
+    {
+      "file": "S19",
+      "kind": "web",
+      "title": "监管洗牌、赛道分化：2026内容电商三大平台的攻守与突围",
+      "org": "华盛通 / 新熵",
+      "url": "https://www.hstong.com/news/detail/26072019251146897",
+      "date": "2026-07-20",
+      "grade": "B",
+      "quote": "一位年GMV目标1亿元的女装商家算过账：投流加佣金占GMV近50%，退货率70%，1亿成交额最终沉淀有效GMV仅3000万。"
+    },
+    {
+      "file": "S20",
+      "kind": "web",
+      "title": "“半片衣”开售，天下苦女装久矣",
+      "org": "36Kr Europe / 首席商业评论",
+      "url": "https://eu.36kr.com/en/p/3964280486434436",
+      "date": "2026-09-01",
+      "grade": "B",
+      "quote": "The return rate of traditional e-commerce is about 35%–40%, that of live-streaming e-commerce is as high as 60%–80%, and the average rate across the entire network has risen to 75%–80%."
+    },
+    {
+      "file": "S21",
+      "kind": "web",
+      "title": "女装，越做越小",
+      "org": "澎湃新闻 / 市界",
+      "url": "https://m.thepaper.cn/newsDetail_forward_23821323",
+      "date": "2023-07-13",
+      "grade": "B",
+      "quote": "排名第一的优衣库只占据了1.7%的市场份额。"
+    },
+    {
+      "file": "S22",
+      "kind": "web",
+      "title": "朗姿股份有限公司2025年年度报告摘要",
+      "org": "上海证券报 / 朗姿股份",
+      "url": "https://paper.cnstock.com/html/2026-04/25/content_2206503.htm",
+      "date": "2026-04-25",
+      "grade": "A",
+      "quote": "女装业务板块实现营业收入199,908.63万元，较上年同期增长3.85%；实现毛利润 129,196.53 万元，毛利率64.63%。"
+    },
+    {
+      "file": "S23",
+      "kind": "web",
+      "title": "直击江南布衣业绩说明会：2026财年净利同比增长11.1% 会员贡献零售额逾八成",
+      "org": "中国证券报",
+      "url": "https://www.cs.com.cn/ssgs/01/2026/09/13/detail_2026091310038854.html",
+      "date": "2026-09-13",
+      "grade": "A",
+      "quote": "毛利率进一步提升至66.6%，净利润率16.5%。"
+    },
+    {
+      "file": "S24",
+      "kind": "web",
+      "title": "抖音直播带货平台怎么收费？抖音直播带货平台收多少佣金？",
+      "org": "蝉妈妈运营圈",
+      "url": "https://www.chanmama.com/yunyingquan/question/4071.html",
+      "date": "2025-09-26",
+      "grade": "C",
+      "quote": "中佣梯队：服饰鞋包（15%-35%）、食品饮料（10%-25%），头部达人可通过议价能力突破常规。"
+    },
+    {
+      "file": "S25",
+      "kind": "web",
+      "title": "25年服饰秋冬上新速递（11.3—11.9 女装机会品类）",
+      "org": "抖音电商学习中心",
+      "url": "https://school.jinritemai.com/doudian/wap/course-series/cJXFULDqSc3Z/cJXFULDqSc3ZlJZJCSQAgnm8?should_hide_bottom_nav=1&from_school=1&should_full_screen=1&from=buyin_banner",
+      "date": "2025-10-21",
+      "grade": "B",
+      "quote": "羽绒服（月环比100%+，环比增量top1）",
+      "verify_note": "站点反爬，未能回抓"
+    },
+    {
+      "file": "S26",
+      "kind": "web",
+      "title": "卖十退八，巨型吊牌、2.4米丝带挡不住疯狂的女装退货",
+      "org": "腾讯新闻 / 金融八卦女",
+      "url": "https://news.qq.com/rain/a/20261009A09VXF00",
+      "date": "2026-10-09",
+      "grade": "C",
+      "quote": "行业数据显示，普通电商女装退货率在50%至60%，直播渠道冲到70%至80%。"
+    }
+  ],
+  "sections": [
+    {
+      "title": "连衣裙与裤子各约13%，羽绒服11%",
+      "question": "Q7 小码女装品类结构如何，连衣裙裤装外套各占多少，爆品有哪些？",
+      "answers": [
+        "Q7"
+      ],
+      "refs": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N08",
+        "N09",
+        "N10",
+        "N11",
+        "N12",
+        "N13",
+        "N14",
+        "N15",
+        "N16",
+        "N17",
+        "N18",
+        "N19",
+        "N20",
+        "N21",
+        "N54",
+        "N55",
+        "N56",
+        "N57",
+        "N59"
+      ],
+      "boundary": "品类占比为抖音渠道2021Q1—2022Q1蝉妈妈口径，非全国、非2026；平台单期榜单不等于全国份额；外套（非羽绒）无公开销售额占比，未并入本节结论。",
+      "reading": [
+        {
+          "strong": "事实　",
+          "text": "蝉妈妈口径，抖音女装销售额前三为裤子13.3%、连衣裙13.1%、羽绒服11.4%，合计37.8%。抖音裙装40%销售额来自100—300元；直播占69%、达人占64%，Top5品牌集中度仅2.94%；连衣裙退货率60%—90%。",
+          "refs": [
+            "N01",
+            "N02",
+            "N03",
+            "N04",
+            "N05",
+            "N06",
+            "N07",
+            "N08",
+            "N09",
+            "N10",
+            "N11",
+            "N12"
+          ]
+        },
+        {
+          "strong": "机理　",
+          "text": "连衣裙对版型与尺码最敏感，退货最高；传统裤装按160—165cm打版，小个子卡内长和脚口，要按身高段重打版；羽绒服季节集中、客单高。1688同款连衣裙出厂84—164元；淘宝小个子店爆款价位：阔腿裤29.8—35.8元、西装裤179.9元、小码连衣裙129.9元。",
+          "refs": [
+            "N13",
+            "N14",
+            "N15",
+            "N16",
+            "N17",
+            "N18",
+            "N54",
+            "N55"
+          ]
+        },
+        {
+          "strong": "反例　",
+          "text": "羽绒服11月月环比100%+，单月结构会反转；只看抖音会漏掉淘系3000—5000个连衣裙品牌，以及京东小个子连衣裙/羽绒服榜各10席；女装整体第一名优衣库也仅1.7%，小码更碎，跨平台复核前不能把13.3%/13.1%当成全国结构。",
+          "refs": [
+            "N19",
+            "N20",
+            "N21",
+            "N56",
+            "N57",
+            "N59"
+          ]
+        }
+      ],
+      "chart": {
+        "type": "hbar",
+        "title": "抖音女装前三品类占比11%—13%",
+        "source": "蝉妈妈（2021Q1—2022Q1）",
+        "unit_meta": "%",
+        "refs": [
+          "N01",
+          "N02",
+          "N03"
+        ],
+        "items": [
+          {
+            "label": "裤子",
+            "value": 13.3
+          },
+          {
+            "label": "连衣裙",
+            "value": 13.1
+          },
+          {
+            "label": "羽绒服",
+            "value": 11.4
+          }
+        ]
+      },
+      "falsifier": "若拿到2026年小码专属品类数据，显示外套或羽绒服占比超过连衣裙，或小码榜单Top5集中度高于10%，本节作废。"
+    },
+    {
+      "title": "退货55%时单均贡献−35.7元",
+      "question": "Q8 小码女装退货率、客单价、毛利与单均贡献如何构成经营模型？",
+      "answers": [
+        "Q8"
+      ],
+      "refs": [
+        "N24",
+        "N25",
+        "N26",
+        "N27",
+        "N28",
+        "N29",
+        "N30",
+        "N31",
+        "N32",
+        "N33",
+        "N34",
+        "N35",
+        "N36",
+        "N37",
+        "N38",
+        "N39",
+        "N40",
+        "N41",
+        "N42",
+        "N43",
+        "N44",
+        "N45",
+        "N46",
+        "N47",
+        "N48",
+        "N49",
+        "N50",
+        "N51",
+        "N52",
+        "N53",
+        "N58"
+      ],
+      "boundary": "AOV、毛利率、ROAS、退货率均为抖音服饰鞋包行业参考值或单店案例值，非小码专属；佣金取服饰鞋包15%下限；单退成本取16—25元中值20.5元；履约取快递5元+包装1元下限。换任一口径需按同式重算。",
+      "reading": [
+        {
+          "strong": "事实　",
+          "text": "单均贡献＝客单价×毛利率×(1−退货率)−获客成本−履约成本−退货率×单退成本−佣金。代入客单127.5元、毛利55%、获客50元、履约6元、单退20.5元：退货40.5%得−22.6元，55%得−35.7元，70%加15%佣金得−55.1元；退货后有效客单75.9/57.4/38.3元。",
+          "refs": [
+            "N24",
+            "N25",
+            "N26",
+            "N27",
+            "N28",
+            "N29",
+            "N30",
+            "N31",
+            "N32",
+            "N33",
+            "N34",
+            "N35",
+            "N36",
+            "N37",
+            "N38"
+          ]
+        },
+        {
+          "strong": "机理　",
+          "text": "退货把已付获客成本压在更少的留存收入上：获客÷有效客单从40.5%退货时的65.9%升到70%退货时的130.7%。保本ROAS＝1÷55%÷(1−退货率)＝3.06/4.04/6.06，行业ROAS均值2.55，且投流加佣金已占GMV近50%，均值以下结构性亏损。",
+          "refs": [
+            "N39",
+            "N40",
+            "N41",
+            "N42",
+            "N43",
+            "N44",
+            "N58"
+          ]
+        },
+        {
+          "strong": "反例　",
+          "text": "若客单价升到746元以上（京东连衣裙以11.5%销量贡献46.3%销售额），或会员复购把获客压到近零（江南布衣会员贡献超80%零售额），同一退货率仍可转正；若用抖音后台40.5%替代直播70%—80%，单均贡献会高估32.5元。",
+          "refs": [
+            "N29",
+            "N49",
+            "N45",
+            "N46",
+            "N47",
+            "N48",
+            "N33",
+            "N50",
+            "N51"
+          ]
+        }
+      ],
+      "chart": {
+        "type": "hbar",
+        "title": "退货率越高，有效客单越低（元）",
+        "source": "易通·抖音服饰鞋包参考值（2026）",
+        "unit_meta": "元",
+        "refs": [
+          "N36",
+          "N37",
+          "N38"
+        ],
+        "items": [
+          {
+            "label": "退货40.5%",
+            "value": 75.9
+          },
+          {
+            "label": "退货55%",
+            "value": 57.4
+          },
+          {
+            "label": "退货70%",
+            "value": 38.3
+          }
+        ]
+      },
+      "falsifier": "若平台后台口径退货率稳定低于40.5%且ROAS高于3.06，或小码专属店实测单均贡献连续三月为正，本节作废。"
+    }
+  ],
+  "cells": [
+    {
+      "cell_id": "Q7.对象.TOP5 品牌",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "京东榜为评论热度榜，不含销售额份额；蝉妈妈与飞瓜只给裙装品类Top5集中度2.94%，无小码女装品牌销售额份额，无法外推到TOP5品牌。"
+    },
+    {
+      "cell_id": "Q7.对象.长尾合计",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "http://m.toutiao.com/group/7640003986925437494/",
+        "https://www.niaogebiji.com/article-119714-1.html"
+      ],
+      "why": "长尾合计需先有TOP5小码品牌份额；现有2.94%是抖音裙装品类集中度，口径不同，不能用于小码长尾。"
+    },
+    {
+      "cell_id": "Q7.空间.全国",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "https://36kr.com/p/3847191687694594"
+      ],
+      "why": "无全国小码女装品类销售额份额；公开数据只有抖音渠道或单平台裙装品类结构。"
+    },
+    {
+      "cell_id": "Q7.空间.省",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.niaogebiji.com/article-119714-1.html"
+      ],
+      "why": "省级维度无小码女装品类/品牌销售额拆分；统计公报不发布该细分。"
+    },
+    {
+      "cell_id": "Q7.空间.城市",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://mobile-phone.taobao.com/chanpin/6f4c194b4faf1e3e56b5713f92d128065814d20ee14ed32f0b2f1814cb7798b4.html"
+      ],
+      "why": "城市维度只有店铺发货地（汕头/广州/武汉），不是销售份额，不能当城市结构。"
+    },
+    {
+      "cell_id": "Q7.时间.2024",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2024",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "https://36kr.com/p/3847191687694594"
+      ],
+      "why": "无2024年小码女装品类结构公开数据；蝉妈妈口径停留在2021Q1—2022Q1。"
+    },
+    {
+      "cell_id": "Q7.时间.2025",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://school.jinritemai.com/doudian/wap/course-series/cJXFULDqSc3Z/cJXFULDqSc3ZlJZJCSQAgnm8?should_hide_bottom_nav=1&from_school=1&should_full_screen=1&from=buyin_banner"
+      ],
+      "why": "平台趋势页只给增速（羽绒服月环比100%+），不给品类销售额占比，无法形成2025结构。"
+    },
+    {
+      "cell_id": "Q7.时间.2026",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://36kr.com/p/3847191687694594",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "2026只有裙装品类集中度2.94%与价格带40%，无全品类销售额占比。"
+    },
+    {
+      "cell_id": "Q7.结构.品类×渠道",
+      "qid": "Q7",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2022Q1",
+      "period_planned": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 13.1,
+      "unit": "%",
+      "source_file": "S01",
+      "grade": "B",
+      "caliber": {
+        "scope": "抖音渠道女装，2021Q1—2022Q1；非全国、非2026",
+        "currency": "CNY",
+        "price_basis": "含税销售额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "lagged",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "填报值为连衣裙占比；同源裤子13.3%、羽绒服11.4%见N01/N03。"
+    },
+    {
+      "cell_id": "Q7.结构.价格带×渠道",
+      "qid": "Q7",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 40,
+      "unit": "%",
+      "source_file": "S04",
+      "grade": "B",
+      "caliber": {
+        "scope": "抖音裙装，100—300元价格带占销售额比重",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "填报值为裙装主力价格带销售额占比；非小码专属。"
+    },
+    {
+      "cell_id": "Q7.机制.量价拆解",
+      "qid": "Q7",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2025",
+      "period_planned": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 64.63,
+      "unit": "%",
+      "source_file": "S22",
+      "grade": "A",
+      "caliber": {
+        "scope": "朗姿女装业务板块，中高端女装上市公司口径",
+        "currency": "CNY",
+        "price_basis": "含税零售额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "high",
+        "consistency": "audited",
+        "timeliness": "current",
+        "uniqueness": "single-brand",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "该格计划做量价拆解，公开数据只能交品牌毛利率水平；非小码专属。"
+    },
+    {
+      "cell_id": "Q7.机制.份额变化",
+      "qid": "Q7",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "FY2026",
+      "period_planned": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 66.6,
+      "unit": "%",
+      "source_file": "S23",
+      "grade": "A",
+      "caliber": {
+        "scope": "江南布衣集团2026财年，上市公司口径",
+        "currency": "CNY",
+        "price_basis": "含税零售额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "high",
+        "consistency": "audited",
+        "timeliness": "current",
+        "uniqueness": "single-brand",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "该格计划做份额变化，公开数据无小码品牌份额序列；改交同期毛利率作对照。"
+    },
+    {
+      "cell_id": "Q7.边界.口径 vs 统计公报",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.stats.gov.cn/"
+      ],
+      "why": "统计公报不发布小码女装品类或品牌份额，无法构造同口径对照；任何平台榜与公报相比都是口径错配。"
+    },
+    {
+      "cell_id": "Q7.边界.样本覆盖",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html"
+      ],
+      "why": "现有样本是单平台+评论热度榜，无抽样框与覆盖率，无法量化样本覆盖份额。"
+    },
+    {
+      "cell_id": "Q8.对象.TOP5 品牌",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing",
+        "https://pinkroon.com/news/detail/763"
+      ],
+      "why": "无小码女装品牌级UE面板；易通与品融只给类目均值/单店值，不含品牌份额。"
+    },
+    {
+      "cell_id": "Q8.对象.长尾合计",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing"
+      ],
+      "why": "缺TOP5品牌份额，长尾合计无法计算。"
+    },
+    {
+      "cell_id": "Q8.空间.全国",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://m.thepaper.cn/newsDetail_forward_34343223"
+      ],
+      "why": "全国只有退货率区间，无小码销售额份额。"
+    },
+    {
+      "cell_id": "Q8.空间.省",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://m.thepaper.cn/newsDetail_forward_34343223"
+      ],
+      "why": "分省退货率与分省UE均无公开数据。"
+    },
+    {
+      "cell_id": "Q8.空间.城市",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html"
+      ],
+      "why": "城市维度无UE样本；榜单只到品牌不到城市。"
+    },
+    {
+      "cell_id": "Q8.时间.2024",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2024",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://m.thepaper.cn/newsDetail_forward_34343223"
+      ],
+      "why": "2024只有退货损耗总额500亿元，无当年AOV/毛利/ROAS同面板。"
+    },
+    {
+      "cell_id": "Q8.时间.2025",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://pinkroon.com/news/detail/763"
+      ],
+      "why": "2025案例有单店ROI，但无份额口径，无法填share格。"
+    },
+    {
+      "cell_id": "Q8.时间.2026",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing"
+      ],
+      "why": "2026只有类目均值，无小码销售额份额。"
+    },
+    {
+      "cell_id": "Q8.结构.品类×渠道",
+      "qid": "Q8",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 69,
+      "unit": "%",
+      "source_file": "S02",
+      "grade": "B",
+      "caliber": {
+        "scope": "抖音裙装品类，直播带货销售额占比",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "填报值为渠道结构（直播占比），不是小码专属。"
+    },
+    {
+      "cell_id": "Q8.结构.价格带×渠道",
+      "qid": "Q8",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 40,
+      "unit": "%",
+      "source_file": "S04",
+      "grade": "B",
+      "caliber": {
+        "scope": "抖音裙装，100—300元价格带占销售额比重",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "与Q7同源同值，用于验证价格带对UE的支撑。"
+    },
+    {
+      "cell_id": "Q8.机制.量价拆解",
+      "qid": "Q8",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 55.0,
+      "unit": "%",
+      "source_file": "S13",
+      "grade": "C",
+      "caliber": {
+        "scope": "抖音服饰鞋包类目参考均值，非平台官方统计",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "low",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "填报值为毛利率水平，作为UE算式的毛利输入。"
+    },
+    {
+      "cell_id": "Q8.机制.份额变化",
+      "qid": "Q8",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "%",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "http://m.toutiao.com/group/7640003986925437494/",
+        "https://www.niaogebiji.com/article-119714-1.html"
+      ],
+      "why": "份额变化需分品牌份额时间序列；公开数据只有单期集中度2.94%，且毛利不是份额替代量。"
+    },
+    {
+      "cell_id": "Q8.边界.口径 vs 统计公报",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2025",
+      "period_planned": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 65,
+      "unit": "%",
+      "source_file": "S11",
+      "grade": "B",
+      "caliber": {
+        "scope": "全行业调研口径女装退货率下限（2019年30%升至2025年65%—80%）",
+        "currency": "CNY",
+        "price_basis": "成交额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "该格记录口径差：统计公报无退货率，只能用行业调研口径；与抖音后台40.5%不可互换。"
+    },
+    {
+      "cell_id": "Q8.边界.样本覆盖",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 40.5,
+      "unit": "%",
+      "source_file": "S13",
+      "grade": "C",
+      "caliber": {
+        "scope": "抖音后台口径服饰鞋包退货率均值，样本仅平台内成交",
+        "currency": "CNY",
+        "price_basis": "成交额"
+      },
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "low",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "tried": [],
+      "why": "该格记录样本覆盖：平台后台40.5%与全行业调研65%相差24.5个百分点，不能互相替代。"
+    }
+  ],
+  "explore": [
+    {
+      "text": "1688平台“小个子”相关关键词2026Q1在服饰类目搜索量同比+172%，需求端增速远高于女装大盘",
+      "value": 172,
+      "unit": "%",
+      "source_file": "S17",
+      "why_important": "需求按身高段集中爆发，选品和投放应按145/150/155分段切，而不是按风格铺货。"
+    },
+    {
+      "text": "女装退货率65%—80%，男装仅30%—40%，尺码确定性是女装独有的成本项",
+      "value": 40,
+      "unit": "%",
+      "source_file": "S12",
+      "why_important": "若把小码尺码表做成内容资产，可同时降退货与获客；这条不在10问里，但决定UE能否转正。"
+    }
+  ],
+  "conflicts": [
+    {
+      "metric": "女装退货率",
+      "note": "后台统计、行业调研、直播口径不可互换；直接用单一均值会把单均贡献算高或算低。",
+      "values": [
+        {
+          "value": 40.5,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S13",
+          "caliber": "抖音服饰鞋包后台参考均值"
+        },
+        {
+          "value": 65,
+          "unit": "%",
+          "period": "2025",
+          "source_file": "S11",
+          "caliber": "全行业调研，2019年30%升至2025年65%—80%"
+        },
+        {
+          "value": 75,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S20",
+          "caliber": "全网平均75%—80%"
+        },
+        {
+          "value": 80,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S26",
+          "caliber": "直播渠道70%—80%"
+        }
+      ]
+    },
+    {
+      "metric": "客单价",
+      "note": "类目均值与单店案例不是同一总体；小码店客单通常低于类目均值。",
+      "values": [
+        {
+          "value": 127.5,
+          "unit": "元",
+          "period": "2026",
+          "source_file": "S13",
+          "caliber": "抖音服饰鞋包类目均值"
+        },
+        {
+          "value": 67.1,
+          "unit": "元",
+          "period": "2025-11",
+          "source_file": "S14",
+          "caliber": "精品女装单店：201,510.35元÷3,004单"
+        }
+      ]
+    },
+    {
+      "metric": "毛利率",
+      "note": "类目均值与上市公司口径不同，中高端品牌显著更高。",
+      "values": [
+        {
+          "value": 55.0,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S13",
+          "caliber": "抖音服饰鞋包类目均值"
+        },
+        {
+          "value": 64.63,
+          "unit": "%",
+          "period": "2025",
+          "source_file": "S22",
+          "caliber": "朗姿女装业务，上市公司审计口径"
+        },
+        {
+          "value": 66.6,
+          "unit": "%",
+          "period": "FY2026",
+          "source_file": "S23",
+          "caliber": "江南布衣集团，上市公司审计口径"
+        }
+      ]
+    },
+    {
+      "metric": "ROAS",
+      "note": "行业均值、单店支付ROI、净成交ROI定义不同；支付ROI不含秒退与七天售后。",
+      "values": [
+        {
+          "value": 2.55,
+          "unit": "倍",
+          "period": "2026",
+          "source_file": "S13",
+          "caliber": "抖音服饰鞋包类目均值"
+        },
+        {
+          "value": 3.25,
+          "unit": "倍",
+          "period": "2025-11",
+          "source_file": "S14",
+          "caliber": "精品女装单店整体支付ROI"
+        },
+        {
+          "value": 1.2,
+          "unit": "倍",
+          "period": "2026",
+          "source_file": "S15",
+          "caliber": "服饰商家净成交ROI（支付ROI 1.6，有效订单ROI 0.9）"
+        }
+      ]
+    }
+  ],
+  "unanswered": [],
+  "boundaries": [
+    "品类结构以抖音渠道2021Q1—2022Q1为主，不能等同全国或2026。",
+    "UE为可复算模型：换AOV/毛利/退货率/佣金任一输入，必须按同式重算，不得沿用结论数。",
+    "退货率按渠道分开，不取单一均值；平台后台值与行业调研值不可互换。",
+    "来源约两成为平台榜单与商家页面，只作价位与产品线索，不作全国份额。",
+    "Q7未答子项：外套（非羽绒）无公开销售额占比，已用裤装/连衣裙/羽绒服三品类替代。",
+    "Q8未答子项：小码专属同店退货率/客单价/毛利/ROAS面板缺失，模型以类目均值+单店案例替代，专属参数待一手数据。"
+  ]
+}

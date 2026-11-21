@@ -283,7 +283,8 @@ def _coverage_gaps(base: Path) -> Dict[str, Any]:
 def collect(out_dir: str, require_all: bool = False,
             min_sources: int = 0, verify_quotes: bool = False,
             strict_verify: bool = False, fetch=None,
-            intent: str = "", allow_open_needs: bool = False
+            intent: str = "", allow_open_needs: bool = False,
+            allow_legacy: bool = False
             ) -> Tuple[Dict[str, Any], List[str]]:
     """收到各角色的 claims，验完整性后合并成一份。
 
@@ -318,11 +319,21 @@ def collect(out_dir: str, require_all: bool = False,
                       and not d.name.startswith("_"))
     delivered: List[str] = []
 
-    # 派活校验：项目里有 issued.json 时，每张卡必须回填 nonce/role/by，
-    # 且执行者不能是编排器（r01/solo）。没有 issued.json 的项目按老卡处理并留痕。
+    # 派活校验（2026-11-22 起默认硬门）：项目里必须有 issued.json，每张卡必须
+    # 回填 nonce/role/by，且执行者不能是编排器（r01/solo）。没有 issued.json 的
+    # 项目直接拒收；老卡只有显式 --allow-legacy 才放行，并在产物上标降级。
     from core import report_dispatch
     issued = report_dispatch.load_issued(out_dir)
-    dispatch_mode = "nonce" if issued else "legacy"
+    if issued:
+        dispatch_mode = "nonce"
+    elif allow_legacy:
+        dispatch_mode = "legacy"
+        degraded.append("legacy_no_issued")
+    else:
+        dispatch_mode = "blocked"
+        bad.append("没有 issued.json：未走拆卡线。先 report brief --plan --confirm "
+                   "发卡，再让子智能体按 nonce 回填；确需新卡之外的老卡，"
+                   "显式加 --allow-legacy（会标降级）")
     verified_cards = 0
     dispatch_rejected: List[Dict[str, Any]] = []
 
@@ -544,9 +555,11 @@ def collect(out_dir: str, require_all: bool = False,
         merged["degraded"] = list(dict.fromkeys(
             merged["degraded"] + ["legacy_dispatch"]))
     merged["meta"] = {"title": card_meta.get("title") or intent or "自动汇编报告",
+                      "subtitle": card_meta.get("subtitle") or "",
                       "doc_type": card_meta.get("doc_type") or "调研报告",
                       "intent": card_meta.get("intent") or intent or "",
                       "profile": card_meta.get("profile") or "baseline",
+                      "metrics": card_meta.get("metrics") or [],
                       "degraded": merged["degraded"]}
     # 数据层：把合并后的数字归一成 raw（行/度量/冲突/覆盖），并落 raw.xlsx。
     # 这是图表的唯一数据源；没有它，图只能从段落里猜。

@@ -1,0 +1,85 @@
+{
+  "schema": "dsh.card_spec/pre_issue/v1",
+  "ok": true,
+  "checks": [
+    {
+      "id": "S1_cells_per_question",
+      "ok": true,
+      "msg": "每 must 问格子数 [14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14]",
+      "sev": "OK"
+    },
+    {
+      "id": "S2_depth_l3",
+      "ok": true,
+      "msg": "每 must 问均有 L3 格",
+      "sev": "OK"
+    },
+    {
+      "id": "S3_perspectives",
+      "ok": true,
+      "msg": "视角 6（要求 ≥3）",
+      "sev": "OK"
+    },
+    {
+      "id": "S4_decompositions",
+      "ok": true,
+      "msg": "候选拆解 13 组，均 ≥2 变体",
+      "sev": "OK"
+    },
+    {
+      "id": "S5_semantic",
+      "ok": true,
+      "msg": "语义层 18 个度量，覆盖 grid 全部 4 个",
+      "sev": "OK"
+    },
+    {
+      "id": "S12_grid_contract",
+      "ok": true,
+      "msg": "182 格度量与 grain 全部在册且一致",
+      "sev": "OK"
+    },
+    {
+      "id": "S6_cell_fields",
+      "ok": true,
+      "msg": "182 格字段齐",
+      "sev": "OK"
+    },
+    {
+      "id": "S7_dims",
+      "ok": true,
+      "msg": "六维均有格",
+      "sev": "OK"
+    },
+    {
+      "id": "S8_contracts",
+      "ok": true,
+      "msg": "5 份契约覆盖 5 个角色",
+      "sev": "OK"
+    },
+    {
+      "id": "S9_branch_log",
+      "ok": true,
+      "msg": "每 must 问 ≥3 条 stop",
+      "sev": "OK"
+    },
+    {
+      "id": "S10_r02_handoff",
+      "ok": true,
+      "msg": "R02 交接包 5/5",
+      "sev": "OK"
+    },
+    {
+      "id": "S11_r02_waves",
+      "ok": true,
+      "msg": "R02 波次 1，负载 {'wave_1': 10.0}",
+      "sev": "OK"
+    },
+    {
+      "id": "DOR",
+      "ok": true,
+      "msg": "DoR 13/13 张卡拉就绪"
+    }
+  ],
+  "passed": 12,
+  "total": 12
+}

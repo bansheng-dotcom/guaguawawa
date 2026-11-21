@@ -73,6 +73,8 @@ def build_pack(claims: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "schema": "dsh.evidence_pack/v1",
         "project": claims.get("meta", {}).get("title") or "agent_report",
+        # 2026-11-22：封面标题/副题/KPI 取这里，不再从首节结论反推
+        "meta": claims.get("meta") or {},
         "numbers": nums,
         "sources": sources,
         "counts": {"numbers": len(nums), "sources": len(sources),

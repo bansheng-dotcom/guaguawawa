@@ -97,7 +97,7 @@ def _claims(role: str, qids, nonce: str = "", by: str = "",
 def _setup() -> Path:
     base = _tmp()
     assert report_clarify.write(INTENT, str(base))["ok"]
-    assert report_clarify.confirm(str(base))["ok"]
+    assert report_clarify.confirm(str(base), user_said="用户确认：按这个意图做")["ok"]
     # v1.5：发卡前必须先过拆卡 SOP 门禁，所以测试项目也要有真实语义层 + 五轴
     (base / "semantic_layer.yaml").write_text(SEM_YAML, encoding="utf-8")
     spec = card_issue.prepare(base)
@@ -122,7 +122,7 @@ def test_clarify_extracts_questions():
 def test_plan_covers_every_question():
     base = _tmp()
     report_clarify.write(INTENT, str(base))
-    report_clarify.confirm(str(base))
+    report_clarify.confirm(str(base), user_said="用户确认：按这个意图做")
     plan = report_dispatch.write_plan(str(base))
     qids = {m["qid"] for m in plan["mapping"]}
     assert qids == {a["id"] for a in report_clarify.load(str(base))["asks"]}
@@ -133,7 +133,7 @@ def test_plan_covers_every_question():
 def test_plan_routes_by_keyword():
     base = _tmp()
     report_clarify.write(INTENT, str(base))
-    report_clarify.confirm(str(base))
+    report_clarify.confirm(str(base), user_said="用户确认：按这个意图做")
     plan = report_dispatch.write_plan(str(base))
     m = {x["question"]: x["primary"] for x in plan["mapping"]}
     assert any("调拨" in q and p == "r15" for q, p in m.items())

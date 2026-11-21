@@ -1,0 +1,4255 @@
+{
+  "schema": "dsh.agent.claims/v1",
+  "contract": "v2",
+  "card_spec": true,
+  "role": "r07",
+  "dispatch": {
+    "nonce": "0bf0a735b76bad09",
+    "role": "r07",
+    "by": "worker-r07-20261122",
+    "questions": [
+      "Q7",
+      "Q8",
+      "Q11",
+      "Q13"
+    ]
+  },
+  "meta": {
+    "title": "中国小码女装市场的规模有多大，身高159厘米以下人群有多少，专属供给有多少？小码女装2025至2026年增速如何，增长来自渗透还是大盘？小码女装竞争格局如何，CR10与头部品牌份额是多少？小码女装的价格带与品类结构如何，哪个价位最赚钱？小码女装的退货率、客单价、毛利与单均贡献如何构成经营模型？",
+    "intent": "小码女装品类结构与爆品SKU、UE经营模型、版型参数",
+    "doc_type": "调研报告",
+    "profile": "research"
+  },
+  "numbers": [
+    {
+      "id": "N01",
+      "name": "抖音女装裤子销售额占比",
+      "value": 13.3,
+      "unit": "%",
+      "period": "2022Q1",
+      "source_file": "S01",
+      "note": "蝉妈妈口径，抖音渠道，非全国"
+    },
+    {
+      "id": "N02",
+      "name": "抖音女装连衣裙销售额占比",
+      "value": 13.1,
+      "unit": "%",
+      "period": "2022Q1",
+      "source_file": "S01"
+    },
+    {
+      "id": "N03",
+      "name": "抖音女装羽绒服销售额占比",
+      "value": 11.4,
+      "unit": "%",
+      "period": "2022Q1",
+      "source_file": "S01"
+    },
+    {
+      "id": "N04",
+      "name": "抖音女装前三品类合计占比",
+      "value": 37.8,
+      "unit": "%",
+      "period": "2022Q1",
+      "source_file": "S01",
+      "derived": true,
+      "formula": "13.3+13.1+11.4"
+    },
+    {
+      "id": "N05",
+      "name": "抖音裙装100—300元销售额占比",
+      "value": 40,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S04"
+    },
+    {
+      "id": "N06",
+      "name": "连衣裙单次消费100—300元占比",
+      "value": 38,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S04",
+      "note": "尚普咨询口径，非平台成交额占比"
+    },
+    {
+      "id": "N07",
+      "name": "连衣裙单次消费300—500元占比",
+      "value": 27,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S04"
+    },
+    {
+      "id": "N08",
+      "name": "连衣裙单次消费500元以上占比",
+      "value": 23,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S04"
+    },
+    {
+      "id": "N09",
+      "name": "抖音裙装直播带货销售额占比",
+      "value": 69,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N10",
+      "name": "抖音裙装达人推广销售额占比",
+      "value": 64,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N11",
+      "name": "抖音裙装Top5品牌集中度",
+      "value": 2.94,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N12",
+      "name": "抖音裙装销售额环比增速",
+      "value": 41.7,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S02"
+    },
+    {
+      "id": "N13",
+      "name": "京东连衣裙746元以上销量占比",
+      "value": 11.5,
+      "unit": "%",
+      "period": "2025-08",
+      "source_file": "S03"
+    },
+    {
+      "id": "N14",
+      "name": "京东连衣裙746元以上销售额占比",
+      "value": 46.3,
+      "unit": "%",
+      "period": "2025-08",
+      "source_file": "S03"
+    },
+    {
+      "id": "N15",
+      "name": "天猫稳定经营连衣裙品牌数下限",
+      "value": 3000,
+      "unit": "个",
+      "period": "2025",
+      "source_file": "S03"
+    },
+    {
+      "id": "N16",
+      "name": "天猫稳定经营连衣裙品牌数上限",
+      "value": 5000,
+      "unit": "个",
+      "period": "2025",
+      "source_file": "S03"
+    },
+    {
+      "id": "N17",
+      "name": "连衣裙整体退货率下限",
+      "value": 60,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S03"
+    },
+    {
+      "id": "N18",
+      "name": "连衣裙整体退货率上限",
+      "value": 90,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S03"
+    },
+    {
+      "id": "N19",
+      "name": "连衣裙夏季消费占比",
+      "value": 43,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S04"
+    },
+    {
+      "id": "N20",
+      "name": "30款SKU中裤装款数占比",
+      "value": 56.7,
+      "unit": "%",
+      "period": "2026-11",
+      "source_file": "S06",
+      "derived": true,
+      "formula": "17/30"
+    },
+    {
+      "id": "N21",
+      "name": "30款SKU中连衣裙款数占比",
+      "value": 20.0,
+      "unit": "%",
+      "period": "2026-11",
+      "source_file": "S07",
+      "derived": true,
+      "formula": "6/30"
+    },
+    {
+      "id": "N22",
+      "name": "1688同款小黑裙出厂价下限",
+      "value": 43,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S09"
+    },
+    {
+      "id": "N23",
+      "name": "1688同款小黑裙出厂价上限",
+      "value": 58,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S09"
+    },
+    {
+      "id": "N24",
+      "name": "1688同款小黑裙出厂价（S—XXL同价）",
+      "value": 55,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S09"
+    },
+    {
+      "id": "N25",
+      "name": "1688四季青小黑裙1件起批价",
+      "value": 80,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S10"
+    },
+    {
+      "id": "N26",
+      "name": "1688四季青小黑裙50件档价",
+      "value": 70,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S10"
+    },
+    {
+      "id": "N27",
+      "name": "淘宝小个子雪尼尔阔腿裤到手价",
+      "value": 29.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06"
+    },
+    {
+      "id": "N28",
+      "name": "淘宝小码包臀连衣裙到手价",
+      "value": 129.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07"
+    },
+    {
+      "id": "N29",
+      "name": "淘宝小个子毛呢西装裤到手价",
+      "value": 179.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S08"
+    },
+    {
+      "id": "N30",
+      "name": "小个子专供九分裤裤长下限",
+      "value": 88,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S16"
+    },
+    {
+      "id": "N31",
+      "name": "小个子专供九分裤裤长上限",
+      "value": 92,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S16"
+    },
+    {
+      "id": "N32",
+      "name": "传统裤装打版身高下限",
+      "value": 160,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S16"
+    },
+    {
+      "id": "N33",
+      "name": "传统裤装打版身高上限",
+      "value": 165,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S16"
+    },
+    {
+      "id": "N35",
+      "name": "抖音服饰鞋包客单价均值",
+      "value": 127.5,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S15"
+    },
+    {
+      "id": "N36",
+      "name": "抖音服饰鞋包毛利率均值",
+      "value": 55.0,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S15"
+    },
+    {
+      "id": "N37",
+      "name": "抖音服饰鞋包ROAS均值",
+      "value": 2.55,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S15"
+    },
+    {
+      "id": "N38",
+      "name": "抖音服饰鞋包退货率均值",
+      "value": 40.5,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S15"
+    },
+    {
+      "id": "N39",
+      "name": "单均获客成本",
+      "value": 50.0,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S15",
+      "derived": true,
+      "formula": "127.5÷2.55"
+    },
+    {
+      "id": "N40",
+      "name": "单均履约成本（快递）",
+      "value": 5,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S09",
+      "note": "1688页面快递费5元，未含包装"
+    },
+    {
+      "id": "N41",
+      "name": "退货8%时单均贡献",
+      "value": 7.9,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S16",
+      "derived": true,
+      "formula": "127.5×55%×(1−8%)−50−5−8%×20.5"
+    },
+    {
+      "id": "N42",
+      "name": "退货21.5%时单均贡献",
+      "value": -4.4,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S16",
+      "derived": true,
+      "formula": "127.5×55%×(1−21.5%)−50−5−21.5%×20.5"
+    },
+    {
+      "id": "N43",
+      "name": "退货40.5%时单均贡献",
+      "value": -21.6,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S15",
+      "derived": true,
+      "formula": "127.5×55%×(1−40.5%)−50−5−40.5%×20.5"
+    },
+    {
+      "id": "N44",
+      "name": "退货55%时单均贡献",
+      "value": -34.7,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S18",
+      "derived": true,
+      "formula": "127.5×55%×(1−55%)−50−5−55%×20.5"
+    },
+    {
+      "id": "N45",
+      "name": "退货80%加15%佣金时单均贡献",
+      "value": -61.2,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S19",
+      "derived": true,
+      "formula": "127.5×55%×(1−80%)−50−5−80%×20.5−127.5×(1−80%)×15%"
+    },
+    {
+      "id": "N46",
+      "name": "单均贡献盈亏平衡退货率",
+      "value": 16.7,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S15",
+      "derived": true,
+      "formula": "(127.5×55%−50−5)÷(127.5×55%+20.5)"
+    },
+    {
+      "id": "N47",
+      "name": "退货8%时有效客单",
+      "value": 117.3,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S16",
+      "derived": true,
+      "formula": "127.5×(1−8%)"
+    },
+    {
+      "id": "N48",
+      "name": "退货21.5%时有效客单",
+      "value": 100.1,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S16",
+      "derived": true,
+      "formula": "127.5×(1−21.5%)"
+    },
+    {
+      "id": "N49",
+      "name": "退货40.5%时有效客单",
+      "value": 75.9,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S15",
+      "derived": true,
+      "formula": "127.5×(1−40.5%)"
+    },
+    {
+      "id": "N50",
+      "name": "退货55%时有效客单",
+      "value": 57.4,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S18",
+      "derived": true,
+      "formula": "127.5×(1−55%)"
+    },
+    {
+      "id": "N51",
+      "name": "退货80%时有效客单",
+      "value": 25.5,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S19",
+      "derived": true,
+      "formula": "127.5×(1−80%)"
+    },
+    {
+      "id": "N52",
+      "name": "退货8%时获客占有效客单比",
+      "value": 42.6,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S16",
+      "derived": true,
+      "formula": "50÷117.34"
+    },
+    {
+      "id": "N53",
+      "name": "退货40.5%时获客占有效客单比",
+      "value": 65.9,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S15",
+      "derived": true,
+      "formula": "50÷75.86"
+    },
+    {
+      "id": "N54",
+      "name": "退货80%时获客占有效客单比",
+      "value": 196.1,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S19",
+      "derived": true,
+      "formula": "50÷25.5"
+    },
+    {
+      "id": "N55",
+      "name": "退货8%时保本ROAS",
+      "value": 1.98,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S16",
+      "derived": true,
+      "formula": "1÷55%÷(1−8%)"
+    },
+    {
+      "id": "N56",
+      "name": "退货40.5%时保本ROAS",
+      "value": 3.06,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S15",
+      "derived": true,
+      "formula": "1÷55%÷(1−40.5%)"
+    },
+    {
+      "id": "N57",
+      "name": "退货80%时保本ROAS",
+      "value": 9.09,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S19",
+      "derived": true,
+      "formula": "1÷55%÷(1−80%)"
+    },
+    {
+      "id": "N58",
+      "name": "单笔退货综合成本下限",
+      "value": 16,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S18"
+    },
+    {
+      "id": "N59",
+      "name": "单笔退货综合成本上限",
+      "value": 25,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S18"
+    },
+    {
+      "id": "N60",
+      "name": "单笔退货综合成本中值",
+      "value": 20.5,
+      "unit": "元",
+      "period": "2026",
+      "source_file": "S18",
+      "derived": true,
+      "formula": "(16+25)÷2"
+    },
+    {
+      "id": "N61",
+      "name": "女装线上渠道平均退货率下限",
+      "value": 50,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S18"
+    },
+    {
+      "id": "N62",
+      "name": "女装线上渠道平均退货率上限",
+      "value": 60,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S18"
+    },
+    {
+      "id": "N63",
+      "name": "女装行业平均退货率2025下限",
+      "value": 65,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S19"
+    },
+    {
+      "id": "N64",
+      "name": "女装行业平均退货率2025上限",
+      "value": 80,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S19"
+    },
+    {
+      "id": "N65",
+      "name": "直播电商退货率下限",
+      "value": 80,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S19"
+    },
+    {
+      "id": "N66",
+      "name": "直播电商退货率上限",
+      "value": 90,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S19"
+    },
+    {
+      "id": "N67",
+      "name": "服饰鞋包达人佣金率下限",
+      "value": 15,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S20"
+    },
+    {
+      "id": "N68",
+      "name": "服饰鞋包达人佣金率上限",
+      "value": 35,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S20"
+    },
+    {
+      "id": "N69",
+      "name": "小个子专供版型退货率上限",
+      "value": 8,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S16",
+      "note": "平台内部调研，头部商家"
+    },
+    {
+      "id": "N70",
+      "name": "常规改版裤装退货率下限",
+      "value": 18,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S16"
+    },
+    {
+      "id": "N71",
+      "name": "常规改版裤装退货率上限",
+      "value": 25,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S16"
+    },
+    {
+      "id": "N72",
+      "name": "小个子专属尺码表后退货率",
+      "value": 2.1,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S17",
+      "note": "工厂侧发货口径"
+    },
+    {
+      "id": "N73",
+      "name": "工厂侧行业平均退货率",
+      "value": 5.8,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S17",
+      "note": "工厂侧发货口径"
+    },
+    {
+      "id": "N74",
+      "name": "平台退货惩罚触发线",
+      "value": 15,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S20",
+      "note": "超15%按退货金额1.2%收争议处理费"
+    },
+    {
+      "id": "N75",
+      "name": "朗姿女装毛利率",
+      "value": 64.63,
+      "unit": "%",
+      "period": "2025",
+      "source_file": "S21"
+    },
+    {
+      "id": "N76",
+      "name": "江南布衣集团毛利率",
+      "value": 66.6,
+      "unit": "%",
+      "period": "FY2026",
+      "source_file": "S22"
+    },
+    {
+      "id": "N77",
+      "name": "江南布衣会员零售额占比",
+      "value": 80,
+      "unit": "%",
+      "period": "FY2026",
+      "source_file": "S22",
+      "note": "原文为逾八成"
+    },
+    {
+      "id": "N101",
+      "name": "SKU1 到手价：145小个子显高九分灰色直筒糯米裤女",
+      "value": 29.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N131",
+      "name": "SKU1 近30天付款人数（展示下限）：145小个子显高九分灰色直筒糯米裤女",
+      "value": 6000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 6000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N102",
+      "name": "SKU2 到手价：145小个子美式运动裤女春秋150高",
+      "value": 40.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N132",
+      "name": "SKU2 近30天付款人数（展示下限）：145小个子美式运动裤女春秋150高",
+      "value": 5000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 5000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N103",
+      "name": "SKU3 到手价：145小个子深灰色复古弯刀阔腿裤女春",
+      "value": 43.2,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N133",
+      "name": "SKU3 近30天付款人数（展示下限）：145小个子深灰色复古弯刀阔腿裤女春",
+      "value": 2000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 2000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N104",
+      "name": "SKU4 到手价：145小个子咖色糯米裤女春秋150高",
+      "value": 35.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N134",
+      "name": "SKU4 近30天付款人数（展示下限）：145小个子咖色糯米裤女春秋150高",
+      "value": 2000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 2000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N105",
+      "name": "SKU5 到手价：145小个子灰色糯米裤子女春秋冬款1",
+      "value": 35.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N135",
+      "name": "SKU5 近30天付款人数（展示下限）：145小个子灰色糯米裤子女春秋冬款1",
+      "value": 1000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 1000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N106",
+      "name": "SKU6 到手价：145小个子蓝色加绒格子裤女秋冬15",
+      "value": 35.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N136",
+      "name": "SKU6 近30天付款人数（展示下限）：145小个子蓝色加绒格子裤女秋冬15",
+      "value": 500,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 500+人付款；平台：淘宝"
+    },
+    {
+      "id": "N107",
+      "name": "SKU7 到手价：145小个子灰色糯米裤子女春秋150",
+      "value": 29.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N137",
+      "name": "SKU7 近30天付款人数（展示下限）：145小个子灰色糯米裤子女春秋150",
+      "value": 500,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 500+人付款；平台：淘宝"
+    },
+    {
+      "id": "N108",
+      "name": "SKU8 到手价：145小个子黑色微喇裤女春秋薄款15",
+      "value": 31.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N138",
+      "name": "SKU8 近30天付款人数（展示下限）：145小个子黑色微喇裤女春秋薄款15",
+      "value": 400,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 400+人付款；平台：淘宝"
+    },
+    {
+      "id": "N109",
+      "name": "SKU9 到手价：145小个子灰色西装阔腿裤女春秋15",
+      "value": 32.8,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N139",
+      "name": "SKU9 近30天付款人数（展示下限）：145小个子灰色西装阔腿裤女春秋15",
+      "value": 300,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 300+人付款；平台：淘宝"
+    },
+    {
+      "id": "N110",
+      "name": "SKU10 到手价：145小个子灰色抽绳运动裤女秋季15",
+      "value": 43.2,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N140",
+      "name": "SKU10 近30天付款人数（展示下限）：145小个子灰色抽绳运动裤女秋季15",
+      "value": 300,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 300+人付款；平台：淘宝"
+    },
+    {
+      "id": "N111",
+      "name": "SKU11 到手价：145小个子灰色弯刀工装裤女春秋季1",
+      "value": 43.2,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "淘宝列表页展示价，店铺：小个子定制优品女装；平台：淘宝"
+    },
+    {
+      "id": "N141",
+      "name": "SKU11 近30天付款人数（展示下限）：145小个子灰色弯刀工装裤女春秋季1",
+      "value": 100,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S06",
+      "note": "页面显示 100+人付款；平台：淘宝"
+    },
+    {
+      "id": "N112",
+      "name": "SKU12 到手价：小个子150XS秋季韩版简约百搭高腰",
+      "value": 109.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N142",
+      "name": "SKU12 近30天付款人数（展示下限）：小个子150XS秋季韩版简约百搭高腰",
+      "value": 300,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 300+人付款；平台：淘宝"
+    },
+    {
+      "id": "N113",
+      "name": "SKU13 到手价：秋冬款2025新款高腰垂感宽松休闲小",
+      "value": 16.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：DuoEr 哚儿定制女装；平台：淘宝"
+    },
+    {
+      "id": "N143",
+      "name": "SKU13 近30天付款人数（展示下限）：秋冬款2025新款高腰垂感宽松休闲小",
+      "value": 400,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 400+人付款；平台：淘宝"
+    },
+    {
+      "id": "N114",
+      "name": "SKU14 到手价：150小矮个子高级感毛呢西装裤女冬设",
+      "value": 179.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "淘宝列表页展示价，店铺：巧巧家小个子女装；平台：淘宝"
+    },
+    {
+      "id": "N144",
+      "name": "SKU14 近30天付款人数（展示下限）：150小矮个子高级感毛呢西装裤女冬设",
+      "value": 1000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "页面显示 1000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N115",
+      "name": "SKU15 到手价：150小矮个子做旧水洗牛仔裤女秋冬复",
+      "value": 179.0,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "淘宝列表页展示价，店铺：巧巧家小个子女装；平台：淘宝"
+    },
+    {
+      "id": "N145",
+      "name": "SKU15 近30天付款人数（展示下限）：150小矮个子做旧水洗牛仔裤女秋冬复",
+      "value": 200,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "页面显示 200+人付款；平台：淘宝"
+    },
+    {
+      "id": "N116",
+      "name": "SKU16 到手价：145小矮个子高街复古工装牛仔裤女高",
+      "value": 180.1,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "淘宝列表页展示价，店铺：巧巧家小个子女装；平台：淘宝"
+    },
+    {
+      "id": "N146",
+      "name": "SKU16 近30天付款人数（展示下限）：145小矮个子高街复古工装牛仔裤女高",
+      "value": 100,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "页面显示 100+人付款；平台：淘宝"
+    },
+    {
+      "id": "N117",
+      "name": "SKU17 到手价：灰色休闲运动短裤女夏季2026新款外",
+      "value": 11.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：婉裳定制女装；平台：淘宝"
+    },
+    {
+      "id": "N147",
+      "name": "SKU17 近30天付款人数（展示下限）：灰色休闲运动短裤女夏季2026新款外",
+      "value": 1000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 1000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N118",
+      "name": "SKU18 到手价：小个子150XS夏季温柔气质包臀短裙",
+      "value": 129.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N148",
+      "name": "SKU18 近30天付款人数（展示下限）：小个子150XS夏季温柔气质包臀短裙",
+      "value": 200,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 200+人付款；平台：淘宝"
+    },
+    {
+      "id": "N119",
+      "name": "SKU19 到手价：小个子150XS夏季御姐褶皱包臀短裙",
+      "value": 129.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N149",
+      "name": "SKU19 近30天付款人数（展示下限）：小个子150XS夏季御姐褶皱包臀短裙",
+      "value": 300,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 300+人付款；平台：淘宝"
+    },
+    {
+      "id": "N120",
+      "name": "SKU20 到手价：小个子150XS夏季辣妹紧身包臀短裙",
+      "value": 129.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N150",
+      "name": "SKU20 近30天付款人数（展示下限）：小个子150XS夏季辣妹紧身包臀短裙",
+      "value": 77,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 77+人付款；平台：淘宝"
+    },
+    {
+      "id": "N121",
+      "name": "SKU21 到手价：小个子150XS夏季辣妹紧身包臀收腰",
+      "value": 99.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N151",
+      "name": "SKU21 近30天付款人数（展示下限）：小个子150XS夏季辣妹紧身包臀收腰",
+      "value": 300,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 300+人付款；平台：淘宝"
+    },
+    {
+      "id": "N122",
+      "name": "SKU22 到手价：小个子150XS春季巨显身材包臀短裙",
+      "value": 129.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N152",
+      "name": "SKU22 近30天付款人数（展示下限）：小个子150XS春季巨显身材包臀短裙",
+      "value": 100,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 100+人付款；平台：淘宝"
+    },
+    {
+      "id": "N123",
+      "name": "SKU23 到手价：小个子150XS春季纯欲粉色包臀鱼尾",
+      "value": 169.0,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N153",
+      "name": "SKU23 近30天付款人数（展示下限）：小个子150XS春季纯欲粉色包臀鱼尾",
+      "value": 300,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 300+人付款；平台：淘宝"
+    },
+    {
+      "id": "N124",
+      "name": "SKU24 到手价：小个子150XS夏季甜辣显身材鱼骨抹",
+      "value": 99.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N154",
+      "name": "SKU24 近30天付款人数（展示下限）：小个子150XS夏季甜辣显身材鱼骨抹",
+      "value": 100,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 100+人付款；平台：淘宝"
+    },
+    {
+      "id": "N125",
+      "name": "SKU25 到手价：小个子150XS春纯欲性感辣妹显身材",
+      "value": 139.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：小小个小码女装定制；平台：淘宝"
+    },
+    {
+      "id": "N155",
+      "name": "SKU25 近30天付款人数（展示下限）：小个子150XS春纯欲性感辣妹显身材",
+      "value": 100,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 100+人付款；平台：淘宝"
+    },
+    {
+      "id": "N126",
+      "name": "SKU26 到手价：150小矮个子学院风毛呢半身裙女秋冬",
+      "value": 169.0,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "淘宝列表页展示价，店铺：巧巧家小个子女装；平台：淘宝"
+    },
+    {
+      "id": "N156",
+      "name": "SKU26 近30天付款人数（展示下限）：150小矮个子学院风毛呢半身裙女秋冬",
+      "value": 800,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "页面显示 800+人付款；平台：淘宝"
+    },
+    {
+      "id": "N127",
+      "name": "SKU27 到手价：毛呢百褶半身裙女秋冬学院风小矮个子高",
+      "value": 166.0,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "淘宝列表页展示价，店铺：巧巧家小个子女装；平台：淘宝"
+    },
+    {
+      "id": "N157",
+      "name": "SKU27 近30天付款人数（展示下限）：毛呢百褶半身裙女秋冬学院风小矮个子高",
+      "value": 1000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "页面显示 1000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N128",
+      "name": "SKU28 到手价：正肩V领短袖t恤女新款夏季显瘦高级感",
+      "value": 9.9,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "淘宝列表页展示价，店铺：婉裳定制女装；平台：淘宝"
+    },
+    {
+      "id": "N158",
+      "name": "SKU28 近30天付款人数（展示下限）：正肩V领短袖t恤女新款夏季显瘦高级感",
+      "value": 900,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S07",
+      "note": "页面显示 900+人付款；平台：淘宝"
+    },
+    {
+      "id": "N129",
+      "name": "SKU29 到手价：燕麦色内搭长袖打底衫女2026秋季新",
+      "value": 43.25,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "淘宝列表页展示价，店铺：芦荟女孩 ALOE GIRL；平台：淘宝"
+    },
+    {
+      "id": "N159",
+      "name": "SKU29 近30天付款人数（展示下限）：燕麦色内搭长袖打底衫女2026秋季新",
+      "value": 5000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "页面显示 5000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N130",
+      "name": "SKU30 到手价：95棉新款小众设计百搭宽松连帽T恤纽",
+      "value": 56.33,
+      "unit": "元",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "淘宝列表页展示价，店铺：衣研所LAB；平台：淘宝"
+    },
+    {
+      "id": "N160",
+      "name": "SKU30 近30天付款人数（展示下限）：95棉新款小众设计百搭宽松连帽T恤纽",
+      "value": 2000,
+      "unit": "人",
+      "period": "2026-11",
+      "source_file": "S08",
+      "note": "页面显示 2000+人付款；平台：淘宝"
+    },
+    {
+      "id": "N201",
+      "name": "145档净体总肩宽",
+      "value": 36.4,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11",
+      "note": "GB/T 1335.2 附录B，A体型"
+    },
+    {
+      "id": "N202",
+      "name": "150档净体总肩宽",
+      "value": 37.4,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N203",
+      "name": "155档净体总肩宽",
+      "value": 38.4,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N204",
+      "name": "160档净体总肩宽",
+      "value": 39.4,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N205",
+      "name": "145档腰围高",
+      "value": 89.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N206",
+      "name": "150档腰围高",
+      "value": 92.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N207",
+      "name": "155档腰围高",
+      "value": 95.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N208",
+      "name": "160档腰围高",
+      "value": 98.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N209",
+      "name": "150档颈椎点高",
+      "value": 128.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N210",
+      "name": "155档颈椎点高",
+      "value": 132.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N211",
+      "name": "160档颈椎点高",
+      "value": 136.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N212",
+      "name": "150档腰节长",
+      "value": 36.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11",
+      "derived": true,
+      "formula": "128.0−92.0"
+    },
+    {
+      "id": "N213",
+      "name": "155档腰节长",
+      "value": 37.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11",
+      "derived": true,
+      "formula": "132.0−95.0"
+    },
+    {
+      "id": "N214",
+      "name": "160档腰节长",
+      "value": 38.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11",
+      "derived": true,
+      "formula": "136.0−98.0"
+    },
+    {
+      "id": "N215",
+      "name": "150档全臂长",
+      "value": 47.5,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N216",
+      "name": "155档全臂长",
+      "value": 49.0,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N217",
+      "name": "160档全臂长",
+      "value": 50.5,
+      "unit": "cm",
+      "period": "2008",
+      "source_file": "S11"
+    },
+    {
+      "id": "N218",
+      "name": "乐町连衣裙150档裙长",
+      "value": 64.8,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N219",
+      "name": "乐町连衣裙155档裙长",
+      "value": 66.8,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N220",
+      "name": "乐町连衣裙160档裙长",
+      "value": 68.8,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N221",
+      "name": "乐町连衣裙150档袖长",
+      "value": 14.9,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N222",
+      "name": "乐町连衣裙155档袖长",
+      "value": 15.2,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N223",
+      "name": "乐町连衣裙160档袖长",
+      "value": 15.5,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N224",
+      "name": "乐町连衣裙150档腰围",
+      "value": 64.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N225",
+      "name": "乐町连衣裙155档腰围",
+      "value": 68.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N226",
+      "name": "乐町连衣裙160档腰围",
+      "value": 72.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S12"
+    },
+    {
+      "id": "N227",
+      "name": "自巧衬衫145档肩宽",
+      "value": 47.6,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13",
+      "note": "落肩款成衣肩宽，非净体"
+    },
+    {
+      "id": "N228",
+      "name": "自巧衬衫150档肩宽",
+      "value": 49.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N229",
+      "name": "自巧衬衫155档肩宽",
+      "value": 50.4,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N230",
+      "name": "自巧衬衫160档肩宽",
+      "value": 51.8,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N231",
+      "name": "自巧衬衫145档衣长",
+      "value": 65.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N232",
+      "name": "自巧衬衫150档衣长",
+      "value": 66.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N233",
+      "name": "自巧衬衫155档衣长",
+      "value": 67.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N234",
+      "name": "自巧衬衫160档衣长",
+      "value": 68.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N235",
+      "name": "自巧衬衫145档袖长",
+      "value": 48.9,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N236",
+      "name": "自巧衬衫160档袖长",
+      "value": 51.3,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13"
+    },
+    {
+      "id": "N237",
+      "name": "成衣衣长与身高比",
+      "value": 0.434,
+      "unit": "倍",
+      "period": "2026",
+      "source_file": "S12",
+      "derived": true,
+      "formula": "(64.8/150+68.8/160+65/145+68/160)/4"
+    },
+    {
+      "id": "N238",
+      "name": "小个子长裙裙长下限",
+      "value": 85,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S17"
+    },
+    {
+      "id": "N239",
+      "name": "小个子长裙裙长上限",
+      "value": 95,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S17"
+    },
+    {
+      "id": "N240",
+      "name": "小个子短款上衣衣长上限",
+      "value": 45,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S17"
+    },
+    {
+      "id": "N241",
+      "name": "成衣肩宽较净体放量（155档）",
+      "value": 12.0,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S13",
+      "derived": true,
+      "formula": "50.4−38.4"
+    },
+    {
+      "id": "N242",
+      "name": "小个子尺码表询盘转化提升",
+      "value": 34,
+      "unit": "%",
+      "period": "2026",
+      "source_file": "S17"
+    },
+    {
+      "id": "N243",
+      "name": "森马连衣裙起始号型身高",
+      "value": 150,
+      "unit": "cm",
+      "period": "2026",
+      "source_file": "S14"
+    }
+  ],
+  "sources": [
+    {
+      "file": "S01",
+      "kind": "web",
+      "title": "抖音服饰箱包报告出炉：女装占超七成份额 内衣裤袜强势增长",
+      "org": "蝉妈妈 / 鸟哥笔记",
+      "url": "https://www.niaogebiji.com/article-119714-1.html",
+      "date": "2022-05-13",
+      "grade": "B",
+      "quote": "占据前三位置的裤子、连衣裙、羽绒服在2021年一季度-2022年一季度期间的销售额占比分别为13.3%、13.1%、11.4%。"
+    },
+    {
+      "file": "S02",
+      "kind": "web",
+      "title": "抖音裙装品类销售情况分析：升温明显，黑马品牌突围",
+      "org": "飞瓜数据",
+      "url": "http://m.toutiao.com/group/7640003986925437494/",
+      "date": "2026",
+      "grade": "B",
+      "quote": "在带货渠道结构上，直播带货占比高达69%，成为裙装品类绝对核心的成交场景。"
+    },
+    {
+      "file": "S03",
+      "kind": "web",
+      "title": "女生买条喜欢的连衣裙，为什么越来越难了？",
+      "org": "钛媒体 / 新莓",
+      "url": "https://www.tmtpost.com/8022829.html",
+      "date": "2026-06-11",
+      "grade": "B",
+      "quote": "客单价大于746元的仅占销量11.5%，却贡献46.3%的销售额，高端化战略突出。"
+    },
+    {
+      "file": "S04",
+      "kind": "web",
+      "title": "女生买条喜欢的连衣裙，为什么越来越难了？",
+      "org": "澎湃新闻 / 新莓",
+      "url": "https://m.thepaper.cn/newsDetail_forward_33351812",
+      "date": "2026-06-11",
+      "grade": "B",
+      "quote": "飞瓜数据显示，抖音平台100-300元价位区间的裙装商品，贡献了近40%的销售额，该价格带下覆盖了大量高性价比款式"
+    },
+    {
+      "file": "S05",
+      "kind": "web",
+      "title": "小个子女装连衣裙品牌排行榜 - 十大品牌 - 京东",
+      "org": "京东",
+      "url": "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "小个子女装连衣裙品牌排行榜"
+    },
+    {
+      "file": "S06",
+      "kind": "web",
+      "title": "小个子定制优品女装 - 淘宝",
+      "org": "淘宝",
+      "url": "https://mobile-phone.taobao.com/chanpin/6f4c194b4faf1e3e56b5713f92d128065814d20ee14ed32f0b2f1814cb7798b4.html",
+      "date": "2026-11-22",
+      "grade": "C",
+      "quote": "小个子145cm显高九分灰色直筒糯米裤女155高腰显瘦阔腿拖地裤秋冬"
+    },
+    {
+      "file": "S07",
+      "kind": "web",
+      "title": "小小个小码女装定制 - 淘宝",
+      "org": "淘宝",
+      "url": "https://mobile-phone.taobao.com/chanpin/767a0656f1fca7c7c907f02b7db80fe4354999055a86c82e059ad788e7547d89.html",
+      "date": "2026-11-22",
+      "grade": "C",
+      "quote": "小个子150XS秋季韩版简约百搭高腰显瘦修身纯色休闲弹力喇叭裤女"
+    },
+    {
+      "file": "S08",
+      "kind": "web",
+      "title": "巧巧女装 - 淘宝",
+      "org": "淘宝",
+      "url": "https://mobile-phone.taobao.com/chanpin/5e66f453ead19908c079c1b59811a8b0.html",
+      "date": "2026-11-22",
+      "grade": "C",
+      "quote": "150小矮个子高级感毛呢西装裤女冬设计感纽扣九分高腰直筒阔腿145"
+    },
+    {
+      "file": "S09",
+      "kind": "web",
+      "title": "小黑裙长款连衣裙女收腰小个子裙子显瘦2025夏季长裙a字裙小香风",
+      "org": "1688 / 青岛欧兰雅服饰",
+      "url": "https://detail.1688.com/offer/804245574963.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "S,M,L,XL,XXL"
+    },
+    {
+      "file": "S10",
+      "kind": "web",
+      "title": "杭州四季青女装2026小个子小黑裙女短袖A字冰丝针织连衣裙小香风",
+      "org": "1688 / 东莞市汐灿服饰",
+      "url": "https://taizhou.1688.com/shop/m/offer/789306722330.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "货号:8878#   品牌:汐灿   颜色:黑色   尺码:S,M,L,XL"
+    },
+    {
+      "file": "S11",
+      "kind": "web",
+      "title": "服装号型 女子 GB/T 1335.2—2008",
+      "org": "国家质量监督检验检疫总局 / 国家标准委",
+      "url": "https://fztr.file.gkfz.net/pdf/f49ce53527a872120bc2f580c4aa7e7d.pdf",
+      "date": "2008-12-31",
+      "grade": "A",
+      "quote": "控制部位数值是指人体主要部位的数值(系净体数值)，是设计服装规格的依据。"
+    },
+    {
+      "file": "S12",
+      "kind": "web",
+      "title": "乐町【白月光连衣裙】夏季双层飞袖初恋裙棉布绣花短袖连衣裙",
+      "org": "唯品会",
+      "url": "https://m.vip.com/v3/index.html#/vipshop/productDetail/pages/productDetail/productDetail?goodsId=6920798720519846736&brandId=1710616752&source=www",
+      "date": "2026",
+      "grade": "C",
+      "quote": "号型150/76A155/80A160/84A165/88A170/92A胸围(cm)8286909498袖长(cm)14.915.215.515.816.1腰围(cm)6468727680裙长(cm)64.866.868.870.872.8"
+    },
+    {
+      "file": "S13",
+      "kind": "web",
+      "title": "自巧小个子慵懒风披肩衬衫女秋装设计感高级洋气别致上衣",
+      "org": "唯品会",
+      "url": "https://m.vip.com/v3/index.html#/vipshop/productDetail/pages/productDetail/productDetail?goodsId=6920492552074050248&brandId=1712459848&source=www&is_uni_wap=1",
+      "date": "2026",
+      "grade": "C",
+      "quote": "号型145/72A150/76A155/80A160/84A肩宽(cm)47.64950.451.8胸围(cm)108112116120衣长(cm)65666768袖长(cm)48.949.750.551.3"
+    },
+    {
+      "file": "S14",
+      "kind": "web",
+      "title": "森马(Semir)小个子学院风鱼尾法式桔梗宽松连衣裙女",
+      "org": "苏宁易购 / 森马官方旗舰店",
+      "url": "https://product.suning.com/0070088010/11279698992.html",
+      "date": "2026",
+      "grade": "C",
+      "quote": "semir森马2019新款小个子学院风鱼尾法式桔梗宽松连衣裙女"
+    },
+    {
+      "file": "S15",
+      "kind": "web",
+      "title": "抖音服饰鞋包类目参考 - 转化率、ROAS、CPC多少正常",
+      "org": "易通",
+      "url": "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing",
+      "date": "2026",
+      "grade": "C",
+      "quote": "偏低51.0元均值127.5元偏高255.0元优秀510.0元"
+    },
+    {
+      "file": "S16",
+      "kind": "web",
+      "title": "小个子女生裤装专供版型指南",
+      "org": "1688百科",
+      "url": "https://wiki.1688.com/zh/WKfz6bfofrz2tc",
+      "date": "2026-09-24",
+      "grade": "C",
+      "quote": "传统批发市场的裤装多以160-165cm身高为打版基准。"
+    },
+    {
+      "file": "S17",
+      "kind": "web",
+      "title": "小个子穿搭爆发，1688服饰工厂如何接住这波红利？",
+      "org": "1688百科",
+      "url": "https://wiki.1688.com/zh/WKfkssmw0z9wjk",
+      "date": "2026-05-02",
+      "grade": "C",
+      "quote": "上装衣长最好控制在45cm以内，下摆收紧、领型选V领或方领；下装高腰线不能低于23cm，裤脚微喇或直筒更显腿直，长度卡在九分；连衣裙则要把腰线提到胸下，A字廓形+85-95cm裙长，基本不会出错。"
+    },
+    {
+      "file": "S18",
+      "kind": "web",
+      "title": "你双十一退掉的衣服，在经历什么？",
+      "org": "苏州日报 / 新浪财经",
+      "url": "https://finance.sina.com.cn/wm/2026-11-18/doc-inizcrpf4883789.shtml",
+      "date": "2026-11-18",
+      "grade": "B",
+      "quote": "算上往返运费、折损费、包装费、吊牌费和人工费，七天无理由退货的背后，是一件商品16元至25元的综合成本。"
+    },
+    {
+      "file": "S19",
+      "kind": "web",
+      "title": "淘宝抖音放低退换货门槛：一年82亿逆向快件，谁在承担成本？",
+      "org": "中国物流与采购 / 澎湃新闻",
+      "url": "https://m.thepaper.cn/newsDetail_forward_34343223",
+      "date": "2026-10-27",
+      "grade": "B",
+      "quote": "我国女装服饰行业平均退货率从2019年的30%攀升至2025年的65%～80%，直播电商的退货率更是惊人，高达80%～90%。"
+    },
+    {
+      "file": "S20",
+      "kind": "web",
+      "title": "抖音直播带货平台怎么收费？抖音直播带货平台收多少佣金？",
+      "org": "蝉妈妈运营圈",
+      "url": "https://www.chanmama.com/yunyingquan/question/4071.html",
+      "date": "2025-09-26",
+      "grade": "C",
+      "quote": "中佣梯队：服饰鞋包（15%-35%）、食品饮料（10%-25%），头部达人可通过议价能力突破常规。"
+    },
+    {
+      "file": "S21",
+      "kind": "web",
+      "title": "朗姿股份有限公司2025年年度报告摘要",
+      "org": "上海证券报 / 朗姿股份",
+      "url": "https://paper.cnstock.com/html/2026-04/25/content_2206503.htm",
+      "date": "2026-04-25",
+      "grade": "A",
+      "quote": "女装业务板块实现营业收入199,908.63万元，较上年同期增长3.85%；实现毛利润 129,196.53 万元，毛利率64.63%。"
+    },
+    {
+      "file": "S22",
+      "kind": "web",
+      "title": "直击江南布衣业绩说明会：2026财年净利同比增长11.1% 会员贡献零售额逾八成",
+      "org": "中国证券报",
+      "url": "https://www.cs.com.cn/ssgs/01/2026/09/13/detail_2026091310038854.html",
+      "date": "2026-09-13",
+      "grade": "A",
+      "quote": "毛利率进一步提升至66.6%，净利润率16.5%。"
+    }
+  ],
+  "sections": [
+    {
+      "title": "抖音女装前三品类合计37.8%",
+      "question": "Q7 小码女装品类结构如何，连衣裙裤装外套各占多少，爆品有哪些？",
+      "answers": [
+        "Q7"
+      ],
+      "refs": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N08",
+        "N13",
+        "N14",
+        "N15",
+        "N16",
+        "N17",
+        "N18",
+        "N19",
+        "N20",
+        "N21"
+      ],
+      "boundary": "品类占比为抖音渠道2021Q1—2022Q1蝉妈妈口径，非全国、非2026；价格带为抖音裙装与消费者单次支出两种口径，不可相加；京东746元档为连衣裙单品类。",
+      "reading": [
+        {
+          "strong": "事实　",
+          "text": "蝉妈妈口径，抖音女装2021Q1—2022Q1销售额前三为裤子13.3%、连衣裙13.1%、羽绒服11.4%，合计37.8%。价格带看，抖音裙装100—300元贡献近40%销售额；尚普口径单次消费100—300元占38%、300—500元27%、500元以上23%。京东连衣裙746元以上仅占销量11.5%，却拿走46.3%销售额。",
+          "refs": [
+            "N01",
+            "N02",
+            "N03",
+            "N04",
+            "N05",
+            "N06",
+            "N07",
+            "N08",
+            "N13",
+            "N14"
+          ]
+        },
+        {
+          "strong": "机理　",
+          "text": "品类占比由场景与版型敏感度决定：裤装刚需高频、退货低；连衣裙版型敏感、退货60%—90%；羽绒服季节集中、客单高。小码供给把“整体改短”换成“重开纸样”，同款出厂43—58元、零售129.9元，差价付给版型与内容；直播占69%、达人占64%，结构被达人选品进一步放大。",
+          "refs": [
+            "N09",
+            "N10",
+            "N17",
+            "N18",
+            "N22",
+            "N23",
+            "N28"
+          ]
+        },
+        {
+          "strong": "反例　",
+          "text": "羽绒服单月环比可翻倍，秋冬结构会反转；天猫稳定经营连衣裙品牌有3000—5000个，京东小个子榜只有10席，平台榜≠全国结构。1688出厂43元与淘宝129.9元并存，说明跨渠道、跨环节占比不能相加；用2022年抖音占比推2026年全国，会高估集中度。",
+          "refs": [
+            "N11",
+            "N12",
+            "N15",
+            "N16",
+            "N22",
+            "N28"
+          ]
+        }
+      ],
+      "chart": {
+        "type": "hbar",
+        "title": "抖音女装前三品类占比11%—13%",
+        "source": "蝉妈妈（2021Q1—2022Q1）",
+        "unit_meta": "%",
+        "refs": [
+          "N01",
+          "N02",
+          "N03"
+        ],
+        "baseline": 11.4,
+        "annotate": "前三合计37.8%，其余62.2%分散在数十个子类",
+        "items": [
+          {
+            "label": "裤子",
+            "value": 13.3
+          },
+          {
+            "label": "连衣裙",
+            "value": 13.1
+          },
+          {
+            "label": "羽绒服",
+            "value": 11.4
+          }
+        ]
+      },
+      "falsifier": "若拿到2026年小码专属品类数据，显示外套或羽绒服占比超过连衣裙，或小码榜Top5集中度高于10%，本节作废。"
+    },
+    {
+      "title": "退货16.7%是单均贡献盈亏线",
+      "question": "Q8 小码女装退货率、客单价、毛利与单均贡献如何构成经营模型？",
+      "answers": [
+        "Q8"
+      ],
+      "refs": [
+        "N35",
+        "N36",
+        "N37",
+        "N38",
+        "N39",
+        "N40",
+        "N41",
+        "N42",
+        "N43",
+        "N44",
+        "N45",
+        "N46",
+        "N47",
+        "N48",
+        "N49",
+        "N50",
+        "N51",
+        "N52",
+        "N53",
+        "N54",
+        "N55",
+        "N56",
+        "N57",
+        "N58",
+        "N59",
+        "N60",
+        "N61",
+        "N62",
+        "N63",
+        "N64",
+        "N67",
+        "N68",
+        "N69",
+        "N70",
+        "N71",
+        "N72",
+        "N73",
+        "N74",
+        "N75",
+        "N76",
+        "N77"
+      ],
+      "boundary": "客单、毛利、ROAS、退货率取抖音服饰鞋包行业参考值（非平台官方统计），佣金取15%下限，履约只计快递5元不含包装；工厂侧2.1%/5.8%为B2B发货口径，不可与消费者退货率互换。",
+      "reading": [
+        {
+          "strong": "事实　",
+          "text": "单均贡献＝客单价×毛利率×(1−退货率)−获客−履约−退货率×单退成本−佣金。代入客单127.5元、毛利55%、获客50元（127.5÷2.55）、履约5元、单退20.5元：退货8%得+7.9元，21.5%得−4.4元，40.5%得−21.6元，55%得−34.7元，80%加15%佣金得−61.2元；有效客单117.3/100.1/75.9/57.4/25.5元。",
+          "refs": [
+            "N35",
+            "N36",
+            "N37",
+            "N39",
+            "N40",
+            "N41",
+            "N42",
+            "N43",
+            "N44",
+            "N45",
+            "N47",
+            "N48",
+            "N49",
+            "N50",
+            "N51"
+          ]
+        },
+        {
+          "strong": "机理　",
+          "text": "获客成本在退货前已付，退货率越高，同一笔获客摊在越少的留存收入上：获客÷有效客单从8%时的42.6%升到80%时的196.1%；保本ROAS从1.98升到9.09，而行业均值仅2.55。解方程得盈亏平衡退货率16.7%，正好落在平台15%退货惩罚线附近——低退货不是加分项，是入场券。",
+          "refs": [
+            "N46",
+            "N52",
+            "N53",
+            "N54",
+            "N55",
+            "N56",
+            "N57",
+            "N67",
+            "N68",
+            "N74"
+          ]
+        },
+        {
+          "strong": "反例　",
+          "text": "若客单抬到746元以上（京东用11.5%销量换46.3%销售额）或会员复购把获客压到近零（江南布衣会员占零售额逾八成），同退货率也能转正；1688工厂侧退货率2.1%、行业5.8%是发货口径，不能替代消费者退货率。只有小码专供把退货压到8%以内，模型才为正。",
+          "refs": [
+            "N69",
+            "N70",
+            "N71",
+            "N72",
+            "N73",
+            "N75",
+            "N76",
+            "N77",
+            "N13",
+            "N14"
+          ]
+        }
+      ],
+      "chart": {
+        "type": "hbar",
+        "title": "退货率从8%升到80%，单均贡献转负",
+        "source": "易通+1688百科（2026）",
+        "unit_meta": "元",
+        "refs": [
+          "N41",
+          "N42",
+          "N43",
+          "N44",
+          "N45"
+        ],
+        "baseline": 0,
+        "annotate": "盈亏平衡退货率16.7%；平台15%起收争议处理费",
+        "items": [
+          {
+            "label": "退货8%",
+            "value": 7.9
+          },
+          {
+            "label": "退货21.5%",
+            "value": -4.4
+          },
+          {
+            "label": "退货40.5%",
+            "value": -21.6
+          },
+          {
+            "label": "退货55%",
+            "value": -34.7
+          },
+          {
+            "label": "退货80%+佣金15%",
+            "value": -61.2
+          }
+        ]
+      },
+      "falsifier": "若小码店后台实测退货率连续三个月低于16.7%且单均贡献为正，或客单价稳定在300元以上使盈亏线大幅下移，本节作废。"
+    },
+    {
+      "title": "81%销量在50元以下，均价85元",
+      "question": "Q11 TOP30 爆款 SKU 的款号、价格、尺码覆盖与月销分别是多少？",
+      "answers": [
+        "Q11"
+      ],
+      "refs": [
+        "N20",
+        "N21",
+        "N27",
+        "N28",
+        "N29",
+        "N101",
+        "N102",
+        "N114",
+        "N116",
+        "N117",
+        "N120",
+        "N126",
+        "N127",
+        "N128",
+        "N129",
+        "N130",
+        "N131",
+        "N160"
+      ],
+      "boundary": "30款均来自淘宝三家定制店列表页；1688两家工厂页只用于核出厂价与尺码（有货号、S—XXL，但无月销）。价格为列表页展示价（活动价、未扣券），销量为页面“X+人付款”下限；无品牌旗舰店SKU。",
+      "reading": [
+        {
+          "strong": "事实　",
+          "text": "30款可核SKU到手价9.9—180.1元，均价85.1元、中位49.8元；<50元15款、50—149元9款、≥150元6款。<50元款拿走81.2%的付款量，≥150元款占10.9%，呈哑铃型；付款量最高款29.8元×6000+人，单款单期约17.9万元。",
+          "refs": [
+            "N20",
+            "N27",
+            "N28",
+            "N29",
+            "N101",
+            "N131",
+            "N102",
+            "N114",
+            "N126"
+          ]
+        },
+        {
+          "strong": "机理　",
+          "text": "标题直接写145/150/155替代S/M/L，把选码成本转成搜索词；裤装只需调内长与立裆，开款成本低，所以17/30款是裤装。高价段能站住，是因为166—180元的毛呢半身裙、西装裤用“版型可信”换溢价，付款量仍到800—1000+，并非只靠低价。",
+          "refs": [
+            "N20",
+            "N21",
+            "N30",
+            "N31",
+            "N32",
+            "N33",
+            "N112",
+            "N114",
+            "N116",
+            "N118"
+          ]
+        },
+        {
+          "strong": "反例　",
+          "text": "付款人数是平台区间展示（100+/1000+），不是精确月销；样本全是白牌定制店，无品牌旗舰店SKU，不能当TOP30真实榜单。1688同款显示S—XXL、货号可查但月销为空，故本清单“尺码覆盖”以标题身高段为准，真实尺码覆盖仍缺一手数据。",
+          "refs": [
+            "N22",
+            "N24",
+            "N112",
+            "N114",
+            "N116",
+            "N126"
+          ]
+        }
+      ],
+      "chart": {
+        "type": "hbar",
+        "title": "30款爆品付款量：低价款占81%",
+        "source": "淘宝列表页（2026-11-22）",
+        "unit_meta": "%",
+        "refs": [
+          "N101",
+          "N113",
+          "N160"
+        ],
+        "baseline": 33.3,
+        "annotate": "哑铃型：<50元15款占81.2%，≥150元6款占10.9%；均价85.1元、中位49.8元",
+        "items": [
+          {
+            "label": "<50元",
+            "value": 81.2
+          },
+          {
+            "label": "50—149元",
+            "value": 7.9
+          },
+          {
+            "label": "≥150元",
+            "value": 10.9
+          }
+        ]
+      },
+      "falsifier": "若拿到平台官方SKU级月销与尺码表，显示50—149元价格带付款量占比超过40%，或均价偏离85元±20%，本节作废。"
+    },
+    {
+      "title": "150档衣长65cm，腰节36cm",
+      "question": "Q13 小码核心版型参数（衣长、腰线、肩宽、袖长）在各身高段应取什么值？",
+      "answers": [
+        "Q13"
+      ],
+      "refs": [
+        "N201",
+        "N202",
+        "N203",
+        "N204",
+        "N205",
+        "N206",
+        "N207",
+        "N208",
+        "N209",
+        "N210",
+        "N211",
+        "N212",
+        "N213",
+        "N214",
+        "N215",
+        "N216",
+        "N217",
+        "N218",
+        "N219",
+        "N220",
+        "N221",
+        "N222",
+        "N223",
+        "N224",
+        "N225",
+        "N226",
+        "N227",
+        "N228",
+        "N229",
+        "N230",
+        "N231",
+        "N232",
+        "N233",
+        "N234",
+        "N235",
+        "N236",
+        "N237",
+        "N238",
+        "N239",
+        "N240",
+        "N241",
+        "N243"
+      ],
+      "boundary": "GB/T 1335.2为净体数值、A体型；成衣表为单品牌单款（乐町短袖连衣裙、自巧落肩衬衫），肩宽含落肩放量，不可当合体肩宽；1688的45cm/85—95cm为工厂建议值，非国标。",
+      "reading": [
+        {
+          "strong": "事实　",
+          "text": "GB/T 1335.2净体控制部位：145/150/155/160档总肩宽36.4/37.4/38.4/39.4cm，腰围高89/92/95/98cm，全臂长46/47.5/49/50.5cm。成衣实测：乐町连衣裙150/155/160档裙长64.8/66.8/68.8cm、短袖14.9/15.2/15.5cm、腰围64/68/72cm；自巧衬衫145—160档衣长65—68cm、肩宽47.6—51.8cm、袖长48.9—51.3cm。",
+          "refs": [
+            "N201",
+            "N202",
+            "N203",
+            "N204",
+            "N205",
+            "N206",
+            "N207",
+            "N208",
+            "N213",
+            "N214",
+            "N215",
+            "N216",
+            "N217",
+            "N218",
+            "N219",
+            "N220",
+            "N221",
+            "N222",
+            "N223",
+            "N224",
+            "N225",
+            "N226",
+            "N227",
+            "N228",
+            "N229",
+            "N230",
+            "N231",
+            "N232",
+            "N233",
+            "N234",
+            "N235",
+            "N236"
+          ]
+        },
+        {
+          "strong": "机理　",
+          "text": "身高每加5cm，净体肩宽+1cm、腰围高+3cm、全臂长+1.5cm；腰节长＝颈椎点高−腰围高，得36/37/38cm，所以小码不是等比缩小，而要先把腰线上移2—4cm。成衣衣长≈0.43×身高（64.8/150=0.432、68.8/160=0.430），长裙另取85—95cm，短款上衣≤45cm。",
+          "refs": [
+            "N203",
+            "N206",
+            "N209",
+            "N210",
+            "N211",
+            "N212",
+            "N217",
+            "N237",
+            "N238",
+            "N239",
+            "N240"
+          ]
+        },
+        {
+          "strong": "反例　",
+          "text": "自巧145档肩宽47.6cm是落肩款，含袖山放量，不能当合体肩宽；1688“高腰线不低于23cm”口径不明，疑为腰头结构而非腰线高度。GB/T给净体值，直接当成品尺寸会做肥；两份成衣表都是单品牌单款，换大衣、羽绒等品类参数会整体偏移。",
+          "refs": [
+            "N241",
+            "N227",
+            "N243"
+          ]
+        }
+      ],
+      "chart": {
+        "type": "hbar",
+        "title": "小码连衣裙裙长随身高每档增2cm",
+        "source": "唯品会乐町尺码表（2026）",
+        "unit_meta": "cm",
+        "refs": [
+          "N218",
+          "N219",
+          "N220"
+        ],
+        "baseline": 64.8,
+        "annotate": "裙长≈0.43×身高；长裙另取85—95cm，短款上衣≤45cm",
+        "items": [
+          {
+            "label": "150cm",
+            "value": 64.8
+          },
+          {
+            "label": "155cm",
+            "value": 66.8
+          },
+          {
+            "label": "160cm",
+            "value": 68.8
+          }
+        ]
+      },
+      "falsifier": "若拿到三份以上不同品牌的小码成衣尺码表，显示裙长/身高比中位数落在0.40以下或0.46以上，或肩宽放量中位数低于6cm，本节作废。"
+    }
+  ],
+  "cells": [
+    {
+      "cell_id": "Q7.对象.TOP5 品牌",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "京东榜为评论热度榜，不含销售额；蝉妈妈/飞瓜只给抖音裙装Top5集中度2.94%，无小码品牌销售额份额。"
+    },
+    {
+      "cell_id": "Q7.对象.长尾合计",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "长尾合计需先有TOP5小码品牌份额；2.94%是裙装品类集中度，口径不同，不能当小码长尾。"
+    },
+    {
+      "cell_id": "Q7.空间.全国",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "无全国小码女装品类销售额份额，公开数据只有单平台渠道结构。"
+    },
+    {
+      "cell_id": "Q7.空间.省",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html"
+      ],
+      "why": "省级无小码品类/品牌销售额拆分，统计公报不发布该细分。"
+    },
+    {
+      "cell_id": "Q7.空间.城市",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://mobile-phone.taobao.com/chanpin/6f4c194b4faf1e3e56b5713f92d128065814d20ee14ed32f0b2f1814cb7798b4.html"
+      ],
+      "why": "城市维度只有店铺发货地（汕头/广州/武汉/揭阳），不是销售份额。"
+    },
+    {
+      "cell_id": "Q7.时间.2024",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2024",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "无2024年小码女装品类结构公开数据；蝉妈妈口径停留在2021Q1—2022Q1。"
+    },
+    {
+      "cell_id": "Q7.时间.2025",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "只有环比增速（裙装+41.7%），不给品类销售额占比，无法形成2025结构。"
+    },
+    {
+      "cell_id": "Q7.时间.2026",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "http://m.toutiao.com/group/7640003986925437494/",
+        "https://www.niaogebiji.com/article-119714-1.html"
+      ],
+      "why": "2026只有裙装Top5集中度2.94%与价格带40%，无全品类销售额占比。"
+    },
+    {
+      "cell_id": "Q7.结构.品类×渠道",
+      "qid": "Q7",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2022Q1",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 13.1,
+      "unit": "%",
+      "source_file": "S01",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "lagged",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "抖音渠道，非全国",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "why": "填报值为连衣裙占比；同源裤子13.3%、羽绒服11.4%见N01/N03。",
+      "period_planned": "2026"
+    },
+    {
+      "cell_id": "Q7.结构.价格带×渠道",
+      "qid": "Q7",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 40,
+      "unit": "%",
+      "source_file": "S04",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "抖音裙装，100—300元价格带占销售额",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "why": "填报值为裙装主力价格带销售额占比；非小码专属。"
+    },
+    {
+      "cell_id": "Q7.机制.量价拆解",
+      "qid": "Q7",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 64.63,
+      "unit": "%",
+      "source_file": "S21",
+      "grade": "A",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "high",
+        "consistency": "audited",
+        "timeliness": "current",
+        "uniqueness": "single-brand",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "朗姿女装业务板块，中高端上市公司口径",
+        "currency": "CNY",
+        "price_basis": "含税零售额"
+      },
+      "why": "计划做量价拆解，公开数据只能交品牌毛利率；非小码专属。",
+      "period_planned": "2026"
+    },
+    {
+      "cell_id": "Q7.机制.份额变化",
+      "qid": "Q7",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 2.94,
+      "unit": "%",
+      "source_file": "S02",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "抖音渠道，非全国",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "why": "无份额时间序列，改交同期抖音裙装Top5品牌集中度作对照。"
+    },
+    {
+      "cell_id": "Q7.边界.口径 vs 统计公报",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.stats.gov.cn/"
+      ],
+      "why": "统计公报不发布小码女装品类或品牌份额，无法构造同口径对照。"
+    },
+    {
+      "cell_id": "Q7.边界.样本覆盖",
+      "qid": "Q7",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 3000,
+      "unit": "个",
+      "source_file": "S03",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "全国线上，人民币含税零售",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "why": "填样本框下限：天猫稳定经营连衣裙品牌3000—5000个；说明平台榜仅覆盖其中极小部分。"
+    },
+    {
+      "cell_id": "Q8.对象.TOP5 品牌",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing"
+      ],
+      "why": "无小码女装品牌级UE面板；易通只给类目均值，不含品牌份额。"
+    },
+    {
+      "cell_id": "Q8.对象.长尾合计",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing"
+      ],
+      "why": "缺TOP5品牌份额，长尾合计无法计算。"
+    },
+    {
+      "cell_id": "Q8.空间.全国",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://m.thepaper.cn/newsDetail_forward_34343223"
+      ],
+      "why": "全国只有退货率区间，无小码销售额份额。"
+    },
+    {
+      "cell_id": "Q8.空间.省",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://m.thepaper.cn/newsDetail_forward_34343223"
+      ],
+      "why": "分省退货率与分省UE均无公开数据。"
+    },
+    {
+      "cell_id": "Q8.空间.城市",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html"
+      ],
+      "why": "城市维度无UE样本，榜单只到品牌不到城市。"
+    },
+    {
+      "cell_id": "Q8.时间.2024",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2024",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://m.thepaper.cn/newsDetail_forward_34343223"
+      ],
+      "why": "2024只有退货损耗总额，无当年AOV/毛利/ROAS同面板。"
+    },
+    {
+      "cell_id": "Q8.时间.2025",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.chanmama.com/yunyingquan/question/4071.html"
+      ],
+      "why": "2025只有佣金与收费规则，无小码销售额份额。"
+    },
+    {
+      "cell_id": "Q8.时间.2026",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing"
+      ],
+      "why": "2026只有类目均值，无小码销售额份额。"
+    },
+    {
+      "cell_id": "Q8.结构.品类×渠道",
+      "qid": "Q8",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 69,
+      "unit": "%",
+      "source_file": "S02",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "抖音裙装，直播带货销售额占比",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "why": "填渠道结构（直播占比），非小码专属。"
+    },
+    {
+      "cell_id": "Q8.结构.价格带×渠道",
+      "qid": "Q8",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 40,
+      "unit": "%",
+      "source_file": "S04",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "抖音裙装，100—300元价格带占销售额",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "why": "用于验证价格带对UE的支撑；非小码专属。"
+    },
+    {
+      "cell_id": "Q8.机制.量价拆解",
+      "qid": "Q8",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 55.0,
+      "unit": "%",
+      "source_file": "S15",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "low",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "抖音服饰鞋包类目参考均值，非平台官方统计",
+        "currency": "CNY",
+        "price_basis": "含税成交额"
+      },
+      "why": "毛利率水平，作为UE算式的毛利输入。"
+    },
+    {
+      "cell_id": "Q8.机制.份额变化",
+      "qid": "Q8",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "份额变化需分品牌份额时间序列；公开数据只有单期集中度2.94%，毛利不能替代份额。"
+    },
+    {
+      "cell_id": "Q8.边界.口径 vs 统计公报",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 55,
+      "unit": "%",
+      "source_file": "S18",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "女装线上渠道平均退货率50%—60%取中值，行业调研口径",
+        "currency": "CNY",
+        "price_basis": "成交额"
+      },
+      "why": "统计公报无退货率，只能用行业调研口径；与抖音后台40.5%不可互换。"
+    },
+    {
+      "cell_id": "Q8.边界.样本覆盖",
+      "qid": "Q8",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 40.5,
+      "unit": "%",
+      "source_file": "S15",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "low",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "抖音后台口径服饰鞋包退货率均值，样本仅平台内成交",
+        "currency": "CNY",
+        "price_basis": "成交额"
+      },
+      "why": "平台后台40.5%与行业调研65%—80%、直播80%—90%差24—50个百分点，不能互相替代。"
+    },
+    {
+      "cell_id": "Q11.对象.TOP5 品牌",
+      "qid": "Q11",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "30款样本全部为白牌定制店，无品牌旗舰店SKU，品牌份额不可得。"
+    },
+    {
+      "cell_id": "Q11.对象.长尾合计",
+      "qid": "Q11",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "无TOP5小码品牌SKU销售额份额，长尾合计无法计算。"
+    },
+    {
+      "cell_id": "Q11.空间.全国",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://mobile-phone.taobao.com/chanpin/767a0656f1fca7c7c907f02b7db80fe4354999055a86c82e059ad788e7547d89.html"
+      ],
+      "why": "全国口径缺SKU级销售额，列表页只到店铺不到区域。"
+    },
+    {
+      "cell_id": "Q11.空间.省",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://mobile-phone.taobao.com/chanpin/5e66f453ead19908c079c1b59811a8b0.html"
+      ],
+      "why": "省份只有发货地（汕头/广州/武汉），不是购买地份额。"
+    },
+    {
+      "cell_id": "Q11.空间.城市",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://mobile-phone.taobao.com/chanpin/5e66f453ead19908c079c1b59811a8b0.html"
+      ],
+      "why": "城市只有发货地，且一店多仓，不能当销售结构。"
+    },
+    {
+      "cell_id": "Q11.时间.2024",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2024",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://mobile-phone.taobao.com/chanpin/6f4c194b4faf1e3e56b5713f92d128065814d20ee14ed32f0b2f1814cb7798b4.html"
+      ],
+      "why": "列表页只保留当前在售与近期付款，无历史SKU快照。"
+    },
+    {
+      "cell_id": "Q11.时间.2025",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://detail.1688.com/offer/804245574963.html"
+      ],
+      "why": "1688页面只给当前价格与库存，无2025年SKU价格/销量序列。"
+    },
+    {
+      "cell_id": "Q11.时间.2026",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 56.7,
+      "unit": "%",
+      "source_file": "S06",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "淘宝列表页，样本非全量",
+        "currency": "CNY",
+        "price_basis": "页面展示到手价"
+      },
+      "why": "本期结构：30款样本中裤装17款（56.7%），连衣裙6款（20.0%）。"
+    },
+    {
+      "cell_id": "Q11.结构.品类×渠道",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 56.7,
+      "unit": "%",
+      "source_file": "S06",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "淘宝列表页，样本非全量",
+        "currency": "CNY",
+        "price_basis": "页面展示到手价"
+      },
+      "why": "按款数计裤装17/30；淘宝渠道样本，非销售额结构。"
+    },
+    {
+      "cell_id": "Q11.结构.价格带×渠道",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 60,
+      "unit": "%",
+      "source_file": "S06",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "30款样本中到手价<100元款数占比",
+        "currency": "CNY",
+        "price_basis": "页面展示到手价"
+      },
+      "why": "18/30款<100元；样本为淘宝白牌定制店。"
+    },
+    {
+      "cell_id": "Q11.机制.量价拆解",
+      "qid": "Q11",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 35.4,
+      "unit": "%",
+      "source_file": "S09",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "low",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "以1688出厂价55元对30款均价85.1元推算的款级毛利率",
+        "currency": "CNY",
+        "price_basis": "到手价"
+      },
+      "why": "(85.1−55)÷85.1；出厂价为单款同价，不能代表全部SKU成本。"
+    },
+    {
+      "cell_id": "Q11.机制.份额变化",
+      "qid": "Q11",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "https://www.niaogebiji.com/article-119714-1.html",
+        "http://m.toutiao.com/group/7640003986925437494/"
+      ],
+      "why": "无SKU级份额时间序列；列表页付款人数不带历史。"
+    },
+    {
+      "cell_id": "Q11.边界.口径 vs 统计公报",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://www.stats.gov.cn/"
+      ],
+      "why": "统计公报不发布SKU级价格/销量，无法构造同口径对照。"
+    },
+    {
+      "cell_id": "Q11.边界.样本覆盖",
+      "qid": "Q11",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 30,
+      "unit": "款",
+      "source_file": "S06",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "淘宝列表页，样本非全量",
+        "currency": "CNY",
+        "price_basis": "页面展示到手价"
+      },
+      "why": "样本30款均为淘宝列表页（三家店合计在售1587+6041+4765件），覆盖率不足1%，且无品牌店与1688月销。"
+    },
+    {
+      "cell_id": "Q13.对象.TOP5 品牌",
+      "qid": "Q13",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://m.vip.com/v3/index.html#/vipshop/productDetail/pages/productDetail/productDetail?goodsId=6920492552074050248&brandId=1712459848&source=www&is_uni_wap=1"
+      ],
+      "why": "只有单品牌单款尺码表，无小码版型品牌份额或参数排名。"
+    },
+    {
+      "cell_id": "Q13.对象.长尾合计",
+      "qid": "Q13",
+      "measure": "share",
+      "measure_id": "share",
+      "grain": "G_brand_channel_year",
+      "grain_id": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://fztr.file.gkfz.net/pdf/f49ce53527a872120bc2f580c4aa7e7d.pdf"
+      ],
+      "why": "国标不区分品牌，长尾合计无定义。"
+    },
+    {
+      "cell_id": "Q13.空间.全国",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 0.434,
+      "unit": "倍",
+      "source_file": "S12",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "GB/T 1335.2 A体型净体值",
+        "currency": "CNY",
+        "price_basis": "非价格项"
+      },
+      "why": "全国可用的衣长/身高比：两条成衣表四点均值0.434。"
+    },
+    {
+      "cell_id": "Q13.空间.省",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://product.suning.com/0070088010/11279698992.html"
+      ],
+      "why": "版型参数不按省发布，分省无公开差异。"
+    },
+    {
+      "cell_id": "Q13.空间.城市",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://product.suning.com/0070088010/11279698992.html"
+      ],
+      "why": "城市维度无版型参数数据。"
+    },
+    {
+      "cell_id": "Q13.时间.2024",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2024",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://fztr.file.gkfz.net/pdf/f49ce53527a872120bc2f580c4aa7e7d.pdf"
+      ],
+      "why": "国标2008版现行，无年度版型参数序列。"
+    },
+    {
+      "cell_id": "Q13.时间.2025",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://wiki.1688.com/zh/WKfkssmw0z9wjk"
+      ],
+      "why": "1688文章给建议值但无2025年参数序列。"
+    },
+    {
+      "cell_id": "Q13.时间.2026",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 68.8,
+      "unit": "cm",
+      "source_file": "S12",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "actual"
+      },
+      "caliber": {
+        "scope": "GB/T 1335.2 A体型净体值",
+        "currency": "CNY",
+        "price_basis": "非价格项"
+      },
+      "why": "2026在售款160档裙长实测值。"
+    },
+    {
+      "cell_id": "Q13.结构.品类×渠道",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 45,
+      "unit": "cm",
+      "source_file": "S17",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "low",
+        "consistency": "single-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "proxy"
+      },
+      "caliber": {
+        "scope": "淘宝列表页，样本非全量",
+        "currency": "CNY",
+        "price_basis": "页面展示到手价"
+      },
+      "why": "短款上衣衣长上限45cm，是品类结构差异的直接参数。"
+    },
+    {
+      "cell_id": "Q13.结构.价格带×渠道",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://m.vip.com/v3/index.html#/vipshop/productDetail/pages/productDetail/productDetail?goodsId=6920798720519846736&brandId=1710616752&source=www"
+      ],
+      "why": "版型参数与价格带无公开对应表。"
+    },
+    {
+      "cell_id": "Q13.机制.量价拆解",
+      "qid": "Q13",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 36.0,
+      "unit": "cm",
+      "source_file": "S11",
+      "grade": "A",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "high",
+        "consistency": "audited",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "actual"
+      },
+      "caliber": {
+        "scope": "GB/T 1335.2 A体型净体值",
+        "currency": "CNY",
+        "price_basis": "非价格项"
+      },
+      "why": "150档腰节长36cm（颈椎点高128−腰围高92），决定腰线位置。"
+    },
+    {
+      "cell_id": "Q13.机制.份额变化",
+      "qid": "Q13",
+      "measure": "gross_margin",
+      "measure_id": "gross_margin",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "unavailable",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [
+        "https://fztr.file.gkfz.net/pdf/f49ce53527a872120bc2f580c4aa7e7d.pdf"
+      ],
+      "why": "没有版型参数的份额概念，无法填写。"
+    },
+    {
+      "cell_id": "Q13.边界.口径 vs 统计公报",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 12.0,
+      "unit": "cm",
+      "source_file": "S13",
+      "grade": "C",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "medium",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "actual"
+      },
+      "caliber": {
+        "scope": "GB/T 1335.2 A体型净体值",
+        "currency": "CNY",
+        "price_basis": "非价格项"
+      },
+      "why": "成衣肩宽(155档50.4)较国标净体(38.4)放量12cm，两口径不可混用。"
+    },
+    {
+      "cell_id": "Q13.边界.样本覆盖",
+      "qid": "Q13",
+      "measure": "category_mix",
+      "measure_id": "category_mix",
+      "grain": "G_national_year",
+      "grain_id": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "filled",
+      "value": 3,
+      "unit": "份",
+      "source_file": "S11",
+      "grade": "B",
+      "quality": {
+        "completeness": "partial",
+        "accuracy": "high",
+        "consistency": "cross-source",
+        "timeliness": "current",
+        "uniqueness": "single-period",
+        "validity": "actual"
+      },
+      "caliber": {
+        "scope": "GB/T 1335.2 A体型净体值",
+        "currency": "CNY",
+        "price_basis": "非价格项"
+      },
+      "why": "样本=国标1份+成衣尺码表2份（乐町、自巧），仅覆盖短袖连衣裙与落肩衬衫。"
+    }
+  ],
+  "sku_ledger": [
+    {
+      "rank": 1,
+      "sku": "S01k",
+      "name": "145小个子显高九分灰色直筒糯米裤女155高腰显瘦阔腿拖地裤秋冬",
+      "款号": null,
+      "category": "裤装",
+      "price": 29.8,
+      "price_num": "N101",
+      "sales_lower": 6000,
+      "sales_label": "6000+人付款",
+      "sales_num": "N131",
+      "size_or_height": "145–155cm",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 2,
+      "sku": "S02k",
+      "name": "145小个子美式运动裤女春秋150高腰直筒阔腿裤加绒休闲宽松卫裤xs",
+      "款号": null,
+      "category": "裤装",
+      "price": 40.8,
+      "price_num": "N102",
+      "sales_lower": 5000,
+      "sales_label": "5000+人付款",
+      "sales_num": "N132",
+      "size_or_height": "145/150cm（XS起）",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 3,
+      "sku": "S03k",
+      "name": "145小个子深灰色复古弯刀阔腿裤女春秋150高腰宽松显瘦九分休闲裤",
+      "款号": null,
+      "category": "裤装",
+      "price": 43.2,
+      "price_num": "N103",
+      "sales_lower": 2000,
+      "sales_label": "2000+人付款",
+      "sales_num": "N133",
+      "size_or_height": "145/150cm",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 4,
+      "sku": "S04k",
+      "name": "145小个子咖色糯米裤女春秋150高腰直筒垂感慵懒宽松加绒阔腿裤子",
+      "款号": null,
+      "category": "裤装",
+      "price": 35.8,
+      "price_num": "N104",
+      "sales_lower": 2000,
+      "sales_label": "2000+人付款",
+      "sales_num": "N134",
+      "size_or_height": "145/150cm",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 5,
+      "sku": "S05k",
+      "name": "145小个子灰色糯米裤子女春秋冬款150高腰垂感宽松加绒休闲阔腿裤",
+      "款号": null,
+      "category": "裤装",
+      "price": 35.8,
+      "price_num": "N105",
+      "sales_lower": 1000,
+      "sales_label": "1000+人付款",
+      "sales_num": "N135",
+      "size_or_height": "145/150cm",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 6,
+      "sku": "S06k",
+      "name": "145小个子蓝色加绒格子裤女秋冬150直筒休闲宽松显瘦毛呢阔腿裤xs",
+      "款号": null,
+      "category": "裤装",
+      "price": 35.8,
+      "price_num": "N106",
+      "sales_lower": 500,
+      "sales_label": "500+人付款",
+      "sales_num": "N136",
+      "size_or_height": "145/150cm（XS起）",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 7,
+      "sku": "S07k",
+      "name": "145小个子灰色糯米裤子女春秋150加绒高腰垂感直筒休闲软糯阔腿裤",
+      "款号": null,
+      "category": "裤装",
+      "price": 29.8,
+      "price_num": "N107",
+      "sales_lower": 500,
+      "sales_label": "500+人付款",
+      "sales_num": "N137",
+      "size_or_height": "145/150cm",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 8,
+      "sku": "S08k",
+      "name": "145小个子黑色微喇裤女春秋薄款150高腰垂感西装马蹄裤显瘦喇叭裤",
+      "款号": null,
+      "category": "裤装",
+      "price": 31.8,
+      "price_num": "N108",
+      "sales_lower": 400,
+      "sales_label": "400+人付款",
+      "sales_num": "N138",
+      "size_or_height": "145/150cm",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 9,
+      "sku": "S09k",
+      "name": "145小个子灰色西装阔腿裤女春秋150高腰垂感直筒裤宽松运动休闲裤",
+      "款号": null,
+      "category": "裤装",
+      "price": 32.8,
+      "price_num": "N109",
+      "sales_lower": 300,
+      "sales_label": "300+人付款",
+      "sales_num": "N139",
+      "size_or_height": "145/150cm",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 10,
+      "sku": "S10k",
+      "name": "145小个子灰色抽绳运动裤女秋季150高腰宽松慵懒休闲弯刀阔腿卫裤",
+      "款号": null,
+      "category": "裤装",
+      "price": 43.2,
+      "price_num": "N110",
+      "sales_lower": 300,
+      "sales_label": "300+人付款",
+      "sales_num": "N140",
+      "size_or_height": "145/150cm",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 11,
+      "sku": "S11k",
+      "name": "145小个子灰色弯刀工装裤女春秋季150高腰垂感九分休闲阔腿裤子xs",
+      "款号": null,
+      "category": "裤装",
+      "price": 43.2,
+      "price_num": "N111",
+      "sales_lower": 100,
+      "sales_label": "100+人付款",
+      "sales_num": "N141",
+      "size_or_height": "145/150cm（XS起）",
+      "store": "小个子定制优品女装",
+      "platform": "淘宝",
+      "source_file": "S06"
+    },
+    {
+      "rank": 12,
+      "sku": "S12k",
+      "name": "小个子150XS秋季韩版简约百搭高腰显瘦修身纯色休闲弹力喇叭裤女",
+      "款号": null,
+      "category": "裤装",
+      "price": 109.9,
+      "price_num": "N112",
+      "sales_lower": 300,
+      "sales_label": "300+人付款",
+      "sales_num": "N142",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 13,
+      "sku": "S13k",
+      "name": "秋冬款2025新款高腰垂感宽松休闲小个子慵懒风阔腿裤软糯糯米裤女",
+      "款号": null,
+      "category": "裤装",
+      "price": 16.9,
+      "price_num": "N113",
+      "sales_lower": 400,
+      "sales_label": "400+人付款",
+      "sales_num": "N143",
+      "size_or_height": "小个子（未标身高）",
+      "store": "DuoEr 哚儿定制女装",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 14,
+      "sku": "S14k",
+      "name": "150小矮个子高级感毛呢西装裤女冬设计感纽扣九分高腰直筒阔腿145",
+      "款号": null,
+      "category": "裤装",
+      "price": 179.9,
+      "price_num": "N114",
+      "sales_lower": 1000,
+      "sales_label": "1000+人付款",
+      "sales_num": "N144",
+      "size_or_height": "145–150cm",
+      "store": "巧巧家小个子女装",
+      "platform": "淘宝",
+      "source_file": "S08"
+    },
+    {
+      "rank": 15,
+      "sku": "S15k",
+      "name": "150小矮个子做旧水洗牛仔裤女秋冬复古垂感显瘦高腰阔腿裤宽松145",
+      "款号": null,
+      "category": "裤装",
+      "price": 179.0,
+      "price_num": "N115",
+      "sales_lower": 200,
+      "sales_label": "200+人付款",
+      "sales_num": "N145",
+      "size_or_height": "145–150cm",
+      "store": "巧巧家小个子女装",
+      "platform": "淘宝",
+      "source_file": "S08"
+    },
+    {
+      "rank": 16,
+      "sku": "S16k",
+      "name": "145小矮个子高街复古工装牛仔裤女高腰直筒阔腿拖地xs显高八分夏",
+      "款号": null,
+      "category": "裤装",
+      "price": 180.1,
+      "price_num": "N116",
+      "sales_lower": 100,
+      "sales_label": "100+人付款",
+      "sales_num": "N146",
+      "size_or_height": "145cm（XS起）",
+      "store": "巧巧家小个子女装",
+      "platform": "淘宝",
+      "source_file": "S08"
+    },
+    {
+      "rank": 17,
+      "sku": "S17k",
+      "name": "灰色休闲运动短裤女夏季2026新款外穿小个子辣妹高腰a字显瘦热裤",
+      "款号": null,
+      "category": "裤装",
+      "price": 11.9,
+      "price_num": "N117",
+      "sales_lower": 1000,
+      "sales_label": "1000+人付款",
+      "sales_num": "N147",
+      "size_or_height": "小个子（未标身高）",
+      "store": "婉裳定制女装",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 18,
+      "sku": "S18k",
+      "name": "小个子150XS夏季温柔气质包臀短裙收腰显身材蕾丝无袖连衣裙约会",
+      "款号": null,
+      "category": "连衣裙",
+      "price": 129.9,
+      "price_num": "N118",
+      "sales_lower": 200,
+      "sales_label": "200+人付款",
+      "sales_num": "N148",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 19,
+      "sku": "S19k",
+      "name": "小个子150XS夏季御姐褶皱包臀短裙显高绝美网纱一字肩连衣裙约会",
+      "款号": null,
+      "category": "连衣裙",
+      "price": 129.9,
+      "price_num": "N119",
+      "sales_lower": 300,
+      "sales_label": "300+人付款",
+      "sales_num": "N149",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 20,
+      "sku": "S20k",
+      "name": "小个子150XS夏季辣妹紧身包臀短裙收腰显身材蕾丝无袖连衣裙约会",
+      "款号": null,
+      "category": "连衣裙",
+      "price": 129.9,
+      "price_num": "N120",
+      "sales_lower": 77,
+      "sales_label": "77+人付款",
+      "sales_num": "N150",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 21,
+      "sku": "S21k",
+      "name": "小个子150XS夏季辣妹紧身包臀收腰显高立体提花无袖针织短裙约会",
+      "款号": null,
+      "category": "连衣裙",
+      "price": 99.9,
+      "price_num": "N121",
+      "sales_lower": 300,
+      "sales_label": "300+人付款",
+      "sales_num": "N151",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 22,
+      "sku": "S22k",
+      "name": "小个子150XS春季巨显身材包臀短裙收腰显高弹性抹胸连衣裙女约会",
+      "款号": null,
+      "category": "连衣裙",
+      "price": 129.9,
+      "price_num": "N122",
+      "sales_lower": 100,
+      "sales_label": "100+人付款",
+      "sales_num": "N152",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 23,
+      "sku": "S23k",
+      "name": "小个子150XS春季纯欲粉色包臀鱼尾长款吊带裙+针织不规则罩衫套装",
+      "款号": null,
+      "category": "连衣裙",
+      "price": 169.0,
+      "price_num": "N123",
+      "sales_lower": 300,
+      "sales_label": "300+人付款",
+      "sales_num": "N153",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 24,
+      "sku": "S24k",
+      "name": "小个子150XS夏季甜辣显身材鱼骨抹胸上衣+高腰提臀微喇叭裤两件套",
+      "款号": null,
+      "category": "套装",
+      "price": 99.9,
+      "price_num": "N124",
+      "sales_lower": 100,
+      "sales_label": "100+人付款",
+      "sales_num": "N154",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 25,
+      "sku": "S25k",
+      "name": "小个子150XS春纯欲性感辣妹显身材短款上衣蕾丝边喇叭裤休闲套装",
+      "款号": null,
+      "category": "套装",
+      "price": 139.9,
+      "price_num": "N125",
+      "sales_lower": 100,
+      "sales_label": "100+人付款",
+      "sales_num": "N155",
+      "size_or_height": "150cm（XS起）",
+      "store": "小小个小码女装定制",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 26,
+      "sku": "S26k",
+      "name": "150小矮个子学院风毛呢半身裙女秋冬中长款复古中裙高腰a字百褶裙",
+      "款号": null,
+      "category": "半身裙",
+      "price": 169.0,
+      "price_num": "N126",
+      "sales_lower": 800,
+      "sales_label": "800+人付款",
+      "sales_num": "N156",
+      "size_or_height": "145–150cm",
+      "store": "巧巧家小个子女装",
+      "platform": "淘宝",
+      "source_file": "S08"
+    },
+    {
+      "rank": 27,
+      "sku": "S27k",
+      "name": "毛呢百褶半身裙女秋冬学院风小矮个子高腰A字短裙显高防走光格子",
+      "款号": null,
+      "category": "半身裙",
+      "price": 166.0,
+      "price_num": "N127",
+      "sales_lower": 1000,
+      "sales_label": "1000+人付款",
+      "sales_num": "N157",
+      "size_or_height": "小个子（未标身高）",
+      "store": "巧巧家小个子女装",
+      "platform": "淘宝",
+      "source_file": "S08"
+    },
+    {
+      "rank": 28,
+      "sku": "S28k",
+      "name": "正肩V领短袖t恤女新款夏季显瘦高级感甜辣妹修身ins百搭小众上衣",
+      "款号": null,
+      "category": "上衣",
+      "price": 9.9,
+      "price_num": "N128",
+      "sales_lower": 900,
+      "sales_label": "900+人付款",
+      "sales_num": "N158",
+      "size_or_height": "小个子（未标身高）",
+      "store": "婉裳定制女装",
+      "platform": "淘宝",
+      "source_file": "S07"
+    },
+    {
+      "rank": 29,
+      "sku": "S29k",
+      "name": "燕麦色内搭长袖打底衫女2026秋季新款辣妹修身显瘦韩系可单穿上衣",
+      "款号": null,
+      "category": "上衣",
+      "price": 43.25,
+      "price_num": "N129",
+      "sales_lower": 5000,
+      "sales_label": "5000+人付款",
+      "sales_num": "N159",
+      "size_or_height": "小个子（未标身高）",
+      "store": "芦荟女孩 ALOE GIRL",
+      "platform": "淘宝",
+      "source_file": "S08"
+    },
+    {
+      "rank": 30,
+      "sku": "S30k",
+      "name": "95棉新款小众设计百搭宽松连帽T恤纽扣外穿显瘦洋气秋季长袖上衣",
+      "款号": null,
+      "category": "上衣",
+      "price": 56.33,
+      "price_num": "N130",
+      "sales_lower": 2000,
+      "sales_label": "2000+人付款",
+      "sales_num": "N160",
+      "size_or_height": "小个子（未标身高）",
+      "store": "衣研所LAB",
+      "platform": "淘宝",
+      "source_file": "S08"
+    }
+  ],
+  "explore": [
+    {
+      "text": "30款样本中30款无一是品牌旗舰店SKU，爆款全部来自“身高段命名”的白牌定制店",
+      "value": 30,
+      "unit": "款",
+      "source_file": "S06",
+      "why_important": "小码赛道的爆品不是品牌资产，而是“145/150/155”搜索词+纸样；进入者要抢的是词与版型，不是明星代言。"
+    },
+    {
+      "text": "抖音裙装直播占69%、达人占64%，同品类退货率60%—90%，直播成交有效留存只剩10%—40%",
+      "value": 40,
+      "unit": "%",
+      "source_file": "S03",
+      "why_important": "把直播GMV当收入会高估2.5—10倍；内容投放的KPI必须改成退货后有效GMV，而不是成交额。"
+    }
+  ],
+  "conflicts": [
+    {
+      "metric": "女装退货率",
+      "note": "平台后台、行业调研、直播、工厂发货四种口径不可互换；用单一均值会把单均贡献算高或算低。",
+      "values": [
+        {
+          "value": 40.5,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S15",
+          "caliber": "抖音服饰鞋包后台参考均值"
+        },
+        {
+          "value": 55,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S18",
+          "caliber": "女装线上渠道50%—60%取中值"
+        },
+        {
+          "value": 72.5,
+          "unit": "%",
+          "period": "2025",
+          "source_file": "S19",
+          "caliber": "行业平均65%—80%取中值"
+        },
+        {
+          "value": 85,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S19",
+          "caliber": "直播电商80%—90%取中值"
+        },
+        {
+          "value": 2.1,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S17",
+          "caliber": "工厂侧发货口径"
+        }
+      ]
+    },
+    {
+      "metric": "客单价",
+      "note": "类目均值与品牌/单店口径不是同一总体。",
+      "values": [
+        {
+          "value": 127.5,
+          "unit": "元",
+          "period": "2026",
+          "source_file": "S15",
+          "caliber": "抖音服饰鞋包类目均值"
+        },
+        {
+          "value": 85.1,
+          "unit": "元",
+          "period": "2026-11",
+          "source_file": "S06",
+          "caliber": "30款淘宝SKU到手价均值"
+        },
+        {
+          "value": 49.8,
+          "unit": "元",
+          "period": "2026-11",
+          "source_file": "S06",
+          "caliber": "30款淘宝SKU到手价中位"
+        }
+      ]
+    },
+    {
+      "metric": "毛利率",
+      "note": "类目均值与上市公司审计口径不同，中高端品牌显著更高。",
+      "values": [
+        {
+          "value": 55.0,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S15",
+          "caliber": "抖音服饰鞋包类目均值"
+        },
+        {
+          "value": 64.63,
+          "unit": "%",
+          "period": "2025",
+          "source_file": "S21",
+          "caliber": "朗姿女装业务，上市公司审计口径"
+        },
+        {
+          "value": 66.6,
+          "unit": "%",
+          "period": "FY2026",
+          "source_file": "S22",
+          "caliber": "江南布衣集团，上市公司审计口径"
+        }
+      ]
+    },
+    {
+      "metric": "品类占比",
+      "note": "渠道、期次、口径不同，不能相加或直接外推全国。",
+      "values": [
+        {
+          "value": 13.1,
+          "unit": "%",
+          "period": "2022Q1",
+          "source_file": "S01",
+          "caliber": "抖音女装连衣裙销售额占比"
+        },
+        {
+          "value": 40,
+          "unit": "%",
+          "period": "2026",
+          "source_file": "S04",
+          "caliber": "抖音裙装100—300元销售额占比"
+        },
+        {
+          "value": 56.7,
+          "unit": "%",
+          "period": "2026-11",
+          "source_file": "S06",
+          "caliber": "30款淘宝SKU裤装款数占比"
+        }
+      ]
+    }
+  ],
+  "unanswered": [],
+  "boundaries": [
+    "品类结构以抖音2021Q1—2022Q1为主，不能等同全国或2026。",
+    "UE为可复算模型：换AOV/毛利/退货率/佣金任一输入，必须按同式重算。",
+    "SKU清单为淘宝列表页+1688商品页公开值，付款人数是区间下限，不是精确月销。",
+    "版型参数分两层：GB/T 1335.2为净体值，成衣尺码表含放量，两者不可混用。",
+    "Q7未答子项：外套（非羽绒）无公开销售额占比，已用裤装/连衣裙/羽绒服三品类替代。",
+    "Q11未答子项：样本无品牌旗舰店SKU，且1688款无月销，尺码覆盖以标题身高段替代。"
+  ]
+}

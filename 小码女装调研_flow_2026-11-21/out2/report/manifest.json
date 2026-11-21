@@ -1,0 +1,385 @@
+{
+  "schema": "dsh.report.flow/v1",
+  "producer": "r01",
+  "producer_name": "蛙全局",
+  "intent": "小码女装市场研究：人群、竞争、价盘、经营、营销与SKU",
+  "branch": "sections",
+  "profile": "research",
+  "generated_at": "2026-11-22T01:26:11",
+  "evidence": {
+    "pack": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\_compiled\\evidence_pack.json",
+    "files": 113,
+    "unique_sources": 92,
+    "numbers": 434,
+    "min_sources": 50,
+    "min_sources_scope": "unique_url"
+  },
+  "section_check": {
+    "ok": true,
+    "sections": 13,
+    "checks": [
+      {
+        "id": "derived_ok",
+        "ok": true,
+        "msg": "派生量公式可算、声明值与实算一致",
+        "fail": []
+      },
+      {
+        "id": "pack_present",
+        "ok": true,
+        "msg": "证据包里有数字",
+        "count": 434
+      },
+      {
+        "id": "standfirst_number",
+        "ok": true,
+        "msg": "导语必须是带数字的结论"
+      },
+      {
+        "id": "has_sections",
+        "ok": true,
+        "msg": "至少 3 节"
+      },
+      {
+        "id": "sections_valid",
+        "ok": true,
+        "msg": "每节标题带数、有 refs、数字可解释、图带来源",
+        "table_warnings": [
+          {
+            "index": 1,
+            "kind": "prose",
+            "msg": "正文数字 2/33 无法逐条解释（6%）：解读2的1688、解读3的680"
+          },
+          {
+            "index": 2,
+            "kind": "prose",
+            "msg": "正文数字 2/23 无法逐条解释（9%）：解读2的1688、解读3的50"
+          },
+          {
+            "index": 3,
+            "kind": "prose",
+            "msg": "正文数字 6/47 无法逐条解释（13%）：解读1的350、解读1的350、解读1的350、解读3的279、解读3的746、解读3的746"
+          },
+          {
+            "index": 4,
+            "kind": "prose",
+            "msg": "正文数字 3/26 无法逐条解释（12%）：解读1的1688、解读2的3.2、解读2的12311"
+          },
+          {
+            "index": 5,
+            "kind": "prose",
+            "msg": "正文数字 3/54 无法逐条解释（6%）：解读2的76、解读2的57.5、解读3的80"
+          },
+          {
+            "index": 6,
+            "kind": "prose",
+            "msg": "正文数字 3/20 无法逐条解释（15%）：解读1的1688、解读1的1688、解读4的50"
+          },
+          {
+            "index": 7,
+            "kind": "prose",
+            "msg": "正文数字 2/21 无法逐条解释（10%）：解读1的16.3、解读3的40"
+          },
+          {
+            "index": 8,
+            "kind": "prose",
+            "msg": "正文数字 2/33 无法逐条解释（6%）：解读1的746、解读3的1688"
+          },
+          {
+            "index": 9,
+            "kind": "prose",
+            "msg": "正文数字 1/34 无法逐条解释（3%）：解读2的80"
+          },
+          {
+            "index": 10,
+            "kind": "prose",
+            "msg": "正文数字 5/25 无法逐条解释（20%）：解读1的9.9、解读1的85.1、解读1的149、解读1的81.2、解读1的17.9"
+          },
+          {
+            "index": 11,
+            "kind": "prose",
+            "msg": "正文数字 4/55 无法逐条解释（7%）：解读2的64.8、解读2的68.8、解读2的160、解读3的1688"
+          },
+          {
+            "index": 12,
+            "kind": "prose",
+            "msg": "正文数字 1/45 无法逐条解释（2%）：解读3的40"
+          },
+          {
+            "index": 13,
+            "kind": "prose",
+            "msg": "正文数字 2/32 无法逐条解释（6%）：解读1的6.07、解读3的8.71"
+          }
+        ],
+        "sections": [
+          {
+            "index": 1,
+            "title": "大盘3.2%，小码搜索137%",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "title": "女装CR10仅8.1%，长尾94.6%",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 3,
+            "title": "抖音100-300元贡献40%销售额",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 4,
+            "title": "女装大盘1.06万亿，小码无独立口径",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 5,
+            "title": "159cm以下女性4.0到5.2亿",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 6,
+            "title": "S码搜索增137%，供给百亿级",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 7,
+            "title": "单店43条退货：版型30%色差26%",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 8,
+            "title": "抖音女装前三品类合计37.8%",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 9,
+            "title": "退货16.7%是单均贡献盈亏线",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 10,
+            "title": "81%销量在50元以下，均价85元",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 11,
+            "title": "150档衣长65cm，腰节36cm",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 12,
+            "title": "小红书9.4亿话题、抖音转化1.75%",
+            "ok": true,
+            "errors": []
+          },
+          {
+            "index": 13,
+            "title": "36天对216天：周转差吃现金",
+            "ok": true,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "id": "banned_words",
+        "ok": true,
+        "msg": "禁用词清零",
+        "fail": []
+      },
+      {
+        "id": "boundary",
+        "ok": true,
+        "msg": "至少写一处边界"
+      }
+    ]
+  },
+  "contract_hash": "a090437a5b0f7b0c",
+  "layout_errors": [],
+  "files": {
+    "html": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\report.html",
+    "md": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\report.md",
+    "pdf": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\report.pdf",
+    "chart_stats": {
+      "total": 13,
+      "pro": 13,
+      "legacy": 0,
+      "fallback": 0,
+      "error": 0,
+      "sections_with_chart": 13,
+      "tables": 13
+    },
+    "chart_engine": {
+      "pro": 13,
+      "legacy": 0,
+      "table": 13
+    },
+    "pdf_status": "created"
+  },
+  "spec_stats": {
+    "tables": {
+      "tables": 15,
+      "with_unit": 0,
+      "unit_headers": 0,
+      "numeric": 178,
+      "tone": 0,
+      "total_row": 0
+    },
+    "charts": {
+      "charts": 13,
+      "ref_added": 1,
+      "subtitle_added": 13
+    },
+    "errors": [],
+    "ok": true
+  },
+  "chart_stats": {
+    "total": 13,
+    "pro": 13,
+    "legacy": 0,
+    "fallback": 0,
+    "error": 0,
+    "sections_with_chart": 13,
+    "tables": 13
+  },
+  "chart_engine": {
+    "pro": 13,
+    "legacy": 0,
+    "table": 13
+  },
+  "gate": {
+    "flow": {
+      "ok": true,
+      "verdict": "PASS",
+      "violations": [],
+      "stats": {
+        "chars": 20400,
+        "numbers": 1490,
+        "density": 73.0,
+        "figures": 13,
+        "figure_sources": 13,
+        "boundaries": 13,
+        "duplicate_sentences": 1,
+        "duplicate_rate": 0.003,
+        "density_floor": 25
+      },
+      "depth": {
+        "profile": "research",
+        "ok": true,
+        "score": 90.9
+      },
+      "gate_script": "scripts/check_report_flow.py",
+      "gate_sha256": "a63f7f4c70f33a768e09cf3fe73624eaa158c28e8f2e6e6716da797dccf95a1e",
+      "gate_pinned": true,
+      "checked_at": "2026-11-22T01:26:11"
+    }
+  },
+  "flow_gate": {
+    "ok": true,
+    "sections": 13,
+    "avg_chars": 1141.3,
+    "score": 100,
+    "hard_fail": []
+  },
+  "coverage_gate": {},
+  "quotes": {
+    "mode": "off",
+    "ok": false,
+    "verdict": "SKIP",
+    "degraded": true,
+    "reasons": [
+      "quote_verify_partial",
+      "strict_quotes_off"
+    ],
+    "total": 113,
+    "verified": 89,
+    "counts": {
+      "verified": 89,
+      "quote_not_found": 20,
+      "fetch_failed": 4
+    }
+  },
+  "dispatch": {
+    "mode": "nonce",
+    "issued": 5,
+    "verified": 5,
+    "rejected": []
+  },
+  "questions": {
+    "must": [
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q4",
+      "Q5",
+      "Q6",
+      "Q7",
+      "Q8",
+      "Q9",
+      "Q10",
+      "Q11",
+      "Q12",
+      "Q13"
+    ],
+    "support": [],
+    "asks": {
+      "Q1": "中国小码女装市场规模与女装大盘规模分别是多少",
+      "Q2": "身高159厘米以下女性人口规模与占比是多少",
+      "Q3": "小码女装专属供给规模、相关企业与店铺数量有多少",
+      "Q4": "小码女装2025至2026年增速多少，增长来自渗透还是大盘",
+      "Q5": "小码女装竞争格局如何，CR10与头部品牌份额是多少",
+      "Q6": "小码女装价格带结构如何，各价位销售额贡献多少",
+      "Q7": "小码女装品类结构如何，连衣裙裤装外套各占多少，爆品有哪些",
+      "Q8": "小码女装退货率、客单价、毛利与单均贡献如何构成经营模型",
+      "Q9": "小码女装库存周转与补单模式如何影响现金流",
+      "Q10": "小码女装在小红书与抖音的内容获客与转化效率如何",
+      "Q11": "TOP30 爆款 SKU 的款号、价格、尺码覆盖与月销分别是多少",
+      "Q12": "SKU 级退货原因中版型、尺码、色差、物流各占多少",
+      "Q13": "小码核心版型参数（衣长、腰线、肩宽、袖长）在各身高段应取什么值"
+    },
+    "claimed": [
+      "Q1",
+      "Q10",
+      "Q11",
+      "Q12",
+      "Q13",
+      "Q2",
+      "Q3",
+      "Q4",
+      "Q5",
+      "Q6",
+      "Q7",
+      "Q8",
+      "Q9"
+    ],
+    "unanswered": [],
+    "coverage": 1.0,
+    "unanswered_detail": [],
+    "explore": 10
+  },
+  "exchange": {
+    "counts": {
+      "total": 0,
+      "answered": 0,
+      "declined": 0,
+      "open": 0
+    },
+    "open": []
+  },
+  "degraded": [
+    "quote_verify_partial",
+    "strict_quotes_off"
+  ],
+  "ok": true
+}

@@ -171,6 +171,20 @@ def _metrics(contract: Dict[str, Any],
     """
     if contract.get("metric_strip"):
         return contract["metric_strip"]
+    # 作者声明优先（2026-11-22）：claims.meta.metrics 是 R01 挑过的三个数，
+    # 比「决策纸第一个数」更稳定；没有才退回决策项。
+    declared = (pack or {}).get("meta", {}).get("metrics") or []
+    if declared:
+        out = []
+        for m in declared[:4]:
+            if not isinstance(m, dict) or not str(m.get("value") or "").strip():
+                continue
+            out.append({"label": str(m.get("label") or "")[:24],
+                        "value": str(m.get("value")),
+                        "note": str(m.get("note") or "作者声明")[:24],
+                        "status": "none"})
+        if out:
+            return out
     # 决策纸优先：封面的 3 个数必须来自决策项，不是「本节第一个 ref」
     dec = contract.get("decision") or {}
     if dec.get("items"):

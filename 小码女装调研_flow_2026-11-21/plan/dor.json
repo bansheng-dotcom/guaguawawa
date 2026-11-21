@@ -1,0 +1,252 @@
+{
+  "items": [
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r06",
+      "card_id": "Q1",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r06",
+      "card_id": "Q2",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r06",
+      "card_id": "Q3",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r05",
+      "card_id": "Q4",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r05",
+      "card_id": "Q5",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r05",
+      "card_id": "Q6",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r07",
+      "card_id": "Q7",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r07",
+      "card_id": "Q8",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r07",
+      "card_id": "Q9",
+      "score": 18,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r03",
+      "card_id": "Q10",
+      "score": 20,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r14",
+      "card_id": "Q11",
+      "score": 20,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r03",
+      "card_id": "Q12",
+      "score": 20,
+      "cells": 14
+    },
+    {
+      "ok": true,
+      "items": {
+        "value": true,
+        "detail": true,
+        "deps": true,
+        "staffing": true,
+        "size": true,
+        "acceptance": true,
+        "quality": true,
+        "demo": true,
+        "data": true
+      },
+      "missing": [],
+      "role": "r14",
+      "card_id": "Q13",
+      "score": 20,
+      "cells": 14
+    }
+  ],
+  "ok": true
+}

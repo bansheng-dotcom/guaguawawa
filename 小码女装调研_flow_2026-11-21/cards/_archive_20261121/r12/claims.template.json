@@ -1,0 +1,327 @@
+{
+  "schema": "dsh.agent.claims/v1",
+  "contract": "v2",
+  "card_spec": true,
+  "role": "r12",
+  "dispatch": {
+    "nonce": "1562b1c6175c7492",
+    "role": "r12",
+    "by": "",
+    "questions": [
+      "Q10"
+    ]
+  },
+  "meta": {
+    "title": "中国小码女装市场的规模有多大，身高159厘米以下人群有多少，专属供给有多少？小码女装2025至2026年增速如何，增长来自渗透还是大盘？小码女装竞争格局如何，CR10与头部品牌份额是多少？小码女装的价格带与品类结构如何，哪个价位最赚钱？小码女装的退货率、客单价、毛利与单均贡献如何构成经营模型？小码女装的库存周转与补单模式如何影响现金流？小码女装在小红书与抖音的内容获客与转化效率如何？小码女装的进入策略与90天落地动作是什么，验收指标与停止条件是什么？",
+    "intent": "中国小码女装市场的规模有多大，身高159厘米以下人群有多少，专属供给有多少？小码女装2025至2026年增速如何，增长来自渗透还是大盘？小码女装竞争格局如何，CR10与头部品牌份额是多少？小码女装的价格带与品类结构如何，哪个价位最赚钱？小码女装的退货率、客单价、毛利与单均贡献如何构成经营模型？小码女装的库存周转与补单模式如何影响现金流？小码女装在小红书与抖音的内容获客与转化效率如何？小码女装的进入策略与90天落地动作是什么，验收指标与停止条件是什么？",
+    "doc_type": "调研报告",
+    "profile": "research"
+  },
+  "numbers": [
+    {
+      "id": "N1",
+      "name": "",
+      "value": 0,
+      "unit": "",
+      "source_file": "S1"
+    }
+  ],
+  "sources": [
+    {
+      "file": "S1",
+      "kind": "web",
+      "title": "",
+      "org": "",
+      "url": "",
+      "date": "",
+      "quote": ""
+    }
+  ],
+  "sections": [
+    {
+      "title": "（结论 + 数字）",
+      "question": "",
+      "answers": [
+        "Q10"
+      ],
+      "refs": [
+        "N1"
+      ],
+      "boundary": "口径与适用范围",
+      "reading": [
+        {
+          "strong": "事实　",
+          "text": "≤300 字",
+          "refs": [
+            "N1"
+          ]
+        },
+        {
+          "strong": "机理　",
+          "text": "≤300 字",
+          "refs": [
+            "N1"
+          ]
+        },
+        {
+          "strong": "反例　",
+          "text": "≤300 字",
+          "refs": [
+            "N1"
+          ]
+        }
+      ],
+      "chart": {
+        "type": "hbar",
+        "title": "（含数字）",
+        "source": "机构名",
+        "refs": [
+          "N1"
+        ],
+        "bars": [
+          {
+            "label": "…",
+            "value": 0
+          }
+        ]
+      },
+      "falsifier": "什么情况下这条作废"
+    }
+  ],
+  "cells": [
+    {
+      "cell_id": "Q10.对象.TOP5 品牌",
+      "qid": "Q10",
+      "measure": "share",
+      "grain": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.对象.长尾合计",
+      "qid": "Q10",
+      "measure": "share",
+      "grain": "G_brand_channel_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.空间.全国",
+      "qid": "Q10",
+      "measure": "return_rate",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.空间.省",
+      "qid": "Q10",
+      "measure": "return_rate",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.空间.城市",
+      "qid": "Q10",
+      "measure": "return_rate",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.时间.2024",
+      "qid": "Q10",
+      "measure": "return_rate",
+      "grain": "G_national_year",
+      "period": "2024",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.时间.2025",
+      "qid": "Q10",
+      "measure": "return_rate",
+      "grain": "G_national_year",
+      "period": "2025",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.时间.2026",
+      "qid": "Q10",
+      "measure": "return_rate",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.结构.品类×渠道",
+      "qid": "Q10",
+      "measure": "category_mix",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.结构.价格带×渠道",
+      "qid": "Q10",
+      "measure": "category_mix",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.机制.量价拆解",
+      "qid": "Q10",
+      "measure": "gross_margin",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.机制.份额变化",
+      "qid": "Q10",
+      "measure": "gross_margin",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.边界.口径 vs 统计公报",
+      "qid": "Q10",
+      "measure": "return_rate",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    },
+    {
+      "cell_id": "Q10.边界.样本覆盖",
+      "qid": "Q10",
+      "measure": "return_rate",
+      "grain": "G_national_year",
+      "period": "2026",
+      "causal_level": "A",
+      "status": "open",
+      "value": null,
+      "unit": "",
+      "source_file": "",
+      "grade": "",
+      "quality": {},
+      "tried": [],
+      "why": ""
+    }
+  ],
+  "explore": [
+    {
+      "text": "",
+      "value": 0,
+      "unit": "",
+      "source_file": "S1",
+      "why_important": ""
+    }
+  ],
+  "unanswered": []
+}

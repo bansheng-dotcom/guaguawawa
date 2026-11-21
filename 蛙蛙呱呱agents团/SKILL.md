@@ -31,20 +31,28 @@ python guagua.py doctor                    # 环境诊断 + 20 角色体检
 
 `call` 规则：第一个参数是角色，其后参数原样转发给该角色的 `agent.py`。
 
-## 报告产线 v5（面板优先）
+## 报告产线 v5（面板优先，唯一默认）
 
-分析不是写观点，是**在面板上做运算**。整条线每步都有产物与门禁：
+分析不是写观点，是**在面板上做运算**。整条线每步都有产物与门禁；**拆卡是唯一默认路线**（2026-11-22 起硬门）：
 
 ```bash
 report clarify --intent "…" --out <项目>      # 生成接活 12 问（返回 ask_user，由 R01 在对话里问）
 report intake --dir <项目> --show             # 看 12 问
 report intake --dir <项目> --answer I1=…      # 记录用户回答（答满 10 个才可拆卡）
-report clarify --dir <项目> --confirm
-report brief --dir <项目> --plan --confirm    # 签 brief + DoR 9 项 + 按问题簇自适应发卡
-# 角色交 cards/<role>/rows.json（面板行 + dispatch 块；不写长文、不画图）
-report collect --dir <项目> --out <项目>/out   # 行 → raw.xlsx / metrics / panel / theses → 节
+report clarify --dir <项目> --confirm --user-said "用户原话"
+report brief --dir <项目> --plan              # 打映射表 + 卡片清单给用户看（不发卡）
+report brief --dir <项目> --plan --confirm --ack-cards --user-said "用户原话"
+# 子智能体按 nonce 执行，交 cards/<role>/claims.json（不写长文、不画图）
+report preflight --dir <项目>                 # 9 项预检：clarify/plan/issued/claims/nonce/来源/语义层/用户确认/看过卡
+report collect --dir <项目> --out <项目>/out   # 验 nonce/来源/回抓 → claims_merged.json
 report run-line --intent "…" --claims out/claims_merged.json --out out/report
 ```
+
+**人必须在环里（2026-11-22 起）**：12 问必须问给用户（`--by agent` 代答不算，`user_answers<10` 签不了 brief）；
+澄清确认必须带 `--user-said` 原话；发卡前必须 `--plan` 把卡片清单给用户过目，确认时带 `--ack-cards`。
+没有 `issued.json` 的项目，`collect` 直接拒收（老卡只有 `--allow-legacy` 且标降级）；
+手写 claims 走 `--solo-claims --allow-solo`，同样过 50 源门槛，产物标 `solo_no_dispatch`。
+`run-line --claims` 只接受收卡产物（带 dispatch/coverage 凭证）。
 
 | 层 | 模块 | 产物 |
 |---|---|---|
@@ -52,10 +60,12 @@ report run-line --intent "…" --claims out/claims_merged.json --out out/report
 | 面板规格（实体×维度×期次×指标） | `core/panel.py` | `plan/panels.json` |
 | 自适应发卡（卡数 = Σ ceil(簇格数/24)） | `core/card_plan.py` | `plan/cards.json` |
 | 卡就绪（DoR 9 项，缺一不发） | `core/dor.py` | `plan/dor.json` |
-| 行/面板整备（归一/去重/冲突/覆盖） | `core/data_model.py` | `raw.xlsx`（6 表） |
+| 派活校验（nonce + 签名 + 执行者） | `core/report_dispatch.py` | `coverage/issued.json` |
+| 预检七项 | `scripts/preflight.py` | 退出码 / PASS-FAIL |
+| 收卡整备（归一/去重/冲突/覆盖） | `core/dispatch.py` | `claims_merged.json`（含 coverage/dispatch） |
 | 论点 / 查询 / 写作 | `core/synthesis.py` + `core/chart_query.py` | `theses.json` / `report.html` |
 
-硬规则：**未注册 metric 拒收**；**图只许 query(raw)**；图数据点 = 查询行数；DoR 未过不发卡；brief 未签不拆卡。
+硬规则：**未注册 metric 拒收**；**图只许 query(raw)**；图数据点 = 查询行数；DoR 未过不发卡；brief 未签不拆卡；**没有 nonce 的卡不收**。
 
 Trae 镜像同步：`python scripts/sync_trae_skill.py`（`--check` 只比对不写盘）。
 

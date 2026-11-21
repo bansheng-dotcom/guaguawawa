@@ -1,8 +1,0 @@
-{
-  "schema": "dsh.report.line/v1",
-  "mode": "agent",
-  "intent": "中国酒水赛道全景：缩量、集中与价格倒挂下的进入判断",
-  "evidence": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out\\_compiled\\evidence_pack.json",
-  "draft": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out\\_compiled\\draft_sections.json",
-  "detected_at": "2026-11-20T19:26:05"
-}

@@ -89,9 +89,15 @@ def test_collect_flags_missing_cards_when_strict():
     assert any("缺卡" in p for p in problems), problems
     assert "r16" in merged["coverage"]["missing"]
 
-    lenient, problems2 = dispatch.collect(str(TMP))
-    assert not problems2, "默认（宽松）行为要向后兼容，只在 coverage 里留痕"
+    # 2026-11-22：默认已改为硬门（没 issued.json 就拒收）。
+    blocked, probs_blocked = dispatch.collect(str(TMP))
+    assert any("没有 issued.json" in p for p in probs_blocked), probs_blocked
+
+    # 显式 legacy 才回到「只留痕」的老行为，并在产物上标降级。
+    lenient, problems2 = dispatch.collect(str(TMP), allow_legacy=True)
+    assert not problems2, "显式 legacy 时只在 coverage 留痕"
     assert lenient["coverage"]["missing"]
+    assert "legacy_no_issued" in lenient["degraded"]
 
 
 def test_collect_namespaces_and_merges():
@@ -116,7 +122,7 @@ def test_collect_namespaces_and_merges():
     }
     (TMP / "cards" / "r05" / "claims.json").write_text(
         json.dumps(card, ensure_ascii=False), encoding="utf-8")
-    merged, problems = dispatch.collect(str(TMP))
+    merged, problems = dispatch.collect(str(TMP), allow_legacy=True)
     assert not problems, problems
     assert merged["numbers"][0]["id"] == "r05:N1"
     assert merged["numbers"][0]["source_file"] == "r05:S1"
@@ -164,9 +170,9 @@ def test_min_sources_gate():
     dispatch.write_cards("测试用", str(TMP))
     (TMP / "cards" / "r05" / "claims.json").write_text(
         json.dumps(_card(), ensure_ascii=False), encoding="utf-8")
-    merged, problems = dispatch.collect(str(TMP), min_sources=50)
+    merged, problems = dispatch.collect(str(TMP), min_sources=50, allow_legacy=True)
     assert any("低于门槛 50" in p for p in problems), problems
     assert merged["gaps"] == {} or merged["gaps"]["source_shortfall"] == 49
-    merged2, problems2 = dispatch.collect(str(TMP), min_sources=0)
+    merged2, problems2 = dispatch.collect(str(TMP), min_sources=0, allow_legacy=True)
     assert not problems2, problems2
     assert merged2["evidence"]["sources"] == 1

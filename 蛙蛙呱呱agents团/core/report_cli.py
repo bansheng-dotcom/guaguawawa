@@ -131,17 +131,22 @@ def cmd_clarify(args) -> int:
         print(json.dumps({"ok": False, "error": "--answer 需要 --dir"}, ensure_ascii=False))
         return 2
     if answers:
-        # 会话里问完把答案交回来：C1=… C2=… ；写入后自动确认
-        res = report_clarify.answer(args.dir, answers)
+        # 会话里问完把答案交回来：C1=… C2=… ；写入后自动确认（需用户原话）
+        res = report_clarify.answer(
+            args.dir, answers,
+            by=str(getattr(args, "by", "user") or "user"),
+            user_said=str(getattr(args, "user_said", "") or ""))
         print(json.dumps(res, ensure_ascii=False, indent=1))
         return 0 if res.get("ok") else 2
     if getattr(args, "confirm", False):
         if not args.dir:
             print(json.dumps({"ok": False, "error": "--confirm 需要 --dir"}, ensure_ascii=False))
             return 2
-        res = report_clarify.confirm(args.dir)
+        res = report_clarify.confirm(
+            args.dir, by="user",
+            user_said=str(getattr(args, "user_said", "") or ""))
         print(json.dumps(res, ensure_ascii=False, indent=1))
-        return 0
+        return 0 if res.get("ok") else 2
     if not (args.intent and args.out):
         print(json.dumps({"ok": False, "error": "需要 --intent 与 --out"}, ensure_ascii=False))
         return 2
@@ -174,7 +179,8 @@ def cmd_intake(args) -> int:
         print(json.dumps({"ok": False, "error": "需要 --answer I1=… 或 --show"},
                          ensure_ascii=False))
         return 2
-    res = intake.answer(args.dir, args.answer)
+    res = intake.answer(args.dir, args.answer,
+                        by=str(getattr(args, "by", "user") or "user"))
     print(json.dumps(res, ensure_ascii=False, indent=1))
     return 0 if res.get("ok") else 2
 
@@ -197,13 +203,36 @@ def cmd_brief(args) -> int:
             # SOP v5：--confirm = 用户给 brief 签字（接活 12 问的确认动作）
             if getattr(args, "confirm", False):
                 from core import intake
+                if not getattr(args, "ack_cards", False):
+                    print(json.dumps({
+                        "ok": False, "stage": "card_ack",
+                        "error": "还没让用户看卡：确认前必须把卡片清单给用户过目",
+                        "hint": "先跑 report brief --dir <项目> --plan（会打印卡片清单），"
+                                "用户点头后再加 --confirm --ack-cards "
+                                "--user-said \"用户原话\"",
+                    }, ensure_ascii=False, indent=1))
+                    return 2
                 if (Path(base) / "intake.json").is_file():
-                    sg = intake.sign_brief(base)
+                    sg = intake.sign_brief(
+                        base, by="user",
+                        user_said=str(getattr(args, "user_said", "") or ""))
                     if not sg.get("ok"):
                         print(json.dumps({"ok": False, "error": sg.get("error")},
                                          ensure_ascii=False, indent=1))
                         return 2
             res = report_dispatch.write_plan(base, confirm=bool(args.confirm))
+            # 用户过卡留痕：确认时把卡片清单与时间写进 plan.json
+            if getattr(args, "confirm", False):
+                try:
+                    import datetime as _dt
+                    _pp = Path(base) / "plan.json"
+                    _pl = json.loads(_pp.read_text(encoding="utf-8-sig"))
+                    _pl["acknowledged_at"] = _dt.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+                    _pl["acknowledged_by"] = "user"
+                    _pp.write_text(json.dumps(_pl, ensure_ascii=False, indent=2),
+                                   encoding="utf-8")
+                except Exception:  # noqa: BLE001
+                    pass
             # v1.5：拆卡 SOP 进产线。--plan 即生成五轴并判 S7 门禁；
             # 门禁不过，--confirm 一律不发卡。
             from core import card_issue
@@ -216,6 +245,21 @@ def cmd_brief(args) -> int:
                 res["hint"] = "拆卡门禁未过；看 plan/pre_issue_gates.json，改完重跑"
                 print(json.dumps(res, ensure_ascii=False, indent=1))
                 return 2
+            # 没确认时把卡片清单摊给用户看（2026-11-22）：不发卡、不执行，
+            # 等用户点头后再 --confirm --ack-cards。
+            if not getattr(args, "confirm", False):
+                try:
+                    cj = json.loads((Path(base) / "plan" / "cards.json")
+                                    .read_text(encoding="utf-8-sig"))
+                    res["cards_preview"] = [
+                        {"qid": c.get("qid"), "owner": c.get("owner"),
+                         "cells": len(c.get("cells") or [])}
+                        for c in (cj.get("cards") or [])]
+                except Exception:  # noqa: BLE001
+                    res["cards_preview"] = []
+                res["ask_user"] = ("以上是拆卡清单（问句→负责人→格子数）。"
+                                   "确认后加 --confirm --ack-cards "
+                                   "--user-said \"用户原话\" 才会发卡。")
             if args.confirm:
                 # 审完即发：确认映射与发卡是同一次动作，避免"确认了但没发"
                 res = {**res, "issued": report_dispatch.issue(base)}
@@ -245,7 +289,28 @@ def cmd_brief(args) -> int:
                                    "新路径用 --dir（先 clarify 再 --plan）"},
                          ensure_ascii=False))
         return 2
-    # v1.5：老路径也走拆卡 SOP。缺澄清自动补，缺语义层直接拒（写模板）。
+    # v1.5：老路径也走拆卡 SOP。但 2026-11-22 起不再自动补澄清：
+    # 没有用户确认过的 clarify.json，一律不发卡。
+    cl = Path(args.out) / "clarify.json"
+    if not cl.is_file():
+        print(json.dumps({
+            "ok": False, "stage": "clarify_required",
+            "error": "老路径不再自动补澄清卡：没有 clarify.json 就不发卡",
+            "hint": "先 report clarify --intent \"…\" --out <项目>，把 12 问问给用户，"
+                    "拿到 --user-said 后再 --confirm",
+        }, ensure_ascii=False, indent=1))
+        return 2
+    try:
+        _cl = json.loads(cl.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError):
+        _cl = {}
+    if _cl.get("status") != "confirmed" or str(_cl.get("confirmed_by") or "") != "user":
+        print(json.dumps({
+            "ok": False, "stage": "clarify_required",
+            "error": "澄清卡未由用户确认（需要 status=confirmed、confirmed_by=user）",
+            "hint": "把 12 问问给用户，再用 clarify --confirm --user-said \"原话\"",
+        }, ensure_ascii=False, indent=1))
+        return 2
     from core import card_issue
     res = card_issue.bootstrap(Path(args.out), args.intent, only)
     res["mode"] = "legacy+card_spec"
@@ -264,6 +329,20 @@ def cmd_exchange(args) -> int:
     p.write_text(md, encoding="utf-8")
     print(json.dumps({**res, "ledger": str(p)}, ensure_ascii=False, indent=1))
     return 0 if res.get("ok") else 1
+
+
+def cmd_preflight(args) -> int:
+    """拆卡线预检：clarify/plan/issued/claims/nonce/来源/语义层七项。"""
+    import importlib.util
+    sp = ROOT / "scripts" / "preflight.py"
+    spec = importlib.util.spec_from_file_location("dsh_preflight", sp)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    r = mod.run(args.dir, int(getattr(args, "min_sources", 50) or 50))
+    for c in r["checks"]:
+        print(("[OK]   " if c["ok"] else "[FAIL] ") + f'{c["id"]} {c["msg"]}')
+    print("PASS" if r["ok"] else "FAIL")
+    return 0 if r["ok"] else 1
 
 
 def cmd_collect(args) -> int:
@@ -296,7 +375,8 @@ def cmd_collect(args) -> int:
         verify_quotes=verify,
         strict_verify=strict and verify,
         intent=str(getattr(args, "intent", "") or ""),
-        allow_open_needs=bool(getattr(args, "allow_open_needs", False)))
+        allow_open_needs=bool(getattr(args, "allow_open_needs", False)),
+        allow_legacy=bool(getattr(args, "allow_legacy", False)))
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     cov = merged.get("coverage") or {}
@@ -408,6 +488,51 @@ def cmd_run_line(args) -> int:
         import subprocess
         import sys as _sys
         from pathlib import Path as _P
+        cp = _P(claims_path)
+        try:
+            _c = json.loads(cp.read_text(encoding="utf-8-sig"))
+        except (OSError, json.JSONDecodeError) as exc:
+            print(json.dumps({"ok": False, "stage": "claims",
+                              "error": f"claims 读不了：{exc}"},
+                             ensure_ascii=False))
+            return 2
+        # 2026-11-22 起：只有「收卡产物」才能直接渲染。收卡产物带 dispatch
+        # （nonce 校验结果）或 coverage（发卡/收卡对账）；手写 claims 没有这两样，
+        # 必须显式 --solo-claims --allow-solo，并按唯一 URL 过来源门槛。
+        is_card_output = bool((_c.get("dispatch") or {}).get("issued")) \
+            or bool((_c.get("coverage") or {}).get("delivered"))
+        if not is_card_output:
+            if not (bool(getattr(args, "solo_claims", False))
+                    and bool(getattr(args, "allow_solo", False))):
+                print(json.dumps({
+                    "ok": False, "stage": "dispatch_gate",
+                    "error": "这份 claims 不是收卡产物（缺 dispatch/coverage 凭证），"
+                             "拆卡线被跳过",
+                    "hint": "走拆卡：report clarify → brief --plan --confirm → "
+                            "子智能体按 nonce 交 claims → report collect → "
+                            "run-line --claims out/claims_merged.json；"
+                            "确需单人稿请用 --solo-claims --allow-solo（会标降级）"
+                }, ensure_ascii=False, indent=1))
+                return 2
+            urls = {str(s.get("url")).strip()
+                    for s in (_c.get("sources") or []) if s.get("url")}
+            need = int(getattr(args, "min_sources", 50) or 0)
+            if need and len(urls) < need:
+                print(json.dumps({
+                    "ok": False, "stage": "evidence_gate",
+                    "error": f"单人稿唯一来源 {len(urls)} 条，低于门槛 {need}",
+                    "hint": "补采到 50 条唯一 URL，或 --min-sources 0 显式关闭"
+                }, ensure_ascii=False, indent=1))
+                return 2
+            mode_p = _P(args.out) / "input_mode.json"
+            mode_p.parent.mkdir(parents=True, exist_ok=True)
+            mode_p.write_text(json.dumps({
+                "schema": "dsh.report.input_mode/v1", "mode": "solo",
+                "solo": True, "degraded": ["solo_no_dispatch"],
+                "sources": len(urls), "claims": str(cp),
+            }, ensure_ascii=False, indent=1), encoding="utf-8")
+            print("[degraded] 单人稿：未拆卡、未收卡；产物已标 solo_no_dispatch",
+                  file=sys.stderr)
         comp = _P(__file__).resolve().parent.parent / "scripts" / "compile_agent_report.py"
         proc = subprocess.run([_sys.executable, str(comp), str(claims_path),
                                "--out", str(_P(args.out) / "_compiled")],
@@ -577,7 +702,13 @@ def main(argv=None) -> int:
     rl.add_argument("--evidence", default=None, help="证据包 JSON（智能体写稿路径）")
     rl.add_argument("--draft", default=None, help="章节稿 JSON（智能体写稿路径）")
     rl.add_argument("--claims", default=None,
-                    help="claims.json：一步完成 编译+交叉质询+过闸+渲染")
+                    help="收卡产物 claims_merged.json：一步完成 编译+质询+过闸+渲染")
+    rl.add_argument("--solo-claims", dest="solo_claims", action="store_true",
+                    help="单人稿：跳过拆卡直写 claims（必须同时给 --allow-solo，标降级）")
+    rl.add_argument("--allow-solo", dest="allow_solo", action="store_true",
+                    help="显式授权单人稿；未拆卡、未收卡的 claims 一律拒收")
+    rl.add_argument("--min-sources", type=int, default=50,
+                    help="单人稿唯一来源下限（默认 50；收卡产物以 collect 的门槛为准）")
     rl.add_argument("--decision", default=None,
                     help="决策契约 JSON；缺省读 <dir>/data/decision.json，再缺省按出场专家起草")
     rl.set_defaults(func=cmd_run_line)
@@ -653,6 +784,10 @@ def main(argv=None) -> int:
                     help="新路径：先出「问题→角色」映射表（draft）")
     bf.add_argument("--confirm", action="store_true",
                     help="新路径：确认映射并直接发卡（每卡带 nonce）")
+    bf.add_argument("--ack-cards", dest="ack_cards", action="store_true",
+                    help="用户已看过卡片清单；不加就不许 --confirm 发卡")
+    bf.add_argument("--user-said", dest="user_said", default="",
+                    help="用户对目标/卡片的一句原话；签 brief 必填")
     bf.set_defaults(func=cmd_brief)
 
     cf = sub.add_parser("clarify", help="接任务先对齐意图：出澄清卡 / 确认澄清卡")
@@ -663,17 +798,28 @@ def main(argv=None) -> int:
     cf.add_argument("--answer", action="append", default=None,
                     metavar="C1=答案", help="回答澄清卡里的 confirm 项（可多次），写完自动确认")
     cf.add_argument("--force", action="store_true", help="覆盖已有 clarify.json")
+    cf.add_argument("--by", choices=("user", "agent"), default="user",
+                    help="答案是谁给的（默认 user；agent 代答不算确认）")
+    cf.add_argument("--user-said", dest="user_said", default="",
+                    help="用户确认目标的一句原话；缺了不确认")
     cf.set_defaults(func=cmd_clarify)
 
     it = sub.add_parser("intake", help="R01 接活 12 问（SOP v5）：填写或查看")
     it.add_argument("--dir", required=True)
     it.add_argument("--answer", action="append", default=None, metavar="I1=答案")
+    it.add_argument("--by", choices=("user", "agent"), default="user",
+                    help="答案是谁给的（默认 user；agent 代答不算用户确认）")
     it.add_argument("--show", action="store_true")
     it.set_defaults(func=cmd_intake)
 
     ex = sub.add_parser("exchange", help="卡间协商：路由 needs / INBOX / 闭环台账")
     ex.add_argument("--dir", required=True, help="项目目录（含 cards/）")
     ex.set_defaults(func=cmd_exchange)
+
+    pf = sub.add_parser("preflight", help="拆卡线预检：7 项不过就不进收卡/渲染")
+    pf.add_argument("--dir", required=True)
+    pf.add_argument("--min-sources", type=int, default=50)
+    pf.set_defaults(func=cmd_preflight)
 
     cl = sub.add_parser("collect", help="收各角色 claims → 合并 → 过闸 → 出报告")
     cl.add_argument("--dir", required=True)
@@ -696,6 +842,8 @@ def main(argv=None) -> int:
                     help="显式授权降级；降级会写进 manifest.quotes.degraded")
     cl.add_argument("--allow-open-needs", action="store_true",
                     help="允许卡间协商有未闭环的 need（默认不闭环就拒收）")
+    cl.add_argument("--allow-legacy", action="store_true",
+                    help="放行没有 issued.json 的老卡（降级，会写进 manifest.degraded）")
     cl.set_defaults(func=cmd_collect)
 
     rs = sub.add_parser("research", help="并行调研：发卡 → 提示词 → 并行执行 → 可选收卡")
@@ -722,7 +870,7 @@ def main(argv=None) -> int:
     # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
     known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
              "research-plan", "brief", "collect", "research", "flow", "attest",
-             "clarify", "exchange", "intake", "-h", "--help"}
+             "clarify", "exchange", "intake", "preflight", "-h", "--help"}
     if argv and argv[0] not in known:
         rest = argv
         argv = ["run-line", "--intent", rest[0], *rest[1:]]

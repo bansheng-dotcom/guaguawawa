@@ -13,29 +13,32 @@
 
 ---
 
-## 零、两条出报告的路（v12）
+## 零、出报告只有一条默认路（2026-11-22 起）
 
-| 路 | 谁写内容 | 命令 | 适合 |
+| 路 | 谁写内容 | 命令 | 状态 |
 |---|---|---|---|
-| **A 数据驱动** | 方法库从结构化数据算 | `report "问题" --dir <项目> --out <目录>` | 你手上已有干净数据 |
-| **B 智能体调研** | 领域专家（模型+工具）调研成稿 | `report "问题" --claims <claims.json> --out <目录>` | 没有数据，要系统去查 |
+| **拆卡线（默认）** | R01 发卡 → 子智能体按 nonce 各写各的 → R01 只做合并与判断 | `clarify → brief --plan --confirm → collect → run-line --claims` | **唯一默认**，缺 `issued.json` 直接拒收 |
+| **A 数据驱动** | 方法库从结构化数据算 | `report "问题" --dir <项目> --out <目录>` | 可用（已有干净数据时） |
+| **B 单人稿** | 一个人写完 claims | `run-line --solo-claims --allow-solo --claims …` | **应急**，必须显式授权，过 50 源门槛，产物标 `solo_no_dispatch` |
 
-两条路共用同一个渲染器、同一套门禁、同一份交付物格式。
+拆卡线每步的硬门：brief 未签不拆卡；DoR 未过不发卡；没有 nonce/签名的卡不收；
+`collect` 默认 `--min-sources 50`（唯一 URL）+ 逐条回抓；`run-line --claims` 只接受收卡产物。
 
-### B 路的三步
+**人必须在环里（2026-11-22）**：
+- 12 问要问给用户；`intake --by agent` 代答不算，`user_answers<10` 签不了 brief；
+- `clarify --confirm` 必须带 `--user-said "用户原话"`；
+- 发卡前先 `brief --plan` 把卡片清单摊给用户看，确认时带 `--ack-cards`；
+- `preflight` 的 P8/P9 就是查这三件事，不通过不进收卡。
+
+### B 路（应急单人稿）
 
 ```bash
-# 1) 一句话 → 专业研究方案（系统自己拆，不问用户）
-python guagua.py report research-plan --intent "内蒙古调味料市场怎么做" --out <目录>
-#    → research_plan.json + research_brief.md（8 个模块、专家分工、检索词、证据等级）
-
-# 2) 专家按 brief 去查，交 claims.json（每条结论带原文引文、URL、来源等级）
-
-# 3) 编译 + 交叉质询 + 过闸 + 渲染，一条命令
-python guagua.py report "内蒙古调味料市场怎么做" --claims claims.json --out <目录> --pdf
+# 只有在你明确接受「生成与校验不分离」时才用
+python guagua.py report run-line --intent "…" --claims claims.json \
+  --solo-claims --allow-solo --min-sources 50 --out <目录> --pdf
 ```
 
-第 3 步内部顺序：`compile`（证据包+章节稿）→ `claim_consistency`（口径冲突/来源等级/边界）
+内部顺序：`compile`（证据包+章节稿）→ `claim_consistency`（口径冲突/来源等级/边界）
 → `report_flow` 逐节过账 → `quality_gate` 三层闸 → 渲染。
 
 **交叉质询的硬规则**：同一指标同期出现两个不同值，必须在 `claims.conflicts` 里写明口径差；

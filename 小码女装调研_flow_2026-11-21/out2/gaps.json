@@ -1,0 +1,942 @@
+{
+  "coverage": {
+    "expected": 5,
+    "delivered": 5,
+    "missing": [],
+    "rejected": [],
+    "rate": 1.0
+  },
+  "evidence": {
+    "sources": 113,
+    "unique_sources": 92,
+    "duplicate_sources": 21,
+    "sources_fields_ok": 113,
+    "numbers": 434,
+    "sections": 13,
+    "quote_rate": 1.0,
+    "quote_rate_scope": "fields_present_only",
+    "min_sources": 50,
+    "min_sources_scope": "unique_url",
+    "verified_rate": 0.788
+  },
+  "gaps": {
+    "source_shortfall": 0
+  },
+  "source_verify": {
+    "ok": false,
+    "total": 113,
+    "verified": 89,
+    "counts": {
+      "verified": 89,
+      "quote_not_found": 20,
+      "fetch_failed": 4
+    },
+    "unique_fetches": 92,
+    "rows": [
+      {
+        "id": "r05:S01",
+        "url": "https://www.stats.gov.cn/sj/zxfb/202602/t20260228_1962662.html",
+        "quote_len": 41,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S02",
+        "url": "https://www.stats.gov.cn/sj/zxfb/202501/t20250117_1958327.html",
+        "quote_len": 27,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S03",
+        "url": "https://www.stats.gov.cn/sj/zxfbhjd/202610/t20261019_1965614.html",
+        "quote_len": 26,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S04",
+        "url": "https://www.stats.gov.cn/sj/zxfb/202401/t20240116_1946619.html",
+        "quote_len": 28,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S05",
+        "url": "https://pdf.dfcfw.com/pdf/H3_AP202610161830621054_1.pdf",
+        "quote_len": 30,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r05:S06",
+        "url": "https://www.euromonitor.com/womenswear-in-china/report",
+        "quote_len": 95,
+        "fields": [],
+        "status": "fetch_failed",
+        "error": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "id": "r05:S07",
+        "url": "https://www.iimedia.cn/c1094/109395.html",
+        "quote_len": 42,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S08",
+        "url": "https://m.thepaper.cn/newsDetail_forward_33351812",
+        "quote_len": 44,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S09",
+        "url": "https://www.tmtpost.com/8022829.html",
+        "quote_len": 41,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S10",
+        "url": "https://wiki.1688.com/zh/WKfl3pxxb14em8",
+        "quote_len": 44,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S11",
+        "url": "https://wiki.1688.com/zh/WKfkssmw0z9wjk",
+        "quote_len": 43,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S12",
+        "url": "https://m.wttai.com/informationDetail.html?informationId=32598",
+        "quote_len": 65,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S13",
+        "url": "https://paper.cnstock.com/html/2026-04/25/content_2206503.htm",
+        "quote_len": 65,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S14",
+        "url": "https://finance.sina.com.cn/jjxw/2026-03-30/doc-inhsueey6489880.shtml",
+        "quote_len": 90,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S15",
+        "url": "https://mobile-phone.taobao.com/chanpin/d8d74b47f9d1a557a2a812b59345f832.html",
+        "quote_len": 40,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S16",
+        "url": "https://mobile-phone.taobao.com/chanpin/fe92951885921c448c84cc75b9427a312cade58cba34f401d40e94c834a4a5d2.html",
+        "quote_len": 46,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S17",
+        "url": "https://mobile-phone.taobao.com/chanpin/767a0656f1fca7c7c907f02b7db80fe4354999055a86c82e059ad788e7547d89.html",
+        "quote_len": 47,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S18",
+        "url": "https://taizhou.1688.com/shop/m/offer/1018393857254.html",
+        "quote_len": 32,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r05:S19",
+        "url": "https://www.1688.com/market/-D0A1B8F6D7D3C1ACD2C2C8B9.html",
+        "quote_len": 57,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S20",
+        "url": "https://www.trip.com/guide/shopping/guangzhou-wholesale-clothing-market.html",
+        "quote_len": 100,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S21",
+        "url": "http://www.ctdsb.net/c1476_202604/2703787.html",
+        "quote_len": 45,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S22",
+        "url": "https://finance.sina.com.cn/wm/2025-06-16/doc-infaftun1012812.shtml",
+        "quote_len": 37,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S23",
+        "url": "https://finance.sina.com.cn/stock/bxjj/2025-11-07/doc-infwqkxv0961796.shtml",
+        "quote_len": 39,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S24",
+        "url": "https://view.inews.qq.com/a/20251107A06X8H00",
+        "quote_len": 45,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S25",
+        "url": "https://finance.sina.com.cn/wm/2026-11-18/doc-inizcrpf4883789.shtml",
+        "quote_len": 52,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S26",
+        "url": "https://m.thepaper.cn/newsDetail_forward_23821323",
+        "quote_len": 22,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S27",
+        "url": "https://finance.sina.cn/2026-05-22/detail-inhyumqn6078178.d.html",
+        "quote_len": 42,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r05:S28",
+        "url": "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing",
+        "quote_len": 25,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S01",
+        "url": "https://www.iimedia.cn/c1094/109395.html",
+        "quote_len": 42,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S02",
+        "url": "https://www.stats.gov.cn/sj/zxfb/202601/t20260119_1962323.html",
+        "quote_len": 34,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S03",
+        "url": "https://www.stats.gov.cn/sj/zxfb/202501/t20250117_1958327.html",
+        "quote_len": 27,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S04",
+        "url": "https://finance.sina.com.cn/roll/2025-06-16/doc-infaftuk3318996.shtml",
+        "quote_len": 39,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S05",
+        "url": "http://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/lastest/rptid/845483074249/index.phtml",
+        "quote_len": 59,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 808
+      },
+      {
+        "id": "r06:S06",
+        "url": "https://pdf.dfcfw.com/pdf/H3_AP202610161830621054_1.pdf",
+        "quote_len": 46,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r06:S07",
+        "url": "https://www.stats.gov.cn/sj/zxfbhjd/202602/t20260228_1962662.html",
+        "quote_len": 25,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S08",
+        "url": "https://www.stats.gov.cn/sj/tjgb/rkpcgb/qgrkpcgb/202302/t20230206_1902004.html",
+        "quote_len": 55,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S09",
+        "url": "https://m.thepaper.cn/newsDetail_forward_10506542",
+        "quote_len": 60,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S10",
+        "url": "https://www.gov.cn/guoqing/2023-03/12/content_5745851.htm",
+        "quote_len": 44,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S11",
+        "url": "https://www.ivpp.ac.cn/cbw/rlxxb/xbwzxz/201205/P020120531341292631267.pdf",
+        "quote_len": 66,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r06:S12",
+        "url": "https://wiki.1688.com/zh/WKfl3pxxb14em8",
+        "quote_len": 54,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S13",
+        "url": "https://www.1688.com/market/-D0A1B8F6D7D3C1ACD2C2C8B9.html",
+        "quote_len": 30,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S14",
+        "url": "https://mobile-phone.taobao.com/chanpin/767a0656f1fca7c7c907f02b7db80fe4354999055a86c82e059ad788e7547d89.html",
+        "quote_len": 32,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S15",
+        "url": "https://dir.jd.com/guide/jd-geo-guide-xiao-ge-zi-dong-ji-qun-zi-liang-jian-tao-jia-hou-xiao-ma-v1",
+        "quote_len": 54,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S16",
+        "url": "https://seller.alibaba.com/blogs/2026/southeast-asia/womens-apparel/petite-clothing-proportion-guide-alibaba-b2b",
+        "quote_len": 114,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S17",
+        "url": "https://apparel.alibaba.com/product/petite-clothing-styles",
+        "quote_len": 78,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S18",
+        "url": "https://tidenews.com.cn/tmh_news.html?id=6a680c7b94099e00013202db",
+        "quote_len": 27,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S19",
+        "url": "https://www.iimedia.cn/c1086/113328.html",
+        "quote_len": 28,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S20",
+        "url": "https://resources.youcloud.com/youshu/blog/5308/",
+        "quote_len": 36,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S21",
+        "url": "http://news.youth.cn/qdc/pic_list/202203/t20220317_13537078.htm",
+        "quote_len": 58,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 708
+      },
+      {
+        "id": "r06:S22",
+        "url": "https://app.xinhuanet.com/news/article.html?articleId=202606080c0a16bdd2344312bd9bff95b5ab7c0e",
+        "quote_len": 40,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S23",
+        "url": "https://cca.org.cn/single/11186/62925.html",
+        "quote_len": 36,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S24",
+        "url": "https://paper.cnstock.com/html/2026-04/25/content_2206503.htm",
+        "quote_len": 66,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S25",
+        "url": "https://finance.sina.com.cn/jjxw/2026-03-30/doc-inhsueey6489880.shtml",
+        "quote_len": 26,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S26",
+        "url": "https://paper.people.com.cn/rmrbhwb/pc/content/202507/17/content_30088387.html",
+        "quote_len": 19,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S27",
+        "url": "https://www.stats.gov.cn/sj/zxfb/202501/t20250117_1958332.html",
+        "quote_len": 54,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r06:S28",
+        "url": "https://cj.sina.com.cn/articles/view/7879776328/1d5abd848068028jgq?froms=ttmp",
+        "quote_len": 52,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 17
+      },
+      {
+        "id": "r07:S01",
+        "url": "https://www.niaogebiji.com/article-119714-1.html",
+        "quote_len": 64,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S02",
+        "url": "http://m.toutiao.com/group/7640003986925437494/",
+        "quote_len": 37,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r07:S03",
+        "url": "https://www.tmtpost.com/8022829.html",
+        "quote_len": 41,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S04",
+        "url": "https://m.thepaper.cn/newsDetail_forward_33351812",
+        "quote_len": 57,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S05",
+        "url": "https://www.jd.com/phb/131594d71cf3ba929c4a.html",
+        "quote_len": 13,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S06",
+        "url": "https://mobile-phone.taobao.com/chanpin/6f4c194b4faf1e3e56b5713f92d128065814d20ee14ed32f0b2f1814cb7798b4.html",
+        "quote_len": 34,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S07",
+        "url": "https://mobile-phone.taobao.com/chanpin/767a0656f1fca7c7c907f02b7db80fe4354999055a86c82e059ad788e7547d89.html",
+        "quote_len": 32,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S08",
+        "url": "https://mobile-phone.taobao.com/chanpin/5e66f453ead19908c079c1b59811a8b0.html",
+        "quote_len": 33,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S09",
+        "url": "https://detail.1688.com/offer/804245574963.html",
+        "quote_len": 12,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r07:S10",
+        "url": "https://taizhou.1688.com/shop/m/offer/789306722330.html",
+        "quote_len": 29,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r07:S11",
+        "url": "https://fztr.file.gkfz.net/pdf/f49ce53527a872120bc2f580c4aa7e7d.pdf",
+        "quote_len": 36,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r07:S12",
+        "url": "https://m.vip.com/v3/index.html#/vipshop/productDetail/pages/productDetail/productDetail?goodsId=6920798720519846736&brandId=1710616752&source=www",
+        "quote_len": 121,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 33
+      },
+      {
+        "id": "r07:S13",
+        "url": "https://m.vip.com/v3/index.html#/vipshop/productDetail/pages/productDetail/productDetail?goodsId=6920492552074050248&brandId=1712459848&source=www&is_uni_wap=1",
+        "quote_len": 104,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 33
+      },
+      {
+        "id": "r07:S14",
+        "url": "https://product.suning.com/0070088010/11279698992.html",
+        "quote_len": 31,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S15",
+        "url": "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing",
+        "quote_len": 31,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S16",
+        "url": "https://wiki.1688.com/zh/WKfz6bfofrz2tc",
+        "quote_len": 28,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S17",
+        "url": "https://wiki.1688.com/zh/WKfkssmw0z9wjk",
+        "quote_len": 98,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 2745
+      },
+      {
+        "id": "r07:S18",
+        "url": "https://finance.sina.com.cn/wm/2026-11-18/doc-inizcrpf4883789.shtml",
+        "quote_len": 52,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S19",
+        "url": "https://m.thepaper.cn/newsDetail_forward_34343223",
+        "quote_len": 63,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S20",
+        "url": "https://www.chanmama.com/yunyingquan/question/4071.html",
+        "quote_len": 49,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S21",
+        "url": "https://paper.cnstock.com/html/2026-04/25/content_2206503.htm",
+        "quote_len": 66,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r07:S22",
+        "url": "https://www.cs.com.cn/ssgs/01/2026/09/13/detail_2026091310038854.html",
+        "quote_len": 25,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S1",
+        "url": "https://cdn.asiaecs.com/static/upload/file/common/2025/06/11/1749635914421821.pdf",
+        "quote_len": 27,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r12:S2",
+        "url": "https://www.growthhk.cn/cgo/product/134059.html",
+        "quote_len": 31,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S3",
+        "url": "https://www.yitongweb.cn/help-support/industry-benchmark/douyin/clothing",
+        "quote_len": 25,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S4",
+        "url": "https://www.iimedia.cn/c1086/113328.html",
+        "quote_len": 46,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S5",
+        "url": "https://36kr.com/p/3878448231969026",
+        "quote_len": 28,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 54
+      },
+      {
+        "id": "r12:S6",
+        "url": "https://tidenews.com.cn/tmh_news.html?id=6a423d62c7c79f0001bfb52b",
+        "quote_len": 48,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S7",
+        "url": "https://www.theredscroll.com/industries/fashion-apparel/",
+        "quote_len": 122,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S8",
+        "url": "https://caifuhao.eastmoney.com/news/20260625180130489798630",
+        "quote_len": 34,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S9",
+        "url": "http://news.qq.com/rain/a/20261109A03ECA00",
+        "quote_len": 37,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S10",
+        "url": "https://wiki.1688.com/zh/WKfl3pxxb14em8",
+        "quote_len": 29,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r12:S11",
+        "url": "https://www.whsjytyy.com/ejzx/content/2026/10/30/4MAPxTJ1.html",
+        "quote_len": 26,
+        "fields": [],
+        "status": "fetch_failed",
+        "error": "URLError: <urlopen error timed out>"
+      },
+      {
+        "id": "r12:S12",
+        "url": "https://www.youzan.com/reports/1755",
+        "quote_len": 34,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S01",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/12310076/sehk26072600175.pdf",
+        "quote_len": 111,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r15:S02",
+        "url": "https://36kr.com/p/4005233136865153",
+        "quote_len": 62,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 54
+      },
+      {
+        "id": "r15:S03",
+        "url": "http://news.10jqka.com.cn/20260818/c679025459.shtml",
+        "quote_len": 85,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S04",
+        "url": "https://finance.sina.com.cn/tech/roll/2026-09-01/doc-iniqhwna1508635.shtml",
+        "quote_len": 54,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S05",
+        "url": "https://news.bjd.com.cn/2026/01/11/11517290.shtml",
+        "quote_len": 72,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S06",
+        "url": "https://app.xinhuanet.com/news/article.html?articleId=1be6374a-04e6-4df9-abc2-dcd00bf6f81a",
+        "quote_len": 48,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S07",
+        "url": "https://www.soudangkou.com/%E5%B9%BF%E5%B7%9E%E5%A5%B3%E8%A3%85%E6%89%B9%E5%8F%91%E5%B8%82%E5%9C%BA%E6%94%BB%E7%95%A5%EF%BC%9A%E5%8D%81%E4%B8%89%E8%A1%8C%E3%80%81%E6%B2%99%E6%B2%B3%E3%80%81%E7%81%AB%E8%BD%A6%E7%AB%99%E3%80%81/",
+        "quote_len": 23,
+        "fields": [],
+        "status": "fetch_failed",
+        "error": "HTTPError: HTTP Error 404: Not Found"
+      },
+      {
+        "id": "r15:S08",
+        "url": "https://www.soudangkou.com/xinhangpai-fuzhuangcheng-kaigong/",
+        "quote_len": 37,
+        "fields": [],
+        "status": "fetch_failed",
+        "error": "HTTPError: HTTP Error 404: Not Found"
+      },
+      {
+        "id": "r15:S09",
+        "url": "https://www.1688.com/factory/b2b-2217585165316a4f19.html",
+        "quote_len": 23,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S10",
+        "url": "https://zhaoshang.sheincorp.cn/news/doc?id=193",
+        "quote_len": 65,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S11",
+        "url": "http://m.163.com/news/article/L3632AL5051188EA.html",
+        "quote_len": 33,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S12",
+        "url": "https://news.cctv.com/2025/07/27/ARTIbyrjqqMvAmlbo3ZNbUyf250727.shtml",
+        "quote_len": 40,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S13",
+        "url": "https://finance.sina.com.cn/cj/2026-06-20/doc-inieakfr8555927.shtml",
+        "quote_len": 65,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S14",
+        "url": "https://pdf.dfcfw.com/pdf/H3_AP202605131822253755_1.pdf",
+        "quote_len": 19,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 0
+      },
+      {
+        "id": "r15:S15",
+        "url": "https://paper.cnstock.com/html/2026-04/25/content_2206503.htm",
+        "quote_len": 66,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S16",
+        "url": "https://finance.sina.com.cn/wm/2026-04-27/doc-inhvxxww8981950.shtml",
+        "quote_len": 37,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S17",
+        "url": "https://finance.sina.com.cn/cj/2026-03-31/doc-inhswpmw5707041.shtml",
+        "quote_len": 96,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S18",
+        "url": "https://wap.stockstar.com/detail/IG2026042000028597",
+        "quote_len": 39,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S19",
+        "url": "https://m.jiemian.com/article/14295422.html",
+        "quote_len": 35,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S20",
+        "url": "https://finance.sina.com.cn/jjxw/2026-10-13/doc-inivawnc8039941.shtml",
+        "quote_len": 92,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S21",
+        "url": "https://36kr.com/p/3847191687694594",
+        "quote_len": 74,
+        "fields": [],
+        "status": "quote_not_found",
+        "page_chars": 54
+      },
+      {
+        "id": "r15:S22",
+        "url": "https://survey.shangpu-china.com/scdc/29877.html",
+        "quote_len": 110,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      },
+      {
+        "id": "r15:S23",
+        "url": "https://finance.sina.com.cn/wm/2025-06-16/doc-infaftun1012812.shtml",
+        "quote_len": 47,
+        "fields": [],
+        "status": "verified",
+        "ok": true
+      }
+    ]
+  }
+}

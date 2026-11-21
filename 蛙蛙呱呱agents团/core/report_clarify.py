@@ -262,11 +262,21 @@ def load(base: str) -> Dict[str, Any]:
     return json.loads(p.read_text(encoding="utf-8-sig"))
 
 
-def confirm(base: str) -> Dict[str, Any]:
-    """把澄清卡标记为 confirmed；返回还没答的 confirm 项（不阻断，但要看见）。"""
+def confirm(base: str, by: str = "user", user_said: str = "") -> Dict[str, Any]:
+    """把澄清卡标记为 confirmed（2026-11-22 起：必须有用户原话）。
+
+    agent 自己确认、没有用户原话，一律拒；这样「R01 问、用户答」才是默认。
+    """
     c = load(base)
+    if str(by).lower() != "user":
+        return {"ok": False, "error": "澄清卡只能由 user 确认；agent 不能代确认"}
+    if len(str(user_said or "").strip()) < 6:
+        return {"ok": False,
+                "error": "缺用户原话：--user-said \"用户对目标的一句确认\""}
     c["status"] = "confirmed"
     c["confirmed_at"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    c["confirmed_by"] = "user"
+    c["user_said"] = str(user_said).strip()
     p = Path(base) / "clarify.json"
     p.write_text(json.dumps(c, ensure_ascii=False, indent=2), encoding="utf-8")
     unanswered = [x["id"] for x in c.get("confirm") or []
@@ -277,7 +287,8 @@ def confirm(base: str) -> Dict[str, Any]:
             "must": sum(1 for a in (c.get("asks") or []) if a.get("must"))}
 
 
-def answer(base: str, pairs: List[str]) -> Dict[str, Any]:
+def answer(base: str, pairs: List[str], by: str = "user",
+           user_said: str = "") -> Dict[str, Any]:
     """会话里问完，把「C1=答案」交回来；写完即确认。
 
     这样 R01 在对话里问、用户在对话里答，答案仍然落进 clarify.json，
@@ -296,11 +307,12 @@ def answer(base: str, pairs: List[str]) -> Dict[str, Any]:
             bad.append(f"{k} 不在澄清卡里（可选 {', '.join(known)}）")
             continue
         known[k]["answer"] = v.strip()
+        known[k]["answered_by"] = "user" if str(by).lower() == "user" else "agent"
     if bad:
         return {"ok": False, "error": "答案格式不对", "problems": bad}
     p = Path(base) / "clarify.json"
     p.write_text(json.dumps(c, ensure_ascii=False, indent=2), encoding="utf-8")
-    res = confirm(base)
+    res = confirm(base, by=by, user_said=user_said)
     res["answered"] = [k for k, v in known.items()
                        if str(v.get("answer") or "").strip()]
     return res

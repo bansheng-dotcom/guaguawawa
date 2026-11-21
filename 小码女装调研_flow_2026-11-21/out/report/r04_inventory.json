@@ -1,0 +1,47 @@
+{
+  "schema": "dsh.r04.inventory/v1",
+  "derived_from": {
+    "artifact": "report.html",
+    "artifact_sha256": "2e770bb94120ef9c16c608260765dad393c12f7b89243067f5bf26df25c64b5c",
+    "manifest_sha256": "56fda5d78cadea8e669548ea607b22141dffbb94200d1c393f0ad4364ac57eca",
+    "generated_by": "core.r04_derive.derive()",
+    "schema": "dsh.r04.derived/v1"
+  },
+  "items": [
+    {
+      "path": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\report.html",
+      "type": "file",
+      "required": true
+    },
+    {
+      "path": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\report.md",
+      "type": "file",
+      "required": true
+    },
+    {
+      "path": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\report.pdf",
+      "type": "file",
+      "required": false
+    },
+    {
+      "path": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\manifest.json",
+      "type": "file",
+      "required": true
+    },
+    {
+      "path": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\gaps.json",
+      "type": "file",
+      "required": false
+    },
+    {
+      "path": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\source_verify.json",
+      "type": "file",
+      "required": false
+    },
+    {
+      "path": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\section_check.json",
+      "type": "file",
+      "required": false
+    }
+  ]
+}

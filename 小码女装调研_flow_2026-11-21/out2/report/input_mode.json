@@ -1,0 +1,8 @@
+{
+  "schema": "dsh.report.line/v1",
+  "mode": "agent",
+  "intent": "小码女装市场研究：人群、竞争、价盘、经营、营销与SKU",
+  "evidence": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\_compiled\\evidence_pack.json",
+  "draft": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out2\\report\\_compiled\\draft_sections.json",
+  "detected_at": "2026-11-22T01:26:05"
+}

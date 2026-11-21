@@ -28,7 +28,10 @@ def main() -> int:
         ans = [f"I{i}=答案{i}" for i in range(1, 11)]
         a = intake.answer(p, ans)
         check("answer_10", a["ok"] is True and a["answered"] == 10, a)
-        sg = intake.sign_brief(p)
+        # 2026-11-22：签 brief 必须带用户原话，否则拒签
+        no_said = intake.sign_brief(p)
+        check("sign_blocked_without_user_said", no_said["ok"] is False, no_said)
+        sg = intake.sign_brief(p, user_said="用户确认：就按这个目标做")
         check("sign_after_answers", sg["ok"] is True and sg["signed"]["sha"], sg)
         check("signed_reader", intake.signed(p) is not None)
 

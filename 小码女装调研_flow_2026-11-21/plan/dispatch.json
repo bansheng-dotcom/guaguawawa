@@ -1,0 +1,2465 @@
+{
+ "cards": {
+  "r03": {
+   "role": "r03",
+   "name": "蛙守线",
+   "title": "财务合规官 / 红线负责人",
+   "capabilities": [
+    "报表月结",
+    "CFO诊断",
+    "税务边界",
+    "合同政策",
+    "隐私数据安全",
+    "AI治理",
+    "审计留痕",
+    "广告/KYC-AML/投资风控"
+   ],
+   "skills": [
+    "financial",
+    "cfo",
+    "tax",
+    "contract",
+    "privacy",
+    "aigov",
+    "audit",
+    "risk"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "search",
+    "doc"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "4h",
+    "ack_min": 30,
+    "deliver_min": 240
+   }
+  },
+  "r05": {
+   "role": "r05",
+   "name": "蛙深远",
+   "title": "战略研究官",
+   "capabilities": [
+    "深度研究",
+    "行业扫描",
+    "竞品情报",
+    "商业模式",
+    "市场规模测算",
+    "宏观情景",
+    "研究自动化"
+   ],
+   "skills": [
+    "research",
+    "industry",
+    "competitor",
+    "business",
+    "sizing",
+    "scenario",
+    "auto",
+    "matched",
+    "tam_mc"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "search",
+    "pdf",
+    "web"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "2h",
+    "ack_min": 30,
+    "deliver_min": 120
+   }
+  },
+  "r06": {
+   "role": "r06",
+   "name": "蛙得清",
+   "title": "数据分析师",
+   "capabilities": [
+    "指标语义建模",
+    "数据清洗质量",
+    "探索与产品分析",
+    "根因贡献度",
+    "统计因果实验",
+    "科学计算NLP",
+    "专业领域分析",
+    "可视化报告",
+    "自媒体数据运营"
+   ],
+   "skills": [
+    "semantics",
+    "quality",
+    "explore",
+    "rootcause",
+    "abtest",
+    "anova",
+    "causal",
+    "chi2",
+    "correlate",
+    "describe",
+    "did",
+    "elasticity",
+    "matched",
+    "power",
+    "rdd",
+    "regression",
+    "ttest",
+    "scinlp",
+    "domain",
+    "viz",
+    "selfmedia"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": true,
+    "primary": false
+   },
+   "tools": [
+    "csv",
+    "sql",
+    "chart"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "2h",
+    "ack_min": 30,
+    "deliver_min": 120
+   }
+  },
+  "r07": {
+   "role": "r07",
+   "name": "蛙得明",
+   "title": "产品经理",
+   "capabilities": [
+    "产品发现JTBD",
+    "机会树用户研究",
+    "用户故事PRD",
+    "优先级Backlog",
+    "路线图发布",
+    "愿景指标",
+    "技术翻译代码反推",
+    "经验检索决策汇报"
+   ],
+   "skills": [
+    "discover",
+    "ost",
+    "prd",
+    "priority",
+    "roadmap",
+    "metrics",
+    "techbrief",
+    "decision",
+    "prdguard",
+    "rice"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": true,
+    "primary": false
+   },
+   "tools": [
+    "search",
+    "csv"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "3h",
+    "ack_min": 30,
+    "deliver_min": 180
+   }
+  },
+  "r08": {
+   "role": "r08",
+   "name": "蛙建成",
+   "title": "产品实现官 (MVP)",
+   "capabilities": [
+    "产品切片MVP",
+    "Spec转仓库",
+    "落地页H5",
+    "SaaS邮件脚手架",
+    "跨平台原型",
+    "组件设计实现",
+    "质量验证交接"
+   ],
+   "skills": [
+    "slice",
+    "scaffold",
+    "landing",
+    "saas",
+    "prototype",
+    "design",
+    "qa",
+    "deck",
+    "miniapp",
+    "office"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "search",
+    "doc"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "4h",
+    "ack_min": 30,
+    "deliver_min": 240
+   }
+  },
+  "r09": {
+   "role": "r09",
+   "name": "蛙稳码",
+   "title": "代码工程官",
+   "capabilities": [
+    "技术规格架构",
+    "数据库API",
+    "前后端全栈",
+    "跨端生产工程",
+    "测试浏览器验证",
+    "调试性能重构",
+    "迁移CI/CD安全",
+    "特殊技术载体"
+   ],
+   "skills": [
+    "spec",
+    "data_api",
+    "fullstack",
+    "crossplatform",
+    "testing",
+    "debug",
+    "ops",
+    "special"
+   ],
+   "entitlements": {
+    "public": false,
+    "platform": true,
+    "primary": false
+   },
+   "tools": [
+    "chart",
+    "figma"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "6h",
+    "ack_min": 30,
+    "deliver_min": 360
+   }
+  },
+  "r10": {
+   "role": "r10",
+   "name": "蛙成美",
+   "title": "视觉设计官",
+   "capabilities": [
+    "AI生图插画",
+    "Logo图标VI",
+    "产品UI/UX",
+    "交互原型动效",
+    "修图图像工程",
+    "视频音频处理",
+    "转写字幕",
+    "数据视觉营销物料"
+   ],
+   "skills": [
+    "imagegen",
+    "logo",
+    "uiux",
+    "brand",
+    "motion",
+    "imaging",
+    "media",
+    "transcribe",
+    "render",
+    "synthetic_engine",
+    "designsys",
+    "aihive",
+    "h3prompt",
+    "brandcheck",
+    "imgops"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "search",
+    "doc"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "4h",
+    "ack_min": 30,
+    "deliver_min": 240
+   }
+  },
+  "r11": {
+   "role": "r11",
+   "name": "蛙点题",
+   "title": "内容主笔",
+   "capabilities": [
+    "内容策略选题",
+    "SEO/AEO",
+    "钩子提纲",
+    "文案长文",
+    "品牌语调编辑",
+    "广告公关",
+    "多平台适配",
+    "持续本地化"
+   ],
+   "skills": [
+    "topic",
+    "seo",
+    "hook",
+    "copy",
+    "voice",
+    "pr",
+    "platform",
+    "localize",
+    "xhs"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": true,
+    "primary": false
+   },
+   "tools": [
+    "search",
+    "ai"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "2h",
+    "ack_min": 30,
+    "deliver_min": 120
+   }
+  },
+  "r12": {
+   "role": "r12",
+   "name": "蛙引流",
+   "title": "增长运营官",
+   "capabilities": [
+    "增长诊断基线",
+    "增长循环自然获客",
+    "冷启动外联",
+    "红人合作增长",
+    "ASO发布",
+    "付费投放CRO",
+    "激活留存推荐",
+    "归因RevOps",
+    "自媒体运营"
+   ],
+   "skills": [
+    "diagnose",
+    "loops",
+    "outreach",
+    "partner",
+    "launch",
+    "paid",
+    "retention",
+    "revops",
+    "selfmedia",
+    "ltv_cac",
+    "mmm",
+    "power"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": true,
+    "primary": false
+   },
+   "tools": [
+    "csv",
+    "ai"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "3h",
+    "ack_min": 30,
+    "deliver_min": 180
+   }
+  },
+  "r13": {
+   "role": "r13",
+   "name": "蛙客成",
+   "title": "客户成功与销售运营官",
+   "capabilities": [
+    "客户与联系人管理",
+    "销售管道",
+    "销售活动与跟进",
+    "全渠道客服",
+    "客户反馈VOC",
+    "客户健康续约",
+    "服务知识与升级",
+    "客户运营自动化接口"
+   ],
+   "skills": [
+    "crm",
+    "pipeline",
+    "activity",
+    "support",
+    "voc",
+    "health",
+    "knowledge",
+    "automation"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "search",
+    "doc"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "3h",
+    "ack_min": 30,
+    "deliver_min": 180
+   }
+  },
+  "r14": {
+   "role": "r14",
+   "name": "蛙交易",
+   "title": "交易与收入履约官",
+   "capabilities": [
+    "商品电商后端",
+    "订阅计量计费",
+    "支付集成",
+    "电子签审计",
+    "服务预约",
+    "交易状态编排",
+    "收入数据接口",
+    "交易自动化接口"
+   ],
+   "skills": [
+    "catalog",
+    "order",
+    "billing",
+    "payment",
+    "signature",
+    "appointment",
+    "workflow",
+    "revenue",
+    "selection",
+    "elasticity"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": true,
+    "primary": false
+   },
+   "tools": [
+    "ads",
+    "search"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "3h",
+    "ack_min": 30,
+    "deliver_min": 180
+   }
+  },
+  "r15": {
+   "role": "r15",
+   "name": "蛙供应",
+   "title": "ERP 与供应链运营官",
+   "capabilities": [
+    "采购供应商",
+    "库存仓库",
+    "销售履约记录",
+    "生产服务资源",
+    "ERP财务接口",
+    "主数据权限",
+    "运营报表"
+   ],
+   "skills": [
+    "procurement",
+    "inventory",
+    "fulfillment",
+    "production",
+    "finance",
+    "masterdata",
+    "report",
+    "tco",
+    "safety_stock",
+    "fulfill_sim"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": false,
+    "primary": true
+   },
+   "tools": [
+    "pos",
+    "interview"
+   ],
+   "sla": {
+    "ack": "60m",
+    "deliver": "8h",
+    "ack_min": 60,
+    "deliver_min": 480
+   }
+  },
+  "r16": {
+   "role": "r16",
+   "name": "蛙人事",
+   "title": "人员与组织运营官",
+   "capabilities": [
+    "招聘与入职",
+    "人员与合同档案",
+    "考勤与休假",
+    "绩效与目标",
+    "薪酬准备",
+    "费用与福利业务",
+    "组织运营报表"
+   ],
+   "skills": [
+    "recruit",
+    "people",
+    "attendance",
+    "performance",
+    "payroll",
+    "expense",
+    "report",
+    "funnel"
+   ],
+   "entitlements": {
+    "public": false,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "legal",
+    "doc"
+   ],
+   "sla": {
+    "ack": "60m",
+    "deliver": "6h",
+    "ack_min": 60,
+    "deliver_min": 360
+   }
+  },
+  "r17": {
+   "role": "r17",
+   "name": "蛙织网",
+   "title": "自动化与集成工程师",
+   "capabilities": [
+    "SaaS/API集成",
+    "Webhook事件",
+    "字段身份映射",
+    "定时批处理",
+    "人工审批",
+    "失败重试",
+    "AI工作流",
+    "审计"
+   ],
+   "skills": [
+    "integration",
+    "webhook",
+    "mapping",
+    "schedule",
+    "approval",
+    "retry",
+    "aiworkflow",
+    "audit",
+    "retry_model"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "code",
+    "search"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "4h",
+    "ack_min": 30,
+    "deliver_min": 240
+   }
+  },
+  "r18": {
+   "role": "r18",
+   "name": "蛙数仓",
+   "title": "数据工程与管道官",
+   "capabilities": [
+    "数据连接ELT",
+    "数仓转换",
+    "管道调度",
+    "数据质量门禁",
+    "批流增量",
+    "数据目录",
+    "人工审批运维"
+   ],
+   "skills": [
+    "elt",
+    "transform",
+    "pipeline",
+    "quality",
+    "incremental",
+    "catalog",
+    "ops",
+    "profile"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": true,
+    "primary": false
+   },
+   "tools": [
+    "sql",
+    "csv"
+   ],
+   "sla": {
+    "ack": "30m",
+    "deliver": "4h",
+    "ack_min": 30,
+    "deliver_min": 240
+   }
+  },
+  "r19": {
+   "role": "r19",
+   "name": "蛙智模",
+   "title": "模型工程与 AI 评估官",
+   "capabilities": [
+    "实验追踪",
+    "模型注册与版本",
+    "评估数据集与评分器",
+    "Agent Trace 与调试",
+    "回归与发布候选",
+    "模型监控接口",
+    "模型资产说明"
+   ],
+   "skills": [
+    "tracking",
+    "registry",
+    "evaluation",
+    "trace",
+    "release",
+    "monitor",
+    "modelcard",
+    "eval_ci"
+   ],
+   "entitlements": {
+    "public": true,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "python",
+    "eval"
+   ],
+   "sla": {
+    "ack": "60m",
+    "deliver": "8h",
+    "ack_min": 60,
+    "deliver_min": 480
+   }
+  },
+  "r20": {
+   "role": "r20",
+   "name": "蛙值守",
+   "title": "可靠性与恢复官",
+   "capabilities": [
+    "可用性监控",
+    "告警升级",
+    "状态页沟通",
+    "加密增量备份",
+    "恢复演练",
+    "灾难恢复回滚",
+    "运行复盘"
+   ],
+   "skills": [
+    "monitor",
+    "alert",
+    "statuspage",
+    "backup",
+    "restore",
+    "dr",
+    "postmortem",
+    "slo"
+   ],
+   "entitlements": {
+    "public": false,
+    "platform": false,
+    "primary": false
+   },
+   "tools": [
+    "shell",
+    "monitor"
+   ],
+   "sla": {
+    "ack": "15m",
+    "deliver": "2h",
+    "ack_min": 15,
+    "deliver_min": 120
+   }
+  }
+ },
+ "assignments": [
+  {
+   "cell_id": "Q1.对象.TOP5 品牌",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.对象.长尾合计",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.空间.全国",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.空间.省",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.空间.城市",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.时间.2024",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.时间.2025",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.时间.2026",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.结构.品类×渠道",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.结构.价格带×渠道",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.机制.量价拆解",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.机制.份额变化",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.边界.口径 vs 统计公报",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q1.边界.样本覆盖",
+   "owner": "r06",
+   "why": "按问题簇 Q1",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.对象.TOP5 品牌",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.对象.长尾合计",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.空间.全国",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.空间.省",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.空间.城市",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.时间.2024",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.时间.2025",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.时间.2026",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.结构.品类×渠道",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.结构.价格带×渠道",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.机制.量价拆解",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.机制.份额变化",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.边界.口径 vs 统计公报",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q2.边界.样本覆盖",
+   "owner": "r06",
+   "why": "按问题簇 Q2",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.对象.TOP5 品牌",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.对象.长尾合计",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.空间.全国",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.空间.省",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.空间.城市",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.时间.2024",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.时间.2025",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.时间.2026",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.结构.品类×渠道",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.结构.价格带×渠道",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.机制.量价拆解",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.机制.份额变化",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.边界.口径 vs 统计公报",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q3.边界.样本覆盖",
+   "owner": "r06",
+   "why": "按问题簇 Q3",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.对象.TOP5 品牌",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.对象.长尾合计",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.空间.全国",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.空间.省",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.空间.城市",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.时间.2024",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.时间.2025",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.时间.2026",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.结构.品类×渠道",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.结构.价格带×渠道",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.机制.量价拆解",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.机制.份额变化",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.边界.口径 vs 统计公报",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q4.边界.样本覆盖",
+   "owner": "r05",
+   "why": "按问题簇 Q4",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.对象.TOP5 品牌",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.对象.长尾合计",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.空间.全国",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.空间.省",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.空间.城市",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.时间.2024",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.时间.2025",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.时间.2026",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.结构.品类×渠道",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.结构.价格带×渠道",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.机制.量价拆解",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.机制.份额变化",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.边界.口径 vs 统计公报",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q5.边界.样本覆盖",
+   "owner": "r05",
+   "why": "按问题簇 Q5",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.对象.TOP5 品牌",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.对象.长尾合计",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.空间.全国",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.空间.省",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.空间.城市",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.时间.2024",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.时间.2025",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.时间.2026",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.结构.品类×渠道",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.结构.价格带×渠道",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.机制.量价拆解",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.机制.份额变化",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.边界.口径 vs 统计公报",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q6.边界.样本覆盖",
+   "owner": "r05",
+   "why": "按问题簇 Q6",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.对象.TOP5 品牌",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.对象.长尾合计",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.空间.全国",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.空间.省",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.空间.城市",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.时间.2024",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.时间.2025",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.时间.2026",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.结构.品类×渠道",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.结构.价格带×渠道",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.机制.量价拆解",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.机制.份额变化",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.边界.口径 vs 统计公报",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q7.边界.样本覆盖",
+   "owner": "r07",
+   "why": "按问题簇 Q7",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.对象.TOP5 品牌",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.对象.长尾合计",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.空间.全国",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.空间.省",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.空间.城市",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.时间.2024",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.时间.2025",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.时间.2026",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.结构.品类×渠道",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.结构.价格带×渠道",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.机制.量价拆解",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.机制.份额变化",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.边界.口径 vs 统计公报",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q8.边界.样本覆盖",
+   "owner": "r07",
+   "why": "按问题簇 Q8",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.对象.TOP5 品牌",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.对象.长尾合计",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.空间.全国",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.空间.省",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.空间.城市",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.时间.2024",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.时间.2025",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.时间.2026",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.结构.品类×渠道",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.结构.价格带×渠道",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.机制.量价拆解",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.机制.份额变化",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.边界.口径 vs 统计公报",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q9.边界.样本覆盖",
+   "owner": "r15",
+   "why": "按问题簇 Q9",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.对象.TOP5 品牌",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.对象.长尾合计",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.空间.全国",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.空间.省",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.空间.城市",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.时间.2024",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.时间.2025",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.时间.2026",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.结构.品类×渠道",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.结构.价格带×渠道",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.机制.量价拆解",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.机制.份额变化",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.边界.口径 vs 统计公报",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q10.边界.样本覆盖",
+   "owner": "r12",
+   "why": "按问题簇 Q10",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.对象.TOP5 品牌",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.对象.长尾合计",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.空间.全国",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.空间.省",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.空间.城市",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.时间.2024",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.时间.2025",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.时间.2026",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.结构.品类×渠道",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.结构.价格带×渠道",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.机制.量价拆解",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.机制.份额变化",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.边界.口径 vs 统计公报",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q11.边界.样本覆盖",
+   "owner": "r07",
+   "why": "按问题簇 Q11",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.对象.TOP5 品牌",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.对象.长尾合计",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.空间.全国",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.空间.省",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.空间.城市",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.时间.2024",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.时间.2025",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.时间.2026",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.结构.品类×渠道",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.结构.价格带×渠道",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.机制.量价拆解",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.机制.份额变化",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.边界.口径 vs 统计公报",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q12.边界.样本覆盖",
+   "owner": "r06",
+   "why": "按问题簇 Q12",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.对象.TOP5 品牌",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.对象.长尾合计",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.空间.全国",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.空间.省",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.空间.城市",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.时间.2024",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.时间.2025",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.时间.2026",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.结构.品类×渠道",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.结构.价格带×渠道",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.机制.量价拆解",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.机制.份额变化",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.边界.口径 vs 统计公报",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  },
+  {
+   "cell_id": "Q13.边界.样本覆盖",
+   "owner": "r07",
+   "why": "按问题簇 Q13",
+   "match": "strong"
+  }
+ ],
+ "gaps": [],
+ "requests": [],
+ "dag": {
+  "nodes": [
+   "Q1.对象.TOP5 品牌",
+   "Q1.对象.长尾合计",
+   "Q1.空间.全国",
+   "Q1.空间.省",
+   "Q1.空间.城市",
+   "Q1.时间.2024",
+   "Q1.时间.2025",
+   "Q1.时间.2026",
+   "Q1.结构.品类×渠道",
+   "Q1.结构.价格带×渠道",
+   "Q1.机制.量价拆解",
+   "Q1.机制.份额变化",
+   "Q1.边界.口径 vs 统计公报",
+   "Q1.边界.样本覆盖",
+   "Q2.对象.TOP5 品牌",
+   "Q2.对象.长尾合计",
+   "Q2.空间.全国",
+   "Q2.空间.省",
+   "Q2.空间.城市",
+   "Q2.时间.2024",
+   "Q2.时间.2025",
+   "Q2.时间.2026",
+   "Q2.结构.品类×渠道",
+   "Q2.结构.价格带×渠道",
+   "Q2.机制.量价拆解",
+   "Q2.机制.份额变化",
+   "Q2.边界.口径 vs 统计公报",
+   "Q2.边界.样本覆盖",
+   "Q3.对象.TOP5 品牌",
+   "Q3.对象.长尾合计",
+   "Q3.空间.全国",
+   "Q3.空间.省",
+   "Q3.空间.城市",
+   "Q3.时间.2024",
+   "Q3.时间.2025",
+   "Q3.时间.2026",
+   "Q3.结构.品类×渠道",
+   "Q3.结构.价格带×渠道",
+   "Q3.机制.量价拆解",
+   "Q3.机制.份额变化",
+   "Q3.边界.口径 vs 统计公报",
+   "Q3.边界.样本覆盖",
+   "Q4.对象.TOP5 品牌",
+   "Q4.对象.长尾合计",
+   "Q4.空间.全国",
+   "Q4.空间.省",
+   "Q4.空间.城市",
+   "Q4.时间.2024",
+   "Q4.时间.2025",
+   "Q4.时间.2026",
+   "Q4.结构.品类×渠道",
+   "Q4.结构.价格带×渠道",
+   "Q4.机制.量价拆解",
+   "Q4.机制.份额变化",
+   "Q4.边界.口径 vs 统计公报",
+   "Q4.边界.样本覆盖",
+   "Q5.对象.TOP5 品牌",
+   "Q5.对象.长尾合计",
+   "Q5.空间.全国",
+   "Q5.空间.省",
+   "Q5.空间.城市",
+   "Q5.时间.2024",
+   "Q5.时间.2025",
+   "Q5.时间.2026",
+   "Q5.结构.品类×渠道",
+   "Q5.结构.价格带×渠道",
+   "Q5.机制.量价拆解",
+   "Q5.机制.份额变化",
+   "Q5.边界.口径 vs 统计公报",
+   "Q5.边界.样本覆盖",
+   "Q6.对象.TOP5 品牌",
+   "Q6.对象.长尾合计",
+   "Q6.空间.全国",
+   "Q6.空间.省",
+   "Q6.空间.城市",
+   "Q6.时间.2024",
+   "Q6.时间.2025",
+   "Q6.时间.2026",
+   "Q6.结构.品类×渠道",
+   "Q6.结构.价格带×渠道",
+   "Q6.机制.量价拆解",
+   "Q6.机制.份额变化",
+   "Q6.边界.口径 vs 统计公报",
+   "Q6.边界.样本覆盖",
+   "Q7.对象.TOP5 品牌",
+   "Q7.对象.长尾合计",
+   "Q7.空间.全国",
+   "Q7.空间.省",
+   "Q7.空间.城市",
+   "Q7.时间.2024",
+   "Q7.时间.2025",
+   "Q7.时间.2026",
+   "Q7.结构.品类×渠道",
+   "Q7.结构.价格带×渠道",
+   "Q7.机制.量价拆解",
+   "Q7.机制.份额变化",
+   "Q7.边界.口径 vs 统计公报",
+   "Q7.边界.样本覆盖",
+   "Q8.对象.TOP5 品牌",
+   "Q8.对象.长尾合计",
+   "Q8.空间.全国",
+   "Q8.空间.省",
+   "Q8.空间.城市",
+   "Q8.时间.2024",
+   "Q8.时间.2025",
+   "Q8.时间.2026",
+   "Q8.结构.品类×渠道",
+   "Q8.结构.价格带×渠道",
+   "Q8.机制.量价拆解",
+   "Q8.机制.份额变化",
+   "Q8.边界.口径 vs 统计公报",
+   "Q8.边界.样本覆盖",
+   "Q9.对象.TOP5 品牌",
+   "Q9.对象.长尾合计",
+   "Q9.空间.全国",
+   "Q9.空间.省",
+   "Q9.空间.城市",
+   "Q9.时间.2024",
+   "Q9.时间.2025",
+   "Q9.时间.2026",
+   "Q9.结构.品类×渠道",
+   "Q9.结构.价格带×渠道",
+   "Q9.机制.量价拆解",
+   "Q9.机制.份额变化",
+   "Q9.边界.口径 vs 统计公报",
+   "Q9.边界.样本覆盖",
+   "Q10.对象.TOP5 品牌",
+   "Q10.对象.长尾合计",
+   "Q10.空间.全国",
+   "Q10.空间.省",
+   "Q10.空间.城市",
+   "Q10.时间.2024",
+   "Q10.时间.2025",
+   "Q10.时间.2026",
+   "Q10.结构.品类×渠道",
+   "Q10.结构.价格带×渠道",
+   "Q10.机制.量价拆解",
+   "Q10.机制.份额变化",
+   "Q10.边界.口径 vs 统计公报",
+   "Q10.边界.样本覆盖",
+   "Q11.对象.TOP5 品牌",
+   "Q11.对象.长尾合计",
+   "Q11.空间.全国",
+   "Q11.空间.省",
+   "Q11.空间.城市",
+   "Q11.时间.2024",
+   "Q11.时间.2025",
+   "Q11.时间.2026",
+   "Q11.结构.品类×渠道",
+   "Q11.结构.价格带×渠道",
+   "Q11.机制.量价拆解",
+   "Q11.机制.份额变化",
+   "Q11.边界.口径 vs 统计公报",
+   "Q11.边界.样本覆盖",
+   "Q12.对象.TOP5 品牌",
+   "Q12.对象.长尾合计",
+   "Q12.空间.全国",
+   "Q12.空间.省",
+   "Q12.空间.城市",
+   "Q12.时间.2024",
+   "Q12.时间.2025",
+   "Q12.时间.2026",
+   "Q12.结构.品类×渠道",
+   "Q12.结构.价格带×渠道",
+   "Q12.机制.量价拆解",
+   "Q12.机制.份额变化",
+   "Q12.边界.口径 vs 统计公报",
+   "Q12.边界.样本覆盖",
+   "Q13.对象.TOP5 品牌",
+   "Q13.对象.长尾合计",
+   "Q13.空间.全国",
+   "Q13.空间.省",
+   "Q13.空间.城市",
+   "Q13.时间.2024",
+   "Q13.时间.2025",
+   "Q13.时间.2026",
+   "Q13.结构.品类×渠道",
+   "Q13.结构.价格带×渠道",
+   "Q13.机制.量价拆解",
+   "Q13.机制.份额变化",
+   "Q13.边界.口径 vs 统计公报",
+   "Q13.边界.样本覆盖"
+  ],
+  "edges": [],
+  "waves": [
+   [
+    "Q1.对象.TOP5 品牌",
+    "Q1.对象.长尾合计",
+    "Q1.空间.全国",
+    "Q1.空间.省",
+    "Q1.空间.城市",
+    "Q1.时间.2024",
+    "Q1.时间.2025",
+    "Q1.时间.2026",
+    "Q1.结构.品类×渠道",
+    "Q1.结构.价格带×渠道",
+    "Q1.机制.量价拆解",
+    "Q1.机制.份额变化",
+    "Q1.边界.口径 vs 统计公报",
+    "Q1.边界.样本覆盖",
+    "Q2.对象.TOP5 品牌",
+    "Q2.对象.长尾合计",
+    "Q2.空间.全国",
+    "Q2.空间.省",
+    "Q2.空间.城市",
+    "Q2.时间.2024",
+    "Q2.时间.2025",
+    "Q2.时间.2026",
+    "Q2.结构.品类×渠道",
+    "Q2.结构.价格带×渠道",
+    "Q2.机制.量价拆解",
+    "Q2.机制.份额变化",
+    "Q2.边界.口径 vs 统计公报",
+    "Q2.边界.样本覆盖",
+    "Q3.对象.TOP5 品牌",
+    "Q3.对象.长尾合计",
+    "Q3.空间.全国",
+    "Q3.空间.省",
+    "Q3.空间.城市",
+    "Q3.时间.2024",
+    "Q3.时间.2025",
+    "Q3.时间.2026",
+    "Q3.结构.品类×渠道",
+    "Q3.结构.价格带×渠道",
+    "Q3.机制.量价拆解",
+    "Q3.机制.份额变化",
+    "Q3.边界.口径 vs 统计公报",
+    "Q3.边界.样本覆盖",
+    "Q4.对象.TOP5 品牌",
+    "Q4.对象.长尾合计",
+    "Q4.空间.全国",
+    "Q4.空间.省",
+    "Q4.空间.城市",
+    "Q4.时间.2024",
+    "Q4.时间.2025",
+    "Q4.时间.2026",
+    "Q4.结构.品类×渠道",
+    "Q4.结构.价格带×渠道",
+    "Q4.机制.量价拆解",
+    "Q4.机制.份额变化",
+    "Q4.边界.口径 vs 统计公报",
+    "Q4.边界.样本覆盖",
+    "Q5.对象.TOP5 品牌",
+    "Q5.对象.长尾合计",
+    "Q5.空间.全国",
+    "Q5.空间.省",
+    "Q5.空间.城市",
+    "Q5.时间.2024",
+    "Q5.时间.2025",
+    "Q5.时间.2026",
+    "Q5.结构.品类×渠道",
+    "Q5.结构.价格带×渠道",
+    "Q5.机制.量价拆解",
+    "Q5.机制.份额变化",
+    "Q5.边界.口径 vs 统计公报",
+    "Q5.边界.样本覆盖",
+    "Q6.对象.TOP5 品牌",
+    "Q6.对象.长尾合计",
+    "Q6.空间.全国",
+    "Q6.空间.省",
+    "Q6.空间.城市",
+    "Q6.时间.2024",
+    "Q6.时间.2025",
+    "Q6.时间.2026",
+    "Q6.结构.品类×渠道",
+    "Q6.结构.价格带×渠道",
+    "Q6.机制.量价拆解",
+    "Q6.机制.份额变化",
+    "Q6.边界.口径 vs 统计公报",
+    "Q6.边界.样本覆盖",
+    "Q7.对象.TOP5 品牌",
+    "Q7.对象.长尾合计",
+    "Q7.空间.全国",
+    "Q7.空间.省",
+    "Q7.空间.城市",
+    "Q7.时间.2024",
+    "Q7.时间.2025",
+    "Q7.时间.2026",
+    "Q7.结构.品类×渠道",
+    "Q7.结构.价格带×渠道",
+    "Q7.机制.量价拆解",
+    "Q7.机制.份额变化",
+    "Q7.边界.口径 vs 统计公报",
+    "Q7.边界.样本覆盖",
+    "Q8.对象.TOP5 品牌",
+    "Q8.对象.长尾合计",
+    "Q8.空间.全国",
+    "Q8.空间.省",
+    "Q8.空间.城市",
+    "Q8.时间.2024",
+    "Q8.时间.2025",
+    "Q8.时间.2026",
+    "Q8.结构.品类×渠道",
+    "Q8.结构.价格带×渠道",
+    "Q8.机制.量价拆解",
+    "Q8.机制.份额变化",
+    "Q8.边界.口径 vs 统计公报",
+    "Q8.边界.样本覆盖",
+    "Q9.对象.TOP5 品牌",
+    "Q9.对象.长尾合计",
+    "Q9.空间.全国",
+    "Q9.空间.省",
+    "Q9.空间.城市",
+    "Q9.时间.2024",
+    "Q9.时间.2025",
+    "Q9.时间.2026",
+    "Q9.结构.品类×渠道",
+    "Q9.结构.价格带×渠道",
+    "Q9.机制.量价拆解",
+    "Q9.机制.份额变化",
+    "Q9.边界.口径 vs 统计公报",
+    "Q9.边界.样本覆盖",
+    "Q10.对象.TOP5 品牌",
+    "Q10.对象.长尾合计",
+    "Q10.空间.全国",
+    "Q10.空间.省",
+    "Q10.空间.城市",
+    "Q10.时间.2024",
+    "Q10.时间.2025",
+    "Q10.时间.2026",
+    "Q10.结构.品类×渠道",
+    "Q10.结构.价格带×渠道",
+    "Q10.机制.量价拆解",
+    "Q10.机制.份额变化",
+    "Q10.边界.口径 vs 统计公报",
+    "Q10.边界.样本覆盖",
+    "Q11.对象.TOP5 品牌",
+    "Q11.对象.长尾合计",
+    "Q11.空间.全国",
+    "Q11.空间.省",
+    "Q11.空间.城市",
+    "Q11.时间.2024",
+    "Q11.时间.2025",
+    "Q11.时间.2026",
+    "Q11.结构.品类×渠道",
+    "Q11.结构.价格带×渠道",
+    "Q11.机制.量价拆解",
+    "Q11.机制.份额变化",
+    "Q11.边界.口径 vs 统计公报",
+    "Q11.边界.样本覆盖",
+    "Q12.对象.TOP5 品牌",
+    "Q12.对象.长尾合计",
+    "Q12.空间.全国",
+    "Q12.空间.省",
+    "Q12.空间.城市",
+    "Q12.时间.2024",
+    "Q12.时间.2025",
+    "Q12.时间.2026",
+    "Q12.结构.品类×渠道",
+    "Q12.结构.价格带×渠道",
+    "Q12.机制.量价拆解",
+    "Q12.机制.份额变化",
+    "Q12.边界.口径 vs 统计公报",
+    "Q12.边界.样本覆盖",
+    "Q13.对象.TOP5 品牌",
+    "Q13.对象.长尾合计",
+    "Q13.空间.全国",
+    "Q13.空间.省",
+    "Q13.空间.城市",
+    "Q13.时间.2024",
+    "Q13.时间.2025",
+    "Q13.时间.2026",
+    "Q13.结构.品类×渠道",
+    "Q13.结构.价格带×渠道",
+    "Q13.机制.量价拆解",
+    "Q13.机制.份额变化",
+    "Q13.边界.口径 vs 统计公报",
+    "Q13.边界.样本覆盖"
+   ]
+  ],
+  "critical_path_len": 182
+ },
+ "contracts": [
+  {
+   "task_id": "T-r06-60e3a2d8aa6c721f",
+   "owner": "r06",
+   "cells": [
+    "Q1.对象.TOP5 品牌",
+    "Q1.对象.长尾合计",
+    "Q1.时间.2024",
+    "Q1.时间.2025",
+    "Q1.时间.2026",
+    "Q1.机制.份额变化",
+    "Q1.机制.量价拆解",
+    "Q1.空间.全国",
+    "Q1.空间.城市",
+    "Q1.空间.省",
+    "Q1.结构.价格带×渠道",
+    "Q1.结构.品类×渠道",
+    "Q1.边界.口径 vs 统计公报",
+    "Q1.边界.样本覆盖",
+    "Q12.对象.TOP5 品牌",
+    "Q12.对象.长尾合计",
+    "Q12.时间.2024",
+    "Q12.时间.2025",
+    "Q12.时间.2026",
+    "Q12.机制.份额变化",
+    "Q12.机制.量价拆解",
+    "Q12.空间.全国",
+    "Q12.空间.城市",
+    "Q12.空间.省",
+    "Q12.结构.价格带×渠道",
+    "Q12.结构.品类×渠道",
+    "Q12.边界.口径 vs 统计公报",
+    "Q12.边界.样本覆盖",
+    "Q2.对象.TOP5 品牌",
+    "Q2.对象.长尾合计",
+    "Q2.时间.2024",
+    "Q2.时间.2025",
+    "Q2.时间.2026",
+    "Q2.机制.份额变化",
+    "Q2.机制.量价拆解",
+    "Q2.空间.全国",
+    "Q2.空间.城市",
+    "Q2.空间.省",
+    "Q2.结构.价格带×渠道",
+    "Q2.结构.品类×渠道",
+    "Q2.边界.口径 vs 统计公报",
+    "Q2.边界.样本覆盖",
+    "Q3.对象.TOP5 品牌",
+    "Q3.对象.长尾合计",
+    "Q3.时间.2024",
+    "Q3.时间.2025",
+    "Q3.时间.2026",
+    "Q3.机制.份额变化",
+    "Q3.机制.量价拆解",
+    "Q3.空间.全国",
+    "Q3.空间.城市",
+    "Q3.空间.省",
+    "Q3.结构.价格带×渠道",
+    "Q3.结构.品类×渠道",
+    "Q3.边界.口径 vs 统计公报",
+    "Q3.边界.样本覆盖"
+   ],
+   "acceptance": [
+    "G1",
+    "G3",
+    "G7",
+    "G8",
+    "G13",
+    "G18"
+   ],
+   "deadline": "4h",
+   "deadline_min": 240,
+   "escalate_to": "r02",
+   "can_decline": true,
+   "content_sha": "60e3a2d8aa6c721f"
+  },
+  {
+   "task_id": "T-r12-58a66db11ce10fa0",
+   "owner": "r12",
+   "cells": [
+    "Q10.对象.TOP5 品牌",
+    "Q10.对象.长尾合计",
+    "Q10.时间.2024",
+    "Q10.时间.2025",
+    "Q10.时间.2026",
+    "Q10.机制.份额变化",
+    "Q10.机制.量价拆解",
+    "Q10.空间.全国",
+    "Q10.空间.城市",
+    "Q10.空间.省",
+    "Q10.结构.价格带×渠道",
+    "Q10.结构.品类×渠道",
+    "Q10.边界.口径 vs 统计公报",
+    "Q10.边界.样本覆盖"
+   ],
+   "acceptance": [
+    "G1",
+    "G3",
+    "G7",
+    "G8",
+    "G13",
+    "G18"
+   ],
+   "deadline": "4h",
+   "deadline_min": 240,
+   "escalate_to": "r02",
+   "can_decline": true,
+   "content_sha": "58a66db11ce10fa0"
+  },
+  {
+   "task_id": "T-r07-440897223e30cc00",
+   "owner": "r07",
+   "cells": [
+    "Q11.对象.TOP5 品牌",
+    "Q11.对象.长尾合计",
+    "Q11.时间.2024",
+    "Q11.时间.2025",
+    "Q11.时间.2026",
+    "Q11.机制.份额变化",
+    "Q11.机制.量价拆解",
+    "Q11.空间.全国",
+    "Q11.空间.城市",
+    "Q11.空间.省",
+    "Q11.结构.价格带×渠道",
+    "Q11.结构.品类×渠道",
+    "Q11.边界.口径 vs 统计公报",
+    "Q11.边界.样本覆盖",
+    "Q13.对象.TOP5 品牌",
+    "Q13.对象.长尾合计",
+    "Q13.时间.2024",
+    "Q13.时间.2025",
+    "Q13.时间.2026",
+    "Q13.机制.份额变化",
+    "Q13.机制.量价拆解",
+    "Q13.空间.全国",
+    "Q13.空间.城市",
+    "Q13.空间.省",
+    "Q13.结构.价格带×渠道",
+    "Q13.结构.品类×渠道",
+    "Q13.边界.口径 vs 统计公报",
+    "Q13.边界.样本覆盖",
+    "Q7.对象.TOP5 品牌",
+    "Q7.对象.长尾合计",
+    "Q7.时间.2024",
+    "Q7.时间.2025",
+    "Q7.时间.2026",
+    "Q7.机制.份额变化",
+    "Q7.机制.量价拆解",
+    "Q7.空间.全国",
+    "Q7.空间.城市",
+    "Q7.空间.省",
+    "Q7.结构.价格带×渠道",
+    "Q7.结构.品类×渠道",
+    "Q7.边界.口径 vs 统计公报",
+    "Q7.边界.样本覆盖",
+    "Q8.对象.TOP5 品牌",
+    "Q8.对象.长尾合计",
+    "Q8.时间.2024",
+    "Q8.时间.2025",
+    "Q8.时间.2026",
+    "Q8.机制.份额变化",
+    "Q8.机制.量价拆解",
+    "Q8.空间.全国",
+    "Q8.空间.城市",
+    "Q8.空间.省",
+    "Q8.结构.价格带×渠道",
+    "Q8.结构.品类×渠道",
+    "Q8.边界.口径 vs 统计公报",
+    "Q8.边界.样本覆盖"
+   ],
+   "acceptance": [
+    "G1",
+    "G3",
+    "G7",
+    "G8",
+    "G13",
+    "G18"
+   ],
+   "deadline": "4h",
+   "deadline_min": 240,
+   "escalate_to": "r02",
+   "can_decline": true,
+   "content_sha": "440897223e30cc00"
+  },
+  {
+   "task_id": "T-r05-82572c253e85176e",
+   "owner": "r05",
+   "cells": [
+    "Q4.对象.TOP5 品牌",
+    "Q4.对象.长尾合计",
+    "Q4.时间.2024",
+    "Q4.时间.2025",
+    "Q4.时间.2026",
+    "Q4.机制.份额变化",
+    "Q4.机制.量价拆解",
+    "Q4.空间.全国",
+    "Q4.空间.城市",
+    "Q4.空间.省",
+    "Q4.结构.价格带×渠道",
+    "Q4.结构.品类×渠道",
+    "Q4.边界.口径 vs 统计公报",
+    "Q4.边界.样本覆盖",
+    "Q5.对象.TOP5 品牌",
+    "Q5.对象.长尾合计",
+    "Q5.时间.2024",
+    "Q5.时间.2025",
+    "Q5.时间.2026",
+    "Q5.机制.份额变化",
+    "Q5.机制.量价拆解",
+    "Q5.空间.全国",
+    "Q5.空间.城市",
+    "Q5.空间.省",
+    "Q5.结构.价格带×渠道",
+    "Q5.结构.品类×渠道",
+    "Q5.边界.口径 vs 统计公报",
+    "Q5.边界.样本覆盖",
+    "Q6.对象.TOP5 品牌",
+    "Q6.对象.长尾合计",
+    "Q6.时间.2024",
+    "Q6.时间.2025",
+    "Q6.时间.2026",
+    "Q6.机制.份额变化",
+    "Q6.机制.量价拆解",
+    "Q6.空间.全国",
+    "Q6.空间.城市",
+    "Q6.空间.省",
+    "Q6.结构.价格带×渠道",
+    "Q6.结构.品类×渠道",
+    "Q6.边界.口径 vs 统计公报",
+    "Q6.边界.样本覆盖"
+   ],
+   "acceptance": [
+    "G1",
+    "G3",
+    "G7",
+    "G8",
+    "G13",
+    "G18"
+   ],
+   "deadline": "4h",
+   "deadline_min": 240,
+   "escalate_to": "r02",
+   "can_decline": true,
+   "content_sha": "82572c253e85176e"
+  },
+  {
+   "task_id": "T-r15-",
+   "owner": "r15",
+   "cells": [
+    "Q9.对象.TOP5 品牌",
+    "Q9.对象.长尾合计",
+    "Q9.时间.2024",
+    "Q9.时间.2025",
+    "Q9.时间.2026",
+    "Q9.机制.份额变化",
+    "Q9.机制.量价拆解",
+    "Q9.空间.全国",
+    "Q9.空间.城市",
+    "Q9.空间.省",
+    "Q9.结构.价格带×渠道",
+    "Q9.结构.品类×渠道",
+    "Q9.边界.口径 vs 统计公报",
+    "Q9.边界.样本覆盖"
+   ],
+   "acceptance": [
+    "G1",
+    "G3",
+    "G7",
+    "G8",
+    "G13",
+    "G18"
+   ],
+   "deadline": "4h",
+   "deadline_min": 240,
+   "escalate_to": "r02",
+   "can_decline": true,
+   "content_sha": ""
+  }
+ ]
+}
