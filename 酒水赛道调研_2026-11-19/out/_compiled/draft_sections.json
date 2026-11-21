@@ -2254,6 +2254,18 @@
       "note": "普五出厂价与批发价的倒挂差额"
     }
   ],
+  "degraded": [],
+  "source_verify": {},
+  "dispatch": {},
+  "questions": {},
+  "exchange": {},
+  "explore": [],
+  "evidence_meta": {
+    "unique_sources": null,
+    "min_sources": null,
+    "min_sources_scope": null,
+    "verified_rate": null
+  },
   "counts": {},
   "audience": "决定是否进入酒水赛道的业务负责人",
   "decision": {

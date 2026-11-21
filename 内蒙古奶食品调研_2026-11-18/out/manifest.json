@@ -2,14 +2,17 @@
   "schema": "dsh.report.flow/v1",
   "producer": "r01",
   "producer_name": "蛙全局",
-  "intent": "自动汇编报告",
+  "intent": "内蒙古奶食品市场调研",
   "branch": "sections",
   "profile": "baseline",
-  "generated_at": "2026-11-18T21:31:15",
+  "generated_at": "2026-11-20T19:26:04",
   "evidence": {
-    "pack": "..\\内蒙古奶食品调研_2026-11-18\\out\\_compiled\\evidence_pack.json",
+    "pack": "D:\\蛙蛙呱呱\\内蒙古奶食品调研_2026-11-18\\out\\_compiled\\evidence_pack.json",
     "files": 32,
-    "numbers": 56
+    "unique_sources": 26,
+    "numbers": 56,
+    "min_sources": null,
+    "min_sources_scope": null
   },
   "section_check": {
     "ok": true,
@@ -99,27 +102,33 @@
       }
     ]
   },
-  "contract_hash": "b60fff355dcf6a31",
+  "contract_hash": "7e308345f9552532",
   "layout_errors": [],
   "files": {
-    "html": "..\\内蒙古奶食品调研_2026-11-18\\out\\report.html",
-    "md": "..\\内蒙古奶食品调研_2026-11-18\\out\\report.md",
-    "pdf": "..\\内蒙古奶食品调研_2026-11-18\\out\\report.pdf",
+    "html": "D:\\蛙蛙呱呱\\内蒙古奶食品调研_2026-11-18\\out\\report.html",
+    "md": "D:\\蛙蛙呱呱\\内蒙古奶食品调研_2026-11-18\\out\\report.md",
+    "pdf": null,
     "chart_stats": {
       "total": 3,
-      "v2": 3,
-      "v1": 0,
-      "fallback": 0,
-      "error": 0
+      "pro": 2,
+      "legacy": 1,
+      "fallback": 1,
+      "error": 0,
+      "sections_with_chart": 3,
+      "tables": 5
     },
-    "pdf_status": "created"
+    "chart_engine": {
+      "pro": 2,
+      "legacy": 1,
+      "table": 5
+    }
   },
   "spec_stats": {
     "tables": {
       "tables": 5,
       "with_unit": 1,
       "unit_headers": 1,
-      "numeric": 44,
+      "numeric": 38,
       "tone": 0,
       "total_row": 0
     },
@@ -133,16 +142,76 @@
   },
   "chart_stats": {
     "total": 3,
-    "v2": 3,
-    "v1": 0,
-    "fallback": 0,
-    "error": 0
+    "pro": 2,
+    "legacy": 1,
+    "fallback": 1,
+    "error": 0,
+    "sections_with_chart": 3,
+    "tables": 5
   },
+  "chart_engine": {
+    "pro": 2,
+    "legacy": 1,
+    "table": 5
+  },
+  "gate": {
+    "flow": {
+      "ok": true,
+      "verdict": "PASS",
+      "violations": [],
+      "stats": {
+        "chars": 9519,
+        "numbers": 438,
+        "density": 46.0,
+        "figures": 3,
+        "figure_sources": 3,
+        "boundaries": 0,
+        "duplicate_sentences": 2,
+        "duplicate_rate": 0.013,
+        "density_floor": 25
+      },
+      "depth": {
+        "profile": "research",
+        "ok": true,
+        "score": 100.0
+      },
+      "gate_script": "scripts/check_report_flow.py",
+      "gate_sha256": "f09dada3709afa30d5a804065f3d10745253c9395a04ceff0b4b9c11a0ebfd3e",
+      "gate_pinned": true,
+      "checked_at": "2026-11-20T19:26:04"
+    }
+  },
+  "flow_gate": {
+    "ok": false,
+    "sections": 8,
+    "avg_chars": 797.6,
+    "score": 58.8,
+    "hard_fail": [
+      2,
+      3,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "coverage_gate": {},
   "quotes": {
-    "mode": "warn",
+    "mode": "off",
     "ok": true,
     "verdict": "SKIP",
-    "status": "no_sources"
+    "degraded": true,
+    "reasons": [
+      "prose_soft",
+      "verify_not_recorded"
+    ]
   },
+  "dispatch": {},
+  "questions": {},
+  "exchange": {},
+  "degraded": [
+    "prose_soft",
+    "verify_not_recorded"
+  ],
   "ok": true
 }

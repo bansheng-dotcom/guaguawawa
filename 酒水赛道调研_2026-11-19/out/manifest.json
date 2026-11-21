@@ -5,11 +5,14 @@
   "intent": "中国酒水赛道全景：缩量、集中与价格倒挂下的进入判断",
   "branch": "sections",
   "profile": "research",
-  "generated_at": "2026-11-19T18:05:50",
+  "generated_at": "2026-11-20T19:26:05",
   "evidence": {
     "pack": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out\\_compiled\\evidence_pack.json",
     "files": 39,
-    "numbers": 147
+    "unique_sources": 27,
+    "numbers": 147,
+    "min_sources": null,
+    "min_sources_scope": null
   },
   "section_check": {
     "ok": true,
@@ -117,33 +120,39 @@
       }
     ]
   },
-  "contract_hash": "4fb2a034ed62d549",
+  "contract_hash": "13751a04eac33e93",
   "layout_errors": [],
   "files": {
     "html": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out\\report.html",
     "md": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out\\report.md",
-    "pdf": "D:\\蛙蛙呱呱\\酒水赛道调研_2026-11-19\\out\\report.pdf",
+    "pdf": null,
     "chart_stats": {
       "total": 8,
-      "v2": 8,
-      "v1": 0,
-      "fallback": 0,
-      "error": 0
+      "pro": 7,
+      "legacy": 1,
+      "fallback": 1,
+      "error": 0,
+      "sections_with_chart": 8,
+      "tables": 3
     },
-    "pdf_status": "created"
+    "chart_engine": {
+      "pro": 7,
+      "legacy": 1,
+      "table": 3
+    }
   },
   "spec_stats": {
     "tables": {
       "tables": 3,
       "with_unit": 0,
       "unit_headers": 0,
-      "numeric": 39,
+      "numeric": 27,
       "tone": 0,
       "total_row": 0
     },
     "charts": {
       "charts": 8,
-      "ref_added": 7,
+      "ref_added": 3,
       "subtitle_added": 8
     },
     "errors": [],
@@ -151,17 +160,72 @@
   },
   "chart_stats": {
     "total": 8,
-    "v2": 8,
-    "v1": 0,
-    "fallback": 0,
-    "error": 0
+    "pro": 7,
+    "legacy": 1,
+    "fallback": 1,
+    "error": 0,
+    "sections_with_chart": 8,
+    "tables": 3
   },
-  "gate": {},
+  "chart_engine": {
+    "pro": 7,
+    "legacy": 1,
+    "table": 3
+  },
+  "gate": {
+    "flow": {
+      "ok": true,
+      "verdict": "PASS",
+      "violations": [],
+      "stats": {
+        "chars": 16403,
+        "numbers": 847,
+        "density": 51.6,
+        "figures": 8,
+        "figure_sources": 8,
+        "boundaries": 10,
+        "duplicate_sentences": 12,
+        "duplicate_rate": 0.046,
+        "density_floor": 25
+      },
+      "depth": {
+        "profile": "research",
+        "ok": true,
+        "score": 100.0
+      },
+      "gate_script": "scripts/check_report_flow.py",
+      "gate_sha256": "f09dada3709afa30d5a804065f3d10745253c9395a04ceff0b4b9c11a0ebfd3e",
+      "gate_pinned": true,
+      "checked_at": "2026-11-20T19:26:05"
+    }
+  },
+  "flow_gate": {
+    "ok": false,
+    "sections": 11,
+    "avg_chars": 1100.5,
+    "score": 87.3,
+    "hard_fail": [
+      1,
+      2
+    ]
+  },
   "coverage_gate": {},
   "quotes": {
     "mode": "off",
     "ok": true,
-    "verdict": "SKIP"
+    "verdict": "SKIP",
+    "degraded": true,
+    "reasons": [
+      "prose_soft",
+      "verify_not_recorded"
+    ]
   },
+  "dispatch": {},
+  "questions": {},
+  "exchange": {},
+  "degraded": [
+    "prose_soft",
+    "verify_not_recorded"
+  ],
   "ok": true
 }

@@ -5,7 +5,7 @@
   "doc_type": "调研报告",
   "title_lines": [
     "自动汇编报告",
-    "7 节 · 智能体调研稿"
+    "7 节 · 调研报告"
   ],
   "standfirst": "准入：300.0 平方米以下只能做奶豆腐与奶皮子，奶贝必须持证",
   "metrics": [],
@@ -1322,6 +1322,18 @@
       "note": "高价档是产地价倍数"
     }
   ],
+  "degraded": [],
+  "source_verify": {},
+  "dispatch": {},
+  "questions": {},
+  "exchange": {},
+  "explore": [],
+  "evidence_meta": {
+    "unique_sources": null,
+    "min_sources": null,
+    "min_sources_scope": null,
+    "verified_rate": null
+  },
   "counts": {},
   "audience": "业务负责人",
   "decision": {
