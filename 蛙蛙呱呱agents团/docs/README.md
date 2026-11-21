@@ -1,7 +1,7 @@
 # docs 索引（现行 / 历史）
 
-> 2026-11-18（v11 · P1）重整。**现行文档只有下面列出的几份**；历史过程稿已移出 `docs/`，
-> 放在仓库的 `_attic/docs/`（不入库），只作追溯，不作为口径。
+> 2026-11-18（v11 · P1）重整，2026-11-22 清理历史过程稿。**现行文档只有下面列出的几份**；
+> 历史副本不再保留，只在 git 历史里可追溯。
 
 ## 现行（读这些）
 
@@ -29,13 +29,10 @@
 | `DOMAIN-EXPERT-LAYER.md` | 业务线 → 领域编队 |
 | `REPORT_REFERENCE_LIBRARY.md` | 报告参考库（案例与写法） |
 
-## 历史（已移出 docs/，在 `_attic/docs/`）
+## 历史（已移出 docs/）
 
-`REPORT-LINE-V4..V8.md`、`UPGRADE-PLAN-V3.md`、`SOP_ANALYTIC_LEARNING.md`、
-`SOP_AUTONOMOUS_GOVERNANCE_OS.md`、`SOP_CHART_ENGINE_V2_UPGRADE.md`、
-`WEIHE_AGENT_LEARNING.md`、`ROLE_CAPABILITY_MATRIX.md`。
-
-恢复某一份：`cp _attic/docs/<文件> docs/`（`_attic` 在 `.gitignore` 里，需要时手动取回）。
+历史过程稿（`REPORT-LINE-V4..V8.md`、`UPGRADE-PLAN-V3.md`、各类 SOP 与学习笔记）已在 2026-11-22 的
+仓库清理中删除，不再保留本地副本；需要追溯时看 git 历史，不要当现行口径引用。
 
 ## 数据文件
 
@@ -43,11 +40,18 @@
 `semantic_field_map.json`（由 `scripts/build_semantic_field_map.py` 生成）——
 需要最新口径时重新生成，不要手改。
 
-## 重构文档（在仓根 `交付/`）
+## 重构文档（在包内 `交付/`）
 
-| 文档 | 内容 |
-|---|---|
-| `报告产线-实际结构与问题-2026-11-18.md` | 改造前的实测诊断（12 环节 / 线路清点 / 24 条问题） |
-| `报告产线重构-SOP-2026-11-18.md` | P1–P5 可执行 SOP |
-| `SOP-P1-验收-2026-11-18.md` | P1 验收记录（删了什么、哈希证据、遗留项） |
-| `复盘-返工根因与项目规则-2026-11-18.md` | 报告产线现状 / 双图表 / 双名册 / 返工根因与红队复盘（最新） |
+| 文档 | 内容 | 状态 |
+|---|---|---|
+| `拆卡升级-SOP-2026-11-21.md` | 拆卡五轴、S1–S11 门禁、卡片契约 | 现行，被 `REPORT-LINES.md` 引用 |
+| `协作层-SOP-2026-11-21.md` | 卡间协商、R02 交接包与波次 | 现行，被拆卡 SOP 引用 |
+| `报告系统升级SOP-2026-11-21.md` | 报告产线结构、呈现与数据层修复 | 过程记录，与两份设计稿互引 |
+| `50材料核验-2026-11-21.md` | 50 份外部材料的 URL/许可核验明细 | 证据附件 |
+| `专家团系统升级-SOP-v5-2026-11-22.md` | 最新一版系统升级 SOP | 版本链最新 |
+| `generic_semantics_v1.yaml` | 跨业务线通用语义（度量类型/质量六维/因果阶） | **代码依赖**（`core/card_upgrade.py`） |
+| `semantic_layer.template.yaml` | 语义层模板 | 模板（`card_issue.py` 会生成同名文件） |
+| `agent_card.template.yaml` · `handoff_contract.template.yaml` | 角色卡 / 交接包模板 | 模板，暂无代码引用 |
+| `perspectives.template.yaml` | 视角模板 | 被拆卡 SOP 引用 |
+
+> 2026-11-22 核查结论：除 `generic_semantics_v1.yaml` 外，`交付/` 下文件均不被运行时读取。

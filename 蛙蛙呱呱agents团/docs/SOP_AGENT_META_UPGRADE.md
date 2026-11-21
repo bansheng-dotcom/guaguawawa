@@ -133,10 +133,10 @@
 
 | 沉淀物 | 目标路径 | 复用方式 |
 | :--- | :--- | :--- |
-| 通用报告引擎 | `agents/shared/report_generator.py` | 全角色 `import` 即用 |
-| 全角色报告 SOP | `agents/docs/SOP_BUSINESS_ANALYSIS_AND_REPORTING.md` | 20 角色统一遵循 |
-| 升级方法论 SOP | `agents/docs/SOP_AGENT_META_UPGRADE.md`（本文） | 任何新角色按图施工 |
-| 自动化验证脚本 | `agents/scripts/test_multi_agent_reporting.py` | 回归测试冒烟 |
+| 通用报告引擎 | `core/report_flow.py` | 全角色结论统一进 R01 产线 |
+| 全角色报告 SOP | `REPORT-STANDARD.md` · `docs/REPORT-LINES.md` | 20 角色统一遵循 |
+| 升级方法论 SOP | `docs/SOP_AGENT_META_UPGRADE.md`（本文） | 任何新角色按图施工 |
+| 自动化验证脚本 | `scripts/ci_report_checks.py` | 回归测试冒烟 |
 | 清理归档 | 删除 `.bak` / `tmp_*` / `__pycache__` / 废弃样板 | 保持目录生产级整洁 |
 
 > **纪律**：沉淀必须**可执行、可导入、可回归**。写成 PPT 不算沉淀。

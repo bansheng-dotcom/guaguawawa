@@ -153,12 +153,13 @@ outputs.extend(role_runtime.emit(
 
 ## 4. 接入后的验收
 
-> **2026-11-19 更正**：`report run --results` 自 v11 起已删除，仓内也没有任何模块读取
+> **2026-11-22 更正**：`report run --results` 自 v11 起已删除，仓内也没有任何模块读取
 > 角色 `result.json` 进报告。**当前 `result.json` 只作审计留痕，不进报告产线**；
-> 要把角色结论送进报告，走两条现役路径之一：
-> ① 数据线 `report "指令" --dir <项目> --out <目录>`（方法库从原始数据作答）；
-> ② 写稿线 `report "指令" --claims <claims.json> --out <目录>`（专家调研稿，含引文/来源）。
-> 真桥接（result.json → evidence_pack）列入 P2，见 `交付/专家团产线体检-2026-11-19.md`。
+> 要把角色结论送进报告，只有三条现役路径：
+> ① **拆卡线（默认）**：`report brief --plan --confirm` 发卡 → 角色交 `cards/<role>/claims.json`
+> → `report collect` → `report run-line --claims out/claims_merged.json`；
+> ② **数据线（快捷）**：`report "指令" --dir <项目> --out <目录>`，不拆卡、不取证；
+> ③ **单人稿（应急）**：`--claims … --solo-claims --allow-solo`，过 50 条唯一 URL 门槛，产物标 `solo_no_dispatch`。
 
 ```bash
 # ① 角色入口不回归
@@ -168,9 +169,10 @@ python guagua.py check
 python <role>/agent.py run --task <task_id>
 ls <out_dir>            # 期望：result.json + evidence.json，不应有 report.html / report.md
 
-# ③ 用现役产线出报告（二选一）
-python guagua.py report "<意图>" --dir <数据项目> --out /tmp/flow_check        # 数据线
-python guagua.py report "<意图>" --claims <claims.json> --out /tmp/flow_check  # 写稿线
+# ③ 用现役产线出报告（拆卡线）
+python guagua.py report collect --dir <项目> --out <项目>/out
+python guagua.py report run-line --intent "<意图>" \
+  --claims <项目>/out/claims_merged.json --out /tmp/flow_check
 
 # ④ 过唯一门禁
 python guagua.py report check --html /tmp/flow_check/report.html

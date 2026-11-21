@@ -3,17 +3,18 @@
 > 专为**一人公司**打造的全栈商业与技术智能体协作系统。
 > 用「组织语义 + 契约化端口 + 生成与校验分离」把 20 个专业角色组织成一家可运行的公司，而不是 20 个互不相干的聊天机器人。
 
-**版本：v2.5 · 2026-11-19**（报告产线 v12：`report` 单入口 / A、B 双路 / flow 默认版式 / 三层门禁）
+**版本：v2.6 · 2026-11-22**（报告产线 v13：拆卡线唯一默认 / 人环门禁 / 50 源唯一 URL / preflight 九项）
 
-> **一条命令出报告**：`python guagua.py report "你的问题" --dir <项目> --out <目录> [--pdf]`
-> （等价写法 `report run-line --intent "…" --dir … --out …`）。手上没有数据就走 B 路：
-> `report research-plan` 出研究方案 → 专家按 brief 交 `claims.json` → `report "…" --claims claims.json --out <目录>`。
-> 默认版式 `flow`（一条内容流，PDF 自动分页）；要一节一页 A4 加 `--layout paper`。
-> 旧 `build / decide / produce / pack / run` 与 `--lens / --thesis / --profile / --min-coverage` 已删除
-> （`report research` 现指并行调研子命令）；报告只有一个作者（R01），成品验收用 `report check --html <报告>`。
+> **默认只走拆卡线**（2026-11-22 起为硬门）：
+> `clarify → intake → clarify --confirm --user-said → brief --plan（把卡摊给用户看）→
+> brief --confirm --ack-cards --user-said → preflight → collect → run-line --claims`。
+> 没有 `coverage/issued.json` 的项目，`report collect` 直接拒收；
+> `report run-line --claims` 只认收卡产物；手写单人稿必须 `--solo-claims --allow-solo`，
+> 且过 50 条唯一 URL 门槛，产物标 `solo_no_dispatch`。
+> 默认版式 `flow`（一条内容流，PDF 自动分页）；`--layout paper` 已于 2026-11-21 下线。
 > 产线地图见 [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md)，
-> 版式规范见 [`docs/REPORT-FLOW.md`](蛙蛙呱呱agents团/docs/REPORT-FLOW.md)，
-> 重构过程见 [`交付/报告产线重构-SOP-2026-11-18.md`](交付/报告产线重构-SOP-2026-11-18.md)。
+> 拆卡 SOP 见 [`交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/交付/拆卡升级-SOP-2026-11-21.md)，
+> 预检实现见 [`scripts/preflight.py`](蛙蛙呱呱agents团/scripts/preflight.py)。
 
 **统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)
 
@@ -26,7 +27,7 @@
 - [三、组织全景](#三组织全景)
 - [四、三种合作形式](#四三种合作形式)
 - [五、20 个智能体详解](#五20-个智能体详解)
-- [六、六条可复用协作流水线](#六六条可复用协作流水线)
+- [六、可复用协作流水线](#六可复用协作流水线报告产线--六条协作链)
 - [七、统一入口与全部功能调用](#七统一入口与全部功能调用)
 - [八、目录结构与文档索引](#八目录结构与文档索引)
 - [九、运行、验收与能力边界](#九运行验收与能力边界)
@@ -51,15 +52,22 @@
 
 **三个核心数字：** 20 个角色、6 大事业群、3 种合作形式。
 
-### 本次升级了什么（v2.5）
+### 本次升级了什么（v2.6）
 
-- **报告产线收敛为一条**：`report` 单入口 + A（数据）/ B（调研）双路 + 三层质检（证据 / 编辑 / 呈现）。
-- **flow 成为默认版式**：一条内容流，PDF 自动分页；每节 11 字段、1,000–1,600 字，摘要五项必填。
-- **证据链可回抓**：`report collect` 默认 50 条来源下限并联网逐条核 quote，`report research` 支持 8 路并行发卡。
-- 保留并逐角色介绍 20 个角色：定位、能力、输入/输出、常用命令、协作位置、边界。
-- 统一入口 [`guagua.py`](蛙蛙呱呱agents团/guagua.py)：一个命令调用全部角色和全部技能动作；
-  完整命令手册见 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)。
-- 明确标注「真实执行 / 模拟 / 阻塞」边界，避免把本地校验说成线上已执行。
+- **拆卡线成为唯一默认**：报告不再允许「一个人写完 claims 就出稿」。默认路径是
+  R01 拆卡 → 子智能体按 `nonce + HMAC 签名` 各写各的 → R01 只做合并与判断。
+  没有 `coverage/issued.json` 的项目，`collect` 直接拒收。
+- **人必须在环里**：12 问必须问给用户（`user_answers ≥ 10` 才签得了 brief）；
+  澄清确认必须带 `--user-said` 原话；发卡前必须 `brief --plan` 把卡片清单摊给用户，
+  确认时带 `--ack-cards`。`preflight` 的 P8/P9 就是查这三件事。
+- **来源门槛收紧**：`collect` 默认 `--min-sources 50`，按**唯一 URL** 计数，逐条回抓 quote；
+  关回抓或关严格核验必须显式 `--allow-degraded`，降级写进 manifest。
+- **单人稿降级有痕**：`run-line --claims` 只接受收卡产物；手写稿必须
+  `--solo-claims --allow-solo`，同样过 50 源门槛，产物标 `solo_no_dispatch`。
+- **封面与 KPI 固化**：渲染器优先取 `meta.title / meta.subtitle / meta.metrics`，
+  报告标题、副题、关键指标不再被首节标题覆盖。
+- **清理**：工作区历史试跑产物（`workspace/`、`_attic/`、`z/`）与无关赛道调研残留已清除，
+  只保留小码女装 SKU 版研究作为样例交付。
 
 ---
 
@@ -128,22 +136,34 @@ python guagua.py chat --role r06 --intent "分析订单漏斗、留存和渠道�
 
 `chat` 会把该角色的知识域、案例、规则和你的意图组装成一份可直接交给 LLM 的 Prompt。
 
-### 第 7 步：出一条报告
+### 第 7 步：出一条报告（拆卡线，唯一默认）
 
 ```bash
-# 有数据：问题 + 数据目录（含 CSV/JSON）交给唯一报告产线
-python guagua.py report "这批数据说明什么" --dir <项目目录> --out workspace/report --pdf
+# 0) 接活：把 12 问问给用户，回答落盘（至少 10 条），再由用户确认
+python guagua.py report clarify --intent "小码女装怎么做" --out <项目>
+python guagua.py report intake --dir <项目> --answer I1=… --answer I2=…
+python guagua.py report clarify --dir <项目> --confirm --user-said "用户原话"
 
-# 没数据：先出研究方案（8 模块 / 专家分工 / 检索词 / 证据等级）
-python guagua.py report research-plan --intent "内蒙古调味料市场怎么做" --out workspace/plan
-# 专家按 brief 调研并交 claims.json（每条结论带原文引文 / URL / 来源等级）
-python guagua.py report "内蒙古调味料市场怎么做" --claims workspace/claims.json --out workspace/report --pdf
+# 1) 出卡给用户看（只出清单，不发卡）
+python guagua.py report brief --dir <项目> --plan
+# 2) 用户点头后确认发卡（nonce + HMAC 签名，写 coverage/issued.json）
+python guagua.py report brief --dir <项目> --plan --confirm --ack-cards --user-said "用户原话"
+# 3) 子智能体按卡执行，交 cards/<role>/claims.json（不写长文、不画图）
 
-# 已有 facts.py + charts.py 的项目（本项目最常用的正式稿路径）
-python guagua.py report flow --project workspace/<项目> --out workspace/<项目>/out --pdf
+# 4) 预检 P1–P9：澄清/签字/发卡/回卡/nonce/唯一来源/语义层/用户确认/看过卡
+python guagua.py report preflight --dir <项目>
+# 5) 收卡：50 条唯一 URL + 逐条回抓 quote → claims_merged.json
+python guagua.py report collect --dir <项目> --out <项目>/out
+# 6) 出报告（只认收卡产物）
+python guagua.py report run-line --intent "…" --claims <项目>/out/claims_merged.json \
+  --out <项目>/out/report --pdf
 
+# 只想先看研究方案（不产报告）
+python guagua.py report research-plan --intent "内蒙古调味料市场怎么做" --out <项目>/plan
+# 已有干净数据时走 A 数据驱动（不拆卡，边界见第九节）
+python guagua.py report "这批数据说明什么" --dir <数据项目> --out <项目>/out --pdf
 # 验一份成品（九条 flow 门禁 + 深度门禁）
-python guagua.py report check --html workspace/report/report.html
+python guagua.py report check --html <项目>/out/report/report.html
 ```
 
 产物固定为 `report.html`（正式版）+ `report.md`（快读版）+ `report.pdf`（带页码）+ `manifest.json`（门禁与证据）。
@@ -751,10 +771,11 @@ python guagua.py call r20 postmortem postmortem --input examples/postmortem.json
 
 ---
 
-## 六、六条可复用协作流水线
+## 六、可复用协作流水线（报告产线 + 六条协作链）
 
 | # | 流水线 | 链路 | 适用场景 | 入口 |
 |---|---|---|---|---|
+| 0 | 报告产线（默认） | R01 拆卡 → 子智能体按 nonce 交 `claims.json` → R01 合并 → R04 验收 | 调研报告、经营分析（当前唯一默认） | `report clarify → brief --plan --confirm → preflight → collect → run-line --claims` |
 | 1 | 从想法到上线 | R05 研究 → R07 产品 → R08 MVP → R09 工程 → R04 评审 | 新产品、新功能 | `plan` + `dispatch` |
 | 2 | 数据驱动经营 | R07 假设 → R06 验证 → R08 渲染 → R04 复核 | 营收、定价、增长方案 | `plan` + `dispatch` |
 | 3 | 内容增长 | R11 成稿 → R10 视觉 → R12 投放 → R06 归因 | 内容营销、获客 | `call` 逐段执行 |
@@ -818,9 +839,17 @@ python guagua.py call r03 financial rollforward --input examples/financial_rollf
 | `demo --all` | 依次运行全部 demo | `python guagua.py demo --all` |
 | `check` | 体检 20 个入口 | `python guagua.py check` |
 | `doctor` | 环境诊断 + 体检 | `python guagua.py doctor` |
-| `report "…" …` | 唯一报告产线（A 数据 / B 调研） | `python guagua.py report "你的问题" --dir <项目> --out <目录> --pdf` |
+| `report clarify` | 接活澄清：意图/问句/假设/待确认项 | `python guagua.py report clarify --intent "…" --out <项目>` |
+| `report intake` | 记录用户对 12 问的回答（≥10 条才可签 brief） | `python guagua.py report intake --dir <项目> --answer I1=…` |
+| `report brief --plan` | 出「问题→角色」映射与卡片清单（不发卡） | `python guagua.py report brief --dir <项目> --plan` |
+| `report brief --plan --confirm` | 用户点头后确认发卡（需 `--ack-cards --user-said`） | `python guagua.py report brief --dir <项目> --plan --confirm --ack-cards --user-said "确认"` |
+| `report preflight` | 拆卡线九项预检 P1–P9 | `python guagua.py report preflight --dir <项目>` |
+| `report collect` | 收卡：nonce/来源/回抓 → `claims_merged.json` | `python guagua.py report collect --dir <项目> --out <项目>/out` |
+| `report run-line`（或 `report "…"`） | 报告执行入口：唯一 HTML 渲染 + 门禁 | `python guagua.py report run-line --intent "…" --claims <项目>/out/claims_merged.json --out <项目>/out/report --pdf` |
+| `report research-plan` | 一句话 → 研究方案（8 模块 / 专家 / 数据通道），不产报告 | `python guagua.py report research-plan --intent "…" --out <项目>/plan` |
 | `report flow` | 项目化 flow 报告（facts + charts） | `python guagua.py report flow --project <项目> --out <目录> --pdf` |
 | `report check` | 验成品报告：九条 flow 门禁 + 深度门禁 | `python guagua.py report check --html report.html` |
+| `report attest` | 交付口径：门禁/来源/核验/降级（从 manifest 回填） | `python guagua.py report attest --out <目录>` |
 | `report charts` | 48 型图表能力盘点 | `python guagua.py report charts` |
 | `capabilities` | 能力目录：谁拥有 / 谁能用 / 形态 | `python guagua.py capabilities` |
 | `skills` | 技能包索引（SKILL.md 选型） | `python guagua.py skills` |
@@ -861,24 +890,25 @@ python guagua.py call r06 explore funnel \
 ├─ 蛙蛙呱呱agents团/             # ★ 智能体公司本体（20 角色）
 │  ├─ guagua.py                  # 统一入口
 │  ├─ chat.py                    # 知识注入 / Prompt 构建
-│  ├─ ORG.md                     # 组织章程（谁负责什么）
-│  ├─ PROTOCOL.md                # 协同协议（任务怎么流动）
-│  ├─ TEAM.md                    # 编排实例
+│  ├─ SKILL.md                   # Trae 技能入口（拆卡线默认 + 人环门禁）
+│  ├─ ORG.md / PROTOCOL.md       # 组织章程 / 协同协议
 │  ├─ REPORT-STANDARD.md         # 汇报标准（唯一产线：R01 出具）
 │  ├─ REPORT-BRIDGE-GUIDE.md     # 接入唯一产线（角色只交 result）
-│  ├─ core/                      # registry / protocol / report_line / flow_report / charts / quality_gate
-│  ├─ configs/                   # 角色职责、专家卡、report_flow / report_coverage 阈值
-│  ├─ r01-waquanju-ceo/          # R01 蛙全局（… r02 ~ r19 同构）
-│  ├─ r20-washouzhi-sre/         # R20 蛙值守
+│  ├─ core/                      # report_cli / dispatch / card_issue / card_plan / dor / intake / report_flow
+│  ├─ configs/                   # report_card_spec / report_flow / report_coverage 等阈值
+│  ├─ r01-… r20-…                # 20 个角色（agent.py + skills/ + harness + tests + references）
 │  ├─ agent-packs/               # 宿主可直接加载的角色包
 │  ├─ shared/                    # 共享能力（运行时、治理、方法、知识）
-│  ├─ docs/                      # SOP、能力地图、字段语义
-│  └─ scripts/                   # 批量生成、基准、演练、打包脚本
-├─ traeskills/                   # Trae 侧技能镜像（3 个技能包）
+│  ├─ docs/                      # 产线地图、版式、门禁契约（索引见 docs/README.md）
+│  ├─ 交付/                      # 拆卡/协作/报告升级 SOP 与模板（引用关系见第九节）
+│  ├─ tests/                     # pytest 单测 + 回归 + prompt 回归（不是缓存）
+│  └─ scripts/                   # CI 门禁、preflight、生成器、Trae 镜像同步
+├─ 小码女装调研_flow_2026-11-21/  # 现行样例：SKU 版调研交付（out2/report）
+├─ assets/                       # 品牌与头像素材
+├─ traeskills/                   # Trae 侧其它技能镜像（3 个）
 ├─ workbuddy专家团/              # WorkBuddy 侧专家团镜像（4 个子团队）
 ├─ .dsh/skills/                  # DSH 侧技能镜像
-├─ workspace/                    # ← 统一产物根（任务卡/事件流/artifacts/各角色私有产物，不入库）
-└─ dist/                         # 分发包输出（不入库）
+└─ workspace/                    # 运行态产物根（任务卡/事件流/artifacts，不入库）
 ```
 
 > **打包分发**：`python "蛙蛙呱呱agents团/scripts/make_package.py"` 会生成
@@ -888,7 +918,7 @@ python guagua.py call r06 explore funnel \
 
 > **产物不再写进 `蛙蛙呱呱agents团/`**：共享产物在 `<仓库根>/workspace`，
 > 角色私有产物在 `<仓库根>/workspace/<角色目录名>`。改路径见
-> [`使用指南.md` §6.2.1](蛙蛙呱呱agents团/使用指南.md §6.2.1)。
+> [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) 的 §6.2.1。
 
 ### 关键文档
 
@@ -899,12 +929,35 @@ python guagua.py call r06 explore funnel \
 | [`TEAM.md`](蛙蛙呱呱agents团/TEAM.md) | 「营收最大化」编排实例 |
 | [`REPORT-STANDARD.md`](蛙蛙呱呱agents团/REPORT-STANDARD.md) | 交付报告的统一结构与文风 |
 | [`REPORT-BRIDGE-GUIDE.md`](蛙蛙呱呱agents团/REPORT-BRIDGE-GUIDE.md) | 报告桥接指南 |
-| [`docs/SOP_AGENT_META_UPGRADE.md`](蛙蛙呱呱agents团/docs/SOP_AGENT_META_UPGRADE.md) | 智能体能力升级方法论（体检→对标→硬化→注入→闭环→沉淀） |
-| [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md) | 报告产线地图：单入口、A/B 双路、门禁与保留零件 |
+| [`SKILL.md`](蛙蛙呱呱agents团/SKILL.md) | Trae 技能入口：唯一的拆卡默认线、人环规则、能力边界 |
+| [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md) | 报告产线地图：拆卡默认 / A 数据 / B 应急，门禁与保留零件 |
+| [`docs/REPORT-DISPATCH.md`](蛙蛙呱呱agents团/docs/REPORT-DISPATCH.md) | 拆卡与防代写：nonce、签名、收卡校验 |
 | [`docs/REPORT-FLOW.md`](蛙蛙呱呱agents团/docs/REPORT-FLOW.md) | flow 版式规范：一条内容流、PDF 分页、摘要必填、文笔门禁 |
+| [`交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/交付/拆卡升级-SOP-2026-11-21.md) | 拆卡五个 SOP 版本与卡片契约（被 docs 引用） |
+| [`交付/协作层-SOP-2026-11-21.md`](蛙蛙呱呱agents团/交付/协作层-SOP-2026-11-21.md) | 卡间协商、R02 交接包与波次 |
+| [`scripts/preflight.py`](蛙蛙呱呱agents团/scripts/preflight.py) | 九项预检 P1–P9（唯一可执行判据） |
 | [`docs/actions_catalog.json`](蛙蛙呱呱agents团/docs/actions_catalog.json) | 全角色动作目录（机器可读） |
 | [`core/registry.py`](蛙蛙呱呱agents团/core/registry.py) | 20 角色能力与端口注册表 |
 | [`core/protocol.py`](蛙蛙呱呱agents团/core/protocol.py) | 任务卡、事件、端口字段契约 |
+
+### `交付/` 引用关系（2026-11-22 核查）
+
+| 文件 | 状态 | 被谁引用 |
+|---|---|---|
+| `generic_semantics_v1.yaml` | **代码依赖** | [`core/card_upgrade.py`](蛙蛙呱呱agents团/core/card_upgrade.py#L160) 读取；`semantic_layer.template.yaml` 继承 |
+| `semantic_layer.template.yaml` | 模板 | `card_issue.py` 会向项目写同名模板；专家团升级 SOP-v3 提及 |
+| `perspectives.template.yaml` | 模板 | `交付/拆卡升级-SOP-2026-11-21.md` |
+| `agent_card.template.yaml` | 模板 | 暂无引用（保留作交付样例） |
+| `handoff_contract.template.yaml` | 模板 | 暂无引用（保留作交付样例） |
+| `拆卡升级-SOP-2026-11-21.md` | 现行 SOP | [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md) |
+| `协作层-SOP-2026-11-21.md` | 现行 SOP | `拆卡升级-SOP-2026-11-21.md` |
+| `报告系统升级SOP-2026-11-21.md` | 过程记录 | `50材料核验` 与两份设计稿互引 |
+| `50材料核验-2026-11-21.md` | 证据附件 | `报告系统升级SOP-2026-11-21.md` |
+| 专家团升级 SOP v1 / v2.1 / v3 / v4 / v5 + 计划 v5 | 版本链 | 仅内部互引，最新为 v5 |
+| 调研结论 / 系统升级执行报告 / 验收报告 / 修复设计 html | 过程记录 | 无引用 |
+
+> 结论：**只有 `generic_semantics_v1.yaml` 是运行时依赖**，其余是模板与过程文档。
+> 要删任何一份，先按上表改引用；`tests/` 不是缓存，是 104 个 pytest 用例与 evals 夹具，必须保留。
 
 ---
 
@@ -942,7 +995,7 @@ python verify_loop.py
 - 角色私有产物：`workspace/rXX-<角色>/`（会话记忆、遥测、bundles、深度报告等）
 - 报告：通常为 `.md` 快读版 + `.html` 正式版
 - 想换位置：设环境变量 `GUAGUA_WORKSPACE`，或改 `蛙蛙呱呱agents团/core/workspace.py`
-  （说明见 [`使用指南.md` §6.2.1](蛙蛙呱呱agents团/使用指南.md §6.2.1)）
+  （说明见 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) 的 §6.2.1）
 
 ### 能力边界（重要）
 
@@ -951,10 +1004,34 @@ python verify_loop.py
 3. **不可逆动作必须人工授权**：裁员、关停、签约、付款、删除快照、灾难切换、生产恢复等，任何角色都不能自动执行。
 4. **质量结论只归 R04**：其他角色可以自检，但不能给自己签 `pass`。
 5. **数据与隐私**：不要把真实密钥、身份证、银行卡、生产凭据写入工件；R03/R16/R20 都有相应红线检查。
+6. **A 数据驱动仍可绕过拆卡**：`report "…" --dir <有 CSV/JSON 的项目> --out …` 走 `decision_report`，
+   不经过 `preflight / issued / nonce`。它是「已有干净数据」的快捷路，不是调研报告默认；
+   需要可审计的调研必须走拆卡线。
+7. **单人稿是应急降级**：`--solo-claims --allow-solo` 只解决「确实只有一个作者」的场景，
+   产物会标 `solo_no_dispatch`，且仍要过 50 条唯一 URL。
+8. **paper 版式已下线**：`--layout paper` 会直接报错；需要分页由 PDF 导出器做。
 
 ---
 
 ## 十、版本与更新记录
+
+### v2.6（2026-11-22）· 拆卡线唯一默认 + 人环门禁 + 50 源硬门槛
+
+- **默认路线唯一化**：报告默认只走拆卡线（`clarify → intake → brief --plan → --confirm --ack-cards
+  → preflight → collect → run-line --claims`）；没有 `coverage/issued.json` 的项目 `collect` 直接拒收，
+  老卡只有显式 `--allow-legacy` 才放行并标 `legacy_no_issued`。
+- **防代写接线**：每张卡带 `nonce + HMAC 签名`，`claims.dispatch.by` 不能是 `r01/solo/orchestrator`；
+  `collect` 与 `preflight` 都会校验，对不上整卡拒收。
+- **人必须在环里**：`intake` 记录 `user_answers`（≥10 才能签 brief）；`clarify --confirm` 必须带
+  `--user-said` 原话；发卡必须 `--ack-cards`，并把 `acknowledged_at/by` 写进 `plan.json`；
+  `preflight` 新增 P8/P9 专查这三件事。
+- **来源门槛**：`collect` 默认 `--min-sources 50`，按唯一 URL 计数，默认逐条回抓 quote；
+  关回抓/关严格必须 `--allow-degraded`，降级写 manifest。
+- **单人稿显式降级**：`run-line --claims` 只认收卡产物；手写稿必须 `--solo-claims --allow-solo`，
+  过 50 源门槛，产物标 `solo_no_dispatch`。
+- **渲染固化**：封面与 KPI 优先取 `meta.title / subtitle / metrics`，不再被首节标题覆盖。
+- **仓净**：删除 `workspace/`（191.8 MB 历史试跑）、`_attic/`（34 MB 留档）、`z/` 与无关赛道调研残留；
+  技能包降到约 30 MB；`tests/`（104 个用例与 evals 夹具）保留不动。
 
 ### v2.5（2026-11-19）· 报告产线 v12：一条线、两种输入、一个入口
 
@@ -963,7 +1040,7 @@ python verify_loop.py
 - **双路**：A 数据驱动（方法库从 CSV/JSON 算）与 B 智能体调研（`research-plan` → `claims.json`）
   共用同一套渲染器、门禁与交付格式。
 - **flow 默认版式**：一条内容流、PDF 自动分页；每节 11 字段（2 条事实 + 9 段论证）、1,000–1,600 字，
-  摘要五项必填；要回一节一页 A4 加 `--layout paper`。
+  摘要五项必填；要回一节一页 A4 加 `--layout paper`（2026-11-21 起 paper 已下线，见 v2.6）。
 - **证据链**：`report collect` 默认 50 条来源下限、联网逐条回抓 quote，未核过即失败；
   `report research` 支持 `--workers 8` 并行发卡；同一指标同期两个值不写 `conflicts` 就拦。
 - **门禁**：`report check` 收九条 flow 门禁 + 深度门禁；`report flow` 里 r04 五项

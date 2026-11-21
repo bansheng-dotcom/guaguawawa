@@ -61,7 +61,7 @@ report run-line --intent "…" --claims out/claims_merged.json --out out/report
 | 自适应发卡（卡数 = Σ ceil(簇格数/24)） | `core/card_plan.py` | `plan/cards.json` |
 | 卡就绪（DoR 9 项，缺一不发） | `core/dor.py` | `plan/dor.json` |
 | 派活校验（nonce + 签名 + 执行者） | `core/report_dispatch.py` | `coverage/issued.json` |
-| 预检七项 | `scripts/preflight.py` | 退出码 / PASS-FAIL |
+| 预检九项（P1–P9） | `scripts/preflight.py` | 退出码 / PASS-FAIL |
 | 收卡整备（归一/去重/冲突/覆盖） | `core/dispatch.py` | `claims_merged.json`（含 coverage/dispatch） |
 | 论点 / 查询 / 写作 | `core/synthesis.py` + `core/chart_query.py` | `theses.json` / `report.html` |
 

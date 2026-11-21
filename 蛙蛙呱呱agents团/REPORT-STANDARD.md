@@ -114,7 +114,7 @@ report run --evidence --draft
 ## 三之三、自动纲领（v4）：方法库按数据选节
 
 v3 的章节计划把「哪张表、哪一列」写死在 profile 里，换项目就跑不动，也只会写一阶描述。
-v4 把这一步拆成数据台 → 方法库 → 纲领 → 成稿（`docs/REPORT-LINE-V4.md`）：
+v4 把这一步拆成数据台 → 方法库 → 纲领 → 成稿（`docs/REPORT-LINES.md`）：
 
 - `core/analysis_desk.py` 识别时间/实体/数值/单位，价格统一元/斤，每个数字有 id；
 - `core/analysis_methods.py` 12 个方法产出「带数字的判断」（结构/节奏/轨迹/贡献/单位经济/

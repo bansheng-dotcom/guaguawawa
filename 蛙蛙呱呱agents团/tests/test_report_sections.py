@@ -119,7 +119,7 @@ def test_sections_validate_and_render(tmp_path):
     _, path = _pack(tmp_path)
     out = tmp_path / "out"
     res = report_flow.run(intent="测试", evidence=path, draft=_draft(),
-                          out_dir=str(out))
+                          out_dir=str(out), prose_hard=False)
     assert res["ok"], res
     man = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
     assert man["producer"] == "r01" and man["branch"] == "sections"

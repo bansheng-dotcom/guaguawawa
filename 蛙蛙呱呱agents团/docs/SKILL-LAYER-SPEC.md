@@ -247,7 +247,7 @@ metadata:
 
 1. `shared/capabilities/catalog.json` — 增 `skill_md` 字段，`kind/version/owner/consumers` 必须与 frontmatter 一致。
 2. `shared/capabilities.py::card_path()` — 优先返回 `SKILL.md`，回落 `README.md`。
-3. `docs/CAPABILITY_MAP.md` — 由脚本重新生成，不再手写。
+3. `docs/actions_catalog.json` — 由脚本重新生成，不再手写。
 
 > 这与 `ORG.md` §五 已有的教训一致：**注册表与路由矩阵两处必须同步**，否则就是"文档说能跑、实际跑不了"。
 

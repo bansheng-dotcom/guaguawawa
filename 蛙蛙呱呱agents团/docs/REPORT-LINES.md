@@ -1,12 +1,13 @@
 # 报告产线地图（REPORT-LINES.md · v12）
 
 > **2026-11-19 起：默认版式已切 flow（一条内容流 + PDF 自动分页），见 [`REPORT-FLOW.md`](REPORT-FLOW.md)。**
-> 默认值在 `configs/report_flow.yaml` 的 `flow.default_layout`；要回一节一页 A4，加 `--layout paper`。
+> 默认值在 `configs/report_flow.yaml` 的 `flow.default_layout`；`--layout paper` 已于 2026-11-21 下线。
 > flow 版按 `prose_style` 记文笔分（默认只记录不拦），页式版仍走下面的三层质检。
 >
 > 2026-11-18 重构完成（P1–P5）。**一条线、四种输入、一个入口、三层质检。**
-> 旧版地图（12 条产线 → 1 条产线 2 分支 → v10 决策契约）已归档到 `_attic/docs/REPORT-LINES-v10.md`。
-> 施工依据见仓根 `交付/报告产线重构-SOP-2026-11-18.md`，逐阶段验收见 `交付/SOP-P*-验收-*.md`。
+> 旧版地图与过程稿已于 2026-11-22 清理（`_attic/` 不再保留），现行口径以本文件为准。
+> 施工记录保留在 `交付/`：拆卡见 `交付/拆卡升级-SOP-2026-11-21.md`，
+> 报告系统升级见 `交付/报告系统升级SOP-2026-11-21.md`。
 >
 > **v12 补的是「能力在模型、规则只管验」**：报告不再只能由方法库算出，
 > 也可以由领域专家（模型 + 工具）调研后写出来，规则负责逐节过账与交叉质询。
@@ -23,6 +24,10 @@
 
 拆卡线每步的硬门：brief 未签不拆卡；DoR 未过不发卡；没有 nonce/签名的卡不收；
 `collect` 默认 `--min-sources 50`（唯一 URL）+ 逐条回抓；`run-line --claims` 只接受收卡产物。
+
+**A 路是快捷路，不是默认**：`report "问题" --dir <有 CSV/JSON 的项目> --out <目录>` 走
+`decision_report`，不经过 `preflight / issued / nonce`。它只适合「已有干净数据、不需要外部取证」；
+一旦结论依赖外部来源，必须回拆卡线。
 
 **人必须在环里（2026-11-22）**：
 - 12 问要问给用户；`intake --by agent` 代答不算，`user_answers<10` 签不了 brief；
@@ -158,7 +163,7 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 已删除（P1/P4）：`core/report_build.py`、`core/report_compose.py`、`core/question_bank.py`、
 `core/question_derive.py`、`core/focus_contract.py`、`scripts/reason.py`、
 `configs/role_report_specs.json`、`datasets/ports/`、`pipelines/out/`。
-详见 `_attic/DELETED.md`。
+详见 git 历史中的 2026-11 大清理提交。
 
 ## 五、验收
 

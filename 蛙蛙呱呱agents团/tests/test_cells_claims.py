@@ -154,8 +154,11 @@ def test_build_cells_to_claims():
 def test_collect_accepts_compiled_claims():
     base = _project()
     assert cells_claims.build(base)["ok"]
-    merged, problems = dispatch.collect(str(base), min_sources=0)
+    # 夹具没有 coverage/issued.json，属于老卡：走显式降级通道（新契约默认拒收）
+    merged, problems = dispatch.collect(str(base), min_sources=0, allow_legacy=True)
     assert not problems, problems
+    assert merged["dispatch"]["mode"] == "legacy"
+    assert "legacy_no_issued" in merged["degraded"]
     assert merged["evidence"]["sections"] == 4
     assert merged["evidence"]["numbers"] >= 12
 

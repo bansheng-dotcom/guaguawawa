@@ -51,7 +51,7 @@ python r01-waquanju-ceo/agent.py run --task <task_id>
 | 谁负责什么、向谁汇报、与谁交接 | `ORG.md` |
 | 任务怎样展开、下发、移交、编排 | `PROTOCOL.md` |
 | 汇报写什么、什么文笔、什么排版 | `REPORT-STANDARD.md` |
-| **全角色商业分析与决策级报告出具标准（必读）** | `docs/SOP_BUSINESS_ANALYSIS_AND_REPORTING.md` |
+| **全角色商业分析与决策级报告出具标准（必读）** | `REPORT-STANDARD.md` · `docs/REPORT-LINES.md` |
 | **智能体能力升级方法论（体检→对标→硬化→注入→闭环→沉淀）** | `docs/SOP_AGENT_META_UPGRADE.md` |
 | **技能层升级方案（SKILL.md 引领：现状体检→GitHub 对标→20 角色清单→路线图）** | `docs/SKILL-MD-UPGRADE-PLAN.md` |
 | **技能层规格（一份合格 SKILL.md 的硬标准：6 字段 + 十节 + 100 分口径）** | `docs/SKILL-LAYER-SPEC.md` |
