@@ -16,7 +16,7 @@
 > 拆卡 SOP 见 [`交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/交付/拆卡升级-SOP-2026-11-21.md)，
 > 预检实现见 [`scripts/preflight.py`](蛙蛙呱呱agents团/scripts/preflight.py)。
 
-**统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)
+**统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) ｜ **产品样例：** [小码女装市场研究（公开版）](showcase/xiaoma-womenswear/report.html)
 
 ---
 
@@ -168,6 +168,17 @@ python guagua.py report check --html <项目>/out/report/report.html
 
 产物固定为 `report.html`（正式版）+ `report.md`（快读版）+ `report.pdf`（带页码）+ `manifest.json`（门禁与证据）。
 完整清单见 [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md)。
+
+### 产品样例：小码女装市场研究（公开版）
+
+[**打开样例报告 →**](showcase/xiaoma-womenswear/report.html)（单文件 HTML，约 1.2 MB，含封面、13 节论证、13 张图与来源表）
+
+这是用上面这条拆卡线真实跑出来的完整交付：5 张卡（R06/R05/R07/R15/R12）、93 条唯一来源、
+434 个可寻址数字、`preflight` P1–P9 全 PASS。为了公开演示，竞品、店铺与供应商名称已用
+`████` 遮蔽，数字、口径、图表与结论保持原样；页面顶部有公开版说明条。
+
+它同时是渲染器的验收样张：封面取 `meta.title/subtitle/metrics`，每节 11 字段，
+图带来源与单位，最后一节是「口径与分数」（怎么生成、过了哪些校验）。
 
 ---
 
@@ -904,6 +915,7 @@ python guagua.py call r06 explore funnel \
 │  ├─ tests/                     # pytest 单测 + 回归 + prompt 回归（不是缓存）
 │  └─ scripts/                   # CI 门禁、preflight、生成器、Trae 镜像同步
 ├─ 小码女装调研_flow_2026-11-21/  # 现行样例：SKU 版调研交付（out2/report）
+├─ showcase/xiaoma-womenswear/   # 产品展示：公开版报告（敏感主体已遮蔽）
 ├─ assets/                       # 品牌与头像素材
 ├─ traeskills/                   # Trae 侧其它技能镜像（3 个）
 ├─ workbuddy专家团/              # WorkBuddy 侧专家团镜像（4 个子团队）
@@ -974,9 +986,23 @@ python guagua.py call r06 explore funnel \
 
 ```bash
 cd "D:\蛙蛙呱呱\蛙蛙呱呱agents团"
+
+# 1) 入口与环境
 python guagua.py doctor
 python guagua.py check
+
+# 2) 单测（当前基线：321 passed / 3 skipped）
+python -m pytest tests -q -p no:cacheprovider
+
+# 3) 拆卡线项目预检（以样例项目为例）
+python scripts/preflight.py --dir "../小码女装调研_flow_2026-11-21"
+
+# 4) 收敛门禁与 Trae 镜像
+python scripts/check_convergence.py --baseline .convergence-baseline.json
+python scripts/sync_trae_skill.py --check
 ```
+
+> 全量自检清单（角色端到端、图表、技能卡、许可等）见 [`AGENTS.md`](蛙蛙呱呱agents团/AGENTS.md)。
 
 ### 单角色测试
 
@@ -1030,64 +1056,22 @@ python verify_loop.py
 - **单人稿显式降级**：`run-line --claims` 只认收卡产物；手写稿必须 `--solo-claims --allow-solo`，
   过 50 源门槛，产物标 `solo_no_dispatch`。
 - **渲染固化**：封面与 KPI 优先取 `meta.title / subtitle / metrics`，不再被首节标题覆盖。
+- **公开样例**：新增 [`showcase/xiaoma-womenswear/report.html`](showcase/xiaoma-womenswear/report.html)，
+  竞品/店铺/供应商名以 `████` 遮蔽，数据口径不变。
 - **仓净**：删除 `workspace/`（191.8 MB 历史试跑）、`_attic/`（34 MB 留档）、`z/` 与无关赛道调研残留；
   技能包降到约 30 MB；`tests/`（104 个用例与 evals 夹具）保留不动。
 
-### v2.5（2026-11-19）· 报告产线 v12：一条线、两种输入、一个入口
+### 历史版本（摘要）
 
-- **单入口**：`report "问题" --dir <项目> --out <目录>`（等价 `report run-line`）；旧的
-  `build / decide / produce / pack / run` 与 `--lens / --thesis / --profile / --min-coverage` 全部删除。
-- **双路**：A 数据驱动（方法库从 CSV/JSON 算）与 B 智能体调研（`research-plan` → `claims.json`）
-  共用同一套渲染器、门禁与交付格式。
-- **flow 默认版式**：一条内容流、PDF 自动分页；每节 11 字段（2 条事实 + 9 段论证）、1,000–1,600 字，
-  摘要五项必填；要回一节一页 A4 加 `--layout paper`（2026-11-21 起 paper 已下线，见 v2.6）。
-- **证据链**：`report collect` 默认 50 条来源下限、联网逐条回抓 quote，未核过即失败；
-  `report research` 支持 `--workers 8` 并行发卡；同一指标同期两个值不写 `conflicts` 就拦。
-- **门禁**：`report check` 收九条 flow 门禁 + 深度门禁；`report flow` 里 r04 五项
-  （覆盖 / 数据 / 图表 / 版式 / 文笔）默认 BLOCK，调试才加 `--no-gate-hard` / `--no-prose-hard`。
-- **图表**：48 型图表全量回归（`report charts` 48/48），按数据关系选图，不再手挑。
+| 版本 | 日期 | 主要变化 |
+|---|---|---|
+| v2.5 | 2026-11-19 | 报告产线收敛为单入口；`flow` 成为默认版式；`collect` 默认 50 源并逐条回抓 quote |
+| v2.2 | 2026-11-17 | 报告判据唯一（F10 深度判据）；20 角色自检转绿；真实/模拟/阻塞三态归位 |
+| v2.1 | 2026-11-12 | 仓库瘦身（删除 11736 个历史文件）；固化 `make_package.py` 打包入口 |
+| v2.0 | 2026-11-10 | 重写 README；新增 `guagua.py` 统一入口与 20 角色介绍 |
 
-### v2.2（2026-11-17）· 全面体检修复
-
-- **报告判据唯一**：`check_report_flow` 增加 F10 深度判据，与 `core/report_quality` 共用
-  `research` / `baseline` 两档口径；同一份 HTML 不再出现「CI 绿、深度门禁红」。
-- **20 角色自检全绿**：14 个角色 `run_tests.py` 由红转绿（动态期望值 + r17 契约键修复 +
-  r06 证据边界误报修复 + r10 四档图标尺 + r20 错误预算/ RTO 对齐）。
-- **三态归位**：`capability_status` 不再一键覆盖；支付/ERP 写入/外部发布按技能声明
-  `blocked` / `simulated`，失败载荷不再冒充 `real`。
-- **R03 可编排**：补 `run --task`（合规/税务/审计任务不再必然失败）。
-- **契约异常不再放行**：r11–r15 评审器把「校验器崩溃」判 FAIL 并记 `contract_error`。
-- **角色名归一**：`role_profiles` / `report_roles` / `knowledge/roles` / 角色 configs 一律读
-  `core/registry.py`，清掉 10 个旧花名变体。
-- **阈值单源**：r01 记分卡、r03 现金流触发器、r06 质量、r07 RICE、r10 Logo、r16 薪酬容差、
-  r20 RTO/RPO 各自收敛到一个出处。
-- **仓净**：清 591 个 `.pyc`、`.pytest_cache`、19 份 configs 里的死 report 段、14 个角色里的
-  `_write_report` 死码、`r03/report.py`、r06 手写 HTML 脚本与成品报告、109 条断链。
-- **自检清单**：新增 `scripts/check_role_tests.py`（20 角色端到端）与 `pytest tests` 两条，
-  9 条自检在干净工作区全绿。
-
-### v2.1（2026-11-12）
-
-- **仓库瘦身**：删除 11736 个历史文件（约 414 万行），包括旧嵌套镜像树
-  `traeskills/wawa-guagua/`、`workbuddy专家团/wawa-company-os/`、已归档的
-  `报告体系/`、`内蒙古*调研`、`r10_*`、`.trae-html-share-packages/`，以及 89 MB 的
-  历史整包 `蛙蛙呱呱.zip`。镜像内容已扁平化保留在 `traeskills/*`、`workbuddy专家团/*`。
-  该清理提交为 `601ba96a`，同时打了标签 `cleanup-2026-11-12` 便于回溯：
-  `git checkout cleanup-2026-11-12 -- <路径>`。
-- **防止回退**：`.gitignore` 新增旧镜像树与 `蛙蛙呱呱.zip` 的忽略规则，避免误提交。
-- **打包入口固化**：[`scripts/make_package.py`](蛙蛙呱呱agents团/scripts/make_package.py)
-  产出 `蛙蛙呱呱agents团.zip`（排除 `workspace/`、缓存、日志，附 `PACKAGE_INFO.json`），
-  取代手工压缩；zip 本身不入库。
-- **README 同步**：目录结构改为反映当前单仓布局（智能体团 + 三处镜像 + workspace）；
-  根目录旧文档删除后，文档索引改指 `docs/智能体团升级SOP_v2.md`。
-
-### v2.0（2026-11-10）
-
-- 重写 README：新增 20 个角色的完整介绍、三种合作形式、六条协作流水线、统一入口说明。
-- 新增 [`guagua.py`](蛙蛙呱呱agents团/guagua.py)：`roles / info / call / chat / plan / dispatch / status / demo / check / doctor`。
-- 新增 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)：面向读者的完整操作手册。
-- 明确 R03 的入口差异、各角色的真实/模拟/阻塞边界。
-- 保留原有 `chat.py` 和每个角色的 `agent.py` 直接入口，不破坏旧用法。
+> 更早的逐条记录用 `git log -- README.md` 查；这里只保留仍影响当前使用的变化。
+> 已被后续版本推翻的口径（如 `--layout paper`、A/B 双路）不再在正文重复。
 
 ### 维护约定
 
