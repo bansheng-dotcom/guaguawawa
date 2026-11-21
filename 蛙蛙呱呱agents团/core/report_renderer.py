@@ -111,11 +111,23 @@ def validate_contract(c: Dict[str, Any]) -> List[str]:
                     if "label" not in b or "value" not in b:
                         errs.append(f"sections[{i}].chart vbars[{j}] 缺 label/value")
             elif t == "line":
-                if not ch.get("xlabels") or not ch.get("series"):
+                if ch.get("points"):
+                    for j, p in enumerate(ch["points"]):
+                        if p.get("label") is None or p.get("value") is None:
+                            errs.append(f"sections[{i}].chart points[{j}] 缺 label/value")
+                elif not ch.get("xlabels") or not ch.get("series"):
                     errs.append(f"sections[{i}].chart line 缺 xlabels/series")
-                for s in ch.get("series", []):
-                    if len(s.get("values", [])) != len(ch.get("xlabels", [])):
-                        errs.append(f"sections[{i}].chart series 值数与 xlabels 不一致")
+                else:
+                    for s in ch.get("series", []):
+                        if len(s.get("values", [])) != len(ch.get("xlabels", [])):
+                            errs.append(f"sections[{i}].chart series 值数与 xlabels 不一致")
+            elif t == "range":
+                rows = ch.get("rows") or []
+                if not rows:
+                    errs.append(f"sections[{i}].chart range 缺 rows")
+                for j, r in enumerate(rows):
+                    if r.get("low") is None or r.get("high") is None:
+                        errs.append(f"sections[{i}].chart range rows[{j}] 缺 low/high")
             elif t == "waterfall":
                 if not ch.get("steps"):
                     errs.append(f"sections[{i}].chart waterfall 缺 steps")
@@ -220,7 +232,7 @@ def _validate_ext_chart(ch: Dict[str, Any], i: int) -> List[str]:
             errs.append(f"{P} area series 值数与 xlabels 不一致")
     elif t in ("pie", "donut"):
         items_need("items", "label", "value")
-    elif t in ("dot", "lollipop", "waffle", "treemap"):
+    elif t in ("dot", "lollipop", "waffle", "treemap", "diverging"):
         items_need("items", "label", "value")
     elif t == "dumbbell":
         items_need("items", "label", "a", "b")
@@ -378,6 +390,15 @@ def _validate_ext_chart(ch: Dict[str, Any], i: int) -> List[str]:
         for j, p in enumerate(ch.get("panels", [])):
             if not isinstance(p, dict) or not p.get("title") or not p.get("xlabels") or p.get("values") is None:
                 errs.append(f"{P} small_mult panels[{j}] 缺 title/xlabels/values")
+    elif t == "share_bar":
+        # 2026-11-21：图型选择器新增；契约里同样是 items 型
+        seq = ch.get("items") or ch.get("bars") or ch.get("vbars")
+        if not seq:
+            errs.append(f"{P} share_bar 缺 items")
+        else:
+            for j, it in enumerate(seq):
+                if not isinstance(it, dict) or it.get("label") is None or it.get("value") is None:
+                    errs.append(f"{P} share_bar items[{j}] 缺 label/value")
     else:
         errs.append(f"{P} type 非法: {t}")
     return errs
@@ -1525,343 +1546,11 @@ def render(c: Dict[str, Any]) -> str:
             _sys.path.insert(0, _root)
         from core.report_theme.pages import render_contract
         return render_contract(c)
-    parts: List[str] = []
-    A = parts.append
-    A('<!doctype html>')
-    A('<html lang="zh-CN">')
-    A('<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">')
-    A(f'<title>{esc(c["title_lines"][0])}</title>')
-    A(f'<style>{CSS}</style></head>')
-    theme = str(c.get("theme", "paper"))
-    if theme not in THEMES:
-        theme = "paper"
-    # 默认走 charts_pro；契约显式写 chart_engine 或环境变量可覆盖（回滚开关）
-    engine = str(os.environ.get("GUAGUA_CHART_ENGINE")
-                 or c.get("chart_engine") or "pro")
-    A(f'<body data-theme="{theme}"><div class="page">')
-
-    # ---------------- 封面 ----------------
-    A('<header class="cover"><div class="wrap">')
-    if c.get("doc_type"):
-        A(f'<div class="kicker"><span class="glyph"><i></i><i></i><i></i></span>{esc(c.get("doc_type", ""))}</div>')
-    lines = c["title_lines"]
-    sub = f'<span class="h1-sub">{esc(lines[1])}</span>' if len(lines) > 1 and lines[1] else ""
-    t0 = esc(lines[0]).replace("\n", "<br>")
-    hl = c.get("title_highlight")
-    if hl is None:
-        hl = _auto_highlight(lines[0])
-    if hl:
-        ehl = esc(hl)
-        if ehl and ehl in t0:
-            t0 = t0.replace(ehl, f'<em class="hl">{ehl}</em>', 1)
-    _cls = []
-    if len(lines[0].replace("\n", "")) > 18:
-        _cls.append("long")
-    if str(c.get("title_highlight_style") or "") == "underline":
-        _cls.append("hl-under")
-    _attr = f' class="{" ".join(_cls)}"' if _cls else ""
-    A(f'<h1{_attr}>{t0}{sub}</h1>')
-    if c.get("standfirst"):
-        A(f'<p class="deck">{esc(c["standfirst"])}</p>')
-    if c.get("meta"):
-        A('<div class="meta">')
-        for m in c["meta"]:
-            A(f'<span>{esc(m)}</span>')
-        A('</div>')
-    A('</div></header>')
-
-    A('<main class="wrap"><div class="body-top"></div>')
-
-    # ---------------- 结论先行 ----------------
-    sections = list(c["sections"])
-    lead = None
-    if sections and str(sections[0].get("title", "")).startswith("结论先行"):
-        lead = sections.pop(0)
-    for i, s in enumerate([x for x in sections if not x.get("appendix")], 1):
-        s["index"] = i
-
-    if c.get("summary") or lead:
-        A('<section id="summary">')
-        A('<h2 class="sec">结论先行</h2>')
-        _sum_style = str(c.get("summary_style") or "cards")
-        if _sum_style == "list":
-            # 紧凑结论列表：一行一条「判断（加粗）+ 数字证据」，对齐编辑级研究稿
-            A('<ol class="concl">')
-            for p in c.get("summary", []):
-                body = esc(p["text"])
-                if p.get("mark"):
-                    body = body.replace(esc(p["mark"]), f'<mark>{esc(p["mark"])}</mark>', 1)
-                lead_t = str(p.get("lead") or "").strip()
-                A(f'<li><b>{esc(lead_t)}</b>{body}</li>' if lead_t else f'<li>{body}</li>')
-            A('</ol>')
-        else:
-            for i, p in enumerate(c.get("summary", [])):
-                label = str(p.get("label", "") or "").rstrip("：:")
-                body = esc(p["text"])
-                if p.get("mark"):
-                    body = body.replace(esc(p["mark"]), f'<mark>{esc(p["mark"])}</mark>', 1)
-                cls = "insight lead" if i == 0 else "insight"
-                t = f'<div class="t">{esc(label)}</div>' if label else ""
-                A(f'<div class="{cls}">{t}<p>{body}</p></div>')
-        A('</section>')
-
-    # ---------------- 指标带 ----------------
-    if c.get("metric_strip"):
-        n = len(c["metric_strip"])
-        cols = n if n <= 5 else (3 if n == 6 else 4)
-        A(f'<div class="kpis" style="grid-template-columns:repeat({cols},minmax(0,1fr))">')
-        for m in c["metric_strip"]:
-            status = m.get("status", "none")
-            cls = f' {status}' if status in ("critical", "watch", "healthy") else ""
-            A(f'<div class="kpi{cls}"><div class="k">{esc(m["label"])}</div>'
-              f'<div class="v">{esc(m["value"])}</div>'
-              f'<div class="d">{esc(m.get("note", ""))}</div></div>')
-        A('</div>')
-
-    # ---------------- 目录 ----------------
-    visible = [s for s in sections if not s.get("appendix")]
-    if len(visible) >= 3:
-        A('<nav class="toc" aria-label="目录">')
-        for s in visible:
-            A(f'<a href="#s-{esc(s["index"])}">{esc(s["title"])}</a>')
-        A('</nav>')
-
-    # ---------------- 分节 ----------------
-    table_no = 0
-    app_no = 0
-    for s in sections:
-        appendix = bool(s.get("appendix"))
-        if appendix:
-            # 附录单独编号 A1/A2：不能沿用正文序号，否则与末节同号
-            app_no += 1
-            sid = f's-A{app_no}'
-            A(f'<details class="appendix" id="{sid}"><summary>附录 A{app_no} · {esc(s["title"])}</summary>'
-              '<div class="inner">')
-        else:
-            sid = f's-{s["index"]}'
-            A(f'<section id="{sid}">')
-            A(f'<h2 class="sec">{esc(s["title"])}</h2>')
-            q = str(s.get("question") or "")
-            if q.startswith(str(s["title"]) + "："):
-                q = q[len(str(s["title"])) + 1:]
-            owner = str(s.get("owner") or "")
-            owner_name = str(s.get("owner_name") or "")
-            if q:
-                if owner:
-                    who = esc(owner_name or owner)
-                    A(f'<p class="sec-question">{esc(q)}'
-                      f'<span class="sec-owner">　· {esc(owner)} {who} 作答</span></p>')
-                else:
-                    A(f'<p class="sec-question">{esc(q)}</p>')
-
-        intro = s.get("intro") or []
-        for i, p in enumerate(intro):
-            lb = f' data-label="{esc(p["strong"])}"' if p.get("strong") else ""
-            cls = ' class="sec-lede"' if i == 0 else ""
-            A(f'<p{cls}{lb}>{esc(p["text"])}</p>')
-
-        readings = s.get("reading") or []
-        if readings:
-            reading_style = s.get("reading_style") or "prose"
-            A(f'<div class="reading {reading_style}">')
-            if reading_style == "prose":
-                A('<p class="reading-p">')
-                prev_end = True
-                for r in readings:
-                    if isinstance(r, str):
-                        txt, lb = r, ""
-                    else:
-                        txt = r.get("text", "")
-                        lb = (f' data-label="{esc(r["strong"])}"'
-                              if r.get("strong") else "")
-                    t = str(txt)
-                    if t and not prev_end and not t.startswith(_SENT_END):
-                        A("。")
-                    A(f'<span{lb}>{esc(t)}</span>')
-                    prev_end = t.endswith(_SENT_END) if t else prev_end
-                A('</p>')
-            else:
-                A('<ul>')
-                for r in readings:
-                    if isinstance(r, str):
-                        A(f'<li>{esc(r)}</li>')
-                    else:
-                        lb = f' data-label="{esc(r["strong"])}"' if r.get("strong") else ""
-                        A(f'<li{lb}>{esc(r.get("text", ""))}</li>')
-                A('</ul>')
-            A('</div>')
-
-        # 可证伪条件必须出现在正文里：只存字段不渲染 = 读者看不见，门禁也量不到
-        fals = str(s.get("falsifier") or "").strip()
-        if fals:
-            A(f'<p class="sec-falsifier" data-label="什么会推翻它　">{esc(fals)}</p>')
-
-        charts = s.get("charts") or ([s["chart"]] if s.get("chart") else [])
-        if charts:
-            grid = len(charts) > 1
-            if grid:
-                A('<div class="fig-grid">')
-            for ch in charts:
-                A('<figure class="fig-card">')
-                A('<figcaption class="fig-head">')
-                A(f'<span>{esc(ch["title"])}</span>')
-                A(f'<span class="fig-unit">{esc(ch.get("unit_meta", ""))}</span>')
-                A('</figcaption>')
-                # 口径副标题由卡框承担：图内已清空标题/副标题/单位/来源，避免双层标题
-                if ch.get("subtitle"):
-                    A(f'<div class="fig-sub">{esc(ch["subtitle"])}</div>')
-                A('<div class="fig-body">')
-                A(render_chart(ch, theme=theme, engine=engine))
-                A('</div>')
-                _src = str(ch.get("source") or "").strip()
-                _note = str(ch.get("note") or "").strip()
-                _foot = "　·　".join(x for x in (_src, _note) if x)
-                if _foot:
-                    A(f'<div class="fig-src">{esc(_foot)}</div>')
-                A('</figure>')
-            if grid:
-                A('</div>')
-
-        if s.get("blocks"):
-            A('<div class="blocks">')
-            for b in s["blocks"]:
-                t = b.get("type")
-                if t == "subhead":
-                    A(f'<h3 class="subhead">{esc(b.get("text", ""))}</h3>')
-                elif t == "bullets":
-                    A('<ul class="fact-list">')
-                    for item in (b.get("items") or []):
-                        A(f'<li>{esc(item)}</li>')
-                    A('</ul>')
-                elif t == "table" and b.get("table"):
-                    tb = b["table"]
-                    A('<div class="table-wrap"><table>')
-                    A("<thead><tr>" + "".join(f"<th>{esc(c.get('text', c))}</th>" for c in tb.get("columns", [])) + "</tr></thead><tbody>")
-                    for row in (tb.get("rows") or []):
-                        A("<tr>" + "".join(f"<td>{esc(c.get('text', c))}</td>" for c in row) + "</tr>")
-                    A("</tbody></table></div>")
-                elif t == "callout":
-                    A(f'<div class="blocks-callout">{esc(b.get("text", ""))}</div>')
-                elif t == "options":
-                    A('<div class="option-grid">')
-                    for c in (b.get("cards") or []):
-                        cls = "option-card recommended" if c.get("recommended") else "option-card"
-                        A(f'<div class="{cls}">')
-                        A(f'<h4>{esc(c.get("name", ""))}</h4>')
-                        A(f'<div class="oc-row">投入：{esc(c.get("invest", ""))}</div>')
-                        A(f'<div class="oc-row">预计收益：{esc(c.get("benefit", ""))}</div>')
-                        A(f'<div class="oc-roi">ROI {esc(c.get("roi", ""))}</div>')
-                        A(f'<div class="oc-note">{esc(c.get("note", ""))}</div>')
-                        A('</div>')
-                    A('</div>')
-                elif t == "chain":
-                    A('<div class="chain-strip">')
-                    for n in (b.get("nodes") or []):
-                        A(f'<div class="chain-node {esc(n.get("status", ""))}">')
-                        A(f'<div class="cn-k">{esc(n.get("label", ""))}</div>')
-                        A(f'<div class="cn-v">{esc(n.get("value", ""))}</div>')
-                        A(f'<div class="cn-n">{esc(n.get("note", ""))}</div>')
-                        A('</div>')
-                    A('</div>')
-                else:
-                    A(f'<p>{esc(b.get("text", ""))}</p>')
-            A('</div>')
-        elif s.get("prose"):
-            A('<div class="prose">')
-            for para in s["prose"]:
-                A(f'<p>{esc(para)}</p>')
-            A('</div>')
-
-        if s.get("boundary"):
-            b = s["boundary"]
-            A(f'<div class="boundary"><span class="b-label">边界</span>　{esc(b["text"])}</div>')
-
-        # 一节可放多张表（sections[].tables），按出现顺序连续编号；旧的单表键继续可用
-        sec_tables = list(s.get("tables") or [])
-        if s.get("table"):
-            sec_tables.insert(0, s["table"])
-        for t in sec_tables:
-            table_no += 1
-            if t.get("caption"):
-                A(f'<p class="tcap">表 {table_no} · {esc(t["caption"])}</p>')
-            A('<div class="table-wrap"><table>')
-            if t.get("col_widths"):
-                A('<colgroup>' + ''.join(f'<col style="width:{w}">' for w in t["col_widths"]) + '</colgroup>')
-            A('<thead><tr>')
-            for h in t["columns"]:
-                if isinstance(h, str):
-                    h = {"text": h}
-                if h.get("num"):
-                    cls = ' class="num"'
-                elif h.get("left"):
-                    cls = ' class="tleft"'
-                else:
-                    cls = ""
-                A(f'<th{cls}>{esc(h["text"])}</th>')
-            A('</tr></thead><tbody>')
-            for row in t["rows"]:
-                A('<tr>')
-                for cell in row:
-                    if isinstance(cell, str):
-                        cell = {"text": cell}
-                    if cell.get("row_label"):
-                        A(f'<td>{esc(cell["text"])}</td>')
-                    elif cell.get("lines"):
-                        A('<td class="lines">')
-                        for ln in cell["lines"]:
-                            A(f'<span>{esc(ln.get("key", ""))}{esc(ln["text"])}</span><br>')
-                        A('</td>')
-                    elif cell.get("num"):
-                        A(f'<td class="num">{esc(cell["text"])}</td>')
-                    elif cell.get("left"):
-                        A(f'<td class="tleft">{esc(cell["text"])}</td>')
-                    elif cell.get("tone") in ("up", "down", "flat"):
-                        A(f'<td class="{cell["tone"]}">{esc(cell["text"])}</td>')
-                    else:
-                        A(f'<td>{esc(cell["text"])}</td>')
-                A('</tr>')
-            A('</tbody>')
-            total_row = t.get("total_row")
-            if total_row:
-                A('<tfoot><tr class="total">')
-                for i, cell in enumerate(total_row):
-                    if isinstance(cell, dict):
-                        txt, is_num = cell.get("text", ""), bool(cell.get("num"))
-                    else:
-                        txt, is_num = str(cell), i > 0
-                    A(f'<td class="num">{esc(txt)}</td>' if is_num else f'<td>{esc(txt)}</td>')
-                A('</tr></tfoot>')
-            A('</table></div>')
-            if not t.get("caption"):
-                A('<p class="tcap">　</p>')
-
-        if s.get("conclusion"):
-            A(f'<p class="chapter-conclusion">{esc(s["conclusion"])}</p>')
-
-        A('</div></details>' if appendix else '</section>')
-
-    # ---------------- 口径 ----------------
-    if c.get("notes"):
-        A('<section class="notes" id="notes">')
-        A(f'<details open><summary>{esc(c["notes"].get("summary", "口径、来源与证据边界"))}</summary>')
-        A('<div class="notes-copy">')
-        for it in c["notes"].get("items", []):
-            A(f'<p>{esc(it["text"])}</p>')
-        if c["notes"].get("tail"):
-            A(f'<p>{esc(c["notes"]["tail"])}</p>')
-        A('</div></details></section>')
-
-    # ---------------- 页脚 ----------------
-    A('<footer>')
-    fs = c.get("footer") or []
-    if isinstance(fs, str):
-        fs = [fs]
-    for f in fs:
-        A(f'<span>{esc(f)}</span>')
-    A('</footer>')
-    A('</main></div></body></html>')
-    return "\n".join(parts)
-
+    # 2026-11-21：paper 文档线已删除（用户只要 flow）。
+    # 这里以前是 400+ 行的 A4 页式渲染（封面/目录/节页/动作页/附录）。
+    raise RuntimeError(
+        "paper 文档线已删除：只支持 flow（layout=flow）。"
+        "如仍在调用，请改用 report run-line，或给 layout 传 flow。")
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="共享确定性 HTML 报告渲染器（core）")

@@ -120,6 +120,9 @@ def _sections(html: str) -> List[Dict[str, Any]]:
         # （2026-11-19：不排除它们会让默认 flow 报告被 Q1/Q8/Q9/Q10 判红）。
         structural = (title in ("记录层", "口径与分数", "结论先行", "从判断到动作",
                                 "来源与数据文件")
+                      or title.startswith("决策纸")
+                      or title.startswith("附录")
+                      or title.startswith("动作")
                       or re.match(r"^\d+条判断", title) is not None
                       or title.startswith("谁、何时"))
         if structural or "证据来源" in title:
@@ -173,7 +176,11 @@ def audit(path: str, profile: str = "auto") -> Dict[str, Any]:
     counts = Counter(len(s["items"]) for s in secs)
     uniform = (max(counts.values()) / len(secs)) if counts else 0.0
     boundary_share = rate(lambda s: "本节边界" in s["body"])
-    q6 = _shingle_repeat([s["body"] for s in secs])
+    # 重复句只查正文：表格里的同列数字、图里的坐标标签会合法重复，
+    # 把它们算进来会把“数据表多”误判成“车轱辘话”。
+    q6 = _shingle_repeat([
+        _text(re.sub(r"<table[\s\S]*?</table>|<svg[\s\S]*?</svg>|<figure[\s\S]*?</figure>", "", s["raw"]))
+        for s in secs])
     dup_rate = dup / max(1, len(sentences))
     stops = len(re.findall(r"停止|止损|停用|暂停", body))
     tables = html.count("<table")

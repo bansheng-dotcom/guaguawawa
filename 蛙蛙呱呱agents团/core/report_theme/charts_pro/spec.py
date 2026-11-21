@@ -21,20 +21,34 @@ def _svg(w, h, label):
             f'aria-label="{label}" preserveAspectRatio="xMidYMid meet">']
 
 
+def _nice_step(v: float) -> float:
+    """刻度间隔归到 1/2/2.5/5 × 10^k，避免 354 / 709 / 1063 这种刻度。"""
+    if v <= 0:
+        return 1.0
+    k = math.floor(math.log10(v))
+    base = 10 ** k
+    for m in (1, 2, 2.5, 5, 10):
+        if v <= m * base:
+            return m * base
+    return 10 * base
+
+
 def _hbar(s: dict) -> str:
     items = sorted(s["items"], key=lambda x: -x["value"])
     dec = s.get("decimals", 1)
     W, H = 640, 60 + len(items) * 34
     L, R = 150, 596
-    mx = s.get("max") or max(i["value"] for i in items) * 1.15
+    hi0 = s.get("max") or max(i["value"] for i in items) * 1.08
+    step = _nice_step(hi0 / 4)
+    mx = math.ceil(hi0 / step) * step
     X = sx(0, mx, L, R)
     b = _svg(W, H, s.get("label", "排序条形"))
-    grid = s.get("grid", 4)
-    for k in range(grid + 1):
-        v = mx * k / grid
+    v = 0.0
+    while v <= mx + 1e-9:
         b.append(ln(X(v), 36, X(v), 26 + len(items) * 34, LINE, 1))
-        b.append(t(X(v), 26 + len(items) * 34 + 16, f"{v:.0f}" if v >= 10 else f"{v:g}",
-                   7, FAINT, anchor="middle"))
+        b.append(t(X(v), 26 + len(items) * 34 + 16,
+                   f"{v:.0f}" if v >= 10 else f"{v:g}", 7, FAINT, anchor="middle"))
+        v += step
     if s.get("ref") is not None:
         b.append(ln(X(s["ref"]), 36, X(s["ref"]), 26 + len(items) * 34, LINE2, 1, "3 3"))
         b.append(t(X(s["ref"]), 30, s.get("ref_label", "参照"), 7, MUTED, anchor="middle"))
@@ -44,9 +58,13 @@ def _hbar(s: dict) -> str:
         b.append(t(20, y + 4, it["label"], 8.6, INK2))
         if it.get("sub"):
             b.append(t(20, y + 16, it["sub"], 7, FAINT))
+        hot = (i == accent) or (isinstance(accent, str) and it["label"] == accent)
         b.append(rc(L, y - 8, max(X(it["value"]) - L, 2), 16,
-                    ACCENT if (isinstance(accent, int) and i == accent) else INK2, rx=1.5))
+                    ACCENT if hot else INK2, rx=1.5))
         b.append(t(X(it["value"]) + 8, y + 4, f"{it['value']:.{dec}f}", 8.6, INK, 700, halo=True))
+    note = str(s.get("accent_note") or "").strip()
+    if note:
+        b.append(t(R, 26, note, 7.2, ACCENT, anchor="end"))
     b.append("</svg>")
     return "".join(b)
 

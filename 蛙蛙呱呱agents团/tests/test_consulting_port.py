@@ -109,11 +109,11 @@ def test_renderer_consulting_dispatch():
     assert "rail-float" in html
 
 
-def test_renderer_paper_still_works():
+def test_renderer_flow_still_works():
     c = _contract()
-    c["theme"] = "paper"
+    c["layout"] = "flow"
     html = render(c)
-    assert '<body data-theme="paper">' in html
+    assert "flow-paper" in html
 
 
 def test_editorial_enrich_and_gate():

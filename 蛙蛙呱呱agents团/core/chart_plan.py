@@ -109,4 +109,12 @@ def audit(chart: Dict[str, Any]) -> List[str]:
         issues.append("图缺基线（和谁比）；没有基线的图只能看大小，看不出好坏")
     if not (chart.get("annotate") or chart.get("callout")):
         issues.append("图缺关键点标注（转折/异常/首末值）")
+    # 单位一致性：一张图只能有一个单位；混单位是错图，不是风格问题
+    items = (chart.get("bars") or chart.get("items") or chart.get("points") or [])
+    units = {str(x.get("unit")) for x in items
+             if isinstance(x, dict) and x.get("unit")}
+    if len(units) > 1:
+        issues.append(f"图混单位：{sorted(units)[:4]}；请按单位拆图或只留主单位")
+    if not chart.get("unit_meta") and not units:
+        issues.append("图缺 unit_meta（读者不知道数字是什么单位）")
     return issues

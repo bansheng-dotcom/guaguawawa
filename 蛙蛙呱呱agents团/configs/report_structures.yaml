@@ -1,0 +1,24 @@
+# 报告结构 profile：同一套内容模型，按任务类型组装不同页序。
+# 解决「所有报告都长成同一个模板」：模块可插拔，正文/附录/口径不是固定顺序。
+default: research
+profiles:
+  research:
+    label: 研究/行业全景
+    modules: [cover, decision, toc, body, actions, sources, support, caliber, back]
+    table_policy: ref_full       # 表收本节 refs 全量
+    chart_policy: relation      # 图按关系选型
+  decision:
+    label: 决策简报
+    modules: [cover, decision, body, actions, sources, caliber, back]
+    table_policy: ref_full
+    chart_policy: relation
+  diagnostic:
+    label: 经营诊断
+    modules: [cover, decision, toc, body, actions, sources, support, caliber, back]
+    table_policy: ref_full
+    chart_policy: relation
+  brief:
+    label: 一页纸
+    modules: [cover, decision, body, sources, caliber, back]
+    table_policy: chart_only
+    chart_policy: minimal

@@ -181,6 +181,12 @@ sections / notes / footer`；渲染走 `core/report_renderer.py`，**禁止手�
 | R4 | 不生成「结论清单 / 摘要复述」章节 | 正文说过的再总结一遍就是冗余 |
 | R5 | 全篇禁用斜体；标题/表头/图注不用衬线体 | 中文伪斜体在 PDF 里糊 |
 
+> **R5 的例外（2026-11-21）**：flow 主题（`docs/REPORT-LINES.md` 的唯一版式）用衬线体做**展示标题**，
+> 这是有意的设计。页面在 `<head>` 里显式声明
+> `<meta name="report-serif-titles" content="allow">` 时，`check_report_style.py`
+> 放行 `h1/h2/h3` 的衬线体；**表头 `th` 与图注 `figcaption` 仍然禁衬线**。
+> 不声明就不放行——这条不是给 paper 线开后门，paper 线已于同天下线。
+
 默认主题 `paper`（白纸、细线、暖橙强调、1120px 内容列）；备选 `sticker` 等 7 套历史主题。
 
 ---

@@ -21,6 +21,30 @@ URL_RE = re.compile(r"^https?://")
 
 Fetch = Callable[[str], str]
 
+# URL 归一化：去协议、去 www、去 fragment 与追踪参数，再比是不是同一个来源。
+# 2026-11-20：去重键原来是 `角色:文件编号`，同一篇报道被 4 个角色各登记一次，
+# 就能把 `--min-sources 50` 刷成 140。去重必须落在 URL 上。
+_TRACKING = re.compile(r"^(utm_[a-z]+|spm|from|share_token|ref|source)$", re.I)
+
+
+def normalize_url(url: Any) -> str:
+    """同一篇文章的不同写法 → 同一个键；解析不了就退回原文小写。"""
+    raw = str(url or "").strip()
+    if not raw:
+        return ""
+    try:
+        from urllib.parse import parse_qsl, urlencode, urlsplit
+        p = urlsplit(raw if "://" in raw else "http://" + raw)
+        host = (p.hostname or "").lower()
+        if host.startswith("www."):
+            host = host[4:]
+        path = re.sub(r"/+$", "", p.path or "/")
+        query = urlencode([(k, v) for k, v in parse_qsl(p.query, keep_blank_values=True)
+                           if not _TRACKING.match(k)])
+        return host + path + ("?" + query if query else "")
+    except Exception:  # noqa: BLE001
+        return raw.lower()
+
 
 def _norm(text: Any) -> str:
     return re.sub(r"\s+", "", str(text or ""))
@@ -86,12 +110,34 @@ def verify_source(src: Dict[str, Any], fetch: Fetch | None = None) -> Dict[str, 
     return row
 
 
+def _memo_fetch(fetch: Fetch) -> Fetch:
+    """按归一化 URL 记忆抓取结果：同一页被 4 个角色各登记一次，只抓一次。"""
+    cache: Dict[str, tuple] = {}
+
+    def call(url: str) -> str:
+        key = normalize_url(url) or url
+        if key not in cache:
+            try:
+                cache[key] = ("ok", fetch(url))
+            except Exception as exc:  # noqa: BLE001
+                cache[key] = ("err", exc)
+        kind, val = cache[key]
+        if kind == "err":
+            raise val
+        return val
+
+    call.cache = cache  # type: ignore[attr-defined]
+    return call
+
+
 def verify_sources(sources: List[Dict[str, Any]], fetch: Fetch | None = None) -> Dict[str, Any]:
-    rows = [verify_source(s, fetch) for s in sources]
+    memo = _memo_fetch(fetch or default_fetch)
+    rows = [verify_source(s, memo) for s in sources]
     verified = sum(1 for r in rows if r["status"] == "verified")
     counts: Dict[str, int] = {}
     for r in rows:
         counts[r["status"]] = counts.get(r["status"], 0) + 1
     return {"ok": bool(rows) and verified == len(rows),
             "total": len(rows), "verified": verified, "counts": counts,
+            "unique_fetches": len(memo.cache),  # type: ignore[attr-defined]
             "fetch": fetch is not None, "rows": rows}

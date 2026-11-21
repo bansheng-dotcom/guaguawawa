@@ -1,5 +1,41 @@
 # 接入唯一报告产线（REPORT-BRIDGE-GUIDE）
 
+## 0.0 门禁是产线的一部分，不是事后检查（2026-11-20 起）
+
+`report run-line` 在渲染完的那一刻自己跑 `scripts/check_report_flow.py`，
+把结论写进 `manifest.json → gate.flow`（verdict / violations / stats / 脚本指纹）。
+**不要再在对话里宣布「门禁通过」**——那句话只能从 manifest 回填：
+
+```bash
+python guagua.py report attest --out <out>     # 交付口径，逐项来自 manifest
+```
+
+三条硬规则：
+
+| 规则 | 为什么 |
+|---|---|
+| 标记契约只在 `core/report_marks.py` 定义，渲染器与门禁都 import | 2026-11-20：两边各写 `fig-src` / `ex-src`，默认 flow 永远过不了自己的门禁 |
+| 门禁脚本改动必须同步 `configs/report_gate.lock.json`（`scripts/check_gate_lock.py --write` 并提交） | 防止"改松门禁再自己判 PASS"；产线与 CI 都会比对指纹 |
+| 降级（关回抓 / 关严格 / 关来源门槛）必须显式 `--allow-degraded`，并落 `manifest.quotes.degraded` | 过去一条 `--no-strict-quotes` 就能让 40% 未核来源静默过关 |
+
+判据细节见 `docs/REPORT-GATE-CONTRACT.md`。
+
+## 0.00 接任务先澄清，再拆卡，再派活（2026-11-20 起）
+
+`report brief` 不再直接把「自己定要查什么」的卡发下去。现在的顺序是：
+
+```bash
+report clarify --intent "…" --out <项目>     # 澄清卡：我理解成什么、要答哪几问、默认假设
+report clarify --dir <项目> --confirm        # 你改完/接受默认后确认
+report brief   --dir <项目> --plan          # 问题→角色映射表（只出表）
+report brief   --dir <项目> --plan --confirm # 确认即发卡，每卡带 nonce
+report collect --dir <项目> --out <项目>/out  # 收卡时验 nonce / 执行者，代写拒收
+```
+
+为什么：2026-11-20 的测试里，卡里写着「你要判断什么（自己定）」，6 张卡内容重叠，
+R01 最后把 6 张卡的 claims 全写了再自称"4 个角色都交了"。详见
+`docs/REPORT-DISPATCH.md`。
+
 ## 0. 三种写法（2026-11-20 起，flow 产线）
 
 | facts 里怎么写 | 走哪条 | 适合 |

@@ -76,3 +76,6 @@ workbuddy专家团/wawa-company-os/
 examples/*/out/
 
 蛙蛙呱呱agents团/examples/*/out/
+
+# 2026-11-20 调研测试复盘用的临时证据目录（share 会话快照 / 探针脚本）
+_trae_audit/

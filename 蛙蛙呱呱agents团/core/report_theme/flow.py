@@ -11,6 +11,7 @@
 """
 from __future__ import annotations
 
+import html as _html
 import re
 from typing import Any, Dict, List
 
@@ -42,6 +43,28 @@ body.flow-all{background:#E7E5E0}
 .flow-footer img{width:14mm;height:14mm;object-fit:contain;border-radius:2mm;background:#fff}
 .flow-footer b{display:block;font-size:10pt;color:var(--ink);letter-spacing:.05em}
 .flow-footer span{display:block;font-size:7.4pt;color:var(--muted);margin-top:1mm}
+/* 口径页的「问题覆盖」：给人看的一块，不是机器对账表 */
+.qcov{margin:5mm 0 4mm;border:.6pt solid var(--line);background:#FBFAF7;padding:4.5mm 6mm 4mm}
+.qcov-top{display:flex;align-items:flex-end;justify-content:space-between;gap:6mm}
+.qcov-kicker{font-size:7pt;letter-spacing:.2em;color:var(--faint);text-transform:uppercase}
+.qcov-num{font-family:var(--serif);color:var(--ink);line-height:1}
+.qcov-num b{font-size:26pt;letter-spacing:-.02em}
+.qcov-num span{font-size:9pt;color:var(--muted);margin-left:1.6mm}
+.qcov-bar{height:1.8mm;background:#E9E6E0;margin:3.2mm 0 0}
+.qcov-bar i{display:block;height:100%;background:var(--accent)}
+.qcov-sub{font-size:7.6pt;letter-spacing:.08em;color:var(--faint);margin:3.4mm 0 0.6mm}
+.qcov-list{list-style:none;margin:0.6mm 0 0;padding:0}
+.qcov-list li{display:grid;grid-template-columns:11mm 1fr 46mm;gap:3mm;
+  padding:1.7mm 0;border-top:.3pt solid var(--line);align-items:baseline}
+.qcov-id{font-family:var(--serif);font-size:9pt;color:var(--accent)}
+.qcov-q{font-size:8.8pt;color:var(--ink);line-height:1.5}
+.qcov-why{font-size:7.6pt;color:var(--muted);line-height:1.45}
+.qcov-ok{margin-top:3mm;font-size:8.6pt;color:var(--ink2)}
+.qcov-foot{margin-top:2.6mm;font-size:7.6pt;color:var(--faint)}
+@media print{.qcov{break-inside:avoid;page-break-inside:avoid}}
+.metalist-list{list-style:none;margin:4mm 0 0;padding:0}
+.metalist-list li{position:relative;padding:2.6mm 0 2.6mm 7mm;border-top:.3pt solid var(--line);font-size:10pt;line-height:1.65;color:var(--ink2)}
+.metalist-list li:before{content:'';position:absolute;left:0;top:5.1mm;width:3.2mm;height:.9mm;background:var(--accent)}
 /* flow 的页码由导出后盖，目录里的估算页码会与实际不符，隐掉 */
 .toc-row .pg{display:none}
 @media print{
@@ -73,7 +96,8 @@ def _footer(inner: str) -> str:
     return footer_html(img.group(0) if img else "")
 
 
-def flowify(html: str, sources: List[Any] | None = None) -> str:
+def flowify(html: str, sources: List[Any] | None = None,
+            title: str = "") -> str:
     """把 pages.render_contract 的 A4 页 HTML 变成一条 flow。"""
     cover = ""
     # 封面里套了两层 div，正则非贪婪会在内层 </div> 处截断；用切片取到下一个 section 之前
@@ -98,6 +122,17 @@ def flowify(html: str, sources: List[Any] | None = None) -> str:
     if sources:
         from core.report_theme.blocks import compact_sources
         blocks.append(compact_sources(sources))
+    # 末节必须是「口径与分数」：先排正文与动作，再排附录（记录层），最后放口径节，
+    # 自检信息才不挡在结论前，也不会变成末节。
+    # 目录里也会出现「口径与分数」链接，按 h2 精确匹配，避免把目录挪到末尾
+    cal = next((i for i, b in enumerate(blocks)
+                if re.search(r"<h2[^>]*>\s*口径与分数\s*</h2>", b)), -1)
+    if cal >= 0:
+        cal_block = blocks[cal]
+        rest = blocks[:cal] + blocks[cal + 1:]
+        apps = [b for b in rest if 'flow-block appendix' in b]
+        rest = [b for b in rest if 'flow-block appendix' not in b]
+        blocks = rest + apps + ['<div class="flow-break"></div>' + cal_block]
     body = "".join(blocks)
     # 尾页：取 back 的 logo，生成小页脚
     bm = re.search(r'<section class="page back"[^>]*>(.*?)</section>', html, re.S)
@@ -107,6 +142,8 @@ def flowify(html: str, sources: List[Any] | None = None) -> str:
     base_css = sm.group(1) if sm else ""
     out = ('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
            '<meta name="viewport" content="width=device-width, initial-scale=1">'
+           '<meta name="report-serif-titles" content="allow">'
+           f'<title>{_html.escape(title) if title else "报告"}</title>'
            f'<style>{base_css}{FLOW_CSS}</style></head><body class="flow-all" data-theme="paper">'
            f'<main class="flow-paper">{cover}{body}{footer}</main></body></html>')
     return out
@@ -115,4 +152,8 @@ def flowify(html: str, sources: List[Any] | None = None) -> str:
 def render_flow(c: Dict[str, Any]) -> str:
     """contract -> flow HTML。"""
     from core.report_theme.pages import render_contract
-    return flowify(render_contract(c), c.get("sources"))
+    lines = c.get("title_lines") or []
+    title = str(lines[0]) if lines else str(c.get("short_title") or "")
+    # 附录已由 pages.render_contract 收成一页（支撑判断+来源+口径），
+    # 这里不再传 sources，否则 flowify 会把附录页丢掉、再拼一个纯来源页。
+    return flowify(render_contract(c), [], title=title)

@@ -1,0 +1,78 @@
+# 视角层模板（L1）—— 谁在看这件事
+#
+# 为什么需要：六维网格回答"看哪几面"，但"谁在看"决定你会不会漏掉整类问题。
+# 个护报告只从消费者视角看，所以经销商账期、门店陈列、库存周转一个字没有。
+#
+# 规则：≥3 个视角，每个视角 ≥1 问；问题合并去重后进 grid.json。
+
+schema: dsh.perspectives/v1
+case: nmg-personal-care-2026-11
+owner: r01
+
+perspectives:
+  - id: P1
+    name: 消费者
+    core_question: 买什么、为什么换、多久复购
+    questions:
+      - 哪些品类/功效在被买走
+      - 换品牌的原因是什么
+      - 复购周期与价格敏感度
+    measures_hint: [share, yoy, asp]
+    missing_risk: 低（最常被覆盖）
+
+  - id: P2
+    name: 门店
+    core_question: 货架怎么摆、什么卖得动、缺不缺货
+    questions:
+      - 单店周销与动销率
+      - 陈列位与端架贡献
+      - 缺货率与补货频次
+    measures_hint: [sales_per_store, sell_through, oos_rate]
+    missing_risk: 高（报告几乎不覆盖）
+
+  - id: P3
+    name: 经销商
+    core_question: 压多少货、账期多久、退不退
+    questions:
+      - 库存周转周数
+      - 账期与返利结构
+      - 退换货率与滞销处理
+    measures_hint: [inventory_weeks, dso, return_rate]
+    missing_risk: 极高（一手数据才拿得到）
+
+  - id: P4
+    name: 竞品
+    core_question: 对手在做什么动作
+    questions:
+      - 价格动作与促销节奏
+      - 上新与配方迭代
+      - 投放与达人结构
+    measures_hint: [share, price_index, new_sku_count]
+    missing_risk: 中
+
+  - id: P5
+    name: 监管
+    core_question: 能不能宣称、要不要注册
+    questions:
+      - 特殊化妆品注册周期
+      - 功效宣称证据要求
+      - 儿童/进口合规
+    measures_hint: [lead_time_months]
+    missing_risk: 低
+
+  - id: P6
+    name: 供应链
+    core_question: 从哪来、多久到、多少成本
+    questions:
+      - 产地产能与集中度
+      - 干线时效与区域仓覆盖
+      - 到岸成本结构
+    measures_hint: [lead_time_days, freight_cost, capacity]
+    missing_risk: 中
+
+rules:
+  min_perspectives: 3
+  min_questions_per_perspective: 1
+  dedupe: true                 # 同一问题被多个视角提出时合并，标注视角来源
+  merge_into: grid.json        # 每个问题必须落到至少一个维度格子
+  coverage_gate: G13

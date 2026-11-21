@@ -43,11 +43,30 @@ def data_audit(sources: Dict[str, Any], plan: Dict[str, Any], html: str) -> Dict
 
 
 def _pdf_pages(pdf_path: str | None) -> int | None:
+    """PDF 实际页数：优先 pymupdf/pypdf，最后退回字节扫描。
+
+    2026-11-20：CI 的 gate-unify 在没装 pymupdf 的环境里永远拿不到页数，
+    只能退回 DOM 而被判失败。这里补一条只用标准库的兜底（Chrome 导出的
+    PDF 里 `/Type /Page` 是明文对象时可用；读不出返回 None，不编数字）。
+    """
     if not pdf_path or not Path(pdf_path).exists():
         return None
+    for mod in ("pymupdf", "fitz", "pypdf", "PyPDF2"):
+        try:
+            m = __import__(mod)
+        except Exception:  # noqa: BLE001
+            continue
+        try:
+            if hasattr(m, "open"):
+                return int(m.open(pdf_path).page_count)
+            reader = m.PdfReader(pdf_path)
+            return int(len(reader.pages))
+        except Exception:  # noqa: BLE001
+            continue
     try:
-        import pymupdf
-        return int(pymupdf.open(pdf_path).page_count)
+        raw = Path(pdf_path).read_bytes()
+        n = len(re.findall(rb"/Type\s*/Page[^s]", raw))
+        return n or None
     except Exception:  # noqa: BLE001
         return None
 

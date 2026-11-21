@@ -1,0 +1,155 @@
+# 语义层模板 v3（案例层）—— 度量代数 + 粒度契约 + 质量六维
+#
+# 三层分工：
+#   通用层 交付/generic_semantics_v1.yaml —— 度量类型、质量六维、因果阶、禁止规则
+#   案例层 本文件                          —— 实体、度量实例、口径、边界
+#   卡片     cells[]                       —— 引用本文件的 measure_id 与 entity id
+#
+# 关键顺序（Kimball）：先声明 grain，再选维度与图型；不同 grain 不同表/不同图。
+
+schema: dsh.semantic/v3
+inherits: generic_semantics_v1          # 见 交付/generic_semantics_v1.yaml
+
+case:
+  id: nmg-personal-care-2026-11
+  domain: retail_fmcg
+  owner: r01
+  decision: 选品与试销
+  audience: 业务负责人
+
+# --------------------------------------------------------------------------- #
+# 实体（维度）
+# --------------------------------------------------------------------------- #
+entities:
+  - id: region
+    type: spatial
+    levels: [全国, 省, 盟市, 旗县]
+    key: 行政区划代码
+  - id: category
+    type: hierarchy
+    levels: [大类, 子类, 细类]
+  - id: brand
+    type: party
+  - id: channel
+    type: structural
+    levels: [商超, 便利店, CS, 即时零售, 电商]
+  - id: store
+    type: party
+    note: 门店级动销只能靠一手 POS
+  - id: sku
+    type: item
+  - id: period
+    type: time
+    grain: month
+    levels: [年, 季, 月, 周]
+
+# --------------------------------------------------------------------------- #
+# 粒度声明（先于度量与图型）
+# --------------------------------------------------------------------------- #
+grain_declarations:
+  - id: G_region_month
+    dims: [region, category, month]
+    note: 统计公报口径，盟市以下缺
+  - id: G_brand_channel_year
+    dims: [brand, category, channel, year]
+    note: 平台口径
+  - id: G_sku_store_week
+    dims: [sku, store, week]
+    note: 一手 POS
+
+# --------------------------------------------------------------------------- #
+# 度量（dbt 五类）
+# --------------------------------------------------------------------------- #
+measures:
+  - id: retail_sales
+    name: 零售额
+    type: simple
+    agg: sum
+    expr: retail_sales
+    time_granularity: month
+    grain: G_region_month
+    unit: 元
+    currency: CNY
+    price_basis: nominal
+    non_additive_dimension: null
+    fill_nulls_with: null          # 缺失不补零
+    caliber: {scope: 限额以上, excludes: [个体工商户, 批发市场]}
+    aliases: [社零, 零售额, 销售额, 零售规模]
+
+  - id: yoy
+    name: 同比
+    type: ratio
+    numerator: retail_sales
+    denominator: retail_sales@t-1
+    grain: G_region_month
+    unit: "%"
+
+  - id: share
+    name: 份额
+    type: ratio
+    numerator: brand_sales
+    denominator: retail_sales@total
+    grain: G_brand_channel_year
+    unit: "%"
+    non_additive_dimension: [year]  # 份额跨年不可加
+
+  - id: asp
+    name: 均价
+    type: ratio
+    numerator: retail_sales
+    denominator: volume
+    grain: G_region_month
+    unit: 元
+
+  - id: sell_through
+    name: 单店周销
+    type: derived
+    expr: sales / store_count / weeks
+    input_metrics: [sales, store_count]
+    grain: G_sku_store_week
+    unit: 件
+
+  - id: sellout_rate
+    name: 试用到复购转化
+    type: conversion
+    base_metric: trial_orders
+    conversion_metric: repeat_orders
+    window: 30d
+    entity: consumer
+    grain: G_sku_store_week
+    unit: "%"
+
+  - id: inventory_weeks
+    name: 库存周转周数
+    type: derived
+    expr: inventory / (sales / 4.3)
+    input_metrics: [inventory, sales]
+    grain: G_sku_store_week
+    unit: 周
+    non_additive_dimension: [week]   # 库存不可跨周加总
+
+# --------------------------------------------------------------------------- #
+# 质量六维（每格必须标）
+# --------------------------------------------------------------------------- #
+quality:
+  dimensions: [completeness, accuracy, consistency, timeliness, uniqueness, validity]
+  default: {completeness: partial, accuracy: unknown, consistency: checked,
+            timeliness: stale_ok, uniqueness: ok, validity: ok}
+  stale_rule: period 早于 freshness → timeliness=stale，不得唯一支撑结论
+
+# --------------------------------------------------------------------------- #
+# 边界（自动继承到引用该 measure 的格子）
+# --------------------------------------------------------------------------- #
+boundaries:
+  - {id: B1, text: 限额以上不含个体工商户与批发市场, affects: [retail_sales]}
+  - {id: B2, text: 平台内数据不可与统计公报相加, affects: [retail_sales, share]}
+  - {id: B3, text: 品牌级区域零售额无公开数据, affects: [share]}
+  - {id: B4, text: 库存/账期只能靠一手访谈或 POS, affects: [inventory_weeks]}
+
+# --------------------------------------------------------------------------- #
+# 证据指纹：同指纹=同一事实，可跨报告复用
+# --------------------------------------------------------------------------- #
+fingerprint:
+  key: [measure_id, entity_scope, period]
+  reuse: allowed
+  invalidate_when: [caliber_change, period_update, scope_change]

@@ -42,7 +42,7 @@ def build(intent: str, project_dir: str, out_dir: str,
           decision_path: Optional[str] = None, min_binding: float = 0.8,
           theme: str = "paper", pdf: bool = False,
           quote_mode: str = "off", audience: str = "业务负责人",
-          layout: str = "paper") -> Dict[str, Any]:
+          layout: str = "flow", prose_hard: bool = True) -> Dict[str, Any]:
     desk = analysis_desk.scan(project_dir)
     prof = analysis_desk.profile(desk)
     views = analysis_methods.build_views(desk)
@@ -306,7 +306,8 @@ def build(intent: str, project_dir: str, out_dir: str,
 
     res = report_flow.run(intent=intent, evidence=pack_path, draft=draft,
                           out_dir=out_dir, theme=theme, pdf=pdf,
-                          quote_mode=quote_mode, layout=layout)
+                          quote_mode=quote_mode, layout=layout,
+                          prose_hard=prose_hard)
 
     # 6) 三层质检（v11 / P5）：证据 / 编辑 / 呈现，三层全过才放行。
     #    binding 与图契约是决策稿特有的两道，和三层并列，不互相替代。

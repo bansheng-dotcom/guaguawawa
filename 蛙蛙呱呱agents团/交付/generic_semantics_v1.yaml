@@ -1,0 +1,105 @@
+# 通用语义层 v3（跨业务线复用；案例层只能实例化，不能改写）
+#
+# 只放"任何业务线都成立"的规则：
+#   度量类型（dbt 五类）/ 粒度契约（Kimball）/ 质量六维 / 因果三阶 / 口径五要素 / 禁止项。
+# 具体实体与度量实例由案例层声明（见 semantic_layer.template.yaml）。
+
+schema: dsh.semantic.generic/v3
+
+# --------------------------------------------------------------------------- #
+# 度量类型（对齐 dbt 语义层）
+# --------------------------------------------------------------------------- #
+metric_types:
+  simple:
+    required: [agg, expr]
+    optional: [time_granularity, non_additive_dimension, fill_nulls_with]
+    additive: true
+  cumulative:
+    required: [input_metric, window, grain_to_date]
+    note: 累计指标必须声明窗口与起算粒度
+  ratio:
+    required: [numerator, denominator]
+    additive: false
+    note: 比率不得求和；平均需按分母加权
+  derived:
+    required: [expr, input_metrics]
+    note: 派生指标必须写出公式与输入指标，否则不可复算
+  conversion:
+    required: [base_metric, conversion_metric, window, entity]
+    note: 转化率必须声明窗口与实体
+
+# --------------------------------------------------------------------------- #
+# 口径五要素：缺一项不得跨源比较
+# --------------------------------------------------------------------------- #
+caliber_required: [denominator, scope, period, currency, price_basis]
+
+# --------------------------------------------------------------------------- #
+# 粒度契约（Kimball）
+# --------------------------------------------------------------------------- #
+grain:
+  principle: 先声明 grain，再选维度与指标
+  rules:
+    - id: no_grain_mix
+      text: 不同 grain 不得进同一张表、同一张图
+    - id: no_grain_sum
+      text: 月与年不得直接相加（重复计数）
+    - id: atomic_first
+      text: 优先用最细粒度（原子粒度），汇总粒度只用于性能
+    - id: grain_must_declare
+      text: 每个数必须声明 grain，缺省视为未知，不得参与计算
+
+# --------------------------------------------------------------------------- #
+# 数据质量六维
+# --------------------------------------------------------------------------- #
+quality_dimensions:
+  completeness: 该有的格子/期次是否都有
+  accuracy: 数值是否与原始来源一致
+  consistency: 同口径跨来源是否一致
+  timeliness: 是否在 freshness 窗口内
+  uniqueness: 是否重复计数
+  validity: 是否落在合理值域/单位
+
+# --------------------------------------------------------------------------- #
+# 因果三阶（Pearl）
+# --------------------------------------------------------------------------- #
+causal_levels:
+  A: {name: 关联, evidence: 相关+控制变量, allow: [伴随, 同向变化], deny: [导致, 因为, 带来]}
+  I: {name: 干预, evidence: 试点/AB/自然实验, allow: [推动, 提升（有实验）], deny: [必然]}
+  C: {name: 反事实, evidence: 对照/合成控制, allow: [如果没有 X 会少 Y], deny: [无对照的本来会]}
+
+# --------------------------------------------------------------------------- #
+# 证据等级
+# --------------------------------------------------------------------------- #
+evidence_grades:
+  A: 政府/官方统计、监管披露
+  B: 行业协会、上市公司年报、招股书
+  C: 平台后台、媒体、第三方榜单
+  D: 二手转述、无法回溯
+
+# --------------------------------------------------------------------------- #
+# 新鲜度
+# --------------------------------------------------------------------------- #
+freshness_default:
+  default: T-1
+  by_type: {simple: T-30, cumulative: T-1, ratio: T-30, derived: T-7, conversion: T-7}
+
+# --------------------------------------------------------------------------- #
+# 证据指纹
+# --------------------------------------------------------------------------- #
+fingerprint:
+  key: [measure_id, entity_scope, period]
+  reuse: allowed
+  invalidate_when: [caliber_change, period_update, scope_change]
+
+# --------------------------------------------------------------------------- #
+# 全局禁止
+# --------------------------------------------------------------------------- #
+forbidden:
+  - {id: no_ratio_sum, text: 比率不得求和}
+  - {id: no_ratio_avg, text: 比率不得直接平均（需按分母加权）}
+  - {id: no_scope_mix, text: 不同口径不得相加}
+  - {id: no_grain_mix, text: 不同粒度不得同图}
+  - {id: no_extrapolate, text: 上级结论不得外推到下级，除非声明假设}
+  - {id: no_fill_zero, text: 缺失不得补零}
+  - {id: no_causal_from_correlation, text: 相关不得写成因果}
+  - {id: no_undefined_derived, text: 派生指标无公式不得使用}

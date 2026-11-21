@@ -1,0 +1,22 @@
+# 角色数据权限与工具（系统级配置，单一出处）
+# 用途：R02 派工前判断"这个角色能不能接这类数据"；能力卡从这里读，不硬编码。
+# 三档：public（公开检索）/ platform（平台后台导出）/ primary（一手访谈、POS、问卷）
+
+roles:
+  r03: {public: true,  platform: false, primary: false, tools: [search, doc],      sla: {ack: 30m, deliver: 4h}}
+  r05: {public: true,  platform: false, primary: false, tools: [search, pdf, web],  sla: {ack: 30m, deliver: 2h}}
+  r06: {public: true,  platform: true,  primary: false, tools: [csv, sql, chart],   sla: {ack: 30m, deliver: 2h}}
+  r07: {public: true,  platform: true,  primary: false, tools: [search, csv],       sla: {ack: 30m, deliver: 3h}}
+  r08: {public: true,  platform: false, primary: false, tools: [search, doc],       sla: {ack: 30m, deliver: 4h}}
+  r09: {public: false, platform: true,  primary: false, tools: [chart, figma],      sla: {ack: 30m, deliver: 6h}}
+  r10: {public: true,  platform: false, primary: false, tools: [search, doc],       sla: {ack: 30m, deliver: 4h}}
+  r11: {public: true,  platform: true,  primary: false, tools: [search, ai],        sla: {ack: 30m, deliver: 2h}}
+  r12: {public: true,  platform: true,  primary: false, tools: [csv, ai],           sla: {ack: 30m, deliver: 3h}}
+  r13: {public: true,  platform: false, primary: false, tools: [search, doc],       sla: {ack: 30m, deliver: 3h}}
+  r14: {public: true,  platform: true,  primary: false, tools: [ads, search],       sla: {ack: 30m, deliver: 3h}}
+  r15: {public: true,  platform: false, primary: true,  tools: [pos, interview],    sla: {ack: 60m, deliver: 8h}}
+  r16: {public: false, platform: false, primary: false, tools: [legal, doc],        sla: {ack: 60m, deliver: 6h}}
+  r17: {public: true,  platform: false, primary: false, tools: [code, search],      sla: {ack: 30m, deliver: 4h}}
+  r18: {public: true,  platform: true,  primary: false, tools: [sql, csv],          sla: {ack: 30m, deliver: 4h}}
+  r19: {public: true,  platform: false, primary: false, tools: [python, eval],      sla: {ack: 60m, deliver: 8h}}
+  r20: {public: false, platform: false, primary: false, tools: [shell, monitor],    sla: {ack: 15m, deliver: 2h}}

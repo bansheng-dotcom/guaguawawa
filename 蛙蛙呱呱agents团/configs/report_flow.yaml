@@ -14,4 +14,4 @@ flow:
     - 必读
     - 证据
   appendix_max_pages: 1
-  section_chars: [1000, 1600]
+  section_chars: [300, 600]

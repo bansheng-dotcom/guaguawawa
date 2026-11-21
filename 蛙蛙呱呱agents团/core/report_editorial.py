@@ -23,7 +23,13 @@ KICKERS = ("准入", "标准", "产能", "格局", "大盘", "价格带", "履�
            "结构", "渠道", "增速", "缺口", "产业", "增长", "动作", "风险",
            "成本", "利润", "流量", "转化", "复购", "供应链", "组织", "招聘",
            "评测", "事故", "边界", "口径")
-UNIT_RE = re.compile(r"(\d+(?:\.\d+)?)\s*(平方米|万吨|亿元|元/公斤|元/斤|%|倍|个|家|天|公里|吨)")
+# 单位按长度从长到短排：`个月` 必须排在 `个` 前面，否则「24 个月」会被读成「24 个」。
+# 2026-11-20 的关键指标表就这么把「周期 12 至 24 个月」写成了「24个」。
+UNIT_RE = re.compile(
+    r"(\d+(?:\.\d+)?)\s*(元/公斤|元/斤|平方米|万吨|亿元|万元|个月|公里|毫米|"
+    r"万人|倍|家|天|周|年|吨|%|元|个(?!月))")
+# 带区间的数字不取：12 至 24 个月不是 24 个月这一个点
+RANGE_RE = re.compile(r"\d+\s*(?:至|到|–|—|-|~)\s*\d+")
 
 
 def _clip(text: str, n: int) -> str:
@@ -145,25 +151,72 @@ def _actions(contract: Dict[str, Any]) -> List[Dict[str, str]]:
     return out
 
 
-def _metrics(contract: Dict[str, Any]) -> List[Dict[str, str]]:
+def _label_before(title: str, pos: int) -> str:
+    """取数字前面那个短句做标签（不是整节标题）。"""
+    head = title[:pos]
+    for mark in ("，", "、", "：", ":", "；"):
+        k = head.rfind(mark)
+        if k >= 0:
+            head = head[k + 1:]
+    return head.strip()[-24:]
+
+
+def _metrics(contract: Dict[str, Any],
+             pack: Optional[Dict[str, Any]] = None) -> List[Dict[str, str]]:
+    """关键指标带：优先取本节 refs 指到的数字记录，其次取标题里的单个数。
+
+    过去直接拿「节标题 + 标题里第一个数字」拼，既不保证语义、也不保证可回溯，
+    还会把区间读成单点（「24 个月」→「24个」）。有 pack 时优先用数字记录，
+    因为那里面有 name / value / unit，能回到记录层。
+    """
     if contract.get("metric_strip"):
         return contract["metric_strip"]
+    # 决策纸优先：封面的 3 个数必须来自决策项，不是「本节第一个 ref」
+    dec = contract.get("decision") or {}
+    if dec.get("items"):
+        out, seen = [], set()
+        for it in dec["items"]:
+            val = str(it.get("number") or "").strip()
+            if not val or val in seen:
+                continue
+            seen.add(val)
+            out.append({"label": str(it.get("claim") or "")[:24],
+                        "value": val, "note": "决策纸", "status": "none"})
+            if len(out) >= 3:
+                break
+        if out:
+            return out
+    nums = {str(n.get("id") or ""): n for n in ((pack or {}).get("numbers") or [])}
     out: List[Dict[str, str]] = []
     seen = set()
     for s in contract.get("sections") or []:
-        if s.get("appendix"):
+        if s.get("appendix") or "口径与分数" in str(s.get("title") or ""):
             continue
-        title = str(s.get("title") or "")
-        head = title.split("：", 1)[0].strip()
-        for num, unit in UNIT_RE.findall(title):
-            key = (num, unit)
-            if key in seen:
+        got: Optional[Dict[str, str]] = None
+        for ref in (s.get("refs") or [])[:6]:
+            n = nums.get(str(ref)) or {}
+            val = n.get("value")
+            if val in (None, ""):
                 continue
-            seen.add(key)
-            value = f"{num}{unit}".replace("平方米", "㎡")
-            out.append({"label": head or "关键数字", "value": value,
-                        "note": "本节", "status": "none"})
+            got = {"label": str(n.get("name") or "关键数字")[:32],
+                   "value": f"{_fmt(val)}{n.get('unit') or ''}",
+                   "note": f"第 {s.get('index')} 节", "status": "none"}
             break
+        if not got:
+            title = str(s.get("title") or "")
+            if RANGE_RE.search(title):
+                continue
+            m = UNIT_RE.search(title)
+            if not m:
+                continue
+            got = {"label": _label_before(title, m.start()) or "关键数字",
+                   "value": m.group(0).replace(" ", ""),
+                   "note": f"第 {s.get('index')} 节标题", "status": "none"}
+        key = (got["value"], got["label"])
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(got)
         if len(out) >= 4:
             break
     return out
@@ -187,7 +240,7 @@ def enrich(contract: Dict[str, Any], pack: Optional[Dict[str, Any]] = None) -> D
             s["layout"] = "rail" if s.get("rail") and len(body) <= 520 else "blocks"
 
     if not contract.get("metric_strip"):
-        contract["metric_strip"] = _metrics(contract)
+        contract["metric_strip"] = _metrics(contract, pack)
     actions = _actions(contract)
     if actions:
         contract.setdefault("actions", actions)
@@ -199,10 +252,19 @@ def enrich(contract: Dict[str, Any], pack: Optional[Dict[str, Any]] = None) -> D
     if contract.get("boundaries"):
         contract.setdefault("boundary", str(contract["boundaries"][0])[:120])
     if pack:
-        contract.setdefault("sources", [
-            {"id": str(s.get("file", "")), "title": str(s.get("file", "")), "date": ""}
-            for s in (pack.get("sources") or [])[:40]
-        ])
+        # 附录按 URL 去重、不截断：过去只列前 40 条，54 条来源里有 14 条在附录里
+        # 根本找不到，读者按编号回溯会断链。
+        seen_urls = set()
+        rows = []
+        for s in (pack.get("sources") or []):
+            key = str(s.get("url") or s.get("file") or "")
+            if key in seen_urls:
+                continue
+            seen_urls.add(key)
+            rows.append({"id": str(s.get("file", "")),
+                         "title": str(s.get("title") or s.get("file", "")),
+                         "date": str(s.get("date") or "")})
+        contract.setdefault("sources", rows)
     n_body = len([x for x in (contract.get("sections") or []) if not x.get("appendix")])
     lines = list(contract.get("title_lines") or [])
     was_generic = bool(lines and str(lines[0]).strip() in GENERIC_TITLES)

@@ -20,6 +20,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from core.report_marks import FIGURE_SRC_CLASSES
+
 # 页构造器沿用 v3 kit 的写法（内部以 build.xxx 调基础组件）；固化后指回本模块
 build = sys.modules[__name__]
 
@@ -165,7 +167,10 @@ h2.action{
 .pblocks{display:flex;flex-direction:column;gap:2.4mm}
 .pblock{display:grid;grid-template-columns:13mm 1fr;gap:4mm}
 .plabel{font-size:6.6pt;letter-spacing:.14em;color:var(--accent);font-weight:700;padding-top:1.4mm}
-.pblock p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:justify}
+.pblock p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:justify;text-indent:2em}
+.ptext{min-width:0}
+.ptext p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:justify;text-indent:2em}
+.ptext p+p{margin-top:2.2mm}
 .prose p{margin:0 0 2.6mm}
 .prose b,.prose strong{color:var(--ink);font-weight:600}
 .prose .so{color:var(--ink);font-weight:600}
@@ -559,7 +564,7 @@ def section_page(s: dict, pn: int, total: int, fig_no: str,
   <div class="ex-head"><span class="ex-no">{fig_no}</span>
     <span class="ex-title">{s["fig_title"]}</span><span class="ex-unit">{s.get("fig_unit", "")}</span></div>
   {chart_fn()}
-  <div class="ex-src">{s["fig_src"]}</div>
+  <div class="{FIGURE_SRC_CLASSES}">{s["fig_src"]}</div>
 </figure>"""
     else:
         rows = s["table"][1:]

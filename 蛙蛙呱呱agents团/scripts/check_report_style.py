@@ -24,6 +24,9 @@ def check(path: Path) -> list[str]:
     errs: list[str] = []
     css = "\n".join(re.findall(r"(?s)<style[^>]*>(.*?)</style>", html))
     body = re.sub(r"(?s)<style.*?</style>", "", html)
+    # 2026-11-21：flow 主题的展示标题用衬线体（设计选择）。页面显式声明才放行，
+    # 表头/图注仍然禁衬线；paper 线不声明，规则照旧。
+    allow_serif = '<meta name="report-serif-titles" content="allow">' in html
 
     if re.search(r"font-style\s*:\s*(italic|oblique)", css, re.I):
         errs.append("CSS 出现 font-style: italic/oblique")
@@ -32,6 +35,8 @@ def check(path: Path) -> list[str]:
     for sel, _, decl in HEAD_SEL.findall(css):
         if "data-theme=" in sel:
             continue  # 主题专属规则：非当前主题不参与判定
+        if allow_serif and not re.search(r"\b(th|figcaption)\b", sel):
+            continue  # 展示标题放行，表头/图注不放行
         if SERIF.search(decl) and re.search(r"\b(h1|h2|h3|th|figcaption)\b", sel):
             errs.append(f"标题/表头用了衬线体：{sel.strip()[:40]}")
     for m in re.finditer(r"(?s)<(th|figcaption)[^>]*>(.*?)</\1>", body):

@@ -1,0 +1,47 @@
+# 能力卡模板（Agent Card）—— 谁能干什么、什么时候不能找他
+#
+# 由 R02 从 core/registry.py 生成，不另写一份（避免漂移）。
+# 用途：缺口路由时按能力匹配；发卡前校验 owner 是否真有这项能力（G19）。
+
+schema: dsh.agent_card/v1
+generated_from: core/registry.py
+generated_by: r02
+generated_at: 2026-11-21
+
+role: r06
+name: 蛙得清
+title: 数据分析官
+
+capabilities:            # 与 registry 的 capabilities 一致
+  - 数据分析
+  - 指标口径
+  - 覆盖测算
+  - 归因分解
+
+tools:                   # 能调用的确定性工具
+  - csv
+  - sql
+  - chart_spec
+
+entitlements:            # 数据/权限边界：没有的就不能接
+  public_data: true
+  platform_reports: true
+  paid_database: false
+  primary_pos: false
+
+sla:
+  ack: 30m
+  deliver: 2h
+  capacity: 3 cards/round
+
+unavailable_when:        # 命中任一条 → 直接 decline，不硬接
+  - 需要一手 POS
+  - 需要签约或付费账号
+  - 需要品牌级区域零售额（公开渠道无）
+
+deliverable_format:
+  - cells[]
+  - claims.json
+
+escalate_to: r02
+accepts_from: [r02, r01]

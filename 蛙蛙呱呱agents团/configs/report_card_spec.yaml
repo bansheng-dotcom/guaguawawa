@@ -1,0 +1,9 @@
+schema: dsh.report_card_spec/v1
+pre_issue:
+  min_cells_per_question: 8
+  max_cells_per_question: 24
+  min_depth: 3
+  min_perspectives: 3
+  min_decompositions: 2
+  min_branch_stops: 3
+  require_real_semantic: true

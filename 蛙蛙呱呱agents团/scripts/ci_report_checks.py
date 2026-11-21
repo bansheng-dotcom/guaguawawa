@@ -62,13 +62,19 @@ def main() -> int:
     if rc:
         fails.append("roles")
 
+    # [0] 门禁锁：门禁脚本被改过而没同步更新锁 → FAIL。
+    #     2026-11-20 的教训：执行会话改松了 check_report_flow.py，再自己判 PASS。
+    rc, out = run([sys.executable, "scripts/check_gate_lock.py"])
+    print(f"[0] gate-lock rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+    if rc:
+        fails.append("gate-lock")
+
     # [2] run-line：v11 唯一入口（一条命令）；下面两个只差意图，用来证明同一数据不同问题
     out_a = OUT / "a"
     rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                    "--intent", "内蒙古三城水果市场调研",
                    "--dir", str(PIPE), "--out", str(out_a),
-                   "--layout", "paper",
-                   "--quote-mode", "off"])
+                   "--quote-mode", "off", "--no-prose-hard"])
     print(f"[2] run-line(调研) rc={rc}")
     if rc:
         fails.append("flow-A")
@@ -84,8 +90,7 @@ def main() -> int:
     rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                    "--intent", "内蒙古三城水果经营分析",
                    "--dir", str(PIPE), "--out", str(out_b),
-                   "--layout", "paper",
-                   "--quote-mode", "off"])
+                   "--quote-mode", "off", "--no-prose-hard"])
     print(f"[3] run-line(经营) rc={rc}")
     if rc:
         fails.append("flow-B")
@@ -95,6 +100,40 @@ def main() -> int:
     print(f"[3] gate(经营) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
     if rc:
         fails.append("gate-B")
+
+    # [3a] 默认 flow 版式也必须过门禁（不传 --layout，让默认值生效）。
+    #      2026-11-20 的根因就是「默认 flow 的产物过不了自己的门禁」，这条用例把它钉死。
+    out_c = OUT / "c"
+    rc, out = run([sys.executable, "guagua.py", "report", "run-line",
+                   "--intent", "内蒙古三城水果市场调研",
+                   "--dir", str(PIPE), "--out", str(out_c),
+                   "--quote-mode", "off", "--no-prose-hard"])
+    print(f"[3a] run-line(默认 flow) rc={rc}")
+    if rc:
+        fails.append("flow-default")
+        print("   ", out.strip()[:200])
+    man_c = out_c / "manifest.json"
+    if man_c.exists():
+        gc = ((json.loads(man_c.read_text(encoding="utf-8")).get("gate") or {})
+              .get("flow") or {})
+        print(f"[3a] gate(默认 flow) = {gc.get('verdict')} "
+              f"violations={[v.get('id') for v in (gc.get('violations') or [])]}")
+        if gc.get("verdict") != "PASS":
+            fails.append("gate-default-flow")
+        # R04 输入必须是产线派生的，不能是作者手写
+        rc, out = run([sys.executable, "scripts/check_r04_inputs.py",
+                       "--dir", str(out_c)])
+        print(f"[3a] r04-derive rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+        if rc:
+            fails.append("r04-derive")
+
+    # [3a-2] 门禁契约 + 拆卡/派活/防代写回归（脚本自带 runner，不依赖 pytest）
+    for t in ("tests/test_gate_contract.py", "tests/test_clarify_dispatch.py"):
+        rc, out = run([sys.executable, t])
+        tail = out.strip().splitlines()[-1] if out.strip() else ""
+        print(f"[3a] {t} rc={rc} :: {tail}")
+        if rc:
+            fails.append(f"tests:{Path(t).stem}")
 
     # [3b] 报告只有一份，且出具人是 R01；决策契约可审计、binding 达标
     man = out_b / "manifest.json"
@@ -142,7 +181,6 @@ def main() -> int:
         rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                        "--intent", "内蒙古家居百货市场调研",
                        "--dir", str(src_v7),
-                       "--layout", "paper",
                        "--out", str(out_v7)])
         print(f"[6] flow(v7-market) rc={rc}")
         if rc:
@@ -196,7 +234,9 @@ def main() -> int:
     rc, out = run([sys.executable, "-m", "pytest", "tests/test_report_kernel.py", "-q"])
     tail12 = [l for l in out.strip().splitlines() if "passed" in l or "failed" in l]
     print(f"[12] report kernel tests rc={rc} :: {tail12[-1] if tail12 else out.strip()[-60:]}")
-    if rc:
+    if rc and "No module named pytest" in out:
+        env.append("pytest-missing")  # 环境未装测试运行器：不计入代码回归
+    elif rc:
         fails.append("report-kernel-tests")
 
     # [13] 风格门禁：交付稿禁斜体、标题/表头禁衬线体（出处 REPORT-STANDARD §四）
@@ -222,8 +262,8 @@ def main() -> int:
             rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                            "--intent", intent,
                            "--dir", str(src_fruit), "--out", str(out_c),
-                           "--layout", "paper",
                            "--quote-mode", "off",
+                           "--no-prose-hard",
                            "--audience", "水果品类经营负责人"])
             dec = out_c / "decision.json"
             bind = out_c / "binding.json"
@@ -252,7 +292,9 @@ def main() -> int:
                    "tests/test_orchestrator.py", "-q"])
     tail15 = [l for l in out.strip().splitlines() if "passed" in l or "failed" in l]
     print(f"[15] line tests rc={rc} :: {tail15[-1] if tail15 else out.strip()[-60:]}")
-    if rc:
+    if rc and "No module named pytest" in out:
+        env.append("pytest-missing")
+    elif rc:
         fails.append("line-tests")
 
     # [16] 语义层审计：六项悬空边必须全为 0（P4 起这是硬门禁，不许只记录）
@@ -300,7 +342,7 @@ def main() -> int:
                    "--intent", "内蒙古三城水果市场调研",
                    "--dir", str(PIPE), "--out", str(out_f),
                    "--layout", "flow",
-                   "--quote-mode", "off"])
+                   "--quote-mode", "off", "--no-prose-hard"])
     html_f = out_f / "report.html"
     man_f = out_f / "manifest.json"
     flow_ok = False

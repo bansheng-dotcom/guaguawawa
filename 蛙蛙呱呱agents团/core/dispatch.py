@@ -24,6 +24,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
+from core.source_verify import normalize_url
+
 CARD_SCHEMA = "dsh.task_card/v1"
 
 
@@ -67,6 +69,28 @@ def _need(claims: Dict[str, Any]) -> List[str]:
             miss.append(f"节「{t}」解读少于 2 条")
         if not s.get("falsifier"):
             miss.append(f"节「{t}」缺证伪条件")
+        # 单段上限：所有卡都查（不只 v2）；超了就是没提炼
+        from core import report_contract
+        limit = report_contract.paragraph_hard_max()
+        for j, rd in enumerate(s.get("reading") or [], 1):
+            if len(str(rd.get("text") or "")) > limit:
+                miss.append(f"节「{t}」解读{j} 超 {limit} 字，请拆成多条")
+        # v2 结构契约：声明了 schema 的卡按新标准收（老卡不追溯）
+        if (str(claims.get("schema") or "") == "dsh.claims/v2"
+                or str(claims.get("contract") or "") == "v2"):
+            for j, rd in enumerate(s.get("reading") or [], 1):
+                if not rd.get("refs"):
+                    miss.append(f"节「{t}」解读{j} 缺 refs（数字必须可回溯）")
+                if len(str(rd.get("text") or "")) > 400:
+                    miss.append(f"节「{t}」解读{j} 超 400 字，请拆成多条解读")
+            if not s.get("chart") and not s.get("chart_skip_reason") and len(s.get("refs") or []) >= 2:
+                miss.append(f"节「{t}」缺 chart 或 chart_skip_reason")
+            ch = s.get("chart") or {}
+            if ch and (not ch.get("title") or not ch.get("source") or not ch.get("refs")):
+                miss.append(f"节「{t}」chart 缺 title/source/refs")
+    if str(claims.get("card_spec") or "") in ("True", "true", "1"):
+        from core import card_issue
+        miss += card_issue.validate_claims_cells(claims)
     return miss
 
 
@@ -142,10 +166,16 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dic
             "从你的专业出发，回答这个问题里**只有你能回答**的部分。"
             "答不了就写进 missing，不要编。",
             "",
-            "## 交什么",
+            "## 交什么（v2 结构契约，缺一条整卡拒收）",
             "",
-            f"写到 `{d.as_posix()}/claims.json`，格式见 `brief.md` 的「一条结论必须长这样」，",
-            "最少包含：numbers / sources / sections（每节 title 带数字、≥2 条解读、带 refs、带 falsifier）。",
+            f"写到 `{d.as_posix()}/claims.json`，并在文件里声明 `\"schema\": \"dsh.claims/v2\"`。",
+            "",
+            "- **每条解读必须带 `refs`**（指向本卡 numbers）——没有 refs 的数字视为编的",
+            "- **每条解读 ≤400 字**：长论证拆成多条解读，别写成一堵墙",
+            "- **每节必须有 `chart`**（type/title/source/refs + bars 或 points）；确实画不了写 `chart_skip_reason`",
+            "- **机制结论必须有传导链**（≥2 个度量 + 方向），只有相关性就写进 `hypotheses`",
+            "- sections[].title 必须带数字、带 falsifier、带 boundary",
+            "- 有格子表的（见文末「维度网格」）按 `cells[]` 交：cell_id/value/unit/period/source_file",
             "",
             "## 交数据的要求（决定图上能不能画出来）",
             "",
@@ -168,17 +198,27 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dic
         ]
         (d / "TASK.md").write_text("\n".join(lines), encoding="utf-8")
         (d / "claims.template.json").write_text(json.dumps({
+            "schema": "dsh.claims/v2",
             "role": rid,
             "numbers": [{"id": "N1", "name": "", "value": 0, "unit": "",
                          "period": "", "source_file": "S1"}],
             "sources": [{"file": "S1", "title": "", "org": "", "url": "",
                          "date": "", "grade": "A", "quote": ""}],
             "conflicts": [],
-            "sections": [{"title": "…（含数字）", "question": "对谁做决定有用",
-                          "refs": ["N1"],
-                          "reading": [{"text": "观察：…", "refs": ["N1"]},
-                                      {"text": "机理：判别方法是…", "refs": ["N1"]}],
-                          "falsifier": "若…超过 X% 则本节作废"}],
+            "cells": [{"cell_id": "Q1.空间.北京", "value": 0, "unit": "",
+                       "period": "", "source_file": "S1",
+                       "quality": {"completeness": "full", "accuracy": "grade_B",
+                                   "consistency": "checked", "timeliness": "fresh",
+                                   "uniqueness": "ok", "validity": "ok"}}],
+            "sections": [{
+                "title": "…（含数字）", "question": "对谁做决定有用",
+                "refs": ["N1"], "boundary": "口径与适用范围",
+                "reading": [{"strong": "事实　", "text": "…", "refs": ["N1"]},
+                            {"strong": "机理　", "text": "…", "refs": ["N1"]},
+                            {"strong": "反例　", "text": "…", "refs": ["N1"]}],
+                "chart": {"type": "hbar", "title": "…（含数字）", "source": "机构名",
+                          "refs": ["N1"], "bars": [{"label": "…", "value": 0}]},
+                "falsifier": "若…超过 X% 则本节作废"}],
             "missing": [],
         }, ensure_ascii=False, indent=2), encoding="utf-8")
         written.append(rid)
@@ -223,25 +263,34 @@ def _coverage_gaps(base: Path) -> Dict[str, Any]:
 
 def collect(out_dir: str, require_all: bool = False,
             min_sources: int = 0, verify_quotes: bool = False,
-            strict_verify: bool = False, fetch=None) -> Tuple[Dict[str, Any], List[str]]:
+            strict_verify: bool = False, fetch=None,
+            intent: str = "", allow_open_needs: bool = False
+            ) -> Tuple[Dict[str, Any], List[str]]:
     """收到各角色的 claims，验完整性后合并成一份。
 
     覆盖门禁（2026-11-19 体检补）：发出去的卡（有 TASK.md 的目录）与实际交回
     claims.json 的卡必须对得上。缺卡默认只记录在 `merged["coverage"]`；
     `require_all=True` 时缺卡进 problems（CLI 默认严格，`--allow-partial` 放行）。
 
-    证据门禁（2026-11-19 补）：
+    证据门禁（2026-11-19 补，2026-11-20 收紧）：
     - 每条 source 必须有 url/date/quote；缺 quote 的卡拒收（见 `_need`）；
-    - `min_sources` 是来源条数下限（CLI 默认 50，`--min-sources 0` 关闭）；
+    - `min_sources` 按**唯一 URL** 计数（同一篇报道被多个角色各登记一次不算新增）；
     - `verify_quotes=True` 时才联网回抓；`strict_verify=True` 时未核过即失败；
+    - 降级（关回抓 / 关严格）会写进 `merged["degraded"]`，一路带到 manifest，
+      不允许「降级了但产物上看不出来」；
     - 缺口清单写进 `merged["gaps"]`：缺单元×维度、缺地图、页数差、来源缺口。
     """
     base = Path(out_dir) / "cards"
     merged: Dict[str, Any] = {"numbers": [], "sources": [], "sections": [],
                               "conflicts": [], "missing": [], "boundaries": [],
-                              "derived": []}
+                              "derived": [], "explore": [], "unanswered": []}
+    # 合并稿的标题/意图/档位沿用发卡时写进卡里的 meta，否则渲染器只能退回
+    # “自动汇编报告”、标题被改成首节结论（2026-11-20 事故）。
+    card_meta: Dict[str, Any] = {}
     seen_n: Dict[str, Dict[str, Any]] = {}
     seen_s: set = set()
+    seen_url: Dict[str, str] = {}
+    degraded: List[str] = []
     bad: List[str] = []
     rejected: List[Dict[str, Any]] = []
     got = 0
@@ -249,6 +298,14 @@ def collect(out_dir: str, require_all: bool = False,
                       if d.is_dir() and (d / "TASK.md").is_file()
                       and not d.name.startswith("_"))
     delivered: List[str] = []
+
+    # 派活校验：项目里有 issued.json 时，每张卡必须回填 nonce/role/by，
+    # 且执行者不能是编排器（r01/solo）。没有 issued.json 的项目按老卡处理并留痕。
+    from core import report_dispatch
+    issued = report_dispatch.load_issued(out_dir)
+    dispatch_mode = "nonce" if issued else "legacy"
+    verified_cards = 0
+    dispatch_rejected: List[Dict[str, Any]] = []
 
     for d in sorted(p for p in base.glob("*") if p.is_dir()):
         f = d / "claims.json"
@@ -261,11 +318,21 @@ def collect(out_dir: str, require_all: bool = False,
         except (OSError, json.JSONDecodeError):
             bad.append(f"{d.name}: claims.json 解析失败")
             continue
+        if issued:
+            okd, reason = report_dispatch.verify_claims(c, d.name, issued)
+            if not okd:
+                bad.append(reason)
+                dispatch_rejected.append({"role": d.name, "reason": reason})
+                rejected.append({"role": d.name, "reasons": [reason]})
+                continue
+            verified_cards += 1
         miss = _need(c)
         if miss:
             bad.append(f"{d.name}: " + "；".join(miss[:3]))
             rejected.append({"role": d.name, "reasons": miss[:6]})
             continue
+        if not card_meta and isinstance(c.get("meta"), dict):
+            card_meta = dict(c["meta"])
         for n in c.get("numbers") or []:
             nid = str(n.get("id") or "")
             key = f"{d.name}:{nid}"
@@ -291,6 +358,14 @@ def collect(out_dir: str, require_all: bool = False,
         for s in c.get("sources") or []:
             s = dict(s)
             s["file"] = f"{d.name}:{s.get('file')}"
+            key = normalize_url(s.get("url")) or s["file"]
+            dup = seen_url.get(key)
+            if dup:
+                # 同一 URL 再登记一次：保留这一行（数字 refs 还要指到它），
+                # 但标成重复、不计入唯一来源数。
+                s["duplicate_of"] = dup
+            else:
+                seen_url[key] = s["file"]
             if s["file"] not in seen_s:
                 seen_s.add(s["file"])
                 merged["sources"].append(s)
@@ -309,6 +384,12 @@ def collect(out_dir: str, require_all: bool = False,
             merged["sections"].append(sec)
         for b in c.get("boundaries") or []:
             merged["boundaries"].append(f"[{d.name}] {b}")
+        for e in c.get("explore") or []:
+            if str(e.get("text") or "").strip():
+                merged["explore"].append({**e, "role": d.name})
+        for u in c.get("unanswered") or []:
+            if isinstance(u, dict) and str(u.get("qid") or "").strip():
+                merged["unanswered"].append({**u, "role": d.name})
         for m in c.get("missing") or []:
             merged["missing"].append(f"{d.name}: {m}")
         for conf in c.get("conflicts") or []:
@@ -317,17 +398,65 @@ def collect(out_dir: str, require_all: bool = False,
     merged["boundaries"] = list(dict.fromkeys(
         merged["boundaries"] + [f"{m}" for m in merged["missing"]]))
 
+    # ---- 问题对账（2026-11-20）：每一问有没有一节认领 ---------------------- #
+    # 没有这一步，"报告回答了哪几问"只能靠人肉比对；用户是在读完 12 节之后
+    # 才发现品牌清单/爆品清单没人答。
+    questions: Dict[str, Any] = {}
+    clar_p = Path(out_dir) / "clarify.json"
+    if clar_p.is_file():
+        try:
+            clar = json.loads(clar_p.read_text(encoding="utf-8-sig"))
+        except Exception:  # noqa: BLE001
+            clar = {}
+        asks = clar.get("asks") or []
+        must = [a["id"] for a in asks if a.get("must")]
+        support = [a["id"] for a in asks if not a.get("must")]
+        claimed = set()
+        for sec in merged["sections"]:
+            for q in (sec.get("answers") or []):
+                claimed.add(str(q))
+        detail = [u for u in (merged.get("unanswered") or [])
+                  if isinstance(u, dict)]
+        questions = {
+            "must": must,
+            "support": support,
+            "asks": {a["id"]: str(a.get("text") or "") for a in asks},
+            "claimed": sorted(claimed),
+            "unanswered": [q for q in must if q not in claimed],
+            "coverage": (round(len([q for q in must if q in claimed]) / len(must), 3)
+                         if must else None),
+            "unanswered_detail": detail,
+            "explore": len(merged.get("explore") or []),
+        }
+    merged["questions"] = questions
+
+    # ---- 卡间协商闭环（2026-11-20）：open 的 need 不收 -------------------- #
+    from core import report_exchange
+    ex = report_exchange.verify(out_dir)
+    merged["exchange"] = {"counts": ex["counts"], "open": ex["open"]}
+    if issued and ex["open"] and not allow_open_needs:
+        bad.append(f"卡间协商未闭环 {len(ex['open'])} 条："
+                   + "、".join(x["id"] for x in ex["open"][:6]))
+
     # 证据面：来源字段齐不齐、数字与节够不够；缺 quote 的卡已在上面拒收。
     from core import source_verify
     src = merged["sources"]
     fields_ok = sum(1 for s in src if not source_verify.check_fields(s))
+    uniq_urls = len({normalize_url(s.get("url")) for s in src if normalize_url(s.get("url"))})
+    dup_urls = sum(1 for s in src if s.get("duplicate_of"))
     merged["evidence"] = {
         "sources": len(src),
+        "unique_sources": uniq_urls,
+        "duplicate_sources": dup_urls,
         "sources_fields_ok": fields_ok,
         "numbers": len(merged["numbers"]),
         "sections": len(merged["sections"]),
+        # quote_rate 只表示「每个数字都挂了引文字段」，不表示引文真实存在；
+        # 真实核验结果在 source_verify / verified_rate，别混着看。
         "quote_rate": round(fields_ok / len(src), 3) if src else 0.0,
+        "quote_rate_scope": "fields_present_only",
         "min_sources": int(min_sources),
+        "min_sources_scope": "unique_url",
     }
     merged["source_verify"] = {}
     if verify_quotes:
@@ -335,16 +464,30 @@ def collect(out_dir: str, require_all: bool = False,
             src, fetch=fetch or source_verify.default_fetch)
         merged["source_verify"] = {
             "ok": vr["ok"], "total": vr["total"], "verified": vr["verified"],
-            "counts": vr["counts"], "rows": vr["rows"][:300],
+            "counts": vr["counts"], "unique_fetches": vr.get("unique_fetches"),
+            "rows": vr["rows"][:300],
         }
+        merged["evidence"]["verified_rate"] = (
+            round(vr["verified"] / vr["total"], 3) if vr["total"] else 0.0)
+        if not vr["ok"]:
+            degraded.append("quote_verify_partial")
         if strict_verify:
             pending = [r["id"] for r in vr["rows"] if r["status"] != "verified"]
             if pending:
                 bad.append(f"回抓未通过 {len(pending)}/{vr['total']}："
                            + "、".join(pending[:10]))
-    if min_sources and len(src) < int(min_sources):
-        bad.append(f"来源 {len(src)} 条，低于门槛 {min_sources}；"
-                   "补采后重跑，或 `--min-sources 0` 关闭")
+        else:
+            degraded.append("strict_quotes_off")
+    else:
+        degraded.append("verify_quotes_off")
+        merged["evidence"]["verified_rate"] = None
+    # 门槛按唯一 URL 算：同一篇报道被 4 个角色各登记一次，仍然是 1 条来源
+    if min_sources and uniq_urls < int(min_sources):
+        bad.append(f"唯一来源 {uniq_urls} 条（登记 {len(src)} 条），低于门槛 {min_sources}；"
+                   "补采新来源后重跑，或 `--min-sources 0` 关闭")
+    elif not min_sources:
+        # 关掉门槛也是降级：产物上要看得见，不能悄悄关
+        degraded.append("min_sources_off")
 
     # 覆盖门禁：发了卡却没交、或交了但被拒的，都要能一眼看出来
     missing_cards = [r for r in expected if r not in delivered]
@@ -355,7 +498,7 @@ def collect(out_dir: str, require_all: bool = False,
     }
     gaps = _coverage_gaps(Path(out_dir))
     if min_sources:
-        gaps["source_shortfall"] = max(0, int(min_sources) - len(src))
+        gaps["source_shortfall"] = max(0, int(min_sources) - uniq_urls)
     merged["gaps"] = gaps
     if require_all and missing_cards:
         bad.append("缺卡 " + str(len(missing_cards)) + "/" + str(len(expected)) + "："
@@ -363,6 +506,19 @@ def collect(out_dir: str, require_all: bool = False,
     # 导语必须是带数字的结论：取第一节标题（契约要求标题即结论且含数字）
     if merged["sections"]:
         merged["standfirst"] = str(merged["sections"][0].get("title") or "")
-    merged["meta"] = {"title": "自动汇编报告",
-                      "doc_type": "调研报告", "intent": "", "profile": "baseline"}
+    merged["degraded"] = list(dict.fromkeys(degraded))
+    merged["dispatch"] = {
+        "mode": dispatch_mode,
+        "issued": len((issued or {}).get("cards") or {}),
+        "verified": verified_cards,
+        "rejected": dispatch_rejected,
+    }
+    if dispatch_mode == "legacy":
+        merged["degraded"] = list(dict.fromkeys(
+            merged["degraded"] + ["legacy_dispatch"]))
+    merged["meta"] = {"title": card_meta.get("title") or intent or "自动汇编报告",
+                      "doc_type": card_meta.get("doc_type") or "调研报告",
+                      "intent": card_meta.get("intent") or intent or "",
+                      "profile": card_meta.get("profile") or "baseline",
+                      "degraded": merged["degraded"]}
     return merged, (bad + ([] if got else ["一张 claims 都没收到"]))

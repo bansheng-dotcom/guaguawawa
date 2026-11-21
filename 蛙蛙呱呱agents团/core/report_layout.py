@@ -11,7 +11,7 @@ from typing import Any, Dict
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "configs" / "report_flow.yaml"
 
-_FALLBACK = {"default_layout": "flow", "section_chars": [1000, 1600],
+_FALLBACK = {"default_layout": "flow", "section_chars": [300, 600],
              "appendix_max_pages": 1}
 
 

@@ -80,41 +80,81 @@ def build_pack(claims: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def _infer_strong(text: str) -> str:
+    """老 claims 常把「【事实】/【机理】/【反例】」写在正文开头，strong 字段为空；
+    这里把它还原成块标签，否则渲染层会把所有内容都塞进「事实」。"""
+    t = str(text or "").lstrip()
+    for label in ("事实", "机理", "反例", "所以", "观察", "解释", "落点"):
+        if t.startswith(f"【{label}】") or t.startswith(label + "　") or t.startswith(label + "："):
+            return label + "　"
+    return ""
+
+
+def _strip_label(text: str) -> str:
+    t = str(text or "").lstrip()
+    for label in ("事实", "机理", "反例", "所以", "观察", "解释", "落点"):
+        for pref in (f"【{label}】", label + "　", label + "："):
+            if t.startswith(pref):
+                return t[len(pref):].lstrip()
+    return t
+
+
 def build_draft(claims: Dict[str, Any]) -> Dict[str, Any]:
     meta = claims.get("meta") or {}
     sections = []
     for i, s in enumerate(claims.get("sections") or [], 1):
+        readings = []
+        for r in (s.get("reading") or []):
+            txt = str(r.get("text") or "")
+            strong = str(r.get("strong") or "") or _infer_strong(txt)
+            readings.append({"text": _strip_label(txt) if strong else txt,
+                             "refs": list(r.get("refs") or []),
+                             **({"strong": strong} if strong else {})})
         sec: Dict[str, Any] = {
             "index": i,
             "title": str(s.get("title") or ""),
             "question": str(s.get("question") or ""),
             "refs": list(dict.fromkeys(s.get("refs") or [])),
-            "reading": [{"text": str(r.get("text") or ""),
-                         "refs": list(r.get("refs") or []),
-                         **({"strong": r["strong"]} if r.get("strong") else {})}
-                        for r in (s.get("reading") or [])],
+            "reading": readings,
         }
         for k in ("table", "chart", "falsifier", "boundary", "appendix",
-                  "reading_style"):
+                  "reading_style", "decision_rank", "headline", "headline_ref",
+                  "role", "tier", "action", "relation"):
             if s.get(k):
                 sec[k] = s[k]
         sections.append(sec)
 
-    # 指标带：优先用 agent 给的，否则从节标题里取第一个数字（不编语义）
+    # 指标带：优先用 agent 给的，否则由 report_editorial 从 refs 指到的数字记录里取
     metrics = claims.get("metrics") or []
+    # 标题：卡里没写就退到 intent。以前退到「研究报告」，被编辑层当成
+    # 占位标题替换成「首节结论」，于是报告 H1 变成了半句话（2026-11-20）。
+    title0 = meta.get("title") or meta.get("intent") or ""
     return {
         "profile": meta.get("profile") or "research",
         "schema": "dsh.agent.draft/v1",
         "intent": meta.get("intent") or "",
         "doc_type": meta.get("doc_type") or "研究报告",
-        "title_lines": meta.get("title_lines") or [meta.get("title") or "研究报告",
-                                                   f"{len(sections)} 节 · 智能体调研稿"],
+        "title_lines": meta.get("title_lines") or [title0 or "研究报告",
+                                                   f"{len(sections)} 节 · "
+                                                   f"{meta.get('doc_type') or '研究报告'}"],
         "standfirst": claims.get("standfirst") or "",
         "metrics": metrics,
         "summary": [s["title"] for s in sections[:4]],
         "sections": sections,
         "boundaries": list(claims.get("boundaries") or [])[:10],
         "derived": claims.get("derived") or [],
+        "degraded": list(meta.get("degraded") or []),
+        # 收卡阶段的核验结论要一路带到 manifest：否则 attest 只能说「未执行」，
+        # 而实际上 source_verify 已经跑过（2026-11-20 调研稿就是这样被误报的）。
+        "source_verify": {k: v for k, v in (claims.get("source_verify") or {}).items()
+                          if k != "rows"},
+        "dispatch": claims.get("dispatch") or {},
+        "questions": claims.get("questions") or {},
+        "exchange": claims.get("exchange") or {},
+        "explore": claims.get("explore") or [],
+        "evidence_meta": {k: (claims.get("evidence") or {}).get(k)
+                          for k in ("unique_sources", "min_sources",
+                                    "min_sources_scope", "verified_rate")},
         "counts": claims.get("counts") or {},
         "audience": meta.get("audience") or "业务负责人",
         "decision": {"auto": True, "mode": "agent"},

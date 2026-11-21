@@ -1,0 +1,46 @@
+# 交接单模板（Handoff Contract）—— 交东西的人必须被签收
+#
+# 规则：默认 reject。没有签收记录 = 交接没发生（G21）。
+# 签收人只判"能不能用"，不负责改；改由交付方做（backfill）。
+
+schema: dsh.handoff/v1
+handoff_id: H-031
+task_id: T-2026-11-21-003
+from: r06                 # 交付方
+to: r01                   # 接收方（写报告/下游分析）
+created_at: 2026-11-21T17:40:00+08:00
+deadline: 2026-11-21T18:40:00+08:00
+
+artifact:
+  type: cells
+  path: cards/r06/claims.json
+  covers: [Q3.空间, Q3.结构, Q3.机制]
+
+acceptance_checks:        # 逐条判，缺一条即 reject
+  - id: A1
+    check: 每个 cell 有 measure/entity/grain/period
+    ok: true
+  - id: A2
+    check: 空间维到盟市，缺旗县
+    ok: false
+    why: 四城只有总量，没有旗县拆分
+  - id: A3
+    check: 机制格有 L3 证据链
+    ok: false
+    why: 只给了铺货率，没有复购
+  - id: A4
+    check: 来源等级 A+B ≥ 50%
+    ok: true
+
+decision: reject          # accept | reject
+reasons: [A2, A3]
+action: backfill          # backfill | accept_as_is | drop
+backfill_request:
+  cells: [Q3.空间.旗县, Q3.机制.复购]
+  by: r06
+  deadline: 2h
+
+signatures:
+  from: r06
+  to: r01
+  witnessed_by: r02       # 调度见证

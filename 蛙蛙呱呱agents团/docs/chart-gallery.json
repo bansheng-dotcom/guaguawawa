@@ -1,0 +1,562 @@
+[
+  {
+    "type": "area",
+    "title": "面积图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "强调量级变化",
+    "variant": 1
+  },
+  {
+    "type": "area_range",
+    "title": "area_range",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "beeswarm",
+    "title": "beeswarm",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "box",
+    "title": "箱线图",
+    "group": "分布与关系",
+    "use_when": "分布对比与离群检查",
+    "variant": 1
+  },
+  {
+    "type": "box_jitter",
+    "title": "box_jitter",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "bridge",
+    "title": "贡献桥接图",
+    "group": "高级专项",
+    "use_when": "变化量归因桥接",
+    "variant": 1
+  },
+  {
+    "type": "bubble",
+    "title": "气泡图",
+    "group": "分布与关系",
+    "use_when": "三变量关系",
+    "variant": 1
+  },
+  {
+    "type": "bullet",
+    "title": "子弹图",
+    "group": "构成、流程与变化解释",
+    "use_when": "指标 vs 目标 vs 区间",
+    "variant": 1
+  },
+  {
+    "type": "bump",
+    "title": "bump",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "cal_heatmap",
+    "title": "日历热力图",
+    "group": "构成、流程与变化解释",
+    "use_when": "日粒度强度",
+    "variant": 1
+  },
+  {
+    "type": "candle",
+    "title": "candle",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "choropleth",
+    "title": "填色地图",
+    "group": "构成、流程与变化解释",
+    "use_when": "地理分布",
+    "variant": 1
+  },
+  {
+    "type": "connected",
+    "title": "connected",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "control",
+    "title": "控制图",
+    "group": "分布与关系",
+    "use_when": "过程监控与异常判定",
+    "variant": 1
+  },
+  {
+    "type": "cumulative",
+    "title": "cumulative",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "diverging",
+    "title": "diverging",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "donut",
+    "title": "环形图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "占比+中心指标",
+    "variant": 1
+  },
+  {
+    "type": "dot",
+    "title": "点图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "轻量精确比较多类",
+    "variant": 1
+  },
+  {
+    "type": "dot_matrix",
+    "title": "dot_matrix",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "dual_panels",
+    "title": "dual_panels",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "dumbbell",
+    "title": "哑铃图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "两组差异范围",
+    "variant": 1
+  },
+  {
+    "type": "error_bar",
+    "title": "误差条图",
+    "group": "分布与关系",
+    "use_when": "不确定性表达",
+    "variant": 1
+  },
+  {
+    "type": "forest",
+    "title": "森林图",
+    "group": "分布与关系",
+    "use_when": "多项研究/切片效应汇总",
+    "variant": 1
+  },
+  {
+    "type": "funnel",
+    "title": "漏斗图",
+    "group": "构成、流程与变化解释",
+    "use_when": "转化流程",
+    "variant": 1
+  },
+  {
+    "type": "gantt",
+    "title": "甘特图",
+    "group": "构成、流程与变化解释",
+    "use_when": "时间计划与占用",
+    "variant": 1
+  },
+  {
+    "type": "gauge",
+    "title": "仪表盘图",
+    "group": "构成、流程与变化解释",
+    "use_when": "单一指标进度",
+    "variant": 1
+  },
+  {
+    "type": "geo_flow",
+    "title": "地理流向图",
+    "group": "构成、流程与变化解释",
+    "use_when": "OD 流向",
+    "variant": 1
+  },
+  {
+    "type": "grouped",
+    "title": "grouped",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "hbar",
+    "title": "排名横条图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "类别排名，标签长",
+    "variant": 1
+  },
+  {
+    "type": "heatmap",
+    "title": "热力图",
+    "group": "分布与关系",
+    "use_when": "双维度密度/强度",
+    "variant": 1
+  },
+  {
+    "type": "hist_multi",
+    "title": "hist_multi",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "histogram",
+    "title": "直方图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "单指标分布",
+    "variant": 1
+  },
+  {
+    "type": "index",
+    "title": "index",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "kpi",
+    "title": "kpi",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "line",
+    "title": "折线图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "连续时间趋势与拐点，≤3系列同单位",
+    "variant": 1
+  },
+  {
+    "type": "lollipop",
+    "title": "棒棒糖图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "排名展示",
+    "variant": 1
+  },
+  {
+    "type": "lollipop_ci",
+    "title": "lollipop_ci",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "marimekko",
+    "title": "marimekko",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "multi_line",
+    "title": "multi_line",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "network",
+    "title": "网络图",
+    "group": "构成、流程与变化解释",
+    "use_when": "关系结构",
+    "variant": 1
+  },
+  {
+    "type": "parallel",
+    "title": "平行坐标图",
+    "group": "分布与关系",
+    "use_when": "多维记录对比",
+    "variant": 1
+  },
+  {
+    "type": "pareto",
+    "title": "帕累托图",
+    "group": "构成、流程与变化解释",
+    "use_when": "少数项解释多数缺口",
+    "variant": 1
+  },
+  {
+    "type": "pct_stacked",
+    "title": "百分比堆叠条形图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "只关心占比结构",
+    "variant": 1
+  },
+  {
+    "type": "pie",
+    "title": "饼图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "≤5 类占比",
+    "variant": 1
+  },
+  {
+    "type": "quadrant",
+    "title": "quadrant",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "radar",
+    "title": "雷达图",
+    "group": "分布与关系",
+    "use_when": "多维能力画像",
+    "variant": 1
+  },
+  {
+    "type": "range",
+    "title": "range",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "ridge",
+    "title": "ridge",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "rose",
+    "title": "玫瑰图",
+    "group": "构成、流程与变化解释",
+    "use_when": "周期性方向数据",
+    "variant": 1
+  },
+  {
+    "type": "sankey",
+    "title": "桑基图",
+    "group": "构成、流程与变化解释",
+    "use_when": "流向拆解",
+    "variant": 1
+  },
+  {
+    "type": "scatter",
+    "title": "散点图",
+    "group": "分布与关系",
+    "use_when": "两连续变量关系",
+    "variant": 1
+  },
+  {
+    "type": "share_bar",
+    "title": "share_bar",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "slope",
+    "title": "斜率图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "两期变化对比",
+    "variant": 1
+  },
+  {
+    "type": "small_mult",
+    "title": "小多组图",
+    "group": "高级专项",
+    "use_when": "同构分面对比",
+    "variant": 1
+  },
+  {
+    "type": "spark_table",
+    "title": "spark_table",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "stack_area",
+    "title": "stack_area",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "stacked",
+    "title": "stacked",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "step",
+    "title": "step",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "stream",
+    "title": "stream",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "strip",
+    "title": "strip",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "sunburst",
+    "title": "旭日图",
+    "group": "构成、流程与变化解释",
+    "use_when": "多层级占比",
+    "variant": 1
+  },
+  {
+    "type": "symbol",
+    "title": "symbol",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "target_band",
+    "title": "柱线目标带图",
+    "group": "高级专项",
+    "use_when": "目标区间监控",
+    "variant": 1
+  },
+  {
+    "type": "timeline",
+    "title": "timeline",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "treemap",
+    "title": "树状图",
+    "group": "构成、流程与变化解释",
+    "use_when": "层级占比",
+    "variant": 1
+  },
+  {
+    "type": "vbar",
+    "title": "纵向柱状图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "少量类别的数值比较",
+    "variant": 1
+  },
+  {
+    "type": "violin",
+    "title": "小提琴图",
+    "group": "分布与关系",
+    "use_when": "分布形状对比",
+    "variant": 1
+  },
+  {
+    "type": "waffle",
+    "title": "华夫图",
+    "group": "基础比较、趋势与构成",
+    "use_when": "占比的离散方块表达",
+    "variant": 1
+  },
+  {
+    "type": "waterfall",
+    "title": "瀑布图",
+    "group": "构成、流程与变化解释",
+    "use_when": "期初→各贡献→期末的桥接解释",
+    "variant": 1
+  },
+  {
+    "type": "ym_heat",
+    "title": "ym_heat",
+    "group": "其他",
+    "use_when": "",
+    "variant": 1
+  },
+  {
+    "type": "dot",
+    "title": "盈亏平衡：社区自雇 5.85 万落在 5–6 万饱和区间",
+    "group": "基础比较、趋势与构成 · 业务例",
+    "use_when": "比较一组业态的盈亏平衡点，并标出行业饱和带",
+    "variant": 2
+  },
+  {
+    "type": "share_bar",
+    "title": "渠道：线上 53%、专业店 24%、商超 9%",
+    "group": "其他 · 业务例",
+    "use_when": "看构成：各渠道份额能否加总到 100%",
+    "variant": 2
+  },
+  {
+    "type": "funnel",
+    "title": "漏斗：首单 100 → 90 天留存 41 → 复购 28",
+    "group": "构成、流程与变化解释 · 业务例",
+    "use_when": "看阶段流失：每一段还剩多少",
+    "variant": 2
+  },
+  {
+    "type": "line",
+    "title": "13 期趋势：先涨后跌，拐点在 9 月",
+    "group": "基础比较、趋势与构成 · 业务例",
+    "use_when": "看方向与拐点：连续时间用线，不用柱",
+    "variant": 2
+  },
+  {
+    "type": "pct_stacked",
+    "title": "预算构成：内容/私域/付费 三年变化",
+    "group": "基础比较、趋势与构成 · 业务例",
+    "use_when": "看结构变化：总量 + 占比同时展示",
+    "variant": 2
+  },
+  {
+    "type": "waterfall",
+    "title": "利润桥：毛利 +70 → 投流 -45 → 净利 25",
+    "group": "构成、流程与变化解释 · 业务例",
+    "use_when": "看增减拆解：从起点到终点每一笔是什么",
+    "variant": 2
+  },
+  {
+    "type": "choropleth",
+    "title": "北京分区：朝阳/海淀/通州存量",
+    "group": "构成、流程与变化解释 · 业务例",
+    "use_when": "看空间分布：区域本身是信息",
+    "variant": 2
+  },
+  {
+    "type": "network",
+    "title": "渠道关系：品牌—平台—门店",
+    "group": "构成、流程与变化解释 · 业务例",
+    "use_when": "看节点与关系：谁连谁、强弱如何",
+    "variant": 2
+  },
+  {
+    "type": "hbar",
+    "title": "品类排名：猫砂 140、智能 102、玩具 60",
+    "group": "基础比较、趋势与构成 · 业务例",
+    "use_when": "看排名：类别多、标签长时用横条",
+    "variant": 2
+  },
+  {
+    "type": "vbar",
+    "title": "增速：智能 180%、猫砂 12%、玩具 3%",
+    "group": "基础比较、趋势与构成 · 业务例",
+    "use_when": "看增速比较：同一单位、同一期次",
+    "variant": 2
+  }
+]

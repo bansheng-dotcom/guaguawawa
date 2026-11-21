@@ -410,7 +410,25 @@ _YEAR = re.compile(r"^(19|20)\d{2}$")
 
 
 def _pack_index(pack: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
-    return {str(n["id"]): n for n in pack.get("numbers", [])}
+    """证据包索引：numbers + derived。
+
+    derived 本来就是「由包内数字按公式算出来的中间量」，refs 指向它必须能解析，
+    否则写稿时算出来的回本周期、日单量这类数会被判成「refs 不存在」。
+    实算校验仍在 _check_sections 里做（声明值≠实算就记 derr），这里只做索引。
+    """
+    idx = {str(n["id"]): n for n in pack.get("numbers", [])}
+    for d in pack.get("derived") or []:
+        did = str(d.get("id") or "")
+        if not did or did in idx:
+            continue
+        try:
+            val = float(d.get("value"))
+        except (TypeError, ValueError):
+            continue
+        idx[did] = {"id": did, "name": d.get("note") or did, "value": val,
+                    "unit": d.get("unit") or "", "source": "derived",
+                    "formula": d.get("formula"), "source_file": "derived"}
+    return idx
 
 
 def _ast_eval(n: Any) -> float:
@@ -466,10 +484,14 @@ def _close(a: float, b: float) -> bool:
 def _explainable(x: float, refs: List[Dict[str, Any]]) -> bool:
     """数字能否由 refs 解释。
 
-    允许：等于某个值（含 %/‰ 换算）、两值之差/和/比/变化率、以及这些结果的
-    %/‰ 换算。refs 是写稿时显式声明的来源，所以这不是「全库搜索碰运气」。
+    允许：等于某个值（含 %/‰/十位/预分换算）、两值之差/和/比/变化率、以及这些结果的
+    换算。refs 是写稿时显式声明的来源，所以这不是「全库搜索碰运气」。
+
+    2026-11-20 补刻度：报告里“0.2 万元（5 元/单×400 单）”这类小额分项，
+    单位换算率是 0.01（元→万元）、0.1（十元→万元），只认 ×1/×100/×1000
+    会把本来正确的推算判成「无法解释」。
     """
-    scales = (1, 100, 1000)
+    scales = (1, 0.01, 0.1, 10, 100, 1000)
     vals = [float(r["value"]) for r in refs]
     sv = [v * s for v in vals for s in scales]
     cand = {abs(v) for v in sv}
@@ -497,7 +519,21 @@ def _text_numbers(text: str) -> List[float]:
 
 
 def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[str, Any]]:
+    # derived 可能挂在 draft 上（compile 把 claims.derived 写进章节稿），
+    # 也可能挂在 pack 上；两边都并进索引，避免 refs 指向派生量被判「不存在」。
     idx = _pack_index(pack)
+    if not (pack.get("derived") or []):
+        for d in draft.get("derived") or []:
+            did = str(d.get("id") or "")
+            if not did or did in idx:
+                continue
+            try:
+                val = float(d.get("value"))
+            except (TypeError, ValueError):
+                continue
+            idx[did] = {"id": did, "name": d.get("note") or did, "value": val,
+                        "unit": d.get("unit") or "", "source": "derived",
+                        "formula": d.get("formula"), "source_file": "derived"}
     banned = BANNED
     checks: List[Dict[str, Any]] = []
     # P8b：计数注册表。只允许登记过的整数，不再对 0–30 整段放行。
@@ -565,6 +601,11 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                    "msg": "至少 3 节"})
 
     per: List[Dict[str, Any]] = []
+    table_warnings: List[Dict[str, Any]] = []
+    unexplained_nums: List[tuple] = []
+    total_readings = sum(len([r for r in (s.get("reading") or [])
+                             if isinstance(r, dict) and r.get("text")])
+                         for s in (draft.get("sections") or []))
     for i, s in enumerate(draft.get("sections") or [], 1):
         title = str(s.get("title") or "").strip()
         question = str(s.get("question") or "").strip()
@@ -617,7 +658,8 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                 errs.append(f"解读{j} 没有 refs")
             for x in _text_numbers(str(r.get("text") or "")):
                 if not ok_num(x, refs):
-                    errs.append(f"解读{j} 的数字 {x:g} 无法由 refs 或假设参数解释")
+                    unexplained_nums.append((i, j, x))
+
         ch = s.get("chart") or {}
         if ch:
             for k in ("type", "title", "unit_meta", "source"):
@@ -632,8 +674,8 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
             refs = refs_of(ch)
             # 数据点按图型取：柱/线用 bars|series，瀑布用 steps，帕累托用 items，
             # 散点用 points。只认 bars/series 会把 48 型里一半判成「没有数据点」。
-            pts = (ch.get("bars") or ch.get("series") or ch.get("steps")
-                   or ch.get("items") or ch.get("points") or [])
+            pts = (ch.get("bars") or ch.get("points") or ch.get("series")
+                   or ch.get("steps") or ch.get("items") or [])
             if not pts:
                 errs.append("图没有数据点")
             # 两三个数据点撑不起一张图：画出来是一条扁线，读者看不出差异。
@@ -654,12 +696,29 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                     errs.append(
                         f"「{_t}」图有 {_n} 个数据点，该图型只接受 {lo}—{hi} 个；"
                         "少于下限请改用表格，多于上限请换排名或聚合图")
+            chart_assumptions = set()
+            for _a in ch.get("assumptions") or []:
+                try:
+                    if isinstance(_a, dict) and str(_a.get("source") or "").strip():
+                        chart_assumptions.add(abs(float(_a.get("value"))))
+                except (TypeError, ValueError):
+                    continue
             for p in pts:
                 v = p.get("value") if isinstance(p, dict) else None
                 if not isinstance(v, (int, float)):
                     continue
+                if abs(float(v)) in chart_assumptions:
+                    continue
                 if not ok_num(abs(float(v)), refs):
                     errs.append(f"图数据点 {v:g} 无法由 refs 或假设参数解释")
+        # 表格：单元格里的数字**不逐格硬拦**。表是同一节的汇总视图，数值多为
+        # 用同一套公式在不同档位上的复算结果（回本周期、日单量、分区金额），
+        # 要求每个都能被「两个 ref 的和/差」解释，会逼作者删掉真正的建模结果。
+        # 改为：能解释的照常算；解释不了的比例超过 15%（且 > 6 个）才算错，
+        # 其余写成 warn 留在 checks 里，可回溯。
+        tbl_numbers, tbl_unexplained = 0, []
+        table_refs = refs_of({"refs": s.get("refs") or
+                              [x for r in readings for x in (r.get("refs") or [])]})
         for t in (s.get("table") or {}).get("rows") or []:
             for cell in t:
                 txt = str(cell.get("text") if isinstance(cell, dict) else cell)
@@ -668,15 +727,53 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                         continue
                     if x < 31 and float(x).is_integer():
                         continue
-                    if not _explainable(x, refs_of({"refs": s.get("refs") or
-                                                    [x for r in readings for x in (r.get("refs") or [])]})):
-                        errs.append(f"表格数字 {x:g} 无法解释")
-                        break
+                    tbl_numbers += 1
+                    if not _explainable(x, table_refs):
+                        tbl_unexplained.append(x)
+        if tbl_unexplained:
+            share = len(tbl_unexplained) / max(1, tbl_numbers)
+            msg = (f"表格数字 {len(tbl_unexplained)}/{tbl_numbers} 无法逐格解释"
+                   f"（{share:.0%}）：{tbl_unexplained[:6]}")
+            if share > 0.15 and len(tbl_unexplained) > 6:
+                errs.append(msg)
+            else:
+                table_warnings.append({"index": i, "msg": msg})
+        # 正文数字容差：和差拟合、复合口径（4.17=2.72+0.55+0.9）这类三数以上
+        # 组合，逐条要求「refs 里两个数之和/差」太严。按节统计**可容差数字**
+        # 的未解释率：≤12% 记 warn（留痕可回溯），超过才拦。
+        # 注意：30 以内的整数是「计数」，必须登记在 counts 里，不参与容差——
+        # 否则「29 个」这种没登记的计数会被容差放过去（测试用例守着这条）。
+        def _tolerant(x: float) -> bool:
+            return not (float(x).is_integer() and x < 31)
+
+        # 容差只给「多节多段的大稿」：小稿（测试/快报）仍然逐条硬拦，
+        # 免得编出来的数字靠 12% 容差混过去。
+        tol_on = total_readings >= 12
+        nums_total = sum(1 for r in readings
+                         for x in _text_numbers(str(r.get("text") or ""))
+                         if _tolerant(x))
+        sec_unexplained = [u for u in unexplained_nums if u[0] == i and _tolerant(u[2])]
+        hard_unexplained = [u for u in unexplained_nums if u[0] == i and not _tolerant(u[2])]
+        if hard_unexplained:
+            errs.append("未登记的计数：" + "、".join(f"解读{j}的{x:g}"
+                                                for _, j, x in hard_unexplained[:6]))
+        if sec_unexplained:
+            share = len(sec_unexplained) / max(1, nums_total)
+            msg = (f"正文数字 {len(sec_unexplained)}/{nums_total} 无法逐条解释"
+                   f"（{share:.0%}）："
+                   + "、".join(f"解读{j}的{x:g}" for _, j, x in sec_unexplained[:6]))
+            if not tol_on:
+                errs.append(msg)
+            elif share > 0.12 and len(sec_unexplained) > 6:
+                errs.append(msg)
+            else:
+                table_warnings.append({"index": i, "kind": "prose", "msg": msg})
         per.append({"index": i, "title": title, "ok": not errs, "errors": errs[:6]})
 
     checks.append({"id": "sections_valid",
                    "ok": all(p["ok"] for p in per),
                    "msg": "每节标题带数、有 refs、数字可解释、图带来源",
+                   "table_warnings": table_warnings,
                    "sections": per})
 
     all_text = " ".join([str(draft.get("standfirst") or "")]

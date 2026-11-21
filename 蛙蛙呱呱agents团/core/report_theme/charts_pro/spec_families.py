@@ -31,22 +31,62 @@ def _axis_y(b, lo, hi, Y, x0, x1, fmt="{:.0f}", n=4):
 # --------------------------------------------------------------------------- #
 # 条形族
 # --------------------------------------------------------------------------- #
+def _nice_step(v: float) -> float:
+    """把刻度间隔归到 1/2/2.5/5 × 10^k，别出现 0、3、7、10、13 这种。"""
+    if v <= 0:
+        return 1.0
+    k = math.floor(math.log10(v))
+    base = 10 ** k
+    for m in (1, 2, 2.5, 5, 10):
+        if v <= m * base:
+            return m * base
+    return 10 * base
+
+
+def _accent_hit(it: dict, acc) -> bool:
+    """accent 支持标签或下标——排序后下标会错位，优先按标签匹配。"""
+    if isinstance(acc, str):
+        return str(it.get("label")) == acc
+    return False
+
+
 def _vbar(s: dict) -> str:
     items = s["items"]
-    W, H = 640, 330
-    L, R, T, B = 64, 590, 50, 262
-    hi = s.get("max") or max(i["value"] for i in items) * 1.15
+    hi0 = s.get("max") or max(i["value"] for i in items) * 1.12
+    step = _nice_step((s.get("max") or max(i["value"] for i in items)) / 4)
+    hi = math.ceil(hi0 / step) * step
+    # 高度随条目数量走：两条不要占 330 高
+    H = max(200, min(340, 118 + 42 * len(items)))
+    T, B = 46, H - 56
+    W = 640
+    L, R = 64, 590
     Y = sy(0, hi, B, T)
     slot = (R - L) / len(items)
-    bw = slot * 0.5
+    bw = slot * 0.46
     b = _svg(W, H, "纵向柱")
-    _axis_y(b, 0, hi, Y, L, R, "{:.0f}")
+    v = 0.0
+    while v <= hi + 1e-9:
+        b.append(ln(L, Y(v), R, Y(v), LINE, 1))
+        b.append(t(L - 8, Y(v) + 3, f"{v:g}", 7, FAINT, anchor="end"))
+        v += step
+    acc = s.get("accent", -1)
+    hot_i = -1
     for i, it in enumerate(items):
         cx = L + slot * i + slot / 2
+        hot = (i == acc) or _accent_hit(it, acc)
+        if hot:
+            hot_i = i
         b.append(rc(cx - bw / 2, Y(it["value"]), bw, B - Y(it["value"]),
-                    ACCENT if i == s.get("accent", -1) else INK2, rx=2))
-        b.append(t(cx, Y(it["value"]) - 7, f"{it['value']:g}", 8, INK, 700, anchor="middle", halo=True))
+                    ACCENT if hot else INK2, rx=2))
+        b.append(t(cx, Y(it["value"]) - 7, f"{it['value']:g}", 8, INK, 700,
+                   anchor="middle", halo=True))
         b.append(t(cx, B + 16, it["label"], 7.4, MUTED, anchor="middle"))
+    # 注释上墙：把「是彩妆的 3.44 倍」这类话画在图上，而不是只躺在数据里
+    note = str(s.get("accent_note") or "").strip()
+    if note and 0 <= hot_i < len(items):
+        cx = L + slot * hot_i + slot / 2
+        b.append(t(cx, Y(items[hot_i]["value"]) - 21, note, 7.2, ACCENT,
+                   anchor="middle"))
     if s.get("target"):
         b.append(ln(L, Y(s["target"]), R, Y(s["target"]), ACCENT, 1, "3 3"))
         b.append(t(R, Y(s["target"]) - 5, f"目标 {s['target']:g}", 7, ACCENT, anchor="end"))

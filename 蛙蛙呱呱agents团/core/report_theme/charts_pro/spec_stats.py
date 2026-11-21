@@ -158,12 +158,22 @@ def _radar(s: dict) -> str:
     return "".join(b)
 
 
+_AGG_LABELS = ("其他", "其它", "其余", "合计", "总计", "长尾", "剩余")
+
+
 def _pareto(s: dict) -> str:
-    items = sorted(s["items"], key=lambda x: -x["value"])
-    total = sum(i["value"] for i in items)
+    # 「其他/其余/合计」不是一根普通柱子：永远排最后，且不参与累计曲线，
+    # 否则 66.7% 的"其他"会顶到第一根，帕累托图就读反了（2026-11-21）。
+    raw = list(s["items"])
+    named = [i for i in raw if str(i.get("label")) not in _AGG_LABELS]
+    agg = [i for i in raw if str(i.get("label")) in _AGG_LABELS]
+    items = sorted(named, key=lambda x: -x["value"]) + agg
+    # 累计的分母是"全部"（含其他）；只用 named 会把 37.4% 归一成 100%，
+    # 于是曲线假装到了 80%——这正是这张图最危险的地方。
+    total = sum(i["value"] for i in items) or 1.0
     W, H = 640, 320
     L, R, T, B = 64, 590, 50, 252
-    mx = items[0]["value"] * 1.25
+    mx = max(i["value"] for i in items) * 1.25 or 1
     Y = sy(0, mx, B, T)
     slot = (R - L) / len(items)
     bw = slot * .5
@@ -172,15 +182,28 @@ def _pareto(s: dict) -> str:
     for i, it in enumerate(items):
         cx = L + slot * i + slot / 2
         b.append(rc(cx - bw / 2, Y(it["value"]), bw, B - Y(it["value"]), INK2, rx=1))
-        b.append(t(cx, Y(it["value"]) - 6, f"{it['value']:g}", 7, INK, 600, anchor="middle", halo=True))
+        b.append(t(cx, Y(it["value"]) - 6, f"{it['value']:g}", 7, INK, 600,
+                   anchor="middle", halo=True))
         b.append(t(cx, B + 16, it["label"], 7, INK2, anchor="middle"))
+        if str(it.get("label")) in _AGG_LABELS:
+            continue
         cum += it["value"] / total
         pts.append((cx, B - cum * (B - T)))
-    b.append(pa("M " + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts), "none", ACCENT, 1.8))
-    for x, y in pts:
-        b.append(ci(x, y, 3, ACCENT))
-    b.append(ln(L, B - .8 * (B - T), R, B - .8 * (B - T), ACCENT, 1, "3 3"))
-    b.append(t(R, B - .8 * (B - T) - 5, "累计 80%", 7, ACCENT, anchor="end"))
+    if pts:
+        b.append(pa("M " + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts),
+                    "none", ACCENT, 1.8))
+        for x, y in pts:
+            b.append(ci(x, y, 3, ACCENT))
+    final = pts[-1][1] if pts else B
+    reached = bool(pts) and (1 - (final - T) / max(1, (B - T))) >= 0.8
+    if reached:
+        b.append(ln(L, B - .8 * (B - T), R, B - .8 * (B - T), ACCENT, 1, "3 3"))
+        b.append(t(R, B - .8 * (B - T) - 5, "累计 80%", 7, ACCENT, anchor="end"))
+    elif pts:
+        # 前几名根本到不了 80%：这句话比一条永远碰不到的参考线有用
+        b.append(t(pts[-1][0] + 6, pts[-1][1] - 8,
+                   f"前 {len(pts)} 名累计 {sum(i['value'] for i in named[:len(pts)]):.1f}%",
+                   7, ACCENT, halo=True))
     b.append("</svg>")
     return "".join(b)
 

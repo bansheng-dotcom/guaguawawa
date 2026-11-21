@@ -69,7 +69,7 @@ def build(intent: str, project_dir: Optional[str] = None,
           theme: str = "paper", pdf: bool = False, quote_mode: str = "off",
           min_binding: float = 0.8, evidence_path: Optional[str] = None,
           draft_path: Optional[str] = None, layout: str = "flow",
-          prose_hard: bool = False) -> Dict[str, Any]:
+          prose_hard: bool = False, gate_hard: bool = True) -> Dict[str, Any]:
     """唯一入口。P1：识别输入形态后转发 decision_report（产物不变）。"""
     mode = detect_mode(project_dir, input_path, research)
     out = Path(out_dir)
@@ -112,7 +112,7 @@ def build(intent: str, project_dir: Optional[str] = None,
         res = report_flow.run(intent=intent, out_dir=out_dir, draft=draft_obj,
                               evidence=str(evidence_path), theme=theme, pdf=pdf,
                               quote_mode=quote_mode, layout=layout,
-                              prose_hard=prose_hard)
+                              prose_hard=prose_hard, gate_hard=gate_hard)
         res = dict(res)
         res["mode"] = "agent"
         res["generated_by"] = "core/report_line.py (agent draft)"
@@ -126,7 +126,8 @@ def build(intent: str, project_dir: Optional[str] = None,
     res = decision_report.build(
         intent=intent, project_dir=project_dir, out_dir=out_dir,
         decision_path=None, min_binding=min_binding, theme=theme, pdf=pdf,
-        quote_mode=quote_mode, audience=audience, layout=layout)
+        quote_mode=quote_mode, audience=audience, layout=layout,
+        prose_hard=prose_hard)
 
     res = dict(res)
     res["mode"] = mode

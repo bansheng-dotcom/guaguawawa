@@ -1,0 +1,33 @@
+# 报告契约（唯一定义处）
+# 所有产线模块只读这里；不要在代码/卡片/配置里再写第二套阈值。
+schema: dsh.report_contract/v1
+report:
+  # 正文：单段 ≤300 字；单节不设上限（长度由判断数决定）
+  paragraph_max_chars: 300
+  paragraph_hard_max_chars: 330
+  section_max_chars: null
+  # 主判断：正文最多 7 条，其余进附录
+  main_claims_max: 7
+  decision_items_max: 5
+  decision_fields_required: true
+  title_max_chars: 20
+  # 每条主判断：1 图 + 1 表
+  chart_per_main: 1
+  table_per_main: 1
+  # 页面
+  decision_page: true
+  gap_page: true
+  appendix: true
+  # 证据
+  source_grades: [S, A, B]   # C 只作线索，不得支撑主判断
+  # 图表
+  chart_unit_strict: true
+  chart_entity_strict: true
+  chart_min_points: 3
+  chart_max_points: 12
+  chart_baseline_required: true
+  chart_annotate_required: true
+  auto_derive_charts: true
+  # 文笔：不再按字数给分
+  prose_length_score: false
+  prose_numbers_per_1000_min: 15

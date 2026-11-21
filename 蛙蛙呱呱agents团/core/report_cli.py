@@ -123,30 +123,142 @@ def cmd_plan_report(args) -> int:
     return 0
 
 
-def cmd_brief(args) -> int:
-    """发任务卡：每个可进报告的角色一张，只带契约不带题目。"""
-    from core import dispatch
-    only = [x.strip() for x in (args.only or "").split(",") if x.strip()] or None
-    res = dispatch.write_cards(args.intent, args.out, only)
+def cmd_clarify(args) -> int:
+    """接任务先对齐意图：出一张澄清卡（不拆卡、不发卡）。"""
+    from core import report_clarify
+    answers = list(getattr(args, "answer", None) or [])
+    if answers and not args.dir:
+        print(json.dumps({"ok": False, "error": "--answer 需要 --dir"}, ensure_ascii=False))
+        return 2
+    if answers:
+        # 会话里问完把答案交回来：C1=… C2=… ；写入后自动确认
+        res = report_clarify.answer(args.dir, answers)
+        print(json.dumps(res, ensure_ascii=False, indent=1))
+        return 0 if res.get("ok") else 2
+    if getattr(args, "confirm", False):
+        if not args.dir:
+            print(json.dumps({"ok": False, "error": "--confirm 需要 --dir"}, ensure_ascii=False))
+            return 2
+        res = report_clarify.confirm(args.dir)
+        print(json.dumps(res, ensure_ascii=False, indent=1))
+        return 0
+    if not (args.intent and args.out):
+        print(json.dumps({"ok": False, "error": "需要 --intent 与 --out"}, ensure_ascii=False))
+        return 2
+    res = report_clarify.write(args.intent, args.out, force=bool(args.force))
     print(json.dumps(res, ensure_ascii=False, indent=1))
-    return 0
+    return 0 if res.get("ok") else 1
+
+
+def cmd_brief(args) -> int:
+    """发任务卡。两种用法：
+
+    A 老路径（不拆卡）：report brief --intent … --out …
+    B 新路径（先澄清、再审映射、再发卡）：
+        report brief --dir <项目> --plan            出映射表（draft）
+        report brief --dir <项目> --plan --confirm  确认并发卡（带 nonce）
+    """
+    from core import dispatch, report_dispatch
+    if getattr(args, "plan", False) or getattr(args, "dir", None):
+        base = args.dir or args.out
+        if not base:
+            print(json.dumps({"ok": False, "error": "需要 --dir <项目>"}, ensure_ascii=False))
+            return 2
+        if getattr(args, "plan", False):
+            res = report_dispatch.write_plan(base, confirm=bool(args.confirm))
+            # v1.5：拆卡 SOP 进产线。--plan 即生成五轴并判 S7 门禁；
+            # 门禁不过，--confirm 一律不发卡。
+            from core import card_issue
+            spec = card_issue.prepare(Path(base), intent=str(res.get("intent") or ""))
+            res["card_spec"] = {"ok": spec.get("ok"),
+                                "counts": spec.get("counts"),
+                                "gates": spec.get("gates")}
+            if not spec.get("ok"):
+                res["ok"] = False
+                res["hint"] = "拆卡门禁未过；看 plan/pre_issue_gates.json，改完重跑"
+                print(json.dumps(res, ensure_ascii=False, indent=1))
+                return 2
+            if args.confirm:
+                # 审完即发：确认映射与发卡是同一次动作，避免"确认了但没发"
+                res = {**res, "issued": report_dispatch.issue(base)}
+                if not res["issued"].get("ok"):
+                    print(json.dumps(res, ensure_ascii=False, indent=1))
+                    return 2
+                try:
+                    from core import grid_attach
+                    res["grid"] = grid_attach.attach_cards(Path(base))
+                except Exception as exc:  # noqa: BLE001
+                    res["grid"] = {"ok": False, "why": str(exc)}
+            print(json.dumps(res, ensure_ascii=False, indent=1))
+            return 0 if res.get("ok") else 2
+        res = report_dispatch.issue(base)
+        if res.get("ok"):
+            try:
+                from core import grid_attach
+                res["grid"] = grid_attach.attach_cards(Path(base))
+            except Exception as exc:  # noqa: BLE001
+                res["grid"] = {"ok": False, "why": str(exc)}
+        print(json.dumps(res, ensure_ascii=False, indent=1))
+        return 0 if res.get("ok") else 2
+    only = [x.strip() for x in (args.only or "").split(",") if x.strip()] or None
+    if not (args.intent and args.out):
+        print(json.dumps({"ok": False,
+                          "error": "老路径需要 --intent 与 --out；"
+                                   "新路径用 --dir（先 clarify 再 --plan）"},
+                         ensure_ascii=False))
+        return 2
+    # v1.5：老路径也走拆卡 SOP。缺澄清自动补，缺语义层直接拒（写模板）。
+    from core import card_issue
+    res = card_issue.bootstrap(Path(args.out), args.intent, only)
+    res["mode"] = "legacy+card_spec"
+    res["note"] = "老路径已并入拆卡门禁：五轴不过不发卡"
+    print(json.dumps(res, ensure_ascii=False, indent=1))
+    return 0 if res.get("ok") else 2
+
+
+def cmd_exchange(args) -> int:
+    """卡间协商：把 needs 投到对方 INBOX，并汇总闭环状态。"""
+    from core import report_exchange
+    base = args.dir
+    res = report_exchange.route(base)
+    md = report_exchange.render_md(base)
+    p = Path(base) / "exchange.md"
+    p.write_text(md, encoding="utf-8")
+    print(json.dumps({**res, "ledger": str(p)}, ensure_ascii=False, indent=1))
+    return 0 if res.get("ok") else 1
 
 
 def cmd_collect(args) -> int:
     """收卡：验 quote/来源/覆盖 → 合并 → 缺口清单 → 编译 → 过闸 → 渲染。
 
-    证据门禁（2026-11-19）：每条 source 必须 url/date/quote；CLI 默认至少 50 条来源
-    （`--min-sources 0` 关闭）。`--verify-quotes` 联网逐条回抓，`--strict-quotes`
-    时未核过的来源直接失败。
+    证据门禁（2026-11-19，2026-11-20 收紧）：每条 source 必须 url/date/quote；
+    `--min-sources` 按**唯一 URL** 计数（默认 50，`--min-sources 0` 关闭）；
+    `--verify-quotes` 联网逐条回抓，`--strict-quotes` 时未核过的来源直接失败。
+
+    降级必须显式授权：想关回抓或关严格，得同时给 `--allow-degraded`，
+    否则直接报错退出——过去一条 `--no-strict-quotes` 就能让 40% 未核来源
+    静默过关，产物上还看不出降级。
     """
     from core import dispatch
+    verify = bool(getattr(args, "verify_quotes", True))
+    strict = bool(getattr(args, "strict_quotes", True))
+    allow_degraded = bool(getattr(args, "allow_degraded", False))
+    if (not verify or not strict) and not allow_degraded:
+        print(json.dumps({
+            "ok": False, "stage": "evidence_gate",
+            "error": "关闭回抓或关闭严格核验属于降级，必须显式加 --allow-degraded；"
+                     "降级会写进 manifest.quotes.degraded，产物会标出来",
+            "requested": {"verify_quotes": verify, "strict_quotes": strict}},
+            ensure_ascii=False, indent=1))
+        return 2
     merged, problems = dispatch.collect(
         args.dir,
         require_all=not getattr(args, "allow_partial", False),
         min_sources=int(getattr(args, "min_sources", 0) or 0),
-        verify_quotes=bool(getattr(args, "verify_quotes", False)),
-        strict_verify=bool(getattr(args, "strict_quotes", False))
-        and bool(getattr(args, "verify_quotes", False)))
+        verify_quotes=verify,
+        strict_verify=strict and verify,
+        intent=str(getattr(args, "intent", "") or ""),
+        allow_open_needs=bool(getattr(args, "allow_open_needs", False)))
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     cov = merged.get("coverage") or {}
@@ -201,12 +313,17 @@ def cmd_research(args) -> int:
     执行器由 --worker-cmd 或 GUAGUA_WORKER_CMD 提供；不给时只出计划与 PROMPT.md。
     """
     import os
-    from core import dispatch, parallel_research
+    from core import parallel_research, card_issue
 
     only = [x.strip() for x in (getattr(args, "only", "") or "").split(",") if x.strip()] or None
     base = Path(args.out)
     base.mkdir(parents=True, exist_ok=True)
-    brief = dispatch.write_cards(args.intent, str(base), only)
+    # v1.5：并行调研也走拆卡门禁；缺语义层直接拒。
+    boot = card_issue.bootstrap(base, args.intent, only)
+    if not boot.get("ok"):
+        print(json.dumps(boot, ensure_ascii=False, indent=1))
+        return 2
+    brief = {"cards": [{"role": c["role"]} for c in boot.get("cards") or []]}
     worker = (getattr(args, "worker_cmd", None)
               or os.environ.get("GUAGUA_WORKER_CMD") or None)
     res = parallel_research.run(str(base), worker, args.workers,
@@ -230,10 +347,12 @@ def cmd_research(args) -> int:
         return 0
     return cmd_collect(argparse.Namespace(
         dir=str(base), out=str(base / "out"),
+        intent=str(getattr(args, "intent", "") or ""),
         allow_partial=bool(getattr(args, "allow_partial", False)),
         min_sources=int(getattr(args, "min_sources", 50)),
         verify_quotes=bool(getattr(args, "verify_quotes", True)),
-        strict_quotes=bool(getattr(args, "strict_quotes", True))))
+        strict_quotes=bool(getattr(args, "strict_quotes", True)),
+        allow_degraded=bool(getattr(args, "allow_degraded", False))))
 
 
 def cmd_run_line(args) -> int:
@@ -242,6 +361,11 @@ def cmd_run_line(args) -> int:
     # v12：--claims 一步到位：编译（含交叉质询）→ 过闸 → 渲染。
     # 这样「智能体交一份 claims.json」就是完整交付动作，不用记两个命令。
     claims_path = getattr(args, "claims", None)
+    if str(getattr(args, "layout", "flow")) != "flow":
+        print(json.dumps({
+            "ok": False, "error": "paper 文档线已下线（2026-11-21）：只保留 flow",
+            "hint": "去掉 --layout paper；需要分页由导出器做"}, ensure_ascii=False))
+        return 2
     if claims_path:
         import subprocess
         import sys as _sys
@@ -265,7 +389,8 @@ def cmd_run_line(args) -> int:
             evidence_path=getattr(args, "evidence", None),
             draft_path=getattr(args, "draft", None),
             layout=getattr(args, "layout", "flow"),
-            prose_hard=bool(getattr(args, "prose_hard", False)))
+            prose_hard=bool(getattr(args, "prose_hard", False)),
+            gate_hard=bool(getattr(args, "gate_hard", True)))
     except Exception as e:  # noqa: BLE001
         print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
                          ensure_ascii=False))
@@ -327,6 +452,63 @@ def cmd_gaps(args) -> int:
     return 0 if int(data.get("unverified") or 0) == 0 else 1
 
 
+def cmd_attest(args) -> int:
+    """交付口径：只从 manifest 与产物取证，不接受任何自由措辞。
+
+    2026-11-20 那次，模型在收尾里写「报告已完成并通过全部门禁验证」，
+    而同一份产物的 source_verify.ok 是 false。结论必须由机器回填。
+    """
+    out = Path(args.out)
+    man_p = out / "manifest.json"
+    if not man_p.is_file():
+        print(f"[attest] FAIL 没有 {man_p}：先跑产线")
+        return 2
+    m = json.loads(man_p.read_text(encoding="utf-8-sig"))
+    flow = ((m.get("gate") or {}).get("flow") or {})
+    ev = m.get("evidence") or {}
+    q = m.get("quotes") or {}
+    files = m.get("files") or {}
+    verdict = flow.get("verdict") or "UNKNOWN"
+    viol = flow.get("violations") or []
+    sha = str(flow.get("gate_sha256") or "")[:12]
+    degraded = list(m.get("degraded") or [])
+    min_src = ev.get("min_sources")
+    lines = [
+        f"门禁：{verdict}（判据 {len(viol)} 条违规；门禁指纹 {sha or '未记录'}）",
+        f"来源：登记 {ev.get('files', 0)} 条 / 唯一 {ev.get('unique_sources', 0)} 条"
+        f"（门槛 {'-' if min_src is None else min_src}，"
+        f"口径 {ev.get('min_sources_scope') or '-'}）",
+        f"核验：{q.get('verified', '-')}/{q.get('total', '-')} 逐字命中"
+        if q.get("total") else "核验：本次未执行（见降级清单）",
+        "交付：" + "、".join(
+            f"{k.upper()}{'✓' if files.get(k) else '✗'}"
+            for k in ("html", "md", "pdf")),
+        "降级：" + ("、".join(degraded) if degraded else "无"),
+    ]
+    q = m.get("questions") or {}
+    if q.get("must"):
+        claimed = len([x for x in q["must"] if x not in (q.get("unanswered") or [])])
+        lines.append(f"问题对账：必答 {len(q['must'])} 问 / 正文认领 {claimed} 问"
+                     + (f"；未答 {'、'.join(q['unanswered'])}"
+                        if q.get("unanswered") else "；无未答"))
+    ex = m.get("exchange") or {}
+    if (ex.get("counts") or {}).get("total"):
+        c = ex["counts"]
+        lines.append(f"卡间协商：{c['total']} 条（回答 {c['answered']} / "
+                     f"拒绝 {c['declined']} / 未闭环 {c['open']}）")
+    if viol:
+        lines.append("违规：" + "；".join(v.get("id", "?") for v in viol[:8]))
+    print("\n".join(lines))
+    if args.json:
+        print(json.dumps({"verdict": verdict, "violations": viol,
+                          "evidence": ev, "quotes": q,
+                          "degraded": degraded,
+                          "files": {k: bool(files.get(k))
+                                    for k in ("html", "md", "pdf")}},
+                         ensure_ascii=False, indent=2))
+    return 0 if verdict == "PASS" else 1
+
+
 def main(argv=None) -> int:
     from core.report_flow import THEMES, DEFAULT_THEME
     ap = argparse.ArgumentParser(prog="guagua report",
@@ -341,11 +523,16 @@ def main(argv=None) -> int:
     rl.add_argument("--out", required=True)
     rl.add_argument("--audience", default="业务负责人")
     rl.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
-    from core.report_layout import default_layout as _default_layout
-    rl.add_argument("--layout", choices=("flow", "paper"), default=_default_layout(),
-                    help="flow=一条内容流（默认，见 configs/report_flow.yaml）；paper=一节一页 A4")
-    rl.add_argument("--prose-hard", action="store_true",
-                    help="flow 模式下把文笔门禁纳入 BLOCK（默认只记录不拦）")
+    rl.add_argument("--layout", default="flow",
+                    help="只支持 flow（paper 文档线 2026-11-21 下线）")
+    rl.add_argument("--prose-hard", dest="prose_hard", action="store_true", default=True,
+                    help="文笔/字数门禁纳入 BLOCK（默认开，2026-11-21 起）")
+    rl.add_argument("--no-prose-hard", dest="prose_hard", action="store_false",
+                    help="文笔只记分不拦（薄稿会带 prose_soft 降级标记）")
+    rl.add_argument("--gate-hard", dest="gate_hard", action="store_true", default=True,
+                    help="流程门禁不过就判失败（默认开）")
+    rl.add_argument("--no-gate-hard", dest="gate_hard", action="store_false",
+                    help="流程门禁只记录，不判失败（排障用，产物会标 degraded）")
     rl.add_argument("--pdf", action="store_true")
     rl.add_argument("--quote-mode", choices=("off", "warn", "strict"), default="off")
     rl.add_argument("--min-binding", type=float, default=0.8)
@@ -383,6 +570,11 @@ def main(argv=None) -> int:
     c.add_argument("--html", required=True)
     c.set_defaults(func=cmd_check)
 
+    at = sub.add_parser("attest", help="交付口径：从 manifest 回填门禁/来源/核验结论")
+    at.add_argument("--out", required=True, help="报告产物目录（含 manifest.json）")
+    at.add_argument("--json", action="store_true")
+    at.set_defaults(func=cmd_attest)
+
     ch = sub.add_parser("charts", help="48 型图表能力盘点")
     ch.add_argument("--json", action="store_true")
     ch.set_defaults(func=cmd_charts)
@@ -414,28 +606,52 @@ def main(argv=None) -> int:
     g.add_argument("--project", required=True)
     g.set_defaults(func=cmd_gaps)
 
-    bf = sub.add_parser("brief", help="按名册发任务卡（不产报告）")
-    bf.add_argument("--intent", required=True)
-    bf.add_argument("--out", required=True)
-    bf.add_argument("--only", default=None, help="只发给这些角色，逗号分隔")
+    bf = sub.add_parser("brief", help="发任务卡：老路径（不拆卡）或 澄清→映射→发卡")
+    bf.add_argument("--intent", default=None, help="老路径：总任务")
+    bf.add_argument("--out", default=None, help="老路径：项目目录")
+    bf.add_argument("--only", default=None, help="老路径：只发给这些角色，逗号分隔")
+    bf.add_argument("--dir", default=None, help="新路径：已确认 clarify.json 的项目目录")
+    bf.add_argument("--plan", action="store_true",
+                    help="新路径：先出「问题→角色」映射表（draft）")
+    bf.add_argument("--confirm", action="store_true",
+                    help="新路径：确认映射并直接发卡（每卡带 nonce）")
     bf.set_defaults(func=cmd_brief)
+
+    cf = sub.add_parser("clarify", help="接任务先对齐意图：出澄清卡 / 确认澄清卡")
+    cf.add_argument("--intent", default=None)
+    cf.add_argument("--out", default=None)
+    cf.add_argument("--dir", default=None, help="已有项目目录（配合 --confirm）")
+    cf.add_argument("--confirm", action="store_true", help="把 clarify.json 标为已确认")
+    cf.add_argument("--answer", action="append", default=None,
+                    metavar="C1=答案", help="回答澄清卡里的 confirm 项（可多次），写完自动确认")
+    cf.add_argument("--force", action="store_true", help="覆盖已有 clarify.json")
+    cf.set_defaults(func=cmd_clarify)
+
+    ex = sub.add_parser("exchange", help="卡间协商：路由 needs / INBOX / 闭环台账")
+    ex.add_argument("--dir", required=True, help="项目目录（含 cards/）")
+    ex.set_defaults(func=cmd_exchange)
 
     cl = sub.add_parser("collect", help="收各角色 claims → 合并 → 过闸 → 出报告")
     cl.add_argument("--dir", required=True)
     cl.add_argument("--out", required=True)
+    cl.add_argument("--intent", default="", help="报告标题/意图；缺省沿用卡里的 meta")
     cl.add_argument("--pdf", action="store_true")
     cl.add_argument("--allow-partial", action="store_true",
                     help="允许部分专家缺席仍出报告（默认缺卡即失败）")
     cl.add_argument("--min-sources", type=int, default=50,
-                    help="来源条数下限（默认 50；传 0 关闭）")
+                    help="唯一来源条数下限（默认 50；传 0 关闭）")
     cl.add_argument("--verify-quotes", dest="verify_quotes", action="store_true",
                     default=True, help="联网逐条回抓 url（默认开）")
     cl.add_argument("--no-verify-quotes", dest="verify_quotes", action="store_false",
-                    help="关闭联网回抓，只查字段")
+                    help="关闭联网回抓，只查字段（降级，需同时给 --allow-degraded）")
     cl.add_argument("--strict-quotes", dest="strict_quotes", action="store_true",
                     default=True, help="未核过的来源直接失败（默认开）")
     cl.add_argument("--no-strict-quotes", dest="strict_quotes", action="store_false",
-                    help="未核过只告警，不失败")
+                    help="未核过只告警（降级，需同时给 --allow-degraded）")
+    cl.add_argument("--allow-degraded", action="store_true",
+                    help="显式授权降级；降级会写进 manifest.quotes.degraded")
+    cl.add_argument("--allow-open-needs", action="store_true",
+                    help="允许卡间协商有未闭环的 need（默认不闭环就拒收）")
     cl.set_defaults(func=cmd_collect)
 
     rs = sub.add_parser("research", help="并行调研：发卡 → 提示词 → 并行执行 → 可选收卡")
@@ -453,13 +669,16 @@ def main(argv=None) -> int:
                     default=True)
     rs.add_argument("--no-strict-quotes", dest="strict_quotes", action="store_false",
                     default=True)
+    rs.add_argument("--allow-degraded", action="store_true",
+                    help="显式授权降级；降级会写进 manifest.quotes.degraded")
     rs.set_defaults(func=cmd_research)
 
     argv = list(sys.argv[1:] if argv is None else argv)
     # v11 唯一入口：`report "指令" --dir …` 等价于 `report run-line --intent "指令" …`
     # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
     known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
-             "research-plan", "brief", "collect", "research", "flow", "-h", "--help"}
+             "research-plan", "brief", "collect", "research", "flow", "attest",
+             "clarify", "exchange", "-h", "--help"}
     if argv and argv[0] not in known:
         rest = argv
         argv = ["run-line", "--intent", rest[0], *rest[1:]]

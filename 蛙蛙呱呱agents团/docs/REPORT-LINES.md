@@ -83,10 +83,41 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 
 | 命令 | 作用 |
 |---|---|
-| `report "指令" …` | **唯一入口**（等价 `report run-line`） |
+| `report "指令" …` | **唯一入口**（等价 `report run-line`）；只出 flow，paper 文档线 2026-11-21 下线 |
+| `report clarify --intent … --out <项目>` | 接任务先对齐意图：出澄清卡（问句/假设/待确认项） |
+| `report clarify --dir <项目> --answer C1=…` | 把会话里问到的答案写回并确认 |
+| `report brief --dir <项目> --plan [--confirm]` | 出「问题→角色」映射表；`--confirm` 确认即发卡（带 nonce） |
+| `report exchange --dir <项目>` | 卡间协商：路由 needs → INBOX，出闭环台账 `exchange.md` |
+| `report collect --dir … --out …` | 收卡：非卡 nonce/执行者校验 + 来源/覆盖门禁 + 合并 |
+| `report attest --out <项目产出>` | 交付口径：门禁/来源/核验/降级（从 manifest 回填） |
 | `report check --html <报告>` | 验一份成品（九条 flow 门禁 + 深度门禁） |
 | `report charts` | 48 型图表能力盘点 |
 | `report capabilities` / `plan` / `gaps` | 诊断（不产报告） |
+
+拆卡与防代写的规则见 `docs/REPORT-DISPATCH.md`。
+
+### 拆卡 SOP 已进产线（v1.5 · 2026-11-21）
+
+`report brief --dir <项目> --plan` 不再只做「问题→角色」映射，而是先跑**拆卡升级 SOP v1.4**：
+
+- R01 内容层：`plan/issue_tree.json`、`perspectives.json`、`grid.json`、`decomposition_log.json`、`branch_log.json`
+- R02 协作层：`plan/dispatch.json`（能力卡 / 分配 / 契约 / DAG / 缺口请求）
+- 发卡门禁 S1–S9（阈值在 `configs/report_card_spec.yaml`）：每 must 问 8–24 格、≥1 格 L3、
+  ≥3 视角、每问 ≥2 种拆法、语义层须为本题真实层、每格 measure/grain/期次/因果阶/质量六维齐、
+  六维均有格、契约覆盖全部 owner、每问 ≥3 条 stop
+- **门禁不过 → 不发卡**，返回 `plan/pre_issue_gates.json` 的失败项
+- 卡里直接带「你负责的格子」表与 **R02 任务契约**（task_id / 验收门禁 / 截止 / 升级）
+- 实现：`core/card_issue.py`；回归：`tests/test_card_issue.py`
+
+### 全入口统一 + 协作层接线（2026-11-21 晚）
+
+- **入口**：`brief --dir`、`brief --intent/--out`（老路径）、`report research`（并行调研）
+  三条都走 `card_issue.bootstrap()`；缺 `semantic_layer.yaml` 一律拒绝（写模板并报错）。
+- **协作层**：`core/collab.py` 真调 R02：
+  - `handoff package` × 每个角色 → `plan/handoffs.json`（package_id）
+  - `portfolio plan` → `plan/r02_waves.json`（波次/负载）
+  - `plan/ledger.jsonl` 记录 plan / dispatch / handoff / r02_waves / issue
+- 发卡门禁新增 **S10 R02 交接包齐**、**S11 R02 波次可排**；不过同样拒发。
 
 已全部删除：`report build` / `decide` / `produce` / `pack` / `research` / `run`
 与 `--lens` / `--thesis` / `--profile` / `--min-coverage`。
@@ -96,6 +127,8 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 | 模块 | 职责 |
 |---|---|
 | `core/report_line.py` | 唯一入口与输入形态识别 |
+| `core/report_clarify.py` | 接任务先对齐意图：意图/问句/假设/待确认项（clarify.json） |
+| `core/report_dispatch.py` | 问题→角色映射、发卡 nonce、收卡校验（防代写） |
 | `core/orchestrator.py` | 专家编排：意图 → 域 → 名单（BLOCKED 硬规矩） |
 | `core/report_assembly.py` | finding → 节/指标/计数 + 机理/落点/证伪 + 判断型标题 |
 | `core/report_flow.py` | 逐节过账（R01 s09）+ 渲染编排 + manifest |
@@ -127,13 +160,24 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 ## 五、验收
 
 ```bash
-python scripts/ci_report_checks.py        # 17 项：角色/报告/门禁/图型/风格/语义层/呈现
+python scripts/ci_report_checks.py        # 角色/报告/门禁/图型/风格/语义层/呈现 + 门禁锁 + 默认 flow
 python scripts/check_report_flow.py --dir <输出目录>
+python scripts/check_gate_lock.py         # 门禁脚本有没有被改过而没更新锁
+python scripts/check_r04_inputs.py --dir <输出目录>   # R04 输入是不是从产物派生的
+python guagua.py report attest --out <输出目录>       # 交付口径（门禁/来源/核验/降级）
 python scripts/check_report_presentation.py --dir <输出目录>
 python -m core.quality_gate --draft <draft_sections.json> --pack <evidence_pack.json> --html <report.html>
 python -m core.report_model --audit       # 语义层六项悬空边必须为 0
 python guagua.py report check --html <report.html>
 ```
+
+> **v2（2026-11-20）**：门禁已并进 `report run-line`，结论写在 `manifest.gate.flow`；
+> 默认 flow 版式的产物必须过门禁（CI 有专门用例）。判据与标记契约见
+> `docs/REPORT-GATE-CONTRACT.md`。**不要再在对话里宣布「门禁通过」**——用 `report attest`。
+
+> **拆卡（2026-11-21）**：每一问下发时必须带「6 维 × 5 层」格子表，
+> 角色交格子而不是段落；覆盖率/深度/证据等级是验收项。
+> 见 `交付/拆卡升级-SOP-2026-11-21.md`。
 
 ## 六、已知边界（不是 bug，是选择）
 
