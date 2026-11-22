@@ -15,11 +15,16 @@
 样本目录缺失算「环境未就绪」，单独列出、不计入失败——否则红灯常年亮着，
 真正的代码回归会被噪音淹没。
 
+系统级 CI 不绑定任何历史项目：报告样本由 CI_REPORT_SAMPLE 指定（v7 样本由
+CI_V7_SAMPLE 指定），未指定或未就绪时 [2][3][3a][3b][13][14][17][21] 一律 SKIP。
+自带 fixture 覆盖的是模板与渲染（[22][23]）与单测（[12][15]）。
+
 旧的 [1] spec/[2][3] contract/[4] legacy/[7] substance 五项已随产线一起删除。
 """
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -27,7 +32,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT.parent / "workspace" / "_ci_report_flow"
-PIPE = ROOT.parent / "内蒙古水果三城调研_2026-11-16_pipeline"
+# 报告产线样本目录：系统级 CI 不绑定任何历史项目。
+# 用 CI_REPORT_SAMPLE 指定；未指定/未就绪时相关用例一律 SKIP，不计失败。
+PIPE = Path(os.environ.get("CI_REPORT_SAMPLE",
+                           str(ROOT.parent / "workspace" / "_ci_report_sample")))
 
 DEAD_MODULES = (
     "report_pipeline", "report_engine", "report_generator",
@@ -55,6 +63,15 @@ def main() -> int:
     # 混在一起会让红灯常年亮着，真正的回归被噪音淹没。
     env: list[str] = []
 
+    # 报告产线样本（可选）：没有样本就 SKIP 依赖它的用例，不判失败。
+    sample_ok = PIPE.exists()
+    if sample_ok:
+        print(f"[sample] report sample = {PIPE}")
+    else:
+        print(f"[sample] SKIP(report-sample) :: 未就绪 {PIPE}；"
+              f"可用环境变量 CI_REPORT_SAMPLE 指向含 clarify/intake 的项目目录")
+        env.append("report-sample-missing")
+
     # [1] 20 角色入口
     rc, out = run([sys.executable, "guagua.py", "check"])
     tail = [l for l in out.strip().splitlines() if "通过" in l]
@@ -69,49 +86,64 @@ def main() -> int:
     if rc:
         fails.append("gate-lock")
 
+    # [2][3][3a] 依赖报告样本；样本未就绪时只跳过、不判红
+    if not sample_ok:
+        print("[2][3][3a][3b] SKIP(report-sample) :: 缺样本，run-line 与门禁不执行")
     # [2] run-line：v11 唯一入口（一条命令）；下面两个只差意图，用来证明同一数据不同问题
     out_a = OUT / "a"
-    rc, out = run([sys.executable, "guagua.py", "report", "run-line",
-                   "--intent", "内蒙古三城水果市场调研",
-                   "--dir", str(PIPE), "--out", str(out_a),
-                   "--quote-mode", "off", "--no-prose-hard"])
-    print(f"[2] run-line(调研) rc={rc}")
-    if rc:
-        fails.append("flow-A")
-        print("   ", out.strip()[:200])
-    rc, out = run([sys.executable, "scripts/check_report_flow.py",
-                   "--dir", str(out_a)])
-    print(f"[2] gate(调研) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
-    if rc:
-        fails.append("gate-A")
+    if not sample_ok:
+        rc, out = 0, ""
+        print("[2] SKIP(report-sample)")
+    else:
+        rc, out = run([sys.executable, "guagua.py", "report", "run-line",
+                       "--intent", "区域市场调研",
+                       "--dir", str(PIPE), "--out", str(out_a),
+                       "--quote-mode", "off", "--no-prose-hard"])
+        print(f"[2] run-line(调研) rc={rc}")
+        if rc:
+            fails.append("flow-A")
+            print("   ", out.strip()[:200])
+        rc, out = run([sys.executable, "scripts/check_report_flow.py",
+                       "--dir", str(out_a)])
+        print(f"[2] gate(调研) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+        if rc:
+            fails.append("gate-A")
 
     # [3] run-line：换意图必须换内容（P2 之前 hash 会相同，这里先只验能跑）
     out_b = OUT / "b"
-    rc, out = run([sys.executable, "guagua.py", "report", "run-line",
-                   "--intent", "内蒙古三城水果经营分析",
-                   "--dir", str(PIPE), "--out", str(out_b),
-                   "--quote-mode", "off", "--no-prose-hard"])
-    print(f"[3] run-line(经营) rc={rc}")
-    if rc:
-        fails.append("flow-B")
-        print("   ", out.strip()[:200])
-    rc, out = run([sys.executable, "scripts/check_report_flow.py",
-                   "--dir", str(out_b)])
-    print(f"[3] gate(经营) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
-    if rc:
-        fails.append("gate-B")
+    if not sample_ok:
+        rc, out = 0, ""
+        print("[3] SKIP(report-sample)")
+    else:
+        rc, out = run([sys.executable, "guagua.py", "report", "run-line",
+                       "--intent", "区域市场经营分析",
+                       "--dir", str(PIPE), "--out", str(out_b),
+                       "--quote-mode", "off", "--no-prose-hard"])
+        print(f"[3] run-line(经营) rc={rc}")
+        if rc:
+            fails.append("flow-B")
+            print("   ", out.strip()[:200])
+        rc, out = run([sys.executable, "scripts/check_report_flow.py",
+                       "--dir", str(out_b)])
+        print(f"[3] gate(经营) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+        if rc:
+            fails.append("gate-B")
 
     # [3a] 默认 flow 版式也必须过门禁（不传 --layout，让默认值生效）。
     #      2026-11-20 的根因就是「默认 flow 的产物过不了自己的门禁」，这条用例把它钉死。
     out_c = OUT / "c"
-    rc, out = run([sys.executable, "guagua.py", "report", "run-line",
-                   "--intent", "内蒙古三城水果市场调研",
-                   "--dir", str(PIPE), "--out", str(out_c),
-                   "--quote-mode", "off", "--no-prose-hard"])
-    print(f"[3a] run-line(默认 flow) rc={rc}")
-    if rc:
-        fails.append("flow-default")
-        print("   ", out.strip()[:200])
+    if not sample_ok:
+        rc, out = 0, ""
+        print("[3a] SKIP(report-sample)")
+    else:
+        rc, out = run([sys.executable, "guagua.py", "report", "run-line",
+                       "--intent", "区域市场调研",
+                       "--dir", str(PIPE), "--out", str(out_c),
+                       "--quote-mode", "off", "--no-prose-hard"])
+        print(f"[3a] run-line(默认 flow) rc={rc}")
+        if rc:
+            fails.append("flow-default")
+            print("   ", out.strip()[:200])
     man_c = out_c / "manifest.json"
     if man_c.exists():
         gc = ((json.loads(man_c.read_text(encoding="utf-8")).get("gate") or {})
@@ -149,9 +181,11 @@ def main() -> int:
               f"binding={binding} ok={m.get('ok')}")
         if not one:
             fails.append("manifest")
-    else:
+    elif sample_ok:
         print("[3b] manifest 缺失")
         fails.append("manifest")
+    else:
+        print("[3b] SKIP(report-sample)")
 
     # [4] 角色侧无报告引擎
     pat = re.compile(r"^\s*(?:from|import)\s+\S*(?:" +
@@ -173,13 +207,14 @@ def main() -> int:
 
     # [6] v7 深度线：区域市场调研（带来源事实表）+ 九条门禁 + 反模板门禁
     out_v7 = OUT / "v7_market"
-    src_v7 = ROOT.parent / "家居百货内蒙调研_2026-11-15"
+    src_v7 = Path(os.environ.get("CI_V7_SAMPLE",
+                                 str(ROOT.parent / "workspace" / "_ci_v7_sample")))
     if not src_v7.exists():
-        print(f"[6] SKIP(v7-market) :: 缺样本目录 {src_v7.name}")
+        print(f"[6] SKIP(v7-market) :: 未就绪 {src_v7}（可用 CI_V7_SAMPLE 指定）")
         env.append("v7-sample-missing")
     else:
         rc, out = run([sys.executable, "guagua.py", "report", "run-line",
-                       "--intent", "内蒙古家居百货市场调研",
+                       "--intent", "区域市场深度调研",
                        "--dir", str(src_v7),
                        "--out", str(out_v7)])
         print(f"[6] flow(v7-market) rc={rc}")
@@ -240,31 +275,32 @@ def main() -> int:
         fails.append("report-kernel-tests")
 
     # [13] 风格门禁：交付稿禁斜体、标题/表头禁衬线体（出处 REPORT-STANDARD §四）
+    if not sample_ok:
+        print("[13] SKIP(report-sample)")
     for tag, d in (("A", out_a), ("B", out_b)) + ((("v7", out_v7),) if out_v7.exists() else ()):
-        if not d.exists():
+        if not sample_ok or not d.exists():
             continue
         rc, out = run([sys.executable, "scripts/check_report_style.py", "--dir", str(d)])
         tail13 = [l for l in out.strip().splitlines() if "合计" in l]
         print(f"[13] style({tag}) rc={rc} :: {tail13[-1] if tail13 else out.strip()[-60:]}")
-        if rc:
+        if rc and sample_ok:
             fails.append(f"style-{tag}")
 
     # [14] 决策契约：3 个意图各跑一遍，证明「问题先于证据」且 binding 可审计
     src_fruit = PIPE
     if not src_fruit.exists():
-        print(f"[14] SKIP(decision) :: 缺样本目录 {src_fruit.name}")
-        env.append("fruit-sample-missing")
+        print(f"[14] SKIP(decision) :: 缺样本目录 {src_fruit}")
     else:
-        for tag, intent in (("market", "内蒙古三城水果市场调研"),
-                            ("ops", "内蒙古三城水果经营分析"),
-                            ("risk", "内蒙古三城水果：停采换源与止损")):
+        for tag, intent in (("market", "区域市场调研"),
+                            ("ops", "区域市场经营分析"),
+                            ("risk", "区域市场：停采换源与止损")):
             out_c = OUT / f"decision_{tag}"
             rc, out = run([sys.executable, "guagua.py", "report", "run-line",
                            "--intent", intent,
                            "--dir", str(src_fruit), "--out", str(out_c),
                            "--quote-mode", "off",
                            "--no-prose-hard",
-                           "--audience", "水果品类经营负责人"])
+                           "--audience", "品类经营负责人"])
             dec = out_c / "decision.json"
             bind = out_c / "binding.json"
             c: dict = {}
@@ -305,11 +341,14 @@ def main() -> int:
         fails.append("report-model")
 
     # [17] 呈现层：斜体 / 打印规则 / 对比度 / 字阶 / 图四件套
-    rc, out = run([sys.executable, "scripts/check_report_presentation.py",
-                   "--dir", str(out_b)])
-    print(f"[17] presentation rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
-    if rc:
-        fails.append("presentation")
+    if not sample_ok or not out_b.exists():
+        print("[17] SKIP(report-sample) :: 无 out_b")
+    else:
+        rc, out = run([sys.executable, "scripts/check_report_presentation.py",
+                       "--dir", str(out_b)])
+        print(f"[17] presentation rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
+        if rc:
+            fails.append("presentation")
 
     # [18] 死代码：每个 .py 必须有引用者（import / 脚本调用 / 文档）。
     # 判据是「说不出谁在用就删」，不是「看着像没用就删」。
@@ -338,23 +377,28 @@ def main() -> int:
     # [21] 默认版式 flow：同一份输入用默认 layout 出一份，验「连续流 + 文笔门禁记录」。
     #      版式回归基线仍走 paper（上面 [2][3][6][14] 显式钉住），这里只验默认入口没坏。
     out_f = OUT / "flow_default"
-    rc, out = run([sys.executable, "guagua.py", "report", "run-line",
-                   "--intent", "内蒙古三城水果市场调研",
-                   "--dir", str(PIPE), "--out", str(out_f),
-                   "--layout", "flow",
-                   "--quote-mode", "off", "--no-prose-hard"])
+    if not sample_ok:
+        rc, out = 0, ""
+    else:
+        rc, out = run([sys.executable, "guagua.py", "report", "run-line",
+                       "--intent", "区域市场调研",
+                       "--dir", str(PIPE), "--out", str(out_f),
+                       "--layout", "flow",
+                       "--quote-mode", "off", "--no-prose-hard"])
     html_f = out_f / "report.html"
     man_f = out_f / "manifest.json"
     flow_ok = False
-    if html_f.exists() and man_f.exists():
+    if sample_ok and html_f.exists() and man_f.exists():
         h = html_f.read_text(encoding="utf-8", errors="replace")
         m = json.loads(man_f.read_text(encoding="utf-8"))
         flow_ok = ("flow-block" in h and 'class="page ' not in h
                    and "flow_gate" in m and bool(m.get("files", {}).get("html")))
     print(f"[21] flow-render rc={rc} :: flow={'OK' if flow_ok else 'MISSING'}")
-    if rc or not flow_ok:
+    if (rc or not flow_ok) and sample_ok:
         fails.append("flow-render")
         print("   ", out.strip()[-200:])
+    elif not sample_ok:
+        print("[21] SKIP(report-sample)")
 
     # [22] 项目化 flow：模板复制即用；并验 --prose-hard 真的会拦（先证后文闭环）
     import shutil
@@ -418,6 +462,15 @@ def main() -> int:
     print(f"[23] gate-unify :: pdf-pages={det.get('pages')} source={det.get('source')}")
     if not ok23:
         fails.append("gate-unify")
+
+    # 兜底：样本未就绪时，任何依赖产线的红都不算代码回归
+    if not sample_ok:
+        for k in ("flow-A", "gate-A", "flow-B", "gate-B", "flow-default",
+                  "gate-default-flow", "r04-derive", "manifest",
+                  "style-A", "style-B", "style-v7", "decision-market",
+                  "decision-ops", "decision-risk", "presentation", "flow-render"):
+            while k in fails:
+                fails.remove(k)
 
     if env:
         print(f"\n环境未就绪（不计入失败）：{', '.join(env)}")

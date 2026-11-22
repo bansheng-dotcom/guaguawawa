@@ -768,6 +768,17 @@ def _build_decision(secs: List[Dict[str, Any]], pack: Dict[str, Any]) -> Dict[st
     }
 
 
+def _claim_with_number(claim: Any, number: Any) -> str:
+    """结论句不重复数字：claim 里已经有这个数，就不再补括号。"""
+    c = str(claim or "").strip()
+    n = str(number or "").strip()
+    if not c:
+        return n
+    if not n or n in c:
+        return c
+    return f"{c}（{n}）"
+
+
 def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
                            theme: str = DEFAULT_THEME,
                            layout: str = "flow") -> Dict[str, Any]:
@@ -1062,7 +1073,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     cand = draft.get("decision") or {}
     decision = cand if (isinstance(cand, dict) and cand.get("items")) else _build_decision(secs_out, pack)
     if decision:
-        summary = [{"text": f"{it.get('claim', '')}（{it.get('number', '')}）",
+        summary = [{"text": _claim_with_number(it.get("claim", ""), it.get("number", "")),
                     "emphasis": i == 0} for i, it in enumerate(decision.get("items") or [])]
         # 封面指标只放决策数，不再拿「本节第一个 ref」；作者声明了就不覆盖
         seen_m = set()
@@ -1073,8 +1084,14 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
                 if not val or val in seen_m:
                     continue
                 seen_m.add(val)
-                metrics.append({"label": it.get("claim", "")[:24], "value": val,
-                                "note": "决策纸", "status": "none"})
+                # 标签里不能重复数值：把数字和单位从 claim 里剔掉，只留指标名
+                claim = str(it.get("claim") or "")
+                label = claim
+                for cut in (str(val), "元/公斤", "元", "公斤"):
+                    label = label.replace(cut, "")
+                label = label.strip(" ·，、,:：（）()") or claim
+                metrics.append({"label": label[:24], "value": val,
+                                "note": "决策纸主判断", "status": "none"})
                 if len(metrics) >= 3:
                     break
         title0 = str(meta.get("title") or decision.get("title")

@@ -29,8 +29,10 @@ body.flow-all{background:#E7E5E0}
 .flow-block .ex{break-inside:avoid}
 .flow-block .head{break-after:avoid;page-break-after:avoid}
 .sec-lead{break-inside:avoid;page-break-inside:avoid}
-.flow-cover{position:relative;height:auto;min-height:272mm;padding:0;border-bottom:1pt solid var(--ink);break-after:page;page-break-after:always}
-.flow-cover .inner{position:static;inset:auto;padding:0}
+.flow-cover{position:relative;height:auto;min-height:272mm;padding:0;border-bottom:1pt solid var(--ink);
+  break-after:page;page-break-after:always;display:flex;flex-direction:column}
+.flow-cover .inner{position:static;inset:auto;padding:0;flex:1 1 auto;display:flex;flex-direction:column}
+.kpi .v{white-space:nowrap}
 .flow-break{break-before:page;page-break-before:always;height:0;margin:0;padding:0}
 .src-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 7mm;margin-top:3mm}
 .src-row{display:flex;gap:2mm;font-size:6.1pt;line-height:1.35;padding:.62mm 0;border-bottom:.3pt solid var(--line)}

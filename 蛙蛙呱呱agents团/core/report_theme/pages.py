@@ -138,11 +138,14 @@ def _cover(c: Dict[str, Any]) -> str:
     lines = c.get("title_lines") or [""]
     title = lines[0]
     sub = lines[1] if len(lines) > 1 and lines[1] else ""
+    strip = (c.get("metric_strip") or [])[:4]
+    # 列数跟着条数走：三条就三列，避免被压窄
+    cols = max(1, min(len(strip), 4))
     kpis = "".join(
         f'<div class="kpi"><div class="v">{esc(m.get("value", ""))}</div>'
         f'<div class="l">{esc(m.get("label", ""))}</div>'
         f'<div class="s">{esc(m.get("note", ""))}</div></div>'
-        for m in (c.get("metric_strip") or [])[:4]
+        for m in strip
     )
     brand = f'<img src="{LOGO}" alt="{ORG}">' if LOGO else ""
     return f"""
@@ -156,7 +159,7 @@ def _cover(c: Dict[str, Any]) -> str:
     {f'<div class="sub">{esc(sub)}</div>' if sub else ''}
     <div class="stand">{esc(c.get("standfirst", ""))}</div>
   </div>
-  <div class="kpis">{kpis}</div>
+  <div class="kpis" style="grid-template-columns:repeat({cols},1fr)">{kpis}</div>
   <div class="foot"><span>{ORG} · 2026 年 11 月</span><span></span></div>
 </div></div>
 """

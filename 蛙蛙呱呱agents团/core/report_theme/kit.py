@@ -127,7 +127,7 @@ h1.cover-t .l2{display:block;color:var(--ink)}
   margin-top:auto;display:grid;grid-template-columns:repeat(4,1fr);
   border-top:1pt solid var(--ink);padding-top:5mm;gap:6mm;
 }
-.kpi .v{font-family:var(--serif);font-size:24pt;line-height:1.05;font-weight:600;letter-spacing:-.02em}
+.kpi .v{font-family:var(--serif);font-size:24pt;line-height:1.05;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
 .kpi .v em{font-style:normal;font-size:13pt;margin-left:1mm;color:var(--muted)}
 .kpi .l{font-size:8.2pt;color:var(--ink2);margin-top:2.2mm;font-weight:600}
 .kpi .s{font-size:7.2pt;color:var(--faint);margin-top:.8mm}
@@ -465,6 +465,8 @@ def cover(meta: dict, kpi: list[tuple[str, str, str]]) -> str:
         f'<div class="kpi"><div class="v">{v}</div><div class="l">{l}</div><div class="s">{s}</div></div>'
         for v, l, s in kpi
     )
+    # 列数跟着条数走：三条就三列，避免被压窄
+    cols = max(1, min(len(kpi), 4))
     lg = meta.get("logic") or []
     logic = ""
     if lg:
@@ -501,7 +503,7 @@ def cover(meta: dict, kpi: list[tuple[str, str, str]]) -> str:
     {qhtml}
     {cahtml}
   </div>
-  <div class="kpis">{chips}</div>
+  <div class="kpis" style="grid-template-columns:repeat({cols},1fr)">{chips}</div>
   <div class="foot"><span>{ORG} · 2026 年 11 月</span><span>{meta.get("asof", "")}</span></div>
 </div></div>
 """
