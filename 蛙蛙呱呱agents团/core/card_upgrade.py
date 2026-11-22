@@ -261,8 +261,9 @@ def _brands(pack: Dict[str, Any], limit: int = 5) -> List[str]:
         if "份额" not in name:
             continue
         head = re.split(r"(零售额)?份额", name)[0]
-        head = re.sub(r"^(全国|中国|内蒙古|全区)", "", head)
-        head = re.sub(r"(牙膏|口腔护理|口腔|洗发水|沐浴露|护肤品|彩妆|个护)$", "", head)
+        head = re.sub(r"^(全国|中国|全市场|全区|全球)", "", head)
+        # 2026-11-22 清理：原来写死一套个护品类后缀（牙膏/洗发水/护肤品/彩妆…），
+        # 通用模块不内置业务线；品牌名不再按行业词裁剪。
         head = head.strip("的 ")
         if any(k in head for k in ("合计", "总计", "其他", "其它", "前五", "前5", "CR")):
             continue
@@ -272,7 +273,13 @@ def _brands(pack: Dict[str, Any], limit: int = 5) -> List[str]:
 
 
 def _causal_for(dim: str) -> str:
-    return "A"          # 默认只到关联；机制格必须由执行者升级到 I/C
+    """因果阶「目标阶」：机制维要干预级(I)，其余关联级(A)。
+
+    2026-11-23：原来恒返回 "A"，导致 G15「机制必须 I/C」永远不触发。
+    现在按维度给目标：机制 → I（要试点/AB 才坐实），其余 → A。
+    执行者交数时若拿不到干预证据，应把它降级为 hypotheses（不是改回 A）。
+    """
+    return "I" if str(dim) == "机制" else "A"
 
 
 def _quality(period: str, grade: str = "B") -> Dict[str, str]:
@@ -285,8 +292,8 @@ def _quality(period: str, grade: str = "B") -> Dict[str, str]:
 def _regions(clarify: Dict[str, Any], sem: Optional[Dict[str, Any]] = None) -> List[str]:
     """区域只来自两处：本题语义层声明的 levels，其次 clarify 声明的研究区域。
 
-    2026-11-21：删掉写死的城市区县表与「内蒙古」分支——通用模块不得内置
-    任何一条业务线的地名（历史事故：成人用品网格里出现北京朝阳、内蒙五市）。
+    2026-11-21：删掉写死的城市区县表与某历史项目分支——通用模块不得内置
+    任何一条业务线的地名（历史事故：A 业务网格里出现 B 业务的区县与地市）。
     """
     ents = ((sem or {}).get("case") or {}).get("entities") or []
     for e in ents:
@@ -314,7 +321,7 @@ def _entity_measure(entity: str, measures: Dict[str, Dict[str, Any]],
                     channel_levels: Optional[set] = None) -> str:
     """实体 → 度量：只返回语义层已注册的度量，绝不返回未注册 id。
 
-    2026-11-21：删掉写死的实体→度量表（原表把泡泡玛特、手办、门店、会员
+    2026-11-21：删掉写死的实体→度量表（原表把某历史项目的品牌、品类、门店、会员
     钉在里面）。改为按实体语义与已注册度量匹配；匹不上就退回 base。
     """
     def has(mid: str) -> bool:
@@ -357,8 +364,8 @@ def _entity_measure(entity: str, measures: Dict[str, Dict[str, Any]],
 def _q_template(text: str, brands: Optional[List[str]] = None) -> Dict[str, List[str]]:
     """无项目模板时的通用兜底：只用 clarify 里的品牌与通用维度名。
 
-    2026-11-21：原实现按关键词匹配一套写死的潮玩模板（市场/份额→泡泡玛特），
-    是「成人用品卡里出现泡泡玛特」的直接原因。现在只回通用标签，不再猜业务线。
+    2026-11-21：原实现按关键词匹配一套写死的某历史项目模板（市场/份额→固定品牌），
+    是「A 业务卡里出现 B 业务品牌」的直接原因。现在只回通用标签，不再猜业务线。
     """
     obj = [b for b in (brands or []) if b and b in str(text or "")]
     return {"对象": obj or (list(brands or [])[:4] or ["TOP5 品牌", "长尾合计"]),
@@ -716,10 +723,9 @@ def _match_numbers(cell: Dict[str, Any], nums: List[Dict[str, Any]]) -> List[Dic
         cands = [n for n in cands if e in str(n.get("name"))]
     elif cell["dim"] == "时间":
         cands = [n for n in cands if str(n.get("period")) == e]
-        # 时间序列要总量，不能拿品类/IP 分项充数
-        parts = ("手办", "毛绒", "MEGA", "衍生品", "THE MONSTERS", "星星人",
-                 "CRYBABY", "DIMOO", "SKULLPANDA", "MOLLY")
-        cands = [n for n in cands if not any(k in str(n.get("name")) for k in parts)]
+        # 时间序列要总量，不能拿品类/IP 分项充数：
+        # 2026-11-22 清理：原来写死一套潮玩 IP 名单（手办/MEGA/MOLLY…），
+        # 通用模块不得内置业务线；改为只按「总量」关键词保留。
         tot = [n for n in cands if any(k in str(n.get("name"))
                                        for k in ("营收", "总收入", "收益"))]
         if tot:
@@ -766,7 +772,8 @@ def fill_cells(project: Path, rows: List[Dict[str, Any]],
             filled.append({**r, "status": "filled", "value": fact["value"],
                            "unit": fact.get("unit"), "period": fact.get("period"),
                            "source_file": fact.get("source_file"), "grade": fact.get("grade", "B"),
-                           "level": 1, "causal_level": r.get("causal_level", "A"),
+                           "level": r.get("depth_target") or 1,
+                           "causal_level": r.get("causal_level", "A"),
                            "quality": fact.get("quality") or _quality(r["period"]),
                            "note": "指纹复用"})
             continue
@@ -776,7 +783,9 @@ def fill_cells(project: Path, rows: List[Dict[str, Any]],
             q = _quality(str(n.get("period") or r["period"]))
             filled.append({**r, "status": "filled", "value": n["value"],
                            "unit": n.get("unit"), "period": n.get("period"),
-                           "source_file": n.get("source_file"), "grade": "B", "level": 1,
+                           "source_file": n.get("source_file"), "grade": "B",
+                           "level": r.get("depth_target") or 1,
+                           "causal_level": r.get("causal_level", "A"),
                            "quality": q, "note": "fixture 导入（L1）"})
             facts[fp] = {"value": n["value"], "unit": n.get("unit"),
                          "period": n.get("period"), "source_file": n.get("source_file"),
@@ -799,10 +808,14 @@ def backfill(rows: List[Dict[str, Any]], project: Path,
             out.append(r)
             continue
         alt = dict(r)
-        alt["entity"] = re.sub(r"(牙膏|口腔|洗护)$", "", str(r["entity"]))
+        # 2026-11-22 清理：原来写死个护品类后缀（牙膏/口腔/洗护），通用模块不内置业务线。
         cands = _match_numbers(alt, nums)
         if not cands and r["dim"] == "时间":
-            alt["entity"] = str(max(int(x) for x in ["2024", "2025", "2026"]))
+            # 期次回退：用 numbers 里出现过的最大期次，不再写死 2024/2025/2026
+            yrs = sorted({str(n.get("period")) for n in nums
+                          if str(n.get("period") or "").isdigit()})
+            if yrs:
+                alt["entity"] = yrs[-1]
             cands = [n for n in nums if MEASURE_MATCH.get(r["measure"], lambda _n: False)(n)]
         req = {"cell_id": r["cell_id"], "type": "data", "tried": ["既有 claims", "模糊主体", "期次回退"]}
         if cands:
@@ -881,6 +894,39 @@ def chart_contracts(clarify: Dict[str, Any], cells: List[Dict[str, Any]],
                                  key=CAUSAL_LEVELS.index) if filled else "A"),
         })
     return {"charts": out, "count": len(out)}
+
+
+def build_driver_tree(sem: Dict[str, Any]) -> Dict[str, Any]:
+    """驱动树：结果指标 = 驱动因子（相乘/相加）。
+
+    2026-11-23 补（SOP S5）：原来全仓没有驱动树，机制结论无法可算化。
+    从语义层的 ratio/derived/conversion 度量推导：
+      - ratio      → numerator / denominator
+      - conversion → base_metric / conversion_metric
+      - derived    → input_metrics
+    没有可推导的驱动关系 = 还没到机制（ok=False）。
+    """
+    nodes = []
+    for m in ((sem.get("case") or {}).get("measures") or []):
+        mid = str(m.get("id") or "")
+        t = str(m.get("type") or "")
+        drivers: List[str] = []
+        if t == "ratio":
+            for k in ("numerator", "denominator"):
+                v = str(m.get(k) or "").split("@")[0]
+                if v:
+                    drivers.append(v)
+        elif t == "conversion":
+            for k in ("base_metric", "conversion_metric"):
+                v = str(m.get(k) or "")
+                if v:
+                    drivers.append(v)
+        elif t == "derived":
+            drivers = [str(x) for x in (m.get("input_metrics") or []) if x]
+        if mid and drivers:
+            nodes.append({"metric": mid, "type": t,
+                          "drivers": list(dict.fromkeys(drivers))})
+    return {"nodes": nodes, "count": len(nodes), "ok": bool(nodes)}
 
 
 # --------------------------------------------------------------------------- #
@@ -973,3 +1019,100 @@ def gates(clarify, grid, perspectives, sem, rows, contracts_, gaps,
     passed = sum(1 for c in checks if c["ok"])
     return {"checks": checks, "passed": passed, "total": len(checks),
             "ok": passed == len(checks)}
+
+
+# --------------------------------------------------------------------------- #
+# 收卡后接线（SOP S0/S1）：格填充 → cells_filled → G1–G25
+# --------------------------------------------------------------------------- #
+def post_collect(project: Path, merged: Dict[str, Any]) -> Dict[str, Any]:
+    """收卡后自动跑：fill_cells → cells_filled.json → 仲裁/MECE/图合同/签收 → G1–G25。
+
+    2026-11-23：这段原来只存在于 `scripts/run_card_upgrade.py`，生产收卡从不调用，
+    所以 G1–G25 是摆设、cells_filled 从不产出。现在接到 `dispatch.collect` 尾部。
+    任何异常都吞掉，绝不影响主链路（收卡成功与否不取决于门禁结果）。
+    """
+    try:
+        project = Path(project)
+        plan = project / "plan"
+        clarify = _load_json(project / "clarify.json", {}) or {}
+        grid = _load_json(plan / "grid.json", {}) or {}
+        if not (grid.get("cells")):
+            return {"ok": False, "why": "无可填充的格子（未走拆卡或 grid 为空）"}
+        persp = _load_json(plan / "perspectives.json", {}) or {}
+        disp = _load_json(plan / "dispatch.json", {}) or {}
+        sem = load_semantics(project, merged)
+
+        # 采集契约（SOP S2）：拆卡真正该产出的东西
+        contract, contract_errs = None, []
+        try:
+            from core import collection_contract as _cc
+            contract = _cc.build(grid, sem, clarify)
+            if contract:
+                contract_errs = _cc.validate(contract)
+                _w(plan / "collection_contract.json", contract)
+                try:
+                    import yaml as _yaml
+                    (plan / "collection_contract.yaml").write_text(
+                        _yaml.safe_dump(contract, allow_unicode=True, sort_keys=False),
+                        encoding="utf-8")
+                except Exception:  # noqa: BLE001
+                    pass
+        except Exception as exc:  # noqa: BLE001
+            contract_errs = [str(exc)]
+
+        owner_of = {str(a.get("cell_id")): str(a.get("owner") or "")
+                    for a in (disp.get("assignments") or [])}
+        rows = [{**c, "owner": owner_of.get(str(c.get("cell_id")), ""),
+                 "status": "open"} for c in grid["cells"]]
+
+        facts = _load_json(plan / "facts.json", {}) or {}
+        filled, fmeta = fill_cells(project, rows, facts)
+        filled, bf = backfill(filled, project, facts)
+
+        out_v3 = project / "out_v3"
+        out_v3.mkdir(parents=True, exist_ok=True)
+        _w(out_v3 / "cells_filled.json",
+           {"cells": filled, "facts_reused": fmeta.get("reused", 0)})
+
+        ctrs = disp.get("contracts") or []
+        ctr = {"contracts": ctrs, "count": len(ctrs)}
+        gaps = disp.get("gaps") or []
+        receipts = []
+        for c in ctrs:
+            mine = [r for r in filled if r.get("cell_id") in (c.get("cells") or [])]
+            good = [r for r in mine if r.get("status") == "filled"]
+            rate = (len(good) / len(mine)) if mine else 0
+            receipts.append({
+                "handoff_id": "H-" + str(c.get("task_id")), "from": c.get("owner"),
+                "to": "r01", "contract": c.get("task_id"),
+                "decision": "accept" if rate >= 0.7 else "reject",
+                "evidence": "%d/%d 格已填（%.0f%%）" % (len(good), len(mine), rate * 100),
+                "elapsed_min": 30, "sla_min": c.get("deadline_min", 120)})
+
+        arb = arbitrate(merged)
+        mece = mece_check(filled)
+        charts = chart_contracts(clarify, filled, sem)
+        decs = (_load_json(plan / "decomposition_log.json", {}) or {}).get("items") or []
+        branches = _load_json(plan / "branch_log.json", {}) or []
+        requests = (_load_json(plan / "requests.json", {}) or {}).get("requests") or []
+        driver_tree = _load_json(plan / "driver_tree.json", {}) or build_driver_tree(sem)
+        if not (plan / "driver_tree.json").is_file():
+            _w(plan / "driver_tree.json", driver_tree)
+        _w(plan / "arbitration.json", arb)
+        _w(plan / "mece.json", mece)
+        _w(plan / "charts.json", charts)
+        _w(plan / "handoffs.json", {"receipts": receipts})
+
+        g = gates(clarify, grid, persp, sem, filled, ctr, gaps, receipts,
+                  plan / "ledger.jsonl",
+                  extra={"charts": charts, "backfill": bf, "branches": branches,
+                         "decompositions": decs, "mece": mece,
+                         "driver_tree": driver_tree,
+                         "arbitration": arb, "requests": requests})
+        _w(plan / "post_gates.json", g)
+        return {"ok": True, "passed": g.get("passed"), "total": g.get("total"),
+                "filled": len(filled),
+                "contract": bool(contract), "contract_errors": contract_errs,
+                "cells_filled": str(out_v3 / "cells_filled.json")}
+    except Exception as exc:  # noqa: BLE001 收卡门禁绝不影响主链路
+        return {"ok": False, "why": str(exc)}

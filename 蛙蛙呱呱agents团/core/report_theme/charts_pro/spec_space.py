@@ -4,11 +4,10 @@ from __future__ import annotations
 
 import math
 
-from .prokit2 import (
+from .prokit_helpers import (
     ACCENT, BLUE, INK, INK2, LINE, LINE2, MUTED, FAINT, WHITE,
     blend, ci, ln, pa, rc, sx, sy, t,
 )
-from core.report_theme.charts_pro import geo as geo_mod
 
 TINTS = ["#1F2A37", "#3D4B58", "#5C6A76", "#7B8792", "#9BA4AD", "#BCC3C9"]
 
@@ -19,6 +18,8 @@ def _svg(w, h, label):
 
 
 def _geo():
+    # 2026-11-23：geo 样例数据改为懒加载——只有真的画空间图才导入，不再拖累 import。
+    from .samples_data import geo as geo_mod  # noqa: PLC0415
     return geo_mod.project()
 
 
@@ -70,7 +71,8 @@ def _symbol(s: dict) -> str:
 
 def _geoflow(s: dict) -> str:
     paths, cents = _geo()
-    hub = _key(cents, s.get("hub", "呼和浩特"))
+    # 2026-11-23 清理：不再写死默认呼和浩特，取调用方给的 hub，缺省用第一个城市
+    hub = _key(cents, s.get("hub") or next(iter(cents), ""))
     hx, hy = cents[hub]
     vals = s["values"]
     mx = max(vals.values()) or 1

@@ -583,23 +583,18 @@ def _deprecated(name: str) -> None:
 
 
 def cmd_flow(args) -> int:
-    """项目化 flow 报告：facts.py + charts.py（+ 可选 prose_specs.py）。"""
-    from core import flow_report
-    from core.report_layout import default_layout
-    layout = "paper" if getattr(args, "paper", False) else (args.layout or default_layout())
-    try:
-        res = flow_report.build(args.project, args.out, pdf=args.pdf,
-                                layout=layout,
-                                use_specs=not getattr(args, "no_specs", False),
-                                author_first=bool(getattr(args, "author_first", False)),
-                                prose_hard=bool(getattr(args, "prose_hard", False)),
-                                gate_hard=bool(getattr(args, "gate_hard", False)))
-    except Exception as exc:  # noqa: BLE001
-        print(json.dumps({"ok": False, "error": f"{type(exc).__name__}: {exc}"},
-                         ensure_ascii=False))
-        return 2
-    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
-    return 0 if res.get("ok") else 1
+    """[已退役 2026-11-23] 项目化 flow 报告（facts.py）。
+
+    统一线只保留两个分支（拆卡 / 喂数据），渲染器是 report_renderer；
+    `flow --project` 这条 legacy 路径已随 kit 一并退役（见 docs/RENDERER-DECISION.md）。
+    """
+    print(json.dumps({
+        "ok": False, "stage": "retired",
+        "error": "`report flow --project` 已退役（2026-11-23）：统一线只保留两个分支",
+        "hint": "拆卡分支用 `report run-line --claims`；喂数据分支用 "
+                "`report run-line --dir`。旧的 facts.py 项目需先转成 claims/数据目录。",
+    }, ensure_ascii=False))
+    return 2
 
 
 def cmd_check(args) -> int:

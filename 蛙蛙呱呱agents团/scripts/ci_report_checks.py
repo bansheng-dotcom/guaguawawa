@@ -86,6 +86,16 @@ def main() -> int:
     if rc:
         fails.append("gate-lock")
 
+    # [0b] core/ 业务词扫描（基线棘轮）：只拦"新增"业务线硬编码。
+    #      2026-11-23：通用模块曾积了宠物品类/泡泡玛特/内蒙古城市等历史内容。
+    rc, out = run([sys.executable, "scripts/scan_business_terms.py", "--check"])
+    first = out.strip().splitlines()[0] if out.strip() else ""
+    print(f"[0b] business-terms rc={rc} :: {first}")
+    if rc:
+        fails.append("business-terms")
+        for line in out.strip().splitlines()[1:6]:
+            print("   ", line)
+
     # [2][3][3a] 依赖报告样本；样本未就绪时只跳过、不判红
     if not sample_ok:
         print("[2][3][3a][3b] SKIP(report-sample) :: 缺样本，run-line 与门禁不执行")

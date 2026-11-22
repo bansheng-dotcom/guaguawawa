@@ -5,7 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-from core.report_theme.charts_pro import samples, spec  # noqa: E402
+from core.report_theme.charts_pro import spec
+from core.report_theme.charts_pro.samples_data import samples  # noqa: E402
 
 
 def main() -> int:

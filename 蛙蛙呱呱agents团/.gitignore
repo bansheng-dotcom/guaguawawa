@@ -9,3 +9,5 @@ baselines/_shadow_test/
 baselines/_ir_*/
 baselines/_treat_compare.py
 baselines/_hbge_diff.py
+baselines/_figs/
+baselines/_shadow_flow/

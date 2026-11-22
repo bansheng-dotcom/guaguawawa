@@ -102,6 +102,11 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 | `report charts` | 48 型图表能力盘点 |
 | `report capabilities` / `plan` / `gaps` | 诊断（不产报告） |
 
+> **已退役（2026-11-23）**：`report flow --project`（facts.py 路径）连同
+> `core/flow_report.py`、`core/report_theme/kit.py` 一起退役。统一线只保留两个分支
+> （拆卡 `--claims` / 喂数据 `--dir`），HTML 渲染器只有 `core/report_renderer`。
+> 依据与成本对比见 `docs/RENDERER-DECISION.md`。
+
 拆卡与防代写的规则见 `docs/REPORT-DISPATCH.md`。
 
 ### 拆卡 SOP 已进产线（v1.5 · 2026-11-21）

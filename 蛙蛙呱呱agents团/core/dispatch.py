@@ -224,7 +224,7 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dic
             "sources": [{"file": "S1", "title": "", "org": "", "url": "",
                          "date": "", "grade": "A", "quote": ""}],
             "conflicts": [],
-            "cells": [{"cell_id": "Q1.空间.北京", "value": 0, "unit": "",
+            "cells": [{"cell_id": "Q1.空间.某区域", "value": 0, "unit": "",
                        "period": "", "source_file": "S1",
                        "quality": {"completeness": "full", "accuracy": "grade_B",
                                    "consistency": "checked", "timeliness": "fresh",
@@ -613,4 +613,12 @@ def collect(out_dir: str, require_all: bool = False,
             json.dumps(th, ensure_ascii=False, indent=1), encoding="utf-8")
     except Exception as exc:  # noqa: BLE001
         merged["panel"] = {"error": str(exc)}
+    # 收卡后接线（2026-11-23 / SOP S0+S1）：格填充 + G1–G25。
+    # 这段原来只存在于 scripts/run_card_upgrade.py，生产从不调用；
+    # 现在收卡即跑，结果进 merged["post_gates"] 与 plan/post_gates.json。
+    try:
+        from core import card_upgrade as _cu
+        merged["post_gates"] = _cu.post_collect(Path(out_dir), merged)
+    except Exception as exc:  # noqa: BLE001
+        merged["post_gates"] = {"ok": False, "why": str(exc)}
     return merged, (bad + ([] if got else ["一张 claims 都没收到"]))

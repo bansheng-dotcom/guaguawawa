@@ -282,7 +282,7 @@ def fig_sankey() -> str:
 # 真实市界地图：choropleth / symbol_map / geo_flow
 # --------------------------------------------------------------------------- #
 def _geo():
-    import geo
+    from . import geo
     return geo.project()
 
 

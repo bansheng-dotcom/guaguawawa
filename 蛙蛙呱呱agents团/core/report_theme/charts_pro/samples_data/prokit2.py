@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from ...charts import dataset as DS  # noqa: E402
+from . import dataset as DS  # noqa: E402
 
 INK, INK2, MUTED, FAINT = "#1F2A37", "#33424F", "#66737F", "#98A2AC"
 LINE, LINE2 = "#E3E5E8", "#C9D0D6"

@@ -464,9 +464,6 @@ def _short_label(name: str) -> str:
     """图上的标签不是指标全名：先去掉模型前缀/括号，再压到 12 字。"""
     s = str(name or "")
     s = s.replace("模型·", "").replace("模型：", "")
-    s = s.replace("北京社区宠物店实现盈亏平衡的月营收", "社区店实际")
-    s = s.replace("北京社区宠物店月营收天花板", "社区店天花板")
-    s = s.replace("宠物店单店平均月流水", "门店均流水")
     s = s.split("（")[0].split("(")[0]
     for w in ("盈亏平衡月销", "盈亏平衡", "月营收", "月流水", "市场规模"):
         s = s.replace(w, "")
@@ -791,6 +788,16 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
             draft = {**draft, "decision": claims_v4.build_decision(draft)}
     secs_out: List[Dict[str, Any]] = []
     from core import chart_chooser, chart_grammar
+    # 2026-11-23（SOP S3）：先转 IR + resolve，图表意图以语义管道为单一来源。
+    # 原来每节各自 infer_relation，和影子模型各算一遍；现在只算一次。
+    _resolved_secs: List[Dict[str, Any]] = []
+    try:
+        from core.ir_adapters import decision_to_ir
+        from core.semantic_pipeline import resolve as _ir_resolve
+        _ir, _deg = decision_to_ir(draft, pack)
+        _resolved_secs = (_ir_resolve(_ir).get("sections") or [])
+    except Exception:  # noqa: BLE001 语义管道失败不影响主链路，退回旧推断
+        _resolved_secs = []
     _chart_history: List[str] = []
     for i, s in enumerate(draft.get("sections") or [], 1):
         reading = []
@@ -839,6 +846,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
                 val = chart_candidates.validate(ctr)
                 sec["chart"] = {**ch, "relation": ctr["relation"],
                                 "intent": ctr["intent"],
+                                "relation_source": "author",
                                 "chart_validation": val}
             else:
                 # 语法选型：意图 × 形状 → 图型（存量卡未声明 relation，S6 前保留）
@@ -850,25 +858,43 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
                 else:
                     sec["chart"] = chart_chooser.choose(ch, s, _chart_history)
                 # v3.0 诊断：补 relation + 校验（只诊断不改型）
-                _attach_relation_validation(sec, s, pack)
+                _resolved_sec = (_resolved_secs[i - 1]
+                                 if i - 1 < len(_resolved_secs) else None)
+                _attach_relation_validation(sec, s, pack, _resolved_sec)
         else:
-            # 角色没交图：从本节 refs 的数字反推一张（图表覆盖率不再靠自觉）
-            derived = _derive_chart_from_refs(s, pack)
-            if derived:
-                if derived.get("relation"):
-                    # 关系适配器已经给出图型（funnel/line/share_bar/choropleth），
-                    # 不再让旧 chooser 把它退化成横条。
-                    chosen = derived
-                else:
-                    chosen = (chart_grammar.build(derived, s, pack, _chart_history)
-                              or chart_chooser.choose(derived, s, _chart_history)
-                              or derived)
-                    if derived.get("type") in ("dot", "share_bar", "vbar"):
-                        chosen["type"] = derived["type"]
-                chosen["title"] = derived["title"]
-                chosen["refs"] = derived["refs"]
-                chosen.setdefault("source", _readable_figure_source(derived, s, pack))
-                sec["chart"] = chosen
+            # 2026-11-23（SOP S4）：先试 panel 矩阵 → chart_query（矩阵→热力图/趋势→线/构成→份额）。
+            # 只有本节 refs 里凑出一组结构化行时才用它；凑不出再走老的 1D 反推。
+            _refs = {str(x) for x in (s.get("refs") or [])}
+            _sub = [n for n in (pack.get("numbers") or []) if str(n.get("id")) in _refs]
+            _pq = None
+            if len(_sub) >= 2:
+                from core import chart_query
+                try:
+                    _pq = chart_query.build(_sub, title=str(s.get("title") or ""))
+                except Exception:  # noqa: BLE001
+                    _pq = None
+            if _pq:
+                _pq["refs"] = [str(n.get("id")) for n in _sub if n.get("id")]
+                _pq.setdefault("source", _readable_figure_source(_pq, s, pack))
+                sec["chart"] = _pq
+            else:
+                # 角色没交图：从本节 refs 的数字反推一张（图表覆盖率不再靠自觉）
+                derived = _derive_chart_from_refs(s, pack)
+                if derived:
+                    if derived.get("relation"):
+                        # 关系适配器已经给出图型（funnel/line/share_bar/choropleth），
+                        # 不再让旧 chooser 把它退化成横条。
+                        chosen = derived
+                    else:
+                        chosen = (chart_grammar.build(derived, s, pack, _chart_history)
+                                  or chart_chooser.choose(derived, s, _chart_history)
+                                  or derived)
+                        if derived.get("type") in ("dot", "share_bar", "vbar"):
+                            chosen["type"] = derived["type"]
+                    chosen["title"] = derived["title"]
+                    chosen["refs"] = derived["refs"]
+                    chosen.setdefault("source", _readable_figure_source(derived, s, pack))
+                    sec["chart"] = chosen
         # 一张图只能有一个单位：混单位的点直接丢掉；主单位不足 2 点则不画图
         from core import chart_units
         sec["chart"] = chart_units.sanitize(sec.get("chart"), pack,
@@ -1165,7 +1191,8 @@ _RENDER_TYPE = {"stacked_bar": "stacked", "grouped_bar": "grouped",
 
 
 def _attach_relation_validation(sec: Dict[str, Any], s: Dict[str, Any],
-                                pack: Dict[str, Any]) -> None:
+                                pack: Dict[str, Any],
+                                resolved: Optional[Dict[str, Any]] = None) -> None:
     """v3.0 诊断 + 治疗（治疗默认关）：给存量卡（无显式 relation）补 relation + 图拟合校验。
 
     诊断：挂 relation + chart_validation（不改型），默认开。
@@ -1188,11 +1215,14 @@ def _attach_relation_validation(sec: Dict[str, Any], s: Dict[str, Any],
             if n.get("period") and "period" not in seen:
                 seen.add("period")
                 dims.append({"name": "period", "type": "temporal"})
-        rel = infer_relation(str(s.get("question") or ""), dims)
+        rel = str(((resolved or {}).get("chart") or {}).get("relation") or "")
+        if not rel:
+            rel = infer_relation(str(s.get("question") or ""), dims)
         val = chart_candidates.validate(
             {"relation": rel, "chosen": str(ch.get("type") or ""),
              "dims": dims, "data_refs": refs})
-        new_ch = {**ch, "relation": rel, "chart_validation": val}
+        new_ch = {**ch, "relation": rel, "relation_source": "inferred",
+                  "chart_validation": val}
         # 治疗：图型不能表达关系 → 换 suggest 首个 + 重建 payload（默认关，作者显式开）
         if os.environ.get("GUAGUA_IR_TREAT", "0") != "0" and not val.get("ok"):
             from core import chart_payload
@@ -1243,6 +1273,26 @@ def _shadow_ir_report(draft: Dict[str, Any], pack: Dict[str, Any], out_dir: str)
         pass
 
 
+def chart_fitness_errors(contract: Dict[str, Any]) -> List[str]:
+    """S5 图拟合硬门：作者声明 relation 的图，型不合法就拦，不放行渲染。
+
+    只拦作者声明的图（relation_source=author）。存量卡由关键词推断的 relation
+    仍只诊断不拦——推断本身不可靠（见 _attach_relation_validation 注释）。
+    """
+    errs: List[str] = []
+    for i, s in enumerate(contract.get("sections") or [], 1):
+        ch = s.get("chart") or {}
+        v = ch.get("chart_validation")
+        if not isinstance(v, dict) or v.get("ok") is not False:
+            continue
+        if str(ch.get("relation_source") or "") != "author":
+            continue
+        sug = "/".join(v.get("suggest") or []) or "无候选"
+        errs.append(f"第{i}节图型不拟合：{v.get('reason')}（当前 {ch.get('type')}，"
+                    f"建议 {sug}）；改型后请同步改负载字段")
+    return errs
+
+
 def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         roles: Optional[List[str]] = None, draft: Optional[Dict[str, Any]] = None,
         theme: str = DEFAULT_THEME, pdf: bool = False,
@@ -1287,6 +1337,7 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         spec_res = ({"skipped": True} if os.environ.get("GUAGUA_SPEC_INFER", "1") == "0"
                     else report_specs.apply_specs(contract))
         lay = layout_errors(contract, require_appendix=True)
+        lay = list(lay) + chart_fitness_errors(contract)
         cov_gate: Dict[str, Any] = {}
         if coverage_plan_data and task_frame_data:
             from core import coverage_plan as _cp

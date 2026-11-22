@@ -75,7 +75,7 @@ def chart_audit(html: str, plan: Dict[str, Any] | None = None) -> Dict[str, Any]
     svgs = html.count("<svg")
     srcs = html.count('class="ex-src"')
     need_maps = len((plan or {}).get("maps") or [])
-    maps = sum(1 for k in ("全国", "内蒙古") if k in html)
+    maps = sum(1 for k in ("全国", "区域", "地图") if k in html)
     issues = []
     if svgs < 3:
         issues.append(f"svg {svgs} < 3")

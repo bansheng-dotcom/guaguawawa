@@ -7,6 +7,7 @@
   3. 降级显式（degraded 列表随 IR 返回，静默损失=失败）。
 
 claims_to_ir：claims.json → IR
+facts_module_to_ir：facts.py 模块 → IR（flow --project 迁移用）
 """
 from __future__ import annotations
 
@@ -209,6 +210,81 @@ def facts_to_ir(facts: Dict[str, Any]) -> Tuple[Dict[str, Any], List[Dict[str, s
 
     ir = {"schema": IR_SCHEMA, "meta": meta, "facts": ir_facts,
           "sources": ir_sources, "sections": sections}
+    return ir, degraded
+
+
+def facts_module_to_ir(facts) -> Tuple[Dict[str, Any], List[Dict[str, str]]]:
+    """facts.py 模块 → 富 IR。返回 (ir, degraded)。
+
+    flow --project 的 facts.py 把数据内嵌在 chart_spec（items/rows/points）里，
+    不像 claims/decision 那样有独立 facts 表。这里从 payload 抽出来建 facts，
+    并登记"无 entity/period"的降级——这是它相对 claims 线的格式劣势。
+    """
+    degraded: List[Dict[str, str]] = []
+    meta_in = getattr(facts, "META", {}) or {}
+    meta = {
+        "title": str(meta_in.get("title") or "报告"),
+        "audience": str(meta_in.get("audience") or "业务负责人"),
+    }
+    for k in ("subtitle", "standfirst"):
+        if meta_in.get(k):
+            meta[k] = str(meta_in[k])
+
+    facts_list: List[Dict[str, Any]] = []
+    sections: List[Dict[str, Any]] = []
+    fid = 0
+    for i, s in enumerate(getattr(facts, "SECTIONS", []) or []):
+        ch = s.get("chart") or {}
+        typ = str(ch.get("type") or "")
+        refs: List[str] = []
+        for key in ("items", "bars", "vbars", "rows", "points", "stages", "steps"):
+            arr = ch.get(key)
+            if isinstance(arr, list) and arr:
+                for it in arr:
+                    if not isinstance(it, dict):
+                        continue
+                    v = it.get("value")
+                    if v is None:
+                        v = it.get("a")
+                    if v is None:
+                        v = it.get("low")
+                    if v is None:
+                        continue
+                    fid += 1
+                    fact = {
+                        "id": "F%d" % fid,
+                        "metric": str(it.get("label") or ch.get("title") or ""),
+                        "value": v,
+                        "unit": str(ch.get("unit_meta") or ""),
+                        "source": str(ch.get("source") or ""),
+                    }
+                    facts_list.append(fact)
+                    refs.append(fact["id"])
+                break
+        if typ and not refs:
+            degraded.append({"field": "sections[%d].chart" % i,
+                             "reason": "chart_spec 无可抽取的数据点"})
+        if refs:
+            degraded.append({"field": "sections[%d].chart" % i,
+                             "reason": "facts.py 数据内嵌 chart_spec，缺 entity/period 维度"})
+        sections.append({
+            "title": str(s.get("title") or ""),
+            "question": str(s.get("question") or ""),
+            "outline": str(s.get("verdict") or s.get("title") or ""),
+            "readings": [{"strong": "", "text": str(s.get("body") or ""), "refs": refs}]
+                        if s.get("body") else [],
+            "actions": [],
+            "boundary": str(s.get("boundary") or ""),
+            "falsifier": "",
+            "chart": {"relation": "", "chosen": typ, "data_refs": refs, "dims": [],
+                      # 2026-11-23：chart_spec 自带完整 payload（items/rows/matrix/
+                      # series/nodes…），原样透传，别拆成 facts 再拼回（会丢形状）。
+                      "payload": {k: v for k, v in ch.items()
+                                  if k not in ("type", "title", "source", "refs")}},
+        })
+
+    ir = {"schema": IR_SCHEMA, "meta": meta, "facts": facts_list,
+          "sources": [], "sections": sections}
     return ir, degraded
 
 

@@ -87,9 +87,26 @@ def normalize_unit(unit: str) -> Tuple[str, float]:
 # --------------------------------------------------------------------------- #
 # 3. 度量注册
 # --------------------------------------------------------------------------- #
-CITY_TOKENS = ("朝阳", "海淀", "丰台", "通州", "昌平", "大兴", "顺义", "石景山",
-               "呼和浩特", "包头", "鄂尔多斯", "赤峰",
-               "全国", "中国", "内蒙古", "北京", "上海", "深圳", "广州", "成都")
+def _load_geo_tokens() -> Tuple[str, ...]:
+    """具体地名从 configs/geo_tokens.yaml 读，通用模块不内置任何城市名。
+
+    2026-11-22 清理：原 CITY_TOKENS 写死了若干历史项目的区县与地市，
+    是历史项目地名沉进通用模块的残留。现在只留中性值，
+    具体地名交给项目 config 或 semantic_layer 声明。
+    """
+    p = Path(__file__).resolve().parent.parent / "configs" / "geo_tokens.yaml"
+    try:
+        import yaml  # noqa: PLC0415
+        d = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+        toks = [str(x) for x in (d.get("tokens") or []) if str(x).strip()]
+        if toks:
+            return tuple(toks)
+    except Exception:  # noqa: BLE001
+        pass
+    return ("全国", "中国")
+
+
+CITY_TOKENS = _load_geo_tokens()
 ENTITY_TYPES = (("city", CITY_TOKENS),)
 
 

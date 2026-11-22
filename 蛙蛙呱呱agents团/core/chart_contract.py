@@ -18,6 +18,7 @@
 """
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -57,6 +58,25 @@ def _relation(chart: Dict, section: Dict, type_to_rel: Dict, kind_to_rel: Dict) 
     return type_to_rel.get(str(chart.get("type") or ""), "magnitude")
 
 
+_PERIOD_RE = re.compile(r"(19|20)\d{2}(\s*[-—/]?\s*(H[12]|Q[1-4]))?|\d{1,2}\s*月|第?[一二三四1-4]季度")
+
+
+def _labels_have_period(chart: Dict[str, Any]) -> bool:
+    """横轴/分块标签里至少两个是期次（年/半年/季/月），就认为声明了时间维。"""
+    for key in ("points", "items", "bars", "stages", "steps", "categories"):
+        seq = chart.get(key)
+        if not isinstance(seq, list):
+            continue
+        hits = 0
+        for it in seq:
+            label = it.get("label") if isinstance(it, dict) else it
+            if label is not None and _PERIOD_RE.search(str(label)):
+                hits += 1
+        if hits >= 2:
+            return True
+    return False
+
+
 def normalize(chart: Optional[Dict[str, Any]],
               section: Optional[Dict[str, Any]] = None,
               nums: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
@@ -77,6 +97,11 @@ def normalize(chart: Optional[Dict[str, Any]],
         if n.get("period") and ("period", "temporal") not in seen:
             seen.add(("period", "temporal"))
             dims.append({"name": "period", "type": "temporal"})
+    # 数字没登记 period 时，退一步看图的横轴标签：至少两个标签是期次，
+    # 就认为这张图声明了时间维（否则时序图会被判「缺维度」误拦）。
+    if ("period", "temporal") not in seen and _labels_have_period(ch):
+        seen.add(("period", "temporal"))
+        dims.append({"name": "period", "type": "temporal", "source": "labels"})
     return {
         "relation": rel,
         "intent": INTENT_LABEL.get(rel, "比较"),

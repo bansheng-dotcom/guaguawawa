@@ -1,26 +1,31 @@
 # -*- coding: utf-8 -*-
-"""charts_pro —— flow 图型库（49 型），由 viz_lab 收编。
+"""charts_pro —— 生产图型库（70 型，走 spec.py）。
 
-用法（项目 charts.py）：
-    from core.report_theme.charts_pro import render
-    def fig_waterfall(): return render("fig_waterfall")
+2026-11-23：样例渲染器（pk_b1..b4 / prokit2，连带历史项目样例数据）改为**懒加载**——
+只有真的调用 `render("fig_xxx")` 时才导入它们；生产画图（spec.render）不再被样例数据拖累。
 """
 from __future__ import annotations
 
-from . import geo, pk_b1, pk_b2, pk_b3, pk_b4, pk_dual, prokit2
-
-_REG = {}
-for _m in (prokit2, pk_b1, pk_b2, pk_b3, pk_b4, pk_dual):
-    for _k, _v in vars(_m).items():
-        if _k.startswith("fig_") and callable(_v):
-            _REG[_k] = _v
+_REG: dict = {}
 
 
-def names() -> list[str]:
-    return sorted(_REG)
+def _registry() -> dict:
+    """懒加载样例渲染器注册表（第一次调 render/names 时才导入）。"""
+    if not _REG:
+        from .samples_data import pk_b1, pk_b2, pk_b3, pk_b4, pk_dual, prokit2  # noqa: PLC0415
+        for _m in (prokit2, pk_b1, pk_b2, pk_b3, pk_b4, pk_dual):
+            for _k, _v in vars(_m).items():
+                if _k.startswith("fig_") and callable(_v):
+                    _REG[_k] = _v
+    return _REG
+
+
+def names() -> list:
+    return sorted(_registry())
 
 
 def render(name: str) -> str:
-    if name not in _REG:
-        raise KeyError(f"未知图型: {name}（可用 {len(_REG)} 型）")
-    return _REG[name]()
+    reg = _registry()
+    if name not in reg:
+        raise KeyError(f"未知图型: {name}（可用 {len(reg)} 型）")
+    return reg[name]()

@@ -11,25 +11,36 @@ from __future__ import annotations
 import re
 from typing import Any, Dict, Iterable, List
 
-DEFAULT_REGIONS = ["北京", "上海", "广州", "深圳"]
-DEFAULT_CATS = ["主粮", "零食", "用品", "医疗", "服务"]
-DEFAULT_YEARS = ["2023", "2024", "2025"]
+# 2026-11-22 清理：通用模块不得内置业务线。
+# 历史事故：DEFAULT_CATS 曾写死「主粮/零食/用品/医疗/服务」（宠物行业），
+# 导致任何没自带面板的项目都被套上宠物品类。现在区域/品类只从 clarify 读，
+# 读不到就用中性占位，不再给行业默认值。
+DEFAULT_YEARS = ["2023", "2024", "2025"]   # 期次是通用刻度，保留
 
 
 def detect_regions(intent: str, clarify: Dict[str, Any]) -> List[str]:
-    text = intent + " " + str(clarify)
-    if "北京" in text:
-        return ["朝阳", "海淀", "丰台", "通州", "昌平", "大兴", "顺义", "石景山"]
-    if "内蒙古" in text:
-        return ["呼和浩特", "包头", "鄂尔多斯", "赤峰"]
+    """区域只来自 clarify 的显式声明；读不到就退回中性的「全国」。"""
+    declared = (clarify or {}).get("regions") or (clarify or {}).get("region")
+    if isinstance(declared, list) and declared:
+        return [str(x) for x in declared]
+    text = str(intent or "") + " " + str(clarify or "")
     if "全国" in text or "中国" in text:
         return ["全国"]
-    return list(DEFAULT_REGIONS)
+    return ["全国"]
+
+
+def _declared_cats(clarify: Dict[str, Any]) -> List[str]:
+    """品类只来自 clarify 的显式声明；没有就用中性占位。"""
+    declared = ((clarify or {}).get("categories")
+                or (clarify or {}).get("category"))
+    if isinstance(declared, list) and declared:
+        return [str(x) for x in declared]
+    return ["全部品类"]
 
 
 def build(intent: str, clarify: Dict[str, Any]) -> List[Dict[str, Any]]:
     regions = detect_regions(intent, clarify)
-    cats = list(DEFAULT_CATS)
+    cats = _declared_cats(clarify)
     years = list(DEFAULT_YEARS)
     panels = [
         {"id": "P1", "name": "区域×品类零售", "entities": regions, "dimensions": cats,

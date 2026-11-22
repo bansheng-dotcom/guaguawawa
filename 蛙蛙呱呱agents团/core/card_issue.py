@@ -83,6 +83,8 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
     cu._w(plan / "grid.json", grid)
     cu._w(plan / "decomposition_log.json", {"items": decs})
     cu._w(plan / "branch_log.json", branches)
+    # 驱动树（2026-11-23 / SOP S5）：结果指标 = 驱动因子，来自语义层 ratio/derived/conversion
+    cu._w(plan / "driver_tree.json", cu.build_driver_tree(sem))
 
     cards = cu.agent_cards(roster.build())
     # SOP v5：按问题簇自适应分卡（卡数是算出来的，不是写死）

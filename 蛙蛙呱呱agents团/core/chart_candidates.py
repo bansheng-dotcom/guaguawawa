@@ -18,6 +18,18 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 
+try:  # 别名以渲染器注册表为单一出处（grouped_bar→grouped 等）
+    from core.report_theme.charts_pro.spec import ALIASES
+except Exception:  # noqa: BLE001
+    ALIASES = {}
+
+
+def canonical(typ: str) -> str:
+    """别名 → 渲染器规范名；不是别名就原样返回。"""
+    t = str(typ or "")
+    return str(ALIASES.get(t, t))
+
+
 # 需要时间维才能画
 TIME_TYPES = {"line", "area", "step", "slope", "stream", "stack_area",
               "cal_heatmap", "candle", "small_mult", "gantt", "timeline",
@@ -60,17 +72,19 @@ def candidates(contract: Dict[str, Any], n: int = 3) -> List[Dict[str, Any]]:
     allowed = _load_relations().get(rel, ["hbar"])
     out = []
     for t in allowed:
+        t = canonical(t)
         if not feasible(contract, t):
             continue
         out.append(t)
     out.sort(key=lambda t: READABILITY.index(t) if t in READABILITY else 99)
-    return [{"type": t} for t in out[:max(1, n)]]
+    return [{"type": t} for t in dict.fromkeys(out)][:max(1, n)]
 
 
 def validate(contract: Dict[str, Any]) -> Dict[str, Any]:
     rel = contract.get("relation") or "magnitude"
-    allowed = set(_load_relations().get(rel, []))
-    chosen = str(contract.get("chosen") or "")
+    allowed_raw = _load_relations().get(rel, [])
+    allowed = {canonical(t) for t in allowed_raw}
+    chosen = canonical(str(contract.get("chosen") or ""))
     if not chosen:
         return {"ok": False, "chosen": "", "allowed": sorted(allowed),
                 "reason": "缺 chosen"}

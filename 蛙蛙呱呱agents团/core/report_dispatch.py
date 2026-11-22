@@ -270,11 +270,28 @@ _WORKORDER_CRITERIA = """## 2. 什么算答好（缺一条，这一问不算过�
 1. 每问至少 **3 个可比点**（不同规格/地区/期次/主体），单点不算结论
 2. 每节正文：**单段 ≤300 字（硬上限 330）**，2–4 条解读；节长不设上限（长度由判断数决定）；超过 330 字退回重写
 3. 每条解读必须带 `refs`（指向本卡 numbers）——没有 refs 的数字视为编的
-4. 每节必须有 `chart`（type/title/source/refs + bars 或 points）；确实画不了写 `chart_skip_reason`
+4. 每节必须有 `chart`（type/title/source/refs + 对应负载），**并声明 `relation` 与 `why_this_chart`**：`relation` 从 9 类里选一个，图型必须落在该关系的候选清单里（见下表）；不声明或图型不合法，S5 门禁直接拦。确实画不了写 `chart_skip_reason`
 5. 每问有 **事实 / 机理 / 反例** 三段，缺反例 = 没深入
 6. 每条主结论带 **falsifier**（什么可观测条件下作废）
 7. 必须交 **2 条计划外发现**（见第 4 段），不能是主问的复述
 8. 每个 `needs` 要么被回答，要么 `declined` 写清原因
+
+### 图表选型：先定关系，再选图型（`relation` 必填）
+
+| relation | 什么时候用 | 候选图型（第一个是默认） |
+|---|---|---|
+| `deviation` | 相对 0/目标/均值的正负偏离 | hbar · vbar · dot · lollipop · waterfall · area · control |
+| `correlation` | 两个连续变量找关系 | scatter · bubble · heatmap · small_mult · parallel |
+| `ranking` | 位次比绝对值重要 | hbar · vbar · grouped · dot · lollipop · slope · dumbbell · pareto · rose |
+| `distribution` | 看形状、离散、异常 | histogram · box · violin · dot · ridge · error_bar · forest · radar |
+| `change_over_time` | 看方向、拐点、节奏 | line · area · vbar · stream · dual_panels · cal_heatmap · small_mult · candle · gantt |
+| `composition` | 部分与整体（加总≈100%） | stacked · pct_stacked · treemap · sunburst · pie · donut · waffle · rose |
+| `magnitude` | 只比大小，不强调位次与时间 | vbar · hbar · grouped · bullet · gauge · kpi · target_band |
+| `spatial` | 位置本身是信息 | choropleth · symbol · heatmap · geo_flow |
+| `flow` | 量在节点/阶段之间移动 | sankey · waterfall · funnel · network · bridge · gantt |
+
+负载形状必须与图型匹配：时序类给 `points`（≥4 期）、构成类给 `categories`+`series`、
+分布类给 `values`/`groups`、排名与量级类给 `items`/`bars`；形状不匹配会被降级成表格。
 
 ## 3. 你可以向谁要什么（卡间协商）
 
@@ -294,8 +311,8 @@ _WORKORDER_CRITERIA = """## 2. 什么算答好（缺一条，这一问不算过�
 交 `explore` 数组，2 条：
 
 ```json
-{"explore": [{"text": "包头是唯一正号：可能与 XX 有关", "value": 9.1, "unit": "%",
-              "source_file": "S2", "why_important": "如果成立，选品要按城市分"}]}
+{"explore": [{"text": "A 主体是唯一正号：可能与 XX 有关", "value": 9.1, "unit": "%",
+              "source_file": "S2", "why_important": "如果成立，选品要按主体分组"}]}
 ```
 
 要求：带数字、带来源、**不是你负责问句的复述**。
@@ -511,7 +528,9 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
                               {"strong": "事实　", "text": "≤300 字", "refs": ["N1"]},
                               {"strong": "机理　", "text": "≤300 字", "refs": ["N1"]},
                               {"strong": "反例　", "text": "≤300 字", "refs": ["N1"]}],
-                          "chart": {"type": "hbar", "title": "（含数字）",
+                          "chart": {"type": "hbar", "relation": "magnitude",
+                                    "why_this_chart": "这张图编码了本节要回答的比较",
+                                    "title": "（含数字）",
                                     "source": "机构名", "refs": ["N1"],
                                     "bars": [{"label": "…", "value": 0}]},
                           "falsifier": "什么情况下这条作废"}],

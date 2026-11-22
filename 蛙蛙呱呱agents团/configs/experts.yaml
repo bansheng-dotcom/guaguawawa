@@ -563,15 +563,12 @@
         "action": "sensitivity"
         "label": "市场规模敏感性分析"
     "methods":
-      - "sizing_multi"
       - "growth"
       - "concentration"
     "needs":
       - "facts.market"
-      - "facts.region"
       - "facts.shares"
     "produces":
-      - "市场规模三路径"
       - "增长与引擎切换"
       - "集中度"
     "inputs":

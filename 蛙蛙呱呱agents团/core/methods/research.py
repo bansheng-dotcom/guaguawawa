@@ -75,94 +75,6 @@ def _finding(key: str, title: str, question: str, c, mark: int) -> Finding:
 
 
 # --------------------------------------------------------------------------- #
-# 1. 规模：三条路径 + 区间
-# --------------------------------------------------------------------------- #
-@method("sizing_multi", family="research",
-        needs=["facts.market", "facts.region"], produces="市场规模三路径",
-        tags=("research", "marketing"), priority=80,
-        description="产值法/品牌法/人口法互证，给区间与差异倍数")
-def m_sizing_multi(ctx) -> Optional[Finding]:
-    c = ctx.cite
-    mark = c.begin()
-    nm_value = _num(ctx, "nm_value", "内蒙古特色奶制品产值", 2)
-    cheese = _an(ctx, "cheese_share", "奶酪零食占特色奶制品比例", 2)
-    xm_sales = _num(ctx, "xm_sales", "锡盟奶酪年销售额", 2)
-    xm_share = _an(ctx, "xm_share", "锡盟占全区特色奶酪份额", 2)
-    per_cap = _num(ctx, "per_capita", "人均奶酪消费", 2)
-    nm_pop = _an(ctx, "nm_pop", "内蒙古常住人口", 0)
-    xm_out = _num(ctx, "xm_output", "锡盟奶酪年产量", 0)
-    if not all([nm_value, cheese, xm_sales, xm_share, per_cap, nm_pop, xm_out]):
-        return None
-    price = c.d(f"R01", f"{xm_sales.id}*1e8/({xm_out.id}*1000)",
-                xm_sales.value * 1e8 / (xm_out.value * 1000),
-                "锡盟品牌奶酪出厂均价（元/kg）", "元/kg", 2)
-    paths = []
-    a_low = c.d("R02", f"{nm_value.id}*0.25", nm_value.value * 0.25,
-                "产值法下限（25%）", "亿元")
-    a_high = c.d("R03", f"{nm_value.id}*0.40", nm_value.value * 0.40,
-                 "产值法上限（40%）", "亿元")
-    b_low = c.d("R04", f"{xm_sales.id}/0.30", xm_sales.value / 0.30,
-                "品牌法下限（锡盟占30%）", "亿元")
-    b_high = c.d("R05", f"{xm_sales.id}/0.20", xm_sales.value / 0.20,
-                 "品牌法上限（锡盟占20%）", "亿元")
-    c_path = c.d("R06", f"{nm_pop.id}*1e4*{per_cap.id}*{price.id}/1e8",
-                 nm_pop.value * 1e4 * per_cap.value * price.value / 1e8,
-                 "人口法（人口×人均×均价）", "亿元")
-    paths = [("产值法", a_low, a_high, "全区特色奶制品产值 × 奶酪零食占比 25%—40%"),
-             ("品牌法", b_low, b_high, "锡盟销售额 ÷ 锡盟份额 20%—30%"),
-             ("人口法", c_path, c_path, "人口 2400 万 × 人均 0.3kg × 57.1 元/kg")]
-    lows = [p[1].value for p in paths]
-    highs = [p[2].value for p in paths]
-    lo, hi = min(lows), max(highs)
-    spread = hi / lo if lo else 0
-    a_mid = c.n("产值法中值", nm_value.value * 0.30, "亿元")
-    b_mid = c.n("品牌法中值", xm_sales.value / 0.25, "亿元")
-    n_lo = c.n("规模区间下限", lo, "亿元")
-    n_hi = c.n("规模区间上限", hi, "亿元")
-    n_spread = c.n("路径间差异倍数", spread, "倍")
-    near = [(p[0], p[1].value, p[2].value) for p in paths
-            if p[1].value >= 3.5 and p[2].value <= 7]
-    near_lo = min((n[1] for n in near), default=lo)
-    near_hi = max((n[2] for n in near), default=hi)
-    n_near_lo = c.n("收敛区间下限", near_lo, "亿元")
-    n_near_hi = c.n("收敛区间上限", near_hi, "亿元")
-    title = (f"规模：三条路径给出 {n_lo}—{n_hi} 亿元，最高与最低差 {n_spread} 倍；"
-             f"品牌法与人口法收敛在 {n_near_lo}—{n_near_hi} 亿")
-    f = _finding("sizing_multi", title,
-                 "这个细分市场有多大？三条独立路径能不能互证？", c, mark)
-    f.assumptions = [cheese.value, xm_share.value, nm_pop.value, per_cap.value]
-    f.add(f"产值法：{nm_value} 亿元特色奶制品产值 × 奶酪零食占比 25%—40% → "
-          f"{a_low}—{a_high} 亿元。", _ids(nm_value, a_low, a_high))
-    f.add(f"品牌法：锡盟 {xm_sales} 亿元销售额 ÷ 其占全区份额 20%—30% → "
-          f"{b_low}—{b_high} 亿元；人口法：{nm_pop} 万人 × {per_cap} 公斤/人 × "
-          f"{price} 元/公斤 → {c_path} 亿元。", _ids(xm_sales, b_low, b_high,
-                                                   nm_pop, per_cap, price, c_path))
-    f.add(f"三条路径差 {n_spread} 倍：产值法含 B 端与工业原料，口径最大；"
-          f"品牌法与人口法收敛在 {n_near_lo}—{n_near_hi} 亿元。"
-          "可服务市场按收敛区间做预算，产值法只能当行业天花板。",
-          _ids(n_lo, n_hi, n_spread, n_near_lo, n_near_hi))
-    f.table = _table("三条路径的规模测算（亿元）", ["路径", "下限", "上限", "口径"],
-                     [[p[0], f"{p[1].value:.1f}", f"{p[2].value:.1f}", p[3]]
-                      for p in paths])
-    f.chart = {"type": "hbar",
-               "title": f"三条路径：{lo:.1f}—{hi:.1f} 亿元，差 {spread:.1f} 倍",
-               "subtitle": "三条路径中值 · 亿元 · 占比假设 25%—40%",
-               "note": "产值法含 B 端与工业原料，只当天花板",
-               "unit_meta": "亿元", "source": "S1/S3/S4 + 显式假设",
-               "refs": _ids(a_low, a_high, b_low, b_high, c_path, a_mid, b_mid),
-               "bars": [{"label": "产值法（中值）", "value": round(a_mid.value, 1)},
-                        {"label": "品牌法（中值）", "value": round(b_mid.value, 1)},
-                        {"label": "人口法", "value": round(c_path.value, 1)}]}
-    f.so_what = ("预算按交集 4—8 亿元做，不做 20 亿；"
-                 "要收敛区间，必须拿到『奶酪零食占特色奶制品比重』的一手数据。")
-    f.boundary = ("产值法依赖 25%—40% 的占比假设（C 级），品牌法依赖锡盟份额假设（C 级）；"
-                  "三条路径都不是官方细分口径，区间只用于量级判断。")
-    f.meta = {"rows": [{"path": p[0], "low": p[1].value, "high": p[2].value}
-                       for p in paths], "lo": near_lo, "hi": near_hi}
-    ctx.memo["sizing"] = {"lo": near_lo, "hi": near_hi}
-    return f
-
-
 # --------------------------------------------------------------------------- #
 # 2. 增长：两段增速与引擎切换
 # --------------------------------------------------------------------------- #
@@ -270,7 +182,7 @@ def m_concentration(ctx) -> Optional[Finding]:
                          {"label": "伊利", "value": yl.value},
                          {"label": "其他", "value": ot.value}],
                "series": [{"name": "份额", "values": [mk.value, yl.value, ot.value]}]}
-    f.so_what = "不要正面打全国货架；用『内蒙古产地 + 区域公用品牌』做差异化，先进 B 端与礼盒。"
+    f.so_what = "不要正面打全国货架；用『原产地 + 区域公用品牌』做差异化，先进 B 端与礼盒。"
     f.boundary = "份额为全渠道零售口径，不含工业原料；『其他』未拆分，HHI 只能给上下界。"
     return f
 

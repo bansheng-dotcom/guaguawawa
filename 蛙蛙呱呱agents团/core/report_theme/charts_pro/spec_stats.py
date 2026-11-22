@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import math
 
-from .prokit2 import (
+from .prokit_helpers import (
     ACCENT, BLUE, INK, INK2, LINE, LINE2, MUTED, FAINT, WHITE,
     ci, ln, pa, rc, sx, sy, t,
 )

@@ -162,10 +162,9 @@ def classify(text: str) -> str:
 
 
 def _region(intent: str) -> str:
-    for r in ("内蒙古", "呼和浩特", "包头", "鄂尔多斯", "赤峰", "全国"):
-        if r in (intent or ""):
-            return r
-    return "未指定"
+    # 2026-11-22 清理：不再内置具体地名（内蒙古/呼和浩特…），
+    # 只认「全国」这个中性范围；具体区域由 clarify 追问用户确认。
+    return "全国" if "全国" in (intent or "") else "未指定"
 
 
 def draft(intent: str) -> Dict[str, Any]:

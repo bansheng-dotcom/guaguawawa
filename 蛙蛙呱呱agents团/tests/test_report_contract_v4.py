@@ -142,9 +142,9 @@ def test_structure_profiles_are_module_sets():
 
 
 def test_first_line_indent_is_typographic():
-    for p in (ROOT / "core" / "report_theme" / "kit.py",
-              ROOT / "core" / "report_theme" / "consulting.css"):
-        assert "text-indent:2em" in p.read_text(encoding="utf-8")
+    # 2026-11-23：kit.py 已随 `flow --project` 退役；首行缩进只在 consulting.css 校验
+    p = ROOT / "core" / "report_theme" / "consulting.css"
+    assert "text-indent:2em" in p.read_text(encoding="utf-8")
 
 
 def _mk_claim(i: int, rank: int, headline: str = "") -> dict:
@@ -182,7 +182,7 @@ def test_chart_relation_adapter_guards_payload():
     assert cr.adapt("composition", items)["type"] == "share_bar"
     assert cr.adapt("change_over_time", items)["type"] == "dot"  # 没有期次
     assert cr.adapt("spatial", items) is None  # 没有地理标签
-    geo = [{"label": "北京", "value": 10}, {"label": "上海", "value": 8}]
+    geo = [{"label": "北京市", "value": 10}, {"label": "上海市", "value": 8}]
     assert cr.adapt("spatial", geo)["type"] == "choropleth"
     link = {"nodes": ["a", "b"], "links": [[0, 1, 5]]}
     assert cr.adapt("flow", items, payload=link)["type"] == "sankey"

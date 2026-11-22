@@ -319,13 +319,17 @@ def _dedupe_series(rows: List[Tuple[str, float]]) -> List[Tuple[str, float]]:
 
 
 def _score_market(entity: str, file: str) -> int:
-    """同城 > 全国：零售是本地价，批发对标要尽量用同一个城市的市场报价。"""
+    """同城 > 全国：零售是本地价，批发对标要尽量用同一个城市的市场报价。
+
+    2026-11-22 清理：原实现写死了三个历史项目地名
+    （呼包鄂蔬菜项目的特化）。改为通用代理：实体名出现在来源文件名里
+    （同一市场/同城）加权，全国兜底最低。
+    """
     s = 0
-    if "东瓦窑" in entity:
+    e, f = str(entity or ""), str(file or "")
+    if e and e in f:
         s += 3
-    if "呼和浩特" in entity or "呼市" in entity:
-        s += 2
-    if "全国" in file or "全国" in entity:
+    if "全国" in f or "全国" in e:
         s += 1
     return s
 

@@ -71,7 +71,7 @@ def audit_coverage(plan: Dict[str, Any], frame: Dict[str, Any],
     if need_maps:
         if "全国" not in html:
             issues.append("计划声明了地图，但未检测到全国地图页")
-        if "盟市" not in html and "内蒙古" not in html:
+        if "区域" not in html and "地图" not in html:
             issues.append("计划声明了地图，但未检测到区域地图页")
     for u in plan.get("core_units") or []:
         if plan.get("depth", {}).get(u) != "deep":
