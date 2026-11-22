@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+
+# baselines：只留黄金语料与作者样例，产出目录/临时脚本不入库
+baselines/*_out*/
+baselines/_hbge*/
+baselines/_shadow_test/
+baselines/_ir_*/
+baselines/_treat_compare.py
+baselines/_hbge_diff.py

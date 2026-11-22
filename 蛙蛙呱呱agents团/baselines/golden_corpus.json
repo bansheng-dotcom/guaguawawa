@@ -1,0 +1,50 @@
+{
+  "schema": "dsh.golden_corpus/v1",
+  "updated_at": "2026-11-22",
+  "tool": "scripts/check_content.py",
+  "note": "content_hash 去掉了 chart.type 与图负载，只覆盖标题/正文/表格/图题/来源/refs/顺序。换图不触发，改数字正文会触发。",
+  "lines": {
+    "claims": [
+      {
+        "name": "呼包鄂蔬菜价格分析_2026-11-22",
+        "path": "D:/蛙蛙呱呱/呼包鄂蔬菜价格分析_2026-11-22/report/contract.json",
+        "content_hash": "bb306a7267d65a6861ee4b50c2926bcc0041bc3601db6d571f80c7468efa335b",
+        "sections": 25
+      },
+      {
+        "name": "小码女装调研_flow_2026-11-21/out",
+        "path": "D:/蛙蛙呱呱/小码女装调研_flow_2026-11-21/out/report/contract.json",
+        "content_hash": "6cbbf5fa91266a34eddb53eb75be987e2bb2113951cf4d6380421fdb3c65ebeb",
+        "sections": 13
+      },
+      {
+        "name": "小码女装调研_flow_2026-11-21/out2",
+        "path": "D:/蛙蛙呱呱/小码女装调研_flow_2026-11-21/out2/report/contract.json",
+        "content_hash": "c61c10a99a3a217cd784cad8f229f5a772b3863f130c75ff8e0e2a0bcb7e6781",
+        "sections": 16
+      }
+    ],
+    "data_line": [
+      {
+        "name": "baselines/_golden_data_line（合成蔬菜价格 CSV）",
+        "status": "runs_end_to_end_but_blocks",
+        "roster": ["r06"],
+        "mode": "intent",
+        "sections": 4,
+        "numbers": 147,
+        "block_reason": "report_flow section gate 报「未登记的计数」（第2节解读3的6、第3节解读3的6/解读6的12）——A 线方法把计数写进正文却没登记为证据数字，这是 A 线自己的可追溯性缺陷",
+        "finding": "A 线端到端可跑（roster r06、无 INTENT_UNBOUND），但它的方法存在与拆卡线同源的『数字不可追溯』问题，被 report_flow 的 sections_valid 门拦截（注意：该门是阻断的，与 cells_claims 的『不阻断』不是一回事）",
+        "content_hash": null
+      }
+    ],
+    "flow_line": [
+      {
+        "name": "examples/spec-fruit",
+        "path": "D:/蛙蛙呱呱/蛙蛙呱呱agents团/baselines/_golden_flow_specfruit/report.md",
+        "content_hash": "095bc4636628152af50e8783c4553c92a900cff30978e3dd0695afd7d551be14",
+        "chars": 8866,
+        "sections": 14
+      }
+    ]
+  }
+}

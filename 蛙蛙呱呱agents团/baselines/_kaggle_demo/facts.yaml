@@ -1,0 +1,56 @@
+# 超市销售分析 —— 声明式作者格式（替换 facts.py 的演示）
+# 作者只交：facts（有维度的数字）+ sections（问题+大纲+图表意图）
+# 系统做：schema 校验（parse-time）、文案生成、图表选型、排版
+schema: dsh.facts_authoring/v1
+
+meta:
+  title: 超市销售分析
+  audience: 业务负责人
+  standfirst: 三个月总营收 501.2 万元，电子配件 125.4 万居首、占 25.0%。
+  one_thing: 如果只做一件事：拆电子配件 B 市溢价是需求还是渠道。
+
+facts:
+  - {id: F1, metric: 电子配件营收, entity: 电子配件, period: 2026-03, value: 125.4, unit: 万元, source: S1}
+  - {id: F2, metric: 食品饮料营收, entity: 食品饮料, period: 2026-03, value: 98.2, unit: 万元, source: S1}
+  - {id: F3, metric: 时尚配饰营收, entity: 时尚配饰, period: 2026-03, value: 84.6, unit: 万元, source: S1}
+  - {id: F4, metric: 电子配件B市, entity: B市, period: 2026-03, value: 48.2, unit: 万元, source: S1}
+  - {id: F5, metric: 电子配件A市, entity: A市, period: 2026-03, value: 40.1, unit: 万元, source: S1}
+  - {id: F6, metric: 月度营收1月, entity: 全市场, period: 2026-01, value: 158.6, unit: 万元, source: S1}
+  - {id: F7, metric: 月度营收2月, entity: 全市场, period: 2026-02, value: 165.2, unit: 万元, source: S1}
+  - {id: F8, metric: 月度营收3月, entity: 全市场, period: 2026-03, value: 177.4, unit: 万元, source: S1}
+
+sources:
+  - {file: S1, title: 模拟超市交易数据, org: 本地模拟, url: "", grade: C, quote: 1000 笔聚合}
+
+sections:
+  - title: 六产品线营收：电子配件 125.4 万居首
+    question: 哪个产品线贡献最大
+    outline: 六产品线营收排名
+    boundary: 营收为聚合值，未计毛利
+    falsifier: 电子配件跌破 100 万则作废
+    actions: [锁电子配件月度量]
+    chart:
+      relation: ranking
+      chosen: hbar
+      data_refs: [F1, F2, F3]
+
+  - title: 电子配件两城差：B 市比 A 市高 8.1 万
+    question: 两地价差多大
+    outline: 两城对比电子配件
+    boundary: 只给方向不给精确价差
+    falsifier: 价差收窄到 2 万以内则作废
+    actions: [拆 B 市溢价是需求还是渠道]
+    chart:
+      chosen: dumbbell
+      data_refs: [F4, F5]
+
+  - title: 月度营收逐月走高 158.6→177.4 万
+    question: 月度趋势如何
+    outline: 三个月营收趋势
+    boundary: 仅 3 期，方向可用幅度不可外推
+    falsifier: 4 月环比转跌则作废
+    actions: [补 4 月数据再判断]
+    chart:
+      relation: change_over_time
+      chosen: line
+      data_refs: [F6, F7, F8]

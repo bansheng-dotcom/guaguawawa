@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "files": {
+    "html": "baselines\\_golden_flow_specfruit\\report.html",
+    "pdf": null,
+    "pages_estimate": 22,
+    "figures": 13,
+    "tables": 1,
+    "sections": 14,
+    "chart_engine": {
+      "pro": 13,
+      "legacy": 0,
+      "table": 1
+    },
+    "md": "baselines\\_golden_flow_specfruit\\report.md",
+    "prose": {
+      "ok": true,
+      "sections": 14,
+      "avg_chars": 952.2,
+      "score": 92.1,
+      "hard_fail": []
+    },
+    "prose_spec": {
+      "ok": true,
+      "issues": []
+    },
+    "prose_mode": "none",
+    "author_first": false,
+    "prose_hard": true,
+    "gate_hard": true
+  },
+  "layout": "flow",
+  "prose": {
+    "ok": true,
+    "sections": 14,
+    "avg_chars": 952.2,
+    "score": 92.1,
+    "hard_fail": []
+  },
+  "prose_spec": {
+    "ok": true,
+    "issues": []
+  },
+  "prose_hard": true,
+  "gate_hard": true,
+  "r04": {}
+}

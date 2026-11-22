@@ -72,6 +72,14 @@ def to_spec(chart: Dict[str, Any]) -> Optional[dict]:
         return {"type": "line", "points": chart["points"], **_design(chart, chart["points"])}
     if t == "range" and chart.get("rows"):
         return {"type": "range", "rows": chart["rows"], **_design(chart, chart["rows"])}
+    if t == "dumbbell":
+        rows = chart.get("rows") or []
+        if not rows:
+            return None
+        return {"type": "dumbbell",
+                "rows": [{"label": str(r.get("label", "")),
+                          "a": float(r.get("a", 0)), "b": float(r.get("b", 0))}
+                         for r in rows]}
     bars = (chart.get("bars") or chart.get("vbars")
             or chart.get("items") or chart.get("points"))
     if t in _ITEMS_TYPES:

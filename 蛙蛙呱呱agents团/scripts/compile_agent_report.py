@@ -51,9 +51,38 @@ def _hash(obj: Any) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
 
 
-def build_pack(claims: Dict[str, Any]) -> Dict[str, Any]:
+def _attach_dims(nums: List[Dict[str, Any]], raw_rows: List[Dict[str, Any]]) -> Dict[str, int]:
+    """把 raw.rows 的维度（entity/scope/segment/value_base）join 回 evidence_pack 数字。
+
+    S2：raw（collect 产、有 entity/period）与 evidence_pack（原样拷贝 claims.numbers）
+    共享主键 number_id，但两座岛没接。这里用 number_id 补回维度，不新增 schema。
+    返回统计：{attached, missing, with_entity}。
+    """
+    idx = {str(r.get("number_id")): r for r in raw_rows if r.get("number_id")}
+    attached = with_entity = 0
+    for n in nums:
+        row = idx.get(str(n.get("id")))
+        if not row:
+            n["dims_missing"] = True
+            continue
+        attached += 1
+        for k in ("entity", "entity_type", "scope", "segment", "value_base"):
+            v = row.get(k)
+            if v not in (None, ""):
+                n[k] = v
+        if row.get("entity") not in (None, ""):
+            with_entity += 1
+    return {"attached": attached, "missing": len(nums) - attached,
+            "with_entity": with_entity}
+
+
+def build_pack(claims: Dict[str, Any],
+               raw_rows: List[Dict[str, Any]] | None = None) -> Dict[str, Any]:
     """证据包：数字 + 来源。来源按文件聚合，供报告的「记录层」表使用。"""
     nums = claims.get("numbers") or []
+    dims = {}
+    if raw_rows:
+        dims = _attach_dims(nums, raw_rows)
     srcs = claims.get("sources") or []
     counts: Dict[str, int] = {}
     for n in nums:
@@ -77,6 +106,7 @@ def build_pack(claims: Dict[str, Any]) -> Dict[str, Any]:
         "meta": claims.get("meta") or {},
         "numbers": nums,
         "sources": sources,
+        "dims": dims,
         "counts": {"numbers": len(nums), "sources": len(sources),
                    "files": len(sources)},
     }
@@ -208,6 +238,19 @@ def main(argv: List[str] | None = None) -> int:
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
 
+    # S2 接桥：从 raw.json 加载 rows，用 number_id join 回 evidence_pack（补 entity/scope）
+    raw_rows: List[Dict[str, Any]] = []
+    raw_path = (claims.get("raw") or {}).get("paths", {}).get("raw.json")
+    if not raw_path:
+        cand = Path(a.claims).resolve().parent.parent / "raw.json"
+        raw_path = str(cand) if cand.exists() else ""
+    if raw_path:
+        try:
+            raw_doc = json.loads(Path(raw_path).read_text(encoding="utf-8-sig"))
+            raw_rows = raw_doc.get("rows") or []
+        except (OSError, json.JSONDecodeError):
+            raw_rows = []
+
     # 每节 11 字段硬校验：缺字段不编译（REPORT-FLOW §0.4）
     spec_issues = check_11_fields(claims)
     if spec_issues:
@@ -233,7 +276,7 @@ def main(argv: List[str] | None = None) -> int:
                          ensure_ascii=False, indent=2))
         return 2
 
-    pack = build_pack(claims)
+    pack = build_pack(claims, raw_rows)
     draft = build_draft(claims)
     (out / "evidence_pack.json").write_text(
         json.dumps(pack, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -242,6 +285,7 @@ def main(argv: List[str] | None = None) -> int:
     print(json.dumps({"ok": True, "numbers": len(pack["numbers"]),
                       "sources": len(pack["sources"]),
                       "sections": len(draft["sections"]),
+                      "dims": pack.get("dims", {}),
                       "consistency": cons["ok"],
                       "out": str(out)}, ensure_ascii=False))
     return 0

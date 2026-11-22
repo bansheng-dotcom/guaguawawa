@@ -1,0 +1,27 @@
+# configs/gates.yaml —— 出口闸阈值与存量豁免
+# G1 口径：cells_claims.audit_cards 的 problems/cells 密度
+# G2 台账：golden corpus 的 content_hash 一致性
+# G3 图表：chart.type 在 charts_pro 注册表（relation 白名单在 S3 接入）
+# 豁免：存量项目写 reason + until，过期自动失效
+schema: dsh.gates/v1
+mode: warn          # warn|block —— S1 先 warn，影子验证后切 block
+
+gates:
+  caliber:
+    threshold: 0.2            # problems / cells
+    impl: core.cells_claims.audit_cards
+  content:
+    golden_corpus: baselines/golden_corpus.json
+    tool: scripts/check_content.py
+  chart:
+    registry: core.report_theme.charts_pro.spec.RENDERERS
+
+waivers:
+  "呼包鄂蔬菜价格分析_2026-11-22":
+    reason: "存量报告；口径缺陷从下一份新报告起按 0.2 执行"
+    until: "2026-12-31"
+    caliber: {reason: "存量 89/112，新报告从严"}
+  "小码女装调研_flow_2026-11-21":
+    reason: "存量报告；同上"
+    until: "2026-12-31"
+    caliber: {reason: "存量，新报告从严"}

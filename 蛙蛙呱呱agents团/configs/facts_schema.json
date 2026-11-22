@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dsh.facts_authoring/v1",
+  "title": "声明式作者格式（替换 facts.py）",
+  "description": "作者只交事实+问题+大纲；系统做校验/文案/选型/排版。parse-time 校验用本 schema。",
+  "type": "object",
+  "required": ["schema", "meta", "facts", "sections"],
+  "properties": {
+    "schema": {"const": "dsh.facts_authoring/v1"},
+    "meta": {
+      "type": "object",
+      "required": ["title", "audience"],
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "subtitle": {"type": "string"},
+        "standfirst": {"type": "string"},
+        "audience": {"type": "string", "minLength": 1},
+        "one_thing": {"type": "string"}
+      }
+    },
+    "facts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "metric", "value", "unit"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Za-z0-9_:.-]+$"},
+          "metric": {"type": "string", "minLength": 1},
+          "entity": {"type": "string"},
+          "period": {"type": "string"},
+          "value": {"type": "number"},
+          "unit": {"type": "string", "minLength": 1},
+          "source": {"type": "string"},
+          "derived_from": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["title", "question", "outline"],
+        "properties": {
+          "title": {"type": "string", "minLength": 1},
+          "question": {"type": "string", "minLength": 1},
+          "outline": {"type": "string", "description": "一句话论证意图，文案据此生成"},
+          "actions": {"type": "array", "items": {"type": "string"}},
+          "boundary": {"type": "string"},
+          "falsifier": {"type": "string"},
+          "chart": {
+            "type": "object",
+            "properties": {
+              "relation": {
+                "type": "string",
+                "enum": ["deviation", "correlation", "ranking", "distribution",
+                         "change_over_time", "composition", "magnitude",
+                         "spatial", "flow"],
+                "description": "可选：缺省由 question 推断"
+              },
+              "chosen": {"type": "string", "description": "可选：缺省由候选面板选定"},
+              "data_refs": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    }
+  }
+}

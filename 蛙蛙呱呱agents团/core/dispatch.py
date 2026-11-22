@@ -191,7 +191,7 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dic
             "",
             "- **每条解读必须带 `refs`**（指向本卡 numbers）——没有 refs 的数字视为编的",
             "- **每条解读 ≤400 字**：长论证拆成多条解读，别写成一堵墙",
-            "- **每节必须有 `chart`**（type/title/source/refs + bars 或 points）；确实画不了写 `chart_skip_reason`",
+            "- **每节必须有 `chart`**（type/title/source/refs + bars 或 points + `relation`/`intent`/`why_this_chart`）；`relation` 从 deviation/correlation/ranking/distribution/change_over_time/composition/magnitude/spatial/flow 九类里选一个，`why_this_chart` 写一句「这张图编码了本节要回答的比较」；确实画不了写 `chart_skip_reason`",
             "- **机制结论必须有传导链**（≥2 个度量 + 方向），只有相关性就写进 `hypotheses`",
             "- sections[].title 必须带数字、带 falsifier、带 boundary",
             "- 有格子表的（见文末「维度网格」）按 `cells[]` 交：cell_id/value/unit/period/source_file",

@@ -558,6 +558,21 @@ def cmd_run_line(args) -> int:
         print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
                          ensure_ascii=False))
         return 2
+    # S5: gate (4 gates). block mode fails report; warn mode records only.
+    if res.get("ok") and getattr(args, "dir", None):
+        _contract = _P(args.out) / "contract.json"
+        if _contract.exists():
+            import subprocess as _sp
+            _gate = _P(__file__).resolve().parent.parent / "scripts" / "check_gates.py"
+            _gp = _sp.run([sys.executable, str(_gate), "--project", str(args.dir), "--report", str(_contract)], capture_output=True, text=True, encoding="utf-8", errors="replace")
+            try:
+                _gres = json.loads(_gp.stdout or "{}")
+                if not _gres.get("ok") and _gres.get("mode") == "block":
+                    res = {**res, "ok": False, "gate": _gres}
+                elif not _gres.get("ok"):
+                    res = {**res, "gate_warn": _gres}
+            except json.JSONDecodeError:
+                pass
     print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
     return 0 if res.get("ok") else 1
 

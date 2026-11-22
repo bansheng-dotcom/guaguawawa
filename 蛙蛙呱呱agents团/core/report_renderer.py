@@ -235,7 +235,7 @@ def _validate_ext_chart(ch: Dict[str, Any], i: int) -> List[str]:
     elif t in ("dot", "lollipop", "waffle", "treemap", "diverging"):
         items_need("items", "label", "value")
     elif t == "dumbbell":
-        items_need("items", "label", "a", "b")
+        items_need("rows", "label", "a", "b")
     elif t == "bubble":
         items_need("points", "x", "y", "size")
     elif t == "heatmap":

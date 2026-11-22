@@ -830,8 +830,18 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
             # 面板查询产出的图（heatmap/line/share_bar…）不再二次选型
             if ch.get("origin") == "panel_query":
                 sec["chart"] = ch
+            elif ch.get("relation") or s.get("relation"):
+                # S4：作者声明了 relation → 关系选型（尊重作者选定，只验不选）。
+                # 校验结果挂 chart_validation，S5 门禁据此阻断非法图。
+                from core import chart_contract, chart_candidates
+                idx = {str(n.get("id")): n for n in (pack.get("numbers") or [])}
+                ctr = chart_contract.normalize(ch, s, idx)
+                val = chart_candidates.validate(ctr)
+                sec["chart"] = {**ch, "relation": ctr["relation"],
+                                "intent": ctr["intent"],
+                                "chart_validation": val}
             else:
-                # 语法选型：意图 × 形状 → 图型（2026-11-21，FT Visual Vocabulary + Data to Viz）
+                # 语法选型：意图 × 形状 → 图型（存量卡未声明 relation，S6 前保留）
                 built = chart_grammar.build(ch, s, pack, _chart_history)
                 if built:
                     keep = {k: ch.get(k) for k in ("title", "source", "refs",
@@ -839,6 +849,8 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
                     sec["chart"] = {**ch, **built, **keep}
                 else:
                     sec["chart"] = chart_chooser.choose(ch, s, _chart_history)
+                # v3.0 诊断：补 relation + 校验（只诊断不改型）
+                _attach_relation_validation(sec, s, pack)
         else:
             # 角色没交图：从本节 refs 的数字反推一张（图表覆盖率不再靠自觉）
             derived = _derive_chart_from_refs(s, pack)
@@ -1146,6 +1158,91 @@ def _clear_outputs(out_dir: str, md_name: str) -> None:
                 pass
 
 
+# relation 词汇 → charts_pro 渲染型名（与 report_theme/charts_pro/spec.py ALIASES 对齐）
+_RENDER_TYPE = {"stacked_bar": "stacked", "grouped_bar": "grouped",
+                "ridgeline": "ridge", "candlestick": "candle",
+                "symbol_map": "symbol", "streamgraph": "stream"}
+
+
+def _attach_relation_validation(sec: Dict[str, Any], s: Dict[str, Any],
+                                pack: Dict[str, Any]) -> None:
+    """v3.0 诊断 + 治疗（治疗默认关）：给存量卡（无显式 relation）补 relation + 图拟合校验。
+
+    诊断：挂 relation + chart_validation（不改型），默认开。
+    治疗：图型不合法时换 suggestion 首个 + 重建 payload——**默认关**（`GUAGUA_IR_TREAT=1` 开）。
+          实测结论：关键词推断 relation 不可靠，自动切换会把对的图改错，
+          所以治疗只做「作者显式要求时」的选择，正常路径是候选确认、不是自动切换。
+    """
+    try:
+        from core.report_ir import infer_relation
+        from core import chart_candidates
+        ch = sec.get("chart") or {}
+        idx = {str(n.get("id")): n for n in (pack.get("numbers") or [])}
+        refs = list(ch.get("refs") or s.get("refs") or [])
+        dims, seen = [], set()
+        for r in refs:
+            n = idx.get(str(r)) or {}
+            if n.get("entity") and "entity" not in seen:
+                seen.add("entity")
+                dims.append({"name": "entity", "type": "categorical"})
+            if n.get("period") and "period" not in seen:
+                seen.add("period")
+                dims.append({"name": "period", "type": "temporal"})
+        rel = infer_relation(str(s.get("question") or ""), dims)
+        val = chart_candidates.validate(
+            {"relation": rel, "chosen": str(ch.get("type") or ""),
+             "dims": dims, "data_refs": refs})
+        new_ch = {**ch, "relation": rel, "chart_validation": val}
+        # 治疗：图型不能表达关系 → 换 suggest 首个 + 重建 payload（默认关，作者显式开）
+        if os.environ.get("GUAGUA_IR_TREAT", "0") != "0" and not val.get("ok"):
+            from core import chart_payload
+            sug = val.get("suggest") or []
+            if sug:
+                t = _RENDER_TYPE.get(sug[0], sug[0])
+                facts = [idx.get(str(r)) for r in refs if str(r) in idx]
+                payload = chart_payload.build_payload(t, facts)
+                if payload:
+                    new_ch = {**new_ch, "type": t, **payload}
+        sec["chart"] = new_ch
+    except Exception:  # noqa: BLE001 诊断/治疗绝不影响主链路
+        pass
+
+
+def _shadow_ir_report(draft: Dict[str, Any], pack: Dict[str, Any], out_dir: str) -> None:
+    """S5b 影子侧：draft+pack → IR → 已解析模型，落盘对照，不改渲染输出。
+
+    这是「影子双渲染」的影子：在不动渲染器的前提下，证明语义管道能对
+    同一份 draft+pack 给出正确的图型判断（relation/chosen/validation）。
+    切换到 IR 渲染时，用 ir_shadow.json / ir_chart_report.json 做零回归对照。
+    """
+    try:
+        from core.ir_adapters import decision_to_ir
+        from core.semantic_pipeline import resolve as ir_resolve
+        ir, degraded = decision_to_ir(draft, pack)
+        resolved = ir_resolve(ir)
+        out = Path(out_dir)
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "ir_shadow.json").write_text(
+            json.dumps(resolved, ensure_ascii=False, indent=1), encoding="utf-8")
+        charts = [{
+            "index": i + 1,
+            "title": (s.get("title") or "")[:24],
+            "relation": s["chart"].get("relation"),
+            "chosen": s["chart"].get("chosen"),
+            "ok": (s["chart"].get("chart_validation") or {}).get("ok"),
+            "reason": (s["chart"].get("chart_validation") or {}).get("reason"),
+            "suggest": (s["chart"].get("chart_validation") or {}).get("suggest"),
+        } for i, s in enumerate(resolved.get("sections") or [])]
+        (out / "ir_chart_report.json").write_text(
+            json.dumps({"ok": resolved.get("ok"),
+                        "schema_errors": resolved.get("schema_errors"),
+                        "degraded": degraded,
+                        "charts": charts}, ensure_ascii=False, indent=1),
+            encoding="utf-8")
+    except Exception:  # noqa: BLE001 影子绝不影响主链路
+        pass
+
+
 def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         roles: Optional[List[str]] = None, draft: Optional[Dict[str, Any]] = None,
         theme: str = DEFAULT_THEME, pdf: bool = False,
@@ -1185,6 +1282,7 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
                                                mode=quote_mode)
         chk = check_sections(draft, pack, out_dir)
         contract = build_sections_contract(draft, pack, theme, layout)
+        _shadow_ir_report(draft, pack, out_dir)  # S5b 影子：只落盘，不改渲染
         from core.report_kernel import specs as report_specs
         spec_res = ({"skipped": True} if os.environ.get("GUAGUA_SPEC_INFER", "1") == "0"
                     else report_specs.apply_specs(contract))
