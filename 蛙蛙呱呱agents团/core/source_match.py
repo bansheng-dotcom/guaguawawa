@@ -150,9 +150,13 @@ def match(demand: Dict[str, Any], source: Dict[str, Any],
     history_ok = (not needs_series) or (
         str(source.get("history") or "") == "historical")
 
-    if meas["how"] == "missing" and not dims:
+    # 三态：
+    #   none     度量算不出来（没有源字段能算出这个指标）→ 无数据
+    #   partial  度量能算，但缺维度 / 只能采当下 / 低置信派生
+    #   full     都能算
+    if meas["how"] == "missing" or (dims and all(d["how"] == "missing" for d in dims)):
         status = "none"
-    elif missing or meas["how"] == "missing" or not history_ok:
+    elif missing or not history_ok:
         status = "partial"
     else:
         status = "full"

@@ -140,6 +140,12 @@ def check_11_fields(claims: Dict[str, Any]) -> List[str]:
     issues: List[str] = []
     for i, s in enumerate(claims.get("sections") or [], 1):
         tag = str(s.get("title") or f"第{i}节")[:24]
+        # 降级节（FEASIBILITY-SOP v5.0）：没有数字和论证，只有标题 + why。
+        # 它不参与 11 字段校验，但**必须**写 why，否则读者不知道缺什么。
+        if s.get("unavailable"):
+            if not str(s.get("why") or "").strip():
+                issues.append(f"{tag}: 降级节缺 why（必须写缺口原因）")
+            continue
         reads = [r for r in (s.get("reading") or []) if isinstance(r, dict)]
         strong = " ".join(str(r.get("strong") or "") for r in reads)
         text = " ".join(str(r.get("text") or "") for r in reads)
@@ -186,6 +192,11 @@ def build_draft(claims: Dict[str, Any]) -> Dict[str, Any]:
                   "role", "tier", "action", "relation"):
             if s.get(k):
                 sec[k] = s[k]
+        # 降级节要透传：否则下游把它当普通节去校验数字，必然失败
+        if s.get("unavailable"):
+            sec["unavailable"] = True
+            sec["why"] = str(s.get("why") or "")
+            sec["tried"] = list(s.get("tried") or [])
         sections.append(sec)
 
     # 指标带：优先用 agent 给的，否则由 report_editorial 从 refs 指到的数字记录里取

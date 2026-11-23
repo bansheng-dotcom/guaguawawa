@@ -25,6 +25,12 @@
 拆卡线每步的硬门：brief 未签不拆卡；DoR 未过不发卡；没有 nonce/签名的卡不收；
 `collect` 默认 `--min-sources 50`（唯一 URL）+ 逐条回抓；`run-line --claims` 只接受收卡产物。
 
+**收卡前先探测（FEASIBILITY-SOP v5.0）**：`collect` 会自动跑一次 `core/card_probe`，
+算清每个格子「要采什么 / 有没有源 / 采到质量够不够」，结果写进
+`plan/derivation.json` 与 `merged.probe`。默认 `report` 模式**只记录不改输出**；
+`GUAGUA_PROBE=degrade` 时才把无数据的判断补成「（无数据）…」节保留在报告里。
+**不砍格子**——拆卡是穷尽的，缺口要可见。
+
 **A 路是快捷路，不是默认**：`report "问题" --dir <有 CSV/JSON 的项目> --out <目录>` 走
 `decision_report`，不经过 `preflight / issued / nonce`。它只适合「已有干净数据、不需要外部取证」；
 一旦结论依赖外部来源，必须回拆卡线。
@@ -96,7 +102,7 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 | `report clarify --dir <项目> --answer C1=…` | 把会话里问到的答案写回并确认 |
 | `report brief --dir <项目> --plan [--confirm]` | 出「问题→角色」映射表；`--confirm` 确认即发卡（带 nonce） |
 | `report exchange --dir <项目>` | 卡间协商：路由 needs → INBOX，出闭环台账 `exchange.md` |
-| `report collect --dir … --out …` | 收卡：非卡 nonce/执行者校验 + 来源/覆盖门禁 + 合并 |
+| `report collect --dir … --out …` | 收卡：**先跑可行性探测** + 非卡 nonce/执行者校验 + 来源/覆盖门禁 + 合并 |
 | `report attest --out <项目产出>` | 交付口径：门禁/来源/核验/降级（从 manifest 回填） |
 | `report check --html <报告>` | 验一份成品（九条 flow 门禁 + 深度门禁） |
 | `report charts` | 48 型图表能力盘点 |

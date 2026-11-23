@@ -355,9 +355,16 @@ def _fill_reading_refs(draft: Dict[str, Any]) -> None:
 
 def check_sections(draft: Dict[str, Any], pack: Dict[str, Any],
                    out_dir: Optional[str] = None) -> Dict[str, Any]:
-    """章节级校验：每节标题带数字、refs 可解释、图带来源与数据。"""
+    """章节级校验：每节标题带数字、refs 可解释、图带来源与数据。
+
+    降级节（unavailable）**不参与数字校验**——它本来就没有数字；
+    但它必须带 `why`（缺口原因），否则读者不知道缺什么。
+    """
     _fill_reading_refs(draft)
-    payload = {"draft": draft, "pack": pack}
+    all_secs = list(draft.get("sections") or [])
+    normal = [s for s in all_secs if not s.get("unavailable")]
+    unavail = [s for s in all_secs if s.get("unavailable")]
+    payload = {"draft": {**draft, "sections": normal}, "pack": pack}
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False,
                                      encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False)
@@ -369,6 +376,33 @@ def check_sections(draft: Dict[str, Any], pack: Dict[str, Any],
             os.unlink(tmp)
         except OSError:
             pass
+    if unavail:
+        # r01 的逐节结果在 checks[sections_valid].sections 里（顶层 sections 是计数）
+        rows: List[Dict[str, Any]] = []
+        for c in (out.get("checks") or []):
+            if c.get("id") == "sections_valid":
+                rows = c.setdefault("sections", [])
+                break
+        bad = 0
+        for s in unavail:
+            _why = str(s.get("why") or "").strip()
+            ok = bool(_why)
+            if not ok:
+                bad += 1
+            rows.append({
+                "index": 0,
+                "title": str(s.get("title") or ""),
+                "ok": ok,
+                "unavailable": True,
+                "why": _why,
+                "errors": ([] if ok else ["降级节缺 why（必须写缺口原因）"]),
+            })
+        out = {**out, "unavailable_sections": len(unavail),
+               "unavailable_without_why": bad}
+        if bad:
+            out["ok"] = False
+            out.setdefault("errors", []).append(
+                "降级节缺 why：%d 节（必须写缺口原因）" % bad)
     if out_dir:
         _write_json(os.path.join(out_dir, "section_check.json"), out)
     if not out.get("ok"):
@@ -816,6 +850,14 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
                     reading.append({"strong": "", "text": chunk})
         if s.get("boundary"):
             reading.append({"strong": "本节边界　", "text": str(s["boundary"])})
+        # 降级节：把缺口原因写成一条解读，渲染器不用改就能显示出来
+        if s.get("unavailable"):
+            _tried = "、".join(str(x) for x in (s.get("tried") or []) if str(x)) or "无"
+            reading.append({
+                "strong": "无数据　",
+                "text": "本节当前无数据支撑：%s（已尝试来源：%s）"
+                        % (str(s.get("why") or "未知原因"), _tried),
+            })
         sec: Dict[str, Any] = {
             "index": i, "title": _short_title(s["title"]),
             "full_title": str(s["title"]),
@@ -827,6 +869,10 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
             "headline_ref": str(s.get("headline_ref") or ""),
             "action": str(s.get("action") or ""),
             "relation": str(s.get("relation") or (s.get("encoding") or {}).get("relation") or ""),
+            # 降级节（FEASIBILITY-SOP v5.0）：没有数字，只有标题 + 原因
+            "unavailable": bool(s.get("unavailable")),
+            "why": str(s.get("why") or ""),
+            "tried": list(s.get("tried") or []),
         }
         short = _short_verdict(reading)
         # 结论框用标题的完整判断句；不要再用正文首句，否则和「事实」块重复。

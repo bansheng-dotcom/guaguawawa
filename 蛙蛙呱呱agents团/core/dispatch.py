@@ -544,6 +544,26 @@ def collect(out_dir: str, require_all: bool = False,
     merged["boundaries"] = list(dict.fromkeys(
         merged["boundaries"] + [f"{m}" for m in merged["missing"]]))
 
+    # ---- 降级（FEASIBILITY-SOP v5.0）：无数据的需求补成「无数据」节 ---------- #
+    # 不能砍：拆卡是穷尽的，砍掉读者就不知道缺了什么。
+    # 只在 degrade 模式改输出；report 模式只记进 gaps，不动报告。
+    if (probe_res or {}).get("mode") == "degrade":
+        for u in (probe_res or {}).get("unavailable_demands") or []:
+            merged["sections"].append({
+                "title": str(u.get("title") or ""),
+                "unavailable": True,
+                "why": str(u.get("why") or ""),
+                "tried": list(u.get("tried") or []),
+                "refs": [], "reading": [], "action": "",
+                "answers": [],
+            })
+            merged["missing"].append(
+                "无数据：%s（%s）" % (u.get("measure"), u.get("why")))
+    else:
+        for u in (probe_res or {}).get("unavailable_demands") or []:
+            merged["missing"].append(
+                "无数据（未降级）：%s（%s）" % (u.get("measure"), u.get("why")))
+
     # ---- 问题对账（2026-11-20）：每一问有没有一节认领 ---------------------- #
     # 没有这一步，"报告回答了哪几问"只能靠人肉比对；用户是在读完 12 节之后
     # 才发现品牌清单/爆品清单没人答。

@@ -112,6 +112,29 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | `coverage_cli.py` | 98 | `plan→confirm→preflight→audit` | 【CLI】 |
 | `panel.py` | 89 | 分析 = 面板上的运算 | 【S3】 |
 
+## 4.1 采集层（v3 粒度 / v4 推导 / v5 降级）
+
+> 业务无关：代码只认 grain 与目录，业务词只活在项目目录的 YAML 里。
+
+| 文件 | 干什么 | 角色 |
+|---|---|---|
+| `source_profile.py` | 源画像：原子粒度 / 字段 / 历史可得性 | 【S3】采集 |
+| `grain.py` | 粒度运算与校验（G-A~G-E）+ 安全算术 + derive DSL（field/substr/token/split/bucket/calc） | 【S3】采集 |
+| `collection_spec.py` | 采集规格（源+rollup+claim）+ `preview`/`quality` 样本验证 | 【S3】采集 |
+| `collection_gen.py` | 从「需求+匹配」生成候选规格（`generated` 标记，手改不覆盖） | 【S3】采集 |
+| `demand.py` | 网格 → 采集需求（度量 × 粒度 × 维度） | 【拆卡→S3】 |
+| `source_match.py` | 需求 × 源 匹配（DERIVE/MEASURE 目录，三态 full/partial/none） | 【拆卡→S3】 |
+| `card_probe.py` | **拆卡后**可行性测试 + 降级（三态 + tried/why） | 【拆卡→S3】 |
+| `collectors/base.py` | 采集器协议与注册表 | 【S3】采集 |
+| `collectors/csv_manual.py` | 手工 CSV 采集器 | 【S3】采集 |
+| `collectors/web_search.py` | 网页采集器（urllib + XPath，0 行必报错） | 【S3】采集 |
+| `collectors/openfoodfacts.py` | Open Food Facts API 采集器 | 【S3】采集 |
+| `dataset.py` | 数据集 schema（`dsh.dataset/v1`） | 【S3】 |
+| `cell_claim.py` | 判断格 schema（`dsh.cell_claim/v1`） | 【S3】 |
+| `drill.py` | 纵向钻取（v2）+ 从 rollup 推导（v3） | 【拆卡→S3】 |
+| `dataset_gates.py` | G1'/G3'/G4'/G5' + 派生 G-ROLLUP / G-PREVIEW（软） | 【S6】 |
+| `dataset_query.py` | 数据集查询 + 出图（hbar/line/stacked_bar） | 【S5】 |
+
 ## 5. 拆卡与发卡（brief → collect）
 
 | 文件 | 行 | 干什么 | 角色 |

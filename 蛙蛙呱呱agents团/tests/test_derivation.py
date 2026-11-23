@@ -108,9 +108,10 @@ def test_match_partial_when_snapshot_only():
 
 
 def test_match_none_when_measure_missing():
+    # 度量算不出来 = 无数据（status=none），不能在报告里编数字
     d = {"measure": "gross_margin", "grain": ["brand"], "needs_series": False}
     m = sm.match(d, _source())
-    assert m["status"] == "partial"  # 维度可派生但度量算不出
+    assert m["status"] == "none"
     assert m["measure_plan"]["how"] == "missing"
 
 

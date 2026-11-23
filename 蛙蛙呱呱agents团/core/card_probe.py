@@ -138,6 +138,23 @@ def probe(project: str, mode: str = "report",
         (project / "plan" / "grid.json").write_text(
             json.dumps(grid, ensure_ascii=False, indent=1), encoding="utf-8")
 
+    # 需求级：判为 none 的，补成「无数据」节（报告里保留，标 unavailable）
+    unavailable_demands: List[Dict[str, Any]] = []
+    for d in dd["demands"]:
+        m = best.get(str(d["measure"])) or {}
+        if str(m.get("status") or "") != "none" and m:
+            continue
+        if not m:
+            continue
+        unavailable_demands.append({
+            "measure": str(d["measure"]),
+            "title": "（无数据）%s：%s" % (d["measure"], "×".join(d["grain"])),
+            "grain": d["grain"],
+            "cells": list(d.get("cells") or []),
+            "why": "；".join(m.get("notes") or []) or "没有源能提供",
+            "tried": [str(m.get("source") or "")],
+        })
+
     out = {
         "schema": SCHEMA,
         "mode": mode,
@@ -154,6 +171,7 @@ def probe(project: str, mode: str = "report",
         "quality": {"ok": (qt or {}).get("ok"),
                     "problems": (qt or {}).get("problems")},
         "cell_state": cell_state,
+        "unavailable_demands": unavailable_demands,
         "degraded": changed,
         "full": sum(1 for v in cell_state.values() if v["collectable"] == "full"),
         "partial": sum(1 for v in cell_state.values() if v["collectable"] == "partial"),
