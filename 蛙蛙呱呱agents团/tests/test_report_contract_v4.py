@@ -142,9 +142,10 @@ def test_structure_profiles_are_module_sets():
 
 
 def test_first_line_indent_is_typographic():
-    # 2026-11-23：kit.py 已随 `flow --project` 退役；首行缩进只在 consulting.css 校验
-    p = ROOT / "core" / "report_theme" / "consulting.css"
-    assert "text-indent:2em" in p.read_text(encoding="utf-8")
+    # 2026-11-23：kit.py 是「项目代码放项目文件夹」路径的页面构造器，已恢复
+    for p in (ROOT / "core" / "report_theme" / "kit.py",
+              ROOT / "core" / "report_theme" / "consulting.css"):
+        assert "text-indent:2em" in p.read_text(encoding="utf-8")
 
 
 def _mk_claim(i: int, rank: int, headline: str = "") -> dict:

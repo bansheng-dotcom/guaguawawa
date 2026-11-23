@@ -257,17 +257,23 @@ shape_ok_ratio = 同 metric ≥3 行的指标数 / 总指标数
 | 门禁串一条：L1→L2→L3→L4 | 门禁各自为政 | 一个入口出全部结果 |
 | content_hash 作最终闸 | 改 content_hash 口径 | 零回归可验 |
 
-### 5.2 结论（2026-11-23 已定）
+### 5.2 结论（2026-11-23，已更正）
 
-**统一线渲染器 = `core/report_renderer`。** 依据：
-- `docs/REPORT-LINES.md` 已写明它是「唯一 HTML 渲染器」；
-- 两个分支（拆卡 / 喂数据）已经全走 `report_flow → report_renderer`；
-- `kit` 的封面/目录/摘要在 `report_theme/pages.py` 已有。
+**两条路径不是"二选一"，是分工：**
 
-**`kit` + `flow --project` 标为 legacy（不删，可逆）**：
-- `core/flow_report.py` / `core/report_theme/kit.py` 已加 `.. deprecated::` 说明；
-- 迁移评估见 `docs/RENDERER-DECISION.md`（结论：迁移成本高且会丢 symbol/network，不如退役）；
-- 退役动作等业务确认后再做（删 kit + 更新 REPORT-LINES）。
+| 路径 | 管什么 | 项目代码放哪 |
+|---|---|---|
+| `report run-line`（拆卡 `--claims` / 喂数据 `--dir`） | 项目自带**数据** | 不需要项目代码 |
+| `report flow --project`（facts.py/charts.py） | 项目自带**代码** | `projects/<项目>/` 三个 .py |
+
+**为什么保留 `flow --project`**：它是「项目代码不进入 `core/`」的唯一实现——
+`core/flow_report.py` 从 `--project` 目录加载 `facts.py`/`charts.py`/`prose_specs.py`，
+`core/` 保持零项目内容。2026-11-23 曾误判为"重复渲染器"并删除，导致项目代码
+没有家、只能往 `core/` 塞；已恢复。
+
+**真正的防复发是两条一起用**：
+1. 正向：项目代码有家（`flow --project` 加载项目目录的 .py）；
+2. 反向：`core/` 有门（文件白名单 + 业务词基线棘轮）。
 
 ---
 

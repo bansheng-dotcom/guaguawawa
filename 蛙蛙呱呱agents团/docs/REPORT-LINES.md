@@ -102,10 +102,11 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 | `report charts` | 48 型图表能力盘点 |
 | `report capabilities` / `plan` / `gaps` | 诊断（不产报告） |
 
-> **已退役（2026-11-23）**：`report flow --project`（facts.py 路径）连同
-> `core/flow_report.py`、`core/report_theme/kit.py` 一起退役。统一线只保留两个分支
-> （拆卡 `--claims` / 喂数据 `--dir`），HTML 渲染器只有 `core/report_renderer`。
-> 依据与成本对比见 `docs/RENDERER-DECISION.md`。
+> **项目代码放项目文件夹（2026-11-23 更正）**：`report flow --project <项目目录>` 是
+> 「项目自带 `facts.py` / `charts.py` / `prose_specs.py`」的加载器——项目代码落在
+> `projects/<项目>/`（或 `workspace/<项目>/`），`core/` 只提供引擎、不含任何项目内容。
+> 这跟 `run-line`（两个分支：拆卡 `--claims` / 喂数据 `--dir`）是**互补关系**：
+> 前者管「项目自带代码」，后者管「项目自带数据」。
 
 拆卡与防代写的规则见 `docs/REPORT-DISPATCH.md`。
 

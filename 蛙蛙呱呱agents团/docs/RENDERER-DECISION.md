@@ -1,5 +1,14 @@
 # 渲染器二选一：决策文档（2026-11-23）
 
+> ⚠️ **本文档结论已更正（2026-11-23 晚）**：原结论"退役 kit + flow --project"是**错的**。
+> 真实情况是：`flow --project` 不是"第二个渲染器"，而是**项目代码的宿主**——
+> `core/flow_report.py` 从 `--project` 目录加载 `facts.py` / `charts.py` /
+> `prose_specs.py`，让项目代码留在项目文件夹、不进 `core/`。删掉它等于
+> **拆了项目代码的家**，只会逼人把代码塞回 `core/`。
+>
+> 正确处理：**两条路径是分工（run-line 管项目数据 / flow --project 管项目代码），
+> 都保留。** 下文保留为历史分析记录，结论见 §7。
+
 > 对应 MASTER-UPGRADE-SOP S6。这一份只做"摆证据 + 给建议"，最终由你拍板。
 
 ---
@@ -13,9 +22,12 @@
 | `report_theme/pages.py` | 730 | **共享底座**：`_cover` / `_summary` / `_toc` / `_page` / `_reading_blocks` |
 | `report_theme/flow.py` | 161 | flow 版式：`flowify` / `render_flow` |
 | `report_renderer.py` | 1599 | run-line 编排：`validate_contract` + `render_chart` + `render`，**用 pages.py** |
-| `kit.py` | 648 | flow --project 编排：**自己又写了一遍** `cover / summary_page / toc_page / section_page / appendix_page / back_page` |
+| `kit.py` | 648 | flow --project 编排：`cover / summary_page / toc_page / section_page / action_page / appendix_page / back_page` |
+| `flow_report.py` | 245 | **项目代码加载器**：从 `--project` 目录加载 `facts.py` / `charts.py` / `prose_specs.py` |
 
-**结论：`kit` 的"杂志页能力"在 `pages.py` 里已经有一份，是重复实现。**
+**更正：`kit` 不是纯重复**——`pages.py` 有 cover/summary/toc，但 `kit` 还多
+`action_page` / `appendix_page` / `back_page`。更要紧的是 `flow_report.py`：
+它是把项目代码挡在 `core/` 之外的唯一机制。
 
 ---
 
@@ -120,3 +132,26 @@
 - 不要 → 直接退役 `flow --project` + `kit`，统一线只剩两个分支（拆卡 + 喂数据），`report_renderer` 是唯一渲染器。
 
 回答这一个问题，S6 就能收尾。
+
+---
+
+## 7. 最终结论（2026-11-23 晚，已更正）
+
+**两条路径都保留，分工明确：**
+
+| 路径 | 管什么 | 项目代码放哪 |
+|---|---|---|
+| `report run-line --claims` | 项目自带**判断卡** | 不需要 |
+| `report run-line --dir` | 项目自带**数据** | 不需要 |
+| `report flow --project` | 项目自带**代码** | `projects/<项目>/{facts,charts,prose_specs}.py` |
+
+**为什么不能删 `flow --project`**：它是「项目代码留在项目文件夹」的唯一加载器。
+删掉它，项目要定制图/定制方法就只能改 `core/` → 正是历史上 `core/` 被业务内容
+污染的原因。**先有家，才谈得上关门。**
+
+**`core/` 的防线（保留）**：
+- `configs/core_files.json` 文件白名单（新增模块必须显式加白）；
+- `configs/business_terms_baseline.json` 业务词基线棘轮（新增命中即拦）。
+
+**`kit` 与 `pages.py` 的关系（更正）**：`kit` 有 `action_page` / `appendix_page` /
+`back_page`，`pages.py` 没有；它不是纯重复，保留。
