@@ -65,6 +65,42 @@ def _baseline_path():
     return os.path.join(ROOT, "configs", "business_terms_baseline.json")
 
 
+def _whitelist_path():
+    return os.path.join(ROOT, "configs", "core_files.json")
+
+
+def _core_files():
+    """core/ 下全部 .py（相对路径，正斜杠），samples_data 除外。"""
+    out = []
+    for dp, dns, fns in os.walk(CORE):
+        dns[:] = [d for d in dns if d not in ("__pycache__",)]
+        for fn in fns:
+            if not fn.endswith(".py"):
+                continue
+            rel = os.path.relpath(os.path.join(dp, fn), CORE).replace("\\", "/")
+            if "samples_data" in rel:
+                continue
+            out.append(rel)
+    return sorted(out)
+
+
+def _scan_new_files():
+    """白名单外的新文件——这才是拦「新业务以新模块进 core」的唯一手段。
+
+    业务词黑名单只能认已知词；新业务一定带来新词。所以对 core/ 加文件白名单：
+    新增一个模块就要显式改 configs/core_files.json（等于强制人工过目一次）。
+    """
+    cur = set(_core_files())
+    if not os.path.isfile(_whitelist_path()):
+        return sorted(cur), set(cur)   # 没有白名单时只报告，不拦
+    try:
+        import json as _json
+        allow = set(_json.loads(open(_whitelist_path(), encoding="utf-8").read()) or [])
+    except Exception:  # noqa: BLE001
+        return sorted(cur), set(cur)
+    return sorted(cur - allow), allow
+
+
 def _counts(code_hits):
     from collections import Counter
     return dict(Counter(h[0] for h in code_hits))
@@ -78,6 +114,8 @@ def main() -> int:
                     help="有新增 CODE 命中（超过基线）则退出码 1")
     ap.add_argument("--write-baseline", action="store_true",
                     help="把当前命中写成基线（棘轮只拦新增）")
+    ap.add_argument("--write-whitelist", action="store_true",
+                    help="把 core/ 当前文件列表写进白名单（新增模块须显式加白）")
     args = ap.parse_args()
 
     hits = scan()
@@ -114,7 +152,23 @@ def main() -> int:
         print("基线为空：当前 0 需清理（任何新增都会被拦）")
     else:
         print("提示：没有基线，先跑 --write-baseline 建立棘轮")
-    return 1 if (args.check and new_debt) else 0
+
+    # core/ 文件白名单：新增模块必须显式加白（防「新业务以新模块进 core」）
+    new_files, allow = _scan_new_files()
+    if args.write_whitelist:
+        os.makedirs(os.path.dirname(_whitelist_path()), exist_ok=True)
+        open(_whitelist_path(), "w", encoding="utf-8").write(
+            json.dumps(_core_files(), ensure_ascii=False, indent=1))
+        print("白名单已写入:", _whitelist_path(), "|", len(_core_files()), "个文件")
+        return 0
+    if allow and new_files:
+        print("core/ 新增未加白文件 %d 个（须改 configs/core_files.json 过目）:" % len(new_files))
+        for f in new_files:
+            print("   NEW FILE", f)
+    else:
+        print("core/ 文件白名单：无新增（%d 个文件在册）" % len(allow))
+
+    return 1 if (args.check and (new_debt or (allow and new_files))) else 0
 
 
 if __name__ == "__main__":
