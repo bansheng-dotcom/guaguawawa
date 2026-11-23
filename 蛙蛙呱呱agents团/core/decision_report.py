@@ -304,10 +304,23 @@ def build(intent: str, project_dir: str, out_dir: str,
     draft_path = os.path.join(out_dir, "draft_sections.json")
     _json(draft_path, draft)
 
+    # 2026-11-23（A 项）：把「覆盖矩阵 + 饱和」接进主链路。
+    # 从 plan/grid.json + out_v3/cells_filled.json 派生 frame/plan/sources；
+    # 缺工件就跳过（不改变旧行为）。门禁默认软（记录不拦）。
+    _cov: Dict[str, Any] = {}
+    try:
+        from core import coverage_wire
+        _cov = coverage_wire.derive(project_dir)
+    except Exception:  # noqa: BLE001
+        _cov = {}
+    _cov_kw = ({"coverage_plan_data": _cov["plan"],
+                "task_frame_data": _cov["frame"],
+                "source_ledger_data": _cov["sources"]}
+               if _cov.get("ok") else {})
     res = report_flow.run(intent=intent, evidence=pack_path, draft=draft,
                           out_dir=out_dir, theme=theme, pdf=pdf,
                           quote_mode=quote_mode, layout=layout,
-                          prose_hard=prose_hard)
+                          prose_hard=prose_hard, **_cov_kw)
 
     # 6) 三层质检（v11 / P5）：证据 / 编辑 / 呈现，三层全过才放行。
     #    binding 与图契约是决策稿特有的两道，和三层并列，不互相替代。

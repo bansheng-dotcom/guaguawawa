@@ -109,10 +109,22 @@ def build(intent: str, project_dir: Optional[str] = None,
             "detected_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
         })
         draft_obj = json.loads(Path(draft_path).read_text(encoding="utf-8-sig"))
+        # 2026-11-23（A 项）：覆盖矩阵 + 饱和接进主链路（默认软门禁）
+        _cov: Dict[str, Any] = {}
+        try:
+            from core import coverage_wire
+            _cov = coverage_wire.derive(project_dir) if project_dir else {}
+        except Exception:  # noqa: BLE001
+            _cov = {}
+        _cov_kw = ({"coverage_plan_data": _cov["plan"],
+                    "task_frame_data": _cov["frame"],
+                    "source_ledger_data": _cov["sources"]}
+                   if _cov.get("ok") else {})
         res = report_flow.run(intent=intent, out_dir=out_dir, draft=draft_obj,
                               evidence=str(evidence_path), theme=theme, pdf=pdf,
                               quote_mode=quote_mode, layout=layout,
-                              prose_hard=prose_hard, gate_hard=gate_hard)
+                              prose_hard=prose_hard, gate_hard=gate_hard,
+                              **_cov_kw)
         res = dict(res)
         res["mode"] = "agent"
         res["generated_by"] = "core/report_line.py (agent draft)"

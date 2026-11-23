@@ -1353,7 +1353,15 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
                                     src_status, confirmation_data,
                                     _policy.load())
             if not cov_gate.get("ok"):
-                lay = list(lay) + [f"coverage_gate:{','.join(cov_gate.get('hard_fail') or [])}"]
+                msg = ("coverage_gate:"
+                       + ",".join(cov_gate.get("hard_fail") or []))
+                # 2026-11-23：默认**软门禁**——跑、记录、不拦。
+                # 覆盖矩阵刚接上线，先让它说真话；数据齐了再用
+                # GUAGUA_COVERAGE_HARD=1 升级为硬门禁。
+                if os.environ.get("GUAGUA_COVERAGE_HARD", "0") == "1":
+                    lay = list(lay) + [msg]
+                else:
+                    contract.setdefault("coverage_warnings", []).append(msg)
         ok = bool(chk.get("ok")) and not lay
         files: Dict[str, Any] = {}
         gate: Dict[str, Any] = {}

@@ -855,6 +855,48 @@ def arbitrate(pack: Dict[str, Any]) -> Dict[str, Any]:
     return {"conflicts": conflicts, "count": len(conflicts)}
 
 
+# 2026-11-23（B 项）：MECE 的「互斥」——原来只查「穷尽」（share 加总），
+# 完全不查同维内是否有重叠。这里补三类真会重复计数的情形：
+#   1) TOP-N 类聚合 + 个体（TOP5 与单个品牌必然重叠）；
+#   2) 同维同实体出现多格；
+#   3) 「合计/总计」与「长尾/其他」同时出现（一个是全量、一个是补集，加总会超）。
+_OVERLAP_WORDS = ("TOP", "top", "Top", "前五", "前十", "头部", "前3", "前5")
+# 2026-11-23 修正：只认「通用总量词」（白牌合计 是白牌总额，不是通用总量），
+# 避免把「白牌合计 + 品牌名」这种正确的互补关系误判为重叠。
+_TOTAL_EXACT = ("合计", "总计", "全部", "总和")
+_REST_WORDS = ("长尾", "其他", "剩余")
+
+
+def _mece_mutual(cells: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """互斥检查：同 (qid, 维度) 下的 share 格不能重叠。"""
+    issues: List[Dict[str, Any]] = []
+    for qid in sorted({c["qid"] for c in cells}):
+        for dim in DIMS:
+            sc = [c for c in cells if c["qid"] == qid and c["dim"] == dim
+                  and c["measure"] == "share"]
+            if len(sc) < 2:
+                continue
+            ents = [str(c.get("entity") or "") for c in sc]
+            dup = sorted({e for e in ents if ents.count(e) > 1})
+            if dup:
+                issues.append({"qid": qid, "dim": dim, "kind": "duplicate",
+                               "entities": dup[:3],
+                               "why": "同维同实体出现多格，share 会重复计数"})
+            top = [e for e in ents if any(w in e for w in _OVERLAP_WORDS)]
+            indiv = [e for e in ents if e not in top]
+            if top and indiv:
+                issues.append({"qid": qid, "dim": dim, "kind": "top_plus_individual",
+                               "entities": top[:2] + indiv[:2],
+                               "why": "TOP-N 聚合与个体同时出现，必然重叠"})
+            total = [e for e in ents if e in _TOTAL_EXACT]
+            rest = [e for e in ents if any(w in e for w in _REST_WORDS)]
+            if total and rest:
+                issues.append({"qid": qid, "dim": dim, "kind": "total_plus_rest",
+                               "entities": total[:2] + rest[:2],
+                               "why": "全量与补集同时出现，加总会超 100%"})
+    return issues
+
+
 def mece_check(cells: List[Dict[str, Any]]) -> Dict[str, Any]:
     out = []
     for qid in {c["qid"] for c in cells}:
@@ -867,7 +909,48 @@ def mece_check(cells: List[Dict[str, Any]]) -> Dict[str, Any]:
         s = sum(float(c["value"]) for c in shares)
         out.append({"qid": qid, "applicable": True, "ok": 88 <= s <= 112,
                     "sum": round(s, 2), "why": "构成需加总 88–112%"})
-    return {"items": out, "ok": all(x["ok"] for x in out)}
+    mutual = _mece_mutual(cells)
+    return {"items": out, "mutual": mutual,
+            "ok": all(x["ok"] for x in out) and not mutual}
+
+
+# 2026-11-23（C 项）：拆卡层面的饱和判定。
+# 原来的饱和只判「来源」（50 源 + 连续 15 源无新增），不判「格子」。
+# 这里回答：这批格子是否已经覆盖到「再加格也不会带来新分析角度」。
+def grid_saturation(cells: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """每 must 问的格子饱和判定（两档）。
+
+    基础饱和（reached，三条全满足）：
+      1) 六维全覆盖；
+      2) (维度, 度量) 组合 ≥ 6——每维至少一个独立分析角度；
+      3) 格子数 ≥ 10——有足够实体做对比。
+    强饱和（strong）：在基础之上，每维至少 2 格（维内也有对比）。
+
+    两档分开报，是因为「机制/边界」维常常天然只有 1 格（一个机制、一条边界），
+    拿 2 格去卡会把所有网格判死；但只有 1 格时确实没有维内对比，要标出来。
+    """
+    out = []
+    for qid in sorted({c["qid"] for c in cells}):
+        qc = [c for c in cells if c["qid"] == qid]
+        dims = {c["dim"] for c in qc if c.get("dim")}
+        pairs = {(c.get("dim"), c.get("measure")) for c in qc
+                 if c.get("dim") and c.get("measure")}
+        per_dim = {d: sum(1 for c in qc if c.get("dim") == d) for d in DIMS}
+        min_per_dim = min(per_dim.values()) if per_dim else 0
+        reached = (len(dims) == len(DIMS) and len(pairs) >= 6 and len(qc) >= 10)
+        strong = reached and min_per_dim >= 2
+        out.append({
+            "qid": qid, "cells": len(qc), "dims": len(dims),
+            "pairs": len(pairs), "min_per_dim": min_per_dim,
+            "reached": reached, "strong": strong,
+            "why": ("六维齐、组合足、有对比" if strong
+                    else ("基础饱和，但有的维只有 1 格、无维内对比"
+                          if reached
+                          else "未饱和：维度 %d/6、组合 %d/6、格子 %d/10"
+                               % (len(dims), len(pairs), len(qc)))),
+        })
+    return {"items": out, "ok": all(x["reached"] for x in out),
+            "strong_ok": all(x["strong"] for x in out)}
 
 
 def chart_contracts(clarify: Dict[str, Any], cells: List[Dict[str, Any]],
@@ -1091,6 +1174,7 @@ def post_collect(project: Path, merged: Dict[str, Any]) -> Dict[str, Any]:
 
         arb = arbitrate(merged)
         mece = mece_check(filled)
+        sat = grid_saturation(filled)
         charts = chart_contracts(clarify, filled, sem)
         decs = (_load_json(plan / "decomposition_log.json", {}) or {}).get("items") or []
         branches = _load_json(plan / "branch_log.json", {}) or []
@@ -1100,6 +1184,7 @@ def post_collect(project: Path, merged: Dict[str, Any]) -> Dict[str, Any]:
             _w(plan / "driver_tree.json", driver_tree)
         _w(plan / "arbitration.json", arb)
         _w(plan / "mece.json", mece)
+        _w(plan / "saturation.json", sat)
         _w(plan / "charts.json", charts)
         _w(plan / "handoffs.json", {"receipts": receipts})
 
@@ -1113,6 +1198,8 @@ def post_collect(project: Path, merged: Dict[str, Any]) -> Dict[str, Any]:
         return {"ok": True, "passed": g.get("passed"), "total": g.get("total"),
                 "filled": len(filled),
                 "contract": bool(contract), "contract_errors": contract_errs,
+                "mece_mutual": len(mece.get("mutual") or []),
+                "saturated": sat.get("ok"),
                 "cells_filled": str(out_v3 / "cells_filled.json")}
     except Exception as exc:  # noqa: BLE001 收卡门禁绝不影响主链路
         return {"ok": False, "why": str(exc)}
