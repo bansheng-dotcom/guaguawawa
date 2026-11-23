@@ -37,6 +37,7 @@
  "collectors/__init__.py",
  "collectors/base.py",
  "collectors/csv_manual.py",
+ "collectors/web_search.py",
  "coverage_cli.py",
  "coverage_confirm.py",
  "coverage_plan.py",

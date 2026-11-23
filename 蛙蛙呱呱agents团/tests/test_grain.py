@@ -145,9 +145,14 @@ def test_safe_eval_rejects_calls():
 # ---------------- S3 采集规格 + S6 三业务回归 ----------------
 
 def test_three_businesses_same_code():
-    """同一套代码，三套 YAML，都合法——这就是「适配各种业务」的证据。"""
+    """同一套代码，三套 YAML，都合法——这就是「适配各种业务」的证据。
+
+    业务 YAML 放在 tests/fixtures/，**不进 configs/**：
+    源码里不许有业务线，业务只活在项目目录（或测试夹具）里。
+    """
     for name in ("auto_interior", "demo_maternal", "demo_vegetable"):
-        spec = cs.load(str(ROOT / "configs" / "collections" / (name + ".yaml")))
+        spec = cs.load(str(ROOT / "tests" / "fixtures" / "collections"
+                           / (name + ".yaml")))
         assert spec, name
         errs = cs.validate(spec)
         assert not errs, (name, errs)

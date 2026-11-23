@@ -1,0 +1,30 @@
+schema: dsh.collection_spec/v1
+# 采集规格模板 —— 复制到**项目目录**（不是源码），改掉 <尖括号> 里的东西即可。
+# 业务词只允许出现在本文件里，代码里不许出现。
+id: <项目-业务-id>
+title: <这份采集在做什么>
+source: manual_csv          # 或 tmall_search / web_search
+query:
+  path: data/staging/<源文件>.csv     # 相对项目目录
+  # web_search 源用这两项：
+  # url: "https://..."
+  # selectors: {item: "...", title: "...", price: "..."}
+
+rollups:
+  - id: <分析粒度名，如 brand_month>
+    grain: [<维度1>, <维度2>]        # 一行代表什么（分析粒度）
+    series: true                     # 需要时间序列就写 true（G-E 会查源有没有历史）
+    derive:                          # 从原子列派生（DSL 见 core/grain.py）
+      <维度1>: "token:title:0"
+      <维度2>: "substr:snapshot_date:0:7"
+    measures:
+      <度量>: {agg: mean|sum|count|min|max, expr: "<原子列四则运算>", unit: "<单位>"}
+
+claims:
+  - id: <判断-id>
+    title: <判断标题：要能当小节标题用>
+    dataset: <上面的 rollup id>
+    query: {group_by: [<维度>], metrics: [<度量>]}
+    min_rows: 3                       # 至少几个可比点（≥3）
+    chart: {type: hbar|line|stacked_bar, x: <维度>, metric: <度量>}
+    falsifier: <什么可观测条件下这条判断作废>
