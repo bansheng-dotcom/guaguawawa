@@ -339,6 +339,38 @@ def cmd_exchange(args) -> int:
     return 0 if res.get("ok") else 1
 
 
+def cmd_probe(args) -> int:
+    """探源与可行性探测（SUPPLY-SOP v7.2）。
+
+    两段发卡的第一段：
+        report probe --dir <项目> --issue     → 发探源卡给 r18（只查源，不采数）
+        report probe --dir <项目>             → 跑探测，生成 plan/supply.json
+        report probe --dir <项目> --degrade   → 探测 + 把无数据的格子标 unavailable
+    """
+    from core import card_issue, card_probe
+
+    base = str(args.dir)
+    if getattr(args, "issue", False):
+        res = card_issue.prepare_probe_cards(Path(base))
+        print(json.dumps(res, ensure_ascii=False, indent=1))
+        return 0 if res.get("ok") else 1
+
+    mode = "degrade" if getattr(args, "degrade", False) else "report"
+    res = card_probe.probe(base, mode=mode)
+    slim = {k: v for k, v in (res or {}).items()
+            if k not in ("cell_state", "gates", "draft", "unavailable_demands",
+                         "supply_demands")}
+    slim["supply_demands"] = [
+        {kk: d.get(kk) for kk in ("measure", "level", "matched_source",
+                                  "cell_count", "missing", "why")}
+        for d in (res.get("supply_demands") or [])
+    ]
+    slim["unavailable"] = [u.get("measure")
+                           for u in (res.get("unavailable_demands") or [])]
+    print(json.dumps(slim, ensure_ascii=False, indent=1))
+    return 0 if res.get("ok") else 1
+
+
 def cmd_preflight(args) -> int:
     """拆卡线预检：clarify/plan/issued/claims/nonce/来源/语义层七项。"""
     import importlib.util
@@ -845,6 +877,15 @@ def main(argv=None) -> int:
     ex.add_argument("--dir", required=True, help="项目目录（含 cards/）")
     ex.set_defaults(func=cmd_exchange)
 
+    # 探源（SUPPLY-SOP v7.2）：两段发卡的第一段——先查源，再发采集卡
+    pb = sub.add_parser("probe", help="探源与可行性探测：发探源卡(r18) / 生成供给方案")
+    pb.add_argument("--dir", required=True, help="项目目录")
+    pb.add_argument("--issue", action="store_true",
+                    help="只发探源卡给 r18（不跑探测）")
+    pb.add_argument("--degrade", action="store_true",
+                    help="探测后把无数据的格子标 unavailable")
+    pb.set_defaults(func=cmd_probe)
+
     pf = sub.add_parser("preflight", help="拆卡线预检：7 项不过就不进收卡/渲染")
     pf.add_argument("--dir", required=True)
     pf.add_argument("--min-sources", type=int, default=50)
@@ -899,7 +940,8 @@ def main(argv=None) -> int:
     # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
     known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
              "research-plan", "brief", "collect", "research", "flow", "attest",
-             "clarify", "exchange", "intake", "preflight", "-h", "--help"}
+             "clarify", "exchange", "intake", "preflight", "probe",
+             "-h", "--help"}
     if argv and argv[0] not in known:
         rest = argv
         argv = ["run-line", "--intent", rest[0], *rest[1:]]

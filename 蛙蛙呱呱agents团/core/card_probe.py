@@ -173,16 +173,17 @@ def probe(project: str, mode: str = "report",
             "tried": [str(m.get("source") or "")],
         })
 
-    # SUPPLY-SOP v7.0：探测只做预测——计划级别来自供给方案，实际级别在收卡时算
+    # SUPPLY-SOP v7.2：供给方案由**本次探测生成**，不要求预先存在。
+    # 上一轮生成的 plan/supply.json 只用来做对比基线。
     _supply: Dict[str, Any] = {}
     try:
         from core import supply_plan as _sup
-        _supply = _sup.load(project)
-        _planned = _sup.planned_level(_supply) if _supply else "L1"
+        _supply = _sup.load_or_generate(project)
+        _planned = _sup.planned_level(_supply) if _supply else None
         _planned_rows = _sup.planned_rows(_supply)
-        _supply_issues = _sup.validate(_supply) if _supply else ["没有 supply.yaml"]
+        _supply_issues: List[str] = []
     except Exception as exc:  # noqa: BLE001
-        _planned, _planned_rows, _supply_issues = "L1", None, [str(exc)]
+        _planned, _planned_rows, _supply_issues = None, None, [str(exc)]
 
     # 供给方案原料（SUPPLY-SOP v7.1）：每个需求 × 命中源 × 级别 × 缺口
     _rank = {"full": "L2", "partial": "L1", "none": "L0"}
@@ -249,6 +250,8 @@ def probe(project: str, mode: str = "report",
         _sp2.save(_gen, project)
         out["supply_path"] = str(project / "plan" / "supply.json")
         out["supply_summary"] = (_gen or {}).get("summary") or {}
+        # 计划级别以本次生成的供给方案为准（不沿用旧文件）
+        out["planned_level"] = (out["supply_summary"] or {}).get("planned_level")
     except Exception as exc:  # noqa: BLE001
         out["supply_error"] = str(exc)
     return out

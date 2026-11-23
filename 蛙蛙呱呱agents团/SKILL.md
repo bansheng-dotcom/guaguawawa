@@ -31,43 +31,55 @@ python guagua.py doctor                    # 环境诊断 + 20 角色体检
 
 `call` 规则：第一个参数是角色，其后参数原样转发给该角色的 `agent.py`。
 
-## 报告产线 v5（面板优先，唯一默认）
+## 报告产线 v14（拆卡线唯一默认 + 两段发卡）
 
-分析不是写观点，是**在面板上做运算**。整条线每步都有产物与门禁；**拆卡是唯一默认路线**（2026-11-22 起硬门）：
+分析不是写观点，是**先查源、再按卡取数、按格交付、最后合并成判断**。2026-11-23 起，拆卡线是唯一默认路线：
 
 ```bash
-report clarify --intent "…" --out <项目>      # 生成接活 12 问（返回 ask_user，由 R01 在对话里问）
-report intake --dir <项目> --show             # 看 12 问
-report intake --dir <项目> --answer I1=…      # 记录用户回答（答满 10 个才可拆卡）
+report clarify --intent "…" --out <项目>          # 出 12 问（R01 在对话里问用户）
+report intake --dir <项目> --answer I1=…          # 记录回答（≥10 条才可签 brief）
 report clarify --dir <项目> --confirm --user-said "用户原话"
-report brief --dir <项目> --plan              # 打映射表 + 卡片清单给用户看（不发卡）
+report brief --dir <项目> --plan                  # 出映射表 + 卡片清单给用户看（不发卡）
 report brief --dir <项目> --plan --confirm --ack-cards --user-said "用户原话"
-# 子智能体按 nonce 执行，交 cards/<role>/claims.json（不写长文、不画图）
-report preflight --dir <项目>                 # 9 项预检：clarify/plan/issued/claims/nonce/来源/语义层/用户确认/看过卡
-report collect --dir <项目> --out <项目>/out   # 先跑供给方案+探测 → 验 nonce/来源/回抓 → claims_merged.json
-report run-line --intent "…" --claims out/claims_merged.json --out out/report
+
+# ① 探源卡（给 r18 蛙数仓，抄送 r05）：查清有哪些源，登记数据目录
+report probe --dir <项目> --issue                 # → cards/r18/TASK.md
+#   r18 回填 cards/r18/data_catalog.json（table/owner/fields/cost/freshness）
+
+# ② 探测：需求 × 源匹配 → 生成供给方案（每格能到 L1 还是 L2）
+report probe --dir <项目>                         # → plan/supply.json
+#   --degrade：把无数据的格子标 unavailable
+
+# ③ 采集卡 → 子智能体按 nonce 执行，交 cards/<role>/claims.json
+report preflight --dir <项目>                     # 九项预检 P1–P9
+report collect --dir <项目> --out <项目>/out       # 收卡：比 planned vs actual → claims_merged.json
+report run-line --intent "…" --claims <项目>/out/claims_merged.json --out <项目>/out/report --pdf
 ```
 
-**人必须在环里（2026-11-22 起）**：12 问必须问给用户（`--by agent` 代答不算，`user_answers<10` 签不了 brief）；
-澄清确认必须带 `--user-said` 原话；发卡前必须 `--plan` 把卡片清单给用户过目，确认时带 `--ack-cards`。
-没有 `issued.json` 的项目，`collect` 直接拒收（老卡只有 `--allow-legacy` 且标降级）；
-手写 claims 走 `--solo-claims --allow-solo`，同样过 50 源门槛，产物标 `solo_no_dispatch`。
-`run-line --claims` 只接受收卡产物（带 dispatch/coverage 凭证）。
+**两段发卡**：第一次给 **r18 蛙数仓**查源（探源卡），第二次给执行层采数（采集卡）。
+少了探源那一步，采集卡只能写"去采品牌价格"，执行层要么采不到、要么自己编。
+
+**能力级别**：报告口径节第一条写「计划 L1 / 实际 L1」。
+计划 L1 交付 L1 = 按计划交付；计划 L2 实际 L1 = 降级，必须写 `degraded_from` 与 `L2_condition`。
+
+**人必须在环里**：12 问必须问给用户（`--by agent` 代答不算，`user_answers<10` 签不了 brief）；
+澄清确认必须带 `--user-said`；发卡前必须 `--plan` 把卡片清单给用户过目，确认时带 `--ack-cards`。
+没有 `coverage/issued.json` 的项目，`collect` 直接拒收（老卡只有 `--allow-legacy` 且标降级）。
 
 | 层 | 模块 | 产物 |
 |---|---|---|
 | 接活 12 问 + brief 签字 | `core/intake.py` | `intake.json` / `brief.json` |
-| 面板规格（实体×维度×期次×指标） | `core/panel.py` | `plan/panels.json` |
-| 自适应发卡（卡数 = Σ ceil(簇格数/24)） | `core/card_plan.py` | `plan/cards.json` |
-| 卡就绪（DoR 9 项，缺一不发） | `core/dor.py` | `plan/dor.json` |
+| 拆卡格网（六维 MECE） | `core/card_upgrade.py` | `plan/grid.json` |
+| **探源卡（给 r18）** | **`core/card_issue.py`** | **`cards/r18/TASK.md`** → `data_catalog.json` |
+| **可行性探测 + 供给方案** | **`core/card_probe.py`** + **`core/supply_plan.py`** | **`plan/supply.json`** |
+| 卡就绪（DoR） | `core/dor.py` | `plan/dor.json` |
 | 派活校验（nonce + 签名 + 执行者） | `core/report_dispatch.py` | `coverage/issued.json` |
 | 预检九项（P1–P9） | `scripts/preflight.py` | 退出码 / PASS-FAIL |
-| 收卡整备（归一/去重/冲突/覆盖） | `core/dispatch.py` | `claims_merged.json`（含 coverage/dispatch） |
-| 论点 / 查询 / 写作 | `core/synthesis.py` + `core/chart_query.py` | `theses.json` / `report.html` |
+| 收卡整备（归一/去重/冲突/覆盖 + 能力级别） | `core/dispatch.py` | `claims_merged.json` |
+| 章节校验 + 渲染 | `core/report_flow.py` + `core/report_renderer.py` | `report.html` |
 
-硬规则：**未注册 metric 拒收**；**图只许 query(raw)**；图数据点 = 查询行数；DoR 未过不发卡；brief 未签不拆卡；**没有 nonce 的卡不收**。
-
-Trae 镜像同步：`python scripts/sync_trae_skill.py`（`--check` 只比对不写盘）。
+硬规则：**未注册 metric 拒收**；**图只许 query(raw)**；DoR 未过不发卡；brief 未签不拆卡；
+**没有 nonce 的卡不收**；**降级必须带 `degraded_from` + `L2_condition`**。
 
 ## 权威文档
 

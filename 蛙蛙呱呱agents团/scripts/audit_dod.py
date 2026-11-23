@@ -135,6 +135,18 @@ try:
 except Exception as exc:  # noqa: BLE001
     ck(14, "供给方案可追溯", False, str(exc)[:60])
 
+# 追加：入口文档一致（2026-11-23：SKILL 写 v5 / README 写 v13，同一时间却不同版）
+try:
+    import subprocess as _sp_run
+    _r = _sp_run.run([sys.executable, str(ROOT / "scripts" / "check_doc_consistency.py")],
+                     capture_output=True, text=True, encoding="utf-8",
+                     errors="replace", timeout=60)
+    ck(15, "入口文档同版",
+       _r.returncode == 0,
+       (_r.stdout or "").strip().splitlines()[0][:70] if _r.stdout else "检查失败")
+except Exception as exc:  # noqa: BLE001
+    ck(15, "入口文档同版", False, str(exc)[:60])
+
 print("=" * 74)
 print(f"{'#':<3} {'DoD 条目':<34} {'结果':<6} 证据")
 print("-" * 74)
