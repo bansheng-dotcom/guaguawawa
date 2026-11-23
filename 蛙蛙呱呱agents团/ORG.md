@@ -75,7 +75,7 @@
 | R15 供应 | `order` `sop` | `purchase_order` `inventory_ledger` | 不出财务意见（R03） | 库存风险→R01 |
 | R16 人事 | `org_decision` `roles` | `roster` `payroll_input` | 薪酬输入交 R03 复核 | 劳动合规→R03 |
 | R17 织网 | `rules` `fields` | `workflow` `audit_log` | 不实现业务逻辑（R09） | 人工审批→创始人 |
-| R18 数仓 | `source` `metrics_spec` | `dataset` `data_catalog` | 不做分析结论（R06） | 数据口径→R06 |
+| R18 数仓 | `source` `metrics_spec` | `dataset` `data_catalog`（**含探源：查清有哪些源**） | 不做分析结论（R06） | 数据口径→R06 |
 | R19 智模 | `dataset` `model` | `experiment_log` `evaluation` | 模型监控接口归 R20 | 模型风险→创始人 |
 | R20 值守 | `topology` `asset_list` | `monitor_config` `backup_repo` | 不做应用实现（R09） | 重大事故→R01/创始人 |
 
