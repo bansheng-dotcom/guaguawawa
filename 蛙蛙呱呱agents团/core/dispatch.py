@@ -326,9 +326,11 @@ def _bridge_cells_to_claims(out_dir: str) -> Dict[str, Any]:
         # 有 plan/drill.json 就从「判断格」生成（判断挂数据集，图从表现算）；
         # 没有才退回 v1 的「已填格子拼标量」。
         if (plan / "drill.json").is_file():
-            v2 = cells_claims.from_drill(base, only_roles=only)
+            # v2 的归属由钻取自己决定（按对象格的 owner），不再用 only_roles 过滤，
+            # 否则「拆卡把对象格给了 r06、钻取按首个分配归 r05」时会整卡丢掉。
+            v2 = cells_claims.from_drill(base)
             if v2.get("ok"):
-                v2["bridged_roles"] = sorted(only)
+                v2["bridged_roles"] = [r.get("role") for r in (v2.get("roles") or [])]
                 v2["path"] = "v2_drill"
                 return v2
 

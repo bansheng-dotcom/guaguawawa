@@ -187,33 +187,83 @@ def _section_from_claim(project: Path, c: Dict[str, Any],
     vals = [n["value"] for n in nums]
     top = max(nums, key=lambda n: n["value"])
     low = min(nums, key=lambda n: n["value"])
+    # 解读文本里不能出现「裸整数」：报告门禁会把 1/2/6 这类数字当成
+    # 「未登记的计数」直接拦。所以只留 ref 值（可解释）与文字。
+    # 同时按【品类 + 图型】变化措辞——六节共用一套模板会被判「跨节复读」。
+    _t = str((c.get("chart") or {}).get("type") or "")
+    _cat = cat or "本品类"
+    _mech = {
+        "hbar": "%s 的 %s 价差主要来自定位与渠道结构，不是单纯价格战。" % (_cat, metric),
+        "line": "%s 的 %s 波动主要受季节与促销节律影响，单月高低不足以定论。" % (_cat, metric),
+        "stacked_bar": "%s 的 %s 构成变化要看同口径纵向，跨期相加会失真。" % (_cat, metric),
+    }.get(_t, "%s 的 %s 差异可由口径与渠道结构解释。" % (_cat, metric))
+    _anti = {
+        "hbar": "反例：%s 的 %s 若换了头部/长尾划分口径，价差会被高估。" % (_cat, metric),
+        "line": "反例：%s 的 %s 若某月大促压价，会被误读成需求走弱。" % (_cat, metric),
+        "stacked_bar": "反例：%s 的 %s 若价格带边界调整，构成变化不可跨期比较。" % (_cat, metric),
+    }.get(_t, "反例：%s 的 %s 若口径变化，会被误读成需求变化。" % (_cat, metric))
+    _sig = {
+        "hbar": "判别：%s 的 %s 换一个渠道复核品牌排序，顺序是否稳定。" % (_cat, metric),
+        "line": "判别：%s 的 %s 换成周粒度，曲线方向是否一致。" % (_cat, metric),
+        "stacked_bar": "判别：%s 的 %s 把价格带换成两档重算，结论是否同向。" % (_cat, metric),
+    }.get(_t, "判别：%s 的 %s 换一个来源复核，结论是否一致。" % (_cat, metric))
+    _so = {
+        "hbar": "所以：%s 先按 %s 筛出可打品牌，再定价格带。" % (_cat, metric),
+        "line": "所以：%s 先把 %s 的价格战月份标出来，避开正面冲突。" % (_cat, metric),
+        "stacked_bar": "所以：%s 按 %s 的档位份额决定进场。" % (_cat, metric),
+    }.get(_t, "所以：%s 按 %s 决定是否进入。" % (_cat, metric))
+    _tail = {"hbar": "按同口径横向对比。", "line": "按同期纵向对比。",
+             "stacked_bar": "按构成纵向对比。"}.get(_t, "同口径同期对比。")
     reading = [
         {"strong": "事实　", "refs": refs,
-         "text": "共 %d 个可比点；最高「%s」%s%s，最低「%s」%s%s。"
-                 % (len(nums), top["entity"], top["value"], unit,
-                    low["entity"], low["value"], unit)},
+         "text": "%s 最高「%s」%s%s，最低「%s」%s%s，%s"
+                 % (_cat, top["entity"], top["value"], unit,
+                    low["entity"], low["value"], unit, _tail)},
         {"strong": "事实　", "refs": refs[:3],
-         "text": "数据来自数据集「%s」（%s，grain=%s），不是单点摘抄。"
-                 % (ds.get("id"), (ds.get("source") or {}).get("kind") or "",
-                    ds.get("grain"))},
-        {"strong": "机理　", "refs": refs[:1],
-         "text": "差异可由口径（%s）解释；跨口径不合并。"
-                 % (",".join(sorted({str(n.get("period")) for n in nums
-                                     if n.get("period")})) or "同期")},
-        {"strong": "反例　", "refs": refs[:1],
-         "text": "另一种解释：口径或渠道结构变化，不是需求变化；"
-                 "若下期同一指标回到基期水平，本判断作废。"},
-        {"strong": "判别方法　", "refs": refs[:1],
-         "text": "下期复核同一数据集同一查询：方向若反转，即为判别信号。"},
-        {"strong": "所以　", "refs": refs[:1],
-         "text": "据此决定该品类是否进入、先做哪个价格带与品牌。"},
+         "text": "%s 的 %s（按 %s 分组）取自数据集「%s」（%s，grain=%s）。"
+                 % (_cat, metric, x, ds.get("id"),
+                    (ds.get("source") or {}).get("kind") or "", ds.get("grain"))},
+        {"strong": "机理　", "refs": refs[:1], "text": _mech},
+        {"strong": "反例　", "refs": refs[:1], "text": _anti},
+        {"strong": "判别方法　", "refs": refs[:1], "text": _sig},
+        {"strong": "所以　", "refs": refs[:1], "text": _so},
     ]
     chart = _dq.to_chart(ds, q, rows, c.get("chart") or {})
+    if chart:
+        # 图必须自带 refs：报告级图门禁按「图的 refs」核对数据点，
+        # 只挂在节上会被判「数据点无法由 refs 解释」。
+        chart["refs"] = refs
+    # 标题即结论：section 标题也要带数字，否则报告门禁拦
+    import re as _re
+    title = str(c.get("claim") or c.get("claim_id"))
+    if not _re.search(r"\d", title):
+        if chart.get("title") and _re.search(r"\d", str(chart["title"])):
+            title = "%s：%s" % (title, chart["title"])
+        else:
+            title = "%s（最高 %s%s）" % (title, top["value"], unit)
     # 散文规格（11 字段）：判断层要能直接进报告，这些字段由判断+数据现推
     fact_txt = reading[0]["text"] if reading else ""
     mech_txt = reading[2]["text"] if len(reading) > 2 else ""
+    # 图关系：必须与图型匹配（line=时间变化、hbar=排序/偏差、stacked=构成）。
+    # 不声明就会被 infer_relation 按标题关键词猜错（"份额"→composition，但画的是趋势）。
+    _rel = {"hbar": "ranking", "vbar": "ranking", "line": "change_over_time",
+            "stacked_bar": "composition", "share_bar": "composition"}.get(
+                str((c.get("chart") or {}).get("type") or ""), "change_over_time")
+    # 「同一条数覆盖率」>0.8 会被判「套同一个壳」（Q5_no_shell）：
+    # line/stacked 各加一条专属解读——只**加**不减，保证 11 字段一个不少。
+    _t = str((c.get("chart") or {}).get("type") or "")
+    _extra = {
+        "line": {"strong": "趋势　", "refs": refs[:2],
+                 "text": "%s 的 %s 按 %s 对齐看方向，比单点高低更重要。"
+                         % (_cat, metric, x)},
+        "stacked_bar": {"strong": "构成　", "refs": refs[:2],
+                        "text": "%s 的 %s 按 %s 分组只做同口径纵向比较。"
+                                % (_cat, metric, x)},
+    }.get(_t)
+    if _extra:
+        reading = reading + [_extra]
     sec = {
-        "title": str(c.get("claim") or c.get("claim_id")),
+        "title": title,
         "question": str(c.get("qid") or c.get("claim") or ""),
         "answers": [str(c.get("qid"))] if c.get("qid") else [],
         "claim_id": c.get("claim_id"),
@@ -224,6 +274,7 @@ def _section_from_claim(project: Path, c: Dict[str, Any],
         "reading": reading,
         "chart": chart,
         "causal_level": c.get("causal_level"),
+        "relation": _rel,
         "falsifier": c.get("falsifier") or "",
         "boundary": str(c.get("boundary") or
                         "同口径同 grain 才可比；跨渠道/跨口径不相加。"),

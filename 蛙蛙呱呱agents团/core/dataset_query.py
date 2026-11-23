@@ -129,19 +129,20 @@ def to_chart(ds: Dict[str, Any], query: Dict[str, Any],
                 "annotate": "%s %s" % (top["label"], _num_fmt(top["value"], unit))}
 
     if typ == "line":
-        points = [{"x": str(r["group"].get(x)), "y": r["metrics"].get(metric)}
+        # 合同要求 line 的 points 是 {label, value}（不是 {x, y}）
+        points = [{"label": str(r["group"].get(x)), "value": r["metrics"].get(metric)}
                   for r in res if r["metrics"].get(metric) is not None]
         if len(points) < 3:
             return {}
-        ys = [p["y"] for p in points]
-        hi, lo = max(points, key=lambda p: p["y"]), min(points, key=lambda p: p["y"])
+        hi = max(points, key=lambda p: p["value"])
+        lo = min(points, key=lambda p: p["value"])
         return {"type": "line",
                 "title": "%s %s：最高 %s（%s），最低 %s（%s）"
-                         % (cat, metric, _num_fmt(hi["y"], unit), hi["x"],
-                            _num_fmt(lo["y"], unit), lo["x"]),
+                         % (cat, metric, _num_fmt(hi["value"], unit), hi["label"],
+                            _num_fmt(lo["value"], unit), lo["label"]),
                 "unit_meta": unit, "source": src, "points": points,
-                "baseline": "首期 %s" % _num_fmt(points[0]["y"], unit),
-                "annotate": "%s %s" % (hi["x"], _num_fmt(hi["y"], unit))}
+                "baseline": "首期 %s" % _num_fmt(points[0]["value"], unit),
+                "annotate": "%s %s" % (hi["label"], _num_fmt(hi["value"], unit))}
 
     if typ in ("stacked", "stacked_bar"):
         series_key = str(spec.get("series") or "")
@@ -166,7 +167,7 @@ def to_chart(ds: Dict[str, Any], query: Dict[str, Any],
         names = list(series)
         top_name = max(names, key=lambda k: series[k][-1])
         delta = series[top_name][-1] - series[top_name][0]
-        return {"type": "stacked",
+        return {"type": "stacked_bar",
                 "title": "%s %s：%s 份额 %s→%s（%.1f 个点）"
                          % (cat, metric, top_name,
                             _num_fmt(series[top_name][0], unit),
