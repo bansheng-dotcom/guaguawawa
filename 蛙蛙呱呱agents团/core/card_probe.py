@@ -155,12 +155,26 @@ def probe(project: str, mode: str = "report",
             "tried": [str(m.get("source") or "")],
         })
 
+    # SUPPLY-SOP v7.0：探测只做预测——计划级别来自供给方案，实际级别在收卡时算
+    _supply: Dict[str, Any] = {}
+    try:
+        from core import supply_plan as _sup
+        _supply = _sup.load(project)
+        _planned = _sup.planned_level(_supply) if _supply else "L1"
+        _planned_rows = _sup.planned_rows(_supply)
+        _supply_issues = _sup.validate(_supply) if _supply else ["没有 supply.yaml"]
+    except Exception as exc:  # noqa: BLE001
+        _planned, _planned_rows, _supply_issues = "L1", None, [str(exc)]
+
     out = {
         "schema": SCHEMA,
         "mode": mode,
         "ok": True,
         "cells": len(cells),
         "demands": dd["count"],
+        "planned_level": _planned,
+        "planned_rows": _planned_rows,
+        "supply_issues": _supply_issues,
         "sources": [str(s.get("id")) for s in srcs],
         "counts": (mm or {}).get("counts") or {},
         "gates": gates,

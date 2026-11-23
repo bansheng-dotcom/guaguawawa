@@ -71,22 +71,31 @@ def availability_estimate(measures: List[str], sem: Dict[str, Any]) -> str:
 
 
 def build(grid: Dict[str, Any], sem: Dict[str, Any],
-          clarify: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
-    """从格网 + 语义层生成一份采集契约。"""
+          clarify: Optional[Dict[str, Any]] = None,
+          supply: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+    """从格网 + 语义层生成一份采集契约。
+
+    rows_expected 用**供给方案声明的真实长表行数**，不是格子数——
+    84 个格子 ≠ 84 行数据；一行是什么由供给方案（grain）决定。
+    """
     cells = grid.get("cells") or []
     if not cells:
         return None
+    from core import supply_plan as _sup
+
     dims = _grain_dims(grid)
     measures = sorted({str(c.get("measure")) for c in cells if c.get("measure")})
     props = _dimensions(sem) + _measures(sem)
     purposes = [str(a.get("text") or "") for a in (clarify or {}).get("asks") or []
                 if a.get("must")]
+    _rows = _sup.planned_rows(supply) if supply else None
     return {
         "apiVersion": SCHEMA,
         "id": "fact_" + ("_".join(dims) if dims else "analysis"),
         "purpose": (purposes[0][:80] if purposes else "按拆卡格网采集"),
         "grain": dims or ["all"],
-        "rows_expected": len(cells),
+        "rows_expected": (_rows if _rows else len(cells)),
+        "rows_expected_source": ("supply.yaml" if _rows else "cell_count(fallback)"),
         "min_points_per_cell": 3,
         "properties": props,
         "quality": {"min_coverage": 0.7, "cross_check": "关键结论 ≥2 独立来源"},
@@ -95,6 +104,10 @@ def build(grid: Dict[str, Any], sem: Dict[str, Any],
             "path": "平台榜单 / 行业报告 / 统计局",
             "availability": availability_estimate(measures, sem),
             "degradation": "缺格标 unavailable，不画、不补零",
+            # SUPPLY-SOP v7.0：能力级别由供给方案定，收卡时比计划 vs 实际
+            "planned_level": _sup.planned_level(supply) if supply else "L1",
+            "supply_layers": [str(s.get("layer")) for s in
+                              ((supply or {}).get("sources") or [])],
         },
         "measures_covered": measures,
     }

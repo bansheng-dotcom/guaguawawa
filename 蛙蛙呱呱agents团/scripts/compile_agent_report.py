@@ -217,6 +217,9 @@ def build_draft(claims: Dict[str, Any]) -> Dict[str, Any]:
         "summary": [s["title"] for s in sections[:4]],
         "sections": sections,
         "boundaries": list(claims.get("boundaries") or [])[:10],
+        # SUPPLY-SOP v7.0：能力级别透传到报告（口径节要写「计划 Lx / 实际 Ly」）
+        "capability": claims.get("capability") or {},
+        "capability_gate": claims.get("capability_gate") or {},
         "derived": claims.get("derived") or [],
         "degraded": list(meta.get("degraded") or []),
         # 收卡阶段的核验结论要一路带到 manifest：否则 attest 只能说「未执行」，

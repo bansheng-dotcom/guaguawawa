@@ -124,6 +124,7 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | `collection_gen.py` | 从「需求+匹配」生成候选规格（`generated` 标记，手改不覆盖） | 【S3】采集 |
 | `demand.py` | 网格 → 采集需求（度量 × 粒度 × 维度） | 【拆卡→S3】 |
 | `source_match.py` | 需求 × 源 匹配（DERIVE/MEASURE 目录，三态 full/partial/none） | 【拆卡→S3】 |
+| `supply_plan.py` | **拆卡前**数据供给方案（A/B/C 源 + 计划 L1/L2 + 补采条件） | 【S0】 |
 | `card_probe.py` | **拆卡后**可行性测试 + 降级（三态 + tried/why） | 【拆卡→S3】 |
 | `collectors/base.py` | 采集器协议与注册表 | 【S3】采集 |
 | `collectors/csv_manual.py` | 手工 CSV 采集器 | 【S3】采集 |

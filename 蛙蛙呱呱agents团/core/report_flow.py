@@ -353,6 +353,22 @@ def _fill_reading_refs(draft: Dict[str, Any]) -> None:
                 r["refs"] = list(sec_refs)
 
 
+def _cap_text(draft: Dict[str, Any]) -> str:
+    """口径节用的一句话：「计划 Lx / 实际 Ly（…）」。没有能力级别时返回空串。"""
+    cap = (draft or {}).get("capability") or {}
+    if not cap:
+        return ""
+    txt = "计划 %s / 实际 %s" % (cap.get("planned"), cap.get("actual"))
+    if cap.get("degraded"):
+        txt += "；%s" % (cap.get("why") or "已降级")
+        cond = str(cap.get("L2_condition") or "")
+        if cond:
+            txt += "；补采条件：%s" % cond
+    else:
+        txt += "（%s）" % (cap.get("label") or "按计划交付")
+    return txt
+
+
 def check_sections(draft: Dict[str, Any], pack: Dict[str, Any],
                    out_dir: Optional[str] = None) -> Dict[str, Any]:
     """章节级校验：每节标题带数字、refs 可解释、图带来源与数据。
@@ -1046,6 +1062,8 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
            "R01 编排与收口；方法库（core/methods）出数与论证；"
            f"渲染 core/report_renderer（{theme}）。")
     meta_rows = [
+        # SUPPLY-SOP v7.0：口径节第一条必须是「能力级别」——读者要知道在看哪一级证据
+        *([{"strong": "能力级别　", "text": _cap_text(draft)}] if _cap_text(draft) else []),
         {"strong": "生成方式　", "text": how},
         {"strong": "证据规模　", "text":
          f"{n_files} 个来源（去重后）/ {n_nums} 个可寻址数字。"},
@@ -1482,6 +1500,9 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
             "section_check": {"ok": chk.get("ok"), "sections": chk.get("sections"),
                               "checks": chk.get("checks")},
             "contract_hash": _sha(contract),
+            # SUPPLY-SOP v7.0：计划级别 / 实际级别 / 是否降级（读者要知道信多少）
+            "capability": (draft.get("capability") or {}),
+            "capability_gate": (draft.get("capability_gate") or {}),
             "layout_errors": lay, "files": files,
             "spec_stats": spec_res,
             "chart_stats": files.get("chart_stats") or {},

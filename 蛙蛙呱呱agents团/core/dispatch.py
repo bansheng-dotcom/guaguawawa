@@ -762,4 +762,19 @@ def collect(out_dir: str, require_all: bool = False,
     except Exception as exc:  # noqa: BLE001
         merged["post_gates"] = {"ok": False, "why": str(exc)}
     merged["cells_bridge"] = bridge
+    # SUPPLY-SOP v7.0：收卡是唯一判「计划 vs 实际」的地方。
+    # 计划 L1 交付 L1 = 正常；计划 L2 实际 L1 = 降级（必须写理由）。
+    try:
+        from core import supply_plan as _sup
+        _supply = _sup.load(Path(out_dir))
+        merged["capability"] = _sup.capability_of(_supply, merged)
+        merged["capability"]["supply"] = {
+            "business": _supply.get("business"),
+            "sources": [s.get("layer") for s in (_supply.get("sources") or [])],
+            "issues": _sup.validate(_supply) if _supply else ["没有 supply.yaml"],
+        }
+        # G-CAPABILITY（软）：降级了必须写清理由与补采条件
+        merged["capability_gate"] = _sup.gate(_supply, merged)
+    except Exception as exc:  # noqa: BLE001
+        merged["capability"] = {"level": "L0", "why": "能力级别计算失败：%s" % exc}
     return merged, (bad + ([] if got else ["一张 claims 都没收到"]))

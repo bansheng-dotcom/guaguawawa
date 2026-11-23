@@ -144,6 +144,7 @@
  "source_profile.py",
  "source_verify.py",
  "spec_extract.py",
+ "supply_plan.py",
  "synthesis.py",
  "task_frame.py",
  "task_research.py",

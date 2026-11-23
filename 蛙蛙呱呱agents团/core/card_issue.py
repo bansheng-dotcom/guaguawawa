@@ -74,6 +74,21 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
     persp = cu.build_perspectives(clarify, _load_yaml(project / "perspectives.yaml"))
     grid_tpl = _load(project / "plan" / "grid.template.json", {}) or {}
     grid = cu.build_grid(clarify, sem, cu._brands(pack), template=grid_tpl or None)
+    # SUPPLY-SOP v7.0：拆卡前先读供给方案，给每格标「计划能到几级」。
+    # 注意：只标不砍——拆卡仍然穷尽，采不到的进「计划外缺口」。
+    try:
+        from core import supply_plan as _sup
+        _supply = _sup.load(Path(project))
+        _planned = _sup.planned_level(_supply) if _supply else "L1"
+        for _c in grid.get("cells") or []:
+            _c["planned_level"] = _planned
+        if _supply:
+            grid["supply"] = {"business": _supply.get("business"),
+                              "planned_level": _planned,
+                              "planned_rows": _sup.planned_rows(_supply),
+                              "issues": _sup.validate(_supply)}
+    except Exception as exc:  # noqa: BLE001 供给方案缺失不能阻断拆卡
+        grid["supply"] = {"error": str(exc)}
     decs = [cu.score_decompositions(x, grid["cells"], nums)
             for x in clarify.get("asks") or [] if x.get("must")]
     branches = cu.branch_log(clarify, grid["cells"], nums)

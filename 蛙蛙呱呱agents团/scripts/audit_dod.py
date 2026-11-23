@@ -120,6 +120,21 @@ ck(11, "core 无业务词 + 样例在 samples/", samples_ok,
 ck(12, "MECE 互斥检查", "_mece_mutual" in cu, "TOP+个体 / 重复实体 / 总量+补集")
 ck(13, "拆卡饱和两档", "def grid_saturation" in cu, "基础 + 强饱和")
 
+# 追加：数据供给方案（SUPPLY-SOP v7.0）——计划级别要可追溯
+try:
+    _sp = (CORE / "supply_plan.py").read_text(encoding="utf-8")
+    _plan_ok = all(k in _sp for k in ("planned_level", "planned_rows",
+                                      "capability_of", "def gate"))
+    _disp = (CORE / "dispatch.py").read_text(encoding="utf-8")
+    _wired = "capability_of" in _disp and "capability_gate" in _disp
+    _cc = (CORE / "collection_contract.py").read_text(encoding="utf-8")
+    _rows_ok = "rows_expected_source" in _cc
+    ck(14, "供给方案可追溯",
+       _plan_ok and _wired and _rows_ok,
+       "supply_plan + dispatch.capability + rows_expected 用真实行数")
+except Exception as exc:  # noqa: BLE001
+    ck(14, "供给方案可追溯", False, str(exc)[:60])
+
 print("=" * 74)
 print(f"{'#':<3} {'DoD 条目':<34} {'结果':<6} 证据")
 print("-" * 74)
