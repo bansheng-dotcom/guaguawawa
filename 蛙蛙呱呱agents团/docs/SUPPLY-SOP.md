@@ -1,4 +1,4 @@
-# 数据供给 SOP（v7.0）：先定"怎么采到"，再谈"采不到怎么降"
+# 数据供给 SOP（v7.1）：两段发卡 + 供给方案是生成物
 
 > 起因（2026-11-23）：用户问「降级应该在什么时候做」。
 > 本文不直接回答执行细节，而是先做一次**需求诊断**——因为我认为问题定义偏了一层。
@@ -122,6 +122,71 @@ levels:
 - 收卡降级知道"降到的基准是哪一级"
 
 ---
+
+## 3.1 两段发卡：探源卡 → 采集卡（2026-11-23 修正）
+
+**第一次发卡不是给执行层的，是给探测层的。**
+
+| 发卡 | 给谁 | 目的 | 卡里写什么 | 回填 |
+|---|---|---|---|---|
+| **探源卡** | **探测层** | 查清有哪些源 | 要查哪些度量/维度、每个源要报什么 | `cards/probe/sources.json` |
+| **采集卡** | 执行层 | 按已知源去采 | 每格能到 L1 还是 L2、缺什么 | `cards/<role>/claims.json` |
+
+**为什么必须先探源**：
+不先查清源，采集卡只能写"去采品牌价格"，执行层要么采不到、要么自己造。
+探源卡把"有哪些源、各给什么字段、多少钱"先问清楚，采集卡才能写"这格采不到，标缺口"。
+
+**探源卡由 `card_issue.prepare_probe_cards(project)` 生成**，落在 `cards/probe/TASK.md`，
+回填 `cards/probe/sources.json`。
+
+## 3.2 供给方案是**生成物**，不是手写输入
+
+**v7.0 的错**：把 `supply.yaml` 当手写输入。结果只能写出"国家统计局""行业报告"
+这种口号——因为写的时候既不知道要采什么，也不知道源里有什么。
+
+**v7.1 的做法**：
+
+```
+拆卡 → 探源卡 → 探测层回填 sources.json
+                        ↓
+              card_probe.probe()
+              需求(demand_of) × 源(load_sources) → 匹配
+                        ↓
+              supply_plan.from_probe()  →  plan/supply.json（生成物）
+                        ↓
+              采集卡（带 supply.json 的结论）→ 执行层
+```
+
+**生成物长这样**（汽车实测）：
+
+```json
+{"generated": true,
+ "demands": [
+   {"measure": "asp", "grain": ["brand","month"], "cell_count": 3,
+    "matched_source": "manual_csv",
+    "matched_via": {"brand": "split:brands:,:0"},
+    "level": "L1", "missing": [], "why": ""},
+   {"measure": "channel_share", "grain": ["brand","channel"],
+    "cell_count": 5, "level": "L0", "missing": ["channel"],
+    "why": "源里没有 channel 字段"}],
+ "summary": {"demands": 6, "L2": 0, "L1": 1, "L0": 5,
+             "planned_level": "L1", "planned_rows": null}}
+```
+
+**每一条都有命中源、覆盖格数、缺口原因。** 手写写不出这个。
+
+**读取顺序**：`supply_plan.load_or_generate()` 优先读 `plan/supply.json`（生成物），
+退回 `supply.yaml`（legacy 手写）。
+
+## 3.3 `planned_rows` 由探测层申报
+
+生成物里 `planned_rows` 可能是 `null`——因为"6 个品牌 × 24 个月"这种基数
+只有探测层查过源才知道。
+
+**申报方式**：在 `cards/probe/sources.json` 里写 `answers.planned_rows`。
+
+没申报时 `collection_contract` 退回 `len(cells)`（格子数，下界），并标
+`rows_expected_source: "cell_count(fallback)"`——**不假装知道行数**。
 
 ## 4. 降级的位置（**你说对了**）
 

@@ -52,6 +52,89 @@ def load(path: Any) -> Dict[str, Any]:
     return _yaml(p)
 
 
+def from_probe(probe_res: Dict[str, Any], project: Optional[Path] = None
+               ) -> Dict[str, Any]:
+    """**从探测结果生成供给方案**（SUPPLY-SOP v7.1）。
+
+    这是本模块最重要的函数：供给方案不是手写的口号清单，
+    它是「格子需求 × 源匹配」的产物——每一条都有出处、覆盖数和缺口原因。
+
+    probe_res 来自 `card_probe.probe()`，含：
+        plan_demands / match matrix(per demand) / unavailable_demands
+    """
+    pr = probe_res or {}
+    per: List[Dict[str, Any]] = []
+    l2 = l1 = l0 = 0
+    for d in pr.get("supply_demands") or []:
+        lvl = str(d.get("level") or "L0")
+        if lvl == "L2":
+            l2 += 1
+        elif lvl == "L1":
+            l1 += 1
+        else:
+            l0 += 1
+        per.append(d)
+    rows = planned_rows({
+        "levels": {"planned_rows": pr.get("planned_rows")}
+    }) if pr.get("planned_rows") else None
+    doc = {
+        "schema": SCHEMA,
+        "generated": True,
+        "generated_at": pr.get("generated_at") or "",
+        "generated_from": {
+            "grid_cells": pr.get("cells"),
+            "sources": pr.get("sources") or [],
+        },
+        "business": pr.get("business") or "",
+        "demands": per,
+        "summary": {
+            "demands": len(per),
+            "L2": l2, "L1": l1, "L0": l0,
+            "planned_level": "L2" if l2 else ("L1" if l1 else "L0"),
+            "planned_rows": rows,
+        },
+        "levels": {
+            "L1_possible": bool(l1 or l2),
+            "L2_possible": bool(l2),
+            "L2_condition": pr.get("to_l2_condition") or "",
+            "planned_rows": rows,
+        },
+        "reviewed_at": pr.get("generated_at") or "",
+    }
+    return doc
+
+
+def load_or_generate(project: Any) -> Dict[str, Any]:
+    """优先读生成物 `plan/supply.json`，退回手写 `supply.yaml`（legacy）。
+
+    生成物是权威：它就是探测的结论。手写的只有在还没探测过时才用。
+    """
+    p = Path(project)
+    if p.is_file():
+        return _yaml(p)
+    gen = p / "plan" / "supply.json"
+    if gen.is_file():
+        try:
+            import json
+            return json.loads(gen.read_text(encoding="utf-8-sig")) or {}
+        except Exception:  # noqa: BLE001
+            pass
+    return load(p)
+
+
+def save(doc: Dict[str, Any], project: Any) -> Optional[Path]:
+    """把生成的供给方案写到 `<project>/plan/supply.json`。"""
+    if not doc:
+        return None
+    import json
+    p = Path(project) / "plan"
+    p.mkdir(parents=True, exist_ok=True)
+    out = p / "supply.json"
+    out.write_text(json.dumps(doc, ensure_ascii=False, indent=1),
+                   encoding="utf-8")
+    return out
+
+
 def validate(doc: Dict[str, Any]) -> List[str]:
     errs: List[str] = []
     if not doc:
@@ -126,9 +209,23 @@ def actual_level(merged: Dict[str, Any]) -> str:
 
 
 def capability_of(supply: Dict[str, Any], merged: Dict[str, Any]) -> Dict[str, Any]:
-    """收卡时算「计划 vs 实际」；这是降级判定的唯一出处。"""
-    planned = planned_level(supply) if supply else "L1"
+    """收卡时算「计划 vs 实际」；这是降级判定的唯一出处。
+
+    没有供给方案时**不假装有计划**：按实际级别回报，并注明"未声明方案"。
+    老报告（已完成产物）走的就是这一支。
+    """
     actual = actual_level(merged)
+    if not supply:
+        return {
+            "planned": actual, "actual": actual, "level": actual,
+            "degraded": False, "degraded_from": None,
+            "planned_rows": None, "actual_rows": _rows_of(merged),
+            "why": "未声明供给方案（按实际级别交付）",
+            "L2_condition": "",
+            "label": LEVEL_LABEL.get(actual, ""),
+            "no_supply": True,
+        }
+    planned = planned_level(supply)
     rank = {"L0": 0, "L1": 1, "L2": 2}
     degraded = rank.get(actual, 0) < rank.get(planned, 0)
     lv = (supply or {}).get("levels") or {}

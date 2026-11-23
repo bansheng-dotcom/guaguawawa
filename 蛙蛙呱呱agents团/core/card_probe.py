@@ -166,6 +166,29 @@ def probe(project: str, mode: str = "report",
     except Exception as exc:  # noqa: BLE001
         _planned, _planned_rows, _supply_issues = "L1", None, [str(exc)]
 
+    # 供给方案原料（SUPPLY-SOP v7.1）：每个需求 × 命中源 × 级别 × 缺口
+    _rank = {"full": "L2", "partial": "L1", "none": "L0"}
+    supply_demands: List[Dict[str, Any]] = []
+    for d in dd["demands"]:
+        m = best.get(str(d["measure"])) or {}
+        _st = str(m.get("status") or "none")
+        supply_demands.append({
+            "measure": str(d["measure"]),
+            "grain": list(d.get("grain") or []),
+            "cells": list(d.get("cells") or []),
+            "cell_count": int(d.get("cell_count") or 0),
+            "matched_source": m.get("source") or "",
+            "matched_via": dict(m.get("derive") or {}),
+            "level": _rank.get(_st, "L0"),
+            "missing": list(m.get("missing") or []),
+            "why": "；".join(str(x) for x in (m.get("notes") or [])),
+        })
+    _l0 = [x["measure"] for x in supply_demands if x["level"] == "L0"]
+    _to_l2 = ""
+    if _l0:
+        _to_l2 = ("需补以下源才能做序列：%s（采购第三方数据或按月手工快照）"
+                  % "、".join(_l0))
+
     out = {
         "schema": SCHEMA,
         "mode": mode,
@@ -186,6 +209,10 @@ def probe(project: str, mode: str = "report",
                     "problems": (qt or {}).get("problems")},
         "cell_state": cell_state,
         "unavailable_demands": unavailable_demands,
+        "supply_demands": supply_demands,
+        "business": project.name,
+        "to_l2_condition": _to_l2,
+        "generated_at": __import__("datetime").datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
         "degraded": changed,
         "full": sum(1 for v in cell_state.values() if v["collectable"] == "full"),
         "partial": sum(1 for v in cell_state.values() if v["collectable"] == "partial"),
@@ -194,6 +221,16 @@ def probe(project: str, mode: str = "report",
     (project / "plan").mkdir(parents=True, exist_ok=True)
     (project / "plan" / "derivation.json").write_text(
         json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    # SUPPLY-SOP v7.1：供给方案是**探测的产物**，不是手写输入。
+    # 写 plan/supply.json，后面发采集卡与收卡都读它。
+    try:
+        from core import supply_plan as _sp2
+        _gen = _sp2.from_probe(out, project)
+        _sp2.save(_gen, project)
+        out["supply_path"] = str(project / "plan" / "supply.json")
+        out["supply_summary"] = (_gen or {}).get("summary") or {}
+    except Exception as exc:  # noqa: BLE001
+        out["supply_error"] = str(exc)
     return out
 
 

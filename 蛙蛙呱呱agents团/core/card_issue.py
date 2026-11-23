@@ -48,6 +48,100 @@ def _pack(project: Path) -> Dict[str, Any]:
     return {}
 
 
+PROBE_ROLE = "probe"
+
+
+def prepare_probe_cards(project: Path) -> Dict[str, Any]:
+    """发「探源卡」给**探测层**（SUPPLY-SOP v7.1 · 第二次发卡之前）。
+
+    第一次发卡不是给执行层，是给探测层：去查这个业务有哪些源、
+    每个源给什么字段、什么口径、多少钱、多久更新。
+
+    回来后跑 `card_probe`，由它生成 `plan/supply.json`（供给方案），
+    再发采集卡给执行层——卡里带着"这格能采到 L1 还是 L2"。
+    """
+    project = Path(project)
+    grid = _load(project / "plan" / "grid.json", {}) or {}
+    cells = grid.get("cells") or []
+    if not cells:
+        return {"ok": False, "why": "没有 plan/grid.json，先拆卡"}
+    measures = sorted({str(c.get("measure")) for c in cells if c.get("measure")})
+    grains = sorted({str(c.get("grain")) for c in cells if c.get("grain")})
+    dims = sorted({str(x) for c in cells
+                   for x in (c.get("dim"), c.get("entity")) if x})
+
+    d = project / "cards" / PROBE_ROLE
+    d.mkdir(parents=True, exist_ok=True)
+    need = {
+        "schema": "dsh.probe_card/v1",
+        "role": PROBE_ROLE,
+        "purpose": "探源：回答「这个业务有哪些源、各给什么」",
+        "measures_needed": measures,
+        "grains_needed": grains,
+        "dims_needed": dims,
+        "cells": len(cells),
+        "ask": {
+            "per_source": ["layer(A/B/C)", "name", "url", "fields",
+                           "access", "cost", "freshness", "口径"],
+            "must_answer": [
+                "每个 measure 有没有源能给（能给到 L1 还是 L2）",
+                "哪些 dims 源里是真实字段、哪些要从标题解析",
+                "到 L2 需要什么（买什么/采多久/多少钱）",
+            ],
+        },
+    }
+    cu._w(d / "NEEDS.json", need)
+    lines = [
+        "# 探源卡（给探测层）",
+        "",
+        "> 这不是采集卡。你的任务是**查清有哪些源**，不是把数采回来。",
+        "> 查完把 `cards/probe/sources.json` 交回来；系统会据此生成供给方案，",
+        "> 再发采集卡给执行层。",
+        "",
+        "## 要查什么",
+        "",
+        "| 项 | 值 |",
+        "|---|---|",
+        f"| 需求度量 | {', '.join(measures) or '—'} |",
+        f"| 需求粒度 | {', '.join(grains) or '—'} |",
+        f"| 需求维度 | {', '.join(dims) or '—'} |",
+        f"| 格子数 | {len(cells)} |",
+        "",
+        "## 每个源要报什么",
+        "",
+        "| 字段 | 说明 |",
+        "|---|---|",
+        "| `layer` | A 开放 / B 半开放 / C 封闭 |",
+        "| `name` | 源名称（要能定位到具体页面/报告/接口） |",
+        "| `url` | 具体链接（**不许写“官方”“行业”这种虚指**） |",
+        "| `fields` | 这个源真实给哪些列（列名照抄） |",
+        "| `access` | 直接抓 / API / 购买 / 手工 |",
+        "| `cost` | 0 或具体金额（不写“数万元”） |",
+        "| `freshness` | 年更 / 月更 / 实时 |",
+        "| `口径` | 含税/不含、到手价/标价、全国/区域 |",
+        "",
+        "## 必须回答的三个问题",
+        "",
+        "1. 每个需求度量，有没有源能给？能给到 **L1（点证据）** 还是 **L2（序列）**？",
+        "2. 哪些维度是源里的**真实字段**，哪些只能从标题解析（低置信）？",
+        "3. 要到 L2 需要什么：买哪家、多少钱、采多久？",
+        "",
+        "## 回填格式",
+        "",
+        "```json",
+        '{ "sources": [ { "layer": "A", "name": "...", "url": "...",'
+        ' "fields": ["..."], "access": "...", "cost": 0,'
+        ' "freshness": "...", "caliber": "..." } ],',
+        '  "answers": { "L1_possible": true, "L2_possible": false,'
+        ' "L2_condition": "..." } }',
+        "```",
+    ]
+    (d / "TASK.md").write_text("\n".join(lines), encoding="utf-8")
+    return {"ok": True, "role": PROBE_ROLE, "dir": str(d),
+            "measures": measures, "dims": dims, "cells": len(cells),
+            "next": "探测层交回 cards/probe/sources.json 后跑 card_probe，生成 plan/supply.json"}
+
+
 def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
     """跑 R01 内容层 + R02 协作层，落 plan/ 五轴工件，并判发卡门禁。"""
     project = Path(project)

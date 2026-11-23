@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """test_supply_plan —— 数据供给方案（SUPPLY-SOP v7.0）。"""
+import json
 import sys
 from pathlib import Path
 
@@ -176,3 +177,109 @@ def test_contract_carries_planned_level():
                                   supply=_doc())
     assert c["acquisition"]["planned_level"] == "L1"
     assert "A" in c["acquisition"]["supply_layers"]
+
+
+# ---------------- v7.1：供给方案是探测的产物 ----------------
+
+def _probe_res():
+    return {
+        "cells": 84,
+        "sources": ["manual_csv"],
+        "business": "proj-x",
+        "generated_at": "2026-11-23T17:00:00",
+        "planned_rows": 144,
+        "to_l2_condition": "需补 channel 字段",
+        "supply_demands": [
+            {"measure": "asp", "grain": ["brand", "month"], "cells": ["c1", "c2"],
+             "cell_count": 2, "matched_source": "manual_csv",
+             "matched_via": {"brand": "split:brands:,:0"},
+             "level": "L1", "missing": [], "why": ""},
+            {"measure": "channel_share", "grain": ["brand", "channel"],
+             "cells": ["c3"], "cell_count": 1, "matched_source": "manual_csv",
+             "matched_via": {}, "level": "L0",
+             "missing": ["channel"], "why": "源里没有 channel"},
+        ],
+    }
+
+
+def test_from_probe_generates_supply():
+    doc = sup.from_probe(_probe_res())
+    assert doc["generated"] is True
+    assert doc["summary"]["demands"] == 2
+    assert doc["summary"]["L1"] == 1
+    assert doc["summary"]["L0"] == 1
+    assert doc["summary"]["planned_level"] == "L1"
+    assert doc["summary"]["planned_rows"] == 144
+    assert doc["levels"]["L1_possible"] is True
+    assert doc["levels"]["L2_possible"] is False
+
+
+def test_from_probe_records_per_demand_source():
+    doc = sup.from_probe(_probe_res())
+    by = {d["measure"]: d for d in doc["demands"]}
+    assert by["asp"]["matched_source"] == "manual_csv"
+    assert by["asp"]["cell_count"] == 2
+    assert by["channel_share"]["missing"] == ["channel"]
+
+
+def test_from_probe_l2_when_any_full():
+    pr = _probe_res()
+    pr["supply_demands"][0]["level"] = "L2"
+    doc = sup.from_probe(pr)
+    assert doc["summary"]["L2"] == 1
+    assert doc["levels"]["L2_possible"] is True
+
+
+def test_load_or_generate_prefers_generated(tmp_path):
+    (tmp_path / "plan").mkdir()
+    (tmp_path / "plan" / "supply.json").write_text(
+        json.dumps(sup.from_probe(_probe_res()), ensure_ascii=False),
+        encoding="utf-8")
+    (tmp_path / "supply.yaml").write_text(
+        "schema: dsh.supply/v1\nbusiness: 手写\nsources: []\n", encoding="utf-8")
+    d = sup.load_or_generate(tmp_path)
+    assert d.get("generated") is True
+    assert d["summary"]["demands"] == 2
+
+
+def test_load_or_generate_falls_back_to_yaml(tmp_path):
+    (tmp_path / "supply.yaml").write_text(
+        "schema: dsh.supply/v1\nbusiness: 手写\nsources: []\n", encoding="utf-8")
+    d = sup.load_or_generate(tmp_path)
+    assert d.get("business") == "手写"
+
+
+def test_load_or_generate_empty(tmp_path):
+    assert sup.load_or_generate(tmp_path) == {}
+
+
+def test_no_supply_does_not_pretend_a_plan():
+    """没有供给方案时不许假装有计划：按实际级别回报，并注明。"""
+    cap = sup.capability_of({}, {"numbers": [1, 2]})
+    assert cap["planned"] == "L1"
+    assert cap["actual"] == "L1"
+    assert cap["degraded"] is False
+    assert cap["no_supply"] is True
+    assert "未声明供给方案" in cap["why"]
+
+
+def test_probe_card_is_not_a_collection_card(tmp_path):
+    """探源卡要写给探测层，且明确说「不是采集卡」。"""
+    from core import card_issue
+    (tmp_path / "plan").mkdir()
+    (tmp_path / "plan" / "grid.json").write_text(json.dumps({
+        "cells": [{"cell_id": "c1", "measure": "asp",
+                   "grain": "G_brand_month", "dim": "对象", "entity": "A"}],
+    }, ensure_ascii=False), encoding="utf-8")
+    r = card_issue.prepare_probe_cards(tmp_path)
+    assert r["ok"] is True
+    task = (tmp_path / "cards" / "probe" / "TASK.md").read_text(encoding="utf-8")
+    assert "探源卡" in task
+    assert "不是采集卡" in task
+    assert (tmp_path / "cards" / "probe" / "NEEDS.json").is_file()
+
+
+def test_probe_card_requires_grid(tmp_path):
+    from core import card_issue
+    r = card_issue.prepare_probe_cards(tmp_path)
+    assert r["ok"] is False

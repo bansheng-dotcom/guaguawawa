@@ -766,7 +766,8 @@ def collect(out_dir: str, require_all: bool = False,
     # 计划 L1 交付 L1 = 正常；计划 L2 实际 L1 = 降级（必须写理由）。
     try:
         from core import supply_plan as _sup
-        _supply = _sup.load(Path(out_dir))
+        # v7.1：优先用探测生成的 plan/supply.json；没有再退手写 supply.yaml
+        _supply = _sup.load_or_generate(out_dir)
         merged["capability"] = _sup.capability_of(_supply, merged)
         merged["capability"]["supply"] = {
             "business": _supply.get("business"),
