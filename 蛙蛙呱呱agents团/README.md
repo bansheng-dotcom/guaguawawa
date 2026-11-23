@@ -55,7 +55,7 @@ report brief --dir <项目> --plan                  # 出映射表 + 卡片清�
 report brief --dir <项目> --plan --confirm --ack-cards --user-said "用户原话"
 # 子智能体按 nonce 执行，交 cards/<role>/claims.json
 report preflight --dir <项目>                     # 九项预检 P1–P9
-report collect --dir <项目> --out <项目>/out       # 50 条唯一 URL + 逐条回抓 → claims_merged.json
+report collect --dir <项目> --out <项目>/out       # 先跑可行性探测 → 50 条唯一 URL + 逐条回抓 → claims_merged.json
 report run-line --intent "…" --claims <项目>/out/claims_merged.json --out <项目>/out/report --pdf
 ```
 

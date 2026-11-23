@@ -29,7 +29,7 @@ report clarify --intent "…" --out <项目>     # 澄清卡：我理解成什�
 report clarify --dir <项目> --confirm        # 你改完/接受默认后确认
 report brief   --dir <项目> --plan          # 问题→角色映射表（只出表）
 report brief   --dir <项目> --plan --confirm # 确认即发卡，每卡带 nonce
-report collect --dir <项目> --out <项目>/out  # 收卡时验 nonce / 执行者，代写拒收
+report collect --dir <项目> --out <项目>/out  # 收卡先跑可行性探测，再验 nonce / 执行者，代写拒收
 ```
 
 为什么：2026-11-20 的测试里，卡里写着「你要判断什么（自己定）」，6 张卡内容重叠，

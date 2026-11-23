@@ -44,7 +44,7 @@ report brief --dir <项目> --plan              # 打映射表 + 卡片清单给
 report brief --dir <项目> --plan --confirm --ack-cards --user-said "用户原话"
 # 子智能体按 nonce 执行，交 cards/<role>/claims.json（不写长文、不画图）
 report preflight --dir <项目>                 # 9 项预检：clarify/plan/issued/claims/nonce/来源/语义层/用户确认/看过卡
-report collect --dir <项目> --out <项目>/out   # 验 nonce/来源/回抓 → claims_merged.json
+report collect --dir <项目> --out <项目>/out   # 先跑可行性探测 → 验 nonce/来源/回抓 → claims_merged.json
 report run-line --intent "…" --claims out/claims_merged.json --out out/report
 ```
 
