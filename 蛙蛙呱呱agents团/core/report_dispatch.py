@@ -396,12 +396,18 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
     if contracts:
         cards_iter = []
         for rid, ct in contracts.items():
-            qids = list((plan_cards.get(rid) or {}).get("questions") or [])
+            # 2026-11-23 修：问句以**拆卡格子**为准。
+            # 原来优先取 plan.json 的 role→questions（老映射表），可它和拆卡的
+            # plan/dispatch.json 是两套算法，经常打架：拆卡把 Q2 分给 r05，
+            # 老映射却写成 Q2→r14，结果 r05 的卡丢了 Q2、r14 根本没格子没卡。
+            # 格子才是这角色要填的东西，所以格子优先，plan.json 只作兜底。
+            qids: List[str] = []
+            for cell in cells_by_role.get(rid) or []:
+                q = str(cell.get("qid") or "")
+                if q and q not in qids:
+                    qids.append(q)
             if not qids:
-                for cell in cells_by_role.get(rid) or []:
-                    q = str(cell.get("qid") or "")
-                    if q and q not in qids:
-                        qids.append(q)
+                qids = list((plan_cards.get(rid) or {}).get("questions") or [])
             allowed = set(qids)
             if allowed:
                 filtered = [c for c in (cells_by_role.get(rid) or [])
