@@ -68,8 +68,11 @@ def test_probe_marks_unavailable_when_no_source(tmp_path):
 
 
 def test_probe_no_grid(tmp_path):
+    # 老项目没有 grid 也要返回 ok=True，但要说清降级层级
     r = card_probe.probe(str(tmp_path), mode="report", sources=[SRC])
-    assert r["ok"] is False
+    assert r["ok"] is True
+    assert r["cells"] == 0
+    assert r["degrade_level"] == "none"
 
 
 def test_probe_invalid_mode_falls_back(tmp_path):
@@ -98,3 +101,70 @@ def test_probe_has_gates(tmp_path):
     r = card_probe.probe(str(p), mode="report", sources=[SRC])
     ids = [c["id"] for c in r["gates"]["checks"]]
     assert "G-ROLLUP" in ids and "G-PREVIEW" in ids
+
+
+# ---------------- 三层降级（FEASIBILITY-SOP v5.0 修正） ----------------
+
+def test_evidence_layer_reads_numbers(tmp_path):
+    """老报告没有长表，但有「数字+来源」——证据层必须能看见。"""
+    p = tmp_path
+    (p / "claims_merged.json").write_text(json.dumps({
+        "numbers": [
+            {"id": "a:1", "source_file": "a:S1"},
+            {"id": "a:2", "source_file": "a:S1"},
+        ],
+        "sources": [{"file": "a:S1", "url": "https://x", "quote": "q"}],
+    }, ensure_ascii=False), encoding="utf-8")
+    ev = card_probe._evidence_layer(p)
+    assert ev["numbers"] == 2
+    assert ev["with_source"] == 2
+    assert ev["with_source_rate"] == 1.0
+    assert ev["available"] is True
+
+
+def test_no_evidence_means_none():
+    ev = {"numbers": 0, "available": False}
+    assert card_probe._degrade_level(0, ev) == "none"
+
+
+def test_evidence_without_dataset_is_evidence_level():
+    ev = {"numbers": 130, "available": True}
+    assert card_probe._degrade_level(0, ev) == "evidence"
+
+
+def test_dataset_rows_wins():
+    ev = {"numbers": 130, "available": True}
+    assert card_probe._degrade_level(72, ev) == "dataset"
+
+
+def test_has_dataset_layer_detects_spec(tmp_path):
+    assert card_probe._has_dataset_layer(tmp_path) is False
+    (tmp_path / "collection.yaml").write_text("schema: x", encoding="utf-8")
+    assert card_probe._has_dataset_layer(tmp_path) is True
+
+
+def test_old_project_without_grid_returns_ok(tmp_path):
+    """老项目没有 grid：不判格子，但要报清证据层。"""
+    (tmp_path / "claims_merged.json").write_text(json.dumps({
+        "numbers": [{"id": "a:1", "source_file": "a:S1"}],
+        "sources": [{"file": "a:S1"}],
+    }, ensure_ascii=False), encoding="utf-8")
+    r = card_probe.probe(str(tmp_path), mode="report", sources=[SRC])
+    assert r["ok"] is True
+    assert r["cells"] == 0
+    assert r["degrade_level"] == "evidence"
+    assert r["evidence_layer"]["numbers"] == 1
+
+
+def test_dataset_project_does_not_fall_back_to_evidence(tmp_path):
+    """有采集规格的项目：数据集层是权威，none 不能被证据层压掉。"""
+    p = _proj(tmp_path, measure="gross_margin")
+    (p / "collection.yaml").write_text("schema: x", encoding="utf-8")
+    # 同时塞一份证据层数据：有采集规格时它不该把 none 救回 point
+    (p / "claims_merged.json").write_text(json.dumps({
+        "numbers": [{"id": "a:1", "source_file": "a:S1"}],
+        "sources": [{"file": "a:S1"}],
+    }, ensure_ascii=False), encoding="utf-8")
+    r = card_probe.probe(str(p), mode="report", sources=[SRC])
+    assert card_probe._has_dataset_layer(p) is True
+    assert [u["measure"] for u in r["unavailable_demands"]] == ["gross_margin"]

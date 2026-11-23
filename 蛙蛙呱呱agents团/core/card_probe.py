@@ -74,16 +74,75 @@ def _best_for(demand_doc: Dict[str, Any], match_doc: Dict[str, Any]) -> Dict[str
     return best
 
 
+def _evidence_layer(project: Path) -> Dict[str, Any]:
+    """L1 证据层：项目里有没有「数字 + 来源」这种点证据。
+
+    老报告（如 母婴用品调研）没有长表，但有 130 个数字、每个挂 url+quote。
+    判「没数据」之前必须先看这一层——否则会把有证据的报告误判成无数据。
+    """
+    nums: List[Dict[str, Any]] = []
+    srcs: List[Dict[str, Any]] = []
+    for p in (project / "claims_merged.json",
+              project / "out" / "claims_merged.json"):
+        if p.is_file():
+            d = _load_json(p, {})
+            nums = list(d.get("numbers") or [])
+            srcs = list(d.get("sources") or [])
+            break
+    if not nums:
+        # 退到各卡的 claims.json
+        for f in sorted(project.glob("*/*/claims.json")):
+            d = _load_json(f, {})
+            nums.extend(d.get("numbers") or [])
+            srcs.extend(d.get("sources") or [])
+    with_src = sum(1 for n in nums if str(n.get("source_file") or "").strip())
+    return {
+        "numbers": len(nums),
+        "sources": len(srcs),
+        "with_source": with_src,
+        "with_source_rate": (round(with_src / len(nums), 3) if nums else 0.0),
+        "available": bool(nums),
+    }
+
+
+def _has_dataset_layer(project: Path) -> bool:
+    """有没有数据集层（长表）：采集规格 / mart / datasets 任一存在。"""
+    if (project / "collection.yaml").is_file():
+        return True
+    if (project / "plan" / "mart.json").is_file():
+        return True
+    ds = project / "data" / "datasets"
+    if ds.is_dir() and any(ds.glob("*.csv")):
+        return True
+    return False
+
+
+def _degrade_level(dataset_rows: int, ev: Dict[str, Any]) -> str:
+    """降级只分三层：有长表 / 只有点证据 / 什么都没有。"""
+    if dataset_rows > 0:
+        return "dataset"
+    if ev.get("available"):
+        return "evidence"
+    return "none"
+
+
 def probe(project: str, mode: str = "report",
           sources: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
     """跑一次可行性测试；返回明细，mode=degrade 时同时更新 grid.json。"""
     project = Path(project)
     if mode not in MODES:
         mode = "report"
+    ev = _evidence_layer(project)
     grid = _load_json(project / "plan" / "grid.json", {})
     cells = grid.get("cells") or []
     if not cells:
-        return {"ok": False, "why": "没有 plan/grid.json 或没有格子"}
+        # 没有网格（老项目）：不判格子，但要说清有没有证据层数据
+        return {"ok": True, "mode": mode, "cells": 0, "demands": 0,
+                "evidence_layer": ev,
+                "degrade_level": _degrade_level(0, ev),
+                "note": ("没有 plan/grid.json（老报告路径）；"
+                         "证据层 %d 个数字 / %d 个来源"
+                         % (ev["numbers"], ev["sources"]))}
 
     sem = _load_semantic(project)
     srcs = sources if sources is not None else _load_sources(project)
@@ -113,6 +172,10 @@ def probe(project: str, mode: str = "report",
     cell_state: Dict[str, Dict[str, Any]] = {}
     for measure, m in best.items():
         status = str(m.get("status") or "none")
+        # 证据层兜底只对「完全没有数据集层」的老报告生效；
+        # 有采集规格的项目，数据集层就是权威——none 就是真没有。
+        if status == "none" and ev.get("available") and not _has_dataset_layer(project):
+            status = "point"
         for cid in dem_cells.get(measure, []):
             cell_state[cid] = {
                 "measure": measure,
@@ -142,9 +205,13 @@ def probe(project: str, mode: str = "report",
     unavailable_demands: List[Dict[str, Any]] = []
     for d in dd["demands"]:
         m = best.get(str(d["measure"])) or {}
-        if str(m.get("status") or "") != "none" and m:
+        st = str(m.get("status") or "none")
+        if st != "none":
             continue
         if not m:
+            continue
+        # 证据层兜底只对「完全没有数据集层」的老报告生效（见上）
+        if ev.get("available") and not _has_dataset_layer(project):
             continue
         unavailable_demands.append({
             "measure": str(d["measure"]),
@@ -172,6 +239,9 @@ def probe(project: str, mode: str = "report",
                     "problems": (qt or {}).get("problems")},
         "cell_state": cell_state,
         "unavailable_demands": unavailable_demands,
+        "evidence_layer": ev,
+        "degrade_level": _degrade_level(
+            int((pv or {}).get("total_rows") or 0), ev),
         "degraded": changed,
         "full": sum(1 for v in cell_state.values() if v["collectable"] == "full"),
         "partial": sum(1 for v in cell_state.values() if v["collectable"] == "partial"),
