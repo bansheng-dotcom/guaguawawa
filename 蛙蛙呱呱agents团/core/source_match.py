@@ -22,18 +22,51 @@ from core import source_profile as sp
 
 SCHEMA = "dsh.source_match/v1"
 
-# 维度派生目录：dim → {from: [候选源字段], rule: derive DSL, confidence}
+# 维度派生目录：dim → {from: [候选源字段], rules: {col: DSL}, confidence: {col: 级别}}
+#
+# 关键：**同一个维度，从不同列派生的置信度是不一样的**。
+#   brand 来自真实字段 brands  → high（可信）
+#   brand 来自标题 title 解析   → low （必须在样本上验证；实测 0/10 正确）
 DERIVE_CATALOG: Dict[str, Dict[str, Any]] = {
-    "brand": {"from": ["title"], "rule": "token:title:0", "confidence": "low"},
-    "category": {"from": ["title"], "rule": "token:title:1", "confidence": "low"},
-    "month": {"from": ["snapshot_date", "date"],
-              "rule": "substr:snapshot_date:0:7", "confidence": "high"},
-    "year": {"from": ["snapshot_date", "date"],
-             "rule": "substr:snapshot_date:0:4", "confidence": "high"},
-    "price_band": {"from": ["price"],
-                   "rule": "bucket:price:39,99:低价带,中价带,高价带",
-                   "confidence": "medium"},
-    "city": {"from": ["city"], "rule": "field:city", "confidence": "high"},
+    "brand": {
+        "from": ["brand", "brands", "title"],
+        "rules": {"brand": "field:brand",
+                  "brands": "split:brands:,:0",
+                  "title": "token:title:0"},
+        "confidence": {"brand": "high", "brands": "high", "title": "low"},
+    },
+    "category": {
+        "from": ["category", "categories", "title"],
+        "rules": {"category": "field:category",
+                  "categories": "split:categories:,:0",
+                  "title": "token:title:1"},
+        "confidence": {"category": "high", "categories": "high", "title": "low"},
+    },
+    "month": {
+        "from": ["snapshot_date", "date", "month"],
+        "rules": {"month": "field:month",
+                  "snapshot_date": "substr:snapshot_date:0:7",
+                  "date": "substr:date:0:7"},
+        "confidence": {"month": "high", "snapshot_date": "high", "date": "high"},
+    },
+    "year": {
+        "from": ["snapshot_date", "date", "year"],
+        "rules": {"year": "field:year",
+                  "snapshot_date": "substr:snapshot_date:0:4",
+                  "date": "substr:date:0:4"},
+        "confidence": {"year": "high", "snapshot_date": "high", "date": "high"},
+    },
+    "price_band": {
+        "from": ["price_band", "price"],
+        "rules": {"price_band": "field:price_band",
+                  "price": "bucket:price:39,99:低价带,中价带,高价带"},
+        "confidence": {"price_band": "high", "price": "medium"},
+    },
+    "city": {
+        "from": ["city"],
+        "rules": {"city": "field:city"},
+        "confidence": {"city": "high"},
+    },
 }
 
 # 度量计算目录：measure → {agg, expr, unit, requires}
@@ -48,6 +81,11 @@ MEASURE_CATALOG: Dict[str, Dict[str, Any]] = {
                       "requires": ["price", "list_price"]},
     "price": {"agg": "mean", "expr": "price", "unit": "元",
               "requires": ["price"]},
+    # 通用计数/求和：不绑定业务字段
+    "products": {"agg": "count", "expr": "1", "unit": "个", "requires": []},
+    "product_count": {"agg": "count", "expr": "1", "unit": "个", "requires": []},
+    "scans": {"agg": "sum", "expr": "unique_scans_n", "unit": "次",
+              "requires": ["unique_scans_n"]},
 }
 
 SERIES_DIMS = ("year", "month", "quarter", "week", "day")
@@ -58,24 +96,20 @@ def _dim_plan(dim: str, source: Dict[str, Any],
               ) -> Dict[str, Any]:
     have = set(sp.field_names(source))
     if dim in have:
-        return {"dim": dim, "how": "field", "rule": "field:" + dim}
+        return {"dim": dim, "how": "field", "rule": "field:" + dim,
+                "confidence": "high"}
     spec = catalog.get(dim)
     if not spec:
         return {"dim": dim, "how": "missing", "rule": "", "why": "目录里没有派生规则"}
-    src_cols = [c for c in (spec.get("from") or []) if c in have]
-    if not src_cols:
-        return {"dim": dim, "how": "missing",
-                "why": "源没有 %s 这些字段" % (spec.get("from") or [])}
-    rule = str(spec.get("rule") or "")
-    # rule 里写死的列名可能不是第一个候选列，替换成实际存在的那个
-    for c in spec.get("from") or []:
-        rule = rule.replace(":" + c + ":", ":" + src_cols[0] + ":")
-    if rule.startswith("field:") or rule.startswith("substr:") \
-            or rule.startswith("token:") or rule.startswith("bucket:") \
-            or rule.startswith("calc:"):
-        return {"dim": dim, "how": "derive", "rule": rule,
-                "confidence": str(spec.get("confidence") or "medium")}
-    return {"dim": dim, "how": "missing", "why": "派生规则非法"}
+    for col in spec.get("from") or []:
+        if col not in have:
+            continue
+        rule = str((spec.get("rules") or {}).get(col) or spec.get("rule") or "")
+        conf = str((spec.get("confidence") or {}).get(col) or "medium")
+        if rule.startswith(("field:", "substr:", "token:", "split:", "bucket:", "calc:")):
+            return {"dim": dim, "how": "derive", "rule": rule, "confidence": conf}
+    return {"dim": dim, "how": "missing",
+            "why": "源没有 %s 这些字段" % (spec.get("from") or [])}
 
 
 def _measure_plan(measure: str, source: Dict[str, Any],

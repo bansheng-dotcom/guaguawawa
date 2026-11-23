@@ -1,0 +1,21 @@
+schema: dsh.source/v1
+id: openfoodfacts
+title: Open Food Facts 公开商品库（API）
+kind: api
+# 原子粒度：一条商品记录
+atomic_grain:
+  - code
+# 开放数据库只给「当前状态」，没有历史快照
+history: snapshot_only
+fields:
+  - {name: code,            type: string}
+  - {name: brands,          type: string}
+  - {name: product_name,    type: string}
+  - {name: categories,      type: string}
+  - {name: unique_scans_n,  type: number}
+  - {name: nutriscore_grade, type: string}
+  - {name: countries,       type: string}
+notes:
+  - 有**真实的 brands 字段**（不是从标题解析）
+  - unique_scans_n 是扫描人次，可当「需求热度」代理，但它不是销量
+  - 没有价格字段，所以价格类分析在这个源上做不到

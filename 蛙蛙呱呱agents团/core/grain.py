@@ -131,6 +131,13 @@ def _derive_value(row: Dict[str, Any], spec: str) -> Any:
         parts = str(row.get(col) or "").split()
         i = int(idx)
         return parts[i] if 0 <= i < len(parts) else ""
+    if s.startswith("split:"):
+        # split:<col>:<sep>:<index>；sep 写 \t 表示制表符
+        _, col, sep, idx = s.split(":", 3)
+        sep = "\t" if sep == "\\t" else sep
+        parts = [x.strip() for x in str(row.get(col) or "").split(sep)]
+        i = int(idx)
+        return parts[i] if 0 <= i < len(parts) else ""
     if s.startswith("bucket:"):
         _, col, bounds, labels = s.split(":", 3)
         v = _num(row.get(col))

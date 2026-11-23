@@ -119,7 +119,9 @@ def preview(spec: Dict[str, Any], n: int = 20,
 
     src = (source if source is not None
            else _sp.load(str(spec.get("source") or "")))
-    col = _c.base.get(str(src.get("kind") or "")) if src else None
+    # 先按 source id 找专用采集器（如 openfoodfacts），再退回按 kind 找通用采集器
+    col = (_c.base.get(str(src.get("id") or ""))
+           or _c.base.get(str(src.get("kind") or ""))) if src else None
     if not col:
         return {"ok": False, "why": "没有可用采集器: %r" % src.get("kind")}
     try:
@@ -154,7 +156,9 @@ def quality(spec: Dict[str, Any], project_dir: str = "",
 
     src = (source if source is not None
            else _sp.load(str(spec.get("source") or "")))
-    col = _c.base.get(str(src.get("kind") or "")) if src else None
+    # 先按 source id 找专用采集器（如 openfoodfacts），再退回按 kind 找通用采集器
+    col = (_c.base.get(str(src.get("id") or ""))
+           or _c.base.get(str(src.get("kind") or ""))) if src else None
     if not col:
         return {"ok": False, "why": "没有可用采集器"}
     try:
@@ -193,7 +197,9 @@ def run(spec: Dict[str, Any], project_dir: str = "") -> Dict[str, Any]:
     from core import collectors as _c
 
     src = sp.load(str(spec.get("source") or ""))
-    col = _c.base.get(str(src.get("kind") or "")) if src else None
+    # 先按 source id 找专用采集器（如 openfoodfacts），再退回按 kind 找通用采集器
+    col = (_c.base.get(str(src.get("id") or ""))
+           or _c.base.get(str(src.get("kind") or ""))) if src else None
     if not col:
         return {"ok": False, "stage": "collector",
                 "error": "没有可用采集器: %r" % src.get("kind")}
