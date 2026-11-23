@@ -399,10 +399,23 @@ def check_sections(draft: Dict[str, Any], pack: Dict[str, Any],
             })
         out = {**out, "unavailable_sections": len(unavail),
                "unavailable_without_why": bad}
+        # 节数要连降级节一起算：它们确实是报告里的节，只是没数字
+        _total = len(normal) + len(unavail)
+        _fixed = False
+        for c in (out.get("checks") or []):
+            if c.get("id") == "has_sections" and _total >= 3:
+                c["ok"] = True
+                c["msg"] = ("至少 3 节（含 %d 个降级节）" % len(unavail))
+                _fixed = True
+        if _fixed:
+            # 旧错误消息要一起清掉，否则 ok 永远翻不过来
+            out["errors"] = [e for e in (out.get("errors") or [])
+                             if not str(e).startswith("has_sections")]
         if bad:
-            out["ok"] = False
             out.setdefault("errors", []).append(
                 "降级节缺 why：%d 节（必须写缺口原因）" % bad)
+        out["ok"] = (all(c.get("ok") for c in (out.get("checks") or []))
+                     and not (out.get("errors") or []))
     if out_dir:
         _write_json(os.path.join(out_dir, "section_check.json"), out)
     if not out.get("ok"):
