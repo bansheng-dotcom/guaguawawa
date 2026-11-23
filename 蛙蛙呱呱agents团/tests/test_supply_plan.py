@@ -273,13 +273,107 @@ def test_probe_card_is_not_a_collection_card(tmp_path):
     }, ensure_ascii=False), encoding="utf-8")
     r = card_issue.prepare_probe_cards(tmp_path)
     assert r["ok"] is True
-    task = (tmp_path / "cards" / "probe" / "TASK.md").read_text(encoding="utf-8")
+    task = (tmp_path / "cards" / "r18" / "TASK.md").read_text(encoding="utf-8")
     assert "探源卡" in task
     assert "不是采集卡" in task
-    assert (tmp_path / "cards" / "probe" / "NEEDS.json").is_file()
+    assert (tmp_path / "cards" / "r18" / "NEEDS.json").is_file()
 
 
 def test_probe_card_requires_grid(tmp_path):
     from core import card_issue
     r = card_issue.prepare_probe_cards(tmp_path)
     assert r["ok"] is False
+
+
+# ---------------- v7.2：探源交给 r18，产出数据目录 ----------------
+
+def _entry(**kw):
+    e = {"table": "tjb_car_parc", "layer": "A", "owner": "r18",
+         "url": "https://www.stats.gov.cn/x",
+         "fields": ["年份", "民用汽车保有量"],
+         "access": "直接抓", "cost": 0, "freshness": "年更",
+         "caliber": "全国/年末"}
+    e.update(kw)
+    return e
+
+
+def test_from_catalog_basic():
+    from core import source_profile as sp
+    s = sp.from_catalog(_entry())
+    assert s["id"] == "tjb_car_parc"
+    assert s["owner"] == "r18"
+    assert s["layer"] == "A"
+    assert s["kind"] == "web_search"
+    assert s["from_catalog"] is True
+    assert sp.validate(s) == []
+
+
+def test_from_catalog_monthly_is_historical():
+    from core import source_profile as sp
+    s = sp.from_catalog(_entry(freshness="月更"))
+    assert s["history"] == "historical"
+
+
+def test_from_catalog_yearly_is_snapshot_only():
+    from core import source_profile as sp
+    s = sp.from_catalog(_entry(freshness="年更"))
+    assert s["history"] == "snapshot_only"
+
+
+def test_from_catalog_requires_table():
+    from core import source_profile as sp
+    assert sp.from_catalog(_entry(table="")) == {}
+
+
+def test_from_catalog_grain_falls_back_to_first_field():
+    from core import source_profile as sp
+    s = sp.from_catalog(_entry(atomic_grain=["nope"]))
+    assert s["atomic_grain"] == ["年份"]
+
+
+def test_load_catalog_reads_r18_file(tmp_path):
+    from core import source_profile as sp
+    d = tmp_path / "cards" / "r18"
+    d.mkdir(parents=True)
+    (d / "data_catalog.json").write_text(json.dumps({
+        "catalog": [_entry(), _entry(table="tmall_sku", layer="C")],
+    }, ensure_ascii=False), encoding="utf-8")
+    got = sp.load_catalog(tmp_path)
+    assert [s["id"] for s in got] == ["tjb_car_parc", "tmall_sku"]
+
+
+def test_load_catalog_missing_returns_empty(tmp_path):
+    from core import source_profile as sp
+    assert sp.load_catalog(tmp_path) == []
+
+
+def test_probe_uses_r18_catalog_as_sources(tmp_path):
+    """探源产物优先于 configs/sources 兜底。"""
+    from core import card_probe
+    (tmp_path / "plan").mkdir()
+    (tmp_path / "plan" / "grid.json").write_text(json.dumps({
+        "cells": [{"cell_id": "c1", "measure": "asp",
+                   "grain": "G_brand_month", "dim": "对象", "entity": "A"}],
+    }, ensure_ascii=False), encoding="utf-8")
+    d = tmp_path / "cards" / "r18"
+    d.mkdir(parents=True)
+    (d / "data_catalog.json").write_text(json.dumps({
+        "catalog": [_entry(table="cat_src")],
+    }, ensure_ascii=False), encoding="utf-8")
+    srcs = card_probe._load_sources(tmp_path)
+    assert [s["id"] for s in srcs] == ["cat_src"]
+
+
+def test_probe_card_goes_to_r18(tmp_path):
+    from core import card_issue
+    (tmp_path / "plan").mkdir()
+    (tmp_path / "plan" / "grid.json").write_text(json.dumps({
+        "cells": [{"cell_id": "c1", "measure": "asp",
+                   "grain": "G_brand_month", "dim": "对象", "entity": "A"}],
+    }, ensure_ascii=False), encoding="utf-8")
+    r = card_issue.prepare_probe_cards(tmp_path)
+    assert r["role"] == "r18"
+    task = (tmp_path / "cards" / "r18" / "TASK.md").read_text(encoding="utf-8")
+    assert "r18" in task
+    assert "owner" in task
+    assert "data_catalog.json" in task

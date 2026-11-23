@@ -48,7 +48,8 @@ def _pack(project: Path) -> Dict[str, Any]:
     return {}
 
 
-PROBE_ROLE = "probe"
+PROBE_ROLE = "r18"   # 蛙数仓：数据目录（s06_catalog）是它的能力域 6
+PROBE_ASSIST = "r05"  # 蛙深远：行业扫描，负责 A/B 层
 
 
 def prepare_probe_cards(project: Path) -> Dict[str, Any]:
@@ -75,28 +76,39 @@ def prepare_probe_cards(project: Path) -> Dict[str, Any]:
     need = {
         "schema": "dsh.probe_card/v1",
         "role": PROBE_ROLE,
-        "purpose": "探源：回答「这个业务有哪些源、各给什么」",
+        "assist": PROBE_ASSIST,
+        "purpose": "探源：回答「这个业务有哪些源、各给什么」，落成 r18 的数据目录",
         "measures_needed": measures,
         "grains_needed": grains,
         "dims_needed": dims,
         "cells": len(cells),
         "ask": {
-            "per_source": ["layer(A/B/C)", "name", "url", "fields",
-                           "access", "cost", "freshness", "口径"],
+            # 对齐 r18 的 s06_catalog.entry：表名/owner/字段/更新时间/口径
+            "per_source": ["table", "layer(A/B/C)", "owner", "url", "fields",
+                           "access", "cost", "freshness", "caliber"],
             "must_answer": [
                 "每个 measure 有没有源能给（能给到 L1 还是 L2）",
                 "哪些 dims 源里是真实字段、哪些要从标题解析",
                 "到 L2 需要什么（买什么/采多久/多少钱）",
+                "每个源 owner 是谁（出事谁认领）",
             ],
         },
     }
     cu._w(d / "NEEDS.json", need)
     lines = [
-        "# 探源卡（给探测层）",
+        "# 探源卡（给 r18 蛙数仓 · 抄送 r05 蛙深远）",
         "",
-        "> 这不是采集卡。你的任务是**查清有哪些源**，不是把数采回来。",
-        "> 查完把 `cards/probe/sources.json` 交回来；系统会据此生成供给方案，",
+        "> 这不是采集卡。你的任务是**查清有哪些源、登记成数据目录**，不是把数采回来。",
+        "> 查完把 `cards/r18/data_catalog.json` 交回来；系统会据此生成供给方案，",
         "> 再发采集卡给执行层。",
+        "",
+        "## 怎么接",
+        "",
+        "| 步 | 做什么 | 落到哪 |",
+        "|---|---|---|",
+        "| 1 | 查源（r05 主查 A/B 层：统计局、行业报告、公开榜单） | 报告名 + 出处 |",
+        "| 2 | 登记源（r18 主登记：表名/owner/字段/更新口径） | `data_catalog.json` |",
+        "| 3 | 校验（`call r18 catalog entry`） | 不过就改 |",
         "",
         "## 要查什么",
         "",
@@ -107,18 +119,19 @@ def prepare_probe_cards(project: Path) -> Dict[str, Any]:
         f"| 需求维度 | {', '.join(dims) or '—'} |",
         f"| 格子数 | {len(cells)} |",
         "",
-        "## 每个源要报什么",
+        "## 每个源要登记什么（对齐 s06_catalog.entry）",
         "",
-        "| 字段 | 说明 |",
-        "|---|---|",
-        "| `layer` | A 开放 / B 半开放 / C 封闭 |",
-        "| `name` | 源名称（要能定位到具体页面/报告/接口） |",
-        "| `url` | 具体链接（**不许写“官方”“行业”这种虚指**） |",
-        "| `fields` | 这个源真实给哪些列（列名照抄） |",
-        "| `access` | 直接抓 / API / 购买 / 手工 |",
-        "| `cost` | 0 或具体金额（不写“数万元”） |",
-        "| `freshness` | 年更 / 月更 / 实时 |",
-        "| `口径` | 含税/不含、到手价/标价、全国/区域 |",
+        "| 字段 | 说明 | 校验 |",
+        "|---|---|---|",
+        "| `table` | 源的表名（唯一） | **必填**，重复即失败 |",
+        "| `layer` | A 开放 / B 半开放 / C 封闭 | 必填 |",
+        "| `owner` | 出事谁认领（人名/角色） | **必填**，空即 BLOCKER |",
+        "| `url` | 具体链接（**不许写“官方”“行业”这种虚指**） | 必填 |",
+        "| `fields` | 这个源真实给哪些列（列名照抄） | 非空 |",
+        "| `access` | 直接抓 / API / 购买 / 手工 | 必填 |",
+        "| `cost` | 0 或具体金额（不写“数万元”） | 必填 |",
+        "| `freshness` | 年更 / 月更 / 实时 | 必填 |",
+        "| `caliber` | 含税/不含、到手价/标价、全国/区域 | 必填 |",
         "",
         "## 必须回答的三个问题",
         "",
@@ -129,11 +142,19 @@ def prepare_probe_cards(project: Path) -> Dict[str, Any]:
         "## 回填格式",
         "",
         "```json",
-        '{ "sources": [ { "layer": "A", "name": "...", "url": "...",'
-        ' "fields": ["..."], "access": "...", "cost": 0,'
-        ' "freshness": "...", "caliber": "..." } ],',
-        '  "answers": { "L1_possible": true, "L2_possible": false,'
-        ' "L2_condition": "..." } }',
+        '{"catalog": [',
+        '  {"table": "tjb_car_parc", "layer": "A", "owner": "r18",',
+        '   "url": "https://www.stats.gov.cn/...",',
+        '   "fields": ["年份", "民用汽车保有量"],',
+        '   "access": "直接抓", "cost": 0, "freshness": "年更",',
+        '   "caliber": "全国/年末"},',
+        '  {"table": "tmall_floor_mat_sku", "layer": "C", "owner": "r18",',
+        '   "url": "https://...", "fields": ["title", "price", "sales_30d"],',
+        '   "access": "购买", "cost": 30000, "freshness": "月更",',
+        '   "caliber": "到手价"}],',
+        ' "answers": {"L1_possible": true, "L2_possible": false,',
+        '  "L2_condition": "需采购第三方商品库（品牌×月）",',
+        '  "planned_rows": 144}}',
         "```",
     ]
     (d / "TASK.md").write_text("\n".join(lines), encoding="utf-8")

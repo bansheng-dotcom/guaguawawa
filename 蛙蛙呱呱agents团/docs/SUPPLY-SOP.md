@@ -1,4 +1,4 @@
-# 数据供给 SOP（v7.1）：两段发卡 + 供给方案是生成物
+# 数据供给 SOP（v7.2）：探源交给 r18 + 供给方案是生成物
 
 > 起因（2026-11-23）：用户问「降级应该在什么时候做」。
 > 本文不直接回答执行细节，而是先做一次**需求诊断**——因为我认为问题定义偏了一层。
@@ -138,6 +138,44 @@ levels:
 
 **探源卡由 `card_issue.prepare_probe_cards(project)` 生成**，落在 `cards/probe/TASK.md`，
 回填 `cards/probe/sources.json`。
+
+## 3.1.1 探源由谁做：r18 蛙数仓（不是新角色）
+
+**2026-11-23 确认**：团里已经有能做探源的角色，**不用写新的**。
+
+| 角色 | 为什么是它 | 证据 |
+|---|---|---|
+| **r18 蛙数仓** | 能力域 6 = **数据目录** | `r18-washucang-dataeng/skills/s06_catalog.py`，动作 `entry` 校验「表名/owner/字段/更新时间」 |
+| **r05 蛙深远**（协作） | 行业扫描 / 竞品情报 | `s02_industry.py` / `s03_competitor.py`，负责 A/B 层「有哪些公开报告」 |
+
+**分工：**
+
+| 层 | 谁主查 | 谁登记 |
+|---|---|---|
+| A 开放（统计局/政府/开放 API） | r05 | r18 |
+| B 半开放（行业报告/榜单） | r05 | r18 |
+| C 封闭（第三方/电商） | r18 | r18 |
+
+**回填格式 = r18 的数据目录**（不是另发明一套 `sources.json`）：
+
+```json
+{"catalog": [
+  {"table": "tjb_car_parc", "layer": "A", "owner": "r18",
+   "url": "https://www.stats.gov.cn/sj/zxfb/",
+   "fields": ["年份", "民用汽车保有量"],
+   "access": "直接抓", "cost": 0, "freshness": "年更",
+   "caliber": "全国/年末", "atomic_grain": ["年份"]}],
+ "answers": {"L1_possible": true, "L2_possible": false,
+  "L2_condition": "需按月采购第三方商品库（品牌×月），约 3 万元/年",
+  "planned_rows": 144}}
+```
+
+**`owner` 是 r18 目录校验的 BLOCKER**——出事没人认领的源不许进目录。
+
+**闭环（已实测）**：
+`cards/r18/data_catalog.json` → `source_profile.load_catalog()` → 源画像 →
+`card_probe` 用它做匹配 → `plan/supply.json` 里的 `planned_rows` / `L2_condition`
+就是探测层申报的值。
 
 ## 3.2 供给方案是**生成物**，不是手写输入
 

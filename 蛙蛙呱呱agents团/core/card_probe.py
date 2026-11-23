@@ -52,14 +52,32 @@ def _load_semantic(project: Path) -> Dict[str, Any]:
         return {}
 
 
+def _catalog_answers(project: Path) -> Dict[str, Any]:
+    """探测层在 data_catalog.json 里申报的 answers（planned_rows / L2_condition）。"""
+    p = project / "cards" / "r18" / "data_catalog.json"
+    if not p.is_file():
+        return {}
+    d = _load_json(p, {})
+    return dict((d or {}).get("answers") or {})
+
+
 def _load_sources(project: Path) -> List[Dict[str, Any]]:
-    """项目自带规格的源优先；否则把 configs/sources 全拿上。"""
+    """源优先级：r18 探源目录（最权威）> 项目自带规格的源 > configs/sources 全量。"""
     out: List[Dict[str, Any]] = []
+    # ① r18 交回的数据目录：这是探源产物，最贴近真实可得性
+    try:
+        for s in sp.load_catalog(project):
+            if s and not sp.validate(s):
+                out.append(s)
+    except Exception:  # noqa: BLE001
+        pass
+    # ② 项目自带采集规格声明的源
     spec = cs.load(str(project / "collection.yaml"))
     if spec:
         s = sp.load(str(spec.get("source") or ""))
-        if s:
+        if s and not out:
             out.append(s)
+    # ③ 兜底：configs/sources 全量
     if not out:
         for p in sorted(sp.SOURCES_DIR.glob("*.yaml")):
             s = sp.load(str(p))
@@ -184,10 +202,12 @@ def probe(project: str, mode: str = "report",
             "why": "；".join(str(x) for x in (m.get("notes") or [])),
         })
     _l0 = [x["measure"] for x in supply_demands if x["level"] == "L0"]
-    _to_l2 = ""
-    if _l0:
+    _cat_ans = _catalog_answers(project)
+    _to_l2 = str(_cat_ans.get("L2_condition") or "")
+    if not _to_l2 and _l0:
         _to_l2 = ("需补以下源才能做序列：%s（采购第三方数据或按月手工快照）"
                   % "、".join(_l0))
+    _rows = _cat_ans.get("planned_rows") or _planned_rows
 
     out = {
         "schema": SCHEMA,
@@ -196,7 +216,7 @@ def probe(project: str, mode: str = "report",
         "cells": len(cells),
         "demands": dd["count"],
         "planned_level": _planned,
-        "planned_rows": _planned_rows,
+        "planned_rows": _rows,
         "supply_issues": _supply_issues,
         "sources": [str(s.get("id")) for s in srcs],
         "counts": (mm or {}).get("counts") or {},
