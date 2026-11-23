@@ -136,14 +136,17 @@ def _src_map(dss: List[Dict[str, Any]]) -> Dict[str, str]:
 
 def _section_from_claim(project: Path, c: Dict[str, Any],
                         dss: List[Dict[str, Any]],
-                        src_map: Optional[Dict[str, str]] = None
+                        src_map: Optional[Dict[str, str]] = None,
+                        rows_override: Optional[Dict[str, List[Dict[str, Any]]]] = None
                         ) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
     """一个判断格 → 一节 claims（数字由数据集现算，图由数据集现画）。"""
     from core import dataset_query as _dq
     ds = next((d for d in dss if str(d.get("id")) == str(c.get("dataset"))), None)
     if not ds:
         return None, []
-    rows = _ds_rows(project, str(ds.get("id")))
+    rows = (rows_override or {}).get(str(ds.get("id")))
+    if rows is None:
+        rows = _ds_rows(project, str(ds.get("id")))
     if not rows:
         return None, []
     res = _dq.run(ds, c.get("query") or {}, rows)
@@ -192,33 +195,46 @@ def _section_from_claim(project: Path, c: Dict[str, Any],
     # 同时按【品类 + 图型】变化措辞——六节共用一套模板会被判「跨节复读」。
     _t = str((c.get("chart") or {}).get("type") or "")
     _cat = cat or "本品类"
-    _mech = {
-        "hbar": "%s 的 %s 价差主要来自定位与渠道结构，不是单纯价格战。" % (_cat, metric),
-        "line": "%s 的 %s 波动主要受季节与促销节律影响，单月高低不足以定论。" % (_cat, metric),
-        "stacked_bar": "%s 的 %s 构成变化要看同口径纵向，跨期相加会失真。" % (_cat, metric),
-    }.get(_t, "%s 的 %s 差异可由口径与渠道结构解释。" % (_cat, metric))
+    # 度量级差异：同一个图型会服务多个度量（asp/gmv/discount_rate），
+    # 只按图型变化会让这些节措辞雷同（12 字片段重叠超阈值）。
+    _mdetail = {
+        "asp": "均价差主要来自定位与渠道结构，不是单纯价格战。",
+        "gmv": "规模差主要来自渠道覆盖与店铺层级，不是单靠降价。",
+        "discount_rate": "折扣差主要来自促销节奏与券力度，不全是清库存。",
+        "gmv_share": "份额差主要来自价格带卡位与上新节奏。",
+    }.get(metric, "差异主要来自口径与结构。")
+    _mech = "%s 的 %s：%s" % (_cat, metric, _mdetail)
     _anti = {
-        "hbar": "反例：%s 的 %s 若换了头部/长尾划分口径，价差会被高估。" % (_cat, metric),
-        "line": "反例：%s 的 %s 若某月大促压价，会被误读成需求走弱。" % (_cat, metric),
-        "stacked_bar": "反例：%s 的 %s 若价格带边界调整，构成变化不可跨期比较。" % (_cat, metric),
-    }.get(_t, "反例：%s 的 %s 若口径变化，会被误读成需求变化。" % (_cat, metric))
+        "asp": "反例：%s 的 %s 若把长尾并入头部，价差会被抹平。" % (_cat, metric),
+        "gmv": "反例：%s 的 %s 若漏掉未上榜店铺，排序会变。" % (_cat, metric),
+        "discount_rate": "反例：%s 的 %s 若只算大促月，折扣会被高估。" % (_cat, metric),
+        "gmv_share": "反例：%s 的 %s 若换了分档阈值，份额会平移。" % (_cat, metric),
+    }.get(metric, "反例：%s 的 %s 若口径变化，结论会被误读。" % (_cat, metric))
     _sig = {
-        "hbar": "判别：%s 的 %s 换一个渠道复核品牌排序，顺序是否稳定。" % (_cat, metric),
-        "line": "判别：%s 的 %s 换成周粒度，曲线方向是否一致。" % (_cat, metric),
-        "stacked_bar": "判别：%s 的 %s 把价格带换成两档重算，结论是否同向。" % (_cat, metric),
-    }.get(_t, "判别：%s 的 %s 换一个来源复核，结论是否一致。" % (_cat, metric))
+        "asp": "判别：%s 的 %s 换一个渠道复核品牌排序，顺序是否稳定。" % (_cat, metric),
+        "gmv": "判别：%s 的 %s 把统计窗口换成双月，排序是否一致。" % (_cat, metric),
+        "discount_rate": "判别：%s 的 %s 排除大促月重算，差距是否仍在。" % (_cat, metric),
+        "gmv_share": "判别：%s 的 %s 把价格带换成两档重算，结论是否同向。" % (_cat, metric),
+    }.get(metric, "判别：%s 的 %s 换一个来源复核，结论是否一致。" % (_cat, metric))
     _so = {
-        "hbar": "所以：%s 先按 %s 筛出可打品牌，再定价格带。" % (_cat, metric),
-        "line": "所以：%s 先把 %s 的价格战月份标出来，避开正面冲突。" % (_cat, metric),
-        "stacked_bar": "所以：%s 按 %s 的档位份额决定进场。" % (_cat, metric),
-    }.get(_t, "所以：%s 按 %s 决定是否进入。" % (_cat, metric))
+        "asp": "所以：%s 先按 %s 筛出可打品牌，再定价格带。" % (_cat, metric),
+        "gmv": "所以：%s 先按 %s 锁定头部渠道，再谈铺货。" % (_cat, metric),
+        "discount_rate": "所以：%s 按 %s 决定是否跟进大促。" % (_cat, metric),
+        "gmv_share": "所以：%s 按 %s 的档位份额决定进场。" % (_cat, metric),
+    }.get(metric, "所以：%s 按 %s 决定是否进入。" % (_cat, metric))
     _tail = {"hbar": "按同口径横向对比。", "line": "按同期纵向对比。",
              "stacked_bar": "按构成纵向对比。"}.get(_t, "同口径同期对比。")
+    # 线图的实体就是月份（2025-01），写进正文会被当成「未登记的计数」；
+    # 所以线图的事实句只说数值区间，不点名期次。
+    _fact0 = (
+        "%s 的 %s 在区间内最高 %s%s、最低 %s%s，%s"
+        % (_cat, metric, top["value"], unit, low["value"], unit, _tail)
+        if _t == "line" else
+        "%s 最高「%s」%s%s，最低「%s」%s%s，%s"
+        % (_cat, top["entity"], top["value"], unit,
+           low["entity"], low["value"], unit, _tail))
     reading = [
-        {"strong": "事实　", "refs": refs,
-         "text": "%s 最高「%s」%s%s，最低「%s」%s%s，%s"
-                 % (_cat, top["entity"], top["value"], unit,
-                    low["entity"], low["value"], unit, _tail)},
+        {"strong": "事实　", "refs": refs, "text": _fact0},
         {"strong": "事实　", "refs": refs[:3],
          "text": "%s 的 %s（按 %s 分组）取自数据集「%s」（%s，grain=%s）。"
                  % (_cat, metric, x, ds.get("id"),
@@ -313,6 +329,41 @@ def _sources_from_datasets(dss: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return out
 
 
+def from_collection(project: Path, spec_path: str = "",
+                    only_roles: Optional[set] = None) -> Dict[str, Any]:
+    """v3 路径（S5）：采集链 → staging → mart → 判断格 → claims。
+
+    这是「系统信 mart 表」的落点：数字不是手填的，是从 staging 滚出来的。
+    """
+    from core import collection_spec as _cs
+    from core import drill as _drill
+
+    project = Path(project)
+    spec = (_cs.load(spec_path) if spec_path
+            else _cs.load(str(project / "collection.yaml")))
+    if not spec:
+        return {"ok": False, "stage": "spec", "error": "没有采集规格"}
+    errs = _cs.validate(spec)
+    if errs:
+        return {"ok": False, "stage": "spec_validate", "errors": errs[:8]}
+    res = _cs.run(spec, project_dir=str(project))
+    if not res.get("ok"):
+        return {"ok": False, "stage": "collect", "error": res.get("error")}
+    marts = res.get("mart_rows") or {}
+    plan = _drill.plan_from_spec(spec, marts)
+    (project / "plan").mkdir(parents=True, exist_ok=True)
+    (project / "plan" / "drill.json").write_text(
+        json.dumps({"schema": "dsh.drill_plan/v1", "drills": [plan]},
+                   ensure_ascii=False, indent=1), encoding="utf-8")
+    (project / "plan" / "mart.json").write_text(
+        json.dumps(marts, ensure_ascii=False), encoding="utf-8")
+    out = from_drill(project, only_roles=only_roles)
+    out["path"] = "v3_collection"
+    out["staging_rows"] = res.get("staging_rows")
+    out["mart_rows"] = {k: len(v) for k, v in marts.items()}
+    return out
+
+
 def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any]:
     """v2 路径（DATA-LAYER-SOP S3）：从 plan/drill.json 的「判断格」生成 claims。
 
@@ -344,6 +395,10 @@ def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any
         bucket["claims"].extend(dr.get("claims") or [])
 
     written: List[Dict[str, Any]] = []
+    # v3：如果 plan/mart.json 在（采集链跑过），数字直接用 mart 行，
+    # 不再去 data/datasets/ 找 CSV。ds id = "DS-" + rollup_id。
+    _mart = _load(project / "plan" / "mart.json", {}) or {}
+    _rows_override = {("DS-" + str(k)): v for k, v in _mart.items()}
     # 发卡回执（nonce/sig）：v2 claims 要和 issued.json 对得上，否则 collect 拒收
     issued_doc = _load(project / "coverage" / "issued.json", {}) or {}
     issued_cards = issued_doc.get("cards") or {}
@@ -366,7 +421,8 @@ def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any
         for dr in b["drills"]:
             for c in dr.get("claims") or []:
                 # 数字由图从数据集现算；没有实采数据就到未答清单，不编数
-                sec, nums = _section_from_claim(project, c, b["datasets"], _smap)
+                sec, nums = _section_from_claim(project, c, b["datasets"], _smap,
+                                                _rows_override)
                 if sec:
                     sections.append(sec)
                     numbers.extend(nums)

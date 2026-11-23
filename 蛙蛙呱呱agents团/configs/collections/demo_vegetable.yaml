@@ -1,0 +1,36 @@
+schema: dsh.collection_spec/v1
+id: demo_vegetable
+title: 蔬菜价格（演示：换业务只换 YAML）
+# 同一套代码，业务词只在 path 里
+source: manual_csv
+query:
+  path: data/staging/vegetable_price.csv
+
+rollups:
+  - id: category_month
+    grain: [category, month]
+    series: true
+    derive:
+      category: "token:title:0"
+      month: "substr:snapshot_date:0:7"
+    measures:
+      price:      {agg: mean, expr: price, unit: 元/公斤}
+      sales:      {agg: sum,  expr: sales_30d, unit: 件}
+      unit_price: {agg: mean, expr: "price / sales_30d", unit: 元/件}
+
+claims:
+  - id: category_price
+    title: 各品类蔬菜均价对比
+    dataset: category_month
+    query: {group_by: [category], metrics: [price]}
+    min_rows: 3
+    chart: {type: hbar, x: category, metric: price}
+    falsifier: 若品类间均价差小于 20%，本条作废
+
+  - id: category_trend
+    title: 各品类蔬菜价格月度走势
+    dataset: category_month
+    query: {group_by: [month], metrics: [price]}
+    min_rows: 12
+    chart: {type: line, x: month, metric: price}
+    falsifier: 若月度波动小于 5%，本条作废

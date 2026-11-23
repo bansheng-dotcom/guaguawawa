@@ -325,6 +325,20 @@ def _bridge_cells_to_claims(out_dir: str) -> Dict[str, Any]:
         # 2026-11-23（DATA-LAYER-SOP v2.0 · S6）：v2 优先——
         # 有 plan/drill.json 就从「判断格」生成（判断挂数据集，图从表现算）；
         # 没有才退回 v1 的「已填格子拼标量」。
+        # v3 优先（Strangler Fig facade）：有采集规格就跑到 mart，
+        # 数字由 staging → rollup 滚出来；没有才退回 v2 的钻取 / v1 的格子。
+        _spec_path = ""
+        for cand in (base / "collection.yaml", plan / "collection.yaml"):
+            if cand.is_file():
+                _spec_path = str(cand)
+                break
+        if _spec_path:
+            v3 = cells_claims.from_collection(base, _spec_path)
+            if v3.get("ok"):
+                v3["bridged_roles"] = [r.get("role") for r in (v3.get("roles") or [])]
+                v3["path"] = "v3_collection"
+                return v3
+
         if (plan / "drill.json").is_file():
             # v2 的归属由钻取自己决定（按对象格的 owner），不再用 only_roles 过滤，
             # 否则「拆卡把对象格给了 r06、钻取按首个分配归 r05」时会整卡丢掉。

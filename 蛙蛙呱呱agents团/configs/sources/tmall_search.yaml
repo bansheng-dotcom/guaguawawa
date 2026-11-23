@@ -1,0 +1,25 @@
+schema: dsh.source/v1
+id: tmall_search
+title: 平台搜索页（按销量排序）
+kind: platform_search
+# 原子粒度 = 源能捕获的最低层：一个商品在某一天的一个快照
+atomic_grain:
+  - sku_id
+  - snapshot_date
+# 只能采当下：平台不给历史榜单，时间序列要靠按月快照攒
+history: snapshot_only
+fields:
+  - {name: sku_id,        type: string}
+  - {name: snapshot_date, type: date}
+  - {name: platform,      type: string}
+  - {name: keyword,       type: string}
+  - {name: title,         type: string}
+  - {name: price,         type: number, unit: 元}
+  - {name: list_price,    type: number, unit: 元}
+  - {name: sales_30d,     type: number}
+  - {name: review_count,  type: number}
+  - {name: shop_name,     type: string}
+  - {name: url,           type: string}
+notes:
+  - 平台「月销」是滚动 30 天，不等于自然月销量
+  - 榜单只给前若干页，不是全量；份额只能算「榜单内份额」

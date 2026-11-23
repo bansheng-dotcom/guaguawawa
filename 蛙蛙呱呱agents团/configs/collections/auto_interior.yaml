@@ -1,0 +1,62 @@
+schema: dsh.collection_spec/v1
+id: auto_interior_floor_mat
+title: 汽车脚垫（手工整理）
+# 业务词只出现在下面这一行的 path 里
+source: manual_csv
+query:
+  path: data/staging/floor_mat_sku.csv
+
+rollups:
+  - id: brand_month
+    grain: [brand, month]
+    series: true
+    derive:
+      brand: "token:title:0"
+      month: "substr:snapshot_date:0:7"
+    measures:
+      asp:            {agg: mean, expr: price, unit: 元}
+      gmv:            {agg: sum,  expr: "price * sales_30d", unit: 元}
+      discount_rate:  {agg: mean, expr: "1 - price / list_price", unit: "%"}
+
+  - id: price_band_month
+    grain: [price_band, month]
+    series: true
+    derive:
+      price_band: "bucket:price:39,99:低价带,中价带,高价带"
+      month: "substr:snapshot_date:0:7"
+    measures:
+      gmv: {agg: sum, expr: "price * sales_30d", unit: 元}
+
+claims:
+  - id: brand_gap
+    title: 各品牌脚垫均价差多少
+    dataset: brand_month
+    query: {group_by: [brand], metrics: [asp]}
+    min_rows: 5
+    chart: {type: hbar, x: brand, metric: asp}
+    falsifier: 若头部与长尾均价差小于 1.5 倍，本条作废
+
+  - id: price_band_shift
+    title: 高价带 GMV 在 12 个月里的走势
+    dataset: price_band_month
+    query: {group_by: [month], metrics: [gmv]}
+    min_rows: 12
+    chart: {type: line, x: month, metric: gmv}
+    falsifier: 若低价带 gmv 未上移，本条作废
+
+  - id: brand_discount
+    title: 各品牌折扣力度差多少
+    dataset: brand_month
+    query: {group_by: [brand], metrics: [discount_rate]}
+    min_rows: 5
+    chart: {type: hbar, x: brand, metric: discount_rate}
+    falsifier: 若品牌间折扣率差小于 5 个点，本条作废
+
+
+  - id: brand_gmv
+    title: 各品牌脚垫 GMV 规模排序
+    dataset: brand_month
+    query: {group_by: [brand], metrics: [gmv]}
+    min_rows: 5
+    chart: {type: hbar, x: brand, metric: gmv}
+    falsifier: 若头部品牌 gmv 占比不足 30%，本条作废

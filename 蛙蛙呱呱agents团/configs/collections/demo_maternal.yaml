@@ -1,0 +1,36 @@
+schema: dsh.collection_spec/v1
+id: demo_maternal
+title: 母婴（演示：换业务只换 YAML）
+# 业务词只出现在下面 path 与 claim 标题里
+source: manual_csv
+query:
+  path: data/staging/maternal_sku.csv
+
+rollups:
+  - id: brand_month
+    grain: [brand, month]
+    series: true
+    derive:
+      brand: "token:title:0"
+      month: "substr:snapshot_date:0:7"
+    measures:
+      asp:           {agg: mean, expr: price, unit: 元}
+      gmv:           {agg: sum,  expr: "price * sales_30d", unit: 元}
+      discount_rate: {agg: mean, expr: "1 - price / list_price", unit: "%"}
+
+claims:
+  - id: brand_gap
+    title: 各品牌纸尿裤均价差多少
+    dataset: brand_month
+    query: {group_by: [brand], metrics: [asp]}
+    min_rows: 5
+    chart: {type: hbar, x: brand, metric: asp}
+    falsifier: 若头部与长尾均价差小于 1.5 倍，本条作废
+
+  - id: brand_gmv
+    title: 各品牌纸尿裤 GMV 排序
+    dataset: brand_month
+    query: {group_by: [brand], metrics: [gmv]}
+    min_rows: 5
+    chart: {type: hbar, x: brand, metric: gmv}
+    falsifier: 若头部品牌 gmv 占比不足 30%，本条作废

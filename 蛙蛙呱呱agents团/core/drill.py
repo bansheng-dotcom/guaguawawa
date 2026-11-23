@@ -30,6 +30,77 @@ def _ds_id(category: str, kind: str, tg: str) -> str:
     return "DS-%s-%s%s" % (category, kind, tg)
 
 
+def plan_from_spec(spec: Dict[str, Any],
+                   mart_rows: Optional[Dict[str, List[Dict[str, Any]]]] = None
+                   ) -> Dict[str, Any]:
+    """v3 路径（S4）：从采集规格推导钻取计划，不再手写行数。
+
+    与 `plan(category)` 的区别：那个是 v2 的"凭经验写 2 张表 216 行"；
+    这个是从 rollup 声明 + 实际 mart 行数推导出来的。
+    """
+    from core import dataset as _d
+    from core import grain as _g
+    from core import source_profile as _sp
+
+    src = _sp.load(str(spec.get("source") or ""))
+    atomic = _g.atomic_of(src)
+    history = str(src.get("history") or "")
+    marts = mart_rows or {}
+
+    datasets: List[Dict[str, Any]] = []
+    ds_id_of: Dict[str, str] = {}
+    for r in spec.get("rollups") or []:
+        rid = str(r.get("id") or "")
+        did = "DS-" + rid
+        ds_id_of[rid] = did
+        grain = _g.analysis_of(r)
+        cols = [{"name": d, "type": "string", "semantic": "dimension"} for d in grain]
+        for name, m in (r.get("measures") or {}).items():
+            cols.append({"name": name, "type": "number", "semantic": "measure",
+                         "unit": str((m or {}).get("unit") or ""),
+                         "agg": "sum" if str((m or {}).get("agg")) == "sum" else "mean"})
+        rows_actual = len(marts.get(rid) or [])
+        datasets.append(_d.build(
+            did,
+            title="%s（%s）" % (rid, " × ".join(grain)),
+            source={"kind": str(src.get("kind") or ""),
+                    "url": "", "via": str(src.get("id") or "")},
+            grain=" × ".join(grain), time_grain="month",
+            columns=cols,
+            rows_expected=max(rows_actual, 1),
+            quality={"completeness": "100%" if rows_actual else "0%",
+                     "source_grade": "B"},
+            sla={"freshness": "按采集批次"},
+        ))
+
+    claims: List[Dict[str, Any]] = []
+    for c in spec.get("claims") or []:
+        did = ds_id_of.get(str(c.get("dataset") or ""), "")
+        claims.append(cell_claim.build(
+            "C-%s-%s" % (spec.get("id"), c.get("id")),
+            str(c.get("title") or c.get("id") or ""), dataset=did,
+            query=c.get("query") or {},
+            min_rows=int(c.get("min_rows") or 3),
+            chart=c.get("chart") or {},
+            causal_level="A",
+            falsifier=str(c.get("falsifier") or ""),
+        ))
+
+    return {
+        "schema": "dsh.drill_plan/v1",
+        "category": str(spec.get("id") or ""),
+        "time_grain": "month",
+        "datasets": datasets,
+        "claims": claims,
+        "grid_cells": [],
+        "path": "v3_rollup",
+        "atomic_grain": atomic,
+        "history": history,
+        "note": "从采集规格推导：原子 %s → %d 张 mart → %d 个判断"
+                % (" × ".join(atomic), len(datasets), len(claims)),
+    }
+
+
 def plan(category: str, sem: Optional[Dict[str, Any]] = None, *,
          brands: Optional[List[str]] = None, time_grain: str = "month",
          price_bands: Optional[List[str]] = None) -> Dict[str, Any]:

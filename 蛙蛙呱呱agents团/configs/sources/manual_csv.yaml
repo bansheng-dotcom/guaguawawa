@@ -1,0 +1,19 @@
+schema: dsh.source/v1
+id: manual_csv
+title: 手工 CSV（半自动采集）
+kind: csv_manual
+# 手工整理的表：一行一条记录；粒由整理者声明
+atomic_grain:
+  - row_id
+history: historical
+fields:
+  - {name: row_id,        type: string}
+  - {name: snapshot_date, type: date}
+  - {name: title,         type: string}
+  - {name: price,         type: number, unit: 元}
+  - {name: list_price,    type: number, unit: 元}
+  - {name: sales_30d,     type: number}
+  - {name: city,          type: string}
+  - {name: url,           type: string}
+notes:
+  - 手工表最容易缺「口径」和「期次」，采集回执必须逐行校验
