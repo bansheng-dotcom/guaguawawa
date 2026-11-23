@@ -11,3 +11,4 @@ baselines/_treat_compare.py
 baselines/_hbge_diff.py
 baselines/_figs/
 baselines/_shadow_flow/
+baselines/_decord_demo/

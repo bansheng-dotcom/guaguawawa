@@ -242,7 +242,15 @@ def cmd_brief(args) -> int:
                                 "gates": spec.get("gates")}
             if not spec.get("ok"):
                 res["ok"] = False
-                res["hint"] = "拆卡门禁未过；看 plan/pre_issue_gates.json，改完重跑"
+                # 2026-11-23 修：前置门禁（clarify/intake）早退时不产出
+                # plan/pre_issue_gates.json，原来却提示"去看那个文件"，误导。
+                if spec.get("error"):
+                    res["hint"] = "拆卡前置未过（%s）：%s" % (
+                        spec.get("stage") or "?", spec.get("error"))
+                elif (Path(base) / "plan" / "pre_issue_gates.json").is_file():
+                    res["hint"] = "拆卡门禁未过；看 plan/pre_issue_gates.json，改完重跑"
+                else:
+                    res["hint"] = "拆卡未产出工件；先确认 clarify 已确认、intake 已签"
                 print(json.dumps(res, ensure_ascii=False, indent=1))
                 return 2
             # 没确认时把卡片清单摊给用户看（2026-11-22）：不发卡、不执行，
