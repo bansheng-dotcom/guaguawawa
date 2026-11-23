@@ -89,7 +89,9 @@ def sanitize(chart: Optional[Dict[str, Any]], pack: Dict[str, Any],
         return chart
     unit = max(order, key=lambda u: (counts[u], -order.index(u)))
     keep = [it for it in enriched if (it.get("_unit") or "") == unit]
-    if len(keep) < 2:
+    # 2026-11-23（SOP DoD #9）：1–2 点不画图——两个点连不成"关系"，
+    # 只会给人"有趋势"的错觉。门槛从 <2 提到 <3。
+    if len(keep) < 3:
         return None
     # refs 只保留主单位点的 ref，避免下游再抽回混单位数字
     refs_keep = [str(it.get("_ref")) for it in keep if it.get("_ref")]

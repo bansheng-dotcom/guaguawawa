@@ -1065,9 +1065,13 @@ def gates(clarify, grid, perspectives, sem, rows, contracts_, gaps,
     mece = extra.get("mece") or {"ok": True, "items": []}
     ck("G14", mece["ok"], f"MECE {[(i['qid'], i['ok'], i['sum']) for i in mece['items']]}")
     mech = [r for r in filled if r["dim"] == "机制"]
+    a_mech = [r for r in mech if r.get("causal_level") == "A"]
+    # 2026-11-23（SOP S5）：去掉 level>=3 依赖——原来只有 L3 格才判，
+    # 而实际网格的 机制格 常常 level=1，导致这条门禁永远不触发。
+    # 现在：任何已填的 机制格 都不许停在 A 阶。
     ck("G15", all(r.get("causal_level") in CAUSAL_LEVELS for r in mech)
-       and all(not (r.get("level", 0) >= 3 and r.get("causal_level") == "A") for r in filled),
-       f"机制格因果阶 {len(mech)}")
+       and not a_mech,
+       f"机制格因果阶 {len(mech)}（A 阶 {len(a_mech)} 个）")
     sem_errs = validate_semantic(sem)
     ck("G16", not sem_errs, "；".join(sem_errs) or "度量参数齐")
     ck("G17", all(r.get("grain") for r in rows), "每格声明 grain")

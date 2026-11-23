@@ -24,7 +24,7 @@ def _draft(chart_type, relation):
             "relation": relation,
             "reading": [{"strong": "事实　", "text": "包头 2 元，呼市 3 元。",
                          "refs": ["N1", "N2"]}],
-            "refs": ["N1", "N2"],
+            "refs": ["N1", "N2", "N3"],
             "falsifier": "价差收敛到 1.2 倍以下即作废",
             "boundary": "同口径批发价",
             "chart": {
@@ -32,9 +32,11 @@ def _draft(chart_type, relation):
                 "relation": relation,
                 "intent": "排序",
                 "why_this_chart": "哑铃图直接编码同一品类两地价差",
-                "refs": ["N1", "N2"],
+                # 2026-11-23：门槛提到 ≥3 点（1–2 点不出图），测试补第三个点
+                "refs": ["N1", "N2", "N3"],
                 "bars": [{"label": "包头", "value": 2.0},
-                         {"label": "呼和浩特", "value": 3.0}],
+                         {"label": "呼和浩特", "value": 3.0},
+                         {"label": "鄂尔多斯", "value": 2.5}],
             },
         }],
     }
@@ -46,6 +48,8 @@ def _pack():
          "entity": "包头", "period": ""},
         {"id": "N2", "name": "呼市批发价", "value": 3.0, "unit": "元/公斤",
          "entity": "呼和浩特", "period": ""},
+        {"id": "N3", "name": "鄂尔多斯批发价", "value": 2.5, "unit": "元/公斤",
+         "entity": "鄂尔多斯", "period": ""},
     ]}
 
 

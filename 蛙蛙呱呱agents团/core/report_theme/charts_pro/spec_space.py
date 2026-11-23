@@ -19,7 +19,7 @@ def _svg(w, h, label):
 
 def _geo():
     # 2026-11-23：geo 样例数据改为懒加载——只有真的画空间图才导入，不再拖累 import。
-    from .samples_data import geo as geo_mod  # noqa: PLC0415
+    from samples import geo as geo_mod  # noqa: PLC0415
     return geo_mod.project()
 
 

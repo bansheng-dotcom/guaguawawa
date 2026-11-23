@@ -32,16 +32,19 @@ def test_chart_units_drop_mixed_units():
         {"id": "r1", "name": "月营收", "value": 12, "unit": "万元"},
         {"id": "r2", "name": "门店数", "value": 3, "unit": "家"},
         {"id": "r3", "name": "月租金", "value": 2, "unit": "万元"},
+        {"id": "r4", "name": "月水电", "value": 1, "unit": "万元"},
     ]}
     chart = {"type": "hbar", "items": [
         {"label": "月营收", "value": 12, "ref": "r1"},
         {"label": "门店数", "value": 3, "ref": "r2"},
         {"label": "月租金", "value": 2, "ref": "r3"},
+        {"label": "月水电", "value": 1, "ref": "r4"},
     ]}
     out = chart_units.sanitize(chart, pack)
     assert out is not None
     assert out["unit_meta"] == "万元"
-    assert len(out["items"]) == 2
+    # 2026-11-23：门槛提到 ≥3 点，混单位过滤后剩 3 个「万元」点
+    assert len(out["items"]) == 3
     assert {i["unit"] for i in out["items"]} == {"万元"}
 
 

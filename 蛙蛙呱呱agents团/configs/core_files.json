@@ -122,6 +122,7 @@
  "roster.py",
  "runner.py",
  "semantic_pipeline.py",
+ "shape_gate.py",
  "skill_bridge.py",
  "skill_graph.py",
  "source_verify.py",

@@ -280,6 +280,53 @@ def _coverage_gaps(base: Path) -> Dict[str, Any]:
     }
 
 
+def _bridge_cells_to_claims(out_dir: str) -> Dict[str, Any]:
+    """格子 → claims 的桥：只给「有格子但还没交卡」的角色生成 claims。
+
+    2026-11-23（DoD #2）：`cells_claims.build` 写好了、有单测，但产线从不调用，
+    导致闭环断在「格子填了，但没人把它变成可收的判断」。这里在读卡之前补上。
+    """
+    base = Path(out_dir)
+    plan = base / "plan"
+    try:
+        from core import cells_claims
+        from core import card_upgrade as cu
+
+        grid_p = plan / "grid.json"
+        if not grid_p.is_file():
+            return {"ok": False, "skipped": True, "why": "无 plan/grid.json（未拆卡）"}
+        grid = json.loads(grid_p.read_text(encoding="utf-8-sig"))
+        if not grid.get("cells"):
+            return {"ok": False, "skipped": True, "why": "格网为空"}
+
+        disp_p = plan / "dispatch.json"
+        disp = (json.loads(disp_p.read_text(encoding="utf-8-sig"))
+                if disp_p.is_file() else {})
+        owners = {str(a.get("owner")) for a in (disp.get("assignments") or [])
+                  if a.get("owner")}
+        have = {d.name for d in (base / "cards").glob("*")
+                if (d / "claims.json").is_file()}
+        only = owners - have
+        if not only:
+            return {"ok": False, "skipped": True, "why": "所有角色都已交卡"}
+
+        cf = base / "out_v3" / "cells_filled.json"
+        if not cf.is_file():
+            facts_p = plan / "facts.json"
+            facts = (json.loads(facts_p.read_text(encoding="utf-8-sig"))
+                     if facts_p.is_file() else {})
+            rows = [{**c, "status": "open"} for c in grid["cells"]]
+            filled, _meta = cu.fill_cells(base, rows, facts)
+            cf.parent.mkdir(parents=True, exist_ok=True)
+            cf.write_text(json.dumps({"cells": filled}, ensure_ascii=False, indent=1),
+                          encoding="utf-8")
+        res = cells_claims.build(base, only_roles=only)
+        res["bridged_roles"] = sorted(only)
+        return res
+    except Exception as exc:  # noqa: BLE001 桥失败不影响收卡主链路
+        return {"ok": False, "why": str(exc)}
+
+
 def collect(out_dir: str, require_all: bool = False,
             min_sources: int = 0, verify_quotes: bool = False,
             strict_verify: bool = False, fetch=None,
@@ -301,6 +348,8 @@ def collect(out_dir: str, require_all: bool = False,
     - 缺口清单写进 `merged["gaps"]`：缺单元×维度、缺地图、页数差、来源缺口。
     """
     base = Path(out_dir) / "cards"
+    # 2026-11-23（DoD #2）：读卡前先把已填格子编译成 claims（只补没交卡的角色）
+    bridge = _bridge_cells_to_claims(out_dir)
     merged: Dict[str, Any] = {"numbers": [], "sources": [], "sections": [],
                               "conflicts": [], "missing": [], "boundaries": [],
                               "derived": [], "explore": [], "unanswered": []}
@@ -621,4 +670,5 @@ def collect(out_dir: str, require_all: bool = False,
         merged["post_gates"] = _cu.post_collect(Path(out_dir), merged)
     except Exception as exc:  # noqa: BLE001
         merged["post_gates"] = {"ok": False, "why": str(exc)}
+    merged["cells_bridge"] = bridge
     return merged, (bad + ([] if got else ["一张 claims 都没收到"]))

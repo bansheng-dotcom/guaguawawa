@@ -47,6 +47,21 @@ def build(intent: str, project_dir: str, out_dir: str,
     prof = analysis_desk.profile(desk)
     views = analysis_methods.build_views(desk)
     os.makedirs(out_dir, exist_ok=True)
+    # 2026-11-23（DoD #7）：数据分支必须产出 data_profile——先看数据长什么样，
+    # 再决定能问什么。原来这个模块写了但产线从不调用。
+    try:
+        from core import data_profile as _dp
+        _dp_res = _dp.profile_dir(os.path.join(project_dir, "data"))
+        _json(os.path.join(out_dir, "data_profile.json"), _dp_res)
+    except Exception:  # noqa: BLE001
+        pass
+    # 2026-11-23（DoD #4）：数据形状门禁——出图前先量「同 metric ≥3 行」的比例
+    try:
+        from core import shape_gate as _sg
+        _sg_res = _sg.gate((getattr(desk, "pack", {}) or {}).get("numbers") or [])
+        _json(os.path.join(out_dir, "shape_gate.json"), _sg_res)
+    except Exception:  # noqa: BLE001
+        pass
     tmpdir = os.path.join(out_dir, "_work")
     os.makedirs(tmpdir, exist_ok=True)
     ctx = analysis_methods.Ctx(
@@ -368,6 +383,15 @@ def build(intent: str, project_dir: str, out_dir: str,
 
     man_path = os.path.join(out_dir, "manifest.json")
     man: Dict[str, Any] = {}
+
+    def _plan_gate(name: str) -> Dict[str, Any]:
+        """读拆卡门禁结果（发卡前 S1–S12 / 收卡后 G1–G25）。"""
+        try:
+            p = os.path.join(project_dir, "plan", name)
+            return json.loads(Path(p).read_text(encoding="utf-8-sig"))
+        except Exception:  # noqa: BLE001
+            return {}
+
     if os.path.exists(man_path):
         man = json.loads(Path(man_path).read_text(encoding="utf-8-sig"))
         man.update({
@@ -402,6 +426,12 @@ def build(intent: str, project_dir: str, out_dir: str,
             },
             "quality": {"ok": qa.get("ok"), "score": qa.get("score"),
                         "sections": qa.get("sections"), "density": qa.get("density")},
+            # 2026-11-23（DoD #1）：拆卡门禁结果进 manifest.gate.post——
+            # 原来只写 plan/post_gates.json，manifest 里看不见。
+            "gate": {
+                "pre": _plan_gate("pre_issue_gates.json"),
+                "post": _plan_gate("post_gates.json"),
+            },
             "quality_gate": gate,
             "ok": ok,
         })

@@ -178,3 +178,37 @@ def test_no_cells_is_rejected():
     (base / "out_v3" / "cells_filled.json").write_text("{}", encoding="utf-8")
     res = cells_claims.build(base)
     assert res["ok"] is False and res["stage"] == "cells"
+
+
+# ---------------- DoD #2：collect 读卡前的自动编译桥 ----------------
+
+def test_bridge_compiles_roles_without_claims():
+    base = _project()
+    assert not (base / "cards" / "r05" / "claims.json").exists()
+    res = dispatch._bridge_cells_to_claims(str(base))
+    assert res.get("bridged_roles") == ["r05", "r06"], res
+    assert (base / "cards" / "r05" / "claims.json").is_file()
+    assert (base / "cards" / "r06" / "claims.json").is_file()
+
+
+def test_bridge_skips_when_all_roles_have_claims():
+    base = _project()
+    assert cells_claims.build(base)["ok"]
+    res = dispatch._bridge_cells_to_claims(str(base))
+    assert res.get("skipped") is True
+
+
+def test_bridge_skips_without_grid():
+    import tempfile
+    empty = Path(tempfile.mkdtemp(prefix="guagua_nogrid_"))
+    res = dispatch._bridge_cells_to_claims(str(empty))
+    assert res.get("skipped") is True
+
+
+def test_collect_uses_bridge_output():
+    """不预先编译 claims，collect 也能靠桥把格子变成收得进来的判断。"""
+    base = _project()
+    merged, problems = dispatch.collect(str(base), min_sources=0, allow_legacy=True)
+    assert not problems, problems
+    assert merged["cells_bridge"].get("bridged_roles") == ["r05", "r06"]
+    assert merged["evidence"]["sections"] == 4

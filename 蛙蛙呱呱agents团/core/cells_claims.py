@@ -112,7 +112,8 @@ def _pick_sources(project: Path) -> Dict[str, Dict[str, Any]]:
 
 
 def build(project: Path, cells_path: Optional[Path] = None,
-          require_sources: bool = True) -> Dict[str, Any]:
+          require_sources: bool = True,
+          only_roles: Optional[set] = None) -> Dict[str, Any]:
     project = Path(project)
     grid = _load(project / "plan" / "grid.json", {}) or {}
     dispatch = _load(project / "plan" / "dispatch.json", {}) or {}
@@ -159,6 +160,9 @@ def build(project: Path, cells_path: Optional[Path] = None,
 
     written = []
     for role, qmap in by_role.items():
+        # 2026-11-23：只给指定角色生成（供 collect 里的桥补「有格子但没交卡」的角色）
+        if only_roles is not None and role not in only_roles:
+            continue
         tpl_p = project / "cards" / role / "claims.template.json"
         tpl = _load(tpl_p, {}) or {}
         dispatch_block = dict(tpl.get("dispatch") or {})

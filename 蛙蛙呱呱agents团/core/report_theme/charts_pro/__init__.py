@@ -12,7 +12,10 @@ _REG: dict = {}
 def _registry() -> dict:
     """懒加载样例渲染器注册表（第一次调 render/names 时才导入）。"""
     if not _REG:
-        from .samples_data import pk_b1, pk_b2, pk_b3, pk_b4, pk_dual, prokit2  # noqa: PLC0415
+        try:
+            from samples import pk_b1, pk_b2, pk_b3, pk_b4, pk_dual, prokit2  # noqa: PLC0415
+        except Exception:  # samples/ 不在路径上时静默降级（生产不需要样例）
+            return _REG
         for _m in (prokit2, pk_b1, pk_b2, pk_b3, pk_b4, pk_dual):
             for _k, _v in vars(_m).items():
                 if _k.startswith("fig_") and callable(_v):
