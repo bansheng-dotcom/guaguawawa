@@ -77,7 +77,7 @@ def _best_for(demand_doc: Dict[str, Any], match_doc: Dict[str, Any]) -> Dict[str
 def _evidence_layer(project: Path) -> Dict[str, Any]:
     """L1 证据层：项目里有没有「数字 + 来源」这种点证据。
 
-    老报告（如 母婴用品调研）没有长表，但有 130 个数字、每个挂 url+quote。
+    老报告（无长表那种）没有长表，但有几百个数字、每个挂 url+quote。
     判「没数据」之前必须先看这一层——否则会把有证据的报告误判成无数据。
     """
     nums: List[Dict[str, Any]] = []
