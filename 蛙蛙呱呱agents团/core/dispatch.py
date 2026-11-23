@@ -63,8 +63,20 @@ def _need(claims: Dict[str, Any]) -> List[str]:
         miss.append("sections（没有判断就是没写）")
 
     src_ids = {str(s.get("file") or "") for s in sources}
+    # 2026-11-23（DATA-LAYER-SOP v2.0 · S6）：数据集来源不是网页。
+    # v2 的「来源」是一张表（dataset://id），不该拿 url/quote 的网页标准去卡；
+    # 改按「数据集 id 必须在 claims.datasets 里」校验。
+    dataset_ids = {str(d.get("id")) for d in (claims.get("datasets") or [])}
     bad_src = []
     for i, s in enumerate(sources, 1):
+        kind = str(s.get("kind") or "")
+        url = str(s.get("url") or "")
+        if kind == "数据集" or url.startswith("dataset://"):
+            did = url.replace("dataset://", "")
+            if did and dataset_ids and did not in dataset_ids:
+                bad_src.append("%s 指向未声明的数据集 %s"
+                               % (s.get("file") or "S%d" % i, did))
+            continue
         fields = source_verify.check_fields(s)
         if fields:
             bad_src.append(f"{s.get('file') or 'S' + str(i)} 缺 " + "/".join(fields))
@@ -310,6 +322,16 @@ def _bridge_cells_to_claims(out_dir: str) -> Dict[str, Any]:
         if not only:
             return {"ok": False, "skipped": True, "why": "所有角色都已交卡"}
 
+        # 2026-11-23（DATA-LAYER-SOP v2.0 · S6）：v2 优先——
+        # 有 plan/drill.json 就从「判断格」生成（判断挂数据集，图从表现算）；
+        # 没有才退回 v1 的「已填格子拼标量」。
+        if (plan / "drill.json").is_file():
+            v2 = cells_claims.from_drill(base, only_roles=only)
+            if v2.get("ok"):
+                v2["bridged_roles"] = sorted(only)
+                v2["path"] = "v2_drill"
+                return v2
+
         cf = base / "out_v3" / "cells_filled.json"
         if not cf.is_file():
             facts_p = plan / "facts.json"
@@ -322,6 +344,7 @@ def _bridge_cells_to_claims(out_dir: str) -> Dict[str, Any]:
                           encoding="utf-8")
         res = cells_claims.build(base, only_roles=only)
         res["bridged_roles"] = sorted(only)
+        res["path"] = "v1_cells"
         return res
     except Exception as exc:  # noqa: BLE001 桥失败不影响收卡主链路
         return {"ok": False, "why": str(exc)}
@@ -547,24 +570,36 @@ def collect(out_dir: str, require_all: bool = False,
     }
     merged["source_verify"] = {}
     if verify_quotes:
-        vr = source_verify.verify_sources(
-            src, fetch=fetch or source_verify.default_fetch)
-        merged["source_verify"] = {
-            "ok": vr["ok"], "total": vr["total"], "verified": vr["verified"],
-            "counts": vr["counts"], "unique_fetches": vr.get("unique_fetches"),
-            "rows": vr["rows"][:300],
-        }
-        merged["evidence"]["verified_rate"] = (
-            round(vr["verified"] / vr["total"], 3) if vr["total"] else 0.0)
-        if not vr["ok"]:
-            degraded.append("quote_verify_partial")
-        if strict_verify:
-            pending = [r["id"] for r in vr["rows"] if r["status"] != "verified"]
-            if pending:
-                bad.append(f"回抓未通过 {len(pending)}/{vr['total']}："
-                           + "、".join(pending[:10]))
+        # 2026-11-23（DATA-LAYER-SOP v2.0）：数据集来源不是网页，没法「回抓」。
+        # 只对网页来源做 quote 校验；若整张卡全是数据集来源，直接跳过并记降级。
+        _web = [s for s in src
+                if not (str(s.get("kind") or "") == "数据集"
+                        or str(s.get("url") or "").startswith("dataset://"))]
+        if not _web:
+            merged["source_verify"] = {"ok": True, "total": 0, "verified": 0,
+                                       "counts": {}, "rows": [],
+                                       "skipped": "全部为数据集来源（无需回抓）"}
+            merged["evidence"]["verified_rate"] = None
+            degraded.append("dataset_only_sources")
         else:
-            degraded.append("strict_quotes_off")
+            vr = source_verify.verify_sources(
+                _web, fetch=fetch or source_verify.default_fetch)
+            merged["source_verify"] = {
+                "ok": vr["ok"], "total": vr["total"], "verified": vr["verified"],
+                "counts": vr["counts"], "unique_fetches": vr.get("unique_fetches"),
+                "rows": vr["rows"][:300],
+            }
+            merged["evidence"]["verified_rate"] = (
+                round(vr["verified"] / vr["total"], 3) if vr["total"] else 0.0)
+            if not vr["ok"]:
+                degraded.append("quote_verify_partial")
+            if strict_verify:
+                pending = [r["id"] for r in vr["rows"] if r["status"] != "verified"]
+                if pending:
+                    bad.append(f"回抓未通过 {len(pending)}/{vr['total']}："
+                               + "、".join(pending[:10]))
+            else:
+                degraded.append("strict_quotes_off")
     else:
         degraded.append("verify_quotes_off")
         merged["evidence"]["verified_rate"] = None

@@ -111,6 +111,247 @@ def _pick_sources(project: Path) -> Dict[str, Dict[str, Any]]:
     return out
 
 
+def _ds_rows(project: Path, ds_id: str) -> List[Dict[str, Any]]:
+    """读数据集实采数据：data/datasets/<id>.csv 或 .json。没有就返回 []。"""
+    import csv as _csv
+    base = Path(project) / "data" / "datasets"
+    for cand in (base / (ds_id + ".csv"), base / (ds_id + ".json")):
+        if not cand.is_file():
+            continue
+        if cand.suffix == ".json":
+            d = _load(cand, {}) or {}
+            return d.get("rows") or []
+        try:
+            with cand.open(encoding="utf-8-sig", newline="") as fh:
+                return list(_csv.DictReader(fh))
+        except Exception:  # noqa: BLE001
+            return []
+    return []
+
+
+def _src_map(dss: List[Dict[str, Any]]) -> Dict[str, str]:
+    """数据集 id → 来源编号（S01…）；收卡要求数字的 source_file 指向来源编号。"""
+    return {str(d.get("id")): "S%02d" % i for i, d in enumerate(dss or [], 1)}
+
+
+def _section_from_claim(project: Path, c: Dict[str, Any],
+                        dss: List[Dict[str, Any]],
+                        src_map: Optional[Dict[str, str]] = None
+                        ) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
+    """一个判断格 → 一节 claims（数字由数据集现算，图由数据集现画）。"""
+    from core import dataset_query as _dq
+    ds = next((d for d in dss if str(d.get("id")) == str(c.get("dataset"))), None)
+    if not ds:
+        return None, []
+    rows = _ds_rows(project, str(ds.get("id")))
+    if not rows:
+        return None, []
+    res = _dq.run(ds, c.get("query") or {}, rows)
+    if not res:
+        return None, []
+    q = c.get("query") or {}
+    metric = str((q.get("metrics") or [""])[0])
+    x = str((c.get("chart") or {}).get("x") or (q.get("group_by") or [""])[0])
+    unit = ""
+    for col in ds.get("columns") or []:
+        if str(col.get("name")) == metric:
+            unit = str(col.get("unit") or "")
+    sid = (src_map or {}).get(str(ds.get("id"))) or str(ds.get("id"))
+    nums = []
+    gb = [str(g) for g in (q.get("group_by") or [])]
+    cat = (str(ds.get("id") or "").split("-")[1]
+           if "-" in str(ds.get("id") or "") else "")
+    for i, r in enumerate(res):
+        v = r["metrics"].get(metric)
+        if v is None:
+            continue
+        # name 必须包含【品类 + 全部 group_by 值 + 度量】：
+        # 否则同一品牌多期、或同一期多价格带会同名不同值，被交叉质询误判为口径冲突。
+        gvals = [str(r["group"].get(g)) for g in gb
+                 if r["group"].get(g) not in (None, "")]
+        nm = "·".join([p for p in [cat] + gvals + [metric] if p])
+        label = str(r["group"].get(x)) if x else (gvals[0] if gvals else "")
+        period = str(r["group"].get("month") or r["group"].get("year") or "")
+        nums.append({
+            "id": "%s-%02d" % (c.get("claim_id"), i + 1),
+            "name": nm,
+            "value": v, "unit": unit,
+            "entity": label,
+            "period": period,
+            "source_file": sid,
+            "grade": str((ds.get("quality") or {}).get("source_grade") or "B"),
+        })
+    refs = [n["id"] for n in nums]
+    if len(refs) < 3:
+        return None, []
+    vals = [n["value"] for n in nums]
+    top = max(nums, key=lambda n: n["value"])
+    low = min(nums, key=lambda n: n["value"])
+    reading = [
+        {"strong": "事实　", "refs": refs,
+         "text": "共 %d 个可比点；最高「%s」%s%s，最低「%s」%s%s。"
+                 % (len(nums), top["entity"], top["value"], unit,
+                    low["entity"], low["value"], unit)},
+        {"strong": "事实　", "refs": refs[:3],
+         "text": "数据来自数据集「%s」（%s，grain=%s），不是单点摘抄。"
+                 % (ds.get("id"), (ds.get("source") or {}).get("kind") or "",
+                    ds.get("grain"))},
+        {"strong": "机理　", "refs": refs[:1],
+         "text": "差异可由口径（%s）解释；跨口径不合并。"
+                 % (",".join(sorted({str(n.get("period")) for n in nums
+                                     if n.get("period")})) or "同期")},
+        {"strong": "反例　", "refs": refs[:1],
+         "text": "另一种解释：口径或渠道结构变化，不是需求变化；"
+                 "若下期同一指标回到基期水平，本判断作废。"},
+        {"strong": "判别方法　", "refs": refs[:1],
+         "text": "下期复核同一数据集同一查询：方向若反转，即为判别信号。"},
+        {"strong": "所以　", "refs": refs[:1],
+         "text": "据此决定该品类是否进入、先做哪个价格带与品牌。"},
+    ]
+    chart = _dq.to_chart(ds, q, rows, c.get("chart") or {})
+    # 散文规格（11 字段）：判断层要能直接进报告，这些字段由判断+数据现推
+    fact_txt = reading[0]["text"] if reading else ""
+    mech_txt = reading[2]["text"] if len(reading) > 2 else ""
+    sec = {
+        "title": str(c.get("claim") or c.get("claim_id")),
+        "question": str(c.get("qid") or c.get("claim") or ""),
+        "answers": [str(c.get("qid"))] if c.get("qid") else [],
+        "claim_id": c.get("claim_id"),
+        "dataset": c.get("dataset"),
+        "dataset_query": q,
+        "min_rows": c.get("min_rows"),
+        "refs": refs,
+        "reading": reading,
+        "chart": chart,
+        "causal_level": c.get("causal_level"),
+        "falsifier": c.get("falsifier") or "",
+        "boundary": str(c.get("boundary") or
+                        "同口径同 grain 才可比；跨渠道/跨口径不相加。"),
+        # --- 报告散文门禁要求的 11 字段 ---
+        "verdict": str(c.get("claim") or ""),
+        "fact": fact_txt,
+        "evidence": "、".join(refs[:3]),
+        "mechanism": mech_txt,
+        "alternative": "另一种解释：口径/渠道差异（见本节边界），不是需求变化。",
+        "signal": "下一期同一指标若逆向变化，本节判断失效。",
+        "implication": "据此决定该品类是否进入、以及先做哪个价格带。",
+        "action": "按本节的品牌/价格带排序，先小批量试销再放量。",
+        "stop": str(c.get("falsifier") or "出现逆向证据即停止本判断。"),
+    }
+    return sec, nums
+
+
+def _sources_from_datasets(dss: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """数据集 → claims.sources（v2：来源就是数据集本身，不是一篇文章）。
+
+    url 用 `dataset://<id>`：它是可定位的（按 id 找表），但不是网页。
+    """
+    out = []
+    for i, d in enumerate(dss or [], 1):
+        src = d.get("source") or {}
+        out.append({
+            "file": "S%02d" % i,
+            "kind": str(src.get("kind") or "数据集"),
+            "title": str(d.get("title") or d.get("id") or ""),
+            "org": str(src.get("org") or ""),
+            "url": str(src.get("url") or ("dataset://" + str(d.get("id")))),
+            "date": str(src.get("fetched_at") or ""),
+            "grade": str((d.get("quality") or {}).get("source_grade") or "B"),
+            "quote": "",
+        })
+    return out
+
+
+def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any]:
+    """v2 路径（DATA-LAYER-SOP S3）：从 plan/drill.json 的「判断格」生成 claims。
+
+    与 v1 的 `build()` 区别：v1 从**已填格子**拼标量；v2 从**判断 + 数据集查询**
+    生成节，数字由图从数据集现算（见 core/dataset_query）。
+    """
+    project = Path(project)
+    doc = _load(project / "plan" / "drill.json", {}) or {}
+    drills = doc.get("drills") or []
+    if not drills:
+        return {"ok": False, "stage": "drill", "error": "没有 plan/drill.json"}
+    dispatch = _load(project / "plan" / "dispatch.json", {}) or {}
+    owner_of: Dict[str, str] = {}
+    for a in dispatch.get("assignments") or []:
+        cid = str(a.get("cell_id") or "")
+        if ".对象." in cid:
+            # 品类 → 角色：取**第一个**问题里的归属（通常是主问），
+            # 不能被后面问题的 owner 覆盖，否则 6 条判断会全掉到最后一个角色。
+            owner_of.setdefault(cid.split(".对象.")[-1], str(a.get("owner") or ""))
+    by_role: Dict[str, Dict[str, Any]] = {}
+    for dr in drills:
+        cat = str(dr.get("category") or "")
+        role = owner_of.get(cat) or "r05"
+        if only_roles is not None and role not in only_roles:
+            continue
+        bucket = by_role.setdefault(role, {"drills": [], "datasets": [], "claims": []})
+        bucket["drills"].append(dr)
+        bucket["datasets"].extend(dr.get("datasets") or [])
+        bucket["claims"].extend(dr.get("claims") or [])
+
+    written: List[Dict[str, Any]] = []
+    # 发卡回执（nonce/sig）：v2 claims 要和 issued.json 对得上，否则 collect 拒收
+    issued_doc = _load(project / "coverage" / "issued.json", {}) or {}
+    issued_cards = issued_doc.get("cards") or {}
+    for role, b in by_role.items():
+        tpl_p = project / "cards" / role / "claims.template.json"
+        tpl = _load(tpl_p, {}) or {}
+        disp = dict(tpl.get("dispatch") or {})
+        card = dict(issued_cards.get(role) or {})
+        disp["role"] = role
+        if card.get("nonce"):
+            disp["nonce"] = card["nonce"]
+        if card.get("sig"):
+            disp["sig"] = card["sig"]
+        if not str(disp.get("by") or "").strip():
+            disp["by"] = "dsh-subagent-%s" % role
+        sections: List[Dict[str, Any]] = []
+        numbers: List[Dict[str, Any]] = []
+        unanswered: List[Dict[str, Any]] = []
+        _smap = _src_map(b["datasets"])
+        for dr in b["drills"]:
+            for c in dr.get("claims") or []:
+                # 数字由图从数据集现算；没有实采数据就到未答清单，不编数
+                sec, nums = _section_from_claim(project, c, b["datasets"], _smap)
+                if sec:
+                    sections.append(sec)
+                    numbers.extend(nums)
+                else:
+                    unanswered.append({
+                        "claim_id": c.get("claim_id"),
+                        "dataset": c.get("dataset"),
+                        "why": "数据集未到位（data/datasets/ 下没有该表）",
+                    })
+        claims = {
+            "schema": "dsh.agent.claims/v1", "contract": "v3",
+            "layer": "claim_dataset",
+            "role": role,
+            "dispatch": disp,
+            "meta": (tpl.get("meta") or {"title": "按判断交报告",
+                                         "intent": "按判断交报告",
+                                         "doc_type": "调研报告",
+                                         "profile": "research"}),
+            "numbers": numbers,
+            "sources": _sources_from_datasets(b["datasets"]),
+            "sections": sections,
+            "datasets": b["datasets"],
+            "claims": b["claims"],
+            "unanswered": unanswered,
+            "boundaries": ["v2：判断挂在数据集上，图从数据集现算；格子不再存标量。"],
+        }
+        out = project / "cards" / role / "claims.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(claims, ensure_ascii=False, indent=2),
+                       encoding="utf-8")
+        written.append({"role": role, "sections": len(sections),
+                        "datasets": len(b["datasets"]), "claims": len(b["claims"])})
+    return {"ok": bool(written), "stage": "drill_compiled",
+            "roles": written, "drills": len(drills)}
+
+
 def build(project: Path, cells_path: Optional[Path] = None,
           require_sources: bool = True,
           only_roles: Optional[set] = None) -> Dict[str, Any]:

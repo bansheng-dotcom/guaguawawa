@@ -86,6 +86,21 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
     # 驱动树（2026-11-23 / SOP S5）：结果指标 = 驱动因子，来自语义层 ratio/derived/conversion
     cu._w(plan / "driver_tree.json", cu.build_driver_tree(sem))
 
+    # 纵向钻取（DATA-LAYER-SOP v2.0 · S2）：对核心品类产**数据集需求 + 判断**，
+    # 不产几百个细粒度格子——v1 那样做，会把数据层压成事实清单，采得到也画不出图。
+    try:
+        from core import drill as _drill
+        cats: List[str] = []
+        for c in grid["cells"]:
+            e = str(c.get("entity") or "")
+            if c.get("dim") == "对象" and e and e not in cats:
+                cats.append(e)
+        drills = [_drill.plan(cat, sem) for cat in cats[:2]]
+        cu._w(plan / "drill.json",
+              {"schema": "dsh.drill_plan/v1", "drills": drills})
+    except Exception:  # noqa: BLE001 钻取失败不影响发卡主链路
+        pass
+
     cards = cu.agent_cards(roster.build())
     # SOP v5：按问题簇自适应分卡（卡数是算出来的，不是写死）
     from core import card_plan
