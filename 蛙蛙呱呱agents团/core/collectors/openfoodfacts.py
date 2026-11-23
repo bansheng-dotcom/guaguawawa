@@ -2,7 +2,7 @@
 """Open Food Facts 采集器（S2 / 选项 B：找一个真有 brand 字段的源）。
 
 **业务无关**：它只知道「打这个 API、取 products 数组、按 fields 白名单取列」。
-业务词（咖啡/奶粉/…）只出现在 query.params 里。
+业务词（品类名）只出现在 query.params 里。
 
 API 文档：https://openfoodfacts.github.io/openfoodfacts-server/api/
 """
