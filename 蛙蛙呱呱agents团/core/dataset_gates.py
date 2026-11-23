@@ -24,6 +24,46 @@ from core import dataset as _ds
 MIN_POINTS = cell_claim.MIN_POINTS
 
 
+def derivation_gates(demand_doc: Dict[str, Any],
+                     match_doc: Dict[str, Any],
+                     quality_res: Optional[Dict[str, Any]] = None
+                     ) -> Dict[str, Any]:
+    """G-ROLLUP / G-PREVIEW（DERIVATION-SOP v4.0，**软门禁**）。
+
+    G-ROLLUP  每个需求都要有源能答（status != none）
+    G-PREVIEW derive 出来的维度质量达标（空值率 <10%、取值数 ≥2）
+
+    默认 hard=False：只报告，不拦。要拦由调用方决定。
+    """
+    checks: List[Dict[str, Any]] = []
+    best = (match_doc or {}).get("best") or {}
+    none_ms = sorted(m for m, b in best.items() if b.get("status") == "none")
+    partial = sorted(m for m, b in best.items() if b.get("status") == "partial")
+    checks.append({
+        "id": "G-ROLLUP", "ok": not none_ms, "hard": False,
+        "msg": "需求有源：%d/%d 可答（全无源 %d）"
+               % (len(best) - len(none_ms), len(best), len(none_ms)),
+        "detail": {"no_source": none_ms, "partial": partial},
+    })
+    if quality_res is None:
+        checks.append({"id": "G-PREVIEW", "ok": True, "hard": False,
+                       "msg": "未跑样本验证（skipped）"})
+    else:
+        probs = quality_res.get("problems") or []
+        checks.append({
+            "id": "G-PREVIEW", "ok": bool(quality_res.get("ok")), "hard": False,
+            "msg": "derive 质量：%s" % ("达标" if not probs else
+                                       "%d 个维度不达标" % len(probs)),
+            "detail": {"problems": probs[:6],
+                       "dims": quality_res.get("dims")},
+        })
+    passed = sum(1 for c in checks if c["ok"])
+    return {"ok": passed == len(checks), "checks": checks,
+            "passed": passed, "total": len(checks),
+            "hard_fail": [c["id"] for c in checks
+                          if not c["ok"] and c.get("hard")]}
+
+
 def run(drill_doc: Dict[str, Any],
         actual_rows: Optional[Dict[str, List[Dict[str, Any]]]] = None
         ) -> Dict[str, Any]:

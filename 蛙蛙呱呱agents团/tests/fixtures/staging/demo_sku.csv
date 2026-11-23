@@ -1,0 +1,5 @@
+row_id,snapshot_date,title,price,list_price,sales_30d,city,url
+D001,2025-01-15,AAA 汽车脚垫,100.0,120.0,50,北京,https://x/1
+D002,2025-01-20,AAA 汽车脚垫,120.0,150.0,30,上海,https://x/2
+D003,2025-02-10,BBB 汽车脚垫,80.0,99.0,20,北京,https://x/3
+D004,2025-02-18,CCC 汽车脚垫,200.0,240.0,10,广州,https://x/4

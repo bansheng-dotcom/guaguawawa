@@ -106,6 +106,88 @@ def validate(spec: Dict[str, Any],
     return errs
 
 
+def preview(spec: Dict[str, Any], n: int = 20,
+            project_dir: str = "",
+            source: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """先看效果再定稿：跑采集 + 第一个 rollup，返回前 n 行。
+
+    DERIVATION-SOP 第 5 步：`token:title:0` 这类规则对不对，看这 20 行就知道。
+    """
+    from core import collectors as _c
+    from core import grain as _g
+    from core import source_profile as _sp
+
+    src = (source if source is not None
+           else _sp.load(str(spec.get("source") or "")))
+    col = _c.base.get(str(src.get("kind") or "")) if src else None
+    if not col:
+        return {"ok": False, "why": "没有可用采集器: %r" % src.get("kind")}
+    try:
+        staging = col().fetch(spec, project_dir=project_dir)
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "why": "采集失败: %s" % exc}
+    rollups = spec.get("rollups") or []
+    if not rollups:
+        return {"ok": False, "why": "没有 rollup"}
+    r0 = rollups[0]
+    rows = _g.rollup_rows(staging, r0)
+    return {
+        "ok": True,
+        "staging_rows": len(staging),
+        "rollup": str(r0.get("id") or ""),
+        "grain": _g.analysis_of(r0),
+        "columns": list(rows[0].keys()) if rows else [],
+        "rows": rows[:max(1, int(n))],
+        "total_rows": len(rows),
+    }
+
+
+def quality(spec: Dict[str, Any], project_dir: str = "",
+            source: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """量化 derive 质量：每个维度的空值率 / 不同值数 / top1 占比。
+
+    DERIVATION-SOP 的硬指标：`empty_rate < 0.10`、`distinct >= 2`。
+    """
+    from core import collectors as _c
+    from core import grain as _g
+    from core import source_profile as _sp
+
+    src = (source if source is not None
+           else _sp.load(str(spec.get("source") or "")))
+    col = _c.base.get(str(src.get("kind") or "")) if src else None
+    if not col:
+        return {"ok": False, "why": "没有可用采集器"}
+    try:
+        staging = col().fetch(spec, project_dir=project_dir)
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "why": "采集失败: %s" % exc}
+
+    out: Dict[str, Any] = {}
+    bad: List[str] = []
+    for r in spec.get("rollups") or []:
+        rows = _g.rollup_rows(staging, r)
+        for dim in _g.analysis_of(r):
+            vals = [str(x.get(dim) or "").strip() for x in rows]
+            n = len(vals) or 1
+            empty = sum(1 for v in vals if not v) / n
+            from collections import Counter
+            cnt = Counter(v for v in vals if v)
+            distinct = len(cnt)
+            top1 = (max(cnt.values()) / n) if cnt else 0.0
+            key = "%s.%s" % (r.get("id"), dim)
+            rec = {"empty_rate": round(empty, 3),
+                   "distinct": distinct,
+                   "top1_share": round(top1, 3),
+                   "sample": [v for v in vals[:5]]}
+            out[key] = rec
+            if empty > 0.10:
+                bad.append("%s: 空值率 %.0f%% > 10%%" % (key, empty * 100))
+            if distinct < 2:
+                bad.append("%s: 只有 %d 个不同值" % (key, distinct))
+    return {"ok": not bad, "dims": out, "problems": bad,
+            "staging_rows": len(staging)}
+
+
 def run(spec: Dict[str, Any], project_dir: str = "") -> Dict[str, Any]:
     """执行采集链：collector → staging → rollup → mart。"""
     from core import collectors as _c
