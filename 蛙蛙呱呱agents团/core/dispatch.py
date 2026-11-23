@@ -21,6 +21,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -389,9 +390,28 @@ def collect(out_dir: str, require_all: bool = False,
     base = Path(out_dir) / "cards"
     # 2026-11-23（DoD #2）：读卡前先把已填格子编译成 claims（只补没交卡的角色）
     bridge = _bridge_cells_to_claims(out_dir)
+    # FEASIBILITY-SOP v5.0：收卡前做一次可行性测试。
+    # 默认 report（只记录，不改格子）；GUAGUA_PROBE=degrade 时把 none 标 unavailable。
+    probe_res: Dict[str, Any] = {}
+    try:
+        from core import card_probe
+        _pmode = str(os.environ.get("GUAGUA_PROBE") or "report")
+        if _pmode != "off":
+            probe_res = card_probe.probe(out_dir, mode=_pmode)
+    except Exception as exc:  # noqa: BLE001 探测失败不能阻断采集
+        probe_res = {"ok": False, "why": str(exc)}
     merged: Dict[str, Any] = {"numbers": [], "sources": [], "sections": [],
                               "conflicts": [], "missing": [], "boundaries": [],
                               "derived": [], "explore": [], "unanswered": []}
+    # 可行性探测结果随合并稿一路带到 manifest：缺口必须可见
+    if probe_res:
+        merged["probe"] = probe_res
+        if probe_res.get("ok"):
+            try:
+                from core import card_probe as _cp
+                merged["degraded_cells"] = _cp.degraded_cells(out_dir)
+            except Exception:  # noqa: BLE001
+                merged["degraded_cells"] = []
     # 合并稿的标题/意图/档位沿用发卡时写进卡里的 meta，否则渲染器只能退回
     # “自动汇编报告”、标题被改成首节结论（2026-11-20 事故）。
     card_meta: Dict[str, Any] = {}

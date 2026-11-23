@@ -16,7 +16,8 @@ from typing import Any, Dict, List, Optional
 
 SCHEMA = "dsh.collection/v1"
 SEMANTIC_TYPES = ("dimension", "measure")
-AVAILABILITY = ("high", "medium", "low")
+# FEASIBILITY-SOP v5.0：unavailable 是合法状态（降级），不是错误
+AVAILABILITY = ("high", "medium", "low", "unavailable")
 
 
 def _grain_dims(grid: Dict[str, Any]) -> List[str]:
