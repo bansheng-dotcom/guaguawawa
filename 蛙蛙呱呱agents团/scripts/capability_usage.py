@@ -192,6 +192,10 @@ def main(argv=None) -> int:
 
     files = log_files()
     if not files:
+        if args.check:
+            # 干净树（从未跑过角色）没有日志属正常：零观测 ≠ 漂移。
+            print("[OK] 无运行日志（零观测），跳过能力漂移检查")
+            return 0
         print("[usage] 找不到任何 workspace/logs/*.jsonl", file=sys.stderr)
         return 2
 

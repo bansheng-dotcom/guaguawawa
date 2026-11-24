@@ -11,9 +11,11 @@ sys.path.insert(0, str(ROOT))
 from core import chart_contract as cc  # noqa: E402
 
 
+FIXTURE = Path(__file__).resolve().parent / "fixtures" / "chart_contract_sections.json"
+
+
 def _load_chart_contract_sections():
-    p = Path(r"D:\蛙蛙呱呱\呼包鄂蔬菜价格分析_2026-11-22\report\contract.json")
-    return json.loads(p.read_text(encoding="utf-8"))["sections"]
+    return json.loads(FIXTURE.read_text(encoding="utf-8"))["sections"]
 
 
 def test_relation_from_comparison_kind():

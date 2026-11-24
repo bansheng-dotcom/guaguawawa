@@ -1,0 +1,40 @@
+{
+  "_note": "chart_contract v2 归一化夹具：取自真实报告 contract.json 的 sections 形状，去掉业务数据。",
+  "sections": [
+    {
+      "id": "S1",
+      "title": "两期规模对比",
+      "comparison": {"kind": "compare_two_points"},
+      "chart": {
+        "type": "hbar",
+        "title": "两期规模对比",
+        "refs": ["N1", "N2"]
+      }
+    },
+    {
+      "id": "S2",
+      "title": "月度走势",
+      "relation": "change_over_time",
+      "chart": {
+        "type": "line",
+        "title": "月度走势",
+        "refs": ["N3"],
+        "points": [{"label": "2026-09"}, {"label": "2026-10"}, {"label": "2026-11"}]
+      }
+    },
+    {
+      "id": "S3",
+      "title": "区域差异",
+      "chart": {
+        "type": "dumbbell",
+        "title": "区域差异",
+        "refs": ["N4", "N5"]
+      }
+    },
+    {
+      "id": "S4",
+      "title": "无图章节",
+      "chart": null
+    }
+  ]
+}

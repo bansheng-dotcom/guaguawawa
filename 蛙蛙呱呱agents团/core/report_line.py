@@ -20,6 +20,9 @@ P4 起替换排版出图。P5 起替换三层质检并把本模块提升为 `rep
     document       --input 指向单份文件（评审型）
     research       --research（采集型）
     instruction    只有一句话（假设型）
+
+P1 的诚实边界：除 data 与「--evidence + --draft」外，其余三种形态一律显式
+返回 ok=false，不静默落到数据线——否则会拿错误口径产出报告。
 """
 from __future__ import annotations
 
@@ -86,11 +89,6 @@ def build(intent: str, project_dir: Optional[str] = None,
         "detected_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
     })
 
-    if mode == "instruction" and not project_dir:
-        # P1 不发明新行为：纯指令型暂时也走同一条后端，但把意图说清楚。
-        # P2 会把它换成「假设型专家作答」，届时这里改成抛 FlowError 或走假设分支。
-        pass
-
     if mode == "document":
         # P1 不实现评审型；显式拒绝而不是悄悄当数据分析（诚实边界）
         return {"ok": False, "mode": mode,
@@ -129,6 +127,15 @@ def build(intent: str, project_dir: Optional[str] = None,
         res["mode"] = "agent"
         res["generated_by"] = "core/report_line.py (agent draft)"
         return res
+
+    # P1 未接线的两种形态：显式拒绝，避免"看起来支持、实际按数据口径出报告"。
+    if mode in ("research", "instruction"):
+        _why = {
+            "research": "采集型输入（--research）尚未接线：请先用 --dir 提供已采集的数据目录",
+            "instruction": "假设型输入（只有一句话）尚未接线：请用 --dir 提供数据目录，或 --evidence + --draft 交稿",
+        }
+        return {"ok": False, "mode": mode, "error": _why[mode],
+                "boundary": "input_mode_not_implemented"}
 
     if not project_dir:
         return {"ok": False, "mode": mode,

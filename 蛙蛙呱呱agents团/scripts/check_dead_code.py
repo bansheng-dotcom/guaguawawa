@@ -43,6 +43,7 @@ ALLOW: Dict[str, str] = {
     "core/__main__.py": "python -m core 入口",
     "core/report_cli.py": "report 子命令分发",
     "scripts/sync_trae_skill.py": "Trae 技能镜像同步入口（手动执行）",
+    "scripts/sync_workbuddy.py": "WorkBuddy/CodeBuddy 插件镜像同步入口（手动执行）",
 }
 
 
