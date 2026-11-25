@@ -119,11 +119,13 @@ def load_sources(project: str) -> List[Dict[str, Any]]:
 
 def verify(project: str, write_raw: bool = False,
            only_ids: Optional[List[str]] = None) -> Dict[str, Any]:
-    """回抓来源，核对 quote；结果写 data/quote_check.json。
+    """URL 可达性预检（P3-4）：**只回答「这个链接现在能不能打开」**。
 
-    - 没有 quote 的来源：标 unverified，不发请求（避免拿标题当证据）；
-    - only_ids：只校验指定来源（报告实际引用的 S 编号），其余标 skipped；
-    - 抓取失败 / quote 未命中：unreachable / mismatch，绝不伪造 ok。
+    quote 是否命中原文，唯一判据在 `core.source_verify`（`quote_gate` 调用它）。
+    本函数不再对 quote 下结论，避免两套判据给出不同答案。
+
+    - only_ids：只检查被报告引用的来源，其余标 skipped；
+    - 抓取失败：unreachable，绝不伪造 reachable。
     """
     base = Path(project)
     sources = load_sources(project)
@@ -133,17 +135,16 @@ def verify(project: str, write_raw: bool = False,
         raw_dir.mkdir(parents=True, exist_ok=True)
     out = []
     for s in sources:
-        sid, url, quote = s.get("id"), s.get("url", ""), s.get("quote", "")
-        grade = str(s.get("grade") or "").upper()[:1]
-        rec = {"id": sid, "url": url, "quote": quote, "grade": grade,
-               "status": "unverified"}
+        sid, url = s.get("id"), s.get("url", "")
+        rec = {"id": sid, "url": url, "status": "unknown"}
         if only is not None and sid not in only:
             rec["status"] = "skipped"
             rec["detail"] = "未被本次报告引用"
             out.append(rec)
             continue
-        if not quote:
-            rec["detail"] = "缺 quote（未回填），不能当证据"
+        if not url:
+            rec["status"] = "unreachable"
+            rec["detail"] = "缺 url"
             out.append(rec)
             continue
         try:
@@ -152,37 +153,29 @@ def verify(project: str, write_raw: bool = False,
                 text = cache.read_text(encoding="utf-8", errors="replace")
                 via = "cache"
             else:
-                text, err = _fetch(url)
+                text, _err = _fetch(url)
                 via = "live"
                 if write_raw:
                     cache.write_text(text[:400000], encoding="utf-8")
-            if quote and _norm(quote) in _norm(text):
-                rec["status"] = "ok"
-            else:
-                rec["status"] = "mismatch"
-                rec["detail"] = "quote 未在原文命中（页面可能改版或需登录）"
-            rec["chars"] = len(text)
+            rec["status"] = "reachable" if text else "unreachable"
+            rec["chars"] = len(text or "")
             rec["via"] = via
-        except Exception as exc:  # noqa: BLE001  抓取失败标 unverified，不伪造
+        except Exception as exc:  # noqa: BLE001  抓取失败标 unreachable，不伪造
             rec["status"] = "unreachable"
             rec["detail"] = f"{type(exc).__name__}: {exc}"[:200]
         out.append(rec)
     summary = {
-        "schema": "dsh.quote_check/v1",
+        "schema": "dsh.reachability/v1",
         "checked_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
         "total": len(out),
-        "checked": sum(1 for r in out if r["status"] in ("ok", "mismatch", "unreachable")),
-        "ok": sum(1 for r in out if r["status"] == "ok"),
-        "mismatch": sum(1 for r in out if r["status"] == "mismatch"),
+        "reachable": sum(1 for r in out if r["status"] == "reachable"),
         "unreachable": sum(1 for r in out if r["status"] == "unreachable"),
-        "unverified": sum(1 for r in out if r["status"] == "unverified"),
         "skipped": sum(1 for r in out if r["status"] == "skipped"),
-        "grades": {g: sum(1 for s in sources if str(s.get("grade") or "").upper()[:1] == g)
-                   for g in ("A", "B", "C", "D")},
         "items": out,
+        "note": "只做可达性预检；quote 命中以 source_verify 为准",
     }
     (base / "data").mkdir(parents=True, exist_ok=True)
-    (base / "data" / "quote_check.json").write_text(
+    (base / "data" / "reachability.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
     return summary
 
@@ -229,8 +222,11 @@ def collect_refs(draft: Optional[Dict[str, Any]],
 
 
 def quote_gate(project: str, refs: Optional[List[str]] = None,
-               mode: str = "warn") -> Dict[str, Any]:
+               mode: str = "warn", fetch=None) -> Dict[str, Any]:
     """数据 intake 门禁：被引用的来源必须 quote 命中。
+
+    P3-4：quote 判据**只在** `core.source_verify` 一处（这里委托调用），
+    `research_intake.verify` 只做 URL 可达性预检，不再给出第二套结论。
 
     mode:
         off    跳过
@@ -240,29 +236,64 @@ def quote_gate(project: str, refs: Optional[List[str]] = None,
     if mode == "off":
         return {"mode": "off", "ok": True, "verdict": "SKIP", "status": "skipped"}
     base = Path(project)
-    if not (base / "data" / "sources.json").exists():
+    sources = load_sources(project)
+    if not sources:
         return {"mode": mode, "ok": True, "verdict": "SKIP", "status": "no_sources"}
-    q = verify(project, write_raw=False, only_ids=refs or None)
-    used = sorted(set(refs or [s.get("id") for s in load_sources(project)]))
-    by_id = {r["id"]: r for r in q["items"]}
+    from core import source_verify
+    norm = [{**s, "file": str(s.get("id") or s.get("file") or "")}
+            for s in sources]
+    # 优先用项目 raw/ 缓存（离线复跑/回归 fixture），否则走实时抓取
+    cache_of = {str(s.get("url") or ""): base / "raw" / f"{s.get('id')}.txt"
+                for s in sources}
+
+    def _fetch_one(url: str) -> str:
+        p = cache_of.get(str(url))
+        if p is not None and p.is_file():
+            return p.read_text(encoding="utf-8", errors="replace")
+        return (fetch or source_verify.default_fetch)(url)
+
+    sv = source_verify.verify_sources(norm, fetch=_fetch_one)
+    rows = sv.get("rows") or []
+    by_id = {r["id"]: r for r in rows}
+    used = sorted(set(refs or [s.get("id") for s in sources]))
     used_unverified = [i for i in used
-                       if (by_id.get(i) or {}).get("status") != "ok"]
+                       if (by_id.get(i) or {}).get("status") != "verified"]
+    counts = sv.get("counts") or {}
     ok = not used_unverified
+    checked = (counts.get("verified", 0) + counts.get("quote_not_found", 0)
+               + counts.get("fetch_failed", 0))
+    summary = {
+        "schema": "dsh.quote_check/v1",
+        "checked_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+        "total": sv.get("total"),
+        "checked": checked,
+        "ok": sv.get("verified", 0),
+        "mismatch": counts.get("quote_not_found", 0),
+        "unreachable": counts.get("fetch_failed", 0),
+        "unverified": counts.get("fields_missing", 0) + counts.get("unverified", 0),
+        "skipped": counts.get("skipped", 0),
+        "items": rows,
+    }
+    (base / "data").mkdir(parents=True, exist_ok=True)
+    (base / "data" / "quote_check.json").write_text(
+        json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
     res = {
         "mode": mode,
         "ok": ok,
         "verdict": "PASS" if ok else "FAIL",
-        "total": q["total"],
-        "checked": q["checked"],
-        "ok_count": q["ok"],
-        "mismatch": q["mismatch"],
-        "unreachable": q["unreachable"],
-        "unverified": q["unverified"],
-        "skipped": q["skipped"],
+        "total": summary["total"],
+        "checked": summary["checked"],
+        "ok_count": summary["ok"],
+        "mismatch": summary["mismatch"],
+        "unreachable": summary["unreachable"],
+        "unverified": summary["unverified"],
+        "skipped": summary["skipped"],
         "used": used,
         "used_unverified": used_unverified,
-        "grades": q["grades"],
-        "items": q["items"],
+        "grades": {g: sum(1 for s in sources
+                          if str(s.get("grade") or "").upper()[:1] == g)
+                   for g in ("A", "B", "C", "D")},
+        "items": rows,
     }
     if mode == "strict" and not ok:
         raise report_flow.FlowError(

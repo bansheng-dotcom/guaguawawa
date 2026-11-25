@@ -786,7 +786,7 @@ def m_headcount(ctx) -> Optional[Finding]:
 # --------------------------------------------------------------------------- #
 @method("sku", family="commerce", needs=["table.sku"], produces="商品结构",
         tags=("sku", "commerce", "product"), priority=60,
-        description="SKU×销量×毛利 → ABC、贡献、上架/淘汰清单")
+        description="单品×销量×毛利 → ABC、贡献、上架/淘汰清单")
 def m_sku(ctx) -> Optional[Finding]:
     desk, c = ctx.desk, ctx.cite
     t = _find(desk, "sku", "qty")
@@ -820,28 +820,28 @@ def m_sku(ctx) -> Optional[Finding]:
         n80 += 1
         if cum >= total * 0.8:
             break
-    n_all = c.n("SKU 数", len(rows), "个", digits=0)
-    n80n = c.n(f"覆盖 80% {basis}的 SKU 数", n80, "个", digits=0)
+    n_all = c.n("单品 数", len(rows), "个", digits=0)
+    n80n = c.n(f"覆盖 80% {basis}的 单品 数", n80, "个", digits=0)
     share = n80 / len(rows) * 100
-    n_share = c.n("头部 SKU 占比", share / 100, "%")
+    n_share = c.n("头部 单品 占比", share / 100, "%")
     tail = len(rows) - n80
-    n_tail = c.n("长尾 SKU 数", tail, "个", digits=0)
-    title = (f"商品：{n_all} 个 SKU 里前 {n80n} 个贡献八成{basis}（{n_share.p()}），"
+    n_tail = c.n("长尾 单品 数", tail, "个", digits=0)
+    title = (f"商品：{n_all} 个 单品 里前 {n80n} 个贡献八成{basis}（{n_share.p()}），"
              f"长尾 {n_tail} 个")
     f = _finding("sku", title, "商品结构健康吗？该上什么、下什么？", c, mark)
-    f.add(f"{int(len(rows))} 个 SKU 中前 {int(n80)} 个覆盖 80% {basis}，占 {n_share.p()}；"
-          f"剩余 {int(tail)} 个长尾 SKU 占用货架与资金。",
+    f.add(f"{int(len(rows))} 个 单品 中前 {int(n80)} 个覆盖 80% {basis}，占 {n_share.p()}；"
+          f"剩余 {int(tail)} 个长尾 单品 占用货架与资金。",
           _ids(n_all, n80n, n_share, n_tail))
     f.add("上架看增量、下架看长尾：长尾里连续两期销量低于中位 20% 的，先清退再谈上新。",
           _ids(n_tail))
-    f.table = _table("SKU ABC 结构", ["SKU", "销量", f"{basis}贡献", "累计"],
+    f.table = _table("单品 ABC 结构", ["单品", "销量", f"{basis}贡献", "累计"],
                      [[x["sku"][:18], f"{x['qty']:.0f}",
                        f"{_share(x['rev'], total):.1f}%", f"{cum_i:.1f}%"]
                       for cum_i, x in _cum_rows(rows, total)])
-    f.chart = {"type": "pareto", "title": f"前 {n80n} 个 SKU 覆盖 80% {basis}",
-               "subtitle": f"{len(rows)} 个 SKU · 按{basis}降序累计 · 五个分位截点",
+    f.chart = {"type": "pareto", "title": f"前 {n80n} 个 单品 覆盖 80% {basis}",
+               "subtitle": f"{len(rows)} 个 单品 · 按{basis}降序累计 · 五个分位截点",
                "note": "有价格列按收入，无价格列按销量",
-               "unit_meta": f"累计{basis}占比（%）", "source": f"{t.file} SKU 汇总",
+               "unit_meta": f"累计{basis}占比（%）", "source": f"{t.file} 单品 汇总",
                "refs": _ids(n_share),
                "items": [{"label": f"前{int(p * 100)}%", "value": round(
                    _share(sum(x["rev"] for x in rows[:max(1, int(len(rows) * p))]), total), 1)}
@@ -866,7 +866,7 @@ def _cum_rows(rows, total):
 # --------------------------------------------------------------------------- #
 @method("store", family="commerce", needs=["table.store"], produces="单店经济",
         tags=("store", "commerce"), priority=60,
-        description="面积/租金/销售/毛利 → 坪效、租售比、回本周期")
+        description="面积/租金/销售/毛利 → 面积效率、租售比、回本周期")
 def m_store(ctx) -> Optional[Finding]:
     desk, c = ctx.desk, ctx.cite
     t = _find(desk, "area", "sales")
@@ -892,22 +892,22 @@ def m_store(ctx) -> Optional[Finding]:
     if len(rows) < 2:
         return None
     avg_ps = sum(x["per_sqm"] for x in rows) / len(rows)
-    n_ps = c.n("平均坪效", avg_ps, "元/㎡")
+    n_ps = c.n("平均面积效率", avg_ps, "元/㎡")
     avg_rr = sum(x["rent_ratio"] for x in rows) / len(rows)
     n_rr = c.n("平均租售比", avg_rr / 100, "%")
     best = max(rows, key=lambda x: x["per_sqm"])
-    n_best = c.n("最高坪效", best["per_sqm"], "元/㎡")
-    title = (f"单店：平均坪效 {n_ps} 元/㎡、租售比 {n_rr.p()}，"
+    n_best = c.n("最高面积效率", best["per_sqm"], "元/㎡")
+    title = (f"单店：平均面积效率 {n_ps} 元/㎡、租售比 {n_rr.p()}，"
              f"最高 {n_best} 元/㎡")
     f = _finding("store", title, "一家店赚不赚钱？模型能不能复制？", c, mark)
-    f.add(f"{len(rows)} 家店平均坪效 {n_ps} 元/㎡、租售比 {n_rr.p()}；"
+    f.add(f"{len(rows)} 家店平均面积效率 {n_ps} 元/㎡、租售比 {n_rr.p()}；"
           "租售比超过 20% 的店，靠商品结构很难救回来。", _ids(n_ps, n_rr))
-    f.add(f"最高坪效 {n_best} 元/㎡，是最低店的 "
+    f.add(f"最高面积效率 {n_best} 元/㎡，是最低店的 "
           f"{best['per_sqm'] / min(x['per_sqm'] for x in rows):.1f} 倍；"
           "复制前先解释这个差距，否则复制的是位置不是模型。", _ids(n_best))
-    f.table = _table("单店经济", ["面积", "销售", "坪效", "租售比"],
+    f.table = _table("单店经济", ["面积", "销售", "面积效率", "租售比"],
                      [[f"{x['area']:.0f}", f"{x['sales']:.0f}",
                        f"{x['per_sqm']:.0f}", f"{x['rent_ratio']:.1f}%"] for x in rows])
-    f.so_what = "开店门槛用坪效与租售比双阈值，不看单店销售额绝对值。"
-    f.boundary = "没有租金与毛利时，只能算坪效，不能算回本周期。"
+    f.so_what = "开店门槛用面积效率与租售比双阈值，不看单店销售额绝对值。"
+    f.boundary = "没有租金与毛利时，只能算面积效率，不能算回本周期。"
     return f

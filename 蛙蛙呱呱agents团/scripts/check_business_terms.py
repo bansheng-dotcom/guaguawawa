@@ -5,15 +5,15 @@
   project_block  项目专属词（具体品类/单位）——**任何位置**出现即失败
   line_block     业务线词（生鲜/母婴/美妆/冷链/损耗率…）——只允许出现在
                  `configs/industries/*`（行业库是显式数据）；code 目录出现即失败
-  warn           行业口径词（零售/批发/门店/坪效/SKU…）——棘轮：只拦新增
+  warn           行业口径词（零售/批发/门店/坪效/SKU…）——**代码里必须为 0**；
+                 `configs/industries/*` 是显式行业库，豁免（它本来就要写行业名）
 
 为什么分两层：行业库（`configs/industries`）本来就要写行业名，它是**声明式数据**；
 但项目专属词（某个历史业务的品类与单位）连行业库都不该有。
 
 用法：
   python scripts/check_business_terms.py            # 报告
-  python scripts/check_business_terms.py --check    # 门禁（block>0 或 warn 超基线则 1）
-  python scripts/check_business_terms.py --write-baseline
+  python scripts/check_business_terms.py --check    # 门禁（任一 block/warn > 0 则 1）
 """
 from __future__ import annotations
 
@@ -38,14 +38,14 @@ WARN = ("零售", "批发", "产地价", "出场价", "门店", "坪效", "SKU",
 INFO = ("同比", "环比", "期次", "客单价")
 
 LINE_BLOCK_ALLOW = ("configs/industries/",)
+WARN_ALLOW = ("configs/industries/",)
 ALLOW_FILES: Dict[str, str] = {
     # 历史归档：不参与产线，保留原文以便追溯；显式登记而不是静默跳过
     "scripts/_archive/seed_knowledge.py": "历史归档，不参与产线",
     # 词表定义文件本身必须出现这些词，否则无法扫描
     "scripts/check_business_terms.py": "词表定义",
     "scripts/scan_business_terms.py": "词表定义（旧版扫描器）",
-}
-BASELINE = ROOT / "configs" / "business_terms_warn_baseline.json"
+}  # noqa: E501
 
 
 def _files() -> List[Tuple[Path, str]]:
@@ -82,6 +82,8 @@ def scan() -> Dict[str, Dict[str, Dict[str, int]]]:
                     continue
                 if tier == "line_block" and any(rel.startswith(a) for a in LINE_BLOCK_ALLOW):
                     continue
+                if tier == "warn" and any(rel.startswith(a) for a in WARN_ALLOW):
+                    continue
                 res[tier].setdefault(rel, {})[w] = n
     return res
 
@@ -90,28 +92,13 @@ def _totals(d: Dict[str, Dict[str, int]]) -> int:
     return sum(sum(v.values()) for v in d.values())
 
 
-def _baseline() -> Dict[str, int]:
-    try:
-        return json.loads(BASELINE.read_text(encoding="utf-8")) or {}
-    except Exception:  # noqa: BLE001
-        return {}
-
-
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
-    ap.add_argument("--write-baseline", action="store_true")
     ap.add_argument("--json", default="")
     a = ap.parse_args()
 
     res = scan()
-    cur = {f: sum(v.values()) for f, v in res["warn"].items()}
-    if a.write_baseline:
-        BASELINE.write_text(json.dumps(cur, ensure_ascii=False, indent=1,
-                                       sort_keys=True), encoding="utf-8")
-        print("warn 基线已写入:", BASELINE)
-        return 0
-
     pb, lb, wn = _totals(res["project_block"]), _totals(res["line_block"]), _totals(res["warn"])
     print(f"project_block {pb} 次 / {len(res['project_block'])} 文件"
           f"｜line_block {lb} 次 / {len(res['line_block'])} 文件"
@@ -131,23 +118,14 @@ def main() -> int:
     show("line_block")
     show("warn")
 
-    base = _baseline()
-    new_debt = {f: (n, base.get(f, 0)) for f, n in cur.items()
-                if n > base.get(f, 0) and f not in ALLOW_FILES}
-    if base:
-        print(f"\nwarn 棘轮：新增 {len(new_debt)} 个文件超过基线")
-        for f, (n, b) in new_debt.items():
-            print(f"   NEW {f}: {n} > {b}")
-
     if a.json:
         Path(a.json).write_text(json.dumps(res, ensure_ascii=False, indent=1),
                                 encoding="utf-8")
         print(f"\n明细：{a.json}")
 
-    fails = pb or lb or (new_debt if base else 0)
+    fails = pb or lb or wn
     if a.check:
         print(f"\n=== {'FAIL' if fails else 'PASS'} ===")
-        return 1 if fails else 0
     return 1 if fails else 0
 
 

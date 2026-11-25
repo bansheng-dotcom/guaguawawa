@@ -537,7 +537,7 @@ def build(project: Path, cells_path: Optional[Path] = None,
         label = {"revenue": "营收", "share": "份额", "channel_share": "渠道份额",
                  "category_mix": "品类占比", "yoy": "同比",
                  "unit_economics": "单位经济", "unit_cost": "单位成本",
-                 "store_count": "门店数", "member_count": "会员数",
+                 "store_count": "网点数", "member_count": "会员数",
                  "inventory_days": "存货天数", "gross_margin": "毛利率",
                  "ad_cost": "获客成本", "asp": "客单价"}
         # 2026-11-21：删掉写死的八条动作（原为潮玩/IP玩具话术）。

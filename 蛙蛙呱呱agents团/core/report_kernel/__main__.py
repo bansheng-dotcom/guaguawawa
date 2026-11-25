@@ -127,7 +127,7 @@ def cmd_self_test(a) -> int:
     if C.validate(bad)["ok"]:
         errs.append("contract 缺问题未拦截")
 
-    tb = {"caption": "测试（元/件）", "columns": ["品类", "批发价", "变化率"],
+    tb = {"caption": "测试（元/件）", "columns": ["品类", "中间价", "变化率"],
           "rows": [["甲", "36.00", "+3.6%"], ["合计", "36.00", "+3.6%"]]}
     nt, st = specs.infer_table(tb)
     if st["with_unit"] < 1 or not nt.get("total_row"):

@@ -8,7 +8,8 @@
       "type": "government",
       "grade": "A",
       "url": "http://example.invalid/a",
-      "quote": "苹果 10.00 元/公斤"
+      "date": "2025-01-15",
+      "quote": "苹果 10.00 元/公斤，环比持平"
     },
     {
       "id": "S02",
@@ -17,6 +18,7 @@
       "type": "industry_report",
       "grade": "B",
       "url": "http://example.invalid/b",
+      "date": "2025-01-15",
       "quote": ""
     }
   ]

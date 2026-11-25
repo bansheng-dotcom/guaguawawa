@@ -8,6 +8,42 @@
 
 ---
 
+## 2026-11-25（第四轮）· 业务词清零 + Layout 全量接管 + 两个缺口补齐
+
+一句话：**核心代码里不再有任何行业口径词；70 型图在渲染前走同一层 Layout。**
+
+### 业务词清零（P1-7 收尾）
+
+| 改动 | 位置 | 说明 |
+|---|---|---|
+| 中性术语替换 | `core/` `shared/` `scripts/` | 终端/集散/上游/网点/面积效率/单品 取代行业口径词；23 个文件 |
+| 研究类方法去业务化 | `core/methods/research.py` | 指标 id 全部改 `metric_roles` 映射（项目 `method_params.yaml`）；无角色**不挂载**，不退回业务线默认 |
+| 渠道词项目化 | `core/analysis_desk.py` + `method_params.channel_hints` | 团内只留中性默认词；项目自己的列名口径写在项目配置 |
+| 门禁收紧 | `scripts/check_business_terms.py` | 三层全部要求 **0**；`configs/industries/*` 作为显式行业库豁免 warn |
+
+### Layout 层接管 70 型（P4-3）
+
+- 新增 `charts_pro/layout.py`：`prepare()` 在 `render()` 入口统一处理
+  空态（70 型一致的「无数据」卡）、值域（含 0 + 5% padding）、nice 刻度、decimals、标签像素。
+- `spec.render()` 先过 Layout 再校验/渲染；渲染函数可读 `spec["_layout"]`，不改绘图数学。
+- 新增 `tests/test_chart_layout.py`：70/70 有 layout、70/70 可渲染、≥60 型走统一空态。
+
+### 缺口补齐
+
+| 项 | 位置 | 说明 |
+|---|---|---|
+| P2-5 `collect schema` | `core/collect_schema.py` + `guagua.py collect` | 抓一页 → 推断 JSON/表格结构 → 生成源画像 + 采集规格草稿 → 试采 20 行过质量门；产物只写项目侧 |
+| P3-4 quote 判据合并 | `core/research_intake.py` | `verify()` 降级为 URL 可达性预检（`reachability.json`）；quote 命中**只**由 `source_verify` 判定；门禁支持项目 `raw/` 离线缓存 |
+
+### 门禁
+
+`pytest 607 passed / 3 skipped`；`check_business_terms` **0/0/0**；
+`check_charts_pro` contract OK + tokens OK；`check_chart_edges` 8/8；
+`check_project_boundary` PASS；`check_convergence` 违规 0（删除旧基线文件后）；
+`guagua.py audit` 15/15。
+
+---
+
 ## 2026-11-25（第三轮）· 数据标准 + 采集六层 + 业务词出团
 
 一句话：**给全链路一条数据标准，把行业口径搬出核心模块。**

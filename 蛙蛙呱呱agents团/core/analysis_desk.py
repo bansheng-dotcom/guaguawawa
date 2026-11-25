@@ -16,7 +16,7 @@
                  把每一行展开成一条**长表观测**（entity / sub / time / metric / value）；
 2. `Desk`       维护证据索引：每个进入报告的数字都有 id、单位、期、来源文件；
                  派生量（净毛利、价差、保本线）用公式挂到原始 id 上，可复算；
-3. `profile()`  给纲领层用的数据画像：有没有零售价、批发价、产地价、多市场。
+3. `profile()`  给纲领层用的数据画像：有没有终端价、中间价、上游价、多市场。
 
 单位换算走 `per_jin()`：换算规则来自项目 `method_params.yaml`（`unit_scales` /
 `price_unit`），缺参数则原样返回（不做任何业务线默认归一）。
@@ -42,10 +42,10 @@ ENTITY_HINTS = ("品类", "品种", "item", "地区", "区域", "产地", "市�
                 "品类名称", "商品", "name")
 UNIT_HINTS = ("单位", "unit")
 
-# 价格来源（决定能不能做价差/传导）：零售 / 批发 / 产地出场
+# 价格来源（决定能不能做价差/传导）：终端 / 集散 / 产地出场
 CHANNEL_HINTS = (
-    ("retail", ("零售", "采价", "零售价", "门店价", "商超")),
-    ("wholesale", ("批发", "市场报价", "批发市场")),
+    ("retail", ("终端", "采价", "终端价", "网点价", "商超")),
+    ("wholesale", ("集散", "市场报价", "集散市场")),
     ("origin", ("产地", "出场", "装车", "收购")),
     ("futures", ("期货", "symbol", "close")),
 )
@@ -108,9 +108,27 @@ def _unit_scale(unit: str) -> Tuple[float, str]:
     return 1.0, u
 
 
+def _channel_hints():
+    """渠道词表 = 通用中性词 + 项目 `method_params.channel_hints` 追加。
+
+    项目数据的列名可能叫「终端/集散/上游」，也可能有自己的叫法；
+    后者只能写在项目配置里（业务词隔离），不能进团内代码。
+    """
+    extra = method_params.current().get("channel_hints") or {}
+    if not isinstance(extra, dict) or not extra:
+        return CHANNEL_HINTS
+    known = {name for name, _ in CHANNEL_HINTS}
+    merged = [(name, tuple(keys) + tuple(str(x) for x in (extra.get(name) or [])))
+              for name, keys in CHANNEL_HINTS]
+    for name, keys in extra.items():
+        if name not in known and isinstance(keys, (list, tuple)):
+            merged.append((str(name), tuple(str(x) for x in keys)))
+    return tuple(merged)
+
+
 def _channel(*texts: str) -> str:
     blob = " ".join(t for t in texts if t)
-    for name, keys in CHANNEL_HINTS:
+    for name, keys in _channel_hints():
         if any(k in blob for k in keys):
             return name
     return ""
@@ -358,7 +376,7 @@ def _load_csv(path: Path, rel: str) -> Optional[Dataset]:
         ent = str(r[ci[ent_col]]).strip() if ent_col and ci[ent_col] < len(r) else ""
         sub = str(r[ci[sub_col]]).strip() if sub_col and ci[sub_col] < len(r) else ""
         if not ent:
-            # 只有一列「价格」时，商品名在文件名里（如 r06_周度_鸡蛋批发.csv）
+            # 只有一列「价格」时，商品名在文件名里（如 r06_周度_鸡蛋集散.csv）
             ent = Path(rel).stem if len(period_cols + value_cols) == 1 else col
         pct = ("%" in col) or any(h in col.lower() for h in _PCT_HINTS) \
             or str(raw).strip().endswith("%")

@@ -55,15 +55,15 @@ MEASURE_MATCH = {
     and str(n.get("unit")) == "%",
     "yoy": lambda n: "同比" in str(n.get("name")) and str(n.get("unit")) == "%",
     "retail_sales": lambda n: str(n.get("unit")) in ("亿元", "元")
-    and any(k in str(n.get("name")) for k in ("零售", "销售", "规模", "总额")),
+    and any(k in str(n.get("name")) for k in ("终端", "销售", "规模", "总额")),
     "revenue": lambda n: str(n.get("unit")) in ("亿元", "元")
     and any(k in str(n.get("name")) for k in ("营收", "收入", "GMV", "销售额")),
     "category_mix": lambda n: str(n.get("unit")) == "%"
     and any(k in str(n.get("name")) for k in ("占比", "结构")),
     "unit_economics": lambda n: any(k in str(n.get("name"))
-                                    for k in ("单店", "单台", "坪效")),
+                                    for k in ("单店", "单台", "面积效率")),
     "store_count": lambda n: str(n.get("unit")) == "家"
-    and any(k in str(n.get("name")) for k in ("门店", "机器人")),
+    and any(k in str(n.get("name")) for k in ("网点", "机器人")),
     "member_count": lambda n: str(n.get("unit")) == "万人"
     and "会员" in str(n.get("name")),
 }
@@ -305,7 +305,7 @@ def _brands(pack: Dict[str, Any], limit: int = 5) -> List[str]:
         name = str(n.get("name") or "")
         if "份额" not in name:
             continue
-        head = re.split(r"(零售额)?份额", name)[0]
+        head = re.split(r"(终端额)?份额", name)[0]
         head = re.sub(r"^(全国|中国|全市场|全区|全球)", "", head)
         # 2026-11-22 清理：原来写死一套个护品类后缀（牙膏/洗发水/护肤品/彩妆…），
         # 通用模块不内置业务线；品牌名不再按行业词裁剪。
@@ -397,7 +397,7 @@ def _entity_measure(entity: str, measures: Dict[str, Dict[str, Any]],
         for c in ("asp", "unit_cost"):
             if has(c):
                 return c
-    if any(k in e for k in ("门店", "仓", "网点")):
+    if any(k in e for k in ("网点", "仓", "网点")):
         for c in ("store_count", "warehouse_count"):
             if has(c):
                 return c

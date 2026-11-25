@@ -413,6 +413,11 @@ def validate(spec: dict) -> None:
 
 
 def render(spec: dict) -> str:
+    # P4-3：Layout 层在渲染前统一接管空态 / 值域 / 刻度 / 精度 / 标签度量
+    from . import layout as _layout
+    spec = _layout.prepare(spec)
+    if spec.get(_layout.LAYOUT_KEY, {}).get("empty"):
+        return _layout.render_empty(spec)
     if spec.get("type") in ALIASES:
         spec = {**spec, "type": ALIASES[spec["type"]]}
     validate(spec)

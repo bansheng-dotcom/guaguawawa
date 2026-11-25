@@ -720,6 +720,12 @@ def cmd_domain(args: argparse.Namespace) -> int:
     return int(domain_pack.main(argv))
 
 
+def cmd_collect(args: argparse.Namespace) -> int:
+    """采集：`collect schema --url …` 生成草稿 + 试采 + 质量门（P2-5）。"""
+    from core import collect_schema
+    return int(collect_schema.main(list(args.collect_args)))
+
+
 def _run_script(script: str, argv: list[str]) -> int:
     """把子命令透传给 scripts/ 下的独立脚本（保持零依赖与可单独运行）。"""
     import subprocess
@@ -913,6 +919,10 @@ def build_parser() -> argparse.ArgumentParser:
                     "产线地图见 docs/REPORT-LINES.md。")
     p.add_argument("report_args", nargs=argparse.REMAINDER)
     p.set_defaults(func=cmd_report)
+
+    p = sub.add_parser("collect", help="采集：schema 生成草稿并试采（P2-5）")
+    p.add_argument("collect_args", nargs=argparse.REMAINDER)
+    p.set_defaults(func=cmd_collect)
 
     p = sub.add_parser("domain", help="业务线 → 领域编队 + 专家作战计划（20 角色领域包）")
     p.add_argument("--intent", required=True, help="业务线或经营意图")

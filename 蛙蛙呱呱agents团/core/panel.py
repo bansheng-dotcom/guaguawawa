@@ -43,10 +43,10 @@ def build(intent: str, clarify: Dict[str, Any]) -> List[Dict[str, Any]]:
     cats = _declared_cats(clarify)
     years = list(DEFAULT_YEARS)
     panels = [
-        {"id": "P1", "name": "区域×品类零售", "entities": regions, "dimensions": cats,
+        {"id": "P1", "name": "区域×品类终端", "entities": regions, "dimensions": cats,
          "periods": years, "metrics": ["retail.sales", "retail.yoy"],
-         "keywords": ["零售", "销售", "规模", "市场"], "source_plan": ["A", "B"]},
-        {"id": "P2", "name": "品牌×渠道份额", "entities": ["TOP10 品牌"], "dimensions": ["商超", "便利店", "电商", "即时零售"],
+         "keywords": ["终端", "销售", "规模", "市场"], "source_plan": ["A", "B"]},
+        {"id": "P2", "name": "品牌×渠道份额", "entities": ["TOP10 品牌"], "dimensions": ["商超", "便利店", "电商", "即时终端"],
          "periods": years[-2:], "metrics": ["share.brand"],
          "keywords": ["份额", "品牌", "集中度"], "source_plan": ["B"]},
         {"id": "P3", "name": "单店模型", "entities": ["社区自雇", "社区雇人", "前置仓"], "dimensions": ["固定成本", "毛利率", "盈亏平衡"],

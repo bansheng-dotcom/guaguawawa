@@ -17,10 +17,10 @@
     trajectory    时间轨迹：首末/极值/波动率/异常点（调 r06 time_series）
     contribution  两期贡献：总变化由哪个品类拉动（调 r06 decompose）
     economics     单位经济：加价率 → 扣损耗物流 → 净毛利（负毛利识别）
-    transmission  上下游传导：产地→批发→零售，价差被谁吃掉、有没有倒挂
+    transmission  上下游传导：产地→集散→终端，价差被谁吃掉、有没有倒挂
     arbitrage     跨市场价差：买在 A、卖在 B，扣运费物流还剩多少
     breakeven     保本线：提价多少 / 直采多少比例才能转正
-    sensitivity   情景敏感性：零售价、损耗、物流各动一档会怎样
+    sensitivity   情景敏感性：终端价、损耗、物流各动一档会怎样
     tco           到店成本：多货源 landed cost 排序（调 r15 tco）
     risk          风险与缺口：波动带、异常点、覆盖不足
     sample        样本充分性：这个差异要多少样本才判得动（调 r19 eval-ci）
@@ -308,7 +308,7 @@ def _dedupe_series(rows: List[Tuple[str, float]]) -> List[Tuple[str, float]]:
 
 
 def _score_market(entity: str, file: str) -> int:
-    """同城 > 全国：零售是本地价，批发对标要尽量用同一个城市的市场报价。
+    """同城 > 全国：终端是本地价，集散对标要尽量用同一个城市的市场报价。
 
     2026-11-22 清理：原实现写死了三个历史项目地名
     （呼包鄂蔬菜项目的特化）。改为通用代理：实体名出现在来源文件名里
@@ -351,7 +351,7 @@ class Views:
 
 def _clean_label(name: str) -> str:
     s = str(name or "")
-    for junk in ("（去骨）", "(去骨)", "批发", "活", "（当地）"):
+    for junk in ("（去骨）", "(去骨)", "集散", "活", "（当地）"):
         s = s.replace(junk, "")
     return s.strip() or str(name)
 
@@ -370,11 +370,11 @@ def obs_name(obs) -> str:
 
 
 def _score_retail_ds(d) -> Tuple[int, int, int, int]:
-    """快照表优先级：非 engine/ 派生物 > 列就是期次 > 文件名带采价/零售 > 品类多。"""
+    """快照表优先级：非 engine/ 派生物 > 列就是期次 > 文件名带采价/终端 > 品类多。"""
     name = d.file
     raw = 0 if name.startswith("engine/") else 1
     period_cols = 1 if any(_is_period_label(c) for c in d.columns) else 0
-    named = 1 if any(k in name for k in ("采价", "零售")) else 0
+    named = 1 if any(k in name for k in ("采价", "终端")) else 0
     cats = len({cat_key(o.entity) for o in d.obs if not o.pct})
     return (raw, period_cols, named, cats)
 
@@ -383,10 +383,10 @@ def build_views(desk) -> Views:
     v = Views()
     retail_ds = [d for d in desk.datasets if d.channel == "retail"]
     if not retail_ds:
-        v.gaps.append("没有可识别的零售价数据")
+        v.gaps.append("没有可识别的终端价数据")
         return v
 
-    # 1) 快照：选一张「横截面最全」的零售表，取自然序最后一期
+    # 1) 快照：选一张「横截面最全」的终端表，取自然序最后一期
     t0 = max(retail_ds, key=_score_retail_ds)
     periods = sorted({o.time for o in t0.obs if o.time}, key=_period_key)
     last = periods[-1] if periods else ""
@@ -440,7 +440,7 @@ def build_views(desk) -> Views:
         elif "同比" in m or "yoy" in m:
             v.momentum.setdefault(cat, {})["yoy"] = o.value
 
-    # 4) 批发价：优先同城市场报价，其次全国周度
+    # 4) 中间价：优先同城市场报价，其次全国周度
     best_w: Dict[str, Tuple[int, str, float, str]] = {}
     for o in desk.obs:
         if o.channel != "wholesale" or o.pct or o.value <= 0:
@@ -454,7 +454,7 @@ def build_views(desk) -> Views:
     for cat, (_s, _t, val, ent) in best_w.items():
         v.wholesale[cat] = (val, ent)
 
-    # 5) 产地出场价：保留细分标签，交给方法挑选
+    # 5) 上游价：保留细分标签，交给方法挑选
     for o in desk.obs:
         if o.channel != "origin" or o.pct or o.value <= 0:
             continue
@@ -466,7 +466,7 @@ def build_views(desk) -> Views:
         v.origins.append({"cat": cat, "label": obs_name(o),
                           "place": o.entity, "time": o.time, "value": val})
 
-    # 6) 地区零售（区域价格表：地区 × 品类 × 两期）
+    # 6) 地区终端（区域价格表：地区 × 品类 × 两期）
     for d in desk.datasets:
         if d.kind != "period_table":
             continue
@@ -483,7 +483,7 @@ def build_views(desk) -> Views:
             val, _ = o.per_jin()
             v.region[(place, cat)] = val
 
-    # 7) 批发市场逐市场报价
+    # 7) 集散市场逐市场报价
     for o in desk.obs:
         if o.channel != "wholesale" or o.pct or not o.sub:
             continue
@@ -492,7 +492,7 @@ def build_views(desk) -> Views:
         v.quotes[(o.entity, cat)] = val
 
     if not v.snapshot:
-        v.gaps.append("零售价表里没有可解析的数值")
+        v.gaps.append("终端价表里没有可解析的数值")
     else:
         global PRICE_UNIT
         if not PRICE_UNIT and v.snapshot_unit and v.snapshot_unit != _PU:
@@ -563,8 +563,8 @@ def m_structure(ctx: Ctx) -> Optional[Finding]:
     for k in cats:
         s = v.series[k]
         a, b = s[0][1], s[-1][1]
-        na = c.n(f"{k} 期初零售价", a, "{_PU}", s[0][0], v.series_src.get(k, ""))
-        nb = c.n(f"{k} 期末零售价", b, "{_PU}", s[-1][0], v.series_src.get(k, ""))
+        na = c.n(f"{k} 期初终端价", a, "{_PU}", s[0][0], v.series_src.get(k, ""))
+        nb = c.n(f"{k} 期末终端价", b, "{_PU}", s[-1][0], v.series_src.get(k, ""))
         ch = _pct_change(a, b)
         nch = c.n(f"{k} 区间变化率", ch / 100, "%", f"{s[0][0]}→{s[-1][0]}",
                   v.series_src.get(k, ""))
@@ -601,7 +601,7 @@ def m_structure(ctx: Ctx) -> Optional[Finding]:
         f.add(f"涨跌幅在 2% 以内的是{_names(stable)}：这些品类短期没有行情信号，"
               "按库存和周转做，不按价格判断做。", _ids(n_stable))
     f.table = _table(
-        "品类价格与区间变化（零售价，__PRICE_UNIT__）",
+        "品类价格与区间变化（终端价，__PRICE_UNIT__）",
         ["品类", "期初", "期末", "变化率"],
         [[r["cat"], str(r["a"]), str(r["b"]), r["ch"].p()] for r in rows])
     f.chart = {
@@ -796,7 +796,7 @@ def m_trajectory(ctx: Ctx) -> Optional[Finding]:
             "subtitle": f"{len(xlabels)} 期 · {len(series)} 个品类 · {_PU}",
             "note": "短窗口估计，12 期以下不解释季节性",
             "unit_meta": "__PRICE_UNIT__",
-            "source": f"零售价序列（{v.series_src.get(picks[0]['key'], '')}）",
+            "source": f"终端价序列（{v.series_src.get(picks[0]['key'], '')}）",
             "refs": [],
             "xlabels": xlabels,
             "series": series,
@@ -885,14 +885,14 @@ def m_economics(ctx: Ctx) -> Optional[Finding]:
         rule = rule_of(k)
         loss, cold = rule["loss"], rule["cold"]
         assumptions += [loss, cold]
-        nr = c.n(f"{k} 零售价", r, "{_PU}", v.snapshot[k][1], v.primary)
-        nw = c.n(f"{k} 批发价", w, "{_PU}", "", v.wholesale[k][1])
+        nr = c.n(f"{k} 终端价", r, "{_PU}", v.snapshot[k][1], v.primary)
+        nw = c.n(f"{k} 中间价", w, "{_PU}", "", v.wholesale[k][1])
         markup = (r / w - 1) * 100 if w else 0
         nmk = c.n(f"{k} 批零加价率", markup / 100, "%")
         nl = c.n(f"{k} 标准损耗", loss, "%")
         nc = c.n(f"{k} 物流与人工", cold, "{_PU}")
         net = r * (1 - loss) - w - cold
-        # 派生量走公式：零售 ×(1−损耗) − 批发 − 物流；校验器会按 pack 里的 id 实算
+        # 派生量走公式：终端 ×(1−损耗) − 集散 − 物流；校验器会按 pack 里的 id 实算
         nnet = c.d(f"N{i:02d}", f"{nr.id}*(1-{loss})-{nw.id}-{cold}", net,
                    f"{k} 净毛利")
         margin = net / r if r else 0
@@ -930,17 +930,17 @@ def m_economics(ctx: Ctx) -> Optional[Finding]:
           "排序结果与按加价率排会不一样。", _ids(top["margin"]))
     f.table = _table(
         "单位经济测算（__PRICE_UNIT__）",
-        ["品类", "零售", "批发", "加价率", "损耗", "物流", "净毛利", "净利率"],
+        ["品类", "终端", "集散", "加价率", "损耗", "物流", "净毛利", "净利率"],
         [[r["cat"], str(r["r"]), str(r["w"]), r["markup"].p(), r["loss"].p(),
           str(r["cold"]), f"{r['nv'].value:+.2f}", r["margin"].p()] for r in rows])
     f.chart = {
         "type": "hbar",
         "title": f"{top['cat']} 净利率 {top['margin'].p()}、{worst['cat']} "
                  f"{worst['margin'].p()}，{len(neg)} 个品类为负",
-        "subtitle": f"{len(rows)} 个品类 · 零售−批发−损耗−物流 · 净毛利率",
+        "subtitle": f"{len(rows)} 个品类 · 终端−集散−损耗−物流 · 净毛利率",
         "note": "损耗与物流为品类经验值，不含租金、人力与税",
         "unit_meta": "净毛利率（%）",
-        "source": "零售价 − 批发价 − 标准损耗 − 物流人工",
+        "source": "终端价 − 中间价 − 标准损耗 − 物流人工",
         "refs": _ids([r["margin"] for r in rows]),
         "bars": [{"label": r["cat"], "value": round(r["v"], 2)} for r in rows],
     }
@@ -949,7 +949,7 @@ def m_economics(ctx: Ctx) -> Optional[Finding]:
     shown = "、".join(f"{r['cat']} {r['loss'].p()}/{str(r['cold'])}" for r in rows[:4])
     more = "等" if len(rows) > 4 else ""
     f.boundary = (f"损耗与物流成本是品类经验值（{shown}{more}；前者为损耗，"
-                  "后者为物流成本（__PRICE_UNIT__），不是企业台账；净毛利不含门店租金、"
+                  "后者为物流成本（__PRICE_UNIT__），不是企业台账；净毛利不含网点租金、"
                   "人力与税，不能直接当财务口径。"
                   + (" " + _mp.footnote() if _params().get("missing") else ""))
     f.meta = {"rows": rows}
@@ -969,20 +969,20 @@ def m_transmission(ctx: Ctx) -> Optional[Finding]:
         w = v.wholesale.get(k)
         if not w:
             continue
-        # 产地报价低于销地批发三成的，按口径异常剔除（规格/单位错配），不当倒挂结论
+        # 产地报价低于销地集散三成的，按口径异常剔除（规格/单位错配），不当倒挂结论
         o = pick_origin(v, k, floor=0.3 * w[0])
         if not o:
             if pick_origin(v, k):
                 dropped.append(v.label(k))
             continue
         r = v.snapshot[k][0]
-        no = c.n(f"{k} 产地价", o["value"], "{_PU}", o["time"], o["place"])
-        nw = c.n(f"{k} 销地批发价", w[0], "{_PU}", "", w[1])
-        nr = c.n(f"{k} 零售价", r, "{_PU}", v.snapshot[k][1], v.primary)
+        no = c.n(f"{k} 上游价", o["value"], "{_PU}", o["time"], o["place"])
+        nw = c.n(f"{k} 销地中间价", w[0], "{_PU}", "", w[1])
+        nr = c.n(f"{k} 终端价", r, "{_PU}", v.snapshot[k][1], v.primary)
         up = w[0] - o["value"]
-        nup = c.n(f"{k} 产地到批发价差", up, "{_PU}")
+        nup = c.n(f"{k} 产地到中间价差", up, "{_PU}")
         down = r - w[0]
-        ndn = c.n(f"{k} 批发到零售价差", down, "{_PU}")
+        ndn = c.n(f"{k} 集散到终端价差", down, "{_PU}")
         rows.append({"cat": v.label(k), "key": k, "o": no, "w": nw, "r": nr,
                      "up": nup, "dn": ndn, "label": o["label"], "place": o["place"]})
     if not rows:
@@ -996,60 +996,60 @@ def m_transmission(ctx: Ctx) -> Optional[Finding]:
     title = ""
     if inv:
         bad = inv[0]
-        title = (f"传导：{bad['cat']} 产地 {bad['o']} 已高于销地批发 {bad['w']}，"
+        title = (f"传导：{bad['cat']} 产地 {bad['o']} 已高于销地集散 {bad['w']}，"
                  f"倒挂 {abs(bad['up'].value):.2f} {_PU}")
     else:
-        title = (f"传导：{main['cat']} 批发到零售吃掉 {main['dn']} {_PU}，"
+        title = (f"传导：{main['cat']} 集散到终端吃掉 {main['dn']} {_PU}，"
                  f"批零加价 {main['mk'].p()}")
     f = _finding("transmission", title,
                  "链路利润被哪一段吃掉，有没有产地倒挂？", c, mark)
     if inv:
         bad = inv[0]
         f.add(f"{bad['cat']} 产地 {bad['place']} 报 {bad['o']} {_PU}，"
-              f"销地批发只有 {bad['w']} {_PU}，按产地价直采每斤倒挂 "
+              f"销地集散只有 {bad['w']} {_PU}，按上游价直采每斤倒挂 "
               f"{abs(bad['up'].value):.2f} 元——这条直采路径必须关闭。",
               _ids(bad["o"], bad["w"], bad["up"]))
     if main["up"].value < 0:
-        f.add(f"{main['cat']} 批发 {main['w']} 到零售 {main['r']} 加价 {main['mk'].p()}，"
-              f"但产地到批发这一段是倒挂 {abs(main['up'].value):.2f} {_PU}；"
-              "利润全在零售端，靠压上游拿不到空间。",
+        f.add(f"{main['cat']} 集散 {main['w']} 到终端 {main['r']} 加价 {main['mk'].p()}，"
+              f"但产地到集散这一段是倒挂 {abs(main['up'].value):.2f} {_PU}；"
+              "利润全在终端端，靠压上游拿不到空间。",
               _ids(main["w"], main["r"], main["mk"], main["up"]))
     else:
-        f.add(f"{main['cat']} 批发 {main['w']} 到零售 {main['r']} 加价 {main['mk'].p()}，"
-              f"产地到批发这一段有 {main['up']} {_PU}——两条价差要分开谈，"
+        f.add(f"{main['cat']} 集散 {main['w']} 到终端 {main['r']} 加价 {main['mk'].p()}，"
+              f"产地到集散这一段有 {main['up']} {_PU}——两条价差要分开谈，"
               "不能合成一个「采购价」。",
               _ids(main["w"], main["r"], main["mk"], main["up"]))
-    f.add("要压成本，只能压上游与物流那一段；对零售端加价动刀，等于自己把客流推走。",
+    f.add("要压成本，只能压上游与物流那一段；对终端端加价动刀，等于自己把客流推走。",
           _ids(main["up"], main["dn"]))
     f.table = _table(
         "链路各段价格（__PRICE_UNIT__）",
-        ["品类", "产地", "批发", "零售", "加价率", "产地→批发", "批发→零售"],
+        ["品类", "产地", "集散", "终端", "加价率", "产地→集散", "集散→终端"],
         [[r["cat"], str(r["o"]), str(r["w"]), str(r["r"]), r["mk"].p(),
           f"{r['up'].value:+.2f}", f"{r['dn'].value:+.2f}"] for r in rows])
     f.chart = {
         "type": "grouped_bar",
-        "title": f"{main['cat']} 批发到零售 {main['dn']} {_PU}，是产地到批发的 "
+        "title": f"{main['cat']} 集散到终端 {main['dn']} {_PU}，是产地到集散的 "
                  f"{abs(main['dn'].value / main['up'].value) if main['up'].value else 0:.1f} 倍",
         "subtitle": f"{len(rows)} 个品类 · 两段加价的绝对值 · {_PU}",
         "note": "两段不是同一交易环节，只比较加价厚度",
         "unit_meta": "__PRICE_UNIT__",
-        "source": "产地出场价 / 销地批发价 / 零售价",
+        "source": "上游价 / 销地中间价 / 终端价",
         "refs": _ids([r["o"] for r in rows] + [r["r"] for r in rows]),
         "categories": [r["cat"] for r in rows],
         # 标题讲的是两段加价，柱子就必须画两段加价，不能画价格水平
         "series": [
-            {"name": "产地→批发", "values": [round(r["up"].value, 2) for r in rows]},
-            {"name": "批发→零售", "values": [round(r["dn"].value, 2) for r in rows]},
+            {"name": "产地→集散", "values": [round(r["up"].value, 2) for r in rows]},
+            {"name": "集散→终端", "values": [round(r["dn"].value, 2) for r in rows]},
         ],
     }
-    f.so_what = ("锁价锁在产地/一级批发这一端，不锁零售价；"
+    f.so_what = ("锁价锁在产地/一级集散这一端，不锁终端价；"
                  "跨市采购前先算倒挂，倒挂的直接关闭。")
     f.meta = {"rows": rows}
-    f.boundary = ("产地价是出场/装车口径，与销地批发不是同一交易环节；价差只能看方向，"
+    f.boundary = ("上游价是出场/装车口径，与销地集散不是同一交易环节；价差只能看方向，"
                   "不能当套利收益。只有同品类、同规格、同一时点的两段价才可比，"
                   "跨环节直接相减不是套利收益。")
     if dropped:
-        f.boundary += (f"；{_names(dropped)} 的产地报价低于销地批发三成，"
+        f.boundary += (f"；{_names(dropped)} 的产地报价低于销地集散三成，"
                        "按口径异常（规格或单位错配）剔除，未纳入本表。")
     return f
 
@@ -1063,8 +1063,8 @@ def m_arbitrage(ctx: Ctx) -> Optional[Finding]:
     by_cat: Dict[str, Dict[str, float]] = {}
     for (region, cat), val in v.region.items():
         by_cat.setdefault(cat, {})[region] = val
-    # 批发市场逐市场报价也是跨市场价差：同品类、同时点、不同市场
-    # 只纳入有零售价的品类，避免与本报告主线（零售品类）串台
+    # 集散市场逐市场报价也是跨市场价差：同品类、同时点、不同市场
+    # 只纳入有终端价的品类，避免与本报告主线（终端品类）串台
     for (place, cat), val in v.quotes.items():
         if cat not in v.snapshot:
             continue
@@ -1155,9 +1155,9 @@ def m_breakeven(ctx: Ctx) -> Optional[Finding]:
         whole = r["w"].value
         need = (whole + rule["cold"]) / (1 - rule["loss"])
         uplift = (need / retail - 1) * 100 if retail else 0
-        nneed = c.n(f"{cat} 保本零售价", need, "{_PU}")
+        nneed = c.n(f"{cat} 保本终端价", need, "{_PU}")
         nuplift = c.n(f"{cat} 保本提价幅度", uplift / 100, "%")
-        # 直采路径：产地 + 集配 + 分拣 对比批发
+        # 直采路径：产地 + 集配 + 分拣 对比集散
         o = pick_origin(v, cat)
         share = 0.0
         nshare = None
@@ -1174,14 +1174,14 @@ def m_breakeven(ctx: Ctx) -> Optional[Finding]:
         return None
     rows.sort(key=lambda x: x["v"])
     hard = min(rows, key=lambda r: r["v"])
-    title = (f"保本：{hard['cat']} 零售提 {hard['up'].p()} 即转正"
+    title = (f"保本：{hard['cat']} 终端提 {hard['up'].p()} 即转正"
              + (f"；{rows[-1]['cat']} 要提 {rows[-1]['up'].p()}" if len(rows) > 1 else ""))
     f = _finding("breakeven", title,
                  "负毛利的品类，是提价能救，还是只能降本？", c, mark)
     f.assumptions = [rule_of(r["cat"])["loss"] for r in rows] + \
                     [rule_of(r["cat"])["cold"] for r in rows]
     for r in rows[:3]:
-        line = (f"{r['cat']} 净毛利 {r['loss']:+.2f} {_PU}，保本零售价 "
+        line = (f"{r['cat']} 净毛利 {r['loss']:+.2f} {_PU}，保本终端价 "
                 f"{r['need']} 元，需提价 {r['up'].p()}。")
         if r["share"] is not None:
             line += f"若走产地直采，直采占比到 {r['share'].p()} 即可不动价保本。"
@@ -1190,7 +1190,7 @@ def m_breakeven(ctx: Ctx) -> Optional[Finding]:
           "否则稍微提价就足以打掉客流。", _ids(rows[0]["up"], rows[0]["need"]))
     f.table = _table(
         "保本测算（__PRICE_UNIT__）",
-        ["品类", "现状净毛利", "保本零售价", "需提价", "保本直采占比"],
+        ["品类", "现状净毛利", "保本终端价", "需提价", "保本直采占比"],
         [[r["cat"], f"{r['loss']:+.2f}", str(r["need"]), r["up"].p(),
           (r["share"].p() if r["share"] else "—")] for r in rows])
     f.so_what = ("按单价分路径：高单价品类先提价、低单价高频品只降本不涨价；"
@@ -1203,12 +1203,12 @@ def m_breakeven(ctx: Ctx) -> Optional[Finding]:
                   f"{rows[-1]['cat']} 需 {rows[-1]['up'].p()}"),
         "subtitle": f"{len(rows)} 个负毛利品类 · 只覆盖损耗与物流",
         "unit_meta": "%",
-        "source": "证据包（保本价 =（批发价+物流）÷（1−损耗））",
+        "source": "证据包（保本价 =（中间价+物流）÷（1−损耗））",
         "refs": _ids(*[r["up"] for r in rows]),
         "bars": [{"label": r["cat"], "value": round(r["v"], 2)} for r in rows],
         "note": "线为保本所需提价幅度；超过 5% 的品类优先走直采降本",
     }
-    f.boundary = ("保本价只覆盖损耗与物流，不含租金与人力；直采成本按产地价 + "
+    f.boundary = ("保本价只覆盖损耗与物流，不含租金与人力；直采成本按上游价 + "
                   f"{_freight()} 元运费 + 0.10 元分拣估算。")
     f.meta = {"rows": rows}
     return f
@@ -1244,18 +1244,18 @@ def m_risk(ctx: Ctx) -> Optional[Finding]:
     no_base = [s["cat"] for s in stats if not s["has_w"]]
     short = [s["cat"] for s in stats if s["n"] < 8]
     hi = max(stats, key=lambda s: s["cv_v"])
-    n_nb = c.n("无批发基准品类数", len(no_base), "个", digits=0)
+    n_nb = c.n("无集散基准品类数", len(no_base), "个", digits=0)
     n_short = c.n("期数不足品类数", len(short), "个", digits=0)
     title = (f"风险：{n_short} 个品类期数不足 8 期，"
              f"{hi['cat']} 波动最大（CV {hi['cv'].p()}）")
     if no_base:
-        title = (f"风险：{n_nb} 个品类没有批发基准价、"
+        title = (f"风险：{n_nb} 个品类没有集散基准价、"
                  f"{n_short} 个品类期数不足 8 期，{hi['cat']} 波动最大"
                  f"（CV {hi['cv'].p()}）")
     f = _finding("risk", title,
                  "哪些结论现在还不能用，缺哪一块数据？", c, mark)
     if no_base:
-        f.add(f"{_names(no_base, 4)}没有同口径批发价，做不了单位经济；"
+        f.add(f"{_names(no_base, 4)}没有同口径中间价，做不了单位经济；"
               "这几类只能看趋势，不能给毛利结论。", _ids(n_nb))
     f.add(f"{hi['cat']} 变异系数 {hi['cv'].p()}、最大回撤 {hi['mdd'].p()}，"
           "是这批品类里最需要设价格护栏的。", _ids(hi["cv"], hi["mdd"]))
@@ -1263,7 +1263,7 @@ def m_risk(ctx: Ctx) -> Optional[Finding]:
           "补数之前只做周度随行，不做趋势外推。", _ids(n_short))
     f.table = _table(
         "风险与数据覆盖（__PRICE_UNIT__）",
-        ["品类", "期数", "CV", "最大回撤", "批发基准", "说明"],
+        ["品类", "期数", "CV", "最大回撤", "集散基准", "说明"],
         [[s["cat"], str(s["n"]), s["cv"].p(), s["mdd"].p(),
           "有" if s["has_w"] else "缺",
           "样本偏短" if s["n"] < 8 else "可用"] for s in stats])
@@ -1280,7 +1280,7 @@ def m_risk(ctx: Ctx) -> Optional[Finding]:
             nsd = c.n(f"{hi['cat']} 标准差", float(stt["std"]), "{_PU}")
             f.add(f"r06 describe 复核：{hi['cat']} 标准差 {nsd} {_PU}，"
                   "与变异系数同向，波动不是单一异常点造成的。", _ids(nsd))
-    f.so_what = ("先补三类数：批发基准价、至少 12 期序列、产地→到店的实际运费；"
+    f.so_what = ("先补三类数：集散基准价、至少 12 期序列、产地→到店的实际运费；"
                  "补不齐就在报告里保留缺口，不用估算值冒充实测。")
     f.boundary = "缺口来自源数据本身，不是本项目拒绝计算；有数据的部分仍按实际值计算。"
     f.meta = {"no_base": no_base, "no_base_count": len(no_base),
@@ -1357,13 +1357,13 @@ def m_ledger(ctx: Ctx, findings: List[Finding]) -> Optional[Finding]:
         sources.append({"id": f"S{i:02d}", "name": f,
                         "type": "database" if f.endswith((".csv", ".json")) else "secondary"})
     src_id = {s["name"]: s["id"] for s in sources}
-    # 结论挂来源：优先主力零售表；没有价格表时用第一张表，保证 claim 不落空
+    # 结论挂来源：优先主力终端表；没有价格表时用第一张表，保证 claim 不落空
     if ctx.views.primary in src_id:
         base = [src_id[ctx.views.primary]]
     else:
         base = [sources[0]["id"]] if sources else []
     extra = [src_id[f] for f in ctx.desk.files
-             if any(k in f for k in ("批发", "产地", "区域"))][:2]
+             if any(k in f for k in ("集散", "产地", "区域"))][:2]
     claims = []
     for i, f in enumerate(findings, 1):
         sids = base + (extra if f.key in ("economics", "transmission", "arbitrage",
@@ -1504,9 +1504,9 @@ FALSIFIERS: Dict[str, str] = {
     "trajectory": "若新增 3 期后斜率翻转，趋势判断作废。",
     "contribution": "若下期贡献方向反转，换手判断作废。",
     "economics": "若损耗或物流成本比假设低 2 个百分点、净利转正，负毛利判断作废。",
-    "transmission": "若产地→批发价差方向反转，传导判断作废。",
+    "transmission": "若产地→中间价差方向反转，传导判断作废。",
     "arbitrage": "若扣运费与损耗后价差为负，跨市机会作废。",
-    "breakeven": "若零售价跌破保本价，或提价后销量下滑超过 20%，保本判断作废。",
+    "breakeven": "若终端价跌破保本价，或提价后销量下滑超过 20%，保本判断作废。",
     "forecast": "若实际值落在区间外，外推作废。",
     "risk": "若补数后缺口消失，或回撤/波动收敛到阈值内，风险判断作废。",
     "sample": "若样本补到每组所需量后显著性改变，样本判断作废。",

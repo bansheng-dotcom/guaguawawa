@@ -49,6 +49,37 @@ def test_missing_params_do_not_apply_business_defaults():
 
 def test_validate_catches_bad_values(tmp_path):
     bad = {"schema": "dsh.method_params/v1", "freight": -1,
-           "unit_scales": {"公斤": "x"}, "categories": [{}]}
+           "unit_scales": {"公斤": "x"}, "categories": [{}],
+           "channel_hints": {"retail": "不是列表"},
+           "metric_roles": []}
     errs = method_params.validate(bad)
-    assert len(errs) >= 3
+    assert len(errs) >= 4
+
+
+def test_metric_roles_are_project_declared(tmp_path):
+    (tmp_path / "method_params.yaml").write_text(
+        "schema: dsh.method_params/v1\n"
+        "metric_roles:\n  market_size: demo_market\n  shares: demo_share\n",
+        encoding="utf-8")
+    p = method_params.configure(tmp_path)
+    assert p["metric_roles"] == {"market_size": "demo_market",
+                                "shares": "demo_share"}
+
+
+def test_channel_hints_can_be_extended_by_project(tmp_path):
+    # 项目自己的列名口径写在项目配置里；团内代码只认中性默认词
+    (tmp_path / "method_params.yaml").write_text(
+        "channel_hints:\n  retail: [\"示例列名A\"]\n", encoding="utf-8")
+    method_params.configure(tmp_path)
+    hints = dict(analysis_desk._channel_hints())
+    assert "示例列名A" in hints["retail"]
+    assert "终端" in hints["retail"]
+
+
+def test_research_methods_do_not_mount_without_roles():
+    """没有 metric_roles 时研究类方法不挂载——不许退回某条业务线的默认口径。"""
+    from core.methods import research
+    class Caps:
+        desk = type("D", (), {"facts": [], "assumptions": []})()
+    assert research._facts(Caps, "market_size") == []
+    assert research._metric("shares") == ""

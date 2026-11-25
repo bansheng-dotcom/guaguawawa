@@ -280,11 +280,11 @@ def mechanism_for(f) -> Tuple[str, str, str]:
     if key == "transmission" and rows:
         up = [r for r in rows if r["up"].value < 0]
         big = max(rows, key=lambda r: abs(r["dn"].value))
-        mech = (f"价差不是均匀分布的：{big['cat']} 的批发到零售段 {big['dn'].value:+.2f} {_u()}，"
-                f"产地到批发段 {big['up'].value:+.2f} 元；{len(up)} 个品类在产地端倒挂。"
+        mech = (f"价差不是均匀分布的：{big['cat']} 的集散到终端段 {big['dn'].value:+.2f} {_u()}，"
+                f"产地到集散段 {big['up'].value:+.2f} 元；{len(up)} 个品类在产地端倒挂。"
                 "判别方法是拿同一规格、同一期的三段报价重算："
                 "若三段不同期或不同规格，价差本身不成立。")
-        so = ("按品类拆段优化：零售段厚的谈环节、上游倒挂的换采购方式；"
+        so = ("按品类拆段优化：终端段厚的谈环节、上游倒挂的换采购方式；"
               "「整体降本」在这条链路上是无效动作。")
         fals = "若上下游不是同规格同期报价，本节价差作废，不能反推真实毛利。"
         return mech, so, fals
@@ -303,7 +303,7 @@ def mechanism_for(f) -> Tuple[str, str, str]:
         meta = getattr(f, "meta", None) or {}
         nb = int(meta.get("no_base_count") or 0)
         mp = int(meta.get("min_periods") or 8)
-        mech = (f"覆盖口径决定结论强度：{nb} 个品类没有批发基准、最小期数是 {mp} 期。"
+        mech = (f"覆盖口径决定结论强度：{nb} 个品类没有集散基准、最小期数是 {mp} 期。"
                 "缺基准的品类只能比自身历史，不能跨品类比价；期数不足时点估计不可靠。"
                 "判别方法是用前 60% 窗口重算一次——结论翻转就说明它依赖窗口。")
         so = ("覆盖不足的品类只给方向、不给点位；要下确定性结论，先把基准或期数补齐。")
@@ -393,7 +393,7 @@ def _metrics(picked: List[Any], label_of: Dict[str, int]) -> List[Dict[str, Any]
         elif f.key == "risk":
             n = (f.meta or {}).get("no_base_count")
             if n:
-                out.append({"label": "无批发基准", "value": f"{n} 个",
+                out.append({"label": "无集散基准", "value": f"{n} 个",
                             "note": f"第 {idx} 节 · 覆盖缺口", "status": "watch"})
         if len(out) >= 4:
             break

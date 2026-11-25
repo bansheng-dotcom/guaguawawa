@@ -14,7 +14,8 @@ def _project(tmp_path, quote: str = ""):
     d.mkdir()
     (d / "sources.json").write_text(json.dumps({
         "sources": [{"id": "S01", "title": "测试来源", "type": "government",
-                     "grade": "A", "url": "http://example.invalid", "quote": quote}]
+                     "grade": "A", "url": "http://example.invalid",
+                     "date": "2025-01-15", "quote": quote}]
     }, ensure_ascii=False), encoding="utf-8")
     return tmp_path
 
@@ -61,5 +62,6 @@ def test_gate_strict_raises_on_unverified(tmp_path):
 def test_verify_skips_unused_sources(tmp_path):
     p = _project(tmp_path, quote="")
     q = ri.verify(str(p), only_ids=["S99"])
+    assert q["schema"] == "dsh.reachability/v1"
     assert q["skipped"] == 1
-    assert q["unverified"] == 0
+    assert q["reachable"] == 0

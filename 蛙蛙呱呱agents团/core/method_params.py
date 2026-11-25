@@ -30,6 +30,8 @@ DEFAULT: Dict[str, Any] = {
     "categories": [],            # [{key, loss, cold, shelf}]
     "origin_ban": [],
     "origin_prefer": {},
+    "channel_hints": {},         # {retail|wholesale|origin|futures: [该项目的列名词]}
+    "metric_roles": {},          # {market_size: 项目里的 metric id, ...}
     "missing": True,
 }
 
@@ -73,6 +75,16 @@ def validate(params: Dict[str, Any]) -> List[str]:
         for i, c in enumerate(cats):
             if not isinstance(c, dict) or not c.get("key"):
                 errs.append("categories[%d] 缺 key" % i)
+    ch = params.get("channel_hints") or {}
+    if not isinstance(ch, dict):
+        errs.append("channel_hints 必须是对象（渠道 → 词表）")
+    else:
+        for k, v in ch.items():
+            if not isinstance(v, (list, tuple)):
+                errs.append("channel_hints.%s 必须是列表" % k)
+    mr = params.get("metric_roles") or {}
+    if not isinstance(mr, dict):
+        errs.append("metric_roles 必须是对象（角色 → 指标 id）")
     return errs
 
 
