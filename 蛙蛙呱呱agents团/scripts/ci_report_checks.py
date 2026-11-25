@@ -180,9 +180,9 @@ def main() -> int:
         if rc:
             fails.append("r04-derive")
 
-    # [3a-2] 门禁契约 + 拆卡/派活/防代写回归（脚本自带 runner，不依赖 pytest）
-    for t in ("tests/test_gate_contract.py", "tests/test_clarify_dispatch.py"):
-        rc, out = run([sys.executable, t])
+    # [3a-2] 门禁契约 + 拆卡/派活/防代写回归（pytest 域测试）
+    for t in ("tests/test_gates.py", "tests/test_orchestration.py"):
+        rc, out = run([sys.executable, "-m", "pytest", t, "-q"])
         tail = out.strip().splitlines()[-1] if out.strip() else ""
         print(f"[3a] {t} rc={rc} :: {tail}")
         if rc:
@@ -287,7 +287,7 @@ def main() -> int:
         fails.append("report-kernel")
 
     # [12] 报告质量内核单测：交付门禁正反样例、规格推断、冲突拦截
-    rc, out = run([sys.executable, "-m", "pytest", "tests/test_report_kernel.py", "-q"])
+    rc, out = run([sys.executable, "-m", "pytest", "tests/test_report_render.py", "-q"])
     tail12 = [l for l in out.strip().splitlines() if "passed" in l or "failed" in l]
     print(f"[12] report kernel tests rc={rc} :: {tail12[-1] if tail12 else out.strip()[-60:]}")
     if rc and "No module named pytest" in out:
@@ -344,9 +344,7 @@ def main() -> int:
 
     # [15] 报告线单测：缺样本的用例已改为 skip，绿灯只代表代码没回归
     rc, out = run([sys.executable, "-m", "pytest",
-                   "tests/test_report_flow.py", "tests/test_report_flow_opt.py",
-                   "tests/test_decision_report.py", "tests/test_report_sections.py",
-                   "tests/test_orchestrator.py", "-q"])
+                   "tests/test_report_pipeline.py", "tests/test_orchestration.py", "-q"])
     tail15 = [l for l in out.strip().splitlines() if "passed" in l or "failed" in l]
     print(f"[15] line tests rc={rc} :: {tail15[-1] if tail15 else out.strip()[-60:]}")
     if rc and "No module named pytest" in out:

@@ -24,11 +24,11 @@ def main() -> int:
     checks = [
         ("roles", [PY, "guagua.py", "check"]),
         ("method", [PY, "scripts/audit_method.py", "--all"]),
-        ("tests", [PY, "-m", "pytest", "tests/test_mcp_client.py", "tests/test_consulting_workbook.py", "tests/test_method_gate.py", "tests/test_methods_core.py", "tests/test_methods_deep.py", "tests/test_methods_deep_advanced.py", "tests/test_methods_business.py", "-q"]),
+        ("tests", [PY, "-m", "pytest", "tests/test_platform.py", "tests/test_consulting.py", "tests/test_methods.py", "-q"]),
         ("mcp", [PY, "scripts/mcp_doctor.py", "doctor", "--all"]),
         ("eval", [PY, "scripts/run_consult_eval.py", "--compare", "evals/consulting/baseline.json"]),
         ("depth", [PY, "scripts/audit_method_depth.py"]),
-        ("analysis_tests", [PY, "-m", "pytest", "tests/test_analysis_upgrade.py", "-q"]),
+        ("analysis_tests", [PY, "-m", "pytest", "tests/test_methods.py", "-q"]),
         ("analysis_evals", [PY, "scripts/run_analysis_evals.py"]),
         ("analysis_conclusions", [PY, "scripts/check_conclusions.py"]),
         ("analysis_pipelines", [PY, "scripts/run_all_pipelines.py"]),

@@ -45,7 +45,7 @@
     "claim_kind": "gap",
     "frame": "market / operations",
     "gate": "待接入：C1_causal_language（当前是软告警）",
-    "test": "tests/test_report_sections.py::test_fabricated_number_is_rejected"
+    "test": "tests/test_report_pipeline.py::test_fabricated_number_is_rejected"
   },
   "acceptance": {
     "fixture": "家居百货内蒙调研_2026-11-15（金银珠宝 -22.8pp）",

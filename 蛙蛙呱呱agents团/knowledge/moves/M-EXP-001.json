@@ -44,7 +44,7 @@
     "claim_kind": "trend",
     "frame": "all",
     "gate": "F7 + Q7",
-    "test": "tests/test_decision_report.py::test_choose_chart_refuses_when_payload_cannot_be_encoded"
+    "test": "tests/test_report_pipeline.py::test_choose_chart_refuses_when_payload_cannot_be_encoded"
   },
   "acceptance": {
     "fixture": "四份 v7 报告",

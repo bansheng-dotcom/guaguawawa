@@ -44,7 +44,7 @@
     "claim_kind": "gap",
     "frame": "market",
     "gate": "Q4",
-    "test": "tests/test_analysis_upgrade.py::test_flow_contract_structure_and_traceability"
+    "test": "tests/test_methods.py::test_flow_contract_structure_and_traceability"
   },
   "acceptance": {
     "fixture": "家居百货内蒙调研_2026-11-15",
