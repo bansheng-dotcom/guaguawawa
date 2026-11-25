@@ -30,7 +30,7 @@
 - **F3** flow 线已经是"作者选定图型"——它没有 chooser，作者直接交 `chart_spec`，`charts_pro` 渲染。这其实就是我们要的目标形态之一。
 - **F4** 拆卡线两座数据岛共享 `number_id`：collect 产 `raw.*`（有 entity/period），渲染读 `evidence_pack`（拷贝）。join 543/555，**291 个干净 entity**。
 - **F5** 门禁存在但不阻断：拆卡线 112 格 89 缺陷照发；flow 线 `gate_hard` 默认 False。
-- **F6** 三条线里只有拆卡线有黄金语料；A 线只有单测无端到端快照；flow 线有 `examples/spec-fruit/facts.py`。
+- **F6** 三条线里只有拆卡线有黄金语料；A 线只有单测无端到端快照；flow 线有 `baselines/_golden_flow_specfruit/`（原 `examples/spec-fruit` 的产物，源已下线）。
 
 ---
 
@@ -77,7 +77,7 @@
 ### S0 三线快照 + 台账（1d）
 - 拆卡线黄金语料：呼包鄂、小码女装 `out/`、`out2/`；
 - A 线：补一份合成 CSV 快照（跑 `run-line --dir`，存 `contract.json`）——F6 的补课；
-- flow 线：`examples/spec-fruit/facts.py`；
+- flow 线：`baselines/_golden_flow_specfruit/`；
 - `content_hash` 改为**台账**：记录每次 diff + 附解释；`check_content.py` 从"阻断 diff"改成"阻断无解释的 diff"。
 
 ### S1 接门禁（拆卡线先行，1.5d）

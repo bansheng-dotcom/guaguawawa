@@ -44,6 +44,7 @@ ALLOW: Dict[str, str] = {
     "core/report_cli.py": "report 子命令分发",
     "scripts/sync_trae_skill.py": "Trae 技能镜像同步入口（手动执行）",
     "scripts/sync_workbuddy.py": "WorkBuddy/CodeBuddy 插件镜像同步入口（手动执行）",
+    "scripts/make_package.py": "发布打包入口（手动执行，产出离线 zip）",
 }
 
 

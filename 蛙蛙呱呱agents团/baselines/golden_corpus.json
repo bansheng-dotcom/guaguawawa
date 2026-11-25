@@ -39,7 +39,7 @@
     ],
     "flow_line": [
       {
-        "name": "examples/spec-fruit",
+        "name": "baselines/_golden_flow_specfruit（原 examples/spec-fruit 产物）",
         "path": "D:/蛙蛙呱呱/蛙蛙呱呱agents团/baselines/_golden_flow_specfruit/report.md",
         "content_hash": "095bc4636628152af50e8783c4553c92a900cff30978e3dd0695afd7d551be14",
         "chars": 8866,
