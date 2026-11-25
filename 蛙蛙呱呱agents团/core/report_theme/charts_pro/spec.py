@@ -10,7 +10,7 @@ import math
 
 from .prokit_helpers import (
     ACCENT, BLUE, INK, INK2, LINE, LINE2, MUTED, FAINT, WHITE,
-    blend, ci, ln, pa, rc, sx, sy, t,
+    blend, ci, diverging, empty_chart, fit_text, fmt_num, ln, pa, rc, sx, sy, t,
 )
 
 TINTS = ["#1F2A37", "#3D4B58", "#5C6A76", "#7B8792", "#9BA4AD", "#BCC3C9"]
@@ -34,34 +34,46 @@ def _nice_step(v: float) -> float:
 
 
 def _hbar(s: dict) -> str:
-    items = sorted(s["items"], key=lambda x: -x["value"])
-    dec = s.get("decimals", 1)
+    items = sorted(s.get("items") or [], key=lambda x: -x["value"])
+    if not items:
+        return empty_chart(640, 140, s.get("label", "排序条形"))
+    dec = s.get("decimals")
     W, H = 640, 60 + len(items) * 34
     L, R = 150, 596
-    hi0 = s.get("max") or max(i["value"] for i in items) * 1.08
-    step = _nice_step(hi0 / 4)
-    mx = math.ceil(hi0 / step) * step
-    X = sx(0, mx, L, R)
+    vals = [it["value"] for it in items]
+    lo0, hi0 = min(min(vals), 0.0), max(max(vals), 0.0)
+    if s.get("max"):
+        hi0 = max(hi0, float(s["max"]))
+    step = _nice_step((hi0 - lo0) / 4 if hi0 > lo0 else 1.0)
+    lo = math.floor(lo0 / step) * step if lo0 < 0 else 0.0
+    hi = math.ceil(hi0 / step) * step if hi0 > 0 else step
+    X = sx(lo, hi, L, R)
+    zero = X(0)                      # 0 基线：负值向左、正值向右
+    bottom = 26 + len(items) * 34
     b = _svg(W, H, s.get("label", "排序条形"))
-    v = 0.0
-    while v <= mx + 1e-9:
-        b.append(ln(X(v), 36, X(v), 26 + len(items) * 34, LINE, 1))
-        b.append(t(X(v), 26 + len(items) * 34 + 16,
-                   f"{v:.0f}" if v >= 10 else f"{v:g}", 7, FAINT, anchor="middle"))
+    v = lo
+    while v <= hi + 1e-9:
+        b.append(ln(X(v), 36, X(v), bottom, LINE, 1))
+        b.append(t(X(v), bottom + 16, fmt_num(v), 7, FAINT, anchor="middle"))
         v += step
     if s.get("ref") is not None:
-        b.append(ln(X(s["ref"]), 36, X(s["ref"]), 26 + len(items) * 34, LINE2, 1, "3 3"))
+        b.append(ln(X(s["ref"]), 36, X(s["ref"]), bottom, LINE2, 1, "3 3"))
         b.append(t(X(s["ref"]), 30, s.get("ref_label", "参照"), 7, MUTED, anchor="middle"))
     accent = s.get("accent", 0)
     for i, it in enumerate(items):
         y = 50 + i * 34
-        b.append(t(20, y + 4, it["label"], 8.6, INK2))
-        if it.get("sub"):
-            b.append(t(20, y + 16, it["sub"], 7, FAINT))
+        for k, line in enumerate(fit_text(it["label"], L - 26, 8.6, max_lines=2)):
+            b.append(t(20, y + 4 + k * 11, line, 8.6 if k == 0 else 7.6, INK2))
         hot = (i == accent) or (isinstance(accent, str) and it["label"] == accent)
-        b.append(rc(L, y - 8, max(X(it["value"]) - L, 2), 16,
-                    ACCENT if hot else INK2, rx=1.5))
-        b.append(t(X(it["value"]) + 8, y + 4, f"{it['value']:.{dec}f}", 8.6, INK, 700, halo=True))
+        x0 = min(zero, X(it["value"]))
+        bw = abs(X(it["value"]) - zero)
+        b.append(rc(x0, y - 8, max(bw, 2), 16, ACCENT if hot else INK2, rx=1.5))
+        txt = fmt_num(it["value"], dec)
+        if it["value"] >= 0:
+            b.append(t(X(it["value"]) + 8, y + 4, txt, 8.6, INK, 700, halo=True))
+        else:
+            b.append(t(X(it["value"]) - 8, y + 4, txt, 8.6, INK, 700,
+                       anchor="end", halo=True))
     note = str(s.get("accent_note") or "").strip()
     if note:
         b.append(t(R, 26, note, 7.2, ACCENT, anchor="end"))
@@ -196,29 +208,35 @@ def _range(s: dict) -> str:
 
 
 def _heatmap(s: dict) -> str:
-    rows, cols, M = s["rows"], s["cols"], s["matrix"]
+    rows, cols, M = s.get("rows") or [], s.get("cols") or [], s.get("matrix") or []
+    if not rows or not cols or not M:
+        return empty_chart(640, 160, "热力矩阵")
     cw = min(70, int(520 / max(len(cols), 1)))
     ch = 26
     L, T = 130, 56
-    mx = max(max(r) for r in M) or 1
+    flat = [v for r in M for v in r]
+    lo, hi = min(flat), max(flat)
     b = _svg(640, T + len(rows) * ch + 40, "热力矩阵")
     for j, c in enumerate(cols):
         b.append(t(L + cw * j + cw / 2, T - 10, c, 7, MUTED, anchor="middle"))
     for i, r in enumerate(rows):
         y = T + i * ch
-        b.append(t(L - 10, y + 17, r, 7.2, INK2, anchor="end"))
+        for k, line in enumerate(fit_text(r, L - 16, 7.2, max_lines=2)):
+            b.append(t(L - 10, y + 15 + k * 9, line, 7.2, INK2, anchor="end"))
         for j in range(len(cols)):
             v = M[i][j]
-            b.append(rc(L + cw * j + 1, y + 1, cw - 2, ch - 2, blend(v / mx)))
-            b.append(t(L + cw * j + cw / 2, y + 18, f"{v:.0f}", 7,
-                       WHITE if v / mx > .55 else INK2, anchor="middle"))
+            b.append(rc(L + cw * j + 1, y + 1, cw - 2, ch - 2, diverging(v, lo, hi)))
+            b.append(t(L + cw * j + cw / 2, y + 18, fmt_num(v), 7,
+                       WHITE if abs(v) > (hi - lo) * 0.55 else INK2, anchor="middle"))
     b.append("</svg>")
     return "".join(b)
 
 
 def _donut(s: dict) -> str:
-    items = sorted(s["items"], key=lambda x: -x["value"])
+    items = sorted(s.get("items") or [], key=lambda x: -x["value"])
     total = sum(i["value"] for i in items)
+    if not items or total <= 0:
+        return empty_chart(640, 320, "环形图")
     W, H = 640, 320
     cx, cy, r = 250, 160, 104
     b = _svg(W, H, "环形图")

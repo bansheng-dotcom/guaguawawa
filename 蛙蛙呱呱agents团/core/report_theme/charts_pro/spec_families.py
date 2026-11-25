@@ -10,7 +10,7 @@ import math
 
 from .prokit_helpers import (
     ACCENT, BLUE, INK, INK2, LINE, LINE2, MUTED, FAINT, WHITE,
-    ci, ln, pa, rc, sx, sy, t,
+    ci, empty_chart, fit_text, fmt_num, ln, pa, rc, sx, sy, t,
 )
 
 TINTS = ["#1F2A37", "#3D4B58", "#5C6A76", "#7B8792", "#9BA4AD", "#BCC3C9"]
@@ -51,23 +51,30 @@ def _accent_hit(it: dict, acc) -> bool:
 
 
 def _vbar(s: dict) -> str:
-    items = s["items"]
-    hi0 = s.get("max") or max(i["value"] for i in items) * 1.12
-    step = _nice_step((s.get("max") or max(i["value"] for i in items)) / 4)
-    hi = math.ceil(hi0 / step) * step
+    items = s.get("items") or []
+    if not items:
+        return empty_chart(640, 220, "纵向柱")
+    vals = [i["value"] for i in items]
+    lo0, hi0 = min(min(vals), 0.0), max(max(vals), 0.0)
+    if s.get("max"):
+        hi0 = max(hi0, float(s["max"]))
+    step = _nice_step((hi0 - lo0) / 4 if hi0 > lo0 else 1.0)
+    lo = math.floor(lo0 / step) * step if lo0 < 0 else 0.0
+    hi = math.ceil(hi0 / step) * step if hi0 > 0 else step
     # 高度随条目数量走：两条不要占 330 高
     H = max(200, min(340, 118 + 42 * len(items)))
     T, B = 46, H - 56
     W = 640
     L, R = 64, 590
-    Y = sy(0, hi, B, T)
+    Y = sy(lo, hi, B, T)
+    zero = Y(0)                      # 0 基线：负值向下
     slot = (R - L) / len(items)
     bw = slot * 0.46
     b = _svg(W, H, "纵向柱")
-    v = 0.0
+    v = lo
     while v <= hi + 1e-9:
         b.append(ln(L, Y(v), R, Y(v), LINE, 1))
-        b.append(t(L - 8, Y(v) + 3, f"{v:g}", 7, FAINT, anchor="end"))
+        b.append(t(L - 8, Y(v) + 3, fmt_num(v), 7, FAINT, anchor="end"))
         v += step
     acc = s.get("accent", -1)
     hot_i = -1
@@ -76,11 +83,13 @@ def _vbar(s: dict) -> str:
         hot = (i == acc) or _accent_hit(it, acc)
         if hot:
             hot_i = i
-        b.append(rc(cx - bw / 2, Y(it["value"]), bw, B - Y(it["value"]),
+        y_top = min(zero, Y(it["value"]))
+        b.append(rc(cx - bw / 2, y_top, bw, max(abs(Y(it["value"]) - zero), 2),
                     ACCENT if hot else INK2, rx=2))
-        b.append(t(cx, Y(it["value"]) - 7, f"{it['value']:g}", 8, INK, 700,
+        b.append(t(cx, Y(it["value"]) - 7, fmt_num(it["value"]), 8, INK, 700,
                    anchor="middle", halo=True))
-        b.append(t(cx, B + 16, it["label"], 7.4, MUTED, anchor="middle"))
+        for k, line in enumerate(fit_text(it["label"], slot - 4, 7.4, max_lines=2)):
+            b.append(t(cx, B + 16 + k * 10, line, 7.4, MUTED, anchor="middle"))
     # 注释上墙：把「是彩妆的 3.44 倍」这类话画在图上，而不是只躺在数据里
     note = str(s.get("accent_note") or "").strip()
     if note and 0 <= hot_i < len(items):

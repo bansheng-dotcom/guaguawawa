@@ -11,7 +11,7 @@ import math
 
 from .prokit_helpers import (
     ACCENT, BLUE, INK, INK2, LINE, LINE2, MUTED, FAINT, WHITE,
-    ci, ln, pa, rc, sx, sy, t, median, quantile,
+    ci, empty_chart, fit_text, fmt_num, ln, pa, rc, sx, sy, t, median, quantile,
 )
 
 TINTS = ["#1F2A37", "#3D4B58", "#5C6A76", "#7B8792", "#9BA4AD", "#BCC3C9"]
@@ -335,7 +335,9 @@ def _arcs(b, cx, cy, r0, r1, items, start=-math.pi / 2):
 
 
 def _pie(s: dict) -> str:
-    items = sorted(s["items"], key=lambda x: -x["value"])
+    items = sorted(s.get("items") or [], key=lambda x: -x["value"])
+    if not items or sum(i["value"] for i in items) <= 0:
+        return empty_chart(640, 320, "饼图")
     W, H = 640, 320
     cx, cy, r = 250, 160, 100
     b = _svg(W, H, "饼图")
@@ -355,8 +357,10 @@ def _pie(s: dict) -> str:
 
 
 def _waffle(s: dict) -> str:
-    items = sorted(s["items"], key=lambda x: -x["value"])
+    items = sorted(s.get("items") or [], key=lambda x: -x["value"])
     total = sum(i["value"] for i in items)
+    if not items or total <= 0:
+        return empty_chart(640, 300, "华夫格")
     cells = []
     for i, it in enumerate(items):
         cells += [i] * max(0, round(it["value"] / total * 100))
@@ -377,7 +381,9 @@ def _waffle(s: dict) -> str:
 
 
 def _rose(s: dict) -> str:
-    items = sorted(s["items"], key=lambda x: -x["value"])
+    items = sorted(s.get("items") or [], key=lambda x: -x["value"])
+    if not items:
+        return empty_chart(640, 340, "玫瑰图")
     W, H = 640, 340
     cx, cy = 280, 175
     mx = max(i["value"] for i in items) or 1

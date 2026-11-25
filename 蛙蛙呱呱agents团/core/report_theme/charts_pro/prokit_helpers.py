@@ -56,18 +56,91 @@ def pa(d, fill="none", stroke=None, w=1, dash=None, opacity=None) -> str:
 
 
 def sx(lo, hi, a, b):
-    return lambda v: a + (v - lo) / (hi - lo) * (b - a)
+    """线性映射；零域（hi==lo）映射到画布中线，避免 SinglePoint/全零数据除零。"""
+    span = hi - lo
+    if abs(span) < 1e-12:
+        mid = (a + b) / 2
+        return lambda v: mid
+    return lambda v: a + (v - lo) / span * (b - a)
 
 
 def sy(lo, hi, b, top):
-    return lambda v: b - (v - lo) / (hi - lo) * (b - top)
+    span = hi - lo
+    if abs(span) < 1e-12:
+        mid = (b + top) / 2
+        return lambda v: mid
+    return lambda v: b - (v - lo) / span * (b - top)
 
 
 def blend(v: float) -> str:
-    """0（白）→ 1（强调红）。热力图专用。"""
+    """0（白）→ 1（强调红）。热力图专用；负值按 0 处理，故只用于非负矩阵。"""
     a, c = (255, 255, 255), (192, 57, 43)
     p = max(0.0, min(1.0, v))
     return "#%02X%02X%02X" % tuple(int(a[i] + (c[i] - a[i]) * p) for i in range(3))
+
+
+def diverging(v: float, lo: float, hi: float) -> str:
+    """负 → 蓝，0 → 白，正 → 红。含负值的矩阵/热力用它，避免"负数与 0 同色"。"""
+    if hi - lo < 1e-12:
+        return "#FFFFFF"
+    if v >= 0:
+        t_ = v / hi if hi > 0 else 0.0
+        a, c = (255, 255, 255), (192, 57, 43)
+    else:
+        t_ = v / lo if lo < 0 else 0.0
+        a, c = (255, 255, 255), (46, 111, 158)
+    t_ = max(0.0, min(1.0, t_))
+    return "#%02X%02X%02X" % tuple(int(a[i] + (c[i] - a[i]) * t_) for i in range(3))
+
+
+def fmt_num(v: float, dec: int | None = None) -> str:
+    """统一数值格式：整数不带 .0，非整数按 dec（默认 1 位）并去尾零。"""
+    if dec is None:
+        dec = 0 if abs(v - round(v)) < 1e-9 else 2
+    s = f"{v:.{dec}f}"
+    return s.rstrip("0").rstrip(".") if "." in s else s
+
+
+def text_width(s: str, size: float) -> float:
+    """估算文本宽度：CJK 按 1.0em，ASCII 按 0.55em。"""
+    w = 0.0
+    for ch in str(s):
+        w += size * (1.0 if ord(ch) > 0x2E80 else 0.55)
+    return w
+
+
+def fit_text(s: str, max_w: float, size: float, max_lines: int = 2) -> list[str]:
+    """按宽度切行；最后一行放不下则截断加省略号。返回至少一行。"""
+    s = str(s)
+    if text_width(s, size) <= max_w:
+        return [s]
+    lines: list[str] = []
+    buf = ""
+    for ch in s:
+        if text_width(buf + ch, size) > max_w and buf:
+            lines.append(buf)
+            buf = ch
+            if len(lines) >= max_lines:
+                break
+        else:
+            buf += ch
+    if len(lines) < max_lines and buf:
+        lines.append(buf)
+    if len(lines) == max_lines and "".join(lines) != s:
+        last = lines[-1]
+        while last and text_width(last + "…", size) > max_w:
+            last = last[:-1]
+        lines[-1] = last + "…"
+    return lines or [""]
+
+
+def empty_chart(w, h, label, msg="无数据") -> str:
+    """空态：不抛异常、不返回空串，给一张说明卡。"""
+    return (f'<svg class="chart" viewBox="0 0 {w} {h}" role="img" '
+            f'aria-label="{esc(label)}：{esc(msg)}" preserveAspectRatio="xMidYMid meet">'
+            + t(w / 2, h / 2 - 4, msg, 10.5, MUTED, anchor="middle")
+            + t(w / 2, h / 2 + 18, "检查筛选条件、期次或单位", 7.6, FAINT, anchor="middle")
+            + "</svg>")
 
 
 def median(xs):

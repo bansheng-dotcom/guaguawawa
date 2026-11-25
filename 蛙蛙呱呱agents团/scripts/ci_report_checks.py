@@ -369,6 +369,15 @@ def main() -> int:
         fails.append("dead-code")
         print(out)
 
+    # [18b] 图型边界：空数据 / 零域 / 负值 / 长标签 / 超多类别。
+    # check_charts_pro 只验"能出 svg"，这里验"画得对"。
+    rc, out = run([sys.executable, "scripts/check_chart_edges.py"])
+    tail18b = [l for l in out.strip().splitlines() if "边界门禁" in l]
+    print(f"[18b] chart-edges rc={rc} :: {tail18b[-1] if tail18b else out.strip()[-80:]}")
+    if rc:
+        fails.append("chart-edges")
+        print(out)
+
     # [19] 收敛门禁（2026-11-19 接入）：同一件事不许第二次新建。
     # 既有违规冻结在 .convergence-baseline.json（只允许下降）；新增违规直接红。
     rc, out = run([sys.executable, "scripts/check_convergence.py",
