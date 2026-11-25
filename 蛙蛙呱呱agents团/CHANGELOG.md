@@ -8,6 +8,26 @@
 
 ---
 
+## 2026-11-25（第七轮）· 清理 0 引用死资产（36 文件 / 约 850KB）
+
+一句话：**只删有「零引用」证据的资产，活跃的 pipelines / samples / knowledge / docs 一律不动。**
+
+| 删除 | 证据 |
+|---|---|
+| 根 `fixtures/`（2 文件） | 全仓 0 引用；测试实际读 `tests/fixtures` |
+| `samples/dataset.py` | 0 引用；其余 samples 模块被 `charts_pro` 与测试 import |
+| `baselines/` 4 个目录 + `report.html`（605KB） | `_fruit_demo`/`_ir_panel_demo`/`_ir_shadow_facts`/`_kaggle_demo` 0 引用；corpus 只读 `report.md` |
+| `scripts/_archive/`（11 文件） | 均为已废弃的一次性迁移脚本；删除后暴露的 2 个真死脚本（`analyze_agent_skills`、`gen_method_packs`）一并删除 |
+| `examples/`（5 文件） | 代码不执行；`golden_corpus` 改指 `baselines/_golden_flow_specfruit` 产物 |
+| `evals/results` 历史文件 | `run_consult_eval` 运行时自建目录；`evals/answers`（评测输入）保留 |
+| `scripts/notify.py` | mock 演示残留 |
+
+核查后保留：`run_pipeline.py`（pipelines 单条入口）、`grade_report_level.py`（手动分级工具）；`make_package.py` 登记进 `check_dead_code` ALLOW（发布打包入口）。
+
+门禁：`pytest` 629 passed / 3 skipped；`ci_report_checks` ALL PASS；`audit` 15/15。
+
+---
+
 ## 2026-11-25（第六轮）· 测试目录按域合并 + 5 个失效自测转正
 
 一句话：**测试文件从 96 个降到 22 个，用例不减；CI 从「假绿」变真跑。**
