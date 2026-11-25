@@ -342,9 +342,9 @@ preview()/quality() ↑                5. 进入报告构建与渲染
 ### 9.3 未来验收命令（本轮不执行）
 
 ```bash
-python -m pytest tests/test_cells_claims.py tests/test_supply_plan.py tests/test_dataset_layer.py -q -p no:cacheprovider
-python -m pytest tests/test_derivation.py tests/test_card_probe.py tests/test_collection_contract.py -q -p no:cacheprovider
-python -m pytest tests/test_chart_contract.py tests/test_report_flow.py tests/test_flow_renderer.py tests/test_report_contract_v4.py -q -p no:cacheprovider
+python -m pytest tests/test_claims.py tests/test_supply_plan.py tests/test_data_layer.py -q -p no:cacheprovider
+python -m pytest tests/test_data_layer.py tests/test_cards.py tests/test_collection.py -q -p no:cacheprovider
+python -m pytest tests/test_charts.py tests/test_report_pipeline.py tests/test_report_render.py -q -p no:cacheprovider
 python scripts/sync_trae_skill.py --check
 ```
 

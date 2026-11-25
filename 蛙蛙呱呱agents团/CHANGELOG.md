@@ -8,6 +8,21 @@
 
 ---
 
+## 2026-11-25（第六轮）· 测试目录按域合并 + 5 个失效自测转正
+
+一句话：**测试文件从 96 个降到 22 个，用例不减；CI 从「假绿」变真跑。**
+
+| 问题 | 处理 |
+|---|---|
+| 5 个 `check()` 脚本被 pytest 收集为 0，CI 从不执行，已有 3 个坏掉 | 改写为 pytest 用例（+13 例）；修掉过时断言（geo_tokens 已中性化 / panel 需 metric_id / chart_contracts 需 dim） |
+| 88 个薄测试文件（多数 ≤2 例） | 按域合并为 14 个域文件（charts / cards / claims / report / data / collection / methods / research / gates / agents / orchestration / consulting / platform），断言与用例数不变 |
+| 本机 HTTP fixture 被系统代理劫持（Windows 上 urllib 忽略 no_proxy） | `tests/test_collection.py` 加 autouse no-proxy fixture，127.0.0.1 直连 |
+| CI 与 Move 卡片指向旧文件名 | `ci_report_checks.py`、`ci_upgrade_checks.py`、`knowledge/moves/*.json` 同步到新域文件 |
+
+门禁：`pytest tests -q` 629 passed / 3 skipped；`ci_report_checks` ALL PASS；`audit` 15/15。
+
+---
+
 ## 2026-11-25（第五轮）· ECharts 交互后端 + cells_claims 三套收敛
 
 一句话：**图能交互了，但离线/PDF 仍有静态兜底；同一格不再出三个数。**

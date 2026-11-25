@@ -148,7 +148,7 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
   六维均有格、契约覆盖全部 owner、每问 ≥3 条 stop
 - **门禁不过 → 不发卡**，返回 `plan/pre_issue_gates.json` 的失败项
 - 卡里直接带「你负责的格子」表与 **R02 任务契约**（task_id / 验收门禁 / 截止 / 升级）
-- 实现：`core/card_issue.py`；回归：`tests/test_card_issue.py`
+- 实现：`core/card_issue.py`；回归：`tests/test_cards.py`
 
 ### 全入口统一 + 协作层接线（2026-11-21 晚）
 

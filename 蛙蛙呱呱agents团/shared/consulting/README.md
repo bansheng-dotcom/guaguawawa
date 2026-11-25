@@ -41,7 +41,7 @@ python scripts/consult.py submit --id FRUIT-01 --stage 2 --file branches.json
 python scripts/consult.py sign   --id FRUIT-01 --stage 2 --by r01
 python scripts/consult.py advance --id FRUIT-01
 python scripts/consult.py render --id FRUIT-01
-python -m pytest tests/test_consulting_workbook.py -q
+python -m pytest tests/test_consulting.py -q
 ```
 
 ## 红线

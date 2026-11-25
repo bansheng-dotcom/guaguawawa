@@ -25,7 +25,7 @@ python scripts/mcp_doctor.py doctor --all         # 体检（预留槽位显示 
 python scripts/mcp_doctor.py template search      # 打印该槽位的配置模板
 python scripts/mcp_doctor.py add search --command "uvx" --args mcp-server-brave
 python scripts/mcp_doctor.py doctor               # 只体检已启用的
-python -m pytest tests/test_mcp_client.py -q      # 适配器回归（不联网）
+python -m pytest tests/test_platform.py -q      # 适配器回归（不联网）
 ```
 
 ## 协议要点
