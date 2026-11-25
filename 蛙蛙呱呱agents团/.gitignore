@@ -19,5 +19,13 @@ baselines/_dod_demo/
 workspace/
 pipelines/out/
 
+# 项目资产必须在团外（见 core/paths.py）；这几条是防误提交的兜底
+projects/
+briefs/
+cards/
+claims/
+report/
+claims_*.json
+
 # 头像拼版预览（avatars/ 才是唯一源）
 头像预览联系表.png

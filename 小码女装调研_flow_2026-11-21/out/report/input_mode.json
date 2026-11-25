@@ -1,8 +1,0 @@
-{
-  "schema": "dsh.report.line/v1",
-  "mode": "agent",
-  "intent": "小码女装市场研究",
-  "evidence": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\_compiled\\evidence_pack.json",
-  "draft": "d:\\蛙蛙呱呱\\小码女装调研_flow_2026-11-21\\out\\report\\_compiled\\draft_sections.json",
-  "detected_at": "2026-11-22T00:49:58"
-}

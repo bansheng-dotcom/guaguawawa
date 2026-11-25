@@ -25,6 +25,15 @@ agents/repo_python_xuexi/
 # 2026-11 技能层调研时 clone 的上游仓库（约 75 MB，可随时重 clone）
 research/
 
+# ---- 项目资产：必须在专家团之外，且不入工具仓库 ----
+projects/
+蛙蛙呱呱agents团/projects/
+蛙蛙呱呱agents团/briefs/
+蛙蛙呱呱agents团/cards/
+蛙蛙呱呱agents团/claims/
+蛙蛙呱呱agents团/report/
+蛙蛙呱呱agents团/claims_*.json
+
 # ---- 编辑器 / 操作系统 ----
 .vscode/
 .idea/
