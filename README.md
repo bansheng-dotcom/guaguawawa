@@ -13,10 +13,10 @@
 > 且过 50 条唯一 URL 门槛，产物标 `solo_no_dispatch`。
 > 默认版式 `flow`（一条内容流，PDF 自动分页）；`--layout paper` 已于 2026-11-21 下线。
 > 产线地图见 [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md)，
-> 拆卡 SOP 见 [`交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/交付/拆卡升级-SOP-2026-11-21.md)，
+> 拆卡 SOP 见 [`docs/archive/交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/docs/archive/交付/拆卡升级-SOP-2026-11-21.md)，
 > 预检实现见 [`scripts/preflight.py`](蛙蛙呱呱agents团/scripts/preflight.py)。
 
-**统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) ｜ **产品样例：** [小码女装市场研究（公开版）](showcase/xiaoma-womenswear/report.html)
+**统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) ｜ **更新日志：** [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)
 
 ---
 
@@ -66,8 +66,8 @@
   `--solo-claims --allow-solo`，同样过 50 源门槛，产物标 `solo_no_dispatch`。
 - **封面与 KPI 固化**：渲染器优先取 `meta.title / meta.subtitle / meta.metrics`，
   报告标题、副题、关键指标不再被首节标题覆盖。
-- **清理**：工作区历史试跑产物（`workspace/`、`_attic/`、`z/`）与无关赛道调研残留已清除，
-  只保留小码女装 SKU 版研究作为样例交付。
+- **清理**：工作区历史试跑产物（`workspace/`、`_attic/`、`z/`）与无关赛道调研残留已清除；
+  2026-11-25 起项目交付物整体迁出工具仓库，仓库只保留工具与文档。
 
 ---
 
@@ -140,7 +140,7 @@ python guagua.py chat --role r06 --intent "分析订单漏斗、留存和渠道�
 
 ```bash
 # 0) 接活：把 12 问问给用户，回答落盘（至少 10 条），再由用户确认
-python guagua.py report clarify --intent "小码女装怎么做" --out <项目>
+python guagua.py report clarify --intent "<你的课题>" --out <项目>
 python guagua.py report intake --dir <项目> --answer I1=… --answer I2=…
 python guagua.py report clarify --dir <项目> --confirm --user-said "用户原话"
 
@@ -169,16 +169,14 @@ python guagua.py report check --html <项目>/out/report/report.html
 产物固定为 `report.html`（正式版）+ `report.md`（快读版）+ `report.pdf`（带页码）+ `manifest.json`（门禁与证据）。
 完整清单见 [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md)。
 
-### 产品样例：小码女装市场研究（公开版）
+### 样例与更新日志
 
-[**打开样例报告 →**](showcase/xiaoma-womenswear/report.html)（单文件 HTML，约 1.2 MB，含封面、13 节论证、13 张图与来源表）
+仓库只放工具，不放项目交付物：样例报告（含客户数据与遮蔽后的竞品名）属于项目资产，
+2026-11-25 起不再随工具仓库分发；需要时用拆卡线在你自己的项目根里重新生成。
 
-这是用上面这条拆卡线真实跑出来的完整交付：5 张卡（R06/R05/R07/R15/R12）、93 条唯一来源、
-434 个可寻址数字、`preflight` P1–P9 全 PASS。为了公开演示，竞品、店铺与供应商名称已用
-`████` 遮蔽，数字、口径、图表与结论保持原样；页面顶部有公开版说明条。
-
-它同时是渲染器的验收样张：封面取 `meta.title/subtitle/metrics`，每节 11 字段，
-图带来源与单位，最后一节是「口径与分数」（怎么生成、过了哪些校验）。
+能力变化按日期记在 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)：新增能力、门禁变化、
+迁移与不兼容点、已知遗留。渲染器的验收样张约定不变：封面取 `meta.title/subtitle/metrics`，
+每节 11 字段，图带来源与单位，最后一节是「口径与分数」。
 
 ---
 
@@ -241,7 +239,8 @@ python guagua.py report check --html <项目>/out/report/report.html
 
 - **澄清**：只问真正缺的事（六项骨架 + 最多 2 个场景补充，总问数 ≤ 8）——交付物、目标/成功标准、边界、输入、验收判据、时限/依赖。
 - **自查**：我的哪个技能域能覆盖？契约输入齐不齐？有没有越界？
-- **展开**：走技能子命令，产物写入 `workspace/artifacts/{task_id}/`。
+- **展开**：走技能子命令；运行物写 `workspace/artifacts/{task_id}/`，
+  带 `--project` 时项目产物写 `<项目>/artifacts/`。
 - **自评**：过 harness 门禁；脏数据、缺证据、超边界都不许硬交。
 - **汇报**：输出 `.md` 快读版 + `.html` 正式版，不吐裸 JSON。
 
@@ -899,28 +898,27 @@ python guagua.py call r06 explore funnel \
 蛙蛙呱呱/                        # 仓库根（git 仓库）
 ├─ README.md                     # 本文件：总览 + 20 角色详解 + 协作方式
 ├─ 蛙蛙呱呱agents团/             # ★ 智能体公司本体（20 角色）
-│  ├─ guagua.py                  # 统一入口
-│  ├─ chat.py                    # 知识注入 / Prompt 构建
+│  ├─ guagua.py                  # 统一入口（project / prompt / plan / report / run）
+│  ├─ chat.py                    # [已废弃] 兼容壳；提示词入口是 guagua.py prompt
+│  ├─ CHANGELOG.md               # 智能体更新日志（按日期记录能力与迁移）
 │  ├─ SKILL.md                   # Trae 技能入口（拆卡线默认 + 人环门禁）
 │  ├─ ORG.md / PROTOCOL.md       # 组织章程 / 协同协议
 │  ├─ REPORT-STANDARD.md         # 汇报标准（唯一产线：R01 出具）
 │  ├─ REPORT-BRIDGE-GUIDE.md     # 接入唯一产线（角色只交 result）
-│  ├─ core/                      # report_cli / dispatch / card_issue / card_plan / dor / intake / report_flow
-│  ├─ configs/                   # report_card_spec / report_flow / report_coverage 等阈值
+│  ├─ core/                      # paths / project / dispatch / card_bundle / card_issue / report_cli…
+│  ├─ configs/                   # 卡片契约 / 流程 / 覆盖阈值 / core_files 登记
 │  ├─ r01-… r20-…                # 20 个角色（agent.py + skills/ + harness + tests + references）
 │  ├─ agent-packs/               # 宿主可直接加载的角色包
-│  ├─ shared/                    # 共享能力（运行时、治理、方法、知识）
+│  ├─ shared/                    # 共享能力（运行时、治理、方法、knowledge/brief）
 │  ├─ docs/                      # 产线地图、版式、门禁契约（索引见 docs/README.md）
-│  ├─ 交付/                      # 拆卡/协作/报告升级 SOP 与模板（引用关系见第九节）
+│  ├─ 交付/                      # 仅剩 generic_semantics_v1.yaml（运行时依赖，勿删）
 │  ├─ tests/                     # pytest 单测 + 回归 + prompt 回归（不是缓存）
 │  └─ scripts/                   # CI 门禁、preflight、生成器、Trae 镜像同步
-├─ 小码女装调研_flow_2026-11-21/  # 现行样例：SKU 版调研交付（out2/report）
-├─ showcase/xiaoma-womenswear/   # 产品展示：公开版报告（敏感主体已遮蔽）
-├─ assets/                       # 品牌与头像素材
+├─ projects/                     # ★ 项目资产根（数据/brief/卡/claims/报告；不入库）
+├─ workspace/                    # 运行物根（events/lock/runlog/traces；不入库）
 ├─ traeskills/                   # Trae 侧其它技能镜像（3 个）
 ├─ workbuddy专家团/              # WorkBuddy 侧专家团镜像（4 个子团队）
-├─ .dsh/skills/                  # DSH 侧技能镜像
-└─ workspace/                    # 运行态产物根（任务卡/事件流/artifacts，不入库）
+└─ .dsh/skills/                  # DSH 侧技能镜像
 ```
 
 > **打包分发**：`python "蛙蛙呱呱agents团/scripts/make_package.py"` 会生成
@@ -928,9 +926,10 @@ python guagua.py call r06 explore funnel \
 > `PACKAGE_INFO.json` 记录版本、时间、git commit 与文件数）。zip 不入库，
 > 需要时随时重打包。
 
-> **产物不再写进 `蛙蛙呱呱agents团/`**：共享产物在 `<仓库根>/workspace`，
-> 角色私有产物在 `<仓库根>/workspace/<角色目录名>`。改路径见
-> [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) 的 §6.2.1。
+> **产物分两类，都不写进 `蛙蛙呱呱agents团/`**：运行物（事件/锁/trace/runlog）在
+> `<仓库根>/workspace`；项目资产（数据/brief/卡/claims/报告）在 `<项目根>`，
+> 默认 `<仓库根>/projects/<slug>`。写团内会被 [`core/paths.py`](蛙蛙呱呱agents团/core/paths.py)
+> 拒绝（退出码 2）。说明见 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) §2.7/§6.2.1。
 
 ### 关键文档
 
@@ -943,33 +942,36 @@ python guagua.py call r06 explore funnel \
 | [`REPORT-BRIDGE-GUIDE.md`](蛙蛙呱呱agents团/REPORT-BRIDGE-GUIDE.md) | 报告桥接指南 |
 | [`SKILL.md`](蛙蛙呱呱agents团/SKILL.md) | Trae 技能入口：唯一的拆卡默认线、人环规则、能力边界 |
 | [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md) | 报告产线地图：拆卡默认 / A 数据 / B 应急，门禁与保留零件 |
+| [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md) | 专家团（智能体）更新日志：按日期记录能力、门禁、迁移与不兼容 |
 | [`docs/REPORT-DISPATCH.md`](蛙蛙呱呱agents团/docs/REPORT-DISPATCH.md) | 拆卡与防代写：nonce、签名、收卡校验 |
 | [`docs/REPORT-FLOW.md`](蛙蛙呱呱agents团/docs/REPORT-FLOW.md) | flow 版式规范：一条内容流、PDF 分页、摘要必填、文笔门禁 |
-| [`交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/交付/拆卡升级-SOP-2026-11-21.md) | 拆卡五个 SOP 版本与卡片契约（被 docs 引用） |
-| [`交付/协作层-SOP-2026-11-21.md`](蛙蛙呱呱agents团/交付/协作层-SOP-2026-11-21.md) | 卡间协商、R02 交接包与波次 |
+| [`docs/archive/交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/docs/archive/交付/拆卡升级-SOP-2026-11-21.md) | 拆卡五个 SOP 版本与卡片契约（历史，被 docs 引用） |
+| [`docs/archive/交付/协作层-SOP-2026-11-21.md`](蛙蛙呱呱agents团/docs/archive/交付/协作层-SOP-2026-11-21.md) | 卡间协商、R02 交接包与波次（历史） |
 | [`scripts/preflight.py`](蛙蛙呱呱agents团/scripts/preflight.py) | 九项预检 P1–P9（唯一可执行判据） |
 | [`docs/actions_catalog.json`](蛙蛙呱呱agents团/docs/actions_catalog.json) | 全角色动作目录（机器可读） |
 | [`core/registry.py`](蛙蛙呱呱agents团/core/registry.py) | 20 角色能力与端口注册表 |
 | [`core/protocol.py`](蛙蛙呱呱agents团/core/protocol.py) | 任务卡、事件、端口字段契约 |
 
-### `交付/` 引用关系（2026-11-22 核查）
+### `交付/` 与归档引用关系（2026-11-25 核查）
+
+> 历史 SOP 与模板已归档到 `docs/archive/交付/`；团内 `交付/` 只剩 `generic_semantics_v1.yaml`。
 
 | 文件 | 状态 | 被谁引用 |
 |---|---|---|
-| `generic_semantics_v1.yaml` | **代码依赖** | [`core/card_upgrade.py`](蛙蛙呱呱agents团/core/card_upgrade.py#L160) 读取；`semantic_layer.template.yaml` 继承 |
-| `semantic_layer.template.yaml` | 模板 | `card_issue.py` 会向项目写同名模板；专家团升级 SOP-v3 提及 |
-| `perspectives.template.yaml` | 模板 | `交付/拆卡升级-SOP-2026-11-21.md` |
-| `agent_card.template.yaml` | 模板 | 暂无引用（保留作交付样例） |
-| `handoff_contract.template.yaml` | 模板 | 暂无引用（保留作交付样例） |
-| `拆卡升级-SOP-2026-11-21.md` | 现行 SOP | [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md) |
-| `协作层-SOP-2026-11-21.md` | 现行 SOP | `拆卡升级-SOP-2026-11-21.md` |
-| `报告系统升级SOP-2026-11-21.md` | 过程记录 | `50材料核验` 与两份设计稿互引 |
-| `50材料核验-2026-11-21.md` | 证据附件 | `报告系统升级SOP-2026-11-21.md` |
+| `交付/generic_semantics_v1.yaml` | **代码依赖（勿删）** | [`core/card_upgrade.py`](蛙蛙呱呱agents团/core/card_upgrade.py#L160) 读取；`semantic_layer.template.yaml` 继承 |
+| `docs/archive/交付/semantic_layer.template.yaml` | 模板 | `card_issue.py` 内置同名模板并写入项目；归档副本供参考 |
+| `docs/archive/交付/perspectives.template.yaml` | 模板 | `docs/archive/交付/拆卡升级-SOP-2026-11-21.md` |
+| `docs/archive/交付/agent_card.template.yaml` | 模板 | 暂无引用（保留作交付样例） |
+| `docs/archive/交付/handoff_contract.template.yaml` | 模板 | 暂无引用（保留作交付样例） |
+| `docs/archive/交付/拆卡升级-SOP-2026-11-21.md` | 历史 SOP | [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md) |
+| `docs/archive/交付/协作层-SOP-2026-11-21.md` | 历史 SOP | `拆卡升级-SOP-2026-11-21.md` |
+| `docs/archive/交付/报告系统升级SOP-2026-11-21.md` | 过程记录 | `50材料核验` 与两份设计稿互引 |
+| `docs/archive/交付/50材料核验-2026-11-21.md` | 证据附件 | `报告系统升级SOP-2026-11-21.md` |
 | 专家团升级 SOP v1 / v2.1 / v3 / v4 / v5 + 计划 v5 | 版本链 | 仅内部互引，最新为 v5 |
 | 调研结论 / 系统升级执行报告 / 验收报告 / 修复设计 html | 过程记录 | 无引用 |
 
-> 结论：**只有 `generic_semantics_v1.yaml` 是运行时依赖**，其余是模板与过程文档。
-> 要删任何一份，先按上表改引用；`tests/` 不是缓存，是 104 个 pytest 用例与 evals 夹具，必须保留。
+> 结论：**团内只有 `交付/generic_semantics_v1.yaml` 是运行时依赖**，其余是归档模板与过程文档。
+> 要删任何一份，先按上表改引用；`tests/` 不是缓存，是 547 个 pytest 用例与 evals 夹具，必须保留。
 
 ---
 
@@ -991,11 +993,11 @@ cd "D:\蛙蛙呱呱\蛙蛙呱呱agents团"
 python guagua.py doctor
 python guagua.py check
 
-# 2) 单测（当前基线：321 passed / 3 skipped）
+# 2) 单测（当前基线：547 passed / 3 skipped）
 python -m pytest tests -q -p no:cacheprovider
 
-# 3) 拆卡线项目预检（以样例项目为例）
-python scripts/preflight.py --dir "../小码女装调研_flow_2026-11-21"
+# 3) 拆卡线项目预检（项目根在团外，默认 projects/<slug>）
+python scripts/preflight.py --dir "../projects/<slug>"
 
 # 4) 收敛门禁与 Trae 镜像
 python scripts/check_convergence.py --baseline .convergence-baseline.json
@@ -1016,12 +1018,20 @@ python verify_loop.py
 
 ### 产物位置
 
-- 任务卡与事件：`workspace/tasks/`、`workspace/events.jsonl`、`workspace/runlog.jsonl`（均在**仓库根**）
-- 单次任务产物：`workspace/artifacts/{task_id}/`
-- 角色私有产物：`workspace/rXX-<角色>/`（会话记忆、遥测、bundles、深度报告等）
-- 报告：通常为 `.md` 快读版 + `.html` 正式版
-- 想换位置：设环境变量 `GUAGUA_WORKSPACE`，或改 `蛙蛙呱呱agents团/core/workspace.py`
-  （说明见 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) 的 §6.2.1）
+专家团是**工具**，项目是**资产**，两类产物分开放：
+
+- **运行物**（事件流、锁、trace、runlog）：`workspace/`（仓库根；`GUAGUA_WORKSPACE` 可改）
+- **项目资产**（数据、知识快照、brief、卡、claims、报告）：`<PROJECT_ROOT>`，
+  默认 `projects/<slug>`，可用 `--project` 或 `GUAGUA_PROJECT` 覆盖
+- **任务账本**：带 `--project` 时落 `<项目>/runs/tasks/`，否则落 `workspace/tasks/`
+- **写团内一律被拒**：越界返回退出码 2（守门在 [`core/paths.py`](蛙蛙呱呱agents团/core/paths.py)）
+
+```bash
+python guagua.py project init ../projects/<slug> --industry "你的行业"
+python guagua.py plan "你的经营目标" --project ../projects/<slug>
+```
+
+说明见 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) 的 §2.7 与 §6.2.1。
 
 ### 能力边界（重要）
 
@@ -1041,6 +1051,35 @@ python verify_loop.py
 
 ## 十、版本与更新记录
 
+### v2.8（2026-11-25）· 项目边界 + expert_brief v2
+
+- **工具与资产分离**：新增 [`core/paths.py`](蛙蛙呱呱agents团/core/paths.py)（团/项目/运行三个根 + 写入守卫）
+  与 [`core/project.py`](蛙蛙呱呱agents团/core/project.py)（`project.yaml` + 10 个标准子目录）；
+  写团内、写运行根一律拒绝（退出码 2）。
+- **卡 = bundle**：每张卡下发时带 `expert_brief`（v2 七层：决策语境 / 定义口径 / 结构分解 /
+  机制归因 / 判断情景 / 行动可逆 / 反证不确定）；每条必答过五道门槛
+  （answerable_by / evidence / owner / failure_impact / check）；单卡上限 18 条，超出进 `parking_lot`。
+  卡只管 owner/deps/inputs/outputs/non_goals，**验收只由 brief 派生**。
+- **收卡校验契约**：`dispatch.collect()` 校验 `brief_version` 一致、卡里无 acceptance 明细；
+  报告拆卡线把 brief 问题写进 `issued.json.brief_issues`，不静默。
+- **入口收敛**：`guagua.py prompt` 成为唯一提示词入口；`chat.py` / `guagua.py chat` 标废弃
+  （保留一个版本）；新增 `guagua.py project init/show`。
+- **门禁 12 → 15 项**：新增 `check_project_boundary`（团内无项目资产）、
+  `check_brief_contract`（七层/五门槛/18 条不回退）、`check_report_isolation`（报告层不读知识库与 brief）。
+- **迁移**：历史项目产物（如 `projects/consulting`）移出工具仓库；未带 `--project` 的 `plan`
+  仍可运行但会提示迁移，下一版本项目根必填；老卡仍可 `--allow-legacy` 收，但不再享受 brief 契约校验。
+- 全量条目见 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)。
+
+### v2.7（2026-11-24）· 统一入口路由器（D+）与报告线收口
+
+- `guagua.py run` 路由器：默认只打印建议命令，`--execute` 才执行；
+  按 `--role / --dir+--out / --intent` 选单角色、报告线或拆卡线。
+- `report run-line --source data|cards` 明确「报告层算」还是「收卡编译」；
+  `call --as-task` 只写 `workspace/traces` 并标 `trace_only`，不混入项目账本。
+- P0–P2 收口：报告线门禁修复、依赖声明、死接线与孤立模块、历史文档归档到 `docs/archive/`、
+  新增 `guagua.py audit`（快检 + `--full`）、`.gitignore` 补齐运行产物。
+- 报告产线统一到 v14，新增文档一致性门禁。
+
 ### v2.6（2026-11-22）· 拆卡线唯一默认 + 人环门禁 + 50 源硬门槛
 
 - **默认路线唯一化**：报告默认只走拆卡线（`clarify → intake → brief --plan → --confirm --ack-cards
@@ -1056,8 +1095,8 @@ python verify_loop.py
 - **单人稿显式降级**：`run-line --claims` 只认收卡产物；手写稿必须 `--solo-claims --allow-solo`，
   过 50 源门槛，产物标 `solo_no_dispatch`。
 - **渲染固化**：封面与 KPI 优先取 `meta.title / subtitle / metrics`，不再被首节标题覆盖。
-- **公开样例**：新增 [`showcase/xiaoma-womenswear/report.html`](showcase/xiaoma-womenswear/report.html)，
-  竞品/店铺/供应商名以 `████` 遮蔽，数据口径不变。
+- **公开样例**：当时在 `showcase/` 放了一份脱敏报告（竞品/店铺/供应商名以 `████` 遮蔽）；
+  2026-11-25 起项目产物迁出工具仓库，样例不再随仓库分发，改为按需生成。
 - **仓净**：删除 `workspace/`（191.8 MB 历史试跑）、`_attic/`（34 MB 留档）、`z/` 与无关赛道调研残留；
   技能包降到约 30 MB；`tests/`（104 个用例与 evals 夹具）保留不动。
 
@@ -1065,12 +1104,14 @@ python verify_loop.py
 
 | 版本 | 日期 | 主要变化 |
 |---|---|---|
+| v2.6 | 2026-11-22 | 拆卡线唯一默认；nonce + HMAC 防代写；人环门禁（intake/clarify/ack-cards）；50 源硬门槛 |
 | v2.5 | 2026-11-19 | 报告产线收敛为单入口；`flow` 成为默认版式；`collect` 默认 50 源并逐条回抓 quote |
 | v2.2 | 2026-11-17 | 报告判据唯一（F10 深度判据）；20 角色自检转绿；真实/模拟/阻塞三态归位 |
 | v2.1 | 2026-11-12 | 仓库瘦身（删除 11736 个历史文件）；固化 `make_package.py` 打包入口 |
 | v2.0 | 2026-11-10 | 重写 README；新增 `guagua.py` 统一入口与 20 角色介绍 |
 
-> 更早的逐条记录用 `git log -- README.md` 查；这里只保留仍影响当前使用的变化。
+> 全量、按日期的智能体更新记录见 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)；
+> 本节只保留仍影响当前使用的版本，逐条提交历史用 `git log` 查。
 > 已被后续版本推翻的口径（如 `--layout paper`、A/B 双路）不再在正文重复。
 
 ### 维护约定
