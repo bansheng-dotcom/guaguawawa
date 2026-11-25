@@ -528,14 +528,6 @@ def _run_script(script: str, argv: list[str]) -> int:
     return int(subprocess.call([PYTHON, str(ROOT / "scripts" / script), *argv], cwd=str(ROOT)))
 
 
-def cmd_reason(args: argparse.Namespace) -> int:
-    """[已下线] 旧独立报告线（scripts/reason.py）。一个版本后删除本子命令。"""
-    print("[deprecated] guagua.py reason 已下线（它属于第二条报告线）。\n"
-          "           请用: python guagua.py report run-line --intent \"…\" --dir <项目> --out <目录>",
-          file=sys.stderr)
-    return 2
-
-
 def cmd_consult(args: argparse.Namespace) -> int:
     return _run_script("consult.py", list(args.consult_args))
 
@@ -682,16 +674,6 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--out", default=None, help="输出 Markdown（同名 .json 一并落盘）")
     p.add_argument("--json", action="store_true", help="输出机器可读计划")
     p.set_defaults(func=cmd_domain)
-
-    p = sub.add_parser("reason", help="[已下线] 旧独立报告线；请用 report run-line")
-    p.add_argument("--role", default=None)
-    p.add_argument("--intent", default="")
-    p.add_argument("--focus", default=None)
-    p.add_argument("--data", nargs="?", default=None)
-    p.add_argument("--out", nargs="?", default=None)
-    p.add_argument("--pdf", action="store_true")
-    p.add_argument("--max-q", type=int, default=6)
-    p.set_defaults(func=cmd_reason)
 
     p = sub.add_parser("consult", help="咨询 8 阶段：start/submit/sign/advance/status/render/check")
     p.add_argument("consult_args", nargs=argparse.REMAINDER)

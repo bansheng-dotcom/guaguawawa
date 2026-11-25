@@ -594,6 +594,13 @@ def _derive_chart_from_refs(s: Dict[str, Any], pack: Dict[str, Any]) -> Optional
             adapted["refs"] = [it["ref"] for it in items]
             return adapted
     typ = _chart_for_metric(key)
+    if typ == "hbar":
+        # 默认横条交给 chart_plan 按数据形状复核：点数不足 3 就不出图，改走表格。
+        from core import chart_plan
+        picked = chart_plan.choose({"type": typ, "items": items})
+        if picked.get("type") == "table":
+            return None
+        typ = str(picked.get("type") or typ)
     field = "items"
     base: Any = None
     if key == "盈亏平衡" and unit == "万元/月":

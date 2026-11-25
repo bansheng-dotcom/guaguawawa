@@ -9,7 +9,7 @@
   contract(role, skill, act) 某个动作的必填参数（从 argparse 声明解析）
   find(...)                  按角色/技能/动作查找
 
-执行在 core/report_build.py。
+执行在 core/report_flow.py。
 """
 from __future__ import annotations
 

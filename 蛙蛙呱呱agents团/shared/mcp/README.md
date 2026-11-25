@@ -1,7 +1,8 @@
 # MCP 接入层（预留位）
 
 > 现在**不接任何服务**；8 个槽位全部 `enabled=false`。
-> 你指定接哪个，按 `docs/智能体团升级SOP_v1.md` §7 的 7 步走；命令都在下面。
+> 你指定接哪个，先看 `shared/mcp/registry.json` 的槽位定义，再用
+> `python scripts/mcp_doctor.py template <槽位>` 打出该槽位的接入模板；命令都在下面。
 
 ## 目录
 

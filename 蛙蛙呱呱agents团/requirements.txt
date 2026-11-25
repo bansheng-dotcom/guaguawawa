@@ -1,6 +1,9 @@
 # 蛙蛙呱呱agents团 · 运行依赖（Python >= 3.10）
-# 图表引擎 v2 依赖；缺失时 v2 会静默回退 v1 素图，请务必先装。
-matplotlib>=3.8
+
+# 报告线核心依赖：core/* 顶层 import yaml（chart_contract / report_contract 等）。
+pyyaml>=6.0
+
+# 分析引擎依赖：core/analysis_lab.py 顶层 import numpy；相关单测也需要。
 numpy>=1.26
 
 # 可选：PDF 页脚编号（report_bridge._stamp_page_numbers）

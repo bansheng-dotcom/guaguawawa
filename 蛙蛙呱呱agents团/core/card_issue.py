@@ -532,6 +532,16 @@ def bootstrap(project: Path, intent: str, only: Optional[List[str]] = None) -> D
     if not prep.get("ok"):
         return prep
 
+    try:
+        from core import analysis_unit
+        _units = analysis_unit.plan_units(analysis_unit.load(sem))
+        units_info = {"units": _units,
+                      "count": len([u for u in _units if not u.get("error")]),
+                      "errors": [u for u in _units if u.get("error")]}
+    except Exception as exc:  # noqa: BLE001
+        # 只记录不阻断：语义层单元展开失败不应挡住发卡，但必须留痕。
+        units_info = {"error": f"{type(exc).__name__}: {exc}"}
+
     plan = report_dispatch.write_plan(str(project), confirm=True)
     if not plan.get("ok"):
         return {"ok": False, "stage": "plan", "error": plan.get("error"), "plan": plan}
@@ -539,7 +549,8 @@ def bootstrap(project: Path, intent: str, only: Optional[List[str]] = None) -> D
     return {**res, "prepare": {"counts": prep.get("counts"),
                                "gates": prep.get("gates"),
                                "handoffs": prep.get("handoffs"),
-                               "waves": prep.get("waves")}}
+                               "waves": prep.get("waves"),
+                               "analysis_units": units_info}}
 
 
 def validate_claims_cells(claims: Dict[str, Any]) -> List[str]:

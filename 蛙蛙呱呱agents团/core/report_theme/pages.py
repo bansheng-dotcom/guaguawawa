@@ -316,6 +316,14 @@ def _render_svg(ch: Dict[str, Any]) -> tuple[str, str]:
     except Exception:  # noqa: BLE001
         _CHART_STATS["error"] += 1
         return "", "error"
+    if not svg.strip():
+        try:
+            from core import chart_capabilities
+            key = str(ch.get("type") or "")
+            if chart_capabilities.has_chart(key):
+                svg = chart_capabilities.render_chart(key, ch) or ""
+        except Exception:  # noqa: BLE001
+            svg = ""
     _CHART_STATS["legacy"] += 1
     return svg, "legacy"
 

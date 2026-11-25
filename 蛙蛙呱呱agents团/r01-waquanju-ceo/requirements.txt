@@ -1,7 +1,4 @@
-# R01 CEO/Orchestrator Sandbox Dependencies
-# Distilled from ceo-advisor skill
-pandas>=2.0.0      # For strategic data analysis and scorecard aggregations
-pyyaml>=6.0        # For parsing company OS and strategic configs
-jsonschema>=4.17.3 # For rigorous contract validation of task cards
-requests>=2.31.0   # For real-world stakeholder artifact retrieval
-Jinja2>=3.1.2      # For rendering board memos and decision logs
+# R01 CEO/编排器 · 运行依赖
+# R01 的入口、技能与编排只使用 Python 标准库 + 仓内 core/shared，无第三方包。
+# 旧版曾列 pandas/jsonschema/requests/Jinja2，但 r01 内零引用，已移除（2026-11-24）。
+# 团队级依赖见仓库根 requirements.txt。

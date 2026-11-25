@@ -8,8 +8,8 @@
     report charts  48 型图表能力盘点
     report capabilities / plan  诊断
 
-兼容别名（P9，至少保留一个版本）：
-    run / pack / produce / research → 打印 deprecation 后转到 build 或旧原子能力。
+v11 起已删除 run / build / decide / produce / pack 过渡别名；
+`report "指令" …` 与 `report run-line …` 都走同一条主链。
 """
 from __future__ import annotations
 
@@ -63,43 +63,6 @@ def cmd_plan(args) -> int:
     p["inferred_thesis"] = th
     print(json.dumps(p, ensure_ascii=False, indent=1)[:12000])
     return 0
-
-
-def cmd_build(args) -> int:
-    """[deprecated] 兼容名：等同 decide。
-
-    v11 起「按报告类型筛方法」的参数已彻底删除（不再是「忽略的参数」，是不存在的参数）。
-    build 与 decide 都是 run-line 的过渡别名，P5 删除。
-    """
-    from core import decision_report
-    try:
-        res = decision_report.build(
-            intent=args.intent, project_dir=args.dir, out_dir=args.out,
-            decision_path=None, min_binding=0.8, theme=args.theme,
-            pdf=args.pdf, quote_mode=args.quote_mode, audience=args.audience)
-    except Exception as e:  # noqa: BLE001
-        print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
-                         ensure_ascii=False))
-        return 2
-    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
-    return 0 if res.get("ok") else 1
-
-
-def cmd_decide(args) -> int:
-    """决策优先：3–5 个必答问题 → 方法 → 逐问作答 → 图由对照选型。"""
-    from core import decision_report
-    try:
-        res = decision_report.build(
-            intent=args.intent, project_dir=args.dir, out_dir=args.out,
-            decision_path=args.decision, min_binding=args.min_binding,
-            theme=args.theme, pdf=args.pdf, quote_mode=args.quote_mode,
-            audience=args.audience)
-    except Exception as e:  # noqa: BLE001
-        print(json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"},
-                         ensure_ascii=False))
-        return 2
-    print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
-    return 0 if res.get("ok") else 1
 
 
 def cmd_plan_report(args) -> int:
@@ -615,11 +578,6 @@ def cmd_run_line(args) -> int:
                 pass
     print(json.dumps(res, ensure_ascii=False, indent=1)[:4000])
     return 0 if res.get("ok") else 1
-
-
-def _deprecated(name: str) -> None:
-    print(f"[deprecated] report {name} 已下线；请用 report run-line（v11）",
-          file=sys.stderr)
 
 
 def cmd_flow(args) -> int:
