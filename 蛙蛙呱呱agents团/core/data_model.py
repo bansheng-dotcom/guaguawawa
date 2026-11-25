@@ -250,8 +250,8 @@ def _rows_as_lists(rows: List[Dict[str, Any]]) -> Tuple[List[str], List[List[Any
 def export(raw: Dict[str, Any], out_dir: Path,
            sources: Optional[Iterable[Dict[str, Any]]] = None,
            title: str = "") -> Dict[str, str]:
-    out_dir = Path(out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
+    from core import paths
+    out_dir = paths.write_artifact(out_dir)      # 守卫：产物只能落项目，不落团内
     (out_dir / "raw.json").write_text(
         json.dumps(raw, ensure_ascii=False, indent=1), encoding="utf-8")
     (out_dir / "metrics.json").write_text(

@@ -112,6 +112,26 @@ def assert_writable(path: Path | str, *, allow_runtime: bool = False,
     return resolved
 
 
+def write_artifact(path: Path | str, *, project: Path | str | None = None,
+                   allow_team: bool = False) -> Path:
+    """产物落盘唯一入口：解析路径 → 过写入守卫 → 建父目录 → 返回可写路径。
+
+    `core/**`、`shared/**`、`r*/**` 不允许直接 open(...,"w") / write_text 落产物；
+    统一走这里，越界（写团内 / 写运行临时物）直接抛 BoundaryError。
+
+    Args:
+        path: 目标路径；给相对路径时必须同时给 project
+        project: 项目根；相对路径会拼到它下面
+        allow_team: 仅测试夹具可置 True，产线不要打开
+    """
+    p = Path(path).expanduser()
+    if project is not None and not p.is_absolute():
+        p = Path(project).expanduser() / p
+    resolved = assert_writable(p, allow_team=allow_team)
+    resolved.parent.mkdir(parents=True, exist_ok=True)
+    return resolved
+
+
 def project_rel(path: Path | str, project: Path | str) -> str:
     """把项目内路径转成 posix 相对路径；不在项目内则返回绝对路径字符串。"""
     p = Path(path).expanduser().resolve()

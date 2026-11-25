@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import json
 import shutil
+import tempfile
 from pathlib import Path
 
 from core import report_flow, report_editorial
 
-TMP = Path("workspace/_test_user_in_the_loop")
+# 临时目录必须在团外：写团内会让"项目边界门禁"变红（且污染工具仓）
+TMP = Path(tempfile.gettempdir()) / "guagua_test_user_in_the_loop"
 
 
 def _setup(by: str = "agent", ack: bool = False):

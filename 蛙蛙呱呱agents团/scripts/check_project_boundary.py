@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
 """项目边界门禁：专家团里不许出现项目资产。
 
-判定原则（和 §7.4 一致）：团内不能出现「能指向真实委托」的项目文件组合。
-本脚本只查**结构性证据**，不做关键词扫描（关键词扫描误报高、易被绕过）：
+判定分三层：
 
-    FAIL  TEAM/projects/           项目目录
-    FAIL  TEAM/{briefs,cards,claims,artifacts,report}/  项目过程目录
-    FAIL  TEAM/**/project.yaml     项目元数据
-    FAIL  TEAM/**/claims_*.json    合并后的 claims（含项目数据）
-    FAIL  TEAM/report/report.html  成品报告
+    FAIL  项目过程目录/文件（projects,briefs,cards,claims,report,out,plan,coverage,data…）
+          任意层级命中；`workspace/`、`*_test_*` 运行残留也算
+    FAIL  已提交进 git 的过程文件（.gitignore 对已跟踪文件无效，必须单独查）
+    INFO  在 `boundary_allowlist.yaml` 里登记过的"团队自身证据"（演进留证/通用资产）
 
-`baselines/ examples/ evals/ tests/ fixtures/ samples/ docs/` 是夹具/文档，
-允许出现 claims.json / report.html；但它们必须在这些目录内。
+夹具/文档区（tests/fixtures/samples/baselines/examples/docs/evals/agent-packs）不受目录规则限制，
+但仍不允许出现 project.yaml / claims_*.json / report.html 之外的项目元数据。
 
 用法：
     python scripts/check_project_boundary.py [--json]
@@ -20,6 +18,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -28,39 +27,69 @@ TEAM = Path(__file__).resolve().parent.parent
 #: 夹具与文档目录：允许放样例 claims/report（测试需要）
 FIXTURE_ROOTS = {"baselines", "examples", "evals", "tests", "fixtures",
                  "samples", "docs", "agent-packs"}
-#: 团内不允许出现的项目过程目录（根级）
-FORBIDDEN_DIRS = ("projects", "briefs", "cards", "claims", "artifacts", "report")
+#: 项目过程目录名（任意层级出现都算，除非在该层 allowlist）
+BAD_DIR_NAMES = {"projects", "briefs", "cards", "claims", "report",
+                 "out", "out_v3", "plan", "coverage", "data", "workspace",
+                 "artifacts"}
+BAD_FILE_PATTERNS = ("project.yaml", "claims_*.json", "report.html")
 
 
-def _rel(p: Path) -> str:
-    return p.relative_to(TEAM).as_posix()
-
-
-def _under_fixture(p: Path) -> bool:
+def _rack(root: Path) -> set:
     try:
-        first = p.relative_to(TEAM).parts[0]
-    except ValueError:
-        return False
-    return first in FIXTURE_ROOTS
+        out = subprocess.run(["git", "-C", str(root), "ls-files"],
+                             capture_output=True, text=True, encoding="utf-8",
+                             errors="ignore", timeout=30).stdout
+        return {x.strip().replace("\\", "/") for x in out.splitlines() if x.strip()}
+    except Exception:  # noqa: BLE001
+        return set()
+
+
+def _allowlist() -> list:
+    p = TEAM / "boundary_allowlist.yaml"
+    if not p.exists():
+        return []
+    try:
+        import yaml
+        data = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+        return [str(x.get("path") or "").replace("\\", "/")
+                for x in (data.get("allow") or []) if x.get("path")]
+    except Exception:  # noqa: BLE001
+        return []
+
+
+def _allowed(rel: str, allow: list) -> bool:
+    r = rel.rstrip("/")
+    for a in allow:
+        a2 = a.rstrip("/")
+        if r == a2 or r.startswith(a2 + "/"):
+            return True
+    return False
 
 
 def scan() -> list[str]:
     bad: list[str] = []
-    for name in FORBIDDEN_DIRS:
-        d = TEAM / name
-        if d.is_dir() and any(d.iterdir()):
-            bad.append(f"团内出现项目目录：{name}/（应迁到 <PROJECT_ROOT>）")
+    allow = _allowlist()
+    tracked = _rack(TEAM)
 
-    for pattern in ("**/project.yaml", "**/claims_*.json"):
-        for p in TEAM.glob(pattern):
-            if _under_fixture(p):
-                continue
-            bad.append(f"团内出现项目文件：{_rel(p)}")
-
-    for p in TEAM.glob("**/report/report.html"):
-        if _under_fixture(p):
+    for p in TEAM.rglob("*"):
+        if any(part in {"__pycache__", ".git", ".pytest_cache"} for part in p.parts):
             continue
-        bad.append(f"团内出现成品报告：{_rel(p)}")
+        rel = p.relative_to(TEAM).as_posix()
+        first = rel.split("/")[0]
+        if first in FIXTURE_ROOTS:
+            continue
+        if _allowed(rel, allow):
+            continue
+
+        if p.is_dir():
+            if p.name in BAD_DIR_NAMES:
+                mark = "（已提交）" if any(t.startswith(rel + "/") for t in tracked) else ""
+                bad.append(f"团内出现过程目录：{rel}/{mark}")
+            continue
+
+        if any(p.match(pat) for pat in BAD_FILE_PATTERNS):
+            mark = "（已提交）" if rel in tracked else ""
+            bad.append(f"团内出现项目文件：{rel}{mark}")
 
     return bad
 

@@ -18,8 +18,11 @@ baselines/_dod_demo/
 .pytest_cache/
 workspace/
 pipelines/out/
+*/_test_*/
+*/tests/workspace/
 
 # 项目资产必须在团外（见 core/paths.py）；这几条是防误提交的兜底
+# 注意：gitignore 只防新增，已跟踪文件仍会被提交 —— 由 scripts/check_project_boundary.py 兜底
 projects/
 briefs/
 cards/

@@ -1,0 +1,24 @@
+# 团内允许保留的"团队自身证据"（不是项目资产）
+#
+# 判定原则：
+#   - 项目资产（某次委托的数据/报告/claims/brief/卡）→ 一律不得进团，无例外
+#   - 团队自身证据（方法演进、评审留证、审计快照）→ 允许，但必须在此登记
+#
+# 新增一条必须写清 kind / note / since，并在 PR 说明为什么它不属于项目资产。
+allow:
+  - path: r01-waquanju-ceo/artifacts/
+    kind: 方法演进留证
+    since: "2026-11-24"
+    note: SOP 演进轮次的 spec/dashboard，测试与审计引用
+  - path: r04-watiaoci-reviewer/artifacts/
+    kind: 方法演进留证
+    since: "2026-11-24"
+    note: 10 轮评审留证（json/sarif），审计可追溯
+  - path: r05-washenyuan-research/artifacts/
+    kind: 方法演进留证
+    since: "2026-11-24"
+    note: evolve 各轮产物 + l10_telemetry.jsonl，EVOLUTION_REPORT 逐文件登记 SHA256
+  - path: 交付/generic_semantics_v1.yaml
+    kind: 通用资产（代码依赖）
+    since: "2026-11-21"
+    note: core/card_upgrade.py 运行时读取；位置待整理，不属于项目资产
