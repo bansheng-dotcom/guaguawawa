@@ -17,6 +17,9 @@
     python scripts/sync_workbuddy.py --check     # 只对比，不写盘
     python scripts/sync_workbuddy.py             # 写入
     python scripts/sync_workbuddy.py --dest DIR  # 指定插件目录
+
+镜像口径：**以源为准**。源里已删除的文件会从目标清掉——只增不减会让
+WorkBuddy 侧永久残留旧技能/旧测试，模型会读到不存在的文件。
 """
 from __future__ import annotations
 
@@ -71,6 +74,35 @@ def digest(path: str) -> str:
     return h.hexdigest()
 
 
+def _prune(base: str, keep: set, dry: bool) -> list:
+    """删除 base 下不在 keep（以 / 分隔的相对路径）的文件；返回被删清单。
+
+    镜像只增不减会把「源里已删除」的文件永久留在插件里：
+    WorkBuddy 侧模型会读到不存在的旧技能/旧测试。这里以源为准做镜像。
+    """
+    gone = []
+    if not os.path.isdir(base):
+        return gone
+    for dirpath, dirnames, filenames in os.walk(base):
+        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
+        for fn in filenames:
+            rel = os.path.relpath(os.path.join(dirpath, fn), base).replace("\\", "/")
+            if rel not in keep:
+                gone.append(rel)
+                if not dry:
+                    os.remove(os.path.join(dirpath, fn))
+    if not dry:
+        for dirpath, _dirnames, _filenames in os.walk(base, topdown=False):
+            if dirpath == base:
+                continue
+            try:
+                if not os.listdir(dirpath):
+                    os.rmdir(dirpath)
+            except OSError:
+                pass
+    return gone
+
+
 def bump_version(dest: str) -> str:
     """SKILL.md 的 metadata.version 自增 patch 位。"""
     p = os.path.join(dest, "skills", SKILL, "SKILL.md")
@@ -117,6 +149,10 @@ def main(argv=None) -> int:
         shutil.copy2(abs_p, target)
         written += 1
 
+    # ①b source/ 严格对齐：删掉源里已不存在的文件
+    extra_src = _prune(dst_root, {k.replace("\\", "/") for k in src_files}, args.check)
+    drifts += ["EXTRA " + x for x in extra_src]
+
     # ② references/ ← 根文档
     ref_dir = os.path.join(dest, "skills", SKILL, "references")
     for fn in REF_FILES:
@@ -130,19 +166,24 @@ def main(argv=None) -> int:
         if not args.check:
             os.makedirs(ref_dir, exist_ok=True)
             shutil.copy2(src, tgt)
+    extra_ref = _prune(ref_dir, {fn for fn in REF_FILES
+                                 if os.path.isfile(os.path.join(ROOT, fn))}, args.check)
+    drifts += ["EXTRA references/" + x for x in extra_ref]
 
-    # ③ agents/ + avatars/ ← agent-packs
+    # ③ agents/ + avatars/ ← agent-packs（同样以源为准删多余）
     for sub, pat in (("agents", ".md"), ("avatars", "")):
         s = os.path.join(ROOT, "agent-packs", sub)
         if not os.path.isdir(s):
             continue
         d = os.path.join(dest, sub)
+        keep = set()
         for fn in sorted(os.listdir(s)):
             if pat and not fn.endswith(pat):
                 continue
             src = os.path.join(s, fn)
             if not os.path.isfile(src):
                 continue
+            keep.add(fn)
             tgt = os.path.join(d, fn)
             if os.path.isfile(tgt) and digest(tgt) == digest(src):
                 continue
@@ -150,17 +191,20 @@ def main(argv=None) -> int:
             if not args.check:
                 os.makedirs(d, exist_ok=True)
                 shutil.copy2(src, tgt)
+        drifts += ["EXTRA %s/%s" % (sub, x) for x in _prune(d, keep, args.check)]
 
+    n_extra = sum(1 for d in drifts if d.startswith("EXTRA "))
     if args.check:
-        print("源文件 %d 个｜与目标不同 %d 个" % (len(src_files), len(drifts)))
+        print("源文件 %d 个｜与目标不同 %d 个（其中多余 %d 个）"
+              % (len(src_files), len(drifts), n_extra))
         for d in drifts[:12]:
             print("  [DRIFT]", d)
         return 1 if drifts else 0
 
     ver = "" if args.no_bump else bump_version(dest)
     print("WorkBuddy 插件已刷新：%s" % dest)
-    print("源文件 %d 个｜写入 %d 个｜未变 %d 个｜差异项 %d 个"
-          % (len(src_files), written, skipped, len(drifts)))
+    print("源文件 %d 个｜写入 %d 个｜未变 %d 个｜清理 %d 个｜差异项 %d 个"
+          % (len(src_files), written, skipped, n_extra, len(drifts)))
     if ver:
         print("SKILL.md 版本 → %s" % ver)
     return 0
