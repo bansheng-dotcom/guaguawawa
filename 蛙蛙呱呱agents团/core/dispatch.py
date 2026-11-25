@@ -25,6 +25,7 @@ import os
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
+from core import paths
 from core.source_verify import normalize_url
 
 CARD_SCHEMA = "dsh.task_card/v1"
@@ -161,11 +162,18 @@ def _write_coverage(base: Path, intent: str) -> None:
                           encoding="utf-8")
 
 
-def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dict[str, Any]:
-    """按名册给每个可进报告的角色发一张任务卡。"""
+def write_cards(intent: str, out_dir: str, only: List[str] | None = None,
+                project=None, task_type: str | None = None) -> Dict[str, Any]:
+    """按名册给每个可进报告的角色发一张「卡 + expert_brief」bundle。
+
+    project 为空时（兼容旧调用）brief 只落在 `cards/<rid>/bundle.json`；
+    给了 project 时额外写 `<PROJECT_ROOT>/briefs/<task_id>.yaml`，卡里只留引用。
+    """
     from core import research_protocol, roster
+    from shared.knowledge import brief as brief_mod
 
     base = Path(out_dir)
+    paths.assert_writable(base)
     cards = base / "cards"
     cards.mkdir(parents=True, exist_ok=True)
     brief = research_protocol.plan(intent)
@@ -177,6 +185,7 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dic
 
     rb = roster.build()
     written = []
+    bundle_problems: List[str] = []
     for rid, r in rb["roles"].items():
         if not r["enters_report"]:
             continue
@@ -184,6 +193,14 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dic
             continue
         d = cards / rid
         d.mkdir(parents=True, exist_ok=True)
+        task_id = f"{base.resolve().name}-{rid}"
+        issued = brief_mod.issue_bundle(
+            d, rid, task_id, intent, project=project, task_type=task_type,
+            skills=r.get("skills") or [])
+        eb = issued["bundle"]["brief"]
+        envelope = issued["bundle"]["card"]
+        brief_ref = envelope["brief_ref"]
+        bundle_problems += issued["problems"]
         lines = [
             f"# 任务卡：{rid} {r['name']}（{r['title']}）",
             "",
@@ -227,7 +244,21 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dic
             "## 边界",
             "",
             "- 只用公开可核来源；查不到写 missing",
+            "",
+            "## 专家工作说明书（brief，验收只认它）",
+            "",
+            f"- brief 位置：`{brief_ref}`（version {eb['version']}）",
+            f"- 任务类型：{eb['task_type']}；视角：{eb['role_lens']}",
+            "",
+            "先回答下列问题，答不了写进 missing，不要编：",
+            "",
         ]
+        for m in eb["must_answer"]:
+            lines.append(
+                f"- {m['id']} {m['ask']}（证据：{m['evidence']}；"
+                f"失败影响：{m['failure_impact']}）")
+        lines += ["", "## 验收（由 brief 派生，卡本身不写验收明细）", ""]
+        lines += [f"- {c}" for c in eb["acceptance_checks"]]
         (d / "TASK.md").write_text("\n".join(lines), encoding="utf-8")
         (d / "claims.template.json").write_text(json.dumps({
             "schema": "dsh.claims/v2",
@@ -254,7 +285,8 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None) -> Dic
             "missing": [],
         }, ensure_ascii=False, indent=2), encoding="utf-8")
         written.append(rid)
-    return {"ok": True, "cards": len(written), "roles": written,
+    return {"ok": not bundle_problems, "cards": len(written), "roles": written,
+            "bundles": len(written), "bundle_problems": bundle_problems,
             "brief": str(base / "brief.md")}
 
 
@@ -371,7 +403,7 @@ def collect(out_dir: str, require_all: bool = False,
             min_sources: int = 0, verify_quotes: bool = False,
             strict_verify: bool = False, fetch=None,
             intent: str = "", allow_open_needs: bool = False,
-            allow_legacy: bool = False
+            allow_legacy: bool = False, project=None
             ) -> Tuple[Dict[str, Any], List[str]]:
     """收到各角色的 claims，验完整性后合并成一份。
 
@@ -426,6 +458,30 @@ def collect(out_dir: str, require_all: bool = False,
                       if d.is_dir() and (d / "TASK.md").is_file()
                       and not d.name.startswith("_"))
     delivered: List[str] = []
+
+    # v2 bundle 校验：卡与 brief 必须版本一致，卡里不得再写 acceptance 明细。
+    # 只有存在 bundle.json 的卡才校验，老项目（纯 TASK.md）保持原行为。
+    bundle_problems: List[str] = []
+    bundle_count = 0
+    try:
+        from shared.knowledge import brief as brief_mod
+        for bp in sorted(base.glob("*/bundle.json")):
+            bundle_count += 1
+            try:
+                doc = json.loads(bp.read_text(encoding="utf-8-sig"))
+            except (OSError, json.JSONDecodeError) as exc:
+                bundle_problems.append(f"{bp.parent.name}: bundle 解析失败 {exc}")
+                continue
+            card_env = doc.get("card") or {}
+            eb = doc.get("brief") or {}
+            for p in (brief_mod.validate_brief(eb, eb.get("task_type"))
+                      + brief_mod.validate_bundle(card_env, eb)):
+                bundle_problems.append(f"{bp.parent.name}: {p}")
+    except ImportError as exc:  # noqa: F841
+        bundle_problems.append(f"shared.knowledge.brief 不可导入：{exc}")
+    bad.extend(bundle_problems)
+    merged["brief_contract"] = {"bundles": bundle_count,
+                                "problems": bundle_problems}
 
     # 派活校验（2026-11-22 起默认硬门）：项目里必须有 issued.json，每张卡必须
     # 回填 nonce/role/by，且执行者不能是编排器（r01/solo）。没有 issued.json 的

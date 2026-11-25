@@ -14,7 +14,9 @@
 | `../REPORT-STANDARD.md` | 报告写什么、怎么判合格、怎么验（唯一报告标准） |
 | `PROJECT-RULES.md` | 项目规则（13 条，每条绑定一个自动检查；违反即返工） |
 | `../REPORT-BRIDGE-GUIDE.md` | 新角色/新能力怎么接入唯一产线 |
-| `REPORT-LINES.md` | 报告产线地图（一条线、四种输入、保留零件） |
+| `REPORT-LINES.md` | 报告产线地图（一条线、四种输入、保留零件、项目根与 brief） |
+| `../使用指南.md` §2.7 | 工具 vs 项目资产：项目根、写入守卫、CardBundle 与 expert_brief 契约 |
+| `../CHANGELOG.md` | 专家团（智能体）更新日志：按日期记录能力、门禁、迁移与不兼容 |
 | `REPORT-COVERAGE-UPGRADE-SOP.md` | 覆盖升级 SOP：50 源/饱和/矩阵/确认/双门禁/R04 全审 |
 | `REPORT-PROSE-STYLE.md` | 文笔与深度 Style Guide：三问/三动作/PART I–III/论证五段/rubric |
 | `REPORT-FLOW.md` | Flow 报告：HTML 一条流、PDF 自动分页、摘要必填、小页脚 |

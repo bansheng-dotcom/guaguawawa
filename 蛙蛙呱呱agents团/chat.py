@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Unified LLM Knowledge Injection CLI for all roles r01-r20.
+"""[已废弃] 统一提示词入口 —— 请改用 `python guagua.py prompt`。
 
-Usage:
-    python agents/chat.py --role r02 --intent "排期Q1冲刺并计算关键路径"
-    python agents/chat.py --role r03 --intent "月结对账发现差异" --output prompt.txt
-    python agents/chat.py --role r06 --intent "分析订单趋势与漏斗留存" --vector
+保留这个壳只为兼容旧脚本，下一版本删除。等价命令：
+
+    python guagua.py prompt --role r02 --intent "排期Q1冲刺并计算关键路径"
+    python guagua.py prompt --role r03 --intent "月结对账发现差异" --output prompt.txt
+    python guagua.py prompt --role r06 --intent "分析订单趋势与漏斗留存" --vector
 """
 from __future__ import annotations
 
@@ -23,7 +24,9 @@ from agents.shared.chat_cli import handle_chat
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="一人公司 20 角色通用知识注入与 Prompt 构建器")
+    print("[chat.py] 已废弃，请改用：python guagua.py prompt "
+          "--role ... --intent ...", file=sys.stderr)
+    parser = argparse.ArgumentParser(description="[已废弃] 请用 guagua.py prompt")
     parser.add_argument("--role", required=True, help="角色ID（如 r01..r20）")
     parser.add_argument("--intent", required=True, help="用户意图")
     parser.add_argument("--domains", default=None, help="手动指定知识域（逗号分隔）")

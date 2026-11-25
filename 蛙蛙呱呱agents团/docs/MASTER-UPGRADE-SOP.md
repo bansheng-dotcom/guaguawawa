@@ -77,6 +77,23 @@
 
 **旧章节使用规则：** 下文第 1–8 节保留 2026-11-23 的五轴、门禁和分层设计作为背景；其中“现状”“本轮要接”“只差调用”“孤儿”等状态词均已由本轮源码审查重新校准，不得据旧表直接施工。当前工作顺序、问题优先级和验收以 §0.4 与 `UPGRADE-PLAN.md` 为准。
 
+### 0.5 2026-11-25 项目边界与 expert_brief（已落地）
+
+本轮把「专家团是工具、项目是资产」从约定变成代码：
+
+- **三个根**：`TEAM_ROOT`（工具）/ `PROJECT_ROOT`（资产，默认 `<仓库根>/projects`）/
+  `RUNTIME_ROOT`（事件/锁/trace）。写团内一律拒绝，见 `core/paths.py`。
+- **CardBundle**：卡是信封（owner/deps/inputs/outputs/non_goals/brief_ref/
+  brief_version），brief 是内容（must_answer/standards/evidence_rules/
+  acceptance_checks）。验收只由 brief 派生，卡里不再写 acceptance 明细。
+- **expert_brief v2**：七层、每条五道门槛（answerable_by/evidence/owner/
+  failure_impact/check）、单卡上限 18 条、超出进 `parking_lot`；
+  生成器在 `shared/knowledge/brief.py`，拆卡时由 `core/card_bundle.py` 组装。
+- **三道门禁**：`check_project_boundary.py` / `check_brief_contract.py` /
+  `check_report_isolation.py`，已并入 `guagua.py audit`（快检 15 项）。
+- **唯一提示词入口**：`guagua.py prompt`；`chat.py` / `guagua.py chat` 标废弃，
+  下一版本删除。
+
 ---
 
 ## 1. 2026-11-23 基线审计：需要 vs 不需要（历史状态）

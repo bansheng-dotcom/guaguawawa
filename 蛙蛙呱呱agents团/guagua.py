@@ -245,22 +245,51 @@ def cmd_call(args: argparse.Namespace) -> int:
     return int(proc.returncode)
 
 
-def cmd_chat(args: argparse.Namespace) -> int:
+def cmd_prompt(args: argparse.Namespace) -> int:
+    """唯一提示词入口：按角色知识域组装 system prompt（输出到 stdout 或文件）。
+
+    `chat` 子命令保留一个版本做别名，下一版本删除。
+    """
+    from shared.chat_cli import handle_chat
     role = resolve_role(args.role)
-    cmd = [PYTHON, ROOT / "chat.py", "--role", role["id"], "--intent", args.intent]
-    if args.domains:
-        cmd += ["--domains", args.domains]
-    if args.output:
-        cmd += ["--output", args.output]
-    if args.vector:
-        cmd += ["--vector"]
-    return _run(cmd, cwd=ROOT)
+    ns = argparse.Namespace(intent=args.intent, domains=args.domains,
+                            output=args.output, vector=args.vector)
+    return handle_chat(ns, role["id"])
+
+
+def cmd_chat(args: argparse.Namespace) -> int:
+    print("[guagua] 提示：chat 已废弃，请改用 "
+          "`python guagua.py prompt --role ... --intent ...`", file=sys.stderr)
+    return cmd_prompt(args)
+
+
+def cmd_project(args: argparse.Namespace) -> int:
+    """项目资产根：init 建骨架 / show 看元数据。项目根必须在团外。"""
+    from core import paths, project as project_mod
+    try:
+        if args.action == "init":
+            target = args.path or str(paths.project_root(None))
+            res = project_mod.init(target, industry=args.industry, name=args.name)
+            print(json.dumps(res, ensure_ascii=False, indent=1))
+            return 0 if res.get("ok") else 1
+        proj = project_mod.load(args.path)
+        doc = proj.to_dict()
+        doc["ok"] = True
+        doc["project_file_exists"] = (proj.root / project_mod.PROJECT_FILE).is_file()
+        print(json.dumps(doc, ensure_ascii=False, indent=1))
+        return 0
+    except paths.BoundaryError as exc:
+        print(f"[guagua] {exc}", file=sys.stderr)
+        return 2
 
 
 def cmd_plan(args: argparse.Namespace) -> int:
     role = by_id("r01")
     agent = _require_agent(role)
-    return _run([PYTHON, agent, "plan", "--intent", args.intent], cwd=ROOT)
+    cmd = [PYTHON, agent, "plan", "--intent", args.intent]
+    if getattr(args, "project", None):
+        cmd += ["--project", args.project]
+    return _run(cmd, cwd=ROOT)
 
 
 def cmd_dispatch(args: argparse.Namespace) -> int:
@@ -331,6 +360,10 @@ def cmd_run(args: argparse.Namespace) -> int:
                               "python guagua.py run --intent \"...\" --dir <项目> --out <目录>",
                           ]}, ensure_ascii=False, indent=1))
         return 2
+
+    if (getattr(args, "project", None) and argv[0] in ("report", "plan")
+            and "--project" not in argv):
+        argv += ["--project", args.project]
 
     payload = {
         "ok": True,
@@ -467,6 +500,9 @@ AUDIT_FAST = [
     ("skill-gate", ["scripts/check_skill_gate.py"]),
     ("dsh-sync", ["scripts/sync_dsh_skills.py", "--check"]),
     ("trae-sync", ["scripts/sync_trae_skill.py", "--check"]),
+    ("project-boundary", ["scripts/check_project_boundary.py"]),
+    ("brief-contract", ["scripts/check_brief_contract.py"]),
+    ("report-isolation", ["scripts/check_report_isolation.py"]),
     ("licenses", ["scripts/check_third_party_licenses.py"]),
 ]
 # --full 追加：报告线 / 升级线 CI 与全量单测（分钟级）。
@@ -762,7 +798,15 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("agent_args", nargs=argparse.REMAINDER, help="传给 agent.py 的参数；为空则显示 --help")
     p.set_defaults(func=cmd_call)
 
-    p = sub.add_parser("chat", help="生成某角色的知识注入 Prompt")
+    p = sub.add_parser("prompt", help="唯一提示词入口：按角色知识域组装 system prompt")
+    p.add_argument("--role", required=True, help="角色 ID")
+    p.add_argument("--intent", required=True, help="你的意图/问题")
+    p.add_argument("--domains", default=None, help="限定知识域，逗号分隔")
+    p.add_argument("--output", default=None, help="输出文件（默认打印到 stdout）")
+    p.add_argument("--vector", action="store_true", help="启用向量检索（如已配置）")
+    p.set_defaults(func=cmd_prompt)
+
+    p = sub.add_parser("chat", help="[已废弃] 同 prompt；下一版本删除")
     p.add_argument("--role", required=True, help="角色 ID")
     p.add_argument("--intent", required=True, help="你的意图/问题")
     p.add_argument("--domains", default=None, help="限定知识域，逗号分隔")
@@ -770,8 +814,18 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--vector", action="store_true", help="启用向量检索（如已配置）")
     p.set_defaults(func=cmd_chat)
 
-    p = sub.add_parser("plan", help="让 R01 把经营意图拆成任务卡")
+    p = sub.add_parser("project", help="项目资产根：init 建骨架 / show 看元数据（在团外）")
+    p.add_argument("action", choices=("init", "show"), help="init=建目录+project.yaml；show=看元数据")
+    p.add_argument("path", nargs="?", default=None,
+                   help="项目根路径（init 缺省用 GUAGUA_PROJECT 或 <repo>/projects）")
+    p.add_argument("--industry", default=None, help="行业（只写元数据，不注入事实）")
+    p.add_argument("--name", default=None, help="项目显示名")
+    p.set_defaults(func=cmd_project)
+
+    p = sub.add_parser("plan", help="让 R01 把经营意图拆成任务卡（含 expert_brief）")
     p.add_argument("intent", help="经营意图，如：停车场一年营收最大化")
+    p.add_argument("--project", default=None,
+                   help="项目资产根（默认 GUAGUA_PROJECT 或 <repo>/projects）")
     p.set_defaults(func=cmd_plan)
 
     p = sub.add_parser("dispatch", help="让 R01 执行任务卡并验收")
@@ -792,6 +846,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--role", default=None, help="单角色调用时指定角色")
     p.add_argument("--dir", default=None, help="数据项目目录（出报告时）")
     p.add_argument("--out", default=None, help="报告输出目录（出报告时）")
+    p.add_argument("--project", default=None,
+                   help="项目资产根（默认 GUAGUA_PROJECT 或 <repo>/projects）")
     p.add_argument("--report", action="store_true", help="目标是出报告")
     p.add_argument("--source", choices=("data", "cards"), default=None,
                    help="报告取数来源：data=报告层直接算；cards=收卡编译（需 --claims）")

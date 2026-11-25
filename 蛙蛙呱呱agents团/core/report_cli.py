@@ -157,8 +157,9 @@ def cmd_brief(args) -> int:
         report brief --dir <项目> --plan --confirm  确认并发卡（带 nonce）
     """
     from core import dispatch, report_dispatch
-    if getattr(args, "plan", False) or getattr(args, "dir", None):
-        base = args.dir or args.out
+    if getattr(args, "plan", False) or getattr(args, "dir", None) \
+            or getattr(args, "project", None):
+        base = args.dir or args.out or getattr(args, "project", None)
         if not base:
             print(json.dumps({"ok": False, "error": "需要 --dir <项目>"}, ensure_ascii=False))
             return 2
@@ -359,7 +360,7 @@ def cmd_collect(args) -> int:
     否则直接报错退出——过去一条 `--no-strict-quotes` 就能让 40% 未核来源
     静默过关，产物上还看不出降级。
     """
-    from core import dispatch
+    from core import dispatch, paths, project as project_mod
     verify = bool(getattr(args, "verify_quotes", True))
     strict = bool(getattr(args, "strict_quotes", True))
     allow_degraded = bool(getattr(args, "allow_degraded", False))
@@ -371,6 +372,8 @@ def cmd_collect(args) -> int:
             "requested": {"verify_quotes": verify, "strict_quotes": strict}},
             ensure_ascii=False, indent=1))
         return 2
+    paths.assert_writable(args.out, allow_runtime=True)
+    proj = project_mod.load(getattr(args, "project", None) or args.dir)
     merged, problems = dispatch.collect(
         args.dir,
         require_all=not getattr(args, "allow_partial", False),
@@ -379,7 +382,8 @@ def cmd_collect(args) -> int:
         strict_verify=strict and verify,
         intent=str(getattr(args, "intent", "") or ""),
         allow_open_needs=bool(getattr(args, "allow_open_needs", False)),
-        allow_legacy=bool(getattr(args, "allow_legacy", False)))
+        allow_legacy=bool(getattr(args, "allow_legacy", False)),
+        project=proj)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     cov = merged.get("coverage") or {}
@@ -718,6 +722,8 @@ def main(argv=None) -> int:
     rl.add_argument("--input", default=None, help="单份文档（评审型，P2 接入）")
     rl.add_argument("--research", action="store_true", help="联网采集型（P2/P3 接入）")
     rl.add_argument("--out", required=True)
+    rl.add_argument("--project", default=None,
+                    help="项目资产根（默认 GUAGUA_PROJECT 或 <repo>/projects）")
     rl.add_argument("--audience", default="业务负责人")
     rl.add_argument("--theme", choices=list(THEMES), default=DEFAULT_THEME)
     rl.add_argument("--layout", default="flow",
@@ -814,6 +820,8 @@ def main(argv=None) -> int:
     bf = sub.add_parser("brief", help="发任务卡：老路径（不拆卡）或 澄清→映射→发卡")
     bf.add_argument("--intent", default=None, help="老路径：总任务")
     bf.add_argument("--out", default=None, help="老路径：项目目录")
+    bf.add_argument("--project", default=None,
+                    help="项目资产根（默认 GUAGUA_PROJECT 或 <repo>/projects）")
     bf.add_argument("--only", default=None, help="老路径：只发给这些角色，逗号分隔")
     bf.add_argument("--dir", default=None, help="新路径：已确认 clarify.json 的项目目录")
     bf.add_argument("--plan", action="store_true",
@@ -869,6 +877,9 @@ def main(argv=None) -> int:
     cl = sub.add_parser("collect", help="收各角色 claims → 合并 → 过闸 → 出报告")
     cl.add_argument("--dir", required=True)
     cl.add_argument("--out", required=True)
+    cl.add_argument("--project", default=None,
+                    help="项目资产根（默认 GUAGUA_PROJECT 或 <repo>/projects）；"
+                         "缺省时用 --dir")
     cl.add_argument("--intent", default="", help="报告标题/意图；缺省沿用卡里的 meta")
     cl.add_argument("--pdf", action="store_true")
     cl.add_argument("--allow-partial", action="store_true",
@@ -894,6 +905,8 @@ def main(argv=None) -> int:
     rs = sub.add_parser("research", help="并行调研：发卡 → 提示词 → 并行执行 → 可选收卡")
     rs.add_argument("--intent", required=True)
     rs.add_argument("--out", required=True)
+    rs.add_argument("--project", default=None,
+                    help="项目资产根（默认 GUAGUA_PROJECT 或 <repo>/projects）")
     rs.add_argument("--only", default=None, help="只跑这些角色，逗号分隔")
     rs.add_argument("--worker-cmd", default=None,
                     help="外部执行器命令；占位符 {role}/{card_dir}/{prompt}/{claims}")
@@ -922,7 +935,27 @@ def main(argv=None) -> int:
         argv = ["run-line", "--intent", rest[0], *rest[1:]]
 
     args = ap.parse_args(argv)
-    return args.func(args)
+    # 边界守卫：写盘命令的目标目录不能指向专家团；允许写运行临时根（兼容旧路径），
+    # 但项目资产应写到 --project 指向的项目根。
+    from core import paths
+    if getattr(args.func, "__name__", "") in {
+            "cmd_run_line", "cmd_brief", "cmd_collect", "cmd_research",
+            "cmd_plan_report", "cmd_clarify", "cmd_intake", "cmd_flow"}:
+        targets = [t for t in (getattr(args, "out", None),
+                               getattr(args, "project", None)) if t]
+        for t in targets:
+            try:
+                paths.assert_writable(t, allow_runtime=True)
+            except paths.BoundaryError as exc:
+                print(f"[report] {exc}", file=sys.stderr)
+                return 2
+    try:
+        return args.func(args)
+    except ValueError as exc:
+        if isinstance(exc, paths.BoundaryError):
+            print(f"[report] {exc}", file=sys.stderr)
+            return 2
+        raise
 
 
 if __name__ == "__main__":

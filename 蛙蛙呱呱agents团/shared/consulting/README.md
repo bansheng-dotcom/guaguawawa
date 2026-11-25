@@ -28,7 +28,7 @@ scripts/
   consult_audit.py  咨询深度探针
 tests/
   test_consulting_workbook.py   8 阶段 happy path + 门禁拒绝
-projects/consulting/<ID>/workbook.md   项目工作簿落盘（客户数据不进 git）
+../projects/consulting/<ID>/workbook.md   项目工作簿落盘（团外；客户数据不进 git）
 ```
 
 ## 常用命令
@@ -48,5 +48,5 @@ python -m pytest tests/test_consulting_workbook.py -q
 
 - 门禁是**硬**的：`checks.py` 不通过时 `advance` 必须失败，不允许"人工跳过"。
 - 阶段 7 的建议必须 ≥3 个选项；只给一个方案等于替老板拍板。
-- 工作簿含客户信息：`projects/consulting/` 默认不进 git（`.gitignore` 已覆盖）。
+- 工作簿含客户信息：`../projects/consulting/` 默认不进 git（`.gitignore` 已覆盖）。
 - 8 阶段走完不代表答案深：以 `evals/consulting/` 的 20 题评分为准，分数不涨就砍阶段。

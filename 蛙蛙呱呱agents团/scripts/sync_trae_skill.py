@@ -49,6 +49,12 @@ EXCLUDE_DIRS = {
 }
 EXCLUDE_DIR_PATHS = {
     os.path.join("projects", "pet-beijing"),
+    # 管线测试产物（.gitignore 已排除，每次跑测试都会重写）
+    os.path.join("pipelines", "out"),
+}
+EXCLUDE_FILES = {
+    # 规范化测试会重写这个夹具，内容随时间变化，不属于技能本体
+    os.path.join("tests", "fixtures", "_norm_tmp.json"),
 }
 EXCLUDE_SUFFIXES = (".pyc", ".pyo")
 
@@ -70,6 +76,8 @@ def excluded(rel: str) -> bool:
     if parts and parts[-1] in EXCLUDE_DIRS:
         return True
     if rel in EXCLUDE_DIR_PATHS or any(rel.startswith(p + os.sep) for p in EXCLUDE_DIR_PATHS):
+        return True
+    if rel in EXCLUDE_FILES:
         return True
     return rel.lower().endswith(EXCLUDE_SUFFIXES)
 

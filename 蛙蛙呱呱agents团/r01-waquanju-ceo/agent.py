@@ -107,14 +107,25 @@ def route(intent: str) -> List[str]:
     return [rid for _, rid in hits]
 
 
-def _acceptance_for(role_id: str) -> List[str]:
-    return {
-        "r06": [
-            "产物目录存在 analysis_report.md",
-            "趋势 JSON 的 total 数值可复算",
-            "数据清洗后无整行重复",
-        ],
-    }.get(role_id, [f"{registry.by_id(role_id)['name']} 交付物可按端口验收"])
+def _attach_brief(task: protocol.Task, project: str | None = None) -> None:
+    """v2：给任务卡挂 expert_brief。验收只由 brief 派生，卡里不再写明细。"""
+    from core import card_bundle, project as project_mod
+    if project:
+        proj = project_mod.load(project)
+        proj.ensure_dirs()
+        card_dir = str(proj.path("cards", task.owner))
+    else:
+        card_dir = os.path.join(WORKSPACE_ROOT, "cards", task.owner)
+    res = card_bundle.issue(card_dir, task.owner, task.task_id, task.intent,
+                            root=project)
+    env = res["bundle"]["card"]
+    task.brief_ref = env["brief_ref"]
+    task.brief_version = env["brief_version"]
+    task.knowledge_scope = env.get("knowledge_scope") or {}
+    task.acceptance = []          # 遗留字段清空：验收只在 brief.acceptance_checks
+    if res.get("problems"):
+        # 不静默：问题写进任务日志，status 仍由执行结果决定
+        task.logs.append("brief: " + "；".join(res["problems"]))
 
 
 # TEAM.md「营收最大化」四段链的场景编排。
@@ -144,10 +155,10 @@ def _scenario_stages(intent: str):
     return []
 
 
-def _make_tasks(intent: str) -> List[protocol.Task]:
+def _make_tasks(intent: str, project: str | None = None) -> List[protocol.Task]:
     stages = _scenario_stages(intent)
     if stages:
-        return _scenario_tasks(stages)
+        return _scenario_tasks(stages, project)
 
     role_ids = route(intent)
     if not role_ids:
@@ -160,7 +171,6 @@ def _make_tasks(intent: str) -> List[protocol.Task]:
             title=f"{r['name']}｜{intent[:24]}",
             owner=rid,
             intent=intent,
-            acceptance=_acceptance_for(rid),
         )
         if prev_id:
             t.deps = [prev_id]
@@ -174,12 +184,13 @@ def _make_tasks(intent: str) -> List[protocol.Task]:
                                        note="趋势 + 漏斗 + 报告")]
         else:
             t.outputs = [protocol.Port(o, "artifact") for o in r["outputs"]]
+        _attach_brief(t, project)
         tasks.append(t)
         prev_id = t.task_id
     return tasks
 
 
-def _scenario_tasks(stages) -> List[protocol.Task]:
+def _scenario_tasks(stages, project: str | None = None) -> List[protocol.Task]:
     tasks: List[protocol.Task] = []
     prev_id: str | None = None
     for rid, stage_intent, fixture in stages:
@@ -188,7 +199,6 @@ def _scenario_tasks(stages) -> List[protocol.Task]:
             title=f"{r['name']}｜{stage_intent}",
             owner=rid,
             intent=stage_intent,
-            acceptance=_acceptance_for(rid),
         )
         if prev_id:
             t.deps = [prev_id]
@@ -205,6 +215,7 @@ def _scenario_tasks(stages) -> List[protocol.Task]:
                 if os.path.exists(path):
                     t.inputs = [protocol.Port(path, "data")]
             t.outputs = [protocol.Port(o, "artifact") for o in r["outputs"]]
+        _attach_brief(t, project)
         tasks.append(t)
         prev_id = t.task_id
     return tasks
@@ -218,7 +229,9 @@ def verify_task(task: protocol.Task) -> bool:
     ok = any(os.path.exists(os.path.join(out_dir, p.name))
              for p in task.outputs)
     ws.emit(protocol.Event.now(ROLE, "verify", task.task_id,
-                               {"passed": ok, "criteria": task.acceptance}))
+                               {"passed": ok,
+                                "brief_ref": task.brief_ref,
+                                "brief_version": task.brief_version}))
     return ok
 
 
@@ -528,6 +541,8 @@ def build_parser() -> argparse.ArgumentParser:
     # 编排器命令
     pl = sp.add_parser("plan", help="把意图拆成公司级任务卡")
     pl.add_argument("--intent", required=True)
+    pl.add_argument("--project", default=None,
+                    help="项目资产根（默认 GUAGUA_PROJECT 或 <repo>/projects）")
     sp.add_parser("status", help="查看工作区任务状态")
 
     _register_harness(sp)
@@ -804,13 +819,25 @@ def main() -> int:
             print(prompt)
         return 0
     if args.skill == "plan":
-        tasks = _make_tasks(args.intent)
+        project_arg = getattr(args, "project", None)
+        tasks = _make_tasks(args.intent, project_arg)
         if not tasks:
             emit_result({"planned": 0, "note": "未匹配到角色，请提供更具体意图"})
             return 0
-        ids = [ws.create_task(t) for t in tasks]
-        emit_result({"planned": len(ids), "task_ids": ids,
-                     "owners": [t.owner for t in tasks]})
+        plan_ws = ws
+        if project_arg:
+            from core import project as project_mod
+            plan_ws = workspace.Workspace(WORKSPACE_ROOT,
+                                          project=project_mod.load(project_arg))
+        ids = [plan_ws.create_task(t) for t in tasks]
+        out = {"planned": len(ids), "task_ids": ids,
+               "owners": [t.owner for t in tasks],
+               "brief_refs": {t.owner: t.brief_ref for t in tasks}}
+        if not project_arg:
+            out["migration_note"] = (
+                "未指定 --project：卡与 brief 暂存运行根，下个版本将强制项目根。"
+                "建议改用 `--project ../projects/<slug>`")
+        emit_result(out)
         return 0
     if args.skill == "status":
         status()

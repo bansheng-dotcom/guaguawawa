@@ -3,13 +3,17 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 from . import checks
 from .stages import STAGES, STAGE_BY_ID, next_stage
 
 ROOT = Path(__file__).resolve().parents[2]
-PROJECTS = ROOT / "projects" / "consulting"
+# 咨询工作簿含客户数据，必须落在专家团之外（与 core/paths.py 同一约定）。
+_PROJECTS_ROOT = Path(os.environ.get("GUAGUA_PROJECTS")
+                      or (ROOT.parent / "projects")).expanduser().resolve()
+PROJECTS = _PROJECTS_ROOT / "consulting"
 
 
 class WorkbookError(RuntimeError):

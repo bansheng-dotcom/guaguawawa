@@ -10,14 +10,20 @@ from __future__ import annotations
 
 import json
 import shutil
+import tempfile
 from pathlib import Path
 
 from core import dispatch, roster
 
-TMP = Path("workspace/_test_dispatch")
+# 项目产物必须写在团外（core/paths.py 的边界守卫），测试也不例外
+TMP = Path(tempfile.mkdtemp(prefix="guagua-test-dispatch-"))
 
 
 def setup_module(module):
+    shutil.rmtree(TMP, ignore_errors=True)
+
+
+def teardown_module(module):
     shutil.rmtree(TMP, ignore_errors=True)
 
 

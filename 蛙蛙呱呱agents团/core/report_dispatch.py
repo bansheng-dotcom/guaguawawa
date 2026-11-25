@@ -507,6 +507,19 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
                   "- `questions` 必须和上面分配的一致", "",
                   _TASK_TAIL]
         (d / "TASK.md").write_text("\n".join(lines), encoding="utf-8")
+        # v2：卡 + expert_brief 一起下发。卡是信封（owner/deps/inputs/outputs/
+        # non_goals），brief 是内容（must_answer/standards/acceptance_checks）。
+        # 验收只由 brief 派生；卡里不再出现 acceptance 明细。
+        brief_issue = ""
+        try:
+            from core import card_bundle
+            task_id = str(ct.get("task_id") or f"{root.name}-{rid}")
+            res_b = card_bundle.issue(
+                d, rid, task_id, str(plan.get("intent") or ""),
+                root=root, non_goals=card.get("must_not") or [])
+            brief_issue = "；".join(res_b.get("problems") or [])
+        except Exception as exc:  # noqa: BLE001 brief 失败要可追溯，不能静默
+            brief_issue = f"bundle 生成失败：{exc}"
         (d / "needs.json").write_text(json.dumps(
             {"needs": [{"id": "N1", "to": "", "what": "", "why": "",
                        "status": "open"}]}, ensure_ascii=False, indent=2),
@@ -557,7 +570,8 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
         issued[rid] = {"nonce": nonce, "sig": sig, "questions": qids,
                        "name": card.get("name"),
                        "contract": ct.get("task_id"),
-                       "cells": len(my_cells)}
+                       "cells": len(my_cells),
+                       "brief_issue": brief_issue}
 
     cov = root / "coverage"
     cov.mkdir(parents=True, exist_ok=True)
@@ -573,6 +587,8 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
             "failed": [x for x in (gate.get("checks") or []) if not x.get("ok")],
         },
         "cards": issued,
+        "brief_issues": {k: v["brief_issue"] for k, v in issued.items()
+                         if v.get("brief_issue")},
     }
     (cov / "issued.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2),
                                      encoding="utf-8")

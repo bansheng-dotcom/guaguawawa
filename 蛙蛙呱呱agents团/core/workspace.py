@@ -86,6 +86,7 @@ def _atomic_json(path: str, value: Any) -> None:
 
 
 from . import protocol
+from . import paths as _paths
 def _append_utf8(path: str, text: str) -> None:
     """Append one UTF-8 record and flush it durably as one write operation."""
     fd = os.open(path, os.O_APPEND | os.O_CREAT | os.O_WRONLY)
@@ -98,13 +99,25 @@ def _append_utf8(path: str, text: str) -> None:
 
 
 class Workspace:
-    def __init__(self, root: str = None):
+    def __init__(self, root: str = None, project=None):
         # 统一归一化：仓库内的 <team>/workspace 与 <role>/workspace 都会被重定向
         # 到仓库外的产物根（见 normalize_root），历史调用方无需改代码。
         self.root = normalize_root(root)
+        # 写团内一律拒绝；events/lock 属运行临时物，允许写产物根。
+        _paths.assert_writable(self.root, allow_runtime=True)
+
+        # 给项目时，任务账本与产物落项目内（可归档、可迁移）；
+        # 事件流仍留运行临时根，避免把运行噪声混进项目资产。
+        self.project_root = (
+            str(getattr(project, "root", project)) if project is not None else None)
+        tasks_base = (os.path.join(self.project_root, "runs", "tasks")
+                      if self.project_root else os.path.join(self.root, "tasks"))
+        artifacts_base = (os.path.join(self.project_root, "artifacts")
+                          if self.project_root else os.path.join(self.root, "artifacts"))
+
         self.events_path = os.path.join(self.root, "events.jsonl")
-        self.tasks_dir = os.path.join(self.root, "tasks")
-        self.artifacts_dir = os.path.join(self.root, "artifacts")
+        self.tasks_dir = tasks_base
+        self.artifacts_dir = artifacts_base
         for d in (self.tasks_dir, self.artifacts_dir):
             os.makedirs(d, exist_ok=True)
 

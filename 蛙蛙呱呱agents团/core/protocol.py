@@ -70,10 +70,17 @@ class Task:
     intent: str = ""              # 原始意图的一小段
     inputs: List[Port] = field(default_factory=list)     # 上游交付物
     outputs: List[Port] = field(default_factory=list)    # 本任务交付
-    acceptance: List[str] = field(default_factory=list)  # 验收判据（可用脚本测）
+    #: 遗留字段：v2 起验收只由 expert_brief 派生，卡里不再写明细。
+    #: 保留字段是为了让老任务卡能被读取；新卡写入时恒为空列表。
+    acceptance: List[str] = field(default_factory=list)
     deps: List[str] = field(default_factory=list)        # 依赖的 task_id
     status: str = "pending"       # pending|assigned|running|done|failed
     logs: List[str] = field(default_factory=list)
+    #: v2：卡是信封，brief 是内容。这里只存引用与版本，不存验收明细。
+    brief_ref: str = ""                                  # 项目内相对路径
+    brief_version: str = ""                              # 如 v2
+    #: 本次任务读到的项目知识范围（project_root / snapshot / industry）
+    knowledge_scope: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         d = asdict(self)

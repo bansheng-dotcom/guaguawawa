@@ -89,6 +89,18 @@ python guagua.py report run-line --intent "你的问题" --dir <项目> --out <�
 
 判定结果落在 `<out>/input_mode.json`，供编排器读。
 
+### 项目根与 brief（2026-11-25 起）
+
+- `--project` 指定**项目资产根**（默认 `GUAGUA_PROJECT` 或 `<仓库根>/projects`）；
+  `--out`/`--dir` 只是项目内的子目录。写团内会被 `core/paths.py` 拒绝。
+- 拆卡时每张卡都带 `expert_brief`（v2 七层：决策语境 / 定义口径 / 结构分解 /
+  机制归因 / 判断情景 / 行动可逆 / 反证不确定），与卡合成 `CardBundle`：
+  卡是信封，brief 是内容。
+- **验收只由 brief 派生**：`report collect` 会校验 bundle 的
+  `brief_version` 与 `acceptance_checks`；卡里出现 acceptance 明细即拒收。
+- 报告层（`core/report_*.py`）不得 import 知识库或读 brief；
+  由 `scripts/check_report_isolation.py` 守卫。
+
 ## 二、七段（S0–S7）
 
 ```
