@@ -56,11 +56,22 @@ def load(spec_id: str, extra_dirs: Optional[List[str]] = None) -> Dict[str, Any]
 
 
 def validate(spec: Dict[str, Any],
-             source: Optional[Dict[str, Any]] = None) -> List[str]:
-    """采集规格校验；空 = 合法。"""
+             source: Optional[Dict[str, Any]] = None,
+             mode: Optional[str] = None) -> List[str]:
+    """采集规格校验；空 = 合法。
+
+    P2-6：规格分两种——
+      raw     只要「能采成一张规范表」，不要求 rollups / claims（C-6）
+      metric  要进判断，必须声明 rollups + claims
+    未显式给 mode 时：有 claims 视为 metric，否则视为 raw。
+    """
     errs: List[str] = []
     if not isinstance(spec, dict):
         return ["采集规格必须是 dict"]
+    kind = str(mode or spec.get("mode") or
+               ("metric" if spec.get("claims") else "raw"))
+    if kind not in ("raw", "metric"):
+        errs.append("mode 只能是 raw / metric")
     if spec.get("schema") != SCHEMA:
         errs.append("schema 必须是 %s" % SCHEMA)
     if not spec.get("id"):
@@ -76,7 +87,7 @@ def validate(spec: Dict[str, Any],
         errs.append("缺 query（怎么采）")
 
     rollups = spec.get("rollups") or []
-    if not rollups:
+    if kind == "metric" and not rollups:
         errs.append("没有 rollup（原子粒度怎么滚到分析粒度）")
     by_id: Dict[str, Dict[str, Any]] = {}
     for r in rollups:
@@ -90,6 +101,8 @@ def validate(spec: Dict[str, Any],
         for e in g.check(src, r):
             errs.append("[rollup %s] %s" % (rid, e))
 
+    if kind != "metric":
+        return errs
     claims = spec.get("claims") or []
     if not claims:
         errs.append("没有 claim（判断引用哪张 mart）")
@@ -106,6 +119,15 @@ def validate(spec: Dict[str, Any],
     return errs
 
 
+def _guard(spec: Dict[str, Any], source: Optional[Dict[str, Any]],
+           stage: str) -> Optional[Dict[str, Any]]:
+    """P1-5：三个入口先过校验，坏 spec 不许跑到取数中途才报错。"""
+    errs = validate(spec, source=source)
+    if errs:
+        return {"ok": False, "stage": stage, "errors": errs, "why": errs[0]}
+    return None
+
+
 def preview(spec: Dict[str, Any], n: int = 20,
             project_dir: str = "",
             source: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -119,6 +141,9 @@ def preview(spec: Dict[str, Any], n: int = 20,
 
     src = (source if source is not None
            else _sp.load(str(spec.get("source") or "")))
+    bad = _guard(spec, src, "validate")
+    if bad:
+        return bad
     # 先按 source id 找专用采集器（如 openfoodfacts），再退回按 kind 找通用采集器
     col = (_c.base.get(str(src.get("id") or ""))
            or _c.base.get(str(src.get("kind") or ""))) if src else None
@@ -156,6 +181,9 @@ def quality(spec: Dict[str, Any], project_dir: str = "",
 
     src = (source if source is not None
            else _sp.load(str(spec.get("source") or "")))
+    bad_res = _guard(spec, src, "validate")
+    if bad_res:
+        return bad_res
     # 先按 source id 找专用采集器（如 openfoodfacts），再退回按 kind 找通用采集器
     col = (_c.base.get(str(src.get("id") or ""))
            or _c.base.get(str(src.get("kind") or ""))) if src else None
@@ -192,11 +220,19 @@ def quality(spec: Dict[str, Any], project_dir: str = "",
             "staging_rows": len(staging)}
 
 
-def run(spec: Dict[str, Any], project_dir: str = "") -> Dict[str, Any]:
-    """执行采集链：collector → staging → rollup → mart。"""
+def run(spec: Dict[str, Any], project_dir: str = "",
+        persist: bool = False) -> Dict[str, Any]:
+    """执行采集链：collector → staging → rollup → mart。
+
+    P3-1：`persist=True` 时把 staging 与 dq 报告落到
+    `<项目>/data/staging/<source>/<batch>/`（可审计：采了多少、丢了哪些）。
+    """
     from core import collectors as _c
 
     src = sp.load(str(spec.get("source") or ""))
+    bad_res = _guard(spec, src, "validate")
+    if bad_res:
+        return bad_res
     # 先按 source id 找专用采集器（如 openfoodfacts），再退回按 kind 找通用采集器
     col = (_c.base.get(str(src.get("id") or ""))
            or _c.base.get(str(src.get("kind") or ""))) if src else None
@@ -212,7 +248,7 @@ def run(spec: Dict[str, Any], project_dir: str = "") -> Dict[str, Any]:
     marts: Dict[str, List[Dict[str, Any]]] = {}
     for r in spec.get("rollups") or []:
         marts[str(r.get("id"))] = g.rollup_rows(staging, r)
-    return {
+    out: Dict[str, Any] = {
         "ok": True,
         "source": src.get("id"),
         "atomic_grain": g.atomic_of(src),
@@ -221,3 +257,18 @@ def run(spec: Dict[str, Any], project_dir: str = "") -> Dict[str, Any]:
                   for k, v in marts.items()},
         "mart_rows": marts,
     }
+    if persist and project_dir:
+        from core import paths as _paths
+        from core.ingest import store as _store
+        dq = _store.dq_report(staging, rows_in=len(staging))
+        try:
+            st = _store.write_staging(project_dir, str(src.get("id") or "source"),
+                                      staging, dq=dq)
+            out["staging"] = st["dir"]
+            out["dq_path"] = st["dq"]
+            out["dq"] = dq
+        except _paths.BoundaryError as exc:
+            out["ok"] = False
+            out["stage"] = "store"
+            out["error"] = str(exc)
+    return out

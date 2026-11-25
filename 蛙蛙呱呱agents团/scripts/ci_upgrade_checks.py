@@ -39,7 +39,11 @@ def main() -> int:
         tail = out.strip().splitlines()[-1] if out.strip() else ""
         print(f"[{'OK' if rc == 0 else 'FAIL'}] {n:<8} {tail[:90]}")
         results.append({"name": n, "rc": rc, "tail": tail})
-    out = ROOT / "workspace" / "ci_upgrade_report.json"
+    try:
+        from core import paths as _paths
+        out = _paths.runtime_root() / "ci_upgrade_report.json"
+    except Exception:  # noqa: BLE001
+        out = Path(ROOT).parent / "workspace" / "ci_upgrade_report.json"
     out.parent.mkdir(exist_ok=True)
     out.write_text(json.dumps(results, ensure_ascii=False, indent=1), encoding="utf-8")
     bad = [r for r in results if r["rc"] != 0]

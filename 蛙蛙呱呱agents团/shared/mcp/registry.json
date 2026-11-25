@@ -79,7 +79,7 @@
       "scopes": ["read"],
       "data_class": "public",
       "fallback": "里程估算 + 运价区间假设（C 级）",
-      "candidates": ["高德/百度地图", "满帮/货车帮", "冷链运价指数"]
+      "candidates": ["高德/百度地图", "满帮/货车帮", "运价指数"]
     },
     "internal-db": {
       "label": "内部业务库（订单/库存/客户）",

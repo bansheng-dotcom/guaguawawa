@@ -34,7 +34,7 @@ CAUSAL_LEVELS = ("A", "I", "C")
 
 DEFAULT_PERSPECTIVES = [
     ("P1", "消费者", "买什么、为什么换、多久复购"),
-    ("P2", "门店", "陈列、动销、缺货、导购"),
+    ("P2", "终端", "陈列、动销、缺货、导购"),
     ("P3", "经销商", "账期、库存周转、退换货、返利"),
     ("P4", "竞品", "价格动作、上新节奏、投放"),
     ("P5", "监管", "备案、功效宣称、特殊化妆品"),
@@ -121,59 +121,79 @@ def _minutes(s: str) -> int:
 # --------------------------------------------------------------------------- #
 # 语义层（通用 + 案例）
 # --------------------------------------------------------------------------- #
-def _generate_case(pack: Dict[str, Any]) -> Dict[str, Any]:
-    units = {str(n.get("unit")) for n in pack.get("numbers") or []}
-    measures = [{"id": "retail_sales", "type": "simple", "agg": "sum", "expr": "retail_sales",
-                 "unit": "亿元", "grain": "G_region_month",
-                 "caliber": {"scope": "限额以上"}}]
-    if "%" in units:
-        measures += [
-            {"id": "yoy", "type": "ratio", "numerator": "retail_sales",
-             "denominator": "retail_sales@t-1", "unit": "%", "grain": "G_region_month"},
-            {"id": "share", "type": "ratio", "numerator": "retail_sales",
-             "denominator": "retail_sales@total", "unit": "%",
-             "grain": "G_brand_channel_year", "non_additive_dimension": ["year"]},
-        ]
+def neutral_semantics(pack: Dict[str, Any]) -> Dict[str, Any]:
+    """中性语义层模板：只从证据包的度量名/单位生成**占位**，不含任何行业口径。
+
+    2026-11-25（方案 P1-3）：旧实现在这里写死了一套行业专属口径
+    （固定度量 id / 统计范围 / 行政区划层级），任何缺语义层的项目都会继承它——
+    「上一个项目漂到下一个」的源头（D-1/D-2）。现在只给结构占位：
+    真实实体 / grain / 度量 / 边界必须由项目在 semantic_layer.yaml 里声明，
+    否则 S5 门禁拒绝发卡。
+    """
+    from core import data_model as _dm
+
+    measures: List[Dict[str, Any]] = []
+    seen = set()
+    for n in pack.get("numbers") or []:
+        name = str(n.get("name") or "").strip()
+        unit = str(n.get("unit") or "").strip()
+        if not name:
+            continue
+        base, _scale, _verified = _dm.normalize_unit(unit)
+        key = (name, base or unit)
+        if key in seen:
+            continue
+        seen.add(key)
+        measures.append({
+            "id": "m%d" % (len(measures) + 1), "type": "simple", "agg": "sum",
+            "expr": "m%d" % (len(measures) + 1), "name": name,
+            "unit": unit or "unknown", "grain": "G_entity_period",
+        })
+        if len(measures) >= 8:
+            break
+    if not measures:
+        measures = [{"id": "m1", "type": "simple", "agg": "sum", "expr": "m1",
+                     "unit": "unknown", "grain": "G_entity_period"}]
     return {
         "schema": "dsh.semantic/v3", "generated": True,
+        "note": ("自动生成的中性模板：只含度量占位，不含行业口径。"
+                 "请在 semantic_layer.yaml 按本题补齐 entities/grain/measures/boundaries"),
         "entities": [
-            {"id": "region", "type": "spatial", "levels": ["全国", "省", "盟市", "旗县"]},
+            {"id": "entity", "type": "party"},
             {"id": "category", "type": "hierarchy", "levels": ["大类", "子类"]},
-            {"id": "brand", "type": "party"},
-            {"id": "channel", "type": "structural"},
             {"id": "period", "type": "time", "grain": "year"},
         ],
         "grain_declarations": [
-            {"id": "G_region_month", "dims": ["region", "category", "month"]},
-            {"id": "G_brand_channel_year", "dims": ["brand", "category", "channel", "year"]},
+            {"id": "G_entity_period", "dims": ["entity", "period"]},
+            {"id": "G_category_period", "dims": ["category", "period"]},
         ],
         "measures": measures,
-        "boundaries": [
-            {"id": "B1", "text": "限额以上不含个体工商户", "affects": ["retail_sales"]},
-            {"id": "B2", "text": "平台口径不可与统计公报相加", "affects": ["retail_sales", "share"]},
-        ],
+        "boundaries": [],
         "fingerprint": {"key": ["measure_id", "entity_scope", "period"]},
     }
 
 
 def load_semantics(project: Path, pack: Dict[str, Any]) -> Dict[str, Any]:
+    """读项目语义层；缺失时返回中性模板，**不写盘**（P1-3）。
+
+    返回里 `missing=True` 表示项目没有 semantic_layer.yaml，
+    `generated=True` 表示用的是模板——两者都会让 S5 门禁拒绝发卡。
+    """
     generic = _load_yaml(ROOT / "交付" / "generic_semantics_v1.yaml", {}) or {}
     case_path = project / "semantic_layer.yaml"
     case = _load_yaml(case_path)
-    generated = False
-    if not case:
-        case = _generate_case(pack)
-        generated = True
-        if yaml is not None:
-            case_path.write_text(yaml.safe_dump(case, allow_unicode=True, sort_keys=False),
-                                 encoding="utf-8")
+    missing = not case
+    if missing:
+        case = neutral_semantics(pack)
     elif case.get("generated"):
         # 兼容旧版自动生成的案例层：simple 补 expr
         for m in case.get("measures") or []:
             if m.get("type") == "simple" and not m.get("expr"):
                 m["expr"] = m.get("id")
-    return {"generic": generic, "case": case, "generated": generated,
-            "source": str(case_path) if not generated else None}
+    return {"generic": generic, "case": case,
+            "generated": bool(case.get("generated")),
+            "missing": missing,
+            "source": str(case_path) if not missing else None}
 
 
 def validate_semantic(sem: Dict[str, Any]) -> List[str]:
@@ -181,8 +201,15 @@ def validate_semantic(sem: Dict[str, Any]) -> List[str]:
     generic = sem.get("generic") or {}
     case = sem.get("case") or {}
     types = generic.get("metric_types") or {}
+    if not case:
+        return ["缺案例语义层（entities/grain_declarations/measures/boundaries）"]
     entities = {e.get("id") for e in case.get("entities") or []}
     grains = {g.get("id") for g in case.get("grain_declarations") or []}
+    # P1-4：真实语义层四段必填，缺一段就不发卡（generated 模板不算真实层）
+    if not case.get("generated"):
+        for sec in ("entities", "grain_declarations", "measures", "boundaries"):
+            if not (case.get(sec) or []):
+                errs.append(f"语义层缺 {sec}（四段必填）")
     if case.get("forbidden"):
         errs.append("案例层不得改写通用 forbidden")
     for m in case.get("measures") or []:
@@ -247,11 +274,29 @@ def _intent(text: str) -> str:
 
 
 def _measure_for(intent: str, sem: Dict[str, Any]) -> str:
-    have = {m["id"] for m in (sem.get("case") or {}).get("measures") or []}
-    pref = {"ranking": "share", "composition": "share", "deviation": "yoy",
-            "change": "retail_sales", "magnitude": "retail_sales"}
-    m = pref.get(intent, "retail_sales")
-    return m if m in have else (next(iter(have)) if have else "retail_sales")
+    """意图 → 语义层里已注册的度量；只按类型/名称匹配，不写死具体业务口径。
+
+    2026-11-25（P1-3）：旧实现写死 share / yoy / retail_sales 三个 id，
+    换一条业务线就退回某条历史口径。现在只按「比率 / 同比 / 简单度量」选，
+    选不到就用第一个已注册度量。
+    """
+    ms = (sem.get("case") or {}).get("measures") or []
+    if not ms:
+        return ""
+    ids = [str(m.get("id")) for m in ms]
+
+    def pick(pred) -> str:
+        for m in ms:
+            if pred(m):
+                return str(m.get("id"))
+        return ids[0]
+
+    if intent in ("ranking", "composition"):
+        return pick(lambda m: str(m.get("type")) == "ratio"
+                    and str(m.get("unit")) == "%")
+    if intent == "deviation":
+        return pick(lambda m: "同比" in str(m.get("name") or ""))
+    return pick(lambda m: str(m.get("type")) == "simple")
 
 
 def _brands(pack: Dict[str, Any], limit: int = 5) -> List[str]:
@@ -321,7 +366,7 @@ def _entity_measure(entity: str, measures: Dict[str, Dict[str, Any]],
                     channel_levels: Optional[set] = None) -> str:
     """实体 → 度量：只返回语义层已注册的度量，绝不返回未注册 id。
 
-    2026-11-21：删掉写死的实体→度量表（原表把某历史项目的品牌、品类、门店、会员
+    2026-11-21：删掉写死的实体→度量表（原表把某历史项目的品牌、品类、终端、会员
     钉在里面）。改为按实体语义与已注册度量匹配；匹不上就退回 base。
     """
     def has(mid: str) -> bool:
@@ -449,6 +494,33 @@ def build_grid(clarify: Dict[str, Any], sem: Dict[str, Any],
             "dims": list(DIMS)}
 
 
+def semantic_fingerprint(sem: Dict[str, Any]) -> str:
+    """语义层指纹：只有语义层变了才重建格子（P1-2 · B3）。"""
+    return _sha({"case": (sem or {}).get("case") or {}})
+
+
+def merge_grid(old: Dict[str, Any], new: Dict[str, Any]) -> Dict[str, Any]:
+    """合并网格：保留探测/执行留下的状态，不把 collectable 覆盖回空。
+
+    两段式跑同一个 `build_grid` 时，第二段会把第一段的探测结论冲掉。
+    这里按 cell_id 把状态字段搬回新网格；语义层指纹不变就用这份合并结果。
+    """
+    keep = ("collectable", "availability", "tried", "why", "status",
+            "owner", "filled_value", "filled_refs")
+    by_id = {str(c.get("cell_id")): c for c in (old or {}).get("cells") or []}
+    merged = 0
+    for c in new.get("cells") or []:
+        o = by_id.get(str(c.get("cell_id") or ""))
+        if not o:
+            continue
+        for k in keep:
+            if k in o:
+                c[k] = o[k]
+                merged += 1
+    new["merged_fields"] = merged
+    return new
+
+
 def validate_grid(grid: Dict[str, Any], sem: Dict[str, Any]) -> List[str]:
     """网格契约校验（G-SEM-1/2）：度量必须在册，grain 必须与度量声明一致。
 
@@ -521,8 +593,8 @@ def branch_log(clarify: Dict[str, Any], cells: List[Dict[str, Any]],
     for q in [a for a in clarify.get("asks") or [] if a.get("must")]:
         qc = [c for c in cells if c["qid"] == q["id"]]
         branches = [
-            ("空间下钻到旗县", "缺旗县级公开数据，边际价值中"),
-            ("渠道拆到门店级", "需一手 POS，成本高，先不做"),
+            ("空间下钻到更细层级", "缺更细层级公开数据，边际价值中"),
+            ("渠道拆到明细层", "需一手交易明细，成本高，先不做"),
             ("机制深挖到复购", "现有数据只有铺货，复购无证据，降级为假设"),
         ]
         for b, why in branches:

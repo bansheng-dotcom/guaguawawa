@@ -18,11 +18,22 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FIXTURES = os.path.join(ROOT, "tests", "prompt_regressions", "fixtures.json")
-FIXTURE_DIR = os.path.join(ROOT, "tests", "prompt_regressions", "roles")
-OUT_DIR = os.path.join(ROOT, "workspace", "baseline")
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
+FIXTURES = os.path.join(ROOT, "tests", "prompt_regressions", "fixtures.json")
+FIXTURE_DIR = os.path.join(ROOT, "tests", "prompt_regressions", "roles")
+
+
+def _runtime_ws() -> str:
+    """回归产物落 RUNTIME_ROOT，不写团内（边界门禁会拦）。"""
+    try:
+        from core import paths
+        return str(paths.runtime_root())
+    except Exception:  # noqa: BLE001
+        return os.path.join(os.path.dirname(ROOT), "workspace")
+
+
+OUT_DIR = os.path.join(_runtime_ws(), "baseline")
 
 
 def load_fixtures() -> dict:

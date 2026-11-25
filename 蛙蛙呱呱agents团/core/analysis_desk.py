@@ -5,7 +5,7 @@
 
 - `evidence_pack` 只把 CSV 压成 last/max/min/mean 四条，**丢掉了行内结构**
   （哪个品类、哪一周、哪个市场），所以只能写"均值 7.45%"，写不出
-  "白条鸡加价 40.8%、牛肉只有 3.6%"这种判断；
+  "甲品类加价 40.8%、乙品类只有 3.6%"这种判断；
 - 旧 `report_produce`（已删除）把「哪张表、哪一列」写死在 profile 里，换个项目就跑不动，
   这是"模板化"的根源；
 - 旧 `deep_analysis` 会算趋势/贡献，但只看一列数值，不认价格、单位、市场。
@@ -18,8 +18,8 @@
                  派生量（净毛利、价差、保本线）用公式挂到原始 id 上，可复算；
 3. `profile()`  给纲领层用的数据画像：有没有零售价、批发价、产地价、多市场。
 
-单位统一走 `per_jin()`：元/公斤 ÷2、元/500克 原值、元/斤 原值。
-价格类数据只有落到同一口径才能比，这一步不做，后面全是错的。
+单位换算走 `per_jin()`：换算规则来自项目 `method_params.yaml`（`unit_scales` /
+`price_unit`），缺参数则原样返回（不做任何业务线默认归一）。
 """
 from __future__ import annotations
 
@@ -31,6 +31,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from core import evidence_pack
+from core import method_params
 
 SKIP_DIRS = {"raw", "screens", "out", "node_modules", ".git", "_archive",
              "__pycache__", ".chrome", "gates"}
@@ -44,8 +45,8 @@ UNIT_HINTS = ("单位", "unit")
 # 价格来源（决定能不能做价差/传导）：零售 / 批发 / 产地出场
 CHANNEL_HINTS = (
     ("retail", ("零售", "采价", "零售价", "门店价", "商超")),
-    ("wholesale", ("批发", "市场报价", "东瓦窑", "友谊")),
-    ("origin", ("产地", "出场", "装车", "育肥", "活牛", "羔羊", "绒山羊", "肥牛", "下架鸡")),
+    ("wholesale", ("批发", "市场报价", "批发市场")),
+    ("origin", ("产地", "出场", "装车", "收购")),
     ("futures", ("期货", "symbol", "close")),
 )
 
@@ -94,11 +95,16 @@ def _norm_time(x: str) -> str:
 
 
 def _unit_scale(unit: str) -> Tuple[float, str]:
+    """单位换算：规则来自项目 method_params；缺参数原样返回（不做业务线默认）。"""
     u = (unit or "").strip()
-    if "公斤" in u or "kg" in u.lower() or "千克" in u:
-        return 0.5, "元/斤"
-    if "500克" in u or "500g" in u.lower() or "斤" in u:
-        return 1.0, "元/斤"
+    p = method_params.current()
+    scales = p.get("unit_scales") or {}
+    for key, factor in scales.items():
+        if key and key in u:
+            try:
+                return float(factor), str(p.get("price_unit") or u)
+            except (TypeError, ValueError):
+                return 1.0, u
     return 1.0, u
 
 
@@ -437,6 +443,8 @@ def _load_table(path: Path, rel: str) -> Optional[Table]:
 
 
 def scan(project_dir: str) -> Desk:
+    # 业务无关：单位换算/品类表等参数只在项目里声明；缺则走通用默认
+    method_params.configure(project_dir)
     desk = Desk(project_dir)
     for p in sorted(desk.root.rglob("*")):
         if not p.is_file():

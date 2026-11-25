@@ -26,6 +26,12 @@ from typing import Any, Dict, List, Tuple
 from core import claims
 
 
+def _u() -> str:
+    """价格单位：来自项目 method_params / 数据本身，不写死业务单位。"""
+    from core import method_params as _mp
+    return str(_mp.current().get("price_unit") or "") or "元/单位"
+
+
 def _subject(project: str) -> str:
     """项目目录名 → 报告主题（去掉「调研/分析/报告」与日期尾巴）。"""
     s = str(project)
@@ -261,20 +267,20 @@ def mechanism_for(f) -> Tuple[str, str, str]:
         neg = [r for r in rows if r["v"] < 0]
         pos = [r for r in rows if r["v"] >= 0]
         best = max(rows, key=lambda r: r["v"])
-        mech = (f"{len(rows)} 个品类里 {len(neg)} 个扣完损耗与冷链为负、{len(pos)} 个为正。"
+        mech = (f"{len(rows)} 个品类里 {len(neg)} 个扣完损耗与物流为负、{len(pos)} 个为正。"
                 "负毛利的成因是加价率盖不住履约成本，不是售价低——"
-                f"判别方法是把 {best['cat']}（净利 {best['nv'].value:+.2f} 元/斤）"
-                "与最差品类做成本栈对比：若两者加价率接近而净利差很大，病灶在损耗/冷链；"
+                f"判别方法是把 {best['cat']}（净利 {best['nv'].value:+.2f} {_u()}）"
+                "与最差品类做成本栈对比：若两者加价率接近而净利差很大，病灶在损耗/物流；"
                 "若加价率差很大，病灶在定价。")
         so = ("先修成本结构（换源/直采/降损耗），再谈品类组合；"
               "对负毛利品类按「提价空间 × 销量弹性」分路径，不要统一提价。")
-        fals = "若实际损耗率或冷链成本比假设低 20%，负毛利名单要重算，本节结论作废。"
+        fals = "若实际损耗或物流成本比假设低 20%，负毛利名单要重算，本节结论作废。"
         return mech, so, fals
 
     if key == "transmission" and rows:
         up = [r for r in rows if r["up"].value < 0]
         big = max(rows, key=lambda r: abs(r["dn"].value))
-        mech = (f"价差不是均匀分布的：{big['cat']} 的批发到零售段 {big['dn'].value:+.2f} 元/斤，"
+        mech = (f"价差不是均匀分布的：{big['cat']} 的批发到零售段 {big['dn'].value:+.2f} {_u()}，"
                 f"产地到批发段 {big['up'].value:+.2f} 元；{len(up)} 个品类在产地端倒挂。"
                 "判别方法是拿同一规格、同一期的三段报价重算："
                 "若三段不同期或不同规格，价差本身不成立。")
@@ -356,7 +362,7 @@ def _metrics(picked: List[Any], label_of: Dict[str, int]) -> List[Dict[str, Any]
         if f.key == "economics" and rows:
             r = rows[0]
             out.append({"label": f"{r['cat']} 净利率", "value": r["margin"].p(),
-                        "note": f"第 {idx} 节 · 扣损耗冷链",
+                        "note": f"第 {idx} 节 · 扣损耗与物流",
                         "status": "healthy" if r["v"] > 0 else "critical"})
         elif f.key == "structure" and rows:
             r = rows[0]
@@ -371,13 +377,13 @@ def _metrics(picked: List[Any], label_of: Dict[str, int]) -> List[Dict[str, Any]
         elif f.key == "arbitrage" and rows:
             r = rows[0]
             out.append({"label": f"{r['cat']} 跨市净利",
-                        "value": f"{r['nv'].value:+.2f} 元/斤",
-                        "note": f"第 {idx} 节 · 扣运费冷链",
+                        "value": f"{r['nv'].value:+.2f} {_u()}",
+                        "note": f"第 {idx} 节 · 扣运费与物流",
                         "status": "healthy" if r["v"] > 0 else "critical"})
         elif f.key == "breakeven" and rows:
             r = rows[0]
             out.append({"label": f"{r['cat']} 保本提价", "value": r["up"].p(),
-                        "note": f"第 {idx} 节 · 只覆盖损耗冷链",
+                        "note": f"第 {idx} 节 · 只覆盖损耗与物流",
                         "status": "watch"})
         elif f.key == "trajectory" and rows:
             r = max(rows, key=lambda x: abs(x["ch"]))

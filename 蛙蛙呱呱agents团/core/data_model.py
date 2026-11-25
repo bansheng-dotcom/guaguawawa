@@ -73,15 +73,22 @@ UNIT_MAP: Dict[str, Tuple[str, float]] = {
 }
 
 
-def normalize_unit(unit: str) -> Tuple[str, float]:
+def normalize_unit(unit: str) -> Tuple[str, float, bool]:
+    """自由单位 → (base_unit, scale, verified)。
+
+    `verified=False` 表示这个单位没有在 UNIT_MAP 里登记，scale 只能取 1.0；
+    调用方必须把它显式记进 coverage（`unit_unverified`），
+    不许当成「已经归一」继续往图上送（D-4 / P1-6）。
+    """
     u = str(unit or "").strip().replace(" ", "")
     if u in UNIT_MAP:
-        return UNIT_MAP[u]
+        base, scale = UNIT_MAP[u]
+        return (base, scale, True)
     # 亿元/年、元/㎡ 之类：拆分子单位
     for base, (b, s) in UNIT_MAP.items():
         if u.startswith(base + "/"):
-            return (b + u[len(base):], s)
-    return (u, 1.0)
+            return (b + u[len(base):], s, True)
+    return (u, 1.0, False)
 
 
 # --------------------------------------------------------------------------- #
@@ -146,10 +153,11 @@ class MetricRegistry:
         k = self.key(metric_name, qualifier)
         if k not in self._by_key:
             h = hashlib.sha1(f"{metric_name}|{qualifier}".encode("utf-8")).hexdigest()[:8]
-            base, scale = normalize_unit(unit)
+            base, scale, verified = normalize_unit(unit)
             self._by_key[k] = {
                 "metric_id": f"m_{h}", "metric_name": metric_name,
                 "qualifier": qualifier, "unit": unit, "unit_base": base,
+                "unit_verified": verified,
                 "additivity": ("ratio" if base == "%" else "flow"),
                 "owner": owner, "rows": 0,
             }
@@ -163,6 +171,20 @@ class MetricRegistry:
 # --------------------------------------------------------------------------- #
 # 4. 构建 raw
 # --------------------------------------------------------------------------- #
+GRADE_RANK = {"A": 4, "B": 3, "C": 2, "D": 1, "": 0}
+
+
+def _arbitrate(prev: "Row", new: "Row") -> Tuple[str, "Row"]:
+    """冲突裁决（P3-2）：按来源等级取值；同级保留第一条并标 needs_human。"""
+    a, b = GRADE_RANK.get(str(prev.grade).upper(), 0), \
+        GRADE_RANK.get(str(new.grade).upper(), 0)
+    if b > a:
+        return "kept_high_grade", new
+    if a > b:
+        return "kept_high_grade", prev
+    return "needs_human", prev
+
+
 def _period_ok(p: str) -> bool:
     t = str(p or "").strip()
     return bool(re.match(r"^(19|20)\d{2}(-\d{2})?$", t)) or "-" in t or t.endswith("年")
@@ -178,6 +200,7 @@ def build_raw(numbers: Iterable[Dict[str, Any]],
     rows: List[Row] = []
     unmapped: List[Dict[str, Any]] = []
     conflicts: List[Dict[str, Any]] = []
+    unit_unverified = 0
     seen: Dict[Tuple[str, str, str, str], Row] = {}
     for i, n in enumerate(numbers or [], 1):
         try:
@@ -192,7 +215,9 @@ def build_raw(numbers: Iterable[Dict[str, Any]],
                 or (sid.split(":")[0] if ":" in sid else "")
                 or str(n.get("role") or ""))
         metric = reg.register(parsed["metric_name"], parsed["qualifier"], unit, role)
-        base, scale = normalize_unit(unit)
+        base, scale, verified = normalize_unit(unit)
+        if not verified:
+            unit_unverified += 1
         src = str(n.get("source_file") or "")
         period = str(n.get("period") or "").strip()
         row = Row(
@@ -210,14 +235,19 @@ def build_raw(numbers: Iterable[Dict[str, Any]],
         if key in seen:
             prev = seen[key]
             if abs(prev.value - row.value) > 1e-9:
+                verdict, kept = _arbitrate(prev, row)
                 conflicts.append({
                     "key": "|".join(key), "metric_id": row.metric_id,
                     "entity": row.entity, "period": row.period,
                     "values": [prev.value, row.value],
                     "sources": [prev.source_id, row.source_id],
                     "grades": [prev.grade, row.grade],
-                    "rule": "同键不同值：高等级优先；同级进人工裁决",
+                    "verdict": verdict, "kept_value": kept.value,
+                    "rule": "同键不同值：高等级优先；同级保留第一条并标人工裁决",
                 })
+                if kept is row:                 # 高等级替换低等级
+                    rows[rows.index(prev)] = row
+                    seen[key] = row
             continue
         seen[key] = row
         rows.append(row)
@@ -229,6 +259,9 @@ def build_raw(numbers: Iterable[Dict[str, Any]],
         "with_period": sum(1 for r in rows if _period_ok(r.period)),
         "with_source": sum(1 for r in rows if r.source_id),
         "conflicts": len(conflicts),
+        "conflicts_needs_human": sum(1 for c in conflicts
+                                     if c.get("verdict") == "needs_human"),
+        "unit_unverified": unit_unverified,
         "unmapped": len(unmapped),
     }
     return {"rows": [asdict(r) for r in rows],
@@ -256,6 +289,15 @@ def export(raw: Dict[str, Any], out_dir: Path,
         json.dumps(raw, ensure_ascii=False, indent=1), encoding="utf-8")
     (out_dir / "metrics.json").write_text(
         json.dumps(raw.get("metrics") or [], ensure_ascii=False, indent=1), encoding="utf-8")
+    conflicts = raw.get("conflicts") or []
+    csum = {"total": len(conflicts),
+            "resolved": sum(1 for c in conflicts
+                            if c.get("verdict") == "kept_high_grade"),
+            "needs_human": sum(1 for c in conflicts
+                               if c.get("verdict") == "needs_human"),
+            "items": conflicts}
+    (out_dir / "conflicts.json").write_text(
+        json.dumps(csum, ensure_ascii=False, indent=1), encoding="utf-8")
     head, body = _rows_as_lists(raw.get("rows") or [])
     with (out_dir / "raw.csv").open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
@@ -263,7 +305,8 @@ def export(raw: Dict[str, Any], out_dir: Path,
         w.writerows(body)
     paths = {"raw.json": str(out_dir / "raw.json"),
              "raw.csv": str(out_dir / "raw.csv"),
-             "metrics.json": str(out_dir / "metrics.json")}
+             "metrics.json": str(out_dir / "metrics.json"),
+             "conflicts.json": str(out_dir / "conflicts.json")}
     try:
         from openpyxl import Workbook
         wb = Workbook()

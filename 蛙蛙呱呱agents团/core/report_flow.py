@@ -1209,7 +1209,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
                 # 标签里不能重复数值：把数字和单位从 claim 里剔掉，只留指标名
                 claim = str(it.get("claim") or "")
                 label = claim
-                for cut in (str(val), "元/公斤", "元", "公斤"):
+                for cut in (str(val), "元", "公斤"):
                     label = label.replace(cut, "")
                 label = label.strip(" ·，、,:：（）()") or claim
                 metrics.append({"label": label[:24], "value": val,

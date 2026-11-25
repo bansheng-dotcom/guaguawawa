@@ -66,8 +66,15 @@ def main():
             print(f"分析 {role_id} - {item}...")
             all_agents[role_id] = analyze_agent_skills(item)
     
-    # 保存分析结果
-    output_file = os.path.join(AGENTS_ROOT, "workspace", "agent_skills_analysis.json")
+    # 保存分析结果（运行产物只能落 RUNTIME_ROOT，不写团内）
+    try:
+        import sys as _sys
+        _sys.path.insert(0, AGENTS_ROOT)
+        from core import paths as _paths
+        _ws = str(_paths.runtime_root())
+    except Exception:  # noqa: BLE001
+        _ws = os.path.join(os.path.dirname(AGENTS_ROOT.rstrip("\\/")), "workspace")
+    output_file = os.path.join(_ws, "agent_skills_analysis.json")
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(all_agents, f, ensure_ascii=False, indent=2)

@@ -21,8 +21,21 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 CATALOG = os.path.join(ROOT, "docs", "actions_catalog.json")
-CHECK_OUT = os.path.join(ROOT, "workspace", "baseline", "actions_catalog_check.json")
+
+
+def _runtime_ws() -> str:
+    """运行产物只能落 RUNTIME_ROOT（仓库外 workspace），不许写进团内。"""
+    try:
+        from core import paths
+        return str(paths.runtime_root())
+    except Exception:  # noqa: BLE001
+        return os.path.join(os.path.dirname(ROOT), "workspace")
+
+
+CHECK_OUT = os.path.join(_runtime_ws(), "baseline", "actions_catalog_check.json")
 
 
 def run(cmd, timeout=1800):

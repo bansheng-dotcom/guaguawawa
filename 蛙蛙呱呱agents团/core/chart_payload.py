@@ -20,11 +20,25 @@ ITEMS_TYPES = {"hbar", "vbar", "dot", "lollipop", "treemap", "pie", "donut",
 GROUP_TYPES = {"box", "violin", "ridge", "hist_multi"}
 
 
-def _v(f: Dict[str, Any]) -> float:
+def _v(f: Dict[str, Any], mixed: bool = False) -> float:
+    """取数：同一张图里单位不一致时读 `value_base`（D-4 / P3-3）。
+
+    单位一致时保留原值——否则「亿元」的图会被放大成「元」，可读性崩掉。
+    """
+    if mixed and f.get("unit_base"):
+        try:
+            return float(f.get("value_base") or 0)
+        except (TypeError, ValueError):
+            pass
     try:
         return float(f.get("value") or 0)
     except (TypeError, ValueError):
         return 0.0
+
+
+def _mixed_units(facts: List[Dict[str, Any]]) -> bool:
+    units = {str(f.get("unit") or "") for f in facts if f.get("unit")}
+    return len(units) > 1
 
 
 def _label(f: Dict[str, Any]) -> str:
@@ -35,16 +49,17 @@ def build_payload(typ: str, facts: List[Dict[str, Any]]) -> Dict[str, Any]:
     """facts → 指定图型的 payload。facts 同时容忍 IR 的 metric/entity 与
     evidence_pack 的 name/region 两种键名。"""
     typ = str(typ or "")
+    mixed = _mixed_units(facts)
     if typ in ITEMS_TYPES:
-        return {"items": [{"label": _label(f), "value": _v(f)} for f in facts]}
+        return {"items": [{"label": _label(f), "value": _v(f, mixed)} for f in facts]}
     if typ == "histogram":
-        return {"values": [_v(f) for f in facts]}
+        return {"values": [_v(f, mixed) for f in facts]}
     if typ in GROUP_TYPES:
         groups: Dict[str, List[float]] = {}
         for f in facts:
             k = str(f.get("entity") or f.get("region") or f.get("metric")
                     or f.get("name") or "全部")
-            groups.setdefault(k, []).append(_v(f))
+            groups.setdefault(k, []).append(_v(f, mixed))
         return {"groups": [{"label": k, "values": v} for k, v in groups.items()]}
     if typ in ("stacked", "pct_stacked"):
         cats: List[str] = []
@@ -60,7 +75,7 @@ def build_payload(typ: str, facts: List[Dict[str, Any]]) -> Dict[str, Any]:
         for m in metrics:
             vals = []
             for c in cats:
-                v = next((_v(f) for f in facts
+                v = next((_v(f, mixed) for f in facts
                           if str(f.get("metric") or f.get("name") or "") == m
                           and str(f.get("entity") or f.get("region") or "") == c), 0.0)
                 vals.append(v)
@@ -68,5 +83,5 @@ def build_payload(typ: str, facts: List[Dict[str, Any]]) -> Dict[str, Any]:
         return {"categories": cats, "series": series}
     if typ == "line":
         return {"points": [{"label": str(f.get("period") or _label(f)),
-                            "value": _v(f)} for f in facts]}
+                            "value": _v(f, mixed)} for f in facts]}
     return {}

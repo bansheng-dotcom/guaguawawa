@@ -44,6 +44,8 @@ TASK_LAYERS: Dict[str, List[str]] = {
     "预测型": ["L0", "L1", "L2", "L4", "L5", "L6"],
     "决策型": list(LAYER_ORDER),
     "评审型": ["L0", "L1", "L6"],
+    # 探源型：只问「要什么、去哪采、能不能采到」，不要求 L3–L6 的因果与行动
+    "探源型": ["L0", "L1", "L2"],
 }
 
 ANSWERABLE = ("data", "source", "user", "assumption")

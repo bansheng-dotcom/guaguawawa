@@ -127,13 +127,13 @@ def cmd_self_test(a) -> int:
     if C.validate(bad)["ok"]:
         errs.append("contract 缺问题未拦截")
 
-    tb = {"caption": "测试（元/斤）", "columns": ["品类", "批发价", "变化率"],
-          "rows": [["牛肉", "36.00", "+3.6%"], ["合计", "36.00", "+3.6%"]]}
+    tb = {"caption": "测试（元/件）", "columns": ["品类", "批发价", "变化率"],
+          "rows": [["甲", "36.00", "+3.6%"], ["合计", "36.00", "+3.6%"]]}
     nt, st = specs.infer_table(tb)
     if st["with_unit"] < 1 or not nt.get("total_row"):
         errs.append("table 规格推断未生效")
 
-    ch = {"type": "hbar", "title": "牛肉 36.00 元", "unit_meta": "元/斤",
+    ch = {"type": "hbar", "title": "指标 36.00 元", "unit_meta": "元/件",
           "source": "测试", "bars": [{"label": "a", "value": 30}, {"label": "b", "value": 40}]}
     nc, cs, ce = specs.complete_chart(ch)
     if cs["ref_added"] != 1 or ce:

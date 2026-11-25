@@ -346,7 +346,7 @@ def from_collection(project: Path, spec_path: str = "",
     errs = _cs.validate(spec)
     if errs:
         return {"ok": False, "stage": "spec_validate", "errors": errs[:8]}
-    res = _cs.run(spec, project_dir=str(project))
+    res = _cs.run(spec, project_dir=str(project), persist=True)
     if not res.get("ok"):
         return {"ok": False, "stage": "collect", "error": res.get("error")}
     marts = res.get("mart_rows") or {}

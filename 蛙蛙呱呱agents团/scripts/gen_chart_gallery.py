@@ -68,7 +68,7 @@ CURATED = [
          {"label": "90 天", "value": 41}, {"label": "复购", "value": 28}]}),
     ("line", "13 期趋势：先涨后跌，拐点在 9 月",
      "看方向与拐点：连续时间用线，不用柱",
-     {"unit_meta": "元/斤", "points": [
+     {"unit_meta": "元/件", "points": [
          {"label": "1 月", "value": 5.2}, {"label": "3 月", "value": 5.8},
          {"label": "5 月", "value": 6.3}, {"label": "7 月", "value": 5.9},
          {"label": "9 月", "value": 5.4}, {"label": "11 月", "value": 5.1}]}),

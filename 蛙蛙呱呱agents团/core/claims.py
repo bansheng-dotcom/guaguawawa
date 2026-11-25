@@ -194,7 +194,7 @@ def _mech_unit(t: Dict[str, Any]) -> Tuple[str, str, str, str]:
                if shock is not None else ""))
     impl = (f"报价低于 {be:.2f} 元不接；先锁原料或签价格联动，再谈扩量——"
             "这条业务放大规模会放大亏损。")
-    fals = ("若损耗率或渠道扣点比假设低 2 个百分点，净利回到正值，闸门可以放宽；"
+    fals = ("若损耗或渠道扣点比假设低 2 个百分点，净利回到正值，闸门可以放宽；"
             "反之若原料涨幅超过 20%，闸门要收紧。")
     return mech, impl, fals, "中"
 

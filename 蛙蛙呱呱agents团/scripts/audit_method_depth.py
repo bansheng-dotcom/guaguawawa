@@ -112,7 +112,11 @@ def main() -> None:
                      "level": ("L4 可发表" if got == total else "L3 可审计" if got >= total - 1
                                else "L2 可解释" if got >= total / 2 else "L1 能算"),
                      "gaps": [n for n, ok in checks if not ok]})
-    out = ROOT / "workspace" / "method_depth_audit.json"
+    try:
+        from core import paths as _paths
+        out = _paths.runtime_root() / "method_depth_audit.json"
+    except Exception:  # noqa: BLE001
+        out = Path(ROOT).parent / "workspace" / "method_depth_audit.json"
     # 干净克隆上 workspace/ 不存在（被 .gitignore 忽略），必须先建父目录，
     # 否则 CI 第 6 步 depth 直接 FileNotFoundError（2026-11-17 体检发现的冷启动坑）。
     out.parent.mkdir(parents=True, exist_ok=True)

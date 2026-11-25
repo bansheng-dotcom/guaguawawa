@@ -54,7 +54,7 @@ _reg("trajectory", A.m_trajectory, "price", ["price.series3"], "时间轨迹与�
 _reg("contribution", A.m_contribution, "price", ["price.series2"], "涨跌贡献",
      ("research", "remediation"), 45, description="涨端/跌端毛变动")
 _reg("economics", A.m_economics, "price", ["price.economics"], "单位经济",
-     ("operations", "remediation", "research"), 70, description="加价率→扣损耗冷链→净毛利")
+     ("operations", "remediation", "research"), 70, description="加价率→扣损耗与物流→净毛利")
 _reg("transmission", A.m_transmission, "chain", ["price.origin", "price.wholesale"],
      "上下游传导", ("research", "operations", "chain"), 68, description="产地→批发→零售三段价差")
 _reg("arbitrage", A.m_arbitrage, "chain", ["price.region"], "跨市场价差",

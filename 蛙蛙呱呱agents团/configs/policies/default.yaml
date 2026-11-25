@@ -1,0 +1,12 @@
+schema: dsh.policy/v1
+id: default
+# 域名级通用策略：只放礼貌参数，禁止写项目名 / 客户名 / 具体业务 URL
+user_agent: "GuaguaBot/1.0 (+https://example.invalid/bot)"
+rps: 1.0
+timeout: 20
+max_bytes: 2000000
+retries: 2
+backoff: 1.5
+respect_robots: true
+max_pages: 20
+accept_language: "zh-CN,zh;q=0.9"

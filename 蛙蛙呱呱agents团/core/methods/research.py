@@ -17,6 +17,12 @@ from typing import Any, Dict, List, Optional
 from core.analysis_methods import Finding, Num, _ids, _table
 from core.methods.spec import method, register_need
 
+
+def _u() -> str:
+    """价格单位来自项目 method_params / 数据，不在方法里写死业务单位。"""
+    from core import method_params as _mp
+    return str(_mp.current().get("price_unit") or "") or "元/单位"
+
 # --------------------------------------------------------------------------- #
 # 能力谓词
 # --------------------------------------------------------------------------- #
@@ -199,7 +205,7 @@ def m_unit_econ(ctx) -> Optional[Finding]:
     xm_sales = _num(ctx, "xm_sales", "锡盟销售额", 2)
     xm_out = _num(ctx, "xm_output", "锡盟产量", 0)
     yld = _an(ctx, "yield_ratio", "出成率（kg 奶/kg 奶酪）", 1)
-    raw = _an(ctx, "raw_price", "生鲜乳到场价", 2)
+    raw = _an(ctx, "raw_price", "原料到场价", 2)
     proc = _an(ctx, "process_cost", "加工包装成本", 2)
     chan = _an(ctx, "channel_rate", "渠道扣点", 0)
     if not all([xm_sales, xm_out, yld, raw, proc, chan]):
@@ -220,21 +226,21 @@ def m_unit_econ(ctx) -> Optional[Finding]:
     net2 = c.d("R26", f"{price.id}*(1-{chan.id})-({yld.id}*{raw.id}*1.2+{proc.id})",
                price.value * (1 - chan.value) - (yld.value * raw.value * 1.2 + proc.value),
                "原料涨20%后的净利", "元/kg")
-    title = (f"单位经济：出厂价 {price} 元/公斤、成本 {cost} 元，"
+    title = (f"单位经济：出厂价 {price} {_u()}、成本 {cost} 元，"
              f"扣渠道净利 {net} 元（{margin.p()}），保本价 {be} 元")
     f = _finding("unit_econ", title,
                  "一公斤奶酪赚多少钱？原料涨价会不会直接打穿？", c, mark)
     f.assumptions = [yld.value, raw.value, proc.value, chan.value]
-    f.add(f"出厂价按锡盟 {xm_sales} 亿元 ÷ {xm_out} 吨折算 {price} 元/公斤；"
-          f"成本 {cost} 元/公斤（{yld} 公斤奶 × {raw} 元 + 加工 {proc} 元）。",
+    f.add(f"出厂价按锡盟 {xm_sales} 亿元 ÷ {xm_out} 吨折算 {price} {_u()}；"
+          f"成本 {cost} {_u()}（{yld} 公斤奶 × {raw} 元 + 加工 {proc} 元）。",
           _ids(price, cost, xm_sales, xm_out, yld, raw, proc))
-    f.add(f"扣 {chan.p()} 渠道后净利 {net} 元/公斤、净利率 {margin.p()}；"
-          f"保本出厂价 {be} 元/公斤——低于这个价，规模越大亏得越多。",
+    f.add(f"扣 {chan.p()} 渠道后净利 {net} {_u()}、净利率 {margin.p()}；"
+          f"保本出厂价 {be} {_u()}——低于这个价，规模越大亏得越多。",
           _ids(chan, net, margin, be))
     f.add(f"原料涨 20%：保本价升到 {raw2} 元、净利降到 {net2} 元；"
           "这条业务对奶价高度敏感，必须先锁奶源或做价格联动条款。",
           _ids(raw2, net2))
-    f.table = _table("单位经济（元/公斤）", ["项目", "数值", "说明"],
+    f.table = _table("单位经济（" + _u() + "）", ["项目", "数值", "说明"],
                      [["出厂价", str(price), "锡盟均价折算"],
                       ["原料成本", f"{yld.value * raw.value:.2f}", f"{yld}kg × {raw}元"],
                       ["加工包装", str(proc), "人工/能耗/包装"],
@@ -243,25 +249,25 @@ def m_unit_econ(ctx) -> Optional[Finding]:
                       ["净利率", margin.p(), "净利 ÷ 出厂价"],
                       ["保本出厂价", str(be), "低于即亏"]])
     f.chart = {"type": "hbar",
-               "title": f"净利率 {margin.p()}，原料涨20%后只剩 {net2.value:.2f} 元/公斤",
+               "title": f"净利率 {margin.p()}，原料涨20%后只剩 {net2.value:.2f} {_u()}",
                "subtitle": "锡盟均价折算 · 每公斤 · 扣渠道后口径",
                "note": "不含折旧、固定人力与税",
-               "unit_meta": "元/公斤", "source": "S1/S4 + 显式假设",
+               "unit_meta": "" + _u() + "", "source": "S1/S4 + 显式假设",
                "refs": _ids(price, cost, net, net2),
                "bars": [{"label": "出厂价", "value": round(price.value, 2)},
                         {"label": "单位成本", "value": round(cost.value, 2)},
                         {"label": "净利", "value": round(net.value, 2)},
                         {"label": "涨价后净利", "value": round(net2.value, 2)}]}
-    f.so_what = ("出厂价低于 48 元/公斤不进；先签奶源或价格联动，再谈扩量。")
-    f.boundary = ("出成率 8:1、奶价 3.0 元/公斤、加工 12 元、渠道 25% 均为 C 级假设，"
+    f.so_what = ("出厂价低于 48 " + _u() + "不进；先签奶源或价格联动，再谈扩量。")
+    f.boundary = ("出成率 8:1、奶价 3.0 " + _u() + "、加工 12 元、渠道 25% 均为 C 级假设，"
                   "未取得企业台账；净利不含设备折旧、人力固定成本与税。")
     f.actions = [
         {"do": "先锁奶源或签价格联动条款，再启动量产",
-         "condition": f"到场奶价不高于 {raw} 元/公斤，且能锁定 6 个月",
-         "stop": f"原料涨 20% 后净利低于 {net2} 元/公斤，即暂停扩量",
+         "condition": f"到场奶价不高于 {raw} {_u()}，且能锁定 6 个月",
+         "stop": f"原料涨 20% 后净利低于 {net2} {_u()}，即暂停扩量",
          "refs": _ids(raw, net2, be)},
         {"do": "出厂价按不低于保本价报价",
-         "condition": f"出厂价 ≥ {be} 元/公斤，且渠道扣点 ≤ {chan}%",
+         "condition": f"出厂价 ≥ {be} {_u()}，且渠道扣点 ≤ {chan}%",
          "stop": "连续两个月出厂价低于保本价，停止接单",
          "refs": _ids(be, chan, price)},
     ]
@@ -290,17 +296,17 @@ def m_entry_gate(ctx) -> Optional[Finding]:
     up = c.n("涨价后净利", eco["net_up20"], "元/kg")
     lo = c.n("可服务市场下限", (sizing or {}).get("lo", 0), "亿元")
     hi = c.n("可服务市场上限", (sizing or {}).get("hi", 0), "亿元")
-    title = (f"闸门：出厂价 ≥ {be} 元/公斤、原料涨幅 ≤ 20%、"
+    title = (f"闸门：出厂价 ≥ {be} {_u()}、原料涨幅 ≤ 20%、"
              f"可服务市场 ≥ {lo} 亿元，三条同时满足才进")
     f = _finding("entry_gate", title,
                  "什么条件下做、什么条件下不做？", c, mark)
-    f.add(f"进入条件：可服务市场 {lo}—{hi} 亿元、出厂价 {price} 元、净利 {net} 元/公斤；"
+    f.add(f"进入条件：可服务市场 {lo}—{hi} 亿元、出厂价 {price} 元、净利 {net} {_u()}；"
           "三者任一不成立，先做代工/贴牌验证，不建厂。", _ids(lo, hi, price, net))
-    f.add(f"杀死条件：原料涨 20% 后净利只剩 {up} 元/公斤；出厂价跌破 {be} 元/公斤；"
+    f.add(f"杀死条件：原料涨 20% 后净利只剩 {up} {_u()}；出厂价跌破 {be} {_u()}；"
           "连续两个月低于保本价——命中任一条立即停。", _ids(up, be))
     f.table = _table("进入与退出闸门", ["类型", "判据", "动作"],
                      [["进入", f"可服务市场 ≥ {lo.value:.0f} 亿元", "立项"],
-                      ["进入", f"出厂价 ≥ {be.value:.1f} 元/公斤", "报价"],
+                      ["进入", f"出厂价 ≥ {be.value:.1f} {_u()}", "报价"],
                       ["进入", f"净利率 ≥ {net.value / price.value * 100:.0f}%", "扩量"],
                       ["退出", f"原料涨 20% 后净利 < {up.value:.1f} 元", "暂停"],
                       ["退出", f"出厂价 < {be.value:.1f} 元", "停止接单"]])

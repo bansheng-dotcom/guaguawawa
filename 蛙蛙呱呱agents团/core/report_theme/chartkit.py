@@ -172,7 +172,7 @@ def grouped_bar(groups, series, unit="", colors=None) -> str:
     if unit:
         b.append(t(L, 24, unit, 8.4, FAINT))
     return "".join(b) + "</svg>"
-def cost_range(rows, unit="元/公斤") -> str:
+def cost_range(rows, unit="") -> str:
     """rows: [(label, cost, price)]"""
     W, H = 640, 90 + len(rows) * 50
     L, R = 190, 530

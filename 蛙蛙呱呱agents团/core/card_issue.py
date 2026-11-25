@@ -158,8 +158,21 @@ def prepare_probe_cards(project: Path) -> Dict[str, Any]:
         "```",
     ]
     (d / "TASK.md").write_text("\n".join(lines), encoding="utf-8")
+    # B1（方案 §3.5）：探源卡也是 bundle，任务类型=探源型（L0/L1/L2 必答）
+    problems: List[str] = []
+    try:
+        from core import card_bundle as _cb
+        res = _cb.issue(d, PROBE_ROLE, "probe-" + str(project.name),
+                        "查清这个业务有哪些可用数据源、各给什么字段与口径",
+                        root=project, task_type="探源型",
+                        skills=["s06_catalog"],
+                        non_goals=["不要采数", "不要下结论", "不要写报告"])
+        problems = res.get("problems") or []
+    except Exception as exc:  # noqa: BLE001 bundle 失败不阻断探源卡本身
+        problems = [f"bundle: {type(exc).__name__}: {exc}"]
     return {"ok": True, "role": PROBE_ROLE, "dir": str(d),
             "measures": measures, "dims": dims, "cells": len(cells),
+            "bundle_problems": problems,
             "next": "探测层交回 cards/probe/sources.json 后跑 card_probe，生成 plan/supply.json"}
 
 
@@ -184,11 +197,29 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
     nums = [n for n in (pack.get("numbers") or []) if n.get("value") is not None]
 
     sem = cu.load_semantics(project, pack)
+    if sem.get("missing"):
+        # P1-3：缺语义层不写正式层，只落一份中性模板让用户按本题补。
+        tpl = project / "semantic_layer.template.yaml"
+        if not tpl.is_file():
+            try:
+                import yaml as _yaml
+                tpl.write_text(_yaml.safe_dump(sem.get("case") or {},
+                                               allow_unicode=True, sort_keys=False),
+                               encoding="utf-8")
+            except Exception:  # noqa: BLE001 模板只是辅助，不阻断门禁
+                pass
     sem_errs = cu.validate_semantic(sem)
     tree = cu.build_issue_tree(clarify)
     persp = cu.build_perspectives(clarify, _load_yaml(project / "perspectives.yaml"))
     grid_tpl = _load(project / "plan" / "grid.template.json", {}) or {}
     grid = cu.build_grid(clarify, sem, cu._brands(pack), template=grid_tpl or None)
+    # P1-2 / B3：语义层指纹没变就**合并**旧网格，保留探测与执行留下的状态；
+    # 变了才重建（重建后旧状态失效是正确的）。
+    _fp = cu.semantic_fingerprint(sem)
+    _old_grid = _load(plan / "grid.json", {}) or {}
+    if _old_grid.get("sem_fingerprint") == _fp and _old_grid.get("cells"):
+        grid = cu.merge_grid(_old_grid, grid)
+    grid["sem_fingerprint"] = _fp
     # SUPPLY-SOP v7.0：拆卡前先读供给方案，给每格标「计划能到几级」。
     # 注意：只标不砍——拆卡仍然穷尽，采不到的进「计划外缺口」。
     try:

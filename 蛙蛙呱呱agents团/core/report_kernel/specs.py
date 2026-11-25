@@ -45,7 +45,7 @@ def _caption_unit(caption: str) -> Optional[str]:
     units = []
     for m in UNIT_IN_TEXT.finditer(str(caption or "")):
         units.append(m.group(1).strip())
-    # 只取单一单位；多元单位（元/斤、%）不强行套到每一列
+    # 只取单一单位；多元单位（元/件、%）不强行套到每一列
     uniq = list(dict.fromkeys(units))
     return uniq[0] if len(uniq) == 1 else None
 

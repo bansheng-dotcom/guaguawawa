@@ -8,6 +8,62 @@
 
 ---
 
+## 2026-11-25（第三轮）· 数据标准 + 采集六层 + 业务词出团
+
+一句话：**给全链路一条数据标准，把行业口径搬出核心模块。**
+
+### 新增（契约与数据标准，P1）
+
+| 能力 | 位置 | 说明 |
+|---|---|---|
+| 四份数据契约 | `core/data_standard.py` | Record（原始不可变）/ Observation（唯一可比较单元）/ Dataset（含 manifest+dq+profile）/ ChartSpec（数据引用，不内嵌数字）；`Row` 双向适配 |
+| 语义层拒绝臆造 | `core/card_upgrade.neutral_semantics` | 缺语义层只给中性占位，**不写盘**；四段（entities/grain/measures/boundaries）缺一不发卡 |
+| 两段式接线 | `core/card_issue.prepare_probe_cards` + `merge_grid` | 探源卡 = `bundle.json`（`task_type=探源型`）；语义层指纹不变时网格**合并**，探测结论不被冲掉 |
+| 单位显式化 | `core/data_model.normalize_unit` | 返回 `(base, scale, verified)`；coverage 增 `unit_unverified` |
+| 冲突裁决 | `core/data_model._arbitrate` | 按来源 grade 取值；同级保留第一条并标 `needs_human`；导出 `out/conflicts.json` |
+
+### 新增（采集现代化，P2/P3）
+
+| 能力 | 位置 | 说明 |
+|---|---|---|
+| 采集六层 | `core/ingest/` | Policy（robots/rps/timeout/max_bytes/retries）/ Fetcher / Extractor / Validator / Store / Runner |
+| staging + DQ | `core/ingest/store.py` | `data/staging/<source>/<batch>/{rows.jsonl,_state.json,dq_report.json}`，统一走 `paths.write_artifact` |
+| 失败隔离 | `core/ingest/runner.run_many` | 单源失败不拖垮整批；每个 URL 留 `kind`（robots/http_404/timeout/too_large…） |
+| 规格前置校验 | `core/collection_spec._guard` | `preview / quality / run` 先校验；`validate()` 拆 raw/metric（只要数据的规格合法） |
+
+### 新增（选型与主题，P4）
+
+| 能力 | 位置 | 说明 |
+|---|---|---|
+| 数据驱动选型 | `core/chart_fit.py` | 画像 → 候选图型 + 前置条件 + fallback；空态/常数值拒绝出图 |
+| 字段契约同源审计 | `core/chart_field_contract.py` | REQUIRED vs SAMPLE 逐型比对，进 `check_charts_pro`（治 V-1） |
+| 表格降级后端 | `core/report_theme/table_backend.py` | 可访问表格 + `fallback_note`（缺什么、改用哪型） |
+| 设计 token | `core/report_theme/tokens.py` | 默认值=现状；门禁比对渲染常量，防静默改产出 |
+
+### 变更（业务词隔离，P1-7）
+
+- `core/domain_pack.INDUSTRIES` → `configs/industries/*.yaml`（7 个行业包；项目目录同名覆盖）。
+- `analysis_methods`：品类表 / 损耗 / 物流成本 / 价格单位全部来自项目 `method_params.yaml`；
+  缺参数走中性默认并写脚注，**不再用某条业务线的默认值顶上**。
+- `analysis_desk`：单位换算参数化；渠道词去掉具体市场名与品类名。
+- 新增 `scripts/check_business_terms.py`（三层词表：project_block / line_block / warn 棘轮），
+  接入 `ci_report_checks` 的 `[0c]`；`configs/business_terms_warn_baseline.json` 冻结既有 warn 债。
+- `shared/knowledge/brief.py`：新增任务类型 `探源型`（L0/L1/L2）。
+
+### 门禁
+
+`pytest 589 passed / 3 skipped`；`check_business_terms` project_block 0 / line_block 0；
+`check_charts_pro` contract OK + tokens OK；`check_chart_edges` 8/8；`check_project_boundary` PASS；
+`check_convergence` 违规 0。
+
+### 未做（需拍板或另开一轮）
+
+- ECharts 交互后端：需第三方 JS，破坏"核心链路零第三方依赖"。
+- `cells_claims` 三套收敛：需要双写比对期，爆炸半径大。
+- `core/methods/research.py` 的乳业/区域 metric id 迁项目方法包（不在 block 词表内）。
+
+---
+
 ## 2026-11-25（第二轮）· 图型止血 + 边界门禁加固
 
 一句话：**先让图不撒谎，再让边界查得出来。**

@@ -264,7 +264,7 @@ def waterfall_chart(chart: Dict[str, Any]) -> str:
     zone = (R - L) / n
     bw = zone * 0.52
     def Y(v: float) -> float: return TOP + plot_h * (1 - (v - vmin) / (vmax - vmin))
-    # 小量纲（元/公斤这类个位数）保留 2 位，否则 0.55 会被画成「+1 / +0」
+    # 小量纲（小量纲个位数）保留 2 位，否则 0.55 会被画成「+1 / +0」
     nd = 2 if max(abs(x) for x in all_v) < 50 else 0
     out = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{chart["title"]}">']
     for i in range(5):

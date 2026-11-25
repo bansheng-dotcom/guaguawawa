@@ -97,6 +97,16 @@ def main() -> int:
         for line in out.strip().splitlines()[1:6]:
             print("   ", line)
 
+    # [0c] 业务词隔离（方案 §3.6 / P1-7）：项目专属词任何位置出现即红；
+    #      业务线词只在 configs/industries 允许；行业口径词走基线棘轮。
+    rc, out = run([sys.executable, "scripts/check_business_terms.py", "--check"])
+    first = out.strip().splitlines()[0] if out.strip() else ""
+    print(f"[0c] business-terms-isolation rc={rc} :: {first}")
+    if rc:
+        fails.append("business-terms-isolation")
+        for line in out.strip().splitlines()[1:8]:
+            print("   ", line)
+
     # [2][3][3a] 依赖报告样本；样本未就绪时只跳过、不判红
     if not sample_ok:
         print("[2][3][3a][3b] SKIP(report-sample) :: 缺样本，run-line 与门禁不执行")
