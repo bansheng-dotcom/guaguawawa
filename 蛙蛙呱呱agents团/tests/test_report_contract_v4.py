@@ -144,11 +144,16 @@ def test_structure_profiles_are_module_sets():
     assert "sources" in mods and "caliber" in mods
 
 
-def test_first_line_indent_is_typographic():
-    # 2026-11-23：kit.py 是「项目代码放项目文件夹」路径的页面构造器，已恢复
+def test_body_has_no_first_line_indent():
+    # 2026-11-23：正文取消首行缩进（2em）与两端对齐。
+    # 原因：2em 缩进让每段左边缘呈锯齿，与左侧 13mm 块标签打架；
+    # justify 在中文夹数字/百分号时把字距拉开，同一段每行松紧不一，看上去"换行很丑"。
+    # 两条都要在源里锁住，否则改一次主题就会回潮。
     for p in (ROOT / "core" / "report_theme" / "kit.py",
               ROOT / "core" / "report_theme" / "consulting.css"):
-        assert "text-indent:2em" in p.read_text(encoding="utf-8")
+        css = p.read_text(encoding="utf-8")
+        assert "text-indent:2em" not in css
+        assert "text-indent:0" in css
 
 
 def _mk_claim(i: int, rank: int, headline: str = "") -> dict:

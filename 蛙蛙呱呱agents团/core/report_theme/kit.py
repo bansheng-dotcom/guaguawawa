@@ -163,13 +163,15 @@ h2.action{
   border-top:.4pt dashed var(--line);padding-top:1.4mm}
 
 /* body */
-.prose{font-size:10pt;line-height:1.82;color:var(--ink2);text-align:justify}
+/* 2026-11-23：与 consulting.css 同一处口径——正文不缩进首行、不用 justify。
+   justify 在中文夹数字时会把字距拉开，同一段每行松紧不同，读者看到的就是“换行丑”。 */
+.prose{font-size:10pt;line-height:1.82;color:var(--ink2);text-align:left}
 .pblocks{display:flex;flex-direction:column;gap:2.4mm}
 .pblock{display:grid;grid-template-columns:13mm 1fr;gap:4mm}
 .plabel{font-size:6.6pt;letter-spacing:.14em;color:var(--accent);font-weight:700;padding-top:1.4mm}
-.pblock p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:justify;text-indent:2em}
+.pblock p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:left;text-indent:0}
 .ptext{min-width:0}
-.ptext p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:justify;text-indent:2em}
+.ptext p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:left;text-indent:0}
 .ptext p+p{margin-top:2.2mm}
 .prose p{margin:0 0 2.6mm}
 .prose b,.prose strong{color:var(--ink);font-weight:600}
@@ -357,7 +359,7 @@ tr:last-child td{border-bottom:1pt solid var(--ink)}
 .rail-main .rp{margin:0 0 2.6mm}
 .rail-main .rl{display:block;font-size:6.4pt;letter-spacing:.14em;color:var(--accent);
   font-weight:700;margin-bottom:1mm}
-.rail-main p{margin:0;font-size:9.4pt;line-height:1.7;color:var(--ink2);text-align:justify}
+.rail-main p{margin:0;font-size:9.4pt;line-height:1.7;color:var(--ink2);text-align:left}
 .rail-clear{clear:both;height:0}
 
 /* tooltip */

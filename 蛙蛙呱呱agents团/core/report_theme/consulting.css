@@ -116,11 +116,17 @@ h2.action{
   border-top:.4pt dashed var(--line);padding-top:1.4mm}
 
 /* body */
-.prose{font-size:10pt;line-height:1.82;color:var(--ink2);text-align:justify}
+/* 2026-11-23：正文取消首行缩进（2em 会让每一段左边缘呈锯齿，与左侧 13mm 块标签打架），
+   同时把两端对齐改成左对齐——中文夹数字、百分号时 justify 会把字距拉开，
+   同一段里每行的松紧都不一样，看上去就是“换行很丑”。 */
+.prose{font-size:10pt;line-height:1.82;color:var(--ink2);text-align:left}
 .pblocks{display:flex;flex-direction:column;gap:2.4mm}
 .pblock{display:grid;grid-template-columns:13mm 1fr;gap:4mm}
 .plabel{font-size:6.6pt;letter-spacing:.14em;color:var(--accent);font-weight:700;padding-top:1.4mm}
-.pblock p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:justify;text-indent:2em}
+.pblock p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:left;text-indent:0}
+.ptext{min-width:0}
+.ptext p{margin:0;font-size:9.7pt;line-height:1.76;color:var(--ink2);text-align:left;text-indent:0}
+.ptext p+p{margin-top:2.2mm}
 .prose p{margin:0 0 2.6mm}
 .prose b,.prose strong{color:var(--ink);font-weight:600}
 .prose .so{color:var(--ink);font-weight:600}
@@ -307,7 +313,7 @@ tr:last-child td{border-bottom:1pt solid var(--ink)}
 .rail-main .rp{margin:0 0 2.6mm}
 .rail-main .rl{display:block;font-size:6.4pt;letter-spacing:.14em;color:var(--accent);
   font-weight:700;margin-bottom:1mm}
-.rail-main p{margin:0;font-size:9.4pt;line-height:1.7;color:var(--ink2);text-align:justify}
+.rail-main p{margin:0;font-size:9.4pt;line-height:1.7;color:var(--ink2);text-align:left}
 .rail-clear{clear:both;height:0}
 
 /* tooltip */

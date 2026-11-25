@@ -10,6 +10,24 @@ query:
   # url: "https://..."
   # selectors: {item: "...", title: "...", price: "..."}
 
+# ---------------------------------------------------------------------------
+# 合规（2026-11-24 新增）：默认全部拒绝，逐项显式打开才能跑。
+# 规则见 docs/COLLECTION-COMPLIANCE.md；缺 robots_allowed / rate_limit 的规格一律不执行。
+# ---------------------------------------------------------------------------
+compliance:
+  public_page_only: true      # 只抓无需登录的公开页；登录墙/验证码一律放弃
+  robots_allowed: false       # 已核对 robots.txt 允许抓取该路径（核对日写在 robots_checked_at）
+  robots_checked_at: ""       # 例：2026-11-24
+  terms_reviewed: false       # 已看过服务条款/转载声明
+  license: ""                 # 数据的授权/使用范围（如「政府公开信息」「CC BY 4.0」「仅内部研究」）
+  attribution: ""             # 报告里怎么署名（机构名 / 原页面标题）
+  rate_limit_rps: 1           # 每秒请求数上限；不允许 >1
+  crawl_window: "22:00-06:00" # 抓取时段（避开对方高峰）
+  user_agent_note: ""         # UA 里带的项目标识与联系方式
+  pii: false                  # 是否含个人信息；含则默认不采
+  retention_days: 180         # 原始页/HTML 快照保留天数
+  store_html_hash: true       # 每行落 url + fetched_at + sha256（可回溯，与 source_verify 同口径）
+
 rollups:
   - id: <分析粒度名，如 brand_month>
     grain: [<维度1>, <维度2>]        # 一行代表什么（分析粒度）
