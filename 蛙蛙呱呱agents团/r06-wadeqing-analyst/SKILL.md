@@ -70,7 +70,7 @@ metadata:
 | AB 实验 | `agent.py abtest run` |
 
 > 报告出口已收敛（2026-11-15）：`depth` / `deep` 支线不再作为任务入口，角色只交 `result.json`
-> 与图表配置；报告统一由 R01 出具：`python guagua.py report run --intent <意图> --results <result.json> --out <目录>`。
+> 与图表配置；报告统一由 R01 出具：`python guagua.py report run-line --intent <意图> --dir <项目目录> --out <目录>`。
 
 > 直接可跑：`python agent.py explore funnel --input examples/orders.csv --stage status`
 > `examples/orders.csv` 是 2.7KB 夹具；`python agent.py demo` 会生成到仓库根 `workspace/artifacts/orders.csv`。

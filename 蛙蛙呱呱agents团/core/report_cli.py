@@ -482,6 +482,21 @@ def cmd_run_line(args) -> int:
     # v12：--claims 一步到位：编译（含交叉质询）→ 过闸 → 渲染。
     # 这样「智能体交一份 claims.json」就是完整交付动作，不用记两个命令。
     claims_path = getattr(args, "claims", None)
+    source = getattr(args, "source", None)
+    if source == "cards" and not claims_path:
+        print(json.dumps({
+            "ok": False, "stage": "source",
+            "error": "--source cards 需要同时给 --claims <claims_merged.json>",
+            "hint": "先 report collect 收卡，再 run-line --source cards --claims ..."
+        }, ensure_ascii=False, indent=1))
+        return 2
+    if source == "data" and claims_path:
+        print(json.dumps({
+            "ok": False, "stage": "source",
+            "error": "--source data 与 --claims 冲突：数据型不读收卡产物",
+            "hint": "取卡走 --source cards；取项目数据去掉 --claims"
+        }, ensure_ascii=False, indent=1))
+        return 2
     if str(getattr(args, "layout", "flow")) != "flow":
         print(json.dumps({
             "ok": False, "error": "paper 文档线已下线（2026-11-21）：只保留 flow",
@@ -722,6 +737,8 @@ def main(argv=None) -> int:
     rl.add_argument("--draft", default=None, help="章节稿 JSON（智能体写稿路径）")
     rl.add_argument("--claims", default=None,
                     help="收卡产物 claims_merged.json：一步完成 编译+质询+过闸+渲染")
+    rl.add_argument("--source", choices=("data", "cards"), default=None,
+                    help="取数来源：data=报告层直接算（L3）；cards=收卡后编译（L4，需 --claims）")
     rl.add_argument("--solo-claims", dest="solo_claims", action="store_true",
                     help="单人稿：跳过拆卡直写 claims（必须同时给 --allow-solo，标降级）")
     rl.add_argument("--allow-solo", dest="allow_solo", action="store_true",

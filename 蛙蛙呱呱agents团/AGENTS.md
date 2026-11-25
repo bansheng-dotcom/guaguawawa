@@ -30,9 +30,21 @@ python guagua.py skills                    # 看已升级的技能包
 python guagua.py plan "你的经营目标"         # 让 R01 拆任务卡
 python guagua.py report "你的问题" --dir <项目> --out <目录>   # v11 唯一入口：一条命令出报告（可加 --pdf）
 python guagua.py report check --html <报告>                    # 验收成品（三层质检）
+python guagua.py run --intent "你的经营目标"                    # 不确定走哪条？先让路由器给建议（--execute 才执行）
 # 旧 run / pack / produce / research / --thesis 已退役；诊断用 capabilities / plan
 # 完整入口与产线地图见 docs/REPORT-LINES.md
 ```
+
+### 不确定用哪个入口
+
+| 你要做的事 | 用哪条 |
+|---|---|
+| 只跑一个角色的一个技能 | `guagua.py call <角色> ...`（要留痕加 `--as-task`） |
+| 多角色协作完成经营任务 | `guagua.py plan "..."` → `dispatch` |
+| 已有干净数据、要出报告 | `guagua.py report "..." --dir <项目> --out <目录>` |
+| 多角色交卡后出报告 | `run-line --source cards --claims <merged.json>` |
+
+`guagua.py run ...` 默认只打印建议命令，不执行；确认后加 `--execute`。
 
 ## 四条铁律
 

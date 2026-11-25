@@ -26,6 +26,7 @@ import argparse
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import time
@@ -204,7 +205,44 @@ def cmd_call(args: argparse.Namespace) -> int:
     if not forwarded:
         forwarded = ["--help"]
     # 关键：在角色目录执行，保证文档里的 examples/、workspace/ 相对路径可用。
-    return _run([PYTHON, agent, *forwarded], cwd=agent.parent)
+    if not getattr(args, "as_task", False):
+        return _run([PYTHON, agent, *forwarded], cwd=agent.parent)
+
+    # D+ / D4：按需留痕。只记录「这次调用发生过」，不代表结果已被审计。
+    proc = _run_capture([PYTHON, agent, *forwarded], cwd=agent.parent, timeout=1800)
+    sys.stdout.write(proc.stdout or "")
+    sys.stderr.write(proc.stderr or "")
+    result = {}
+    marker = "__AGENT_RESULT__ "
+    for line in (proc.stdout or "").splitlines():
+        if line.startswith(marker):
+            try:
+                result = json.loads(line[len(marker):])
+            except json.JSONDecodeError:
+                pass
+    trace = {
+        "schema": "guagua.call_trace/v1",
+        "audit": "trace_only",
+        "role": role["id"],
+        "argv": forwarded,
+        "returncode": int(proc.returncode),
+        "status": "done" if proc.returncode == 0 else "failed",
+        "result": result,
+        "at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+    }
+    try:
+        from core import workspace as _ws
+        _d = os.path.join(_ws.default_root(), "traces")
+        os.makedirs(_d, exist_ok=True)
+        _p = os.path.join(_d, f"{time.strftime('%Y%m%d-%H%M%S')}-{role['id']}.json")
+        with open(_p, "w", encoding="utf-8") as _f:
+            json.dump(trace, _f, ensure_ascii=False, indent=1)
+        trace["trace_path"] = _p
+    except OSError:
+        pass
+    print(json.dumps({"audit": "trace_only", "trace": trace},
+                     ensure_ascii=False, indent=1))
+    return int(proc.returncode)
 
 
 def cmd_chat(args: argparse.Namespace) -> int:
@@ -238,6 +276,76 @@ def cmd_dispatch(args: argparse.Namespace) -> int:
     if not args.all and not args.task:
         raise SystemExit("[guagua] 请指定 --all 或 --task <task_id>")
     return _run(cmd, cwd=ROOT)
+
+
+def cmd_run(args: argparse.Namespace) -> int:
+    """统一入口路由器（D+）：判断该走 single / inline / card，默认只给建议。
+
+    只做“选路 + 生成等价命令”，不新增执行语义；加 --execute 才真正转发。
+    """
+    intent = (getattr(args, "intent", None) or "").strip()
+    role = (getattr(args, "role", None) or "").strip()
+    project_dir = getattr(args, "dir", None)
+    out_dir = getattr(args, "out", None)
+    source = getattr(args, "source", None)
+    claims = getattr(args, "claims", None)
+    forwarded = list(getattr(args, "run_args", None) or [])
+    if forwarded and forwarded[0] == "--":
+        forwarded = forwarded[1:]
+
+    if role:
+        argv = ["call", role, *forwarded]
+        mode, reason = "single", "指定了 --role：单角色调用，不涉及任务交接"
+    elif source == "cards" or claims:
+        if not (intent and project_dir and out_dir and claims):
+            print(json.dumps({"ok": False, "stage": "route",
+                              "error": "--source cards 需要 --intent --dir --out --claims"},
+                             ensure_ascii=False, indent=1))
+            return 2
+        argv = ["report", "run-line", "--intent", intent,
+                "--dir", project_dir, "--out", out_dir, "--source", "cards"]
+        if claims:
+            argv += ["--claims", claims]
+        mode, reason = "card", "收卡编译：报告由多角色 claims 合并后出具"
+    elif getattr(args, "report", False) or (project_dir and out_dir):
+        if not (intent and out_dir):
+            print(json.dumps({"ok": False, "stage": "route",
+                              "error": "出报告需要 --intent 与 --out（数据型再加 --dir）"},
+                             ensure_ascii=False, indent=1))
+            return 2
+        argv = ["report", "run-line", "--intent", intent, "--out", out_dir]
+        if project_dir:
+            argv += ["--dir", project_dir]
+        if source:
+            argv += ["--source", source]
+        mode, reason = "inline", "数据已在项目目录：报告层单进程取数，不派卡"
+    elif intent:
+        argv = ["plan", intent]
+        mode, reason = "card", "只有意图：需要 R01 拆卡给多角色协作"
+    else:
+        print(json.dumps({"ok": False, "stage": "route",
+                          "error": "至少给 --intent，或 --role 指定单角色",
+                          "usage": [
+                              "python guagua.py run --role r06 -- --help",
+                              "python guagua.py run --intent \"本周库存怎么补\"",
+                              "python guagua.py run --intent \"...\" --dir <项目> --out <目录>",
+                          ]}, ensure_ascii=False, indent=1))
+        return 2
+
+    payload = {
+        "ok": True,
+        "mode": mode,
+        "reason": reason,
+        "command": "python guagua.py " + " ".join(shlex.quote(x) for x in argv),
+        "argv": argv,
+    }
+    if not args.execute:
+        payload["next"] = "确认无误后加 --execute 直接执行；或复制 command 自行执行"
+        print(json.dumps(payload, ensure_ascii=False, indent=1))
+        return 0
+    payload["executed"] = True
+    print(json.dumps(payload, ensure_ascii=False, indent=1))
+    return _run([PYTHON, str(ROOT / "guagua.py"), *argv], cwd=ROOT)
 
 
 def cmd_status(_: argparse.Namespace) -> int:
@@ -648,6 +756,8 @@ def build_parser() -> argparse.ArgumentParser:
         help="调用角色的任意子命令（全部功能的总入口）",
         description="把参数原样转发给角色 agent.py；在角色目录执行，examples/ 路径可直接用。",
     )
+    p.add_argument("--as-task", action="store_true",
+                   help="按需留痕：写一条 workspace/traces 记录（trace_only，不代表已审计）")
     p.add_argument("role", help="角色 ID / 中文名 / 目录名")
     p.add_argument("agent_args", nargs=argparse.REMAINDER, help="传给 agent.py 的参数；为空则显示 --help")
     p.set_defaults(func=cmd_call)
@@ -669,6 +779,26 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--task", default=None, help="只执行指定 task_id")
     p.add_argument("--limit", type=int, default=None, help="最多执行几张卡")
     p.set_defaults(func=cmd_dispatch)
+
+    p = sub.add_parser(
+        "run",
+        help="统一入口路由器：判断该走 single / inline / card（默认只给建议）",
+        description="只做选路与生成等价命令；加 --execute 才真正执行。\n"
+                    "  python guagua.py run --role r06 -- --help\n"
+                    "  python guagua.py run --intent \"本周库存怎么补\"\n"
+                    "  python guagua.py run --intent \"...\" --dir <项目> --out <目录>",
+    )
+    p.add_argument("--intent", default=None, help="你想完成的事")
+    p.add_argument("--role", default=None, help="单角色调用时指定角色")
+    p.add_argument("--dir", default=None, help="数据项目目录（出报告时）")
+    p.add_argument("--out", default=None, help="报告输出目录（出报告时）")
+    p.add_argument("--report", action="store_true", help="目标是出报告")
+    p.add_argument("--source", choices=("data", "cards"), default=None,
+                   help="报告取数来源：data=报告层直接算；cards=收卡编译（需 --claims）")
+    p.add_argument("--claims", default=None, help="收卡产物 claims_merged.json")
+    p.add_argument("--execute", action="store_true", help="按建议真正执行")
+    p.add_argument("run_args", nargs=argparse.REMAINDER, help="-- 之后的参数原样转发")
+    p.set_defaults(func=cmd_run)
 
     p = sub.add_parser("status", help="查看任务卡依赖与状态")
     p.set_defaults(func=cmd_status)

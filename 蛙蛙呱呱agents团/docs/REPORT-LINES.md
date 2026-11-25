@@ -25,6 +25,9 @@
 拆卡线每步的硬门：brief 未签不拆卡；DoR 未过不发卡；没有 nonce/签名的卡不收；
 `collect` 默认 `--min-sources 50`（唯一 URL）+ 逐条回抓；`run-line --claims` 只接受收卡产物。
 
+`report run-line` 用 `--source data|cards` 显式区分取数来源：`cards` 必须同时给 `--claims`，
+`data` 不接受 `--claims`。两条路共用同一渲染与质检主干，证据契约仍分开。
+
 **先定供给方案（SUPPLY-SOP v7.0）**：项目根目录的 `supply.yaml` 声明
 A/B/C 三层源、`L1_possible` / `L2_possible` / `L2_condition` / `planned_rows`。
 **这是拆卡的前提**——不写供给方案就开拆卡，拆的是"想要的"不是"能采的"。
