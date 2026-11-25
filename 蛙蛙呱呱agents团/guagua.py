@@ -18,6 +18,7 @@
     python guagua.py plan "停车场一年营收最大化"
     python guagua.py dispatch --all
     python guagua.py check
+    python guagua.py audit --full
 """
 from __future__ import annotations
 
@@ -345,6 +346,59 @@ def cmd_check(args: argparse.Namespace) -> int:
     return 0
 
 
+# 默认快检：单项都在秒级到十几秒，适合提交前跑。
+AUDIT_FAST = [
+    ("dead-code", ["scripts/check_dead_code.py", "--check"]),
+    ("convergence", ["scripts/check_convergence.py"]),
+    ("doc-consistency", ["scripts/check_doc_consistency.py"]),
+    ("prompt-system", ["scripts/check_prompt_system.py"]),
+    ("thresholds", ["scripts/check_threshold_consistency.py"]),
+    ("agent-packs", ["scripts/gen_agent_packs.py", "--check"]),
+    ("experts", ["scripts/gen_experts.py", "--check"]),
+    ("skill-layer", ["scripts/audit_skill_layer.py", "--check-refs", "--min", "75"]),
+    ("skill-gate", ["scripts/check_skill_gate.py"]),
+    ("dsh-sync", ["scripts/sync_dsh_skills.py", "--check"]),
+    ("trae-sync", ["scripts/sync_trae_skill.py", "--check"]),
+    ("licenses", ["scripts/check_third_party_licenses.py"]),
+]
+# --full 追加：报告线 / 升级线 CI 与全量单测（分钟级）。
+AUDIT_FULL = [
+    ("report-ci", ["scripts/ci_report_checks.py"]),
+    ("upgrade-ci", ["scripts/ci_upgrade_checks.py"]),
+    ("pytest", ["-m", "pytest", "tests", "-q", "-p", "no:cacheprovider"]),
+]
+
+
+def cmd_audit(args: argparse.Namespace) -> int:
+    """一键体检：默认跑快检；--full 追加报告线/升级线 CI 与全量单测。"""
+    checks = list(AUDIT_FAST) + (list(AUDIT_FULL) if getattr(args, "full", False) else [])
+    rows, failed = [], []
+    started = time.time()
+    for name, extra in checks:
+        t0 = time.time()
+        try:
+            proc = _run_capture([PYTHON, *extra], cwd=ROOT, timeout=1800)
+            ok = proc.returncode == 0
+            detail = "" if ok else ((proc.stderr or proc.stdout or "").strip()
+                                    .splitlines() or [""])[-1][:120]
+        except subprocess.TimeoutExpired:
+            ok = False
+            detail = "TIMEOUT"
+        ms = int((time.time() - t0) * 1000)
+        rows.append([name, "PASS" if ok else "FAIL", f"{ms}ms", detail])
+        if not ok:
+            failed.append(name)
+    print(f"蛙蛙呱呱 · 一键体检（{len(checks)} 项）\n")
+    _print_table(["检查", "结果", "耗时", "错误摘要"], rows)
+    print(f"\n总耗时 {time.time() - started:.1f}s；通过 {len(checks) - len(failed)}/{len(checks)}")
+    if failed:
+        print(f"失败项: {', '.join(failed)}")
+        return 1
+    if not getattr(args, "full", False):
+        print("快检全绿。发布前请再跑: python guagua.py audit --full")
+    return 0
+
+
 def _memory_summary() -> Dict[str, Any]:
     """汇总全部角色记忆池的体积，供 doctor / gc 使用。"""
     from core.memory_guard import HARD_LIMIT_BYTES, SOFT_LIMIT_BYTES, file_size, iter_memory_files
@@ -626,6 +680,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("check", help="体检全部 20 个角色入口")
     p.set_defaults(func=cmd_check)
+
+    p = sub.add_parser("audit", help="一键体检：默认快检；--full 加报告线/升级线 CI 与单测")
+    p.add_argument("--full", action="store_true",
+                   help="追加 ci_report_checks / ci_upgrade_checks / pytest")
+    p.set_defaults(func=cmd_audit)
 
     p = sub.add_parser("capabilities", help="能力目录：谁拥有 / 谁能用 / 形态（代码或规范）")
     p.add_argument("--role", default=None, help="角色 ID（如 r11）：查自己负责或可消费的能力")

@@ -3,7 +3,7 @@
 > 纠正上一版（v4.0）的一个**顺序错误**：我原本把源匹配放在"发卡前"当门禁，
 > 会让拆卡缩水。正确顺序是**拆卡 → 发卡 → 测试 → 降级 → 报告**。
 >
-> 前置：`COLLECTION-SOP.md`（v3.0 粒度）、`SYSTEM-UPGRADE-SOP-v3.md`（v3.1 接线）、
+> 前置：`COLLECTION-SOP.md`（v3.0 粒度）、`docs/archive/SYSTEM-UPGRADE-SOP-v3.md`（v3.1 接线）、
 > `DERIVATION-SOP.md`（v4.0 推导）。
 >
 > 依据：[Positive Abstention（当正确答案是没有答案）](https://qu3ry.net/articles/positive-abstention-clinical-decision-support-abstention.pdf)、

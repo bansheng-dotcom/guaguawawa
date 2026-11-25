@@ -1,19 +1,23 @@
-# 系统升级总纲 SOP（v1.1 · 2026-11-23）
+# 系统升级总纲 SOP（v1.2 · 2026-11-24）
 
 > 目标：**照着做不会偏。** 每层有"该做 / 不该做 / 验收"，每条有"改哪个文件"。
 >
-> **文档权威（改规则只改 MASTER，其余是分册/历史）：**
+> **文档权威（改总规则只改 MASTER；专项细节进入对应现行分册）：**
 >
 > | 文档 | 地位 |
 > |---|---|
-> | **MASTER-UPGRADE-SOP.md（本文）** | **唯一总纲**：决策、优先级、该做/不该做、验收 |
+> | **MASTER-UPGRADE-SOP.md（本文）** | **唯一总纲**：决策、优先级、该做/不该做、验收原则 |
+> | `docs/UPGRADE-PLAN.md` | **本轮唯一执行分册**：2026-11-24 静态审查、源码接线、问题矩阵、WP0–WP5、同步文件与外部依据 |
+> | `docs/COLLECTION-COMPLIANCE.md` | 采集合规现行分册；所有 preview/quality/run 同门、默认拒绝 |
+> | `docs/COORDINATION-SOP.md` | 能力级别与协同分册；须与本文的实际资产、显式降级和双覆盖率口径一致 |
 > | `docs/CHART-UPGRADE-SOP.md` | L3 图表层细节分册 |
 > | `docs/AUTHORING-CONTRACT-SOP.md` | L2 语义层细节分册 |
 > | `docs/DATA-SHAPE-SOP.md` | L1 数据形状分册 |
-> | `交付/拆卡升级-SOP-2026-11-21.md` | L1 拆卡原始定义（v1.4，历史件） |
-> | `docs/REPORT-*-UPGRADE-SOP.md` | 旧版，以本文为准 |
+> | `docs/archive/DATA-LAYER-SOP*.md`、`docs/archive/SYSTEM-UPGRADE-SOP-v3.md` | 历史方案/专项背景；其中 `fulfil`、固定实际行数状态、`GUAGUA_PIPELINE=v2` 等不得当作已接线的现行事实 |
+> | `交付/拆卡升级-SOP-2026-11-21.md` | L1 拆卡原始定义（历史件；仍被引用处须注明规则冲突以本文为准） |
+> | `docs/REPORT-*-UPGRADE-SOP.md` | 专项或旧版；现行专项以 `docs/README.md` 为准，状态与优先级以本文和本轮执行分册为准 |
 >
-> 已并入本文并删除的：`UNIFIED-DECARD-SOP.md`（避免双写漂移）。
+> 已并入本文并删除的：`UNIFIED-DECARD-SOP.md`（避免双写漂移）。文档存在不等于现行，索引见 `docs/README.md`。
 
 ---
 
@@ -41,13 +45,45 @@
 
 ### 0.3 执行纪律（三件齐）
 
-**每层必须"实现 + 接线 + 验收"三件齐全；只实现不接线 = 摆设（G1–G25 就是反例）。**
+**每层必须"实现 + 接线 + 验收"三件齐全；只实现不接线 = 摆设。门禁函数存在、测试文件存在、YAML 字段存在，也都不能单独证明生产路径已生效。**
+
+### 0.4 2026-11-24 审查纠偏（当前最高优先级）
+
+本轮只做静态审查与 SOP 更新，未修改业务代码、配置、测试或项目数据，也未做运行时复现。完整证据、外部资料与文件矩阵见 `docs/UPGRADE-PLAN.md`。
+
+**源码状态纠偏：**
+
+- v3 collection→staging→mart 已被桥接层局部调用，`card_probe` 也调用 preview/quality；不能再写“产线完全未接”或“preview 无调用点”。
+- `actual_rows` 不是恒为空；问题是桥内资产未按明确契约交接，且表定义与实际行必须分开。
+- `dataset_query` 已局部接线；主缺口是产物有效性、原子性、能力门禁、图表血缘和失败收口。
+- 不新增另一套 `core/fulfil.py` 平行引擎，优先修复现有 `from_collection/from_drill/dataset_query` 的契约和主链。
+
+**当前实施顺序（未来执行时）：**
+
+1. **WP0 契约与反例测试**：先固定会被旧测试保护的误跳过、无行通过、重复抓取等行为。
+2. **WP1 主链正确性**：产物有效性、角色范围、原子发布、显式错误与降级。
+3. **WP2 实际资产与门禁**：定义/物理行分离，接 dataset_gates，能力只读已验证资产。
+4. **WP3 格网与双覆盖率**：按 grain 重拆，论点格/数据格分离。
+5. **WP4 图表与血缘**：图状态、图合同、dataset/query/run 血缘、去重减图。
+6. **WP5 采集合规与快照**：所有采集入口同门，一次抓取复用，合规撤销能影响下游。
+
+**三项已确认决策：**
+
+- **D1**：entity 与 grain 不自洽时按 grain 重拆；无法可靠映射标 `unavailable`，不猜数、不补零。
+- **D2**：同时报告格子交付率和可画切片率，二者不可互相替代。
+- **D3**：允许只针对重复、空信息、关系不成立的图去重减图；不得降低问题覆盖，不设图数 KPI。
+
+**降级的统一边界：** 禁止静默 fallback，不等于禁止一切降级。关键事实、合同、角色越权、合规和能力虚报必须阻断；非关键增强可显式降级，但必须记录 `from/to/reason/affected_claims/actual_level/recovery_condition`。表格回退不等于图交付成功。
+
+**旧章节使用规则：** 下文第 1–8 节保留 2026-11-23 的五轴、门禁和分层设计作为背景；其中“现状”“本轮要接”“只差调用”“孤儿”等状态词均已由本轮源码审查重新校准，不得据旧表直接施工。当前工作顺序、问题优先级和验收以 §0.4 与 `UPGRADE-PLAN.md` 为准。
 
 ---
 
-## 1. 真实审计：需要 vs 不需要
+## 1. 2026-11-23 基线审计：需要 vs 不需要（历史状态）
 
-### 1.1 需要的（12 项，这轮要做）
+> 本节保留当时的审计范围，不代表 2026-11-24 的源码现状。执行前必须按 `UPGRADE-PLAN.md` 重新核对。
+
+### 1.1 当时识别的 12 项（不是当前施工清单）
 
 | # | 项 | 层 | 现状 |
 |---|---|---|---|
@@ -75,9 +111,9 @@
 | 5 | 加图型 | 70 型够用 |
 | 6 | 加数据抽象层 | 已有 raw/evidence_pack/pack |
 
-### 1.3 已完成但没接线的（4 项，属于"需要的"）
+### 1.3 当时识别为“已写未接”的 4 项
 
-`G1–G25` · `三前端` · `chart_query` · `semantic_pipeline` —— 都是写完没接，不是没写。
+`G1–G25` · `三前端` · `chart_query` · `semantic_pipeline`。这些标签只描述当时审计；尤其 `chart_query` 与数据层当前已有局部接线，不能再按“完全孤儿”处理。
 
 ---
 
@@ -127,7 +163,7 @@ chart:
 
 ### 2.2 G1–G25 完整清单（收格后必跑）
 
-> 代码：`card_upgrade.gates()`。**现状：只被 scripts + 测试调用，生产不跑（本轮要接）。**
+> 代码：`card_upgrade.gates()`。下文保留门禁定义；生产调用状态不得仅凭本节判断，实施前须重新查调用方并按 `UPGRADE-PLAN.md` 验收。
 
 | 门 | 判据 |
 |---|---|
@@ -234,7 +270,7 @@ shape_ok_ratio = 同 metric ≥3 行的指标数 / 总指标数
 
 ### 4.1 现有资产
 
-`chart_candidates.py`（relation→候选+validate）· `chart_payload.py`（facts→payload）· `chart_query.py`（panel→heatmap/line/share_bar，**孤儿**）· `charts_pro`（70 型）。
+`chart_candidates.py`（relation→候选+validate）· `chart_payload.py`（facts→payload）· `chart_query.py`（panel→heatmap/line/share_bar）· `charts_pro`。这些是能力清单，不代表每条的当前接线状态；本轮图表问题以 `UPGRADE-PLAN.md` B04–B06 为准。
 
 ### 4.2 该做 / 不该做 / 验收
 
@@ -290,7 +326,9 @@ shape_ok_ratio = 同 metric ≥3 行的指标数 / 总指标数
 
 ---
 
-## 7. 实施顺序（具体到文件）
+## 7. 2026-11-23 实施顺序（历史方案，不直接执行）
+
+> 当前顺序以 §0.4 的 WP0–WP5 为准。下表仅保留当时函数级设计背景，执行前必须核对当前源码与 `UPGRADE-PLAN.md` 的文件同步矩阵。
 
 | 步 | 改哪个文件/函数 | 退出条件 |
 |---|---|---|
@@ -322,28 +360,25 @@ shape_ok_ratio = 同 metric ≥3 行的指标数 / 总指标数
 
 ## 9. 回滚
 
-| 开关 | 作用 |
-|---|---|
-| `GUAGUA_IR_TREAT=0/1` | 图型自动切换（默认关） |
-| `AUTHORING_MODE=legacy/contract` | 三前端接入 |
-| `GATES_MODE=post/off` | G1–G25 接线 |
-| `content_hash` 基线 | 零回归闸 |
+1. 优先按 run_id 和 manifest 回滚到已发布、已验证的资产版本，不手工覆盖半份文件。
+2. 采用 Expand-Contract：先兼容读取和双写验证，再切唯一入口，最后清理旧字段。
+3. 环境变量或功能开关只有在源码有真实消费者、测试覆盖并登记到 `REPORT-FEATURE-FLAGS.md` 后，才可写进回滚方案；不得引用 `GUAGUA_PIPELINE=v2` 等未核实开关。
+4. 合规拒绝、个人信息风险和授权撤销不得通过普通功能开关绕过。
 
 ---
 
-## 10. DoD（可勾选）
+## 10. 本轮修复 DoD（未来实施时勾选）
 
-- [ ] G1–G25 收格后必跑，结果进 `manifest.gate.post`
-- [ ] cells_filled 闭环通（格子→claims）
-- [ ] 每份报告有采集契约，含 `availability`
-- [ ] shape_ok_ratio 门禁生效
-- [ ] 因果阶真赋值；G15 能拦 A 阶机制；图带 causal_level
-- [ ] 驱动树产出
-- [ ] 有数据分支产出 data_profile
-- [ ] 三前端接产线；语义一致性测试过
-- [ ] chart_query 接主路径；1–2 点图不出
-- [ ] 一条渲染路径 + 一条门禁链
-- [ ] core/ 无业务词；样例在 samples/
+- [ ] claims 文件存在不再足以触发 skip；输入、合同、代码与校验指纹匹配才复用。
+- [ ] 单角色补卡不修改范围外 claims；任一阶段失败都不会发布可被后续读取的半份产物。
+- [ ] 表定义、物理资产、预期行数、实采行数和通过校验行数分离；无物理行不得声明已验证 L2。
+- [ ] dataset_gates 接入真实资产发布与报告能力声明，`unverified` 不再等同于 L2 PASS。
+- [ ] D1 落实：entity/grain 可映射或有明确 unavailable；不猜数、不补零。
+- [ ] D2 落实：格子交付率与可画切片率能从同一计划版本复算。
+- [ ] D3 落实：只去重坏图/重复图，问题覆盖不下降，图数不是 KPI。
+- [ ] 图状态与 dataset/query/run 血缘完整；关键图失败阻断，支持性图显式降级。
+- [ ] validate/preview/quality/run 合规同门；YAML 错误 fail-closed；同一快照只抓取一次。
+- [ ] 所有改动同步测试、现行文档和活跃技能镜像；不存在仅凭旧 SOP 施工的第二套口径。
 
 ---
 

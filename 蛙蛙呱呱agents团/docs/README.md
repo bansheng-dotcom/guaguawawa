@@ -1,12 +1,16 @@
 # docs 索引（现行 / 历史）
 
-> 2026-11-18（v11 · P1）重整，2026-11-22 清理历史过程稿。**现行文档只有下面列出的几份**；
-> 历史副本不再保留，只在 git 历史里可追溯。
+> 2026-11-24 重新校准。**文件仍存在于 docs/ 不等于它是现行规则。** 规则冲突时，先读唯一总纲，再读对应现行分册；历史文档只用于追溯设计背景，不得直接作为施工依据。
 
 ## 现行（读这些）
 
 | 文档 | 回答什么 |
 |---|---|
+| **`MASTER-UPGRADE-SOP.md`** | **唯一系统升级总纲**：当前决策、优先级、显式降级边界、D1/D2/D3 与 DoD |
+| **`UPGRADE-PLAN.md`** | **2026-11-24 本轮唯一执行分册**：静态源码审查、主链接线、问题矩阵、外部依据、二阶三阶影响与未来同步文件 |
+| `COLLECTION-COMPLIANCE.md` | 采集合规现行分册：逐源审核、默认拒绝、preview/quality/run 同门、单快照与撤销 |
+| `COLLECTION-SOP.md` | 采集流程专项分册；合规与门禁以 `COLLECTION-COMPLIANCE.md` 和总纲为准 |
+| `COORDINATION-SOP.md` | 协同与能力级别分册；实际级别必须来自已验证资产，并与双覆盖率口径一致 |
 | `../REPORT-STANDARD.md` | 报告写什么、怎么判合格、怎么验（唯一报告标准） |
 | `PROJECT-RULES.md` | 项目规则（13 条，每条绑定一个自动检查；违反即返工） |
 | `../REPORT-BRIDGE-GUIDE.md` | 新角色/新能力怎么接入唯一产线 |
@@ -29,10 +33,16 @@
 | `DOMAIN-EXPERT-LAYER.md` | 业务线 → 领域编队 |
 | `REPORT_REFERENCE_LIBRARY.md` | 报告参考库（案例与写法） |
 
-## 历史（已移出 docs/）
+## 历史 / 限定使用（文件可能仍在 docs/）
 
-历史过程稿（`REPORT-LINE-V4..V8.md`、`UPGRADE-PLAN-V3.md`、各类 SOP 与学习笔记）已在 2026-11-22 的
-仓库清理中删除，不再保留本地副本；需要追溯时看 git 历史，不要当现行口径引用。
+| 文档或类别 | 当前使用方式 |
+|---|---|
+| `docs/archive/DATA-LAYER-SOP.md`、`DATA-LAYER-SOP-v3.md` | 历史方案/专项背景。`actual_rows=null`、collect 收尾调 `fulfil` 等旧表述不得当作当前源码事实或既定实施路线。 |
+| `docs/archive/SYSTEM-UPGRADE-SOP-v3.md` | 历史方案/专项背景。staging→mart、Expand-Contract 等设计可参考；`GUAGUA_PIPELINE=v2` 未核实到当前消费者，不得当作现存回滚开关。 |
+| 未在上方列为现行的 `REPORT-*-UPGRADE-SOP.md`、早期升级 SOP 与过程稿 | 按各自主题参考；状态、优先级和验收与总纲冲突时，以总纲和 `UPGRADE-PLAN.md` 为准。 |
+| 其他未列入“现行”的学习笔记、复盘和版本稿 | 只作历史证据，不直接施工；需要追溯时同时查 git 历史与当前源码。 |
+
+本轮仅校准权威关系，没有批量删除历史文件。任何“已接线”“已通过”“开关存在”的描述，都必须以当前源码和运行时证据重新验证。
 
 ## 数据文件
 
@@ -44,11 +54,11 @@
 
 | 文档 | 内容 | 状态 |
 |---|---|---|
-| `拆卡升级-SOP-2026-11-21.md` | 拆卡五轴、S1–S11 门禁、卡片契约 | 现行，被 `REPORT-LINES.md` 引用 |
-| `协作层-SOP-2026-11-21.md` | 卡间协商、R02 交接包与波次 | 现行，被拆卡 SOP 引用 |
+| `拆卡升级-SOP-2026-11-21.md` | 拆卡五轴、S1–S11 门禁、卡片契约 | 历史原始定义，仍被 `REPORT-LINES.md` 引用；冲突以 MASTER 为准 |
+| `协作层-SOP-2026-11-21.md` | 卡间协商、R02 交接包与波次 | 专项参考，被拆卡 SOP 引用；冲突以 MASTER / COORDINATION 为准 |
 | `报告系统升级SOP-2026-11-21.md` | 报告产线结构、呈现与数据层修复 | 过程记录，与两份设计稿互引 |
 | `50材料核验-2026-11-21.md` | 50 份外部材料的 URL/许可核验明细 | 证据附件 |
-| `专家团系统升级-SOP-v5-2026-11-22.md` | 最新一版系统升级 SOP | 版本链最新 |
+| `专家团系统升级-SOP-v5-2026-11-22.md` | 2026-11-22 系统升级方案 | 历史版本链；不是当前唯一总纲 |
 | `generic_semantics_v1.yaml` | 跨业务线通用语义（度量类型/质量六维/因果阶） | **代码依赖**（`core/card_upgrade.py`） |
 | `semantic_layer.template.yaml` | 语义层模板 | 模板（`card_issue.py` 会生成同名文件） |
 | `agent_card.template.yaml` · `handoff_contract.template.yaml` | 角色卡 / 交接包模板 | 模板，暂无代码引用 |

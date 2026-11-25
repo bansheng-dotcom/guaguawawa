@@ -1,6 +1,6 @@
 # 业务→采集规格 推导 SOP（v4.0）：让 YAML 不是"猜的"
 
-> 前置：`COLLECTION-SOP.md`（v3.0）定采集粒度，`SYSTEM-UPGRADE-SOP-v3.md`（v3.1）定系统接线。
+> 前置：`COLLECTION-SOP.md`（v3.0）定采集粒度，`docs/archive/SYSTEM-UPGRADE-SOP-v3.md`（v3.1）定系统接线。
 > 这一份回答：**项目里的 `collection.yaml` 和 staging 到底该"怎么造"**。
 > 依据：[AI-Driven Generation of Data Contracts (arXiv 2507.21056)](https://ar5iv.labs.arxiv.org/html/2507.21056)、
 > [Kimball《Grain》](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/grain/)。

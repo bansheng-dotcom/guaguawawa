@@ -13,3 +13,11 @@ baselines/_figs/
 baselines/_shadow_flow/
 baselines/_decord_demo/
 baselines/_dod_demo/
+
+# 测试 / 运行产物
+.pytest_cache/
+workspace/
+pipelines/out/
+
+# 头像拼版预览（avatars/ 才是唯一源）
+头像预览联系表.png

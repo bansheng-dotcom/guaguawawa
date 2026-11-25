@@ -4,7 +4,7 @@
 > 那数据补全不严格的时候就要降级。以前的产物只是穷尽拆解后的分析，现在是分析后又继续采集，
 > 这部分要协调起来。」
 >
-> 前置：`COLLECTION-SOP.md`（v3.0 粒度）、`SYSTEM-UPGRADE-SOP-v3.md`（v3.1 接线）、
+> 前置：`COLLECTION-SOP.md`（v3.0 粒度）、`docs/archive/SYSTEM-UPGRADE-SOP-v3.md`（v3.1 接线）、
 > `DERIVATION-SOP.md`（v4.0 推导）、`FEASIBILITY-SOP.md`（v5.0 降级）。
 > **这一份是总纲：把两代产物收进同一个能力模型。**
 >
