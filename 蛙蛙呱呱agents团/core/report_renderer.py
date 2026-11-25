@@ -1467,8 +1467,17 @@ def reset_chart_stats() -> None:
 
 
 def render_chart(chart: Dict[str, Any], theme: str = "sticker", engine: str = "") -> str:
-    """内建 hbar/vbar；engine="pro" 走 charts_pro（映射不了回退 v1）。"""
+    """内建 hbar/vbar；engine="pro" 走 charts_pro；engine="echarts" 走交互后端。"""
     _CHART_STATS["total"] += 1
+    if str(engine) == "echarts":
+        try:
+            from core.report_theme.charts_pro import interactive
+            html = interactive.render_chart(chart)
+            if html:
+                _CHART_STATS["pro"] = _CHART_STATS.get("pro", 0) + 1
+                return html
+        except Exception:  # noqa: BLE001 交互后端失败回退静态图
+            pass
     if str(engine) == "pro":
         try:
             from core.report_theme.charts_pro.compat import render_chart as pro_render

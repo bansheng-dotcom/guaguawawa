@@ -279,7 +279,7 @@ def _reading(s: Dict[str, Any]) -> tuple[str, str]:
     return "".join(body), boundary
 
 
-_CHART_STATS = {"total": 0, "pro": 0, "legacy": 0, "error": 0}
+_CHART_STATS = {"total": 0, "pro": 0, "legacy": 0, "error": 0, "echarts": 0}
 
 
 def chart_stats() -> Dict[str, int]:
@@ -303,6 +303,15 @@ def _render_svg(ch: Dict[str, Any]) -> tuple[str, str]:
         svg = ccharts.render(ch, theme="consulting") or ""
         _CHART_STATS["legacy"] += 1
         return svg, "legacy"
+    if str(os.environ.get("GUAGUA_CHART_BACKEND") or "svg").lower() == "echarts":
+        try:
+            from core.report_theme.charts_pro import interactive
+            html = interactive.render_chart(ch)
+        except Exception:  # noqa: BLE001 交互后端坏了必须回退，不阻断报告
+            html = None
+        if html:
+            _CHART_STATS["echarts"] += 1
+            return html, "echarts"
     try:
         from core.report_theme.charts_pro.compat import render_chart as pro_render
         svg = pro_render(ch) or ""

@@ -21,7 +21,7 @@ def _design(chart: Dict[str, Any], items) -> Dict[str, Any]:
     看起来比旧引擎还差。设计参数不是新的数据，不能丢。
     """
     out: Dict[str, Any] = {}
-    for k in ("max", "min", "decimals", "label", "unit"):
+    for k in ("max", "min", "decimals", "label", "unit", "unit_meta"):
         if chart.get(k) is not None:
             out[k] = chart[k]
     # 旧 dict 的 ref 可能是数字，也可能是 {"value","label"} / {"min","max"}

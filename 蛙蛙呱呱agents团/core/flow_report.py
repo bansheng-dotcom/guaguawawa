@@ -54,13 +54,18 @@ def _assemble(facts: Any, charts: Any, meta: Dict[str, Any]) -> Dict[str, Any]:
     pages: Dict[str, int] = {}
     p = 4
     figures = tables = 0
-    engines = {"pro": 0, "legacy": 0, "table": 0}
+    engines = {"pro": 0, "legacy": 0, "table": 0, "echarts": 0}
+    import os as _os
+    _backend = str(_os.environ.get("GUAGUA_CHART_BACKEND") or "svg").lower()
     for s in sections:
         if isinstance(s.get("chart"), dict) and not s.get("chart_spec"):
             s["chart_spec"] = s["chart"]
         if s.get("chart_spec"):
             s["chart"] = str((s["chart_spec"] or {}).get("type") or "spec")
-            engines["pro"] += 1
+            if _backend == "echarts":
+                engines["echarts"] += 1
+            else:
+                engines["pro"] += 1
         elif s.get("chart"):
             engines["legacy"] += 1
         else:
@@ -99,6 +104,14 @@ def _assemble(facts: Any, charts: Any, meta: Dict[str, Any]) -> Dict[str, Any]:
             from core.report_theme.charts_pro import spec as spec_layer
             spec_layer.validate(s["chart_spec"])
             fn = (lambda sp: (lambda: spec_layer.render(sp)))(s["chart_spec"])
+            if _backend == "echarts":
+                try:
+                    from core.report_theme.charts_pro import interactive
+                    html = interactive.render_spec(s["chart_spec"])
+                    if html:
+                        fn = (lambda h: (lambda: h))(html)
+                except Exception:  # noqa: BLE001 交互失败回退静态 SVG
+                    pass
         elif s.get("chart"):
             fn = getattr(charts, s["chart"], None)
             if fn is None:

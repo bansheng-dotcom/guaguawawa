@@ -461,7 +461,8 @@ def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any
 
 def build(project: Path, cells_path: Optional[Path] = None,
           require_sources: bool = True,
-          only_roles: Optional[set] = None) -> Dict[str, Any]:
+          only_roles: Optional[set] = None,
+          unified: bool = True) -> Dict[str, Any]:
     project = Path(project)
     grid = _load(project / "plan" / "grid.json", {}) or {}
     dispatch = _load(project / "plan" / "dispatch.json", {}) or {}
@@ -473,6 +474,27 @@ def build(project: Path, cells_path: Optional[Path] = None,
     cells = filled_doc.get("cells") or []
     if not cells:
         return {"ok": False, "stage": "cells", "error": "没有 cells_filled.json 或为空"}
+
+    # P5-5：三套读数收敛——先对账（cells vs raw/mart），再用统一读数覆盖格子标量。
+    # 对账差异不静默改数：覆盖后标 needs_human，并写 out/cells_claims_diff.json。
+    _diff: Dict[str, Any] = {}
+    _uni: Dict[str, Any] = {"matched": 0, "mismatched": [], "unified_rows": 0}
+    if unified:
+        try:
+            from core import cells_unified as _cu
+            _diff = _cu.compare(project, write=True)
+            _uni = _cu.apply_to_cells(project, cells)
+            (project / "out").mkdir(parents=True, exist_ok=True)
+            (project / "out" / "cells_unified.json").write_text(
+                json.dumps({"schema": "dsh.cells_unified/v1",
+                            "diff": {k: _diff.get(k) for k in
+                                     ("ok", "matched", "diffs", "missing_in_unified")},
+                            "applied": {"matched": _uni["matched"],
+                                        "mismatched": len(_uni["mismatched"]),
+                                        "unified_rows": _uni["unified_rows"]}},
+                           ensure_ascii=False, indent=1), encoding="utf-8")
+        except Exception as exc:  # noqa: BLE001 统一读数失败时退回格子原值
+            _uni["error"] = "%s: %s" % (type(exc).__name__, exc)
 
     cell_meta = {str(c.get("cell_id")): c for c in grid.get("cells") or []}
     owner_of = {str(a.get("cell_id")): str(a.get("owner"))
@@ -576,7 +598,10 @@ def build(project: Path, cells_path: Optional[Path] = None,
                      "measure_id": c.get("measure_id") or c.get("measure"),
                      "grain_id": c.get("grain_id") or c.get("grain"),
                      "caliber": c.get("caliber") or {},
+                     "value_from": c.get("value_from") or "cell",
                      "source_file": src_ids.get(str(c.get("source_file")), "")}
+                if c.get("needs_human"):
+                    n["needs_human"] = True
                 numbers.append(n)
                 local.append((n, c))
             refs = [n["id"] for n, _ in local[:6]]
@@ -653,4 +678,9 @@ def build(project: Path, cells_path: Optional[Path] = None,
 
     return {"ok": bool(written), "stage": "compiled", "roles": written,
             "cells_input": len(cells), "cells_used": sum(r["cells"] for r in written),
-            "contract_gaps": len(contract_gaps)}
+            "contract_gaps": len(contract_gaps),
+            "unified": {"diff_ok": _diff.get("ok"),
+                        "diff_matched": _diff.get("matched", 0),
+                        "diff_count": len(_diff.get("diffs") or []),
+                        "value_from_observation": _uni.get("matched", 0),
+                        "needs_human": len(_uni.get("mismatched") or [])}}

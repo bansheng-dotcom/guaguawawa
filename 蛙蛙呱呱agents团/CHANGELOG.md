@@ -8,6 +8,36 @@
 
 ---
 
+## 2026-11-25（第五轮）· ECharts 交互后端 + cells_claims 三套收敛
+
+一句话：**图能交互了，但离线/PDF 仍有静态兜底；同一格不再出三个数。**
+
+### ECharts 交互后端（P5-4，可选）
+
+| 能力 | 位置 | 说明 |
+|---|---|---|
+| 交互后端 | `charts_pro/interactive.py` | hbar/vbar/line/area/pie/donut/scatter/heatmap/funnel/treemap 等映射为 ECharts option；tooltip、图例开关、类别多时 dataZoom、热力 visualMap |
+| 开关 | `GUAGUA_CHART_BACKEND=echarts` | 默认仍走静态 SVG；**零破坏** |
+| 兜底 | 同上 | 每张图内嵌静态 SVG fallback，JS 未执行（PDF/断网/打印）时读者仍看到原图；不支持的类型直接回退 SVG |
+| 依赖边界 | CDN `echarts@5` | 核心链路仍不 import 任何第三方包；只有浏览器端加载 |
+
+### cells_claims 三套收敛（P5-5）
+
+| 能力 | 位置 | 说明 |
+|---|---|---|
+| 统一读数 | `core/cells_unified.py` | `observations()` 优先 `out/raw.json`，其次 `plan/mart.json`，按 (measure, entity, period) 归一 |
+| 双写对账 | 同上 `compare()` | v1 已填格子 vs 统一读数逐键比对，写 `out/cells_claims_diff.json` |
+| 切换 | `cells_claims.build(unified=True)` | 数字改读统一读数，标 `value_from=observation`；与格子值不一致的标 `needs_human`，不静默改数 |
+| CLI | `scripts/cells_diff.py --project` | 对账入口，差异非 0 退出 1 |
+
+### 门禁
+
+`pytest 618 passed / 3 skipped`；`check_business_terms` 0/0/0；
+`check_charts_pro` contract OK + tokens OK；`check_chart_edges` 8/8；
+`check_project_boundary` PASS；`check_convergence` 违规 0；`guagua.py audit` 15/15。
+
+---
+
 ## 2026-11-25（第四轮）· 业务词清零 + Layout 全量接管 + 两个缺口补齐
 
 一句话：**核心代码里不再有任何行业口径词；70 型图在渲染前走同一层 Layout。**
