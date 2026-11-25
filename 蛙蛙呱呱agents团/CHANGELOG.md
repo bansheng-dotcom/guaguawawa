@@ -8,6 +8,60 @@
 
 ---
 
+## 2026-11-25（第二轮）· 图型止血 + 边界门禁加固
+
+一句话：**先让图不撒谎，再让边界查得出来。**
+
+### 修复（作图边界，P0）
+
+| 问题 | 位置 | 修法 |
+|---|---|---|
+| 空数据崩 `max() arg is empty` | `charts_pro/spec.py` `_hbar`、`spec_families.py` `_vbar` | 返回"无数据"说明卡（`prokit_helpers.empty_chart`） |
+| 单点/全零崩 `ZeroDivisionError` | `prokit_helpers.sx/sy` | 零域映射到画布中线；`line`/`pie` 单点与全零不再除零 |
+| 全负值条形向右、轴向反转 | `_hbar` | 0 基线居中，负值向左；轴域含 0 并取整 |
+| 热力图负值与 0 同色 | `_heatmap` + `prokit_helpers.blend` | 新增 `diverging()`（负蓝 / 0 白 / 正红），`_heatmap` 改用它 |
+| 18 字中文标签压到条上 | `_hbar` / `_vbar` / `_heatmap` | 新增 `text_width` / `fit_text`，超宽换 2 行、仍超加省略号 |
+| 数值格式混用（`364824.0`） | 同上 | 新增 `fmt_num()`：整数不带 `.0`，小数去尾零 |
+| 饼/环/华夫全零崩 | `_pie` / `_donut` / `_waffle` / `_rose` | 空态或 0 总额守卫 |
+
+### 新增
+
+| 能力 | 位置 | 说明 |
+|---|---|---|
+| 图型边界门禁 | `scripts/check_chart_edges.py` | 8 例：空态/零域/负值方向/发散色阶/长标签/200 项；已接入 `ci_report_checks` 的 `[18b]` |
+| 产物落盘唯一入口 | `core/paths.write_artifact()` | 解析路径 → 过守卫 → 建父目录；`data_model.export` 已改走它 |
+| 边界允许清单 | `boundary_allowlist.yaml` | 登记"团队自身证据"（r01/r04/r05 的演进留证、`交付/generic_semantics_v1.yaml`），每条写 kind/note/since |
+
+### 变更
+
+- `scripts/check_project_boundary.py`：**任意层级**匹配过程目录（新增 `workspace/out/plan/coverage/data/artifacts`），
+  并对命中项标注**是否已提交**（gitignore 对已跟踪文件无效）；读取 `boundary_allowlist.yaml`。
+- `.gitignore`：补 `*/tests/workspace/`、`*/_test_*/`，并注明由边界门禁兜底。
+
+### 清理（运行残留，均未入库）
+
+`workspace/`（含 5 个 `_test_*`）、`pipelines/out/`、`r10-wachengmei-design/workspace/`、
+`r04-watiaoci-reviewer/tests/workspace/`、`r05-washenyuan-research/tests/workspace/`，共 83 个文件。
+
+**根因修复**：`tests/test_card_default_gate.py`、`tests/test_user_in_the_loop.py` 用的是相对路径
+`Path("workspace/_test_*")`，跑测试就落在团内——这正是残留反复出现的源头。
+已改为系统临时目录（`tempfile.gettempdir()`），跑完不再在团内留任何东西。
+
+> 保留不动：`r01/r04/r05` 的 `artifacts/` 是已登记的方法演进留证（含 SHA256 清单），
+> 不按项目资产处理，但已纳入 allowlist 可审计。
+
+### 门禁结果
+
+`pytest 547 passed / 3 skipped`；`check_charts_pro`、`check_chart_edges 8/8`、
+`check_project_boundary PASS`、`check_convergence 违规 0`、`ci_report_checks ALL PASS`。
+
+### 本轮未做（按方案 P1–P5 排期）
+
+采集六层（Policy/Staging）、四份契约（Record/Observation/Dataset/ChartSpec）、
+`normalize` 规则外置、`chart_fit` 选型、Theme token 与 ECharts 后端、`cells_claims` 收敛。
+
+---
+
 ## 2026-11-25 · 项目边界落地 + expert_brief v2
 
 一句话：**专家团是工具，项目是资产；工具不带项目走，项目不写进工具。**
