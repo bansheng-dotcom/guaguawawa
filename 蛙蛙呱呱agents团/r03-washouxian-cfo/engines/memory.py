@@ -14,7 +14,7 @@ import os
 import time
 from typing import Any, Dict, List, Optional
 
-from core.workspace import role_workspace
+from core.base.workspace import role_workspace
 
 class FinancialSessionMemoryPool:
     """持久化财务工作记忆与状态机。"""

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.supply_plan —— 数据供给方案（SUPPLY-SOP v7.0 · ⓪）。
+"""core.sources.supply_plan —— 数据供给方案（SUPPLY-SOP v7.0 · ⓪）。
 
 **在拆卡之前**回答三件事：
 
@@ -13,7 +13,7 @@
     计划 L2 且交付 L2 → 按计划
 
 用法：
-    from core import supply_plan as sup
+    from core.sources import supply_plan as sup
     doc = sup.load(project / "supply.yaml")
     errs = sup.validate(doc)
     lvl = sup.planned_level(doc)        # "L2" / "L1" / "L0"

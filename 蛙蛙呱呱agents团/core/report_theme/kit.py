@@ -20,7 +20,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from core.report_marks import FIGURE_SRC_CLASSES
+from core.report.report_marks import FIGURE_SRC_CLASSES
 
 # 页构造器沿用 v3 kit 的写法（内部以 build.xxx 调基础组件）；固化后指回本模块
 build = sys.modules[__name__]

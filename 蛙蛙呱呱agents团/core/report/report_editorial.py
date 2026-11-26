@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.report_editorial —— 把「方法库契约」补成「可读的报告」。
+"""core.report.report_editorial —— 把「方法库契约」补成「可读的报告」。
 
 差距不在主题，在契约：旧 draft 只有 reading 要点，没有 verdict / kicker /
 rail / actions / sources。本模块只做**不造数**的编辑装配：

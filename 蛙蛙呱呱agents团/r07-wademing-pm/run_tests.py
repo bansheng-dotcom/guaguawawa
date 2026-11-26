@@ -238,7 +238,7 @@ def main() -> int:
     t.check("demo 生成示例工件", code == 0 and len(demo.get("demo_artifacts", {})) == 4)
 
     t.section("run_task 协作入口")
-    from core import workspace, protocol
+    from core.base import workspace, protocol
     ws = workspace.Workspace(os.path.join(AGENTS, "workspace"))
     inp = protocol.Port(good_prd_path, "data", note="")
     task = protocol.Task(title="写新手引导 PRD", owner="r07", intent="需求 PRD 分析",

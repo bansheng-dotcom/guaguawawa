@@ -28,8 +28,9 @@ from typing import Any, Dict, List, Optional
 
 ROOT = Path(__file__).resolve().parent.parent
 
-from core import (analysis_desk, analysis_methods, decision, methods,
-                  orchestrator, report_assembly, report_flow)
+from core.data import analysis_desk
+from core import analysis_methods, decision, methods, orchestrator
+from core.report import report_assembly, report_flow
 
 
 def _json(path: str, obj: Any) -> None:
@@ -50,7 +51,7 @@ def build(intent: str, project_dir: str, out_dir: str,
     # 2026-11-23（DoD #7）：数据分支必须产出 data_profile——先看数据长什么样，
     # 再决定能问什么。原来这个模块写了但产线从不调用。
     try:
-        from core import data_profile as _dp
+        from core.data import data_profile as _dp
         _dp_res = _dp.profile_dir(os.path.join(project_dir, "data"))
         _json(os.path.join(out_dir, "data_profile.json"), _dp_res)
     except Exception:  # noqa: BLE001
@@ -324,7 +325,7 @@ def build(intent: str, project_dir: str, out_dir: str,
     # 缺工件就跳过（不改变旧行为）。门禁默认软（记录不拦）。
     _cov: Dict[str, Any] = {}
     try:
-        from core import coverage_wire
+        from core.sources import coverage_wire
         _cov = coverage_wire.derive(project_dir)
     except Exception:  # noqa: BLE001
         _cov = {}
@@ -340,7 +341,8 @@ def build(intent: str, project_dir: str, out_dir: str,
     # 6) 三层质检（v11 / P5）：证据 / 编辑 / 呈现，三层全过才放行。
     #    binding 与图契约是决策稿特有的两道，和三层并列，不互相替代。
     #    flow 版没有 A4 页容器，编辑/呈现两层（按页 DOM 写）不适用，改用文笔门禁。
-    from core import quality_gate, report_quality
+    from core import quality_gate
+    from core.report import report_quality
     html = (res.get("files") or {}).get("html") or ""
     if layout == "flow":
         fg = res.get("flow_gate") or {}

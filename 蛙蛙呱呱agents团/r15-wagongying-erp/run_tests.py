@@ -355,7 +355,7 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("run_task 协作入口")
-    from core import workspace, protocol
+    from core.base import workspace, protocol
     ws = workspace.Workspace(os.path.join(AGENTS, "workspace"))
     inp = protocol.Port(_ex("purchase_order.json"), "data", note="")
     task = protocol.Task(title="补一张采购单",

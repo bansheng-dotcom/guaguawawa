@@ -11,7 +11,7 @@
 """
 import json
 import os
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 
 import sys
 import unittest

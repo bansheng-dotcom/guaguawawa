@@ -62,7 +62,7 @@ python r01-waquanju-ceo/agent.py run --task <task_id>
 | **20 人专家团包（宿主可直接加载）** | `agent-packs/plugin.json` + `agent-packs/agents/*.md` |
 | 专家团包生成器（改源后重跑） | `python scripts/gen_agent_packs.py` |
 | 跨宿主入口（agents.md 标准） | `AGENTS.md` |
-| 机器可读的角色注册表 | `core/registry.py` |
-| 端口/任务卡/事件字段契约 | `core/protocol.py` |
-| 共享 HTML 报告渲染器 | `core/report_renderer.py` |
+| 机器可读的角色注册表 | `core/base/registry.py` |
+| 端口/任务卡/事件字段契约 | `core/base/protocol.py` |
+| 共享 HTML 报告渲染器 | `core/report/report_renderer.py` |
 | **通用专业报告生成器（全 20 角色统一调用）** | `shared/report_generator.py` |

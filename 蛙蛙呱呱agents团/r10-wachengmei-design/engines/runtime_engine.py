@@ -9,7 +9,7 @@
 from __future__ import annotations
 
 import os
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 
 import sys
 from typing import Any, Dict, List, Optional

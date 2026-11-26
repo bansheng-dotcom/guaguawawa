@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.chart_payload —— 图表 payload 构建器（SOP v3.0 S5b「治疗」）。
+"""core.charts.chart_payload —— 图表 payload 构建器（SOP v3.0 S5b「治疗」）。
 
 把 facts（语义 IR 的事实行）组织成某图型渲染所需的 payload 形状。
 这是「改型」的关键：光改 type 不改 payload 会让渲染器回退成表格。

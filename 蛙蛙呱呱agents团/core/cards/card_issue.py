@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.card_issue —— 把「拆卡升级 SOP v1.4」接进发卡入口。
+"""core.cards.card_issue —— 把「拆卡升级 SOP v1.4」接进发卡入口。
 
 职责边界：
 - R01（内容）：issue_tree / perspectives / grid / decomposition_log / branch_log
@@ -19,7 +19,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from core import card_upgrade as cu
+from core.cards import card_upgrade as cu
 from core import roster
 
 PASS_COVERAGE = 0.0  # 发卡前不判覆盖率；覆盖率在 collect 判
@@ -161,7 +161,7 @@ def prepare_probe_cards(project: Path) -> Dict[str, Any]:
     # B1（方案 §3.5）：探源卡也是 bundle，任务类型=探源型（L0/L1/L2 必答）
     problems: List[str] = []
     try:
-        from core import card_bundle as _cb
+        from core.cards import card_bundle as _cb
         res = _cb.issue(d, PROBE_ROLE, "probe-" + str(project.name),
                         "查清这个业务有哪些可用数据源、各给什么字段与口径",
                         root=project, task_type="探源型",
@@ -223,7 +223,7 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
     # SUPPLY-SOP v7.0：拆卡前先读供给方案，给每格标「计划能到几级」。
     # 注意：只标不砍——拆卡仍然穷尽，采不到的进「计划外缺口」。
     try:
-        from core import supply_plan as _sup
+        from core.sources import supply_plan as _sup
         _supply = _sup.load(Path(project))
         _planned = _sup.planned_level(_supply) if _supply else "L1"
         for _c in grid.get("cells") or []:
@@ -264,7 +264,7 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
 
     cards = cu.agent_cards(roster.build())
     # SOP v5：按问题簇自适应分卡（卡数是算出来的，不是写死）
-    from core import card_plan
+    from core.cards import card_plan
     clusters = card_plan.cluster(grid["cells"])
     clusters, gaps = card_plan.assign(clusters, cards)
     rows = [r for r in card_plan.apply_to_cells(clusters, grid["cells"])
@@ -541,7 +541,8 @@ def bootstrap(project: Path, intent: str, only: Optional[List[str]] = None) -> D
     """老路径/并行调研的统一入口：先补澄清，再要语义层，再走五轴门禁，最后发卡。"""
     project = Path(project)
     project.mkdir(parents=True, exist_ok=True)
-    from core import report_clarify, report_dispatch
+    from core.report import report_clarify
+    from core.cards import report_dispatch
 
     if not (project / "clarify.json").is_file():
         w = report_clarify.write(intent, str(project))
@@ -564,7 +565,7 @@ def bootstrap(project: Path, intent: str, only: Optional[List[str]] = None) -> D
         return prep
 
     try:
-        from core import analysis_unit
+        from core.data import analysis_unit
         _units = analysis_unit.plan_units(analysis_unit.load(sem))
         units_info = {"units": _units,
                       "count": len([u for u in _units if not u.get("error")]),

@@ -15,7 +15,7 @@ v11（P1）按 `交付/报告产线重构-SOP-2026-11-18.md` 把它们删干净�
 - `opening()` 删除（开篇由 P2 的叙事引擎生成）。
 
 外部消费者（改造后）：
-    core/report_cli.py    plan 子命令用 infer() 推断纲领
+    core/report/report_cli.py    plan 子命令用 infer() 推断纲领
     core/report_compose.py 用 THESES / infer / resolve / summary（build 已封口，P2.4 删除）
 """
 from __future__ import annotations

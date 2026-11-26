@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-"""core.flow_report —— 项目化 flow 报告构建器（facts + charts + 可选 prose_specs）。
+"""core.report.flow_report —— 项目化 flow 报告构建器（facts + charts + 可选 prose_specs）。
 
 一个项目目录三件套：
     facts.py        META / KPI / SUMMARY / SECTIONS / ACTIONS / SOURCES / FILES
     charts.py       每个 section 的 chart 字段对应一个返回 SVG 的函数
-    prose_specs.py  可选：SECTIONS 每节的十段证据，走 core.report_prose_gen 生成 1,000 字正文
+    prose_specs.py  可选：SECTIONS 每节的十段证据，走 core.report.report_prose_gen 生成 1,000 字正文
 
 用法：
-    from core import flow_report
+    from core.report import flow_report
     flow_report.build("workspace/liquor_flow_2026-11-19", "out", pdf=True)
 
 CLI：
@@ -160,12 +160,13 @@ def build(project_dir: str, out_dir: str, pdf: bool = True,
         if not has_specs:
             spec_issues.append("author-first 需要 prose_specs.py 做 11 字段校验")
         else:
-            from core import prose_spec
+            from core.prose import prose_spec
             specs = _load(proj / "prose_specs.py", "flow_specs").SPECS
             spec_issues = prose_spec.validate(specs, facts.SECTIONS)
     elif use_specs and has_specs:
         prose_mode = "specs"
-        from core import prose_spec, report_prose_gen
+        from core.prose import prose_spec
+        from core.report import report_prose_gen
         specs = _load(proj / "prose_specs.py", "flow_specs").SPECS
         spec_issues = prose_spec.validate(specs, facts.SECTIONS)
         bodies = report_prose_gen.generate(facts.SECTIONS, specs)
@@ -211,7 +212,7 @@ def build(project_dir: str, out_dir: str, pdf: bool = True,
         else:
             files["pdf_status"] = r.get("error") or "failed"
 
-    from core import prose_style
+    from core.prose import prose_style
     prose = prose_style.audit_html(html)
     files["prose"] = {k: prose.get(k) for k in
                       ("ok", "sections", "avg_chars", "score", "hard_fail")}

@@ -329,14 +329,14 @@ levels:
 
 | 文件 | 改什么 | 类型 |
 |---|---|---|
-| `core/supply_plan.py` | **新增**：读/校验 `supply.yaml`；算 `planned_level` / `planned_rows` | 新 |
-| `core/card_upgrade.py` | 格子加 `planned_level`（默认从 supply 取） | 改 |
-| `core/collection_contract.py` | `rows_expected` 改成 `planned_rows`；加 `capability` | **改（修 bug）** |
-| `core/card_probe.py` | 判定对齐 `planned_level`（不是硬编码 full/partial/none） | 改 |
-| `core/dispatch.py` | 收卡时算 `capability`（planned vs actual） | 改 |
-| `core/report_flow.py` | 首页"计划 Lx / 实际 Ly"；缺口写补采条件 | 改 |
-| `core/dataset_gates.py` | 加 G-CAPABILITY（软） | 改 |
-| `core/card_issue.py` | 卡里带 `planned_level` | 改 |
+| `core/sources/supply_plan.py` | **新增**：读/校验 `supply.yaml`；算 `planned_level` / `planned_rows` | 新 |
+| `core/cards/card_upgrade.py` | 格子加 `planned_level`（默认从 supply 取） | 改 |
+| `core/sources/collection_contract.py` | `rows_expected` 改成 `planned_rows`；加 `capability` | **改（修 bug）** |
+| `core/cards/card_probe.py` | 判定对齐 `planned_level`（不是硬编码 full/partial/none） | 改 |
+| `core/cards/dispatch.py` | 收卡时算 `capability`（planned vs actual） | 改 |
+| `core/report/report_flow.py` | 首页"计划 Lx / 实际 Ly"；缺口写补采条件 | 改 |
+| `core/data/dataset_gates.py` | 加 G-CAPABILITY（软） | 改 |
+| `core/cards/card_issue.py` | 卡里带 `planned_level` | 改 |
 | `scripts/compile_agent_report.py` | 透传 `capability` | 改 |
 | `scripts/audit_dod.py` | 加"供给方案存在"一项 | 改 |
 | `docs/REPORT-LINES.md` / `REPORT-STANDARD.md` | 补供给方案与能力级别 | 改 |

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.source_verify —— 来源逐条回抓：字段齐、URL 可取、quote 能在原文里找到。
+"""core.sources.source_verify —— 来源逐条回抓：字段齐、URL 可取、quote 能在原文里找到。
 
 分两级，不混为一谈：
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.chart_field_contract —— 图型**数据字段**契约审计（P4-2 · 治 V-1）。
+"""core.charts.chart_field_contract —— 图型**数据字段**契约审计（P4-2 · 治 V-1）。
 
 V-1 的根因：`charts_pro.spec.REQUIRED`（只写主键）与 `samples.SAMPLE`（真字段）
 是两份，门禁只跑 samples，按 REQUIRED 装配必踩 KeyError。
@@ -8,14 +8,14 @@ V-1 的根因：`charts_pro.spec.REQUIRED`（只写主键）与 `samples.SAMPLE`
 `contract_audit(samples)` 把「声明字段」与「样例行」逐型比对；
 `scripts/check_charts_pro.py` 调它——两份一旦漂移，CI 直接红。
 
-与 `core/chart_spec.py`（报告交付契约：type/title/source/claim_to_prove）
-和 `core/chart_contract.py`（三条线归一）分工不同：这里只管渲染器的数据字段。
+与 `core/charts/chart_spec.py`（报告交付契约：type/title/source/claim_to_prove）
+和 `core/charts/chart_contract.py`（三条线归一）分工不同：这里只管渲染器的数据字段。
 """
 from __future__ import annotations
 
 from typing import Any, Dict, List
 
-from core import data_standard as ds
+from core.data import data_standard as ds
 from core.report_theme.charts_pro import spec as pro_spec
 
 

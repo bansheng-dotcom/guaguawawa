@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """SOP 演进统一自测与全量回归套件。"""
 import os
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 
 import sys
 import unittest

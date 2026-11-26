@@ -78,7 +78,7 @@ def run_gate(html_path: str | Path,
         errors.append(f"档位 {level} 低于目标 {target}：{g.get('reasons')}")
 
     # 3) 深度门禁
-    from core.report_quality import audit
+    from core.report.report_quality import audit
     q = audit(str(html_path))
     checks.append(_check("C3_quality", bool(q.get("ok")),
                          f"report_quality {'PASS' if q.get('ok') else 'FAIL'}（{q.get('score')}）",

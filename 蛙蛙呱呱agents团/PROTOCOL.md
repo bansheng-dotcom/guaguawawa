@@ -2,7 +2,7 @@
 
 > 本文档规定 20 个角色 Agent 之间**任务如何流动**：如何展开、如何下发、
 > 失败如何移交、多角色如何编排、完成如何验收。
-> 组织关系见 `ORG.md`；字段契约见 `core/protocol.py`；汇报格式见 `REPORT-STANDARD.md`。
+> 组织关系见 `ORG.md`；字段契约见 `core/base/protocol.py`；汇报格式见 `REPORT-STANDARD.md`。
 
 ---
 
@@ -144,7 +144,7 @@
 - 依赖图 `blockedBy / blocks`；**循环检测必须在波次划分之前**（有环时拓扑分层会死循环，
   先 DFS 三色标记截停）。
 - 无依赖 → 第 1 波并行；依赖第 1 波 → 第 2 波；`max_wave_depth = 6`。
-- 共享状态写用原子锁（`O_EXCL` 锁文件，陈旧锁 10s 清除），已由 `core/workspace.py` 实现。
+- 共享状态写用原子锁（`O_EXCL` 锁文件，陈旧锁 10s 清除），已由 `core/base/workspace.py` 实现。
 
 ### 典型编排 pattern（可复用）
 

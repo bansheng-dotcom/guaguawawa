@@ -8,7 +8,7 @@
 检查范围：报告产线全部模块——`core/report_*.py` 与 `core/report*/**/*.py`。
 禁止出现：
     shared.knowledge / knowledge_base / expert_brief / brief_ref / brief_version
-    from core.project import ...
+    from core.base.project import ...
 说明：`report_roles.py` 里的能力名 `knowledge` 是历史标签，不在这条红线内
 （只查 import 与 brief 字段，不做裸词扫描）。
 
@@ -39,7 +39,7 @@ PATTERNS = [
     (re.compile(r"\bbrief_ref\b"), "brief_ref"),
     (re.compile(r"\bbrief_version\b"), "brief_version"),
     (re.compile(r"from\s+core\.project\s+import|from\s+core\s+import\s+project\b"),
-     "import core.project"),
+     "import core.base.project"),
 ]
 
 

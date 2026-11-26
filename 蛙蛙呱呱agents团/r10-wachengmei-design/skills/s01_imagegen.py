@@ -17,7 +17,7 @@ from engines.inpaint import InpaintEditEngine
 NAME = "imagegen"
 DESC = "AI生图与插画：prompt / style / generate (LLM + VLM + Engines)"
 _AGENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-from core.workspace import role_workspace  # noqa: E402  产物根统一在团外
+from core.base.workspace import role_workspace  # noqa: E402  产物根统一在团外
 
 
 def _ck(ok: bool, msg: str, dim: str = "", sev: Optional[str] = None, **ev) -> Dict[str, Any]:

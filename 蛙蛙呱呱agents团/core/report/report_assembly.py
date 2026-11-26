@@ -23,7 +23,7 @@ from __future__ import annotations
 import re
 from typing import Any, Dict, List, Tuple
 
-from core import claims
+from core.claims import claims
 
 
 def _u() -> str:

@@ -15,7 +15,7 @@
 后者是能力，属于模型；前者是纪律，属于系统。
 
 用法：
-    python -m core.research_protocol --intent "任意一句话" [--dir <已给数据>]
+    python -m core.sources.research_protocol --intent "任意一句话" [--dir <已给数据>]
 """
 from __future__ import annotations
 
@@ -55,7 +55,7 @@ REPORT_SHAPE: Sequence[Dict[str, str]] = (
     {"part": "边界", "for": "诚实", "require": "没查到的、查不动的、不能外推的"},
 )
 
-# 交叉质询：报告出厂前的硬检查（core/claim_consistency.py 会执行）
+# 交叉质询：报告出厂前的硬检查（core/claims/claim_consistency.py 会执行）
 REVIEW_RULES: Sequence[Dict[str, str]] = (
     {"id": "C1", "rule": "同一指标同期两个值，必须写明口径差；沉默即拦"},
     {"id": "C2", "rule": "D 级来源只能作线索，不能支撑结论"},

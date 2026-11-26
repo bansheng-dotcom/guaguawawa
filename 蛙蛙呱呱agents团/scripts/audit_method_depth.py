@@ -113,7 +113,7 @@ def main() -> None:
                                else "L2 可解释" if got >= total / 2 else "L1 能算"),
                      "gaps": [n for n, ok in checks if not ok]})
     try:
-        from core import paths as _paths
+        from core.base import paths as _paths
         out = _paths.runtime_root() / "method_depth_audit.json"
     except Exception:  # noqa: BLE001
         out = Path(ROOT).parent / "workspace" / "method_depth_audit.json"

@@ -7,7 +7,7 @@
 
 设计约定（对齐 r02/r03/r04/r07）：
 - 技能只做确定性计算，无 LLM 调用；退出码：ok=true → 0，否则 1。
-- run --task 走 agents/core/workspace.py 协议（runlog 写 ../workspace/runlog.jsonl）。
+- run --task 走 agents/core/base/workspace.py 协议（runlog 写 ../workspace/runlog.jsonl）。
 - R05 边界：只做研究呈现证据与选项，不替你拍板。
 """
 from __future__ import annotations
@@ -42,7 +42,7 @@ import cases as cases_lib                                           # noqa: E402
 import review as review_lib                                        # noqa: E402
 import harness as harness_lib                                       # noqa: E402
 
-from core import protocol, workspace                 # noqa: E402
+from core.base import protocol, workspace                 # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # REP-001 报告引擎
 
@@ -436,7 +436,7 @@ def _run_evolution(args) -> Dict[str, Any]:
 # manifest / demo
 # ---------------------------------------------------------------------------
 def make_manifest() -> Dict[str, Any]:
-    from core import registry
+    from core.base import registry
     role = registry.by_id(ROLE)
     skills = [{"name": m.NAME, "skill": m.NAME, "desc": m.DESC, "description": m.DESC,
                "actions": [{"action": a, "help": h} for a, h in m.ACTIONS.items()]}

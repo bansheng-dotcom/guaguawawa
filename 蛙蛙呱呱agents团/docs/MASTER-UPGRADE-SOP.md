@@ -82,13 +82,13 @@
 本轮把「专家团是工具、项目是资产」从约定变成代码：
 
 - **三个根**：`TEAM_ROOT`（工具）/ `PROJECT_ROOT`（资产，默认 `<仓库根>/projects`）/
-  `RUNTIME_ROOT`（事件/锁/trace）。写团内一律拒绝，见 `core/paths.py`。
+  `RUNTIME_ROOT`（事件/锁/trace）。写团内一律拒绝，见 `core/base/paths.py`。
 - **CardBundle**：卡是信封（owner/deps/inputs/outputs/non_goals/brief_ref/
   brief_version），brief 是内容（must_answer/standards/evidence_rules/
   acceptance_checks）。验收只由 brief 派生，卡里不再写 acceptance 明细。
 - **expert_brief v2**：七层、每条五道门槛（answerable_by/evidence/owner/
   failure_impact/check）、单卡上限 18 条、超出进 `parking_lot`；
-  生成器在 `shared/knowledge/brief.py`，拆卡时由 `core/card_bundle.py` 组装。
+  生成器在 `shared/knowledge/brief.py`，拆卡时由 `core/cards/card_bundle.py` 组装。
 - **三道门禁**：`check_project_boundary.py` / `check_brief_contract.py` /
   `check_report_isolation.py`，已并入 `guagua.py audit`（快检 15 项）。
 - **唯一提示词入口**：`guagua.py prompt`；`chat.py` / `guagua.py chat` 标废弃，
@@ -271,7 +271,7 @@ shape_ok_ratio = 同 metric ≥3 行的指标数 / 总指标数
 
 ### 3.1 现有资产（纯函数，可测）
 
-`core/report_ir.py`（富 IR）· `core/ir_adapters.py`（三前端）· `core/semantic_pipeline.py`（resolve/panel/apply_decisions）· `configs/facts_schema.json`。
+`core/report/report_ir.py`（富 IR）· `core/ir_adapters.py`（三前端）· `core/semantic_pipeline.py`（resolve/panel/apply_decisions）· `configs/facts_schema.json`。
 
 ### 3.2 该做 / 不该做 / 验收
 
@@ -320,7 +320,7 @@ shape_ok_ratio = 同 metric ≥3 行的指标数 / 总指标数
 | `report flow --project`（facts.py/charts.py） | 项目自带**代码** | `projects/<项目>/` 三个 .py |
 
 **为什么保留 `flow --project`**：它是「项目代码不进入 `core/`」的唯一实现——
-`core/flow_report.py` 从 `--project` 目录加载 `facts.py`/`charts.py`/`prose_specs.py`，
+`core/report/flow_report.py` 从 `--project` 目录加载 `facts.py`/`charts.py`/`prose_specs.py`，
 `core/` 保持零项目内容。2026-11-23 曾误判为"重复渲染器"并删除，导致项目代码
 没有家、只能往 `core/` 塞；已恢复。
 
@@ -351,7 +351,7 @@ shape_ok_ratio = 同 metric ≥3 行的指标数 / 总指标数
 |---|---|---|
 | S0 | `report_flow.run` 收格后调 `card_upgrade.gates()` | 出 `post_gates.json` |
 | S1 | `card_upgrade.fill_cells` 写 `out_v3/cells_filled.json`；`cells_claims.build` 接进 collect | 格子→claims 通 |
-| S2 | 新增 `core/collection_contract.py` + schema；拆卡产出 | 每报告有 contract |
+| S2 | 新增 `core/sources/collection_contract.py` + schema；拆卡产出 | 每报告有 contract |
 | S3 | `report_flow.build_sections_contract` 前调 `claims_to_ir` + `resolve` | 渲染器读 resolved |
 | S4 | `build_sections_contract` 增加 `chart_query.build(panel_rows)` 一级 | panel 节出热力图 |
 | S5 | `card_upgrade._causal_for` 按维度赋 A/I/C；G15 去掉 level≥3 依赖；图合同加 causal_level | G15 能拦 A 阶 |

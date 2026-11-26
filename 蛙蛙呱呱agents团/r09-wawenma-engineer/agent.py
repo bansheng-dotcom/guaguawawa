@@ -7,7 +7,7 @@
 
 设计约定（对齐 r02/r03/r04/r05/r07/r08）：
 - 技能只做确定性计算，无 LLM 调用；退出码：ok=true → 0，否则 1。
-- run --task 走 agents/core/workspace.py 协议（runlog 写 ../workspace/runlog.jsonl）。
+- run --task 走 agents/core/base/workspace.py 协议（runlog 写 ../workspace/runlog.jsonl）。
 - R09 边界：不靠跳过测试制造假通过；R20 负责持续监控与备份；不可逆线上操作需授权。
 """
 from __future__ import annotations
@@ -56,7 +56,7 @@ import cases as cases_lib                                           # noqa: E402
 import review as review_lib                                        # noqa: E402
 import harness as harness_lib                                       # noqa: E402
 
-from core import protocol, workspace                                # noqa: E402
+from core.base import protocol, workspace                                # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 
 ws = workspace.Workspace(os.path.join(_ROOT, "workspace"))
@@ -177,7 +177,7 @@ def make_manifest() -> Dict[str, Any]:
                "actions": [{"action": a, "help": h}
                            for a, h in m.ACTIONS.items()]}
               for m in SKILLS]
-    from core import registry
+    from core.base import registry
     role = registry.by_id(ROLE)
     skills = [{"name": m.NAME, "skill": m.NAME, "desc": m.DESC,
                "description": m.DESC,

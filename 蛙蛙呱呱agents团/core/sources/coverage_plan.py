@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""core.coverage_plan —— CoveragePlan 与出稿前门禁。"""
+"""core.sources.coverage_plan —— CoveragePlan 与出稿前门禁。"""
 from __future__ import annotations
 
 import hashlib
 import json
 from typing import Any, Dict, List
 
-from core.data_shape import SHAPES, fits
+from core.data.data_shape import SHAPES, fits
 
 SCHEMA = "dsh.coverage_plan/v1"
 STATUSES = {"verified", "estimated", "missing"}

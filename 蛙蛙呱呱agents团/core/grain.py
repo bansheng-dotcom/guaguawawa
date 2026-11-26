@@ -20,7 +20,7 @@ import re
 from collections import defaultdict
 from typing import Any, Dict, List, Optional
 
-from core import source_profile as sp
+from core.sources import source_profile as sp
 
 AGGS = ("sum", "mean", "count", "min", "max")
 # 时间类字段名（用于判断 rollup 是否要「序列」）

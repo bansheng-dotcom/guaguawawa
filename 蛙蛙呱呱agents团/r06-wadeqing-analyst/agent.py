@@ -59,7 +59,7 @@ except ImportError:
         def add_chat_parser(p): pass
         def handle_chat(args): pass
 
-from core import protocol, registry, workspace  # noqa: E402
+from core.base import protocol, registry, workspace  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
 import contracts  # noqa: E402
@@ -781,7 +781,7 @@ def main() -> int:
     # 数据契约：先校验输入，再跑技能（默认 warn，GUAGUA_CONTRACT=block 可拦截）
     _contract = {"ok": True, "checked": False, "errors": []}
     try:
-        from core import data_contract as _dc
+        from core.data import data_contract as _dc
         _contract = _dc.check_cli(args.skill, vars(args), os.environ.get("GUAGUA_CONTRACT", "warn"))
         if not _contract.get("ok") and os.environ.get("GUAGUA_CONTRACT", "warn").lower() == "block":
             c.emit({"ok": False, "error": "数据契约校验失败", "contract": _contract,

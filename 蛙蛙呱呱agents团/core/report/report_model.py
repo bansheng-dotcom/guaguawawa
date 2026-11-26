@@ -12,8 +12,8 @@ role_report_specs.json 在 Python 里 0 引用）。
     3. 一个业务域要接入，实际要改几处。
 
 用法：
-    python -m core.report_model --audit
-    python -m core.report_model --json workspace/report_model.json
+    python -m core.report.report_model --audit
+    python -m core.report.report_model --json workspace/report_model.json
 """
 from __future__ import annotations
 
@@ -22,7 +22,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from core import chart_capabilities, methods
+from core.charts import chart_capabilities
+from core import methods
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG = ROOT / "configs"
@@ -70,7 +71,7 @@ def build() -> Dict[str, Any]:
     nodes = {
         "methods": len(reg),
         "charts": len(charts),
-        "roles": len(__import__("core.registry", fromlist=["ROLES"]).ROLES),
+        "roles": len(__import__("core.base.registry", fromlist=["ROLES"]).ROLES),
         "chart_config": len(chart_cfg),
     }
 

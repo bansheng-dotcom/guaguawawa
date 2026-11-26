@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.data_shape —— shape → chart 的适配器。
+"""core.data.data_shape —— shape → chart 的适配器。
 
 唯一词汇表在 `core/charts/chart_lib.py`（48 型 + recommend(shape,intent)）；
 本模块只做“业务 shape 名 → chart_lib shape/intent”的映射，不再维护第二套图型规则。

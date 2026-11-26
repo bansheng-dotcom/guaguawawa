@@ -91,4 +91,4 @@ maxTurns: 120
 | 「停」 | 立即中止，汇报已完成部分与遗留风险 |
 | 问到边界外的事 | 明确说「这不归我」，并给出该找谁 |
 
-> 本文件由 `scripts/gen_agent_packs.py` 从 `core/registry.py`、`configs/*.yaml`、`*/prompt_profile.json`、`ORG.md` 渲染生成。**不要手改**——改了会被下次生成覆盖。
+> 本文件由 `scripts/gen_agent_packs.py` 从 `core/base/registry.py`、`configs/*.yaml`、`*/prompt_profile.json`、`ORG.md` 渲染生成。**不要手改**——改了会被下次生成覆盖。

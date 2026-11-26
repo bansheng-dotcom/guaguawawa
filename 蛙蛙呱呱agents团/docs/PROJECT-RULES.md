@@ -22,7 +22,7 @@
 
 | 事实 | 唯一源 | 生成物 |
 |---|---|---|
-| 角色身份 / 是否进报告 | `core/registry.py::ROLES` | `roster` / `experts.yaml` / `agent-packs` |
+| 角色身份 / 是否进报告 | `core/base/registry.py::ROLES` | `roster` / `experts.yaml` / `agent-packs` |
 | 图型集合 | `core/report_theme/charts_pro/spec.py`（RENDERERS + ALIASES） | `chart_capabilities` / 选型配置 / 门禁 |
 | 门禁阈值 | `report_quality.PROFILES`（或 policy） | 文档里的表格 |
 

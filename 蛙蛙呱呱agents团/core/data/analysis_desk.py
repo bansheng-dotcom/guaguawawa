@@ -30,7 +30,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from core import evidence_pack
+from core.data import evidence_pack
 from core import method_params
 
 SKIP_DIRS = {"raw", "screens", "out", "node_modules", ".git", "_archive",
@@ -219,7 +219,7 @@ class Desk:
         self.derived: List[Dict[str, Any]] = []
         # v7：带来源的事实表（obs_*.json / facts.json / derived_metrics.json）
         try:
-            from core import fact_table
+            from core.data import fact_table
             self.ft = fact_table.load(str(self.root))
         except Exception:  # noqa: BLE001  事实表加载失败不阻断价格线
             self.ft = None

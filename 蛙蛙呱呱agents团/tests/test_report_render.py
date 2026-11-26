@@ -25,13 +25,14 @@ if str(TEAM) not in sys.path:
     sys.path.insert(0, str(TEAM))
 
 
-from core import report_ir
+from core.report import report_ir
 import json
 import pytest
 from core.report_kernel import consistency, contract as C, gate, series, specs
 from core.ir_adapters import claims_to_ir
-from core.report_ir import validate
-from core import ir_to_contract, report_renderer
+from core.report.report_ir import validate
+from core import ir_to_contract
+from core.report import report_renderer
 from core.semantic_pipeline import resolve
 from core.ir_adapters import facts_to_ir
 from core.ir_adapters import decision_to_ir
@@ -39,8 +40,8 @@ from core.report_theme.flow import flowify
 import os
 import subprocess
 from shared import design_systems as ds
-from core.report_prose_gen import compose
-from core import prose_style
+from core.report.report_prose_gen import compose
+from core.prose import prose_style
 from core import shape_gate
 
 
@@ -615,7 +616,7 @@ def test_compose_no_new_numbers():
 
 def test_prose_spec_requires_11_fields():
     """固定 11 字段：facts 的 verdict/question + spec 的 9 个字段。"""
-    from core import prose_spec
+    from core.prose import prose_spec
 
     section = {"id": "s1", "verdict": "判断：先做酱油。", "question": "先做哪个品类？"}
     good = {f: "x" * 8 for f in prose_spec.FIELDS}

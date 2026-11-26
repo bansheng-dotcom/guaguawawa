@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from core import card_upgrade as cu  # noqa: E402
+from core.cards import card_upgrade as cu  # noqa: E402
 from core import roster  # noqa: E402
 
 

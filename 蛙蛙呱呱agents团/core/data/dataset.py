@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.dataset —— 数据集 schema（DATA-LAYER-SOP v2.0 · S0）。
+"""core.data.dataset —— 数据集 schema（DATA-LAYER-SOP v2.0 · S0）。
 
 为什么要有它：
     拆卡层原来把「分析单元」和「数据单元」压成同一个东西（格子=一个数），
@@ -12,7 +12,7 @@
     id / source / grain / time_grain / columns / rows_expected / quality / sla
 
 用法：
-    from core import dataset
+    from core.data import dataset
     ds = dataset.build(...)
     errs = dataset.validate(ds)          # 空 = 合法
 """

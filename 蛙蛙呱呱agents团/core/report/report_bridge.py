@@ -10,7 +10,7 @@
     render_pdf(html_path, pdf_path)
     _stamp_page_numbers(pdf_path)
 
-唯一渲染器仍然是 core/report_renderer.py；这里只是它的薄调用层。
+唯一渲染器仍然是 core/report/report_renderer.py；这里只是它的薄调用层。
 """
 from __future__ import annotations
 

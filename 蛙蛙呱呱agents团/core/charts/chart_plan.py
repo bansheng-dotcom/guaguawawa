@@ -10,7 +10,7 @@
 形状由 chart 负载本身推断（bars/items/steps/series/…），不靠调用方声明。
 
 用法：
-    from core.chart_plan import choose, audit
+    from core.charts.chart_plan import choose, audit
     plan = choose(chart)          # -> {"type": ..., "why": ...} 或 {"type": "table", "missing": [...]}
     issues = audit(sec)           # -> ["图缺基线", ...]
 """

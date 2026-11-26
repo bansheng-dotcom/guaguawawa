@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.data_standard —— 唯一的数据标准：四份契约 + 校验 + 适配器。
+"""core.data.data_standard —— 唯一的数据标准：四份契约 + 校验 + 适配器。
 
 为什么单独一个模块（而不是继续用 `data_model.Row`）：
     采集、清洗、作图三段各定义自己的形状，最后只能靠人肉对齐。

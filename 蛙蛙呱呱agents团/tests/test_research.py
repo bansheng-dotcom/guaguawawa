@@ -23,12 +23,13 @@ if str(TEAM) not in sys.path:
 
 import json
 import pytest
-from core import report_flow, research_intake as ri
-from core import claim_consistency as CC
-from core import research_protocol as RP
+from core.report import report_flow
+from core.sources import research_intake as ri
+from core.claims import claim_consistency as CC
+from core.sources import research_protocol as RP
 import shutil
-from core import research_intake
-from core import card_upgrade as cu
+from core.sources import research_intake
+from core.cards import card_upgrade as cu
 from core import outcome_ledger as ol
 
 

@@ -355,7 +355,7 @@ def main() -> int:
             str(demo.get("demo_artifacts", {}).keys()))
 
     t.section("run_task 协作入口")
-    from core import workspace, protocol
+    from core.base import workspace, protocol
     ws = workspace.Workspace(os.path.join(AGENTS, "workspace"))
     inp = protocol.Port(os.path.join(HERE, "examples", "diagnose.json"), "data", note="")
     task = protocol.Task(title="做一次增长诊断", owner="r12",

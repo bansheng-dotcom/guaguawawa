@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""core.report_prose_gen —— 把结构化证据合成为 1,000+ 字/节的论证体。
+"""core.report.report_prose_gen —— 把结构化证据合成为 1,000+ 字/节的论证体。
 
 不是“自由写作”，是受约束生成：
 - 只使用 spec 里的事实/数字；
 - 每节必须有判断、机理、替代解释、判别信号、动作、边界；
-- 输出仍要过 core.prose_style，不达标就退回。
+- 输出仍要过 core.prose.prose_style，不达标就退回。
 """
 from __future__ import annotations
 
@@ -81,7 +81,7 @@ def generate(sections: Iterable[Dict[str, Any]], specs: Dict[str, Dict[str, str]
     传 {"enabled": False} 可强制单候选（调试/对比用）。
     record_path 非空时把候选集落盘，保证同一项目重跑可逐字比对。
     """
-    from core import prose_candidates as pc  # noqa: PLC0415  避免包级循环导入
+    from core.prose import prose_candidates as pc  # noqa: PLC0415  避免包级循环导入
 
     policy = candidates if isinstance(candidates, dict) else pc.load_policy()
     out = {}

@@ -21,20 +21,20 @@ if str(TEAM) not in sys.path:
     sys.path.insert(0, str(TEAM))
 
 
-from core import chart_candidates as cc_cand
+from core.charts import chart_candidates as cc_cand
 import importlib.util
 import json
-from core import chart_contract as cc
+from core.charts import chart_contract as cc
 import os
 from core.report_theme.charts_pro import interactive, layout
-from core import chart_field_contract as chart_contract
-from core import data_standard as ds
+from core.charts import chart_field_contract as chart_contract
+from core.data import data_standard as ds
 from core.report_theme.charts_pro import layout, spec
-from core.chart_payload import build_payload
-from core import data_standard as ds
+from core.charts.chart_payload import build_payload
+from core.data import data_standard as ds
 from core.report_theme import tokens
 
-from core import chart_query as cq
+from core.charts import chart_query as cq
 
 
 

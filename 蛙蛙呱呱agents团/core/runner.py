@@ -13,7 +13,7 @@ import subprocess
 import sys
 from typing import Any, Dict, List, Optional
 
-from . import registry
+from core.base import registry
 
 
 def agents_root() -> str:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.collection_spec —— 采集规格（SYSTEM-UPGRADE-SOP v3.1 · S3）。
+"""core.sources.collection_spec —— 采集规格（SYSTEM-UPGRADE-SOP v3.1 · S3）。
 
 一份采集规格 = 一个源 + 一组 rollup + 一组 claim。
 **业务词只出现在 query 参数里**，其余全是结构声明。
@@ -19,7 +19,7 @@
         min_rows: 5
 
 用法：
-    from core import collection_spec as cs
+    from core.sources import collection_spec as cs
     spec = cs.load("configs/collections/auto_interior.yaml")
     errs = cs.validate(spec)        # 空 = 合法
 """
@@ -29,7 +29,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from core import grain as g
-from core import source_profile as sp
+from core.sources import source_profile as sp
 
 SCHEMA = "dsh.collection_spec/v1"
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -137,7 +137,7 @@ def preview(spec: Dict[str, Any], n: int = 20,
     """
     from core import collectors as _c
     from core import grain as _g
-    from core import source_profile as _sp
+    from core.sources import source_profile as _sp
 
     src = (source if source is not None
            else _sp.load(str(spec.get("source") or "")))
@@ -177,7 +177,7 @@ def quality(spec: Dict[str, Any], project_dir: str = "",
     """
     from core import collectors as _c
     from core import grain as _g
-    from core import source_profile as _sp
+    from core.sources import source_profile as _sp
 
     src = (source if source is not None
            else _sp.load(str(spec.get("source") or "")))
@@ -258,7 +258,7 @@ def run(spec: Dict[str, Any], project_dir: str = "",
         "mart_rows": marts,
     }
     if persist and project_dir:
-        from core import paths as _paths
+        from core.base import paths as _paths
         from core.ingest import store as _store
         dq = _store.dq_report(staging, rows_in=len(staging))
         try:

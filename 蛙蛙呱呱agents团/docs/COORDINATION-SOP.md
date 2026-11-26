@@ -158,7 +158,7 @@ Web 界的同一件事叫 **Progressive Enhancement**：
                    ↓
 ② 发卡        cards/*/TASK.md       不变
                    ↓
-③ 探测        core/card_probe.py    判 L2 可行 / 只 L1 / L0
+③ 探测        core/cards/card_probe.py    判 L2 可行 / 只 L1 / L0
                    ↓ 写 plan/derivation.json
 ④ 采集        core/collectors/*     能采就采，采多少记多少
                    ↓
@@ -173,13 +173,13 @@ Web 界的同一件事叫 **Progressive Enhancement**：
 
 | 文件 | 改什么 | 类型 |
 |---|---|---|
-| `core/card_upgrade.py` | 格子加 `needs` 字段（默认 `point`，兼容老格） | 改 |
-| `core/card_probe.py` | 判定从 `full/partial/none` 改成 `L2/L1/L0` | 改 |
-| `core/source_match.py` | `match` 增加 `can_series` 判定 | 改 |
-| `core/dispatch.py` | `collect` 算 `capability_level`，写进 merged | 改 |
-| `core/collection_contract.py` | 加 `capability_level` 枚举 | 改 |
-| `core/report_flow.py` | 首页能力级别 + 缺口补采条件 | 改 |
-| `core/dataset_gates.py` | 加 G-CAPABILITY（软） | 改 |
+| `core/cards/card_upgrade.py` | 格子加 `needs` 字段（默认 `point`，兼容老格） | 改 |
+| `core/cards/card_probe.py` | 判定从 `full/partial/none` 改成 `L2/L1/L0` | 改 |
+| `core/sources/source_match.py` | `match` 增加 `can_series` 判定 | 改 |
+| `core/cards/dispatch.py` | `collect` 算 `capability_level`，写进 merged | 改 |
+| `core/sources/collection_contract.py` | 加 `capability_level` 枚举 | 改 |
+| `core/report/report_flow.py` | 首页能力级别 + 缺口补采条件 | 改 |
+| `core/data/dataset_gates.py` | 加 G-CAPABILITY（软） | 改 |
 | `scripts/compile_agent_report.py` | 透传 `capability_level` | 改 |
 | `scripts/audit_dod.py` | 加"能力级别可追溯"一项 | 改 |
 | `docs/REPORT-LINES.md` | 主线图加"能力级别" | 改 |

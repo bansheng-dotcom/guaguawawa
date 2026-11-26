@@ -41,7 +41,7 @@ R01 s01 意图识别 → s02 路由 / 拆卡（任务卡六段）
                 │
         R01 s09 解读（result → 带数字的判断：结论/驱动/边界/动作）
                 │
-        core/report_flow.py → core/report_renderer.py（唯一渲染器）
+        core/report/report_flow.py → core/report/report_renderer.py（唯一渲染器）
                 │
         一份报告（HTML + MD + manifest，署名 R01）
 ```
@@ -57,7 +57,7 @@ R01 s01 意图识别 → s02 路由 / 拆卡（任务卡六段）
 
 ---
 
-## 三、命令（以 `core/report_cli.py` 注册为准：run / check / charts / capabilities / plan）
+## 三、命令（以 `core/report/report_cli.py` 注册为准：run / check / charts / capabilities / plan）
 
 ```bash
 # 0) 证据打包：项目目录 → 可寻址的数字索引（调研级报告的前提）
@@ -116,11 +116,11 @@ report run --evidence --draft
 v3 的章节计划把「哪张表、哪一列」写死在 profile 里，换项目就跑不动，也只会写一阶描述。
 v4 把这一步拆成数据台 → 方法库 → 纲领 → 成稿（`docs/REPORT-LINES.md`）：
 
-- `core/analysis_desk.py` 识别时间/实体/数值/单位，价格统一元/斤，每个数字有 id；
+- `core/data/analysis_desk.py` 识别时间/实体/数值/单位，价格统一元/斤，每个数字有 id；
 - `core/analysis_methods.py` 12 个方法产出「带数字的判断」（结构/节奏/轨迹/贡献/单位经济/
   传导/套利/保本/敏感性/风险/样本/台账），统计与成本步骤真调 r06/r19/r15 技能；
-- `core/report_thesis.py` 五类纲领（调研/经营/整改/链路/预测）决定选哪些判断、开篇与动作；
-- `core/report_assembly.py` 装配章节稿 → `report_flow` 逐节过账 → 唯一渲染器 → R04 清点。
+- `core/report/report_thesis.py` 五类纲领（调研/经营/整改/链路/预测）决定选哪些判断、开篇与动作；
+- `core/report/report_assembly.py` 装配章节稿 → `report_flow` 逐节过账 → 唯一渲染器 → R04 清点。
 
 口径纪律（写进代码）：活畜价不参与「产地→批发」价差；损耗率/冷链成本是声明假设；
 技能因样本不足拒绝出斜率时，报告照写「引擎拒绝」，不自己补一个。
@@ -167,7 +167,7 @@ v4 把这一步拆成数据台 → 方法库 → 纲领 → 成稿（`docs/REPOR
 | 末节 | 口径与分数 | ✓ | 生成方式 / 证据规模 / 自检项 |
 
 契约必填：`doc_type / title_lines / standfirst / metric_strip / summary /
-sections / notes / footer`；渲染走 `core/report_renderer.py`，**禁止手写一次性 HTML**。
+sections / notes / footer`；渲染走 `core/report/report_renderer.py`，**禁止手写一次性 HTML**。
 
 ### 五之三、能力级别（SUPPLY-SOP v7.0）
 
@@ -241,9 +241,9 @@ python scripts/ci_report_checks.py      # CI：角色入口 + A/B 两条分支 +
 `scripts/check_report_flow.py` 的十条判据：F1 版式四规则（复用
 `check_report_layout.py`）、F2 标题带数字、F3 结论段带数字、F4 每节带数字、
 F5 有边界节、F6 末节口径与分数、F7 图有来源、F8 无 JSON 回显、F9 重复句 ≤10%
-且数字密度 ≥25/千字且禁用词为 0、**F10 深度**（共用 `core/report_quality.py`，
+且数字密度 ≥25/千字且禁用词为 0、**F10 深度**（共用 `core/report/report_quality.py`，
 按体量自动分 `research` / `baseline` 两档；同一份报告 `report check` 与
-`python -m core.report_quality` 必须给出同一结论）。
+`python -m core.report.report_quality` 必须给出同一结论）。
 
 历史七件套（depth / style / substance / diversity / project / analysis / spec+contract
 测试）已删除：它们的前提是「20 个角色各出一份报告」，该前提已不存在。
@@ -256,7 +256,7 @@ F5 有边界节、F6 末节口径与分数、F7 图有来源、F8 无 JSON 回�
 2. 每个数字能否回溯到 `result.json` 的字段路径？
 3. 是否命中任一禁用词？
 4. 是否声明了边界与缺口？
-5. HTML 是否由 `core/report_renderer.py` 生成（非手写）？
+5. HTML 是否由 `core/report/report_renderer.py` 生成（非手写）？
 6. `manifest.json` 的 `producer` 是否为 `r01`、`ok` 是否为 `true`？
 
 任一项不过 → 不发布。

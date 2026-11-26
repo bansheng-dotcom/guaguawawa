@@ -5,7 +5,7 @@
 - verdict：评审产出结构门禁——verdict 枚举 PASS/FAIL/BLOCKED、findings 带 severity、
   PASS 必须有证据链；干净产出 PASS、脏产出必须正确 FAIL。
 - plan：复用 experience/plan_schema.json（r06 分析计划契约口径）。
-- runlog：读 ../workspace/runlog.jsonl 最近 n 条（经 agents/core/workspace.py）。
+- runlog：读 ../workspace/runlog.jsonl 最近 n 条（经 agents/core/base/workspace.py）。
 """
 from __future__ import annotations
 
@@ -175,7 +175,7 @@ def validate_plan(path: str) -> Dict[str, Any]:
 # runlog：读 ../workspace/runlog.jsonl
 # --------------------------------------------------------------------------- #
 def validate_runlog(n: int = 5) -> Dict[str, Any]:
-    from core import workspace as ws_mod
+    from core.base import workspace as ws_mod
     w = ws_mod.Workspace(os.path.join(_ROOT, "workspace"))
     rows = w.runlog(int(n))
     checks = [c.ck(True, f"读取最近 {len(rows)} 条 runlog", "runlog",

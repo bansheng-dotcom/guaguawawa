@@ -45,7 +45,7 @@ def _evidence(draft: Dict[str, Any], pack: Dict[str, Any],
     `section_check` 是 R01 s09 的逐节过账结果（report_flow 已跑过就传进来，避免跑两遍）；
     没传就现跑一次。
     """
-    from core import report_flow
+    from core.report import report_flow
     if section_check is None:
         try:
             section_check = report_flow.check_sections(draft, pack)
@@ -68,7 +68,7 @@ def _evidence(draft: Dict[str, Any], pack: Dict[str, Any],
 
 def _editorial(html_path: str) -> Dict[str, Any]:
     """编辑层：先答问题 + 每节有机理与证伪 + 不复读。"""
-    from core import report_quality
+    from core.report import report_quality
     qa = report_quality.audit(html_path)
     hard_fail = [c["id"] for c in (qa.get("checks") or [])
                  if c.get("hard") and not c.get("ok")]
@@ -104,7 +104,7 @@ def _presentation(html_path: str) -> Dict[str, Any]:
 
 def _contract(contract: Dict[str, Any]) -> Dict[str, Any]:
     """契约呈现层：标题带数字 / 图下来源与口径 / B 页 rail 够数。"""
-    from core import report_editorial
+    from core.report import report_editorial
     res = report_editorial.check_contract(contract)
     return {"layer": "contract", "ok": bool(res.get("ok")),
             "detail": {"hard": res.get("hard") or [], "warn": res.get("warn") or [],

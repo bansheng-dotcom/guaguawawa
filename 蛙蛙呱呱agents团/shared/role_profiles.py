@@ -605,13 +605,13 @@ _INTENT_HINTS: Dict[str, List[str]] = {
 
 
 # --------------------------------------------------------------------------- #
-# 角色名/职称的唯一出处是 core/registry.py（2026-11-17 归一）。
+# 角色名/职称的唯一出处是 core/base/registry.py（2026-11-17 归一）。
 # 本表只保留报告画像，name/title 一律以 registry 为准，避免旧花名漂移
 # （历史：r03 蛙守线 / r07 蛙得明 / r20 蛙值守 曾写进 evidence.json）。
 # --------------------------------------------------------------------------- #
 def _sync_identity() -> None:
     try:
-        from core.registry import ROLES
+        from core.base.registry import ROLES
     except Exception:  # noqa: BLE001 - 独立运行时允许没有 core
         return
     for role in ROLES:

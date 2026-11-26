@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""来源回抓硬化（core.source_verify）回归。
+"""来源回抓硬化（core.sources.source_verify）回归。
 
 守三条：
 1. 连接级失败会退避重试，第三次成功就返回正文；
@@ -18,7 +18,7 @@ TEAM = Path(__file__).resolve().parent.parent
 if str(TEAM) not in sys.path:
     sys.path.insert(0, str(TEAM))
 
-from core import source_verify  # noqa: E402
+from core.sources import source_verify  # noqa: E402
 
 
 class _Resp:

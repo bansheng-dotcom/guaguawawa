@@ -15,8 +15,8 @@
   纯文字报告照常可渲染。
 
 用法：
-    python core/report_renderer.py --contract report.json --output out.html
-    python core/report_renderer.py --contract r.json --output o.html \
+    python core/report/report_renderer.py --contract report.json --output out.html
+    python core/report/report_renderer.py --contract r.json --output o.html \
         --chart-dir agents/r06-wadeqing-analyst
 """
 from __future__ import annotations

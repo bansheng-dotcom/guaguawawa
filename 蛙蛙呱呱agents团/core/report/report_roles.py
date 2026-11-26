@@ -182,10 +182,10 @@ OVERRIDES: Dict[Tuple[str, str], Dict[str, Any]] = {
 }
 
 
-# 角色名/职称唯一出处是 core/registry.py（2026-11-17 归一，防旧花名漂移）
+# 角色名/职称唯一出处是 core/base/registry.py（2026-11-17 归一，防旧花名漂移）
 def _sync_identity() -> None:
     try:
-        from core.registry import ROLES
+        from core.base.registry import ROLES
     except Exception:  # noqa: BLE001
         return
     for role in ROLES:

@@ -22,7 +22,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from core import report_flow, runner
+from core.report import report_flow
+from core import runner
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
@@ -121,7 +122,7 @@ def verify(project: str, write_raw: bool = False,
            only_ids: Optional[List[str]] = None) -> Dict[str, Any]:
     """URL 可达性预检（P3-4）：**只回答「这个链接现在能不能打开」**。
 
-    quote 是否命中原文，唯一判据在 `core.source_verify`（`quote_gate` 调用它）。
+    quote 是否命中原文，唯一判据在 `core.sources.source_verify`（`quote_gate` 调用它）。
     本函数不再对 quote 下结论，避免两套判据给出不同答案。
 
     - only_ids：只检查被报告引用的来源，其余标 skipped；
@@ -225,7 +226,7 @@ def quote_gate(project: str, refs: Optional[List[str]] = None,
                mode: str = "warn", fetch=None) -> Dict[str, Any]:
     """数据 intake 门禁：被引用的来源必须 quote 命中。
 
-    P3-4：quote 判据**只在** `core.source_verify` 一处（这里委托调用），
+    P3-4：quote 判据**只在** `core.sources.source_verify` 一处（这里委托调用），
     `research_intake.verify` 只做 URL 可达性预检，不再给出第二套结论。
 
     mode:
@@ -239,7 +240,7 @@ def quote_gate(project: str, refs: Optional[List[str]] = None,
     sources = load_sources(project)
     if not sources:
         return {"mode": mode, "ok": True, "verdict": "SKIP", "status": "no_sources"}
-    from core import source_verify
+    from core.sources import source_verify
     norm = [{**s, "file": str(s.get("id") or s.get("file") or "")}
             for s in sources]
     # 优先用项目 raw/ 缓存（离线复跑/回归 fixture），否则走实时抓取
@@ -351,7 +352,7 @@ def run(topic: str, project: str, out_dir: str, thesis: str = "market_entry",
     raise report_flow.FlowError(
         "research_intake.run 已下线（成稿阶段归唯一入口）。\n"
         "请用: python guagua.py report run-line --intent \"…\" --research --dir <项目> --out <目录>\n"
-        "quote 校验/台账仍可单独跑: python -m core.research_intake verify|ledger")
+        "quote 校验/台账仍可单独跑: python -m core.sources.research_intake verify|ledger")
 
 
 def main(argv: Optional[List[str]] = None) -> int:

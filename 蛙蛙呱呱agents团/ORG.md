@@ -2,7 +2,7 @@
 
 > 本文档是 20 个角色 Agent 的**组织架构与汇报关系的唯一权威说明**。
 > 它回答四个问题：谁负责什么、向谁汇报、与谁交接、出了事找谁。
-> 机器可读的注册表在 `core/registry.py`，本文是它的组织语义层。
+> 机器可读的注册表在 `core/base/registry.py`，本文是它的组织语义层。
 
 ---
 
@@ -103,7 +103,7 @@
 
 ## 五、角色如何加入/退出编制
 
-- **加入**：在 `core/registry.py` 追加 `ROLES` 记录（id/dir/capabilities/inputs/outputs/integrated_from），
+- **加入**：在 `core/base/registry.py` 追加 `ROLES` 记录（id/dir/capabilities/inputs/outputs/integrated_from），
   按《角色Agent生成SOP》五步法落地 `agent.py`，`run_tests.py` 全绿后 `status: implemented`，
   R01 编排器的 `ROUTING` 矩阵同步更新（**两处必须同步**，R01 模块 B5 已踩过坑）。
 - **退出/降级**：`status` 改 `pending`，从 ROUTING 移除；历史任务卡与产物保留在 workspace 不删除。
@@ -117,5 +117,5 @@
 | `ORG.md`（本文） | 谁负责什么、向谁汇报、与谁交接 |
 | `PROTOCOL.md` | 任务怎样展开、怎样下发、失败怎样移交、多角色怎样编排 |
 | `REPORT-STANDARD.md` | 汇报写什么、什么文笔、什么排版 |
-| `core/registry.py` | 机器可读的编制表（唯一事实来源） |
-| `core/protocol.py` | 端口/任务卡/事件的字段契约 |
+| `core/base/registry.py` | 机器可读的编制表（唯一事实来源） |
+| `core/base/protocol.py` | 端口/任务卡/事件的字段契约 |

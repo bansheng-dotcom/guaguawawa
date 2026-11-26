@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.report —— 报告产线（P4 第六阶段：已物理归位）。
+"""core.report —— 报告产线（P4 第六阶段：已物理归位，shim 已退场）。
 
 20 个平铺报告模块在本包内；`report_kernel/`、`report_theme/` 本来就是真包，
 保持原地不动（迁进来只会制造两份模块身份）。
@@ -7,8 +7,7 @@
     from core.report import report_flow
     from core.report import report_cli
 
-旧路径 `core/<name>.py` 保留一版兼容 shim（CLI 模块转发 `main()`），
-迁移全部完成后统一删除。不 import 任何子模块直到被访问（懒加载）。
+不 import 任何子模块直到被访问（懒加载）。
 """
 from __future__ import annotations
 

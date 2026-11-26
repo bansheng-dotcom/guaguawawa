@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""表达候选器（core/prose_candidates.py）回归。
+"""表达候选器（core/prose/prose_candidates.py）回归。
 
 守住三条：数字一致是硬判据、结果是确定性的、规则模式如实标降级。
 """
@@ -12,8 +12,8 @@ TEAM = Path(__file__).resolve().parent.parent
 if str(TEAM) not in sys.path:
     sys.path.insert(0, str(TEAM))
 
-from core import prose_candidates as pc  # noqa: E402
-from core.report_prose_gen import generate  # noqa: E402
+from core.prose import prose_candidates as pc  # noqa: E402
+from core.report.report_prose_gen import generate  # noqa: E402
 
 UNIT = {
     "id": "s1", "kicker": "礼盒",

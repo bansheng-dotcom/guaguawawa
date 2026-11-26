@@ -24,7 +24,7 @@ while _boot and not os.path.isdir(os.path.join(_boot, "core")):
     _boot = os.path.dirname(_boot)
 if _boot and _boot not in sys.path:
     sys.path.insert(0, _boot)
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -408,7 +408,7 @@ def main() -> int:
 
     # ------------------------------------------------------------------ #
     t.section("run_task 协作入口")
-    from core import workspace, protocol
+    from core.base import workspace, protocol
     ws = workspace.Workspace(os.path.join(AGENTS, "workspace"))
     inp = protocol.Port(_ex("evaluation_scorer.json"), "data", note="")
     task = protocol.Task(title="评估客服助手评分器",

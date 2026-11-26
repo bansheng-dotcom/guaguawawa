@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core import cells_unified  # noqa: E402
+from core.claims import cells_unified  # noqa: E402
 
 
 def main(argv=None) -> int:

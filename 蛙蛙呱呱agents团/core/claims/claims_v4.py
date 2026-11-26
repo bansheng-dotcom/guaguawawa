@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.claims_v4 —— 数据→图→文 映射层（v4）。
+"""core.claims.claims_v4 —— 数据→图→文 映射层（v4）。
 
 链路：claim → slice → encoding（图）→ findings（发现）→ 五块渲染。
 不限定主判断数量：由 tier（main/support）决定，support 进附录。
@@ -77,7 +77,7 @@ def encoding_to_chart(claim: Dict[str, Any]) -> Optional[Dict[str, Any]]:
 
 
 def validate_v4(claims: List[Dict[str, Any]]) -> List[str]:
-    from core import report_contract
+    from core.report import report_contract
     errs: List[str] = []
     if not claims:
         return ["claims 为空"]
@@ -195,7 +195,7 @@ def _headline_of(c: Dict[str, Any]) -> str:
 
 def build_decision(draft: Dict[str, Any]) -> Dict[str, Any]:
     """claims → 一页决策纸：按 decision_rank 取前 N 条，每条 1 数字 + 1 动作 + 1 停止。"""
-    from core import report_contract
+    from core.report import report_contract
     claims = [c for c in (draft.get("claims") or [])
               if str(c.get("tier") or "main") == "main"]
     claims = sorted(
@@ -221,7 +221,7 @@ def build_decision(draft: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def build_sections(draft: Dict[str, Any]) -> List[Dict[str, Any]]:
-    from core import report_contract
+    from core.report import report_contract
     claims = list(draft.get("claims") or [])
     # 作者给的 decision_rank 是主判断顺序；没给才按原顺序
     claims = [c for _i, c in sorted(

@@ -27,7 +27,7 @@ FIXTURE_DIR = os.path.join(ROOT, "tests", "prompt_regressions", "roles")
 def _runtime_ws() -> str:
     """回归产物落 RUNTIME_ROOT，不写团内（边界门禁会拦）。"""
     try:
-        from core import paths
+        from core.base import paths
         return str(paths.runtime_root())
     except Exception:  # noqa: BLE001
         return os.path.join(os.path.dirname(ROOT), "workspace")

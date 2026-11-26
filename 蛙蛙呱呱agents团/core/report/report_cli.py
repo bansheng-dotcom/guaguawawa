@@ -25,7 +25,7 @@ if str(ROOT) not in sys.path:
 
 def cmd_capabilities(args) -> int:
     """角色适配层：20 角色 / 195 技能，哪些能进报告、输出什么 claim。"""
-    from core import report_roles
+    from core.report import report_roles
     if getattr(args, "graph", False) or getattr(args, "graph_write", None):
         from core import capability_graph
         g = capability_graph.build()
@@ -54,7 +54,9 @@ def cmd_capabilities(args) -> int:
 
 def cmd_plan(args) -> int:
     """只看挂载计划：这个方法会不会被数据挂上、缺哪个能力。"""
-    from core import analysis_desk, analysis_methods, methods, report_thesis
+    from core.data import analysis_desk
+    from core import analysis_methods, methods
+    from core.report import report_thesis
     desk = analysis_desk.scan(args.dir)
     views = analysis_methods.build_views(desk)
     prof = analysis_desk.profile(desk)
@@ -67,7 +69,7 @@ def cmd_plan(args) -> int:
 
 def cmd_plan_report(args) -> int:
     """一句话 → 专业研究方案（不产报告）：告诉 agent 该查什么、按什么等级收证据。"""
-    from core import research_protocol
+    from core.sources import research_protocol
     p = research_protocol.plan(args.intent, project_dir=getattr(args, "dir", None),
                                has_files=bool(getattr(args, "dir", None)))
     out = getattr(args, "out", None)
@@ -88,7 +90,7 @@ def cmd_plan_report(args) -> int:
 
 def cmd_clarify(args) -> int:
     """接任务先对齐意图：出一张澄清卡（不拆卡、不发卡）。"""
-    from core import report_clarify
+    from core.report import report_clarify
     answers = list(getattr(args, "answer", None) or [])
     if answers and not args.dir:
         print(json.dumps({"ok": False, "error": "--answer 需要 --dir"}, ensure_ascii=False))
@@ -156,7 +158,7 @@ def cmd_brief(args) -> int:
         report brief --dir <项目> --plan            出映射表（draft）
         report brief --dir <项目> --plan --confirm  确认并发卡（带 nonce）
     """
-    from core import dispatch, report_dispatch
+    from core.cards import dispatch, report_dispatch
     if getattr(args, "plan", False) or getattr(args, "dir", None) \
             or getattr(args, "project", None):
         base = args.dir or args.out or getattr(args, "project", None)
@@ -199,7 +201,7 @@ def cmd_brief(args) -> int:
                     pass
             # v1.5：拆卡 SOP 进产线。--plan 即生成五轴并判 S7 门禁；
             # 门禁不过，--confirm 一律不发卡。
-            from core import card_issue
+            from core.cards import card_issue
             spec = card_issue.prepare(Path(base), intent=str(res.get("intent") or ""))
             res["card_spec"] = {"ok": spec.get("ok"),
                                 "counts": spec.get("counts"),
@@ -283,7 +285,7 @@ def cmd_brief(args) -> int:
             "hint": "把 12 问问给用户，再用 clarify --confirm --user-said \"原话\"",
         }, ensure_ascii=False, indent=1))
         return 2
-    from core import card_issue
+    from core.cards import card_issue
     res = card_issue.bootstrap(Path(args.out), args.intent, only)
     res["mode"] = "legacy+card_spec"
     res["note"] = "老路径已并入拆卡门禁：五轴不过不发卡"
@@ -293,7 +295,7 @@ def cmd_brief(args) -> int:
 
 def cmd_exchange(args) -> int:
     """卡间协商：把 needs 投到对方 INBOX，并汇总闭环状态。"""
-    from core import report_exchange
+    from core.report import report_exchange
     base = args.dir
     res = report_exchange.route(base)
     md = report_exchange.render_md(base)
@@ -311,7 +313,7 @@ def cmd_probe(args) -> int:
         report probe --dir <项目>             → 跑探测，生成 plan/supply.json
         report probe --dir <项目> --degrade   → 探测 + 把无数据的格子标 unavailable
     """
-    from core import card_issue, card_probe
+    from core.cards import card_issue, card_probe
 
     base = str(args.dir)
     if getattr(args, "issue", False):
@@ -360,7 +362,8 @@ def cmd_collect(args) -> int:
     否则直接报错退出——过去一条 `--no-strict-quotes` 就能让 40% 未核来源
     静默过关，产物上还看不出降级。
     """
-    from core import dispatch, paths, project as project_mod
+    from core.cards import dispatch
+    from core.base import paths, project as project_mod
     verify = bool(getattr(args, "verify_quotes", True))
     strict = bool(getattr(args, "strict_quotes", True))
     allow_degraded = bool(getattr(args, "allow_degraded", False))
@@ -438,7 +441,8 @@ def cmd_research(args) -> int:
     执行器由 --worker-cmd 或 GUAGUA_WORKER_CMD 提供；不给时只出计划与 PROMPT.md。
     """
     import os
-    from core import parallel_research, card_issue
+    from core import parallel_research
+    from core.cards import card_issue
 
     only = [x.strip() for x in (getattr(args, "only", "") or "").split(",") if x.strip()] or None
     base = Path(args.out)
@@ -482,7 +486,7 @@ def cmd_research(args) -> int:
 
 def cmd_run_line(args) -> int:
     """v11 唯一入口（P1：转发实现）：一条命令 + 四种输入。"""
-    from core import report_line
+    from core.report import report_line
     # v12：--claims 一步到位：编译（含交叉质询）→ 过闸 → 渲染。
     # 这样「智能体交一份 claims.json」就是完整交付动作，不用记两个命令。
     claims_path = getattr(args, "claims", None)
@@ -607,8 +611,8 @@ def cmd_flow(args) -> int:
     core/ 只提供引擎，不含任何项目内容。之前误判为「重复渲染器」并删除，
     导致项目代码没有家、只能往 core/ 塞；已恢复。
     """
-    from core import flow_report
-    from core.report_layout import default_layout
+    from core.report import flow_report
+    from core.report.report_layout import default_layout
     layout = "paper" if getattr(args, "paper", False) else (args.layout or default_layout())
     try:
         res = flow_report.build(args.project, args.out, pdf=args.pdf,
@@ -634,7 +638,7 @@ def cmd_check(args) -> int:
 
 
 def cmd_charts(args) -> int:
-    from core.chart_capabilities import check, CATALOG
+    from core.charts.chart_capabilities import check, CATALOG
     r = check()
     print(json.dumps({"ok": r["ok"], "count": r["count"], "items": CATALOG},
                      ensure_ascii=False) if args.json
@@ -711,7 +715,7 @@ def cmd_attest(args) -> int:
 
 
 def main(argv=None) -> int:
-    from core.report_flow import THEMES, DEFAULT_THEME
+    from core.report.report_flow import THEMES, DEFAULT_THEME
     ap = argparse.ArgumentParser(prog="guagua report",
                                  description="唯一报告产线：一条命令 + 四种输入（v11）")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -937,7 +941,7 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
     # 边界守卫：写盘命令的目标目录不能指向专家团；允许写运行临时根（兼容旧路径），
     # 但项目资产应写到 --project 指向的项目根。
-    from core import paths
+    from core.base import paths
     if getattr(args.func, "__name__", "") in {
             "cmd_run_line", "cmd_brief", "cmd_collect", "cmd_research",
             "cmd_plan_report", "cmd_clarify", "cmd_intake", "cmd_flow"}:

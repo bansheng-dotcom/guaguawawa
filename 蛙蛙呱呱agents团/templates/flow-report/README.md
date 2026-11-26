@@ -6,7 +6,7 @@
 |---|---|---|
 | `facts.py` | 是 | 内容层：META / KPI / SUMMARY / SECTIONS / ACTIONS / SOURCES / FILES |
 | `charts.py` | 是（有图时） | 每个 `section["chart"]` 对应的函数，返回 SVG 字符串 |
-| `prose_specs.py` | 否 | 每节十段证据，交给 `core.report_prose_gen` 生成 1,000 字论证体 |
+| `prose_specs.py` | 否 | 每节十段证据，交给 `core.report.report_prose_gen` 生成 1,000 字论证体 |
 
 ## 一条节的最低要求
 

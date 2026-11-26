@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """core.report_theme.pages —— consulting 主题的 A4 页式渲染（A/B 两种页型）。
 
-不是替代 core/report_renderer.py 的文档流，而是它的一个可选出口：
+不是替代 core/report/report_renderer.py 的文档流，而是它的一个可选出口：
 contract["theme"] == "consulting" 或 contract["layout"] in ("pages","hybrid")
 时走这里，输出固定 A4 页（封面/摘要/目录/节页/动作/附录/封底）。
 
@@ -19,8 +19,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from core.charts import consulting as ccharts
-from core.data_shape import fits
-from core.report_marks import BOUNDARY_LABEL, FIGURE_SRC_CLASSES
+from core.data.data_shape import fits
+from core.report.report_marks import BOUNDARY_LABEL, FIGURE_SRC_CLASSES
 
 ROOT = Path(__file__).resolve().parents[2]
 CSS = (Path(__file__).resolve().parent / "consulting.css").read_text(encoding="utf-8")
@@ -327,7 +327,7 @@ def _render_svg(ch: Dict[str, Any]) -> tuple[str, str]:
         return "", "error"
     if not svg.strip():
         try:
-            from core import chart_capabilities
+            from core.charts import chart_capabilities
             key = str(ch.get("type") or "")
             if chart_capabilities.has_chart(key):
                 svg = chart_capabilities.render_chart(key, ch) or ""
@@ -674,7 +674,7 @@ def render_contract(c: Dict[str, Any]) -> str:
         s["index"] = i
         s.setdefault("short_title", short)
     actions = bool(c.get("actions"))
-    from core import report_structure
+    from core.report import report_structure
     has_sources = bool(sources) and report_structure.has(c, "sources")
     has_support = bool(support) and report_structure.has(c, "support")
     has_caliber = (caliber is not None) and report_structure.has(c, "caliber")

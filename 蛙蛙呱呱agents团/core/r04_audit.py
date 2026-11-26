@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List
 
-from core import coverage_confirm
+from core.sources import coverage_confirm
 
 
 def _read(p: str) -> str:
@@ -84,7 +84,7 @@ def chart_audit(html: str, plan: Dict[str, Any] | None = None) -> Dict[str, Any]
     # 地图是「计划里声明了才要求」：没有地图项的报告不该被这条判死
     if need_maps and maps < min(2, need_maps):
         issues.append("计划声明了地图，但正文没有全国/区域地图页")
-    from core.data_shape import fits
+    from core.data.data_shape import fits
     bad = [f"{c.get('id', '?')}:{c.get('chart')}≠{c.get('shape')}"
            for c in ((plan or {}).get("charts") or [])
            if not fits(c.get("chart"), c.get("shape"))]
@@ -121,7 +121,7 @@ def layout_audit(html: str, min_pages: int = 21,
 
 
 def prose_audit(html: str) -> Dict[str, Any]:
-    from core import prose_style
+    from core.prose import prose_style
     res = prose_style.audit_html(html)
     return {"layer": "prose", "ok": bool(res.get("ok")), "hard": False,
             "detail": {k: res.get(k) for k in ("sections", "avg_chars", "score",

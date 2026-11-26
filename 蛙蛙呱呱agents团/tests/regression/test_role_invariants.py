@@ -61,8 +61,9 @@ class RoleInvariantTests(unittest.TestCase):
 
     def test_core_exposes_shared_modules(self):
         core = AGENTS / "core"
-        for module in ("report_bridge.py", "report_renderer.py",
-                       "workspace.py", "registry.py"):
+        # P4 物理分包：共享模块在各自子包里（旧平铺路径的 shim 已退场）
+        for module in ("report/report_bridge.py", "report/report_renderer.py",
+                       "base/workspace.py", "base/registry.py"):
             self.assertTrue((core / module).exists(), module)
         # _legacy 暂存区已按 SOP 清理（旧编排器/渲染器无业务调用链），不再断言其存在
 

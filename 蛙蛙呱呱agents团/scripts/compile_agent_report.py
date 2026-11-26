@@ -285,7 +285,7 @@ def main(argv: List[str] | None = None) -> int:
 
     # 交叉质询：同一个数两个说法、只有 D 级来源、头条无 A/B 支撑、没写边界。
     # 这一步不通过就不编译——报告宁可不发，也不发一份自相矛盾的稿。
-    from core import claim_consistency
+    from core.claims import claim_consistency
     cons = claim_consistency.check(claims)
     (out / "consistency.json").write_text(
         json.dumps(cons, ensure_ascii=False, indent=2), encoding="utf-8")

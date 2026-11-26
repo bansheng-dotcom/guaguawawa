@@ -14,7 +14,7 @@
   draft —— 传入 `draft`（模型或人写的判断稿）时，只做「校验 + 归一」，
            任何引用不到的数字、任何禁用词，都会被拒并记录原因。
 
-这不是「生成报告」，是「决定这份报告说什么」。渲染在 core/report_flow.py。
+这不是「生成报告」，是「决定这份报告说什么」。渲染在 core/report/report_flow.py。
 """
 from __future__ import annotations
 
@@ -668,7 +668,7 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
             if ch.get("title") and not _NUM_RE.search(str(ch["title"])):
                 errs.append("图标题没有数字（标题即结论）")
             if ch.get("report_grade"):
-                from core import chart_plan as _cp
+                from core.charts import chart_plan as _cp
                 for _i in _cp.audit(ch):
                     errs.append(f"报告级图不合格：{_i}")
             refs = refs_of(ch)

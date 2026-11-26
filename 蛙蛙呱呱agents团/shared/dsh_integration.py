@@ -49,7 +49,7 @@ class DSHKnowledgeInjector:
         config = self._load_role_config(role_id)
         _agents_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         try:
-            from core import registry
+            from core.base import registry
             r = registry.by_id(role_id)
             role_dir = os.path.join(_agents_dir, r["dir"])
         except Exception:

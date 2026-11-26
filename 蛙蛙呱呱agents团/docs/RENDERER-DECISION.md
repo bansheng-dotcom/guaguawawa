@@ -2,7 +2,7 @@
 
 > ⚠️ **本文档结论已更正（2026-11-23 晚）**：原结论"退役 kit + flow --project"是**错的**。
 > 真实情况是：`flow --project` 不是"第二个渲染器"，而是**项目代码的宿主**——
-> `core/flow_report.py` 从 `--project` 目录加载 `facts.py` / `charts.py` /
+> `core/report/flow_report.py` 从 `--project` 目录加载 `facts.py` / `charts.py` /
 > `prose_specs.py`，让项目代码留在项目文件夹、不进 `core/`。删掉它等于
 > **拆了项目代码的家**，只会逼人把代码塞回 `core/`。
 >

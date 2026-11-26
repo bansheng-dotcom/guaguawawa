@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.card_probe —— 拆卡后的可行性测试与降级（FEASIBILITY-SOP v5.0）。
+"""core.cards.card_probe —— 拆卡后的可行性测试与降级（FEASIBILITY-SOP v5.0）。
 
 **位置：拆卡之后、采集之前。** 它不做门禁、不砍格子，只回答三件事：
 
@@ -22,12 +22,12 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from core import collection_gen as cg
-from core import collection_spec as cs
-from core import dataset_gates as dg
+from core.sources import collection_gen as cg
+from core.sources import collection_spec as cs
+from core.data import dataset_gates as dg
 from core import demand as dm
-from core import source_match as sm
-from core import source_profile as sp
+from core.sources import source_match as sm
+from core.sources import source_profile as sp
 
 SCHEMA = "dsh.probe/v1"
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -177,7 +177,7 @@ def probe(project: str, mode: str = "report",
     # 上一轮生成的 plan/supply.json 只用来做对比基线。
     _supply: Dict[str, Any] = {}
     try:
-        from core import supply_plan as _sup
+        from core.sources import supply_plan as _sup
         _supply = _sup.load_or_generate(project)
         _planned = _sup.planned_level(_supply) if _supply else None
         _planned_rows = _sup.planned_rows(_supply)
@@ -245,7 +245,7 @@ def probe(project: str, mode: str = "report",
     # SUPPLY-SOP v7.1：供给方案是**探测的产物**，不是手写输入。
     # 写 plan/supply.json，后面发采集卡与收卡都读它。
     try:
-        from core import supply_plan as _sp2
+        from core.sources import supply_plan as _sp2
         _gen = _sp2.from_probe(out, project)
         _sp2.save(_gen, project)
         out["supply_path"] = str(project / "plan" / "supply.json")

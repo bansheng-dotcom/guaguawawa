@@ -7,7 +7,7 @@
 
 | 状态 | 数量 |
 |---|---:|
-| LIVE | 112 |
+| LIVE | 31 |
 | TEST_ONLY | 0 |
 | DOC_ONLY | 0 |
 | UNWIRED | 0 |

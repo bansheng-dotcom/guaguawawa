@@ -12,7 +12,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from core import project as _project
+from core.base import project as _project
 from shared.knowledge import brief as _brief
 
 

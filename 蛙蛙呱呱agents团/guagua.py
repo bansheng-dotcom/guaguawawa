@@ -37,11 +37,11 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence
 ROOT = Path(__file__).resolve().parent
 PYTHON = sys.executable
 
-# 让 core.registry 可导入；同时保持脚本可从任意目录启动。
+# 让 core.base.registry 可导入；同时保持脚本可从任意目录启动。
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.registry import ROLES, by_id  # noqa: E402
+from core.base.registry import ROLES, by_id  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -231,7 +231,7 @@ def cmd_call(args: argparse.Namespace) -> int:
         "at": time.strftime("%Y-%m-%dT%H:%M:%S"),
     }
     try:
-        from core import workspace as _ws
+        from core.base import workspace as _ws
         _d = os.path.join(_ws.default_root(), "traces")
         os.makedirs(_d, exist_ok=True)
         _p = os.path.join(_d, f"{time.strftime('%Y%m%d-%H%M%S')}-{role['id']}.json")
@@ -265,7 +265,7 @@ def cmd_chat(args: argparse.Namespace) -> int:
 
 def cmd_project(args: argparse.Namespace) -> int:
     """项目资产根：init 建骨架 / show 看元数据。项目根必须在团外。"""
-    from core import paths, project as project_mod
+    from core.base import paths, project as project_mod
     try:
         if args.action == "init":
             target = args.path or str(paths.project_root(None))
@@ -706,7 +706,7 @@ def cmd_skills(args: argparse.Namespace) -> int:
 
 
 def cmd_report(args: argparse.Namespace) -> int:
-    from core import report_cli
+    from core.report import report_cli
     return int(report_cli.main(args.report_args))
 
 

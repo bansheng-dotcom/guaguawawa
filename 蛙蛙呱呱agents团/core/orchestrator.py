@@ -334,7 +334,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     method_plan = None
     if a.dir:
-        from core import analysis_desk, analysis_methods, methods
+        from core.data import analysis_desk
+        from core import analysis_methods, methods
         desk = analysis_desk.scan(a.dir)
         views = analysis_methods.build_views(desk)
         prof = analysis_desk.profile(desk)

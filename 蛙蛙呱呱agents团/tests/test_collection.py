@@ -25,7 +25,7 @@ import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import pytest
 from core import collect_schema
-from core import collection_contract as cc
+from core.sources import collection_contract as cc
 from core.collectors import base
 import core.collectors
 from core.collectors import web_search as ws
@@ -33,8 +33,8 @@ import time
 from urllib.parse import parse_qs, urlsplit
 from core import ingest
 from core.ingest import policy as pol_mod
-from core import coverage_plan
-from core import coverage_wire
+from core.sources import coverage_plan
+from core.sources import coverage_wire
 
 
 @pytest.fixture(autouse=True)
@@ -479,7 +479,7 @@ def test_pre_gate_pass_and_confirm_hash():
 
 
 def test_data_shape_fit():
-    from core import data_shape
+    from core.data import data_shape
     assert data_shape.fits("dumbbell", "pair")
     assert not data_shape.fits("dumbbell", "scalar")
     assert "hbar" in data_shape.candidates("scalar")

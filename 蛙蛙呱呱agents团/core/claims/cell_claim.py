@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.cell_claim —— 判断格 schema（DATA-LAYER-SOP v2.0 · S1）。
+"""core.claims.cell_claim —— 判断格 schema（DATA-LAYER-SOP v2.0 · S1）。
 
 v1 的格子是一个数（cell.value），撑不起趋势/分布/对比。
 v2 的格子是一个**判断 + 它依赖的数据集查询**：
@@ -21,7 +21,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from core import dataset as _ds
+from core.data import dataset as _ds
 
 SCHEMA = "dsh.cell_claim/v1"
 CAUSAL_LEVELS = ("A", "I", "C")

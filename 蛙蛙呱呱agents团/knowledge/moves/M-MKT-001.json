@@ -47,7 +47,7 @@
     "frame": "market",
     "gate": "Q2",
     "test": "",
-    "landed_by": "core/research_protocol.py + 智能体 claims"
+    "landed_by": "core/sources/research_protocol.py + 智能体 claims"
   },
   "acceptance": {
     "fixture": "待接入：workspace/olist_v4_demo（有客户与订单）",

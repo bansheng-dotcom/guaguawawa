@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.analysis_unit —— 分析单元（DATA-LAYER-SOP v3.0 · S0）。
+"""core.data.analysis_unit —— 分析单元（DATA-LAYER-SOP v3.0 · S0）。
 
 v2.0 的钻取把「品类」当输入、把品牌/价格带写死在代码里；v3.0 改成：
     **一个分析单元 = 度量 + 维度集 + 时间粒度**，维度集只能来自语义层。
@@ -10,14 +10,14 @@ v2.0 的钻取把「品类」当输入、把品牌/价格带写死在代码里�
     C3 一个 must 问至少 1 个 unit（上游 G6' 校验）
 
 用法：
-    from core import analysis_unit as au
+    from core.data import analysis_unit as au
     sem  = au.load("semantic_layer.yaml")
     unit = au.from_measure("asp", sem)
     au.rows_expected(unit, sem)          # 6×7×12 ...
     au.plan_units(sem)                   # 全部单元
 
 CLI：
-    python -m core.analysis_unit --sem <语义层> [--measure asp]
+    python -m core.data.analysis_unit --sem <语义层> [--measure asp]
 
 接线：card_issue.bootstrap 在 prepare 成功后调用 plan_units()，把单元清单
     挂到返回值的 prepare.analysis_units（解析失败只记录，不阻断发卡）。

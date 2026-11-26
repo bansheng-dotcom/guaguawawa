@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.cells_claims —— 把「按格交」的 cells 编译成报告可收的 claims。
+"""core.claims.cells_claims —— 把「按格交」的 cells 编译成报告可收的 claims。
 
 这是拆卡 SOP 与报告产线之间缺的那座桥：
     plan/grid.json + plan/dispatch.json + out_v3/cells_filled.json
@@ -140,7 +140,7 @@ def _section_from_claim(project: Path, c: Dict[str, Any],
                         rows_override: Optional[Dict[str, List[Dict[str, Any]]]] = None
                         ) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
     """一个判断格 → 一节 claims（数字由数据集现算，图由数据集现画）。"""
-    from core import dataset_query as _dq
+    from core.data import dataset_query as _dq
     ds = next((d for d in dss if str(d.get("id")) == str(c.get("dataset"))), None)
     if not ds:
         return None, []
@@ -335,7 +335,7 @@ def from_collection(project: Path, spec_path: str = "",
 
     这是「系统信 mart 表」的落点：数字不是手填的，是从 staging 滚出来的。
     """
-    from core import collection_spec as _cs
+    from core.sources import collection_spec as _cs
     from core import drill as _drill
 
     project = Path(project)
@@ -481,7 +481,7 @@ def build(project: Path, cells_path: Optional[Path] = None,
     _uni: Dict[str, Any] = {"matched": 0, "mismatched": [], "unified_rows": 0}
     if unified:
         try:
-            from core import cells_unified as _cu
+            from core.claims import cells_unified as _cu
             _diff = _cu.compare(project, write=True)
             _uni = _cu.apply_to_cells(project, cells)
             (project / "out").mkdir(parents=True, exist_ok=True)

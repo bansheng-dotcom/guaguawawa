@@ -36,7 +36,7 @@ while _boot and not os.path.isdir(os.path.join(_boot, "core")):
     _boot = os.path.dirname(_boot)
 if _boot and _boot not in sys.path:
     sys.path.insert(0, _boot)
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 import time
 from typing import Any, Dict, List, Optional
 

@@ -445,13 +445,13 @@ check("plan 生成任务卡", bool(tid))
 r = run_cli(["run", "--task", tid])
 res = parse_result(r.stdout) or {}
 check("run --task 转发 r06 并完成", res.get("exit_code") == 0)
-from core import workspace as _ws
+from core.base import workspace as _ws
 art = os.path.join(_ws.default_root(), "artifacts", tid)
 check("产物目录含 r06 result.json/evidence.json（报线收敛后只交证据）",
       any(f in ("result.json", "evidence.json") for f in os.listdir(art)) if os.path.isdir(art) else False)
 
 # r01 自身任务（决策卡路由）
-from core import protocol as _p
+from core.base import protocol as _p
 ws_dir = _ws.default_root()
 _wsmod = _ws.Workspace(ws_dir)
 t = _p.Task(title="R01｜定价决策卡", owner="r01",

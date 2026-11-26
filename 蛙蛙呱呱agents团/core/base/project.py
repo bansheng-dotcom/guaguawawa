@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """项目资产根：读/建 `<PROJECT_ROOT>/project.yaml`，管好项目目录骨架。
 
-项目根永远在专家团之外（见 `core/paths.py`）。本模块只做三件事：
+项目根永远在专家团之外（见 `core/base/paths.py`）。本模块只做三件事：
 
     load()   —— 读项目元数据（缺失时返回默认对象，不阻断只读命令）
     init()   —— 建目录骨架 + 写 project.yaml（已存在则不覆盖）
@@ -15,7 +15,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from core import paths
+from core.base import paths
 
 PROJECT_FILE = "project.yaml"
 SCHEMA = "dsh.project/v1"

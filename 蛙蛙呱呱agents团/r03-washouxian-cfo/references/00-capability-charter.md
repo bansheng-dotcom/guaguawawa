@@ -78,4 +78,4 @@
 - 对账不平时它**报 CRITICAL 而不是硬调平**（不得 plug）；
 - KYC 给出 `clear` 时 `approved` 仍为 False（永不直接批准）；
 - 合同有 CRITICAL 红线时 `sign gate = ok:false`；
-- 报告由 `core/report_renderer.py` 生成（非手写），且每个数字可回溯到运行结果。
+- 报告由 `core/report/report_renderer.py` 生成（非手写），且每个数字可回溯到运行结果。

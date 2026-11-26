@@ -493,7 +493,7 @@ Claude Code 用 `.claude/agents/*.md` 定义子代理，用 `.claude/skills/*/SK
 
 | 顺序 | 做什么 | 产出 | 估算 | 状态 |
 |---|---|---|---|---|
-| **①** | 写 `scripts/gen_agent_packs.py`：从 `configs/rXX.yaml` + `core/registry.py` + 现有 SKILL.md 生成 20 份 `agents/<id>.md` + 一份 `plugin.json` | 一个可被 WorkBuddy/CodeBuddy/Claude Code 直接加载的 20 人专家团 | 3–4 h | ✅ **已完成**（见 §11） |
+| **①** | 写 `scripts/gen_agent_packs.py`：从 `configs/rXX.yaml` + `core/base/registry.py` + 现有 SKILL.md 生成 20 份 `agents/<id>.md` + 一份 `plugin.json` | 一个可被 WorkBuddy/CodeBuddy/Claude Code 直接加载的 20 人专家团 | 3–4 h | ✅ **已完成**（见 §11） |
 | **②** | 补完 P0 剩余 4 个技能包：`model-audit`(R03) / `review-anti-collusion`(R04) / `prd-authoring`(R07) / `order-lifecycle`(R14) | 4 个 ≥90 分包 | 6–8 h | ✅ **已完成**（4 包均 100 分，见 §5 P0 表） |
 | **③** | 角色卡批量补齐（frontmatter + 触发语 + 能力索引），完成后启用 `--role-bar 75` | 20 份 ≥75 分 | 8–10 h | ⬜ 待做（最后做，不阻塞前两项） |
 
@@ -511,7 +511,7 @@ Claude Code 用 `.claude/agents/*.md` 定义子代理，用 `.claude/skills/*/SK
 ```
 输入（只读，权威）                      输出（生成，不要手改）
 ──────────────────────                ──────────────────────────
-core/registry.py    ID/名称/职位/能力    →  agent-packs/plugin.json      专家团清单
+core/base/registry.py    ID/名称/职位/能力    →  agent-packs/plugin.json      专家团清单
 configs/rXX.yaml    核心职责/关键原则    →  agent-packs/manifest.yaml    极简声明
 */prompt_profile.json  动作/触发词        →  agent-packs/agents/*.md    20 份角色定义
 ORG.md §三 编制表   边界/升级路径         →  agent-packs/README.md       加载说明

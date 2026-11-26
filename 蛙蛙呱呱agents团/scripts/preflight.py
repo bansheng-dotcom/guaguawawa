@@ -54,7 +54,7 @@ def run(base: str, min_sources: int = 50) -> dict:
         f"plan 已签字，{len(cards)} 张卡" if plan.get("status") == "confirmed" and cards
         else "plan 未签字或无卡：先 report brief --dir … --plan --confirm")
 
-    from core import report_dispatch
+    from core.cards import report_dispatch
     issued = report_dispatch.load_issued(base) or {}
     ic = issued.get("cards") or {}
     add("P3", bool(ic),

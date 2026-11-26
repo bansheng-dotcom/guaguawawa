@@ -16,7 +16,7 @@ import random
 import time
 from typing import Any, Callable, Dict, List, Optional
 
-from core.workspace import role_workspace
+from core.base.workspace import role_workspace
 
 
 class WatchdogBreaker:

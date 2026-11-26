@@ -16,7 +16,7 @@ from typing import Any, Dict, List
 
 from core.collectors import base
 from core import grain as g
-from core import source_profile as sp
+from core.sources import source_profile as sp
 
 
 @base.register

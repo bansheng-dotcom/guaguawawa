@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core/chart_capabilities.py —— 48 型图表能力注册表。
+"""core/charts/chart_capabilities.py —— 48 型图表能力注册表。
 
 不是“报告里用了几种就算几种”，而是核心必须完整持有 48 型：
 - CHART_INDEX：48 个图型的 id/key/title/group/use_when；
@@ -8,8 +8,8 @@
 - check()：启动/CI 时验证 48/48，缺一即失败。
 
 用法：
-    python -m core.chart_capabilities --check
-    python -m core.chart_capabilities --list
+    python -m core.charts.chart_capabilities --check
+    python -m core.charts.chart_capabilities --list
 """
 from __future__ import annotations
 

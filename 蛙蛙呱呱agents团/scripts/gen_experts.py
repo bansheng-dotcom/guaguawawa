@@ -10,7 +10,7 @@
     这一层需要一张「角色 → 能答什么 / 什么数据能答 / 什么情况不许开口」的表。
 
 事实来源（不手写第二份）：
-    1. `core/registry.py`           角色 id / 名字 / 职位 / 能力条目
+    1. `core/base/registry.py`           角色 id / 名字 / 职位 / 能力条目
     2. `rXX-*/prompt_profile.json`  业务域、动作、触发词（when）、所需输入
     3. `core/methods/`            方法 → 能力（needs）→ 产出（produces）
     4. 本文件 `ROLE_METHODS`       角色 → 方法 key（方法库是按业务域写的，需显式声明归属）
@@ -178,7 +178,7 @@ def _method_index() -> Dict[str, Dict[str, Any]]:
 
 
 def build() -> Dict[str, Any]:
-    from core import registry
+    from core.base import registry
 
     m_idx = _method_index()
     experts: Dict[str, Any] = {}
@@ -212,7 +212,7 @@ def build() -> Dict[str, Any]:
     return {
         "schema": "dsh.experts/v1",
         "generated_by": "scripts/gen_experts.py",
-        "note": "由 core/registry.py + rXX/prompt_profile.json + core/methods 生成，勿手改",
+        "note": "由 core/base/registry.py + rXX/prompt_profile.json + core/methods 生成，勿手改",
         "roles": experts,
     }
 

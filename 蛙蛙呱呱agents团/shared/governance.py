@@ -266,7 +266,7 @@ def evaluate_policy_evolution(
 # --------------------------------------------------------------------------- #
 # 5. 全球决策资产元数据索引与汇总 (Global Decision Ledger)
 # --------------------------------------------------------------------------- #
-from core.workspace import default_root  # noqa: E402
+from core.base.workspace import default_root  # noqa: E402
 
 LEDGER_DIR = os.path.join(default_root(), "governance")
 

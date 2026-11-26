@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.prose_style —— 文笔/深度门禁（R04 用）。
+"""core.prose.prose_style —— 文笔/深度门禁（R04 用）。
 
 只量页内正文；阈值见 configs/report_prose.yaml。
 设计原则：水果样板必须能过（它不是完美，但它是当前下限），v3 这种 500 字摘要必须被拦。

@@ -13,8 +13,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Tuple
 
-from core import report_ir
-from core.report_ir import IR_SCHEMA
+from core.report import report_ir
+from core.report.report_ir import IR_SCHEMA
 
 
 def _derive_dims(data_refs: List[str], nums_idx: Dict[str, Dict[str, Any]]) -> List[Dict[str, str]]:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """R05 蛙深远（战略研究官）十轮渐进式架构演进测试套件 (L01~L10)。"""
 import os
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 
 import sys
 import unittest

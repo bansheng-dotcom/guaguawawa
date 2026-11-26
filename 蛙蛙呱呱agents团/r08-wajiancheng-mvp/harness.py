@@ -8,7 +8,7 @@
 
 除 14 个实现门禁外，另含：
 - plan：复用 experience/plan_schema.json（实现计划契约口径）。
-- runlog：读 ../workspace/runlog.jsonl 最近 n 条（经 agents/core/workspace.py）。
+- runlog：读 ../workspace/runlog.jsonl 最近 n 条（经 agents/core/base/workspace.py）。
 
 用法：
     python harness.py slice      --input slice.json
@@ -142,7 +142,7 @@ def validate_plan(path: str) -> dict:
 # runlog：读 ../workspace/runlog.jsonl
 # --------------------------------------------------------------------------- #
 def validate_runlog(n: int = 5) -> dict:
-    from core import workspace as ws_mod
+    from core.base import workspace as ws_mod
     w = ws_mod.Workspace(os.path.join(_ROOT, "workspace"))
     rows = w.runlog(int(n))
     return c.result([c.ck(True, f"读取最近 {len(rows)} 条 runlog", "runlog",

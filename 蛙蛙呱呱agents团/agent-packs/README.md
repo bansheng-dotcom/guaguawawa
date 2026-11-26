@@ -1,6 +1,6 @@
 # 蛙蛙呱呱agents团 · 专家团包（agent-packs）
 
-> 由 `scripts/gen_agent_packs.py` 从 `core/registry.py`、`configs/*.yaml`、
+> 由 `scripts/gen_agent_packs.py` 从 `core/base/registry.py`、`configs/*.yaml`、
 > `*/prompt_profile.json`、`ORG.md` 单向渲染生成。**不要手改。**
 
 ## 内容

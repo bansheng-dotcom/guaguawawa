@@ -13,7 +13,7 @@ from __future__ import annotations
 import copy
 import json
 import os
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 
 import time
 from typing import Any, Dict, List, Optional

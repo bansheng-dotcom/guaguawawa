@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.source_profile —— 源画像（SYSTEM-UPGRADE-SOP v3.1 · S0）。
+"""core.sources.source_profile —— 源画像（SYSTEM-UPGRADE-SOP v3.1 · S0）。
 
 一个「源」声明三件事（都是业务无关的）：
     atomic_grain  这个源能捕获的最低粒度（Kimball：原子粒度优先）
@@ -9,7 +9,7 @@
 业务词不在这里。同一个源服务所有业务线。
 
 用法：
-    from core import source_profile as sp
+    from core.sources import source_profile as sp
     src = sp.load("tmall_search")
     errs = sp.validate(src)          # 空 = 合法
 """

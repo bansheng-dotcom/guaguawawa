@@ -23,10 +23,11 @@ import importlib.util
 import types
 import json
 import tempfile
-from core import cells_claims, dispatch
-from core import cells_claims, cells_unified
+from core.claims import cells_claims
+from core.cards import dispatch
+from core.claims import cells_claims, cells_unified
 
-from core import claims_v4 as c4
+from core.claims import claims_v4 as c4
 
 
 # ====================================================================

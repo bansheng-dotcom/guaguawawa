@@ -7,7 +7,7 @@
 
 | 变量 | 取值 | 默认 | 作用 | 消费者 |
 |---|---|---|---|---|
-| `REPORT_QUOTE_GATE` | `0` / `1` | `1` | `0` = 关闭 quote 门禁（等同 `--quote-mode off`） | `core/report_flow.py`（evidence+draft 路径） |
+| `REPORT_QUOTE_GATE` | `0` / `1` | `1` | `0` = 关闭 quote 门禁（等同 `--quote-mode off`） | `core/report/report_flow.py`（evidence+draft 路径） |
 | `KEEP_TMP` | `0` / `1` | `0` | `1` = 保留 `<out>/_work/` 中间产物，便于排障 | `core/decision_report.py` |
 
 ## 2. 已删除（P1）

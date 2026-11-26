@@ -66,9 +66,21 @@ def _py_files() -> List[Path]:
     return out
 
 
-def _core_modules() -> Dict[str, Path]:
-    # __init__.py 是包入口，不参与「是否接线」的判定
-    return {p.stem: p for p in CORE.glob("*.py") if p.stem != "__init__"}
+def _core_files() -> Dict[str, Path]:
+    """core 下全部实现文件：键是 rel 路径，值为文件（含子包）。"""
+    out = {}
+    for p in CORE.rglob("*.py"):
+        if any(s in p.parts for s in SKIP_PARTS):
+            continue
+        out[_rel(p)] = p
+    return out
+
+
+def _dot(rel: str) -> str:
+    parts = rel[:-3].split("/")
+    if parts[-1] == "__init__":
+        parts = parts[:-1]
+    return ".".join(parts)
 
 
 def _imports(path: Path) -> Set[str]:
@@ -80,14 +92,15 @@ def _imports(path: Path) -> Set[str]:
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             for a in node.names:
-                parts = a.name.split(".")
-                if parts[0] == "core" and len(parts) > 1:
-                    out.add(parts[1])
+                if a.name == "core" or a.name.startswith("core."):
+                    out.add(a.name)
         elif isinstance(node, ast.ImportFrom):
             if node.module == "core":
-                out.update(a.name for a in node.names)
+                out.update("core." + a.name for a in node.names)
             elif node.module and node.module.startswith("core."):
-                out.add(node.module.split(".")[1])
+                out.add(node.module)
+                for a in node.names:
+                    out.add(node.module + "." + a.name)
     return out
 
 
@@ -96,22 +109,30 @@ def _rel(p: Path) -> str:
 
 
 def build() -> Dict[str, object]:
-    mods = _core_modules()
-    importers: Dict[str, Set[str]] = {m: set() for m in mods}
-    cli_refs: Dict[str, Set[str]] = {m: set() for m in mods}
+    files = _core_files()
+    dotted = {}
+    for rel in files:
+        dotted.setdefault(_dot(rel), rel)
+    # 平铺模块（仅为报告口径保留；包内模块也参与可达性）
+    mods = {rel[len("core/"):-3]: p for rel, p in files.items()
+            if rel.count("/") == 1 and not rel.endswith("/__init__.py")}
+
+    importers: Dict[str, Set[str]] = {rel: set() for rel in files}
+    cli_refs: Dict[str, Set[str]] = {rel: set() for rel in files}
     doc_refs: Dict[str, Set[str]] = {m: set() for m in mods}
 
     for p in _py_files():
         rel = _rel(p)
-        for m in _imports(p):
-            if m in importers and m != p.stem:
-                importers[m].add(rel)
+        for name in _imports(p):
+            target = dotted.get(name)
+            if target and target != rel:
+                importers[target].add(rel)
 
     # CLI 引用只认“真的会被执行”的写法，避免把注释/说明里的 core.xxx 当调用。
     py_cli = re.compile(
         r"(?:-m\s+|import_module\(\s*[\"']|[\"']-m[\"']\s*,\s*[\"'])"
-        r"core\.([a-z0-9_]+)")
-    cfg_cli = re.compile(r"\bcore\.([a-z0-9_]+)\b")
+        r"core\.([a-z0-9_.]+)")
+    cfg_cli = re.compile(r"\bcore\.([a-z0-9_.]+)\b")
     for p in ROOT.rglob("*"):
         if not p.is_file():
             continue
@@ -120,23 +141,21 @@ def build() -> Dict[str, object]:
         suf = p.suffix.lower()
         if suf not in {".py", ".json", ".yaml", ".yml", ".sh", ".ps1", ".toml"}:
             continue
-        if p.name == "__init__.py" and p.parent == CORE:
-            continue  # 导出表不算「有人在用」
-        if p.parent == CORE and p.stem in mods:
-            continue
+        rel = _rel(p)
+        if rel.startswith("core/"):
+            continue  # core 内部引用走 import 图，不靠文本
         try:
             text = p.read_text(encoding="utf-8", errors="ignore")
         except OSError:
             continue
-        if suf == ".py":
-            found = py_cli.findall(text)
-        elif suf in {".json", ".yaml", ".yml", ".toml"}:
+        if suf in {".json", ".yaml", ".yml", ".toml"}:
             found = cfg_cli.findall(text)
         else:
             found = py_cli.findall(text)
-        for m in found:
-            if m in cli_refs:
-                cli_refs[m].add(_rel(p))
+        for name in found:
+            target = dotted.get("core." + name)
+            if target:
+                cli_refs[target].add(rel)
 
     doc_words: List[Tuple[str, Set[str]]] = []
     for p in list(ROOT.glob("*.md")) + list((ROOT / "docs").rglob("*.md")):
@@ -152,7 +171,7 @@ def build() -> Dict[str, object]:
             if m in words:
                 doc_refs[m].add(rel)
 
-    # 可达性：从「非 core、非 tests 的 .py」出发，沿 import 关系传递。
+    # 可达性：从「非 core、非 tests 的 .py」与 CLI 引用出发，沿 import 图反向传递。
     # 只看直接引用者会把「死模块引用另一个模块」误判成 LIVE（claim_gate → claim_card）。
     root_files = {_rel(p) for p in _py_files()
                   if not _rel(p).startswith(("core/", "tests/"))}
@@ -160,30 +179,25 @@ def build() -> Dict[str, object]:
     changed = True
     while changed:
         changed = False
-        for m in mods:
-            if m in reach:
+        for rel in files:
+            if rel in reach:
                 continue
-            if {x for x in cli_refs[m] if not x.startswith("tests/")}:
-                reach.add(m)
+            if any(x in root_files or x in reach
+                   for x in importers[rel] if not x.startswith("tests/")):
+                reach.add(rel)
                 changed = True
                 continue
-            for u in importers[m]:
-                if u in root_files:
-                    reach.add(m)
-                    changed = True
-                    break
-                if u.startswith("core/") and u.endswith(".py"):
-                    if Path(u).stem in reach and Path(u).stem != m:
-                        reach.add(m)
-                        changed = True
-                        break
+            if cli_refs[rel]:
+                reach.add(rel)
+                changed = True
 
     rows = {}
     for m, path in sorted(mods.items()):
-        non_test_imp = {x for x in importers[m] if not x.startswith("tests/")}
-        test_imp = {x for x in importers[m] if x.startswith("tests/")}
-        cli = {x for x in cli_refs[m] if not x.startswith("tests/")}
-        if m in reach:
+        rel = "core/" + m + ".py"
+        non_test_imp = {x for x in importers[rel] if not x.startswith("tests/")}
+        test_imp = {x for x in importers[rel] if x.startswith("tests/")}
+        cli = {x for x in cli_refs[rel] if not x.startswith("tests/")}
+        if rel in reach:
             status = "LIVE"
         elif test_imp:
             status = "TEST_ONLY"
@@ -203,7 +217,11 @@ def build() -> Dict[str, object]:
 
     # 文档死链（跳过 archive 与标记为 ARCHIVED 的历史文档）
     # __init__ 不参与“是否接线”，但它是真实存在的文件，文档引用不算死链
-    stems = set(mods) | {"__init__"}
+    def _exists(dotted: str, is_dir: bool = False) -> bool:
+        """core 下路径是否真实存在；支持 P4 之后的嵌套包路径。"""
+        p = CORE.joinpath(*dotted.split("/" if "/" in dotted else "."))
+        return p.is_dir() if is_dir else p.with_suffix(".py").is_file()
+
     doc_dead: List[Dict[str, str]] = []
     seen = set()
     # 明说“已删除/不新增/不再”的行是历史说明，不算失效承诺
@@ -228,12 +246,12 @@ def build() -> Dict[str, object]:
             if skip_block and (line.startswith((" ", "\t")) or line.strip().startswith(("-", "`", "|"))):
                 continue
             skip_block = False
-            for m in re.findall(r"core/([a-z0-9_]+)\.py", line):
-                if m not in stems and (m, _rel(p), "file") not in seen:
+            for m in re.findall(r"core/([a-z0-9_/]+)\.py", line):
+                if not _exists(m) and (m, _rel(p), "file") not in seen:
                     seen.add((m, _rel(p), "file"))
                     doc_dead.append({"module": m, "doc": _rel(p), "kind": "file"})
-            for m in re.findall(r"python -m core\.([a-z0-9_]+)", line):
-                if m not in stems and (m, _rel(p), "cli") not in seen:
+            for m in re.findall(r"python -m core\.([a-z0-9_.]+)", line):
+                if not _exists(m) and (m, _rel(p), "cli") not in seen:
                     seen.add((m, _rel(p), "cli"))
                     doc_dead.append({"module": m, "doc": _rel(p), "kind": "cli"})
     return {"rows": rows, "doc_dead": doc_dead}

@@ -25,7 +25,7 @@ for _p in (ROOT, os.path.dirname(ROOT)):
         sys.path.insert(0, _p)
 
 from engines import DataEngRuntimeEngine, DataEngIntentCompiler, DataEngReflexiveHealer  # noqa: E402
-from core.workspace import default_root, role_workspace  # noqa: E402
+from core.base.workspace import default_root, role_workspace  # noqa: E402
 
 
 def _ws_tmp(*parts: str) -> str:
@@ -764,7 +764,7 @@ class L01MainPathWiringTests(unittest.TestCase):
 
 class L02L03MainPathWiringTests(unittest.TestCase):
     def test_run_task_emits_delivery_dag_and_redline_scan(self):
-        from core import workspace as ws_mod, protocol
+        from core.base import workspace as ws_mod, protocol
         import agent
 
         ws = ws_mod.Workspace(ws_mod.default_root())

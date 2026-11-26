@@ -24,7 +24,7 @@ AGENTS = os.path.dirname(AGENT_DIR)
 sys.path.insert(0, AGENTS)
 sys.path.insert(0, AGENT_DIR)
 
-from core.workspace import default_root as _default_root  # noqa: E402
+from core.base.workspace import default_root as _default_root  # noqa: E402
 from skills import SKILLS  # noqa: E402
 import contracts  # noqa: E402
 
@@ -506,8 +506,8 @@ def main() -> int:
 
     print("== 14. run_task 端到端（workspace 协议）==")
     sys.path.insert(0, AGENTS)
-    from core import protocol as _p
-    from core import workspace as _ws
+    from core.base import protocol as _p
+    from core.base import workspace as _ws
     wsd = _ws.Workspace(_ws.default_root())
     t = _p.Task(title="R02｜双11冲刺排期", owner="r02",
                 intent="双 11 冲刺排期：WBS+容量+派工",

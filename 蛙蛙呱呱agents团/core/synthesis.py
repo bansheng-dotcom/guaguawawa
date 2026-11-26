@@ -96,7 +96,7 @@ def sections(theses_list: List[Dict[str, Any]],
     out = []
     for t in theses_list:
         rs = [r for r in rows if r.get("row_id") in (t.get("support_rows") or [])]
-        from core import chart_query
+        from core.charts import chart_query
         ch = (chart_query.build(rows, t["metric_id"], title=t.get("metric_name") or t["claim"])
               or query(rows, t["metric_id"]) or {})
         if ch:

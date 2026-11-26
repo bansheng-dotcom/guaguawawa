@@ -1,6 +1,6 @@
 # 图表语法（CHART-GRAMMAR）
 
-> 由 `core/chart_grammar.py` 导出，不要手改。
+> 由 `core/charts/chart_grammar.py` 导出，不要手改。
 > 依据：Financial Times《Visual Vocabulary》九类意图 + From Data to Viz 数据格式决策树。
 > 来源：https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary ｜ https://www.data-to-viz.com/
 

@@ -8,7 +8,7 @@
     test_derivation.py —— test_derivation —— 推导链（v4.0）：需求 → 源匹配 → 生成 → 样本验证。
     test_two_stage.py —— P1-2 两段式接线：探源卡是 bundle；探测结论不被第二段拆卡冲掉。
     test_method_params.py —— 方法参数（P1-7）：缺省走中性默认，项目文件覆盖；不内置任何业务线口径。
-    test_analysis_unit.py —— core.analysis_unit 单测（DATA-LAYER-SOP v3.0 · S0）。
+    test_analysis_unit.py —— core.data.analysis_unit 单测（DATA-LAYER-SOP v3.0 · S0）。
 """
 from __future__ import annotations
 import sys
@@ -21,24 +21,28 @@ if str(TEAM) not in sys.path:
     sys.path.insert(0, str(TEAM))
 
 
-from core import data_standard as ds
-from core import data_model
+from core.data import data_standard as ds
+from core.data import data_model
 import random
-from core import cell_claim, dataset, dataset_gates, dataset_query, drill
-from core import collection_spec as cs
+from core.claims import cell_claim
+from core.data import dataset, dataset_gates, dataset_query
+from core import drill
+from core.sources import collection_spec as cs
 from core import grain as g
-from core import source_profile as sp
-from core import collection_gen as cg
+from core.sources import source_profile as sp
+from core.sources import collection_gen as cg
 from core import demand
-from core import source_match as sm
+from core.sources import source_match as sm
 import json
 import tempfile
-from core import card_issue, report_clarify
-from core import method_params, analysis_desk, analysis_methods
+from core.cards import card_issue
+from core.report import report_clarify
+from core import method_params, analysis_methods
+from core.data import analysis_desk
 import pytest
-from core import analysis_unit as au
+from core.data import analysis_unit as au
 
-from core import data_model as dm
+from core.data import data_model as dm
 
 
 
@@ -887,7 +891,7 @@ def test_research_methods_do_not_mount_without_roles():
 
 
 # ====================================================================
-# 合并自 test_analysis_unit.py：core.analysis_unit 单测（DATA-LAYER-SOP v3.0 · S0）。
+# 合并自 test_analysis_unit.py：core.data.analysis_unit 单测（DATA-LAYER-SOP v3.0 · S0）。
 # ====================================================================
 # -*- coding: utf-8 -*-
 

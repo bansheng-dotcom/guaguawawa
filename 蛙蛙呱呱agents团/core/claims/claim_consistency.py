@@ -13,8 +13,8 @@
     C4 声明「已查」但 boundaries 为空——没写边界通常意味着没查缺口。
 
 用法：
-    python -m core.claim_consistency claims.json
-    from core.claim_consistency import check; check(claims)
+    python -m core.claims.claim_consistency claims.json
+    from core.claims.claim_consistency import check; check(claims)
 """
 from __future__ import annotations
 

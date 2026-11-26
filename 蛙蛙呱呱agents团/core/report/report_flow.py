@@ -23,7 +23,7 @@
 
 用法（v11）：
     唯一入口:  python guagua.py report run-line --intent "…" --dir <项目> --out <目录>
-    本模块是被调用的渲染/过账层，不再直接面向用户；命令行入口见 core/report_cli.py。
+    本模块是被调用的渲染/过账层，不再直接面向用户；命令行入口见 core/report/report_cli.py。
     验成品:    python guagua.py report check --html out/report.html
 """
 from __future__ import annotations
@@ -42,9 +42,10 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core import report_bridge, report_renderer, runner  # noqa: E402
+from core.report import report_bridge, report_renderer
+from core import runner  # noqa: E402
 from core.report_kernel.structure import layout_errors  # noqa: E402
-from core.source_verify import normalize_url  # noqa: E402
+from core.sources.source_verify import normalize_url  # noqa: E402
 
 PRODUCER = "r01"
 PRODUCER_NAME = "蛙全局"
@@ -252,7 +253,7 @@ def build_contract(j: Dict[str, Any], intent: str, branch: str,
         "theme": theme,
         "title_highlight": None,
     }
-    from core import report_editorial
+    from core.report import report_editorial
     return report_editorial.enrich(contract)
 
 
@@ -482,7 +483,7 @@ def _split_reading(text: str, limit: int | None = None) -> List[str]:
     上限只读 `configs/report_contract.yaml`，禁止在这里再写一个数。
     """
     import re as _re
-    from core import report_contract
+    from core.report import report_contract
     limit = int(limit or report_contract.paragraph_max())
     t = str(text or "").strip()
     if len(t) <= limit:
@@ -587,7 +588,7 @@ def _derive_chart_from_refs(s: Dict[str, Any], pack: Dict[str, Any]) -> Optional
             labels.append(lab)
     rel = str(s.get("relation") or (s.get("encoding") or {}).get("relation") or "")
     if rel:
-        from core import chart_relation
+        from core.charts import chart_relation
         adapted = chart_relation.adapt(rel, items, title, unit)
         if adapted:
             adapted["source"] = "、".join(labels[:2]) or "本节来源见附录"
@@ -596,7 +597,7 @@ def _derive_chart_from_refs(s: Dict[str, Any], pack: Dict[str, Any]) -> Optional
     typ = _chart_for_metric(key)
     if typ == "hbar":
         # 默认横条交给 chart_plan 按数据形状复核：点数不足 3 就不出图，改走表格。
-        from core import chart_plan
+        from core.charts import chart_plan
         picked = chart_plan.choose({"type": typ, "items": items})
         if picked.get("type") == "table":
             return None
@@ -788,7 +789,7 @@ def _build_decision(secs: List[Dict[str, Any]], pack: Dict[str, Any]) -> Dict[st
         scored.append((score, i, s))
     if not scored:
         return {}
-    from core import report_contract
+    from core.report import report_contract
     # 作者给了 decision_rank 就按作者排序；没有才用关键词兜底。
     ranked = [(int(s.get("decision_rank") or 9999), i, s) for _sc, i, s in scored]
     if any(r[0] < 9999 for r in ranked):
@@ -852,12 +853,12 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     """把「模型写的章节稿」变成报告契约（记录层与口径节由产线补）。"""
     # v4：数据优先——有 claims 就先过映射层（slice→encoding→findings→五块）
     if draft.get("claims") and not draft.get("sections"):
-        from core import claims_v4
+        from core.claims import claims_v4
         draft = {**draft, "sections": claims_v4.build_sections(draft)}
         if not draft.get("decision"):
             draft = {**draft, "decision": claims_v4.build_decision(draft)}
     secs_out: List[Dict[str, Any]] = []
-    from core import chart_chooser, chart_grammar
+    from core.charts import chart_chooser, chart_grammar
     # 2026-11-23（SOP S3）：先转 IR + resolve，图表意图以语义管道为单一来源。
     # 原来每节各自 infer_relation，和影子模型各算一遍；现在只算一次。
     _resolved_secs: List[Dict[str, Any]] = []
@@ -922,7 +923,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
             elif ch.get("relation") or s.get("relation"):
                 # S4：作者声明了 relation → 关系选型（尊重作者选定，只验不选）。
                 # 校验结果挂 chart_validation，S5 门禁据此阻断非法图。
-                from core import chart_contract, chart_candidates
+                from core.charts import chart_contract, chart_candidates
                 idx = {str(n.get("id")): n for n in (pack.get("numbers") or [])}
                 ctr = chart_contract.normalize(ch, s, idx)
                 val = chart_candidates.validate(ctr)
@@ -950,7 +951,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
             _sub = [n for n in (pack.get("numbers") or []) if str(n.get("id")) in _refs]
             _pq = None
             if len(_sub) >= 2:
-                from core import chart_query
+                from core.charts import chart_query
                 try:
                     _pq = chart_query.build(_sub, title=str(s.get("title") or ""))
                 except Exception:  # noqa: BLE001
@@ -978,7 +979,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
                     chosen.setdefault("source", _readable_figure_source(derived, s, pack))
                     sec["chart"] = chosen
         # 一张图只能有一个单位：混单位的点直接丢掉；主单位不足 2 点则不画图
-        from core import chart_units
+        from core.charts import chart_units
         sec["chart"] = chart_units.sanitize(sec.get("chart"), pack,
                                             list(s.get("refs") or [])) or None
         if sec.get("chart") and not str(sec["chart"].get("source") or "").strip():
@@ -1128,7 +1129,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     })
 
     # 主判断上限：0 = 自适应，不截断；显式正整数才把多余节移入附录
-    from core import report_contract
+    from core.report import report_contract
     for s in secs_out:
         if str(s.get("title") or "").startswith("延伸发现"):
             s["appendix"] = True
@@ -1224,7 +1225,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
         title_lines = [title0, subtitle]
     else:
         title_lines = draft.get("title_lines") or [draft.get("intent") or "R01 报告"]
-    from core import report_structure
+    from core.report import report_structure
     contract = {
         "doc_type": draft.get("doc_type") or "R01 报告",
         "structure_profile": (draft.get("structure_profile")
@@ -1252,7 +1253,7 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
         "theme": theme,
         "layout": layout,
     }
-    from core import report_editorial
+    from core.report import report_editorial
     return report_editorial.enrich(contract, pack)
 
 
@@ -1285,8 +1286,8 @@ def _attach_relation_validation(sec: Dict[str, Any], s: Dict[str, Any],
           所以治疗只做「作者显式要求时」的选择，正常路径是候选确认、不是自动切换。
     """
     try:
-        from core.report_ir import infer_relation
-        from core import chart_candidates
+        from core.report.report_ir import infer_relation
+        from core.charts import chart_candidates
         ch = sec.get("chart") or {}
         idx = {str(n.get("id")): n for n in (pack.get("numbers") or [])}
         refs = list(ch.get("refs") or s.get("refs") or [])
@@ -1309,7 +1310,7 @@ def _attach_relation_validation(sec: Dict[str, Any], s: Dict[str, Any],
                   "chart_validation": val}
         # 治疗：图型不能表达关系 → 换 suggest 首个 + 重建 payload（默认关，作者显式开）
         if os.environ.get("GUAGUA_IR_TREAT", "0") != "0" and not val.get("ok"):
-            from core import chart_payload
+            from core.charts import chart_payload
             sug = val.get("suggest") or []
             if sug:
                 t = _RENDER_TYPE.get(sug[0], sug[0])
@@ -1405,12 +1406,12 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
 
     # 调研级：模型写章节稿 + 证据包逐节过账（家居百货 / 肉禽蛋那种报告）
     if evidence and draft and draft.get("sections"):
-        from core import evidence_pack
+        from core.data import evidence_pack
         pack = evidence_pack.load(evidence)
         qgate: Dict[str, Any] = {"mode": quote_mode, "ok": True, "verdict": "SKIP"}
         project = str(pack.get("root") or pack.get("project") or "")
         if quote_mode != "off" and project:
-            from core import research_intake
+            from core.sources import research_intake
             refs = research_intake.collect_refs(draft, pack)
             qgate = research_intake.quote_gate(project, refs=refs or None,
                                                mode=quote_mode)
@@ -1424,8 +1425,8 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         lay = list(lay) + chart_fitness_errors(contract)
         cov_gate: Dict[str, Any] = {}
         if coverage_plan_data and task_frame_data:
-            from core import coverage_plan as _cp
-            from core import coverage_policy as _policy
+            from core.sources import coverage_plan as _cp
+            from core.sources import coverage_policy as _policy
             # 按图表出现顺序把 plan charts 的 shape 贴到 contract sections
             charts = coverage_plan_data.get("charts") or []
             chart_sections = [s for s in (contract.get("sections") or []) if s.get("chart")]
@@ -1454,7 +1455,7 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         if ok:  # 章节级校验不过就不落盘，避免半份报告
             files = render(contract, out_dir, md_name=md_name, pdf=pdf)
             if layout == "flow" and files.get("html"):
-                from core import prose_style
+                from core.prose import prose_style
                 skip_titles = tuple(
                     str(s.get("title") or "") for s in (contract.get("sections") or [])
                     if str(s.get("title") or "").startswith(("延伸发现", "记录层", "口径与分数")))

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.data_model —— 专家团的「数据层」：行、度量、归一、冲突、覆盖。
+"""core.data.data_model —— 专家团的「数据层」：行、度量、归一、冲突、覆盖。
 
 为什么要有这个模块：
     现在角色的产物是 claims（论证），数字是自由文本
@@ -283,7 +283,7 @@ def _rows_as_lists(rows: List[Dict[str, Any]]) -> Tuple[List[str], List[List[Any
 def export(raw: Dict[str, Any], out_dir: Path,
            sources: Optional[Iterable[Dict[str, Any]]] = None,
            title: str = "") -> Dict[str, str]:
-    from core import paths
+    from core.base import paths
     out_dir = paths.write_artifact(out_dir)      # 守卫：产物只能落项目，不落团内
     (out_dir / "raw.json").write_text(
         json.dumps(raw, ensure_ascii=False, indent=1), encoding="utf-8")

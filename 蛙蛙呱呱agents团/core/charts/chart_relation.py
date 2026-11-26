@@ -37,7 +37,7 @@ def _has_geo(items: List[Dict[str, Any]]) -> bool:
     # 不再内置具体省份/城市名。
     keys = ("省", "市", "区", "县", "州", "盟")
     try:
-        from core.data_model import CITY_TOKENS  # noqa: PLC0415
+        from core.data.data_model import CITY_TOKENS  # noqa: PLC0415
         keys = keys + tuple(CITY_TOKENS)
     except Exception:  # noqa: BLE001
         pass

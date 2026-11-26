@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.dataset_query —— 在数据集上执行查询、并转成图（DATA-LAYER-SOP v2.0 · S5）。
+"""core.data.dataset_query —— 在数据集上执行查询、并转成图（DATA-LAYER-SOP v2.0 · S5）。
 
 **图从数据集画，不经过格子的 value。**
 
@@ -13,7 +13,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any, Dict, List, Optional
 
-from core import dataset as _ds
+from core.data import dataset as _ds
 
 
 def _agg_map(ds: Dict[str, Any]) -> Dict[str, str]:

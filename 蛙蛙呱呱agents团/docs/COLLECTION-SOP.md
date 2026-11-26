@@ -250,10 +250,10 @@ def check(atomic: list[str], rollup: dict, source: dict) -> list[str]:
 
 | 步 | 做什么 | 退出条件 |
 |---|---|---|
-| **S0** | `core/source_profile.py` + `configs/sources/tmall_search.yaml` | 能 load/validate 一个源 |
+| **S0** | `core/sources/source_profile.py` + `configs/sources/tmall_search.yaml` | 能 load/validate 一个源 |
 | **S1** | `core/grain.py`：`atomic_of / analysis_of / check / rollup_rows` | G-A~G-E 五条能跑 |
 | **S2** | `core/collectors/csv_manual.py`（先做最简单、最可控的） | 手工 CSV → 原子表 |
-| **S3** | `core/collection_spec.py` + 一个真实 collection YAML | 规格校验通过 |
+| **S3** | `core/sources/collection_spec.py` + 一个真实 collection YAML | 规格校验通过 |
 | **S4** | 把 v2 的 `drill.plan` 改成「从 rollup 推导」，不再手写 216 行 | 钻取产物来自 rollup |
 | **S5** | `collect` 接采集链：collector → staging → rollup → mart → claim | 一条命令从源到图 |
 | **S6** | 三业务 YAML 回归（汽车/母婴/蔬菜） | 代码零改动跑通三条线 |

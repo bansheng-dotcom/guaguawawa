@@ -8,6 +8,25 @@
 
 ---
 
+## 2026-11-26（第十九轮）· P4 收口：81 个兼容 shim 全部退场
+
+一句话：**旧平铺路径不再兼容；全仓 808 处引用改到新包路径，接线门禁升级为「全 core 路径图」。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 删除 shim | `core/*.py` 81 个兼容层 | base / data / sources / charts / claims / cards / report / prose 各包旧路径 |
+| 引用改写 | 358 个文件、808 处 | `core.X`→`core.<pkg>.X`、`core/X.py`→`core/<pkg>/X.py`、`from core import X` 按包拆分；含角色 engines、templates、JSON 方法卡与文档 |
+| 包入口 | `core/__init__.py` | 8 个真子包显式导入 + 分组懒加载改走 `_MOVED` 映射；`data` 从 `_GROUPS` 移出（否则假分组盖住真包） |
+| 接线门禁 | `scripts/wiring_truth.py` | import 图从「只认平铺文件」升级为全 core 路径反向可达；文档死链改按真实路径存在性判定（旧写法会把包内路径当成未接线） |
+| 门禁锁 | `configs/report_gate.lock.json` | `check_report_flow.py` 仅路径注释变化，按流程用 `check_gate_lock.py --write` 更新 |
+| 顺带修复 | `scripts/grade_report_level.py` | 发现 HEAD 上就有缩进错（`else` 分支少缩进），脚本此前根本跑不起来 |
+| 不变式 | `tests/regression/test_role_invariants.py` | 共享模块断言改到 `core/report/`、`core/base/` |
+| 白名单 | `configs/core_files.json` | 248 → **167**（81 shim 退场） |
+
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS；`python -m compileall` 全仓 0 错误；wiring_truth / dead_code / project_boundary / report_isolation 全 PASS；`configs/core_files.json` 与 `docs/_migration/wiring-truth.md` 已重建。
+
+---
+
 ## 2026-11-26（第十八轮）· P4 第七阶段：core/prose 归位
 
 一句话：**3 个正文契约/文笔模块进 `core/prose/`；正文生成 `report_prose_gen` 已随报告线在 `core/report/`，只做入口映射。**
@@ -32,13 +51,13 @@
 |---|---|---|
 | 物理迁移 | `core/report/`：19 个 `report_*` + flow_report | `git mv`，逻辑不变 |
 | 不迁 | `core/report_kernel/`（8 文件）、`core/report_theme/`（19 文件） | 已是真包；搬进来会同时存在 `core.report_kernel` 与 `core.report.report_kernel` 两份模块身份 |
-| 兼容层 | 旧 `core/<name>.py` 共 20 个 | 模块别名；8 个 CLI 模块转发 `main()`，并自带仓库根引导，`python core/report_renderer.py` 直接跑仍可用 |
+| 兼容层 | 旧 `core/<name>.py` 共 20 个 | 模块别名；8 个 CLI 模块转发 `main()`，并自带仓库根引导，`python core/report/report_renderer.py` 直接跑仍可用 |
 | 深度修正 | report_cli / report_flow / report_line / report_model / report_contract / report_layout / report_roles / report_structure / flow_report（ROOT）· report_bridge（AGENTS_ROOT + CORE_RENDERER）· report_renderer（CHART_DIR + 两处 `_root`） | 文件深一层，路径同步 +1 |
 | 引用修正 | `knowledge/moves/M-EXP-001.json` | `landing.method` 改为 `core/report/report_quality.py::audit`；CI `[7] move cards` 先红后修 |
 | 边界 | `boundary_allowlist.yaml` | 登记 `core/report/` |
 | 白名单 | `configs/core_files.json` | 223 → **244**（20 shim + report/__init__） |
 
-验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS（含 `-m core.report_quality`、`-m core.report_model --audit`、move cards 7/7）；r06 端到端 155/155；`guagua.py check` 20/20；`audit_dod` 15/15；wiring_truth / dead_code / project_boundary / report_isolation 全 PASS。
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS（含 `-m core.report.report_quality`、`-m core.report.report_model --audit`、move cards 7/7）；r06 端到端 155/155；`guagua.py check` 20/20；`audit_dod` 15/15；wiring_truth / dead_code / project_boundary / report_isolation 全 PASS。
 
 ---
 
@@ -49,7 +68,7 @@
 | 件 | 落点 | 说明 |
 |---|---|---|
 | 物理迁移 | `core/cards/`：card_plan / card_issue / card_probe / card_bundle / card_upgrade / dispatch / report_dispatch | `git mv`，逻辑不变 |
-| 兼容层 | 旧 `core/<name>.py` 共 7 个 | 模块别名；`core.dispatch` 与 `core.cards.dispatch` 是同一对象 |
+| 兼容层 | 旧 `core/<name>.py` 共 7 个 | 模块别名；`core.cards.dispatch` 与 `core.cards.dispatch` 是同一对象 |
 | 包入口 | `core/cards/__init__.py` | 懒加载；另把仍平铺的 7 个拆卡线成员（grid_attach、cells_claims、collection_contract、collab、parallel_research、research_protocol、research_intake）映射到 `core.X`，保持 `core.cards.X` 旧读法 |
 | 分组入口 | `core/__init__.py` | `cards` 从 `_GROUPS` 移出（否则假分组盖住真包），改为显式 `from . import cards` |
 | 深度修正 | `card_issue`（configs）、`card_probe`（ROOT）、`card_upgrade`（ROOT） | 文件深一层，目录推导同步 +1 |
@@ -69,7 +88,7 @@
 | 件 | 落点 | 说明 |
 |---|---|---|
 | 物理迁移 | `core/claims/`：claims / claims_v4 / claim_consistency / cell_claim / cells_claims / cells_unified | `git mv`，逻辑不变 |
-| 兼容层 | 旧 `core/<name>.py` 共 6 个 | 模块别名；`python -m core.claim_consistency --help` 仍可用（shim 转发 `main()`） |
+| 兼容层 | 旧 `core/<name>.py` 共 6 个 | 模块别名；`python -m core.claims.claim_consistency --help` 仍可用（shim 转发 `main()`） |
 | 路径修正 | `scripts/check_convergence.py` | 读取路径改为 `core/claims/claim_consistency.py` |
 | 卡片修正 | `knowledge/moves/M-STA-001.json` · `M-CAU-001.json` | 方法引用改为 `core/claims/claims.py::_mech_gap`；CI `[7] move cards` 先红后修 |
 | 白名单 | `configs/core_files.json` | 208 → **215**（6 shim + claims/__init__） |
@@ -86,11 +105,11 @@
 |---|---|---|
 | 物理迁移 | `core/charts/`：chart_candidates / capabilities / chooser / contract / field_contract / grammar / payload / plan / query / relation / shapes / spec / units | 与原有 chart_lib / chart_renderers_ext / consulting 同包 |
 | 包入口 | `core/charts/__init__.py` | 删除“物理不动”的旧注释，改为 16 个懒加载子模块 |
-| CLI 兼容 | `core/chart_capabilities.py` shim | 实现里抽出 `main()`；`python -m core.chart_capabilities --check` 仍走旧路径并正常返回 |
+| CLI 兼容 | `core/charts/chart_capabilities.py` shim | 实现里抽出 `main()`；`python -m core.charts.chart_capabilities --check` 仍走旧路径并正常返回 |
 | 深度修正 | chart_capabilities（CHART_DIR）、chart_candidates / chart_contract（ROOT） | 文件深一层，目录推导同步修正 |
 | 白名单 | `configs/core_files.json` | 195 → **208**（13 shim） |
 
-验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS（含 `-m core.chart_capabilities --check`）；`wiring_truth` / `check_dead_code` PASS；`check_project_boundary` PASS；`gen_agent_packs --check` 无漂移；`check_role_packs` 20/20；r06 / r10 端到端全绿；`guagua.py check` 20/20。
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS（含 `-m core.charts.chart_capabilities --check`）；`wiring_truth` / `check_dead_code` PASS；`check_project_boundary` PASS；`gen_agent_packs --check` 无漂移；`check_role_packs` 20/20；r06 / r10 端到端全绿；`guagua.py check` 20/20。
 
 ---
 
@@ -216,7 +235,7 @@
 
 | 件 | 落点 | 说明 |
 |---|---|---|
-| 候选器 | `core/prose_candidates.py` | 数字多重集一致（硬判据）+ trigram Jaccard + 七项权重（20/20/15/15/10/10/10）+ <85 淘汰 + ≤3 轮 + 固定种子 |
+| 候选器 | `core/prose/prose_candidates.py` | 数字多重集一致（硬判据）+ trigram Jaccard + 七项权重（20/20/15/15/10/10/10）+ <85 淘汰 + ≤3 轮 + 固定种子 |
 | 双模如实标注 | 同上 | 无模型 → `mode=rule`，只出确定性单稿并标 `no_model_single_variant`（实测三份相似度 0.9，不假装是 3 个候选）；有模型 → `mode=llm`，diversity ≥0.6 的候选硬淘汰 |
 | 接入 | `core/report_prose_gen.generate()` | `compose()` 行为不变；`candidates` 可传 dict 覆盖配置，`record_path` 落盘候选集便于逐字复跑 |
 | 配置 | `configs/report_prose.yaml#candidates` | enabled / n / max_rounds / pass / diversity_max / budget_ms_per_section |
@@ -247,10 +266,10 @@
 | 能力 | 落点 | 判据 |
 |---|---|---|
 | 结构同构门禁 F12 | `core/structure_guard.py` · `scripts/check_report_flow.py` · `scripts/compile_agent_report.py` | 连续 ≥3 节「标签序列 + 段数」完全一致 → FAIL；阈值唯一出处 `configs/report_prose.yaml#structure_gate` |
-| 写作结构轮换 | `core/report_prose_gen.py` | 4 套论证顺序按节 id 稳定轮换，连续两节同序自动换序，避免自动生成的稿子被 F12 判死 |
-| 图表收卡契约 | `core/dispatch.py#_chart_contract` | 图上的点必须能由本卡数字/派生量解释；`chart.refs` 必须在本卡命名空间；构成图合计 95–105% 或显式 `partial` |
-| 来源回抓硬化 | `core/source_verify.py` | 浏览器级请求头 + 3 次退避重试；`GUAGUA_FETCH_FALLBACK=1` 时才启用 Playwright 兜底 |
-| 来源时效度量 | `core/source_freshness.py` | 18 个月窗口统计 stale_ratio；>60% 旧源时写降级标记与边界，不硬拦年报口径 |
+| 写作结构轮换 | `core/report/report_prose_gen.py` | 4 套论证顺序按节 id 稳定轮换，连续两节同序自动换序，避免自动生成的稿子被 F12 判死 |
+| 图表收卡契约 | `core/cards/dispatch.py#_chart_contract` | 图上的点必须能由本卡数字/派生量解释；`chart.refs` 必须在本卡命名空间；构成图合计 95–105% 或显式 `partial` |
+| 来源回抓硬化 | `core/sources/source_verify.py` | 浏览器级请求头 + 3 次退避重试；`GUAGUA_FETCH_FALLBACK=1` 时才启用 Playwright 兜底 |
+| 来源时效度量 | `core/sources/source_freshness.py` | 18 个月窗口统计 stale_ratio；>60% 旧源时写降级标记与边界，不硬拦年报口径 |
 | 报告隐私扫描 | `scripts/check_report_privacy.py` | 只扫报告资产（claims/报告/manifest），密钥前缀/键值对/手机号/身份证；占位符放行 |
 
 二阶处理：F12 会拦「自动生成的同构稿」，所以同步改了 `report_prose_gen` 的结构轮换；新 core 模块须登记 `configs/core_files.json`（已加 2 个）；门禁脚本变更已 `check_gate_lock --write` 留痕。
@@ -336,7 +355,7 @@
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
-| 统一读数 | `core/cells_unified.py` | `observations()` 优先 `out/raw.json`，其次 `plan/mart.json`，按 (measure, entity, period) 归一 |
+| 统一读数 | `core/claims/cells_unified.py` | `observations()` 优先 `out/raw.json`，其次 `plan/mart.json`，按 (measure, entity, period) 归一 |
 | 双写对账 | 同上 `compare()` | v1 已填格子 vs 统一读数逐键比对，写 `out/cells_claims_diff.json` |
 | 切换 | `cells_claims.build(unified=True)` | 数字改读统一读数，标 `value_from=observation`；与格子值不一致的标 `needs_human`，不静默改数 |
 | CLI | `scripts/cells_diff.py --project` | 对账入口，差异非 0 退出 1 |
@@ -359,7 +378,7 @@
 |---|---|---|
 | 中性术语替换 | `core/` `shared/` `scripts/` | 终端/集散/上游/网点/面积效率/单品 取代行业口径词；23 个文件 |
 | 研究类方法去业务化 | `core/methods/research.py` | 指标 id 全部改 `metric_roles` 映射（项目 `method_params.yaml`）；无角色**不挂载**，不退回业务线默认 |
-| 渠道词项目化 | `core/analysis_desk.py` + `method_params.channel_hints` | 团内只留中性默认词；项目自己的列名口径写在项目配置 |
+| 渠道词项目化 | `core/data/analysis_desk.py` + `method_params.channel_hints` | 团内只留中性默认词；项目自己的列名口径写在项目配置 |
 | 门禁收紧 | `scripts/check_business_terms.py` | 三层全部要求 **0**；`configs/industries/*` 作为显式行业库豁免 warn |
 
 ### Layout 层接管 70 型（P4-3）
@@ -374,7 +393,7 @@
 | 项 | 位置 | 说明 |
 |---|---|---|
 | P2-5 `collect schema` | `core/collect_schema.py` + `guagua.py collect` | 抓一页 → 推断 JSON/表格结构 → 生成源画像 + 采集规格草稿 → 试采 20 行过质量门；产物只写项目侧 |
-| P3-4 quote 判据合并 | `core/research_intake.py` | `verify()` 降级为 URL 可达性预检（`reachability.json`）；quote 命中**只**由 `source_verify` 判定；门禁支持项目 `raw/` 离线缓存 |
+| P3-4 quote 判据合并 | `core/sources/research_intake.py` | `verify()` 降级为 URL 可达性预检（`reachability.json`）；quote 命中**只**由 `source_verify` 判定；门禁支持项目 `raw/` 离线缓存 |
 
 ### 门禁
 
@@ -393,7 +412,7 @@
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
-| 四份数据契约 | `core/data_standard.py` | Record（原始不可变）/ Observation（唯一可比较单元）/ Dataset（含 manifest+dq+profile）/ ChartSpec（数据引用，不内嵌数字）；`Row` 双向适配 |
+| 四份数据契约 | `core/data/data_standard.py` | Record（原始不可变）/ Observation（唯一可比较单元）/ Dataset（含 manifest+dq+profile）/ ChartSpec（数据引用，不内嵌数字）；`Row` 双向适配 |
 | 语义层拒绝臆造 | `core/card_upgrade.neutral_semantics` | 缺语义层只给中性占位，**不写盘**；四段（entities/grain/measures/boundaries）缺一不发卡 |
 | 两段式接线 | `core/card_issue.prepare_probe_cards` + `merge_grid` | 探源卡 = `bundle.json`（`task_type=探源型`）；语义层指纹不变时网格**合并**，探测结论不被冲掉 |
 | 单位显式化 | `core/data_model.normalize_unit` | 返回 `(base, scale, verified)`；coverage 增 `unit_unverified` |
@@ -413,7 +432,7 @@
 | 能力 | 位置 | 说明 |
 |---|---|---|
 | 数据驱动选型 | `core/chart_fit.py`（2026-11-26 已删除，判据由 report_flow 内联） | 画像 → 候选图型 + 前置条件 + fallback；空态/常数值拒绝出图 |
-| 字段契约同源审计 | `core/chart_field_contract.py` | REQUIRED vs SAMPLE 逐型比对，进 `check_charts_pro`（治 V-1） |
+| 字段契约同源审计 | `core/charts/chart_field_contract.py` | REQUIRED vs SAMPLE 逐型比对，进 `check_charts_pro`（治 V-1） |
 | 表格降级后端 | `core/report_theme/table_backend.py` | 可访问表格 + `fallback_note`（缺什么、改用哪型） |
 | 设计 token | `core/report_theme/tokens.py` | 默认值=现状；门禁比对渲染常量，防静默改产出 |
 
@@ -503,10 +522,10 @@
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
-| 三个根与写入守卫 | `core/paths.py` | `TEAM_ROOT`（工具）/ `PROJECT_ROOT`（资产）/ `RUNTIME_ROOT`（事件·锁·trace）；写团内抛 `BoundaryError`，CLI 退出码 2 |
-| 项目资产根 | `core/project.py` | `Project` / `load` / `init` / `ensure`；10 个标准子目录；`project.yaml` 不覆盖已存在 |
+| 三个根与写入守卫 | `core/base/paths.py` | `TEAM_ROOT`（工具）/ `PROJECT_ROOT`（资产）/ `RUNTIME_ROOT`（事件·锁·trace）；写团内抛 `BoundaryError`，CLI 退出码 2 |
+| 项目资产根 | `core/base/project.py` | `Project` / `load` / `init` / `ensure`；10 个标准子目录；`project.yaml` 不覆盖已存在 |
 | expert_brief v2 | `shared/knowledge/brief.py` | 七层（决策语境→定义口径→结构分解→机制归因→判断情景→行动可逆→反证不确定）；每条五门槛（answerable_by / evidence / owner / failure_impact / check）；单卡上限 18 条，超出进 `parking_lot` |
-| CardBundle 组装 | `core/card_bundle.py` | 卡是信封、brief 是内容；让报告拆卡线在不 import 知识库的前提下拿到 bundle |
+| CardBundle 组装 | `core/cards/card_bundle.py` | 卡是信封、brief 是内容；让报告拆卡线在不 import 知识库的前提下拿到 bundle |
 | 三道新门禁 | `scripts/check_project_boundary.py`、`check_brief_contract.py`、`check_report_isolation.py` | 依次守：团内无项目资产、brief 契约不回退、报告层不读知识库/brief |
 | 新入口 | `guagua.py project init/show`、`guagua.py prompt` | `prompt` 是接入大模型的唯一提示词入口 |
 

@@ -100,7 +100,7 @@ def build(intent: str, project_dir: Optional[str] = None,
     #   谁验：core/report_flow 逐节过账 + core/quality_gate 三层闸
     #   谁印：core/report_renderer（唯一渲染器）
     if evidence_path and draft_path:
-        from core import report_flow
+        from core.report import report_flow
         _write(str(out / "input_mode.json"), {
             "schema": SCHEMA, "mode": "agent", "intent": intent,
             "evidence": str(evidence_path), "draft": str(draft_path),
@@ -110,7 +110,7 @@ def build(intent: str, project_dir: Optional[str] = None,
         # 2026-11-23（A 项）：覆盖矩阵 + 饱和接进主链路（默认软门禁）
         _cov: Dict[str, Any] = {}
         try:
-            from core import coverage_wire
+            from core.sources import coverage_wire
             _cov = coverage_wire.derive(project_dir) if project_dir else {}
         except Exception:  # noqa: BLE001
             _cov = {}
@@ -125,7 +125,7 @@ def build(intent: str, project_dir: Optional[str] = None,
                               **_cov_kw)
         res = dict(res)
         res["mode"] = "agent"
-        res["generated_by"] = "core/report_line.py (agent draft)"
+        res["generated_by"] = "core/report/report_line.py (agent draft)"
         return res
 
     # P1 未接线的两种形态：显式拒绝，避免"看起来支持、实际按数据口径出报告"。
@@ -163,13 +163,13 @@ def build(intent: str, project_dir: Optional[str] = None,
             }
         except (OSError, json.JSONDecodeError):
             pass
-    res["generated_by"] = "core/report_line.py"
+    res["generated_by"] = "core/report/report_line.py"
     return res
 
 
 def main(argv: Optional[list] = None) -> int:
     import argparse
-    from core.report_flow import THEMES, DEFAULT_THEME
+    from core.report.report_flow import THEMES, DEFAULT_THEME
 
     ap = argparse.ArgumentParser(prog="report_line",
                                  description="唯一报告生产线：一条命令、四种输入")

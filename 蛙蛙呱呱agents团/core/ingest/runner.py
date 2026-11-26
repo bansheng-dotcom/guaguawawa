@@ -12,7 +12,9 @@ from __future__ import annotations
 import time
 from typing import Any, Dict, Iterable, List, Optional
 
-from core import data_model, paths, source_profile
+from core.data import data_model
+from core.base import paths
+from core.sources import source_profile
 
 from . import extract as _ex
 from .fetch import RateLimiter, RobotsCache, http_get

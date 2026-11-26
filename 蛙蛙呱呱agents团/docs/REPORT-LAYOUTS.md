@@ -8,7 +8,7 @@
 
 ```bash
 # 渲染器直接跑
-python core/report_renderer.py --contract c.json --output out.html --theme consulting
+python core/report/report_renderer.py --contract c.json --output out.html --theme consulting
 ```
 
 或在 contract 里写：
@@ -127,9 +127,9 @@ consulting 主题在 `quality_gate` 里走 `pages` 层（封面/节页/页码/�
 |---|---|
 | `core/report_theme/consulting.css` | 咨询白底令牌 + 封面/摘要/节页/A·B/动作/附录/封底 |
 | `core/report_theme/pages.py` | contract → 固定 A4 页（封面/摘要/目录/节页/动作/附录/封底） |
-| `core/report_editorial.py` | 旧契约补 verdict/kicker/rail/actions/sources + 契约门禁 |
+| `core/report/report_editorial.py` | 旧契约补 verdict/kicker/rail/actions/sources + 契约门禁 |
 | `core/charts/consulting.py` | 14 型确定性 SVG 图表（13 型 + pareto） |
-| `core/report_renderer.py` | `THEMES` 增加 `consulting`；`render()` 分流到页式出口 |
+| `core/report/report_renderer.py` | `THEMES` 增加 `consulting`；`render()` 分流到页式出口 |
 | `core/quality_gate.py` | `contract` 层 + consulting `pages` 层 |
 | `tests/test_consulting_port.py` | 图表 + A/B 页 + 编辑层 + 门禁回归 |
 

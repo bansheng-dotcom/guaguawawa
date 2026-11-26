@@ -47,7 +47,7 @@
     "frame": "analysis",
     "gate": "Q1/Q4",
     "test": "",
-    "landed_by": "core/research_protocol.py + 智能体 claims"
+    "landed_by": "core/sources/research_protocol.py + 智能体 claims"
   },
   "acceptance": {
     "fixture": "内蒙古肉禽蛋调研_2026-11-12",

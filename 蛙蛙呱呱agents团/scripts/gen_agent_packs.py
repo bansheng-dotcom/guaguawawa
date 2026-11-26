@@ -3,13 +3,13 @@
 """角色定义生成器：把 20 个角色渲染成可被宿主直接加载的专家团包。
 
 为什么需要它（而不是手写 20 份 agent md）：
-    角色信息本来就分散在 4 个地方——`core/registry.py`（契约）、`configs/rXX.yaml`
+    角色信息本来就分散在 4 个地方——`core/base/registry.py`（契约）、`configs/rXX.yaml`
     （职责与原则）、`<role>/prompt_profile.json`（可执行动作）、`ORG.md`（边界与升级路径）。
     手写 20 份 md 必然与这 4 处漂移，且改一次要改 20 处。
     本脚本把它们**单向渲染**成 `agent-packs/`，并提供 `--check` 做漂移检测。
 
 单一事实来源（本脚本只读，不写这些）：
-    core/registry.py            角色 ID / 名称 / 职位 / 目录 / 能力 / 输入输出端口
+    core/base/registry.py            角色 ID / 名称 / 职位 / 目录 / 能力 / 输入输出端口
     configs/rXX.yaml            核心职责 / 关键原则 / 输出要求
     <role>/prompt_profile.json  领域 / 动作清单（when 触发词）
     <role>/SKILL.md             能力索引补充（若存在）
@@ -194,7 +194,7 @@ MAX_TURNS_MEMBER = 120
 def load_registry():
     if ROOT not in sys.path:
         sys.path.insert(0, str(ROOT))
-    from core.registry import ROLES  # noqa: E402
+    from core.base.registry import ROLES  # noqa: E402
     return ROLES
 
 
@@ -391,7 +391,7 @@ def render_agent(role: dict, yaml_conf: dict, profile: dict, members: list) -> s
     L.append("| 「停」 | 立即中止，汇报已完成部分与遗留风险 |")
     L.append("| 问到边界外的事 | 明确说「这不归我」，并给出该找谁 |")
     L.append("")
-    L.append("> 本文件由 `scripts/gen_agent_packs.py` 从 `core/registry.py`、`configs/*.yaml`、"
+    L.append("> 本文件由 `scripts/gen_agent_packs.py` 从 `core/base/registry.py`、`configs/*.yaml`、"
              "`*/prompt_profile.json`、`ORG.md` 渲染生成。**不要手改**——改了会被下次生成覆盖。")
     L.append("")
     return "\n".join(L)
@@ -578,7 +578,7 @@ def build_agents_md(roles: list) -> str:
         "",
         "## 改这份文件之前",
         "",
-        "不要手改。它由 `scripts/gen_agent_packs.py` 从 `core/registry.py`、`configs/*.yaml`、",
+        "不要手改。它由 `scripts/gen_agent_packs.py` 从 `core/base/registry.py`、`configs/*.yaml`、",
         "`*/prompt_profile.json`、`ORG.md` 渲染生成；改源，再跑：",
         "",
         "```bash",
@@ -595,7 +595,7 @@ def build_readme(roles: list) -> str:
     L = [
         "# 蛙蛙呱呱agents团 · 专家团包（agent-packs）",
         "",
-        "> 由 `scripts/gen_agent_packs.py` 从 `core/registry.py`、`configs/*.yaml`、",
+        "> 由 `scripts/gen_agent_packs.py` 从 `core/base/registry.py`、`configs/*.yaml`、",
         "> `*/prompt_profile.json`、`ORG.md` 单向渲染生成。**不要手改。**",
         "",
         f"## 内容",

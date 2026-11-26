@@ -213,15 +213,15 @@ clarify.json / semantic_layer / plan/grid.json
         ↓
 core/demand.py          ★ 新：demand_of(grid, sem)
         ↓
-core/source_match.py    ★ 新：match_sources(demand, sources)
+core/sources/source_match.py    ★ 新：match_sources(demand, sources)
         ↓
-core/collection_gen.py  ★ 新：generate(spec_draft) → YAML
+core/sources/collection_gen.py  ★ 新：generate(spec_draft) → YAML
         ↓
-core/collection_spec.py   已有：validate / run
+core/sources/collection_spec.py   已有：validate / run
         ↓
 core/grain.py             已有：check / rollup_rows
         ↓
-core/dataset_query.py     已有：查询 + 出图
+core/data/dataset_query.py     已有：查询 + 出图
         ↓
 report_flow               已有
 ```
@@ -231,16 +231,16 @@ report_flow               已有
 | 文件 | 职责 |
 |---|---|
 | `core/demand.py` | 从网格抽需求（度量 + 粒度 + 维度） |
-| `core/source_match.py` | 需求 × 源 匹配矩阵 |
-| `core/collection_gen.py` | 生成 YAML 草稿（带 `generated` 标记） |
+| `core/sources/source_match.py` | 需求 × 源 匹配矩阵 |
+| `core/sources/collection_gen.py` | 生成 YAML 草稿（带 `generated` 标记） |
 
 ### 改动文件
 
 | 文件 | 改什么 |
 |---|---|
-| `core/collection_spec.py` | 加 `preview()` / `quality()` |
-| `core/card_upgrade.py` | `build_grid` 末尾调 `match_sources`，格子加 `collectable` |
-| `core/dataset_gates.py` | 加 G-ROLLUP / G-PREVIEW |
+| `core/sources/collection_spec.py` | 加 `preview()` / `quality()` |
+| `core/cards/card_upgrade.py` | `build_grid` 末尾调 `match_sources`，格子加 `collectable` |
+| `core/data/dataset_gates.py` | 加 G-ROLLUP / G-PREVIEW |
 | `report_flow` | 报告首页显示 `caliber_version` |
 
 ---

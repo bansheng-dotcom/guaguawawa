@@ -6,7 +6,7 @@
 1. `bootstrap()`   —— 把仓库根 / agents 根注入 sys.path。
 2. `emit(...)`     —— **证据出口**（2026-11-15 起）。执行角色不再自己出报告，
                       只把本次技能的真实 result 落成 `result.json` + `evidence.json`，
-                      交给 R01 解读后统一出具唯一报告（core/report_flow.py）。
+                      交给 R01 解读后统一出具唯一报告（core/report/report_flow.py）。
 3. `log_event(...)` —— 结构化运行日志，按角色分文件落盘到 `workspace/logs/<role>.jsonl`。
 
 为什么改：过去每个角色各有报告模板/引擎（REP-001 五段式、内核 spec、v2/v3 批量线），
@@ -31,7 +31,7 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 _AGENTS = os.path.dirname(_HERE)
 _REPO = os.path.dirname(_AGENTS)
 
-from core.workspace import default_root  # noqa: E402
+from core.base.workspace import default_root  # noqa: E402
 
 LOG_DIR = os.path.join(default_root(), "logs")
 
@@ -45,7 +45,7 @@ def bootstrap() -> None:
 
 bootstrap()
 
-from core import protocol  # noqa: E402
+from core.base import protocol  # noqa: E402
 
 
 # --------------------------------------------------------------------------- #
@@ -83,7 +83,7 @@ def emit(role: str, name: str, title: str, result: Dict[str, Any],
     """执行角色的出口：落 `result.json` + `evidence.json`，返回 data Port。
 
     与旧签名兼容（md_name/html_name/dataset/data/legacy 全部接受并忽略渲染语义），
-    但**不再生成 HTML/MD 报告**：报告由 R01 在 core/report_flow.py 里统一出具。
+    但**不再生成 HTML/MD 报告**：报告由 R01 在 core/report/report_flow.py 里统一出具。
 
     兼容字段（dataset/data/report_slug）只记录在 evidence 里供 R01 取用：
     PRD 类角色的内容在输入不在 result，R01 仍能从 evidence.data 拿到。

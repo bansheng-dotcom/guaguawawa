@@ -5,7 +5,7 @@
 
 ## 0. 默认与开关（2026-11-19 接线）
 
-- 默认版式 = `flow`，来源是 `configs/report_flow.yaml` 的 `flow.default_layout`（`core/report_layout.py` 读它）。
+- 默认版式 = `flow`，来源是 `configs/report_flow.yaml` 的 `flow.default_layout`（`core/report/report_layout.py` 读它）。
 - 回退：`python guagua.py report "…" --claims x.json --layout paper`。
 - 文笔门禁默认开：不达标直接 BLOCK；调试时加 `--no-prose-hard` 只记录不拦。
 - 数据型自动报告（`--dir`）也走 flow；页式三层质检不适用，改记 `quality.json → mode=flow`。
@@ -20,9 +20,9 @@ python guagua.py report flow --project workspace/<项目> --out workspace/<项�
 
 - `facts.py`：META / KPI / SUMMARY / SECTIONS / ACTIONS / SOURCES / FILES；
 - `charts.py`：`section["chart"]` 对应的函数，用 `core.report_theme.chartkit`（hbar/grouped_bar/range_bar/share_bar + SVG 基元）；
-- `prose_specs.py`：可选。默认交给 `core.report_prose_gen` 合成 1,000 字正文；
+- `prose_specs.py`：可选。默认交给 `core.report.report_prose_gen` 合成 1,000 字正文；
   加 `--author-first` 时只校验 11 字段，保留 `facts.SECTIONS` 里的人工正文；
-- 模板：`templates/flow-report/`（复制即用）；内核：`core/flow_report.py` + `core/report_theme/{kit,chartkit}.py`。
+- 模板：`templates/flow-report/`（复制即用）；内核：`core/report/flow_report.py` + `core/report_theme/{kit,chartkit}.py`。
 
 `--paper` 出页式；缺省版式为 `flow`（`configs/report_flow.yaml`）。
 
@@ -74,7 +74,7 @@ python guagua.py report collect --dir workspace/<项目> --out workspace/<项目
 `prose_specs.SPECS` 必填 9 个：`fact / evidence / mechanism / alternative /
 signal / implication / action / stop / boundary`。
 
-校验器：`core/prose_spec.py`。少一个字段记问题；`--prose-hard` 时直接 BLOCK。
+校验器：`core/prose/prose_spec.py`。少一个字段记问题；`--prose-hard` 时直接 BLOCK。
 两种成稿路径：默认把 11 个字段写死，再让 `report_prose_gen` 扩写成 1,000+ 字；
 `--author-first` 则只校验字段，正文由 R01 直接写成稿，避免模板腔。
 

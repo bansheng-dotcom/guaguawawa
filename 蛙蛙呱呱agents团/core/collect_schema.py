@@ -163,7 +163,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     out = Path(a.out)
     try:
-        from core import paths
+        from core.base import paths
         paths.assert_writable(out)
     except Exception as exc:  # noqa: BLE001
         print(json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False, indent=1))
@@ -183,7 +183,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         yaml.safe_dump(d["spec"], allow_unicode=True, sort_keys=False),
         encoding="utf-8")
     # 用草稿自带源画像自检一遍（不依赖 configs/sources 里先有文件）
-    from core import collection_spec as cs
+    from core.sources import collection_spec as cs
     errs = cs.validate(d["spec"], source=d["source"], mode="raw")
     payload = {"ok": bool(d["ok"]) and not errs, "stage": d.get("stage"),
                "source": str(out / (sid + ".source.yaml")),

@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from core import paths
+from core.base import paths
 
 UNIT_KEYS = ("unit", "单位")
 

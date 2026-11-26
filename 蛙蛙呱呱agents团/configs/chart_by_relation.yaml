@@ -11,7 +11,7 @@
 #   `core/decision.py` 只读本文件；改选型 = 改这里，不改代码。
 #
 # 纪律：
-#   - allowed 里的图型必须存在于 48 型注册表（`core/chart_capabilities.py`）；
+#   - allowed 里的图型必须存在于 48 型注册表（`core/charts/chart_capabilities.py`）；
 #   - 每类关系的第一个必须能被「方法默认产出」的 payload 适配，否则会频繁回退；
 #   - 缺数据时记缺口，不许用别的图型硬凑（见 core/decision.choose_chart）。
 

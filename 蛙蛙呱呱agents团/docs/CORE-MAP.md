@@ -1,30 +1,35 @@
 # core/ 全图：每个文件干什么 + 在 flow 线哪一步
 
-> 生成依据：`core/` 下 139 个 .py 的模块 docstring（2026-11-23 实抽，不是回忆）。
+> 生成依据：`core/` 下实现文件的模块 docstring（2026-11-23 实抽，2026-11-26 P4 分包后更新路径）。
 > 主线定义见 `docs/REPORT-LINES.md` 的 S0–S7。
 
 ---
 
-## 0.1 怎么用（逻辑分组入口，物理不动）
+## 0.1 怎么用（真子包 + 逻辑分组入口）
 
-139 个文件**仍在 `core/` 平铺**（零迁移风险），但对外多了一层按层访问的入口：
+P4 之后 `core/` 已按关注点物理分包：`base` / `data` / `sources` / `charts` /
+`claims` / `cards` / `report` / `prose`（另有 `report_kernel`、`report_theme`）。
+旧平铺路径的兼容 shim 已于 2026-11-26 全部删除，import 必须走新路径。
+同时保留一层按层访问的懒加载入口：
 
 ```python
+from core.report import report_flow
+from core.data import fact_table
 from core import gates, pipeline, cards, semantic, narrative, charts, render
 
 gates.quality_gate          # == core.quality_gate
-pipeline.report_flow        # == core.report_flow
-cards.card_issue            # == core.card_issue
-semantic.report_ir          # == core.report_ir
-narrative.claims_v4         # == core.claims_v4
-charts.chart_grammar        # == core.chart_grammar
+pipeline.report_flow        # == core.report.report_flow
+cards.card_issue            # == core.cards.card_issue
+semantic.report_ir          # == core.report.report_ir
+narrative.claims_v4         # == core.claims.claims_v4
+charts.chart_grammar        # == core.charts.chart_grammar
 render.report_theme         # == core.report_theme
 ```
 
-- 全部**懒加载**：`import core` 只多加载 1 个模块，访问到谁才导入谁。
+- 子包与分组都是**懒加载**：访问到谁才导入谁。
 - 分组名与 `docs/CORE-MAP.md` 的 13 层一一对应（`collab` 因与 `core/collab.py`
-  同名，协作组改叫 `coordination`）。
-- 没有 import 语义变化：`from core.report_flow import run` 照旧可用。
+  同名，协作组改叫 `coordination`；`data`、`cards`、`charts` 已是真子包，不再做分组）。
+- 包内路径与旧路径的对应关系见 `docs/ARCHITECTURE-LEDGER.md`。
 
 ---
 

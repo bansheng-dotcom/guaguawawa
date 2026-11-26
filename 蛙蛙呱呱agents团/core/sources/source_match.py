@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.source_match —— 需求 × 源 匹配（DERIVATION-SOP v4.0 · 第 3 步）。
+"""core.sources.source_match —— 需求 × 源 匹配（DERIVATION-SOP v4.0 · 第 3 步）。
 
 这是经典的数据集成问题「view matching」：给定一个查询需求
 （度量 + 粒度 + 维度），判断哪个源能回答它。
@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from core import source_profile as sp
+from core.sources import source_profile as sp
 
 SCHEMA = "dsh.source_match/v1"
 

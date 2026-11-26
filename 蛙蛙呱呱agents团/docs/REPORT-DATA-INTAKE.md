@@ -1,7 +1,7 @@
 # 数据 intake：来源分级与 quote 门禁（REPORT-DATA-INTAKE.md）
 
 > 版本：v0.1 · 2026-11-17（P3 产物）
-> 实现：`core/research_intake.py`　｜　证据包：`core/evidence_pack.py`
+> 实现：`core/sources/research_intake.py`　｜　证据包：`core/data/evidence_pack.py`
 > 产物：`data/quote_check.json`、`manifest.json` 的 `quotes`、`evidence_pack.json` 的 `source_records`
 
 ---
@@ -68,7 +68,7 @@
 
 ```bash
 # 只看 7 条 claim 来源
-python -m core.research_intake gate \
+python -m core.sources.research_intake gate \
   --project "D:\蛙蛙呱呱\内蒙古水果三城调研_2026-11-16" \
   --refs "S01,S02,S03,S04,S06,S20,S27" --mode warn
 
@@ -160,7 +160,7 @@ D_common6_呼和浩特_mean
 ## 8. 回填流程（下次做新项目）
 
 1. 每条来源写 `id / title / org / type / grade / url / quote`；
-2. 跑 `python -m core.research_intake verify --project <dir> --raw`；
+2. 跑 `python -m core.sources.research_intake verify --project <dir> --raw`；
 3. 看 `data/quote_check.json`：`ok` / `mismatch` / `unreachable` / `unverified`；
 4. `mismatch` 改 quote 或换来源；`unreachable` 换可访问镜像或降级；
 5. 没有 quote 的来源，不许支撑头条断言；

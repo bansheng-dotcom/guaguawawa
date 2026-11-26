@@ -95,7 +95,7 @@ def run_validator(cmd: str, path: str, **kw) -> dict:
 # runlog
 # --------------------------------------------------------------------------- #
 def validate_runlog(n: int = 5) -> dict:
-    from core import workspace as ws_mod
+    from core.base import workspace as ws_mod
     w = ws_mod.Workspace(os.path.join(_ROOT, "workspace"))
     rows = w.runlog(int(n))
     return c.result([c.ck(True, f"读取最近 {len(rows)} 条 runlog", "runlog",

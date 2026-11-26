@@ -5,7 +5,7 @@
 时间轴多长、组别多少），问题由 question_derive 按画像规则生成。
 
 用法：
-    from core.data_profile import profile_dir
+    from core.data.data_profile import profile_dir
     p = profile_dir("…/data")     # → {"files":[...], "tables":[{...}]}
 """
 from __future__ import annotations

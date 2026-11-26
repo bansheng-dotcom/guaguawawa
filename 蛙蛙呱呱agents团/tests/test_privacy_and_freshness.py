@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""隐私扫描（scripts/check_report_privacy.py）与来源时效（core.source_freshness）回归。"""
+"""隐私扫描（scripts/check_report_privacy.py）与来源时效（core.sources.source_freshness）回归。"""
 from __future__ import annotations
 
 import datetime as dt
@@ -10,7 +10,7 @@ TEAM = Path(__file__).resolve().parent.parent
 if str(TEAM) not in sys.path:
     sys.path.insert(0, str(TEAM))
 
-from core import source_freshness  # noqa: E402
+from core.sources import source_freshness  # noqa: E402
 from scripts import check_report_privacy as privacy  # noqa: E402
 
 

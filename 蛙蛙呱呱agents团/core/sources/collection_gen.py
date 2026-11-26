@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.collection_gen —— 生成候选采集规格（DERIVATION-SOP v4.0 · 第 4 步）。
+"""core.sources.collection_gen —— 生成候选采集规格（DERIVATION-SOP v4.0 · 第 4 步）。
 
 **这是"生成物"，不是"手写物"**：
     generated: true
@@ -9,7 +9,7 @@
 手改过（`hand_edited: true`）的规格，重新生成时**不覆盖**，只告警。
 
 用法：
-    from core import collection_gen as cg
+    from core.sources import collection_gen as cg
     draft = cg.generate(demand_doc, match_doc, source)
     errs = cg.validate_draft(draft)
 """
@@ -19,7 +19,7 @@ import hashlib
 import json
 from typing import Any, Dict, List
 
-from core import collection_spec as cs
+from core.sources import collection_spec as cs
 
 SCHEMA = cs.SCHEMA
 SERIES_DIMS = ("year", "month", "quarter", "week", "day")

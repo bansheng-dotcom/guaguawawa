@@ -14,7 +14,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from core.chart_payload import build_payload
+from core.charts.chart_payload import build_payload
 
 # IR 的 relation 词汇 → charts_pro 渲染型名（与 charts_pro/spec.py ALIASES 对齐）
 _RENDER_TYPE = {"stacked_bar": "stacked", "grouped_bar": "grouped",

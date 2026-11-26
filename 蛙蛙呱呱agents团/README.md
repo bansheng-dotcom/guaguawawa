@@ -81,14 +81,14 @@ report run-line --intent "…" --claims <项目>/out/claims_merged.json --out <�
 | 层 | 模块 | 产物 |
 |---|---|---|
 | 接活 12 问 + brief 签字 | `core/intake.py` | `intake.json` / `brief.json` |
-| 拆卡格网（六维 MECE） | `core/card_upgrade.py` | `plan/grid.json` |
-| **探源卡（给 r18）** | **`core/card_issue.py`** | **`cards/r18/TASK.md`** → `data_catalog.json` |
-| **可行性探测 + 供给方案** | **`core/card_probe.py`** + **`core/supply_plan.py`** | **`plan/supply.json`** |
+| 拆卡格网（六维 MECE） | `core/cards/card_upgrade.py` | `plan/grid.json` |
+| **探源卡（给 r18）** | **`core/cards/card_issue.py`** | **`cards/r18/TASK.md`** → `data_catalog.json` |
+| **可行性探测 + 供给方案** | **`core/cards/card_probe.py`** + **`core/sources/supply_plan.py`** | **`plan/supply.json`** |
 | 卡就绪（DoR） | `core/dor.py` | `plan/dor.json` |
-| 派活校验（nonce + 签名 + 执行者） | `core/report_dispatch.py` | `coverage/issued.json` |
+| 派活校验（nonce + 签名 + 执行者） | `core/cards/report_dispatch.py` | `coverage/issued.json` |
 | 预检九项（P1–P9） | `scripts/preflight.py` | 退出码 / PASS-FAIL |
-| 收卡整备（归一/去重/冲突/覆盖 + 能力级别） | `core/dispatch.py` | `claims_merged.json` |
-| 章节校验 + 渲染 | `core/report_flow.py` + `core/report_renderer.py` | `report.html` |
+| 收卡整备（归一/去重/冲突/覆盖 + 能力级别） | `core/cards/dispatch.py` | `claims_merged.json` |
+| 章节校验 + 渲染 | `core/report/report_flow.py` + `core/report/report_renderer.py` | `report.html` |
 
 硬规则：**未注册 metric 拒收**；**图只许 query(raw)**；DoR 未过不发卡；brief 未签不拆卡；
 **没有 nonce 的卡不收**；**降级必须带 `degraded_from` + `L2_condition`**。

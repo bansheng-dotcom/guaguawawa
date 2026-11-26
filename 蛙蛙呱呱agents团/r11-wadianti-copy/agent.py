@@ -52,7 +52,7 @@ except ImportError:
         role_runtime = None
 import time
 from typing import Any, Dict, List, Optional
-from core import protocol, registry, workspace  # noqa: E402
+from core.base import protocol, registry, workspace  # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402

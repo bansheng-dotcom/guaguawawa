@@ -40,10 +40,10 @@ AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENTS = os.path.dirname(AGENT_DIR)
 sys.path.insert(0, AGENTS)
 
-from core import workspace
+from core.base import workspace
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route
 from agents.shared import role_runtime  # REP-001 报告引擎
-from core import protocol
+from core.base import protocol
 from skills import SKILLS
 
 ROLE = "r02"
@@ -55,7 +55,7 @@ ws = workspace.Workspace(WORKSPACE_ROOT)
 # manifest
 # --------------------------------------------------------------------------- #
 def manifest() -> Dict[str, Any]:
-    from core import registry
+    from core.base import registry
 
     role = registry.by_id(ROLE)
     skills = [{"skill": s.NAME, "name": s.NAME, "description": s.DESC,

@@ -1,7 +1,7 @@
 # 专家卡（由 scripts/gen_experts.py 生成，勿手改）
 "schema": "dsh.experts/v1"
 "generated_by": "scripts/gen_experts.py"
-"note": "由 core/registry.py + rXX/prompt_profile.json + core/methods 生成，勿手改"
+"note": "由 core/base/registry.py + rXX/prompt_profile.json + core/methods 生成，勿手改"
 "roles":
   "r01":
     "id": "r01"

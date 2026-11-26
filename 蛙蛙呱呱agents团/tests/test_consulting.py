@@ -17,7 +17,7 @@ if str(TEAM) not in sys.path:
 
 
 from core.charts import consulting as cc
-from core.report_renderer import render
+from core.report.report_renderer import render
 from core.report_theme.pages import render_contract
 from shared.consulting import checks, workbook
 
@@ -139,7 +139,7 @@ def test_renderer_flow_still_works():
 
 
 def test_editorial_enrich_and_gate():
-    from core.report_editorial import enrich, check_contract
+    from core.report.report_editorial import enrich, check_contract
     c = {
         "doc_type": "调研报告", "title_lines": ["自动汇编报告", "7 节 · 智能体调研稿"],
         "standfirst": "准入：300 平方米以下只能做奶豆腐。",
@@ -171,7 +171,7 @@ def test_editorial_enrich_and_gate():
 
 
 def test_quality_gate_contract_layer():
-    from core.report_editorial import enrich
+    from core.report.report_editorial import enrich
     from core.quality_gate import check
     c = {"doc_type": "报告", "title_lines": ["自动汇编报告", ""],
          "standfirst": "准入：300 平方米以下只能做奶豆腐。", "summary": [{"text": "判断。"}],

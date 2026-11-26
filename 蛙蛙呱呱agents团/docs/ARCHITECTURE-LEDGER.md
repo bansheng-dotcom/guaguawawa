@@ -6,24 +6,24 @@
 
 | 关注点 | CURRENT（唯一在跑） | LEGACY / 已删除 | 删除条件 / 备注 |
 |---|---|---|---|
-| 地基模块 | `core/base/`：paths / workspace / project / registry / protocol | 旧 `core/<name>.py` shim（模块别名） | P4 全部包迁完后统一删 shim；包名不用 `platform`（遮蔽标准库） |
-| 数据层 | `core/data/`：analysis_desk / unit / pipeline、data_*、dataset*、fact_table、evidence_pack | 旧 `core/<name>.py` shim | 同上；包名 `data` 已在 boundary_allowlist 登记 |
-| 来源层 | `core/sources/`：source_*、collection_*、coverage_*、supply_plan、research_* | 旧 `core/<name>.py` shim | 同上 |
-| 图表层 | `core/charts/`：16 个模块（13 个原平铺 chart_* + 3 个渲染器） | 旧 `core/chart_*.py` shim | 同上；`python -m core.chart_capabilities` 仍可用 |
-| 断言层 | `core/claims/`：claims / claims_v4 / claim_consistency / cell_claim / cells_claims / cells_unified | 旧 `core/<name>.py` shim | 同上；`python -m core.claim_consistency` 仍可用 |
-| 卡片层 | `core/cards/`：card_plan / card_issue / card_probe / card_bundle / card_upgrade / dispatch / report_dispatch | 旧 `core/<name>.py` shim | 同上；`core.cards` 是真子包，另映射 7 个仍平铺的拆卡线成员 |
-| 报告层 | `core/report/`：19 个 `report_*` + flow_report | 旧 `core/report_*.py` shim | 同上；`report_kernel/`、`report_theme/` 已是真包，保持原地（迁入会产生双重模块身份） |
+| 地基模块 | `core/base/`：paths / workspace / project / registry / protocol | 旧平铺 `core/<name>.py`（2026-11-26 已删除） | 包名不用 `platform`（遮蔽标准库） |
+| 数据层 | `core/data/`：analysis_desk / unit / pipeline、data_*、dataset*、fact_table、evidence_pack | 旧平铺 `core/<name>.py`（2026-11-26 已删除） | 包名 `data` 已在 boundary_allowlist 登记 |
+| 来源层 | `core/sources/`：source_*、collection_*、coverage_*、supply_plan、research_* | 旧平铺 `core/<name>.py`（2026-11-26 已删除） | 同上 |
+| 图表层 | `core/charts/`：16 个模块（13 个原平铺 chart_* + 3 个渲染器） | 旧平铺 `core/chart_*.py`（2026-11-26 已删除） | `python -m core.charts.chart_capabilities` 是唯一 CLI 入口 |
+| 断言层 | `core/claims/`：claims / claims_v4 / claim_consistency / cell_claim / cells_claims / cells_unified | 旧平铺 `core/<name>.py`（2026-11-26 已删除） | `python -m core.claims.claim_consistency` 是唯一 CLI 入口 |
+| 卡片层 | `core/cards/`：card_plan / card_issue / card_probe / card_bundle / card_upgrade / dispatch / report_dispatch | 旧平铺 `core/<name>.py`（2026-11-26 已删除） | `core.cards` 是真子包，另映射 7 个已归位成员（cells_claims / collection_contract / research_* 等） |
+| 报告层 | `core/report/`：19 个 `report_*` + flow_report | 旧平铺 `core/report_*.py`（2026-11-26 已删除） | `report_kernel/`、`report_theme/` 已是真包，保持原地（迁入会产生双重模块身份） |
 | 报告入口 | `report run-line` → `report_line` → `decision_report` → `report_flow` | `report_cli` 的 v10/v11 说法、`flow_report` 模板线 | `report_line` 目前是转发层；统一门面后合并 |
 | 拆卡 / 收卡 | `core/cards/report_dispatch`（发卡）+ `card_issue`（拆卡）+ `dispatch.collect`（收卡） | `dispatch` v12.2 的旧叙事 | 合并为 `cards/pipeline` 时删旧描述 |
 | 断言模型 | `claims.py` + `claims_v4.py` | `claim_card` / `claim_gate`（2026-11-26 已删除） | 收敛为新 ClaimCard 后删 `claims_v4` |
 | 格子读数 | `cells_unified.observations()` | `cells_claims` 的 v1/v2/v3 三入口 | 单一读数稳定后下线旧入口 |
-| 报告正文 | `core/prose/`：prose_spec / prose_candidates / prose_style；`report_prose_gen` 随报告线在 `core/report/` | 旧 `core/prose_*.py` shim；`prose_critic`（2026-11-26 已删除） | 合并为 `prose_contract` + `prose_render` 时动；`core.prose.report_prose_gen` 与旧路径同一对象 |
+| 报告正文 | `core/prose/`：prose_spec / prose_candidates / prose_style；`report_prose_gen` 随报告线在 `core/report/` | 旧平铺 `core/prose_*.py`（2026-11-26 已删除）；`prose_critic`（已删除） | 合并为 `prose_contract` + `prose_render` 时动 |
 | 图表 | 14 个 `chart_*` + `core/charts` + `report_theme` | `chart_fit`（2026-11-26 已删除） | 选型只保留 `report_flow.chart_fitness_errors` 一份 |
 | 覆盖矩阵 | `coverage_plan` / `coverage_confirm` / `coverage_policy` / `coverage_wire` | `coverage_cli` / `task_frame` / `task_research`（2026-11-26 已删除） | `dispatch` 内联产出 `task_frame.json`，不再有独立 CLI |
 | 门禁 | `check_report_flow` F1–F12 + `check_gates` + `ci_report_checks` | `gate_chain`（2026-11-26 已删除） | 以 F 编号为唯一索引；新增门禁先登记 |
 | 知识注入 | `experience_cards` + `knowledge_base` + `expert_brief` | `core/__init__` 的 10 个懒加载分组（零实际 import） | 决定删除或改成真实包结构后再动 |
 | 文档入口 | `AGENTS.md` / `REPORT-LINES.md` / `CORE-MAP.md` | 6 份 `status: ARCHIVED` 的历史 SOP | 归档保留，不再作为接入依据 |
-| 包导出 | `core/__init__` 分组（当前 100+ 名字） | 114 个导出、15 个重复 | 缩到 ≤20 个常用入口 |
+| 包导出 | `core/__init__`：8 个真子包 + 8 个懒加载分组 + runner | 旧的 100+ 平铺导出（2026-11-26 随 shim 删除） | 保持 ≤20 个常用入口 |
 
 ## 使用规则
 

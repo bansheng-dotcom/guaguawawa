@@ -14,8 +14,9 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
-from core import chart_candidates, report_ir
-from core.report_ir import IR_SCHEMA
+from core.charts import chart_candidates
+from core.report import report_ir
+from core.report.report_ir import IR_SCHEMA
 
 
 def _resolve_chart(chart: Dict[str, Any], question: str) -> Dict[str, Any]:

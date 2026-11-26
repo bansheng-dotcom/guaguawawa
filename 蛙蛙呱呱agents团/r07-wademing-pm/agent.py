@@ -60,7 +60,7 @@ for _p in (_HERE, _AGENTS):
         sys.path.insert(0, _p)
 
 # core imports
-from core import protocol, registry, workspace  # noqa: E402
+from core.base import protocol, registry, workspace  # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from skills import SKILLS, _common as c
 from skills import s01_discover, s02_ost, s03_prd, s04_priority, s05_roadmap, s06_metrics, s07_techbrief, s08_decision  # noqa: E402

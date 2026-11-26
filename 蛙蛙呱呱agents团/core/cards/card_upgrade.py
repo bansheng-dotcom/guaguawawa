@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.card_upgrade —— 拆卡升级 SOP v1.4 + 协作层 SOP v1.0 的系统实现。
+"""core.cards.card_upgrade —— 拆卡升级 SOP v1.4 + 协作层 SOP v1.0 的系统实现。
 
 24 条门禁全部落地（G1–G24），协作八组件全部可执行：
 能力卡 / 任务契约 / 缺口路由 / 依赖 DAG / 交接签收 / 冲突仲裁 / SLA / 账本。
@@ -130,7 +130,7 @@ def neutral_semantics(pack: Dict[str, Any]) -> Dict[str, Any]:
     真实实体 / grain / 度量 / 边界必须由项目在 semantic_layer.yaml 里声明，
     否则 S5 门禁拒绝发卡。
     """
-    from core import data_model as _dm
+    from core.data import data_model as _dm
 
     measures: List[Dict[str, Any]] = []
     seen = set()
@@ -267,7 +267,7 @@ def build_perspectives(clarify: Dict[str, Any],
 
 def _intent(text: str) -> str:
     try:
-        from core import chart_grammar
+        from core.charts import chart_grammar
         return chart_grammar.infer_intent(text)
     except Exception:  # noqa: BLE001
         return "magnitude"
@@ -1204,7 +1204,7 @@ def post_collect(project: Path, merged: Dict[str, Any]) -> Dict[str, Any]:
         # 采集契约（SOP S2）：拆卡真正该产出的东西
         contract, contract_errs = None, []
         try:
-            from core import collection_contract as _cc
+            from core.sources import collection_contract as _cc
             contract = _cc.build(grid, sem, clarify)
             if contract:
                 contract_errs = _cc.validate(contract)

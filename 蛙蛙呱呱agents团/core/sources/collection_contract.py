@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""core.collection_contract —— 采集契约（dsh.collection/v1）。
+"""core.sources.collection_contract —— 采集契约（dsh.collection/v1）。
 
 拆卡的真正产出：不是"一堆维度名"，而是**一张能采、能画、能验的表**。
 结构借鉴 Open Data Contract Standard（ODCS）：schema/semanticType/quality/slaProperties，
 另加本仓的 `acquisition`（怎么采、能不能采到、缺了怎么办）。
 
 用法：
-    from core import collection_contract as cc
+    from core.sources import collection_contract as cc
     contract = cc.build(grid, sem, clarify)
     errs = cc.validate(contract)
 """
@@ -81,7 +81,7 @@ def build(grid: Dict[str, Any], sem: Dict[str, Any],
     cells = grid.get("cells") or []
     if not cells:
         return None
-    from core import supply_plan as _sup
+    from core.sources import supply_plan as _sup
 
     dims = _grain_dims(grid)
     measures = sorted({str(c.get("measure")) for c in cells if c.get("measure")})

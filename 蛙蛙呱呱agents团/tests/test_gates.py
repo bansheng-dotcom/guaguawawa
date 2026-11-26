@@ -19,7 +19,9 @@ if str(TEAM) not in sys.path:
 import json
 import argparse
 import tempfile
-from core import dispatch, report_marks, r04_derive
+from core.cards import dispatch
+from core.report import report_marks
+from core import r04_derive
 from core.report_theme import pages
 
 
@@ -135,7 +137,7 @@ def test_min_sources_counts_unique_urls():
 def test_collect_refuses_silent_degradation():
     import contextlib
     import io
-    from core import report_cli
+    from core.report import report_cli
     ns = argparse.Namespace(dir="x", out="y", intent="", pdf=False,
                             allow_partial=False, min_sources=50,
                             verify_quotes=True, strict_quotes=False,

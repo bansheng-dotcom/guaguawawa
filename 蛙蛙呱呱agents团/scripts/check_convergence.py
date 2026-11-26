@@ -86,7 +86,7 @@ def s1_roster_vs_experts() -> None:
             if ex.get(rid) and bool(r["enters_report"]) != bool(ex[rid].get("enters_report"))]
     if diff:
         hit("S1", "名册与专家卡的「进报告」判定不一致", "；".join(diff[:6]),
-            "把 enters_report 收敛到 core/registry.py 一处，其余生成")
+            "把 enters_report 收敛到 core/base/registry.py 一处，其余生成")
 
 
 def s1_membership_hardcoded() -> None:
@@ -96,13 +96,13 @@ def s1_membership_hardcoded() -> None:
     if '("r08", "r09", "r10", "r17")' in a and '{"r08", "r09", "r10", "r17"}' in b:
         hit("S1", "「谁不进报告」硬编码在两处（必然漂移）",
             "core/roster.py 与 scripts/gen_experts.py 各一份 r08/r09/r10/r17",
-            "在 core/registry.py 给角色加 enters_report 字段，两处都读它")
+            "在 core/base/registry.py 给角色加 enters_report 字段，两处都读它")
 
 
 def s1_chart_sets() -> None:
     """charts_pro 图型 / v1 注册表 / 选型配置 三者的图型集合必须自洽。"""
     from core.report_theme.charts_pro import spec as _pro
-    from core import chart_capabilities as cc
+    from core.charts import chart_capabilities as cc
     v1 = set(cc.CATALOG_KEYS) if hasattr(cc, "CATALOG_KEYS") else {c.get("key") for c in cc.CATALOG}
     v2 = set(_pro.kinds()) | set(_pro.ALIASES)
     missing = sorted(v1 - v2)

@@ -93,7 +93,7 @@ python -m pytest tests -q -p no:cacheprovider   # 根目录单测
 
 ## 改这份文件之前
 
-不要手改。它由 `scripts/gen_agent_packs.py` 从 `core/registry.py`、`configs/*.yaml`、
+不要手改。它由 `scripts/gen_agent_packs.py` 从 `core/base/registry.py`、`configs/*.yaml`、
 `*/prompt_profile.json`、`ORG.md` 渲染生成；改源，再跑：
 
 ```bash

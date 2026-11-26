@@ -22,15 +22,19 @@ if str(TEAM) not in sys.path:
 
 
 import json
-from core import chart_units, claims_v4, report_contract
+from core.charts import chart_units
+from core.claims import claims_v4
+from core.report import report_contract
 from scripts.audit_report_contract import audit as audit_contract
-from core import report_flow
+from core.report import report_flow
 from core.report_kernel import structure
 import pytest
 import re
-from core import evidence_pack, report_flow, report_renderer
-from core import report_model
-from core import evidence_pack, report_flow
+from core.data import evidence_pack
+from core.report import report_flow, report_renderer
+from core.report import report_model
+from core.data import evidence_pack
+from core.report import report_flow
 import os
 from core import decision
 from core.semantic_pipeline import resolve, panel, apply_decisions
@@ -147,7 +151,7 @@ def test_compile_infers_block_labels():
 
 
 def test_chart_type_follows_relation():
-    from core.report_flow import _chart_for_metric, _short_label
+    from core.report.report_flow import _chart_for_metric, _short_label
     assert _chart_for_metric("盈亏平衡") == "dot"
     assert _chart_for_metric("份额") == "share_bar"
     assert _chart_for_metric("增速") == "vbar"
@@ -168,7 +172,7 @@ def test_appendix_is_split_into_sources_support_caliber():
 
 
 def test_structure_profiles_are_module_sets():
-    from core import report_structure
+    from core.report import report_structure
     assert report_structure.profile_for("决策简报") == "decision"
     assert report_structure.profile_for("一页纸") == "brief"
     mods = report_structure.modules({"structure_profile": "decision"})
@@ -216,7 +220,7 @@ def test_headline_is_authored_not_guessed():
 
 
 def test_chart_relation_adapter_guards_payload():
-    from core import chart_relation as cr
+    from core.charts import chart_relation as cr
     items = [{"label": "a", "value": 10}, {"label": "b", "value": 8},
              {"label": "c", "value": 5}]
     assert cr.adapt("flow", items)["type"] == "funnel"

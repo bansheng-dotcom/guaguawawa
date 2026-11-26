@@ -78,7 +78,7 @@ task brief
   │
   ├─[2] core/task_frame.py         TaskFrame：决策/单元/维度/深度/地图/页数
   │
-  ├─[3] core/coverage_plan.py      矩阵 + 核心/长尾 + 证据状态 + 页数估算
+  ├─[3] core/sources/coverage_plan.py      矩阵 + 核心/长尾 + 证据状态 + 页数估算
   │
   ├─[4] confirmation.json          你确认（CLI + 对话），哈希锁定
   │
@@ -305,7 +305,7 @@ task brief
 4. 数据采集按 shape 下单：先定要画什么图，再决定采什么数；
 5. 48 型不是 KPI；用 8 种合适的图，比凑 20 种不合适的图强。
 
-实现：`core/data_shape.py`（`SHAPES / CHART_SHAPES / candidates / fits / choose / audit_sections`）。
+实现：`core/data/data_shape.py`（`SHAPES / CHART_SHAPES / candidates / fits / choose / audit_sections`）。
 
 ---
 

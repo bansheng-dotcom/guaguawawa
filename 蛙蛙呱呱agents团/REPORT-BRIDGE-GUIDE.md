@@ -14,7 +14,7 @@ python guagua.py report attest --out <out>     # 交付口径，逐项来自 man
 
 | 规则 | 为什么 |
 |---|---|
-| 标记契约只在 `core/report_marks.py` 定义，渲染器与门禁都 import | 2026-11-20：两边各写 `fig-src` / `ex-src`，默认 flow 永远过不了自己的门禁 |
+| 标记契约只在 `core/report/report_marks.py` 定义，渲染器与门禁都 import | 2026-11-20：两边各写 `fig-src` / `ex-src`，默认 flow 永远过不了自己的门禁 |
 | 门禁脚本改动必须同步 `configs/report_gate.lock.json`（`scripts/check_gate_lock.py --write` 并提交） | 防止"改松门禁再自己判 PASS"；产线与 CI 都会比对指纹 |
 | 降级（关回抓 / 关严格 / 关来源门槛）必须显式 `--allow-degraded`，并落 `manifest.quotes.degraded` | 过去一条 `--no-strict-quotes` 就能让 40% 未核来源静默过关 |
 
@@ -77,14 +77,14 @@ R01 最后把 6 张卡的 claims 全写了再自称"4 个角色都交了"。详�
 > core/report_flow.build_contract()
 >         │
 >         ▼
-> core/report_bridge.py        ← 渲染薄层：render_html / write_markdown / render_pdf
+> core/report/report_bridge.py        ← 渲染薄层：render_html / write_markdown / render_pdf
 >         │
 >         ▼
-> core/report_renderer.py      ← 唯一 HTML 渲染器（charts_pro 70 型 + 主题）
+> core/report/report_renderer.py      ← 唯一 HTML 渲染器（charts_pro 70 型 + 主题）
 > ```
 >
-> `report_bridge.emit` **确实已删除**；但 `core/report_bridge.py` 作为「渲染薄层」仍在，
-> 由 `core/report_flow.py` 调用。不要再新增第二套渲染/排版实现。
+> `report_bridge.emit` **确实已删除**；但 `core/report/report_bridge.py` 作为「渲染薄层」仍在，
+> 由 `core/report/report_flow.py` 调用。不要再新增第二套渲染/排版实现。
 
 ---
 
@@ -182,7 +182,7 @@ python guagua.py report check --html /tmp/flow_check/report.html
 
 - 角色目录下**不应**出现 `.html` / `.md` 报告；
 - `manifest.json` 里 `producer=r01`，`branch` 与参与角色数一致；
-- `report check` 与 `python -m core.report_quality` 对同一文件给出**同一结论**
+- `report check` 与 `python -m core.report.report_quality` 对同一文件给出**同一结论**
   （2026-11-17 起二者共用 `core/report_quality.PROFILES`，research / baseline 两档）。
 
 ---

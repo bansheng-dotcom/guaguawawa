@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.card_plan —— 自适应分卡（SOP v5：按问题簇，而不是按角色/固定张数）。
+"""core.cards.card_plan —— 自适应分卡（SOP v5：按问题簇，而不是按角色/固定张数）。
 
 规则：
     1. 先按 qid 聚成「问题簇」；
@@ -40,7 +40,7 @@ def cluster(cells: List[Dict[str, Any]], cap: int = DEFAULT_CAP) -> List[Dict[st
 
 def _score(cluster_cells: List[Dict[str, Any]], card: Dict[str, Any]) -> int:
     try:
-        from core import card_upgrade as cu
+        from core.cards import card_upgrade as cu
         return sum(cu._score_role(c, card) for c in cluster_cells)
     except Exception:  # noqa: BLE001
         return 0

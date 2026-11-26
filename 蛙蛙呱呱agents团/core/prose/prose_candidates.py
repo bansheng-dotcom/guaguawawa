@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.prose_candidates —— 一次生成多个候选，用机器判据淘汰。
+"""core.prose.prose_candidates —— 一次生成多个候选，用机器判据淘汰。
 
 为什么不是「提示词约束」：
     只写「请生成 3 个候选再选最好」是模型自觉，模型可以不听。

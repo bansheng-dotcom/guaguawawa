@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.coverage_policy —— 覆盖门禁阈值（唯一出处：configs/report_coverage.yaml）。"""
+"""core.sources.coverage_policy —— 覆盖门禁阈值（唯一出处：configs/report_coverage.yaml）。"""
 from __future__ import annotations
 
 from pathlib import Path

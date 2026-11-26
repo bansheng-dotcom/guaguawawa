@@ -14,7 +14,7 @@ import time
 import uuid
 from typing import Any, Callable, Dict, Optional
 
-from core.workspace import role_workspace
+from core.base.workspace import role_workspace
 
 class WatchdogTimeoutException(Exception):
     pass

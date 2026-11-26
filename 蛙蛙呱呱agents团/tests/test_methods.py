@@ -130,7 +130,7 @@ def test_event_study_v2_has_joint_test():
 
 
 def test_data_contract_reports_missing_column():
-    from core.data_contract import DataContract, validate_rows
+    from core.data.data_contract import DataContract, validate_rows
     c = DataContract.from_dict({"name": "t", "fields": [
         {"name": "a", "dtype": "float"}, {"name": "b", "dtype": "date"}]})
     out = validate_rows([{"a": "1"}], c)
@@ -148,7 +148,7 @@ def test_conclusions_enrich_abtest():
 
 
 def test_contract_check_cli_warns_on_bad_enum():
-    from core import data_contract as dc
+    from core.data import data_contract as dc
     out = dc.check_cli("chi2", {"input": str(FIX / "analysis_orders.csv")}, mode="warn")
     assert out["checked"] is True
     assert out["ok"] is True or out["errors"]
@@ -156,7 +156,7 @@ def test_contract_check_cli_warns_on_bad_enum():
 
 def test_flow_contract_structure_and_traceability():
     """唯一产线：契约末节固定「口径与分数」，记录层折叠，数字带来源。"""
-    from core import report_flow
+    from core.report import report_flow
     j = {"headline": "GMV 下降 3.2%",
          "conclusions": [{"text": "GMV 下降 3.2%", "number": "-3.2",
                           "source": "r06/semantics", "kind": "finding"}],
@@ -178,7 +178,7 @@ def test_flow_contract_structure_and_traceability():
 
 def test_json_contract_blocks_bad_viz_spec():
     import tempfile, json as _json
-    from core import data_contract as dc
+    from core.data import data_contract as dc
     bad = {"chart_type": "line"}  # 缺 title/data
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as f:
         _json.dump(bad, f)
@@ -188,7 +188,7 @@ def test_json_contract_blocks_bad_viz_spec():
 
 
 def test_power_args_contract():
-    from core import data_contract as dc
+    from core.data import data_contract as dc
     out = dc.check_cli("power", {"baseline": 0.03}, mode="warn")
     assert not out["ok"]  # 既没 mde 也没 n_per_group
 

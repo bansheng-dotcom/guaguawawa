@@ -30,7 +30,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-from core import chart_capabilities, chart_spec
+from core.charts import chart_capabilities, chart_spec
 
 SCHEMA = "dsh.decision/v1"
 MIN_Q, MAX_Q = 3, 5
@@ -681,7 +681,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     c.add_argument("--decision", required=True)
     a = ap.parse_args(argv)
     if a.cmd == "draft":
-        from core import analysis_desk, methods, analysis_methods
+        from core.data import analysis_desk
+        from core import methods, analysis_methods
         desk = analysis_desk.scan(a.dir)
         views = analysis_methods.build_views(desk)
         prof = analysis_desk.profile(desk)

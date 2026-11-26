@@ -92,7 +92,7 @@ python guagua.py report run-line --intent "你的问题" --dir <项目> --out <�
 ### 项目根与 brief（2026-11-25 起）
 
 - `--project` 指定**项目资产根**（默认 `GUAGUA_PROJECT` 或 `<仓库根>/projects`）；
-  `--out`/`--dir` 只是项目内的子目录。写团内会被 `core/paths.py` 拒绝。
+  `--out`/`--dir` 只是项目内的子目录。写团内会被 `core/base/paths.py` 拒绝。
 - 拆卡时每张卡都带 `expert_brief`（v2 七层：决策语境 / 定义口径 / 结构分解 /
   机制归因 / 判断情景 / 行动可逆 / 反证不确定），与卡合成 `CardBundle`：
   卡是信封，brief 是内容。
@@ -148,7 +148,7 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
   六维均有格、契约覆盖全部 owner、每问 ≥3 条 stop
 - **门禁不过 → 不发卡**，返回 `plan/pre_issue_gates.json` 的失败项
 - 卡里直接带「你负责的格子」表与 **R02 任务契约**（task_id / 验收门禁 / 截止 / 升级）
-- 实现：`core/card_issue.py`；回归：`tests/test_cards.py`
+- 实现：`core/cards/card_issue.py`；回归：`tests/test_cards.py`
 
 ### 全入口统一 + 协作层接线（2026-11-21 晚）
 
@@ -167,26 +167,26 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 
 | 模块 | 职责 |
 |---|---|
-| `core/report_line.py` | 唯一入口与输入形态识别 |
-| `core/report_clarify.py` | 接任务先对齐意图：意图/问句/假设/待确认项（clarify.json） |
-| `core/report_dispatch.py` | 问题→角色映射、发卡 nonce、收卡校验（防代写） |
+| `core/report/report_line.py` | 唯一入口与输入形态识别 |
+| `core/report/report_clarify.py` | 接任务先对齐意图：意图/问句/假设/待确认项（clarify.json） |
+| `core/cards/report_dispatch.py` | 问题→角色映射、发卡 nonce、收卡校验（防代写） |
 | `core/orchestrator.py` | 专家编排：意图 → 域 → 名单（BLOCKED 硬规矩） |
-| `core/report_assembly.py` | finding → 节/指标/计数 + 机理/落点/证伪 + 判断型标题 |
-| `core/report_flow.py` | 逐节过账（R01 s09）+ 渲染编排 + manifest |
+| `core/report/report_assembly.py` | finding → 节/指标/计数 + 机理/落点/证伪 + 判断型标题 |
+| `core/report/report_flow.py` | 逐节过账（R01 s09）+ 渲染编排 + manifest |
 | `core/quality_gate.py` | 三层质检聚合：证据 / 编辑 / 呈现（三层全过才放行） |
-| `core/report_bridge.py` | 渲染薄层：`render_html / write_markdown / render_pdf` |
+| `core/report/report_bridge.py` | 渲染薄层：`render_html / write_markdown / render_pdf` |
 | `core/report_theme/` | consulting 主题：固定 A4 页式 + A/B 两种节页（`docs/REPORT-LAYOUTS.md`） |
-| `core/report_editorial.py` | 旧契约补 verdict/kicker/rail/actions/sources + 契约门禁 |
-| `core/data_shape.py` | 数据形状 → 图型适配（问题 + shape 双约束） |
-| `core/coverage_plan.py` | 覆盖自动化：CoveragePlan + 出稿前门禁 |
+| `core/report/report_editorial.py` | 旧契约补 verdict/kicker/rail/actions/sources + 契约门禁 |
+| `core/data/data_shape.py` | 数据形状 → 图型适配（问题 + shape 双约束） |
+| `core/sources/coverage_plan.py` | 覆盖自动化：CoveragePlan + 出稿前门禁 |
 | `configs/report_coverage.yaml` | 50 源/15 源/21 页/双地图唯一阈值 |
 | `core/charts/consulting.py` | consulting 主题的 14 型确定性 SVG 图表 |
-| `core/report_renderer.py` | 唯一 HTML 渲染器（charts_pro 70 型 + 8 套主题 + 呈现层规则） |
+| `core/report/report_renderer.py` | 唯一 HTML 渲染器（charts_pro 70 型 + 8 套主题 + 呈现层规则） |
 | `core/decision.py` | 决策契约（3–5 问、对照、图型、证伪）与选图（读 `configs/chart_by_relation.yaml`） |
-| `core/report_thesis.py` | 只保留 `analysis` 一条纲领 |
-| `core/analysis_desk.py` · `core/methods/*` | 数据台 + 方法库（出带数字的判断） |
+| `core/report/report_thesis.py` | 只保留 `analysis` 一条纲领 |
+| `core/data/analysis_desk.py` · `core/methods/*` | 数据台 + 方法库（出带数字的判断） |
 | `core/report_kernel/*` | 版式四规则 + 契约自检 |
-| `core/report_quality.py` | 反模板深度门禁（Q1–Q9） |
+| `core/report/report_quality.py` | 反模板深度门禁（Q1–Q9） |
 | `configs/experts.yaml` | 20 角色专家卡（由 `scripts/gen_experts.py` 生成） |
 | `configs/chart_by_relation.yaml` | 按数据关系选图（v1 48 型全覆盖） |
 
@@ -205,7 +205,7 @@ python scripts/check_r04_inputs.py --dir <输出目录>   # R04 输入是不是�
 python guagua.py report attest --out <输出目录>       # 交付口径（门禁/来源/核验/降级）
 python scripts/check_report_presentation.py --dir <输出目录>
 python -m core.quality_gate --draft <draft_sections.json> --pack <evidence_pack.json> --html <report.html>
-python -m core.report_model --audit       # 语义层六项悬空边必须为 0
+python -m core.report.report_model --audit       # 语义层六项悬空边必须为 0
 python guagua.py report check --html <report.html>
 ```
 

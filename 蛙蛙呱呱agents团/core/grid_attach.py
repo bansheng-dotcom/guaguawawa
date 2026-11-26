@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-from core import card_upgrade as cu
+from core.cards import card_upgrade as cu
 from core import roster
 
 

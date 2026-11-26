@@ -23,7 +23,7 @@ while _boot and not os.path.isdir(os.path.join(_boot, "core")):
     _boot = os.path.dirname(_boot)
 if _boot and _boot not in sys.path:
     sys.path.insert(0, _boot)
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -258,8 +258,7 @@ def main():
                and {c["key"] for c in _cl.CHART_INDEX} == set(_cl.RENDERERS),
                f"n={len(_cl.RENDERERS)}")
     # 渲染器统一由 core 提供；角色目录不再保留副本。
-    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "core"))
-    import report_renderer as _rr
+    from core.report import report_renderer as _rr
     bad = {"doc_type": "t", "title_lines": ["t"], "standfirst": "", "metric_strip": [],
            "summary": [], "notes": [], "footer": "",
            "sections": [{"title": "x", "chart": {

@@ -29,7 +29,7 @@ CATALOG = os.path.join(ROOT, "docs", "actions_catalog.json")
 def _runtime_ws() -> str:
     """运行产物只能落 RUNTIME_ROOT（仓库外 workspace），不许写进团内。"""
     try:
-        from core import paths
+        from core.base import paths
         return str(paths.runtime_root())
     except Exception:  # noqa: BLE001
         return os.path.join(os.path.dirname(ROOT), "workspace")

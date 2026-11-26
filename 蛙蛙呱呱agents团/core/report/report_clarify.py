@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.report_clarify —— 接任务先对齐意图，再拆卡（2026-11-20 起）。
+"""core.report.report_clarify —— 接任务先对齐意图，再拆卡（2026-11-20 起）。
 
 问题出在哪（2026-11-20 个护测试复盘）：
 - `brief` 的卡里写着「你要判断什么（自己定，不要等我给）」，
@@ -9,7 +9,7 @@
 
 本模块只做第一段：把一句话变成一张**可审的澄清卡**——
 我理解成什么、我准备答哪几问、我默认假设了什么、哪 3–5 件事需要你拍。
-不拆卡、不发卡；拆卡在 `core.report_dispatch`。
+不拆卡、不发卡；拆卡在 `core.cards.report_dispatch`。
 
 产物：`<项目>/clarify.json` + `<项目>/clarify.md`
 确认：人改 json（或直接接受默认）后 `report clarify --dir <项目> --confirm`

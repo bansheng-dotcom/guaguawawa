@@ -17,7 +17,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from core import ir_to_contract, report_flow  # noqa: E402
+from core import ir_to_contract
+from core.report import report_flow  # noqa: E402
 from core.ir_adapters import facts_module_to_ir  # noqa: E402
 from core.semantic_pipeline import resolve  # noqa: E402
 

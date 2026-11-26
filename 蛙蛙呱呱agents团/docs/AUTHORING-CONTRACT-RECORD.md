@@ -13,11 +13,11 @@
 
 | 文件 | 作用 |
 |---|---|
-| `core/report_ir.py` | 富 IR + `validate()` + `infer_relation()` |
+| `core/report/report_ir.py` | 富 IR + `validate()` + `infer_relation()` |
 | `core/ir_adapters.py` | 三前端：claims / decision / facts → IR |
 | `core/semantic_pipeline.py` | 语义管道：`resolve` / `panel` / `apply_decisions` |
-| `core/chart_payload.py` | payload 构建器（facts → 各图型数据形状） |
-| `core/report_flow.py` | 影子落盘 + 诊断挂载（治疗默认关） |
+| `core/charts/chart_payload.py` | payload 构建器（facts → 各图型数据形状） |
+| `core/report/report_flow.py` | 影子落盘 + 诊断挂载（治疗默认关） |
 | `configs/facts_schema.json` | 声明式作者格式（替换 facts.py 的 schema） |
 | `scripts/ir_shadow.py` | 影子对比 CLI（三写法 → IR → 图型变更报告） |
 | 测试 | 28 个新单测，全仓 363 通过 |

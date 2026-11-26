@@ -1,8 +1,8 @@
 # 数据层 SOP v3.0 —— 钻取通用化 + 数据充足度
 
 > **取代** `docs/archive/DATA-LAYER-SOP.md`（v2.0）的 §5「拆卡 v2 第二段」与 §6「门禁改造」。
-> **保留不动**：三层模型（L1 判断 / L2 数据集 / L3 图表）、`core/dataset.py` 的 schema、
-> `core/cell_claim.py` 的判断格、`core/grain.py` 的粒度校验。
+> **保留不动**：三层模型（L1 判断 / L2 数据集 / L3 图表）、`core/data/dataset.py` 的 schema、
+> `core/claims/cell_claim.py` 的判断格、`core/grain.py` 的粒度校验。
 > 本文只解决三件实测出来的事，**不引入新概念**。
 
 ---
@@ -11,7 +11,7 @@
 
 | # | 事实 | 出处 |
 |---|---|---|
-| P1 | 纵向钻取**只对前 2 个对象**跑，不是每格、也不是每问 | `core/card_issue.py:228` `drills = [_drill.plan(cat) for cat in cats[:2]]`；本项目 143 格 → 2 格 |
+| P1 | 纵向钻取**只对前 2 个对象**跑，不是每格、也不是每问 | `core/cards/card_issue.py:228` `drills = [_drill.plan(cat) for cat in cats[:2]]`；本项目 143 格 → 2 格 |
 | P2 | 钻取模板**写死了电商维度**：品牌 A–E、低价/中价/高价带、`gmv` | `core/drill.py` `DEFAULT_BRANDS` / `PRICE_BANDS`；本项目产出 `DS-全国产量规模-品牌month`（蔬菜没有品牌维度） |
 | P3 | **"数据不够"没人判**：探测早就算出 1/6 可答，但它是软门禁，既不阻断也不转补采 | `plan/derivation.json`：`G-ROLLUP "需求有源：1/6 可答（全无源 5）"`，`hard: false`；`manifest.capability.actual_rows: null` |
 
@@ -54,7 +54,7 @@ slice（切片）               = 数据里实际存在的一组（度量 × 单
 
 ## 4. 钻取算法（替换现有实现）
 
-### 4.1 新增 `core/analysis_unit.py`（约 40 行）
+### 4.1 新增 `core/data/analysis_unit.py`（约 40 行）
 
 ```python
 PERIODS = {"year": 3, "quarter": 12, "month": 36, "week": 104, "day": 365}
@@ -202,7 +202,7 @@ G7' 的白名单只有两个来源：`sem["entities"].keys()` 和 `configs/analy
 
 | 步 | 改什么 | 退出条件 |
 |---|---|---|
-| **S0** | 新增 `core/analysis_unit.py` + `configs/chart_min_points.yaml` | ✅ **已落地**：`core/analysis_unit.py` + `tests/test_analysis_unit.py`（7 条全绿）；本项目语义层展开出 **17 个单元、0 报错** |
+| **S0** | 新增 `core/data/analysis_unit.py` + `configs/chart_min_points.yaml` | ✅ **已落地**：`core/data/analysis_unit.py` + `tests/test_analysis_unit.py`（7 条全绿）；本项目语义层展开出 **17 个单元、0 报错** |
 | **S1** | 重写 `core/drill.py`：删 `DEFAULT_BRANDS`/`PRICE_BANDS`，`plan(unit, sem)` | 用本项目 sem 跑，产出 `DS-asp-region-category-month` 而不是 `品牌month` |
 | **S2** | `card_issue.py:228`：`cats[:2]` → 遍历 G-ROLLUP 的 `full/partial` 单元 | 143 格项目产出 ≥6 个 unit |
 | **S3** | `dataset_gates` 加 G8'；`derivation_gates` 的 G-ROLLUP 改 hard | 无源需求阻断 |
@@ -216,7 +216,7 @@ G7' 的白名单只有两个来源：`sem["entities"].keys()` 和 `configs/analy
 
 - [ ] `grep -E '品牌|gmv|价格带|长尾' core/drill.py` → **0 命中**
 - [ ] 本项目 `plan/drill.json` 里 **0 张表** 的 grain 含 `brand`
-- [ ] 语义层展开出 ≥6 个分析单元（本项目实测 **17 个、0 报错**，见 `python -m core.analysis_unit`）
+- [ ] 语义层展开出 ≥6 个分析单元（本项目实测 **17 个、0 报错**，见 `python -m core.data.analysis_unit`）
 - [ ] 22 个切片全部 `dataset.validate` PASS
 - [ ] 充足度报告：L0 10 / L1 12 / L2 0 / L3 34，且每个 L3 有补采条目
 - [ ] `manifest.capability.actual_rows` 有数，且与 `底表_指标数字.csv` 行数对得上

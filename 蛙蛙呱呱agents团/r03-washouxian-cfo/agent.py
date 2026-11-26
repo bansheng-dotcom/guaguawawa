@@ -34,7 +34,7 @@ from agents.shared import role_runtime
 import argparse  # 统一元命令/报告
 import json
 import os
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 
 import sys
 from agents.shared.chat_cli import add_chat_parser, handle_chat
@@ -52,7 +52,7 @@ ROLE = "r03"
 def manifest() -> Dict[str, Any]:
     """Machine-readable manifest; keeps the legacy skill/action CLI intact."""
     try:
-        from core import registry
+        from core.base import registry
         role = registry.by_id(ROLE)
     except (ImportError, KeyError):
         role = {"id": ROLE, "name": "蛙守线", "title": "财务合规官 / 红线负责人",
@@ -268,7 +268,7 @@ def run_task(task_id: str) -> Dict[str, Any]:
     R03 之前是唯一没有 `run --task` 的执行角色，导致 R01 把合规/税务/审计类
     任务派给 R03 时必然失败（PROTOCOL.md 的「合规闭环」pattern 跑不起来）。
     """
-    from core import protocol, workspace as _ws
+    from core.base import protocol, workspace as _ws
     ws = _ws.Workspace(_ws.default_root())
     task = ws.read_task(task_id)
     if task is None:
@@ -304,7 +304,7 @@ def run_task(task_id: str) -> Dict[str, Any]:
 
     out_dir = ws.artifact(task_id)
     os.makedirs(out_dir, exist_ok=True)
-    from core import registry as _registry
+    from core.base import registry as _registry
     role = _registry.by_id(ROLE)
     role_runtime.emit(role=ROLE, name=role["name"], title=role["title"],
                       result=out, skill=skill, action=action, intent=task.intent or "",

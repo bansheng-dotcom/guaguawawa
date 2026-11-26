@@ -45,7 +45,8 @@ for _p in (_HERE, _AGENTS):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from core import protocol, registry, runner, workspace  # noqa: E402
+from core.base import protocol, registry, workspace
+from core import runner  # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # REP-001 报告引擎
 from skills import SKILLS, _common as c  # noqa: E402
@@ -109,7 +110,8 @@ def route(intent: str) -> List[str]:
 
 def _attach_brief(task: protocol.Task, project: str | None = None) -> None:
     """v2：给任务卡挂 expert_brief。验收只由 brief 派生，卡里不再写明细。"""
-    from core import card_bundle, project as project_mod
+    from core.cards import card_bundle
+    from core.base import project as project_mod
     if project:
         proj = project_mod.load(project)
         proj.ensure_dirs()
@@ -298,7 +300,7 @@ def _dump_result(task_id: str, owner: str, stdout: str) -> None:
         res = _json.loads(line)
     except _json.JSONDecodeError:
         return
-    from core import paths as _paths
+    from core.base import paths as _paths
     d = _os.path.join(str(_paths.runtime_root()), "artifacts", "r01")
     _os.makedirs(d, exist_ok=True)
     with open(_os.path.join(d, "dispatch_results.jsonl"), "a", encoding="utf-8") as fh:
@@ -826,7 +828,7 @@ def main() -> int:
             return 0
         plan_ws = ws
         if project_arg:
-            from core import project as project_mod
+            from core.base import project as project_mod
             plan_ws = workspace.Workspace(WORKSPACE_ROOT,
                                           project=project_mod.load(project_arg))
         ids = [plan_ws.create_task(t) for t in tasks]

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.chart_candidates —— 候选面板：relation → 合法候选 + 校验作者选择（S4）。
+"""core.charts.chart_candidates —— 候选面板：relation → 合法候选 + 校验作者选择（S4）。
 
 与 chart_grammar/chooser 的区别：这里**不决定**图型，只给「合法下限」：
   - candidates(contract) 从 relation 的 allowed 里筛出可行候选（≤3），供作者选；

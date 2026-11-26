@@ -22,7 +22,7 @@
 1. **“假生图”**：`skills/s01_imagegen.py` 内部没有任何绘图逻辑，仅用 `jsonschema` 检验 JSON 字段是否存在；所谓扩写仅是静态字典写死的 4 行固定字符串（如 `"cyberpunk": "cyberpunk style..."`），输入任何未定义风格直接抓瞎；
 2. **“假质检”**：所谓的质量审校直接返回写死的假字典：`{"status": "PASSED", "score": 9.2}`，压根没有调用多模态模型或分析像素；
 3. **“假协同”**：`agent.py` 的意图路由表 `_INTENT_ROUTES` 中，将生图与海报任务错误路由到 `("imagegen", "prompt")`，导致团队其他 Agent（如 R07/R11）分派任务时，R10 只会校验文本，根本不生成任何物理图片；
-4. **“死锁与强约束”**：强依赖 `core/workspace.py` 的单写者文件锁 `_lock`，在 Windows 平台与沙箱机制下频繁遭遇 `PermissionError: [WinError 5] 拒绝访问`，导致进程阻塞挂死。
+4. **“死锁与强约束”**：强依赖 `core/base/workspace.py` 的单写者文件锁 `_lock`，在 Windows 平台与沙箱机制下频繁遭遇 `PermissionError: [WinError 5] 拒绝访问`，导致进程阻塞挂死。
 
 ---
 

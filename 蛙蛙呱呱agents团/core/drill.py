@@ -15,8 +15,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from core import cell_claim
-from core import dataset as _ds
+from core.claims import cell_claim
+from core.data import dataset as _ds
 
 # 平台/行业数据常见的品牌分辨率：TOP5 + 长尾
 DEFAULT_BRANDS = ["品牌A", "品牌B", "品牌C", "品牌D", "品牌E", "长尾合计"]
@@ -38,9 +38,9 @@ def plan_from_spec(spec: Dict[str, Any],
     与 `plan(category)` 的区别：那个是 v2 的"凭经验写 2 张表 216 行"；
     这个是从 rollup 声明 + 实际 mart 行数推导出来的。
     """
-    from core import dataset as _d
+    from core.data import dataset as _d
     from core import grain as _g
-    from core import source_profile as _sp
+    from core.sources import source_profile as _sp
 
     src = _sp.load(str(spec.get("source") or ""))
     atomic = _g.atomic_of(src)

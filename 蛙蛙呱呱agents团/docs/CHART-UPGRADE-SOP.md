@@ -130,10 +130,10 @@ chart 契约 v2（三条线都交）：
 ### S6 清死代码（1d）
 | 对象 | 理由 |
 |---|---|
-| `core/chart_grammar.py`、`core/chart_chooser.py` | S4 后失去唯一消费者 |
-| `core/chart_plan.py` | 仅 r01 技能引用，改指向 `decision` |
+| `core/charts/chart_grammar.py`、`core/charts/chart_chooser.py` | S4 后失去唯一消费者 |
+| `core/charts/chart_plan.py` | 仅 r01 技能引用，改指向 `decision` |
 | `configs/chart_type_by_question.json` | 0 引用 |
-| `core/data_shape.py` 重复映射 | 保留 `fits`，删重复表 |
+| `core/data/data_shape.py` 重复映射 | 保留 `fits`，删重复表 |
 
 > 净减少：**模块 -3、配置 -1**。同 PR 更新 `.convergence-baseline.json`、`docs/CHART-GRAMMAR.md`、`gen_agent_packs`、`sync_dsh_skills`。
 

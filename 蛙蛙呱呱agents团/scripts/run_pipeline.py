@@ -6,7 +6,7 @@ from pathlib import Path
 
 AGENTS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(AGENTS))
-from core.analysis_pipeline import run  # noqa: E402
+from core.data.analysis_pipeline import run  # noqa: E402
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

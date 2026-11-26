@@ -264,7 +264,7 @@ PART III · 13–14 怎么做
 
 ## 9. 机器检查（R04）
 
-`core/prose_style.py` 应对每节检查：
+`core/prose/prose_style.py` 应对每节检查：
 
 - 字数 1,150–1,600（表页 950–1,250）；
 - 标题含数字；

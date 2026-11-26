@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.dataset_gates —— 数据层门禁 G1'/G3'/G4'/G5'（DATA-LAYER-SOP v2.0 · S4）。
+"""core.data.dataset_gates —— 数据层门禁 G1'/G3'/G4'/G5'（DATA-LAYER-SOP v2.0 · S4）。
 
 旧门禁（v1）判的是「填了几格 / 总共几格」，格子模型错了，覆盖率就没意义。
 新门禁判的是「判断有没有数据集支撑、查询能不能在表上跑、图能不能画」：
@@ -10,7 +10,7 @@
     G5' 图形可行性：图需要的维度都在 group_by 里，且 min_rows 够画
 
 用法：
-    from core import dataset_gates
+    from core.data import dataset_gates
     res = dataset_gates.run(drill_doc, actual_rows={"DS-...": [row, ...]})
     # actual_rows 不给时，G1' 只判「有没有声明」，标 unverified
 """
@@ -18,8 +18,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from core import cell_claim
-from core import dataset as _ds
+from core.claims import cell_claim
+from core.data import dataset as _ds
 
 MIN_POINTS = cell_claim.MIN_POINTS
 

@@ -94,7 +94,7 @@ for alias, target in _ALIAS.items():
 
 
 def plan(desk, views, profile: Dict[str, Any], thesis_key: str = "research") -> Dict[str, Any]:
-    from core import report_thesis
+    from core.report import report_thesis
     thesis = report_thesis.THESES.get(thesis_key) or {}
     p = _plan(desk, views, profile, thesis)
     p["thesis"] = thesis_key

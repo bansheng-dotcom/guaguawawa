@@ -7,7 +7,7 @@ from __future__ import annotations
 import json
 import os
 import sys
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 
 _HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 角色根（tests/ 的上一级）
 if _HERE not in sys.path:

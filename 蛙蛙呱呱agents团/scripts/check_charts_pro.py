@@ -25,7 +25,7 @@ def main() -> int:
         if target not in kinds:
             alias_bad.append((a, target))
     # P4-2 / V-1：REQUIRED 与 SAMPLE 必须同源，漂移即失败
-    from core import chart_field_contract as _cs
+    from core.charts import chart_field_contract as _cs
     audit = _cs.contract_audit(samples.SAMPLE)
     from core.report_theme import tokens as _tk
     tbad = _tk.verify_defaults_match_renderer()

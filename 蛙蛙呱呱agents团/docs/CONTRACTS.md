@@ -1,6 +1,6 @@
 # CONTRACTS · 数据与图表契约（P6）
 
-> 唯一的「一行数据」定义在 `core/data_standard.py`。本文只列字段与最小样例，
+> 唯一的「一行数据」定义在 `core/data/data_standard.py`。本文只列字段与最小样例，
 > 校验函数返回人类可读错误清单（空 = 合法），不抛异常、不写盘、不调模型。
 
 ## 1. 四份契约
@@ -68,9 +68,9 @@ L4 ChartSpec   图表声明：类型 + 数据引用 + 编码 + 选项
 
 | 模块 | 管什么 | 谁在用 |
 |---|---|---|
-| `core/chart_spec.py` | **交付契约**：type/title/source/unit_meta/claim_to_prove | 决策报告 `decision.chart_contract_ok` |
-| `core/chart_contract.py` | **三条线归一**：relation/intent/chosen/dims | S4/S5 选型与门禁输入 |
-| `core/chart_field_contract.py` | **渲染字段契约**：REQUIRED vs SAMPLE 同源审计 | `scripts/check_charts_pro.py` |
+| `core/charts/chart_spec.py` | **交付契约**：type/title/source/unit_meta/claim_to_prove | 决策报告 `decision.chart_contract_ok` |
+| `core/charts/chart_contract.py` | **三条线归一**：relation/intent/chosen/dims | S4/S5 选型与门禁输入 |
+| `core/charts/chart_field_contract.py` | **渲染字段契约**：REQUIRED vs SAMPLE 同源审计 | `scripts/check_charts_pro.py` |
 
 ## 3. 门禁对应
 

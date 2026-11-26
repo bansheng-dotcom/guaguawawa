@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.cells_unified —— 三套「格子→数字」的统一读数与对账（P5-5）。
+"""core.claims.cells_unified —— 三套「格子→数字」的统一读数与对账（P5-5）。
 
 问题：v1 `build()` 读已填格子、v2 `from_drill()` 读数据集/mart、v3 `from_collection()`
 从采集 mart 出数——同一格可能得到三个数。

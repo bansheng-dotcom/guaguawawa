@@ -2,7 +2,7 @@
 """core/roster —— 完整专家名册：从 20 个角色目录生成，不手写（v12.2）。
 
 问题：
-    `core/registry.py::ROLES` 只有身份（id/name/title/dir/capabilities），
+    `core/base/registry.py::ROLES` 只有身份（id/name/title/dir/capabilities），
     没有技能。技能在各自 `prompt_profile.json` 的 actions 里，在 `skills/` 目录里。
     名册不暴露技能，调度就回答不了「谁会干这件事」——技能调用自然调不到。
 
@@ -54,7 +54,7 @@ def _skills(dirname: str) -> List[str]:
 
 
 def build() -> Dict[str, Any]:
-    from core.registry import ROLES
+    from core.base.registry import ROLES
 
     roles: Dict[str, Any] = {}
     for r in ROLES:

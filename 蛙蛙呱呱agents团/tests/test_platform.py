@@ -19,12 +19,12 @@ if str(TEAM) not in sys.path:
 
 
 import pytest
-from core import report_cli
+from core.report import report_cli
 import json
 from shared.mcp.client import MCPClient, doctor, load_registry
 import os
 from core import memory_guard as mg
-from core import paths, project
+from core.base import paths, project
 
 
 

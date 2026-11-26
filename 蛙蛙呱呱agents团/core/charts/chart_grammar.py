@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.chart_grammar —— 图表语法：意图 × 数据形状 → 图型（2026-11-21）。
+"""core.charts.chart_grammar —— 图表语法：意图 × 数据形状 → 图型（2026-11-21）。
 
 学的是两家公开体系，不是拍脑袋：
 
@@ -239,7 +239,7 @@ def explain(intent: str, shape: str, n: int, history: List[str]) -> Dict[str, An
 
 def build(chart: Dict[str, Any], section: Dict[str, Any],
           pack: Dict[str, Any], history: List[str]) -> Optional[Dict[str, Any]]:
-    from core import chart_shapes
+    from core.charts import chart_shapes
 
     nums = chart_shapes._nums(pack, list(chart.get("refs") or section.get("refs") or []))
     items = (chart.get("bars") or chart.get("vbars")

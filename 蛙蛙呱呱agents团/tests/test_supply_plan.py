@@ -7,8 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from core import collection_contract  # noqa: E402
-from core import supply_plan as sup  # noqa: E402
+from core.sources import collection_contract  # noqa: E402
+from core.sources import supply_plan as sup  # noqa: E402
 
 
 def _doc(**kw):
@@ -265,7 +265,7 @@ def test_no_supply_does_not_pretend_a_plan():
 
 def test_probe_card_is_not_a_collection_card(tmp_path):
     """探源卡要写给探测层，且明确说「不是采集卡」。"""
-    from core import card_issue
+    from core.cards import card_issue
     (tmp_path / "plan").mkdir()
     (tmp_path / "plan" / "grid.json").write_text(json.dumps({
         "cells": [{"cell_id": "c1", "measure": "asp",
@@ -280,7 +280,7 @@ def test_probe_card_is_not_a_collection_card(tmp_path):
 
 
 def test_probe_card_requires_grid(tmp_path):
-    from core import card_issue
+    from core.cards import card_issue
     r = card_issue.prepare_probe_cards(tmp_path)
     assert r["ok"] is False
 
@@ -298,7 +298,7 @@ def _entry(**kw):
 
 
 def test_from_catalog_basic():
-    from core import source_profile as sp
+    from core.sources import source_profile as sp
     s = sp.from_catalog(_entry())
     assert s["id"] == "tjb_car_parc"
     assert s["owner"] == "r18"
@@ -309,30 +309,30 @@ def test_from_catalog_basic():
 
 
 def test_from_catalog_monthly_is_historical():
-    from core import source_profile as sp
+    from core.sources import source_profile as sp
     s = sp.from_catalog(_entry(freshness="月更"))
     assert s["history"] == "historical"
 
 
 def test_from_catalog_yearly_is_snapshot_only():
-    from core import source_profile as sp
+    from core.sources import source_profile as sp
     s = sp.from_catalog(_entry(freshness="年更"))
     assert s["history"] == "snapshot_only"
 
 
 def test_from_catalog_requires_table():
-    from core import source_profile as sp
+    from core.sources import source_profile as sp
     assert sp.from_catalog(_entry(table="")) == {}
 
 
 def test_from_catalog_grain_falls_back_to_first_field():
-    from core import source_profile as sp
+    from core.sources import source_profile as sp
     s = sp.from_catalog(_entry(atomic_grain=["nope"]))
     assert s["atomic_grain"] == ["年份"]
 
 
 def test_load_catalog_reads_r18_file(tmp_path):
-    from core import source_profile as sp
+    from core.sources import source_profile as sp
     d = tmp_path / "cards" / "r18"
     d.mkdir(parents=True)
     (d / "data_catalog.json").write_text(json.dumps({
@@ -343,13 +343,13 @@ def test_load_catalog_reads_r18_file(tmp_path):
 
 
 def test_load_catalog_missing_returns_empty(tmp_path):
-    from core import source_profile as sp
+    from core.sources import source_profile as sp
     assert sp.load_catalog(tmp_path) == []
 
 
 def test_probe_uses_r18_catalog_as_sources(tmp_path):
     """探源产物优先于 configs/sources 兜底。"""
-    from core import card_probe
+    from core.cards import card_probe
     (tmp_path / "plan").mkdir()
     (tmp_path / "plan" / "grid.json").write_text(json.dumps({
         "cells": [{"cell_id": "c1", "measure": "asp",
@@ -365,7 +365,7 @@ def test_probe_uses_r18_catalog_as_sources(tmp_path):
 
 
 def test_probe_card_goes_to_r18(tmp_path):
-    from core import card_issue
+    from core.cards import card_issue
     (tmp_path / "plan").mkdir()
     (tmp_path / "plan" / "grid.json").write_text(json.dumps({
         "cells": [{"cell_id": "c1", "measure": "asp",

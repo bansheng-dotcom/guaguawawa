@@ -61,7 +61,7 @@
 | `报告系统升级SOP-2026-11-21.md` | 报告产线结构、呈现与数据层修复 | 过程记录，与两份设计稿互引 |
 | `50材料核验-2026-11-21.md` | 50 份外部材料的 URL/许可核验明细 | 证据附件 |
 | `专家团系统升级-SOP-v5-2026-11-22.md` | 2026-11-22 系统升级方案 | 历史版本链；不是当前唯一总纲 |
-| `generic_semantics_v1.yaml` | 跨业务线通用语义（度量类型/质量六维/因果阶） | **代码依赖**（`core/card_upgrade.py`） |
+| `generic_semantics_v1.yaml` | 跨业务线通用语义（度量类型/质量六维/因果阶） | **代码依赖**（`core/cards/card_upgrade.py`） |
 | `semantic_layer.template.yaml` | 语义层模板 | 模板（`card_issue.py` 会生成同名文件） |
 | `agent_card.template.yaml` · `handoff_contract.template.yaml` | 角色卡 / 交接包模板 | 模板，暂无代码引用 |
 | `perspectives.template.yaml` | 视角模板 | 被拆卡 SOP 引用 |

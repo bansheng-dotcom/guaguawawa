@@ -76,4 +76,4 @@
 - 语义模型引用不存在的列时 `hallucinated_count>0 且 ok=false`（防幻觉不是摆设）；
 - `harness verify` 对干净数据 PASS、对脏数据 FAIL（门禁不是摆设）；
 - 统计结论同时报 p 值与效应量，不把相关写成因果；
-- 报告由 `core/report_renderer.py` 生成，每个数字可回溯到 result。
+- 报告由 `core/report/report_renderer.py` 生成，每个数字可回溯到 result。

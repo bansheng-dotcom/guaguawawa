@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.chart_contract —— 图表契约 v2：三条线归一成同一形状（S3）。
+"""core.charts.chart_contract —— 图表契约 v2：三条线归一成同一形状（S3）。
 
 三条线的现状：
   - 拆卡线：section 只有 chart{type,title,refs,...}，relation 全空，没有 comparison；

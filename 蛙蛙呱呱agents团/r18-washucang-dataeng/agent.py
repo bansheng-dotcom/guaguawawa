@@ -48,7 +48,7 @@ for _p in (_HERE, _AGENTS):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from core import protocol, registry, workspace  # noqa: E402
+from core.base import protocol, registry, workspace  # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 from agents.shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402

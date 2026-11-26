@@ -3,8 +3,8 @@ from __future__ import annotations
 import tempfile
 import unittest
 
-from core.protocol import Event, Port, Task
-from core.workspace import Workspace
+from core.base.protocol import Event, Port, Task
+from core.base.workspace import Workspace
 
 
 class FoundationTests(unittest.TestCase):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.coverage_confirm —— 覆盖矩阵确认与交付审计。"""
+"""core.sources.coverage_confirm —— 覆盖矩阵确认与交付审计。"""
 from __future__ import annotations
 
 import hashlib
@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 
-from core.coverage_plan import plan_hash
+from core.sources.coverage_plan import plan_hash
 
 
 def confirm(plan: Dict[str, Any], by: str, note: str = "",

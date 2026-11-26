@@ -237,7 +237,7 @@ def main() -> int:
         fails.append("dual-engine")
 
     # [5] 图表能力
-    rc, out = run([sys.executable, "-m", "core.chart_capabilities", "--check"])
+    rc, out = run([sys.executable, "-m", "core.charts.chart_capabilities", "--check"])
     print(f"[5] charts rc={rc} :: {out.strip().splitlines()[-1] if out.strip() else ''}")
     if rc:
         fails.append("charts")
@@ -263,7 +263,7 @@ def main() -> int:
         print(f"[6] gate(v7) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
         if rc:
             fails.append("gate-v7")
-        rc, out = run([sys.executable, "-m", "core.report_quality",
+        rc, out = run([sys.executable, "-m", "core.report.report_quality",
                        str(out_v7 / "report.html")])
         print(f"[6] depth(v7) rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
         if rc:
@@ -369,7 +369,7 @@ def main() -> int:
         fails.append("line-tests")
 
     # [16] 语义层审计：六项悬空边必须全为 0（P4 起这是硬门禁，不许只记录）
-    rc, out = run([sys.executable, "-m", "core.report_model", "--audit"])
+    rc, out = run([sys.executable, "-m", "core.report.report_model", "--audit"])
     line16 = next((l for l in out.splitlines() if '"issues"' in l), "")
     print(f"[16] report model rc={rc} :: {'六项悬空边全为 0' if rc == 0 else '仍有悬空边'}")
     if rc:

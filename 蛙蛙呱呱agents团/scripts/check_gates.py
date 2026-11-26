@@ -41,7 +41,7 @@ def _waiver(cfg: dict, project: Path) -> dict:
 
 
 def gate_caliber(project: Path, cfg: dict) -> dict:
-    from core.cells_claims import audit_cards
+    from core.claims.cells_claims import audit_cards
     r = audit_cards(project)
     cells = sum(v.get("cells", 0) for v in r.get("roles", {}).values())
     problems = sum(v.get("problems", 0) for v in r.get("roles", {}).values())

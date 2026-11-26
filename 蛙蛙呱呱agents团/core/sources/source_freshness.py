@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.source_freshness —— 来源时效度量（不改判据，只把「旧」变成可看见的数字）。
+"""core.sources.source_freshness —— 来源时效度量（不改判据，只把「旧」变成可看见的数字）。
 
 口径：
     - 只解析 YYYY / YYYY-MM / YYYY-MM-DD；

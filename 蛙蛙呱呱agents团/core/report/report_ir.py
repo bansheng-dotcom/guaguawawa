@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.report_ir —— 富语义 IR（dsh.report_ir/v1）。SOP v3.0 S0 的锚点。
+"""core.report.report_ir —— 富语义 IR（dsh.report_ir/v1）。SOP v3.0 S0 的锚点。
 
 中心：作者只交「事实 + 问题 + 大纲」，系统做其余。
 本模块定义 IR 的字段契约与 validate()：parse-time 字段级报错，不靠运行时崩溃。

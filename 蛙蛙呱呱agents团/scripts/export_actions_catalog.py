@@ -55,7 +55,7 @@ def scan_role(role_dir: str) -> dict:
     sys.path.insert(0, ROOT)
     sys.path.insert(0, role_dir)
 
-    from core.registry import ROLES  # noqa: E402
+    from core.base.registry import ROLES  # noqa: E402
 
     role_id = os.path.basename(role_dir).split("-")[0]
     meta = next((r for r in ROLES if r["id"] == role_id), {})

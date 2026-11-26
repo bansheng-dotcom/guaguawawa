@@ -636,7 +636,7 @@ def test_r08_office_xlsx_and_docx(tmp_path):
 
 def test_e2e_task_routes_to_deck(tmp_path):
     """plan→run --task 的端到端：任务卡意图「幻灯片」必须路由到 deck。"""
-    from core import protocol, workspace
+    from core.base import protocol, workspace
     role = os.path.join(ROOT, "r08-wajiancheng-mvp")
     src = _write(tmp_path, "deck.json", _deck())
     ws = workspace.Workspace(os.path.join(ROOT, "workspace"))

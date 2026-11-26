@@ -25,8 +25,8 @@ import os
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from core import paths
-from core.source_verify import normalize_url
+from core.base import paths
+from core.sources.source_verify import normalize_url
 
 CARD_SCHEMA = "dsh.task_card/v1"
 
@@ -110,7 +110,7 @@ def _chart_contract(claims: Dict[str, Any], section: Dict[str, Any],
 
 def _need(claims: Dict[str, Any]) -> List[str]:
     """一张卡最少要有什么。缺 quote 的来源等于没查，整张卡拒收。"""
-    from core import source_verify
+    from core.sources import source_verify
 
     miss = []
     nums = claims.get("numbers") or []
@@ -161,7 +161,7 @@ def _need(claims: Dict[str, Any]) -> List[str]:
         if not s.get("falsifier"):
             miss.append(f"节「{t}」缺证伪条件")
         # 单段上限：所有卡都查（不只 v2）；超了就是没提炼
-        from core import report_contract
+        from core.report import report_contract
         limit = report_contract.paragraph_hard_max()
         for j, rd in enumerate(s.get("reading") or [], 1):
             if len(str(rd.get("text") or "")) > limit:
@@ -182,7 +182,7 @@ def _need(claims: Dict[str, Any]) -> List[str]:
             if ch:
                 miss += _chart_contract(claims, s, t, local_ids)
     if str(claims.get("card_spec") or "") in ("True", "true", "1"):
-        from core import card_issue
+        from core.cards import card_issue
         miss += card_issue.validate_claims_cells(claims)
     return miss
 
@@ -195,7 +195,7 @@ def _write_coverage(base: Path, intent: str) -> None:
     """
     import datetime
     import hashlib
-    from core import coverage_plan
+    from core.sources import coverage_plan
 
     cov = base / "coverage"
     cov.mkdir(parents=True, exist_ok=True)
@@ -229,7 +229,8 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None,
     project 为空时（兼容旧调用）brief 只落在 `cards/<rid>/bundle.json`；
     给了 project 时额外写 `<PROJECT_ROOT>/briefs/<task_id>.yaml`，卡里只留引用。
     """
-    from core import research_protocol, roster
+    from core.sources import research_protocol
+    from core import roster
     from shared.knowledge import brief as brief_mod
 
     base = Path(out_dir)
@@ -394,8 +395,8 @@ def _bridge_cells_to_claims(out_dir: str) -> Dict[str, Any]:
     base = Path(out_dir)
     plan = base / "plan"
     try:
-        from core import cells_claims
-        from core import card_upgrade as cu
+        from core.claims import cells_claims
+        from core.cards import card_upgrade as cu
 
         grid_p = plan / "grid.json"
         if not grid_p.is_file():
@@ -486,7 +487,7 @@ def collect(out_dir: str, require_all: bool = False,
     # 默认 report（只记录，不改格子）；GUAGUA_PROBE=degrade 时把 none 标 unavailable。
     probe_res: Dict[str, Any] = {}
     try:
-        from core import card_probe
+        from core.cards import card_probe
         _pmode = str(os.environ.get("GUAGUA_PROBE") or "report")
         if _pmode != "off":
             probe_res = card_probe.probe(out_dir, mode=_pmode)
@@ -500,7 +501,7 @@ def collect(out_dir: str, require_all: bool = False,
         merged["probe"] = probe_res
         if probe_res.get("ok"):
             try:
-                from core import card_probe as _cp
+                from core.cards import card_probe as _cp
                 merged["degraded_cells"] = _cp.degraded_cells(out_dir)
             except Exception:  # noqa: BLE001
                 merged["degraded_cells"] = []
@@ -546,7 +547,7 @@ def collect(out_dir: str, require_all: bool = False,
     # 派活校验（2026-11-22 起默认硬门）：项目里必须有 issued.json，每张卡必须
     # 回填 nonce/role/by，且执行者不能是编排器（r01/solo）。没有 issued.json 的
     # 项目直接拒收；老卡只有显式 --allow-legacy 才放行，并在产物上标降级。
-    from core import report_dispatch
+    from core.cards import report_dispatch
     issued = report_dispatch.load_issued(out_dir)
     if issued:
         dispatch_mode = "nonce"
@@ -713,7 +714,7 @@ def collect(out_dir: str, require_all: bool = False,
     merged["questions"] = questions
 
     # ---- 卡间协商闭环（2026-11-20）：open 的 need 不收 -------------------- #
-    from core import report_exchange
+    from core.report import report_exchange
     ex = report_exchange.verify(out_dir)
     merged["exchange"] = {"counts": ex["counts"], "open": ex["open"]}
     if issued and ex["open"] and not allow_open_needs:
@@ -721,14 +722,14 @@ def collect(out_dir: str, require_all: bool = False,
                    + "、".join(x["id"] for x in ex["open"][:6]))
 
     # 证据面：来源字段齐不齐、数字与节够不够；缺 quote 的卡已在上面拒收。
-    from core import source_verify
+    from core.sources import source_verify
     src = merged["sources"]
     fields_ok = sum(1 for s in src if not source_verify.check_fields(s))
     uniq_urls = len({normalize_url(s.get("url")) for s in src if normalize_url(s.get("url"))})
     dup_urls = sum(1 for s in src if s.get("duplicate_of"))
     # 数据时效（借自媒体中控台的 T-1 原则，按年报口径放宽到 18 个月）：
     # 只做度量 + 降级标记，不硬拦——官方统计本身就是年更，硬卡会把合法来源判死。
-    from core import source_freshness
+    from core.sources import source_freshness
     fresh = source_freshness.summarize(src)
     if fresh.get("stale_ratio") is not None and fresh["stale_ratio"] > 0.6 and len(src) >= 20:
         degraded.append("source_freshness_low")
@@ -830,7 +831,7 @@ def collect(out_dir: str, require_all: bool = False,
     # 数据层：把合并后的数字归一成 raw（行/度量/冲突/覆盖），并落 raw.xlsx。
     # 这是图表的唯一数据源；没有它，图只能从段落里猜。
     try:
-        from core import data_model
+        from core.data import data_model
         raw = data_model.build_raw(merged.get("numbers") or [],
                                    merged.get("sources") or [])
         paths = data_model.export(raw, Path(out_dir), merged.get("sources") or [],
@@ -883,7 +884,7 @@ def collect(out_dir: str, require_all: bool = False,
     # 这段原来只存在于 scripts/run_card_upgrade.py，生产从不调用；
     # 现在收卡即跑，结果进 merged["post_gates"] 与 plan/post_gates.json。
     try:
-        from core import card_upgrade as _cu
+        from core.cards import card_upgrade as _cu
         merged["post_gates"] = _cu.post_collect(Path(out_dir), merged)
     except Exception as exc:  # noqa: BLE001
         merged["post_gates"] = {"ok": False, "why": str(exc)}
@@ -891,7 +892,7 @@ def collect(out_dir: str, require_all: bool = False,
     # SUPPLY-SOP v7.0：收卡是唯一判「计划 vs 实际」的地方。
     # 计划 L1 交付 L1 = 正常；计划 L2 实际 L1 = 降级（必须写理由）。
     try:
-        from core import supply_plan as _sup
+        from core.sources import supply_plan as _sup
         # v7.1：优先用探测生成的 plan/supply.json；没有再退手写 supply.yaml
         _supply = _sup.load_or_generate(out_dir)
         merged["capability"] = _sup.capability_of(_supply, merged)

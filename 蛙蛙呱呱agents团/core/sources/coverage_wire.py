@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.coverage_wire —— 把「覆盖矩阵 / 饱和」接进主链路（SOP A 项）。
+"""core.sources.coverage_wire —— 把「覆盖矩阵 / 饱和」接进主链路（SOP A 项）。
 
 问题：`coverage_plan`（G1–G10 覆盖矩阵）和 `task_research`（来源饱和）写好了、
 有单测，但 `report_flow.run` 的 `coverage_plan_data / task_frame_data /
@@ -19,7 +19,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from core import coverage_plan as _cp
+from core.sources import coverage_plan as _cp
 
 # 六维（与 card_upgrade.DIMS 一致）
 DIMS = ("对象", "空间", "时间", "结构", "机制", "边界")
@@ -109,7 +109,7 @@ def gate(project_dir: str) -> Dict[str, Any]:
     d = derive(project_dir)
     if not d.get("ok"):
         return {"ok": True, "skipped": True, "why": d.get("why")}
-    from core import coverage_policy
+    from core.sources import coverage_policy
     res = _cp.pre_gate(d["frame"], d["plan"], d["sources"],
                        {"plan_hash": _cp.plan_hash(d["plan"])},
                        coverage_policy.load())

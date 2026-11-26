@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-from core.workspace import role_workspace  # noqa: E402
+from core.base.workspace import role_workspace  # noqa: E402
 
 import random
 import sys

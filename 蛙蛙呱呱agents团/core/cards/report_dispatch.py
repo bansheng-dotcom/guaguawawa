@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.report_dispatch —— 拆卡、发卡、验卡（2026-11-20 起）。
+"""core.cards.report_dispatch —— 拆卡、发卡、验卡（2026-11-20 起）。
 
 三段，每段一个可审文件：
 
@@ -27,8 +27,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from core import report_clarify
-from core.report_clarify import KEYWORD_ROLES, TYPE_HINT
+from core.report import report_clarify
+from core.report.report_clarify import KEYWORD_ROLES, TYPE_HINT
 
 SCHEMA_PLAN = "dsh.report.plan/v1"
 SCHEMA_ISSUED = "dsh.report.issued/v1"
@@ -330,9 +330,9 @@ _WORKORDER_CRITERIA = """## 2. 什么算答好（缺一条，这一问不算过�
 
 
 def _role_identity(rid: str) -> Dict[str, str]:
-    """角色名/职称唯一出处 core.report_roles（其又从 core.registry 归一）。"""
+    """角色名/职称唯一出处 core.report.report_roles（其又从 core.base.registry 归一）。"""
     try:
-        from core.report_roles import ROLE_REPORT
+        from core.report.report_roles import ROLE_REPORT
         meta = ROLE_REPORT.get(rid) or {}
         return {"name": str(meta.get("name") or ""),
                 "title": str(meta.get("title") or "")}
@@ -376,7 +376,7 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
     asks = {a["id"]: a for a in c.get("asks") or []}
 
     # v1.5：发卡前先过拆卡 SOP 门禁（S7）。不过门禁就不发卡。
-    from core import card_issue
+    from core.cards import card_issue
     gate = card_issue.pre_issue_gates(root)
     if not gate.get("ok"):
         return {"ok": False, "stage": "card_spec",
@@ -512,7 +512,7 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
         # 验收只由 brief 派生；卡里不再出现 acceptance 明细。
         brief_issue = ""
         try:
-            from core import card_bundle
+            from core.cards import card_bundle
             task_id = str(ct.get("task_id") or f"{root.name}-{rid}")
             res_b = card_bundle.issue(
                 d, rid, task_id, str(plan.get("intent") or ""),

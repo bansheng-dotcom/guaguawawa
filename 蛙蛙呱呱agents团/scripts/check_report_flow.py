@@ -15,11 +15,11 @@
   F7 **每一张**图都有自己的来源，且来源文字非空（不是「有 N 个 class」）
   F8 不出现 JSON/字段回显（` ```json `、`"ok":`）
   F9 内部重复句 ≤ 10%，数字密度 ≥ 25/千字，禁用词 0
-  F10 深度（与 core.report_quality 同一判据）
+  F10 深度（与 core.report.report_quality 同一判据）
   F11 报告不得自证门禁（「全部门禁通过」这类话只能由 manifest 出，不能由正文说）
 
 判据标记（fig-src / data-label / summary / 口径与分数）一律从
-`core.report_marks` 取，禁止在本文件里写字面量——2026-11-20 的
+`core.report.report_marks` 取，禁止在本文件里写字面量——2026-11-20 的
 「默认 flow 过不了自己的门禁」就是两边各写一份导致的。
 
 用法：
@@ -43,7 +43,7 @@ if str(TEAM) not in sys.path:
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
-from core.report_marks import (  # noqa: E402
+from core.report.report_marks import (  # noqa: E402
     BOUNDARY_LABEL,
     CALIBER_TITLE,
     FIGURE_SRC_CLASS,
@@ -257,11 +257,11 @@ def check_html(path) -> dict:
     if hits:
         v.append({"id": "F9_banned", "msg": "禁用词：" + "、".join(hits)})
 
-    # F10 深度：与 core.report_quality 共用同一判据（按体量自动分档 research/baseline），
+    # F10 深度：与 core.report.report_quality 共用同一判据（按体量自动分档 research/baseline），
     # 不再出现「flow 说 PASS、深度门禁说 FAIL」的两套结论。
     depth = None
     try:
-        from core import report_quality  # noqa: PLC0415
+        from core.report import report_quality  # noqa: PLC0415
         depth = report_quality.audit(path, "auto")
         if not depth["ok"]:
             for c in depth["checks"]:

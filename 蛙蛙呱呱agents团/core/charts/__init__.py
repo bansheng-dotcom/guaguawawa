@@ -1,7 +1,6 @@
-"""core.charts —— 图表层（P4 第三阶段：已物理归位）。
+"""core.charts —— 图表层（P4 第三阶段：已物理归位，shim 已退场）。
 
-原有 3 个渲染器 + 13 个 `chart_*.py` 现在都在本包内；旧路径 `core/chart_*.py`
-保留一版兼容 shim。对外仍可按需访问：
+原有 3 个渲染器 + 13 个 `chart_*.py` 现在都在本包内。对外仍可按需访问：
 
     from core.charts import chart_grammar
     from core.charts import chart_lib

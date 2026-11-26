@@ -23,17 +23,20 @@ if str(TEAM) not in sys.path:
 
 import json
 import tempfile
-from core import dispatch, report_clarify, report_dispatch, card_issue
+from core.cards import dispatch, report_dispatch, card_issue
+from core.report import report_clarify
 import shutil
-from core import dispatch, roster
+from core.cards import dispatch
+from core import roster
 from core import orchestrator as O
 from core.methods.spec import Caps
 import guagua
-from core.report_flow import build_sections_contract
-from core import report_flow, report_editorial
+from core.report.report_flow import build_sections_contract
+from core.report import report_flow, report_editorial
 import core
 
-from core import intake, panel, dor, synthesis, card_plan
+from core import intake, panel, dor, synthesis
+from core.cards import card_plan
 
 
 
@@ -262,7 +265,7 @@ def test_question_accounting_flags_unanswered():
 
 
 def test_exchange_blocks_until_answered():
-    from core import report_exchange
+    from core.report import report_exchange
     base = _setup()
     issued = json.loads(
         (base / "coverage" / "issued.json").read_text(encoding="utf-8"))["cards"]
@@ -298,7 +301,7 @@ def test_exchange_blocks_until_answered():
 
 def test_coverage_panel_on_caliber_page():
     """口径页要有「问题覆盖」面板，且正文不再重复那句对账。"""
-    from core.report_flow import build_sections_contract
+    from core.report.report_flow import build_sections_contract
     from core.report_theme import pages
     draft = {
         "schema": "dsh.agent.draft/v1", "standfirst": "x 12 亿元",
@@ -330,7 +333,7 @@ def test_coverage_panel_on_caliber_page():
 
 def test_explore_becomes_a_real_section():
     """发散槽收上来的东西必须成节，不能只统计条数。"""
-    from core.report_flow import build_sections_contract
+    from core.report.report_flow import build_sections_contract
     draft = {
         "schema": "dsh.agent.draft/v1", "standfirst": "x 12 亿元",
         "profile": "research",
@@ -380,7 +383,7 @@ def test_support_merges_into_same_owner():
 # -*- coding: utf-8 -*-
 
 
-# 项目产物必须写在团外（core/paths.py 的边界守卫），测试也不例外
+# 项目产物必须写在团外（core/base/paths.py 的边界守卫），测试也不例外
 TMP_DISPATCH = Path(tempfile.mkdtemp(prefix="guagua-test-dispatch-"))
 
 
@@ -836,10 +839,10 @@ def test_group_attributes_exist():
 
 def test_group_resolves_to_same_module():
     assert core.gates.quality_gate is core.quality_gate
-    assert core.pipeline.report_flow is core.report_flow
-    assert core.semantic.report_ir is core.report_ir
-    assert core.cards.card_issue is core.card_issue
-    assert core.narrative.claims_v4 is core.claims_v4
+    assert core.pipeline.report_flow is core.report.report_flow
+    assert core.semantic.report_ir is core.report.report_ir
+    assert core.cards.card_issue is core.cards.card_issue
+    assert core.narrative.claims_v4 is core.claims.claims_v4
 
 
 def test_group_member_is_lazy_then_cached():
@@ -860,7 +863,7 @@ def test_unknown_member_raises():
 
 def test_charts_package_aggregates_chart_modules():
     from core.charts import chart_grammar, chart_lib
-    assert chart_grammar is core.chart_grammar
+    assert chart_grammar is core.charts.chart_grammar
     assert chart_lib is __import__("core.charts.chart_lib", fromlist=["x"])
 
 

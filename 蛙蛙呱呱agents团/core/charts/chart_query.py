@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core.chart_query —— 图表层：面板 → 查询 → 按形状选图。
+"""core.charts.chart_query —— 图表层：面板 → 查询 → 按形状选图。
 
 SOP v5：
     图不是“画”出来的，是查询结果的编码。

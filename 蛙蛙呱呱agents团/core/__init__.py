@@ -13,32 +13,41 @@ coordination patterns》）：
     3. 交接靠明确的 input/output 端口契约，而非口头约定；
     4. 一切带终止条件，避免死循环。
 
-逻辑分组（2026-11-23）
-----------------------
-139 个模块仍按文件平铺在 `core/` 下（**物理不动**，零迁移风险），
-但对外多一层「按层访问」的懒加载入口：
+物理分包（P4，2026-11-26）
+--------------------------
+`core/` 已按关注点分成真子包：base / data / sources / charts / claims /
+cards / report / prose（另有 report_kernel、report_theme）。旧平铺路径的
+兼容 shim 已全部退场，import 请走新路径：
+
+    from core.report import report_flow
+    from core.data import fact_table
+    from core.base import paths
+
+仍保留的「按层访问」懒加载入口（2026-11-23）：
 
     from core import gates
     gates.quality_gate          # == core.quality_gate
-    gates.report_quality        # == core.report_quality
+    gates.report_quality        # == core.report.report_quality
 
-完整分层见 docs/CORE-MAP.md。分组本身不 import 任何模块——访问时才加载。
+完整分层见 docs/CORE-MAP.md 与 docs/ARCHITECTURE-LEDGER.md。
 """
 from __future__ import annotations
 
 import importlib
 
 __all__ = [
-    # 原有
-    "protocol", "workspace", "registry", "runner", "report_bridge",
+    # 入口
+    "runner",
+    # 真子包（P4）
+    "base", "data", "sources", "charts", "claims", "cards", "report", "prose",
     # 逻辑分组（2026-11-23）
-    "pipeline", "intent", "experts", "data", "cards", "semantic",
-    "narrative", "charts", "render", "gates", "coordination",
+    "pipeline", "intent", "experts", "semantic",
+    "narrative", "render", "gates", "coordination",
 ]
 
 # 分组 → 成员模块名（与 docs/CORE-MAP.md 的 13 层一一对应）
-# 注意：名字不能跟现有模块同名。`collab` 已是 core/collab.py，所以协作组叫
-# `coordination`；`charts` 已是 core/charts/ 真包，不在此处定义。
+# 注意：名字不能跟现有模块/真子包同名。`collab` 已是 core/collab.py，所以协作组叫
+# `coordination`；`data` / `charts` / `cards` 已是真子包，不在此处定义。
 _GROUPS = {
     "pipeline": [
         "report_cli", "report_line", "report_dispatch", "report_flow",
@@ -54,11 +63,6 @@ _GROUPS = {
         "roster", "registry", "report_roles", "skill_graph", "skill_bridge",
         "analysis_methods", "analysis_desk", "analysis_pipeline",
         "methods",
-    ],
-    "data": [
-        "fact_table", "evidence_pack", "data_model", "data_profile",
-        "data_shape", "data_contract", "source_verify", "coverage_plan",
-        "coverage_confirm", "coverage_policy", "panel",
     ],
     "semantic": [
         "report_ir", "ir_adapters", "semantic_pipeline", "ir_to_contract",
@@ -79,6 +83,18 @@ _GROUPS = {
     ],
 }
 
+# 真子包：显式导入一次，让 `import core; core.data.fact_table` 直接可用。
+# 子包的 __init__ 本身是懒加载的，代价只有 8 次空包导入。
+from . import base, data, sources, charts, claims, cards, report, prose  # noqa: E402,F401
+
+# 成员名 → 所属子包（供分组懒加载解析；改名只需改子包的 __all__）
+_MOVED = {}
+for _pkg in ("base", "data", "sources", "charts", "claims", "cards",
+             "report", "prose"):
+    for _name in getattr(globals()[_pkg], "__all__", []):
+        _MOVED[_name] = _pkg
+del _pkg, _name
+
 
 class _Group:
     """懒加载的模块分组：访问 `core.gates.quality_gate` 时才 import。"""
@@ -89,7 +105,9 @@ class _Group:
 
     def __getattr__(self, item: str):
         if item in self._members:
-            mod = importlib.import_module("core." + item)
+            pkg = _MOVED.get(item)
+            target = "core.%s.%s" % (pkg, item) if pkg else "core." + item
+            mod = importlib.import_module(target)
             object.__setattr__(self, item, mod)   # 缓存，避免重复 import
             return mod
         raise AttributeError(
@@ -106,9 +124,3 @@ class _Group:
 for _g, _members in _GROUPS.items():
     globals()[_g] = _Group(_g, _members)
 del _g, _members
-
-# `charts`、`cards` 已是真子包（core/charts/、core/cards/），不放进 _GROUPS，
-# 否则会盖住真包。这里显式导入一次，让 `import core; core.cards.card_issue`
-# 直接可用；两个子包的 __init__ 本身是懒加载的，代价只有一次空包导入。
-from . import charts  # noqa: E402,F401
-from . import cards  # noqa: E402,F401

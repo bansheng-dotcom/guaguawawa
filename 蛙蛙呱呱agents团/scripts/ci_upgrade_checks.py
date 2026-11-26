@@ -40,7 +40,7 @@ def main() -> int:
         print(f"[{'OK' if rc == 0 else 'FAIL'}] {n:<8} {tail[:90]}")
         results.append({"name": n, "rc": rc, "tail": tail})
     try:
-        from core import paths as _paths
+        from core.base import paths as _paths
         out = _paths.runtime_root() / "ci_upgrade_report.json"
     except Exception:  # noqa: BLE001
         out = Path(ROOT).parent / "workspace" / "ci_upgrade_report.json"

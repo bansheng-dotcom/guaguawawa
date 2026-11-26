@@ -19,7 +19,7 @@
 
 ## 2. 标记契约（单一出处）
 
-`core/report_marks.py`：
+`core/report/report_marks.py`：
 
 | 常量 | 值 | 用在哪 |
 |---|---|---|
@@ -44,7 +44,7 @@
 | F7 | 图带来源 | **逐图**校验：每张 `<figure>` 内的 `fig-src` 必须有 ≥6 字来源文字；数 class 个数不算 |
 | F8 | 不出现 JSON | 不变 |
 | F9 | 重复句/密度/禁用词 | 不变 |
-| F10 | 深度 | 与 `core.report_quality` 同一判据 |
+| F10 | 深度 | 与 `core.report.report_quality` 同一判据 |
 | F11 | **不许自证** | 正文出现「全部门禁通过 / 两道门禁独立校验」→ FAIL |
 
 ## 4. 门禁指纹与锁
