@@ -207,3 +207,54 @@ def test_wiring_truth_state_is_registered():
     data = wt.build()
     problems = wt._check(data)
     assert problems == [], "\n".join(problems)
+
+
+# ====================================================================
+# P5 收敛守卫：契约单一出处（P5-1）+ 文笔兜底 fail-closed（P5-2）
+# ====================================================================
+def test_claims_schema_declared_once():
+    """合并后 claims 的 schema 只许在 claims/contract.py 里写一次。"""
+    hits = []
+    for p in (TEAM / "core").rglob("*.py"):
+        if p.parent.name == "claims" and p.name == "contract.py":
+            continue
+        if '"dsh.agent.claims/v1"' in p.read_text(encoding="utf-8"):
+            hits.append(p.relative_to(TEAM).as_posix())
+    assert hits == [], hits
+
+
+def test_claim_consistency_reads_through_contract():
+    from core.claims import claim_consistency as cc, contract
+
+    doc = {"numbers": [{"id": "N1", "name": " 规模 ", "value": 1,
+                        "period": "2024", "source_file": "S1"}],
+           "sources": [{"file": "S1", "grade": "b"}],
+           "sections": [], "boundaries": ["仅样本"]}
+    assert contract.norm_name(" 规模 ") == "规模"
+    assert contract.grades(doc) == {"S1": "B"}
+    assert cc.check(doc)["issues"]["C4_no_boundary"] == 0
+
+
+def test_prose_defaults_match_config():
+    """代码兜底值必须与 configs/report_prose.yaml 逐键一致，防止双写漂移。"""
+    from core.report.report_contract import PROSE_DEFAULTS
+    from core.prose import prose_style
+
+    pol = prose_style.load_policy()
+    for key, val in PROSE_DEFAULTS.items():
+        if key == "banned_phrases":      # 禁用词表本来就只写在配置里
+            continue
+        if key == "rubric":              # 配置里 rubric 还带 weights 等扩展键
+            assert pol[key]["pass"] == val["pass"]
+            assert pol[key]["usable"] == val["usable"]
+            continue
+        assert pol[key] == val, f"{key}: fallback={val!r} config={pol[key]!r}"
+
+
+def test_prose_fallback_is_fail_closed():
+    """配置缺失时不能用宽松默认值放行薄稿。"""
+    from core.prose import prose_style
+
+    pol = prose_style.load_policy(TEAM / "configs" / "__no_such__.yaml")
+    assert pol["chars_hard_min"] >= 800
+    assert pol["numbers_per_1000_chars_min"] >= 15

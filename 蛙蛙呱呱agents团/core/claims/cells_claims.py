@@ -18,6 +18,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+from core.claims import contract as _contract
+
 UNIT_DEFAULT = ""
 CALIBER_KEYS = ("scope", "currency", "price_basis")
 CALIBER_RATIO_EXTRA = ("denominator",)
@@ -433,7 +435,7 @@ def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any
                         "why": "数据集未到位（data/datasets/ 下没有该表）",
                     })
         claims = {
-            "schema": "dsh.agent.claims/v1", "contract": "v3",
+            "schema": _contract.SCHEMA, "contract": _contract.CONTRACT_CELLS,
             "layer": "claim_dataset",
             "role": role,
             "dispatch": disp,
@@ -658,7 +660,8 @@ def build(project: Path, cells_path: Optional[Path] = None,
             })
 
         claims = {
-            "schema": "dsh.agent.claims/v1", "contract": "v2", "card_spec": True,
+            "schema": _contract.SCHEMA, "contract": _contract.CONTRACT_CARD,
+            "card_spec": True,
             "role": role, "dispatch": dispatch_block,
             "meta": (tpl.get("meta") or {"title": "按格交报告", "intent": "按格交报告",
                                          "doc_type": "调研报告", "profile": "research"}),

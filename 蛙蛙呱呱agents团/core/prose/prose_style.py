@@ -12,17 +12,10 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List
 
-DEFAULTS = {
-    "chars_per_section": [300, 600],
-    "chars_table_section": [250, 500],
-    "chars_hard_min": 250,
-    "numbers_per_1000_chars_min": 15,
-    "required_blocks": ["结论", "事实", "机理", "反例", "所以"],
-    "markers": ["判别", "证伪", "如果", "若", "下一期", "信号"],
-    "contrast_markers": ["不是", "而是", "一种解释", "另一种解释"],
-    "banned_phrases": [],
-    "rubric": {"pass": 70, "usable": 55},
-}
+from core.report.report_contract import prose_defaults
+
+# 兜底值与 configs/report_prose.yaml 对齐（P5-2：阈值只在一个地方写死）。
+DEFAULTS = prose_defaults()
 
 
 def load_policy(path: str | Path | None = None) -> Dict[str, Any]:

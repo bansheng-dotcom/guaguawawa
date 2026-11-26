@@ -24,23 +24,21 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from core.claims import contract as CC
+
 SCHEMA = "dsh.claim_consistency/v1"
 TOL = 0.02          # 相对差 2% 以内视为同一个值
-
-
-def _norm_name(s: str) -> str:
-    return re.sub(r"[\s_（）()：:·]", "", str(s or ""))
 
 
 def _values(claims: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
     """按指标名归并数字（数字来自 numbers，兼容 derived 不计）。"""
     out: Dict[str, List[Dict[str, Any]]] = {}
-    for n in claims.get("numbers") or []:
+    for n in CC.numbers(claims):
         try:
             v = float(n.get("value"))
         except (TypeError, ValueError):
             continue
-        key = _norm_name(n.get("name") or "")
+        key = CC.norm_name(n.get("name") or "")
         if not key:
             continue
         out.setdefault(key, []).append({
@@ -59,10 +57,9 @@ def _close(a: float, b: float) -> bool:
 
 def check(claims: Dict[str, Any]) -> Dict[str, Any]:
     vals = _values(claims)
-    declared = {_norm_name(c.get("name") or ""): c
-                for c in (claims.get("conflicts") or [])}
-    grade_of = {str(s.get("file")): str(s.get("grade") or "C").upper()
-                for s in (claims.get("sources") or [])}
+    declared = {CC.norm_name(c.get("name") or ""): c
+                for c in CC.conflicts(claims)}
+    grade_of = CC.grades(claims)
 
     conflicts: List[Dict[str, Any]] = []
     unexplained: List[Dict[str, Any]] = []
@@ -93,7 +90,7 @@ def check(claims: Dict[str, Any]) -> Dict[str, Any]:
 
     # C2：结论只挂 D 级来源
     d_only: List[Dict[str, Any]] = []
-    for n in claims.get("numbers") or []:
+    for n in CC.numbers(claims):
         src = str(n.get("source_file") or "")
         if grade_of.get(src) == "D":
             d_only.append({"id": n.get("id"), "name": n.get("name"),
@@ -101,18 +98,18 @@ def check(claims: Dict[str, Any]) -> Dict[str, Any]:
 
     # C3：头条数字没有 A/B 级支撑
     stand = str(claims.get("standfirst") or "")
-    ab_ids = {str(n.get("id")) for n in (claims.get("numbers") or [])
+    ab_ids = {str(n.get("id")) for n in CC.numbers(claims)
               if grade_of.get(str(n.get("source_file") or "")) in ("A", "B", "S")}
     nums_in_stand = set(re.findall(r"\d+(?:\.\d+)?", stand))
     headline_unbacked: List[str] = []
     if stand and nums_in_stand:
-        cited = {str(r) for s in (claims.get("sections") or [])
+        cited = {str(r) for s in CC.sections(claims)
                  for r in (s.get("refs") or [])}
         if not (cited & ab_ids):
             headline_unbacked.append("头条里的数字没有引用任何 A/B 级来源")
 
     # C4：没写边界
-    bounds = [b for b in (claims.get("boundaries") or []) if str(b).strip()]
+    bounds = [b for b in CC.boundaries(claims) if str(b).strip()]
 
     issues = {
         "C1_unexplained_conflict": len(unexplained),

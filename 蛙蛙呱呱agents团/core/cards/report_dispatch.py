@@ -29,6 +29,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from core.report import report_clarify
 from core.report.report_clarify import KEYWORD_ROLES, TYPE_HINT
+from core.claims import contract as _claim_contract
 
 SCHEMA_PLAN = "dsh.report.plan/v1"
 SCHEMA_ISSUED = "dsh.report.issued/v1"
@@ -527,8 +528,8 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
         (d / "answers.json").write_text(json.dumps(
             {"answers": []}, ensure_ascii=False, indent=2), encoding="utf-8")
         (d / "claims.template.json").write_text(json.dumps({
-            "schema": "dsh.agent.claims/v1",
-            "contract": "v2",
+            "schema": _claim_contract.SCHEMA,
+            "contract": _claim_contract.CONTRACT_CARD,
             "card_spec": True,
             "role": rid,
             "dispatch": {"nonce": nonce, "role": rid, "by": "", "questions": qids},

@@ -8,6 +8,23 @@
 
 ---
 
+## 2026-11-27（第二十轮）· P5-1 / P5-2：契约单一出处（产物不变）
+
+一句话：**claims 的 schema/契约版本只在一处写；文笔兜底值与配置逐键对齐，缺配置时 fail-closed。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 新增 | `core/claims/contract.py` | schema、两条契约版本、数字/来源/节/冲突字段、`numbers()`/`grades()`/`norm_name()` 只做归一，不含业务逻辑 |
+| 改接线 | `claim_consistency` · `cells_claims` · `report_dispatch` | 字面量换常量；`check()`、claims.json、claims 模板的输出逐字节不变 |
+| 兜底集中 | `core/report/report_contract.py`：`PROSE_DEFAULTS` + `prose_defaults()` | 与 `configs/report_prose.yaml` 对齐；`prose_style.DEFAULTS` 改为从这里取 |
+| 修假绿 | `prose_style` 旧兜底 300/600、硬下限 250 | 配置缺失时会放行薄稿；现按 1000/1600、800 严格兜底 |
+| 新守卫 | `tests/test_gates.py` 4 条 | schema 只许出现一次、consistency 走契约、兜底=配置、缺配置 fail-closed |
+| 白名单 | `configs/core_files.json` | 167 → **168** |
+
+验收：`pytest` **634 passed** / 3 skipped；`ci_report_checks` ALL PASS（含 `[22] flow-project`）；wiring_truth / dead_code / project_boundary / doc_consistency 全 PASS；收敛违规 0。
+
+---
+
 ## 2026-11-26（第十九轮）· P4 收口：81 个兼容 shim 全部退场
 
 一句话：**旧平铺路径不再兼容；全仓 808 处引用改到新包路径，接线门禁升级为「全 core 路径图」。**
