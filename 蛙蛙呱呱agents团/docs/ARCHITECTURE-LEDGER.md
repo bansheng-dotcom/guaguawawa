@@ -17,7 +17,7 @@
 | 拆卡 / 收卡 | `core/cards/report_dispatch`（发卡）+ `card_issue`（拆卡）+ `dispatch.collect`（收卡） | `dispatch` v12.2 的旧叙事 | 合并为 `cards/pipeline` 时删旧描述 |
 | 断言模型 | `claims.py` + `claims_v4.py` | `claim_card` / `claim_gate`（2026-11-26 已删除） | 收敛为新 ClaimCard 后删 `claims_v4` |
 | 格子读数 | `cells_unified.observations()` | `cells_claims` 的 v1/v2/v3 三入口 | 单一读数稳定后下线旧入口 |
-| 报告正文 | `prose_spec`（11 字段）+ `report_prose_gen` + `prose_candidates` + `prose_style` | `prose_critic`（2026-11-26 已删除） | 合并为 `prose_contract` + `prose_render` |
+| 报告正文 | `core/prose/`：prose_spec / prose_candidates / prose_style；`report_prose_gen` 随报告线在 `core/report/` | 旧 `core/prose_*.py` shim；`prose_critic`（2026-11-26 已删除） | 合并为 `prose_contract` + `prose_render` 时动；`core.prose.report_prose_gen` 与旧路径同一对象 |
 | 图表 | 14 个 `chart_*` + `core/charts` + `report_theme` | `chart_fit`（2026-11-26 已删除） | 选型只保留 `report_flow.chart_fitness_errors` 一份 |
 | 覆盖矩阵 | `coverage_plan` / `coverage_confirm` / `coverage_policy` / `coverage_wire` | `coverage_cli` / `task_frame` / `task_research`（2026-11-26 已删除） | `dispatch` 内联产出 `task_frame.json`，不再有独立 CLI |
 | 门禁 | `check_report_flow` F1–F12 + `check_gates` + `ci_report_checks` | `gate_chain`（2026-11-26 已删除） | 以 F 编号为唯一索引；新增门禁先登记 |

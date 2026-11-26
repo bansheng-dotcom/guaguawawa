@@ -8,6 +8,22 @@
 
 ---
 
+## 2026-11-26（第十八轮）· P4 第七阶段：core/prose 归位
+
+一句话：**3 个正文契约/文笔模块进 `core/prose/`；正文生成 `report_prose_gen` 已随报告线在 `core/report/`，只做入口映射。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 物理迁移 | `core/prose/`：prose_spec / prose_candidates / prose_style | `git mv`，逻辑不变 |
+| 入口映射 | `core/prose/__init__.py` | 懒加载；`report_prose_gen` 映射到 `core.report.report_prose_gen`，`core.prose.report_prose_gen` 同一对象 |
+| 兼容层 | 旧 `core/prose_*.py` 共 3 个 | 模块别名；`prose_candidates` / `prose_style` 转发 `main()` 并自带仓库根引导 |
+| 深度修正 | prose_candidates（ROOT）、prose_style（`load_policy` 默认配置） | 文件深一层，`configs/report_prose.yaml` 仍指向正确位置 |
+| 白名单 | `configs/core_files.json` | 244 → **248**（3 shim + prose/__init__） |
+
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS；r04 端到端 126/126、r06 端到端 155/155；`guagua.py check` 20/20；`audit_dod` 15/15；wiring_truth / dead_code / project_boundary / report_isolation 全 PASS。
+
+---
+
 ## 2026-11-26（第十七轮）· P4 第六阶段：core/report 归位
 
 一句话：**20 个平铺报告模块进 `core/report/`；`report_kernel/`、`report_theme/` 本就是真包，保持原地。**
