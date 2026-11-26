@@ -41,7 +41,7 @@
   "counterexample": "只有两期数据、且没有对照组时，任何「因为 A 所以 B」都是把时间先后当因果。",
   "failure_mode": "用回归系数代替识别策略；忽略共同冲击（如补贴退坡同时影响所有品类）。",
   "landing": {
-    "method": "none（待接入：core/claims.py 增加 Claim.level 与因果词门禁）",
+    "method": "none（待接入：core/claims/claims.py 增加 Claim.level 与因果词门禁）",
     "claim_kind": "gap",
     "frame": "market / operations",
     "gate": "待接入：C1_causal_language（当前是软告警）",

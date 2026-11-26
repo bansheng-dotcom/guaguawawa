@@ -40,7 +40,7 @@
   "counterexample": "基准期本身处在异常年份（如补贴高峰），基准率会把异常当正常，反而掩盖问题。",
   "failure_mode": "拿一个季度的背离讲结构性替代；不写样本量。",
   "landing": {
-    "method": "core/claims.py::_mech_gap",
+    "method": "core/claims/claims.py::_mech_gap",
     "claim_kind": "gap",
     "frame": "market",
     "gate": "Q4",

@@ -8,6 +8,22 @@
 
 ---
 
+## 2026-11-26（第十五轮）· P4 第四阶段：core/claims 归位
+
+一句话：**6 个断言/格子模块进 `core/claims/`；顺带修掉两处按字符串引用旧路径的检查。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 物理迁移 | `core/claims/`：claims / claims_v4 / claim_consistency / cell_claim / cells_claims / cells_unified | `git mv`，逻辑不变 |
+| 兼容层 | 旧 `core/<name>.py` 共 6 个 | 模块别名；`python -m core.claim_consistency --help` 仍可用（shim 转发 `main()`） |
+| 路径修正 | `scripts/check_convergence.py` | 读取路径改为 `core/claims/claim_consistency.py` |
+| 卡片修正 | `knowledge/moves/M-STA-001.json` · `M-CAU-001.json` | 方法引用改为 `core/claims/claims.py::_mech_gap`；CI `[7] move cards` 先红后修 |
+| 白名单 | `configs/core_files.json` | 208 → **215**（6 shim + claims/__init__） |
+
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS（含 move cards 7/7）；r06 端到端全绿；`wiring_truth` / `check_dead_code` / `check_project_boundary` PASS。
+
+---
+
 ## 2026-11-26（第十四轮）· P4 第三阶段：core/charts 归位
 
 一句话：**13 个平铺 `chart_*.py` 搬进已有的 `core/charts/`，包入口从“逻辑聚合”改成“物理归位”。**

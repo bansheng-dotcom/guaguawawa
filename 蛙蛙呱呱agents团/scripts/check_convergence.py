@@ -158,12 +158,12 @@ def s2_readiness_no_methods() -> None:
 
 def s2_claim_gate_c2() -> None:
     """D 级来源必须拦（文档说拦，代码没拦）。"""
-    src = _read("core/claim_consistency.py")
+    src = _read("core/claims/claim_consistency.py")
     m = re.search(r"blocking\s*=\s*\(([\s\S]*?)\)", src)
     if m and "C2" not in m.group(1):
         line = src[:m.start()].count("\n") + 1
         hit("S2", "C2（D 级来源）只统计不拦截，与文档承诺不符",
-            f"core/claim_consistency.py:{line}",
+            f"core/claims/claim_consistency.py:{line}",
             "把 issues['C2_d_only_numbers'] > 0 加进 blocking，或改文档别承诺")
 
 
