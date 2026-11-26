@@ -30,5 +30,14 @@ claims/
 report/
 claims_*.json
 
+# P4 代码包：core/ 下同名目录是代码，不是项目资产（不这样写，整包会不进库）
+# 只放行 .py，避免把 __pycache__ 一起放进来
+!core/claims/
+!core/claims/**/*.py
+!core/cards/
+!core/cards/**/*.py
+!core/report/
+!core/report/**/*.py
+
 # 头像拼版预览（avatars/ 才是唯一源）
 头像预览联系表.png

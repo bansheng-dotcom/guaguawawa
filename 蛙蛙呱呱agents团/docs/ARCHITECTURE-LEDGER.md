@@ -12,6 +12,7 @@
 | 图表层 | `core/charts/`：16 个模块（13 个原平铺 chart_* + 3 个渲染器） | 旧 `core/chart_*.py` shim | 同上；`python -m core.chart_capabilities` 仍可用 |
 | 断言层 | `core/claims/`：claims / claims_v4 / claim_consistency / cell_claim / cells_claims / cells_unified | 旧 `core/<name>.py` shim | 同上；`python -m core.claim_consistency` 仍可用 |
 | 卡片层 | `core/cards/`：card_plan / card_issue / card_probe / card_bundle / card_upgrade / dispatch / report_dispatch | 旧 `core/<name>.py` shim | 同上；`core.cards` 是真子包，另映射 7 个仍平铺的拆卡线成员 |
+| 报告层 | `core/report/`：19 个 `report_*` + flow_report | 旧 `core/report_*.py` shim | 同上；`report_kernel/`、`report_theme/` 已是真包，保持原地（迁入会产生双重模块身份） |
 | 报告入口 | `report run-line` → `report_line` → `decision_report` → `report_flow` | `report_cli` 的 v10/v11 说法、`flow_report` 模板线 | `report_line` 目前是转发层；统一门面后合并 |
 | 拆卡 / 收卡 | `core/cards/report_dispatch`（发卡）+ `card_issue`（拆卡）+ `dispatch.collect`（收卡） | `dispatch` v12.2 的旧叙事 | 合并为 `cards/pipeline` 时删旧描述 |
 | 断言模型 | `claims.py` + `claims_v4.py` | `claim_card` / `claim_gate`（2026-11-26 已删除） | 收敛为新 ClaimCard 后删 `claims_v4` |

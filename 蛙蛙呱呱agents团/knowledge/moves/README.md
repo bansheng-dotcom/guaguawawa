@@ -9,9 +9,9 @@
 | 落点 | 在哪 | 不落会怎样 |
 |---|---|---|
 | 方法 | `core/methods/*.py` 的 `@method` | 只是文档，产线不会执行 |
-| 论证 | `core/claims.py` 的 `kind` / 机理函数 | 有数但说不出为什么 |
+| 论证 | `core/claims/claims.py` 的 `kind` / 机理函数 | 有数但说不出为什么 |
 | 问题链 | `core/frames.py` 或 `report_thesis.THESES` | 报告里没有这一节 |
-| 门禁 | `core/report_quality.py` / `check_report_flow.py` | 下次改坏没人拦 |
+| 门禁 | `core/report/report_quality.py` / `check_report_flow.py` | 下次改坏没人拦 |
 | 回归 | `tests/test_*.py` 的具体函数 | 无法证明它还在工作 |
 
 ## 卡片状态

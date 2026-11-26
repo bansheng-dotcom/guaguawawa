@@ -8,6 +8,24 @@
 
 ---
 
+## 2026-11-26（第十七轮）· P4 第六阶段：core/report 归位
+
+一句话：**20 个平铺报告模块进 `core/report/`；`report_kernel/`、`report_theme/` 本就是真包，保持原地。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 物理迁移 | `core/report/`：19 个 `report_*` + flow_report | `git mv`，逻辑不变 |
+| 不迁 | `core/report_kernel/`（8 文件）、`core/report_theme/`（19 文件） | 已是真包；搬进来会同时存在 `core.report_kernel` 与 `core.report.report_kernel` 两份模块身份 |
+| 兼容层 | 旧 `core/<name>.py` 共 20 个 | 模块别名；8 个 CLI 模块转发 `main()`，并自带仓库根引导，`python core/report_renderer.py` 直接跑仍可用 |
+| 深度修正 | report_cli / report_flow / report_line / report_model / report_contract / report_layout / report_roles / report_structure / flow_report（ROOT）· report_bridge（AGENTS_ROOT + CORE_RENDERER）· report_renderer（CHART_DIR + 两处 `_root`） | 文件深一层，路径同步 +1 |
+| 引用修正 | `knowledge/moves/M-EXP-001.json` | `landing.method` 改为 `core/report/report_quality.py::audit`；CI `[7] move cards` 先红后修 |
+| 边界 | `boundary_allowlist.yaml` | 登记 `core/report/` |
+| 白名单 | `configs/core_files.json` | 223 → **244**（20 shim + report/__init__） |
+
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS（含 `-m core.report_quality`、`-m core.report_model --audit`、move cards 7/7）；r06 端到端 155/155；`guagua.py check` 20/20；`audit_dod` 15/15；wiring_truth / dead_code / project_boundary / report_isolation 全 PASS。
+
+---
+
 ## 2026-11-26（第十六轮）· P4 第五阶段：core/cards 归位
 
 一句话：**7 个拆卡/发卡/收卡模块进 `core/cards/`；`core.cards` 从懒加载分组升级为真子包，并修掉两个会随迁移“假绿/假红”的检查脚本。**

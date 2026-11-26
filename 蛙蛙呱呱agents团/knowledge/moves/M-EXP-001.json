@@ -40,7 +40,7 @@
   "counterexample": "图很漂亮但删掉后结论不受影响，说明它只是装饰，不是证据。",
   "failure_mode": "截断坐标轴夸大差异；只画高亮段隐藏全貌；用 3D 饼图。",
   "landing": {
-    "method": "core/report_quality.py::audit",
+    "method": "core/report/report_quality.py::audit",
     "claim_kind": "trend",
     "frame": "all",
     "gate": "F7 + Q7",
