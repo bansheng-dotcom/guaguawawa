@@ -6,6 +6,7 @@
 
 | 关注点 | CURRENT（唯一在跑） | LEGACY / 已删除 | 删除条件 / 备注 |
 |---|---|---|---|
+| 地基模块 | `core/base/`：paths / workspace / project / registry / protocol | 旧 `core/<name>.py` shim（全量转发） | P4 全部包迁完后统一删 shim；包名不用 `platform`（遮蔽标准库） |
 | 报告入口 | `report run-line` → `report_line` → `decision_report` → `report_flow` | `report_cli` 的 v10/v11 说法、`flow_report` 模板线 | `report_line` 目前是转发层；统一门面后合并 |
 | 拆卡 / 收卡 | `report_dispatch`（发卡）+ `card_issue`（拆卡）+ `dispatch.collect`（收卡） | `dispatch` v12.2 的旧叙事 | 合并为 `cards/pipeline` 时删旧描述 |
 | 断言模型 | `claims.py` + `claims_v4.py` | `claim_card` / `claim_gate`（2026-11-26 已删除） | 收敛为新 ClaimCard 后删 `claims_v4` |

@@ -298,8 +298,8 @@ def _dump_result(task_id: str, owner: str, stdout: str) -> None:
         res = _json.loads(line)
     except _json.JSONDecodeError:
         return
-    d = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
-                      "workspace", "artifacts", "r01")
+    from core import paths as _paths
+    d = _os.path.join(str(_paths.runtime_root()), "artifacts", "r01")
     _os.makedirs(d, exist_ok=True)
     with open(_os.path.join(d, "dispatch_results.jsonl"), "a", encoding="utf-8") as fh:
         fh.write(_json.dumps({"task_id": task_id, "owner": owner, "at": _dt.now().isoformat(timespec="seconds"),

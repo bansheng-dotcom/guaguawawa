@@ -8,6 +8,26 @@
 
 ---
 
+## 2026-11-26（第十二轮）· P4 第一阶段：core/base 分包
+
+一句话：**先搬地基，五个模块一个包；旧路径全部保留 shim，行为不变。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 物理迁移 | `core/base/{paths,workspace,project,registry,protocol}.py` | `git mv`，不改逻辑、不改名 |
+| 命名修正 | 包名用 `base` 而非 `platform` | `core/platform/` 会遮蔽标准库 `platform`：r06 把 `core/` 加入 `sys.path` 后，pandas 导入即崩（AttributeError: python_implementation） |
+| 兼容层 | 旧 `core/<name>.py` 保留 shim | 全量转发实现模块的 globals（含私有符号），117 处 import 不用改 |
+| 根目录修正 | `base/paths.py` · `base/workspace.py` | 文件深了一层，`__file__` 上溯层数 +1，`TEAM_ROOT` / 工作区根仍指向正确位置 |
+| 白名单 | `configs/core_files.json` | 重生成：160 → 166（5 实现 + 5 shim + base/\_\_init\_\_） |
+| 边界复发修复 | `r01-waquanju-ceo/agent.py` | `dispatch_results.jsonl` 从团内 `workspace/` 改写到 `paths.runtime_root()/artifacts/r01`（该文件无读取方，仅留调试台账） |
+| 边界 | `core/base/__init__.py` | 空包，不在 import 时加载子模块，避免循环依赖 |
+
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS；`wiring_truth --check` PASS；`check_dead_code --check` PASS；`gen_agent_packs --check` 无漂移；`check_role_packs` 20/20；`guagua.py roles` 正常（20 角色）。
+
+未做：其余 7 个包（data/sources/charts/claims/cards/report/prose）尚未迁移；shim 全部保留，等全部包搬完再单独删。
+
+---
+
 ## 2026-11-26（第十一轮）· 断舍离：12 个未接线模块下线（-1,807 行）
 
 一句话：**把「文档里有、测试在测、产线不用」的模块全部删掉，并保留真实需求的替代判据。**
