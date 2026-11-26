@@ -8,6 +8,25 @@
 
 ---
 
+## 2026-11-26（第十三轮）· P4 第二阶段：core/data + core/sources 分包
+
+一句话：**27 个数据/来源模块各归其包；shim 改成模块别名，保证 monkeypatch 仍作用在实现模块上。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| data 包（13） | `core/data/`：analysis_desk / unit / pipeline、data_contract / model / profile / shape / standard、dataset / dataset_gates / dataset_query、fact_table、evidence_pack | `git mv`，逻辑不变 |
+| sources 包（14） | `core/sources/`：source_*、collection_*、coverage_*、supply_plan、research_* | `git mv`，逻辑不变 |
+| 兼容层 | 旧 `core/<name>.py` 共 32 个 | 改为 `sys.modules[__name__] = 实现模块` 别名：模块身份一致，monkeypatch 与模块级状态仍生效 |
+| 深度修正 | 7 个文件 | analysis_pipeline（parents[1]→[2]）、collection_spec / coverage_policy / source_profile（parent.parent→parent.parent.parent）、data_contract（data_contracts）、data_model（configs）、data_shape（charts） |
+| 白名单 | `configs/core_files.json` | 重生成：166 → **195**（27 实现 + 27 shim + 2 个 `__init__`） |
+| 边界 | `boundary_allowlist.yaml` | 登记 `core/data/`：代码包名恰好叫 data，不是项目数据集 |
+
+踩坑记录：第一版 shim 用 globals 复制，`tests/test_research.py` 的 `monkeypatch.setattr(research_intake, "_fetch", ...)` 打在 shim 上，实现模块读不到 → reachable 0/2。改成模块别名后恢复。这条对后续 7 个包同样适用。
+
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS；`wiring_truth --check` PASS；`check_dead_code --check` PASS；`check_project_boundary` PASS；`gen_agent_packs --check` 无漂移；`check_role_packs` 20/20；r05 / r06 端到端全绿；`guagua.py check` 20/20。
+
+---
+
 ## 2026-11-26（第十二轮）· P4 第一阶段：core/base 分包
 
 一句话：**先搬地基，五个模块一个包；旧路径全部保留 shim，行为不变。**

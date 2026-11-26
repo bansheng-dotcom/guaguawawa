@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-"""兼容层（P4 第一阶段）：实现已迁至 core.base.paths。
+"""兼容层（P4）：实现已迁至 core.base.paths。
 
-保留旧路径供现有 import 使用；迁移验证后统一删除。
+用 sys.modules 别名保持模块身份一致：monkeypatch / 模块级状态仍然作用在实现模块上。
+迁移全部完成后统一删除本文件。
 """
-from core.base import paths as _impl  # noqa: F401
+import sys as _sys
 
-for _k, _v in vars(_impl).items():
-    if not _k.startswith("__"):
-        globals()[_k] = _v
+from core.base import paths as _impl
+
+_sys.modules[__name__] = _impl
