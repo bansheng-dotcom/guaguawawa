@@ -8,6 +8,22 @@
 
 ---
 
+## 2026-11-27（第二十一轮）· P5-3：cards 单一编排入口（字段不变）
+
+一句话：**发卡/验卡/收卡只从 `core/cards/pipeline.py` 进；三个实现模块不动，产物不变。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 新增 | `core/cards/pipeline.py` | `write_plan/prepare/bootstrap/prepare_probe_cards/issue/load_issued/verify_claims/collect` 八个转发函数，不实现业务 |
+| 改调用 | `report_cli` 8 处、`preflight` 2 处 | 改走 pipeline；不再直接引用 `report_dispatch` / `card_issue` / `dispatch.collect` |
+| 包入口 | `core/cards/__init__.py` | `pipeline` 纳入 `__all__` 与文档示例 |
+| 新守卫 | `tests/test_gates.py` 2 条 | CLI/预检只许走 pipeline；`collect` 参数原样转发（monkeypatch 验证） |
+| 白名单 | `configs/core_files.json` | 168 → **169** |
+
+验收：`pytest` **636 passed** / 3 skipped；`ci_report_checks` ALL PASS；r06 端到端 155/155；`guagua.py check` 20/20；wiring_truth / dead_code / project_boundary / gen_agent_packs / role_packs / move_cards 全 PASS。
+
+---
+
 ## 2026-11-27（第二十轮）· P5-1 / P5-2：契约单一出处（产物不变）
 
 一句话：**claims 的 schema/契约版本只在一处写；文笔兜底值与配置逐键对齐，缺配置时 fail-closed。**

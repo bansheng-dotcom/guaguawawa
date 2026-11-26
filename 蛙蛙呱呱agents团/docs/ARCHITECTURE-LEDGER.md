@@ -14,7 +14,7 @@
 | 卡片层 | `core/cards/`：card_plan / card_issue / card_probe / card_bundle / card_upgrade / dispatch / report_dispatch | 旧平铺 `core/<name>.py`（2026-11-26 已删除） | `core.cards` 是真子包，另映射 7 个已归位成员（cells_claims / collection_contract / research_* 等） |
 | 报告层 | `core/report/`：19 个 `report_*` + flow_report | 旧平铺 `core/report_*.py`（2026-11-26 已删除） | `report_kernel/`、`report_theme/` 已是真包，保持原地（迁入会产生双重模块身份） |
 | 报告入口 | `report run-line` → `report_line` → `decision_report` → `report_flow` | `report_cli` 的 v10/v11 说法、`flow_report` 模板线 | `report_line` 目前是转发层；统一门面后合并 |
-| 拆卡 / 收卡 | `core/cards/report_dispatch`（发卡）+ `card_issue`（拆卡）+ `dispatch.collect`（收卡） | `dispatch` v12.2 的旧叙事 | 合并为 `cards/pipeline` 时删旧描述 |
+| 拆卡 / 收卡 | 外部只走 `core/cards/pipeline.py`（P5-3，2026-11-27）；实现仍在 `report_dispatch`（发/验）+ `card_issue`（拆/探）+ `dispatch.collect`（收） | `dispatch` v12.2 的旧叙事 | 合并为 `cards/pipeline` 单一实现后，三个模块退场 |
 | 断言模型 | `claims.py` + `claims_v4.py`；字段与契约版本见 `core/claims/contract.py`（P5-1，2026-11-27） | `claim_card` / `claim_gate`（2026-11-26 已删除） | 收敛为新 ClaimCard 后删 `claims_v4`；在此之前字段只许从 contract 读 |
 | 格子读数 | `cells_unified.observations()` | `cells_claims` 的 v1/v2/v3 三入口 | 单一读数稳定后下线旧入口 |
 | 报告正文 | `core/prose/`：prose_spec / prose_candidates / prose_style；`report_prose_gen` 随报告线在 `core/report/`；阈值兜底见 `report_contract.PROSE_DEFAULTS`（P5-2，2026-11-27） | 旧平铺 `core/prose_*.py`（2026-11-26 已删除）；`prose_critic`（已删除） | 合并为 `prose_contract` + `prose_render` 时动；阈值只许配置 + 一处兜底 |

@@ -258,3 +258,31 @@ def test_prose_fallback_is_fail_closed():
     pol = prose_style.load_policy(TEAM / "configs" / "__no_such__.yaml")
     assert pol["chars_hard_min"] >= 800
     assert pol["numbers_per_1000_chars_min"] >= 15
+
+
+def test_card_orchestration_has_single_entry():
+    """P5-3：CLI 与预检只许走 cards.pipeline，不许绕过它调实现模块。"""
+    cli = (TEAM / "core/report/report_cli.py").read_text(encoding="utf-8")
+    pf = (TEAM / "scripts/preflight.py").read_text(encoding="utf-8")
+    for src in (cli, pf):
+        assert "report_dispatch." not in src
+        assert "dispatch.collect" not in src
+        assert "card_issue." not in src
+    assert "from core.cards import pipeline" in cli
+
+
+def test_card_pipeline_forwards(tmp_path, monkeypatch):
+    """pipeline 只转发：收卡参数原样传给实现，验卡/发卡的读法不变。"""
+    from core.cards import dispatch, pipeline
+
+    assert pipeline.load_issued(str(tmp_path)) is None
+
+    seen = {}
+
+    def fake_collect(out_dir, **kw):
+        seen.update({"out": out_dir, "kw": kw})
+        return {}, []
+
+    monkeypatch.setattr(dispatch, "collect", fake_collect)
+    assert pipeline.collect(str(tmp_path), intent="t") == ({}, [])
+    assert seen == {"out": str(tmp_path), "kw": {"intent": "t"}}

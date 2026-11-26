@@ -14,6 +14,7 @@
  "cards/card_probe.py",
  "cards/card_upgrade.py",
  "cards/dispatch.py",
+ "cards/pipeline.py",
  "cards/report_dispatch.py",
  "charts/__init__.py",
  "charts/chart_candidates.py",

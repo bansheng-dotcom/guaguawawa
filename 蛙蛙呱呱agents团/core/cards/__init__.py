@@ -6,6 +6,7 @@
 
     from core.cards import card_issue
     from core.cards import dispatch
+    from core.cards import pipeline      # 发卡 / 验卡 / 收卡的唯一编排入口
 
 不 import 任何子模块直到被访问（懒加载），避免卡模块之间的循环依赖。
 """
@@ -14,8 +15,8 @@ from __future__ import annotations
 import importlib
 
 __all__ = [
-    "card_plan", "card_issue", "card_probe", "card_bundle", "card_upgrade",
-    "dispatch", "report_dispatch",
+    "pipeline", "card_plan", "card_issue", "card_probe", "card_bundle",
+    "card_upgrade", "dispatch", "report_dispatch",
 ]
 
 #: 拆卡线里仍平铺在 core/ 的成员：保持 `core.cards.X` 与 `core.X` 同一对象。

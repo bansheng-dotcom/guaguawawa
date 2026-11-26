@@ -158,7 +158,7 @@ def cmd_brief(args) -> int:
         report brief --dir <项目> --plan            出映射表（draft）
         report brief --dir <项目> --plan --confirm  确认并发卡（带 nonce）
     """
-    from core.cards import dispatch, report_dispatch
+    from core.cards import pipeline
     if getattr(args, "plan", False) or getattr(args, "dir", None) \
             or getattr(args, "project", None):
         base = args.dir or args.out or getattr(args, "project", None)
@@ -186,7 +186,7 @@ def cmd_brief(args) -> int:
                         print(json.dumps({"ok": False, "error": sg.get("error")},
                                          ensure_ascii=False, indent=1))
                         return 2
-            res = report_dispatch.write_plan(base, confirm=bool(args.confirm))
+            res = pipeline.write_plan(base, confirm=bool(args.confirm))
             # 用户过卡留痕：确认时把卡片清单与时间写进 plan.json
             if getattr(args, "confirm", False):
                 try:
@@ -201,8 +201,7 @@ def cmd_brief(args) -> int:
                     pass
             # v1.5：拆卡 SOP 进产线。--plan 即生成五轴并判 S7 门禁；
             # 门禁不过，--confirm 一律不发卡。
-            from core.cards import card_issue
-            spec = card_issue.prepare(Path(base), intent=str(res.get("intent") or ""))
+            spec = pipeline.prepare(Path(base), intent=str(res.get("intent") or ""))
             res["card_spec"] = {"ok": spec.get("ok"),
                                 "counts": spec.get("counts"),
                                 "gates": spec.get("gates")}
@@ -236,7 +235,7 @@ def cmd_brief(args) -> int:
                                    "--user-said \"用户原话\" 才会发卡。")
             if args.confirm:
                 # 审完即发：确认映射与发卡是同一次动作，避免"确认了但没发"
-                res = {**res, "issued": report_dispatch.issue(base)}
+                res = {**res, "issued": pipeline.issue(base)}
                 if not res["issued"].get("ok"):
                     print(json.dumps(res, ensure_ascii=False, indent=1))
                     return 2
@@ -247,7 +246,7 @@ def cmd_brief(args) -> int:
                     res["grid"] = {"ok": False, "why": str(exc)}
             print(json.dumps(res, ensure_ascii=False, indent=1))
             return 0 if res.get("ok") else 2
-        res = report_dispatch.issue(base)
+        res = pipeline.issue(base)
         if res.get("ok"):
             try:
                 from core import grid_attach
@@ -285,8 +284,8 @@ def cmd_brief(args) -> int:
             "hint": "把 12 问问给用户，再用 clarify --confirm --user-said \"原话\"",
         }, ensure_ascii=False, indent=1))
         return 2
-    from core.cards import card_issue
-    res = card_issue.bootstrap(Path(args.out), args.intent, only)
+    from core.cards import pipeline
+    res = pipeline.bootstrap(Path(args.out), args.intent, only)
     res["mode"] = "legacy+card_spec"
     res["note"] = "老路径已并入拆卡门禁：五轴不过不发卡"
     print(json.dumps(res, ensure_ascii=False, indent=1))
@@ -313,11 +312,11 @@ def cmd_probe(args) -> int:
         report probe --dir <项目>             → 跑探测，生成 plan/supply.json
         report probe --dir <项目> --degrade   → 探测 + 把无数据的格子标 unavailable
     """
-    from core.cards import card_issue, card_probe
+    from core.cards import card_probe, pipeline
 
     base = str(args.dir)
     if getattr(args, "issue", False):
-        res = card_issue.prepare_probe_cards(Path(base))
+        res = pipeline.prepare_probe_cards(Path(base))
         print(json.dumps(res, ensure_ascii=False, indent=1))
         return 0 if res.get("ok") else 1
 
@@ -362,7 +361,7 @@ def cmd_collect(args) -> int:
     否则直接报错退出——过去一条 `--no-strict-quotes` 就能让 40% 未核来源
     静默过关，产物上还看不出降级。
     """
-    from core.cards import dispatch
+    from core.cards import pipeline
     from core.base import paths, project as project_mod
     verify = bool(getattr(args, "verify_quotes", True))
     strict = bool(getattr(args, "strict_quotes", True))
@@ -377,7 +376,7 @@ def cmd_collect(args) -> int:
         return 2
     paths.assert_writable(args.out, allow_runtime=True)
     proj = project_mod.load(getattr(args, "project", None) or args.dir)
-    merged, problems = dispatch.collect(
+    merged, problems = pipeline.collect(
         args.dir,
         require_all=not getattr(args, "allow_partial", False),
         min_sources=int(getattr(args, "min_sources", 0) or 0),
@@ -442,13 +441,13 @@ def cmd_research(args) -> int:
     """
     import os
     from core import parallel_research
-    from core.cards import card_issue
+    from core.cards import pipeline
 
     only = [x.strip() for x in (getattr(args, "only", "") or "").split(",") if x.strip()] or None
     base = Path(args.out)
     base.mkdir(parents=True, exist_ok=True)
     # v1.5：并行调研也走拆卡门禁；缺语义层直接拒。
-    boot = card_issue.bootstrap(base, args.intent, only)
+    boot = pipeline.bootstrap(base, args.intent, only)
     if not boot.get("ok"):
         print(json.dumps(boot, ensure_ascii=False, indent=1))
         return 2

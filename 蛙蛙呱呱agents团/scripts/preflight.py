@@ -54,8 +54,8 @@ def run(base: str, min_sources: int = 50) -> dict:
         f"plan 已签字，{len(cards)} 张卡" if plan.get("status") == "confirmed" and cards
         else "plan 未签字或无卡：先 report brief --dir … --plan --confirm")
 
-    from core.cards import report_dispatch
-    issued = report_dispatch.load_issued(base) or {}
+    from core.cards import pipeline
+    issued = pipeline.load_issued(base) or {}
     ic = issued.get("cards") or {}
     add("P3", bool(ic),
         f"已发 {len(ic)} 张卡" if ic
@@ -74,7 +74,7 @@ def run(base: str, min_sources: int = 50) -> dict:
         if not f.is_file():
             continue
         cl = _load(f) or {}
-        good, why = report_dispatch.verify_claims(cl, rid, issued)
+        good, why = pipeline.verify_claims(cl, rid, issued)
         if not good:
             bad_nonce.append(f"{rid}: {why}")
         for s in cl.get("sources") or []:
