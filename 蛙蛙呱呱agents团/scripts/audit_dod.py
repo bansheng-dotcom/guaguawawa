@@ -95,10 +95,9 @@ ck(7, "数据分支产出 data_profile",
 
 # 8 三前端接产线 + 语义一致性
 rf = _txt("report_flow.py")
-gc = _txt("gate_chain.py")
 ck(8, "三前端接产线 + 语义一致性",
-   "decision_to_ir" in rf and "def _l2" in gc,
-   "build_sections_contract 调 decision_to_ir；gate_chain L2 校验")
+   "decision_to_ir" in rf and "semantic_pipeline" in rf,
+   "build_sections_contract 调 decision_to_ir + semantic_pipeline")
 
 # 9 chart_query 接主路径 + 1–2 点不出
 chu = _txt("chart_units.py")
@@ -107,8 +106,10 @@ ck(9, "chart_query 接主路径 + 1–2 点不出",
    "chart_query 接入；chart_units 门槛 <3")
 
 # 10 一条门禁链（渲染路径两条为设计选择）
-ck(10, "一条门禁链", "def run(" in gc and "_l4" in gc,
-   "gate_chain 四层一条链")
+flow_gate = (ROOT / "scripts" / "check_report_flow.py")
+fg = flow_gate.read_text(encoding="utf-8", errors="replace") if flow_gate.is_file() else ""
+ck(10, "一条门禁链", "F1" in fg and "F12" in fg,
+   "check_report_flow F1–F12 一条链")
 
 # 11 core 无业务词 + 样例在 samples/
 samples_ok = (ROOT / "samples").is_dir() and not (CORE / "report_theme"

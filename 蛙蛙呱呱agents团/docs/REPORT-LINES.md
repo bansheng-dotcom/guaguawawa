@@ -177,11 +177,8 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 | `core/report_bridge.py` | 渲染薄层：`render_html / write_markdown / render_pdf` |
 | `core/report_theme/` | consulting 主题：固定 A4 页式 + A/B 两种节页（`docs/REPORT-LAYOUTS.md`） |
 | `core/report_editorial.py` | 旧契约补 verdict/kicker/rail/actions/sources + 契约门禁 |
-| `core/task_research.py` | 覆盖自动化：来源账本 + 50 源/连续 15 源饱和 |
-| `core/task_frame.py` | 覆盖自动化：TaskFrame（单元/维度/深度/地图/页数） |
 | `core/data_shape.py` | 数据形状 → 图型适配（问题 + shape 双约束） |
 | `core/coverage_plan.py` | 覆盖自动化：CoveragePlan + 出稿前门禁 |
-| `core/coverage_cli.py` | `plan → confirm → preflight → audit` |
 | `configs/report_coverage.yaml` | 50 源/15 源/21 页/双地图唯一阈值 |
 | `core/charts/consulting.py` | consulting 主题的 14 型确定性 SVG 图表 |
 | `core/report_renderer.py` | 唯一 HTML 渲染器（charts_pro 70 型 + 8 套主题 + 呈现层规则） |

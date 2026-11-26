@@ -28,11 +28,11 @@ from core import chart_contract as cc
 import os
 from core.report_theme.charts_pro import interactive, layout
 from core import chart_field_contract as chart_contract
-from core import chart_fit, data_standard as ds
+from core import data_standard as ds
 from core.report_theme.charts_pro import layout, spec
 from core.chart_payload import build_payload
 from core import data_standard as ds
-from core.report_theme import table_backend, tokens
+from core.report_theme import tokens
 
 from core import chart_query as cq
 
@@ -202,33 +202,6 @@ def _ds(pairs, unit="元"):
     return d
 
 
-def test_empty_dataset_degrades_to_text():
-    out = chart_fit.fit(_ds([]))
-    assert out["recommended"] == "text"
-    assert out["candidates"][0]["fallback"] == "table"
-
-
-def test_time_series_picks_line_family():
-    out = chart_fit.fit(_ds([("甲", "2025-0%d" % i, float(i)) for i in (1, 2, 3, 4)]))
-    rec = out["recommended"]
-    assert rec in ("line", "multi_line", "area")
-
-
-def test_negative_values_flag_diverging():
-    out = chart_fit.fit(_ds([("甲", "2025", -2.0), ("乙", "2025", 3.0),
-                             ("丙", "2025", 1.0)]))
-    assert "diverging" in [c["type"] for c in out["candidates"]]
-
-
-def test_flat_values_refuse_to_chart():
-    out = chart_fit.fit(_ds([("甲", "2025", 0.0), ("乙", "2025", 0.0)]))
-    assert out["recommended"] == "text"
-
-
-def test_share_unit_offers_pie():
-    out = chart_fit.fit(_ds([("甲", "2025", 35.0), ("乙", "2025", 25.0),
-                             ("丙", "2025", 40.0)], unit="%"))
-    assert "pie" in [c["type"] for c in out["candidates"]]
 
 
 def test_required_of_resolves_alias():
@@ -414,18 +387,7 @@ def test_css_vars_contains_tokens():
     assert "--chart-ink:" in css and css.startswith(":root{")
 
 
-def test_table_backend_is_accessible():
-    html = table_backend.render_table(_dataset())
-    assert "<table" in html and "<caption>" in html
-    assert 'scope="col"' in html and "甲" in html
-
-
-def test_fallback_note_explains_missing_precondition():
-    fit = {"candidates": [{"type": "heatmap", "fallback": "table",
-                           "preconditions": {"ok": False,
-                                             "missing": ["交叉维度超过 12 档"]}}]}
-    note = table_backend.fallback_note(fit, "heatmap")
-    assert "交叉维度超过 12 档" in note and "table" in note
+# 2026-11-26：table_backend 删除（无任何产线引用；表格渲染由 report_flow._table 承担）
 
 
 # ====================================================================

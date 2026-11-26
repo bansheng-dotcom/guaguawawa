@@ -33,7 +33,7 @@ import time
 from urllib.parse import parse_qs, urlsplit
 from core import ingest
 from core.ingest import policy as pol_mod
-from core import coverage_plan, task_frame, task_research
+from core import coverage_plan
 from core import coverage_wire
 
 
@@ -431,32 +431,17 @@ def _dims():
 
 
 def _frame():
-    return task_frame.build(
-        {"task_id": "t1", "brief": "测试任务"},
-        {"question": "做不做？", "type": "inferred"},
-        _units(), _dims(),
-        {"core_units": ["U1", "U2", "U3"], "deep_dimensions": ["D1", "D2"],
-         "long_tail_policy": "context_red"},
-        [{"level": "national", "required": True}, {"level": "regional", "required": True}],
-        21, {"cited_min": 50}, {"cited": 50, "reached": True, "no_new_streak": 15},
-    )
-
-
-def test_frame_valid():
-    f = _frame()
-    assert task_frame.validate(f) == []
-    assert task_frame.frame_hash(f).startswith("sha256:")
-
-
-def test_source_saturation():
-    led = task_research.SourceLedger(no_new_streak=15)
-    for i in range(50):
-        led.add({"id": f"S{i}", "grade": "A", "new_dimensions": ["D1"] if i == 0 else []})
-    assert led.status()["reached"] is True
-    led2 = task_research.SourceLedger(no_new_streak=15)
-    for i in range(49):
-        led2.add({"id": f"S{i}", "grade": "A", "new_dimensions": []})
-    assert led2.status()["reached"] is False
+    # task_frame 模块已删（dispatch 内联产出同结构 artifact），这里用同样的静态结构
+    return {
+        "schema": "dsh.task_frame/v1", "task_id": "t1", "brief": "测试任务",
+        "decision": {"question": "做不做？", "type": "inferred"},
+        "units": _units(), "dimensions": _dims(),
+        "maps": [{"level": "national", "required": True},
+                 {"level": "regional", "required": True}],
+        "depth": {"core_units": ["U1", "U2", "U3"],
+                  "deep_dimensions": ["D1", "D2"],
+                  "long_tail_policy": "context_red"},
+    }
 
 
 def test_pre_gate_core_missing_blocks():

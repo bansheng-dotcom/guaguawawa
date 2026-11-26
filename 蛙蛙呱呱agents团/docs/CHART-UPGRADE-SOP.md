@@ -1,5 +1,10 @@
 # 报告产线下游收敛 SOP（v5.0 · 定稿）
 
+> status: ARCHIVED · 2026-11-26
+> 说明：本文是早期升级计划，其中 `core/gate.py` 统一门禁层未按此实现；
+> 现行门禁为 `check_report_flow`（F1–F12）、`check_charts_pro`、`check_gates`。
+> 当前口径见 `docs/CORE-MAP.md` 与 `docs/_migration/wiring-truth.md`。
+
 > 三条线外壳不动，内脏三段（契约 / 选型 / 门禁）收敛成一套。
 > 核心问题（按优先级）：①图表太单调 ②数字/证据不可信 ③系统越改越乱。
 > 三条硬约束：三条线任何一条都不能断；已有产出可以变，只要更好；可以系统级重构。

@@ -279,6 +279,15 @@ def check_html(path) -> dict:
                   "msg": "正文自证门禁（" + "、".join(self_cert)
                          + "）：门禁结论只能写进 manifest.gate.flow"})
 
+    # F12 结构同构：连续多节段首标签序列 + 段数完全一致 → 模板稿
+    #     阈值唯一出处：configs/report_prose.yaml 的 structure_gate
+    try:
+        from core import structure_guard  # noqa: PLC0415
+        for msg in structure_guard.audit_html(html):
+            v.append({"id": "F12_structure_repeat", "msg": msg})
+    except Exception as exc:  # noqa: BLE001
+        v.append({"id": "F12_structure_repeat", "msg": f"结构同构检查不可用: {exc}"})
+
     return {"file": str(path), "ok": not v, "violations": v, "stats": stats,
             "depth": ({"profile": depth["profile"], "ok": depth["ok"],
                        "score": depth["score"]} if depth else None)}

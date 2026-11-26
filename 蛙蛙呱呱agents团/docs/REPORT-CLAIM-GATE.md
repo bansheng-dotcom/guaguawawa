@@ -1,7 +1,9 @@
 # ClaimCard 头条门禁（REPORT-CLAIM-GATE.md）
 
 > 版本：v0.2 · 2026-11-17（P11）
-> 实现：`core/claim_gate.py`，接入 `core/report_compose.py`。
+> status: ARCHIVED · 2026-11-26
+> 说明：`claim_card` / `claim_gate` 已于 2026-11-26 删除（自由写作头条已不存在，
+> 三条规则由 `claim_consistency` C3 与 `report_quality` 覆盖；见 wiring-truth）。
 
 ## 0. P11 补丁
 

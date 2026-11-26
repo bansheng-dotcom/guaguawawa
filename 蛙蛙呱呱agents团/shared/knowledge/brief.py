@@ -198,6 +198,27 @@ def _knowledge_refs(project: Any) -> List[str]:
     return []
 
 
+def _experience_refs(card: Dict[str, Any], role: str,
+                     project: Any) -> Dict[str, Any]:
+    """只记「这次用了哪几张卡」，不搬卡片正文（正文属怎么想，事实仍须来自证据）。"""
+    refs: Dict[str, Any] = {"tier": "L0", "ids": [], "loaded": 0, "errors": []}
+    root = str(getattr(project, "root", "") or "") if project is not None else ""
+    if not root:
+        return refs
+    try:
+        from shared import experience_cards  # noqa: PLC0415
+        q = " ".join(str(card.get(k) or "") for k in
+                     ("title", "goal", "question", "intent"))
+        res = experience_cards.retrieve(role, q, root, limit=3)
+        refs.update({"tier": res["tier"], "loaded": res["loaded"],
+                     "ids": [str(c.get("id")) for c in res["cards"]],
+                     "errors": res["errors"][:3],
+                     "conflicts": len(res.get("conflicts") or [])})
+    except Exception as exc:  # noqa: BLE001  经验卡不可用不影响 brief
+        refs["errors"] = [f"experience_cards: {exc}"]
+    return refs
+
+
 def build_brief(card: Dict[str, Any], role: str, project: Any = None) -> Dict[str, Any]:
     """按七层模型生成 brief。输入只看 card + 角色通用配置 + 项目元数据。"""
     cfg = _role_profile(role)
@@ -288,6 +309,7 @@ def build_brief(card: Dict[str, Any], role: str, project: Any = None) -> Dict[st
         ],
         "non_goals": [str(x) for x in (card.get("non_goals") or [])],
         "knowledge_refs": _knowledge_refs(project),
+        "experience_refs": _experience_refs(card, role, project),
     }
     return brief
 
@@ -371,6 +393,23 @@ def validate_brief(brief: Dict[str, Any], task_type: Optional[str] = None) -> Li
         problems.append("anti_patterns 少于 3 条")
     if not brief.get("acceptance_checks"):
         problems.append("acceptance_checks 为空")
+
+    # 经验只留引用（哪几张卡），不留正文：正文放 brief 就等于拿旧结论顶本期证据
+    if "experience_refs" in brief:
+        refs = brief.get("experience_refs")
+        if not isinstance(refs, dict):
+            problems.append("experience_refs 必须是对象")
+        else:
+            if str(refs.get("tier") or "") not in ("L0", "L1", "L2"):
+                problems.append("experience_refs.tier 必须是 L0/L1/L2")
+            ids = refs.get("ids")
+            if not isinstance(ids, list):
+                problems.append("experience_refs.ids 必须是列表")
+            elif refs.get("tier") != "L0" and not ids:
+                problems.append("experience_refs 标了 L1/L2 却没有卡 id")
+    for leak in ("wrong_once", "do_instead"):
+        if brief.get(leak):
+            problems.append(f"brief 不得内联经验卡正文（{leak}）")
 
     # brief 不允许出现事实数字 / 价格 / 政策条款
     for text in _texts(brief):

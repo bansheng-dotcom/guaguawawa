@@ -1,5 +1,9 @@
 # 报告系统升级 SOP（v1.0）
 
+> status: ARCHIVED · 2026-11-26
+> 说明：本文提出的 evidence_graph / argument_plan / spec_extract / prose_critic
+> 已于 2026-11-26 删除（未接入产线）。当前正文门禁见 F10/F12 与 `prose_style`。
+
 > 目标：把“能写出一份报告”升级为“任何分析都按同一最低标准产出”的报告工厂。  
 > 适用范围：R01 报告产线、R04 验收、`core/report_theme/*`、`core/prose_*`。
 

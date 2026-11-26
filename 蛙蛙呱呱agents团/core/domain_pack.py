@@ -275,8 +275,6 @@ def to_markdown(p: Dict[str, Any]) -> str:
     lines.append(f"python guagua.py report produce --intent \"{p['intent']}\" "
                  f"--dir <项目目录> --out <输出目录>")
     lines.append("```")
-    lines.append("\n方法引擎：`python -m core.analysis_lab --help`"
-                 "（归因 / A/B / DiD / 弹性 / 队列）。")
     return "\n".join(lines)
 
 

@@ -8,6 +8,157 @@
 
 ---
 
+## 2026-11-26（第十一轮）· 断舍离：12 个未接线模块下线（-1,807 行）
+
+一句话：**把「文档里有、测试在测、产线不用」的模块全部删掉，并保留真实需求的替代判据。**
+
+### 归属决策（先处理最大的 512 行）
+
+`claim_card` + `claim_gate` 删除，不接回。依据：
+
+- 它们接的是 `report_compose`，该模块 11-18 已删除；
+- 现产线头条是自动生成的「X/Y 个决策问题有证据」覆盖率句，**不存在自由写作头条**，三条规则的适用对象已消失；
+- 来源等级仍由 `claim_consistency` C3 检查，证伪/深度仍由 `report_quality` 与 F10/F12 检查；
+- 文档 `REPORT-CLAIM-GATE.md` 标 ARCHIVED，不再声称“已接入”。
+
+### 删除清单（12 文件 / 1,807 行）
+
+| 模块 | 行数 | 理由 |
+|---|---:|---|
+| `analysis_lab` | 557 | 与 `shared/methods` + r06/r19 技能重复，未接任何产线 |
+| `claim_card` + `claim_gate` | 512 | 见上 |
+| `coverage_cli` + `task_frame` + `task_research` | 263 | 无外部入口；`coverage_plan/confirm/policy` 保留（仍被 dispatch/report_flow/r04_audit 使用） |
+| `gate_chain` | 131 | 四层门禁已由 `check_report_flow` F1–F12 取代 |
+| `chart_fit` | 96 | `report_flow.chart_fitness_errors` 已有同判据 |
+| `evidence_graph` / `argument_plan` / `spec_extract` | 180 | 11-19 的实验层，只有测试引用 |
+| `prose_critic` | 68 | `prose_style` + F10/F12 已覆盖 |
+
+### 连带修复
+
+- `core/__init__.py` 分组导出移除 12 个名字；`configs/core_files.json` 172 → 160；
+- `scripts/audit_dod.py` 第 8/10 条改查 `report_flow` 与 `check_report_flow`（不再读 `gate_chain.py` 文本）；
+- `core/domain_pack.py` 去掉 `python -m core.analysis_lab` 的广告；
+- 6 份文档归档或标注：`REPORT-CLAIM-GATE`、`REPORT-COVERAGE-UPGRADE-SOP`、`REPORT-SYSTEM-UPGRADE-SOP`、`REPORT-DECISION-GRADE`、`REPORT-PRODUCTION-LINE-SPEC`、`DOMAIN-EXPERT-LAYER`；
+- `CORE-MAP.md` / `REPORT-LINES.md` 删除已下线模块的行；
+- `wiring-debt.json` 清空为 `{}`；
+- 测试同步删除 43 条（全部只测已删模块）：673 → **630 passed / 3 skipped**；`test_collection` 的 TaskFrame 夹具改为静态结构，`coverage_plan.pre_gate` 仍被覆盖。
+
+### 验收
+
+`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS；`audit_dod` 15/15；`wiring_truth --check` PASS（0 UNWIRED / 0 DOC_DEAD）；`check_dead_code --check` PASS；`check_project_boundary` PASS；`guagua.py check` 20/20；r06 / r19 端到端全绿。
+
+---
+
+## 2026-11-26（第十轮）· 接线真相 + 两类假绿修复（P0/P1）
+
+一句话：**先证明“哪些模块真的在产线上”，再修会让门禁永远 PASS 的两处漏洞。**
+
+| 件 | 落点 | 判据 |
+|---|---|---|
+| 接线真相表 | `scripts/wiring_truth.py` · `docs/_migration/wiring-truth.md` | AST 真实 import + 从非测试入口回溯可达；输出 LIVE / TEST_ONLY / DOC_ONLY / UNWIRED |
+| 债务登记 | `docs/_migration/wiring-debt.json` | 未接线模块必须显式登记理由（接回还是删除）；接线后不删登记 → 门禁报「债务过期」 |
+| 文档死链 | 同上 `--check` | 文档里的 `core/X.py`、`python -m core.X` 必须存在；`已删除/不新增` 的历史说明行除外 |
+| 隔离门禁修复 | `scripts/check_report_isolation.py` | 扫描范围从 `report_*.py` 扩到 `report*/**/*.py`；文件挪进子包后不再「扫不到 = 永远 PASS」 |
+| 隔离证伪测试 | `tests/test_gates.py` | 故意写 `import shared.knowledge` 必须 FAIL；正常文件必须 PASS |
+| 死代码判据收紧 | `scripts/check_dead_code.py` | 文档不再算“有人用”；新增 TEST_ONLY / DOC_ONLY；`core/__init__.py` 与 `core_files.json` 不再充当使用证据 |
+| 首个 A 类删除 | `core/report_theme/table_backend.py`（66 行） | 无任何产线引用；表格渲染由 `report_flow._table` 承担；测试同步删除 |
+| 边界复发修复 | `r10-wachengmei-design/skills/s01_imagegen.py` | 默认输出目录从团内 `workspace/prompts` 改为 `role_workspace()`（团外）；角色自测不再把产物留进仓库 |
+| CI 新步骤 | `scripts/ci_report_checks.py [18c]` | `wiring_truth --check`：未登记未接线 / 文档死链直接红 |
+
+验收：`wiring_truth --check` PASS（112 LIVE / 11 TEST_ONLY / 1 DOC_ONLY / 0 UNWIRED / 0 DOC_DEAD）；`check_dead_code --check` PASS；文档死链 9 → 0；`pytest tests/test_charts.py tests/test_gates.py` 58 passed。
+
+未做（需拍板）：11 个 TEST_ONLY 模块的去留（claim_gate 接回还是归档、coverage 集群是否收成命令）；core 物理分包（P4）尚未开始。
+
+---
+
+## 2026-11-26（第九轮）· 经验层收口 + 表达候选器 + 三角色补齐
+
+一句话：**把上一轮「有规则没库、有提示没执行器」的两处半成品补成可验收的闭环。**
+
+### 一、经验层收口（从「能读」到「能管、能审」）
+
+| 能力 | 落点 | 判据 |
+|---|---|---|
+| 任务卡可见 | `shared/knowledge/brief.py` | brief 新增 `experience_refs`（只记 tier + 卡 id，不内联卡片正文）；`validate_brief` 拒收内联 `wrong_once/do_instead` |
+| 冲突检测 | `shared/experience_cards.py#conflicts` | 同 trigger 但 `do_instead` 不一致 → 列出并提示「只能按各自 boundary 择一」 |
+| 项目上限 | 同上 `MAX_PER_PROJECT=30` | 超出只保留最新 30 张，并写错误说明（不静默丢） |
+| 写入门 | 同上 `add_card` | `source` + `reviewed_by` 必填（谁写谁签）；同 id 不许静默覆盖 |
+| 注入预算 | 同上 `BRIEF_MAX_CHARS=600` | 超长按行截断并标 `truncated`；prompt_pack 用截断后的文本 |
+| 验收指标 | 同上 `stats()` · CLI `--stats` | 载入量 / 过期占比 / 注入字数 / 冲突数 |
+| 接缝记账 | 同上 `to_knowledge_items()` | 卡片 → 带 hash 的注入条目；说明为何不默认走向量 |
+
+### 二、表达候选器（波 2）
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 候选器 | `core/prose_candidates.py` | 数字多重集一致（硬判据）+ trigram Jaccard + 七项权重（20/20/15/15/10/10/10）+ <85 淘汰 + ≤3 轮 + 固定种子 |
+| 双模如实标注 | 同上 | 无模型 → `mode=rule`，只出确定性单稿并标 `no_model_single_variant`（实测三份相似度 0.9，不假装是 3 个候选）；有模型 → `mode=llm`，diversity ≥0.6 的候选硬淘汰 |
+| 接入 | `core/report_prose_gen.generate()` | `compose()` 行为不变；`candidates` 可传 dict 覆盖配置，`record_path` 落盘候选集便于逐字复跑 |
+| 配置 | `configs/report_prose.yaml#candidates` | enabled / n / max_rounds / pass / diversity_max / budget_ms_per_section |
+
+### 三、三角色补齐（波 3，按角色类型分法）
+
+| 角色 | 类型 | 变化 |
+|---|---|---|
+| r05 蛙深远 | A 生成型 | 新增 L2 三块：假设-证伪台账 / 来源饱和 / 三角验证；新增 `references/08-evidence-saturation.md`（独立源判定、三类互证、两份台账、常见反例） |
+| r06 蛙得清 | B 计算型 | 不加任何写作提示块；在 `references/05-visualization-report.md` 补「图点可回溯 / 基线同口径 / 构成图合计」三条机器判据与交付自检 |
+| r07 蛙得明 | A 生成型 | 新增 L2「需求成立门槛」：三类证据缺一不出 PRD；验收可判定（对象/阈值/判定人）；非目标至少一条 |
+
+### 四、登记与门禁
+
+- `configs/core_files.json` 登记 `prose_candidates.py`；
+- `boundary_allowlist.yaml` 登记 5 个角色级 `experience/cards/`（角色通用经验，不含项目资产）；
+- 顺手修掉两个真 bug（r06 端到端验收暴露）：`chart_renderers_ext.py` 四处 `len)(items)` 语法错误（dumbbell / dot / 分组 / 任务图都渲染即崩）；`r06/run_tests.py` 未自建产物目录，workspace 被清理后误红；
+- 回归：`pytest` **673 passed / 3 skipped**；`ci_report_checks` **ALL PASS**；`check_prompt_system` PASS；`check_role_packs` 20/20；`guagua.py check` 20/20；`gen_agent_packs --check` 无漂移；`check_project_boundary` PASS；`check_report_isolation` PASS；`check_convergence` 违规 0；`check_gate_lock` PASS；`check_doc_consistency` PASS。
+
+已知边界（不掩盖）：规则模式下多样性达不到 0.6，这是「无模型只能换措辞」的物理上限；候选器的差异度判据只在接入模型后生效。
+
+---
+
+## 2026-11-26（第八轮）· 四项硬门禁：结构同构 / 图表契约 / 回抓硬化 / 报告隐私
+
+一句话：**把「人看得出来但机器没拦」的四类问题变成确定性门禁，并用金样例（nm-vegetable）验证它们真的会红。**
+
+| 能力 | 落点 | 判据 |
+|---|---|---|
+| 结构同构门禁 F12 | `core/structure_guard.py` · `scripts/check_report_flow.py` · `scripts/compile_agent_report.py` | 连续 ≥3 节「标签序列 + 段数」完全一致 → FAIL；阈值唯一出处 `configs/report_prose.yaml#structure_gate` |
+| 写作结构轮换 | `core/report_prose_gen.py` | 4 套论证顺序按节 id 稳定轮换，连续两节同序自动换序，避免自动生成的稿子被 F12 判死 |
+| 图表收卡契约 | `core/dispatch.py#_chart_contract` | 图上的点必须能由本卡数字/派生量解释；`chart.refs` 必须在本卡命名空间；构成图合计 95–105% 或显式 `partial` |
+| 来源回抓硬化 | `core/source_verify.py` | 浏览器级请求头 + 3 次退避重试；`GUAGUA_FETCH_FALLBACK=1` 时才启用 Playwright 兜底 |
+| 来源时效度量 | `core/source_freshness.py` | 18 个月窗口统计 stale_ratio；>60% 旧源时写降级标记与边界，不硬拦年报口径 |
+| 报告隐私扫描 | `scripts/check_report_privacy.py` | 只扫报告资产（claims/报告/manifest），密钥前缀/键值对/手机号/身份证；占位符放行 |
+
+二阶处理：F12 会拦「自动生成的同构稿」，所以同步改了 `report_prose_gen` 的结构轮换；新 core 模块须登记 `configs/core_files.json`（已加 2 个）；门禁脚本变更已 `check_gate_lock --write` 留痕。
+
+### 第二轮：角色层与共享层（同一天）
+
+| 层 | 落点 | 变化 |
+|---|---|---|
+| 共享硬规则 | `shared/gate_digest.json` · `shared/prompt_pack.py` | 6 条跨角色硬规则（证据可回溯/结构不重复/图有出处/经验带边界/隐私不入稿/来源有时效），按角色适用性注入每个角色的提示词 |
+| L0 宪法 | `shared/prompt_constitutions.json` | r04/r06/r07/r10/r11 各加一条边界（评审三类问题、图必须有出处、经验必须写边界、图不缺口径、不连续同构） |
+| L2 方法块 | `r11-wadianti-copy/prompt_profile.json` | 候选写作、结构轮换、去 AI 味自检 |
+| L2 方法块 | `r07-wademing-pm/prompt_profile.json` | 经验卡（触发场景/上次错法/正确做法/适用边界/最近核验） |
+| L2 方法块 | `r10-wachengmei-design/prompt_profile.json` | 图表标注规范（先定关系再选型、结论式标题、不用 3D/彩虹色） |
+
+边界：r06 属计算型角色，`validate_profiles` 明确禁止其携带写作提示块，所以图表规则走共享层注入，不写进 r06 的 `l2_prompt_blocks`。
+
+### 第三轮：项目级经验卡（库 + 检索 + 注入）
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 经验卡模块 | `shared/experience_cards.py` | 卡片校验（缺 boundary / last_verified 拒收）、加载（角色级 + 项目级，同 id 项目覆盖）、检索（触发词/标题/正文，TTL 与置信度衰减）、分档 L0/L1/L2 |
+| 提示词注入 | `shared/prompt_pack.build(..., project=...)` | 传项目目录才检索经验卡，不传保持旧行为；返回体新增 `experience: {tier, ids, errors}` 便于审计 |
+| CLI | `python -m shared.experience_cards --role r07 --query "..." --project <项目>` | 排障与人工核对用 |
+| 种子卡 | r05 / r06 / r07 / r12 / r13 各 1 张 + nm-vegetable 项目级 2 张 | 均为真实复盘结论，带适用边界与核验日期 |
+
+治理：`last_verified` 超 180 天降权；同 trigger 冲突卡必须写边界；经验卡不得替代本期证据（提示词里明文约束）。
+
+门禁：`pytest` 659 passed / 3 skipped；`ci_report_checks` ALL PASS；`check_prompt_system` PASS；`check_role_packs` 20/20；`gen_agent_packs --check` 无漂移。
+
+门禁：`pytest` 653 passed / 3 skipped；`ci_report_checks` ALL PASS；`check_prompt_system` PASS；`check_role_packs` 20/20；`gen_agent_packs --check` 无漂移；`check_doc_consistency` PASS。金样例验证：nm-vegetable 旧报告在新 F12 下 FAIL（第 4–7 节同构），证明门禁生效。
+
+---
+
 ## 2026-11-25（第七轮）· 清理 0 引用死资产（36 文件 / 约 850KB）
 
 一句话：**只删有「零引用」证据的资产，活跃的 pipelines / samples / knowledge / docs 一律不动。**
@@ -136,7 +287,7 @@
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
-| 数据驱动选型 | `core/chart_fit.py` | 画像 → 候选图型 + 前置条件 + fallback；空态/常数值拒绝出图 |
+| 数据驱动选型 | `core/chart_fit.py`（2026-11-26 已删除，判据由 report_flow 内联） | 画像 → 候选图型 + 前置条件 + fallback；空态/常数值拒绝出图 |
 | 字段契约同源审计 | `core/chart_field_contract.py` | REQUIRED vs SAMPLE 逐型比对，进 `check_charts_pro`（治 V-1） |
 | 表格降级后端 | `core/report_theme/table_backend.py` | 可访问表格 + `fallback_note`（缺什么、改用哪型） |
 | 设计 token | `core/report_theme/tokens.py` | 默认值=现状；门禁比对渲染常量，防静默改产出 |

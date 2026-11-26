@@ -27,8 +27,24 @@ from typing import Any, Callable, Dict, List, Optional
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONSTITUTIONS = os.path.join(ROOT, "shared", "prompt_constitutions.json")
+GATE_DIGEST = os.path.join(ROOT, "shared", "gate_digest.json")
 
 RETRY_MAX = 2
+
+_DIGEST_CACHE: Dict[str, Any] = {}
+
+
+def gate_digest(role_id: str) -> List[Dict[str, Any]]:
+    """跨角色共享硬规则：唯一出处 shared/gate_digest.json。"""
+    if not _DIGEST_CACHE:
+        _DIGEST_CACHE.update(_load_json(GATE_DIGEST))
+    rid = str(role_id).lower().strip()
+    out = []
+    for r in _DIGEST_CACHE.get("rules") or []:
+        roles = [str(x).lower() for x in (r.get("roles") or [])]
+        if "*" in roles or rid in roles:
+            out.append(r)
+    return out
 
 
 def _load_json(path: str) -> Dict[str, Any]:
@@ -121,8 +137,13 @@ def _render(tpl: str, inputs: Dict[str, Any]) -> str:
 
 
 def build(role_id: str, action: Optional[str] = None,
-          inputs: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-    """拼出一次模型调用所需的全部材料。"""
+          inputs: Optional[Dict[str, Any]] = None,
+          project: Optional[str] = None) -> Dict[str, Any]:
+    """拼出一次模型调用所需的全部材料。
+
+    project 传入项目目录时，额外检索该项目 + 本角色的经验卡（L0/L1/L2）。
+    不传则不读经验卡，保持旧行为与 CI 确定性。
+    """
     rid = str(role_id).lower().strip()
     profile = load_profile(rid)
     const = constitutions().get("roles", {}).get(rid, {})
@@ -195,6 +216,26 @@ def build(role_id: str, action: Optional[str] = None,
     if method:
         sections.append("【领域方法】\n" + method)
     sections.append("【方法块】\n" + l2)
+    shared_rules = gate_digest(rid)
+    if shared_rules:
+        sections.append("【共享硬规则】（跨角色，违反即退回）\n" + "\n".join(
+            f"- {r.get('name','')}：{r.get('text','')}" for r in shared_rules))
+    exp_meta: Dict[str, Any] = {"tier": "L0", "ids": [], "errors": []}
+    if project:
+        try:
+            from shared import experience_cards  # noqa: PLC0415
+            q = " ".join(str(v) for v in (inputs or {}).values() if not isinstance(v, (dict, list)))
+            res = experience_cards.retrieve(rid, q or str(action or ""), project, limit=3)
+            exp_meta = {"tier": res["tier"],
+                        "ids": [c.get("id") for c in res["cards"]],
+                        "brief_chars": res["brief_chars"],
+                        "conflicts": len(res.get("conflicts") or []),
+                        "errors": res["errors"][:5]}
+            if res["cards"]:
+                sections.append("【经验卡】（历史项目经验，先看适用边界再用，不得替代本期证据）\n"
+                                + res["brief"])
+        except Exception as exc:  # noqa: BLE001  经验卡不可用不影响主链路
+            exp_meta["errors"] = [f"experience_cards: {exc}"]
     if th_text:
         sections.append("【判定阈值】（本角色 experience/thresholds.json）\n" + th_text)
     sections.append("【输出要求】按以下小节组织内容，然后整体只输出一个 JSON 对象："
@@ -231,6 +272,7 @@ def build(role_id: str, action: Optional[str] = None,
         "name": const.get("name", ""),
         "domain": const.get("domain", ""),
         "action": action or "",
+        "experience": exp_meta,
         "messages": [{"role": "system", "content": system},
                      {"role": "user", "content": user}],
         "schema": {"must_include": must,

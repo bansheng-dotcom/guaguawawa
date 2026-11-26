@@ -133,6 +133,7 @@ def main():
     print(f"  csv={csv}\n  model={model}")
 
     clean = os.path.join(role_workspace(HERE), "_tmp_clean.csv")
+    os.makedirs(role_workspace(HERE), exist_ok=True)  # workspace 被清理后自建，避免误红
     _write_clean(clean)
     spec = os.path.join(role_workspace(HERE), "_tmp_chart_spec.json")
     with open(spec, "w", encoding="utf-8") as f:

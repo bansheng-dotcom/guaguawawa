@@ -166,6 +166,13 @@ def check_11_fields(claims: Dict[str, Any]) -> List[str]:
         missing = [k for k, ok in checks.items() if not ok]
         if missing:
             issues.append(f"{tag}: 缺 {', '.join(missing)}")
+    # 结构同构：连续多节「标签序列 + 段数」完全一致 → 模板稿，编译前就退回
+    try:
+        from core import structure_guard  # noqa: PLC0415
+        paras, titles = structure_guard.paragraphs_from_claims(claims)
+        issues.extend(structure_guard.audit(paras, titles))
+    except Exception:  # noqa: BLE001  结构检查不可用不阻断编译
+        pass
     return issues
 
 

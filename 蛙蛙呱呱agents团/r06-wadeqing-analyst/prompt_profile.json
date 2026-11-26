@@ -695,5 +695,6 @@
       "action": "validate",
       "defaults": {}
     }
-  ]
+  ],
+  "l2_prompt_blocks": []
 }

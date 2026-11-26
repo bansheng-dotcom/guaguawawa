@@ -11,13 +11,26 @@
 """
 from __future__ import annotations
 
+import os
 import re
+import time
+import urllib.error
 import urllib.request
 from typing import Any, Callable, Dict, List
+from urllib.parse import urlsplit
 
 QUOTE_MIN = 12
 DATE_RE = re.compile(r"^\d{4}(-\d{1,2}(-\d{1,2})?)?$")
 URL_RE = re.compile(r"^https?://")
+
+# 2026-11-26：回抓失败的主因不是「引文不对」，而是 gov 站点对默认 UA / 无 Referer
+# 的请求直接断连。补请求头 + 退避重试，把「取不到」和「取到了但引文不匹配」分开。
+_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+       "(KHTML, like Gecko) Chrome/122.0 Safari/537.36")
+_ACCEPT = ("text/html,application/xhtml+xml,application/xml;q=0.9,"
+           "image/avif,image/webp,*/*;q=0.8")
+_MAX_TRIES = 3
+_BACKOFF = 0.6
 
 Fetch = Callable[[str], str]
 
@@ -64,21 +77,75 @@ def check_fields(src: Dict[str, Any]) -> List[str]:
     return miss
 
 
+def _headers(url: str) -> Dict[str, str]:
+    try:
+        p = urlsplit(url)
+        referer = f"{p.scheme}://{p.hostname}/" if p.hostname else ""
+    except Exception:  # noqa: BLE001
+        referer = ""
+    h = {"User-Agent": _UA, "Accept": _ACCEPT,
+         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+         "Connection": "close"}
+    if referer:
+        h["Referer"] = referer
+    return h
+
+
+def _urllib_get(url: str, timeout: int) -> str:
+    """带退避重试的 GET：仅对「可重试」错误重试（429/5xx/连接中断）。"""
+    last: Exception | None = None
+    for i in range(_MAX_TRIES):
+        try:
+            req = urllib.request.Request(url, headers=_headers(url))
+            with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
+                raw = resp.read(2_000_000)
+                ctype = (resp.headers.get("Content-Type") or "").lower()
+            if "pdf" in ctype:
+                # PDF 不在此处解析：记为取到但无法逐字匹配，交给人工。
+                return ""
+            text = raw.decode("utf-8", errors="ignore")
+            text = re.sub(r"<script.*?</script>|<style.*?</style>", " ", text,
+                          flags=re.S | re.I)
+            return re.sub(r"<[^>]+>", " ", text)
+        except urllib.error.HTTPError as exc:
+            last = exc
+            if exc.code not in (429, 500, 502, 503, 504) or i == _MAX_TRIES - 1:
+                raise
+        except Exception as exc:  # noqa: BLE001  连接重置/超时都值得再试一次
+            last = exc
+            if i == _MAX_TRIES - 1:
+                raise
+        time.sleep(_BACKOFF * (2 ** i))
+    if last:
+        raise last
+    return ""
+
+
+def _playwright_fetch(url: str, timeout: int = 25) -> str:
+    """无头浏览器兜底：只在 GUAGUA_FETCH_FALLBACK=1 时启用。
+
+    为什么默认关闭：Playwright 是可选依赖，失败会拖慢整批回抓；
+    显式开关让「本地能跑」和「CI 只跑确定性部分」两种场景都不被破坏。
+    """
+    from playwright.sync_api import sync_playwright  # noqa: PLC0415
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        try:
+            page = browser.new_page()
+            page.goto(url, wait_until="domcontentloaded", timeout=timeout * 1000)
+            return page.inner_text("body")
+        finally:
+            browser.close()
+
+
 def default_fetch(url: str, timeout: int = 20) -> str:
-    """最小实现：抓 HTML，去 script/style 与标签，返回纯文本。"""
-    req = urllib.request.Request(
-        url, headers={"User-Agent": "Mozilla/5.0 (compatible; guagua-report/1.0)"})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
-        raw = resp.read(2_000_000)
-        ctype = (resp.headers.get("Content-Type") or "").lower()
-    text = raw.decode("utf-8", errors="ignore")
-    if "pdf" in ctype:
-        # PDF 不在此处解析：记为取到但无法逐字匹配，交给人工。
-        return ""
-    text = re.sub(r"<script.*?</script>|<style.*?</style>", " ", text,
-                  flags=re.S | re.I)
-    text = re.sub(r"<[^>]+>", " ", text)
-    return text
+    """抓 HTML → 纯文本。urllib 失败且显式开启兜底时，改用无头浏览器。"""
+    try:
+        return _urllib_get(url, timeout)
+    except Exception:  # noqa: BLE001
+        if os.environ.get("GUAGUA_FETCH_FALLBACK") != "1":
+            raise
+        return _playwright_fetch(url, timeout=max(timeout, 25))
 
 
 def verify_source(src: Dict[str, Any], fetch: Fetch | None = None) -> Dict[str, Any]:

@@ -71,8 +71,6 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | `intake.py` | 145 | 输入归一（SOP v5） | 【S0/S1】 |
 | `report_thesis.py` | 137 | 纲领（只保留 analysis 一条） | 【S1】 |
 | `report_structure.py` | 75 | 结构 profile（decision/brief 模块裁剪） | 【S1/S4】 |
-| `argument_plan.py` | 64 | 论证计划：同类型节不连续超 2 节 | 【S1】 |
-| `task_frame.py` | 100 | 覆盖自动化：单元/维度/深度/页数 | 【S1】 |
 | `domain_pack.py` | 407 | 业务线 → 领域编队（**允许的文件，行业关键词包**） | 【S1】 |
 | `dor.py` | 57 | 就绪定义（Definition of Ready） | 【S1】门禁 |
 
@@ -91,7 +89,6 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | `methods/research.py` | 319 | 研究类方法：规模多路径/集中度/增长/单位经济/进入闸门 | 【S3】 |
 | `analysis_methods.py` | 1545 | 分析方法库：每个方法产出一条带数字的判断 | 【S3】 |
 | `analysis_desk.py` | 496 | 数据台：把项目目录归一成可算的观测 | 【S3】前置 |
-| `analysis_lab.py` | 557 | 离线/批处理/缺口补充 | 【S3】旁路 |
 | `analysis_pipeline.py` | 100 | 最小编排：data → skill → assert → report | 【S3】 |
 | `domain_pack.py` | — | 见 S1 | |
 
@@ -109,7 +106,6 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | `coverage_plan.py` | 123 | 覆盖计划 + 出稿前门禁 | 【S1/S6】 |
 | `coverage_confirm.py` | 81 | 覆盖确认 | 【S1】 |
 | `coverage_policy.py` | 51 | 覆盖阈值策略 | 【S6】 |
-| `coverage_cli.py` | 98 | `plan→confirm→preflight→audit` | 【CLI】 |
 | `panel.py` | 89 | 分析 = 面板上的运算 | 【S3】 |
 
 ## 4.1 采集层（v3 粒度 / v4 推导 / v5 降级）
@@ -151,7 +147,6 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | `collab.py` | 138 | 真的调用 R02 的 agent | 【拆卡】 |
 | `protocol.py` | 89 | 交接协议：端口/任务卡/事件 | 【拆卡/协作】 |
 | `parallel_research.py` | 109 | 并行调研编排 | 【拆卡】旁路 |
-| `task_research.py` | 65 | 调研任务（不联网，调用方喂来源） | 【拆卡】旁路 |
 | `research_protocol.py` | 139 | 调研交付契约（不含行业清单） | 【拆卡】 |
 | `research_intake.py` | 354 | 新业务研究入口：采集 → 校验 → 台账 → 成稿 | 【拆卡→S4】 |
 
@@ -171,14 +166,10 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 |---|---|---|---|
 | `claims.py` | 471 | 论证层：数字 → 可检验判断 | 【S4】 |
 | `claims_v4.py` | 240 | claim → slice → encoding → findings → 五块 | 【S4】 |
-| `claim_card.py` | 293 | 决策级断言唯一 schema | 【S4】 |
 | `claim_consistency.py` | 156 | 交叉质询：同一个数两个说法 | 【S6】 |
-| `claim_gate.py` | 219 | 头条资格接进 build | 【S6】 |
 | `report_assembly.py` | 397 | finding → 节/指标/计数 | 【S4】 |
 | `report_editorial.py` | 342 | 编辑层：verdict/kicker 等契约 | 【S4】 |
 | `synthesis.py` | 136 | 论点 → 节（SOP v5） | 【S4】 |
-| `spec_extract.py` | 41 | 从 claim/evidence 抽字段，不补数字 | 【S4】 |
-| `evidence_graph.py` | 75 | 证据图规则 | 【S4】 |
 
 ## 8. 图表（S5）
 
@@ -228,8 +219,6 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 |---|---|---|---|
 | `quality_gate.py` | 214 | 三层质检：证据/编辑/呈现 | 【S6】 |
 | `report_quality.py` | 372 | "像不像咨询稿"可判定门禁 Q1–Q9 | 【S6】 |
-| `gate_chain.py` | 131 | 四层门禁一条链 L1–L4 | 【S6】统一入口 |
-| `prose_critic.py` | 68 | 散文评分（模板感/证据/证伪） | 【S6】 |
 | `prose_style.py` | 132 | 只量页内正文 | 【S6】 |
 | `prose_spec.py` | 48 | 固定 11 字段 | 【S6】 |
 | `report_prose_gen.py` | 90 | 受约束生成正文 | 【S4/S6】 |

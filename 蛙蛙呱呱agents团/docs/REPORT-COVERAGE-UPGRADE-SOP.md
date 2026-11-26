@@ -1,5 +1,10 @@
 # 报告覆盖升级 SOP（v1.0）
 
+> status: ARCHIVED · 2026-11-26
+> 说明：本文描述的 `task_frame` / `task_research` / `coverage_cli` 已于 2026-11-26 删除；
+> 覆盖矩阵与 pre_gate 仍由 `coverage_plan` / `coverage_confirm` / `coverage_policy` 承担。
+> 当前口径见 `docs/CORE-MAP.md` 与 `docs/_migration/wiring-truth.md`。
+
 > 适用：`蛙蛙呱呱agents团` 全部报告产线（R01 出具，R04 审计）。
 > 目标：让“水果 v2 的 8 分”成为**系统可复现的最低标准**，而不是一次性手工稿。
 > 本文是唯一口径；阈值集中在 `configs/report_coverage.yaml`，不散落在代码里。

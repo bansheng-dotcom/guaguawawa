@@ -107,6 +107,22 @@ def main() -> int:
         for line in out.strip().splitlines()[1:8]:
             print("   ", line)
 
+    # [0d] 报告资产隐私扫描（2026-11-26）：凭据/个人信息不得进入 claims/manifest/报告。
+    #      与项目边界检查互补：那边查“团内有没有项目资产”，这边查“项目资产里有没有秘密”。
+    projects_dir = ROOT.parent / "projects"
+    if projects_dir.exists():
+        rc, out = run([sys.executable, "scripts/check_report_privacy.py",
+                       str(projects_dir), "--report-assets", "--quiet"])
+        first = out.strip().splitlines()[0] if out.strip() else ""
+        print(f"[0d] privacy rc={rc} :: {first}")
+        if rc:
+            fails.append("privacy")
+            for line in out.strip().splitlines()[:6]:
+                print("   ", line)
+    else:
+        print("[0d] SKIP(privacy) :: 无 projects 目录")
+        env.append("projects-missing")
+
     # [2][3][3a] 依赖报告样本；样本未就绪时只跳过、不判红
     if not sample_ok:
         print("[2][3][3a][3b] SKIP(report-sample) :: 缺样本，run-line 与门禁不执行")
@@ -369,8 +385,8 @@ def main() -> int:
         if rc:
             fails.append("presentation")
 
-    # [18] 死代码：每个 .py 必须有引用者（import / 脚本调用 / 文档）。
-    # 判据是「说不出谁在用就删」，不是「看着像没用就删」。
+    # [18] 死代码：每个 .py 必须有引用者（import / 脚本/配置调用）。
+    # 文档提及不再算“有人用”，只算 DOC_ONLY，须显式登记债务。
     rc, out = run([sys.executable, "scripts/check_dead_code.py", "--check"])
     print(f"[18] dead-code rc={rc} :: {out.strip().splitlines()[0] if out.strip() else ''}")
     if rc:
@@ -384,6 +400,15 @@ def main() -> int:
     print(f"[18b] chart-edges rc={rc} :: {tail18b[-1] if tail18b else out.strip()[-80:]}")
     if rc:
         fails.append("chart-edges")
+        print(out)
+
+    # [18c] 接线真相：模块必须真的可达；文档不得指向已删除模块。
+    # 与 [18] 分工：[18] 快速兜底，[18c] 带回溯可达性 + 文档死链。
+    rc, out = run([sys.executable, "scripts/wiring_truth.py", "--check"])
+    tail18c = [l for l in out.strip().splitlines() if "接线真相" in l]
+    print(f"[18c] wiring-truth rc={rc} :: {tail18c[-1] if tail18c else out.strip()[-80:]}")
+    if rc:
+        fails.append("wiring-truth")
         print(out)
 
     # [19] 收敛门禁（2026-11-19 接入）：同一件事不许第二次新建。

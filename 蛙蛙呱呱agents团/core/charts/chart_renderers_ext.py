@@ -362,7 +362,7 @@ def dumbbell_chart(chart: Dict[str, Any]) -> str:
     b_label = chart.get("b_label", "B")
     items = sorted(items, key=lambda x: (-(abs(x["b"] - x["a"])), x["label"]))
     row_h = 44
-    H = max(320, 70 + row_h * len)(items)
+    H = max(320, 70 + row_h * len(items))
     TOP, L, R = 56, 220, W - 170
     all_v = [v for it in items for v in (it["a"], it["b"])]
     vmin, vmax = min(all_v), max(all_v)
@@ -397,7 +397,7 @@ def dumbbell_chart(chart: Dict[str, Any]) -> str:
 def dot_chart(chart: Dict[str, Any]) -> str:
     items = sorted(chart["items"], key=lambda x: (-x["value"], x["label"]))
     row_h = 40
-    H = max(320, 64 + row_h * len)(items)
+    H = max(320, 64 + row_h * len(items))
     TOP, L, R = 52, 220, W - 160
     vmax = max(i["value"] for i in items) or 1.0
     def X(v): return L + (R - L) * v / vmax
@@ -429,7 +429,7 @@ def lollipop_chart(chart: Dict[str, Any]) -> str:
     top_n = chart.get("top_n")
     shown = items[:top_n] if top_n else items
     row_h = 42
-    H = max(320, 64 + row_h * len)(shown)
+    H = max(320, 64 + row_h * len(shown))
     TOP, L, R = 52, 220, W - 150
     vmax = max(i["value"] for i in shown) or 1.0
     def X(v): return L + (R - L) * v / vmax
@@ -702,7 +702,7 @@ def ridgeline_chart(chart: Dict[str, Any]) -> str:
     pad = (vmax - vmin) * 0.06 or 1.0
     vmin, vmax = vmin - pad, vmax + pad
     row_h = 74
-    H = max(320, 90 + row_h * len)(groups)
+    H = max(320, 90 + row_h * len(groups))
     TOP, L, R = 60, 90, W - 60
     def X(v): return L + (R - L) * (v - vmin) / (vmax - vmin)
     out = _svg(chart["title"], H)
@@ -1014,7 +1014,7 @@ def gantt_chart(chart: Dict[str, Any]) -> str:
     d_hi = max(_parse_d(t["end"]) for t in tasks)
     span = (d_hi - d_lo).days or 1
     row_h = 46
-    H = max(320, 96 + row_h * len)(tasks)
+    H = max(320, 96 + row_h * len(tasks))
     TOP, L, R = 76, 230, W - 70
     def X(d_: date) -> float: return L + (R - L) * ((d_ - d_lo).days / span)
     out = _svg(chart["title"], H)

@@ -1,5 +1,9 @@
 # 统一生产线需求规格（v1.0）
 
+> status: ARCHIVED · 2026-11-26
+> 说明：本文为历史需求确认稿，其中 `prose_critic` 等模块已删除；
+> 当前产线见 `docs/REPORT-LINES.md` 与 `docs/CORE-MAP.md`。
+
 > 状态：需求确认稿。未改生产代码。  
 > 目标：20 个角色的所有任务，走同一入口、同一契约、同一编排、分类门禁、统一交付；报告统一用 `report_flow_all.html` 的视觉/结构骨架。
 

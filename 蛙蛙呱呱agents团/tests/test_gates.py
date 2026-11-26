@@ -17,90 +17,11 @@ if str(TEAM) not in sys.path:
 
 
 import json
-from core import gate_chain
 import argparse
 import tempfile
 from core import dispatch, report_marks, r04_derive
 from core.report_theme import pages
 
-
-
-# ====================================================================
-# 合并自 test_gate_chain.py：test_gate_chain —— 四层门禁链单测。
-# ====================================================================
-# -*- coding: utf-8 -*-
-
-
-def _w(p: Path, obj):
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(obj, ensure_ascii=False), encoding="utf-8")
-
-
-def _project(tmp_path: Path):
-    proj = tmp_path / "proj"
-    _w(proj / "plan" / "pre_issue_gates.json",
-       {"ok": True, "passed": 13, "total": 13})
-    _w(proj / "plan" / "post_gates.json",
-       {"ok": True, "passed": 25, "total": 25, "checks": []})
-    _w(proj / "contract.json", {"sections": [
-        {"index": 1, "title": "页一", "chart": {"chart_validation": {"ok": True}}},
-        {"index": 2, "title": "页二", "chart": {"chart_validation": {"ok": True}}},
-    ]})
-    _w(proj / "ir_shadow.json", {"sections": [
-        {"title": "页一"}, {"title": "页二"},
-    ]})
-    return proj
-
-
-def test_chain_all_ok(tmp_path):
-    proj = _project(tmp_path)
-    r = gate_chain.run(str(proj))
-    assert r["ok"] is True
-    assert r["failures"] == []
-    assert r["layers"]["L1"]["detail"]["post_passed"] == "25/25"
-
-
-def test_l1_fails_when_post_gates_fail(tmp_path):
-    proj = _project(tmp_path)
-    _w(proj / "plan" / "post_gates.json",
-       {"ok": False, "passed": 19, "total": 25,
-        "checks": [{"id": "G1", "ok": False}]})
-    r = gate_chain.run(str(proj))
-    assert r["ok"] is False
-    assert "L1" in r["failures"]
-    assert "G1" in r["layers"]["L1"]["detail"]["post_fail"]
-
-
-def test_l2_fails_on_title_mismatch(tmp_path):
-    proj = _project(tmp_path)
-    _w(proj / "ir_shadow.json", {"sections": [{"title": "页一"}, {"title": "页三"}]})
-    r = gate_chain.run(str(proj))
-    assert "L2" in r["failures"]
-
-
-def test_l2_fails_without_shadow(tmp_path):
-    proj = _project(tmp_path)
-    (proj / "ir_shadow.json").unlink()
-    r = gate_chain.run(str(proj))
-    assert "L2" in r["failures"]
-
-
-def test_l3_fails_on_bad_chart(tmp_path):
-    proj = _project(tmp_path)
-    _w(proj / "contract.json", {"sections": [
-        {"index": 1, "title": "页一",
-         "chart": {"chart_validation": {"ok": False, "reason": "hbar 不能表达 composition"}}},
-    ]})
-    _w(proj / "ir_shadow.json", {"sections": [{"title": "页一"}]})
-    r = gate_chain.run(str(proj))
-    assert "L3" in r["failures"]
-
-
-def test_l4_skipped_without_html(tmp_path):
-    proj = _project(tmp_path)
-    r = gate_chain.run(str(proj), html_path=None)
-    assert r["layers"]["L4"]["ok"] is True
-    assert r["layers"]["L4"]["detail"].get("skipped")
 
 
 # ====================================================================
@@ -252,3 +173,35 @@ def test_r04_inputs_must_be_derived():
     # 产物换了但输入没重派生 → 必须失败
     (tmp_path / "report.html").write_text("<html>变了 13</html>", encoding="utf-8")
     assert r04_derive.check(str(tmp_path))["ok"] is False
+
+
+# ====================================================================
+# 2026-11-26：门禁假绿修复（隔离 glob / 接线真相）
+# ====================================================================
+
+def _load_script(name: str):
+    import importlib.util
+    p = TEAM / "scripts" / f"{name}.py"
+    spec = importlib.util.spec_from_file_location(f"_gate_{name}", p)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    return mod
+
+
+def test_report_isolation_detects_violation(tmp_path):
+    """隔离门禁必须能抓到 core/report/ 子包里的越界 import（防假绿）。"""
+    iso = _load_script("check_report_isolation")
+    bad = tmp_path / "bad.py"
+    bad.write_text("from shared.knowledge import brief\n", encoding="utf-8")
+    good = tmp_path / "good.py"
+    good.write_text("from core import paths\n", encoding="utf-8")
+    assert iso.scan([bad])
+    assert iso.scan([good]) == []
+
+
+def test_wiring_truth_state_is_registered():
+    """未接线模块必须显式登记；文档不得指向已删模块。"""
+    wt = _load_script("wiring_truth")
+    data = wt.build()
+    problems = wt._check(data)
+    assert problems == [], "\n".join(problems)

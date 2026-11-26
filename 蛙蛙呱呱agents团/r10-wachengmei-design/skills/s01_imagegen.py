@@ -17,6 +17,7 @@ from engines.inpaint import InpaintEditEngine
 NAME = "imagegen"
 DESC = "AI生图与插画：prompt / style / generate (LLM + VLM + Engines)"
 _AGENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from core.workspace import role_workspace  # noqa: E402  产物根统一在团外
 
 
 def _ck(ok: bool, msg: str, dim: str = "", sev: Optional[str] = None, **ev) -> Dict[str, Any]:
@@ -1215,7 +1216,7 @@ def _compose_prompt(brief: Dict[str, Any], output_dir: Optional[str] = None,
           f"**已知风险**：{'；'.join(risks) if risks else '无'}\n\n"
           f"**结构性硬限制（换风格也绕不过）**：{'；'.join(hard)}\n")
 
-    out_dir = output_dir or os.path.join(_AGENT_DIR, "workspace", "prompts")
+    out_dir = output_dir or os.path.join(role_workspace(_AGENT_DIR), "prompts")
     os.makedirs(out_dir, exist_ok=True)
     slug = (pack["resolved"] or "unknown")
     md_path = os.path.join(out_dir, f"{slug}.md")

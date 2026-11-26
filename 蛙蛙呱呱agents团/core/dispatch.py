@@ -50,6 +50,64 @@ def _rows_to_claims(role: str, doc: Dict[str, Any]) -> Dict[str, Any]:
             "meta": doc.get("meta") or {}}
 
 
+def _chart_contract(claims: Dict[str, Any], section: Dict[str, Any],
+                    title: str, local_ids: set) -> List[str]:
+    """图的硬契约（2026-11-26）：refs 必须指向本卡数字，图上每个点都要能被 refs 解释。
+
+    为什么放到收卡阶段：渲染期才发现「图数据点无法解释」会白跑一遍产线，
+    而且执行层拿到的是「渲染失败」这种迟到的反馈。这里提前挡。
+    容忍两类合法例外：① 显式声明 derived 的派生值；② 显式 partial 的构成图。
+    """
+    miss: List[str] = []
+    ch = section.get("chart") or {}
+    refs = [str(r) for r in (ch.get("refs") or [])]
+    unknown = [r for r in refs if r not in local_ids]
+    if unknown:
+        miss.append(f"节「{title}」chart.refs 找不到本卡数字：{unknown[:3]}")
+
+    num_by_id = {str(n.get("id")): n for n in (claims.get("numbers") or [])}
+    explain = set()
+    for r in refs:
+        try:
+            explain.add(round(abs(float(num_by_id[r].get("value"))), 2))
+        except (KeyError, TypeError, ValueError):
+            continue
+    for d in claims.get("derived") or []:
+        try:
+            explain.add(round(abs(float(d.get("value"))), 2))
+        except (TypeError, ValueError):
+            continue
+
+    items = ch.get("items") or ch.get("bars") or []
+    bad = []
+    for it in items:
+        if not isinstance(it, dict) or it.get("derived"):
+            continue
+        try:
+            v = round(abs(float(it.get("value"))), 2)
+        except (TypeError, ValueError):
+            continue
+        if not any(abs(v - x) <= max(0.01, abs(x) * 0.005) for x in explain):
+            bad.append(it.get("label") or v)
+    if bad:
+        miss.append(f"节「{title}」图数据点无出处：{bad[:3]}（先登记数字，或标 derived）")
+
+    if str(ch.get("type") or "") in ("pie", "donut", "pct_stacked", "waffle") \
+            and items and not ch.get("partial"):
+        total = 0.0
+        ok_sum = True
+        for it in items:
+            try:
+                total += float(it.get("value") or 0)
+            except (TypeError, ValueError):
+                ok_sum = False
+                break
+        if ok_sum and not (95 <= total <= 105):
+            miss.append(f"节「{title}」构成图合计 {total:.1f}%，不等于 100%"
+                        f"（补一个已登记的「其他」，或显式标 partial: true）")
+    return miss
+
+
 def _need(claims: Dict[str, Any]) -> List[str]:
     """一张卡最少要有什么。缺 quote 的来源等于没查，整张卡拒收。"""
     from core import source_verify
@@ -121,6 +179,8 @@ def _need(claims: Dict[str, Any]) -> List[str]:
             ch = s.get("chart") or {}
             if ch and (not ch.get("title") or not ch.get("source") or not ch.get("refs")):
                 miss.append(f"节「{t}」chart 缺 title/source/refs")
+            if ch:
+                miss += _chart_contract(claims, s, t, local_ids)
     if str(claims.get("card_spec") or "") in ("True", "true", "1"):
         from core import card_issue
         miss += card_issue.validate_claims_cells(claims)
@@ -666,6 +726,15 @@ def collect(out_dir: str, require_all: bool = False,
     fields_ok = sum(1 for s in src if not source_verify.check_fields(s))
     uniq_urls = len({normalize_url(s.get("url")) for s in src if normalize_url(s.get("url"))})
     dup_urls = sum(1 for s in src if s.get("duplicate_of"))
+    # 数据时效（借自媒体中控台的 T-1 原则，按年报口径放宽到 18 个月）：
+    # 只做度量 + 降级标记，不硬拦——官方统计本身就是年更，硬卡会把合法来源判死。
+    from core import source_freshness
+    fresh = source_freshness.summarize(src)
+    if fresh.get("stale_ratio") is not None and fresh["stale_ratio"] > 0.6 and len(src) >= 20:
+        degraded.append("source_freshness_low")
+        merged["boundaries"].append(
+            "来源时效：%d%% 的来源早于 %d 个月，结论按滞后口径解读"
+            % (round(fresh["stale_ratio"] * 100), fresh["window_months"]))
     merged["evidence"] = {
         "sources": len(src),
         "unique_sources": uniq_urls,
@@ -679,6 +748,7 @@ def collect(out_dir: str, require_all: bool = False,
         "quote_rate_scope": "fields_present_only",
         "min_sources": int(min_sources),
         "min_sources_scope": "unique_url",
+        "freshness": fresh,
     }
     merged["source_verify"] = {}
     if verify_quotes:

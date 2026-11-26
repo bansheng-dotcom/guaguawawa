@@ -47,3 +47,22 @@ rubric:
 audit:
   hard: [判断力, 机理, 判别证伪, 具体性, 反方边界]
   soft: [节奏人称, 证据密度]
+
+# 结构同构门禁（2026-11-26 新增）
+# 只看「段首标签序列 + 段数」；连续成片才算违规，两节相似只记录不拦。
+# 目的是拦住「每节都是 结论→事实→机理→反例→所以」这种能拿满分却像模板的稿子。
+structure_gate:
+  enabled: true
+  min_run: 3        # 连续多少节同构才判违规
+  min_blocks: 3     # 结构指纹至少包含几个段块
+
+# 表达候选器（2026-11-26 新增）
+# 一次生成 n 个候选，数字集合必须一致；<pass 淘汰；可用 <2 重生成，最多 max_rounds 轮。
+# 无模型时只能做措辞骨架差异，diversity 仅对 LLM 候选硬淘汰（规则候选只测量）。
+candidates:
+  enabled: true
+  n: 3
+  max_rounds: 3
+  pass: 85
+  diversity_max: 0.6
+  budget_ms_per_section: 400   # 单节选稿耗时上限，超了就退回单候选

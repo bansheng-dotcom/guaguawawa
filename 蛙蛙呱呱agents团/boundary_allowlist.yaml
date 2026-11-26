@@ -22,3 +22,24 @@ allow:
     kind: 通用资产（代码依赖）
     since: "2026-11-21"
     note: core/card_upgrade.py 运行时读取；位置待整理，不属于项目资产
+  # 角色级经验卡：跨项目通用，不含任何具体项目的数据/结论；项目级卡片只写 <PROJECT_ROOT>/experience/cards。
+  - path: r05-washenyuan-research/experience/cards/
+    kind: 角色通用经验
+    since: "2026-11-26"
+    note: 来源饱和判据卡（exp-source-saturation），只讲怎么查，不含项目结论
+  - path: r06-wadeqing-analyst/experience/cards/
+    kind: 角色通用经验
+    since: "2026-11-26"
+    note: 图表可回溯卡（exp-chart-trace），判据来自门禁而非某次项目
+  - path: r07-wademing-pm/experience/cards/
+    kind: 角色通用经验
+    since: "2026-11-26"
+    note: 需求证据门槛卡（exp-no-evidence-prd），PM 通用判断规则
+  - path: r12-wayingliu-growth/experience/cards/
+    kind: 角色通用经验
+    since: "2026-11-26"
+    note: 实验预注册卡（exp-pre-register），增长通用规则
+  - path: r13-wakecheng-csm/experience/cards/
+    kind: 角色通用经验
+    since: "2026-11-26"
+    note: 不做能力承诺卡（exp-no-promise），客成通用规则

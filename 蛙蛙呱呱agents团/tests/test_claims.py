@@ -19,109 +19,14 @@ if str(TEAM) not in sys.path:
     sys.path.insert(0, str(TEAM))
 
 
-from core import claim_card as cc
 import importlib.util
 import types
-from core import claim_gate
 import json
 import tempfile
 from core import cells_claims, dispatch
 from core import cells_claims, cells_unified
 
 from core import claims_v4 as c4
-
-
-
-# ====================================================================
-# 合并自 test_claim_card.py：ClaimCard schema 的回归测试（升级 P1）。
-# ====================================================================
-# -*- coding: utf-8 -*-
-
-
-def base_card(**over):
-    card = {
-        "id": "C01",
-        "statement": "A 比 B 高 20%",
-        "refs": ["S01#A=1.20", "S03#B=1.00"],
-        "values": {"a": 1.20, "b": 1.00, "unit": "元/公斤"},
-        "comparability": {
-            "same_product": "yes",
-            "same_period": "yes",
-            "same_unit": "yes",
-            "same_channel": "yes",
-        },
-        "rivals": [
-            {"name": "等级差异", "status": "ruled", "evidence": "同等级"},
-            {"name": "时点差异", "status": "partially_ruled", "evidence": "同日"},
-        ],
-        "falsifier": "同等级同规格价差 < 10%",
-        "confidence": "medium",
-        "grade": "B",
-        "actionable": True,
-        "headline": True,
-        "decision": "是否做跨城套利",
-        "owner": "r01",
-        "expiry": "2026-12-31",
-        "kind": "general",
-    }
-    card.update(over)
-    return card
-
-
-def test_valid_actionable_card_passes():
-    r = cc.validate(base_card())
-    assert r["ok"], r["errors"]
-    assert r["normalized"]["comparability"]["same_product"] == "yes"
-
-
-def test_headline_must_be_actionable():
-    r = cc.validate(base_card(actionable=False))
-    assert not r["ok"]
-    assert any("headline" in e for e in r["errors"])
-
-
-def test_actionable_rejects_unknown_comparability():
-    c = base_card()
-    c["comparability"]["same_product"] = "unknown"
-    r = cc.validate(c)
-    assert not r["ok"]
-    assert any("same_product" in e for e in r["errors"])
-
-
-def test_actionable_rejects_unruled_rival():
-    c = base_card()
-    c["rivals"].append({"name": "市场势力", "status": "unruled", "evidence": ""})
-    r = cc.validate(c)
-    assert not r["ok"]
-    assert any("市场势力" in e for e in r["errors"])
-
-
-def test_actionable_requires_falsifier():
-    r = cc.validate(base_card(falsifier=""))
-    assert not r["ok"]
-    assert any("falsifier" in e for e in r["errors"])
-
-
-def test_forecast_requires_expiry():
-    r = cc.validate(base_card(expiry="", kind="forecast"))
-    assert not r["ok"]
-    assert any("expiry" in e for e in r["errors"])
-
-
-def test_audit_counts_and_headline_gate():
-    cards = [
-        base_card(id="C01"),
-        base_card(id="C02", headline=False, actionable=False),
-        base_card(id="C03", headline=True, actionable=False),  # 应被 error 抓出
-    ]
-    a = cc.audit(cards)
-    assert a["total"] == 3
-    assert a["actionable"] == 1
-    assert a["unidentified"] == 2
-    assert a["headline_total"] == 2
-    assert a["headline_actionable"] == 1
-    assert not a["ok"]
-    assert any(x["id"] == "C03" for x in a["errors"])
 
 
 # ====================================================================
@@ -181,86 +86,6 @@ def test_no_arbitrary_ratio():
     assert s09._explainable(1.0, refs) is True
     assert s09._explainable(0.5, refs) is False       # 1/2 不再放行
     assert s09._explainable(3.0, refs) is True        # 1+2 仍允许
-
-
-# ====================================================================
-# 合并自 test_claim_gate.py：P9：ClaimCard 头条门禁。
-# ====================================================================
-# -*- coding: utf-8 -*-
-
-
-def _pack(grade="A", status="ok"):
-    return {"source_records": [{"id": "S01", "grade": grade,
-                               "quote_status": status}]}
-
-
-def _draft_gate():
-    return {"intent": "是否继续做", "standfirst": "苹果涨了 3%",
-            "falsifier": "若苹果跌幅超过 5%，本节作废",
-            "sections": [{"refs": ["S01"]}]}
-
-
-def test_headline_actionable_passes():
-    d = _draft_gate()
-    info = claim_gate.apply(d, _pack())
-    assert info["actionable"] is True
-    assert d["standfirst"] == "苹果涨了 3%"
-
-
-def test_headline_grade_c_demoted():
-    d = _draft_gate()
-    info = claim_gate.apply(d, _pack(grade="C"))
-    assert info["actionable"] is False and info["demoted"] is True
-    assert d["standfirst"] == claim_gate.SAFE_HEADLINE
-    assert "来源等级 > B" in " ".join(info["reasons"])
-
-
-def test_headline_unverified_demoted():
-    d = _draft_gate()
-    info = claim_gate.apply(d, _pack(status="unverified"))
-    assert info["demoted"] is True
-    assert "来源未核验" in " ".join(info["reasons"])
-
-
-def test_headline_without_falsifier_demoted():
-    d = _draft_gate()
-    d["falsifier"] = ""
-    info = claim_gate.apply(d, _pack())
-    assert info["demoted"] is True
-    assert "没有 falsifier" in info["reasons"]
-
-
-def test_section_falsifier_counts():
-    d = _draft_gate()
-    d["falsifier"] = ""
-    d["sections"][0]["falsifier"] = "若下期方向反转，本节作废"
-    info = claim_gate.apply(d, _pack())
-    assert info["actionable"] is True
-    assert info["demoted"] is False
-
-
-def test_full_card_strict_flag_demotes(monkeypatch):
-    monkeypatch.setenv("REPORT_CLAIM_CARD_GATE", "1")
-    d = _draft_gate()
-    info = claim_gate.apply(d, _pack())
-    assert info["full_schema_ok"] is False
-    assert info["demoted"] is True
-    assert any("完整 ClaimCard" in r for r in info["reasons"])
-
-
-def test_narrowing_makes_comparable_card():
-    pack = {"numbers": [
-        {"id": "E1", "period": "2026-11-01", "unit": "元", "source_file": "a.csv"},
-        {"id": "E2", "period": "2026-11-01", "unit": "元", "source_file": "a.csv"},
-        {"id": "E3", "period": "2026-10-01", "unit": "%", "source_file": "a.csv"},
-    ]}
-    d = {"intent": "是否继续", "falsifier": "若方向反转",
-         "sections": [{"refs": ["E1", "E2", "E3"]}]}
-    info = claim_gate.assess(d, pack)
-    assert info["scope"]["narrowed"] is True
-    assert info["comparability"]["same_period"] == "yes"
-    assert info["comparability"]["same_unit"] == "yes"
-    assert info["full_schema_ok"] is True
 
 
 # ====================================================================

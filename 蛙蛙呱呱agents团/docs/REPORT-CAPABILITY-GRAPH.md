@@ -1,5 +1,9 @@
 # 角色能力图（REPORT-CAPABILITY-GRAPH.md）
 
+> status: ARCHIVED · 2026-11-26
+> 说明：本文描述的能力图与问题库（capability_graph / question_library）已从代码中删除。
+> 当前入口见 `docs/CORE-MAP.md` 与 `docs/_migration/wiring-truth.md`。
+
 > 版本：v0.1 · 2026-11-17
 > 实现：`core/capability_graph.py`　｜　问题库：`core/question_library.py`
 > 产物：`workspace/report_upgrade/capability_graph.json`
