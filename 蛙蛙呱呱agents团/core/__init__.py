@@ -60,12 +60,6 @@ _GROUPS = {
         "data_shape", "data_contract", "source_verify", "coverage_plan",
         "coverage_confirm", "coverage_policy", "panel",
     ],
-    "cards": [
-        "card_issue", "card_upgrade", "card_plan", "grid_attach",
-        "cells_claims", "collection_contract", "dispatch", "report_exchange",
-        "collab", "parallel_research", "research_protocol",
-        "research_intake",
-    ],
     "semantic": [
         "report_ir", "ir_adapters", "semantic_pipeline", "ir_to_contract",
     ],
@@ -113,7 +107,8 @@ for _g, _members in _GROUPS.items():
     globals()[_g] = _Group(_g, _members)
 del _g, _members
 
-# `charts` 是真子包（core/charts/），不放进 _GROUPS，否则会盖住真包。
-# 这里显式导入一次，让 `import core; core.charts.chart_grammar` 直接可用；
-# core/charts/__init__.py 本身是懒加载的，代价只有一次空包导入。
+# `charts`、`cards` 已是真子包（core/charts/、core/cards/），不放进 _GROUPS，
+# 否则会盖住真包。这里显式导入一次，让 `import core; core.cards.card_issue`
+# 直接可用；两个子包的 __init__ 本身是懒加载的，代价只有一次空包导入。
 from . import charts  # noqa: E402,F401
+from . import cards  # noqa: E402,F401

@@ -8,6 +8,26 @@
 
 ---
 
+## 2026-11-26（第十六轮）· P4 第五阶段：core/cards 归位
+
+一句话：**7 个拆卡/发卡/收卡模块进 `core/cards/`；`core.cards` 从懒加载分组升级为真子包，并修掉两个会随迁移“假绿/假红”的检查脚本。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 物理迁移 | `core/cards/`：card_plan / card_issue / card_probe / card_bundle / card_upgrade / dispatch / report_dispatch | `git mv`，逻辑不变 |
+| 兼容层 | 旧 `core/<name>.py` 共 7 个 | 模块别名；`core.dispatch` 与 `core.cards.dispatch` 是同一对象 |
+| 包入口 | `core/cards/__init__.py` | 懒加载；另把仍平铺的 7 个拆卡线成员（grid_attach、cells_claims、collection_contract、collab、parallel_research、research_protocol、research_intake）映射到 `core.X`，保持 `core.cards.X` 旧读法 |
+| 分组入口 | `core/__init__.py` | `cards` 从 `_GROUPS` 移出（否则假分组盖住真包），改为显式 `from . import cards` |
+| 深度修正 | `card_issue`（configs）、`card_probe`（ROOT）、`card_upgrade`（ROOT） | 文件深一层，目录推导同步 +1 |
+| 隔离门禁 | `scripts/check_report_isolation.py` | 报告层 glob 补 `cards/report_dispatch.py`，否则迁移即“扫不到 = 永远 PASS” |
+| DoD 自审 | `scripts/audit_dod.py` | 源码读取改为先找 `core/*/<name>`，修复前四包迁移后 12/15 的假红；现 15/15 |
+| 边界 | `boundary_allowlist.yaml` | 登记 `core/cards/`（包名像过程目录，实为代码） |
+| 白名单 | `configs/core_files.json` | 215 → **223**（7 shim + cards/__init__） |
+
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS（含 move cards 7/7、wiring-truth、dead-code）；r06 端到端 155/155；`check_project_boundary` / `check_report_isolation` / `gen_agent_packs --check` / `check_role_packs` / `guagua.py check` 全 PASS；`audit_dod` 15/15。
+
+---
+
 ## 2026-11-26（第十五轮）· P4 第四阶段：core/claims 归位
 
 一句话：**6 个断言/格子模块进 `core/claims/`；顺带修掉两处按字符串引用旧路径的检查。**

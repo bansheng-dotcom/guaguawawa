@@ -21,7 +21,7 @@ allow:
   - path: 交付/generic_semantics_v1.yaml
     kind: 通用资产（代码依赖）
     since: "2026-11-21"
-    note: core/card_upgrade.py 运行时读取；位置待整理，不属于项目资产
+    note: core/cards/card_upgrade.py 运行时读取；位置待整理，不属于项目资产
   # P4 物理分包：core/ 下的代码包名恰好叫 data，不是项目数据集
   - path: core/data/
     kind: 代码包（P4 分包）
@@ -31,6 +31,10 @@ allow:
     kind: 代码包（P4 分包）
     since: "2026-11-26"
     note: 断言层代码包；项目 claims 只写 PROJECT_ROOT，不写团内
+  - path: core/cards/
+    kind: 代码包（P4 分包）
+    since: "2026-11-26"
+    note: 拆卡/发卡代码包；项目卡与 claims 只写 PROJECT_ROOT，不写团内
   # 角色级经验卡：跨项目通用，不含任何具体项目的数据/结论；项目级卡片只写 <PROJECT_ROOT>/experience/cards。
   - path: r05-washenyuan-research/experience/cards/
     kind: 角色通用经验

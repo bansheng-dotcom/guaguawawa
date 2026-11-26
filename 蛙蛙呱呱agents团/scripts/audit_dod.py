@@ -23,8 +23,14 @@ except Exception:  # noqa: BLE001
     pass
 
 
+def _path(name: str) -> Path:
+    """优先返回已归位的 core/<pkg>/<name>；否则回落到平铺文件（含兼容 shim）。"""
+    hits = sorted(CORE.glob("*/" + name))
+    return hits[0] if hits else CORE / name
+
+
 def _txt(name: str) -> str:
-    p = CORE / name
+    p = _path(name)
     return p.read_text(encoding="utf-8", errors="replace") if p.is_file() else ""
 
 
@@ -123,12 +129,12 @@ ck(13, "拆卡饱和两档", "def grid_saturation" in cu, "基础 + 强饱和")
 
 # 追加：数据供给方案（SUPPLY-SOP v7.0）——计划级别要可追溯
 try:
-    _sp = (CORE / "supply_plan.py").read_text(encoding="utf-8")
+    _sp = _txt("supply_plan.py")
     _plan_ok = all(k in _sp for k in ("planned_level", "planned_rows",
                                       "capability_of", "def gate"))
-    _disp = (CORE / "dispatch.py").read_text(encoding="utf-8")
+    _disp = _txt("dispatch.py")
     _wired = "capability_of" in _disp and "capability_gate" in _disp
-    _cc = (CORE / "collection_contract.py").read_text(encoding="utf-8")
+    _cc = _txt("collection_contract.py")
     _rows_ok = "rows_expected_source" in _cc
     ck(14, "供给方案可追溯",
        _plan_ok and _wired and _rows_ok,
