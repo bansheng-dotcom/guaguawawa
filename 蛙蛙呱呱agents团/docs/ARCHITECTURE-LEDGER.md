@@ -9,6 +9,7 @@
 | 地基模块 | `core/base/`：paths / workspace / project / registry / protocol | 旧 `core/<name>.py` shim（模块别名） | P4 全部包迁完后统一删 shim；包名不用 `platform`（遮蔽标准库） |
 | 数据层 | `core/data/`：analysis_desk / unit / pipeline、data_*、dataset*、fact_table、evidence_pack | 旧 `core/<name>.py` shim | 同上；包名 `data` 已在 boundary_allowlist 登记 |
 | 来源层 | `core/sources/`：source_*、collection_*、coverage_*、supply_plan、research_* | 旧 `core/<name>.py` shim | 同上 |
+| 图表层 | `core/charts/`：16 个模块（13 个原平铺 chart_* + 3 个渲染器） | 旧 `core/chart_*.py` shim | 同上；`python -m core.chart_capabilities` 仍可用 |
 | 报告入口 | `report run-line` → `report_line` → `decision_report` → `report_flow` | `report_cli` 的 v10/v11 说法、`flow_report` 模板线 | `report_line` 目前是转发层；统一门面后合并 |
 | 拆卡 / 收卡 | `report_dispatch`（发卡）+ `card_issue`（拆卡）+ `dispatch.collect`（收卡） | `dispatch` v12.2 的旧叙事 | 合并为 `cards/pipeline` 时删旧描述 |
 | 断言模型 | `claims.py` + `claims_v4.py` | `claim_card` / `claim_gate`（2026-11-26 已删除） | 收敛为新 ClaimCard 后删 `claims_v4` |

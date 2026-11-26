@@ -1,25 +1,11 @@
 # -*- coding: utf-8 -*-
-"""图表规格契约：图表不是装饰，必须先声明要证明什么、缺什么不许画。"""
-from __future__ import annotations
+"""兼容层（P4 第三阶段）：实现已迁至 core.charts.chart_spec。
 
-from typing import Any, Dict, List
+用 sys.modules 别名保持模块身份一致。
+迁移全部完成后统一删除本文件。
+"""
+import sys as _sys
 
-REQUIRED = ("type", "title", "source", "unit_meta", "claim_to_prove")
+from core.charts import chart_spec as _impl
 
-
-def errors(chart: Dict[str, Any]) -> List[str]:
-    out: List[str] = []
-    for k in REQUIRED:
-        if not str(chart.get(k) or "").strip():
-            out.append(f"chart 缺 {k}")
-    if not chart.get("required_annotations"):
-        out.append("chart 缺 required_annotations（起止值/差值/目标线/样本量至少一项）")
-    if not chart.get("fail_if_missing"):
-        out.append("chart 缺 fail_if_missing（缺什么就不许画）")
-    return out
-
-
-def assert_ok(chart: Dict[str, Any]) -> None:
-    e = errors(chart)
-    if e:
-        raise ValueError("；".join(e))
+_sys.modules[__name__] = _impl

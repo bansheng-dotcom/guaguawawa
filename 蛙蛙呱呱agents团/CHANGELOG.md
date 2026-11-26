@@ -8,6 +8,22 @@
 
 ---
 
+## 2026-11-26（第十四轮）· P4 第三阶段：core/charts 归位
+
+一句话：**13 个平铺 `chart_*.py` 搬进已有的 `core/charts/`，包入口从“逻辑聚合”改成“物理归位”。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 物理迁移 | `core/charts/`：chart_candidates / capabilities / chooser / contract / field_contract / grammar / payload / plan / query / relation / shapes / spec / units | 与原有 chart_lib / chart_renderers_ext / consulting 同包 |
+| 包入口 | `core/charts/__init__.py` | 删除“物理不动”的旧注释，改为 16 个懒加载子模块 |
+| CLI 兼容 | `core/chart_capabilities.py` shim | 实现里抽出 `main()`；`python -m core.chart_capabilities --check` 仍走旧路径并正常返回 |
+| 深度修正 | chart_capabilities（CHART_DIR）、chart_candidates / chart_contract（ROOT） | 文件深一层，目录推导同步修正 |
+| 白名单 | `configs/core_files.json` | 195 → **208**（13 shim） |
+
+验收：`pytest` 630 passed / 3 skipped；`ci_report_checks` ALL PASS（含 `-m core.chart_capabilities --check`）；`wiring_truth` / `check_dead_code` PASS；`check_project_boundary` PASS；`gen_agent_packs --check` 无漂移；`check_role_packs` 20/20；r06 / r10 端到端全绿；`guagua.py check` 20/20。
+
+---
+
 ## 2026-11-26（第十三轮）· P4 第二阶段：core/data + core/sources 分包
 
 一句话：**27 个数据/来源模块各归其包；shim 改成模块别名，保证 monkeypatch 仍作用在实现模块上。**
