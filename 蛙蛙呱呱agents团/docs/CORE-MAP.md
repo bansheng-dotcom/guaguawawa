@@ -5,30 +5,24 @@
 
 ---
 
-## 0.1 怎么用（真子包 + 逻辑分组入口）
+## 0.1 怎么用（只走真子包）
 
 P4 之后 `core/` 已按关注点物理分包：`base` / `data` / `sources` / `charts` /
 `claims` / `cards` / `report` / `prose`（另有 `report_kernel`、`report_theme`）。
-旧平铺路径的兼容 shim 已于 2026-11-26 全部删除，import 必须走新路径。
-同时保留一层按层访问的懒加载入口：
+旧平铺路径的兼容 shim 已于 2026-11-26 全部删除，import 必须走新路径：
 
 ```python
 from core.report import report_flow
 from core.data import fact_table
-from core import gates, pipeline, cards, semantic, narrative, charts, render
-
-gates.quality_gate          # == core.quality_gate
-pipeline.report_flow        # == core.report.report_flow
-cards.card_issue            # == core.cards.card_issue
-semantic.report_ir          # == core.report.report_ir
-narrative.claims            # == core.claims.claims
-charts.chart_grammar        # == core.charts.chart_grammar
-render.report_theme         # == core.report_theme
+from core.cards import card_issue
+from core.charts import chart_grammar
+from core.report_theme import report_theme
 ```
 
-- 子包与分组都是**懒加载**：访问到谁才导入谁。
-- 分组名与 `docs/CORE-MAP.md` 的 13 层一一对应（`collab` 因与 `core/collab.py`
-  同名，协作组改叫 `coordination`；`data`、`cards`、`charts` 已是真子包，不再做分组）。
+- 2026-11-27（P5-6）：`core.gates` / `core.pipeline` / `core.semantic` 等
+  逻辑分组入口已删除——它们零实际 import，只会挡住真子包路径；
+  要用哪个模块就写全路径。
+- 子包都是**懒加载**：访问到谁才导入谁。
 - 包内路径与旧路径的对应关系见 `docs/ARCHITECTURE-LEDGER.md`。
 
 ---

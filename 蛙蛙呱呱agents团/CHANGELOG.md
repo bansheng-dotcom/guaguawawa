@@ -8,6 +8,21 @@
 
 ---
 
+## 2026-11-27（第二十五轮）· P5-6：删掉 core 的 8 个懒加载分组入口
+
+一句话：**`core.gates` / `core.pipeline` / `core.semantic` 这类「按层访问」壳删了——零实际 import，只挡真子包路径。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 包入口 | `core/__init__.py` | 删除 `_GROUPS` / `_Group` / `_MOVED` 与 8 个分组名；`__all__` 只留 8 个真子包 + `runner` |
+| 守卫 | `tests/test_orchestration.py` | 原 6 条分组测试改为 1 条：`core.__all__` 里只能有真子包，分组名不许复活 |
+| 文档 | `docs/CORE-MAP.md` 0.1 节 | 示例改为全路径 import，写明分组入口已删除 |
+| 台账 | `docs/ARCHITECTURE-LEDGER.md` | 「知识注入」「包导出」两行的 LEGACY 状态改为已删除 |
+
+验收：`pytest` **637 passed** / 3 skipped；`ci_report_checks` ALL PASS；`guagua.py check` 20/20；wiring_truth / dead_code / project_boundary 全 PASS。产物与 import 行为不变——分组本就零调用。
+
+---
+
 ## 2026-11-27（第二十四轮）· P5-4 收尾：两种交付形态落盘成同一份字段形状
 
 一句话：**「按格交」与「按卡交」不再各写一套数字字段；两张卡用同一套 `CARD_KEYS` / `NUMBER_KEYS` 收。**

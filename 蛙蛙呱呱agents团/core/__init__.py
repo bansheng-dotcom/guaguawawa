@@ -23,104 +23,20 @@ cards / report / prose（另有 report_kernel、report_theme）。旧平铺路�
     from core.data import fact_table
     from core.base import paths
 
-仍保留的「按层访问」懒加载入口（2026-11-23）：
-
-    from core import gates
-    gates.quality_gate          # == core.quality_gate
-    gates.report_quality        # == core.report.report_quality
+逻辑分组入口（core.gates / core.pipeline / …）已于 2026-11-27 删除（P5-6）：
+它们零实际 import，只挡住真子包路径。需要模块就写全路径，不再提供 `core.<组>.<模块>`。
 
 完整分层见 docs/CORE-MAP.md 与 docs/ARCHITECTURE-LEDGER.md。
 """
 from __future__ import annotations
-
-import importlib
 
 __all__ = [
     # 入口
     "runner",
     # 真子包（P4）
     "base", "data", "sources", "charts", "claims", "cards", "report", "prose",
-    # 逻辑分组（2026-11-23）
-    "pipeline", "intent", "experts", "semantic",
-    "narrative", "render", "gates", "coordination",
 ]
-
-# 分组 → 成员模块名（与 docs/CORE-MAP.md 的 13 层一一对应）
-# 注意：名字不能跟现有模块/真子包同名。`collab` 已是 core/collab.py，所以协作组叫
-# `coordination`；`data` / `charts` / `cards` 已是真子包，不在此处定义。
-_GROUPS = {
-    "pipeline": [
-        "report_cli", "report_line", "report_dispatch", "report_flow",
-        "report_bridge", "report_renderer", "decision_report",
-        "report_layout", "report_contract", "flow_report",
-    ],
-    "intent": [
-        "orchestrator", "decision", "report_clarify", "intake",
-        "report_thesis", "report_structure",
-        "domain_pack", "dor", "report_model",
-    ],
-    "experts": [
-        "roster", "registry", "report_roles", "skill_graph", "skill_bridge",
-        "analysis_methods", "analysis_desk", "analysis_pipeline",
-        "methods",
-    ],
-    "semantic": [
-        "report_ir", "ir_adapters", "semantic_pipeline", "ir_to_contract",
-    ],
-    "narrative": [
-        "claims", "claim_consistency",
-        "report_assembly", "report_editorial", "synthesis",
-    ],
-    "render": ["report_theme"],
-    "gates": [
-        "quality_gate", "report_quality",
-        "prose_style", "prose_spec", "report_prose_gen", "report_marks",
-        "r04_audit", "r04_derive", "report_kernel",
-    ],
-    "coordination": [
-        "workspace", "outcome_ledger", "memory_guard", "runner",
-        "protocol", "prompt_kernel",
-    ],
-}
 
 # 真子包：显式导入一次，让 `import core; core.data.fact_table` 直接可用。
 # 子包的 __init__ 本身是懒加载的，代价只有 8 次空包导入。
 from . import base, data, sources, charts, claims, cards, report, prose  # noqa: E402,F401
-
-# 成员名 → 所属子包（供分组懒加载解析；改名只需改子包的 __all__）
-_MOVED = {}
-for _pkg in ("base", "data", "sources", "charts", "claims", "cards",
-             "report", "prose"):
-    for _name in getattr(globals()[_pkg], "__all__", []):
-        _MOVED[_name] = _pkg
-del _pkg, _name
-
-
-class _Group:
-    """懒加载的模块分组：访问 `core.gates.quality_gate` 时才 import。"""
-
-    def __init__(self, name: str, members) -> None:
-        self.__name__ = name
-        self._members = tuple(members)
-
-    def __getattr__(self, item: str):
-        if item in self._members:
-            pkg = _MOVED.get(item)
-            target = "core.%s.%s" % (pkg, item) if pkg else "core." + item
-            mod = importlib.import_module(target)
-            object.__setattr__(self, item, mod)   # 缓存，避免重复 import
-            return mod
-        raise AttributeError(
-            "core.%s 没有模块 %r；可用：%s"
-            % (self.__name__, item, ", ".join(sorted(self._members))))
-
-    def __dir__(self):
-        return sorted(self._members)
-
-    def __repr__(self) -> str:
-        return "<core.%s: %d modules>" % (self.__name__, len(self._members))
-
-
-for _g, _members in _GROUPS.items():
-    globals()[_g] = _Group(_g, _members)
-del _g, _members

@@ -8,7 +8,7 @@
     test_run_router.py —— 统一入口路由器（D+）的选路测试。
     test_s4_relation_branch.py —— test_s4_relation_branch —— 验证 S4 在 report_flow 里的关系选型分支端到端生效。
     test_user_in_the_loop.py —— 2026-11-22：意图必须问用户、卡片必须给用户看；封面取 meta 不取首节。
-    test_core_groups.py —— test_core_groups —— core 的逻辑分组入口（物理不动）。
+    test_core_groups.py —— test_core_groups —— core 的逻辑分组入口（2026-11-27 P5-6 已删除，改为「只导出真子包」守卫）。
 """
 from __future__ import annotations
 import sys
@@ -827,53 +827,29 @@ def test_evidence_pack_carries_meta():
 # ====================================================================
 # 合并自 test_core_groups.py：test_core_groups —— core 的逻辑分组入口（物理不动）。
 # ====================================================================
-# -*- coding: utf-8 -*-
+# 原 test_core_groups.py：逻辑分组入口已删除（P5-6，2026-11-27）。
+# 保留一条守卫：core 只导出真子包，分组入口不得复活。
+# ====================================================================
+def test_core_exports_only_real_subpackages():
+    import types
+    from core.base import registry  # noqa: F401  确认子包可导入
 
-
-def test_group_attributes_exist():
-    for g in ("pipeline", "intent", "experts", "data", "cards",
-              "semantic", "narrative", "render", "gates", "coordination"):
-        assert hasattr(core, g), g
-        assert len(dir(getattr(core, g))) > 0, g
-
-
-def test_group_resolves_to_same_module():
-    from importlib import import_module
-    assert core.gates.quality_gate is core.quality_gate
-    assert core.pipeline.report_flow is core.report.report_flow
-    assert core.semantic.report_ir is core.report.report_ir
-    assert core.cards.card_issue is import_module("core.cards.card_issue")
-    assert core.narrative.claims is import_module("core.claims.claims")
-
-
-def test_group_member_is_lazy_then_cached():
-    # 访问前不在 sys.modules 里（可能已被别的测试导入，所以只验证访问后能拿到）
-    m1 = core.experts.roster
-    m2 = core.experts.roster
-    assert m1 is m2
-
-
-def test_unknown_member_raises():
-    try:
-        core.gates.not_a_module  # noqa: B018
-    except AttributeError as exc:
-        assert "not_a_module" in str(exc)
-    else:
-        raise AssertionError("应当抛 AttributeError")
+    for name in core.__all__:
+        if name == "runner":
+            continue
+        mod = getattr(core, name)
+        assert isinstance(mod, types.ModuleType), name
+        assert hasattr(mod, "__path__"), f"{name} 必须是真子包，不是分组壳"
+    for gone in ("pipeline", "intent", "experts", "semantic", "narrative",
+                 "render", "gates", "coordination"):
+        assert gone not in core.__all__, gone
+        assert not hasattr(core, gone), f"分组入口 {gone} 已删除，不许复活"
 
 
 def test_charts_package_aggregates_chart_modules():
     from core.charts import chart_grammar, chart_lib
     assert chart_grammar is core.charts.chart_grammar
     assert chart_lib is __import__("core.charts.chart_lib", fromlist=["x"])
-
-
-def test_render_group_points_at_report_theme():
-    assert core.render.report_theme is core.report_theme
-
-
-def test_group_repr():
-    assert "modules" in repr(core.gates)
 
 
 # ====================================================================
