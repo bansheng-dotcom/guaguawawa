@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>经营决策包 · Q4 预算再平衡决策包</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; --accent:#0f766e; --accent-soft:#f0fdfa; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>经营决策包 · Q4 预算再平衡决策包</h1>
+<p class="meta">run_id R01-20261127-Q4BUDGET ｜ 出具 R01 蛙全局 ｜ 账本校验 PASS ｜
+不可逆阶段签名 创始人 @ 2026-11-27</p>
+<h2>1. 结论先行</h2>
+<div class="block">维持 99 元自助档，削减 12% 低效投放，供应链改双供应商；预计 6 周回补毛利率 2.4pt。
+代价是短期新客增速下降 8%，用灰度对照验证。</div>
+<figure class="fig-card">
+  <figcaption class="fig-sub">图 1：预算再平衡前后毛利率与获客成本（示意口径，非真实财务数）</figcaption>
+  <table>
+    <thead><tr><th>指标</th><th>再平衡前</th><th>再平衡后（目标）</th></tr></thead>
+    <tbody><tr><td>毛利率</td><td>38.6%</td><td>41.0%</td></tr>
+    <tr><td>获客成本 CAC</td><td>186 元</td><td>171 元</td></tr></tbody>
+  </table>
+  <div class="fig-src">来源：财务周报（内部），2026-11-24</div>
+  <div class="fig-unit">单位：百分比 / 人民币元；零线为 0pt 毛利变化基准</div>
+</figure>
+<h2>2. 决策链</h2>
+<table>
+<thead><tr><th>阶段</th><th>阶段决策</th><th>不可逆</th></tr></thead>
+<tbody><tr><td>intent</td><td>确认问题：毛利率连续两季下滑 3.1pt，决策用途是预算再平衡</td><td>否</td></tr><tr><td>decompose</td><td>拆 4 张任务卡：定价 / 投放 / 供应链 / 人效，单一 owner</td><td>否</td></tr><tr><td>decide</td><td>维持 99 元档 + 削减 12% 投放；可逆性=难逆，需灰度回滚计划</td><td>否</td></tr><tr><td>redteam</td><td>三评委 2 GO 1 PAUSE：补 6 周灰度对照后再全量</td><td>否</td></tr><tr><td>companyos</td><td>回补目标写进 Rocks，周会用红黄绿追踪</td><td>否</td></tr><tr><td>decisionlog</td><td>决策留痕并锁 60 天冷却，禁止重提旧方案</td><td>否</td></tr><tr><td>boardroom</td><td>上报董事会：请求 6 周灰度授权（不可逆动资金）</td><td>是</td></tr><tr><td>deliver</td><td>打包交付：决策包 + 账本 + 回执，交 R04 复核</td><td>否</td></tr></tbody>
+</table>
+<h2>3. 工件与可追性</h2>
+<table>
+<thead><tr><th>工件</th><th>产出阶段</th><th>sha256 前 12 位</th></tr></thead>
+<tbody><tr><td>artifacts/brief.json</td><td>intent</td><td><code>7b812586879c</code></td></tr><tr><td>artifacts/taskcard.json</td><td>decompose</td><td><code>4f7165cd3a2e</code></td></tr><tr><td>artifacts/decision_card.json</td><td>decide</td><td><code>0ef18987f479</code></td></tr><tr><td>artifacts/redteam.json</td><td>redteam</td><td><code>f36cbdc4c672</code></td></tr><tr><td>artifacts/companyos.json</td><td>companyos</td><td><code>b27afc0b1410</code></td></tr><tr><td>artifacts/decisionlog.json</td><td>decisionlog</td><td><code>99e8ee4955c1</code></td></tr><tr><td>artifacts/board.json</td><td>boardroom</td><td><code>c0fc76bafe9a</code></td></tr><tr><td>artifacts/交付回执.txt</td><td>deliver</td><td><code>fe1ac8809d7c</code></td></tr></tbody>
+</table>
+<h2>4. 边界与未决</h2>
+<p>本包不回答竞品是否跟进降价；6 周灰度未结束前，毛利率改善只能算目标值，不写成事实。</p>
+
+</main>
+</body>
+</html>

@@ -213,6 +213,22 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
                            "verdict"]),
         },
     },
+    "chain": {
+        "desc": "8 段研究链：scope→source→collect→verify→triangulate→size→compete→report",
+        "input": {},
+        "output": {
+            "scope": _out(["subquestion_count", "mece_ok", "verdict"]),
+            "source": _out(["candidate_count", "type_count", "verdict"]),
+            "collect": _out(["evidence_count", "verdict"]),
+            "verify": _out(["verified_count", "unverified_count", "verdict"]),
+            "triangulate": _out(["conclusion_count", "contradiction_count", "verdict"]),
+            "size": _out(["tam_top", "tam_bottom", "tam_p50", "verdict"]),
+            "compete": _out(["competitor_count", "dimension_count", "verdict"]),
+            "report": _out(["appendix_count", "conclusion_count", "verdict"]),
+            "run": _out(["stage_count", "manifest", "verdict"]),
+            "audit": _out(["verdict", "out_dir"]),
+        },
+    },
 }
 
 

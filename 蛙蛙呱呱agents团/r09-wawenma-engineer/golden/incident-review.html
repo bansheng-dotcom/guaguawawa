@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>搜索 5xx 故障复盘</title><style>
+@page{size:A4;margin:16mm}
+:root{--ink:#14202b;--muted:#5a6b7b;--line:#d9e2ea;--bg:#f5f8fa;
+--card:#fff;--ok:#0f7b5f;--warn:#a86400;--bad:#b3261e;--accent:#1f5fa8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:36px 24px 64px}
+header{border-left:5px solid var(--accent);padding:6px 0 6px 18px;margin-bottom:24px}
+header .kicker{color:var(--muted);font-size:13px;letter-spacing:.08em}
+h1{font-size:28px;margin:6px 0 8px}h2{font-size:19px;margin:30px 0 10px}
+h3{font-size:15px;margin:18px 0 8px;color:var(--accent)}
+p{color:var(--ink)}.muted{color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi b{display:block;font-size:23px;margin-bottom:3px}.kpi span{color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse;background:var(--card);
+border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#eef3f7;color:#33475b;font-weight:600}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;padding:1px 7px;border-radius:99px;font-size:12px;
+background:#e8f3ed;color:var(--ok);border:1px solid #bfe0cf}
+.tag.warn{background:#fdf1dd;color:var(--warn);border-color:#efd3a2}
+.mono{font-family:Consolas,monospace;font-size:12.5px;color:#3b4d5e}
+.bar{height:12px;background:#e6edf3;border-radius:99px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:16px 18px;margin:14px 0}
+ul{margin:6px 0 6px 18px;padding:0}li{margin:3px 0}
+footer{margin-top:38px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style></head>
+<body data-theme="light"><div class="wrap">
+<header><div class="kicker">R09 · 工程链 · SLO 与错误预算</div><h1>搜索 5xx 故障复盘</h1>
+<p class="muted">项目 tiny-notes-incident · 十段全链 PASS ·
+工件指纹 174e5820debda0c740ea4ce2</p></header>
+<div class="kpis">
+<div class="kpi"><b>SEV-1</b><span>事件级别</span></div>
+<div class="kpi"><b>2.0m</b><span>MTTD</span></div>
+<div class="kpi"><b>25.0m</b><span>MTTR</span></div>
+<div class="kpi"><b>65%</b><span>错误预算已用</span></div>
+</div>
+<div class="card"><h2>根因</h2><p>空查询未短路，LIKE &#x27;%%&#x27; 触发全表扫描；缺少 q 长度上限</p>
+<p class="muted">SLO 99.9% / 30d；错误预算
+28.0 / 43.2 分钟</p>
+<div class="bar"><i style="width:65%"></i></div>
+<p class="muted">复盘原则：不追责（blameless=True），只看系统与流程。</p></div>
+<h2>时间线</h2><table><thead><tr><th>时刻</th><th>事件</th></tr></thead><tbody><tr><td>10:02</td><td>5xx 告警触发（阈值 1%，当前 12%）</td></tr><tr><td>10:04</td><td>值班确认搜索接口 p95 超 3.2s</td></tr><tr><td>10:06</td><td>关闭 notes.search feature flag 止损</td></tr><tr><td>10:11</td><td>错误率回落到 0.1%</td></tr><tr><td>10:16</td><td>EXPLAIN 显示 LIKE &#x27;%%&#x27; 全表扫描</td></tr><tr><td>10:27</td><td>修复分支通过空查询单测并合入</td></tr></tbody></table>
+<h2>行动项</h2><table><thead><tr><th>ID</th><th>事项</th><th>负责人</th><th>截止</th><th>状态</th></tr></thead><tbody><tr><td>A1</td><td>补空查询校验与单测</td><td>r09</td><td>2026-12-01</td><td>done</td></tr><tr><td>A2</td><td>为 search_text 建索引并压测</td><td>r09</td><td>2026-12-03</td><td>doing</td></tr><tr><td>A3</td><td>增加搜索错误率与 p95 看板</td><td>r20</td><td>2026-12-05</td><td>todo</td></tr><tr><td>A4</td><td>发布前把 q 长度上限写入契约测试</td><td>r09</td><td>2026-12-08</td><td>todo</td></tr></tbody></table>
+<h2>十段门禁</h2><table><thead><tr><th>段</th><th>门禁</th><th>结论</th><th>sha256</th></tr></thead><tbody><tr><td>adr</td><td>PASS</td><td>PASS</td><td>174e5820555a</td></tr><tr><td>api</td><td>PASS</td><td>PASS</td><td>debda0c7f3be</td></tr><tr><td>feature</td><td>PASS</td><td>PASS</td><td>40ea4ce2e848</td></tr><tr><td>testing</td><td>PASS</td><td>PASS</td><td>9f7a2a0d22f4</td></tr><tr><td>debug</td><td>PASS</td><td>PASS</td><td>b2b018ca2eb9</td></tr><tr><td>release</td><td>PASS</td><td>PASS</td><td>feca8fd4a70b</td></tr><tr><td>security</td><td>PASS</td><td>PASS</td><td>c9c1e070bad6</td></tr><tr><td>performance</td><td>PASS</td><td>PASS</td><td>562c3afff784</td></tr><tr><td>incident</td><td>PASS</td><td>PASS</td><td>b26bcb1eca25</td></tr><tr><td>review</td><td>PASS</td><td>PASS</td><td>7bbcf3dac457</td></tr></tbody></table>
+<footer>由 R09 蛙稳码 eng_chain.runner 真实运行 fixtures 生成；
+manifest 见运行目录 eng_manifest.json。门禁只信结构化结果，不信叙述。</footer>
+</div></body></html>

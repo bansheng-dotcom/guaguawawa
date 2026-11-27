@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ELT 与质量报告：连接 / 同步 / 六维质量 · R18 蛙数仓 · 数据工程与数仓官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>ELT 与质量报告：连接 / 同步 / 六维质量</h1>
+<p class="meta">R18 蛙数仓 · 数据工程与数仓官 · 连接器命名与凭据隔离 + 完整性/唯一性/有效性/新鲜度 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>来源→目的地连接</td><td>elt.connection</td><td>examples/connection.json</td><td>14c5160ae85edcc4</td><td>130</td></tr>
+<tr><td>同步任务</td><td>elt.sync</td><td>examples/sync.json</td><td>162dbc30e31d92c8</td><td>271</td></tr>
+<tr><td>质量门禁</td><td>quality.check</td><td>examples/quality_check.json</td><td>d35639661cd9e3a2</td><td>230</td></tr>
+<tr><td>新鲜度口径</td><td>quality.fresh</td><td>examples/quality_fresh.json</td><td>4853bfb21e84bad9</td><td>119</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>来源→目的地连接 · elt.connection</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>connection_id</td><td>conn-001</td></tr>
+<tr><td>source_connector</td><td>source-postgres</td></tr>
+<tr><td>destination_connector</td><td>destination-snowflake</td></tr>
+<tr><td>narrative</td><td>连接 conn-001：source-postgres → destination-snowflake</td></tr>
+</tbody></table>
+<h3>同步任务 · elt.sync</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>connection_id</td><td>conn-001</td></tr>
+<tr><td>stream_count</td><td>2</td></tr>
+<tr><td>mode</td><td>full_refresh</td></tr>
+<tr><td>narrative</td><td>同步 conn-001：full_refresh，2 个 stream</td></tr>
+</tbody></table>
+<h3>质量门禁 · quality.check</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>table</td><td>orders</td></tr>
+<tr><td>check_count</td><td>1</td></tr>
+<tr><td>row_count</td><td>1000</td></tr>
+<tr><td>narrative</td><td>质量门禁 orders：1 项检查（自报口径）</td></tr>
+</tbody></table>
+<h3>新鲜度口径 · quality.fresh</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>table</td><td>orders</td></tr>
+<tr><td>age_hours</td><td>6</td></tr>
+<tr><td>max_age_hours</td><td>24</td></tr>
+<tr><td>narrative</td><td>新鲜度 orders：6h / 上限 24h</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>来源→目的地连接</td><td>elt.connection_id</td><td>OK</td><td class="pass">PASS</td><td>连接 ID 非空</td></tr>
+<tr><td>来源→目的地连接</td><td>elt.source_prefix</td><td>OK</td><td class="pass">PASS</td><td>来源连接器 source-postgres 以 source- 开头</td></tr>
+<tr><td>来源→目的地连接</td><td>elt.destination_prefix</td><td>OK</td><td class="pass">PASS</td><td>目的地连接器 destination-snowflake 以 destination- 开头</td></tr>
+<tr><td>来源→目的地连接</td><td>elt.distinct</td><td>OK</td><td class="pass">PASS</td><td>来源与目的地不同</td></tr>
+<tr><td>来源→目的地连接</td><td>elt.no_credential</td><td>OK</td><td class="pass">PASS</td><td>连接配置不含凭据字段（命中 无）</td></tr>
+<tr><td>同步任务</td><td>sync.connection_id</td><td>OK</td><td class="pass">PASS</td><td>同步任务归属连接非空</td></tr>
+<tr><td>同步任务</td><td>sync.mode</td><td>OK</td><td class="pass">PASS</td><td>sync mode=&#x27;full_refresh&#x27; 在白名单 [&#x27;full_refresh&#x27;, &#x27;incremental_append&#x27;, &#x27;incremental_dedup&#x27;]</td></tr>
+<tr><td>同步任务</td><td>sync.streams</td><td>OK</td><td class="pass">PASS</td><td>stream ≥1（实际 2）</td></tr>
+<tr><td>同步任务</td><td>sync.cursor</td><td>OK</td><td class="pass">PASS</td><td>full_refresh 模式不要求 cursor</td></tr>
+<tr><td>同步任务</td><td>sync.schedule</td><td>OK</td><td class="pass">PASS</td><td>同步频率非空（0 2 * * *）</td></tr>
+<tr><td>同步任务</td><td>sync.no_credential</td><td>OK</td><td class="pass">PASS</td><td>同步配置不含凭据字段（命中 无）</td></tr>
+<tr><td>质量门禁</td><td>quality.table</td><td>OK</td><td class="pass">PASS</td><td>表名非空</td></tr>
+<tr><td>质量门禁</td><td>quality.row_count</td><td>OK</td><td class="pass">PASS</td><td>行数 1000 &gt; 0</td></tr>
+<tr><td>质量门禁</td><td>quality.null_ratio</td><td>OK</td><td class="pass">PASS</td><td>空值率 0.02 ≤ 0.1</td></tr>
+<tr><td>质量门禁</td><td>quality.dup_ratio</td><td>OK</td><td class="pass">PASS</td><td>重复率 0.01 ≤ 0.05</td></tr>
+<tr><td>质量门禁</td><td>quality.invalid</td><td>OK</td><td class="pass">PASS</td><td>无效值 0 = 0</td></tr>
+<tr><td>质量门禁</td><td>quality.items</td><td>OK</td><td class="pass">PASS</td><td>检查条目全通过且带实测值（未过 无）</td></tr>
+<tr><td>新鲜度口径</td><td>fresh.table</td><td>OK</td><td class="pass">PASS</td><td>表名非空</td></tr>
+<tr><td>新鲜度口径</td><td>fresh.age</td><td>OK</td><td class="pass">PASS</td><td>数据年龄 6h ≤ 24h</td></tr>
+<tr><td>新鲜度口径</td><td>fresh.loaded_at</td><td>OK</td><td class="pass">PASS</td><td>声明 loaded_at 字段</td></tr>
+<tr><td>新鲜度口径</td><td>fresh.snapshotted_at</td><td>OK</td><td class="pass">PASS</td><td>声明 snapshotted_at 时点</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">综合结论：数据链门禁全绿，可进分析环境</p>
+<p>连接器符合 source-/destination- 约定且不含凭据字段；同步模式/stream/频率合法；质量门禁覆盖行数、空值率、重复率、无效值与条目实测值，新鲜度在阈值内。</p>
+<p class="note">R18 只判「数据能不能进分析环境」，不判「数字说明什么」；回填属高风险运维，须人工审批。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实技能生成，可复算；R18 不擅自回填生产表。</footer>
+</main>
+</body>
+</html>

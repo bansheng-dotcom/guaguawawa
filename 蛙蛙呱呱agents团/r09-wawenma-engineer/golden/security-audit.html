@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>tiny-notes 安全审计单</title><style>
+@page{size:A4;margin:16mm}
+:root{--ink:#14202b;--muted:#5a6b7b;--line:#d9e2ea;--bg:#f5f8fa;
+--card:#fff;--ok:#0f7b5f;--warn:#a86400;--bad:#b3261e;--accent:#1f5fa8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:36px 24px 64px}
+header{border-left:5px solid var(--accent);padding:6px 0 6px 18px;margin-bottom:24px}
+header .kicker{color:var(--muted);font-size:13px;letter-spacing:.08em}
+h1{font-size:28px;margin:6px 0 8px}h2{font-size:19px;margin:30px 0 10px}
+h3{font-size:15px;margin:18px 0 8px;color:var(--accent)}
+p{color:var(--ink)}.muted{color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi b{display:block;font-size:23px;margin-bottom:3px}.kpi span{color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse;background:var(--card);
+border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#eef3f7;color:#33475b;font-weight:600}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;padding:1px 7px;border-radius:99px;font-size:12px;
+background:#e8f3ed;color:var(--ok);border:1px solid #bfe0cf}
+.tag.warn{background:#fdf1dd;color:var(--warn);border-color:#efd3a2}
+.mono{font-family:Consolas,monospace;font-size:12.5px;color:#3b4d5e}
+.bar{height:12px;background:#e6edf3;border-radius:99px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:16px 18px;margin:14px 0}
+ul{margin:6px 0 6px 18px;padding:0}li{margin:3px 0}
+footer{margin-top:38px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style></head>
+<body data-theme="light"><div class="wrap">
+<header><div class="kicker">R09 · 工程链 · STRIDE + OWASP ASVS</div><h1>tiny-notes 安全审计单</h1>
+<p class="muted">项目 tiny-notes-security-audit · 十段全链 PASS ·
+工件指纹 262709272a54feb7aba8603b</p></header>
+<div class="kpis">
+<div class="kpi"><b>L2</b><span>ASVS 等级</span></div>
+<div class="kpi"><b>8</b><span>ASVS 条目（全 pass）</span></div>
+<div class="kpi"><b>0</b><span>依赖 high 漏洞</span></div>
+<div class="kpi"><b>0</b><span>密钥泄漏</span></div>
+</div>
+<div class="card"><h2>扫描结论</h2>
+<p>依赖扫描（pip-audit）：5 项，high=0；
+密钥扫描（gitleaks）：leaked=0。</p></div>
+<h2>STRIDE 威胁</h2><table><thead><tr><th>类别</th><th>资产</th><th>威胁</th><th>缓解</th><th>级别</th></tr></thead><tbody><tr><td>S</td><td>登录接口</td><td>伪造 JWT 冒充用户</td><td>HS256 签名 + 过期校验 + 密钥轮换</td><td>high</td></tr><tr><td>T</td><td>笔记写入</td><td>篡改 owner_id 写入他人空间</td><td>服务端从 token 取 owner_id，忽略请求体</td><td>high</td></tr><tr><td>R</td><td>删除操作</td><td>否认删除行为</td><td>记录操作审计日志（用户/时间/ID）</td><td>medium</td></tr><tr><td>I</td><td>笔记读取</td><td>越权读取他人笔记</td><td>所有查询强制 owner_id 过滤</td><td>high</td></tr><tr><td>D</td><td>搜索接口</td><td>超长 q 触发全表扫描</td><td>q 长度上限 64 + search_text 索引</td><td>medium</td></tr><tr><td>E</td><td>管理脚本</td><td>普通用户调用迁移脚本</td><td>脚本仅在运维环境可执行，应用不暴露</td><td>high</td></tr></tbody></table>
+<h2>OWASP ASVS</h2><table><thead><tr><th>条目</th><th>要求</th><th>状态</th></tr></thead><tbody><tr><td>V2.1.1</td><td>密码长度至少 12 位</td><td>pass</td></tr><tr><td>V2.2.1</td><td>禁止弱口令与常见密码</td><td>pass</td></tr><tr><td>V3.2.1</td><td>会话令牌短过期且可吊销</td><td>pass</td></tr><tr><td>V4.1.1</td><td>所有访问控制服务端强制</td><td>pass</td></tr><tr><td>V5.1.1</td><td>输入长度与类型统一校验</td><td>pass</td></tr><tr><td>V7.1.1</td><td>错误响应不含堆栈与密钥</td><td>pass</td></tr><tr><td>V9.1.1</td><td>传输层强制 TLS</td><td>pass</td></tr><tr><td>V14.2.1</td><td>依赖锁定并扫描已知漏洞</td><td>pass</td></tr></tbody></table>
+<h2>错误码对齐</h2><table><thead><tr><th>错误码（API）</th><th>安全清单覆盖</th></tr></thead><tbody><tr><td>validation_error</td><td>是</td></tr><tr><td>unauthenticated</td><td>是</td></tr><tr><td>not_found</td><td>是</td></tr><tr><td>forbidden</td><td>是</td></tr></tbody></table>
+<h2>十段门禁</h2><table><thead><tr><th>段</th><th>门禁</th><th>结论</th><th>sha256</th></tr></thead><tbody><tr><td>adr</td><td>PASS</td><td>PASS</td><td>262709275311</td></tr><tr><td>api</td><td>PASS</td><td>PASS</td><td>2a54feb7ea98</td></tr><tr><td>feature</td><td>PASS</td><td>PASS</td><td>aba8603b87b9</td></tr><tr><td>testing</td><td>PASS</td><td>PASS</td><td>1616d1ff26e8</td></tr><tr><td>debug</td><td>PASS</td><td>PASS</td><td>60e897b67072</td></tr><tr><td>release</td><td>PASS</td><td>PASS</td><td>e08b8d5d5272</td></tr><tr><td>security</td><td>PASS</td><td>PASS</td><td>61dccde673b0</td></tr><tr><td>performance</td><td>PASS</td><td>PASS</td><td>152848f24647</td></tr><tr><td>incident</td><td>PASS</td><td>PASS</td><td>47a000728532</td></tr><tr><td>review</td><td>PASS</td><td>PASS</td><td>279f186c2cfe</td></tr></tbody></table>
+<footer>由 R09 蛙稳码 eng_chain.runner 真实运行 fixtures 生成；
+manifest 见运行目录 eng_manifest.json。门禁只信结构化结果，不信叙述。</footer>
+</div></body></html>

@@ -7,8 +7,8 @@
 
 | 指标 | 数量 |
 |---|---:|
-| core 模块 | 160 |
-| 内部 import 边 | 387 |
+| core 模块 | 161 |
+| 内部 import 边 | 389 |
 | 跨包边 | 270 |
 | 循环（SCC>1） | 3 |
 
@@ -187,8 +187,8 @@
 | `core.data` | 16 |
 | `core.report` | 12 |
 | `core.base` | 11 |
+| `core.charts` | 10 |
 | `core.base.paths` | 9 |
-| `core.charts` | 9 |
 | `core.claims` | 9 |
 | `core.report_theme.charts_pro` | 9 |
 | `core.report_theme.charts_pro.prokit_helpers` | 9 |

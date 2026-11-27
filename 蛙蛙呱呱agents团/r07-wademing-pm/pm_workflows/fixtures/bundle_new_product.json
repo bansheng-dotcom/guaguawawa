@@ -1,0 +1,150 @@
+{
+  "discovery": {
+    "topic": "自由职业者月底开票与催款耗时过长",
+    "interviews": [
+      {
+        "persona": "独立平面设计师",
+        "quote": "每次月底我要翻聊天记录和邮箱找项目金额，手工拼到 Excel 再开票，通常要花两三个小时。",
+        "date": "2026-10-12"
+      },
+      {
+        "persona": "自由摄影师",
+        "quote": "上次客户拖了 40 天没付款，我只能一条条翻微信找是谁欠的，最后还是漏了两单。",
+        "date": "2026-10-14"
+      },
+      {
+        "persona": "独立开发者",
+        "quote": "我一直用表格记回款，每个月都要手动对一遍银行流水，找不到差异就得重新算。",
+        "date": "2026-10-15"
+      }
+    ],
+    "job_story": {
+      "situation": "月底集中给多个客户开票并核对回款",
+      "motivation": "不想在聊天记录、邮箱和表格之间反复翻找金额",
+      "outcome": "在 10 分钟内生成一张金额准确的发票草稿"
+    },
+    "opportunities": [
+      {
+        "id": "opp1",
+        "statement": "减少从项目记录到发票信息的重复录入",
+        "evidence": "独立平面设计师：翻聊天记录和邮箱找项目金额",
+        "impact": 9,
+        "selected": true
+      },
+      {
+        "id": "opp2",
+        "statement": "让未回款项目在一处可见，避免漏单",
+        "evidence": "自由摄影师：一条条翻微信找是谁欠的，最后漏了两单",
+        "impact": 8,
+        "selected": true
+      },
+      {
+        "id": "opp3",
+        "statement": "自动核对银行流水与应收记录",
+        "evidence": "独立开发者：手动对一遍银行流水，找不到差异就得重新算",
+        "impact": 6,
+        "selected": false
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "h1",
+        "statement": "若发票信息能从项目记录自动带出，则单张开票准备时间下降 50%",
+        "disproof": "如果 4 周内测用户单张准备时间下降不足 20%，假设不成立",
+        "test": "对 6 位自由职业者做前后对比计时"
+      },
+      {
+        "id": "h2",
+        "statement": "若未回款项目集中展示，则月度漏单数下降 80%",
+        "disproof": "如果连续两个月漏单数下降低于 30%，假设不成立",
+        "test": "接入 10 位用户的历史回款记录复核"
+      }
+    ],
+    "poc": {
+      "name": "自动发票草稿",
+      "scope": "连接项目表与发票模板，生成待确认草稿",
+      "duration_days": 14,
+      "success_metric": "单张开票准备时间",
+      "threshold": "从 25 分钟降到 10 分钟",
+      "rollback_plan": "保留手工开票入口，草稿可一键丢弃"
+    }
+  },
+  "prd": {
+    "context": {
+      "background": "自由职业者月底开票需要跨聊天记录、邮箱与表格手工拼接金额，耗时长且易漏单。",
+      "evidence_links": [
+        "discovery_pack.json#opp1",
+        "discovery_pack.json#h1"
+      ],
+      "target_users": ["自由职业者", "一人公司经营者"]
+    },
+    "prd": {
+      "problem_statement": "自由职业者月底开票需要手工翻找项目金额与聊天记录，平均每张 25 分钟，容易漏单",
+      "users": [
+        {
+          "segment": "自由职业者",
+          "scenario": "月底集中开票",
+          "alternative": "Excel + 聊天记录手工拼接",
+          "action_cost": "高"
+        }
+      ],
+      "value_proposition": {
+        "before": "手工翻记录拼金额，单张 25 分钟",
+        "how": "从项目记录自动生成发票草稿",
+        "after": "单张准备 10 分钟内完成",
+        "alternatives": "Excel 模板 / 代账公司"
+      },
+      "scope": {
+        "p0": ["从项目记录生成发票草稿"],
+        "p1": ["草稿导出 PDF"],
+        "p2": [],
+        "non_goals": ["不做自动催款", "不对接税务系统"]
+      },
+      "metrics": {
+        "north_star": "单张开票准备时间",
+        "input_metrics": ["自动带出字段比例"],
+        "guardrail": ["草稿错误率"],
+        "baseline": "25 分钟",
+        "target": "10 分钟",
+        "data_source": "内测用户计时"
+      },
+      "acceptance_criteria": [
+        {
+          "given": "已有一个含客户与金额的项目",
+          "when": "点击生成发票草稿",
+          "then": "草稿自动带出客户与金额"
+        }
+      ],
+      "risks": [
+        {"hypothesis": "项目记录字段足够生成草稿", "validation": "抽样 20 个项目核对"},
+        {"hypothesis": "用户愿意先补项目记录", "validation": "可用性测试 6 人"},
+        {"hypothesis": "自动带出能降低准备时间", "validation": "前后对比实验"}
+      ],
+      "executive_summary": "把发票信息从项目记录自动带入草稿，把单张开票准备时间从 25 分钟降到 10 分钟"
+    },
+    "user_stories": [
+      {
+        "id": "us1",
+        "as_a": "自由职业者",
+        "i_want": "从项目记录直接生成发票草稿",
+        "so_that": "不用再翻聊天记录拼金额",
+        "acceptance_criteria": [
+          "project 存在客户与金额时草稿自动带出",
+          "缺少金额时提示补全",
+          "草稿可一键丢弃",
+          "生成后保留手工修改入口"
+        ]
+      }
+    ],
+    "non_goals": ["不做自动催款", "不对接税务系统"],
+    "premortem": {
+      "failure_reasons": [
+        {"reason": "项目记录字段不全，草稿大量缺项", "mitigation": "上线前做字段完整度扫描并提供补全引导", "owner": "r07"},
+        {"reason": "用户不愿维护项目记录", "mitigation": "允许从聊天记录粘贴快速建项目", "owner": "r09"},
+        {"reason": "税率与发票字段不符合当地规则", "mitigation": "先限定单一票种并在草稿页标注", "owner": "r07"},
+        {"reason": "导出 PDF 与现有工具不兼容", "mitigation": "P0 只做草稿，PDF 放 P1 并做兼容测试", "owner": "r09"},
+        {"reason": "用户不信任自动带出的金额", "mitigation": "展示金额来源并在保存前二次确认", "owner": "r11"}
+      ]
+    }
+  }
+}

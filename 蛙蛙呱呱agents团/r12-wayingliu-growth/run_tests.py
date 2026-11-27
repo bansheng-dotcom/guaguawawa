@@ -368,6 +368,40 @@ def main() -> int:
     t.check("任务状态 done", done.status == "done")
     t.check("任务写回产物", len(done.outputs) >= 1, str(len(done.outputs)))
 
+    t.section("T16 增长链 7 段")
+    chain_dir = tempfile.mkdtemp(prefix="r12_chain_")
+    chain_spec = os.path.join(HERE, "fixtures", "chain_spec.json")
+    code, ch = run_agent("growth_chain", "run", "--spec", chain_spec,
+                         "--out-dir", chain_dir)
+    t.check("增长链 run 全绿", code == 0 and ch.get("ok"), str(ch.get("checks", ""))[:300])
+    art_files = [f for f in os.listdir(chain_dir) if f.endswith(".json")]
+    t.check("7 段 JSON + manifest 落盘", len(art_files) == 8, str(len(art_files)))
+    cross = (ch.get("manifest") or {}).get("cross_checks", [])
+    t.check("跨段一致性全绿", bool(cross) and all(x["ok"] for x in cross),
+            str([x["name"] for x in cross if not x["ok"]]))
+    code, au = run_agent("growth_chain", "audit", "--dir", chain_dir)
+    t.check("增长链 audit PASS", code == 0 and au.get("ok"))
+    goldens = [f for f in os.listdir(os.path.join(HERE, "golden"))
+               if f.endswith(".html")]
+    misuses = [f for f in os.listdir(os.path.join(HERE, "misuse"))
+               if f.endswith(".json")]
+    t.check("黄金看板 >=3", len(goldens) >= 3, str(len(goldens)))
+    t.check("误用工件 >=3", len(misuses) >= 3, str(len(misuses)))
+    from growth_chain import attribution as _attr, experiment as _exp
+    from growth_chain import selfmedia as _media
+    blocked = 0
+    for name, checker, expected in (
+            ("selfmedia-fill-zero.json", _media.check, "缺数据不补零"),
+            ("attribution-correlation-as-causation.json", _attr.check,
+             "禁止把相关当因果"),
+            ("experiment-insufficient-sample.json", _exp.check,
+             "样本量不足不得下结论")):
+        with open(os.path.join(HERE, "misuse", name), encoding="utf-8") as fh:
+            gate = checker(json.load(fh))
+        if not gate["ok"] and expected in gate["failed"]:
+            blocked += 1
+    t.check("3 条误用被具名门禁拦下", blocked == 3, str(blocked))
+
     t.section("T15 verify_loop 闭环矩阵")
     matrix = verify_loop.run_all()
     t.check("闭环 34 行全绿", matrix["ok"], f"passed={matrix['passed']}/{matrix['total']}")

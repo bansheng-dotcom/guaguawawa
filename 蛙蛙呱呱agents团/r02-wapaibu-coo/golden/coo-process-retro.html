@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>流程复盘 · 副本收敛</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; --accent:#1d4ed8; --accent-soft:#eff6ff; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>流程复盘 · 通用引擎 143 份副本收敛</h1>
+<p class="meta">复盘日期 2026-11-27 ｜ 数据来源：升级方案 §6.1 实测 ｜ 复盘人 R02 ｜ 复核 R04</p>
+<h2>1. 结论先行</h2>
+<div class="block">9 类通用引擎在 20 个角色目录里复制了 143 份、28,278 行，约 85.8% 是重复实现；
+收敛到共享实现后，同类故障只需修一处，且工作流有死信可查，不再静默丢任务。</div>
+<h2>2. 前后对比</h2>
+<table>
+<thead><tr><th>指标</th><th>收敛前</th><th>收敛后</th><th>变化</th></tr></thead>
+<tbody>
+<tr><td>同一引擎副本数</td><td>143</td><td>9</td><td>-134</td></tr>
+<tr><td>重复实现行数</td><td>28,278</td><td>4,014</td><td>-85.8%</td></tr>
+<tr><td>同类缺陷修复点</td><td>16</td><td>1</td><td>-93.8%</td></tr>
+<tr><td>失败任务可追率</td><td>0%</td><td>100%</td><td>死信入库</td></tr>
+</tbody>
+</table>
+<figure class="fig-card">
+  <figcaption class="fig-sub">图 1：重复实现行数下降（28,278 → 4,014 行）</figcaption>
+  <table>
+    <thead><tr><th>阶段</th><th>行数</th></tr></thead>
+    <tbody><tr><td>收敛前</td><td>28,278</td></tr><tr><td>收敛后</td><td>4,014</td></tr></tbody>
+  </table>
+  <div class="fig-src">来源：升级方案 §6.1 实测表</div>
+  <div class="fig-unit">单位：行；基线为零线（0 行重复）</div>
+</figure>
+<h2>3. 浪费与根因</h2>
+<table>
+<thead><tr><th>浪费类型</th><th>证据</th><th>根因</th><th>动作</th></tr></thead>
+<tbody>
+<tr><td>返工</td><td>同一引擎 16 份</td><td>无共享层，复制即交付</td><td>收口 shared/engines</td></tr>
+<tr><td>等待</td><td>缺陷修复串行 16 次</td><td>无单一出处</td><td>先修共享层再回归</td></tr>
+<tr><td>过度加工</td><td>143 份 evolve 子命令</td><td>把模板当能力</td><td>只留被调用的 3 个</td></tr>
+</tbody>
+</table>
+<h2>4. 行动项</h2>
+<table>
+<thead><tr><th>动作</th><th>负责人</th><th>截止</th><th>验收</th></tr></thead>
+<tbody>
+<tr><td>共享引擎单一实现</td><td>r09</td><td>2026-12-05</td><td>副本 <10 且回归绿</td></tr>
+<tr><td>死信重放 SOP</td><td>r02</td><td>2026-12-03</td><td>重放三态可复现</td></tr>
+<tr><td>幂等键命名规范</td><td>r17</td><td>2026-12-08</td><td>缺失率 0</td></tr>
+</tbody>
+</table>
+<h3>4.1 闭环判断</h3>
+<p>本轮首轮 outcome=failed，重放后死信剩余 0 条；
+满足「失败可追、重放不重复」的闭环条件。</p>
+
+</main>
+</body>
+</html>

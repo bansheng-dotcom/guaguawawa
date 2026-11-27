@@ -1,0 +1,40 @@
+{
+  "brief_id": "knowledge-compounding",
+  "title": "内容复利：把一次生产变成可重复调用的资产",
+  "industry": "内容营销",
+  "audience": "一人公司创始人",
+  "goal": "用内容复利降低长期获客成本",
+  "constraints": {"platform": "公众号", "min_chars": 1200, "max_chars": 4000, "tone": "专业"},
+  "keywords": [
+    {"term": "内容复利", "search_volume": 1800, "competition": 0.45, "intent": "informational"},
+    {"term": "内容资产", "search_volume": 1200, "competition": 0.38, "intent": "commercial"},
+    {"term": "内容复用", "search_volume": 700, "competition": 0.3, "intent": "informational"},
+    {"term": "长尾流量", "search_volume": 1500, "competition": 0.6, "intent": "informational"},
+    {"term": "复利效应", "search_volume": 900, "competition": 0.52, "intent": "informational"}
+  ],
+  "entities": ["内容复利", "内容资产", "长尾流量", "复用"],
+  "questions": [
+    "内容复利的第一笔资产是什么？",
+    "复用多久才能摊薄成本？",
+    "什么内容不适合复用？",
+    "怎么判断复利是否发生？",
+    "盘点应该看哪几个指标？"
+  ],
+  "sources": [
+    {"id": "s01", "title": "内容资产化：从项目制到库存制", "url": "https://example.org/content-asset", "date": "2026-02-11", "tier": "primary", "quote": "把内容当库存管理，先解决可检索与可复用两个问题。"},
+    {"id": "s02", "title": "一人公司的内容成本结构", "url": "https://example.org/solo-cost", "date": "2026-03-04", "tier": "secondary", "quote": "固定生产节奏能显著降低选题阶段的决策消耗。"},
+    {"id": "s03", "title": "长尾内容的半年观察", "url": "https://example.org/long-tail", "date": "2026-01-19", "tier": "primary", "quote": "长尾流量集中在可被搜索命中的结构化内容上。"},
+    {"id": "s04", "title": "复用不是重发：内容拆件方法", "url": "https://example.org/reuse-parts", "date": "2026-04-02", "tier": "secondary", "quote": "拆成问答、清单与案例卡，是复用成本最低的三种形态。"},
+    {"id": "s05", "title": "内容盘点的四个动作", "url": "https://example.org/review-actions", "date": "2026-02-27", "tier": "secondary", "quote": "盘点要回答哪些内容还能被调用，而不是只看阅读量。"},
+    {"id": "s06", "title": "热点内容的衰减曲线", "url": "https://example.org/hot-decay", "date": "2026-03-22", "tier": "tertiary", "quote": "热点内容的搜索生命很短，难以形成持续库存。"},
+    {"id": "s07", "title": "写作系统的模块化实践", "url": "https://example.org/modules", "date": "2026-04-18", "tier": "primary", "quote": "模块化的前提是每个模块都能独立核对来源与口径。"},
+    {"id": "s08", "title": "内容团队的复用率指标", "url": "https://example.org/reuse-rate", "date": "2026-05-09", "tier": "tertiary", "quote": "复用率要结合检索命中与二次分发一起看。"}
+  ],
+  "facts": [
+    {"id": "c01", "section": "先看需求", "statement": "内容复利的第一笔资产，是把一次生产拆成三个可重复调用的模块。", "numbers": ["3"], "source_ids": ["s01", "s04"], "example": "作者把一篇长文拆成问答、清单和案例卡，后续每次发布都从库里取件。"},
+    {"id": "c02", "section": "再算投入产出", "statement": "同一主题连续复用 4 次，边际生产成本约降到首次的 30%。", "numbers": ["4", "30"], "source_ids": ["s02", "s08"], "example": "第一次写作最贵，后面几次主要是改口径、换场景和补来源。"},
+    {"id": "c03", "section": "看一个反例", "statement": "只追热点不复用的账号，6 个月后内容库存接近 0。", "numbers": ["6", "0"], "source_ids": ["s06"], "example": "热点过去后，旧文既搜不到也接不上新场景，只能重新开题。"},
+    {"id": "c04", "section": "复利的边界", "statement": "复利只对 3 类内容成立：可复用、可检索、可验证。", "numbers": ["3"], "source_ids": ["s03", "s07"], "example": "强时效的促销文案不属于这三类，复用反而会伤害信任。"},
+    {"id": "c05", "section": "落到动作", "statement": "每周固定 2 小时做内容盘点，比每天临时找选题更稳。", "numbers": ["2"], "source_ids": ["s05"], "example": "盘点只做三件事：标记可复用、补来源、安排下一次分发。"}
+  ]
+}

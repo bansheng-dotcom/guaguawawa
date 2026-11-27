@@ -1,0 +1,26 @@
+{
+  "extends": "./tiny-notes.json",
+  "project": "tiny-notes-incident",
+  "incident": {
+    "title": "搜索接口全表扫描导致大面积 5xx",
+    "severity": "SEV-1",
+    "timeline": [
+      {"t": "10:02", "event": "5xx 告警触发（阈值 1%，当前 12%）"},
+      {"t": "10:04", "event": "值班确认搜索接口 p95 超 3.2s"},
+      {"t": "10:06", "event": "关闭 notes.search feature flag 止损"},
+      {"t": "10:11", "event": "错误率回落到 0.1%"},
+      {"t": "10:16", "event": "EXPLAIN 显示 LIKE '%%' 全表扫描"},
+      {"t": "10:27", "event": "修复分支通过空查询单测并合入"}
+    ],
+    "root_cause": "空查询未短路，LIKE '%%' 触发全表扫描；缺少 q 长度上限",
+    "actions": [
+      {"id": "A1", "owner": "r09", "due": "2026-12-01", "status": "done", "item": "补空查询校验与单测"},
+      {"id": "A2", "owner": "r09", "due": "2026-12-03", "status": "doing", "item": "为 search_text 建索引并压测"},
+      {"id": "A3", "owner": "r20", "due": "2026-12-05", "status": "todo", "item": "增加搜索错误率与 p95 看板"},
+      {"id": "A4", "owner": "r09", "due": "2026-12-08", "status": "todo", "item": "发布前把 q 长度上限写入契约测试"}
+    ],
+    "slo": {"target": "99.9%", "window": "30d", "error_budget_min": 43.2, "consumed_min": 28.0},
+    "blameless": true,
+    "detection": {"mttd_min": 2, "mttr_min": 25}
+  }
+}

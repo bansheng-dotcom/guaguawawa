@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>独立评审报告：门禁强度 + 事实链 + 判据 + 质量 · R04 蛙挑剔 · 独立评审官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>独立评审报告：门禁强度 + 事实链 + 判据 + 质量</h1>
+<p class="meta">R04 蛙挑剔 · 独立评审官 · 成品门禁与证据链的真实评审夹具 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>门禁强度审计</td><td>gate.audit</td><td>examples/gate_audit.json</td><td>94fd07ed00e6d9bb</td><td>744</td></tr>
+<tr><td>五维事实核查</td><td>facts.check</td><td>examples/facts_check.json</td><td>63977145bec31c51</td><td>619</td></tr>
+<tr><td>外置判据审查</td><td>criteria.review</td><td>examples/criteria_review.json</td><td>4b9f423a4e0a3b87</td><td>695</td></tr>
+<tr><td>完成声明质量</td><td>quality.critique</td><td>examples/quality_critique.json</td><td>bb8c9d3b5763294d</td><td>502</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>门禁强度审计 · gate.audit</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>findings</td><td>list · 0 项</td></tr>
+<tr><td>error_count</td><td>0</td></tr>
+<tr><td>warning_count</td><td>0</td></tr>
+<tr><td>score</td><td>100</td></tr>
+<tr><td>tier</td><td>solid</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>evaluated_patterns</td><td>list · 7 项</td></tr>
+</tbody></table>
+<h3>五维事实核查 · facts.check</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>dimension_results</td><td>object · 5 键</td></tr>
+<tr><td>violations</td><td>list · 0 项</td></tr>
+<tr><td>violation_count</td><td>0</td></tr>
+<tr><td>blocking_count</td><td>0</td></tr>
+<tr><td>warn_count</td><td>0</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+</tbody></table>
+<h3>外置判据审查 · criteria.review</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>criteria_results</td><td>list · 4 项</td></tr>
+<tr><td>counts</td><td>object · 3 键</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+</tbody></table>
+<h3>完成声明质量 · quality.critique</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>claims_checked</td><td>list · 3 项</td></tr>
+<tr><td>findings</td><td>list · 0 项</td></tr>
+<tr><td>error_count</td><td>0</td></tr>
+<tr><td>warning_count</td><td>0</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>门禁强度审计</td><td>gate:score</td><td>OK</td><td class="pass">PASS</td><td>评分 100（solid），error=0 warning=0</td></tr>
+<tr><td>五维事实核查</td><td>facts:check</td><td>OK</td><td class="pass">PASS</td><td>五维全过（2 条事实，12 项核查）</td></tr>
+<tr><td>外置判据审查</td><td>criteria:AC-01</td><td>OK</td><td class="pass">PASS</td><td>AC-01 pass：landing.html:12 主标语含定位语</td></tr>
+<tr><td>外置判据审查</td><td>criteria:AC-02</td><td>OK</td><td class="pass">PASS</td><td>AC-02 pass：landing.html:47 form action 指向 /api/lead</td></tr>
+<tr><td>外置判据审查</td><td>criteria:AC-03</td><td>INFO</td><td class="pass">PASS</td><td>AC-03 warn（带证据部分达标，不阻断）</td></tr>
+<tr><td>外置判据审查</td><td>criteria:AC-04</td><td>OK</td><td class="pass">PASS</td><td>AC-04 pass：landing.html:52 转化追踪事件回传</td></tr>
+<tr><td>完成声明质量</td><td>quality:C1</td><td>OK</td><td class="pass">PASS</td><td>C1: verified</td></tr>
+<tr><td>完成声明质量</td><td>quality:C2</td><td>OK</td><td class="pass">PASS</td><td>C2: verified</td></tr>
+<tr><td>完成声明质量</td><td>quality:C3</td><td>OK</td><td class="pass">PASS</td><td>C3: verified</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">评审结论：评审通过，可放行</p>
+<p>门禁强度 100 分（solid）、五维事实 0 违例、外置判据 0 fail、完成声明均带新鲜证据，四道评审共同给出 PASS 结论。</p>
+<p class="note">R04 只评审已存在成品，不代改、不替生产方补证据；评审通过与对外发布是两件事，发布仍由 R01 签发。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实评审技能生成，可复算；R04 只评审不代改。</footer>
+</main>
+</body>
+</html>

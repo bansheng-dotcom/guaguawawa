@@ -1,0 +1,1293 @@
+{
+ "generated_by": "scripts/check_engine_variants.py",
+ "count": 143,
+ "engines": [
+  {
+   "engine": "asset_bundle",
+   "role": "r01-waquanju-ceo",
+   "path": "r01-waquanju-ceo/engines/asset_bundle.py",
+   "sha256": "c5c8b598e20a1871994e13b3ac9c7c0eeb19c4582d536ae38bc658310d3c580c",
+   "lines": 61,
+   "status": "domain_variant",
+   "nearest_similarity": 0.685
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r02-wapaibu-coo",
+   "path": "r02-wapaibu-coo/engines/asset_bundle.py",
+   "sha256": "45afe229af596021cbd1fbe2f03f31db79c0676741cce7e40a811fbc2f1336d9",
+   "lines": 38,
+   "status": "domain_variant",
+   "nearest_similarity": 0.865
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r03-washouxian-cfo",
+   "path": "r03-washouxian-cfo/engines/asset_bundle.py",
+   "sha256": "540352a304d916f1f52f5b020d10d02ff0c94f4befb7c95b53992d3154b81ad8",
+   "lines": 42,
+   "status": "domain_variant",
+   "nearest_similarity": 0.865
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/engines/asset_bundle.py",
+   "sha256": "9fedcc12c3633cb5e53aa6869c3a2847862a89f19accba1f0ecab3590481485a",
+   "lines": 376,
+   "status": "domain_variant",
+   "nearest_similarity": 0.89
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r06-wadeqing-analyst",
+   "path": "r06-wadeqing-analyst/engines/asset_bundle.py",
+   "sha256": "ee0d21ef3dfe98e5c782344f52ffb1b6e3bded0196e5b27b2fbc398eee748f4b",
+   "lines": 232,
+   "status": "domain_variant",
+   "nearest_similarity": 0.867
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r07-wademing-pm",
+   "path": "r07-wademing-pm/engines/asset_bundle.py",
+   "sha256": "163dedbcb8d8b2b2b0c1e5e0ec91cbeb1747565e767f9fb99a54f6be123389c3",
+   "lines": 323,
+   "status": "domain_variant",
+   "nearest_similarity": 0.916
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r08-wajiancheng-mvp",
+   "path": "r08-wajiancheng-mvp/engines/asset_bundle.py",
+   "sha256": "9c08e261bba4f1880649677e75a2da79c6b8dbb498d9578a0db827aa3fb99b4e",
+   "lines": 113,
+   "status": "domain_variant",
+   "nearest_similarity": 0.922
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/engines/asset_bundle.py",
+   "sha256": "b933520f0c8c463114cf4ac7eed0790ba9c83af5fefea85ce2fd5d1bc9707a39",
+   "lines": 124,
+   "status": "domain_variant",
+   "nearest_similarity": 0.892
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r11-wadianti-copy",
+   "path": "r11-wadianti-copy/engines/asset_bundle.py",
+   "sha256": "07af125169e11ae64a2a9d654665a8f7dc0ab62707ad4bce8f57e42bce88bf81",
+   "lines": 119,
+   "status": "domain_variant",
+   "nearest_similarity": 0.922
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/engines/asset_bundle.py",
+   "sha256": "7fc38fe17c495a3aa4f8e9a83260b2d9862bf154c95052126abc4e6b06b265f5",
+   "lines": 193,
+   "status": "domain_variant",
+   "nearest_similarity": 0.88
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/engines/asset_bundle.py",
+   "sha256": "a043f2000dc0da11405efacdd94150d3b6ba8b1de325e1c86e0ba40230284a9d",
+   "lines": 150,
+   "status": "domain_variant",
+   "nearest_similarity": 0.942
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/engines/asset_bundle.py",
+   "sha256": "aace48254c9df5e5f967dfc30740ae3ecd554f61af3cbbbf10acfc70c5837cf4",
+   "lines": 153,
+   "status": "domain_variant",
+   "nearest_similarity": 0.942
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/engines/asset_bundle.py",
+   "sha256": "86d001090a02cc51933d959c3d76926a25f1f936ab007a5761198d15d940a5a5",
+   "lines": 157,
+   "status": "domain_variant",
+   "nearest_similarity": 0.91
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/engines/asset_bundle.py",
+   "sha256": "f7e4fa6ebea68865b382379cde12c94e1c22284b08c73cfcfc6e5d00e48612ea",
+   "lines": 133,
+   "status": "domain_variant",
+   "nearest_similarity": 0.921
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/engines/asset_bundle.py",
+   "sha256": "c41b5a9a804386d9502bc351f261e283d79d5f99195e435531378c5c4f3630bd",
+   "lines": 134,
+   "status": "domain_variant",
+   "nearest_similarity": 0.908
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/engines/asset_bundle.py",
+   "sha256": "1617e899af3efc567365befbe5906bf4274e32b390f94c364e8035e53d11048c",
+   "lines": 271,
+   "status": "domain_variant",
+   "nearest_similarity": 0.88
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/engines/asset_bundle.py",
+   "sha256": "7a9dfbd29fe24f727bc5cfb6ade8d43071842b6210c971d4486ed69f04b33513",
+   "lines": 309,
+   "status": "domain_variant",
+   "nearest_similarity": 0.916
+  },
+  {
+   "engine": "asset_bundle",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/engines/asset_bundle.py",
+   "sha256": "a31aaed0abe546de93ad20b63edaf8e6ad8ad609f6d0179e73e5d9a29c0046ce",
+   "lines": 217,
+   "status": "domain_variant",
+   "nearest_similarity": 0.88
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r01-waquanju-ceo",
+   "path": "r01-waquanju-ceo/auto_evolve_runner.py",
+   "sha256": "cb6ce32cf24458388ff92765119b5e3b5672894c9ef8ec2b3835a35b2961e6d2",
+   "lines": 343,
+   "status": "domain_variant",
+   "nearest_similarity": 0.934
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/auto_evolve_runner.py",
+   "sha256": "7ea0cad84d9b12e7af1736e3cff79b62cdd8451b62d20e83141eb7b2125b6823",
+   "lines": 1102,
+   "status": "domain_variant",
+   "nearest_similarity": 0.768
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r06-wadeqing-analyst",
+   "path": "r06-wadeqing-analyst/auto_evolve_runner.py",
+   "sha256": "8a7f2e760f761ba8a8efce899075cb94852cd2db87489b426ef0d0cd40cbb869",
+   "lines": 483,
+   "status": "domain_variant",
+   "nearest_similarity": 0.901
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r07-wademing-pm",
+   "path": "r07-wademing-pm/auto_evolve_runner.py",
+   "sha256": "563da681309cc6671b1d165b986fe9fbc0d7ba110f99fd1a33678218dd476029",
+   "lines": 622,
+   "status": "domain_variant",
+   "nearest_similarity": 0.829
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r08-wajiancheng-mvp",
+   "path": "r08-wajiancheng-mvp/auto_evolve_runner.py",
+   "sha256": "4b824109ecd6339246ffeb398f7ee934502ecb7339ae456dc3c44e11cf48cf57",
+   "lines": 327,
+   "status": "domain_variant",
+   "nearest_similarity": 0.934
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r09-wawenma-engineer",
+   "path": "r09-wawenma-engineer/auto_evolve_runner.py",
+   "sha256": "460530571bfe9131e09b4d11250bdb6ce64690d16ada94b59711a1365ba8a0de",
+   "lines": 309,
+   "status": "domain_variant",
+   "nearest_similarity": 0.894
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/auto_evolve_runner.py",
+   "sha256": "85adf471c79c560035f76fea46d21e07f12286ead0564164d70adea729062437",
+   "lines": 389,
+   "status": "domain_variant",
+   "nearest_similarity": 0.949
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r11-wadianti-copy",
+   "path": "r11-wadianti-copy/auto_evolve_runner.py",
+   "sha256": "5aed32c558209822a6597aacc4c5ed10c21fce1087ce3e3d0781d74b22f50eba",
+   "lines": 385,
+   "status": "domain_variant",
+   "nearest_similarity": 0.948
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/auto_evolve_runner.py",
+   "sha256": "22b429878470de04f44e2fbb1acbb73c45c2119b7620b641b85746289f519dfd",
+   "lines": 393,
+   "status": "domain_variant",
+   "nearest_similarity": 0.946
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/auto_evolve_runner.py",
+   "sha256": "20a427498032106f31c5cad04fda8cf6ca45c7095291ca7fb884f9edf06cb491",
+   "lines": 402,
+   "status": "domain_variant",
+   "nearest_similarity": 0.949
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/auto_evolve_runner.py",
+   "sha256": "1a413663ff0771cf1a64a53126ddcbd451b7f82bb875ed30e1a3aa75a3eb9db6",
+   "lines": 393,
+   "status": "domain_variant",
+   "nearest_similarity": 0.947
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/auto_evolve_runner.py",
+   "sha256": "8c91750c7fee73c0cc7c1d2577f6636c2602e4fbd3015b28542b31875042f481",
+   "lines": 394,
+   "status": "domain_variant",
+   "nearest_similarity": 0.966
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/auto_evolve_runner.py",
+   "sha256": "56ac8b770f39acab59e96abec526d513b470501d6a5b21ddf5d1aa5a60a0ffe4",
+   "lines": 394,
+   "status": "domain_variant",
+   "nearest_similarity": 0.966
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/auto_evolve_runner.py",
+   "sha256": "e6797167478de58b51bc5604c3ddb3859d4df74bcd9915fdfa7a750b8698c678",
+   "lines": 368,
+   "status": "domain_variant",
+   "nearest_similarity": 0.916
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/auto_evolve_runner.py",
+   "sha256": "6f089d6c7d29822ee628ae546edcf2a158a23ca747942a6cdc846f0ecd17f468",
+   "lines": 458,
+   "status": "domain_variant",
+   "nearest_similarity": 0.901
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/auto_evolve_runner.py",
+   "sha256": "9414e2c22be2c05017c28a50a359aad57a88727f1bfe18bacc4704352d406bc5",
+   "lines": 811,
+   "status": "domain_variant",
+   "nearest_similarity": 0.809
+  },
+  {
+   "engine": "auto_evolve_runner",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/auto_evolve_runner.py",
+   "sha256": "eaed82c8a90a04c3e02ae8e755a294b1a78bb99ae38ee25c6964baca59265d95",
+   "lines": 396,
+   "status": "domain_variant",
+   "nearest_similarity": 0.888
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/engines/diff_patch_engine.py",
+   "sha256": "2ce30fb1fc362c48f72b7f3069ae600dd6bb7ee4318f2aa81c5f296ebaf7bb0e",
+   "lines": 270,
+   "status": "domain_variant",
+   "nearest_similarity": 0.899
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r06-wadeqing-analyst",
+   "path": "r06-wadeqing-analyst/engines/diff_patch_engine.py",
+   "sha256": "f3f4d386d553c67c5ce7338c1ddf2424e045697918b21addad529081b6d4d9e0",
+   "lines": 235,
+   "status": "domain_variant",
+   "nearest_similarity": 0.897
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r07-wademing-pm",
+   "path": "r07-wademing-pm/engines/diff_patch_engine.py",
+   "sha256": "447d0e0d85fad96e6c0316d6926a27f1fc14ccb9ef251b74b64298a639ef5ef4",
+   "lines": 335,
+   "status": "domain_variant",
+   "nearest_similarity": 0.855
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r08-wajiancheng-mvp",
+   "path": "r08-wajiancheng-mvp/engines/diff_patch_engine.py",
+   "sha256": "60eab41d4d6d46408bf02452c11734992cbe04d9ad1ee3525191c9c86c56617c",
+   "lines": 70,
+   "status": "domain_variant",
+   "nearest_similarity": 0.92
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/engines/diff_patch_engine.py",
+   "sha256": "511320bc15962c356b8726703a3a2fa0f6540745083055b01884ce49734841c1",
+   "lines": 84,
+   "status": "domain_variant",
+   "nearest_similarity": 0.884
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r11-wadianti-copy",
+   "path": "r11-wadianti-copy/engines/diff_patch_engine.py",
+   "sha256": "64f2accc694bb4e17bdf43dc9cc850d014531d2739414d0606bf573b6ce2c314",
+   "lines": 81,
+   "status": "domain_variant",
+   "nearest_similarity": 0.896
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/engines/diff_patch_engine.py",
+   "sha256": "c8bcc18d177372ac7a033826982b7409d15df7d7bac20acc6cff106cd5d5c9c6",
+   "lines": 94,
+   "status": "domain_variant",
+   "nearest_similarity": 0.898
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/engines/diff_patch_engine.py",
+   "sha256": "1708e8161e832833a3ffda57279f91537a667045c813b30f4d948821f9224839",
+   "lines": 90,
+   "status": "domain_variant",
+   "nearest_similarity": 0.926
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/engines/diff_patch_engine.py",
+   "sha256": "fa39f216db441787a099f111a22e6bab8db63e9efe823dd60ea9dc0a48814921",
+   "lines": 99,
+   "status": "domain_variant",
+   "nearest_similarity": 0.926
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/engines/diff_patch_engine.py",
+   "sha256": "944675204350a2ccbe134abd400915a06382bf0a44bbdda933d42b5b5d6b466a",
+   "lines": 92,
+   "status": "domain_variant",
+   "nearest_similarity": 0.906
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/engines/diff_patch_engine.py",
+   "sha256": "60b170e35e9b7f6e755eb30789c43472a381474ca2b2d4c38a0b346fb8a60151",
+   "lines": 106,
+   "status": "domain_variant",
+   "nearest_similarity": 0.897
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/engines/diff_patch_engine.py",
+   "sha256": "8ead119528456bc9981565de90417e7ad18c7150dc33b02e3ec602ae752d0c6f",
+   "lines": 78,
+   "status": "domain_variant",
+   "nearest_similarity": 0.92
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/engines/diff_patch_engine.py",
+   "sha256": "603598ebcfcf3a947e2ff16b4a853d1312d85adb7d5a8819f1ffc16100c1aa66",
+   "lines": 331,
+   "status": "domain_variant",
+   "nearest_similarity": 0.861
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/engines/diff_patch_engine.py",
+   "sha256": "889af706c9e29956284a0b885d2d773cea1355ed83a004fc44b0bceea0231430",
+   "lines": 458,
+   "status": "domain_variant",
+   "nearest_similarity": 0.831
+  },
+  {
+   "engine": "diff_patch_engine",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/engines/diff_patch_engine.py",
+   "sha256": "ac538a9fccce129c661a595dd81e85f88338cff3d503f500f25b97c85597b871",
+   "lines": 251,
+   "status": "domain_variant",
+   "nearest_similarity": 0.899
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/engines/reflexive_healer.py",
+   "sha256": "db82122862b60ec8569a4f1989b3396b6743d7f0c405f8a959e6b045e6ee4200",
+   "lines": 416,
+   "status": "domain_variant",
+   "nearest_similarity": 0.797
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r06-wadeqing-analyst",
+   "path": "r06-wadeqing-analyst/engines/reflexive_healer.py",
+   "sha256": "c1113e2634221e6345648da983fa6209604c97300577de96f61bc504fadbed9c",
+   "lines": 238,
+   "status": "domain_variant",
+   "nearest_similarity": 0.88
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r08-wajiancheng-mvp",
+   "path": "r08-wajiancheng-mvp/engines/reflexive_healer.py",
+   "sha256": "c503e1cf552e9b3f00c6a513becf4202466e082911502a7c9f55e22dde3d1d17",
+   "lines": 109,
+   "status": "domain_variant",
+   "nearest_similarity": 0.856
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r09-wawenma-engineer",
+   "path": "r09-wawenma-engineer/engines/reflexive_healer.py",
+   "sha256": "246d80269a41daf015ababbc043cb9a3f01a41f540eabc601e6ac8e3e1c80bbe",
+   "lines": 120,
+   "status": "domain_variant",
+   "nearest_similarity": 0.856
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/engines/reflexive_healer.py",
+   "sha256": "a39ba8e32b451293fd93a8722fae0bfef7e8193494ab39b8eccd30103db17a47",
+   "lines": 105,
+   "status": "domain_variant",
+   "nearest_similarity": 0.838
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/engines/reflexive_healer.py",
+   "sha256": "0b011ba31ef2040d3fdf899dcb5c379ff93a60062af86e353dab95fa4af540b8",
+   "lines": 6,
+   "status": "domain_variant",
+   "nearest_similarity": 0.146
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/engines/reflexive_healer.py",
+   "sha256": "342cf5e47c2f936e1116a55631141cb32420ab37162e8ebe2395f873a6c2e7ce",
+   "lines": 124,
+   "status": "domain_variant",
+   "nearest_similarity": 0.841
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/engines/reflexive_healer.py",
+   "sha256": "5c9102a7bf747b5b2a9c39b03b8a89d4a9f5ce171d105271cf1902c2bf75e683",
+   "lines": 136,
+   "status": "domain_variant",
+   "nearest_similarity": 0.841
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/engines/reflexive_healer.py",
+   "sha256": "2b2dbc0777e3597730e3fa95fc617b4f7b43625b39a2c7d3529c2e3c2ff27425",
+   "lines": 138,
+   "status": "domain_variant",
+   "nearest_similarity": 0.838
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/engines/reflexive_healer.py",
+   "sha256": "ed1aab6385ba29df4c386588ed44467aad3e292d113c6df65b6266e4e54fc634",
+   "lines": 178,
+   "status": "domain_variant",
+   "nearest_similarity": 0.834
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/engines/reflexive_healer.py",
+   "sha256": "d75f24d07c501727dfa30c80a86ba11abd792ed12a311592708494c74c1d73a1",
+   "lines": 156,
+   "status": "domain_variant",
+   "nearest_similarity": 0.834
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/engines/reflexive_healer.py",
+   "sha256": "b17651fbe1bbe9ea54f800b9a0c3dad0636878905e279cede0f93c65fd128288",
+   "lines": 296,
+   "status": "domain_variant",
+   "nearest_similarity": 0.882
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/engines/reflexive_healer.py",
+   "sha256": "b7d10aee31849c790f7dbdadaa35adaa511624a51f114d09bfb8cc2d4cc5519b",
+   "lines": 486,
+   "status": "domain_variant",
+   "nearest_similarity": 0.797
+  },
+  {
+   "engine": "reflexive_healer",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/engines/reflexive_healer.py",
+   "sha256": "60d60cabfaf96a839d85ed75e7e62ed5522e51b42542b46fc6089dd7173be6e7",
+   "lines": 256,
+   "status": "domain_variant",
+   "nearest_similarity": 0.882
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r04-watiaoci-reviewer",
+   "path": "r04-watiaoci-reviewer/engines/scenario_matrix.py",
+   "sha256": "913e8ea315388474331f98e47e3c89702fa8dcaff73cc8eea911a27248bcfcc2",
+   "lines": 87,
+   "status": "domain_variant",
+   "nearest_similarity": 0.794
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/engines/scenario_matrix.py",
+   "sha256": "aef2c55d584d709925a0d01dc251b54090f941e0c4ee35dad684315944e2522d",
+   "lines": 241,
+   "status": "domain_variant",
+   "nearest_similarity": 0.827
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r06-wadeqing-analyst",
+   "path": "r06-wadeqing-analyst/engines/scenario_matrix.py",
+   "sha256": "5ee78aa35c70302a3d8f26c3e8252ff1ac4e8a3acfe3bb9a884f886e385e7b2a",
+   "lines": 174,
+   "status": "domain_variant",
+   "nearest_similarity": 0.861
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r07-wademing-pm",
+   "path": "r07-wademing-pm/engines/scenario_matrix.py",
+   "sha256": "963d9c522de9d16eaa027c94bbc758de3a86446f8488f0da18d0fb0d3c3ea37d",
+   "lines": 89,
+   "status": "domain_variant",
+   "nearest_similarity": 0.823
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r08-wajiancheng-mvp",
+   "path": "r08-wajiancheng-mvp/engines/scenario_matrix.py",
+   "sha256": "d9afff5aebf79bea089a8ee6c7b3a3cea15087a6e92972d201e706e77afb1e21",
+   "lines": 76,
+   "status": "domain_variant",
+   "nearest_similarity": 0.843
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r09-wawenma-engineer",
+   "path": "r09-wawenma-engineer/engines/scenario_matrix.py",
+   "sha256": "88a74ddc2a4b2ca1aca5d94d320da8b7919b5a38659a25e467120459bc261a6a",
+   "lines": 84,
+   "status": "domain_variant",
+   "nearest_similarity": 0.845
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/engines/scenario_matrix.py",
+   "sha256": "09e40b15802733a4e64e2f0c1933fc888ea097c020cd87f34be4680d10652b10",
+   "lines": 76,
+   "status": "domain_variant",
+   "nearest_similarity": 0.833
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r11-wadianti-copy",
+   "path": "r11-wadianti-copy/engines/scenario_matrix.py",
+   "sha256": "064896ad0a0105617aaf528b533eb97e4254a5e799f87881114d12f149dbdbe7",
+   "lines": 96,
+   "status": "domain_variant",
+   "nearest_similarity": 0.829
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/engines/scenario_matrix.py",
+   "sha256": "6acc0d677b282c1a518fc19c811c5c8a5e6b0be402e0493824fcd752ab6e364a",
+   "lines": 4,
+   "status": "domain_variant",
+   "nearest_similarity": 0.106
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/engines/scenario_matrix.py",
+   "sha256": "867a1b6f9485d971f2803f073fd0e8a946324a275ae2531101d9b6a643184a1b",
+   "lines": 105,
+   "status": "domain_variant",
+   "nearest_similarity": 0.838
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/engines/scenario_matrix.py",
+   "sha256": "c59227c231fc8dd4a3ae8d8ce08c64b6e6043ac3b7c1c9ab0bf73167e030d494",
+   "lines": 97,
+   "status": "domain_variant",
+   "nearest_similarity": 0.838
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/engines/scenario_matrix.py",
+   "sha256": "f4c3c994eeb5f6e14f38a7ca2d9215ca4c68c0d490a61eea643273fe54ed4672",
+   "lines": 108,
+   "status": "domain_variant",
+   "nearest_similarity": 0.808
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/engines/scenario_matrix.py",
+   "sha256": "9bb92172cede68dd93a879f1e60fb44d9f0af69b78256c85dd4a143f9ca6840e",
+   "lines": 129,
+   "status": "domain_variant",
+   "nearest_similarity": 0.777
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/engines/scenario_matrix.py",
+   "sha256": "7c3172b8274214e529dbd1ead11889bbf5c4a4cb20c366ae291f98a947fffc65",
+   "lines": 92,
+   "status": "domain_variant",
+   "nearest_similarity": 0.845
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/engines/scenario_matrix.py",
+   "sha256": "06e0cf802cbf75a404a00d029f96a484be3e5079b723576424b95626daeffe32",
+   "lines": 191,
+   "status": "domain_variant",
+   "nearest_similarity": 0.853
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/engines/scenario_matrix.py",
+   "sha256": "2da75a8f61630dc9aaf224006396b4330e1bcf74903b648644a5c46b5a85e3ca",
+   "lines": 276,
+   "status": "domain_variant",
+   "nearest_similarity": 0.803
+  },
+  {
+   "engine": "scenario_matrix",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/engines/scenario_matrix.py",
+   "sha256": "a73d262addd6447975597647a440b7fa90ff229c67d040a8a1cff0fe6db89ed4",
+   "lines": 194,
+   "status": "domain_variant",
+   "nearest_similarity": 0.861
+  },
+  {
+   "engine": "session_memory",
+   "role": "r04-watiaoci-reviewer",
+   "path": "r04-watiaoci-reviewer/engines/session_memory.py",
+   "sha256": "7fdf3fcada38486a6d2733aab5f364d403d68949c034c933d5d8e93227337d95",
+   "lines": 113,
+   "status": "domain_variant",
+   "nearest_similarity": 0.894
+  },
+  {
+   "engine": "session_memory",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/engines/session_memory.py",
+   "sha256": "cefb7cb72d51f44aea0a68fc5d6d21bceec89078a7dbf59605b929d94b44de57",
+   "lines": 335,
+   "status": "domain_variant",
+   "nearest_similarity": 0.856
+  },
+  {
+   "engine": "session_memory",
+   "role": "r06-wadeqing-analyst",
+   "path": "r06-wadeqing-analyst/engines/session_memory.py",
+   "sha256": "8e240876fdbe53163cb02b51762bc73061a683beb5de56d21a777235d08cf48a",
+   "lines": 496,
+   "status": "domain_variant",
+   "nearest_similarity": 0.811
+  },
+  {
+   "engine": "session_memory",
+   "role": "r07-wademing-pm",
+   "path": "r07-wademing-pm/engines/session_memory.py",
+   "sha256": "8a6bc8914a465f8714f65b93dd75f32b0f67cc1183fa78cc58379e532b7d8bbe",
+   "lines": 384,
+   "status": "domain_variant",
+   "nearest_similarity": 0.928
+  },
+  {
+   "engine": "session_memory",
+   "role": "r08-wajiancheng-mvp",
+   "path": "r08-wajiancheng-mvp/engines/session_memory.py",
+   "sha256": "4a6246b38ef6ad64181bb2a04a81bd01926879a2e72c158bb005974ceb3b93c6",
+   "lines": 93,
+   "status": "domain_variant",
+   "nearest_similarity": 0.923
+  },
+  {
+   "engine": "session_memory",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/engines/session_memory.py",
+   "sha256": "1df7a91bd64d993cc750503d6675dcb674f7b52141c04119dac23029643527c3",
+   "lines": 101,
+   "status": "domain_variant",
+   "nearest_similarity": 0.923
+  },
+  {
+   "engine": "session_memory",
+   "role": "r11-wadianti-copy",
+   "path": "r11-wadianti-copy/engines/session_memory.py",
+   "sha256": "ea65f54a2c4f0a6ee131cfcb2dd2e581d8928044b4588f7cf9dfd4be34c3a476",
+   "lines": 155,
+   "status": "domain_variant",
+   "nearest_similarity": 0.907
+  },
+  {
+   "engine": "session_memory",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/engines/session_memory.py",
+   "sha256": "8b318729893e850dd65342e160cf7afa5486eccf27877a41100b1ae9032c358c",
+   "lines": 169,
+   "status": "domain_variant",
+   "nearest_similarity": 0.907
+  },
+  {
+   "engine": "session_memory",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/engines/session_memory.py",
+   "sha256": "b8b778c00995799846026a0d23b2fba9315009f0eebd736ba87305437467b7d6",
+   "lines": 142,
+   "status": "domain_variant",
+   "nearest_similarity": 0.896
+  },
+  {
+   "engine": "session_memory",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/engines/session_memory.py",
+   "sha256": "14772535f4c74ee5aa7425bcf21a3b3e1e17e6344c7635e87b951adac725afb1",
+   "lines": 189,
+   "status": "domain_variant",
+   "nearest_similarity": 0.889
+  },
+  {
+   "engine": "session_memory",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/engines/session_memory.py",
+   "sha256": "589047f1061d5d155c2a25ed41c24e5cc1fcfec48741026ce5a10253ca32f5fe",
+   "lines": 126,
+   "status": "domain_variant",
+   "nearest_similarity": 0.946
+  },
+  {
+   "engine": "session_memory",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/engines/session_memory.py",
+   "sha256": "a227876736573c537dac42c4c9c151683b77cd73c8c885dff836896c8260a32a",
+   "lines": 136,
+   "status": "domain_variant",
+   "nearest_similarity": 0.946
+  },
+  {
+   "engine": "session_memory",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/engines/session_memory.py",
+   "sha256": "8760be7ceaa56a769c07d096ab994de396b5c9742702ccac02a85ebb4f81d870",
+   "lines": 143,
+   "status": "domain_variant",
+   "nearest_similarity": 0.938
+  },
+  {
+   "engine": "session_memory",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/engines/session_memory.py",
+   "sha256": "4c0f8b13ac0602f55c3075dfcfafb4802b70b9c5e6667096139659e676c1da9c",
+   "lines": 262,
+   "status": "domain_variant",
+   "nearest_similarity": 0.859
+  },
+  {
+   "engine": "session_memory",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/engines/session_memory.py",
+   "sha256": "f81b3f7216b5c0389a7581ef4645aa1505fe48e8a8e149d9cc329b9759ec7f96",
+   "lines": 379,
+   "status": "domain_variant",
+   "nearest_similarity": 0.928
+  },
+  {
+   "engine": "session_memory",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/engines/session_memory.py",
+   "sha256": "1cbb2007b870005f7bb99eba302fc4847ed92a0353ea02a209f7870bcce8f2ec",
+   "lines": 219,
+   "status": "domain_variant",
+   "nearest_similarity": 0.859
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/engines/spec_ledger.py",
+   "sha256": "5a9e4dfede1fc32ecaa29fcc0a7a41001351ef96f994dc892bf1f9986938a7ab",
+   "lines": 227,
+   "status": "domain_variant",
+   "nearest_similarity": 0.802
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/engines/spec_ledger.py",
+   "sha256": "ad2dfd74681a8382b5f94311c77f88f8fd28c01b7334238b0249d6b61f2e1ba7",
+   "lines": 146,
+   "status": "domain_variant",
+   "nearest_similarity": 0.868
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/engines/spec_ledger.py",
+   "sha256": "bac3372ec43e25255ff31c4b8116e25a5858a01ccdac3401640e97299ae1a249",
+   "lines": 330,
+   "status": "domain_variant",
+   "nearest_similarity": 0.855
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/engines/spec_ledger.py",
+   "sha256": "530f876f0c6197077022a69f2aac7c9794e62850081c406522f8c9729c75271c",
+   "lines": 134,
+   "status": "domain_variant",
+   "nearest_similarity": 0.886
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/engines/spec_ledger.py",
+   "sha256": "07c1b389bfddfcbc4348fe3a694abb6003b54d8aaa1bb9e1ce7912da360839dd",
+   "lines": 124,
+   "status": "domain_variant",
+   "nearest_similarity": 0.898
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/engines/spec_ledger.py",
+   "sha256": "e6dc2cdd2116821e4f87041aa543f37ba816dbe1f25f6d345bc3e69f02532055",
+   "lines": 125,
+   "status": "domain_variant",
+   "nearest_similarity": 0.898
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/engines/spec_ledger.py",
+   "sha256": "0c951074f21ab18beabcb112658fe47b1afcc0a27e75ed0e40f88e6dad65b0d9",
+   "lines": 396,
+   "status": "domain_variant",
+   "nearest_similarity": 0.872
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/engines/spec_ledger.py",
+   "sha256": "fbbae4fc079d0ecccd16222dce78ba1473675778bb992fb0e045b90c42befe60",
+   "lines": 190,
+   "status": "domain_variant",
+   "nearest_similarity": 0.794
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/engines/spec_ledger.py",
+   "sha256": "951c3c68dddaa81a49e2e10888936f5d2ca74a983a3f327d401f0ccf1ceedba6",
+   "lines": 322,
+   "status": "domain_variant",
+   "nearest_similarity": 0.881
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/engines/spec_ledger.py",
+   "sha256": "e5b8e35a7c4d8348293d0f3254252d9a15fc210799a48d3b61dae27ee54c1fdb",
+   "lines": 460,
+   "status": "domain_variant",
+   "nearest_similarity": 0.872
+  },
+  {
+   "engine": "spec_ledger",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/engines/spec_ledger.py",
+   "sha256": "b251a055ff34fc44929f5d5ff614b4095714995210b8e3570a74f93931965163",
+   "lines": 274,
+   "status": "domain_variant",
+   "nearest_similarity": 0.881
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r04-watiaoci-reviewer",
+   "path": "r04-watiaoci-reviewer/engines/telemetry_watchdog.py",
+   "sha256": "c940fcd4f69dee31440d02b1feb00ccf2d3a12d4ec12a86907c7c7b52606afd8",
+   "lines": 117,
+   "status": "domain_variant",
+   "nearest_similarity": 0.895
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/engines/telemetry_watchdog.py",
+   "sha256": "f3674cf345778f4db615f9e75799e94252aa3075958de47eda16186ad727326a",
+   "lines": 262,
+   "status": "domain_variant",
+   "nearest_similarity": 0.875
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r06-wadeqing-analyst",
+   "path": "r06-wadeqing-analyst/engines/telemetry_watchdog.py",
+   "sha256": "68c46b8a5d5f3e1e2d5450520e6ae9e615260914842bb37ba45b2849d3ac9fa4",
+   "lines": 460,
+   "status": "domain_variant",
+   "nearest_similarity": 0.92
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r07-wademing-pm",
+   "path": "r07-wademing-pm/engines/telemetry_watchdog.py",
+   "sha256": "25907fbf370897faee6330e171d5fee17c98079f7f4f5e027d22eed45c0e88c3",
+   "lines": 490,
+   "status": "domain_variant",
+   "nearest_similarity": 0.881
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r08-wajiancheng-mvp",
+   "path": "r08-wajiancheng-mvp/engines/telemetry_watchdog.py",
+   "sha256": "946219af9aed832ae8d25ceb0786d94268ebd40bf725873485f39d605b3b1e74",
+   "lines": 102,
+   "status": "domain_variant",
+   "nearest_similarity": 0.91
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/engines/telemetry_watchdog.py",
+   "sha256": "4ce15797859eb1198d3df96da65f8ceb43f23f7ddbaa92c89422e52ee800f403",
+   "lines": 99,
+   "status": "domain_variant",
+   "nearest_similarity": 0.906
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r11-wadianti-copy",
+   "path": "r11-wadianti-copy/engines/telemetry_watchdog.py",
+   "sha256": "2baf08c71fdd5d16d7de890fb0e22efb1292bcb4df78271cb19df0bd9ee731d8",
+   "lines": 13,
+   "status": "shared_adapter",
+   "nearest_similarity": 0.943
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/engines/telemetry_watchdog.py",
+   "sha256": "5a399936bc5a658332695ac29d74d4bdb4e63c7867f4901b17d3c5a476eb9d35",
+   "lines": 13,
+   "status": "shared_adapter",
+   "nearest_similarity": 0.943
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/engines/telemetry_watchdog.py",
+   "sha256": "1bc967582c8d0fa3789ebd4a5d61590844e913243da3b29ca8f64cb3d82285be",
+   "lines": 128,
+   "status": "domain_variant",
+   "nearest_similarity": 0.948
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/engines/telemetry_watchdog.py",
+   "sha256": "bfa9e5301fd9b7b2fcea5c5b4c989322e0fb45a3d98f7e6974cf73d220cdd9d4",
+   "lines": 143,
+   "status": "domain_variant",
+   "nearest_similarity": 0.948
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/engines/telemetry_watchdog.py",
+   "sha256": "1a4364c0d99b41b040fc06162f09167d0844d010c2f5d70614dd095750a43b31",
+   "lines": 155,
+   "status": "domain_variant",
+   "nearest_similarity": 0.973
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/engines/telemetry_watchdog.py",
+   "sha256": "394b3342c319d2d32bd137c58e09c4d49c3d819f00b74826148e250982968c62",
+   "lines": 161,
+   "status": "domain_variant",
+   "nearest_similarity": 0.973
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/engines/telemetry_watchdog.py",
+   "sha256": "bfd0703d1a84995f4370f7267629c3e5194db05aa732831295cc3e967c33d15b",
+   "lines": 143,
+   "status": "domain_variant",
+   "nearest_similarity": 0.927
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/engines/telemetry_watchdog.py",
+   "sha256": "a173e90f24775f1c9cae0d706f8b9057b20ed10715f5d146902f2b3d5ae95388",
+   "lines": 279,
+   "status": "domain_variant",
+   "nearest_similarity": 0.906
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/engines/telemetry_watchdog.py",
+   "sha256": "fa5e4e7eee059e33062856f85da1df5f6548d90fe518efc4e29980164914b7f5",
+   "lines": 412,
+   "status": "domain_variant",
+   "nearest_similarity": 0.92
+  },
+  {
+   "engine": "telemetry_watchdog",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/engines/telemetry_watchdog.py",
+   "sha256": "dbc0711edf06eb16705e508fb822efcd9be419108329c4226910fdcdf79a9ec7",
+   "lines": 273,
+   "status": "domain_variant",
+   "nearest_similarity": 0.906
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r02-wapaibu-coo",
+   "path": "r02-wapaibu-coo/verify_loop.py",
+   "sha256": "32d43caea224e55b8f82741deb6a218217fb32ba27e05e0d725c755b3fbcb01f",
+   "lines": 94,
+   "status": "domain_variant",
+   "nearest_similarity": 0.826
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r03-washouxian-cfo",
+   "path": "r03-washouxian-cfo/verify_loop.py",
+   "sha256": "a710cb1321efa85c29955aa737d95adeb20d2e944a4f606ee09ce08abfb2a949",
+   "lines": 110,
+   "status": "domain_variant",
+   "nearest_similarity": 0.826
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r04-watiaoci-reviewer",
+   "path": "r04-watiaoci-reviewer/verify_loop.py",
+   "sha256": "ab4d73de785bf4f542390eec4f071f6dcbb10d30aae5f8dd3b81d3f1b06fae46",
+   "lines": 164,
+   "status": "domain_variant",
+   "nearest_similarity": 0.906
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r05-washenyuan-research",
+   "path": "r05-washenyuan-research/verify_loop.py",
+   "sha256": "a698797a2e863e674ff16ede4482abc94cb5f0e395277dd4487d2509c26365a4",
+   "lines": 181,
+   "status": "domain_variant",
+   "nearest_similarity": 0.95
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r06-wadeqing-analyst",
+   "path": "r06-wadeqing-analyst/verify_loop.py",
+   "sha256": "446d375660d8a2c4bea22806dc48f21251ce2e4ba1ddd5b55601732fddf14685",
+   "lines": 299,
+   "status": "domain_variant",
+   "nearest_similarity": 0.75
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r07-wademing-pm",
+   "path": "r07-wademing-pm/verify_loop.py",
+   "sha256": "662336743c96d4c587662d916dd69d0d77df26faed4d0c9b2714e93ea4d89b19",
+   "lines": 214,
+   "status": "domain_variant",
+   "nearest_similarity": 0.923
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r08-wajiancheng-mvp",
+   "path": "r08-wajiancheng-mvp/verify_loop.py",
+   "sha256": "4119b7a56e1181ff9724c9ab50ff734e54f6e0c2a28d2aa30ba5291faed357b7",
+   "lines": 187,
+   "status": "domain_variant",
+   "nearest_similarity": 0.949
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r09-wawenma-engineer",
+   "path": "r09-wawenma-engineer/verify_loop.py",
+   "sha256": "07869b37419f38f8bf45c02bbb852c8d8277fdf127aabc772ab6f3f392b14e95",
+   "lines": 185,
+   "status": "domain_variant",
+   "nearest_similarity": 0.948
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r10-wachengmei-design",
+   "path": "r10-wachengmei-design/verify_loop.py",
+   "sha256": "e07568fb2d71d7a1e22f32e54375bb35761844e027429bbc57568ea0cc3d68e8",
+   "lines": 188,
+   "status": "domain_variant",
+   "nearest_similarity": 0.95
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r11-wadianti-copy",
+   "path": "r11-wadianti-copy/verify_loop.py",
+   "sha256": "2d6e13d3a09a6ba4fc7915ce01471daf5b2f66228934cd13e44f1a45f7b6eab2",
+   "lines": 192,
+   "status": "domain_variant",
+   "nearest_similarity": 0.946
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r12-wayingliu-growth",
+   "path": "r12-wayingliu-growth/verify_loop.py",
+   "sha256": "787ba0b6d22805910e6988c4f66967979fa9fa80eadbf74438f895af5f0c1e41",
+   "lines": 194,
+   "status": "domain_variant",
+   "nearest_similarity": 0.903
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r13-wakecheng-csm",
+   "path": "r13-wakecheng-csm/verify_loop.py",
+   "sha256": "1c2e6269af7b06f8ad1597334ce35755be899cae7dc7161d17eac080fea6a968",
+   "lines": 189,
+   "status": "domain_variant",
+   "nearest_similarity": 0.949
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r14-wajiaoyi-commerce",
+   "path": "r14-wajiaoyi-commerce/verify_loop.py",
+   "sha256": "db1a51a735a4fcc0b11c369933b506e2f05dfeb393eb5861deba1296211cc204",
+   "lines": 201,
+   "status": "domain_variant",
+   "nearest_similarity": 0.95
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r15-wagongying-erp",
+   "path": "r15-wagongying-erp/verify_loop.py",
+   "sha256": "06ede58c731e684b8f0ea1017aac3614ab33d5300361ab90a729078de19200f0",
+   "lines": 203,
+   "status": "domain_variant",
+   "nearest_similarity": 0.94
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r16-warenshi-hr",
+   "path": "r16-warenshi-hr/verify_loop.py",
+   "sha256": "369fb202600e50c8617c2d3a6f729279e15a610b532f632cf1927ae6a51da9c4",
+   "lines": 199,
+   "status": "domain_variant",
+   "nearest_similarity": 0.95
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r17-wazhiwang-automation",
+   "path": "r17-wazhiwang-automation/verify_loop.py",
+   "sha256": "e3c958338ade0f82c870d6dbeffc64044211948f8e478b4e8a93327f9ac905f5",
+   "lines": 199,
+   "status": "domain_variant",
+   "nearest_similarity": 0.944
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r18-washucang-dataeng",
+   "path": "r18-washucang-dataeng/verify_loop.py",
+   "sha256": "1ed11e1f0c4c68afc0532c8659e263bcc3230a51d903e6eb6f59054247c1a015",
+   "lines": 195,
+   "status": "domain_variant",
+   "nearest_similarity": 0.894
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r19-wazhimo-ml",
+   "path": "r19-wazhimo-ml/verify_loop.py",
+   "sha256": "c911847b1dba89a4c7129146a587675112594c68716c7b36341d0343e772fe37",
+   "lines": 195,
+   "status": "domain_variant",
+   "nearest_similarity": 0.949
+  },
+  {
+   "engine": "verify_loop",
+   "role": "r20-washouzhi-sre",
+   "path": "r20-washouzhi-sre/verify_loop.py",
+   "sha256": "e829f4ddfb6681325a79a749495fa5c9562a938f842d205d692d2c00f7cdb313",
+   "lines": 195,
+   "status": "domain_variant",
+   "nearest_similarity": 0.897
+  }
+ ]
+}

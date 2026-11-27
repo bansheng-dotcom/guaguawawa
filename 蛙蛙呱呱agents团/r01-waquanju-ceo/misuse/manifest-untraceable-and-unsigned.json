@@ -1,0 +1,7 @@
+{
+  "case_id": "manifest-untraceable-and-unsigned",
+  "intent": "输入工件不由更早阶段产出 + 不可逆阶段未签字：两处一起违规，必须同时报出",
+  "source": "golden/run-manifest.json",
+  "mutations": ["break_trace", "drop_signoff"],
+  "expect": ["M04_UNTRACEABLE_INPUT", "M06_MISSING_SIGNOFF"]
+}

@@ -10,6 +10,10 @@ allow:
     kind: 方法演进留证
     since: "2026-11-24"
     note: SOP 演进轮次的 spec/dashboard，测试与审计引用
+  - path: r01-waquanju-ceo/golden/artifacts/
+    kind: 方法演进留证
+    since: "2026-11-27"
+    note: run-manifest 黄金运行的 9 个工件（brief/taskcard/decision_card 等），测试与审计引用，不含项目数据
   - path: r04-watiaoci-reviewer/artifacts/
     kind: 方法演进留证
     since: "2026-11-24"

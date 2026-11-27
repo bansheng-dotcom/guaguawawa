@@ -1,0 +1,9 @@
+{
+  "_violation": "单维崩坏却判 healthy：support=0 但其余三维满分，加权 30+0+25+20=75 落入 healthy；故意触发 health.risk 的 risk.band_consistency 门禁（高分掩盖单维崩坏）。",
+  "name": "云启科技",
+  "usage": 100,
+  "support": 0,
+  "voc": 100,
+  "engagement": 100,
+  "renewal_in_days": 30
+}

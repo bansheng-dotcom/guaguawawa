@@ -255,9 +255,9 @@ def _toc(sections: List[Dict[str, Any]], page_of: Dict[str, int],
 <div class="toc-head"><div class="kick">目录 / CONTENTS</div>
   <h2>{esc(c.get("toc_title", "从判断到动作"))}</h2></div>
 <div class="toc-cols"><div>{left}</div><div>{right}</div></div>
-<div class="toc-note"><div class="note-box"><h4>阅读说明</h4>
+<div class="toc-note"><div class="note-box"><h3>阅读说明</h3>
 <p>单位与口径见图下；来源等级 A 政府/官方、B 行业报告、C 平台/媒体。上标对应页脚编号；图和表的来源、样本、口径都写在图下。</p>
-</div><div class="note-box"><h4>两种页型</h4>
+</div><div class="note-box"><h3>两种页型</h3>
 <p>数据页：主文 + 右侧关键数字栏；地图/表格/长文页：事实 / 解释 / 所以三块。固定 A4，页脚有页码。</p>
 </div></div>
 """

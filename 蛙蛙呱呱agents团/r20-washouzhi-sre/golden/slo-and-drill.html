@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SLO 与演练报告：错误预算 / 恢复演练 / RPO-RTO · R20 蛙值守 · SRE 与可靠性官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>SLO 与演练报告：错误预算 / 恢复演练 / RPO-RTO</h1>
+<p class="meta">R20 蛙值守 · SRE 与可靠性官 · 30 天窗口 99.9% SLO + 恢复 150 文件校验和一致 + 依赖无环回滚计划 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>SLO 错误预算</td><td>slo.args</td><td>args {&quot;downtime_min&quot;: 10.0, &quot;requests&quot;: 1000000, &quot;slo&quot;: 99.9, &quot;window_days&quot;: 30}</td><td>c85a4120f3fd61ca</td><td>80</td></tr>
+<tr><td>恢复演练证据</td><td>restore.drill</td><td>examples/drill.json</td><td>97584554bb93d15e</td><td>108</td></tr>
+<tr><td>RPO/RTO 与回滚</td><td>dr.rpo_rto</td><td>examples/rpo_rto.json</td><td>bf676f3e2dca7b72</td><td>294</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>SLO 错误预算 · slo.args</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>slo</td><td>object · 8 键</td></tr>
+</tbody></table>
+<h3>恢复演练证据 · restore.drill</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>drill_id</td><td>drill-001</td></tr>
+<tr><td>restored_count</td><td>150</td></tr>
+<tr><td>result</td><td>success</td></tr>
+<tr><td>narrative</td><td>恢复演练 drill-001：恢复 150 文件，结果 success</td></tr>
+</tbody></table>
+<h3>RPO/RTO 与回滚 · dr.rpo_rto</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>rpo_hours</td><td>1</td></tr>
+<tr><td>rto_hours</td><td>4</td></tr>
+<tr><td>recovery_type</td><td>warm</td></tr>
+<tr><td>rollback_plan</td><td>是</td></tr>
+<tr><td>narrative</td><td>恢复手册：RPO=1h RTO=4h 类型=warm</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>SLO 错误预算</td><td>slo:budget</td><td>OK</td><td class="pass">PASS</td><td>剩余错误预算 33.2 分钟（&lt;0 即透支）</td></tr>
+<tr><td>SLO 错误预算</td><td>slo:burn</td><td>OK</td><td class="pass">PASS</td><td>燃尽率 0.231（≤1 为健康，&gt;1 会在窗口内耗尽预算）</td></tr>
+<tr><td>恢复演练证据</td><td>drill.id</td><td>OK</td><td class="pass">PASS</td><td>演练 ID 非空</td></tr>
+<tr><td>恢复演练证据</td><td>drill.restored</td><td>OK</td><td class="pass">PASS</td><td>恢复文件数 &gt; 0（实际 150）</td></tr>
+<tr><td>恢复演练证据</td><td>drill.result</td><td>OK</td><td class="pass">PASS</td><td>演练结果=&#x27;success&#x27; ∈ {success,failure}</td></tr>
+<tr><td>恢复演练证据</td><td>drill.checksum</td><td>OK</td><td class="pass">PASS</td><td>成功演练带校验和一致性证据</td></tr>
+<tr><td>RPO/RTO 与回滚</td><td>dr.rpo_positive</td><td>OK</td><td class="pass">PASS</td><td>RPO &gt; 0（实际 1 小时）</td></tr>
+<tr><td>RPO/RTO 与回滚</td><td>dr.rto_positive</td><td>OK</td><td class="pass">PASS</td><td>RTO &gt; 0（实际 4 小时）</td></tr>
+<tr><td>RPO/RTO 与回滚</td><td>dr.rpo_max</td><td>OK</td><td class="pass">PASS</td><td>RPO 1 ≤ 1 小时上限</td></tr>
+<tr><td>RPO/RTO 与回滚</td><td>dr.rto_max</td><td>OK</td><td class="pass">PASS</td><td>RTO 4 ≤ 4 小时上限</td></tr>
+<tr><td>RPO/RTO 与回滚</td><td>dr.type</td><td>OK</td><td class="pass">PASS</td><td>恢复类型=&#x27;warm&#x27; 在白名单 [&#x27;hot&#x27;, &#x27;warm&#x27;, &#x27;cold&#x27;]</td></tr>
+<tr><td>RPO/RTO 与回滚</td><td>dr.acyclic</td><td>OK</td><td class="pass">PASS</td><td>恢复依赖图无环（Kahn 拓扑）</td></tr>
+<tr><td>RPO/RTO 与回滚</td><td>dr.rollback</td><td>OK</td><td class="pass">PASS</td><td>回滚计划非空</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">综合结论：SLO/演练/复盘门禁全绿</p>
+<p>30 天 99.9% SLO 允许停机 43.2 分钟，已用 10 分钟，剩余预算 33.2 分钟、燃尽率 0.231；恢复演练 150 文件校验和一致；RPO/RTO 在限值内，依赖图无环且回滚计划非空。</p>
+<p class="note">灾难恢复是预案不是已发生切换；R20 只校验结构与证据，不擅自执行灾难切换/恢复生产。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实技能生成，可复算；R20 不擅自灾难切换/恢复生产。</footer>
+</main>
+</body>
+</html>

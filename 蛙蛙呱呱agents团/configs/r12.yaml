@@ -43,6 +43,12 @@ knowledge_map:
   - references/09-selfmedia.md
   charter:
   - references/00-capability-charter.md
+  chain:
+  - references/10-growth-accounting-aarrr.md
+  - references/11-attribution-incrementality.md
+  - references/12-mmm-adstock-saturation-ridge.md
+  - growth_chain/diagnose.py
+  - growth_chain/runner.py
 keyword_map:
   diagnose:
   - 增长诊断
@@ -90,3 +96,13 @@ keyword_map:
   - 自媒体矩阵
   - 增长日报
   - 全渠道运营
+  chain:
+  - 增长链
+  - 增长会计
+  - aarrr
+  - 指标树
+  - 队列留存
+  - 归因增量
+  - mmm
+  - adstock
+  - 留出验证

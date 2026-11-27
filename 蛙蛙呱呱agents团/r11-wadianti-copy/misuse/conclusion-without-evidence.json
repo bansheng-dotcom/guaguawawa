@@ -1,0 +1,22 @@
+{
+  "sample": "conclusion-without-evidence",
+  "stage": "research",
+  "expected_gate": "research.claim_sources",
+  "artifact": {
+    "artifact": "research_pack",
+    "version": "1.0",
+    "sources": [],
+    "claims": [
+      {
+        "claim_id": "c01",
+        "section": "先看结论",
+        "statement": "内容复利能显著降低获客成本。",
+        "numbers": [],
+        "source_ids": [],
+        "example": "某账号做了内容复利后获客成本下降。"
+      }
+    ],
+    "quotes": [],
+    "tier_counts": {"primary": 0, "secondary": 0, "tertiary": 0}
+  }
+}

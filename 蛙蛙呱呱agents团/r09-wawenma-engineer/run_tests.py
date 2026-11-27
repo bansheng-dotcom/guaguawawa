@@ -123,21 +123,23 @@ class T01(unittest.TestCase):
         names = [m.NAME for m in SKILLS]
         self.assertEqual(names, ["spec", "data_api", "fullstack",
                                  "crossplatform", "testing", "debug",
-                                 "ops", "special"])
-        self.assertEqual(len(SKILL_BY_NAME), 8)
+                                 "ops", "special", "eng_chain"])
+        self.assertEqual(len(SKILL_BY_NAME), 9)
         for m in SKILLS:
             self.assertTrue(m.DESC)
             self.assertTrue(m.ACTIONS)
-            self.assertEqual(len(m.ACTIONS), 2)
+            # 8 个既有技能各 2 动作；十段工程链是独立动作面。
+            self.assertEqual(len(m.ACTIONS), 12 if m.NAME == "eng_chain" else 2)
 
     def test_manifest(self):
         import agent
         mf = agent.make_manifest()
         self.assertEqual(mf["role"], "r09")
-        self.assertEqual(mf["skill_count"], 8)
-        self.assertEqual(mf["action_count"], 16)
-        self.assertEqual(len(mf["contracts"]), 16)
+        self.assertEqual(mf["skill_count"], 9)
+        self.assertEqual(mf["action_count"], 28)
+        self.assertEqual(len(mf["contracts"]), 28)
         self.assertIn("spec/spec", mf["contracts"])
+        self.assertIn("eng_chain/adr", mf["contracts"])
         self.assertEqual(len(mf["intent_routes"]), 16)
         self.assertEqual(mf["boundary"]["never"][0], "跳过测试制造假通过")
 
@@ -568,9 +570,9 @@ class T12(unittest.TestCase):
         import contracts
         self.assertEqual(contracts.skill_names(),
                          ["spec", "data_api", "fullstack", "crossplatform",
-                          "testing", "debug", "ops", "special"])
+                          "testing", "debug", "ops", "special", "eng_chain"])
         for s in contracts.skill_names():
-            self.assertEqual(len(contracts.actions(s)), 2, s)
+            self.assertEqual(len(contracts.actions(s)), 12 if s == "eng_chain" else 2, s)
         from skills import SKILLS
         for m in SKILLS:
             self.assertEqual(sorted(m.ACTIONS), sorted(contracts.actions(m.NAME)),
@@ -715,7 +717,7 @@ class T15(unittest.TestCase):
     def test_contract_cli(self):
         rows, code = run_cli_json(["contract", "list"])
         self.assertEqual(code, 0)
-        self.assertEqual(len(rows), 16)
+        self.assertEqual(len(rows), 28)
         v, code = run_cli_json(["contract", "validate", "--skill", "spec",
                                 "--action", "spec",
                                 "--output", os.path.join(EX, "spec_spec.json")])
@@ -764,6 +766,25 @@ class T16(unittest.TestCase):
         self.assertEqual(out["total"], 32)
         self.assertEqual(out["failed"], 0)
         self.assertEqual(out["verdict"], "PASS")
+
+
+# --------------------------------------------------------------------------- #
+# T17 T7 工程链（tests/test_eng_chain.py 全量复用）
+# --------------------------------------------------------------------------- #
+class T17(unittest.TestCase):
+    def test_eng_chain_suite(self):
+        import importlib.util
+        import io
+        path = os.path.join(_HERE, "tests", "test_eng_chain.py")
+        spec = importlib.util.spec_from_file_location("r09_test_eng_chain", path)
+        mod = importlib.util.module_from_spec(spec)
+        sys.modules["r09_test_eng_chain"] = mod
+        spec.loader.exec_module(mod)
+        suite = unittest.defaultTestLoader.loadTestsFromModule(mod)
+        buf = io.StringIO()
+        res = unittest.TextTestRunner(stream=buf, verbosity=0).run(suite)
+        self.assertTrue(res.wasSuccessful(),
+                        "工程链测试有失败：\n" + buf.getvalue()[-3000:])
 
 
 if __name__ == "__main__":

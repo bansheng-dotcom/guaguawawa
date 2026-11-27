@@ -1,0 +1,25 @@
+{
+  "misuse_id": "misuse-no-sources",
+  "expected_gate": "report:traceability",
+  "why": "全篇没有任何真实来源：结论引用了台账里不存在的 S01，证据附录为 0 条，却仍给出高置信度结论。",
+  "artifact": "research_report",
+  "markdown": "# 研究简报：某行业是否值得进入\n\n## 0 边界与口径\n\n- 未声明边界\n\n## 1 结论先行\n\n1. **[高] 该行业一定值得进入**（证据 E01；来源 S01）\n\n## 4 证据附录（0 条 / 0 源）\n\n| # | 证据 | 数值 | 单位 | 口径期 | 日期 | 来源 | URL | 原文 |\n|---|---|---:|---|---|---|---|---|---|\n\n## 5 矛盾记录\n\n- 无\n\n## 6 验证与未验证项\n\n- 未验证 0（已声明清单：无）\n\n## 7 边界\n\n- 无",
+  "conclusions": [
+    {
+      "id": "C1",
+      "text": "该行业一定值得进入",
+      "confidence": "high",
+      "source_ids": ["S01"],
+      "evidence_ids": ["E01"],
+      "single_source": false
+    }
+  ],
+  "conclusions_trace": [
+    {"conclusion_id": "C1", "source_ids": ["S01"]}
+  ],
+  "ledger_source_ids": [],
+  "ledger_evidence_ids": [],
+  "appendix_count": 0,
+  "boundary": ["未声明边界"],
+  "unverified_disclosed": true
+}

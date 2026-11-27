@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>R12 队列留存与 LTV/CAC</title><style>
+@page{size:A4;margin:16mm}
+:root{--ink:#1f2a37;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--bg:#f8fafc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:32px 24px 56px}
+h1{font-size:24px;margin:0 0 6px}.sub{color:var(--muted);font-size:13px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;
+padding:18px;margin-top:16px}h2{font-size:16px;margin:0 0 10px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:right}
+th:first-child,td:first-child{text-align:left}th{color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;
+background:#dbeafe;color:#1e40af}.note{color:var(--muted);font-size:12px;line-height:1.7}
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style></head><body data-theme="light"><div class="wrap">
+<h1>队列留存 + LTV/CAC</h1>
+<div class="sub">队列规模合计 2,432（= 诊断 signups
+2,432）· 留存曲线：M0 100.0% · M1 88.9% · M2 78.9% · M3 70.2% · M4 62.4% · M5 55.5% · M6 49.4%</div>
+<div class="panel"><h2>队列留存矩阵（分母固定）</h2>
+<table><thead><tr><th>队列</th><th>规模</th><th>M0</th><th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th></tr></thead>
+<tbody><tr><td>2025-02</td><td>292</td><td>100.0%</td><td>86.0%</td><td>74.0%</td><td>63.7%</td><td>54.8%</td><td>46.9%</td><td>40.4%</td></tr><tr><td>2025-03</td><td>340</td><td>100.0%</td><td>87.1%</td><td>75.6%</td><td>65.9%</td><td>57.4%</td><td>49.7%</td><td>43.2%</td></tr><tr><td>2025-04</td><td>389</td><td>100.0%</td><td>87.9%</td><td>77.4%</td><td>68.1%</td><td>59.9%</td><td>52.7%</td><td>46.5%</td></tr><tr><td>2025-05</td><td>413</td><td>100.0%</td><td>89.1%</td><td>79.2%</td><td>70.5%</td><td>62.7%</td><td>55.9%</td><td>49.6%</td></tr><tr><td>2025-06</td><td>462</td><td>100.0%</td><td>90.0%</td><td>81.0%</td><td>72.9%</td><td>65.6%</td><td>59.1%</td><td>53.2%</td></tr><tr><td>2025-07</td><td>536</td><td>100.0%</td><td>91.0%</td><td>82.8%</td><td>75.4%</td><td>68.7%</td><td>62.3%</td><td>56.7%</td></tr></tbody></table></div>
+<div class="panel"><h2>付费回收（阈值 18.0 个月）</h2>
+<table><thead><tr><th>渠道</th><th>CAC</th><th>LTV</th><th>LTV/CAC</th>
+<th>回收月</th><th>贡献毛利</th></tr></thead><tbody><tr><td>paid_search</td><td>95</td><td>306</td><td>3.22</td><td>3.88</td><td>24</td></tr><tr><td>wechat</td><td>70</td><td>400</td><td>5.71</td><td>2.92</td><td>24</td></tr><tr><td>xhs_feed</td><td>110</td><td>234</td><td>2.13</td><td>4.70</td><td>23</td></tr></tbody></table>
+<p class="note">口径：贡献毛利=ARPA×毛利率；LTV=贡献毛利/月流失率；
+回收月=CAC/贡献毛利。留存分母为期初队列规模，流失逐期可解释。</p></div></div></body></html>

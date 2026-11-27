@@ -1,0 +1,188 @@
+{
+  "prd": {
+    "context": {
+      "background": "新用户注册后 7 天内不会创建首个项目，现有帮助文档路径太深，激活率长期停在 12%。",
+      "evidence_links": ["30 天新用户行为埋点", "10 位新用户访谈记录"],
+      "target_users": ["SaaS 试用新用户"]
+    },
+    "prd": {
+      "problem_statement": "新用户注册后 7 天内不知道如何创建第一个项目，导致激活率偏低",
+      "users": [
+        {
+          "segment": "SaaS 试用新用户",
+          "scenario": "注册后首次登录",
+          "alternative": "手动翻帮助文档",
+          "action_cost": "高"
+        }
+      ],
+      "value_proposition": {
+        "before": "无引导，全凭新用户自己摸索",
+        "how": "分步新手引导",
+        "after": "10 分钟完成首个项目",
+        "alternatives": "帮助中心 / 视频教程"
+      },
+      "scope": {
+        "p0": ["分步引导流程"],
+        "p1": ["跳过并稍后继续"],
+        "p2": [],
+        "non_goals": ["不做自动创建项目", "不做个性化推荐"]
+      },
+      "metrics": {
+        "north_star": "7 日激活率",
+        "input_metrics": ["首日完成首个项目率"],
+        "guardrail": ["引导中途放弃率"],
+        "baseline": "12%",
+        "target": "20%",
+        "data_source": "行为埋点"
+      },
+      "acceptance_criteria": [
+        {"given": "新用户完成注册", "when": "首次进入工作台", "then": "出现分步引导"}
+      ],
+      "risks": [
+        {"hypothesis": "用户愿意跟随引导", "validation": "小流量实验"},
+        {"hypothesis": "引导不打断核心任务", "validation": "可用性测试"},
+        {"hypothesis": "引导能提升激活率", "validation": "A/B 实验"}
+      ],
+      "executive_summary": "给新用户分步引导，让其 10 分钟完成首个项目，目标 7 日激活率从 12% 提升到 20%"
+    },
+    "user_stories": [
+      {
+        "id": "us1",
+        "as_a": "SaaS 试用新用户",
+        "i_want": "第一次进入工作台就看到分步引导",
+        "so_that": "不用翻帮助文档就能建出首个项目",
+        "acceptance_criteria": [
+          "首次进入自动出现引导",
+          "引导步骤可跳过",
+          "进度可恢复",
+          "完成后落库首个项目",
+          "中途退出下次继续"
+        ]
+      }
+    ],
+    "non_goals": ["不做自动创建项目", "不做个性化推荐"],
+    "premortem": {
+      "failure_reasons": [
+        {"reason": "引导遮挡核心操作引发反感", "mitigation": "默认可跳过并提供 3 秒收起", "owner": "r07"},
+        {"reason": "新用户直接跳过导致指标不升", "mitigation": "A/B 对比跳过率与激活率", "owner": "r12"},
+        {"reason": "引导步骤与真实创建流程不一致", "mitigation": "与 r09 用同一接口联调", "owner": "r09"},
+        {"reason": "移动端布局错位", "mitigation": "上线前跑 5 种机型的视觉回归", "owner": "r08"},
+        {"reason": "埋点缺失无法归因", "mitigation": "发布前核对引导 4 个关键事件", "owner": "r12"}
+      ]
+    }
+  },
+  "priority": {
+    "items": [
+      {
+        "id": "it1",
+        "title": "分步新手引导",
+        "method": "rice",
+        "reach": 800,
+        "impact": 0.8,
+        "confidence": 70,
+        "effort": 2,
+        "source": "增长看板 9 月新用户 800 人；置信度来自 10 位访谈",
+        "acceptance_criteria": ["引导可跳过", "进度持久化"]
+      },
+      {
+        "id": "it2",
+        "title": "首项目模板",
+        "method": "opportunity",
+        "importance": 8,
+        "satisfaction": 0.3,
+        "source": "访谈中 5/10 人提到不知道建什么项目",
+        "acceptance_criteria": ["提供 3 个模板", "模板可预览"]
+      },
+      {
+        "id": "it3",
+        "title": "引导完成弹窗",
+        "method": "ice",
+        "impact": 6,
+        "confidence": 0.7,
+        "ease": 4,
+        "source": "可用性测试 6 人反馈完成瞬间缺确认",
+        "acceptance_criteria": ["完成后展示下一步入口"]
+      }
+    ],
+    "roadmap": [
+      {
+        "segment": "SaaS 试用新用户",
+        "outcome": "首次登录 10 分钟内完成首个项目",
+        "business_impact": "7 日激活率 12% → 20%",
+        "quarter": "2026Q4"
+      },
+      {
+        "segment": "沉默新用户",
+        "outcome": "次周回访时能继续未完成引导",
+        "business_impact": "次周留存 +3pt",
+        "quarter": "2027Q1"
+      }
+    ],
+    "release_notes": {
+      "title": "新手引导 v1.2",
+      "sections": {
+        "New Features": ["新增分步新手引导"],
+        "Improvements": ["引导进度可恢复"],
+        "Bug Fixes": ["修复移动端引导遮挡按钮"],
+        "Breaking Changes": ["无"],
+        "Deprecations": ["旧帮助中心弹窗下线"]
+      }
+    }
+  },
+  "acceptance": {
+    "feature": "分步新手引导",
+    "scenarios": [
+      {
+        "id": "s-main",
+        "type": "main",
+        "given": "新用户完成注册",
+        "when": "首次进入工作台",
+        "then": "出现第 1 步引导并可完成首个项目",
+        "expected": "项目创建成功并写入进度"
+      },
+      {
+        "id": "s-boundary",
+        "type": "boundary",
+        "given": "新用户在第 2 步关闭浏览器",
+        "when": "第二天再次登录",
+        "then": "从第 2 步继续引导",
+        "expected": "进度不丢失"
+      },
+      {
+        "id": "s-failure",
+        "type": "failure",
+        "given": "创建项目接口超时",
+        "when": "用户点击完成引导",
+        "then": "提示稍后重试且保留已填内容",
+        "expected": "不产生半成品项目"
+      }
+    ],
+    "test_scenarios": [
+      {
+        "id": "t1",
+        "scenario_id": "s-main",
+        "steps": ["注册新账号", "进入工作台", "按引导填写项目名并提交"],
+        "expected": "项目出现在列表且进度为完成"
+      },
+      {
+        "id": "t2",
+        "scenario_id": "s-boundary",
+        "steps": ["走到第 2 步", "关闭浏览器", "重新登录"],
+        "expected": "从第 2 步继续"
+      },
+      {
+        "id": "t3",
+        "scenario_id": "s-failure",
+        "steps": ["模拟创建接口 504", "点击完成"],
+        "expected": "出现重试提示且输入保留"
+      }
+    ],
+    "release_gate": {
+      "checks": [
+        {"name": "typecheck", "status": "pass"},
+        {"name": "e2e", "status": "pass"},
+        {"name": "security", "status": "pass"}
+      ]
+    }
+  }
+}

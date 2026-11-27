@@ -358,6 +358,16 @@ def main() -> int:
             f"bad={[r['skill'] + ':' + ','.join(r.get('notes', [])) for r in matrix['matrix'] if not r['ok']][:3]}")
     t.check("闭环 verdict=PASS", matrix["verdict"] == "PASS")
 
+    # ------------------------------------------------------------------ #
+    t.section("T16 厚度包（golden/misuse）")
+    sys.path.insert(0, os.path.join(HERE, "tests"))
+    import test_thickness_samples as thickness
+    probs = thickness.collect_problems()
+    for p in probs:
+        t.check(p, False)
+    if not probs:
+        t.check("golden≥2 / misuse≥2 且均被具名门禁拒绝", True)
+
     print(f"\n{'=' * 60}")
     print(f"通过 {t.passed} / {t.passed + t.failed}")
     if t.failed:

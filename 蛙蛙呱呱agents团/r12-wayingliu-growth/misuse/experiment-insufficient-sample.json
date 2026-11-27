@@ -1,0 +1,24 @@
+{
+  "stage": "experiment",
+  "hypothesis": "新结账页能提升下单转化率",
+  "metric": "order_cvr",
+  "design": {
+    "baseline_rate": 0.035,
+    "mde_rel": 0.08,
+    "mde_abs": 0.0028,
+    "alpha": 0.05,
+    "power": 0.8,
+    "allocation": 0.5,
+    "daily_traffic": 4000
+  },
+  "required_sample_size_per_arm": 70229,
+  "declared_sample_size_per_arm": 70229,
+  "observed_sample_size": 800,
+  "stop_conditions": [
+    "跑满一周就下结论"
+  ],
+  "preregistration_sha256": "9f2c-example",
+  "claimed_significant": true,
+  "note": "每臂只有 800 个样本就宣布实验显著，并要求全量上线",
+  "gate_expected": "样本量不足不得下结论"
+}

@@ -1,0 +1,40 @@
+{
+  "brief_id": "opinion-solo-content-hub",
+  "title": "一人公司要不要做内容中台：先算清这三笔账",
+  "industry": "一人公司",
+  "audience": "独立创业者",
+  "goal": "用有限精力换可持续获客",
+  "constraints": {"platform": "公众号", "min_chars": 1200, "max_chars": 4000, "tone": "观点"},
+  "keywords": [
+    {"term": "一人公司内容", "search_volume": 1400, "competition": 0.35, "intent": "informational"},
+    {"term": "内容中台", "search_volume": 1100, "competition": 0.5, "intent": "commercial"},
+    {"term": "个人品牌", "search_volume": 2600, "competition": 0.75, "intent": "informational"},
+    {"term": "内容外包", "search_volume": 900, "competition": 0.4, "intent": "commercial"},
+    {"term": "获客成本", "search_volume": 1700, "competition": 0.62, "intent": "commercial"}
+  ],
+  "entities": ["一人公司", "内容中台", "个人品牌", "获客成本"],
+  "questions": [
+    "内容中台真正省下的是什么？",
+    "外包比自建便宜吗？",
+    "个人品牌能不能被中台替代？",
+    "月更多少篇才值得搭中台？",
+    "先跑多久再决定固化？"
+  ],
+  "sources": [
+    {"id": "s01", "title": "一人公司的决策带宽", "url": "https://example.org/solo-bandwidth", "date": "2026-02-02", "tier": "primary", "quote": "一人公司的瓶颈通常不是产能，而是每天要做的决策数量。"},
+    {"id": "s02", "title": "内容中台到底中台了什么", "url": "https://example.org/hub-what", "date": "2026-02-20", "tier": "secondary", "quote": "中台承接的是重复劳动，不承接观点与判断。"},
+    {"id": "s03", "title": "个人品牌的不可替代性", "url": "https://example.org/personal-brand", "date": "2026-03-11", "tier": "primary", "quote": "读者关注的是具体的人如何做取舍，而不是一套流程。"},
+    {"id": "s04", "title": "固定协作者与临时招募的成本", "url": "https://example.org/fixed-partner", "date": "2026-03-28", "tier": "secondary", "quote": "固定协作者省下的是反复对齐口径的时间。"},
+    {"id": "s05", "title": "低频率更新下的维护成本", "url": "https://example.org/low-frequency", "date": "2026-04-15", "tier": "primary", "quote": "更新频率过低时，流程维护成本会超过它节省的时间。"},
+    {"id": "s06", "title": "获客成本的内容口径", "url": "https://example.org/cac-content", "date": "2026-04-29", "tier": "tertiary", "quote": "内容获客要看长期检索命中，而不是单篇爆发。"},
+    {"id": "s07", "title": "先试运行再固化的经验", "url": "https://example.org/pilot-first", "date": "2026-05-12", "tier": "secondary", "quote": "先跑一段时间再固化，能避免把偶然当规律。"},
+    {"id": "s08", "title": "内容外包的边界条件", "url": "https://example.org/outsource-edge", "date": "2026-05-24", "tier": "tertiary", "quote": "外包适合资料整理与初稿，不适合价值判断。"}
+  ],
+  "facts": [
+    {"id": "c01", "section": "先把观点说清", "statement": "一人公司做内容中台，真正的收益是决策次数减少 40%。", "numbers": ["40"], "source_ids": ["s01", "s02"], "example": "以前每篇都要重新想要不要发、发哪里，现在按固定节奏走。"},
+    {"id": "c02", "section": "再看成本", "statement": "把写作外包给 2 个固定协作者，沟通成本通常低于临时招募。", "numbers": ["2"], "source_ids": ["s04", "s08"], "example": "固定协作者熟悉口径，返工次数会明显下降。"},
+    {"id": "c03", "section": "反方意见", "statement": "个人品牌高度依赖本人出镜，内容中台只能承接 60% 的重复劳动。", "numbers": ["60"], "source_ids": ["s03"], "example": "观点、取舍和现场判断仍然要本人完成。"},
+    {"id": "c04", "section": "适用边界", "statement": "月更少于 4 篇时，搭中台的维护成本会高于收益。", "numbers": ["4"], "source_ids": ["s05"], "example": "更新太慢，流程还没跑顺就又需要调整。"},
+    {"id": "c05", "section": "我的判断", "statement": "先跑 3 个月、每周 1 次复盘，再决定是否固化流程。", "numbers": ["3", "1"], "source_ids": ["s07", "s06"], "example": "试运行阶段只固化最痛的一步，其他先保持手工。"}
+  ]
+}

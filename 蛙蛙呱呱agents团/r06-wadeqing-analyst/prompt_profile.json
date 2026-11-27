@@ -384,6 +384,19 @@
         "metric"
       ],
       "params": {}
+    },
+    {
+      "skill": "chain",
+      "action": "run",
+      "label": "分析链（问题→假设→证据→统计）",
+      "when": [
+        "分析链",
+        "全链分析",
+        "完整分析",
+        "可证伪"
+      ],
+      "requires": [],
+      "params": {}
     }
   ],
   "semantic_fields": {
@@ -483,6 +496,28 @@
     "selfmedia.report": [
       "dataset",
       "time_window"
+    ],
+    "chain.frame": [],
+    "chain.plan": [],
+    "chain.profile": [
+      "dataset"
+    ],
+    "chain.explore": [
+      "dataset"
+    ],
+    "chain.explain": [
+      "dataset"
+    ],
+    "chain.test": [
+      "dataset"
+    ],
+    "chain.audit": [],
+    "chain.verify": [],
+    "chain.chart": [],
+    "chain.write": [],
+    "chain.deliver": [],
+    "chain.report": [
+      "dataset"
     ],
     "did.run": [
       "dataset"

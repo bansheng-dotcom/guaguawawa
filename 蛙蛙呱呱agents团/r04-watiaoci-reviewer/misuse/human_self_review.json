@@ -1,0 +1,9 @@
+{
+  "_violation": "实现者自评：producer 与 reviewer 同为 r08，故意触发 human.package 的 self_review 身份红线。",
+  "artifact": "landing.html",
+  "review_dimensions": ["文案", "转化路径", "移动端"],
+  "criteria_ref": "criteria/landing-acceptance.json",
+  "producer": "r08",
+  "reviewer": "r08",
+  "deadline": "2026-11-06"
+}

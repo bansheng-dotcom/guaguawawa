@@ -1,0 +1,36 @@
+{
+  "artifact": "explanation",
+  "metric": "profit",
+  "dimension": "channel",
+  "root": {"before": 1000.0, "after": 800.0, "delta": -200.0, "delta_pct": -20.0},
+  "driver_tree": {
+    "root": "profit",
+    "level_1": [{"driver": "channel:抖音", "delta": -200.0, "contribution_pct": 100.0}],
+    "additivity": {"sum_delta": -200.0, "root_delta": -200.0, "error_pct": 0.0}
+  },
+  "drivers": [
+    {
+      "driver": "channel:抖音",
+      "segment": "抖音",
+      "before": 600.0,
+      "after": 400.0,
+      "delta": -200.0,
+      "contribution_pct": 100.0,
+      "effect_decomposition": {"quantity": -50.0, "price": -150.0, "residual": 0.0}
+    }
+  ],
+  "top_driver": "channel:抖音",
+  "counterfactual": {
+    "assumption": "若抖音维持前期水平",
+    "root_after_counterfactual": 1000.0,
+    "delta_vs_actual": 200.0
+  },
+  "alternatives": [
+    {"id": "A1", "statement": "口径变化", "test": "比较记录数", "status": "not_supported", "evidence": {}},
+    {"id": "A2", "statement": "结构变化", "test": "比较份额", "status": "not_supported", "evidence": {}}
+  ],
+  "claim_type": "causal",
+  "causal_claim": true,
+  "experiment": false,
+  "time_as_cause": false
+}

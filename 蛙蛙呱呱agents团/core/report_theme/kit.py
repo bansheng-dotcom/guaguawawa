@@ -241,7 +241,7 @@ a.toc-row:hover{color:inherit;border-bottom-color:var(--accent)}
 .toc-row .pg{font-size:8.6pt;color:var(--ink2);font-weight:600}
 .toc-note{margin-top:8mm;display:grid;grid-template-columns:1fr 1fr;gap:6mm}
 .note-box{background:var(--surface);padding:4mm 4.4mm}
-.note-box h4{margin:0 0 2mm;font-size:8pt;letter-spacing:.16em;color:var(--accent);font-weight:700}
+.note-box h3{margin:0 0 2mm;font-size:8pt;letter-spacing:.16em;color:var(--accent);font-weight:700}
 .note-box p,.note-box li{font-size:8.2pt;line-height:1.75;color:var(--muted);margin:0}
 .note-box ul{margin:0;padding-left:3.4mm}
 .map3{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:8mm}
@@ -250,7 +250,7 @@ a.toc-row:hover{color:inherit;border-bottom-color:var(--accent)}
 .map3 .m .t{font-size:9pt;font-weight:700;margin-top:1mm}
 .map3 .m .d{font-size:7.8pt;color:var(--muted);line-height:1.6;margin-top:.8mm}
 .fig-index{margin-top:6mm;border-top:.5pt solid var(--line);padding-top:3mm}
-.fig-index h4{margin:0 0 1.6mm;font-size:7.4pt;letter-spacing:.16em;color:var(--accent)}
+.fig-index h3{margin:0 0 1.6mm;font-size:7.4pt;letter-spacing:.16em;color:var(--accent)}
 .fig-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 8mm}
 .fig-row{display:flex;gap:2mm;font-size:7.6pt;padding:1mm 0;border-bottom:.4pt dotted var(--line)}
 .fig-row .n{color:var(--accent);font-weight:700;min-width:8mm}
@@ -554,7 +554,7 @@ def toc_page(meta: dict, entries: list[tuple[str, str, int]], pn: int, total: in
 {parts_html}
 <div class="toc-cols"><div>{left}</div><div>{right}</div></div>
 <div class="note-box" style="margin-top:8mm">
-  <h4>阅读说明</h4>
+  <h3>阅读说明</h3>
   <p>单位与口径见图下；来源等级 A 政府/官方、B 行业报告、C 平台/媒体。上标对应页脚 S/D 编号；图和表的来源、样本、口径都写在图下。</p>
 </div>
 """

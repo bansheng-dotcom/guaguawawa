@@ -1,0 +1,214 @@
+{
+ "generated_by": "scripts/check_role_thickness.py",
+ "rule": "ratchet: 只许上升",
+ "l2": {
+  "refs": 6,
+  "ref_kb": 30.0,
+  "modules": 5,
+  "golden": 2,
+  "misuse": 2,
+  "e2e": 1
+ },
+ "roles": {
+  "r01": {
+   "dir": "r01-waquanju-ceo",
+   "refs": 8,
+   "ref_kb": 34.9,
+   "modules": 21,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 5,
+   "e2e": 1
+  },
+  "r02": {
+   "dir": "r02-wapaibu-coo",
+   "refs": 10,
+   "ref_kb": 35.8,
+   "modules": 20,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 5,
+   "e2e": 1
+  },
+  "r03": {
+   "dir": "r03-washouxian-cfo",
+   "refs": 11,
+   "ref_kb": 36.2,
+   "modules": 19,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 15,
+   "e2e": 1
+  },
+  "r04": {
+   "dir": "r04-watiaoci-reviewer",
+   "refs": 11,
+   "ref_kb": 36.0,
+   "modules": 27,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r05": {
+   "dir": "r05-washenyuan-research",
+   "refs": 9,
+   "ref_kb": 37.2,
+   "modules": 28,
+   "golden": 3,
+   "misuse": 3,
+   "tests": 10,
+   "e2e": 1
+  },
+  "r06": {
+   "dir": "r06-wadeqing-analyst",
+   "refs": 28,
+   "ref_kb": 161.9,
+   "modules": 34,
+   "golden": 3,
+   "misuse": 3,
+   "tests": 5,
+   "e2e": 1
+  },
+  "r07": {
+   "dir": "r07-wademing-pm",
+   "refs": 14,
+   "ref_kb": 50.8,
+   "modules": 21,
+   "golden": 3,
+   "misuse": 3,
+   "tests": 7,
+   "e2e": 1
+  },
+  "r08": {
+   "dir": "r08-wajiancheng-mvp",
+   "refs": 10,
+   "ref_kb": 37.1,
+   "modules": 20,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r09": {
+   "dir": "r09-wawenma-engineer",
+   "refs": 7,
+   "ref_kb": 31.4,
+   "modules": 15,
+   "golden": 3,
+   "misuse": 3,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r10": {
+   "dir": "r10-wachengmei-design",
+   "refs": 13,
+   "ref_kb": 61.5,
+   "modules": 38,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r11": {
+   "dir": "r11-wadianti-copy",
+   "refs": 18,
+   "ref_kb": 43.8,
+   "modules": 21,
+   "golden": 3,
+   "misuse": 3,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r12": {
+   "dir": "r12-wayingliu-growth",
+   "refs": 15,
+   "ref_kb": 45.2,
+   "modules": 23,
+   "golden": 3,
+   "misuse": 3,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r13": {
+   "dir": "r13-wakecheng-csm",
+   "refs": 11,
+   "ref_kb": 42.4,
+   "modules": 18,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r14": {
+   "dir": "r14-wajiaoyi-commerce",
+   "refs": 11,
+   "ref_kb": 65.9,
+   "modules": 21,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r15": {
+   "dir": "r15-wagongying-erp",
+   "refs": 10,
+   "ref_kb": 42.6,
+   "modules": 20,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 5,
+   "e2e": 1
+  },
+  "r16": {
+   "dir": "r16-warenshi-hr",
+   "refs": 10,
+   "ref_kb": 45.8,
+   "modules": 18,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r17": {
+   "dir": "r17-wazhiwang-automation",
+   "refs": 11,
+   "ref_kb": 40.5,
+   "modules": 19,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 5,
+   "e2e": 1
+  },
+  "r18": {
+   "dir": "r18-washucang-dataeng",
+   "refs": 10,
+   "ref_kb": 52.5,
+   "modules": 18,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 5,
+   "e2e": 1
+  },
+  "r19": {
+   "dir": "r19-wazhimo-ml",
+   "refs": 10,
+   "ref_kb": 52.2,
+   "modules": 18,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 6,
+   "e2e": 1
+  },
+  "r20": {
+   "dir": "r20-washouzhi-sre",
+   "refs": 10,
+   "ref_kb": 44.1,
+   "modules": 18,
+   "golden": 2,
+   "misuse": 2,
+   "tests": 5,
+   "e2e": 1
+  }
+ }
+}

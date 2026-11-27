@@ -5,8 +5,34 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "tests"))
 from core.report_theme.charts_pro import spec
 from samples import samples  # noqa: E402
+
+
+def audit_48() -> list:
+    """T10：48 型六维审计 + 黄金 SVG 回归；返回失败清单。"""
+    from chart_audit_cases import cases
+    from core.charts.audit import audit
+    from core.charts.chart_capabilities import CATALOG
+
+    bad = []
+    fixtures = ROOT / "tests" / "fixtures" / "charts"
+    cs = cases()
+    for c in CATALOG:
+        key = c["key"]
+        payload = cs.get(key)
+        if payload is None:
+            bad.append((key, "缺审计用例"))
+            continue
+        f = fixtures / f"{key}.svg"
+        if not f.is_file():
+            bad.append((key, "缺黄金 SVG"))
+            continue
+        r = audit(key, payload, f.read_text(encoding="utf-8"))
+        if not r["ok"]:
+            bad.append((key, [x["msg"] for x in r["checks"] if not x["ok"]][:2]))
+    return bad
 
 
 def main() -> int:
@@ -29,9 +55,11 @@ def main() -> int:
     audit = _cs.contract_audit(samples.SAMPLE)
     from core.report_theme import tokens as _tk
     tbad = _tk.verify_defaults_match_renderer()
+    abad = audit_48()
     print(f"kinds {len(kinds)} | samples {len(samples.SAMPLE)} | aliases {len(spec.ALIASES)}"
           f" | contract {'OK' if audit['ok'] else 'DRIFT'}"
-          f" | tokens {'OK' if not tbad else 'DRIFT'}")
+          f" | tokens {'OK' if not tbad else 'DRIFT'}"
+          f" | audit48 {'OK' if not abad else 'FAIL'}")
     if tbad:
         print("token drift:", tbad[:3])
     if not audit["ok"]:
@@ -42,7 +70,9 @@ def main() -> int:
         print("render failures:", bad[:5])
     if alias_bad:
         print("bad aliases:", alias_bad[:5])
-    return 0 if not (missing or bad or alias_bad or not audit["ok"] or tbad) else 1
+    if abad:
+        print("audit failures:", abad[:5])
+    return 0 if not (missing or bad or alias_bad or not audit["ok"] or tbad or abad) else 1
 
 
 if __name__ == "__main__":

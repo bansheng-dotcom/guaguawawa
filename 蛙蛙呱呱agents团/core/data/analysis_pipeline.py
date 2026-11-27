@@ -52,7 +52,13 @@ def _get(d: Any, path: str):
 
 def run(pipeline_path: str) -> Dict[str, Any]:
     spec = json.loads(Path(pipeline_path).read_text(encoding="utf-8"))
-    out_dir = Path(spec.get("out_dir") or (Path(pipeline_path).parent / "out"))
+    # 运行产物只写 RUNTIME_ROOT（仓库外 workspace），不写回团内 pipelines/out。
+    try:
+        from core.base import paths as _paths
+        default_out = Path(_paths.runtime_root()) / "pipelines" / Path(pipeline_path).stem
+    except Exception:  # noqa: BLE001
+        default_out = Path(pipeline_path).parent / "out"
+    out_dir = Path(spec.get("out_dir") or default_out)
     out_dir.mkdir(parents=True, exist_ok=True)
     ctx: Dict[str, Any] = {}
     log = []

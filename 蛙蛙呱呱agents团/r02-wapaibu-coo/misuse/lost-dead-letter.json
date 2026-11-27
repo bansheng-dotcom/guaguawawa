@@ -1,0 +1,27 @@
+{
+  "case_id": "lost-dead-letter",
+  "intent": "任务已失败却没有进死信队列：等于静默丢任务，审计必须拦下",
+  "kind": "result",
+  "result": {
+    "schema": "guagua.workflow-run/v1",
+    "run_id": "WF-MISUSE-001",
+    "policy": {
+      "max_retries": 3,
+      "retry_forever": false,
+      "backoff": "exponential",
+      "base_delay_s": 2,
+      "max_delay_s": 60,
+      "dead_letter_queue": "coo-dlq"
+    },
+    "tasks": [{"id": "t01", "depends_on": []}],
+    "states": {"t01": "dead_letter"},
+    "attempts": [{"task_id": "t01", "state": "failed", "attempts": 4, "delays": [2, 4, 8]}],
+    "dead_letters": [],
+    "deduplicated": [],
+    "blocked": [],
+    "violations": [],
+    "outcome": "failed",
+    "ok": true
+  },
+  "expect": ["W02_DEAD_LETTER_LOST"]
+}

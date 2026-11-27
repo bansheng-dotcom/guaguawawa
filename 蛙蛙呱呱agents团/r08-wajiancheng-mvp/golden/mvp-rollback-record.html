@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>回滚记录</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; --accent:#7c3aed; --accent-soft:#f5f3ff; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>回滚记录 · mvp-1.1.0</h1>
+<p class="meta">记录人 R08 ｜ 最终版本 mvp-1.1.0 ｜
+健康检查 True ｜ 历史 5 条</p>
+<h2>1. 结论先行</h2>
+<div class="block">v1.2.0 首次发布因健康检查失败被自动回滚，release/ 已恢复为 v1.1.0；
+修复后重新发布成功，随后人工回滚再次回到 v1.1.0，版本锁与磁盘摘要一致。</div>
+<h2>2. 发布与回滚时间线</h2>
+<table>
+<thead><tr><th>时间</th><th>动作</th><th>版本</th><th>结果</th><th>目标/来源</th></tr></thead>
+<tbody><tr><td>2026-11-27T09:00:00</td><td>deploy</td><td>mvp-1.1.0</td><td>deployed</td><td>—</td></tr><tr><td>2026-11-27T09:00:00</td><td>deploy</td><td>mvp-1.1.0</td><td>noop</td><td>—</td></tr><tr><td>2026-11-27T09:00:00</td><td>deploy</td><td>mvp-1.2.0</td><td>auto_rolled_back</td><td>mvp-1.1.0</td></tr><tr><td>2026-11-27T09:00:00</td><td>deploy</td><td>mvp-1.2.0</td><td>deployed</td><td>—</td></tr><tr><td>2026-11-27T10:00:00</td><td>rollback</td><td>mvp-1.1.0</td><td>rolled_back</td><td>mvp-1.2.0</td></tr></tbody>
+</table>
+<h2>3. 失败与处置</h2>
+<table>
+<thead><tr><th>事件</th><th>错误码</th><th>处置</th><th>复核</th></tr></thead>
+<tbody>
+<tr><td>v1.2.0 健康检查 500</td><td>D03_HEALTHCHECK_FAILED</td><td>自动回滚 v1.1.0</td><td>R04 复核放行</td></tr>
+<tr><td>重复发布 v1.1.0</td><td>—</td><td>幂等 no-op</td><td>无副作用</td></tr>
+<tr><td>人工回滚 v1.2.0→v1.1.0</td><td>—</td><td>按回滚计划 3 步</td><td>冒烟 3 条通过</td></tr>
+</tbody>
+</table>
+<h2>4. 版本锁一致性</h2>
+<table>
+<thead><tr><th>项</th><th>值</th></tr></thead>
+<tbody>
+<tr><td>锁定版本</td><td>mvp-1.1.0</td></tr>
+<tr><td>锁定摘要</td><td><code>d54e819b584d070ad99894f35e4cf7f0909673b70851f24d6e675fb559fe6c02</code></td></tr>
+<tr><td>磁盘重算摘要</td><td><code>d54e819b584d070ad99894f35e4cf7f0909673b70851f24d6e675fb559fe6c02</code></td></tr>
+<tr><td>文件数</td><td>3</td></tr>
+</tbody>
+</table>
+<h3>4.1 复核</h3>
+<p>运行 <code>python deploy_rollback.py e2e</code> 可复现以上时间线；文件被手改会让
+<code>check_health</code> 的摘要比对失败。</p>
+
+</main>
+</body>
+</html>

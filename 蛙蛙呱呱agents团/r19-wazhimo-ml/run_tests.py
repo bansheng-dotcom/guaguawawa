@@ -492,6 +492,16 @@ def main() -> int:
     t.check("闭环 14 干净 + 14 脏", n_clean == 14 and n_dirty == 14,
             f"clean={n_clean} dirty={n_dirty}")
 
+    # ------------------------------------------------------------------ #
+    t.section("T16 厚度包（golden/misuse）")
+    sys.path.insert(0, os.path.join(HERE, "tests"))
+    import test_thickness_samples as thickness
+    probs = thickness.collect_problems()
+    for p in probs:
+        t.check(p, False)
+    if not probs:
+        t.check("golden≥2 / misuse≥2 且均被具名门禁拒绝", True)
+
     print(f"\n{'=' * 60}")
     print(f"通过 {t.passed} / {t.passed + t.failed}")
     if t.failed:

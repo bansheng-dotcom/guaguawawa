@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>存量功能优化 PRD：分步新手引导</title><style>
+@page{size:A4;margin:16mm}
+:root{--ink:#1f2328;--muted:#656d76;--line:#d8dee4;--ok:#1a7f37;--bad:#cf222e;--bg:#f6f8fa}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);
+font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+header{padding:40px 48px 24px;border-bottom:1px solid var(--line);background:var(--bg)}
+h1{margin:0 0 6px;font-size:28px}h2{margin:0;font-size:20px}
+.sub{color:var(--muted);font-size:14px}
+main{padding:8px 48px 56px;max-width:980px}
+section{margin:32px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:16px;
+padding:16px 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;
+font-weight:600;color:#fff}.badge.ok{background:var(--ok)}.badge.bad{background:var(--bad)}
+.badge.warn{background:#9a6700}.body{padding:18px 20px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+pre{margin:14px 0 0;padding:14px;background:var(--bg);border:1px solid var(--line);
+border-radius:8px;overflow:auto;font-size:12px;line-height:1.5}
+details{margin-top:12px}summary{cursor:pointer;color:var(--muted);font-size:13px}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+footer{padding:24px 48px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style></head>
+<body data-theme="light"><header><h1>存量功能优化 PRD：分步新手引导</h1><div class="sub">R07 · 5 条产品工作流 + 经验门</div></header>
+<main><section>
+  <div class="sec-head"><div><h2>prd_pack</h2>
+  <div class="sub">prd_pack.json · stage=prd</div></div>
+  <span class="badge ok">PASS</span></div>
+  <div class="body"><table><thead><tr><th>结果</th><th>门禁维度</th><th>说明</th></tr></thead><tbody><tr><td>PASS</td><td><code>context.background</code></td><td>缺少上下文背景（context.background）</td></tr><tr><td>PASS</td><td><code>context.evidence</code></td><td>缺少证据回链（context.evidence_links）</td></tr><tr><td>PASS</td><td><code>context.target_users</code></td><td>上下文缺少目标用户（context.target_users）</td></tr><tr><td>PASS</td><td><code>eight.problem</code></td><td>缺少问题与场景（problem_statement）</td></tr><tr><td>PASS</td><td><code>eight.problem</code></td><td>问题描述过短（31 &lt; 10 字符）</td></tr><tr><td>PASS</td><td><code>eight.problem</code></td><td>问题描述含模糊措辞</td></tr><tr><td>PASS</td><td><code>eight.user</code></td><td>缺少目标用户（users）</td></tr><tr><td>PASS</td><td><code>eight.user</code></td><td>用户缺少 segment 分层</td></tr><tr><td>PASS</td><td><code>eight.user</code></td><td>用户缺少 scenario 使用场景</td></tr><tr><td>PASS</td><td><code>eight.value</code></td><td>价值主张缺 before/how/after 三段对比</td></tr><tr><td>PASS</td><td><code>eight.scope</code></td><td>P0 范围为空（scope.p0）</td></tr><tr><td>PASS</td><td><code>eight.scope</code></td><td>缺少不做清单（scope.non_goals）</td></tr><tr><td>PASS</td><td><code>eight.metric</code></td><td>缺少北极星指标（metrics.north_star）</td></tr><tr><td>PASS</td><td><code>eight.metric</code></td><td>缺少基线与目标口径（baseline / target）</td></tr><tr><td>PASS</td><td><code>eight.metric</code></td><td>缺少护栏指标（metrics.guardrail）</td></tr><tr><td>PASS</td><td><code>eight.acceptance</code></td><td>缺少验收标准（acceptance_criteria）</td></tr><tr><td>PASS</td><td><code>eight.acceptance</code></td><td>验收标准未按 Given/When/Then 结构化</td></tr><tr><td>PASS</td><td><code>eight.risk</code></td><td>承重假设 3 条 &lt; 3 条硬底线</td></tr><tr><td>PASS</td><td><code>eight.risk</code></td><td>假设缺少 hypothesis</td></tr><tr><td>PASS</td><td><code>eight.risk</code></td><td>假设缺少 validation 验证方式</td></tr><tr><td>PASS</td><td><code>eight.read</code></td><td>缺少结论摘要（executive_summary）</td></tr><tr><td>PASS</td><td><code>eight.read</code></td><td>结论摘要过短，不具可读性</td></tr><tr><td>PASS</td><td><code>eight.summary</code></td><td>PRD 八门禁通过 8/8，未达全通过</td></tr><tr><td>PASS</td><td><code>eight.summary</code></td><td>PRD 八门禁仅通过 8/8</td></tr><tr><td>PASS</td><td><code>story</code></td><td>缺少用户故事（user_stories）</td></tr><tr><td>PASS</td><td><code>story</code></td><td>用户故事 0 缺少 as_a</td></tr><tr><td>PASS</td><td><code>story</code></td><td>用户故事 0 缺少 i_want</td></tr><tr><td>PASS</td><td><code>story</code></td><td>用户故事 0 缺少 so_that</td></tr><tr><td>PASS</td><td><code>story.acceptance</code></td><td>用户故事 0 验收条目 5 条不在 4~6 区间</td></tr><tr><td>PASS</td><td><code>scope.non_goals</code></td><td>缺少不在范围（non_goals）</td></tr><tr><td>PASS</td><td><code>scope.non_goals</code></td><td>顶层 non_goals 与 PRD scope.non_goals 不一致</td></tr><tr><td>PASS</td><td><code>premortem.count</code></td><td>premortem 失败原因 5 条 &lt; 5 条</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 0 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 0 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 0 条缺少责任人（owner）</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 1 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 1 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 1 条缺少责任人（owner）</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 2 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 2 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 2 条缺少责任人（owner）</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 3 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 3 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 3 条缺少责任人（owner）</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 4 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 4 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 4 条缺少责任人（owner）</td></tr></tbody></table>
+  <details><summary>展开工件 JSON</summary><pre>{
+  &quot;artifact&quot;: &quot;prd_pack&quot;,
+  &quot;stage&quot;: &quot;prd&quot;,
+  &quot;context&quot;: {
+    &quot;background&quot;: &quot;新用户注册后 7 天内不会创建首个项目，现有帮助文档路径太深，激活率长期停在 12%。&quot;,
+    &quot;evidence_links&quot;: [
+      &quot;30 天新用户行为埋点&quot;,
+      &quot;10 位新用户访谈记录&quot;
+    ],
+    &quot;target_users&quot;: [
+      &quot;SaaS 试用新用户&quot;
+    ]
+  },
+  &quot;prd&quot;: {
+    &quot;problem_statement&quot;: &quot;新用户注册后 7 天内不知道如何创建第一个项目，导致激活率偏低&quot;,
+    &quot;users&quot;: [
+      {
+        &quot;segment&quot;: &quot;SaaS 试用新用户&quot;,
+        &quot;scenario&quot;: &quot;注册后首次登录&quot;,
+        &quot;alternative&quot;: &quot;手动翻帮助文档&quot;,
+        &quot;action_cost&quot;: &quot;高&quot;
+      }
+    ],
+    &quot;value_proposition&quot;: {
+      &quot;before&quot;: &quot;无引导，全凭新用户自己摸索&quot;,
+      &quot;how&quot;: &quot;分步新手引导&quot;,
+      &quot;after&quot;: &quot;10 分钟完成首个项目&quot;,
+      &quot;alternatives&quot;: &quot;帮助中心 / 视频教程&quot;
+    },
+    &quot;scope&quot;: {
+      &quot;p0&quot;: [
+        &quot;分步引导流程&quot;
+      ],
+      &quot;p1&quot;: [
+        &quot;跳过并稍后继续&quot;
+      ],
+      &quot;p2&quot;: [],
+      &quot;non_goals&quot;: [
+        &quot;不做自动创建项目&quot;,
+        &quot;不做个性化推荐&quot;
+      ]
+    },
+    &quot;metrics&quot;: {
+      &quot;north_star&quot;: &quot;7 日激活率&quot;,
+      &quot;input_metrics&quot;: [
+        &quot;首日完成首个项目率&quot;
+      ],
+      &quot;guardrail&quot;: [
+        &quot;引导中途放弃率&quot;
+      ],
+      &quot;baseline&quot;: &quot;12%&quot;,
+      &quot;target&quot;: &quot;20%&quot;,
+      &quot;data_source&quot;: &quot;行为埋点&quot;
+    },
+    &quot;acceptance_criteria&quot;: [
+      {
+        &quot;given&quot;: &quot;新用户完成注册&quot;,
+        &quot;when&quot;: &quot;首次进入工作台&quot;,
+        &quot;then&quot;: &quot;出现分步引导&quot;
+      }
+    ],
+    &quot;risks&quot;: [
+      {
+        &quot;hypothesis&quot;: &quot;用户愿意跟随引导&quot;,
+        &quot;validation&quot;: &quot;小流量实验&quot;
+      },
+      {
+        &quot;hypothesis&quot;: &quot;引导不打断核心任务&quot;,
+        &quot;validation&quot;: &quot;可用性测试&quot;
+      },
+      {
+        &quot;hypothesis&quot;: &quot;引导能提升激活率&quot;,
+        &quot;validation&quot;: &quot;A/B 实验&quot;
+      }
+    ],
+    &quot;executive_summary&quot;: &quot;给新用户分步引导，让其 10 分钟完成首个项目，目标 7 日激活率从 12% 提升到 20%&quot;
+  },
+  &quot;user_stories&quot;: [
+    {
+      &quot;id&quot;: &quot;us1&quot;,
+      &quot;as_a&quot;: &quot;SaaS 试用新用户&quot;,
+      &quot;i_want&quot;: &quot;第一次进入工作台就看到分步引导&quot;,
+      &quot;so_that&quot;: &quot;不用翻帮助文档就能建出首个项目&quot;,
+      &quot;acceptance_criteria&quot;: [
+        &quot;首次进入自动出现引导&quot;,
+        &quot;引导步骤可跳过&quot;,
+        &quot;进度可恢复&quot;,
+        &quot;完成后落库首个项目&quot;,
+        &quot;中途退出下次继续&quot;
+      ]
+    }
+  ],
+  &quot;non_goals&quot;: [
+    &quot;不做自动创建项目&quot;,
+    &quot;不做个性化推荐&quot;
+  ],
+  &quot;premortem&quot;: {
+    &quot;failure_reasons&quot;: [
+      {
+        &quot;reason&quot;: &quot;引导遮挡核心操作引发反感&quot;,
+        &quot;mitigation&quot;: &quot;默认可跳过并提供 3 秒收起&quot;,
+        &quot;owner&quot;: &quot;r07&quot;
+      },
+      {
+        &quot;reason&quot;: &quot;新用户直接跳过导致指标不升&quot;,
+        &quot;mitigation&quot;: &quot;A/B 对比跳过率与激活率&quot;,
+        &quot;owner&quot;: &quot;r12&quot;
+      },
+      {
+        &quot;reason&quot;: &quot;引导步骤与真实创建流程不一致&quot;,
+        &quot;mitigation&quot;: &quot;与 r09 用同一接口联调&quot;,
+        &quot;owner&quot;: &quot;r09&quot;
+      },
+      {
+        &quot;reason&quot;: &quot;移动端布局错位&quot;,
+        &quot;mitigation&quot;: &quot;上线前跑 5 种机型的视觉回归&quot;,
+        &quot;owner&quot;: &quot;r08&quot;
+      },
+      {
+        &quot;reason&quot;: &quot;埋点缺失无法归因&quot;,
+        &quot;mitigation&quot;: &quot;发布前核对引导 4 个关键事件&quot;,
+        &quot;owner&quot;: &quot;r12&quot;
+      }
+    ]
+  },
+  &quot;eight_gates&quot;: {
+    &quot;passed&quot;: 8,
+    &quot;gate_ok&quot;: {
+      &quot;problem&quot;: true,
+      &quot;user&quot;: true,
+      &quot;value&quot;: true,
+      &quot;scope&quot;: true,
+      &quot;metric&quot;: true,
+      &quot;acceptance&quot;: true,
+      &quot;risk&quot;: true,
+      &quot;read&quot;: true
+    }
+  },
+  &quot;gate&quot;: {
+    &quot;ok&quot;: true,
+    &quot;grade&quot;: &quot;PASS&quot;,
+    &quot;stage&quot;: &quot;prd&quot;,
+    &quot;checks&quot;: [
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少上下文背景（context.background）&quot;,
+        &quot;dim&quot;: &quot;context.background&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少证据回链（context.evidence_links）&quot;,
+        &quot;dim&quot;: &quot;context.evidence&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;上下文缺少目标用户（context.target_users）&quot;,
+        &quot;dim&quot;: &quot;context.target_users&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少问题与场景（problem_statement）&quot;,
+        &quot;dim&quot;: &quot;eight.problem&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;问题描述过短（31 &lt; 10 字符）&quot;,
+        &quot;dim&quot;: &quot;eight.problem&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;问题描述含模糊措辞&quot;,
+        &quot;dim&quot;: &quot;eight.problem&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少目标用户（users）&quot;,
+        &quot;dim&quot;: &quot;eight.user&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户缺少 segment 分层&quot;,
+        &quot;dim&quot;: &quot;eight.user&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户缺少 scenario 使用场景&quot;,
+        &quot;dim&quot;: &quot;eight.user&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;价值主张缺 before/how/after 三段对比&quot;,
+        &quot;dim&quot;: &quot;eight.value&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;P0 范围为空（scope.p0）&quot;,
+        &quot;dim&quot;: &quot;eight.scope&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少不做清单（scope.non_goals）&quot;,
+        &quot;dim&quot;: &quot;eight.scope&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少北极星指标（metrics.north_star）&quot;,
+        &quot;dim&quot;: &quot;eight.metric&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少基线与目标口径（baseline / target）&quot;,
+        &quot;dim&quot;: &quot;eight.metric&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少护栏指标（metrics.guardrail）&quot;,
+        &quot;dim&quot;: &quot;eight.metric&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少验收标准（acceptance_criteria）&quot;,
+        &quot;dim&quot;: &quot;eight.acceptance&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;验收标准未按 Given/When/Then 结构化&quot;,
+        &quot;dim&quot;: &quot;eight.acceptance&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;承重假设 3 条 &lt; 3 条硬底线&quot;,
+        &quot;dim&quot;: &quot;eight.risk&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设缺少 hypothesis&quot;,
+        &quot;dim&quot;: &quot;eight.risk&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设缺少 validation 验证方式&quot;,
+        &quot;dim&quot;: &quot;eight.risk&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少结论摘要（executive_summary）&quot;,
+        &quot;dim&quot;: &quot;eight.read&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;结论摘要过短，不具可读性&quot;,
+        &quot;dim&quot;: &quot;eight.read&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;PRD 八门禁通过 8/8，未达全通过&quot;,
+        &quot;dim&quot;: &quot;eight.summary&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;PRD 八门禁仅通过 8/8&quot;,
+        &quot;dim&quot;: &quot;eight.summary&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少用户故事（user_stories）&quot;,
+        &quot;dim&quot;: &quot;story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户故事 0 缺少 as_a&quot;,
+        &quot;dim&quot;: &quot;story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户故事 0 缺少 i_want&quot;,
+        &quot;dim&quot;: &quot;story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户故事 0 缺少 so_that&quot;,
+        &quot;dim&quot;: &quot;story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户故事 0 验收条目 5 条不在 4~6 区间&quot;,
+        &quot;dim&quot;: &quot;story.acceptance&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少不在范围（non_goals）&quot;,
+        &quot;dim&quot;: &quot;scope.non_goals&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;顶层 non_goals 与 PRD scope.non_goals 不一致&quot;,
+        &quot;dim&quot;: &quot;scope.non_goals&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 失败原因 5 条 &lt; 5 条&quot;,
+        &quot;dim&quot;: &quot;premortem.count&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 0 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 0 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 0 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 1 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 1 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 1 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 2 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 2 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 2 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 3 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 3 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 3 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 4 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 4 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 4 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      }
+    ],
+    &quot;errors&quot;: [],
+    &quot;blockers&quot;: [],
+    &quot;warnings&quot;: []
+  }
+}</pre></details>
+  </div>
+</section><section>
+  <div class="sec-head"><div><h2>priority_pack</h2>
+  <div class="sub">priority_pack.json · stage=priority</div></div>
+  <span class="badge ok">PASS</span></div>
+  <div class="body"><table><thead><tr><th>结果</th><th>门禁维度</th><th>说明</th></tr></thead><tbody><tr><td>PASS</td><td><code>input</code></td><td>待排序事项 3 条 &lt; 2 条</td></tr><tr><td>PASS</td><td><code>score.title</code></td><td>第 0 项缺少 title</td></tr><tr><td>PASS</td><td><code>score.method</code></td><td>第 0 项 method=&#x27;rice&#x27; 不在 (&#x27;opportunity&#x27;, &#x27;rice&#x27;, &#x27;ice&#x27;)</td></tr><tr><td>PASS</td><td><code>score.source</code></td><td>第 0 项缺少分值来源（source）</td></tr><tr><td>PASS</td><td><code>score.value</code></td><td>第 0 项复算分值 224.0 非正，输入不可信</td></tr><tr><td>PASS</td><td><code>backlog.acceptance</code></td><td>第 0 项缺少验收标准（acceptance_criteria）</td></tr><tr><td>PASS</td><td><code>score.title</code></td><td>第 1 项缺少 title</td></tr><tr><td>PASS</td><td><code>score.method</code></td><td>第 1 项 method=&#x27;opportunity&#x27; 不在 (&#x27;opportunity&#x27;, &#x27;rice&#x27;, &#x27;ice&#x27;)</td></tr><tr><td>PASS</td><td><code>score.source</code></td><td>第 1 项缺少分值来源（source）</td></tr><tr><td>PASS</td><td><code>score.value</code></td><td>第 1 项复算分值 5.6 非正，输入不可信</td></tr><tr><td>PASS</td><td><code>backlog.acceptance</code></td><td>第 1 项缺少验收标准（acceptance_criteria）</td></tr><tr><td>PASS</td><td><code>score.title</code></td><td>第 2 项缺少 title</td></tr><tr><td>PASS</td><td><code>score.method</code></td><td>第 2 项 method=&#x27;ice&#x27; 不在 (&#x27;opportunity&#x27;, &#x27;rice&#x27;, &#x27;ice&#x27;)</td></tr><tr><td>PASS</td><td><code>score.source</code></td><td>第 2 项缺少分值来源（source）</td></tr><tr><td>PASS</td><td><code>score.value</code></td><td>第 2 项复算分值 16.8 非正，输入不可信</td></tr><tr><td>PASS</td><td><code>backlog.acceptance</code></td><td>第 2 项缺少验收标准（acceptance_criteria）</td></tr><tr><td>PASS</td><td><code>backlog.input</code></td><td>Backlog 为空</td></tr><tr><td>PASS</td><td><code>backlog.order</code></td><td>Backlog 未按复算分值降序排列</td></tr><tr><td>PASS</td><td><code>roadmap.input</code></td><td>路线图为空（roadmap）</td></tr><tr><td>PASS</td><td><code>roadmap.segment</code></td><td>路线图第 0 条缺少人群（segment）</td></tr><tr><td>PASS</td><td><code>roadmap.outcome</code></td><td>路线图第 0 条缺少结果（outcome）</td></tr><tr><td>PASS</td><td><code>roadmap.business_impact</code></td><td>路线图第 0 条缺少业务影响（business_impact）</td></tr><tr><td>PASS</td><td><code>roadmap.outcome</code></td><td>路线图第 0 条结果描述过短，无法验收</td></tr><tr><td>PASS</td><td><code>roadmap.segment</code></td><td>路线图第 1 条缺少人群（segment）</td></tr><tr><td>PASS</td><td><code>roadmap.outcome</code></td><td>路线图第 1 条缺少结果（outcome）</td></tr><tr><td>PASS</td><td><code>roadmap.business_impact</code></td><td>路线图第 1 条缺少业务影响（business_impact）</td></tr><tr><td>PASS</td><td><code>roadmap.outcome</code></td><td>路线图第 1 条结果描述过短，无法验收</td></tr><tr><td>PASS</td><td><code>release.title</code></td><td>发布说明缺少版本标题（title）</td></tr><tr><td>PASS</td><td><code>release.category</code></td><td>发布说明缺少 New Features 分类内容</td></tr><tr><td>PASS</td><td><code>release.category</code></td><td>发布说明缺少 Improvements 分类内容</td></tr><tr><td>PASS</td><td><code>release.category</code></td><td>发布说明缺少 Bug Fixes 分类内容</td></tr><tr><td>PASS</td><td><code>release.category</code></td><td>发布说明缺少 Breaking Changes 分类内容</td></tr><tr><td>PASS</td><td><code>release.category</code></td><td>发布说明缺少 Deprecations 分类内容</td></tr></tbody></table>
+  <details><summary>展开工件 JSON</summary><pre>{
+  &quot;artifact&quot;: &quot;priority_pack&quot;,
+  &quot;stage&quot;: &quot;priority&quot;,
+  &quot;formula&quot;: {
+    &quot;opportunity&quot;: &quot;Importance × (1 − Satisfaction)&quot;,
+    &quot;rice&quot;: &quot;(Reach × Impact × Confidence) / max(Effort, 0.1)&quot;,
+    &quot;ice&quot;: &quot;Impact × Confidence × Ease&quot;
+  },
+  &quot;ranked&quot;: [
+    {
+      &quot;id&quot;: &quot;it1&quot;,
+      &quot;title&quot;: &quot;分步新手引导&quot;,
+      &quot;method&quot;: &quot;rice&quot;,
+      &quot;reach&quot;: 800,
+      &quot;impact&quot;: 0.8,
+      &quot;confidence&quot;: 70,
+      &quot;effort&quot;: 2,
+      &quot;source&quot;: &quot;增长看板 9 月新用户 800 人；置信度来自 10 位访谈&quot;,
+      &quot;acceptance_criteria&quot;: [
+        &quot;引导可跳过&quot;,
+        &quot;进度持久化&quot;
+      ],
+      &quot;score&quot;: 224.0,
+      &quot;rank&quot;: 1
+    },
+    {
+      &quot;id&quot;: &quot;it3&quot;,
+      &quot;title&quot;: &quot;引导完成弹窗&quot;,
+      &quot;method&quot;: &quot;ice&quot;,
+      &quot;impact&quot;: 6,
+      &quot;confidence&quot;: 0.7,
+      &quot;ease&quot;: 4,
+      &quot;source&quot;: &quot;可用性测试 6 人反馈完成瞬间缺确认&quot;,
+      &quot;acceptance_criteria&quot;: [
+        &quot;完成后展示下一步入口&quot;
+      ],
+      &quot;score&quot;: 16.8,
+      &quot;rank&quot;: 2
+    },
+    {
+      &quot;id&quot;: &quot;it2&quot;,
+      &quot;title&quot;: &quot;首项目模板&quot;,
+      &quot;method&quot;: &quot;opportunity&quot;,
+      &quot;importance&quot;: 8,
+      &quot;satisfaction&quot;: 0.3,
+      &quot;source&quot;: &quot;访谈中 5/10 人提到不知道建什么项目&quot;,
+      &quot;acceptance_criteria&quot;: [
+        &quot;提供 3 个模板&quot;,
+        &quot;模板可预览&quot;
+      ],
+      &quot;score&quot;: 5.6,
+      &quot;rank&quot;: 3
+    }
+  ],
+  &quot;backlog&quot;: [
+    {
+      &quot;rank&quot;: 1,
+      &quot;title&quot;: &quot;分步新手引导&quot;,
+      &quot;score&quot;: 224.0,
+      &quot;method&quot;: &quot;rice&quot;,
+      &quot;source&quot;: &quot;增长看板 9 月新用户 800 人；置信度来自 10 位访谈&quot;,
+      &quot;priority&quot;: &quot;P0&quot;,
+      &quot;acceptance_criteria&quot;: [
+        &quot;引导可跳过&quot;,
+        &quot;进度持久化&quot;
+      ],
+      &quot;dependencies&quot;: []
+    },
+    {
+      &quot;rank&quot;: 2,
+      &quot;title&quot;: &quot;引导完成弹窗&quot;,
+      &quot;score&quot;: 16.8,
+      &quot;method&quot;: &quot;ice&quot;,
+      &quot;source&quot;: &quot;可用性测试 6 人反馈完成瞬间缺确认&quot;,
+      &quot;priority&quot;: &quot;P1&quot;,
+      &quot;acceptance_criteria&quot;: [
+        &quot;完成后展示下一步入口&quot;
+      ],
+      &quot;dependencies&quot;: []
+    },
+    {
+      &quot;rank&quot;: 3,
+      &quot;title&quot;: &quot;首项目模板&quot;,
+      &quot;score&quot;: 5.6,
+      &quot;method&quot;: &quot;opportunity&quot;,
+      &quot;source&quot;: &quot;访谈中 5/10 人提到不知道建什么项目&quot;,
+      &quot;priority&quot;: &quot;P2&quot;,
+      &quot;acceptance_criteria&quot;: [
+        &quot;提供 3 个模板&quot;,
+        &quot;模板可预览&quot;
+      ],
+      &quot;dependencies&quot;: []
+    }
+  ],
+  &quot;roadmap&quot;: [
+    {
+      &quot;segment&quot;: &quot;SaaS 试用新用户&quot;,
+      &quot;outcome&quot;: &quot;首次登录 10 分钟内完成首个项目&quot;,
+      &quot;business_impact&quot;: &quot;7 日激活率 12% → 20%&quot;,
+      &quot;quarter&quot;: &quot;2026Q4&quot;
+    },
+    {
+      &quot;segment&quot;: &quot;沉默新用户&quot;,
+      &quot;outcome&quot;: &quot;次周回访时能继续未完成引导&quot;,
+      &quot;business_impact&quot;: &quot;次周留存 +3pt&quot;,
+      &quot;quarter&quot;: &quot;2027Q1&quot;
+    }
+  ],
+  &quot;release_notes&quot;: {
+    &quot;title&quot;: &quot;新手引导 v1.2&quot;,
+    &quot;sections&quot;: {
+      &quot;New Features&quot;: [
+        &quot;新增分步新手引导&quot;
+      ],
+      &quot;Improvements&quot;: [
+        &quot;引导进度可恢复&quot;
+      ],
+      &quot;Bug Fixes&quot;: [
+        &quot;修复移动端引导遮挡按钮&quot;
+      ],
+      &quot;Breaking Changes&quot;: [
+        &quot;无&quot;
+      ],
+      &quot;Deprecations&quot;: [
+        &quot;旧帮助中心弹窗下线&quot;
+      ]
+    }
+  },
+  &quot;gate&quot;: {
+    &quot;ok&quot;: true,
+    &quot;grade&quot;: &quot;PASS&quot;,
+    &quot;stage&quot;: &quot;priority&quot;,
+    &quot;checks&quot;: [
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;待排序事项 3 条 &lt; 2 条&quot;,
+        &quot;dim&quot;: &quot;input&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 0 项缺少 title&quot;,
+        &quot;dim&quot;: &quot;score.title&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 0 项 method=&#x27;rice&#x27; 不在 (&#x27;opportunity&#x27;, &#x27;rice&#x27;, &#x27;ice&#x27;)&quot;,
+        &quot;dim&quot;: &quot;score.method&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 0 项缺少分值来源（source）&quot;,
+        &quot;dim&quot;: &quot;score.source&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 0 项复算分值 224.0 非正，输入不可信&quot;,
+        &quot;dim&quot;: &quot;score.value&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 0 项缺少验收标准（acceptance_criteria）&quot;,
+        &quot;dim&quot;: &quot;backlog.acceptance&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 1 项缺少 title&quot;,
+        &quot;dim&quot;: &quot;score.title&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 1 项 method=&#x27;opportunity&#x27; 不在 (&#x27;opportunity&#x27;, &#x27;rice&#x27;, &#x27;ice&#x27;)&quot;,
+        &quot;dim&quot;: &quot;score.method&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 1 项缺少分值来源（source）&quot;,
+        &quot;dim&quot;: &quot;score.source&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 1 项复算分值 5.6 非正，输入不可信&quot;,
+        &quot;dim&quot;: &quot;score.value&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 1 项缺少验收标准（acceptance_criteria）&quot;,
+        &quot;dim&quot;: &quot;backlog.acceptance&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 2 项缺少 title&quot;,
+        &quot;dim&quot;: &quot;score.title&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 2 项 method=&#x27;ice&#x27; 不在 (&#x27;opportunity&#x27;, &#x27;rice&#x27;, &#x27;ice&#x27;)&quot;,
+        &quot;dim&quot;: &quot;score.method&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 2 项缺少分值来源（source）&quot;,
+        &quot;dim&quot;: &quot;score.source&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 2 项复算分值 16.8 非正，输入不可信&quot;,
+        &quot;dim&quot;: &quot;score.value&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;第 2 项缺少验收标准（acceptance_criteria）&quot;,
+        &quot;dim&quot;: &quot;backlog.acceptance&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;Backlog 为空&quot;,
+        &quot;dim&quot;: &quot;backlog.input&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;Backlog 未按复算分值降序排列&quot;,
+        &quot;dim&quot;: &quot;backlog.order&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图为空（roadmap）&quot;,
+        &quot;dim&quot;: &quot;roadmap.input&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图第 0 条缺少人群（segment）&quot;,
+        &quot;dim&quot;: &quot;roadmap.segment&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图第 0 条缺少结果（outcome）&quot;,
+        &quot;dim&quot;: &quot;roadmap.outcome&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图第 0 条缺少业务影响（business_impact）&quot;,
+        &quot;dim&quot;: &quot;roadmap.business_impact&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图第 0 条结果描述过短，无法验收&quot;,
+        &quot;dim&quot;: &quot;roadmap.outcome&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图第 1 条缺少人群（segment）&quot;,
+        &quot;dim&quot;: &quot;roadmap.segment&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图第 1 条缺少结果（outcome）&quot;,
+        &quot;dim&quot;: &quot;roadmap.outcome&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图第 1 条缺少业务影响（business_impact）&quot;,
+        &quot;dim&quot;: &quot;roadmap.business_impact&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;路线图第 1 条结果描述过短，无法验收&quot;,
+        &quot;dim&quot;: &quot;roadmap.outcome&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布说明缺少版本标题（title）&quot;,
+        &quot;dim&quot;: &quot;release.title&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布说明缺少 New Features 分类内容&quot;,
+        &quot;dim&quot;: &quot;release.category&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布说明缺少 Improvements 分类内容&quot;,
+        &quot;dim&quot;: &quot;release.category&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布说明缺少 Bug Fixes 分类内容&quot;,
+        &quot;dim&quot;: &quot;release.category&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布说明缺少 Breaking Changes 分类内容&quot;,
+        &quot;dim&quot;: &quot;release.category&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布说明缺少 Deprecations 分类内容&quot;,
+        &quot;dim&quot;: &quot;release.category&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      }
+    ],
+    &quot;errors&quot;: [],
+    &quot;blockers&quot;: [],
+    &quot;warnings&quot;: []
+  }
+}</pre></details>
+  </div>
+</section><section>
+  <div class="sec-head"><div><h2>acceptance_pack</h2>
+  <div class="sub">acceptance_pack.json · stage=acceptance</div></div>
+  <span class="badge ok">PASS</span></div>
+  <div class="body"><table><thead><tr><th>结果</th><th>门禁维度</th><th>说明</th></tr></thead><tbody><tr><td>PASS</td><td><code>feature</code></td><td>缺少验收对象（feature）</td></tr><tr><td>PASS</td><td><code>scenario.type</code></td><td>场景 0 type=&#x27;main&#x27; 不在 (&#x27;main&#x27;, &#x27;boundary&#x27;, &#x27;failure&#x27;)</td></tr><tr><td>PASS</td><td><code>scenario.given</code></td><td>场景 0 缺少 given</td></tr><tr><td>PASS</td><td><code>scenario.when</code></td><td>场景 0 缺少 when</td></tr><tr><td>PASS</td><td><code>scenario.then</code></td><td>场景 0 缺少 then</td></tr><tr><td>PASS</td><td><code>scenario.expected</code></td><td>场景 0 缺少预期结果（expected）</td></tr><tr><td>PASS</td><td><code>scenario.type</code></td><td>场景 1 type=&#x27;boundary&#x27; 不在 (&#x27;main&#x27;, &#x27;boundary&#x27;, &#x27;failure&#x27;)</td></tr><tr><td>PASS</td><td><code>scenario.given</code></td><td>场景 1 缺少 given</td></tr><tr><td>PASS</td><td><code>scenario.when</code></td><td>场景 1 缺少 when</td></tr><tr><td>PASS</td><td><code>scenario.then</code></td><td>场景 1 缺少 then</td></tr><tr><td>PASS</td><td><code>scenario.expected</code></td><td>场景 1 缺少预期结果（expected）</td></tr><tr><td>PASS</td><td><code>scenario.type</code></td><td>场景 2 type=&#x27;failure&#x27; 不在 (&#x27;main&#x27;, &#x27;boundary&#x27;, &#x27;failure&#x27;)</td></tr><tr><td>PASS</td><td><code>scenario.given</code></td><td>场景 2 缺少 given</td></tr><tr><td>PASS</td><td><code>scenario.when</code></td><td>场景 2 缺少 when</td></tr><tr><td>PASS</td><td><code>scenario.then</code></td><td>场景 2 缺少 then</td></tr><tr><td>PASS</td><td><code>scenario.expected</code></td><td>场景 2 缺少预期结果（expected）</td></tr><tr><td>PASS</td><td><code>scenario.main</code></td><td>缺少主路径场景（type=main）</td></tr><tr><td>PASS</td><td><code>scenario.boundary</code></td><td>缺少边界场景（type=boundary）</td></tr><tr><td>PASS</td><td><code>scenario.failure</code></td><td>缺少失败态场景（type=failure）</td></tr><tr><td>PASS</td><td><code>test.input</code></td><td>缺少测试场景（test_scenarios）</td></tr><tr><td>PASS</td><td><code>test.mapping</code></td><td>测试 0 映射的场景 &#x27;s-main&#x27; 不存在</td></tr><tr><td>PASS</td><td><code>test.steps</code></td><td>测试 0 缺少步骤（steps）</td></tr><tr><td>PASS</td><td><code>test.expected</code></td><td>测试 0 缺少预期（expected）</td></tr><tr><td>PASS</td><td><code>test.mapping</code></td><td>测试 1 映射的场景 &#x27;s-boundary&#x27; 不存在</td></tr><tr><td>PASS</td><td><code>test.steps</code></td><td>测试 1 缺少步骤（steps）</td></tr><tr><td>PASS</td><td><code>test.expected</code></td><td>测试 1 缺少预期（expected）</td></tr><tr><td>PASS</td><td><code>test.mapping</code></td><td>测试 2 映射的场景 &#x27;s-failure&#x27; 不存在</td></tr><tr><td>PASS</td><td><code>test.steps</code></td><td>测试 2 缺少步骤（steps）</td></tr><tr><td>PASS</td><td><code>test.expected</code></td><td>测试 2 缺少预期（expected）</td></tr><tr><td>PASS</td><td><code>test.coverage</code></td><td>场景未覆盖测试：[]</td></tr><tr><td>PASS</td><td><code>release.checks</code></td><td>缺少发布门禁检查项（release_gate.checks）</td></tr><tr><td>PASS</td><td><code>release.name</code></td><td>发布检查 0 缺少名称</td></tr><tr><td>PASS</td><td><code>release.status</code></td><td>发布检查「typecheck」状态 &#x27;pass&#x27; 未通过</td></tr><tr><td>PASS</td><td><code>release.name</code></td><td>发布检查 1 缺少名称</td></tr><tr><td>PASS</td><td><code>release.status</code></td><td>发布检查「e2e」状态 &#x27;pass&#x27; 未通过</td></tr><tr><td>PASS</td><td><code>release.name</code></td><td>发布检查 2 缺少名称</td></tr><tr><td>PASS</td><td><code>release.status</code></td><td>发布检查「security」状态 &#x27;pass&#x27; 未通过</td></tr><tr><td>PASS</td><td><code>release.decision</code></td><td>存在未通过检查，发布门禁判定 no-go</td></tr></tbody></table>
+  <details><summary>展开工件 JSON</summary><pre>{
+  &quot;artifact&quot;: &quot;acceptance_pack&quot;,
+  &quot;stage&quot;: &quot;acceptance&quot;,
+  &quot;feature&quot;: &quot;分步新手引导&quot;,
+  &quot;scenario_counts&quot;: {
+    &quot;main&quot;: 1,
+    &quot;boundary&quot;: 1,
+    &quot;failure&quot;: 1
+  },
+  &quot;scenarios&quot;: [
+    {
+      &quot;id&quot;: &quot;s-main&quot;,
+      &quot;type&quot;: &quot;main&quot;,
+      &quot;given&quot;: &quot;新用户完成注册&quot;,
+      &quot;when&quot;: &quot;首次进入工作台&quot;,
+      &quot;then&quot;: &quot;出现第 1 步引导并可完成首个项目&quot;,
+      &quot;expected&quot;: &quot;项目创建成功并写入进度&quot;
+    },
+    {
+      &quot;id&quot;: &quot;s-boundary&quot;,
+      &quot;type&quot;: &quot;boundary&quot;,
+      &quot;given&quot;: &quot;新用户在第 2 步关闭浏览器&quot;,
+      &quot;when&quot;: &quot;第二天再次登录&quot;,
+      &quot;then&quot;: &quot;从第 2 步继续引导&quot;,
+      &quot;expected&quot;: &quot;进度不丢失&quot;
+    },
+    {
+      &quot;id&quot;: &quot;s-failure&quot;,
+      &quot;type&quot;: &quot;failure&quot;,
+      &quot;given&quot;: &quot;创建项目接口超时&quot;,
+      &quot;when&quot;: &quot;用户点击完成引导&quot;,
+      &quot;then&quot;: &quot;提示稍后重试且保留已填内容&quot;,
+      &quot;expected&quot;: &quot;不产生半成品项目&quot;
+    }
+  ],
+  &quot;test_scenarios&quot;: [
+    {
+      &quot;id&quot;: &quot;t1&quot;,
+      &quot;scenario_id&quot;: &quot;s-main&quot;,
+      &quot;steps&quot;: [
+        &quot;注册新账号&quot;,
+        &quot;进入工作台&quot;,
+        &quot;按引导填写项目名并提交&quot;
+      ],
+      &quot;expected&quot;: &quot;项目出现在列表且进度为完成&quot;
+    },
+    {
+      &quot;id&quot;: &quot;t2&quot;,
+      &quot;scenario_id&quot;: &quot;s-boundary&quot;,
+      &quot;steps&quot;: [
+        &quot;走到第 2 步&quot;,
+        &quot;关闭浏览器&quot;,
+        &quot;重新登录&quot;
+      ],
+      &quot;expected&quot;: &quot;从第 2 步继续&quot;
+    },
+    {
+      &quot;id&quot;: &quot;t3&quot;,
+      &quot;scenario_id&quot;: &quot;s-failure&quot;,
+      &quot;steps&quot;: [
+        &quot;模拟创建接口 504&quot;,
+        &quot;点击完成&quot;
+      ],
+      &quot;expected&quot;: &quot;出现重试提示且输入保留&quot;
+    }
+  ],
+  &quot;release_gate&quot;: {
+    &quot;checks&quot;: [
+      {
+        &quot;name&quot;: &quot;typecheck&quot;,
+        &quot;status&quot;: &quot;pass&quot;
+      },
+      {
+        &quot;name&quot;: &quot;e2e&quot;,
+        &quot;status&quot;: &quot;pass&quot;
+      },
+      {
+        &quot;name&quot;: &quot;security&quot;,
+        &quot;status&quot;: &quot;pass&quot;
+      }
+    ],
+    &quot;blockers&quot;: 0,
+    &quot;decision&quot;: &quot;go&quot;
+  },
+  &quot;gate&quot;: {
+    &quot;ok&quot;: true,
+    &quot;grade&quot;: &quot;PASS&quot;,
+    &quot;stage&quot;: &quot;acceptance&quot;,
+    &quot;checks&quot;: [
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少验收对象（feature）&quot;,
+        &quot;dim&quot;: &quot;feature&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 0 type=&#x27;main&#x27; 不在 (&#x27;main&#x27;, &#x27;boundary&#x27;, &#x27;failure&#x27;)&quot;,
+        &quot;dim&quot;: &quot;scenario.type&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 0 缺少 given&quot;,
+        &quot;dim&quot;: &quot;scenario.given&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 0 缺少 when&quot;,
+        &quot;dim&quot;: &quot;scenario.when&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 0 缺少 then&quot;,
+        &quot;dim&quot;: &quot;scenario.then&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 0 缺少预期结果（expected）&quot;,
+        &quot;dim&quot;: &quot;scenario.expected&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 1 type=&#x27;boundary&#x27; 不在 (&#x27;main&#x27;, &#x27;boundary&#x27;, &#x27;failure&#x27;)&quot;,
+        &quot;dim&quot;: &quot;scenario.type&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 1 缺少 given&quot;,
+        &quot;dim&quot;: &quot;scenario.given&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 1 缺少 when&quot;,
+        &quot;dim&quot;: &quot;scenario.when&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 1 缺少 then&quot;,
+        &quot;dim&quot;: &quot;scenario.then&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 1 缺少预期结果（expected）&quot;,
+        &quot;dim&quot;: &quot;scenario.expected&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 2 type=&#x27;failure&#x27; 不在 (&#x27;main&#x27;, &#x27;boundary&#x27;, &#x27;failure&#x27;)&quot;,
+        &quot;dim&quot;: &quot;scenario.type&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 2 缺少 given&quot;,
+        &quot;dim&quot;: &quot;scenario.given&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 2 缺少 when&quot;,
+        &quot;dim&quot;: &quot;scenario.when&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 2 缺少 then&quot;,
+        &quot;dim&quot;: &quot;scenario.then&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景 2 缺少预期结果（expected）&quot;,
+        &quot;dim&quot;: &quot;scenario.expected&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少主路径场景（type=main）&quot;,
+        &quot;dim&quot;: &quot;scenario.main&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少边界场景（type=boundary）&quot;,
+        &quot;dim&quot;: &quot;scenario.boundary&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少失败态场景（type=failure）&quot;,
+        &quot;dim&quot;: &quot;scenario.failure&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少测试场景（test_scenarios）&quot;,
+        &quot;dim&quot;: &quot;test.input&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 0 映射的场景 &#x27;s-main&#x27; 不存在&quot;,
+        &quot;dim&quot;: &quot;test.mapping&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 0 缺少步骤（steps）&quot;,
+        &quot;dim&quot;: &quot;test.steps&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 0 缺少预期（expected）&quot;,
+        &quot;dim&quot;: &quot;test.expected&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 1 映射的场景 &#x27;s-boundary&#x27; 不存在&quot;,
+        &quot;dim&quot;: &quot;test.mapping&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 1 缺少步骤（steps）&quot;,
+        &quot;dim&quot;: &quot;test.steps&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 1 缺少预期（expected）&quot;,
+        &quot;dim&quot;: &quot;test.expected&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 2 映射的场景 &#x27;s-failure&#x27; 不存在&quot;,
+        &quot;dim&quot;: &quot;test.mapping&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 2 缺少步骤（steps）&quot;,
+        &quot;dim&quot;: &quot;test.steps&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;测试 2 缺少预期（expected）&quot;,
+        &quot;dim&quot;: &quot;test.expected&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;场景未覆盖测试：[]&quot;,
+        &quot;dim&quot;: &quot;test.coverage&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少发布门禁检查项（release_gate.checks）&quot;,
+        &quot;dim&quot;: &quot;release.checks&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布检查 0 缺少名称&quot;,
+        &quot;dim&quot;: &quot;release.name&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布检查「typecheck」状态 &#x27;pass&#x27; 未通过&quot;,
+        &quot;dim&quot;: &quot;release.status&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布检查 1 缺少名称&quot;,
+        &quot;dim&quot;: &quot;release.name&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布检查「e2e」状态 &#x27;pass&#x27; 未通过&quot;,
+        &quot;dim&quot;: &quot;release.status&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布检查 2 缺少名称&quot;,
+        &quot;dim&quot;: &quot;release.name&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;发布检查「security」状态 &#x27;pass&#x27; 未通过&quot;,
+        &quot;dim&quot;: &quot;release.status&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;存在未通过检查，发布门禁判定 no-go&quot;,
+        &quot;dim&quot;: &quot;release.decision&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      }
+    ],
+    &quot;errors&quot;: [],
+    &quot;blockers&quot;: [],
+    &quot;warnings&quot;: []
+  }
+}</pre></details>
+  </div>
+</section></main>
+<footer>R07 蛙得明 · 产品工作流黄金样本 · 由 pm_workflows 确定性渲染（无时间戳，可复算）</footer>
+</body></html>

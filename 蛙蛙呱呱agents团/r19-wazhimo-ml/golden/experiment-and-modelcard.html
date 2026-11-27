@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>实验与模型卡包：追踪 / 评估集 / 注册 / 模型卡 · R19 蛙之模 · 模型实验与评测官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>实验与模型卡包：追踪 / 评估集 / 注册 / 模型卡</h1>
+<p class="meta">R19 蛙之模 · 模型实验与评测官 · 可复现运行 → 带 ground truth 的评估集 → 候选入库 → 说明书 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>实验运行记录</td><td>tracking.run</td><td>examples/tracking_run.json</td><td>3a3f7cfa7a11dbe3</td><td>290</td></tr>
+<tr><td>评估数据集</td><td>evaluation.dataset</td><td>examples/evaluation_dataset.json</td><td>4483f2bf0be2d5a1</td><td>434</td></tr>
+<tr><td>候选模型注册</td><td>registry.register</td><td>examples/registry_register.json</td><td>7cdc8f1fcb9ff488</td><td>184</td></tr>
+<tr><td>模型卡</td><td>modelcard.card</td><td>examples/modelcard_card.json</td><td>4024177cd3040a42</td><td>363</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>实验运行记录 · tracking.run</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>run_id</td><td>run-88213</td></tr>
+<tr><td>metric_count</td><td>3</td></tr>
+<tr><td>param_count</td><td>3</td></tr>
+<tr><td>narrative</td><td>运行 run-88213：3 指标</td></tr>
+</tbody></table>
+<h3>评估数据集 · evaluation.dataset</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>dataset_id</td><td>eval-support-qa-v1</td></tr>
+<tr><td>record_count</td><td>3</td></tr>
+<tr><td>narrative</td><td>评估集 eval-support-qa-v1：3 条记录</td></tr>
+</tbody></table>
+<h3>候选模型注册 · registry.register</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>model_name</td><td>support-qa-assistant</td></tr>
+<tr><td>version</td><td>3</td></tr>
+<tr><td>stage</td><td>staging</td></tr>
+<tr><td>narrative</td><td>模型 support-qa-assistant v3：阶段 staging</td></tr>
+</tbody></table>
+<h3>模型卡 · modelcard.card</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>model_name</td><td>support-qa-assistant</td></tr>
+<tr><td>risk_tier</td><td>medium</td></tr>
+<tr><td>license_type</td><td>proprietary</td></tr>
+<tr><td>narrative</td><td>模型卡 support-qa-assistant：风险 medium / 许可 proprietary</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>实验运行记录</td><td>run.id</td><td>OK</td><td class="pass">PASS</td><td>运行 ID 非空</td></tr>
+<tr><td>实验运行记录</td><td>run.experiment_id</td><td>OK</td><td class="pass">PASS</td><td>运行归属实验非空</td></tr>
+<tr><td>实验运行记录</td><td>run.metrics</td><td>OK</td><td class="pass">PASS</td><td>指标 ≥1（实际 3）</td></tr>
+<tr><td>实验运行记录</td><td>run.metric_numeric</td><td>OK</td><td class="pass">PASS</td><td>指标值为数值（非数值 无）</td></tr>
+<tr><td>实验运行记录</td><td>run.params</td><td>OK</td><td class="pass">PASS</td><td>参数 ≥1（实际 3）</td></tr>
+<tr><td>实验运行记录</td><td>run.environment</td><td>OK</td><td class="pass">PASS</td><td>声明运行环境（框架/版本）</td></tr>
+<tr><td>评估数据集</td><td>dataset.id</td><td>OK</td><td class="pass">PASS</td><td>数据集 ID 非空</td></tr>
+<tr><td>评估数据集</td><td>dataset.records</td><td>OK</td><td class="pass">PASS</td><td>记录 ≥1（实际 3）</td></tr>
+<tr><td>评估数据集</td><td>dataset.inputs</td><td>OK</td><td class="pass">PASS</td><td>记录含 inputs（缺 无）</td></tr>
+<tr><td>评估数据集</td><td>dataset.expectations</td><td>OK</td><td class="pass">PASS</td><td>记录含 expectations（ground truth，缺 无）</td></tr>
+<tr><td>候选模型注册</td><td>register.name</td><td>OK</td><td class="pass">PASS</td><td>模型名非空</td></tr>
+<tr><td>候选模型注册</td><td>register.version</td><td>OK</td><td class="pass">PASS</td><td>版本号非空</td></tr>
+<tr><td>候选模型注册</td><td>register.stage</td><td>OK</td><td class="pass">PASS</td><td>阶段=&#x27;staging&#x27; 在白名单 [&#x27;none&#x27;, &#x27;staging&#x27;, &#x27;production&#x27;, &#x27;archived&#x27;]</td></tr>
+<tr><td>候选模型注册</td><td>register.source</td><td>OK</td><td class="pass">PASS</td><td>来源=&#x27;mlflow&#x27; 在白名单 [&#x27;mlflow&#x27;, &#x27;dspy&#x27;, &#x27;litellm&#x27;, &#x27;custom&#x27;]</td></tr>
+<tr><td>候选模型注册</td><td>register.run_id</td><td>OK</td><td class="pass">PASS</td><td>绑定 run_id（可追溯到实验运行）</td></tr>
+<tr><td>模型卡</td><td>card.model_name</td><td>OK</td><td class="pass">PASS</td><td>模型名非空</td></tr>
+<tr><td>模型卡</td><td>card.intended_use</td><td>OK</td><td class="pass">PASS</td><td>声明用途（intended use）</td></tr>
+<tr><td>模型卡</td><td>card.limitations</td><td>OK</td><td class="pass">PASS</td><td>声明限制（limitations）</td></tr>
+<tr><td>模型卡</td><td>card.risk_tier</td><td>OK</td><td class="pass">PASS</td><td>风险分层=&#x27;medium&#x27; 在白名单 [&#x27;low&#x27;, &#x27;medium&#x27;, &#x27;high&#x27;]</td></tr>
+<tr><td>模型卡</td><td>card.license</td><td>OK</td><td class="pass">PASS</td><td>许可=&#x27;proprietary&#x27; 在白名单 [&#x27;proprietary&#x27;, &#x27;open_source&#x27;, &#x27;research_only&#x27;]</td></tr>
+<tr><td>模型卡</td><td>card.known_bias</td><td>OK</td><td class="pass">PASS</td><td>声明已知偏差（known bias）</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">综合结论：实验/模型卡门禁全绿</p>
+<p>运行记录含指标/参数/环境，可复现；评估集每条带 inputs 与 expectations；候选模型绑定 run_id 入库；模型卡写清用途、限制、风险分层、许可与已知偏差。</p>
+<p class="note">注册 ≠ 部署；模型权重/推理服务另行准备，分发归 R09；R19 不产出「这个模型好不好」的结论，结论来自评测结果。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实技能生成，可复算；R19 不把注册等同于部署。</footer>
+</main>
+</body>
+</html>

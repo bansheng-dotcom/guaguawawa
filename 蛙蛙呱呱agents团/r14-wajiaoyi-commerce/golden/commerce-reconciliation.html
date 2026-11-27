@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>交易对账报告</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; --accent:#be123c; --accent-soft:#fff1f2; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>交易对账报告 · 订单 vs 支付流水</h1>
+<p class="meta">出具 R14 ｜ 订单 5 笔 ｜ 流水 6 笔 ｜
+差异 5 项 ｜ 对账结论 需处理</p>
+<h2>1. 结论先行</h2>
+<div class="block">本次对账共 5 项差异，覆盖缺失流水、孤儿流水、重复支付、
+金额不符、状态矛盾五类；每类都定位到具体订单，可直接派单处理。</div>
+<h2>2. 差异分类汇总</h2>
+<table>
+<thead><tr><th>差异码</th><th>含义</th><th>数量</th><th>对象</th></tr></thead>
+<tbody><tr><td>R01_MISSING_PAYMENT</td><td>订单已支付/履约但没有成功支付流水</td><td>1</td><td>SO-1003</td></tr><tr><td>R02_ORPHAN_PAYMENT</td><td>支付流水找不到对应订单</td><td>1</td><td>SO-9999</td></tr><tr><td>R03_DUPLICATE_PAYMENT</td><td>同一订单有多笔成功支付（疑似重复扣款）</td><td>1</td><td>SO-1005</td></tr><tr><td>R04_AMOUNT_MISMATCH</td><td>订单金额与成功支付合计不一致</td><td>1</td><td>SO-1002</td></tr><tr><td>R05_STATUS_MISMATCH</td><td>订单状态与支付状态矛盾（未支付却有成功流水等）</td><td>1</td><td>SO-1004</td></tr></tbody>
+</table>
+<figure class="fig-card">
+  <figcaption class="fig-sub">图 1：五类差异的数量分布（合计 5 项）</figcaption>
+  <table>
+    <thead><tr><th>差异码</th><th>数量</th></tr></thead>
+    <tbody><tr><td>R01_MISSING_PAYMENT</td><td>1</td></tr><tr><td>R02_ORPHAN_PAYMENT</td><td>1</td></tr><tr><td>R03_DUPLICATE_PAYMENT</td><td>1</td></tr><tr><td>R04_AMOUNT_MISMATCH</td><td>1</td></tr><tr><td>R05_STATUS_MISMATCH</td><td>1</td></tr></tbody>
+  </table>
+  <div class="fig-src">来源：commerce_fsm.reconcile（确定性夹具）</div>
+  <div class="fig-unit">单位：项；参考线为零差异（均值 0）</div>
+</figure>
+<h2>3. 差异明细</h2>
+<table>
+<thead><tr><th>差异码</th><th>对象</th></tr></thead>
+<tbody><tr><td>R01_MISSING_PAYMENT</td><td><code>{"order_id": "SO-1003", "status": "paid"}</code></td></tr><tr><td>R02_ORPHAN_PAYMENT</td><td><code>{"payment_id": "P-06", "order_id": "SO-9999", "amount": "50.00"}</code></td></tr><tr><td>R03_DUPLICATE_PAYMENT</td><td><code>{"order_id": "SO-1005", "payments": 2}</code></td></tr><tr><td>R04_AMOUNT_MISMATCH</td><td><code>{"order_id": "SO-1002", "order_amount": "199.00", "paid_total": "189.00"}</code></td></tr><tr><td>R05_STATUS_MISMATCH</td><td><code>{"order_id": "SO-1004", "status": "created", "payments": 1}</code></td></tr></tbody>
+</table>
+<h2>4. 处置建议</h2>
+<table>
+<thead><tr><th>差异码</th><th>动作</th><th>负责人</th></tr></thead>
+<tbody>
+<tr><td>R01_MISSING_PAYMENT</td><td>补拉支付流水或改订单状态</td><td>r14</td></tr>
+<tr><td>R02_ORPHAN_PAYMENT</td><td>查下单链路，补单或退款</td><td>r14 + r03</td></tr>
+<tr><td>R03_DUPLICATE_PAYMENT</td><td>确认重复扣款后退一笔</td><td>r03</td></tr>
+<tr><td>R04_AMOUNT_MISMATCH</td><td>核对优惠/运费后调账</td><td>r03</td></tr>
+<tr><td>R05_STATUS_MISMATCH</td><td>回写支付成功状态</td><td>r14</td></tr>
+</tbody>
+</table>
+<h3>4.1 边界</h3>
+<p>对账基于本地夹具，不含退款流水与渠道手续费；真实对账需接入渠道账单与时间窗。</p>
+
+</main>
+</body>
+</html>

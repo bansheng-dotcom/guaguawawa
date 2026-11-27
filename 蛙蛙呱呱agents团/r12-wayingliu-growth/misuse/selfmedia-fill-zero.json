@@ -1,0 +1,36 @@
+{
+  "stage": "selfmedia",
+  "platform": "抖音",
+  "status": "normal",
+  "status_label": "正常",
+  "rows": [
+    {
+      "date": "2025-05-01",
+      "platform": "抖音",
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "followers_gain": 0,
+      "revenue": 0
+    }
+  ],
+  "missing_fields": [
+    "views",
+    "likes",
+    "comments",
+    "shares",
+    "followers_gain",
+    "revenue"
+  ],
+  "zero_filled": true,
+  "filled_zero": true,
+  "dashboard_html": "<html><body>缺数据补零后的看板</body></html>",
+  "totals": {
+    "views": 0,
+    "likes": 0,
+    "revenue": 0
+  },
+  "note": "平台导出空值被脚本补成 0，日报仍标正常",
+  "gate_expected": "缺数据不补零"
+}

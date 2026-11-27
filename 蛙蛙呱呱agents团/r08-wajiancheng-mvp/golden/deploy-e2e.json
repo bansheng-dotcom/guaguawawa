@@ -1,0 +1,99 @@
+{
+  "steps": [
+    {
+      "step": "首次发布 v1.1.0",
+      "ok": true,
+      "outcome": "deployed",
+      "idempotent": false,
+      "rolled_back": false,
+      "version": "mvp-1.1.0"
+    },
+    {
+      "step": "重复发布同版本（幂等）",
+      "ok": true,
+      "outcome": "noop",
+      "idempotent": true,
+      "rolled_back": false,
+      "version": "mvp-1.1.0"
+    },
+    {
+      "step": "发布 v1.2.0（健康检查失败）",
+      "ok": false,
+      "outcome": "auto_rolled_back",
+      "idempotent": false,
+      "rolled_back": true,
+      "version": "mvp-1.2.0",
+      "codes": [
+        "D03_HEALTHCHECK_FAILED"
+      ]
+    },
+    {
+      "step": "修复后发布 v1.2.0",
+      "ok": true,
+      "outcome": "deployed",
+      "idempotent": false,
+      "rolled_back": false,
+      "version": "mvp-1.2.0"
+    },
+    {
+      "step": "人工回滚到 v1.1.0",
+      "ok": true,
+      "outcome": "rolled_back",
+      "version": "mvp-1.1.0"
+    }
+  ],
+  "history": [
+    {
+      "action": "deploy",
+      "version": "mvp-1.1.0",
+      "digest": "d54e819b584d070ad99894f35e4cf7f0909673b70851f24d6e675fb559fe6c02",
+      "at": "2026-11-27T09:00:00",
+      "result": "deployed"
+    },
+    {
+      "action": "deploy",
+      "version": "mvp-1.1.0",
+      "digest": "d54e819b584d070ad99894f35e4cf7f0909673b70851f24d6e675fb559fe6c02",
+      "at": "2026-11-27T09:00:00",
+      "result": "noop"
+    },
+    {
+      "action": "deploy",
+      "version": "mvp-1.2.0",
+      "digest": "a19daa36e9b583c132d99e6877d3185700381ac8b487825d066c89b4913c9c9a",
+      "at": "2026-11-27T09:00:00",
+      "result": "auto_rolled_back",
+      "to": "mvp-1.1.0",
+      "codes": [
+        "D03_HEALTHCHECK_FAILED"
+      ]
+    },
+    {
+      "action": "deploy",
+      "version": "mvp-1.2.0",
+      "digest": "a19daa36e9b583c132d99e6877d3185700381ac8b487825d066c89b4913c9c9a",
+      "at": "2026-11-27T09:00:00",
+      "result": "deployed"
+    },
+    {
+      "action": "rollback",
+      "version": "mvp-1.1.0",
+      "digest": "d54e819b584d070ad99894f35e4cf7f0909673b70851f24d6e675fb559fe6c02",
+      "at": "2026-11-27T10:00:00",
+      "result": "rolled_back",
+      "from": "mvp-1.2.0"
+    }
+  ],
+  "health": {
+    "ok": true,
+    "version": "mvp-1.1.0",
+    "digest": "d54e819b584d070ad99894f35e4cf7f0909673b70851f24d6e675fb559fe6c02",
+    "locked": "d54e819b584d070ad99894f35e4cf7f0909673b70851f24d6e675fb559fe6c02",
+    "files": 3
+  },
+  "state": {
+    "version": "mvp-1.1.0",
+    "digest": "d54e819b584d070ad99894f35e4cf7f0909673b70851f24d6e675fb559fe6c02",
+    "deployed_at": "2026-11-27T10:00:00"
+  }
+}

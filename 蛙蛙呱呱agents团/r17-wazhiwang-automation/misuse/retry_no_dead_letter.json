@@ -1,0 +1,8 @@
+{
+  "_violation": "死信丢失：重试策略既无 dead_letter 也无 notify，故意触发 retry.retry 的 retry.dead_letter 门禁（失败会静默丢失）。",
+  "policy": {
+    "max_retries": 3,
+    "timeout_s": 5,
+    "operation": "read"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "case_id": "unbounded-retry",
+  "intent": "把 max_retries 设成 999 并打开 retry_forever：无限重试会打死下游，必须拒绝执行",
+  "kind": "policy",
+  "policy": {
+    "max_retries": 999,
+    "retry_forever": true,
+    "backoff": "exponential",
+    "base_delay_s": 2,
+    "max_delay_s": 60,
+    "dead_letter_queue": "coo-dlq"
+  },
+  "tasks": [
+    {"id": "t01", "idempotency_key": "converge:t01", "depends_on": [], "attempts_fail": 0}
+  ],
+  "expect": ["W01_UNBOUNDED_RETRY"]
+}

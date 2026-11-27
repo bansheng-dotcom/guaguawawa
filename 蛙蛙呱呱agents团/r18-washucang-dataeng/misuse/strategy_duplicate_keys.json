@@ -1,0 +1,18 @@
+{
+  "_violation": "重复主键：incoming_rows 里 id=3 出现两次，运行时引擎按主键 upsert 后 target 只多 1 行，守恒式 target=base+inserted 不成立，故意触发 strategy.conservation 门禁。",
+  "stream": "orders",
+  "mode": "incremental",
+  "partition": "daily",
+  "watermark_field": "updated_at",
+  "idempotency_key": "order_id",
+  "late_arrival_days": 1,
+  "key": "id",
+  "base_rows": [
+    {"id": 1, "amount": 10},
+    {"id": 2, "amount": 20}
+  ],
+  "incoming_rows": [
+    {"id": 3, "amount": 30},
+    {"id": 3, "amount": 30}
+  ]
+}

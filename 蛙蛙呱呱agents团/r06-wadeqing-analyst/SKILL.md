@@ -1,13 +1,13 @@
 ---
 name: r06-wadeqing-analyst
-description: "数据分析师（蛙得清）角色技能卡。dbt MetricFlow 指标语义建模、指标树与度量对账；六维数据质量审计（缺失/重复/离群/新鲜度）与清洗转换；探索性分析（趋势/漏斗/留存Cohort/RFM/时间序列/K-means分群）。当需要算指标、做漏斗与留存、根因归因、统计检验、出数据报告时使用。不负责：不制造确定性、正式财务/统计意见交 R03。"
+description: "数据分析师（蛙得清）角色技能卡。dbt MetricFlow 指标语义建模、指标树与度量对账；六维数据质量审计（缺失/重复/离群/新鲜度）与清洗转换；探索性分析（趋势/漏斗/留存Cohort/RFM/时间序列/K-means分群）；可证伪分析链（frame→plan→profile→explore→explain→test）与报告链（verify→chart→write→deliver）。当需要算指标、做漏斗与留存、根因归因、统计检验、出数据报告时使用。不负责：不制造确定性、正式财务/统计意见交 R03。"
 license: MIT
 compatibility: 通用。本卡片描述角色边界与端口，不含可执行脚本；判定由角色根目录 harness.py / review.py 提供，Python 3.10+、零第三方依赖。
 metadata:
   owner: "r06"
-  version: "2.0.0"
+  version: "2.2.0"
   kind: role
-  triggers: "算指标、做漏斗与留存、根因归因、统计检验、出数据报告"
+  triggers: "算指标、做漏斗与留存、根因归因、统计检验、分析链、报告链、可证伪假设、出数据报告"
   verify: "null"
   entry: "null"
   supersedes: "SKILL.md@v1（工程细节已移至 references/engineering-notes.md）"
@@ -55,9 +55,18 @@ metadata:
 | 7 | 专业领域分析 |
 | 8 | 可视化报告 |
 | 9 | 自媒体数据运营 |
+| 10 | 可证伪分析链（T8a：假设→计划→质量→发现→拆解→统计） |
+| 11 | 报告链（T8b：CoV 验证→图表契约→文字包→交付账本） |
 
 | 任务 | 入口 |
 |---|---|
+| 全链分析（问题→假设→证据→统计） | `agent.py chain run --question ... --input ... --before ... --after ... --split ...` |
+| 一条命令出报告草稿 | `agent.py chain report --question ... --input ... --before ... --after ... --split ...` |
+| 只出可证伪假设 | `agent.py chain frame --question ...` |
+| 只跑 CoV 验证 | `agent.py chain verify --dir <链条目录>` |
+| 只出图表规格 | `agent.py chain chart --dir <链条目录>` |
+| 只出文字包 | `agent.py chain write --dir <链条目录>` |
+| 只做交付与账本 | `agent.py chain deliver --dir <链条目录>` |
 | 趋势分析 | `agent.py explore trend` |
 | 数据质检 | `agent.py quality audit` |
 | 转化漏斗 | `agent.py explore funnel` |
@@ -78,9 +87,12 @@ metadata:
 ## §4 执行流程（Workflow）
 
 1. **接单**：确认 `intent` 是否已含必需字段；缺则一轮问清（≤8 问、每问带候选）。
-2. **选动作**：按 §3 任务表选一个主任务；选不出再澄清，不猜。
+2. **选动作**：诊断型问题（“为什么下滑/上升”）优先走 `chain run`，一次产出
+   frame/plan/profile/findings/explanation/stats 六个工件；单点问题才走 §3 的单技能。
 3. **执行**：跑对应子命令（入口见 §3）；产物落 `workspace/`。
-4. **自检**：跑角色根目录 `harness.py` 对应门禁，退出码非 0 不得交付。
+   分析链每段先过自己的确定性门禁，任一段 CRITICAL 失败即停止，不带病流转。
+4. **自检**：跑角色根目录 `harness.py` 对应门禁，退出码非 0 不得交付；
+   分析链用 `python agent.py chain audit --dir <输出目录>` 复核哈希与跨段一致。
 5. **交接**：只交 `dataset` `analysis_report` 端口，不交过程；需评审则交 `r04`。
 
 ## §5 质量门（一票否决）
@@ -89,6 +101,9 @@ metadata:
 2. 报告图表配置必须符合 Schema 规范且附带文字结论
 3. 输出结构化 `result.json`（含 `conclusion` 带数字结论）与图表配置；**不写 .md/.html 报告**（报告由 R01 出具）
 4. 角色门禁（`python harness.py ...`）退出码为 0。
+5. 分析链六段门禁全过，且 `chain audit` 复核通过；结论必须能追到分母、分段与效应量。
+6. 报告链五段门禁全过：CoV 六问、claim-bound 图表、文字包对抗评审、结论可追率 100%、
+   Q1–Q10 质检；R06 只产草稿（`publishable=false`），签发归 R01。
 
 ## §6 交付前自检清单
 
@@ -146,6 +161,16 @@ metadata:
 | 领域知识 | `references/13-selfmedia-field-mapping.md` |
 | 领域知识 | `references/14-bioinformatics-pipeline.md` |
 | 领域知识 | `references/15-sql-schema-catalog.md` |
+| 分析链：可证伪假设与 MECE | `references/16-analysis-frame.md` |
+| 分析链：预注册计划与停止条件 | `references/17-analysis-plan.md` |
+| 分析链：六维质量与泄漏/选择偏差 | `references/18-data-profiling.md` |
+| 分析链：分母一致与分段预注册 | `references/19-exploratory-denominators.md` |
+| 分析链：驱动树与量价拆解 | `references/20-driver-tree.md` |
+| 分析链：效应量/CI/多重检验 | `references/21-effect-size-ci.md` |
+| 报告链：CoV 六问与回流码 | `references/22-report-verify.md` |
+| 报告链：claim-bound 图表契约 | `references/23-chart-contract.md` |
+| 报告链：文字包与对抗评审 | `references/24-text-pack.md` |
+| 报告链：manifest 与运行账本 | `references/25-run-ledger.md` |
 | 领域知识 | `references/engineering-notes.md` |
 | 报告生成层的 6 个 LLM 角色契约（图表规格/正文/对抗评审/组装/渲染） | `references/sub-agents/README.md` |
 | 报告流水线模块说明（deep / consulting） | `pipelines/README.md` |
@@ -166,6 +191,16 @@ metadata:
 
 ## §10 变更记录
 
+- **v2.2.0（2026-11-27）**：新增 T8b 报告链 `chain verify/chart/write/deliver/report`。
+  CoV 六问与回流码、claim-bound 图表（required_series/completeness/annotation/fail_if_missing）、
+  文字包对抗评审、manifest + run_events。新增 4 篇参考（22–25）与 12 条回归测试；
+  门禁 `check_claim_trace` / `check_chart_fail_if_missing` 进 CI。报告仍为草稿（author_role=r01，
+  publishable=false），签发归 R01。
+- **v2.1.0（2026-11-27）**：新增 T8a 可证伪分析链 `chain`（frame / plan / profile /
+  explore / explain / test / run / audit）。每段带确定性门禁：假设可证伪、计划先于看数、
+  六维质量、分母一致、驱动拆解、效应量与 CI。新增 6 篇参考（16–21）与 3 份预埋真因数据集
+  （retail / saas / selfmedia），门禁 `../scripts/check_analysis_chain.py` 进 CI。
+  角色边界不变：只交分析工件，报告仍由 R01 出具。
 - **v2.0.0（2026-11-11）**：按 `docs/SKILL-LAYER-SPEC.md` v1.0 重写为十节「角色技能卡」。
   原工程细节（Quick Start / 子命令映射 / 质量闭环）原样迁至 `references/engineering-notes.md`，未丢失。
   新增：frontmatter 触发语、输入输出端口表、任务入口表、八条错误对照、五种降级、资源地图。

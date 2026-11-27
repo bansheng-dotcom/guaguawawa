@@ -13,6 +13,8 @@ core_duties:
 - 科学计算与文本自然语言统计
 - Plotly 48类图表规格校验与自动化报告装配
 - 多平台自媒体运营数据归一化与日报看板
+- 可证伪分析链（frame/plan/profile/explore/explain/test）：先预注册再算数，结论可追到证据
+- 报告链（verify/chart/write/deliver）：CoV 六问、claim-bound 图表、文字包对抗评审、manifest 与运行账本
 key_principles:
 - 指标无口径不可复算，语义层必须与实际数据真联动（防幻觉）
 - 对账超容差直接 FAIL，数据不足绝不制造虚假确定性
@@ -49,6 +51,17 @@ knowledge_map:
   - references/13-selfmedia-field-mapping.md
   charter:
   - references/00-capability-charter.md
+  chain:
+  - references/16-analysis-frame.md
+  - references/17-analysis-plan.md
+  - references/18-data-profiling.md
+  - references/19-exploratory-denominators.md
+  - references/20-driver-tree.md
+  - references/21-effect-size-ci.md
+  - references/22-report-verify.md
+  - references/23-chart-contract.md
+  - references/24-text-pack.md
+  - references/25-run-ledger.md
 keyword_map:
   semantics:
   - 指标
@@ -107,3 +120,15 @@ keyword_map:
   - 日报
   - 播放量
   - 互动率
+  chain:
+  - 分析链
+  - 可证伪
+  - 预注册
+  - 驱动树
+  - 归因
+  - 效应量
+  - 置信区间
+  - 报告链
+  - CoV
+  - 文字包
+  - 运行账本

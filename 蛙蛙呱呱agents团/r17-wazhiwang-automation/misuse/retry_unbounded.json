@@ -1,0 +1,10 @@
+{
+  "_violation": "重试无上限：max_retries=99 超过阈值上限，故意触发 retry.retry 的 retry.max_retries 门禁（无界重试会拖垮下游）。",
+  "policy": {
+    "max_retries": 99,
+    "timeout_s": 5,
+    "operation": "create",
+    "idempotency_key": "idem_bad",
+    "dead_letter": true
+  }
+}

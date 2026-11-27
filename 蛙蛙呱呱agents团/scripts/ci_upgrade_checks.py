@@ -31,6 +31,11 @@ def main() -> int:
         ("analysis_tests", [PY, "-m", "pytest", "tests/test_methods.py", "-q"]),
         ("analysis_evals", [PY, "scripts/run_analysis_evals.py"]),
         ("analysis_conclusions", [PY, "scripts/check_conclusions.py"]),
+        ("analysis_chain", [PY, "scripts/check_analysis_chain.py", "--selftest"]),
+        ("analysis_claim_trace", [PY, "scripts/check_claim_trace.py", "--selftest"]),
+        ("analysis_chart_fail", [PY, "scripts/check_chart_fail_if_missing.py", "--selftest"]),
+        ("engine_ledger", [PY, "scripts/check_engine_variants.py", "--check"]),
+        ("role_thickness", [PY, "scripts/check_role_thickness.py", "--check"]),
         ("analysis_pipelines", [PY, "scripts/run_all_pipelines.py"]),
     ]
     results = []

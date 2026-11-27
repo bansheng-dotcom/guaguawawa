@@ -1,0 +1,44 @@
+# styles/internet-reporting/page_style.yaml
+# 互联网汇报式：经营/增长类，结论先行、指标密集、可快速扫读。
+style_id: internet-reporting
+name: 互联网汇报式
+use_when:
+  - 经营复盘 / 增长归因 / 渠道与投放汇报
+  - 自媒体与内容经营看板说明
+  - 需要结论 + KPI + 行动清单的短报告
+not_for:
+  - 需要长论证与文献溯源的研究报告（用 editorial-evidence-report）
+measure:
+  max_width_px: 960
+  line_height_body: 1.5
+  line_height_heading: 1.25
+type_scale:
+  h1: 28px
+  h2: 19px
+  body: 14px
+  caption: 12px
+color_semantics:
+  ink: "#16232B"
+  muted: "#5B6B73"
+  paper: "#FFFFFF"
+  rule: "#DCE3E8"
+  signal_bad: "#B3261E"
+  signal_warn: "#8A5A00"
+  signal_good: "#1E6B3A"
+chart:
+  palette: 灰阶 + 单强调色；最多两个语义色
+  emphasis_rule: 只强调变化最大的系列或异常点
+  annotation: 关键拐点必须有标注，标注避让
+  forbidden: [3D, 饼图超过 5 类, 双 Y 轴未注明]
+tables:
+  header: 指标/口径/本期/对比/结论 五列优先
+  numeric_align: right
+  empty_value: "—（缺数据不补零）"
+print:
+  page: A4
+  margin_mm: 14
+  avoid_break_inside: [figure, table, .kpi]
+copy_rules:
+  - 第一屏给结论与本周动作
+  - 每个 KPI 带对比基准（环比/同比/目标）
+  - 异常必须给下一步，不只报数

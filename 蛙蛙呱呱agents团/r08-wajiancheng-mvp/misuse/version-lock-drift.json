@@ -1,0 +1,26 @@
+{
+  "case_id": "version-lock-drift",
+  "intent": "用 deploy 直接把线上版本从 v1.1.0 改回 v0.9.0：绕过 rollback，必须拒绝",
+  "seed": {
+    "version": "mvp-1.1.0",
+    "files": {
+      "index.html": "<h1>MVP v1.1.0</h1>",
+      "app.js": "console.log('v1.1.0')"
+    }
+  },
+  "manifest": {
+    "version": "mvp-0.9.0",
+    "files": {
+      "index.html": "<h1>MVP v0.9.0</h1>",
+      "app.js": "console.log('v0.9.0')"
+    },
+    "healthchecks": [
+      {"name": "首页可达", "expect": "200", "actual": "200"}
+    ],
+    "rollback": {
+      "to": "mvp-1.1.0",
+      "plan": ["恢复 release/ 快照", "重启静态服务"]
+    }
+  },
+  "expect": ["D02_VERSION_LOCK"]
+}

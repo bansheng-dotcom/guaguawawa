@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MVP 交付包 · mvp-1.1.0</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; --accent:#7c3aed; --accent-soft:#f5f3ff; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>MVP 交付包 · mvp-1.1.0</h1>
+<p class="meta">交付人 R08 蛙建成 ｜ 版本锁 mvp-1.1.0 ｜ 摘要 <code>d54e819b584d070a</code> ｜
+健康 True</p>
+<h2>1. 交付结论</h2>
+<div class="block">这是 1 个可本地部署的静态 MVP（3 个文件），带版本锁、幂等发布、健康检查与回滚计划。
+E2E 五步全部按预期：首次发布成功、重复发布 no-op、坏版本自动回滚、修复后发布成功、人工回滚成功。</div>
+<h2>2. 发布物</h2>
+<table>
+<thead><tr><th>文件</th><th>大小</th></tr></thead>
+<tbody><tr><td>app.js</td><td>21 B</td></tr><tr><td>index.html</td><td>19 B</td></tr><tr><td>styles.css</td><td>28 B</td></tr></tbody>
+</table>
+<p>版本锁：<code>mvp-1.1.0 · d54e819b584d070a</code>；
+相同版本号但摘要不同会被 D05 拒绝，防止「同号不同包」。</p>
+<h2>3. 健康检查</h2>
+<table>
+<thead><tr><th>检查项</th><th>期望</th><th>实际</th></tr></thead>
+<tbody><tr><td>首页可达</td><td>200</td><td>200</td></tr><tr><td>静态资源摘要</td><td>match</td><td>match</td></tr></tbody>
+</table>
+<figure class="fig-card">
+  <figcaption class="fig-sub">图 1：E2E 五步的终态（发布 / 幂等 / 回滚）</figcaption>
+  <table>
+    <thead><tr><th>步骤</th><th>结果</th></tr></thead>
+    <tbody><tr><td>首次发布 v1.1.0</td><td>deployed</td></tr><tr><td>重复发布同版本（幂等）</td><td>noop</td></tr><tr><td>发布 v1.2.0（健康检查失败）</td><td>auto_rolled_back</td></tr><tr><td>修复后发布 v1.2.0</td><td>deployed</td></tr><tr><td>人工回滚到 v1.1.0</td><td>rolled_back</td></tr></tbody>
+  </table>
+  <div class="fig-src">来源：deploy_rollback.run_e2e（本地文件态模拟）</div>
+  <div class="fig-unit">单位：次；零线为「无失败步骤」基线</div>
+</figure>
+<h2>4. 回滚计划</h2>
+<ol><li>恢复 release/ 到下个快照</li><li>重启静态服务</li><li>跑冒烟 3 条</li></ol>
+<h3>4.1 触发条件</h3>
+<p>健康检查任一不过（D03）自动回滚；人工回滚只允许回到版本锁记录的上一版（D02）。</p>
+
+</main>
+</body>
+</html>

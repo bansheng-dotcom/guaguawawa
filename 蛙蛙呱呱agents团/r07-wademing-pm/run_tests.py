@@ -257,6 +257,23 @@ def main() -> int:
             f"passed={vl['passed']}/failed={vl['failed']}")
     t.check("闭环矩阵 total=58（29 干净 + 29 脏）", vl["total"] == 58, str(vl["total"]))
 
+    t.section("T11 PM 工作流（5 条 + 经验门）")
+    import importlib.util
+    import io
+    import unittest
+    spec = importlib.util.spec_from_file_location(
+        "r07_pm_workflows_tests", os.path.join(HERE, "tests", "test_pm_workflows.py"))
+    wf_mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(wf_mod)
+    suite = unittest.defaultTestLoader.loadTestsFromModule(wf_mod)
+    buf = io.StringIO()
+    wf_res = unittest.TextTestRunner(stream=buf, verbosity=0).run(suite)
+    t.check(f"工作流/经验门/端到端/误用 {wf_res.testsRun} 条全绿",
+            wf_res.wasSuccessful(),
+            "; ".join(str(x[0]) for x in (wf_res.failures + wf_res.errors)))
+    if not wf_res.wasSuccessful():
+        print(buf.getvalue()[-3000:])
+
     print(f"\n{'=' * 60}")
     print(f"通过 {t.passed} / {t.passed + t.failed}")
     if t.failed:

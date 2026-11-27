@@ -112,6 +112,17 @@ def build_parser() -> argparse.ArgumentParser:
     la = sp.add_parser("local-media-check", help="本地媒体文件存在性/MIME/尺寸检查")
     la.add_argument("--input", required=True)
 
+    dsg = sp.add_parser("design", help="设计契约 12 条 + 2 套风格包 + 视觉评审：check / packs / review / misuse / goldens")
+    dsa = dsg.add_subparsers(dest="dcmd", required=True)
+    dc = dsa.add_parser("check", help="检查一份 HTML 是否过 P1–P12")
+    dc.add_argument("--input", required=True)
+    dsa.add_parser("packs", help="两套风格包是否齐套")
+    dsa.add_parser("review", help="视觉评审清单 V1–V10 是否齐")
+    dm = dsa.add_parser("misuse", help="跑一个故意违规的样本")
+    dm.add_argument("--case", required=True)
+    dg = dsa.add_parser("goldens", help="重建两套版式的设计交付说明")
+    dg.add_argument("--dir", default=None)
+
     ev_p = sp.add_parser("evolve", help="十维演进元模型引擎调度 (L01~L10)")
     ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
     ev_sub.add_parser("probe", help="L01: 探测引擎健康状态")
@@ -409,6 +420,21 @@ def main() -> int:
         out = inspect_media(args.input)
         emit_result(out)
         return 0 if out["ok"] else 1
+    if args.skill == "design":
+        import design_contract as dc
+        if args.dcmd == "goldens":
+            out = dc.build_goldens(args.dir)
+        elif args.dcmd == "check":
+            out = dc.check_file(args.input)
+        elif args.dcmd == "packs":
+            out = dc.style_packs()
+        elif args.dcmd == "review":
+            out = dc.visual_review()
+        else:
+            out = dc.check_case(args.case)
+            out["ok"] = bool(out.get("as_expected"))
+        emit_result(out)
+        return 0 if out.get("ok") else 1
     if args.skill == "harness":
         out = _run_harness(args)
         emit_result(out)

@@ -1,0 +1,10 @@
+{
+  "_violation": "评估无评分表：KRA「交付质量」缺 score，故意触发 performance.appraisal 的 appraisal.kra_complete 门禁（没打分不能算评估完成）。",
+  "employee": "EMP-0002",
+  "appraisal_cycle": "2026-H2",
+  "cycle_status": "In Progress",
+  "total_score": 4.0,
+  "kras": [
+    {"name": "交付质量"}
+  ]
+}

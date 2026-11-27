@@ -1,0 +1,210 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>churn_flag变化诊断：pending是主因，需要先动价格纪律</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><style>
+@page{size:A4;margin:16mm}
+:root{--ink:#1b1b1b;--muted:#5a5a5a;--line:#d8d8d8;--accent:#8a2d2d;--bg:#fff}
+html{background:#eee}
+body{max-width:820px;margin:24px auto;padding:48px 56px;background:var(--bg);
+color:var(--ink);font:16px/1.75 "Source Han Sans SC","Microsoft YaHei",sans-serif}
+h1{font-size:30px;line-height:1.3;margin:0 0 8px}
+h2{font-size:21px;line-height:1.4;margin:34px 0 10px;border-left:4px solid var(--accent);padding-left:10px}
+p{font-size:16px;margin:10px 0}
+li{font-size:15px;margin:4px 0}
+.standfirst{font-size:17px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+th{background:#f5f5f5;font-size:14px}
+figure{margin:16px 0;border:1px solid var(--line);padding:8px}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+@media print{html{background:#fff}body{margin:0;padding:0;max-width:none}
+h2{break-after:avoid}figure,table{break-inside:avoid}}
+</style>
+<body data-theme="light">
+<h1>churn_flag变化诊断：pending是主因，需要先动价格纪律</h1>
+<p class="standfirst">口径：churn_flag，窗口 近90天，切分点 2025-12；以下为分析链草稿，待 R01 签发。</p>
+<h2>结论先行</h2><p>先给三条判断，证据与边界在后文逐节展开。</p><ul>
+<li>整体流失率变化 46.2%，缺口 176个，需要拆到分段</li>
+<li>pending流失率变化 66.6%，支撑整体 115.3%，应先查该段</li>
+<li>completed流失率变化 -35.5%，拖累整体 -15.3%，应先查该段</li>
+</ul>
+<h2>整体流失率变化 46.2%，缺口 176个，需要拆到分段</h2>
+<p>把前后两期放在一起看，整体流失率由 381个 变为 557个，净变化 176个，幅度 46.2%。</p>
+<p>整体数字只说明“变了多少”，不说明“哪里变”；所以下一步必须按预注册维度拆到分段。</p>
+<p>机理：总量变化等于各分段变化之和；判别方法是看分段合计能否还原整体，误差超过 5% 就回到口径。</p>
+<p>若下一期整体流失率回升超过 3% 或分段合计与整体偏差超过 5%，则本节判断作废。</p>
+<p>所以先拆分段、再定动作；不要用整体数字直接做降价或加投决定。</p>
+<p>边界：本段只覆盖同口径窗口；外部季节性、竞品与政策因素仍需在分段解释中单列。</p>
+<p>复算方法：固定指标、窗口与 split，按同一分母重跑；任何一处换口径，整体与分段都要重算。</p>
+<ul><li>整体：381个 → 557个。</li><li>变化：176个（46.2%）。</li><li>证据来源：findings 的 overall 单元。</li></ul>
+<figure><svg viewBox="0 0 980 360" role="img" aria-label="整体churn_flag走势：从29到52">
+          <line x1="74" y1="58.0" x2="930" y2="58.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="62.0" fill="var(--muted)" font-size="11.5" text-anchor="end">69</text>
+          <line x1="74" y1="122.0" x2="930" y2="122.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="126.0" fill="var(--muted)" font-size="11.5" text-anchor="end">56</text>
+          <line x1="74" y1="186.0" x2="930" y2="186.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="190.0" fill="var(--muted)" font-size="11.5" text-anchor="end">44</text>
+          <line x1="74" y1="250.0" x2="930" y2="250.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="254.0" fill="var(--muted)" font-size="11.5" text-anchor="end">31</text>
+          <line x1="74" y1="314.0" x2="930" y2="314.0" stroke="var(--line)" stroke-width="1"/>
+          <text x="66" y="318.0" fill="var(--muted)" font-size="11.5" text-anchor="end">18</text>
+          <polyline points="74,260 111,265 148,270 186,224 223,178 260,280 297,224 335,219 372,229 409,280 446,255 483,265 521,229 558,183 595,173 632,168 669,178 707,92 744,229 781,148 818,153 856,138 893,219 930,143" fill="none" stroke="var(--cat-1)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <text x="926" y="133" fill="var(--cat-1)" font-size="11.5" font-weight="700" text-anchor="end">整体 52</text>
+          <text x="74" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-01</text>
+          <text x="148" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-03</text>
+          <text x="223" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-05</text>
+          <text x="297" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-07</text>
+          <text x="372" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-09</text>
+          <text x="446" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2025-11</text>
+          <text x="521" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2026-01</text>
+          <text x="595" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2026-03</text>
+          <text x="669" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2026-05</text>
+          <text x="744" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2026-07</text>
+          <text x="818" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2026-09</text>
+          <text x="893" y="348" fill="var(--muted)" font-size="11.5" text-anchor="middle">2026-11</text>
+          </svg><figcaption>图 CH1 · 整体churn_flag走势：从29到52；来源：analysis_chain/findings.json；单位：个；标注：起止值与差值，最小间距 12px。</figcaption></figure>
+<table><thead><tr><th>指标</th><th>前期</th><th>本期</th><th>变化</th></tr></thead><tbody>
+<tr><td>流失率</td><td>381个</td><td>557个</td><td>176个</td></tr>
+<tr><td>变化率</td><td>-</td><td>-</td><td>46.2%</td></tr>
+</tbody></table>
+<h2>pending流失率变化 66.6%，支撑整体 115.3%，应先查该段</h2>
+<p>与前一期相比，pending段的流失率停在 508个，较 305个 少 203个，降幅 66.6%。</p>
+<p>贡献为 115.3%，但拆解缺失；不要直接写价格或销量原因。</p>
+<p>机理：缺拆解时因果词不成立；判别方法是回到 analysis 段补字段。</p>
+<p>如果pending的细分人群变化超过 66.6% 的一半，本节关于主驱动的判断就要推翻。</p>
+<p>所以动作落在pending：先看该段的细分人群，不要全量一起改。</p>
+<p>边界：样本与覆盖以 data_profile 为准；若补数后覆盖下降，先回质量剖析再看结论。</p>
+<p>复算方法：把分段与分母写进计划后复算，任何一处与计划不一致都应判为口径错误。</p>
+<p>口径说明：pending的贡献按整体变化为分母计算，正负号表示方向；换分母会改变贡献率，因此分母只认计划里的那一个，不接受事后切换。</p>
+<p>阅读提示：贡献率大不等于金额大，金额大小还要回到前后期绝对值；两条一起看，才不会被百分比带偏，也不至于把一个小段当成主因。</p>
+<ul><li>证据：pending段前后期同口径值 305个 → 508个。</li><li>分母：期内同口径总量（全部分段合计）（见 findings 分母字段）。</li><li>证据来源：findings/F2 + explanation/drivers。</li><li>停止线：贡献低于 3% 即停止下钻，避免在噪声上继续归因。</li></ul>
+<figure><svg viewBox="0 0 980 341" role="img" aria-label="pending贡献最大：+203个">
+          <line x1="224.0" y1="45" x2="224.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="224.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">0</text>
+          <line x1="902.0" y1="45" x2="902.0" y2="285" stroke="var(--line)" stroke-width="1"/>
+          <text x="902.0" y="33" fill="var(--muted)" font-size="11.5" text-anchor="middle">203</text>
+          <text x="18" y="57" fill="var(--ink)" font-size="12.5" font-weight="700">pending（+203）</text>
+          <rect x="224.0" y="49" width="678.0" height="18" fill="var(--series-context)"/>
+          <text x="908.0" y="63" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">203</text>
+          <text x="18" y="120" fill="var(--ink)" font-size="12.5" font-weight="700">basic（+127）</text>
+          <rect x="224.0" y="112" width="424.2" height="18" fill="var(--series-context)"/>
+          <text x="654.2" y="126" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">127</text>
+          <text x="18" y="183" fill="var(--ink)" font-size="12.5" font-weight="700">pro（+49）</text>
+          <rect x="224.0" y="175" width="163.7" height="18" fill="var(--series-context)"/>
+          <text x="393.7" y="189" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">49</text>
+          <text x="18" y="246" fill="var(--ink)" font-size="12.5" font-weight="700">completed（-27）</text>
+          <rect x="224.0" y="238" width="90.2" height="18" fill="var(--series-context)"/>
+          <text x="320.2" y="252" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="start">27</text>
+          </svg><figcaption>图 CH2 · pending贡献最大：+203个；来源：analysis_chain/findings.json；单位：个；标注：起止值与差值，最小间距 12px。</figcaption></figure>
+<figure><svg viewBox="0 0 980 320" role="img" aria-label="pending前后对比：305→508">
+          <line x1="220.0" y1="48" x2="220.0" y2="276" stroke="var(--line)" stroke-width="1"/>
+          <text x="220.0" y="292" fill="var(--muted)" font-size="11.5" text-anchor="middle">12</text>
+          <line x1="367.5" y1="48" x2="367.5" y2="276" stroke="var(--line)" stroke-width="1"/>
+          <text x="367.5" y="292" fill="var(--muted)" font-size="11.5" text-anchor="middle">145</text>
+          <line x1="515.0" y1="48" x2="515.0" y2="276" stroke="var(--line)" stroke-width="1"/>
+          <text x="515.0" y="292" fill="var(--muted)" font-size="11.5" text-anchor="middle">278</text>
+          <line x1="662.5" y1="48" x2="662.5" y2="276" stroke="var(--line)" stroke-width="1"/>
+          <text x="662.5" y="292" fill="var(--muted)" font-size="11.5" text-anchor="middle">412</text>
+          <line x1="810.0" y1="48" x2="810.0" y2="276" stroke="var(--line)" stroke-width="1"/>
+          <text x="810.0" y="292" fill="var(--muted)" font-size="11.5" text-anchor="middle">545</text>
+          <text x="220" y="40" fill="var(--muted)" font-size="11.5">● A（灰）　● B（强调）· 共同尺度 · 按差距降序</text>
+          <text x="210" y="74.0" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="end">pending</text>
+          <line x1="544.4" y1="68.0" x2="769.3" y2="68.0" stroke="var(--line-strong)" stroke-width="2.4"/>
+          <circle cx="544.4" cy="68.0" r="6" fill="var(--series-context)"/>
+          <circle cx="769.3" cy="68.0" r="6" fill="var(--theme-accent)"/>
+          <text x="822.0" y="72.0" fill="var(--healthy)" font-size="12.5" font-weight="700">+203</text>
+          <text x="210" y="118.0" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="end">basic</text>
+          <line x1="449.1" y1="112.0" x2="589.8" y2="112.0" stroke="var(--line-strong)" stroke-width="2.4"/>
+          <circle cx="449.1" cy="112.0" r="6" fill="var(--series-context)"/>
+          <circle cx="589.8" cy="112.0" r="6" fill="var(--theme-accent)"/>
+          <text x="822.0" y="116.0" fill="var(--healthy)" font-size="12.5" font-weight="700">+127</text>
+          <text x="210" y="162.0" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="end">pro</text>
+          <line x1="385.9" y1="156.0" x2="440.2" y2="156.0" stroke="var(--line-strong)" stroke-width="2.4"/>
+          <circle cx="385.9" cy="156.0" r="6" fill="var(--series-context)"/>
+          <circle cx="440.2" cy="156.0" r="6" fill="var(--theme-accent)"/>
+          <text x="822.0" y="160.0" fill="var(--healthy)" font-size="12.5" font-weight="700">+49</text>
+          <text x="210" y="206.0" fill="var(--ink)" font-size="12.5" font-weight="700" text-anchor="end">completed</text>
+          <line x1="260.7" y1="200.0" x2="290.6" y2="200.0" stroke="var(--line-strong)" stroke-width="2.4"/>
+          <circle cx="290.6" cy="200.0" r="6" fill="var(--series-context)"/>
+          <circle cx="260.7" cy="200.0" r="6" fill="var(--theme-accent)"/>
+          <text x="822.0" y="204.0" fill="var(--critical)" font-size="12.5" font-weight="700">−27</text>
+          </svg><figcaption>图 CH3 · pending前后对比：305→508；来源：analysis_chain/findings.json；单位：个；标注：起止值与差值，最小间距 12px。</figcaption></figure>
+<table><thead><tr><th>指标</th><th>前期</th><th>本期</th><th>变化</th></tr></thead><tbody>
+<tr><td>流失率</td><td>305个</td><td>508个</td><td>203个</td></tr>
+<tr><td>贡献率</td><td>-</td><td>-</td><td>115.3%</td></tr>
+<tr><td>数量效应</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>价格效应</td><td>-</td><td>-</td><td>-</td></tr>
+</tbody></table>
+<h2>completed流失率变化 -35.5%，拖累整体 -15.3%，应先查该段</h2>
+<p>相比前期，completed的流失率由 76个 变为 49个，变化 -27个（-35.5%）。</p>
+<p>这条断言只给贡献 -15.3%，缺少可拆的数量/价格列；判别方法是补齐可拆字段后重算。</p>
+<p>机理：没有可拆字段时，任何价格或数量解释都只是猜测；判别方法是补齐字段并复算。</p>
+<p>若下一期completed的流失率回落超过 3% 或贡献占比降到 20% 以下，则本节判断作废。</p>
+<p>所以应先查completed的完成率与占比变化，再决定动作；不要同时改价格与权益，否则无法判别。</p>
+<p>边界：这条判断只覆盖completed在同口径窗口内的数据；口径、时间窗或分段定义一变，就要重新预注册。</p>
+<p>复算方法：用同一份数据、同一 split 与同一分母重跑，应得到相同的前后期值与贡献占比；换任一口径，数字都会变。</p>
+<p>口径说明：completed这一节沿用同一份数据与同一 split，指标、分段与停止阈值都来自预注册计划；任何一处换口径，前后期与贡献都要重算，这也是本节不写同比结论的原因，并保留原表备查，不做口头补充，以备复核。</p>
+<p>阅读提示：先看表格里的前后期值与差值，再看贡献和量价；只看结论不看表，容易把相关当成因果，也容易忽略分母。</p>
+<ul><li>证据：completed段前后期同口径值 76个 → 49个。</li><li>分母：期内同口径总量（全部分段合计）（见 findings 分母字段）。</li></ul>
+<table><thead><tr><th>指标</th><th>前期</th><th>本期</th><th>变化</th></tr></thead><tbody>
+<tr><td>流失率</td><td>76个</td><td>49个</td><td>-27个</td></tr>
+<tr><td>贡献率</td><td>-</td><td>-</td><td>-15.3%</td></tr>
+<tr><td>数量效应</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>价格效应</td><td>-</td><td>-</td><td>-</td></tr>
+</tbody></table>
+<h2>数据质量 95.6分，覆盖 100.0%，不是瓶颈</h2>
+<p>这份数据的综合质量分为 95.6分，日期覆盖 100.0%，共 9,600行。</p>
+<p>相比最低可用线，六维里没有出现失败项；缺失、重复、离群、泄漏与选择偏差都逐项通过检查。</p>
+<p>机理：质量分来自六维加权，覆盖决定趋势能否外推；判别方法是逐维看状态是否出现 FAIL，而不是只看总分。</p>
+<p>若后续补数后覆盖跌破 80% 或完整性转为 FAIL，则本节结论作废。</p>
+<p>所以先锁定这份口径再写结论；不要用补零后的数据替换当前样本。</p>
+<p>边界：质量通过不等于业务事实成立；它只说明这份数据可用于当前窗口分析。</p>
+<p>复算方法：重跑六维剖析，逐项比对分数与状态；任一维下降超过 10 分都要回到数据层排查。</p>
+<p>口径说明：质量分只对当前窗口与当前字段集合负责；补列、换源或改采集口径后，必须重新剖析。</p>
+<p>阅读提示：先看各维状态，再看总分；总分高但某一维 FAIL 时，以 FAIL 为准。</p>
+<p>风险提示：覆盖通过不代表没有选择偏差；分段占比过高时，整体结论不能外推到所有人群。</p>
+<p>这份数据没有明显短板，但仍要保留原始文件与字段清单，方便复核时逐列对回。</p>
+<ul><li>覆盖：100.0% 的日期有数据。</li><li>样本：9,600行。</li><li>证据来源：data_profile.json 六维。</li></ul>
+<table><thead><tr><th>检查项</th><th>分数</th><th>判定</th></tr></thead><tbody>
+<tr><td>综合质量分</td><td>95.6分</td><td>可用</td></tr>
+<tr><td>日期覆盖</td><td>100.0%</td><td>通过</td></tr>
+<tr><td>样本行数</td><td>9,600行</td><td>已核对</td></tr>
+<tr><td>completeness</td><td>100.0</td><td>PASS</td></tr>
+<tr><td>uniqueness</td><td>100.0</td><td>PASS</td></tr>
+<tr><td>validity</td><td>70.7</td><td>WARN</td></tr>
+<tr><td>leakage</td><td>100.0</td><td>PASS</td></tr>
+<tr><td>selection_bias</td><td>100.0</td><td>PASS</td></tr>
+<tr><td>coverage</td><td>100.0</td><td>PASS</td></tr>
+</tbody></table>
+<h2>前后差异 3.7%，95% 区间不含 0，结论成立</h2>
+<p>两组对照的均值差为 3.7%，相对变化 46.2%，效应量 -0.12。</p>
+<p>95% 置信区间为 [2.5%, 4.8%]，不跨 0；截尾 1% 后差异方向不变。</p>
+<p>机理：区间由 bootstrap 重采样得到，用来判断差异是否稳定；判别方法是看截尾后是否反转。</p>
+<p>若下一期复算的区间跨 0 或效应量降到 0.2 以下，则本节结论作废。</p>
+<p>所以这条差异可以作为主结论的支撑；不要把它写成因果效应。</p>
+<p>边界：显著只说明差异不太可能由抽样波动解释，不说明差异在业务上足够大。</p>
+<p>复算方法：固定随机种子与样本切分重跑，区间与效应量应一致；换种子后区间宽度不应大幅变化。</p>
+<p>口径说明：p 值来自 Welch 检验的正态近似或精确值，区间来自百分位 bootstrap；两者口径不同，必须同时看。</p>
+<p>阅读提示：先看区间是否跨 0，再看效应量大小；显著但效应量很小时，不要当重要结论。</p>
+<p>风险提示：分段检验已做 Holm 校正；未校正的原始 p 值只用于排查，不作为主结论依据。</p>
+<p>把效应量与区间放在一起看：方向一致且区间不跨 0，才可以保留这条差异。</p>
+<p>若换一个窗口后方向反转，先回到计划检查切分点与分母，而不是调参数把结果救回来。</p>
+<ul><li>样本量满足每组至少 30。</li><li>效应量分级：small。</li><li>证据来源：stats.json + experience/thresholds.json。</li><li>停止线：效应量低于 0.2 时不得作为主结论。</li></ul>
+<table><thead><tr><th>统计量</th><th>数值</th><th>判定</th></tr></thead><tbody>
+<tr><td>均值差</td><td>3.7%</td><td>显著</td></tr>
+<tr><td>相对变化</td><td>46.2%</td><td>方向一致</td></tr>
+<tr><td>效应量 d</td><td>-0.12</td><td>small</td></tr>
+<tr><td>区间下限</td><td>2.5%</td><td>同向</td></tr>
+<tr><td>区间上限</td><td>4.8%</td><td>同向</td></tr>
+</tbody></table>
+<h2>动作与停止线</h2><ul>
+<li>所以先拆分段；不要整体降价。</li>
+<li>所以动作落在pending：先看该段的细分人群，不要全量一起改。</li>
+<li>所以应先查completed的完成率与占比变化，再决定动作；不要同时改价格与权益，否则无法判别。</li>
+<li>所以先用当前口径；不要补零。</li>
+<li>所以可作支撑；不要写成因果。</li>
+<li>停止线：贡献低于 3%、样本不足 30 或区间跨 0 时，不下结论。</li></ul>
+<h2>证据来源</h2><ul>
+<li>analysis_chain/findings.json（同目录，含门禁与哈希）</li>
+<li>analysis_chain/explanation.json（同目录，含门禁与哈希）</li>
+<li>analysis_chain/stats.json（同目录，含门禁与哈希）</li>
+<li>analysis_chain/data_profile.json（同目录，含门禁与哈希）</li>
+<li>misuse/：时间当原因、看完数补计划、无实验因果三个反例。</li></ul>
+</body></html>

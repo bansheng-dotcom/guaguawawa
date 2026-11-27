@@ -199,6 +199,21 @@
   "tam-mc": {
    "desc": "TAM 蒙特卡洛：渗透率×ARPU，输出 p10/p50/p90",
    "actions": []
+  },
+  "chain": {
+   "desc": "八段研究链：scope/source/collect/verify/triangulate/size/compete/report/run/audit",
+   "actions": [
+    "scope",
+    "source",
+    "collect",
+    "verify",
+    "triangulate",
+    "size",
+    "compete",
+    "report",
+    "run",
+    "audit"
+   ]
   }
  },
  "r06": {
@@ -323,6 +338,24 @@
     "normalize",
     "report"
    ]
+  },
+  "chain": {
+   "desc": "可证伪分析链：frame / plan / profile / explore / explain / test / verify / chart / write / deliver / run / report / audit",
+   "actions": [
+    "frame",
+    "plan",
+    "profile",
+    "explore",
+    "explain",
+    "test",
+    "verify",
+    "chart",
+    "write",
+    "deliver",
+    "run",
+    "report",
+    "audit"
+   ]
   }
  },
  "r07": {
@@ -368,6 +401,19 @@
   "rice": {
    "desc": "RICE 排序：Reach×Impact×Confidence/Effort + 敏感性",
    "actions": []
+  },
+  "workflows": {
+   "desc": "五条产品工作流 + 经验门：discovery/prd/priority/acceptance/briefing/experience/run/audit",
+   "actions": [
+    "discovery",
+    "prd",
+    "priority",
+    "acceptance",
+    "briefing",
+    "experience",
+    "run",
+    "audit"
+   ]
   }
  },
  "r08": {
@@ -476,6 +522,23 @@
   "special": {
    "desc": "特殊技术载体：Godot、MCP 与工程 Agent 工作流",
    "actions": []
+  },
+  "eng_chain": {
+   "desc": "十段工程链：adr/api/feature/testing/debug/release/security/performance/incident/review/run/audit",
+   "actions": [
+    "adr",
+    "api",
+    "feature",
+    "testing",
+    "debug",
+    "release",
+    "security",
+    "performance",
+    "incident",
+    "review",
+    "run",
+    "audit"
+   ]
   }
  },
  "r10": {
@@ -649,6 +712,20 @@
   "xhs": {
    "desc": "小红书发布包：note/score/compliance",
    "actions": []
+  },
+  "content_chain": {
+   "desc": "七段内容生产线：topic/research/outline/draft/review/rewrite/final/run/audit",
+   "actions": [
+    "topic",
+    "research",
+    "outline",
+    "draft",
+    "review",
+    "rewrite",
+    "final",
+    "run",
+    "audit"
+   ]
   }
  },
  "r12": {
@@ -726,6 +803,20 @@
   "power": {
    "desc": "实验功效：两比例样本量（baseline/MDE/alpha/power）",
    "actions": []
+  },
+  "growth_chain": {
+   "desc": "七段增长链：diagnose/experiment/attribution/retention/paid/selfmedia/mmm/run/audit",
+   "actions": [
+    "diagnose",
+    "experiment",
+    "attribution",
+    "retention",
+    "paid",
+    "selfmedia",
+    "mmm",
+    "run",
+    "audit"
+   ]
   }
  },
  "r13": {

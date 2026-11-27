@@ -195,6 +195,16 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "godot": _out(["scene_count", "script_count", "verdict"]),
         },
     },
+    # T7：十段工程链（动作面与 8 个既有技能并列登记）。
+    "eng_chain": {
+        "desc": "十段工程链：adr/api/feature/testing/debug/release/security/performance/incident/review",
+        "input": {a: {"type": "object"} for a in (
+            "adr", "api", "feature", "testing", "debug", "release", "security",
+            "performance", "incident", "review", "run", "audit")},
+        "output": {a: {"type": "object", "required": ["ok"]} for a in (
+            "adr", "api", "feature", "testing", "debug", "release", "security",
+            "performance", "incident", "review", "run", "audit")},
+    },
 }
 
 

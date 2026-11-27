@@ -1,0 +1,9 @@
+{
+  "case_id": "illegal-transition",
+  "intent": "订单还没支付就发货：状态机必须拒绝，不能靠人工兜底",
+  "ops": [
+    {"op": "create", "order_id": "MO-9001", "amount": "99.00"},
+    {"op": "fulfill", "order_id": "MO-9001", "key": "ful-9001"}
+  ],
+  "expect": ["T01_ILLEGAL_TRANSITION"]
+}

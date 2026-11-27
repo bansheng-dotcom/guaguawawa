@@ -8,6 +8,84 @@
 
 ---
 
+## 2026-11-27（第三十二轮）· Tier A/Tier B/Tier C 全面补厚：五条生产线 + 设计契约 + 图表审计
+
+一句话：**r05/r11/r07/r12/r09 各有一条可端到端跑通的生产链；20 角色黄金/误用补齐，
+呈现门禁从 6 条扩到 12 条，48 型图表有六维审计；全量门禁复跑为绿。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 内容链 | `r11-wadianti-copy/content_chain/` | topic→research→outline→draft→review→rewrite→final；3 黄金 + 3 误用 |
+| 研究链 | `r05-washenyuan-research/research_chain/` | scope→source→collect→verify→triangulate→size→compete→report；“结论可追源” |
+| 产品工作流 | `r07-wademing-pm/pm_workflows/` | discovery/prd/priority/acceptance/briefing + 经验门（L0/L1/L2） |
+| 增长链 | `r12-wayingliu-growth/growth_chain/` | diagnose→experiment→attribution→retention→paid→selfmedia→mmm |
+| 工程链 | `r09-wawenma-engineer/eng_chain/` | adr→api→feature→testing→debug→release→security→performance→incident→review |
+| 设计契约 | `docs/REPORT-DESIGN-CONTRACT.md`、`styles/<style>/` | 12 条可测规则 + 编辑式/互联网汇报式两套风格包与黄金样本 |
+| 视觉评审 | `docs/REPORT-VISUAL-REVIEW.md` | 10 条人读评审项 + 黄金报告签字位 |
+| 呈现门禁 | `scripts/check_report_presentation.py` | P1–P6 底线 + P7–P12 标准；现有黄金与生成报告全过 |
+| 图表审计 | `core/charts/audit.py`、`tests/fixtures/charts/` | 48 型 × 六维审计；quick/guided 分级；48 张黄金 SVG |
+| 角色厚度 | `docs/ROLE-THICKNESS.md` | T11/T12 补齐 golden/misuse/THICKNESS，L2 达标从 1 升到 20 |
+
+诚实边界：链条里的生成步骤是确定性模板，不是模型写作；真实发布仍需人工润色与 R01 签发。
+
+## 2026-11-27（第三十一轮）· T0 引擎台账 + T1 厚度地板：先止血，再量厚度
+
+一句话：**实测 143 个同名引擎没有字节级重复；先把可安全合并的 telemetry 收敛，
+其余冻结台账禁止新增副本，同时建立 20 角色厚度棘轮与 r06 三份黄金草稿。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 共享引擎 | `shared/engines/telemetry_watchdog.py` | r11/r12 近似副本（0.974）收敛为一份实现；角色侧改薄适配器 |
+| 引擎台账 | `configs/engine_variants.json`、`docs/ENGINE-LEDGER.md` | 143 条：shared 2 / domain_variant 141；冻结哈希 |
+| 台账门禁 | `scripts/check_engine_variants.py` | `--check` 拦未登记、哈希漂移、相似度 ≥0.98 的近似副本 |
+| 厚度地板 | `scripts/check_role_thickness.py`、`configs/role_thickness_baseline.json` | 棘轮：20 角色任一指标下降即失败；`--report` 显示 L2 缺口 |
+| 厚度报表 | `docs/ROLE-THICKNESS.md` | 当前 L2 达标 1/20（r06），其余缺黄金/误用 |
+| 黄金草稿 | `r06-wadeqing-analyst/golden/` | retail/saas/selfmedia 三份报告 + manifest + 复现命令 |
+| TBD 清零 | `r11-wadianti-copy/references/*.md` | 9 处 `TBD: 待关联补充技能源文件` 改为指向同文件「来源沉淀」 |
+
+诚实边界：T0 不是“删掉 141 份副本”。实测相似度 0.33–0.97，直接合并会改角色行为；
+本轮只做“能合的合 + 禁止新增”，逐引擎合并需 owner 单独立项。
+
+## 2026-11-27（第三十轮）· R06 报告链 T8b：CoV → 图表契约 → 文字包 → 交付账本
+
+一句话：**`r06 chain report` 一条命令产出 `report.html` + `manifest.json` + `run_events.jsonl`，
+三份数据集全部 PASS，结论可追率 100%；报告固定为待 R01 签发草稿，不越权。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 材料包 | `analysis_chain/material_pack.py` | 断言 + 数字 + 证据引用；证据不足进 bounded_modules |
+| 验证链 | `analysis_chain/verify.py` | CoV 六问 + 回流码（pass/analysis/text/chart/drop） |
+| 图表包 | `analysis_chain/chart_pack.py` | claim-bound + required_series/completeness/annotation/fail_if_missing |
+| 文字包 | `analysis_chain/text_pack.py` | unit packet、行长检查、独立对抗评审（越权/无据因果/数字可追） |
+| 交付 | `analysis_chain/deliver.py` | 文图仲裁、静态 SVG、manifest + run_events；author_role=r01、publishable=false |
+| 编排 | `analysis_chain/report_runner.py`、`skills/s10_chain.py` | `chain verify/chart/write/deliver/report` |
+| 门禁 | `scripts/check_claim_trace.py`、`scripts/check_chart_fail_if_missing.py` | 自测进 `ci_upgrade_checks.py`；真实报告可传 `--report/--evidence` |
+| 参考 | `references/22..25-*.md` | CoV / 图表契约 / 文字包 / 运行账本，含来源与误用 |
+| 测试 | `tests/test_report_chain.py` | 12 条：阶段门禁 + 误用拦截 + 三数据集端到端 |
+
+验证：retail 100 分（research）、saas 90.9 分（baseline）、selfmedia 100 分（baseline）；
+`check_analysis_chain --selftest` 已同时覆盖 T8a+T8b。
+
+## 2026-11-27（第二十九轮）· R06 分析链 T8a：从统计工具箱到可审计六段链
+
+一句话：**`r06` 新增 `chain`（frame → plan → profile → explore → explain → test），
+每段带确定性门禁，三份预埋真因数据集端到端全过，门禁已进 CI。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 六段链 | `r06-wadeqing-analyst/analysis_chain/` | frame/plan/profile/explore/explain/stats_test/runner + 公共门禁层 |
+| 角色入口 | `r06-wadeqing-analyst/skills/s10_chain.py` | `chain frame/plan/profile/explore/explain/test/run/audit` 八个动作 |
+| 契约 | `r06-wadeqing-analyst/contracts.py` | 新增 `chain` 八动作输出契约 |
+| 阈值与计划 | `experience/thresholds.json`、`experience/plan_schema.json` | 复用，不另起阈值 |
+| 数据 | `cases/analysis-{retail,saas,selfmedia}/data.csv` | 三份带预埋真因的数据（生成器 `tests/make_analysis_datasets.py`） |
+| 参考 | `references/16..21-*.md` | 假设/计划/质量/分母/驱动树/效应量六篇，含来源与误用 |
+| 测试 | `tests/test_analysis_chain.py` | 23 条：单段门禁 + 3 个误用夹具 + 三数据集端到端 + 确定性 |
+| 门禁 | `scripts/check_analysis_chain.py` | `--selftest` 三数据集；`--dir` 复核真实运行；已进 `scripts/ci_upgrade_checks.py` |
+| 注册 | `prompt_profile.json`、`configs/r06.yaml`、`knowledge/skills_inventory.json`、`docs/actions_catalog.json` | 动作/语义字段/关键词/清单同步 |
+
+诚实边界：`explain` 的量价拆解依赖数量列，缺列时只给贡献并记 WARN；
+报告仍由 R01 出具，T8b（verify/chart/write/deliver）不在本轮。
+
 ## 2026-11-27（第二十八轮）· 配好数据线样本，修通 3 个意图的端到端回归
 
 一句话：**`workspace/_ci_report_sample` 现在能跑通调研/经营/止损三个意图，CI 的 [2][3][3a][14] 由 SKIP 转为真实 PASS；v7 仍 SKIP（原因见末尾）。**

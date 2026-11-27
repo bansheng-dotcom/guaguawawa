@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""R07 八个能力域技能模块注册表。"""
+"""R07 八个能力域 + 工作流（S11）技能模块注册表。"""
 from __future__ import annotations
 
 from . import (s09_prdguard, s01_discover, s02_ost, s03_prd, s04_priority,
@@ -7,9 +7,14 @@ from . import (s09_prdguard, s01_discover, s02_ost, s03_prd, s04_priority,
 
 from . import s10_rice
 
+# S11 工作流层：5 条工作流 + 1 个经验门 + run/audit（升级方案 §10）。
+from . import s11_workflows
+
 SKILLS = [
-    s09_prdguard,s01_discover, s02_ost, s03_prd, s04_priority,
-          s05_roadmap, s06_metrics, s07_techbrief, s08_decision, s10_rice]
+    s09_prdguard, s01_discover, s02_ost, s03_prd, s04_priority,
+    s05_roadmap, s06_metrics, s07_techbrief, s08_decision, s10_rice,
+    s11_workflows,
+]
 
 # 兼容历史技能模块：统一补齐注册元数据。
 _MODULE_META = {

@@ -1,0 +1,225 @@
+{
+  "chains": [
+    {
+      "chain": "正常成交",
+      "order_id": "SO-2001",
+      "steps": [
+        {
+          "ok": true,
+          "order_id": "SO-2001",
+          "status": "created",
+          "deduplicated": false,
+          "amount": "99.00"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2001",
+          "status": "paid",
+          "deduplicated": false,
+          "event": "pay",
+          "to": "paid",
+          "charged": "99.00"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2001",
+          "status": "fulfilled",
+          "deduplicated": false,
+          "event": "fulfill",
+          "to": "fulfilled"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2001",
+          "status": "closed",
+          "deduplicated": false,
+          "event": "close",
+          "to": "closed"
+        }
+      ],
+      "ok": true,
+      "status": "closed",
+      "violations": []
+    },
+    {
+      "chain": "全额退款",
+      "order_id": "SO-2002",
+      "steps": [
+        {
+          "ok": true,
+          "order_id": "SO-2002",
+          "status": "created",
+          "deduplicated": false,
+          "amount": "199.00"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2002",
+          "status": "paid",
+          "deduplicated": false,
+          "event": "pay",
+          "to": "paid",
+          "charged": "199.00"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2002",
+          "status": "paid",
+          "deduplicated": false,
+          "event": "refund",
+          "refunded": "30.00",
+          "total_refunded": "30.00"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2002",
+          "status": "refunded",
+          "deduplicated": false,
+          "event": "refund",
+          "refunded": "169.00",
+          "total_refunded": "199.00"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2002",
+          "status": "closed",
+          "deduplicated": false,
+          "event": "close",
+          "to": "closed"
+        }
+      ],
+      "ok": true,
+      "status": "closed",
+      "violations": []
+    },
+    {
+      "chain": "超时重放 + 非法企图",
+      "order_id": "SO-2003",
+      "steps": [
+        {
+          "ok": true,
+          "order_id": "SO-2003",
+          "status": "created",
+          "deduplicated": false,
+          "amount": "129.00"
+        },
+        {
+          "ok": false,
+          "order_id": "SO-2003",
+          "status": "created",
+          "deduplicated": false,
+          "violations": [
+            {
+              "code": "T01_ILLEGAL_TRANSITION"
+            }
+          ]
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2003",
+          "status": "paid",
+          "deduplicated": false,
+          "event": "pay",
+          "to": "paid",
+          "charged": "129.00"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2003",
+          "status": "paid",
+          "deduplicated": true,
+          "charged": "0.00"
+        },
+        {
+          "ok": false,
+          "order_id": "SO-2003",
+          "status": "paid",
+          "deduplicated": false,
+          "violations": [
+            {
+              "code": "T03_DUPLICATE_CHARGE"
+            }
+          ]
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2003",
+          "status": "fulfilled",
+          "deduplicated": false,
+          "event": "fulfill",
+          "to": "fulfilled"
+        },
+        {
+          "ok": true,
+          "order_id": "SO-2003",
+          "status": "closed",
+          "deduplicated": false,
+          "event": "close",
+          "to": "closed"
+        }
+      ],
+      "ok": true,
+      "status": "closed",
+      "violations": [
+        {
+          "code": "T01_ILLEGAL_TRANSITION",
+          "msg": "非法状态迁移（前置状态不成立）",
+          "detail": "created 不允许 fulfill"
+        },
+        {
+          "code": "T03_DUPLICATE_CHARGE",
+          "msg": "同一幂等键换了金额/订单重放，疑似重复扣款",
+          "detail": "pay-2003 已用于 SO-2003/129.00"
+        }
+      ]
+    }
+  ],
+  "reconciliation": {
+    "ok": false,
+    "classes": {
+      "R01_MISSING_PAYMENT": [
+        {
+          "order_id": "SO-1003",
+          "status": "paid"
+        }
+      ],
+      "R02_ORPHAN_PAYMENT": [
+        {
+          "payment_id": "P-06",
+          "order_id": "SO-9999",
+          "amount": "50.00"
+        }
+      ],
+      "R03_DUPLICATE_PAYMENT": [
+        {
+          "order_id": "SO-1005",
+          "payments": 2
+        }
+      ],
+      "R04_AMOUNT_MISMATCH": [
+        {
+          "order_id": "SO-1002",
+          "order_amount": "199.00",
+          "paid_total": "189.00"
+        }
+      ],
+      "R05_STATUS_MISMATCH": [
+        {
+          "order_id": "SO-1004",
+          "status": "created",
+          "payments": 1
+        }
+      ]
+    },
+    "counts": {
+      "R01_MISSING_PAYMENT": 1,
+      "R02_ORPHAN_PAYMENT": 1,
+      "R03_DUPLICATE_PAYMENT": 1,
+      "R04_AMOUNT_MISMATCH": 1,
+      "R05_STATUS_MISMATCH": 1
+    },
+    "diff_total": 5,
+    "orders": 5,
+    "payments": 6
+  }
+}

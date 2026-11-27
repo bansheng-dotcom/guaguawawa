@@ -699,6 +699,24 @@ def main() -> int:
     t.check("任务状态 done", done.status == "done")
     t.check("任务写回产物", len(done.outputs) >= 1, str(len(done.outputs)))
 
+    t.section("T12 机制：设计契约 12 条 + 2 套风格包 + 视觉评审")
+    import design_contract as _dc
+    _g = _dc.build_goldens()
+    t.check("两套版式黄金均过 P1–P12", _g["ok"] is True,
+            str({k: v["violations"] for k, v in _g["goldens"].items()}))
+    t.check("风格包齐套（editorial + internet）",
+            _dc.style_packs()["ok"] is True
+            and len(_dc.style_packs()["packs"]) == 2)
+    t.check("视觉评审 V1–V10 齐", _dc.visual_review()["ok"] is True)
+    for _case in ("italic-no-measure.json", "skip-heading-no-thead.json"):
+        _c = _dc.check_case(os.path.join(HERE, "misuse", _case))
+        t.check(f"误用 {_case} 被拒", _c["rejected"] and _c["as_expected"], str(_c["hit"]))
+    for _name in ("design-editorial.html", "design-internet.html"):
+        _html = open(os.path.join(HERE, "golden", _name), encoding="utf-8").read()
+        t.check(f"黄金 {_name}：A4/单主题/单 h1/表头齐",
+                "@page" in _html and 'data-theme="light"' in _html
+                and _html.count("<h1") == 1 and "<thead" in _html)
+
     t.section("T15 verify_loop 闭环矩阵")
     matrix = verify_loop.run_all()
     t.check("闭环 28 行全绿", matrix["ok"], f"passed={matrix['passed']}/{matrix['total']}")

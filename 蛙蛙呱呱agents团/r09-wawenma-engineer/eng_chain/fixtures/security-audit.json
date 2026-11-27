@@ -1,0 +1,28 @@
+{
+  "extends": "./tiny-notes.json",
+  "project": "tiny-notes-security-audit",
+  "security": {
+    "asvs_level": "L2",
+    "threats": [
+      {"category": "S", "asset": "登录接口", "threat": "伪造 JWT 冒充用户", "mitigation": "HS256 签名 + 过期校验 + 密钥轮换", "severity": "high"},
+      {"category": "T", "asset": "笔记写入", "threat": "篡改 owner_id 写入他人空间", "mitigation": "服务端从 token 取 owner_id，忽略请求体", "severity": "high"},
+      {"category": "R", "asset": "删除操作", "threat": "否认删除行为", "mitigation": "记录操作审计日志（用户/时间/ID）", "severity": "medium"},
+      {"category": "I", "asset": "笔记读取", "threat": "越权读取他人笔记", "mitigation": "所有查询强制 owner_id 过滤", "severity": "high"},
+      {"category": "D", "asset": "搜索接口", "threat": "超长 q 触发全表扫描", "mitigation": "q 长度上限 64 + search_text 索引", "severity": "medium"},
+      {"category": "E", "asset": "管理脚本", "threat": "普通用户调用迁移脚本", "mitigation": "脚本仅在运维环境可执行，应用不暴露", "severity": "high"}
+    ],
+    "asvs": [
+      {"id": "V2.1.1", "requirement": "密码长度至少 12 位", "status": "pass"},
+      {"id": "V2.2.1", "requirement": "禁止弱口令与常见密码", "status": "pass"},
+      {"id": "V3.2.1", "requirement": "会话令牌短过期且可吊销", "status": "pass"},
+      {"id": "V4.1.1", "requirement": "所有访问控制服务端强制", "status": "pass"},
+      {"id": "V5.1.1", "requirement": "输入长度与类型统一校验", "status": "pass"},
+      {"id": "V7.1.1", "requirement": "错误响应不含堆栈与密钥", "status": "pass"},
+      {"id": "V9.1.1", "requirement": "传输层强制 TLS", "status": "pass"},
+      {"id": "V14.2.1", "requirement": "依赖锁定并扫描已知漏洞", "status": "pass"}
+    ],
+    "dependency_scan": {"tool": "pip-audit", "findings": 5, "high": 0},
+    "secret_scan": {"tool": "gitleaks", "findings": 0, "leaked": 0},
+    "handled_error_codes": ["validation_error", "unauthenticated", "not_found", "forbidden"]
+  }
+}

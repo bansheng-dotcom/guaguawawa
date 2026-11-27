@@ -1,0 +1,40 @@
+{
+  "brief_id": "tool-content-chain",
+  "title": "把写作拆成七道工序：R11 内容链实操",
+  "industry": "内容工程",
+  "audience": "内容团队负责人",
+  "goal": "把写作拆成可审计、可复盘的工序",
+  "constraints": {"platform": "公众号", "min_chars": 1200, "max_chars": 4000, "tone": "实操"},
+  "keywords": [
+    {"term": "内容流水线", "search_volume": 1600, "competition": 0.4, "intent": "informational"},
+    {"term": "写作 SOP", "search_volume": 1300, "competition": 0.35, "intent": "commercial"},
+    {"term": "审稿清单", "search_volume": 800, "competition": 0.28, "intent": "transactional"},
+    {"term": "AI 写作质检", "search_volume": 2200, "competition": 0.68, "intent": "commercial"},
+    {"term": "内容复盘", "search_volume": 950, "competition": 0.42, "intent": "informational"}
+  ],
+  "entities": ["内容流水线", "写作 SOP", "审稿清单", "内容复盘"],
+  "questions": [
+    "选题段要产出多少个候选？",
+    "来源至少要登记几条？",
+    "三候选怎么判断不是换壳？",
+    "改写单元控制在多长？",
+    "终检失败应该退回哪一段？"
+  ],
+  "sources": [
+    {"id": "s01", "title": "内容流水线的工序拆分", "url": "https://example.org/line-steps", "date": "2026-01-08", "tier": "primary", "quote": "工序拆分的标准是每一步都能单独验收与回滚。"},
+    {"id": "s02", "title": "写作 SOP 的最小闭环", "url": "https://example.org/sop-loop", "date": "2026-02-14", "tier": "secondary", "quote": "没有证据台账的 SOP，最后都会退化成模板填空。"},
+    {"id": "s03", "title": "审稿清单的五类问题", "url": "https://example.org/review-five", "date": "2026-03-06", "tier": "primary", "quote": "审稿要指出原文片段与改法，而不是只给一句感觉。"},
+    {"id": "s04", "title": "候选稿的多样性度量", "url": "https://example.org/variety", "date": "2026-03-19", "tier": "secondary", "quote": "相似度太高说明候选只在换形容词，没有换组织方式。"},
+    {"id": "s05", "title": "改写单元与事实一致性", "url": "https://example.org/rewrite-unit", "date": "2026-04-07", "tier": "primary", "quote": "改写不能新增事实，数字与专名必须与原文逐一对应。"},
+    {"id": "s06", "title": "AI 写作质检的常见误判", "url": "https://example.org/ai-check", "date": "2026-04-21", "tier": "tertiary", "quote": "套话密度只是入口指标，不能替代事实核对。"},
+    {"id": "s07", "title": "内容复盘的三张表", "url": "https://example.org/retro-tables", "date": "2026-05-03", "tier": "secondary", "quote": "复盘表要能回答哪一步返工最多、原因是什么。"},
+    {"id": "s08", "title": "从终检退回上一段的规则", "url": "https://example.org/rollback", "date": "2026-05-16", "tier": "primary", "quote": "终检只做否决，不直接改稿，退回责任段处理。"}
+  ],
+  "facts": [
+    {"id": "c01", "section": "先定选题", "statement": "选题段至少产出 10 个候选，再按三维分数取前 3 个。", "numbers": ["10", "3"], "source_ids": ["s01"], "example": "候选表同时记录搜索意图、竞争度与可写性，避免拍脑袋。"},
+    {"id": "c02", "section": "再搭证据", "statement": "证据台账至少登记 8 条来源，每条都要有日期与原文。", "numbers": ["8"], "source_ids": ["s02"], "example": "来源按一手、二手、三手分档，引用时标明档位。"},
+    {"id": "c03", "section": "细纲到草稿", "statement": "每节生成 3 个候选，多样性低于 0.6 就判失败。", "numbers": ["3", "0.6"], "source_ids": ["s04"], "example": "三条候选分别从结论、数字和反例进入，避免同一条轨道。"},
+    {"id": "c04", "section": "审稿与改写", "statement": "改写单元控制在 200 到 400 字，覆盖率必须是 100%。", "numbers": ["200", "400", "100"], "source_ids": ["s05"], "example": "每单元保留两到四个候选，数字与专名逐字核对。"},
+    {"id": "c05", "section": "终检与留痕", "statement": "终检记录 5 类门禁，任何一类失败都退回上一段。", "numbers": ["5"], "source_ids": ["s08"], "example": "留痕包括每段哈希、门禁结果与跨段一致性检查。"}
+  ]
+}

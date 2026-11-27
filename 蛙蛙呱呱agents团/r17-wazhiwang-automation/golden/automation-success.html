@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自动化成功链：工作流结构 / 重试策略 / 执行日志 · R17 蛙智网 · 自动化与集成官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>自动化成功链：工作流结构 / 重试策略 / 执行日志</h1>
+<p class="meta">R17 蛙智网 · 自动化与集成官 · 节点-连接-触发器 + 幂等/死信 + 成功/失败可追溯 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>工作流结构</td><td>integration.workflow</td><td>examples/workflow.json</td><td>b76256e4a95e53ff</td><td>661</td></tr>
+<tr><td>重试与死信</td><td>retry.retry</td><td>examples/retry.json</td><td>1091d0c8103bf4cc</td><td>157</td></tr>
+<tr><td>执行日志统计</td><td>audit.runlog</td><td>examples/runlog.json</td><td>b3a3a326e7ad6a74</td><td>570</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>工作流结构 · integration.workflow</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>node_count</td><td>3</td></tr>
+<tr><td>trigger_count</td><td>1</td></tr>
+<tr><td>dangling_edges</td><td>0</td></tr>
+<tr><td>narrative</td><td>工作流 acme-lead-sync：3 节点 / 1 触发器 / 悬空边 0</td></tr>
+</tbody></table>
+<h3>重试与死信 · retry.retry</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>retry_count</td><td>3</td></tr>
+<tr><td>idempotency_declared</td><td>是</td></tr>
+<tr><td>narrative</td><td>重试策略：max=3, timeout=5.0s, 幂等=True</td></tr>
+</tbody></table>
+<h3>执行日志统计 · audit.runlog</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>execution_count</td><td>2</td></tr>
+<tr><td>failed_count</td><td>1</td></tr>
+<tr><td>success_rate</td><td>0.5</td></tr>
+<tr><td>narrative</td><td>执行 2 次：成功 1 / 失败 1，成功率 0.5</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>工作流结构</td><td>workflow.size</td><td>OK</td><td class="pass">PASS</td><td>节点数 3 ≤ 上限 200</td></tr>
+<tr><td>工作流结构</td><td>workflow.node_required</td><td>OK</td><td class="pass">PASS</td><td>节点 name/type 齐备（异常 无）</td></tr>
+<tr><td>工作流结构</td><td>workflow.node_unique</td><td>OK</td><td class="pass">PASS</td><td>节点名唯一（重复 无）</td></tr>
+<tr><td>工作流结构</td><td>workflow.trigger</td><td>OK</td><td class="pass">PASS</td><td>至少 1 个触发器（找到 1）</td></tr>
+<tr><td>工作流结构</td><td>workflow.connections</td><td>OK</td><td class="pass">PASS</td><td>连接引用完整（悬空 无）</td></tr>
+<tr><td>工作流结构</td><td>workflow.no_secret</td><td>OK</td><td class="pass">PASS</td><td>无明文密钥（命中 无）</td></tr>
+<tr><td>重试与死信</td><td>retry.max_retries</td><td>OK</td><td class="pass">PASS</td><td>max_retries=3 在 [0,10]</td></tr>
+<tr><td>重试与死信</td><td>retry.timeout</td><td>OK</td><td class="pass">PASS</td><td>timeout_s=5.0 ≥ 1</td></tr>
+<tr><td>重试与死信</td><td>retry.idempotency</td><td>OK</td><td class="pass">PASS</td><td>写操作 &#x27;create&#x27; 已声明幂等（key/去重）</td></tr>
+<tr><td>重试与死信</td><td>retry.dead_letter</td><td>OK</td><td class="pass">PASS</td><td>有死信或告警路径（dead_letter=True, notify=False）</td></tr>
+<tr><td>执行日志统计</td><td>runlog.count</td><td>OK</td><td class="pass">PASS</td><td>执行 2 次</td></tr>
+<tr><td>执行日志统计</td><td>runlog.status</td><td>OK</td><td class="pass">PASS</td><td>执行状态白名单（异常 无）</td></tr>
+<tr><td>执行日志统计</td><td>runlog.evidence</td><td>OK</td><td class="pass">PASS</td><td>执行证据齐备（缺 无）</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">综合结论：自动化与重放门禁全绿</p>
+<p>工作流节点/连接无悬空边、触发器合法且无明文密钥；重试上限/超时/幂等/死信齐备；执行日志成功与失败均可追溯，构成一次成功运行的证据链。</p>
+<p class="note">R17 装配管道与校验结构，不发明业务规则、不硬编码凭据；生产发布须人工审批。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实技能生成，可复算；R17 不擅自发布/重放生产流。</footer>
+</main>
+</body>
+</html>

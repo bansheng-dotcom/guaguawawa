@@ -26,6 +26,8 @@ from skills import SKILLS, _common as c  # noqa: E402
 import contracts  # noqa: E402
 import review  # noqa: E402
 import cases as cases_mod  # noqa: E402
+sys.path.insert(0, os.path.join(HERE, "tests"))
+from test_thickness_samples import ThicknessSamples  # noqa: E402
 
 TOOL = os.path.join(HERE, "agent.py")
 EX = os.path.join(HERE, "examples")
@@ -637,7 +639,7 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
     suite = unittest.TestSuite()
     for cls in (T01, T02, T03, T04, T05, T06, T07, T08, T09, T10,
-                T11, T12, T13, T14):
+                T11, T12, T13, T14, ThicknessSamples):
         suite.addTests(loader.loadTestsFromTestCase(cls))
     runner = unittest.TextTestRunner(verbosity=2)
     res = runner.run(suite)

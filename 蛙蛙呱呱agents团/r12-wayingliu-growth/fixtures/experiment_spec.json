@@ -1,0 +1,20 @@
+{
+  "hypothesis": "新的结账页把下单转化率相对提升至少 8%",
+  "metric": "order_cvr",
+  "baseline_rate": 0.035,
+  "mde_rel": 0.08,
+  "alpha": 0.05,
+  "power": 0.8,
+  "daily_traffic": 4000,
+  "allocation": 0.5,
+  "sample_size_per_arm": 70229,
+  "observed_sample_size": 71000,
+  "claimed_significant": false,
+  "stop_conditions": [
+    "达到预注册样本量后统一分析，不做中途 peek",
+    "实验组贡献毛利连续两周为负即停止"
+  ],
+  "preregistered": true,
+  "preregistered_at": "2025-08-01T10:00:00+08:00",
+  "data_read_before_plan": false
+}

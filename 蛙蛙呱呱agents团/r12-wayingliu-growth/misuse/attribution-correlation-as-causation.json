@@ -1,0 +1,43 @@
+{
+  "stage": "attribution",
+  "denominator": {
+    "name": "converting_users",
+    "value": 690
+  },
+  "journeys": {
+    "users": 990,
+    "touches": 1500,
+    "converting_users": 690
+  },
+  "models": {
+    "first_touch": {
+      "sum_conversions": 690.0,
+      "sum_revenue": 151110.0,
+      "channels": {}
+    },
+    "last_touch": {
+      "sum_conversions": 690.0,
+      "sum_revenue": 151110.0,
+      "channels": {}
+    },
+    "linear": {
+      "sum_conversions": 690.0,
+      "sum_revenue": 151110.0,
+      "channels": {}
+    },
+    "position_based": {
+      "sum_conversions": 690.0,
+      "sum_revenue": 151110.0,
+      "channels": {}
+    }
+  },
+  "incrementality": {
+    "established": false,
+    "lift": null,
+    "ci": null,
+    "method": "not_run"
+  },
+  "causal_claim": true,
+  "note": "看到投放花费与收入同涨，就写成投放带来 100% 增量",
+  "gate_expected": "禁止把相关当因果"
+}

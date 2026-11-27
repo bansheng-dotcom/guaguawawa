@@ -23,8 +23,12 @@ if str(CHART_DIR) not in sys.path:
     sys.path.insert(0, str(CHART_DIR))
 
 import chart_lib  # noqa: E402
+from . import audit as chart_audit  # noqa: E402
 
-CATALOG: List[Dict[str, Any]] = list(chart_lib.CHART_INDEX)
+#: T10：目录增 level（quick/guided），生产默认 guided。
+CATALOG: List[Dict[str, Any]] = [
+    {**c, "level": chart_audit.level_of(c["key"])} for c in chart_lib.CHART_INDEX
+]
 RENDERERS: Dict[str, Any] = dict(chart_lib.RENDERERS)
 EXPECTED = 48
 

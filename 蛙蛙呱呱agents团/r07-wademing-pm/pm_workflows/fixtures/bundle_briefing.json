@@ -1,0 +1,51 @@
+{
+  "briefing": {
+    "project": {
+      "name": "自由职业者发票管家（0→1）",
+      "background": "三位自由职业者访谈显示月底开票与回款核对平均每月耗费 2~3 小时，且存在漏单。",
+      "goals": "验证自动发票草稿能否把单张准备时间从 25 分钟降到 10 分钟",
+      "current_state": "仅有手工 Excel 模板，POC 尚未启动",
+      "constraints": ["14 天内出 POC", "不接税务系统", "单人开发资源"],
+      "stakeholders": ["创始人", "自由职业者用户代表", "外部代账顾问"]
+    },
+    "options": [
+      {
+        "name": "A. 自动发票草稿 POC",
+        "description": "从项目记录自动生成草稿，保留手工修改与回滚入口。",
+        "pros": ["直接验证核心假设", "14 天可交付", "不改动现有开票流程"],
+        "cons": ["依赖用户维护项目记录", "票种先限定一种"],
+        "cost": "约 10 人日",
+        "risk": "低"
+      },
+      {
+        "name": "B. 先做回款看板",
+        "description": "把未回款项目集中展示，解决漏单。",
+        "pros": ["漏单痛点明确", "实现简单"],
+        "cons": ["不解决开票耗时主问题", "价值验证周期更长"],
+        "cost": "约 6 人日",
+        "risk": "中"
+      },
+      {
+        "name": "C. 直接对接代账公司",
+        "description": "把开票与对账外包给代账服务。",
+        "pros": ["无需自研", "专业合规"],
+        "cons": ["单用户成本高", "无法沉淀产品能力"],
+        "cost": "按单付费",
+        "risk": "中"
+      }
+    ],
+    "recommendation": {
+      "summary": "建议优先验证 A，B 作为备选，C 仅在合规需求出现时评估。",
+      "rationale": "A 直接命中访谈中最高频的开票耗时痛点，且 14 天内可完成 POC；B 可作为 A 的补充，但单独做无法验证主假设。",
+      "decision_owner": "创始人",
+      "open_questions": [
+        "是否接受先限定单一票种？",
+        "POC 用户从现有 3 位访谈对象中选还是另招 6 位？"
+      ]
+    },
+    "backlinks": [
+      {"kind": "discovery_pack", "ref": "discovery_pack.json#opp1"},
+      {"kind": "prd_pack", "ref": "prd_pack.json#scope"}
+    ]
+  }
+}

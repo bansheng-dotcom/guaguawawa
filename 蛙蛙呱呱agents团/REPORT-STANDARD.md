@@ -273,3 +273,13 @@ F5 有边界节、F6 末节口径与分数、F7 图有来源、F8 无 JSON 回�
 `workspace/_archive/report-lines-2026-11-15.tar.gz`、
 `workspace/_archive/report-docs-2026-11-15.tar.gz`、
 `workspace/_archive/_report_specs_snapshot/`。
+
+---
+
+## 十、版式契约与视觉评审（2026-11-27）
+
+- 版式底线与标准：`docs/REPORT-DESIGN-CONTRACT.md` 的 P1–P12；机器门禁 `scripts/check_report_presentation.py`。
+- 风格包：`styles/editorial-evidence-report/`（研究/诊断长报告）与 `styles/internet-reporting/`（经营/增长汇报），每套含 `page_style.yaml`、`global_prompt.md`、`sample.html`。
+- 人读评审：`docs/REPORT-VISUAL-REVIEW.md` 的 V1–V10，黄金报告逐条签字后才可被引用。
+- 图表：48 型目录带 `level`（quick/guided）；六维审计见 `core/charts/audit.py`，黄金 SVG 在 `tests/fixtures/charts/`。
+- 不建议引入交互图表：静态 SVG 适配 A4 打印，交互只用于教学画廊。

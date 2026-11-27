@@ -327,6 +327,26 @@ def main() -> int:
     t.check("任务状态 done", done.status == "done")
     t.check("任务写回产物", len(done.outputs) >= 1, str(len(done.outputs)))
 
+    t.section("T12 机制：部署/回滚（版本锁 / 幂等 / 健康检查）")
+    import deploy_rollback as dr
+    e2e = dr.run_e2e(tempfile.mkdtemp(prefix="r08-e2e-"))
+    t.check("E2E 五步全按预期", e2e["ok"] is True,
+            str([s["outcome"] for s in e2e["steps"]]))
+    t.check("重复发布同版本 → 幂等 noop", e2e["steps"][1]["idempotent"] is True)
+    t.check("健康检查失败 → 自动回滚", e2e["steps"][2]["rolled_back"] is True
+            and e2e["steps"][2]["outcome"] == "auto_rolled_back")
+    t.check("人工回滚后版本锁一致", e2e["state"]["version"] == "mvp-1.1.0"
+            and e2e["health"]["ok"] is True)
+    for case in ("deploy-no-rollback.json", "version-lock-drift.json"):
+        _case_out = dr.check_case(os.path.join(HERE, "misuse", case))
+        t.check(f"误用 {case} 被拒", _case_out["rejected"] and _case_out["as_expected"],
+                str(_case_out["hit"]))
+    for name in ("mvp-delivery-pack.html", "mvp-rollback-record.html"):
+        html = open(os.path.join(HERE, "golden", name), encoding="utf-8").read()
+        t.check(f"黄金 {name}：A4/单主题/单 h1/表头齐",
+                "@page" in html and 'data-theme="light"' in html
+                and html.count("<h1") == 1 and "<thead" in html)
+
     t.section("T15 verify_loop 闭环矩阵")
     matrix = verify_loop.run_all()
     t.check("闭环 28 行全绿", matrix["ok"], f"passed={matrix['passed']}/{matrix['total']}")

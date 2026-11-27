@@ -505,6 +505,28 @@ def main() -> int:
             str(res2.get("skill")))
 
     # ------------------------------------------------------------------ #
+    t.section("T12 机制：交易状态机 / 幂等 / 对账")
+    import commerce_fsm as _cf
+    _chains = _cf.demo_chains()
+    t.check("三条交易链全部关闭", all(c["ok"] and c["status"] == "closed" for c in _chains),
+            str([(c["chain"], c["ok"], c["status"]) for c in _chains]))
+    _codes = {v["code"] for v in _chains[2]["violations"]}
+    t.check("超时重放链触发 T01+T03", _codes == {"T01_ILLEGAL_TRANSITION",
+                                                 "T03_DUPLICATE_CHARGE"}, str(_codes))
+    _rep = _cf.check_case(os.path.join(HERE, "misuse", "illegal-transition.json"))
+    t.check("误用 未支付发货 被拒", _rep["rejected"] and _rep["as_expected"], str(_rep["hit"]))
+    _rep = _cf.check_case(os.path.join(HERE, "misuse", "duplicate-charge.json"))
+    t.check("误用 同键换额重复扣款 被拒", _rep["rejected"] and _rep["as_expected"],
+            str(_rep["hit"]))
+    _recon = _cf.reconcile(_cf.RECON_ORDERS, _cf.RECON_PAYMENTS)
+    t.check("对账五类差异各 1 项", _recon["diff_total"] == 5
+            and all(v == 1 for v in _recon["counts"].values()), str(_recon["counts"]))
+    for _name in ("commerce-state-machine.html", "commerce-reconciliation.html"):
+        _html = open(os.path.join(HERE, "golden", _name), encoding="utf-8").read()
+        t.check(f"黄金 {_name}：A4/单主题/单 h1/表头齐",
+                "@page" in _html and 'data-theme="light"' in _html
+                and _html.count("<h1") == 1 and "<thead" in _html)
+
     t.section("T15 verify_loop 闭环矩阵")
     matrix = verify_loop.run_all()
     bad_rows = [r["skill"] + ":" + ",".join(r.get("notes", []))

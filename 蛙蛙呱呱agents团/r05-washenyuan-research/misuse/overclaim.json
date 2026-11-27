@@ -1,0 +1,34 @@
+{
+  "misuse_id": "misuse-overclaim",
+  "expected_gate": "tri:two_sources_or_single",
+  "why": "只有 1 条单源证据，却把结论写成 high 且不标 single_source，属于结论超出证据。",
+  "artifact": "synthesis",
+  "conclusions": [
+    {
+      "id": "C1",
+      "subquestion_id": "SQ1",
+      "text": "需求已经被充分验证，可以立即放量",
+      "confidence": "high",
+      "source_ids": ["S01"],
+      "source_types": ["primary"],
+      "evidence_ids": ["E01"],
+      "verified_count": 1,
+      "evidence_count": 1,
+      "single_source": false
+    }
+  ],
+  "contradictions": [],
+  "evidence_index": [
+    {
+      "evidence_id": "E01",
+      "subquestion_id": "SQ1",
+      "source_id": "S01",
+      "source_type": "primary",
+      "series": "家庭数",
+      "metric": "城镇养宠家庭数",
+      "value": 1.2,
+      "unit": "亿户"
+    }
+  ],
+  "summary": {"conclusion_count": 1, "high": 1, "single_source": 0, "contradiction_count": 0}
+}

@@ -6,6 +6,14 @@
     "input": {
       "resolve": "task_port",
       "question": "研究物料/输入文件在哪？"
+    },
+    "fixture": {
+      "resolve": "file",
+      "question": "研究链夹具 JSON 在哪？"
+    },
+    "out_dir": {
+      "resolve": "dir",
+      "question": "研究链产物写到哪个目录？"
     }
   },
   "lexicon": {
@@ -312,6 +320,38 @@
     ],
     "tam-mc.run": [
       "input"
+    ],
+    "chain.scope": [
+      "topic"
+    ],
+    "chain.source": [
+      "topic"
+    ],
+    "chain.collect": [
+      "fixture"
+    ],
+    "chain.verify": [
+      "fixture"
+    ],
+    "chain.triangulate": [
+      "fixture"
+    ],
+    "chain.size": [
+      "fixture"
+    ],
+    "chain.compete": [
+      "competitor_set",
+      "topic"
+    ],
+    "chain.report": [
+      "fixture"
+    ],
+    "chain.run": [
+      "fixture"
+    ],
+    "chain.audit": [
+      "out_dir",
+      "fixture"
     ]
   },
   "l2_prompt_blocks": [
@@ -529,6 +569,96 @@
       "skill": "tam-mc",
       "action": "tam-mc",
       "defaults": {}
+    },
+    {
+      "when": ["研究链拆解"],
+      "skill": "chain",
+      "action": "scope",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["源地图"],
+      "skill": "chain",
+      "action": "source",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["证据采集"],
+      "skill": "chain",
+      "action": "collect",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["证据验证"],
+      "skill": "chain",
+      "action": "verify",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["三角验证"],
+      "skill": "chain",
+      "action": "triangulate",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["双口径测算"],
+      "skill": "chain",
+      "action": "size",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["五力分析"],
+      "skill": "chain",
+      "action": "compete",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["研究简报"],
+      "skill": "chain",
+      "action": "report",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["八段研究"],
+      "skill": "chain",
+      "action": "run",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
+    },
+    {
+      "when": ["交付审计"],
+      "skill": "chain",
+      "action": "audit",
+      "defaults": {
+        "fixture": {"__path__": "fixtures/pet_smart_hardware.json"},
+        "out_dir": {"__path__": "artifacts/chain"}
+      }
     }
   ]
 }

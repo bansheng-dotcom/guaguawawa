@@ -473,6 +473,38 @@ check("runlog 有记录（skill/action/exit_code）",
       bool(rl) and "skill" in rl[0] and "exit_code" in rl[0])
 
 # --------------------------------------------------------------------------- #
+print("== T12 机制：报告级运行账本 run-manifest ==")
+import run_manifest as rm  # noqa: E402
+
+_r = run_cli(["runmanifest", "goldens"])
+_g = parse_result(_r.stdout) or {}
+check("runmanifest goldens 重建并校验 PASS", _r.returncode == 0 and _g.get("ok") is True,
+      json.dumps(_g.get("violations", []), ensure_ascii=False)[:300])
+
+_r = run_cli(["runmanifest", "verify", "--file", "golden/run-manifest.json",
+              "--dir", "golden"])
+_v = parse_result(_r.stdout) or {}
+check("账本 8 阶段 / 9 工件全过", _r.returncode == 0 and _v.get("stages") == 8
+      and _v.get("artifacts") == 9, json.dumps(_v.get("violations", []), ensure_ascii=False)[:300])
+
+_r = run_cli(["runmanifest", "trace", "--file", "golden/run-manifest.json"])
+_t = parse_result(_r.stdout) or {}
+check("逐步可追（每步有决策与工件）", _t.get("count") == 8
+      and all(s.get("decision") for s in _t.get("steps", [])))
+
+for _case in ("manifest-missing-sha.json", "manifest-untraceable-and-unsigned.json"):
+    _r = run_cli(["runmanifest", "check", "--case", os.path.join("misuse", _case)])
+    _c = parse_result(_r.stdout) or {}
+    check(f"误用 {_case} 被拒", _r.returncode == 0 and _c.get("rejected") is True
+          and _c.get("as_expected") is True, json.dumps(_c.get("hit"), ensure_ascii=False))
+
+for _name in ("decision-pack.html", "run-manifest.html"):
+    _html = open(os.path.join(HERE, "golden", _name), encoding="utf-8").read()
+    check(f"黄金 {_name}：A4/单主题/单 h1/表头齐",
+          "@page" in _html and 'data-theme="light"' in _html
+          and _html.count("<h1") == 1 and "<thead" in _html)
+
+# --------------------------------------------------------------------------- #
 for leftover in [f for f in os.listdir(HERE)
                  if f.startswith("tmp") and f.endswith(".json")]:
     os.remove(os.path.join(HERE, leftover))

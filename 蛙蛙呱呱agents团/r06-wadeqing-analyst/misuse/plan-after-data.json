@@ -1,0 +1,31 @@
+{
+  "artifact": "analysis_plan",
+  "metric": "profit",
+  "grain": "day",
+  "window": "近90天",
+  "before": "2026-06-01",
+  "after": "2026-09-28",
+  "split": "2026-07-31",
+  "dimensions": ["channel"],
+  "preregistered": true,
+  "data_read_before_plan": true,
+  "rows": 18000,
+  "rounds": [
+    {
+      "round": 1,
+      "hypothesis_id": "H1",
+      "analytical_step": "decomposition",
+      "question": "折扣变化是否解释利润变化",
+      "query_spec": {
+        "metrics": ["profit"],
+        "group_by": ["channel"],
+        "date_range": {"start": "2026-06-01", "end": "2026-09-28", "split": "2026-07-31"},
+        "filters": [],
+        "grain": "day"
+      },
+      "expected_output": {"format": "table", "required_fields": ["segment", "value", "delta"]},
+      "acceptance_criteria": {"min_rows": 30, "all_required_fields": true},
+      "stop_condition": {"if_impact_below_pct": 3.0, "reason": "低于阈值停止"}
+    }
+  ]
+}

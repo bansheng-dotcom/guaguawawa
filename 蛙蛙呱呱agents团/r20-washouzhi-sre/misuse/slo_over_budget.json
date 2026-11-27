@@ -1,0 +1,7 @@
+{
+  "_violation": "错误预算透支：30 天 99.9% SLO 允许停机 43.2 分钟，已停机 60 分钟，剩余 -16.8 分钟；故意触发 s08_slo 的 slo:budget 门禁（透支不得 ok=true）。",
+  "slo": 99.9,
+  "window_days": 30,
+  "requests": 1000000,
+  "downtime_min": 60.0
+}

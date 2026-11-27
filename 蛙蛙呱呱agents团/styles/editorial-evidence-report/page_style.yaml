@@ -1,0 +1,45 @@
+# styles/editorial-evidence-report/page_style.yaml
+# 编辑式证据报告：研究/诊断类长报告，证据优先、版面克制。
+style_id: editorial-evidence-report
+name: 编辑式证据报告
+use_when:
+  - 行业研究 / 市场测算 / 竞品分析
+  - 利润下滑、增长归因等诊断报告
+  - 需要“结论 → 证据 → 边界”逐层展开的长文
+not_for:
+  - 指标密集的经营日报（用 internet-reporting）
+  - 需要大量并排 KPI 的汇报页
+measure:
+  max_width_px: 820
+  line_height_body: 1.6
+  line_height_heading: 1.3
+type_scale:
+  h1: 30px
+  h2: 20px
+  body: 15px
+  caption: 12px
+color_semantics:
+  ink: "#1F2D33"
+  muted: "#5B6B73"
+  paper: "#FFFFFF"
+  rule: "#DDE3E7"
+  signal_bad: "#B3261E"
+  signal_warn: "#8A5A00"
+  signal_good: "#1E6B3A"
+chart:
+  palette: 单色阶 + 一个语义强调色
+  emphasis_rule: 只强调结论指向的那一条系列；其余用灰阶
+  annotation: 必须避让；标注与数据点间距 ≥ 8px
+  forbidden: [渐变背景, 3D, 阴影, 双 Y 轴（除非量纲不可换算且已注明）]
+tables:
+  header: 语义表头 + 单位行
+  numeric_align: right
+  empty_value: "—（并注明缺失原因）"
+print:
+  page: A4
+  margin_mm: 16
+  avoid_break_inside: [figure, table, .callout]
+copy_rules:
+  - 每节先结论，再证据，再边界
+  - 不用“显著提升/全面赋能”等无口径形容词
+  - 每个数字必须能回到来源或台账

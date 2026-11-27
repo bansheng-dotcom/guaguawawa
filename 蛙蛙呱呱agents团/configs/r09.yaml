@@ -39,6 +39,11 @@ knowledge_map:
   - references/s07/methodology.md
   special:
   - references/s08/methodology.md
+  chain:
+  - references/adr-and-tradeoffs.md
+  - references/openapi-contract.md
+  - references/security-stride-asvs.md
+  - references/sre-slo-dora.md
   charter:
   - references/00-capability-charter.md
 keyword_map:
@@ -87,3 +92,14 @@ keyword_map:
   - 工具服务
   - godot
   - 游戏脚本
+  chain:
+  - adr
+  - 架构决策
+  - openapi
+  - rfc 7807
+  - 契约测试
+  - stride
+  - asvs
+  - slo
+  - dora
+  - 12-factor

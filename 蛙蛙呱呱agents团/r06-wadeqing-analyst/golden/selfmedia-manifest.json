@@ -1,0 +1,135 @@
+{
+  "artifact": "report_manifest",
+  "version": "1.0",
+  "generated_at": "2026-11-27T10:55:38+00:00",
+  "producer": "r06",
+  "author_role": "r01",
+  "requires_signoff": true,
+  "publishable": false,
+  "notice": "R06 分析链产出的报告草稿；签发与对外口径归 R01。",
+  "metric": "views",
+  "window": "近90天",
+  "claims": 8,
+  "bounded_modules": [
+    {
+      "claim_id": "C2",
+      "reason": "贡献低于停止阈值 3.0%",
+      "route": "drop"
+    },
+    {
+      "claim_id": "C3",
+      "reason": "贡献低于停止阈值 3.0%",
+      "route": "drop"
+    },
+    {
+      "claim_id": "C4",
+      "reason": "贡献低于停止阈值 3.0%",
+      "route": "drop"
+    },
+    {
+      "claim_id": "C5",
+      "reason": "贡献低于停止阈值 3.0%",
+      "route": "drop"
+    }
+  ],
+  "charts": [
+    "CH1",
+    "CH2",
+    "CH3"
+  ],
+  "units": [
+    "U1",
+    "U2",
+    "U3",
+    "U4"
+  ],
+  "quality": {
+    "ok": true,
+    "score": 100.0,
+    "profile": "baseline",
+    "failed": []
+  },
+  "trace": {
+    "ok": true,
+    "rate": 1.0,
+    "untraced": []
+  },
+  "presentation": {
+    "ok": true,
+    "errors": [],
+    "font_sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      21,
+      30
+    ]
+  },
+  "files": {
+    "report.html": "02578bf87f93114892d2dc48e14ac5accc022781f3661902df85bc148f44e231",
+    "analysis_material_pack.json": "ba578158fd3a98c6ae16d0efcc5f99447e5f4c49c13509454c732053d3895006",
+    "verification.json": "6a2389dfabd8a2fbe4ae99cb3837be48bda86c0563a8e3f1f0fd5939feb6598b",
+    "chart_spec_pack.json": "7677341db85bb8f10dad16022e69efe7fd07446708dc832d839ba636cef1b718",
+    "report_text_pack.json": "0ca4cc8afcda72e231d51ba5e8e8f4375489b96a7fe0e16728d17873804734ce"
+  },
+  "gate": {
+    "ok": true,
+    "grade": "PASS",
+    "stage": "deliver",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "图表渲染 3/3",
+        "dim": "render",
+        "sev": "OK",
+        "errors": []
+      },
+      {
+        "ok": true,
+        "msg": "图表数=3（≥2）",
+        "dim": "chart",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "业务单元=4",
+        "dim": "structure",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "结论可追率=100%",
+        "dim": "traceability",
+        "sev": "OK",
+        "untraced": []
+      },
+      {
+        "ok": true,
+        "msg": "报告质检 100.0 分（baseline）",
+        "dim": "quality",
+        "sev": "OK",
+        "failed": []
+      },
+      {
+        "ok": true,
+        "msg": "呈现层自检",
+        "dim": "presentation",
+        "sev": "OK",
+        "errors": []
+      },
+      {
+        "ok": true,
+        "msg": "bounded 模块未混入正文",
+        "dim": "boundary",
+        "sev": "CRITICAL"
+      }
+    ],
+    "errors": [],
+    "blockers": [],
+    "warnings": []
+  },
+  "ok": true,
+  "grade": "PASS"
+}

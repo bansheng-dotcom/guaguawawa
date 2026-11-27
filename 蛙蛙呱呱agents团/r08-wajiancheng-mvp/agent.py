@@ -134,6 +134,19 @@ def build_parser() -> argparse.ArgumentParser:
     la = sp.add_parser("local-check", help="本地项目文件/骨架验收")
     la.add_argument("--input", required=True)
 
+    dp = sp.add_parser("deploy", help="部署/回滚机制：deploy / rollback / e2e / check / goldens")
+    da = dp.add_subparsers(dest="dcmd", required=True)
+    dd = da.add_parser("deploy", help="按 manifest 部署（版本锁/幂等/健康检查）")
+    dd.add_argument("--manifest", required=True)
+    dd.add_argument("--dir", required=True)
+    drp = da.add_parser("rollback", help="回滚到版本锁记录的上一版")
+    drp.add_argument("--dir", required=True)
+    de = da.add_parser("e2e", help="1 个可部署 MVP 的模拟 E2E")
+    de.add_argument("--dir", default=None)
+    dc = da.add_parser("check", help="跑一个误用样本")
+    dc.add_argument("--case", required=True)
+    da.add_parser("goldens", help="重建 golden 交付包与回滚记录")
+
     ev_p = sp.add_parser("evolve", help="十维演进元模型引擎调度 (L01~L10)")
     ev_sub = ev_p.add_subparsers(dest="subcmd", required=True)
     ev_sub.add_parser("probe", help="L01: 探测引擎健康状态")
@@ -441,6 +454,21 @@ def main() -> int:
         out = inspect_scaffold(source, os.path.dirname(os.path.abspath(args.input)))
         emit_result(out)
         return 0 if out["ok"] else 1
+    if args.skill == "deploy":
+        import deploy_rollback as dr
+        if args.dcmd == "goldens":
+            out = dr.build_goldens()
+        elif args.dcmd == "deploy":
+            out = dr.deploy(dr.load_json(args.manifest), args.dir)
+        elif args.dcmd == "rollback":
+            out = dr.rollback(args.dir)
+        elif args.dcmd == "e2e":
+            out = dr.run_e2e(args.dir)
+        else:
+            out = dr.check_case(args.case)
+            out["ok"] = bool(out.get("as_expected"))
+        emit_result(out)
+        return 0 if out.get("ok") else 1
     if args.skill == "harness":
         out = _run_harness(args)
         emit_result(out)

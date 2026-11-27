@@ -1,0 +1,32 @@
+{
+  "_expected_gate": "discovery.problem_real.not_desire_only",
+  "_why": "只有「用户想要」的愿望句，没有任何过去行为或替代方案证据，不能当作需求成立。",
+  "topic": "用户想要一个更炫的首页",
+  "interviews": [
+    {"persona": "访问用户", "quote": "用户想要更炫的首页动画", "date": "2026-10-01"},
+    {"persona": "访问用户", "quote": "希望能加一个更漂亮的背景", "date": "2026-10-02"},
+    {"persona": "访问用户", "quote": "最好有更酷的转场效果", "date": "2026-10-03"}
+  ],
+  "job_story": {
+    "situation": "打开首页",
+    "motivation": "觉得好看",
+    "outcome": "看到更炫的效果"
+  },
+  "opportunities": [
+    {"id": "opp1", "statement": "增加首页动画", "evidence": "用户想要", "impact": 5, "selected": true},
+    {"id": "opp2", "statement": "更换背景图", "evidence": "希望有", "impact": 4, "selected": false},
+    {"id": "opp3", "statement": "增加转场", "evidence": "最好有", "impact": 3, "selected": false}
+  ],
+  "hypotheses": [
+    {"id": "h1", "statement": "用户想要更炫的首页", "disproof": "如果用户说不喜欢就不成立", "test": "问用户"},
+    {"id": "h2", "statement": "更炫的首页能提升留存", "disproof": "如果留存没有提升就不成立", "test": "看数据"}
+  ],
+  "poc": {
+    "name": "炫酷首页",
+    "scope": "加动画",
+    "duration_days": 7,
+    "success_metric": "好看程度",
+    "threshold": "用户说好看",
+    "rollback_plan": "回滚"
+  }
+}

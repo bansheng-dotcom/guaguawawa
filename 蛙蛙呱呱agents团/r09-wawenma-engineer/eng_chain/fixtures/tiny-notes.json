@@ -1,0 +1,348 @@
+{
+  "project": "tiny-notes",
+  "requirements": {
+    "problem": "团队需要一个可离线运行的极简笔记服务，支持登录、创建、搜索与删除笔记。",
+    "constraints": [
+      "只允许 Python 标准库，不新增第三方依赖",
+      "单机 SQLite 存储，零外部服务",
+      "所有写操作与迁移必须可回滚"
+    ],
+    "options": [
+      {
+        "name": "单体 FastAPI + SQLite",
+        "pros": ["一条命令启动", "离线可跑", "迁移面小"],
+        "cons": ["并发写受限", "横向扩展需要重写存储层"]
+      },
+      {
+        "name": "前后端分离 + PostgreSQL",
+        "pros": ["并发能力强", "生态成熟"],
+        "cons": ["需要额外运维", "离线演示成本高"]
+      },
+      {
+        "name": "纯静态本地文件存储",
+        "pros": ["零依赖", "实现最快"],
+        "cons": ["无鉴权模型", "无法支撑多人协作"]
+      }
+    ],
+    "decision": "单体 FastAPI + SQLite",
+    "rationale": "当前是单人团队与离线演示场景，优先零运维与可回滚，而不是并发上限。"
+  },
+  "adr": {
+    "number": "ADR-001",
+    "status": "accepted"
+  },
+  "modules": [
+    {
+      "name": "notes-api",
+      "owns": "HTTP 路由、参数校验、RFC 7807 错误响应",
+      "does_not_own": "SQL 执行与索引设计"
+    },
+    {
+      "name": "notes-store",
+      "owns": "SQLite 表结构、查询与迁移脚本",
+      "does_not_own": "会话与鉴权"
+    },
+    {
+      "name": "notes-auth",
+      "owns": "JWT 签发、校验与受保护路由装饰器",
+      "does_not_own": "业务字段级权限（由 api 层判断）"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "choice": "SQLite 单文件存储",
+      "gain": "零运维、备份即复制文件",
+      "cost": "并发写串行化",
+      "mitigation": "写操作走单队列，压测确认 p95 达标"
+    },
+    {
+      "choice": "JWT 无状态鉴权",
+      "gain": "服务端无需会话表",
+      "cost": "登出无法即时失效",
+      "mitigation": "短过期时间 + 关键操作二次校验"
+    },
+    {
+      "choice": "单体部署",
+      "gain": "发布与回滚只有一步",
+      "cost": "故障域集中",
+      "mitigation": "健康检查 + 一版本回滚镜像"
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "User",
+        "fields": [
+          {"name": "id", "type": "string", "required": true},
+          {"name": "email", "type": "string", "required": true},
+          {"name": "password_hash", "type": "string", "required": true},
+          {"name": "created_at", "type": "string", "required": true}
+        ]
+      },
+      {
+        "name": "Note",
+        "fields": [
+          {"name": "id", "type": "string", "required": true},
+          {"name": "owner_id", "type": "string", "required": true},
+          {"name": "title", "type": "string", "required": true},
+          {"name": "body", "type": "string", "required": false},
+          {"name": "search_text", "type": "string", "required": false},
+          {"name": "created_at", "type": "string", "required": true}
+        ]
+      }
+    ]
+  },
+  "api": {
+    "base_path": "/api/v1",
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/notes",
+        "summary": "创建笔记",
+        "request": "CreateNote",
+        "response": "Note",
+        "errors": ["validation_error", "unauthenticated"]
+      },
+      {
+        "method": "GET",
+        "path": "/notes",
+        "summary": "列出我的笔记",
+        "request": null,
+        "response": "NoteList",
+        "errors": ["unauthenticated"]
+      },
+      {
+        "method": "GET",
+        "path": "/notes/search",
+        "summary": "按关键词搜索笔记",
+        "request": null,
+        "response": "NoteList",
+        "errors": ["unauthenticated", "validation_error"]
+      },
+      {
+        "method": "DELETE",
+        "path": "/notes/{id}",
+        "summary": "删除笔记",
+        "request": null,
+        "response": null,
+        "errors": ["unauthenticated", "not_found", "forbidden"]
+      }
+    ],
+    "error_codes": [
+      {"code": "validation_error", "title": "请求校验失败", "status": 422},
+      {"code": "unauthenticated", "title": "未登录或凭证失效", "status": 401},
+      {"code": "not_found", "title": "资源不存在", "status": 404},
+      {"code": "forbidden", "title": "无权访问该资源", "status": 403}
+    ],
+    "migration": {
+      "strategy": "expand-contract",
+      "reversible": true,
+      "approved_irreversible": false,
+      "steps": [
+        "新增可空列 notes.search_text",
+        "双写并回填历史数据",
+        "读路径切到 search_text",
+        "删除旧的 title LIKE 查询"
+      ],
+      "rollback": [
+        "把读路径开关切回 title LIKE",
+        "删除 notes.search_text 列"
+      ],
+      "backup_plan": "迁移前复制 SQLite 文件到 backups/pre-migration.db"
+    }
+  },
+  "feature": {
+    "story": "作为已登录成员，我要创建并搜索笔记，以便快速找回团队信息。",
+    "ui": ["NoteList", "NoteEditor", "SearchBar"],
+    "service": ["NotesService.create", "NotesService.search", "NotesService.delete"],
+    "state": ["notesStore", "authStore"],
+    "auth": ["JWT 校验中间件", "仅作者可删除"],
+    "acceptance": [
+      {"id": "AC-1", "given_when_then": "已登录用户提交合法笔记 → 201 且返回 Note"},
+      {"id": "AC-2", "given_when_then": "未登录创建 → 401 且 problem+json"},
+      {"id": "AC-3", "given_when_then": "搜索标题关键词 → 返回命中列表"},
+      {"id": "AC-4", "given_when_then": "删除他人笔记 → 403"}
+    ],
+    "runnable": {
+      "command": "python -m unittest discover -s . -p 'test_*.py'",
+      "expected": "OK（40 tests）"
+    },
+    "rollback": [
+      "关闭 feature flag notes.search",
+      "回滚 search_text 列新增",
+      "恢复上一版本制品"
+    ]
+  },
+  "tests": {
+    "pyramid": {"unit": 24, "integration": 8, "contract": 5, "e2e": 3},
+    "suites": {"skipped": 0, "failed": 0},
+    "contract_tests": [
+      {"id": "CT-1", "endpoint": "POST /notes", "schema": "CreateNote"},
+      {"id": "CT-2", "endpoint": "GET /notes", "schema": "NoteList"},
+      {"id": "CT-3", "endpoint": "GET /notes/search", "schema": "NoteList"},
+      {"id": "CT-4", "endpoint": "DELETE /notes/{id}", "schema": "Problem"},
+      {"id": "CT-5", "endpoint": "POST /notes", "schema": "Problem"}
+    ],
+    "e2e": [
+      {
+        "id": "E2E-1",
+        "scenario": "登录后创建并搜索笔记",
+        "steps": ["登录获取 token", "POST /notes", "GET /notes/search?q=计划"],
+        "expected": "列表包含新笔记",
+        "covers": ["AC-1", "AC-3"]
+      },
+      {
+        "id": "E2E-2",
+        "scenario": "未登录创建被拒",
+        "steps": ["不带 Authorization", "POST /notes"],
+        "expected": "401 problem+json",
+        "covers": ["AC-2"]
+      },
+      {
+        "id": "E2E-3",
+        "scenario": "删除他人笔记被拒",
+        "steps": ["用户 A 创建笔记", "用户 B 删除该笔记"],
+        "expected": "403 forbidden",
+        "covers": ["AC-4"]
+      }
+    ],
+    "coverage": {"main": true, "boundary": true, "failure": true}
+  },
+  "debug": {
+    "bug": "搜索接口在关键词为空时偶发 500",
+    "repro": [
+      "启动服务并插入 3 条含中文标题的笔记",
+      "携带合法 token 请求 GET /notes/search?q=",
+      "观察响应为 500 且日志出现 SQL 超时"
+    ],
+    "hypotheses": [
+      {
+        "id": "H1",
+        "claim": "空查询未校验，直接拼进 LIKE 导致全表扫描",
+        "test": "在 api 层打印 q 的长度并请求空串",
+        "result": "confirmed",
+        "evidence": "日志 q_len=0 且 EXPLAIN QUERY PLAN 显示 SCAN notes"
+      },
+      {
+        "id": "H2",
+        "claim": "SQLite 连接池耗尽",
+        "test": "并发 20 请求观察连接数",
+        "result": "rejected",
+        "evidence": "连接数始终为 1，无等待"
+      }
+    ],
+    "instrumentation": [
+      "notes.search 入口记录 q 的长度与是否为空",
+      "SQL 执行前后记录耗时与 EXPLAIN QUERY PLAN"
+    ],
+    "root_cause": "空查询未短路，LIKE '%%' 触发全表扫描并在大数据量下超时",
+    "fix": {
+      "summary": "q 为空时直接返回空列表，并给 search_text 建索引",
+      "minimal": true,
+      "files": ["notes/api.py", "notes/store.py"]
+    },
+    "regression": [
+      "新增空查询返回 200 空列表的单元测试",
+      "回归搜索主路径与分页边界"
+    ]
+  },
+  "release": {
+    "pipeline": [
+      {"stage": "lint", "command": "python -m compileall .", "gate": "无语法错误"},
+      {"stage": "test", "command": "python -m unittest discover", "gate": "40 测试全绿"},
+      {"stage": "security", "command": "python -m eng_chain.security --brief fixtures/tiny-notes.json", "gate": "无 high / 无泄漏"},
+      {"stage": "build", "command": "python -m build", "gate": "制品可安装"},
+      {"stage": "deploy", "command": "python scripts/deploy.py --version 1.4.0", "gate": "健康检查通过"},
+      {"stage": "verify", "command": "python scripts/smoke.py", "gate": "冒烟全绿"}
+    ],
+    "publish": {
+      "version": "1.4.0",
+      "artifact": "dist/tiny_notes-1.4.0.tar.gz",
+      "strategy": "rolling"
+    },
+    "version_lock": {"lockfile": "requirements.lock", "pinned": true},
+    "idempotency": {"key": "Idempotency-Key", "verified": true},
+    "rollback": {
+      "steps": ["切回 1.3.0 制品", "执行迁移回滚脚本"],
+      "tested": true
+    },
+    "replay": {
+      "command": "python -m eng_chain.runner --brief eng_chain/fixtures/tiny-notes.json --out-dir out/tiny-notes",
+      "deterministic": true
+    },
+    "tests": {"passed": 40, "failed": 0, "skipped": 0, "coverage": 0.86}
+  },
+  "security": {
+    "asvs_level": "L2",
+    "threats": [
+      {"category": "S", "asset": "登录接口", "threat": "伪造 JWT 冒充用户", "mitigation": "HS256 签名 + 过期校验 + 密钥轮换", "severity": "high"},
+      {"category": "T", "asset": "笔记写入", "threat": "篡改 owner_id 写入他人空间", "mitigation": "服务端从 token 取 owner_id，忽略请求体", "severity": "high"},
+      {"category": "R", "asset": "删除操作", "threat": "否认删除行为", "mitigation": "记录操作审计日志（用户/时间/ID）", "severity": "medium"},
+      {"category": "I", "asset": "笔记读取", "threat": "越权读取他人笔记", "mitigation": "所有查询强制 owner_id 过滤", "severity": "high"},
+      {"category": "D", "asset": "搜索接口", "threat": "超长 q 触发全表扫描", "mitigation": "q 长度上限 64 + search_text 索引", "severity": "medium"},
+      {"category": "E", "asset": "管理脚本", "threat": "普通用户调用迁移脚本", "mitigation": "脚本仅在运维环境可执行，应用不暴露", "severity": "high"}
+    ],
+    "asvs": [
+      {"id": "V2.1.1", "requirement": "密码长度至少 12 位", "status": "pass"},
+      {"id": "V3.2.1", "requirement": "会话令牌短过期且可吊销", "status": "pass"},
+      {"id": "V4.1.1", "requirement": "所有访问控制服务端强制", "status": "pass"},
+      {"id": "V5.1.1", "requirement": "输入长度与类型统一校验", "status": "pass"},
+      {"id": "V7.1.1", "requirement": "错误响应不含堆栈与密钥", "status": "pass"},
+      {"id": "V14.2.1", "requirement": "依赖锁定并扫描已知漏洞", "status": "pass"}
+    ],
+    "dependency_scan": {"tool": "pip-audit", "findings": 2, "high": 0},
+    "secret_scan": {"tool": "gitleaks", "findings": 0, "leaked": 0},
+    "handled_error_codes": ["validation_error", "unauthenticated", "not_found", "forbidden"]
+  },
+  "performance": {
+    "baseline": {"p95_ms": 180, "throughput_rps": 120},
+    "budget": {"p95_ms": 120, "throughput_rps": 150},
+    "profiling": [
+      "cProfile 包裹搜索接口定位热点函数",
+      "SQLite EXPLAIN QUERY PLAN 检查是否走索引"
+    ],
+    "optimizations": [
+      {"item": "为 search_text 建索引", "expected_gain": "p95 -40ms"},
+      {"item": "空查询短路返回", "expected_gain": "消除超时 500"}
+    ],
+    "measurement": {"method": "wrk -t2 -c10 -d30s", "noise": "连续 3 次取中位数"}
+  },
+  "incident": {
+    "title": "搜索超时导致 5xx 升高",
+    "severity": "SEV-2",
+    "timeline": [
+      {"t": "10:02", "event": "5xx 告警触发（阈值 1%）"},
+      {"t": "10:05", "event": "值班确认搜索接口 p95 超 3s"},
+      {"t": "10:09", "event": "回滚 feature flag notes.search"},
+      {"t": "10:14", "event": "错误率回落到 0.1%"},
+      {"t": "10:20", "event": "定位空查询全表扫描"}
+    ],
+    "root_cause": "空查询未短路，LIKE '%%' 触发全表扫描",
+    "actions": [
+      {"id": "A1", "owner": "r09", "due": "2026-12-01", "status": "done", "item": "补空查询校验与单测"},
+      {"id": "A2", "owner": "r09", "due": "2026-12-03", "status": "doing", "item": "为 search_text 建索引并压测"},
+      {"id": "A3", "owner": "r20", "due": "2026-12-05", "status": "todo", "item": "增加搜索错误率看板"}
+    ],
+    "slo": {"target": "99.9%", "window": "30d", "error_budget_min": 43.2, "consumed_min": 12.0},
+    "blameless": true,
+    "detection": {"mttd_min": 4, "mttr_min": 18}
+  },
+  "review": {
+    "checklist": [
+      {"item": "鉴权覆盖所有写接口", "status": "pass", "risk": "high"},
+      {"item": "越权查询有 owner_id 过滤", "status": "pass", "risk": "high"},
+      {"item": "错误响应不含堆栈/密钥", "status": "pass", "risk": "medium"},
+      {"item": "新增测试覆盖主路径/边界/失败态", "status": "pass", "risk": "medium"},
+      {"item": "迁移脚本具备回滚步骤", "status": "pass", "risk": "medium"},
+      {"item": "依赖锁定且无 high 漏洞", "status": "pass", "risk": "low"},
+      {"item": "公共函数命名与注释可维护", "status": "pass", "risk": "low"}
+    ],
+    "risk_level": "medium",
+    "security_reviewed": true,
+    "tests_reviewed": true,
+    "maintainability_notes": [
+      "搜索逻辑集中在 NotesService.search，避免路由层直接拼 SQL",
+      "错误码常量集中在 api/errors.py，便于安全清单对齐"
+    ]
+  }
+}

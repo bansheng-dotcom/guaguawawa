@@ -24,6 +24,8 @@ from . import s11_mmm
 
 from . import s12_power
 
+from . import s12_growth_chain
+
 SKILLS = [
     s01_diagnose,
     s02_loops,
@@ -37,6 +39,7 @@ SKILLS = [
     s10_ltv_cac,
     s11_mmm,
     s12_power,
+    s12_growth_chain,
 ]
 
 SKILL_BY_NAME = {m.NAME: m for m in SKILLS}

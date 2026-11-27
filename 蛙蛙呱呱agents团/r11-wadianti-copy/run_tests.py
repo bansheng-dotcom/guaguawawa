@@ -398,6 +398,21 @@ def main() -> int:
     except Exception as e:
         t.check("十维演进核心引擎加载与验证", False, str(e))
 
+    t.section("内容链七段（content_chain）")
+    try:
+        import importlib.util
+        import unittest
+        _path = os.path.join(HERE, "tests", "test_content_chain.py")
+        _spec = importlib.util.spec_from_file_location("r11_test_content_chain", _path)
+        _mod = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(_mod)
+        _suite = unittest.defaultTestLoader.loadTestsFromModule(_mod)
+        _res = unittest.TextTestRunner(verbosity=0).run(_suite)
+        t.check("content_chain 单测全绿", _res.wasSuccessful(),
+                f"run={_res.testsRun} failures={len(_res.failures)} errors={len(_res.errors)}")
+    except Exception as e:
+        t.check("content_chain 单测加载与运行", False, str(e))
+
     print(f"\n{'=' * 60}")
     print(f"通过 {t.passed} / {t.passed + t.failed}")
     if t.failed:

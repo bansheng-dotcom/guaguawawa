@@ -1,0 +1,56 @@
+{
+  "artifact": "frame",
+  "question": "9 月利润为什么下滑",
+  "decision_use": "决定是否调整促销预算",
+  "domain": "profit",
+  "metric": "profit",
+  "dimensions": ["channel"],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "driver": "time",
+      "label": "时间",
+      "statement": "9 月到了，所以利润下滑",
+      "falsifiable_if": "无法证伪：时间本身不提供机制",
+      "test": "trend_analysis",
+      "component": "收入",
+      "evidence_required": ["时间序列"],
+      "decision_if_true": "什么都不做",
+      "decision_if_false": "查其它原因",
+      "status": "unverified"
+    },
+    {
+      "id": "H2",
+      "driver": "volume",
+      "label": "销量",
+      "statement": "销量下滑解释利润下滑",
+      "falsifiable_if": "若销量变化 >-2% 则推翻",
+      "test": "decomposition",
+      "component": "收入",
+      "evidence_required": ["前后期销量"],
+      "decision_if_true": "恢复流量",
+      "decision_if_false": "销量不是主因",
+      "status": "unverified"
+    },
+    {
+      "id": "H3",
+      "driver": "unit_cost",
+      "label": "单位成本",
+      "statement": "单位成本上升解释利润下滑",
+      "falsifiable_if": "若单位成本变化 <1% 则推翻",
+      "test": "decomposition",
+      "component": "成本",
+      "evidence_required": ["前后期成本"],
+      "decision_if_true": "降本",
+      "decision_if_false": "成本不是主因",
+      "status": "unverified"
+    }
+  ],
+  "mece": {
+    "components": ["收入", "成本"],
+    "dimensions": ["channel"],
+    "mutually_exclusive": true,
+    "collectively_exhaustive": true
+  },
+  "decision_mapping": []
+}

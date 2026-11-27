@@ -215,6 +215,17 @@ CONTRACTS: Dict[str, Dict[str, Any]] = {
             "probe": _out(["status"]),
         },
     },
+    "growth_chain": {
+        "desc": "七段增长链：诊断/实验/归因/留存/付费/自媒体/MMM + run/audit",
+        "input": {a: {"type": "object"} for a in (
+            "diagnose", "experiment", "attribution", "retention", "paid",
+            "selfmedia", "mmm", "run", "audit")},
+        "output": {
+            a: _out(["artifact"]) for a in (
+                "diagnose", "experiment", "attribution", "retention", "paid",
+                "selfmedia", "mmm", "run", "audit")
+        },
+    },
 }
 
 

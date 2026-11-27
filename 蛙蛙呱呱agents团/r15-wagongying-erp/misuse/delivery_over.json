@@ -1,0 +1,9 @@
+{
+  "_violation": "履约超发：发货 12 件 > 订单 10 件，故意触发 fulfillment.delivery 的 delivery.over_delivery 门禁（超发=白送/账实不符）。",
+  "id": "DN-BAD-001",
+  "customer": "客户A",
+  "status": "To Bill",
+  "items": [
+    {"item_code": "FG-001", "qty": 12, "against_qty": 10}
+  ]
+}

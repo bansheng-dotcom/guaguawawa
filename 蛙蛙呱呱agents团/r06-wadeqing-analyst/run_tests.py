@@ -570,6 +570,67 @@ def main():
               f"  contract={'OK' if r.get('contract_ok') else 'X'}"
               f"  review={r.get('review_verdict')}")
 
+    # 6.5) T8a 分析链：三份预埋真因数据集端到端 + 审计 + 契约
+    print("\n== 6.5) 分析链 T8a：frame→plan→profile→explore→explain→test ==")
+    chain_cases = [
+        ("retail", "9月利润为什么下滑", "analysis-retail", "profit", "profit",
+         ["--dimensions", "channel,category", "--qty", "qty", "--date", "date",
+          "--before", "2026-06-01", "--after", "2026-09-28", "--split", "2026-07-31"],
+         "抖音"),
+        ("saas", "客户流失风险为什么上升", "analysis-saas", "churn_flag", "churn",
+         ["--dimensions", "onboarding,plan", "--date", "month",
+          "--before", "2025-01", "--after", "2026-12", "--split", "2025-12"],
+         "pending"),
+        ("selfmedia", "播放量为什么增长", "analysis-selfmedia", "views", "growth",
+         ["--dimensions", "platform,account", "--qty", "posts", "--date", "date",
+          "--before", "2026-07-01", "--after", "2026-09-28", "--split", "2026-08-15"],
+         "抖音"),
+    ]
+    for name, question, case_dir, metric, domain, extra, expect in chain_cases:
+        out_dir = os.path.join(role_workspace(HERE), f"_tmp_chain_{name}")
+        data = os.path.join(HERE, "cases", case_dir, "data.csv")
+        res = must_pass(f"chain.run[{name}]",
+                        ["chain", "run", "--question", question, "--input", data,
+                         "--out-dir", out_dir, "--metric", metric, "--domain", domain,
+                         *extra], parse=True)
+        must_check(f"chain.run[{name}].ok", bool(res and res.get("ok")),
+                   f"grade={res.get('grade') if res else None}")
+        audit = must_pass(f"chain.audit[{name}]", ["chain", "audit", "--dir", out_dir],
+                          parse=True)
+        must_check(f"chain.audit[{name}].ok", bool(audit and audit.get("ok")))
+        ex_path = os.path.join(out_dir, "explanation.json")
+        if os.path.exists(ex_path):
+            with open(ex_path, encoding="utf-8") as f:
+                ex = json.load(f)
+            must_check(f"chain.truth[{name}]", expect in ex.get("top_driver", ""),
+                       f"top={ex.get('top_driver')}")
+        must_pass(f"chain.contract[{name}]",
+                  ["contract", "validate", "--skill", "chain", "--action", "run",
+                   "--output", os.path.join(out_dir, "chain_manifest.json")])
+
+    # 6.6) T8b 报告链：CoV → chart → write → deliver（复用 6.5 的 retail 链条）
+    print("\n== 6.6) 报告链 T8b：verify→chart→write→deliver ==")
+    rep_dir = os.path.join(role_workspace(HERE), "_tmp_chain_retail")
+    must_pass("report.verify", ["chain", "verify", "--dir", rep_dir])
+    must_pass("report.chart", ["chain", "chart", "--dir", rep_dir])
+    must_pass("report.write", ["chain", "write", "--dir", rep_dir])
+    deliv = must_pass("report.deliver", ["chain", "deliver", "--dir", rep_dir], parse=True)
+    must_check("report.deliver.ok", bool(deliv and deliv.get("ok")),
+               f"grade={deliv.get('grade') if deliv else None}")
+    rep_html = os.path.join(rep_dir, "report", "report.html")
+    rep_man = os.path.join(rep_dir, "report", "manifest.json")
+    must_check("report.html", os.path.exists(rep_html))
+    if os.path.exists(rep_man):
+        with open(rep_man, encoding="utf-8") as f:
+            _m = json.load(f)
+        must_check("report.author_role=r01", _m.get("author_role") == "r01")
+        must_check("report.not_publishable", _m.get("publishable") is False)
+        must_check("report.trace=100%", (_m.get("trace") or {}).get("rate") == 1.0)
+        must_check("report.quality=ok", bool((_m.get("quality") or {}).get("ok")))
+        must_pass("report.contract",
+                  ["contract", "validate", "--skill", "chain", "--action", "deliver",
+                   "--output", rep_man])
+
     # 7) 十维演进集成回归套件 (L01~L10)
     print("\n== 7) 十维演进元模型集成测试套件 (L01~L10 Dual Zero-Regression Gate) ==")
     import unittest

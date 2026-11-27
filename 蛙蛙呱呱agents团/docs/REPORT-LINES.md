@@ -195,6 +195,38 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 `configs/role_report_specs.json`、`datasets/ports/`、`pipelines/out/`。
 详见 git 历史中的 2026-11 大清理提交。
 
+### R06 分析链（T8a，2026-11-27）：报告的上游证据层，不是新报告线
+
+```bash
+python guagua.py call r06 chain run --question "9月利润为什么下滑" \
+  --input <csv> --out-dir <目录> --before 2026-06-01 --after 2026-09-28 \
+  --split 2026-07-31 --dimensions channel,category --qty qty
+python guagua.py call r06 chain audit --dir <目录>          # 哈希/门禁/跨段一致复核
+python scripts/check_analysis_chain.py --selftest          # 三份预埋真因数据集（CI）
+```
+
+产出 6 个工件：`frame.json`（可证伪假设）→ `analysis_plan.json`（预注册）→
+`data_profile.json`（六维质量）→ `findings.json`（分母一致）→ `explanation.json`
+（驱动树/量价/替代解释）→ `stats.json`（效应量/CI/Holm），外加 `chain_manifest.json`。
+报告仍只由 R01 出具；R06 只交这条链的产物，T8b 报告链见下。
+
+### R06 报告链（T8b，2026-11-27）：R06 产草稿，R01 签发
+
+```bash
+python guagua.py call r06 chain report --question "9月利润为什么下滑" \
+  --input <csv> --out-dir <目录> --before 2026-06-01 --after 2026-09-28 \
+  --split 2026-07-31 --dimensions channel,category --qty qty
+python guagua.py call r06 chain verify  --dir <目录>   # CoV 六问 + 回流码
+python guagua.py call r06 chain chart   --dir <目录>   # claim-bound 图表规格
+python guagua.py call r06 chain write   --dir <目录>   # 文字包 + 对抗评审
+python guagua.py call r06 chain deliver --dir <目录>   # report.html + manifest + 事件
+python scripts/check_claim_trace.py --report <html> --evidence <目录>
+python scripts/check_chart_fail_if_missing.py --spec <目录>/chart_spec_pack.json --report <html>
+```
+
+边界：`manifest.json` 固定 `author_role=r01`、`publishable=false`、`requires_signoff=true`；
+R06 只产待签发草稿，对外口径与签发归 R01。
+
 ## 五、验收
 
 ```bash

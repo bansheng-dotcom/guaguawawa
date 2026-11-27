@@ -1,0 +1,16 @@
+{
+  "extends": "../eng_chain/fixtures/tiny-notes.json",
+  "project": "tiny-notes-irreversible-migration",
+  "expect_block": "api:migration_reversible",
+  "note": "反例：不可逆迁移既无审批也无回滚；应被 api:migration_reversible 拦下。",
+  "api": {
+    "migration": {
+      "strategy": "drop-and-recreate",
+      "reversible": false,
+      "approved_irreversible": false,
+      "steps": ["删除 notes 表", "按新结构重建"],
+      "rollback": [],
+      "backup_plan": ""
+    }
+  }
+}

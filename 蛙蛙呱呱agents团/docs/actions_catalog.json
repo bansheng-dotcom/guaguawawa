@@ -3,8 +3,8 @@
   "python": "3.12.7",
   "summary": {
     "roles": 20,
-    "skills": 195,
-    "actions": 443
+    "skills": 201,
+    "actions": 504
   },
   "errors": [],
   "roles": [
@@ -2169,8 +2169,8 @@
       "name": "蛙深远",
       "title": "战略研究官",
       "dir": "r05-washenyuan-research",
-      "skill_count": 9,
-      "action_count": 16,
+      "skill_count": 10,
+      "action_count": 26,
       "skills": [
         {
           "name": "research",
@@ -2642,6 +2642,465 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "chain",
+          "desc": "8 段研究链：scope→source→collect→verify→triangulate→size→compete→report",
+          "file": "r05-washenyuan-research/skills/s10_research_chain.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "scope",
+              "help": "拆解决策问题（5–8 子问题 + MECE）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "source",
+              "help": "建立源地图（一手/二手/三手）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "collect",
+              "help": "落证据台账（七要素 + 三要素）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "verify",
+              "help": "逐条验证（回抓/复算/偏见/时效）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "triangulate",
+              "help": "合成结论（置信度 + 矛盾记录）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "size",
+              "help": "双口径测算 + p10/p50/p90",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "compete",
+              "help": "5 家 × 8 维矩阵 + battlecard + 五力 + 份额",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "report",
+              "help": "研究简报（结论先行 + 证据附录 + 边界）",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "run",
+              "help": "一条命令跑完 8 段并写 manifest",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "audit",
+              "help": "复核 sha256 与全部门禁",
+              "required": [],
+              "required_detail": [],
+              "optional": [
+                {
+                  "name": "fixture",
+                  "flags": [
+                    "--fixture"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "研究链夹具 JSON"
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "兼容统一 --input 传夹具"
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "产物目录"
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": null,
+                  "help": "蒙特卡洛种子"
+                }
+              ],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -2650,8 +3109,8 @@
       "name": "蛙得清",
       "title": "数据分析师",
       "dir": "r06-wadeqing-analyst",
-      "skill_count": 21,
-      "action_count": 43,
+      "skill_count": 22,
+      "action_count": 56,
       "skills": [
         {
           "name": "semantics",
@@ -4594,6 +5053,985 @@
           ]
         },
         {
+          "name": "chain",
+          "desc": "分析链：frame/plan/profile/explore/explain/test/run/audit",
+          "file": "r06-wadeqing-analyst/skills/s10_chain.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "frame",
+              "help": "第1段：业务问题 → 3–5 个可证伪假设 + 决策用途",
+              "required": [
+                "question"
+              ],
+              "required_detail": [
+                {
+                  "name": "question",
+                  "flags": [
+                    "--question"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "业务问题，如“9月利润为什么下滑”"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "decision_use",
+                  "flags": [
+                    "--decision-use"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": "这份分析要支持什么决策"
+                },
+                {
+                  "name": "metric",
+                  "flags": [
+                    "--metric"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": "指标列名，缺省按问题领域推断"
+                },
+                {
+                  "name": "dimensions",
+                  "flags": [
+                    "--dimensions"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": "逗号分隔的切分维度，如 channel,category"
+                },
+                {
+                  "name": "domain",
+                  "flags": [
+                    "--domain"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": "profit/revenue/churn/conversion/growth/generic"
+                },
+                {
+                  "name": "window",
+                  "flags": [
+                    "--window"
+                  ],
+                  "type": "str",
+                  "default": "近90天",
+                  "help": ""
+                },
+                {
+                  "name": "min_impact_pct",
+                  "flags": [
+                    "--min-impact-pct"
+                  ],
+                  "type": "float",
+                  "default": 3.0,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 frame.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "plan",
+              "help": "第2段：frame → 预注册分析计划（先计划后看数）",
+              "required": [
+                "frame",
+                "before",
+                "after",
+                "split"
+              ],
+              "required_detail": [
+                {
+                  "name": "frame",
+                  "flags": [
+                    "--frame"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "before",
+                  "flags": [
+                    "--before"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "窗口开始日 YYYY-MM-DD"
+                },
+                {
+                  "name": "after",
+                  "flags": [
+                    "--after"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "窗口结束日 YYYY-MM-DD"
+                },
+                {
+                  "name": "split",
+                  "flags": [
+                    "--split"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "前后期切分日（<=split 为前期）"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "grain",
+                  "flags": [
+                    "--grain"
+                  ],
+                  "type": "str",
+                  "default": "day",
+                  "help": ""
+                },
+                {
+                  "name": "min_rows",
+                  "flags": [
+                    "--min-rows"
+                  ],
+                  "type": "int",
+                  "default": 30,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "profile",
+              "help": "第3段：六维数据质量 + 覆盖 + 偏差",
+              "required": [
+                "input",
+                "plan"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "CSV 数据"
+                },
+                {
+                  "name": "plan",
+                  "flags": [
+                    "--plan"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "pk",
+                  "flags": [
+                    "--pk"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "主键列（去重口径）"
+                },
+                {
+                  "name": "date",
+                  "flags": [
+                    "--date"
+                  ],
+                  "type": "str",
+                  "default": "date",
+                  "help": ""
+                },
+                {
+                  "name": "semantic",
+                  "flags": [
+                    "--semantic"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "语义模型 JSON（可选，做防幻觉联动）"
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "explore",
+              "help": "第4段：按预注册分母/分段出发现（只描述不解释）",
+              "required": [
+                "input",
+                "plan"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "plan",
+                  "flags": [
+                    "--plan"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "date",
+                  "flags": [
+                    "--date"
+                  ],
+                  "type": "str",
+                  "default": "date",
+                  "help": ""
+                },
+                {
+                  "name": "stage",
+                  "flags": [
+                    "--stage"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选：漏斗阶段列"
+                },
+                {
+                  "name": "stage_order",
+                  "flags": [
+                    "--stage-order"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "漏斗阶段顺序，逗号分隔"
+                },
+                {
+                  "name": "qty",
+                  "flags": [
+                    "--qty"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选：数量列（供后续量价拆解）"
+                },
+                {
+                  "name": "cost",
+                  "flags": [
+                    "--cost"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选：成本列（供单位经济）"
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "explain",
+              "help": "第5段：贡献拆解 + 驱动树 + 替代解释 + 反事实",
+              "required": [
+                "input",
+                "plan",
+                "findings"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "CSV 数据"
+                },
+                {
+                  "name": "plan",
+                  "flags": [
+                    "--plan"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "findings",
+                  "flags": [
+                    "--findings"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "dim",
+                  "flags": [
+                    "--dim"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "主拆解维度，缺省取计划第一个维度"
+                },
+                {
+                  "name": "qty",
+                  "flags": [
+                    "--qty"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "数量列（拆量价效应）"
+                },
+                {
+                  "name": "date",
+                  "flags": [
+                    "--date"
+                  ],
+                  "type": "str",
+                  "default": "date",
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "test",
+              "help": "第6段：效应量 + CI + 检验 + 敏感性 + Holm",
+              "required": [
+                "input",
+                "plan",
+                "findings"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "plan",
+                  "flags": [
+                    "--plan"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "findings",
+                  "flags": [
+                    "--findings"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "date",
+                  "flags": [
+                    "--date"
+                  ],
+                  "type": "str",
+                  "default": "date",
+                  "help": ""
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": 0,
+                  "help": ""
+                },
+                {
+                  "name": "min_n",
+                  "flags": [
+                    "--min-n"
+                  ],
+                  "type": "int",
+                  "default": 30,
+                  "help": ""
+                },
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "run",
+              "help": "一条命令跑完 6 段，产出 6 工件 + chain_manifest",
+              "required": [
+                "question",
+                "input",
+                "before",
+                "after",
+                "split"
+              ],
+              "required_detail": [
+                {
+                  "name": "question",
+                  "flags": [
+                    "--question"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "CSV 数据"
+                },
+                {
+                  "name": "before",
+                  "flags": [
+                    "--before"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "after",
+                  "flags": [
+                    "--after"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "split",
+                  "flags": [
+                    "--split"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "decision_use",
+                  "flags": [
+                    "--decision-use"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "metric",
+                  "flags": [
+                    "--metric"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "dimensions",
+                  "flags": [
+                    "--dimensions"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "domain",
+                  "flags": [
+                    "--domain"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "date",
+                  "flags": [
+                    "--date"
+                  ],
+                  "type": "str",
+                  "default": "date",
+                  "help": ""
+                },
+                {
+                  "name": "qty",
+                  "flags": [
+                    "--qty"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "cost",
+                  "flags": [
+                    "--cost"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "stage",
+                  "flags": [
+                    "--stage"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "stage_order",
+                  "flags": [
+                    "--stage-order"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "semantic",
+                  "flags": [
+                    "--semantic"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "pk",
+                  "flags": [
+                    "--pk"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": 0,
+                  "help": ""
+                },
+                {
+                  "name": "min_n",
+                  "flags": [
+                    "--min-n"
+                  ],
+                  "type": "int",
+                  "default": 30,
+                  "help": ""
+                },
+                {
+                  "name": "min_impact_pct",
+                  "flags": [
+                    "--min-impact-pct"
+                  ],
+                  "type": "float",
+                  "default": 3.0,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "audit",
+              "help": "只读复核已产出的分析链（哈希/门禁/跨段一致）",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "run 的输出目录"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "verify",
+              "help": "第7段：CoV 六问 + 回流码 + bounded modules",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "T8a 链条目录"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "chart",
+              "help": "第8段：claim-bound 图表规格包 + fail_if_missing",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "T8a 链条目录"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "write",
+              "help": "第9段：unit packet → 文字包 → 对抗评审",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "T8a 链条目录"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "deliver",
+              "help": "第10段：文图仲裁 + report.html + manifest + 事件",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "T8a 链条目录"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "报告输出目录（默认 <dir>/report）"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "report",
+              "help": "一条命令跑完 T8a+T8b，产出报告草稿与运行账本",
+              "required": [
+                "question",
+                "input",
+                "before",
+                "after",
+                "split"
+              ],
+              "required_detail": [
+                {
+                  "name": "question",
+                  "flags": [
+                    "--question"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "CSV 数据"
+                },
+                {
+                  "name": "before",
+                  "flags": [
+                    "--before"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "after",
+                  "flags": [
+                    "--after"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "split",
+                  "flags": [
+                    "--split"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "decision_use",
+                  "flags": [
+                    "--decision-use"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "metric",
+                  "flags": [
+                    "--metric"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "dimensions",
+                  "flags": [
+                    "--dimensions"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "domain",
+                  "flags": [
+                    "--domain"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "date",
+                  "flags": [
+                    "--date"
+                  ],
+                  "type": "str",
+                  "default": "date",
+                  "help": ""
+                },
+                {
+                  "name": "qty",
+                  "flags": [
+                    "--qty"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "cost",
+                  "flags": [
+                    "--cost"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "stage",
+                  "flags": [
+                    "--stage"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "stage_order",
+                  "flags": [
+                    "--stage-order"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "semantic",
+                  "flags": [
+                    "--semantic"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "pk",
+                  "flags": [
+                    "--pk"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "seed",
+                  "flags": [
+                    "--seed"
+                  ],
+                  "type": "int",
+                  "default": 0,
+                  "help": ""
+                },
+                {
+                  "name": "min_n",
+                  "flags": [
+                    "--min-n"
+                  ],
+                  "type": "int",
+                  "default": 30,
+                  "help": ""
+                },
+                {
+                  "name": "min_impact_pct",
+                  "flags": [
+                    "--min-impact-pct"
+                  ],
+                  "type": "float",
+                  "default": 3.0,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            }
+          ]
+        },
+        {
           "name": "rdd",
           "desc": "断点回归：局部线性 / 敏感性（带宽+安慰剂+密度+二次校正+协变量）",
           "file": "r06-wadeqing-analyst/skills/s05_rdd.py",
@@ -4687,8 +6125,8 @@
       "name": "蛙得明",
       "title": "产品经理",
       "dir": "r07-wademing-pm",
-      "skill_count": 10,
-      "action_count": 32,
+      "skill_count": 11,
+      "action_count": 40,
       "skills": [
         {
           "name": "prdguard",
@@ -5429,6 +6867,326 @@
               "positional": []
             }
           ]
+        },
+        {
+          "name": "workflows",
+          "desc": "产品工作流：discovery/prd/priority/acceptance/briefing/experience/run/audit",
+          "file": "r07-wademing-pm/skills/s11_workflows.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "discovery",
+              "help": "W1 访谈→job story→机会树→假设→POC",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "html",
+                  "flags": [
+                    "--html"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "prd",
+              "help": "W2 八段 PRD + 用户故事 + 不在范围 + 红队 premortem",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "html",
+                  "flags": [
+                    "--html"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "priority",
+              "help": "W3 机会分/RICE/ICE→backlog→路线图→发布说明",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "html",
+                  "flags": [
+                    "--html"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "acceptance",
+              "help": "W4 Given/When/Then→边界/失败态→测试→发布门禁",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "html",
+                  "flags": [
+                    "--html"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "briefing",
+              "help": "W5 项目理解→选项/利弊→建议→归档",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "html",
+                  "flags": [
+                    "--html"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "experience",
+              "help": "G 经验门：L0/L1/L2 + 写回状态机",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "html",
+                  "flags": [
+                    "--html"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "run",
+              "help": "一条命令跑指定工作流或全链",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工作流束 JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "flow",
+                  "flags": [
+                    "--flow"
+                  ],
+                  "type": "str",
+                  "default": "all",
+                  "help": "all 或 discovery/prd/... 或逗号分隔"
+                },
+                {
+                  "name": "html",
+                  "flags": [
+                    "--html"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "可选：渲染单文件 HTML"
+                },
+                {
+                  "name": "html_title",
+                  "flags": [
+                    "--html-title"
+                  ],
+                  "type": "str",
+                  "default": "R07 产品工作流",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "audit",
+              "help": "只读复核工作流产物",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "run 输出目录"
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
         }
       ]
     },
@@ -6064,8 +7822,8 @@
       "name": "蛙稳码",
       "title": "代码工程官",
       "dir": "r09-wawenma-engineer",
-      "skill_count": 8,
-      "action_count": 16,
+      "skill_count": 9,
+      "action_count": 28,
       "skills": [
         {
           "name": "spec",
@@ -6452,6 +8210,365 @@
                   "type": "str",
                   "default": null,
                   "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "eng_chain",
+          "desc": "十段工程链：adr/api/feature/testing/debug/release/security/performance/incident/review/run/audit",
+          "file": "r09-wawenma-engineer/skills/s09_eng_chain.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "adr",
+              "help": "第1段：需求约束 → ADR + 模块边界 + 取舍",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 adr.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "api",
+              "help": "第2段：数据模型 → Schema + OpenAPI 3.1 + RFC 7807 + 迁移",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 api.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "feature",
+              "help": "第3段：用户故事 → 端到端垂直切片 + 回滚清单",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 feature.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "testing",
+              "help": "第4段：测试金字塔 + 契约测试 + E2E",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 testing.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "debug",
+              "help": "第5段：复现 → 假设 → 插桩 → 根因 → 最小修复 → 回归",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 debug.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "release",
+              "help": "第6段：CI/CD + 发布 + 回滚 + 版本锁/幂等",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 release.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "security",
+              "help": "第7段：STRIDE + OWASP ASVS + 依赖/密钥扫描",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 security.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "performance",
+              "help": "第8段：剖析计划 + 性能预算 + 优化项",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 performance.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "incident",
+              "help": "第9段：时间线 + 根因 + 行动项 + SLO/错误预算",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 incident.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "review",
+              "help": "第10段：PR 审查清单 + 风险分级",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "输出 review.json 路径"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "run",
+              "help": "一条命令跑完 10 段，产出 10 JSON/MD + eng_manifest",
+              "required": [
+                "brief"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工程 brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "工件输出目录"
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "audit",
+              "help": "只读复核已产出工程链（哈希/门禁/跨段一致）",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "run 的输出目录"
                 }
               ],
               "optional": [],
@@ -8035,8 +10152,8 @@
       "name": "蛙点题",
       "title": "内容主笔",
       "dir": "r11-wadianti-copy",
-      "skill_count": 9,
-      "action_count": 21,
+      "skill_count": 10,
+      "action_count": 30,
       "skills": [
         {
           "name": "topic",
@@ -8478,6 +10595,365 @@
           ]
         },
         {
+          "name": "content_chain",
+          "desc": "内容生产线：topic/research/outline/draft/review/rewrite/final/run/audit",
+          "file": "r11-wadianti-copy/skills/s09_content_chain.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "topic",
+              "help": "选题候选",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "research",
+              "help": "证据台账",
+              "required": [
+                "brief",
+                "topic"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "topic",
+                  "flags": [
+                    "--topic"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "outline",
+              "help": "细纲契约",
+              "required": [
+                "brief",
+                "research"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "research",
+                  "flags": [
+                    "--research"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "draft",
+              "help": "单节三候选",
+              "required": [
+                "brief",
+                "outline",
+                "research"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "outline",
+                  "flags": [
+                    "--outline"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "research",
+                  "flags": [
+                    "--research"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "review",
+              "help": "五维 findings",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "drafts.json"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "rewrite",
+              "help": "单元改写",
+              "required": [
+                "brief",
+                "input",
+                "review"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "drafts.json"
+                },
+                {
+                  "name": "review",
+                  "flags": [
+                    "--review"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "final",
+              "help": "终稿整合与终检",
+              "required": [
+                "brief",
+                "outline",
+                "research",
+                "rewrite"
+              ],
+              "required_detail": [
+                {
+                  "name": "brief",
+                  "flags": [
+                    "--brief"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "outline",
+                  "flags": [
+                    "--outline"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "research",
+                  "flags": [
+                    "--research"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "rewrite",
+                  "flags": [
+                    "--rewrite"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "run",
+              "help": "一条命令跑完七段",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": "brief JSON"
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "audit",
+              "help": "独立复核已落盘产物",
+              "required": [
+                "out"
+              ],
+              "required_detail": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            }
+          ]
+        },
+        {
           "name": "xhs",
           "desc": "小红书发布包：note/score/compliance",
           "file": "r11-wadianti-copy/skills/s11_xhs.py",
@@ -8553,8 +11029,8 @@
       "name": "蛙引流",
       "title": "增长运营官",
       "dir": "r12-wayingliu-growth",
-      "skill_count": 12,
-      "action_count": 21,
+      "skill_count": 13,
+      "action_count": 30,
       "skills": [
         {
           "name": "diagnose",
@@ -9175,6 +11651,356 @@
                   "help": ""
                 }
               ],
+              "positional": []
+            }
+          ]
+        },
+        {
+          "name": "growth_chain",
+          "desc": "七段增长链：诊断/实验/归因/留存/付费/自媒体/MMM + 一键跑链 + 审计",
+          "file": "r12-wayingliu-growth/skills/s12_growth_chain.py",
+          "extract_mode": "argparse",
+          "error": "",
+          "actions": [
+            {
+              "name": "diagnose",
+              "help": "指标树 + 漏斗 + 异常检测",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "metric",
+                  "flags": [
+                    "--metric"
+                  ],
+                  "type": "str",
+                  "default": "revenue",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "experiment",
+              "help": "两比例功效 / 样本量 / 预注册",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "attribution",
+              "help": "首触/末触/多触 + 增量",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "evidence",
+                  "flags": [
+                    "--evidence"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "budget_total",
+                  "flags": [
+                    "--budget-total"
+                  ],
+                  "type": "float",
+                  "default": 100000.0,
+                  "help": ""
+                },
+                {
+                  "name": "causal_claim",
+                  "flags": [
+                    "--causal-claim"
+                  ],
+                  "type": "str",
+                  "default": false,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "retention",
+              "help": "队列矩阵 + 留存曲线 + 激活/推荐",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "paid",
+              "help": "CAC / LTV / 回收月 / 贡献毛利",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "payback_max",
+                  "flags": [
+                    "--payback-max"
+                  ],
+                  "type": "float",
+                  "default": 18.0,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "selfmedia",
+              "help": "平台导出规范化 + 看板 + 三态日报",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "platform",
+                  "flags": [
+                    "--platform"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "mmm",
+              "help": "adstock + 饱和 + ridge + 留出 + 贡献 CI",
+              "required": [
+                "input"
+              ],
+              "required_detail": [
+                {
+                  "name": "input",
+                  "flags": [
+                    "--input"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [
+                {
+                  "name": "out",
+                  "flags": [
+                    "--out"
+                  ],
+                  "type": "str",
+                  "default": "",
+                  "help": ""
+                },
+                {
+                  "name": "decay",
+                  "flags": [
+                    "--decay"
+                  ],
+                  "type": "float",
+                  "default": 0.5,
+                  "help": ""
+                },
+                {
+                  "name": "ridge_lambda",
+                  "flags": [
+                    "--ridge-lambda"
+                  ],
+                  "type": "float",
+                  "default": 1.0,
+                  "help": ""
+                },
+                {
+                  "name": "holdout_r2_min",
+                  "flags": [
+                    "--holdout-r2-min"
+                  ],
+                  "type": "float",
+                  "default": 0.5,
+                  "help": ""
+                }
+              ],
+              "positional": []
+            },
+            {
+              "name": "run",
+              "help": "一条命令跑 7 段并产出 manifest",
+              "required": [
+                "spec",
+                "out_dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "spec",
+                  "flags": [
+                    "--spec"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                },
+                {
+                  "name": "out_dir",
+                  "flags": [
+                    "--out-dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
+              "positional": []
+            },
+            {
+              "name": "audit",
+              "help": "复核工件 sha256 与跨段一致性",
+              "required": [
+                "dir"
+              ],
+              "required_detail": [
+                {
+                  "name": "dir",
+                  "flags": [
+                    "--dir"
+                  ],
+                  "type": "str",
+                  "default": null,
+                  "help": ""
+                }
+              ],
+              "optional": [],
               "positional": []
             }
           ]

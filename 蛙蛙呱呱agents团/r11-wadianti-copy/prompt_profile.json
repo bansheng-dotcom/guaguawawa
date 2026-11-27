@@ -335,6 +335,40 @@
     ],
     "platform.visual": [
       "input"
+    ],
+    "content_chain.topic": [
+      "topic",
+      "platform"
+    ],
+    "content_chain.research": [
+      "topic"
+    ],
+    "content_chain.outline": [
+      "topic",
+      "word_count"
+    ],
+    "content_chain.draft": [
+      "topic",
+      "voice"
+    ],
+    "content_chain.review": [
+      "topic",
+      "voice"
+    ],
+    "content_chain.rewrite": [
+      "topic",
+      "voice"
+    ],
+    "content_chain.final": [
+      "topic",
+      "platform"
+    ],
+    "content_chain.run": [
+      "input",
+      "topic"
+    ],
+    "content_chain.audit": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [

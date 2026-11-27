@@ -104,7 +104,7 @@ python agent.py htmlreport plan --input <报告.json>
 ```bash
 python agent.py htmlreport html --input <报告.json> --out <report.html>
 ```
-渲染走**唯一渲染器** `core/report_renderer.py`（REPORT-STANDARD §四：不许手写一次性 HTML），
+渲染走**唯一渲染器** `core/report/report_renderer.py`（REPORT-STANDARD §四：不许手写一次性 HTML），
 自动继承四条版式硬规则：R1 首屏不放自检分数 · R2 末节「口径与分数」· R3 记录层折叠 · R4 无结论清单复述。
 
 - **产出**：`report.html`（含目录、打印样式、来源表；带 `dataset` 时附保真分数与记录层）
@@ -203,7 +203,7 @@ python agent.py htmlreport html --input <报告.json> --out <report.html>
 | 数据口径校验 | `r06` 的 `data-validation` |
 | 门禁是否还有效 | `scripts/gate_selftest.py --self-test` |
 | 六条结构规则与版式规则的实现 | `core/report_kernel/structure.py`（唯一出处） |
-| 渲染器与契约必填字段 | `core/report_renderer.py`（`validate_contract` / `render`） |
+| 渲染器与契约必填字段 | `core/report/report_renderer.py`（`validate_contract` / `render`） |
 | 负向用例 | `tests/misuse.md` |
 
 **脚本清单**

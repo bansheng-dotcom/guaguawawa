@@ -37,6 +37,11 @@ knowledge_map:
   - references/s07/methodology.md
   charter:
   - references/00-capability-charter.md
+  chain:
+  - references/09-source-grading.md
+  - references/10-evidence-grading-triangulation.md
+  - references/11-market-sizing.md
+  - references/12-five-forces-competition.md
 keyword_map:
   research:
   - 证据台账
@@ -79,3 +84,14 @@ keyword_map:
   - 研究追踪
   - 自动化调研
   - 研究覆盖
+  chain:
+  - 研究链
+  - 源地图
+  - 证据采集
+  - 证据验证
+  - 三角验证
+  - 双口径测算
+  - 五力分析
+  - 研究简报
+  - 八段研究
+  - 交付审计

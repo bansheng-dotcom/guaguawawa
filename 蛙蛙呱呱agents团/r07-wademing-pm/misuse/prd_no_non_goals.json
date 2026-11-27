@@ -1,0 +1,46 @@
+{
+  "_expected_gate": "prd.eight.scope.non_goals",
+  "_why": "PRD 缺少不在范围（non_goals），无法阻止范围蔓延，应被八门禁 scope 判据拦下。",
+  "context": {
+    "background": "新用户注册后 7 天内不会创建首个项目，激活率停在 12%。",
+    "evidence_links": ["行为埋点"],
+    "target_users": ["SaaS 试用新用户"]
+  },
+  "prd": {
+    "problem_statement": "新用户注册后不知道如何创建第一个项目，导致激活率偏低",
+    "users": [
+      {"segment": "SaaS 试用新用户", "scenario": "注册后首次登录", "alternative": "翻帮助文档"}
+    ],
+    "value_proposition": {"before": "无引导", "how": "分步引导", "after": "10 分钟建项目"},
+    "scope": {"p0": ["分步引导流程"], "p1": [], "p2": [], "non_goals": []},
+    "metrics": {
+      "north_star": "7 日激活率", "input_metrics": ["首日完成首个项目率"],
+      "guardrail": ["引导放弃率"], "baseline": "12%", "target": "20%", "data_source": "埋点"
+    },
+    "acceptance_criteria": [
+      {"given": "新用户完成注册", "when": "首次进入工作台", "then": "出现引导"}
+    ],
+    "risks": [
+      {"hypothesis": "用户愿意跟随引导", "validation": "小流量实验"},
+      {"hypothesis": "引导不打断核心任务", "validation": "可用性测试"},
+      {"hypothesis": "引导提升激活率", "validation": "A/B 实验"}
+    ],
+    "executive_summary": "用分步引导把 7 日激活率从 12% 提升到 20%"
+  },
+  "user_stories": [
+    {
+      "id": "us1", "as_a": "新用户", "i_want": "看到分步引导", "so_that": "快速建项目",
+      "acceptance_criteria": ["出现引导", "可跳过", "进度保存", "完成后写入项目"]
+    }
+  ],
+  "non_goals": [],
+  "premortem": {
+    "failure_reasons": [
+      {"reason": "引导遮挡核心操作", "mitigation": "可跳过", "owner": "r07"},
+      {"reason": "用户直接跳过", "mitigation": "A/B 对比", "owner": "r12"},
+      {"reason": "步骤与真实流程不一致", "mitigation": "同接口联调", "owner": "r09"},
+      {"reason": "移动端错位", "mitigation": "视觉回归", "owner": "r08"},
+      {"reason": "埋点缺失", "mitigation": "发布前核对事件", "owner": "r12"}
+    ]
+  }
+}

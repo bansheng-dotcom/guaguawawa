@@ -123,6 +123,15 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_parser("manifest", help="打印协作契约(端口/能力)")
     local = sp.add_parser("local", help="本地交易核验，不执行扣款")
     local.add_argument("--input", required=True)
+    cm = sp.add_parser("commerce", help="交易机制：run / recon / check / goldens")
+    cma = cm.add_subparsers(dest="cmcmd", required=True)
+    cr = cma.add_parser("run", help="按 ops 跑状态机链")
+    cr.add_argument("--input", required=True)
+    cc = cma.add_parser("recon", help="订单 vs 支付流水对账")
+    cc.add_argument("--input", required=True)
+    ck = cma.add_parser("check", help="跑一个误用样本")
+    ck.add_argument("--case", required=True)
+    cma.add_parser("goldens", help="重建 golden 状态机与对账报告")
     sp.add_parser("demo", help="生成示例交易工件")
     run_p = sp.add_parser("run", help="协作入口：执行任务卡")
     run_p.add_argument("--task", required=True)
@@ -406,6 +415,21 @@ def main() -> int:
     if args.skill == "local":
         out = local_exec.execute(c.load_json(args.input)); emit_result(out)
         return 0 if out["ok"] else 1
+    if args.skill == "commerce":
+        import commerce_fsm as cf
+        if args.cmcmd == "goldens":
+            out = cf.build_goldens()
+        elif args.cmcmd == "run":
+            out = cf.apply_ops(c.load_json(args.input).get("ops") or [])
+            out["ok"] = not out["violations"]
+        elif args.cmcmd == "recon":
+            spec = c.load_json(args.input)
+            out = cf.reconcile(spec.get("orders") or [], spec.get("payments") or [])
+        else:
+            out = cf.check_case(args.case)
+            out["ok"] = bool(out.get("as_expected"))
+        emit_result(out)
+        return 0 if out.get("ok") else 1
     if args.skill == "demo":
         artifacts = os.path.join(WORKSPACE_ROOT, "artifacts")
         emit_result({"demo_artifacts": make_demo(artifacts)})

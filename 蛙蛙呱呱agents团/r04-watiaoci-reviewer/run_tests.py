@@ -38,6 +38,8 @@ import contracts                                               # noqa: E402
 import review as review_lib                                     # noqa: E402
 import cases as cases_lib                                       # noqa: E402
 import harness as harness_lib                                   # noqa: E402
+sys.path.insert(0, os.path.join(HERE, "tests"))
+from test_thickness_samples import ThicknessSamples             # noqa: E402
 import verify_loop                                              # noqa: E402
 
 TOOL = os.path.join(HERE, "agent.py")
@@ -1429,7 +1431,7 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
     suite = unittest.TestSuite()
     for cls in (T01, T02, T03, T04, T05, T06, T07, T08, T09, T10,
-                T11, T12, T13, T14, T15):
+                T11, T12, T13, T14, T15, ThicknessSamples):
         tests = loader.loadTestsFromTestCase(cls)
         if kwd:
             filtered = unittest.TestSuite()

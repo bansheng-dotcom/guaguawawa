@@ -181,7 +181,8 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | `chart_contract.py` | 112 | 图合同（三条线现状） | 【S5】 |
 | `chart_plan.py` | 120 | 自动选图 + 规格（v12.4） | 【S5】 |
 | `chart_units.py` | 102 | 一张图只能一个单位 | 【S5】 |
-| `chart_capabilities.py` | 77 | 48 型能力注册表 | 【S5】 |
+| `chart_capabilities.py` | 77 | 48 型能力注册表（含 quick/guided 分级） | 【S5】 |
+| `charts/audit.py` | 185 | 48 型图表六维审计（数据/选型/计算/标注/视觉/返回） | 【S5】 |
 | `charts/chart_lib.py` | 684 | 48 个可视化提示词接成规格库 | 【S5】 |
 | `charts/chart_renderers_ext.py` | 1936 | 48 图谱确定性 SVG（含地图坐标） | 【S5】 |
 | `charts/consulting.py` | 569 | consulting 主题 14 型 SVG | 【S5】 |

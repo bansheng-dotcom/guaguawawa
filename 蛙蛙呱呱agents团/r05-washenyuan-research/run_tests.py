@@ -11,6 +11,7 @@ T12 验证器（materials/verdict/plan/runlog）
 T13 案例库（list/validate/steps expect 对拍）
 T14 CLI 协议（脏夹具 exit:1 / meta 命令 / 未知命令 exit:2）
 T15 verify_loop 闭环矩阵
+T16 8 段研究链（scope→report）+ 审计 + 误用拦截
 
 运行：python run_tests.py
 """
@@ -20,6 +21,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import unittest
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
@@ -744,6 +746,59 @@ class T15(unittest.TestCase):
         self.assertEqual(out["total"], 28)
         self.assertEqual(out["failed"], 0)
         self.assertEqual(out["verdict"], "PASS")
+
+
+# --------------------------------------------------------------------------- #
+# T16 8 段研究链（scope→…→report）+ 审计 + 误用拦截
+# --------------------------------------------------------------------------- #
+class T16(unittest.TestCase):
+    FIXTURE = os.path.join(_HERE, "fixtures", "pet_smart_hardware.json")
+
+    def test_chain_e2e_and_audit(self):
+        from research_chain.runner import audit, run_fixture
+        tmp = tempfile.mkdtemp(prefix="r05-chain-")
+        mf = run_fixture(self.FIXTURE, tmp)
+        self.assertTrue(mf["ok"], mf.get("gate"))
+        self.assertEqual(mf["grade"], "A")
+        self.assertEqual(len(mf["stage_order"]), 8)
+        for stage in ("scope", "source", "collect", "verify",
+                      "triangulate", "size", "compete", "report"):
+            self.assertTrue(os.path.isfile(os.path.join(tmp, stage + ".json")), stage)
+        self.assertTrue(audit(tmp)["ok"])
+        with open(os.path.join(tmp, "scope.json"), "a", encoding="utf-8") as f:
+            f.write("\n")
+        dirty = audit(tmp)
+        self.assertFalse(dirty["ok"])
+        self.assertIn("audit:sha256:scope.json", dirty["failed"])
+
+    def test_chain_cli(self):
+        tmp = tempfile.mkdtemp(prefix="r05-chain-cli-")
+        res, code = run_cli("chain", "run", self.FIXTURE,
+                            extra=["--out-dir", tmp])
+        self.assertIsNotNone(res, "chain run 无输出")
+        self.assertTrue(res["ok"], res.get("failed"))
+        self.assertEqual(code, 0)
+        self.assertEqual(res["verdict"], "PASS")
+        res2, code2 = run_cli("chain", "audit", self.FIXTURE,
+                              extra=["--out-dir", tmp])
+        self.assertIsNotNone(res2)
+        self.assertTrue(res2["ok"], res2.get("failed"))
+        self.assertEqual(code2, 0)
+
+    def test_chain_misuse_named_gates(self):
+        from research_chain import report as rp
+        from research_chain import source as src
+        from research_chain import triangulate as tri
+        cases = [
+            ("no_sources.json", rp.check_report, "report:traceability"),
+            ("secondary_only.json", src.check_source_map, "source:type_diversity"),
+            ("overclaim.json", tri.check_synthesis, "tri:two_sources_or_single"),
+        ]
+        for name, checker, gate_id in cases:
+            art = json.load(open(os.path.join(_HERE, "misuse", name), encoding="utf-8"))
+            out = checker(art)
+            self.assertFalse(out["ok"], name)
+            self.assertIn(gate_id, out["failed"], name)
 
 
 if __name__ == "__main__":

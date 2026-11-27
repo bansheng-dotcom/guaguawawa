@@ -1,0 +1,9 @@
+{
+  "_violation": "增量缺合法分区：partition=by_day 不在白名单，故意触发 incremental.strategy 的 strategy.partition 门禁（分区口径漂移会重数/丢数）。",
+  "stream": "orders",
+  "mode": "incremental",
+  "partition": "by_day",
+  "watermark_field": "updated_at",
+  "idempotency_key": "order_id",
+  "late_arrival_days": 1
+}

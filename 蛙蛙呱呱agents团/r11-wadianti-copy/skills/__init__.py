@@ -10,11 +10,13 @@
   s06 pr         广告、公关与新闻稿
   s07 platform   多平台适配
   s08 localize   持续本地化
+  s09 chain      七段内容生产线（topic→research→outline→draft→review→rewrite→final）
 """
 from __future__ import annotations
 
 from . import (s01_topic, s02_seo, s03_hook, s04_copy,
-               s05_voice, s06_pr, s07_platform, s08_localize, s11_xhs)
+               s05_voice, s06_pr, s07_platform, s08_localize,
+               s09_content_chain, s11_xhs)
 
 SKILLS = [
     s01_topic,
@@ -25,6 +27,7 @@ SKILLS = [
     s06_pr,
     s07_platform,
     s08_localize,
+    s09_content_chain,
     s11_xhs,
 ]
 

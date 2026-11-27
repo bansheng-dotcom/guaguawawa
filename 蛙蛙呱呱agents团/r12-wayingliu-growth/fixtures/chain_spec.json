@@ -1,0 +1,34 @@
+{
+  "diagnose": {
+    "input": "metrics_daily.csv"
+  },
+  "experiment": {
+    "input": "experiment_spec.json"
+  },
+  "attribution": {
+    "input": "attribution_touches.csv",
+    "evidence": "increment_evidence.json",
+    "budget_total": 100000
+  },
+  "retention": {
+    "input": "retention_cohort.csv"
+  },
+  "paid": {
+    "input": "paid_channels.csv",
+    "payback_max": 18
+  },
+  "selfmedia": {
+    "input": "selfmedia_90d.csv"
+  },
+  "mmm": {
+    "input": "mmm_weekly.csv",
+    "decay": 0.5,
+    "ridge_lambda": 1.0,
+    "holdout_r2_min": 0.5
+  },
+  "expect": {
+    "attribution_denominator_metric": "orders",
+    "paid_channel": "paid_search",
+    "retention_denominator_metric": "signups"
+  }
+}

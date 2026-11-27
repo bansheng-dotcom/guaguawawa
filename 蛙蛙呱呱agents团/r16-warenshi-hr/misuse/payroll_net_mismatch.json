@@ -1,0 +1,15 @@
+{
+  "_violation": "薪酬净额不平：ΣEarning 20000 − ΣDeduction 2000 = 18000，但申报 net_pay=17000，故意触发 payroll.calc 的 payroll.net 门禁（薪酬不合规）。",
+  "employee": "EMP-0001",
+  "gross_pay": 20000.0,
+  "net_pay": 17000.0,
+  "components": [
+    {"name": "基本工资", "type": "Earning", "amount": 20000.0},
+    {"name": "社保个人", "type": "Deduction", "amount": 2000.0}
+  ],
+  "payment_days": 20,
+  "total_working_days": 22,
+  "system_fields": [
+    {"name": "社保基数", "source": "salary_structure"}
+  ]
+}

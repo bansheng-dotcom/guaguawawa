@@ -38,6 +38,14 @@ knowledge_map:
   - references/07-platform.md
   localize:
   - references/08-localize.md
+  chain:
+  - references/09-topic-pipeline.md
+  - references/10-research-ledger.md
+  - references/11-outline-contract.md
+  - references/12-draft-three-tracks.md
+  - references/13-review-five-dims.md
+  - references/14-rewrite-coverage.md
+  - references/15-final-argument.md
   charter:
   - references/00-capability-charter.md
 keyword_map:
@@ -82,3 +90,11 @@ keyword_map:
   - 本地化
   - 出海
   - 跨语言
+  chain:
+  - 内容生产线
+  - 七段链
+  - 证据台账
+  - 三候选
+  - 改写覆盖率
+  - 终检
+  - 内容复核

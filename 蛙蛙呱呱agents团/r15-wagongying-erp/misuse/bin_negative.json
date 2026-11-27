@@ -1,0 +1,15 @@
+{
+  "_violation": "库存账实不符：actual_qty=-5（负库存），故意触发 inventory.bin 的 bin.negative_stock 门禁；projected 仍按守恒式填写以隔离单一违例。",
+  "bins": [
+    {
+      "warehouse": "华东原料库",
+      "item_code": "RM-001",
+      "actual_qty": -5,
+      "ordered_qty": 0,
+      "reserved_qty": 0,
+      "planned_qty": 0,
+      "projected_qty": -5,
+      "stock_value": 0
+    }
+  ]
+}

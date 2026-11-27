@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>工作流重试与死信报告</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; --accent:#1d4ed8; --accent-soft:#eff6ff; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>工作流重试与死信报告 · 143 份副本收敛</h1>
+<p class="meta">run_id WF-20261127-001 ｜ 策略 max_retries=3 ·
+exponential base=2s cap=60s ｜
+首轮 outcome failed ｜ 重放 outcome replayed</p>
+<h2>1. 结论先行</h2>
+<div class="block">首轮 6 个任务里 4 个成功（其中 2 个靠重试）、1 个重试到顶进死信、1 个因依赖阻塞；
+重放死信后阻塞任务自动恢复，全链成功。同一幂等键全程只执行一次，重放不会重复改写文件。</div>
+<h2>2. 重试与退避</h2>
+<table>
+<thead><tr><th>任务</th><th>终态</th><th>尝试次数</th><th>退避（秒）</th></tr></thead>
+<tbody><tr><td>t01-extract</td><td>succeeded</td><td>1</td><td>—</td></tr><tr><td>t02-map</td><td>succeeded</td><td>2</td><td>2s</td></tr><tr><td>t03-rewrite</td><td>succeeded</td><td>1</td><td>—</td></tr><tr><td>t04-verify</td><td>succeeded</td><td>4</td><td>2s、4s、8s</td></tr><tr><td>t05-publish</td><td>failed</td><td>4</td><td>2s、4s、8s</td></tr><tr><td>t06-notify</td><td>blocked</td><td>0</td><td>—</td></tr></tbody>
+</table>
+<figure class="fig-card">
+  <figcaption class="fig-sub">图 1：指数退避序列（base=2s，cap=60s，第 n 次重试 = 2·2^(n-1)）</figcaption>
+  <table>
+    <thead><tr><th>第 n 次重试</th><th>等待（秒）</th></tr></thead>
+    <tbody><tr><td>1</td><td>2</td></tr><tr><td>2</td><td>4</td></tr>
+    <tr><td>3</td><td>8</td></tr><tr><td>4</td><td>16</td></tr></tbody>
+  </table>
+  <div class="fig-src">来源：workflow_engine.backoff_delay（确定性计算）</div>
+  <div class="fig-unit">单位：秒；参考线为 60s 封顶，超过即按封顶等待</div>
+</figure>
+<h2>3. 死信队列</h2>
+<table>
+<thead><tr><th>任务</th><th>幂等键</th><th>尝试</th><th>可重放</th><th>状态</th></tr></thead>
+<tbody><tr><td>t05-publish</td><td><code>converge:publish:20261127</code></td><td>4</td><td>是</td><td>已重放</td></tr></tbody>
+</table>
+<h2>4. 重放</h2>
+<table>
+<thead><tr><th>任务</th><th>原尝试次数</th><th>结果</th></tr></thead>
+<tbody><tr><td>t05-publish</td><td>4</td><td>成功（未重复执行）</td></tr></tbody>
+</table>
+<p>重放后自动恢复的阻塞任务：t06-notify；
+死信剩余 0 条。</p>
+<h3>4.1 幂等键清单</h3>
+<p>本轮共登记 6 个任务，幂等键前缀统一为 <code>converge:</code>；
+重复请求只返回既有结果，不再触发副作用。</p>
+
+</main>
+</body>
+</html>

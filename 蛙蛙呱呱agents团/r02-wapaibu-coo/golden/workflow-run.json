@@ -1,0 +1,236 @@
+{
+  "run": {
+    "schema": "guagua.workflow-run/v1",
+    "run_id": "WF-20261127-001",
+    "policy": {
+      "max_retries": 3,
+      "retry_forever": false,
+      "backoff": "exponential",
+      "base_delay_s": 2,
+      "max_delay_s": 60,
+      "dead_letter_queue": "coo-dlq"
+    },
+    "tasks": [
+      {
+        "id": "t01-extract",
+        "depends_on": []
+      },
+      {
+        "id": "t02-map",
+        "depends_on": [
+          "t01-extract"
+        ]
+      },
+      {
+        "id": "t03-rewrite",
+        "depends_on": [
+          "t02-map"
+        ]
+      },
+      {
+        "id": "t04-verify",
+        "depends_on": [
+          "t03-rewrite"
+        ]
+      },
+      {
+        "id": "t05-publish",
+        "depends_on": [
+          "t04-verify"
+        ]
+      },
+      {
+        "id": "t06-notify",
+        "depends_on": [
+          "t05-publish"
+        ]
+      }
+    ],
+    "states": {
+      "t01-extract": "succeeded",
+      "t02-map": "succeeded",
+      "t03-rewrite": "succeeded",
+      "t04-verify": "succeeded",
+      "t05-publish": "failed",
+      "t06-notify": "blocked"
+    },
+    "attempts": [
+      {
+        "task_id": "t01-extract",
+        "state": "succeeded",
+        "attempts": 1,
+        "delays": [],
+        "idempotency_key": "converge:extract:20261127"
+      },
+      {
+        "task_id": "t02-map",
+        "state": "succeeded",
+        "attempts": 2,
+        "delays": [
+          2.0
+        ],
+        "idempotency_key": "converge:map:20261127"
+      },
+      {
+        "task_id": "t03-rewrite",
+        "state": "succeeded",
+        "attempts": 1,
+        "delays": [],
+        "idempotency_key": "converge:rewrite:20261127"
+      },
+      {
+        "task_id": "t04-verify",
+        "state": "succeeded",
+        "attempts": 4,
+        "delays": [
+          2.0,
+          4.0,
+          8.0
+        ],
+        "idempotency_key": "converge:verify:20261127"
+      },
+      {
+        "task_id": "t05-publish",
+        "state": "failed",
+        "attempts": 4,
+        "delays": [
+          2.0,
+          4.0,
+          8.0
+        ],
+        "idempotency_key": "converge:publish:20261127"
+      },
+      {
+        "task_id": "t06-notify",
+        "state": "blocked",
+        "blocked_by": [
+          "t05-publish"
+        ],
+        "attempts": 0,
+        "delays": []
+      }
+    ],
+    "dead_letters": [
+      {
+        "task_id": "t05-publish",
+        "idempotency_key": "converge:publish:20261127",
+        "attempts": 4,
+        "last_error": "模拟：下游 503",
+        "replayable": true,
+        "replayed": false
+      }
+    ],
+    "deduplicated": [],
+    "blocked": [
+      "t06-notify"
+    ],
+    "violations": [],
+    "outcome": "failed",
+    "ok": true
+  },
+  "replay": {
+    "schema": "guagua.workflow-replay/v1",
+    "run_id": "WF-20261127-001-R1",
+    "states": {
+      "t01-extract": "succeeded",
+      "t02-map": "succeeded",
+      "t03-rewrite": "succeeded",
+      "t04-verify": "succeeded",
+      "t05-publish": "succeeded",
+      "t06-notify": "succeeded"
+    },
+    "attempts": [
+      {
+        "task_id": "t01-extract",
+        "state": "succeeded",
+        "attempts": 1,
+        "delays": [],
+        "idempotency_key": "converge:extract:20261127"
+      },
+      {
+        "task_id": "t02-map",
+        "state": "succeeded",
+        "attempts": 2,
+        "delays": [
+          2.0
+        ],
+        "idempotency_key": "converge:map:20261127"
+      },
+      {
+        "task_id": "t03-rewrite",
+        "state": "succeeded",
+        "attempts": 1,
+        "delays": [],
+        "idempotency_key": "converge:rewrite:20261127"
+      },
+      {
+        "task_id": "t04-verify",
+        "state": "succeeded",
+        "attempts": 4,
+        "delays": [
+          2.0,
+          4.0,
+          8.0
+        ],
+        "idempotency_key": "converge:verify:20261127"
+      },
+      {
+        "task_id": "t05-publish",
+        "state": "failed",
+        "attempts": 4,
+        "delays": [
+          2.0,
+          4.0,
+          8.0
+        ],
+        "idempotency_key": "converge:publish:20261127"
+      },
+      {
+        "task_id": "t06-notify",
+        "state": "blocked",
+        "blocked_by": [
+          "t05-publish"
+        ],
+        "attempts": 0,
+        "delays": []
+      },
+      {
+        "task_id": "t05-publish",
+        "state": "replayed",
+        "attempts": 1,
+        "delays": [],
+        "replayed_from_attempts": 4
+      },
+      {
+        "task_id": "t06-notify",
+        "state": "resumed",
+        "attempts": 1,
+        "delays": []
+      }
+    ],
+    "dead_letters": [
+      {
+        "task_id": "t05-publish",
+        "idempotency_key": "converge:publish:20261127",
+        "attempts": 4,
+        "last_error": "模拟：下游 503",
+        "replayable": true,
+        "replayed": true,
+        "closed_at": "2026-11-27T10:00:00"
+      }
+    ],
+    "replayed": [
+      {
+        "task_id": "t05-publish",
+        "idempotency_key": "converge:publish:20261127",
+        "previous_attempts": 4
+      }
+    ],
+    "resumed": [
+      "t06-notify"
+    ],
+    "dead_letters_open": [],
+    "outcome": "replayed",
+    "ok": true
+  }
+}

@@ -286,6 +286,39 @@
     ],
     "power.run": [
       "input"
+    ],
+    "growth_chain.diagnose": [
+      "topic",
+      "input"
+    ],
+    "growth_chain.experiment": [
+      "topic",
+      "input"
+    ],
+    "growth_chain.attribution": [
+      "platform",
+      "input"
+    ],
+    "growth_chain.retention": [
+      "topic",
+      "input"
+    ],
+    "growth_chain.paid": [
+      "platform",
+      "input"
+    ],
+    "growth_chain.selfmedia": [
+      "platform",
+      "input"
+    ],
+    "growth_chain.mmm": [
+      "input"
+    ],
+    "growth_chain.run": [
+      "input"
+    ],
+    "growth_chain.audit": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [

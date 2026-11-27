@@ -1,0 +1,9 @@
+{
+  "_violation": "合同政策缺 owner 字段，故意触发 contract.policy 的 policy_field 门禁（政策无责任人 = 不可执行）。",
+  "policy": {
+    "purpose": "约束对外合同签署前的红线审查范围与流程",
+    "scope": "全部对外采购与销售合同（含电子签署）",
+    "review_cycle_days": 180,
+    "enforcement": "CRITICAL 条款未消除时拦截签署流程并驳回用印申请"
+  }
+}

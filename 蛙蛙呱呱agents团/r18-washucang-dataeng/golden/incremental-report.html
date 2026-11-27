@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>增量与重跑报告：分区 / 水位 / 幂等键 · R18 蛙数仓 · 数据工程与数仓官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>增量与重跑报告：分区 / 水位 / 幂等键</h1>
+<p class="meta">R18 蛙数仓 · 数据工程与数仓官 · 增量边界决定丢数还是重数 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>增量策略</td><td>incremental.strategy</td><td>examples/incremental_strategy.json</td><td>0bedcd88445345de</td><td>174</td></tr>
+<tr><td>质量门禁复核</td><td>quality.check</td><td>examples/quality_check.json</td><td>d35639661cd9e3a2</td><td>230</td></tr>
+<tr><td>新鲜度复核</td><td>quality.fresh</td><td>examples/quality_fresh.json</td><td>4853bfb21e84bad9</td><td>119</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>增量策略 · incremental.strategy</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>stream</td><td>orders</td></tr>
+<tr><td>mode</td><td>incremental</td></tr>
+<tr><td>narrative</td><td>增量策略 orders：incremental / 分区 daily</td></tr>
+</tbody></table>
+<h3>质量门禁复核 · quality.check</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>table</td><td>orders</td></tr>
+<tr><td>check_count</td><td>1</td></tr>
+<tr><td>row_count</td><td>1000</td></tr>
+<tr><td>narrative</td><td>质量门禁 orders：1 项检查（自报口径）</td></tr>
+</tbody></table>
+<h3>新鲜度复核 · quality.fresh</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>table</td><td>orders</td></tr>
+<tr><td>age_hours</td><td>6</td></tr>
+<tr><td>max_age_hours</td><td>24</td></tr>
+<tr><td>narrative</td><td>新鲜度 orders：6h / 上限 24h</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>增量策略</td><td>strategy.stream</td><td>OK</td><td class="pass">PASS</td><td>stream 非空</td></tr>
+<tr><td>增量策略</td><td>strategy.mode</td><td>OK</td><td class="pass">PASS</td><td>增量模式=&#x27;incremental&#x27; 在白名单 [&#x27;full_refresh&#x27;, &#x27;incremental&#x27;, &#x27;snapshot&#x27;, &#x27;cdc&#x27;]</td></tr>
+<tr><td>增量策略</td><td>strategy.partition</td><td>OK</td><td class="pass">PASS</td><td>分区=&#x27;daily&#x27; 在白名单 [&#x27;none&#x27;, &#x27;hourly&#x27;, &#x27;daily&#x27;, &#x27;monthly&#x27;]</td></tr>
+<tr><td>增量策略</td><td>strategy.watermark</td><td>OK</td><td class="pass">PASS</td><td>incremental 声明 watermark_field</td></tr>
+<tr><td>增量策略</td><td>strategy.idempotency</td><td>OK</td><td class="pass">PASS</td><td>incremental 声明 idempotency_key（重跑幂等）</td></tr>
+<tr><td>增量策略</td><td>strategy.late</td><td>OK</td><td class="pass">PASS</td><td>迟到容忍 1 天 ≥ 0</td></tr>
+<tr><td>质量门禁复核</td><td>quality.table</td><td>OK</td><td class="pass">PASS</td><td>表名非空</td></tr>
+<tr><td>质量门禁复核</td><td>quality.row_count</td><td>OK</td><td class="pass">PASS</td><td>行数 1000 &gt; 0</td></tr>
+<tr><td>质量门禁复核</td><td>quality.null_ratio</td><td>OK</td><td class="pass">PASS</td><td>空值率 0.02 ≤ 0.1</td></tr>
+<tr><td>质量门禁复核</td><td>quality.dup_ratio</td><td>OK</td><td class="pass">PASS</td><td>重复率 0.01 ≤ 0.05</td></tr>
+<tr><td>质量门禁复核</td><td>quality.invalid</td><td>OK</td><td class="pass">PASS</td><td>无效值 0 = 0</td></tr>
+<tr><td>质量门禁复核</td><td>quality.items</td><td>OK</td><td class="pass">PASS</td><td>检查条目全通过且带实测值（未过 无）</td></tr>
+<tr><td>新鲜度复核</td><td>fresh.table</td><td>OK</td><td class="pass">PASS</td><td>表名非空</td></tr>
+<tr><td>新鲜度复核</td><td>fresh.age</td><td>OK</td><td class="pass">PASS</td><td>数据年龄 6h ≤ 24h</td></tr>
+<tr><td>新鲜度复核</td><td>fresh.loaded_at</td><td>OK</td><td class="pass">PASS</td><td>声明 loaded_at 字段</td></tr>
+<tr><td>新鲜度复核</td><td>fresh.snapshotted_at</td><td>OK</td><td class="pass">PASS</td><td>声明 snapshotted_at 时点</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">综合结论：数据链门禁全绿，可进分析环境</p>
+<p>增量模式为 incremental 且声明 watermark_field 与 idempotency_key，分区在白名单、迟到容忍非负；质量与新鲜度复核通过，重跑不会重复入账。</p>
+<p class="note">增量守恒在提供 base_rows/incoming_rows 时由运行时引擎实算；本包不擅自执行回填。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实技能生成，可复算；R18 不擅自回填生产表。</footer>
+</main>
+</body>
+</html>

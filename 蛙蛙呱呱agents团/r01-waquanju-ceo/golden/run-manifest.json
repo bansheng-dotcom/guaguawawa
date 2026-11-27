@@ -1,0 +1,188 @@
+{
+  "schema": "guagua.run-manifest/v1",
+  "run_id": "R01-20261127-Q4BUDGET",
+  "role": "r01",
+  "title": "Q4 预算再平衡决策包",
+  "created": "2026-11-27",
+  "stages": [
+    {
+      "seq": 1,
+      "stage": "intent",
+      "owner": "r01",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "artifacts/brief.json",
+          "sha256": "7b812586879c9fac77869a693e3c5872b402f0058094bb23ab9c209c3289d9f4",
+          "bytes": 1100
+        }
+      ],
+      "decision": "确认问题：毛利率连续两季下滑 3.1pt，决策用途是预算再平衡",
+      "irreversible": false,
+      "signoff": {
+        "required": false,
+        "by": null,
+        "at": null
+      }
+    },
+    {
+      "seq": 2,
+      "stage": "decompose",
+      "owner": "r01",
+      "inputs": [
+        "artifacts/brief.json"
+      ],
+      "outputs": [
+        {
+          "name": "artifacts/taskcard.json",
+          "sha256": "4f7165cd3a2ef104a4c1eafb344a174bc751a11d55fbca88faba56266fde7f0f",
+          "bytes": 331
+        }
+      ],
+      "decision": "拆 4 张任务卡：定价 / 投放 / 供应链 / 人效，单一 owner",
+      "irreversible": false,
+      "signoff": {
+        "required": false,
+        "by": null,
+        "at": null
+      }
+    },
+    {
+      "seq": 3,
+      "stage": "decide",
+      "owner": "r01",
+      "inputs": [
+        "artifacts/taskcard.json"
+      ],
+      "outputs": [
+        {
+          "name": "artifacts/decision_card.json",
+          "sha256": "0ef18987f47905046c891312c968b97e680e77b06ff0de1a673c572f8e446ed1",
+          "bytes": 1133
+        }
+      ],
+      "decision": "维持 99 元档 + 削减 12% 投放；可逆性=难逆，需灰度回滚计划",
+      "irreversible": false,
+      "signoff": {
+        "required": false,
+        "by": null,
+        "at": null
+      }
+    },
+    {
+      "seq": 4,
+      "stage": "redteam",
+      "owner": "r01",
+      "inputs": [
+        "artifacts/decision_card.json"
+      ],
+      "outputs": [
+        {
+          "name": "artifacts/redteam.json",
+          "sha256": "f36cbdc4c6723a6f5a0ebf3be5a4555e207ddef2ba5a1ad498dab4841634c510",
+          "bytes": 686
+        }
+      ],
+      "decision": "三评委 2 GO 1 PAUSE：补 6 周灰度对照后再全量",
+      "irreversible": false,
+      "signoff": {
+        "required": false,
+        "by": null,
+        "at": null
+      }
+    },
+    {
+      "seq": 5,
+      "stage": "companyos",
+      "owner": "r01",
+      "inputs": [
+        "artifacts/redteam.json"
+      ],
+      "outputs": [
+        {
+          "name": "artifacts/companyos.json",
+          "sha256": "b27afc0b1410f5fc4600296fddf28ce87d34eed93b2bf80e3f414236cd320a62",
+          "bytes": 1833
+        }
+      ],
+      "decision": "回补目标写进 Rocks，周会用红黄绿追踪",
+      "irreversible": false,
+      "signoff": {
+        "required": false,
+        "by": null,
+        "at": null
+      }
+    },
+    {
+      "seq": 6,
+      "stage": "decisionlog",
+      "owner": "r01",
+      "inputs": [
+        "artifacts/companyos.json"
+      ],
+      "outputs": [
+        {
+          "name": "artifacts/decisionlog.json",
+          "sha256": "99e8ee4955c155bbefb77933d00f0d5270435eab4f9b38aa0d96245dd049c2b8",
+          "bytes": 1054
+        }
+      ],
+      "decision": "决策留痕并锁 60 天冷却，禁止重提旧方案",
+      "irreversible": false,
+      "signoff": {
+        "required": false,
+        "by": null,
+        "at": null
+      }
+    },
+    {
+      "seq": 7,
+      "stage": "boardroom",
+      "owner": "r01",
+      "inputs": [
+        "artifacts/decisionlog.json"
+      ],
+      "outputs": [
+        {
+          "name": "artifacts/board.json",
+          "sha256": "c0fc76bafe9acae4f8dede0f79937dcb84a4e1c8023f57c1a853f84400278c2a",
+          "bytes": 1140
+        }
+      ],
+      "decision": "上报董事会：请求 6 周灰度授权（不可逆动资金）",
+      "irreversible": true,
+      "signoff": {
+        "required": true,
+        "by": "创始人",
+        "at": "2026-11-27"
+      }
+    },
+    {
+      "seq": 8,
+      "stage": "deliver",
+      "owner": "r01",
+      "inputs": [
+        "artifacts/board.json"
+      ],
+      "outputs": [
+        {
+          "name": "decision-pack.html",
+          "sha256": "5c4a8e5cadcdecbfec7437d0f16fa8375251628499e0532e9f4c8f48e49bd1d2",
+          "bytes": 5034
+        },
+        {
+          "name": "artifacts/交付回执.txt",
+          "sha256": "fe1ac8809d7c5636680f0916ff17ed9110947819736330c4705ac6532cd2eb7c",
+          "bytes": 75
+        }
+      ],
+      "decision": "打包交付：决策包 + 账本 + 回执，交 R04 复核",
+      "irreversible": false,
+      "signoff": {
+        "required": false,
+        "by": null,
+        "at": null
+      }
+    }
+  ]
+}

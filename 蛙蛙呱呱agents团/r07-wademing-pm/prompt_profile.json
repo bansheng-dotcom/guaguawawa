@@ -423,6 +423,36 @@
     "prdguard.render": [],
     "rice.run": [
       "input"
+    ],
+    "workflows.discovery": [
+      "topic",
+      "evidence"
+    ],
+    "workflows.prd": [
+      "topic",
+      "audience"
+    ],
+    "workflows.priority": [
+      "objective",
+      "topic"
+    ],
+    "workflows.acceptance": [
+      "topic",
+      "audience"
+    ],
+    "workflows.briefing": [
+      "topic",
+      "objective"
+    ],
+    "workflows.experience": [
+      "topic",
+      "evidence"
+    ],
+    "workflows.run": [
+      "input"
+    ],
+    "workflows.audit": [
+      "input"
     ]
   },
   "l2_prompt_blocks": [

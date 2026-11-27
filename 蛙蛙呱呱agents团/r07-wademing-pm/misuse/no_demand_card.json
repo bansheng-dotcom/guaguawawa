@@ -1,0 +1,9 @@
+{
+  "_expected_gate": "decision._validate_demand/required_fields",
+  "_why": "只有开发诉求，没有需求卡必备的非目标与复核状态，不允许直接进入开发。",
+  "demand_id": "D-001",
+  "problem": "给首页加一个更炫的动效",
+  "scope": "首页动效改造",
+  "success_metric": "视觉更惊艳",
+  "acceptance": "看起来更高级"
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "../eng_chain/fixtures/tiny-notes.json",
+  "project": "tiny-notes-no-tests-release",
+  "expect_block": "release:tests_green",
+  "note": "反例：测试全部跳过仍然发布；应被 release:tests_green 拦下。",
+  "release": {
+    "tests": {"passed": 0, "failed": 0, "skipped": 3, "coverage": 0.0}
+  }
+}

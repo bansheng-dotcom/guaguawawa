@@ -1,0 +1,16 @@
+{
+  "_violation": "roll-forward 不平：opening 50000 + additions 12500 - payments 3000 = 59500，但申报期末 60000（差 500）。故意触发 financial.rollforward 的 balance 门禁。",
+  "accounts": [
+    {
+      "account": "cash",
+      "opening": 50000.0,
+      "additions": 12500.0,
+      "accruals": 0.0,
+      "reversals": 0.0,
+      "payments": 3000.0,
+      "reclass": 0.0,
+      "fx": 0.0,
+      "closing": 60000.0
+    }
+  ]
+}

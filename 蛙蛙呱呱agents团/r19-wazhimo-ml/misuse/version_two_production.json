@@ -1,0 +1,8 @@
+{
+  "_violation": "不可回滚：同时存在两个 production 版本，无法确定回滚目标，故意触发 registry.version 的 version.single_prod 门禁。",
+  "model_name": "support-qa-assistant",
+  "versions": [
+    {"version": "3", "stage": "production"},
+    {"version": "4", "stage": "production"}
+  ]
+}

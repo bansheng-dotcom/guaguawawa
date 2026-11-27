@@ -1,0 +1,7 @@
+{
+  "case_id": "manifest-missing-sha",
+  "intent": "故意把某阶段工件的 sha256 抹掉：账本无法防篡改，必须拒绝签收",
+  "source": "golden/run-manifest.json",
+  "mutations": ["drop_sha"],
+  "expect": ["M02_MISSING_SHA256"]
+}

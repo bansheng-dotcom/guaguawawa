@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>备份与复盘报告：加密备份仓 / 恢复请求 / 复盘闭环 · R20 蛙值守 · SRE 与可靠性官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>备份与复盘报告：加密备份仓 / 恢复请求 / 复盘闭环</h1>
+<p class="meta">R20 蛙值守 · SRE 与可靠性官 · 备份存在 ≠ 恢复成功；复盘四要素 + 改进项闭环 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>加密备份仓</td><td>backup.backup</td><td>examples/backup.json</td><td>178b6aaffd37bfd7</td><td>103</td></tr>
+<tr><td>恢复请求</td><td>restore.restore</td><td>examples/restore.json</td><td>119aef1ec50778f4</td><td>109</td></tr>
+<tr><td>故障复盘</td><td>postmortem.postmortem</td><td>examples/postmortem.json</td><td>0b0eed84cc206f45</td><td>245</td></tr>
+<tr><td>改进项闭环</td><td>postmortem.improvement</td><td>examples/improvement.json</td><td>79f420eb3844ccfa</td><td>276</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>加密备份仓 · backup.backup</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>repo</td><td>/backups/repo</td></tr>
+<tr><td>snapshot_count</td><td>0</td></tr>
+<tr><td>encrypted</td><td>是</td></tr>
+<tr><td>narrative</td><td>备份仓 /backups/repo：加密=True</td></tr>
+</tbody></table>
+<h3>恢复请求 · restore.restore</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>restore_id</td><td>rst-001</td></tr>
+<tr><td>target</td><td>snapshot</td></tr>
+<tr><td>narrative</td><td>恢复请求 rst-001：目标 snapshot</td></tr>
+</tbody></table>
+<h3>故障复盘 · postmortem.postmortem</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>postmortem_id</td><td>pm-001</td></tr>
+<tr><td>severity</td><td>sev2</td></tr>
+<tr><td>narrative</td><td>复盘 pm-001：严重度 sev2</td></tr>
+</tbody></table>
+<h3>改进项闭环 · postmortem.improvement</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>action_count</td><td>2</td></tr>
+<tr><td>narrative</td><td>改进项 2 条</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>加密备份仓</td><td>backup.repo</td><td>OK</td><td class="pass">PASS</td><td>备份仓路径非空</td></tr>
+<tr><td>加密备份仓</td><td>backup.encrypted</td><td>OK</td><td class="pass">PASS</td><td>备份仓已声明加密（encrypted=True）</td></tr>
+<tr><td>加密备份仓</td><td>backup.excludes</td><td>OK</td><td class="pass">PASS</td><td>排除规则为字符串列表（非法 无）</td></tr>
+<tr><td>恢复请求</td><td>restore.id</td><td>OK</td><td class="pass">PASS</td><td>恢复请求 ID 非空</td></tr>
+<tr><td>恢复请求</td><td>restore.target</td><td>OK</td><td class="pass">PASS</td><td>恢复目标=&#x27;snapshot&#x27; 在白名单 [&#x27;file&#x27;, &#x27;directory&#x27;, &#x27;snapshot&#x27;, &#x27;config&#x27;]</td></tr>
+<tr><td>恢复请求</td><td>restore.snapshot</td><td>OK</td><td class="pass">PASS</td><td>源快照 ID 非空</td></tr>
+<tr><td>恢复请求</td><td>restore.authorized</td><td>OK</td><td class="pass">PASS</td><td>恢复已声明授权/演练/审批（不擅自恢复生产）</td></tr>
+<tr><td>故障复盘</td><td>postmortem.id</td><td>OK</td><td class="pass">PASS</td><td>复盘 ID 非空</td></tr>
+<tr><td>故障复盘</td><td>postmortem.severity</td><td>OK</td><td class="pass">PASS</td><td>严重度=&#x27;sev2&#x27; 在白名单 [&#x27;sev1&#x27;, &#x27;sev2&#x27;, &#x27;sev3&#x27;]</td></tr>
+<tr><td>故障复盘</td><td>postmortem.sections</td><td>OK</td><td class="pass">PASS</td><td>四要素齐备（缺 无）</td></tr>
+<tr><td>故障复盘</td><td>postmortem.root_cause</td><td>OK</td><td class="pass">PASS</td><td>根因非空</td></tr>
+<tr><td>改进项闭环</td><td>improvement.count</td><td>OK</td><td class="pass">PASS</td><td>改进项 ≥1（实际 2）</td></tr>
+<tr><td>改进项闭环</td><td>improvement.required</td><td>OK</td><td class="pass">PASS</td><td>改进项含 action/owner/due/status（缺 无）</td></tr>
+<tr><td>改进项闭环</td><td>improvement.closed_loop</td><td>OK</td><td class="pass">PASS</td><td>无未闭环改进项（open 无）</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">综合结论：SLO/演练/复盘门禁全绿</p>
+<p>备份仓已声明加密且排除规则合法；恢复请求指向真实快照并带授权；复盘四要素齐备、严重度合法，改进项均有 owner/due/status 且全部闭环。</p>
+<p class="note">R20 不持有仓库密码、不实际执行 restic；复盘是学习不是追责，根因描述不等于责任认定。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实技能生成，可复算；R20 不擅自灾难切换/恢复生产。</footer>
+</main>
+</body>
+</html>

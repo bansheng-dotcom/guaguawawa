@@ -333,6 +333,54 @@
     ],
     "special.godot": [
       "topic"
+    ],
+    "eng_chain.adr": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.api": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.feature": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.testing": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.debug": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.release": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.security": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.performance": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.incident": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.review": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.run": [
+      "topic",
+      "stack"
+    ],
+    "eng_chain.audit": [
+      "topic",
+      "stack"
     ]
   },
   "l2_prompt_blocks": [

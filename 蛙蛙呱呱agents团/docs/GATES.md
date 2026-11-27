@@ -7,7 +7,7 @@
 
 | 状态 | 数量 |
 |---|---:|
-| CI | 16 |
+| CI | 21 |
 | GATES | 1 |
 | INDIRECT | 10 |
 | MANUAL | 1 |
@@ -17,21 +17,26 @@
 
 | 脚本 | 状态 | 证据 | 用途 |
 |---|---|---|---|
+| `check_analysis_chain.py` | CI | ci_report_checks / ci_upgrade_checks | R06 分析链门禁：六段工件齐全、哈希/门禁/跨段一致。 |
 | `check_business_terms.py` | CI | ci_report_checks / ci_upgrade_checks | 业务词隔离门禁（方案 §3.6 / P1-7）。 |
 | `check_chart_edges.py` | CI | ci_report_checks / ci_upgrade_checks | charts_pro 边界门禁：空数据 / 零域 / 负值 / 长标签 / 超多类别。 |
+| `check_chart_fail_if_missing.py` | CI | ci_report_checks / ci_upgrade_checks | 图表必绘门禁。 |
 | `check_chart_report_embed.py` | CI | ci_report_checks / ci_upgrade_checks | 兼容入口：ci_report_checks 仍调本文件名；实际校验 charts_pro。 |
+| `check_claim_trace.py` | CI | ci_report_checks / ci_upgrade_checks | 结论可追门禁：正文每个数字必须回到 material pack。 |
 | `check_conclusions.py` | CI | ci_report_checks / ci_upgrade_checks | 结论层审计：跑评测集里的技能，检查每个结果都有 conclusion（或明确 blocked）。 |
 | `check_convergence.py` | CI | ci_report_checks / ci_upgrade_checks | 收敛门禁：同一件事不许被第二次新建。 |
 | `check_dead_code.py` | CI | ci_report_checks / ci_upgrade_checks | 「每个文件都要能说清谁在用」的可执行版本。 |
 | `check_doc_consistency.py` | CI | ci_report_checks / ci_upgrade_checks | 文档一致性检查：报告的产线版本与步骤在多个入口文档里必须一致。 |
+| `check_engine_variants.py` | CI | ci_report_checks / ci_upgrade_checks | 引擎台账门禁（T0 的“止血”版本）。 |
 | `check_gate_lock.py` | CI | ci_report_checks / ci_upgrade_checks | 门禁脚本锁：改门禁必须是显式动作，且留下提交痕迹。 |
 | `check_move_cards.py` | CI | ci_report_checks / ci_upgrade_checks | 校验 Move 卡片：让「学习」有可判定的入口。 |
 | `check_r04_inputs.py` | CI | ci_report_checks / ci_upgrade_checks | R04 验收输入派生校验：三份输入必须由产物派生（sha 对得上）。 |
 | `check_report_flow.py` | CI | ci_report_checks / ci_upgrade_checks | 唯一报告门禁（2026-11-15 产线收敛后 / 2026-11-20 收紧）：只看 HTML 成品，不看是谁画的。 |
-| `check_report_presentation.py` | CI | ci_report_checks / ci_upgrade_checks | 呈现层门禁（v11 / P4）。 |
+| `check_report_presentation.py` | CI | ci_report_checks / ci_upgrade_checks | 呈现层门禁（v12 / T9）。 |
 | `check_report_privacy.py` | CI | ci_report_checks / ci_upgrade_checks | 报告产线隐私扫描：凭据/个人信息不得进入 claims、manifest、报告。 |
 | `check_report_style.py` | CI | ci_report_checks / ci_upgrade_checks | 报告字体门禁：全篇禁用斜体，标题/表头/图注不得用衬线体。 |
 | `check_role_packs.py` | CI | ci_report_checks / ci_upgrade_checks | 校验 20 个角色领域包：书、方法、指标、决策、远见、误判、章节。 |
+| `check_role_thickness.py` | CI | ci_report_checks / ci_upgrade_checks | 20 角色厚度地板（T1）。 |
 | `check_skill_integration.py` | CI | ci_report_checks / ci_upgrade_checks | 校验「领域方法 → 现有技能」的接入率，防止另起一套。 |
 | `check_content.py` | GATES | configs/gates.yaml | 内容哈希（变更台账的底层工具）。 |
 | `check_brief_contract.py` | INDIRECT | 被 gen_agent_packs.py 调用 | brief 契约门禁：expert_brief v2 的七层 / 五门槛 / 18 条上限不许回退。 |

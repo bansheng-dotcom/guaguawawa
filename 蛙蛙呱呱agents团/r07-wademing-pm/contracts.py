@@ -129,6 +129,28 @@ CONTRACTS: Dict[str, Any] = {
         "render": _ok(["out"], out=_s),
     },
 },
+"workflows": {
+    "desc": "产品工作流：5 条 + 经验门 + run/audit",
+    "input": {"discovery": _IN, "prd": _IN, "priority": _IN, "acceptance": _IN,
+              "briefing": _IN, "experience": _IN, "run": _IN, "audit": _IN},
+    "output": {
+        "discovery": _ok(["artifact"], artifact=_s, artifact_path=_s, grade=_s,
+                         sha256=_s, gate=_obj, data=_obj),
+        "prd": _ok(["artifact"], artifact=_s, artifact_path=_s, grade=_s,
+                   sha256=_s, gate=_obj, data=_obj),
+        "priority": _ok(["artifact"], artifact=_s, artifact_path=_s, grade=_s,
+                        sha256=_s, gate=_obj, data=_obj),
+        "acceptance": _ok(["artifact"], artifact=_s, artifact_path=_s, grade=_s,
+                          sha256=_s, gate=_obj, data=_obj),
+        "briefing": _ok(["artifact"], artifact=_s, artifact_path=_s, grade=_s,
+                        sha256=_s, gate=_obj, data=_obj),
+        "experience": _ok(["artifact"], artifact=_s, artifact_path=_s, grade=_s,
+                          sha256=_s, gate=_obj, data=_obj),
+        "run": _ok(["artifact"], artifact=_s, artifact_path=_s, grade=_s,
+                   gate=_obj, manifest=_obj),
+        "audit": _ok(["stages"], stages=_arr, gate=_obj),
+    },
+},
 }
 
 

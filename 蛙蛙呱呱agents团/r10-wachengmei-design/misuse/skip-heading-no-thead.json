@@ -1,0 +1,8 @@
+{
+  "case_id": "skip-heading-no-thead",
+  "intent": "标题从 h2 直接跳 h4，且表格没有 thead：层级与表格都不合格",
+  "style": "internet-reporting",
+  "drop": ["drop_thead"],
+  "mutations": ["skip_heading"],
+  "expect": ["P12_heading", "P10_table"]
+}

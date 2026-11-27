@@ -1,0 +1,13 @@
+{
+  "_violation": "证据链缺来源：claim 声称满意度 95% 但 source 为空、source_type 非白名单，故意触发 facts.check 的 citation_missing / hallucinated 门禁。",
+  "facts": [
+    {
+      "id": "F1",
+      "claim": "客服满意度 95%",
+      "numbers": ["95"],
+      "source": "",
+      "source_type": "unsourced",
+      "key_assertions": ["满意度"]
+    }
+  ]
+}

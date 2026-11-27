@@ -1,0 +1,1162 @@
+{
+  "research_id": "r05-pet-smart-hardware-2026",
+  "question": "2026 年中国宠物智能硬件是否值得以自有品牌进入，首批 SKU 与渠道怎么选？",
+  "decision_use": "支撑 2026 年是否立项自有品牌、首批投入多少、先做哪两个 SKU 的经营决策",
+  "market_scope": "中国大陆城镇宠物智能硬件（喂食器/饮水机/猫砂盆/摄像头）线上为主",
+  "as_of": "2026-11-27",
+  "subquestions": [
+    {
+      "id": "SQ1",
+      "category": "demand",
+      "question": "城镇养宠家庭对智能硬件的真实需求与购买触发点是什么？",
+      "evidence_needs": [
+        "养宠家庭数",
+        "智能硬件渗透率",
+        "年均宠物消费",
+        "购买意愿"
+      ]
+    },
+    {
+      "id": "SQ2",
+      "category": "market_size",
+      "question": "2025–2026 年可服务市场有多大，增长来自哪些细分？",
+      "evidence_needs": [
+        "分品类规模",
+        "线上渠道占比",
+        "出口规模",
+        "增速预测"
+      ]
+    },
+    {
+      "id": "SQ3",
+      "category": "competition",
+      "question": "主要玩家的份额、价格带与差异化打法是什么？",
+      "evidence_needs": [
+        "5 家份额",
+        "价格带",
+        "渠道与产品线"
+      ]
+    },
+    {
+      "id": "SQ4",
+      "category": "supply_chain",
+      "question": "核心器件与代工供给是否充足，成本结构如何？",
+      "evidence_needs": [
+        "代工毛利率",
+        "芯片成本",
+        "泵阀成本",
+        "月产能"
+      ]
+    },
+    {
+      "id": "SQ5",
+      "category": "regulation",
+      "question": "强制认证、无线电与数据合规的准入门槛是什么？",
+      "evidence_needs": [
+        "SRRC 认证",
+        "3C 目录",
+        "数据留存要求"
+      ]
+    },
+    {
+      "id": "SQ6",
+      "category": "entry",
+      "question": "进入路径与首批 SKU 怎么选，多久回本？",
+      "evidence_needs": [
+        "类目保证金",
+        "首批 SKU 数",
+        "回本周期"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "S01",
+      "title": "国家统计局《中国统计年鉴 2025》住户调查",
+      "type": "primary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://www.stats.gov.cn/sj/ndsj/2025/indexch.htm",
+      "date": "2025-01-20",
+      "publisher": "国家统计局",
+      "subquestion_id": "SQ1"
+    },
+    {
+      "id": "S02",
+      "title": "中国畜牧业协会宠物产业分会《2025 中国宠物行业白皮书》",
+      "type": "secondary",
+      "carrier": "行业报告",
+      "accessibility": "paid",
+      "url": "https://www.petfairasia.com/report/2025-white-paper",
+      "date": "2025-05-18",
+      "publisher": "宠物产业分会",
+      "subquestion_id": "SQ1"
+    },
+    {
+      "id": "S03",
+      "title": "艾瑞咨询《2025 中国宠物智能硬件研究报告》",
+      "type": "secondary",
+      "carrier": "行业报告",
+      "accessibility": "paid",
+      "url": "https://www.iresearch.com.cn/report/2025-pet-hardware",
+      "date": "2025-06-10",
+      "publisher": "艾瑞咨询",
+      "subquestion_id": "SQ1"
+    },
+    {
+      "id": "S04",
+      "title": "天猫宠物行业小二访谈纪要（2025-08）",
+      "type": "primary",
+      "carrier": "访谈",
+      "accessibility": "restricted",
+      "url": "https://interview.local/tmall-pet-20250812",
+      "date": "2025-08-12",
+      "publisher": "一线访谈",
+      "subquestion_id": "SQ1"
+    },
+    {
+      "id": "S05",
+      "title": "《2025 中国宠物行业白皮书》智能硬件章节",
+      "type": "secondary",
+      "carrier": "行业报告",
+      "accessibility": "paid",
+      "url": "https://www.petfairasia.com/report/2025-white-paper#hardware",
+      "date": "2025-05-18",
+      "publisher": "宠物产业分会",
+      "subquestion_id": "SQ2"
+    },
+    {
+      "id": "S06",
+      "title": "京东超市《2025 宠物智能用品趋势报告》",
+      "type": "secondary",
+      "carrier": "行业报告",
+      "accessibility": "open",
+      "url": "https://www.jd.com/report/pet-smart-2025",
+      "date": "2025-07-01",
+      "publisher": "京东超市",
+      "subquestion_id": "SQ2"
+    },
+    {
+      "id": "S07",
+      "title": "奥维云网 AVC 宠物家电零售数据库",
+      "type": "database",
+      "carrier": "数据库",
+      "accessibility": "paid",
+      "url": "https://www.avc-mr.com/data/pet-appliance",
+      "date": "2025-09-05",
+      "publisher": "奥维云网",
+      "subquestion_id": "SQ2"
+    },
+    {
+      "id": "S08",
+      "title": "海关总署宠物用品出口月度数据（2025-04）",
+      "type": "primary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://www.customs.gov.cn/data/pet-export-202504",
+      "date": "2025-04-15",
+      "publisher": "海关总署",
+      "subquestion_id": "SQ2"
+    },
+    {
+      "id": "S09",
+      "title": "小佩 PETKIT 官网产品与价格页",
+      "type": "primary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://www.petkit.cn/products",
+      "date": "2025-10-01",
+      "publisher": "小佩",
+      "subquestion_id": "SQ3"
+    },
+    {
+      "id": "S10",
+      "title": "霍曼 Homerun 官网产品页",
+      "type": "primary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://www.homerunpet.com/products",
+      "date": "2025-10-01",
+      "publisher": "霍曼",
+      "subquestion_id": "SQ3"
+    },
+    {
+      "id": "S11",
+      "title": "有陪 Youpei 天猫旗舰店",
+      "type": "primary",
+      "carrier": "电商",
+      "accessibility": "open",
+      "url": "https://youpei.tmall.com",
+      "date": "2025-10-02",
+      "publisher": "有陪",
+      "subquestion_id": "SQ3"
+    },
+    {
+      "id": "S12",
+      "title": "鸟语花香京东自营旗舰店",
+      "type": "primary",
+      "carrier": "电商",
+      "accessibility": "open",
+      "url": "https://mall.jd.com/bird-flower.html",
+      "date": "2025-10-02",
+      "publisher": "鸟语花香",
+      "subquestion_id": "SQ3"
+    },
+    {
+      "id": "S13",
+      "title": "小米米家宠物官网",
+      "type": "primary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://www.mi.com/pet",
+      "date": "2025-10-03",
+      "publisher": "小米",
+      "subquestion_id": "SQ3"
+    },
+    {
+      "id": "S14",
+      "title": "36 氪《宠物智能硬件竞争格局：五强份额与打法》",
+      "type": "secondary",
+      "carrier": "新闻",
+      "accessibility": "open",
+      "url": "https://36kr.com/p/2025-pet-hardware-landscape",
+      "date": "2025-09-20",
+      "publisher": "36 氪",
+      "subquestion_id": "SQ3"
+    },
+    {
+      "id": "S15",
+      "title": "深圳宠物电器代工厂负责人访谈（2025-08）",
+      "type": "primary",
+      "carrier": "访谈",
+      "accessibility": "restricted",
+      "url": "https://interview.local/shenzhen-oem-20250820",
+      "date": "2025-08-20",
+      "publisher": "一线访谈",
+      "subquestion_id": "SQ4"
+    },
+    {
+      "id": "S16",
+      "title": "立讯精密 2024 年年度报告（宠物电器供应链片段）",
+      "type": "primary",
+      "carrier": "年报",
+      "accessibility": "open",
+      "url": "https://www.cninfo.com.cn/announcement/002475-2024",
+      "date": "2025-03-28",
+      "publisher": "立讯精密",
+      "subquestion_id": "SQ4"
+    },
+    {
+      "id": "S17",
+      "title": "产业在线《宠物家电供应链月报（2025-09）》",
+      "type": "secondary",
+      "carrier": "行业报告",
+      "accessibility": "paid",
+      "url": "https://www.chinaiol.com/report/pet-supply-202509",
+      "date": "2025-09-10",
+      "publisher": "产业在线",
+      "subquestion_id": "SQ4"
+    },
+    {
+      "id": "S18",
+      "title": "工信部《无线充电设备无线电管理暂行规定》",
+      "type": "primary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wireless-charging.html",
+      "date": "2025-02-01",
+      "publisher": "工业和信息化部",
+      "subquestion_id": "SQ5"
+    },
+    {
+      "id": "S19",
+      "title": "市场监管总局强制性产品认证目录（2025 版）",
+      "type": "primary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://www.samr.gov.cn/zw/zfxxgk/3c-catalog-2025.html",
+      "date": "2025-01-15",
+      "publisher": "市场监管总局",
+      "subquestion_id": "SQ5"
+    },
+    {
+      "id": "S20",
+      "title": "《个人信息保护法》配套合规指南（智能硬件场景）",
+      "type": "primary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://www.cac.gov.cn/2025-06/01/c_guide.htm",
+      "date": "2025-06-01",
+      "publisher": "国家网信办",
+      "subquestion_id": "SQ5"
+    },
+    {
+      "id": "S21",
+      "title": "天猫/京东宠物类目招商与保证金规则",
+      "type": "secondary",
+      "carrier": "官网",
+      "accessibility": "open",
+      "url": "https://rule.tmall.com/pet-2025",
+      "date": "2025-09-25",
+      "publisher": "天猫",
+      "subquestion_id": "SQ6"
+    },
+    {
+      "id": "S22",
+      "title": "新锐宠物品牌创始人访谈（2025-08）",
+      "type": "primary",
+      "carrier": "访谈",
+      "accessibility": "restricted",
+      "url": "https://interview.local/pet-founder-20250830",
+      "date": "2025-08-30",
+      "publisher": "一线访谈",
+      "subquestion_id": "SQ6"
+    },
+    {
+      "id": "S23",
+      "title": "头豹研究院《2025 宠物智能硬件概览》",
+      "type": "tertiary",
+      "carrier": "行业报告",
+      "accessibility": "paid",
+      "url": "https://www.leadleo.com/report/pet-hardware-2025",
+      "date": "2025-08-01",
+      "publisher": "头豹研究院",
+      "subquestion_id": "SQ2"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E01",
+      "subquestion_id": "SQ1",
+      "source_id": "S01",
+      "claim": "中国城镇养宠家庭约 1.2 亿户",
+      "value": 1.2,
+      "unit": "亿户",
+      "period": "2025",
+      "url": "https://www.stats.gov.cn/sj/ndsj/2025/indexch.htm",
+      "date": "2025-01-20",
+      "quote": "城镇养宠家庭约 1.2 亿户，宠物消费支出保持增长。",
+      "series": "家庭数",
+      "metric": "城镇养宠家庭数"
+    },
+    {
+      "evidence_id": "E02",
+      "subquestion_id": "SQ1",
+      "source_id": "S03",
+      "claim": "宠物智能硬件家庭渗透率约 11.5%",
+      "value": 11.5,
+      "unit": "%",
+      "period": "2025",
+      "url": "https://www.iresearch.com.cn/report/2025-pet-hardware",
+      "date": "2025-06-10",
+      "quote": "2025 年宠物智能硬件在养宠家庭中的渗透率约 11.5%。",
+      "series": "渗透率-2025",
+      "metric": "智能硬件渗透率"
+    },
+    {
+      "evidence_id": "E03",
+      "subquestion_id": "SQ1",
+      "source_id": "S02",
+      "claim": "养宠家庭年均宠物消费约 3200 元",
+      "value": 3200,
+      "unit": "元/户/年",
+      "period": "2025",
+      "url": "https://www.petfairasia.com/report/2025-white-paper",
+      "date": "2025-05-18",
+      "quote": "单户年均宠物消费约 3200 元，其中用品与智能设备占比提升。",
+      "series": "年均消费",
+      "metric": "户均宠物消费"
+    },
+    {
+      "evidence_id": "E04",
+      "subquestion_id": "SQ1",
+      "source_id": "S02",
+      "claim": "未来一年智能硬件购买意愿 38%",
+      "value": 38,
+      "unit": "%",
+      "period": "2025",
+      "url": "https://www.petfairasia.com/report/2025-white-paper#intent",
+      "date": "2025-05-18",
+      "quote": "38% 的受访养宠家庭表示未来一年会购买至少一件智能硬件。",
+      "series": "购买意愿-2025",
+      "metric": "智能硬件购买意愿"
+    },
+    {
+      "evidence_id": "E05",
+      "subquestion_id": "SQ2",
+      "source_id": "S05",
+      "claim": "2025 年宠物智能硬件市场规模 480 亿元",
+      "value": 480,
+      "unit": "亿元",
+      "period": "2025",
+      "url": "https://www.petfairasia.com/report/2025-white-paper#hardware",
+      "date": "2025-05-18",
+      "quote": "2025 年中国宠物智能硬件市场规模约 480 亿元。",
+      "series": "市场规模-2025",
+      "metric": "宠物智能硬件市场规模"
+    },
+    {
+      "evidence_id": "E06",
+      "subquestion_id": "SQ2",
+      "source_id": "S06",
+      "claim": "2026 年市场规模预测 585 亿元",
+      "value": 585,
+      "unit": "亿元",
+      "period": "2026E",
+      "url": "https://www.jd.com/report/pet-smart-2025",
+      "date": "2025-07-01",
+      "quote": "预计 2026 年宠物智能用品市场规模达到 585 亿元。",
+      "series": "市场规模-2026E",
+      "metric": "宠物智能硬件市场规模"
+    },
+    {
+      "evidence_id": "E07",
+      "subquestion_id": "SQ2",
+      "source_id": "S23",
+      "claim": "头豹口径 2025 年市场规模 560 亿元",
+      "value": 560,
+      "unit": "亿元",
+      "period": "2025",
+      "url": "https://www.leadleo.com/report/pet-hardware-2025",
+      "date": "2025-08-01",
+      "quote": "按头豹口径，2025 年宠物智能硬件市场约 560 亿元。",
+      "series": "市场规模-2025",
+      "metric": "宠物智能硬件市场规模"
+    },
+    {
+      "evidence_id": "E08",
+      "subquestion_id": "SQ2",
+      "source_id": "S07",
+      "claim": "线上渠道占智能硬件零售额 62%",
+      "value": 62,
+      "unit": "%",
+      "period": "2025H1",
+      "url": "https://www.avc-mr.com/data/pet-appliance",
+      "date": "2025-09-05",
+      "quote": "线上渠道贡献宠物智能硬件零售额的 62%。",
+      "series": "线上占比-2025H1",
+      "metric": "线上渠道占比"
+    },
+    {
+      "evidence_id": "E09",
+      "subquestion_id": "SQ2",
+      "source_id": "S08",
+      "claim": "宠物用品出口额 21.4 亿美元",
+      "value": 21.4,
+      "unit": "亿美元",
+      "period": "2025Q1",
+      "url": "https://www.customs.gov.cn/data/pet-export-202504",
+      "date": "2025-04-15",
+      "quote": "2025 年一季度宠物用品出口 21.4 亿美元。",
+      "series": "出口额-2025Q1",
+      "metric": "宠物用品出口额"
+    },
+    {
+      "evidence_id": "E10",
+      "subquestion_id": "SQ3",
+      "source_id": "S14",
+      "claim": "小佩线上市占率 22%",
+      "value": 22,
+      "unit": "%",
+      "period": "2025",
+      "url": "https://36kr.com/p/2025-pet-hardware-landscape",
+      "date": "2025-09-20",
+      "quote": "小佩以约 22% 的线上份额位居第一。",
+      "series": "线上市占率-小佩",
+      "metric": "线上市占率"
+    },
+    {
+      "evidence_id": "E11",
+      "subquestion_id": "SQ3",
+      "source_id": "S14",
+      "claim": "霍曼线上市占率 18%",
+      "value": 18,
+      "unit": "%",
+      "period": "2025",
+      "url": "https://36kr.com/p/2025-pet-hardware-landscape",
+      "date": "2025-09-20",
+      "quote": "霍曼以约 18% 的份额紧随其后。",
+      "series": "线上市占率-霍曼",
+      "metric": "线上市占率"
+    },
+    {
+      "evidence_id": "E12",
+      "subquestion_id": "SQ3",
+      "source_id": "S14",
+      "claim": "有陪线上市占率 12%",
+      "value": 12,
+      "unit": "%",
+      "period": "2025",
+      "url": "https://36kr.com/p/2025-pet-hardware-landscape",
+      "date": "2025-09-20",
+      "quote": "有陪份额约 12%，主打性价比猫砂盆。",
+      "series": "线上市占率-有陪",
+      "metric": "线上市占率"
+    },
+    {
+      "evidence_id": "E13",
+      "subquestion_id": "SQ3",
+      "source_id": "S14",
+      "claim": "鸟语花香线上市占率 9%",
+      "value": 9,
+      "unit": "%",
+      "period": "2025",
+      "url": "https://36kr.com/p/2025-pet-hardware-landscape",
+      "date": "2025-09-20",
+      "quote": "鸟语花香份额约 9%，以饮水机见长。",
+      "series": "线上市占率-鸟语花香",
+      "metric": "线上市占率"
+    },
+    {
+      "evidence_id": "E14",
+      "subquestion_id": "SQ3",
+      "source_id": "S14",
+      "claim": "小米米家线上市占率 7%",
+      "value": 7,
+      "unit": "%",
+      "period": "2025",
+      "url": "https://36kr.com/p/2025-pet-hardware-landscape",
+      "date": "2025-09-20",
+      "quote": "小米米家以生态联动拿到约 7% 份额。",
+      "series": "线上市占率-小米",
+      "metric": "线上市占率"
+    },
+    {
+      "evidence_id": "E15",
+      "subquestion_id": "SQ3",
+      "source_id": "S09",
+      "claim": "主流智能喂食器到手价 399 元",
+      "value": 399,
+      "unit": "元/台",
+      "period": "2025-10",
+      "url": "https://www.petkit.cn/products",
+      "date": "2025-10-01",
+      "quote": "智能喂食器到手价 399 元起。",
+      "series": "喂食器价格-2025-10",
+      "metric": "智能喂食器价格"
+    },
+    {
+      "evidence_id": "E16",
+      "subquestion_id": "SQ3",
+      "source_id": "S12",
+      "claim": "智能猫砂盆均价 1299 元",
+      "value": 1299,
+      "unit": "元/台",
+      "period": "2025-10",
+      "url": "https://mall.jd.com/bird-flower.html",
+      "date": "2025-10-02",
+      "quote": "智能猫砂盆到手均价 1299 元。",
+      "series": "猫砂盆价格-2025-10",
+      "metric": "智能猫砂盆价格"
+    },
+    {
+      "evidence_id": "E17",
+      "subquestion_id": "SQ4",
+      "source_id": "S15",
+      "claim": "代工端毛利率约 22%",
+      "value": 22,
+      "unit": "%",
+      "period": "2025",
+      "url": "https://interview.local/shenzhen-oem-20250820",
+      "date": "2025-08-20",
+      "quote": "代工端毛利率约 22%，品牌端可到 45%。",
+      "series": "代工毛利率-2025",
+      "metric": "代工毛利率"
+    },
+    {
+      "evidence_id": "E18",
+      "subquestion_id": "SQ4",
+      "source_id": "S16",
+      "claim": "主控芯片单机成本 38 元",
+      "value": 38,
+      "unit": "元/台",
+      "period": "2024",
+      "url": "https://www.cninfo.com.cn/announcement/002475-2024",
+      "date": "2025-03-28",
+      "quote": "宠物电器主控芯片单机成本约 38 元。",
+      "series": "芯片成本-2024",
+      "metric": "主控芯片成本"
+    },
+    {
+      "evidence_id": "E19",
+      "subquestion_id": "SQ4",
+      "source_id": "S17",
+      "claim": "泵阀组件单机成本 26 元",
+      "value": 26,
+      "unit": "元/台",
+      "period": "2025-09",
+      "url": "https://www.chinaiol.com/report/pet-supply-202509",
+      "date": "2025-09-10",
+      "quote": "饮水机泵阀组件单机成本约 26 元。",
+      "series": "泵阀成本-2025-09",
+      "metric": "泵阀组件成本"
+    },
+    {
+      "evidence_id": "E20",
+      "subquestion_id": "SQ4",
+      "source_id": "S15",
+      "claim": "单厂月产能 30 万台",
+      "value": 30,
+      "unit": "万台/月",
+      "period": "2025",
+      "url": "https://interview.local/shenzhen-oem-20250820",
+      "date": "2025-08-20",
+      "quote": "现有产线月产能约 30 万台，可弹性扩到 45 万台。",
+      "series": "月产能-2025",
+      "metric": "代工厂月产能"
+    },
+    {
+      "evidence_id": "E21",
+      "subquestion_id": "SQ5",
+      "source_id": "S18",
+      "claim": "无线充电需 1 项 SRRC 型号核准",
+      "value": 1,
+      "unit": "项",
+      "period": "2025",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wireless-charging.html",
+      "date": "2025-02-01",
+      "quote": "无线充电设备须取得无线电发射设备型号核准。",
+      "series": "SRRC认证-2025",
+      "metric": "SRRC 型号核准"
+    },
+    {
+      "evidence_id": "E22",
+      "subquestion_id": "SQ5",
+      "source_id": "S19",
+      "claim": "涉及 2 类 3C 强制认证",
+      "value": 2,
+      "unit": "类",
+      "period": "2025",
+      "url": "https://www.samr.gov.cn/zw/zfxxgk/3c-catalog-2025.html",
+      "date": "2025-01-15",
+      "quote": "电源适配器与部分电器列入 3C 强制认证目录。",
+      "series": "3C认证-2025",
+      "metric": "3C 强制认证"
+    },
+    {
+      "evidence_id": "E23",
+      "subquestion_id": "SQ5",
+      "source_id": "S20",
+      "claim": "视频数据最短留存 6 个月",
+      "value": 6,
+      "unit": "个月",
+      "period": "2025",
+      "url": "https://www.cac.gov.cn/2025-06/01/c_guide.htm",
+      "date": "2025-06-01",
+      "quote": "涉及视频采集的智能硬件，日志留存不少于 6 个月。",
+      "series": "数据留存-2025",
+      "metric": "视频数据留存"
+    },
+    {
+      "evidence_id": "E24",
+      "subquestion_id": "SQ6",
+      "source_id": "S21",
+      "claim": "天猫宠物类目保证金 5 万元",
+      "value": 5,
+      "unit": "万元",
+      "period": "2025",
+      "url": "https://rule.tmall.com/pet-2025",
+      "date": "2025-09-25",
+      "quote": "宠物智能设备类目保证金 5 万元，扣点 5%。",
+      "series": "类目保证金-2025",
+      "metric": "天猫类目保证金"
+    },
+    {
+      "evidence_id": "E25",
+      "subquestion_id": "SQ6",
+      "source_id": "S22",
+      "claim": "首批建议 4 个 SKU",
+      "value": 4,
+      "unit": "个",
+      "period": "2025",
+      "url": "https://interview.local/pet-founder-20250830",
+      "date": "2025-08-30",
+      "quote": "首批建议 4 个 SKU，喂食器与饮水机先跑通。",
+      "series": "首批SKU-2025",
+      "metric": "首批 SKU 数"
+    },
+    {
+      "evidence_id": "E26",
+      "subquestion_id": "SQ6",
+      "source_id": "S22",
+      "claim": "新品牌回本周期 14 个月",
+      "value": 14,
+      "unit": "个月",
+      "period": "2025",
+      "url": "https://interview.local/pet-founder-20250830",
+      "date": "2025-08-30",
+      "quote": "按当前投放成本，新品牌回本约 14 个月。",
+      "series": "回本周期-2025",
+      "metric": "新品牌回本周期"
+    },
+    {
+      "evidence_id": "E27",
+      "subquestion_id": "SQ2",
+      "source_id": "S05",
+      "claim": "智能喂食器细分规模 32 亿元",
+      "value": 32,
+      "unit": "亿元",
+      "period": "2025",
+      "url": "https://www.petfairasia.com/report/2025-white-paper#feeder",
+      "date": "2025-05-18",
+      "quote": "智能喂食器细分规模约 32 亿元。",
+      "series": "喂食器规模-2025",
+      "metric": "智能喂食器规模"
+    },
+    {
+      "evidence_id": "E28",
+      "subquestion_id": "SQ2",
+      "source_id": "S06",
+      "claim": "智能饮水机细分规模 21 亿元",
+      "value": 21,
+      "unit": "亿元",
+      "period": "2025",
+      "url": "https://www.jd.com/report/pet-smart-2025#water",
+      "date": "2025-07-01",
+      "quote": "智能饮水机细分规模约 21 亿元。",
+      "series": "饮水机规模-2025",
+      "metric": "智能饮水机规模"
+    },
+    {
+      "evidence_id": "E29",
+      "subquestion_id": "SQ2",
+      "source_id": "S23",
+      "claim": "智能猫砂盆细分规模 18 亿元",
+      "value": 18,
+      "unit": "亿元",
+      "period": "2025",
+      "url": "https://www.leadleo.com/report/pet-hardware-2025#litter",
+      "date": "2025-08-01",
+      "quote": "智能猫砂盆细分规模约 18 亿元。",
+      "series": "猫砂盆规模-2025",
+      "metric": "智能猫砂盆规模"
+    },
+    {
+      "evidence_id": "E30",
+      "subquestion_id": "SQ2",
+      "source_id": "S07",
+      "claim": "智能摄像头细分规模 16 亿元",
+      "value": 16,
+      "unit": "亿元",
+      "period": "2025H1",
+      "url": "https://www.avc-mr.com/data/pet-appliance#camera",
+      "date": "2025-09-05",
+      "quote": "宠物智能摄像头细分规模约 16 亿元。",
+      "series": "摄像头规模-2025H1",
+      "metric": "智能摄像头规模"
+    },
+    {
+      "evidence_id": "E31",
+      "subquestion_id": "SQ1",
+      "source_id": "S04",
+      "claim": "天猫宠物智能硬件客单价约 480 元",
+      "series": "客单价-2025",
+      "metric": "智能硬件客单价",
+      "value": 480,
+      "unit": "元/单",
+      "period": "2025",
+      "url": "https://interview.local/tmall-pet-20250812",
+      "date": "2025-08-12",
+      "quote": "智能硬件客单价约 480 元，猫砂盆拉高整体客单。"
+    },
+    {
+      "evidence_id": "E32",
+      "subquestion_id": "SQ3",
+      "source_id": "S10",
+      "claim": "霍曼主力喂食器到手价 599 元",
+      "series": "喂食器价格-霍曼-2025-10",
+      "metric": "智能喂食器价格",
+      "value": 599,
+      "unit": "元/台",
+      "period": "2025-10",
+      "url": "https://www.homerunpet.com/products",
+      "date": "2025-10-01",
+      "quote": "霍曼主力智能喂食器到手价 599 元。"
+    },
+    {
+      "evidence_id": "E33",
+      "subquestion_id": "SQ3",
+      "source_id": "S11",
+      "claim": "有陪智能猫砂盆到手价 899 元",
+      "series": "猫砂盆价格-有陪-2025-10",
+      "metric": "智能猫砂盆价格",
+      "value": 899,
+      "unit": "元/台",
+      "period": "2025-10",
+      "url": "https://youpei.tmall.com",
+      "date": "2025-10-02",
+      "quote": "有陪智能猫砂盆活动到手价 899 元。"
+    },
+    {
+      "evidence_id": "E34",
+      "subquestion_id": "SQ3",
+      "source_id": "S13",
+      "claim": "米家智能喂食器到手价 249 元",
+      "series": "喂食器价格-小米-2025-10",
+      "metric": "智能喂食器价格",
+      "value": 249,
+      "unit": "元/台",
+      "period": "2025-10",
+      "url": "https://www.mi.com/pet",
+      "date": "2025-10-03",
+      "quote": "米家智能喂食器到手价 249 元。"
+    }
+  ],
+  "sizing": {
+    "top_down": {
+      "components": [
+        {
+          "name": "智能喂食器",
+          "value": 32
+        },
+        {
+          "name": "智能饮水机",
+          "value": 21
+        },
+        {
+          "name": "智能猫砂盆",
+          "value": 18
+        },
+        {
+          "name": "智能摄像头",
+          "value": 16
+        }
+      ]
+    },
+    "bottom_up": {
+      "customer_count": 65000000,
+      "addressable_fraction": 0.18,
+      "annual_quantity": 1.2,
+      "price_per_unit": 620
+    },
+    "assumptions": [
+      {
+        "name": "可服务城镇养宠家庭数",
+        "value": 65000000,
+        "low": 58000000,
+        "high": 72000000,
+        "unit": "户",
+        "evidence_id": "E01",
+        "basis": "1.2 亿户 × 城镇智能硬件可服务比例"
+      },
+      {
+        "name": "可服务比例",
+        "value": 0.18,
+        "low": 0.15,
+        "high": 0.22,
+        "unit": "ratio",
+        "evidence_id": "E02",
+        "basis": "渗透率 11.5% 上浮至可服务口径"
+      },
+      {
+        "name": "户均年购买件数",
+        "value": 1.2,
+        "low": 1.0,
+        "high": 1.4,
+        "unit": "件/户/年",
+        "evidence_id": "E03",
+        "basis": "年均消费 3200 元下的智能硬件件数"
+      },
+      {
+        "name": "件均到手价",
+        "value": 620,
+        "low": 540,
+        "high": 700,
+        "unit": "元/件",
+        "evidence_id": "E15",
+        "basis": "喂食器 399 元与猫砂盆 1299 元的加权"
+      }
+    ]
+  },
+  "competition": {
+    "dimensions": [
+      "价格带",
+      "渠道覆盖",
+      "产品线宽度",
+      "智能化",
+      "供应链",
+      "品牌力",
+      "服务网络",
+      "出海"
+    ],
+    "competitors": [
+      {
+        "name": "小佩 PETKIT",
+        "cells": {
+          "价格带": {
+            "value": "中高（399–1999 元）",
+            "source_id": "S09"
+          },
+          "渠道覆盖": {
+            "value": "天猫/京东/独立站全覆盖",
+            "source_id": "S09"
+          },
+          "产品线宽度": {
+            "value": "喂食/饮水/猫砂/摄像头全矩阵",
+            "source_id": "S09"
+          },
+          "智能化": {
+            "value": "App+AI 识别，行业领先",
+            "source_id": "S14"
+          },
+          "供应链": {
+            "value": "自研+代工混合",
+            "source_id": "S17"
+          },
+          "品牌力": {
+            "value": "线上份额第一 22%",
+            "source_id": "S14"
+          },
+          "服务网络": {
+            "value": "全国联保+上门",
+            "source_id": "S09"
+          },
+          "出海": {
+            "value": "独立站覆盖 30+ 国家",
+            "source_id": "S09"
+          }
+        },
+        "battlecard": {
+          "positioning": "高端全矩阵",
+          "threat": "份额与品牌心智双领先",
+          "attack": "用单品类性价比与本地服务切细分"
+        }
+      },
+      {
+        "name": "霍曼 Homerun",
+        "cells": {
+          "价格带": {
+            "value": "中高（499–1599 元）",
+            "source_id": "S10"
+          },
+          "渠道覆盖": {
+            "value": "天猫/京东为主",
+            "source_id": "S10"
+          },
+          "产品线宽度": {
+            "value": "饮水/喂食/猫砂",
+            "source_id": "S10"
+          },
+          "智能化": {
+            "value": "App 控制，缺 AI 识别",
+            "source_id": "S14"
+          },
+          "供应链": {
+            "value": "核心代工，品质稳定",
+            "source_id": "S17"
+          },
+          "品牌力": {
+            "value": "线上份额 18%",
+            "source_id": "S14"
+          },
+          "服务网络": {
+            "value": "区域服务商",
+            "source_id": "S10"
+          },
+          "出海": {
+            "value": "东南亚为主",
+            "source_id": "S10"
+          }
+        },
+        "battlecard": {
+          "positioning": "品质稳健的第二品牌",
+          "threat": "价格带与我方正面冲突",
+          "attack": "以智能化差异与更快上新拉开"
+        }
+      },
+      {
+        "name": "有陪 Youpei",
+        "cells": {
+          "价格带": {
+            "value": "中低（299–999 元）",
+            "source_id": "S11"
+          },
+          "渠道覆盖": {
+            "value": "天猫旗舰店+抖音",
+            "source_id": "S11"
+          },
+          "产品线宽度": {
+            "value": "猫砂盆为主",
+            "source_id": "S11"
+          },
+          "智能化": {
+            "value": "基础 App 控制",
+            "source_id": "S14"
+          },
+          "供应链": {
+            "value": "深圳代工",
+            "source_id": "S15"
+          },
+          "品牌力": {
+            "value": "线上份额 12%",
+            "source_id": "S14"
+          },
+          "服务网络": {
+            "value": "线上客服为主",
+            "source_id": "S11"
+          },
+          "出海": {
+            "value": "未规模出海",
+            "source_id": "S11"
+          }
+        },
+        "battlecard": {
+          "positioning": "性价比猫砂盆专家",
+          "threat": "低价拖累品类毛利",
+          "attack": "用耗材与订阅服务建立复购"
+        }
+      },
+      {
+        "name": "鸟语花香",
+        "cells": {
+          "价格带": {
+            "value": "中低（199–899 元）",
+            "source_id": "S12"
+          },
+          "渠道覆盖": {
+            "value": "京东自营+天猫",
+            "source_id": "S12"
+          },
+          "产品线宽度": {
+            "value": "饮水机为主",
+            "source_id": "S12"
+          },
+          "智能化": {
+            "value": "基础联动",
+            "source_id": "S14"
+          },
+          "供应链": {
+            "value": "珠三角代工",
+            "source_id": "S17"
+          },
+          "品牌力": {
+            "value": "线上份额 9%",
+            "source_id": "S14"
+          },
+          "服务网络": {
+            "value": "京东售后",
+            "source_id": "S12"
+          },
+          "出海": {
+            "value": "少量跨境",
+            "source_id": "S12"
+          }
+        },
+        "battlecard": {
+          "positioning": "饮水机性价比",
+          "threat": "京东自营流量倾斜",
+          "attack": "以猫砂盆+饮水机套装提高客单"
+        }
+      },
+      {
+        "name": "小米米家",
+        "cells": {
+          "价格带": {
+            "value": "中低（249–1099 元）",
+            "source_id": "S13"
+          },
+          "渠道覆盖": {
+            "value": "小米商城+天猫+京东",
+            "source_id": "S13"
+          },
+          "产品线宽度": {
+            "value": "喂食/饮水/摄像头",
+            "source_id": "S13"
+          },
+          "智能化": {
+            "value": "米家生态联动",
+            "source_id": "S14"
+          },
+          "供应链": {
+            "value": "生态链代工",
+            "source_id": "S16"
+          },
+          "品牌力": {
+            "value": "线上份额 7%",
+            "source_id": "S14"
+          },
+          "服务网络": {
+            "value": "小米之家",
+            "source_id": "S13"
+          },
+          "出海": {
+            "value": "全球渠道",
+            "source_id": "S13"
+          }
+        },
+        "battlecard": {
+          "positioning": "生态联动入口",
+          "threat": "用生态补贴打价格",
+          "attack": "做跨品牌兼容与宠物垂直深度"
+        }
+      }
+    ],
+    "five_forces": [
+      {
+        "force": "供应商议价力",
+        "rating": "medium",
+        "rationale": "芯片与泵阀成本占比高但可多源",
+        "source_id": "S17"
+      },
+      {
+        "force": "购买者议价力",
+        "rating": "high",
+        "rationale": "线上比价充分，价格带透明",
+        "source_id": "S14"
+      },
+      {
+        "force": "新进入者威胁",
+        "rating": "high",
+        "rationale": "代工成熟，白牌 3 个月可起盘",
+        "source_id": "S15"
+      },
+      {
+        "force": "替代品威胁",
+        "rating": "medium",
+        "rationale": "传统宠物用品仍占主流",
+        "source_id": "S23"
+      },
+      {
+        "force": "同业竞争",
+        "rating": "high",
+        "rationale": "前五份额 68%，价格战频发",
+        "source_id": "S14"
+      }
+    ],
+    "shares": [
+      {
+        "player": "小佩 PETKIT",
+        "share": 22,
+        "source_id": "S14"
+      },
+      {
+        "player": "霍曼 Homerun",
+        "share": 18,
+        "source_id": "S14"
+      },
+      {
+        "player": "有陪 Youpei",
+        "share": 12,
+        "source_id": "S14"
+      },
+      {
+        "player": "鸟语花香",
+        "share": 9,
+        "source_id": "S14"
+      },
+      {
+        "player": "小米米家",
+        "share": 7,
+        "source_id": "S14"
+      }
+    ],
+    "market_size": 87.0,
+    "market_size_source": "S05"
+  },
+  "limits": [
+    "样本以公开二手报告为主，付费数据库只取摘要，未做完整原表复核。",
+    "需求侧用购买意愿代替实际转化，未做消费者问卷。",
+    "份额为 2025 年线上口径，未覆盖线下宠物店与医院渠道。",
+    "测算为人民币口径，未考虑汇率与跨境政策变化。"
+  ]
+}

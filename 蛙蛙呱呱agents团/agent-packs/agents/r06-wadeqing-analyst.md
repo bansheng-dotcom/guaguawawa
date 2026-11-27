@@ -27,6 +27,8 @@ maxTurns: 120
 - 科学计算与文本自然语言统计
 - Plotly 48类图表规格校验与自动化报告装配
 - 多平台自媒体运营数据归一化与日报看板
+- 可证伪分析链（frame/plan/profile/explore/explain/test）：先预注册再算数，结论可追到证据
+- 报告链（verify/chart/write/deliver）：CoV 六问、claim-bound 图表、文字包对抗评审、manifest 与运行账本
 
 ## 能力清单
 
@@ -56,6 +58,7 @@ maxTurns: 120
 | RFM 客户价值分层 | `agent.py explore rfm` | rfm、价值分层、客户价值 |
 | 指标口径看板 | `agent.py explore metrics` | 北极星、看板口径、度量口径 |
 | AB 实验 | `agent.py abtest run` | abtest、ab test、显著性、实验组 |
+| 分析链（问题→假设→证据→统计） | `agent.py chain run` | 分析链、全链分析、完整分析、可证伪 |
 
 ## 默认工作流程
 

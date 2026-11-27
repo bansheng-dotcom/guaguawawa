@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>客户健康包：健康分 / 续约窗口 / 客服 SLA · R13 蛙客成 · 客户成功与销售运营官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>客户健康包：健康分 / 续约窗口 / 客服 SLA</h1>
+<p class="meta">R13 蛙客成 · 客户成功与销售运营官 · 四维加权健康分 + 工单 SLA 的真实夹具 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>客户健康分与续约</td><td>health.health</td><td>examples/health.json</td><td>1906e7299e6fe580</td><td>627</td></tr>
+<tr><td>客服收件箱 SLA</td><td>support.inbox</td><td>examples/inbox.json</td><td>25f0bf51c3ebb284</td><td>595</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>客户健康分与续约 · health.health</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>customer_count</td><td>4</td></tr>
+<tr><td>avg_health</td><td>66.4</td></tr>
+<tr><td>at_risk_count</td><td>1</td></tr>
+<tr><td>renewal_candidates</td><td>list · 1 项</td></tr>
+<tr><td>health_rows</td><td>list · 4 项</td></tr>
+<tr><td>narrative</td><td>客户 4 名、平均健康分 66.4、at_risk 1 名、续约候选 1 名</td></tr>
+</tbody></table>
+<h3>客服收件箱 SLA · support.inbox</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>ticket_count</td><td>4</td></tr>
+<tr><td>channel_count</td><td>3</td></tr>
+<tr><td>open_count</td><td>2</td></tr>
+<tr><td>avg_csat</td><td>4.5</td></tr>
+<tr><td>reopen_count</td><td>0</td></tr>
+<tr><td>narrative</td><td>会话 4 条（开放 2）、CSAT 均值 4.5、重开 0 条</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>客户健康分与续约</td><td>health.name</td><td>OK</td><td class="pass">PASS</td><td>健康表无匿名行（缺名下标 无）</td></tr>
+<tr><td>客户健康分与续约</td><td>health.weights</td><td>OK</td><td class="pass">PASS</td><td>四维权重和=100 = 100</td></tr>
+<tr><td>客户健康分与续约</td><td>health.summary</td><td>OK</td><td class="pass">PASS</td><td>续约窗口 3 名、风险名单 1 名</td></tr>
+<tr><td>客户健康分与续约</td><td>health.risk_reason</td><td>OK</td><td class="pass">PASS</td><td>风险客户均写归因（缺 无）</td></tr>
+<tr><td>客服收件箱 SLA</td><td>support.channel_enum</td><td>OK</td><td class="pass">PASS</td><td>渠道全部在白名单（越界 无）</td></tr>
+<tr><td>客服收件箱 SLA</td><td>support.status_enum</td><td>OK</td><td class="pass">PASS</td><td>会话状态全部在白名单（越界 无）</td></tr>
+<tr><td>客服收件箱 SLA</td><td>support.first_response</td><td>OK</td><td class="pass">PASS</td><td>首响 ≤ 240 分钟（超时 无）</td></tr>
+<tr><td>客服收件箱 SLA</td><td>support.resolution</td><td>OK</td><td class="pass">PASS</td><td>解决 ≤ 48 小时（超时 无）</td></tr>
+<tr><td>客服收件箱 SLA</td><td>support.reopen</td><td>OK</td><td class="pass">PASS</td><td>重开率=0.0 ≤ 0.15（重开 0）</td></tr>
+<tr><td>客服收件箱 SLA</td><td>support.csat_scale</td><td>OK</td><td class="pass">PASS</td><td>CSAT 评分均在 1-5（异常 无）</td></tr>
+<tr><td>客服收件箱 SLA</td><td>support.csat</td><td>OK</td><td class="pass">PASS</td><td>CSAT 均值=4.5 ≥ 4.0（达标）</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">综合结论：健康包门禁全绿</p>
+<p>四名客户按 usage/support/voc/engagement 四维加权实算健康分，at_risk 客户带归因；客服收件箱渠道/状态/SLA/CSAT 全部达标，输出续约候选与风险名单。</p>
+<p class="note">健康分是确定性加权，不替代客户访谈；续约候选只是输入，商务承诺与折扣须 R03/创始人审批。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实技能生成，可复算；R13 不擅自承诺退款/赔偿。</footer>
+</main>
+</body>
+</html>

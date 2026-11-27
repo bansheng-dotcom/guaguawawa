@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>tiny-notes 端到端交付单</title><style>
+@page{size:A4;margin:16mm}
+:root{--ink:#14202b;--muted:#5a6b7b;--line:#d9e2ea;--bg:#f5f8fa;
+--card:#fff;--ok:#0f7b5f;--warn:#a86400;--bad:#b3261e;--accent:#1f5fa8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:36px 24px 64px}
+header{border-left:5px solid var(--accent);padding:6px 0 6px 18px;margin-bottom:24px}
+header .kicker{color:var(--muted);font-size:13px;letter-spacing:.08em}
+h1{font-size:28px;margin:6px 0 8px}h2{font-size:19px;margin:30px 0 10px}
+h3{font-size:15px;margin:18px 0 8px;color:var(--accent)}
+p{color:var(--ink)}.muted{color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi b{display:block;font-size:23px;margin-bottom:3px}.kpi span{color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse;background:var(--card);
+border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#eef3f7;color:#33475b;font-weight:600}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;padding:1px 7px;border-radius:99px;font-size:12px;
+background:#e8f3ed;color:var(--ok);border:1px solid #bfe0cf}
+.tag.warn{background:#fdf1dd;color:var(--warn);border-color:#efd3a2}
+.mono{font-family:Consolas,monospace;font-size:12.5px;color:#3b4d5e}
+.bar{height:12px;background:#e6edf3;border-radius:99px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:16px 18px;margin:14px 0}
+ul{margin:6px 0 6px 18px;padding:0}li{margin:3px 0}
+footer{margin-top:38px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style></head>
+<body data-theme="light"><div class="wrap">
+<header><div class="kicker">R09 · 工程链 · OpenAPI 3.1 契约 + 可回滚发布</div><h1>tiny-notes 端到端交付单</h1>
+<p class="muted">项目 tiny-notes · 十段全链 PASS ·
+工件指纹 d8aaa7961c47dacfffdbb7c3</p></header>
+<div class="kpis">
+<div class="kpi"><b>10/10</b><span>阶段门禁通过</span></div>
+<div class="kpi"><b>40</b><span>测试总数（0 skip）</span></div>
+<div class="kpi"><b>4</b><span>RFC 7807 错误码</span></div>
+<div class="kpi"><b>86%</b><span>行覆盖率</span></div>
+</div>
+<div class="card"><h2>ADR 决定</h2>
+<p><b>单体 FastAPI + SQLite</b> —— 当前是单人团队与离线演示场景，优先零运维与可回滚，而不是并发上限。</p></div>
+<h2>架构取舍</h2><table><thead><tr><th>选择</th><th>收益</th><th>代价</th><th>缓解</th></tr></thead><tbody><tr><td>SQLite 单文件存储</td><td>零运维、备份即复制文件</td><td>并发写串行化</td><td>写操作走单队列，压测确认 p95 达标</td></tr><tr><td>JWT 无状态鉴权</td><td>服务端无需会话表</td><td>登出无法即时失效</td><td>短过期时间 + 关键操作二次校验</td></tr><tr><td>单体部署</td><td>发布与回滚只有一步</td><td>故障域集中</td><td>健康检查 + 一版本回滚镜像</td></tr></tbody></table>
+<h2>接口与错误码</h2><table><thead><tr><th>方法</th><th>路径</th><th>说明</th><th>错误码</th></tr></thead><tbody><tr><td>POST</td><td>/notes</td><td>创建笔记</td><td>validation_error, unauthenticated</td></tr><tr><td>GET</td><td>/notes</td><td>列出我的笔记</td><td>unauthenticated</td></tr><tr><td>GET</td><td>/notes/search</td><td>按关键词搜索笔记</td><td>unauthenticated, validation_error</td></tr><tr><td>DELETE</td><td>/notes/{id}</td><td>删除笔记</td><td>unauthenticated, not_found, forbidden</td></tr></tbody></table>
+<h2>验收 → E2E 对齐</h2><table><thead><tr><th>E2E</th><th>场景</th><th>覆盖验收</th></tr></thead><tbody><tr><td>E2E-1</td><td>登录后创建并搜索笔记</td><td>AC-1、AC-3</td></tr><tr><td>E2E-2</td><td>未登录创建被拒</td><td>AC-2</td></tr><tr><td>E2E-3</td><td>删除他人笔记被拒</td><td>AC-4</td></tr></tbody></table>
+<h2>发布流水线与回滚</h2><table><thead><tr><th>阶段</th><th>命令</th><th>门禁</th></tr></thead><tbody><tr><td>lint</td><td>python -m compileall .</td><td>无语法错误</td></tr><tr><td>test</td><td>python -m unittest discover</td><td>40 测试全绿</td></tr><tr><td>security</td><td>python -m eng_chain.security --brief fixtures/tiny-notes.json</td><td>无 high / 无泄漏</td></tr><tr><td>build</td><td>python -m build</td><td>制品可安装</td></tr><tr><td>deploy</td><td>python scripts/deploy.py --version 1.4.0</td><td>健康检查通过</td></tr><tr><td>verify</td><td>python scripts/smoke.py</td><td>冒烟全绿</td></tr></tbody></table>
+<div class="card"><h2>回滚清单</h2><ul>
+<li>关闭 feature flag notes.search</li><li>回滚 search_text 列新增</li><li>恢复上一版本制品</li></ul></div>
+<h2>十段门禁</h2><table><thead><tr><th>段</th><th>门禁</th><th>结论</th><th>sha256</th></tr></thead><tbody><tr><td>adr</td><td>PASS</td><td>PASS</td><td>d8aaa796e903</td></tr><tr><td>api</td><td>PASS</td><td>PASS</td><td>1c47dacfa95a</td></tr><tr><td>feature</td><td>PASS</td><td>PASS</td><td>ffdbb7c3e714</td></tr><tr><td>testing</td><td>PASS</td><td>PASS</td><td>0aa70982b0f5</td></tr><tr><td>debug</td><td>PASS</td><td>PASS</td><td>56358993d20b</td></tr><tr><td>release</td><td>PASS</td><td>PASS</td><td>cd99fd7c93be</td></tr><tr><td>security</td><td>PASS</td><td>PASS</td><td>973708099e35</td></tr><tr><td>performance</td><td>PASS</td><td>PASS</td><td>9af06165ff2b</td></tr><tr><td>incident</td><td>PASS</td><td>PASS</td><td>25f9e2973bf8</td></tr><tr><td>review</td><td>PASS</td><td>PASS</td><td>5f1a75eae32a</td></tr></tbody></table>
+<footer>由 R09 蛙稳码 eng_chain.runner 真实运行 fixtures 生成；
+manifest 见运行目录 eng_manifest.json。门禁只信结构化结果，不信叙述。</footer>
+</div></body></html>

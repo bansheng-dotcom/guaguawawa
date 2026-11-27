@@ -1,0 +1,48 @@
+{
+  "problem": "下季度是否把自助版定价从 99 元/月上调到 149 元/月",
+  "options": [
+    {
+      "label": "上调至 149",
+      "summary": "提价 51%，赌价值感知已建立"
+    },
+    {
+      "label": "维持 99 不变",
+      "summary": "什么都不做，保转化基线"
+    },
+    {
+      "label": "新档 129",
+      "summary": "折中：提价 30%，观察弹性"
+    }
+  ],
+  "assumptions": [
+    "现有客户续约价格敏感度低（NPS 45+）",
+    "竞品同级定价已到 159",
+    "自助渠道占比 70% 且可灰度"
+  ],
+  "constraints": {
+    "time": "本季度内",
+    "cash": "无新增预算",
+    "headcount": "无新人",
+    "reversibility": "难逆"
+  },
+  "impacted_roles": [
+    "r03",
+    "r12",
+    "r14"
+  ],
+  "success_criteria": [
+    {
+      "metric": "自助版 MRR",
+      "threshold": "+15%",
+      "deadline": "提价后 60 天"
+    }
+  ],
+  "kill_criteria": [
+    {
+      "metric": "新客转化率",
+      "threshold": "较基线跌幅 >20%",
+      "deadline": "提价后 30 天",
+      "action": "回滚到 99 并复盘"
+    }
+  ]
+}

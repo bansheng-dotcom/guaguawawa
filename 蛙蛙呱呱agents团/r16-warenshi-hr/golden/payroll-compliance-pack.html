@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>薪酬准备包：输入来源 / 毛净恒等 / 制度字段溯源 · R16 蛙人师 · 人事与组织官</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --ink:#1b2430; --muted:#5b6675; --line:#d8dee7; --bg:#f7f8fa;
+        --ok:#1a7f4b; --bad:#b3261e; }
+* { box-sizing: border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--ink);
+       font:15px/1.65 "Microsoft YaHei","PingFang SC",sans-serif; }
+main { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--line);
+       border-radius:8px; padding:34px 40px; }
+h1 { font-size:25px; margin:0 0 6px; }
+h2 { font-size:19px; margin:28px 0 10px; padding-bottom:6px;
+     border-bottom:2px solid var(--line); }
+h3 { font-size:16px; margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; }
+thead th { background:#eef1f5; text-align:left; padding:8px 10px;
+           border:1px solid var(--line); }
+tbody td { padding:7px 10px; border:1px solid var(--line); vertical-align:top; }
+.pass { color:var(--ok); font-weight:600; }
+.fail { color:var(--bad); font-weight:600; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:13px;
+         background:#eef1f5; }
+.note { background:#fbfbfc; border-left:3px solid var(--line); padding:10px 14px;
+        color:var(--muted); }
+footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<h1>薪酬准备包：输入来源 / 毛净恒等 / 制度字段溯源</h1>
+<p class="meta">R16 蛙人师 · 人事与组织官 · 薪酬是「准备」不是「发放」——净额恒等与制度性幻觉防护 · 运行日 2026-11-27</p>
+<h2>一、输入摘要</h2>
+<table><thead><tr><th>步骤</th><th>技能/动作</th><th>夹具</th><th>sha256</th><th>字节</th></tr></thead><tbody>
+<tr><td>薪酬输入表</td><td>payroll.input</td><td>examples/payroll_input.json</td><td>33c7f32544bffcd8</td><td>396</td></tr>
+<tr><td>薪酬核算记录</td><td>payroll.calc</td><td>examples/payroll_calc.json</td><td>86f0f04c0a3b37d2</td><td>419</td></tr>
+</tbody></table>
+<h2>二、关键输出字段</h2>
+<h3>薪酬输入表 · payroll.input</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>payroll_input_count</td><td>1</td></tr>
+<tr><td>payroll_frequency</td><td>Monthly</td></tr>
+<tr><td>component_count</td><td>3</td></tr>
+<tr><td>narrative</td><td>薪酬输入 EMP-0001（Monthly）3 项</td></tr>
+</tbody></table>
+<h3>薪酬核算记录 · payroll.calc</h3>
+<table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody>
+<tr><td>ok</td><td>是</td></tr>
+<tr><td>verdict</td><td>PASS</td></tr>
+<tr><td>payroll_input_count</td><td>1</td></tr>
+<tr><td>gross_pay</td><td>20000</td></tr>
+<tr><td>net_pay</td><td>18000</td></tr>
+<tr><td>total_deduction</td><td>2000</td></tr>
+<tr><td>employer_contribution</td><td>0</td></tr>
+<tr><td>narrative</td><td>核算：毛额 20000 扣除 2000 净额 18000（待 R03/外部复核，非发放）</td></tr>
+</tbody></table>
+<h2>三、门禁结果</h2>
+<table><thead><tr><th>步骤</th><th>维度</th><th>级别</th><th>结果</th><th>说明</th></tr></thead><tbody>
+<tr><td>薪酬输入表</td><td>payroll.frequency</td><td>OK</td><td class="pass">PASS</td><td>发放频率=&#x27;Monthly&#x27; 在白名单</td></tr>
+<tr><td>薪酬输入表</td><td>payroll.employee</td><td>OK</td><td class="pass">PASS</td><td>薪酬关联人员非空</td></tr>
+<tr><td>薪酬输入表</td><td>payroll.components</td><td>OK</td><td class="pass">PASS</td><td>组成项 ≥1（实际 3）</td></tr>
+<tr><td>薪酬输入表</td><td>payroll.component_type</td><td>OK</td><td class="pass">PASS</td><td>组成项类型合法（越界 无）</td></tr>
+<tr><td>薪酬输入表</td><td>payroll.component_source</td><td>OK</td><td class="pass">PASS</td><td>组成项均有来源 source（缺 无）</td></tr>
+<tr><td>薪酬核算记录</td><td>payroll.gross</td><td>OK</td><td class="pass">PASS</td><td>毛额恒等：声明 20000 = ΣEarning 20000</td></tr>
+<tr><td>薪酬核算记录</td><td>payroll.net</td><td>OK</td><td class="pass">PASS</td><td>净额恒等：声明 18000 = 毛额 20000 − 扣除 2000 = 18000</td></tr>
+<tr><td>薪酬核算记录</td><td>payroll.days</td><td>OK</td><td class="pass">PASS</td><td>计薪天数 20 ≤ 计薪基数 22</td></tr>
+<tr><td>薪酬核算记录</td><td>payroll.system_source</td><td>OK</td><td class="pass">PASS</td><td>制度性字段均可溯源（凭空 无）</td></tr>
+</tbody></table>
+<h2>四、结论与边界</h2>
+<p class="badge">综合结论：招聘/绩效门禁全绿</p>
+<p>薪酬输入频率与组成项类型合法，每个组成项都有 source；核算记录毛额=ΣEarning、净额=毛额−ΣDeduction，制度性字段均可溯源。</p>
+<p class="note">本包仅为薪酬输入与核算草稿，交 R03（税务/合规）与外部专业人士复核，绝不直接发薪/代发/打款。</p>
+<footer>本文件由 golden/build_golden.py 调用角色真实技能生成，可复算；R16 不擅自录用/发薪。</footer>
+</main>
+</body>
+</html>

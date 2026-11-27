@@ -1,0 +1,8 @@
+{
+  "_violation": "健康表出现匿名行：客户缺 name，故意触发 health.health 的 health.name 门禁（无法归属的健康分不可用）。",
+  "customers": [
+    {"usage": 100, "support": 100, "voc": 100, "engagement": 100,
+     "renewal_in_days": 30}
+  ],
+  "summary": "匿名客户，健康分四维满分。"
+}

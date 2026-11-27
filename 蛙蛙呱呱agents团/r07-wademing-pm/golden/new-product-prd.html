@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>0→1 新品 PRD：自由职业者发票管家</title><style>
+@page{size:A4;margin:16mm}
+:root{--ink:#1f2328;--muted:#656d76;--line:#d8dee4;--ok:#1a7f37;--bad:#cf222e;--bg:#f6f8fa}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);
+font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+header{padding:40px 48px 24px;border-bottom:1px solid var(--line);background:var(--bg)}
+h1{margin:0 0 6px;font-size:28px}h2{margin:0;font-size:20px}
+.sub{color:var(--muted);font-size:14px}
+main{padding:8px 48px 56px;max-width:980px}
+section{margin:32px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:16px;
+padding:16px 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;
+font-weight:600;color:#fff}.badge.ok{background:var(--ok)}.badge.bad{background:var(--bad)}
+.badge.warn{background:#9a6700}.body{padding:18px 20px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+pre{margin:14px 0 0;padding:14px;background:var(--bg);border:1px solid var(--line);
+border-radius:8px;overflow:auto;font-size:12px;line-height:1.5}
+details{margin-top:12px}summary{cursor:pointer;color:var(--muted);font-size:13px}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+footer{padding:24px 48px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+@media print{figure,table,.card,.kpi,.note-box{break-inside:avoid}}
+</style></head>
+<body data-theme="light"><header><h1>0→1 新品 PRD：自由职业者发票管家</h1><div class="sub">R07 · 5 条产品工作流 + 经验门</div></header>
+<main><section>
+  <div class="sec-head"><div><h2>discovery_pack</h2>
+  <div class="sub">discovery_pack.json · stage=discovery</div></div>
+  <span class="badge ok">PASS</span></div>
+  <div class="body"><table><thead><tr><th>结果</th><th>门禁维度</th><th>说明</th></tr></thead><tbody><tr><td>PASS</td><td><code>problem_real.topic</code></td><td>缺少研究主题（topic）</td></tr><tr><td>PASS</td><td><code>problem_real.interviews</code></td><td>访谈记录 3 条 &lt; 3 条，问题真实性证据不足</td></tr><tr><td>PASS</td><td><code>problem_real.persona</code></td><td>访谈 0 缺少受访角色（persona）</td></tr><tr><td>PASS</td><td><code>problem_real.quote</code></td><td>访谈 0 原话过短（45 &lt; 6 字符）</td></tr><tr><td>PASS</td><td><code>problem_real.persona</code></td><td>访谈 1 缺少受访角色（persona）</td></tr><tr><td>PASS</td><td><code>problem_real.quote</code></td><td>访谈 1 原话过短（39 &lt; 6 字符）</td></tr><tr><td>PASS</td><td><code>problem_real.persona</code></td><td>访谈 2 缺少受访角色（persona）</td></tr><tr><td>PASS</td><td><code>problem_real.quote</code></td><td>访谈 2 原话过短（36 &lt; 6 字符）</td></tr><tr><td>PASS</td><td><code>problem_real.behavior</code></td><td>描述过去行为/替代方案的访谈原话仅 3 条 &lt; 2 条</td></tr><tr><td>PASS</td><td><code>problem_real.not_desire_only</code></td><td>存在只表达愿望、无行为证据的原话 0 条</td></tr><tr><td>PASS</td><td><code>problem_real.not_desire_only</code></td><td>主题只是「用户想要」，且没有任何访谈行为证据</td></tr><tr><td>PASS</td><td><code>problem_real.topic</code></td><td>缺少问题描述</td></tr><tr><td>PASS</td><td><code>job_story</code></td><td>Job story 缺少情境（situation）</td></tr><tr><td>PASS</td><td><code>job_story</code></td><td>Job story 缺少动机（motivation）</td></tr><tr><td>PASS</td><td><code>job_story</code></td><td>Job story 缺少期望结果（outcome）</td></tr><tr><td>PASS</td><td><code>job_story.outcome</code></td><td>Job story 期望结果过短，无法判断是否达成</td></tr><tr><td>PASS</td><td><code>opportunity_tree.count</code></td><td>机会 3 条 &lt; 3 条，机会树不足以支撑取舍</td></tr><tr><td>PASS</td><td><code>opportunity_tree.statement</code></td><td>机会 0 缺少 statement</td></tr><tr><td>PASS</td><td><code>opportunity_tree.evidence</code></td><td>机会 0 缺少访谈证据（evidence）</td></tr><tr><td>PASS</td><td><code>opportunity_tree.statement</code></td><td>机会 1 缺少 statement</td></tr><tr><td>PASS</td><td><code>opportunity_tree.evidence</code></td><td>机会 1 缺少访谈证据（evidence）</td></tr><tr><td>PASS</td><td><code>opportunity_tree.statement</code></td><td>机会 2 缺少 statement</td></tr><tr><td>PASS</td><td><code>opportunity_tree.evidence</code></td><td>机会 2 缺少访谈证据（evidence）</td></tr><tr><td>PASS</td><td><code>opportunity_tree.focus</code></td><td>选中的机会 2 条不在 1~3 区间</td></tr><tr><td>PASS</td><td><code>hypothesis.count</code></td><td>承重假设 2 条 &lt; 2 条</td></tr><tr><td>PASS</td><td><code>hypothesis.statement</code></td><td>假设 0 缺少 statement</td></tr><tr><td>PASS</td><td><code>hypothesis.falsifiable</code></td><td>假设 0 只是「用户想要」，不可证伪</td></tr><tr><td>PASS</td><td><code>hypothesis.falsifiable</code></td><td>假设 0 缺少 disproof（推翻条件）</td></tr><tr><td>PASS</td><td><code>hypothesis.falsifiable</code></td><td>假设 0 的推翻条件没有阈值/可测口径</td></tr><tr><td>PASS</td><td><code>hypothesis.test</code></td><td>假设 0 缺少验证方式（test）</td></tr><tr><td>PASS</td><td><code>hypothesis.statement</code></td><td>假设 1 缺少 statement</td></tr><tr><td>PASS</td><td><code>hypothesis.falsifiable</code></td><td>假设 1 只是「用户想要」，不可证伪</td></tr><tr><td>PASS</td><td><code>hypothesis.falsifiable</code></td><td>假设 1 缺少 disproof（推翻条件）</td></tr><tr><td>PASS</td><td><code>hypothesis.falsifiable</code></td><td>假设 1 的推翻条件没有阈值/可测口径</td></tr><tr><td>PASS</td><td><code>hypothesis.test</code></td><td>假设 1 缺少验证方式（test）</td></tr><tr><td>PASS</td><td><code>poc.scope</code></td><td>POC 缺少范围（scope）</td></tr><tr><td>PASS</td><td><code>poc.duration</code></td><td>POC 周期 14 不在 1~30 天</td></tr><tr><td>PASS</td><td><code>poc.metric</code></td><td>POC 缺少成功指标（success_metric）</td></tr><tr><td>PASS</td><td><code>poc.metric</code></td><td>POC 缺少判定阈值（threshold）</td></tr><tr><td>PASS</td><td><code>poc.rollback</code></td><td>POC 缺少回滚方案（rollback_plan）</td></tr></tbody></table>
+  <details><summary>展开工件 JSON</summary><pre>{
+  &quot;artifact&quot;: &quot;discovery_pack&quot;,
+  &quot;stage&quot;: &quot;discovery&quot;,
+  &quot;topic&quot;: &quot;自由职业者月底开票与催款耗时过长&quot;,
+  &quot;interview_summary&quot;: {
+    &quot;count&quot;: 3,
+    &quot;behavior_hits&quot;: 3,
+    &quot;personas&quot;: [
+      &quot;独立平面设计师&quot;,
+      &quot;自由摄影师&quot;,
+      &quot;独立开发者&quot;
+    ]
+  },
+  &quot;job_story&quot;: {
+    &quot;situation&quot;: &quot;月底集中给多个客户开票并核对回款&quot;,
+    &quot;motivation&quot;: &quot;不想在聊天记录、邮箱和表格之间反复翻找金额&quot;,
+    &quot;outcome&quot;: &quot;在 10 分钟内生成一张金额准确的发票草稿&quot;
+  },
+  &quot;opportunity_tree&quot;: [
+    {
+      &quot;id&quot;: &quot;opp1&quot;,
+      &quot;statement&quot;: &quot;减少从项目记录到发票信息的重复录入&quot;,
+      &quot;evidence&quot;: &quot;独立平面设计师：翻聊天记录和邮箱找项目金额&quot;,
+      &quot;impact&quot;: 9,
+      &quot;selected&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;opp2&quot;,
+      &quot;statement&quot;: &quot;让未回款项目在一处可见，避免漏单&quot;,
+      &quot;evidence&quot;: &quot;自由摄影师：一条条翻微信找是谁欠的，最后漏了两单&quot;,
+      &quot;impact&quot;: 8,
+      &quot;selected&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;opp3&quot;,
+      &quot;statement&quot;: &quot;自动核对银行流水与应收记录&quot;,
+      &quot;evidence&quot;: &quot;独立开发者：手动对一遍银行流水，找不到差异就得重新算&quot;,
+      &quot;impact&quot;: 6,
+      &quot;selected&quot;: false
+    }
+  ],
+  &quot;hypotheses&quot;: [
+    {
+      &quot;id&quot;: &quot;h1&quot;,
+      &quot;statement&quot;: &quot;若发票信息能从项目记录自动带出，则单张开票准备时间下降 50%&quot;,
+      &quot;disproof&quot;: &quot;如果 4 周内测用户单张准备时间下降不足 20%，假设不成立&quot;,
+      &quot;test&quot;: &quot;对 6 位自由职业者做前后对比计时&quot;
+    },
+    {
+      &quot;id&quot;: &quot;h2&quot;,
+      &quot;statement&quot;: &quot;若未回款项目集中展示，则月度漏单数下降 80%&quot;,
+      &quot;disproof&quot;: &quot;如果连续两个月漏单数下降低于 30%，假设不成立&quot;,
+      &quot;test&quot;: &quot;接入 10 位用户的历史回款记录复核&quot;
+    }
+  ],
+  &quot;poc&quot;: {
+    &quot;name&quot;: &quot;自动发票草稿&quot;,
+    &quot;scope&quot;: &quot;连接项目表与发票模板，生成待确认草稿&quot;,
+    &quot;duration_days&quot;: 14,
+    &quot;success_metric&quot;: &quot;单张开票准备时间&quot;,
+    &quot;threshold&quot;: &quot;从 25 分钟降到 10 分钟&quot;,
+    &quot;rollback_plan&quot;: &quot;保留手工开票入口，草稿可一键丢弃&quot;
+  },
+  &quot;gate&quot;: {
+    &quot;ok&quot;: true,
+    &quot;grade&quot;: &quot;PASS&quot;,
+    &quot;stage&quot;: &quot;discovery&quot;,
+    &quot;checks&quot;: [
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少研究主题（topic）&quot;,
+        &quot;dim&quot;: &quot;problem_real.topic&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;访谈记录 3 条 &lt; 3 条，问题真实性证据不足&quot;,
+        &quot;dim&quot;: &quot;problem_real.interviews&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;访谈 0 缺少受访角色（persona）&quot;,
+        &quot;dim&quot;: &quot;problem_real.persona&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;访谈 0 原话过短（45 &lt; 6 字符）&quot;,
+        &quot;dim&quot;: &quot;problem_real.quote&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;访谈 1 缺少受访角色（persona）&quot;,
+        &quot;dim&quot;: &quot;problem_real.persona&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;访谈 1 原话过短（39 &lt; 6 字符）&quot;,
+        &quot;dim&quot;: &quot;problem_real.quote&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;访谈 2 缺少受访角色（persona）&quot;,
+        &quot;dim&quot;: &quot;problem_real.persona&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;访谈 2 原话过短（36 &lt; 6 字符）&quot;,
+        &quot;dim&quot;: &quot;problem_real.quote&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;描述过去行为/替代方案的访谈原话仅 3 条 &lt; 2 条&quot;,
+        &quot;dim&quot;: &quot;problem_real.behavior&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;存在只表达愿望、无行为证据的原话 0 条&quot;,
+        &quot;dim&quot;: &quot;problem_real.not_desire_only&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;主题只是「用户想要」，且没有任何访谈行为证据&quot;,
+        &quot;dim&quot;: &quot;problem_real.not_desire_only&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少问题描述&quot;,
+        &quot;dim&quot;: &quot;problem_real.topic&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;Job story 缺少情境（situation）&quot;,
+        &quot;dim&quot;: &quot;job_story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;Job story 缺少动机（motivation）&quot;,
+        &quot;dim&quot;: &quot;job_story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;Job story 缺少期望结果（outcome）&quot;,
+        &quot;dim&quot;: &quot;job_story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;Job story 期望结果过短，无法判断是否达成&quot;,
+        &quot;dim&quot;: &quot;job_story.outcome&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;机会 3 条 &lt; 3 条，机会树不足以支撑取舍&quot;,
+        &quot;dim&quot;: &quot;opportunity_tree.count&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;机会 0 缺少 statement&quot;,
+        &quot;dim&quot;: &quot;opportunity_tree.statement&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;机会 0 缺少访谈证据（evidence）&quot;,
+        &quot;dim&quot;: &quot;opportunity_tree.evidence&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;机会 1 缺少 statement&quot;,
+        &quot;dim&quot;: &quot;opportunity_tree.statement&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;机会 1 缺少访谈证据（evidence）&quot;,
+        &quot;dim&quot;: &quot;opportunity_tree.evidence&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;机会 2 缺少 statement&quot;,
+        &quot;dim&quot;: &quot;opportunity_tree.statement&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;机会 2 缺少访谈证据（evidence）&quot;,
+        &quot;dim&quot;: &quot;opportunity_tree.evidence&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;选中的机会 2 条不在 1~3 区间&quot;,
+        &quot;dim&quot;: &quot;opportunity_tree.focus&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;承重假设 2 条 &lt; 2 条&quot;,
+        &quot;dim&quot;: &quot;hypothesis.count&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 0 缺少 statement&quot;,
+        &quot;dim&quot;: &quot;hypothesis.statement&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 0 只是「用户想要」，不可证伪&quot;,
+        &quot;dim&quot;: &quot;hypothesis.falsifiable&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 0 缺少 disproof（推翻条件）&quot;,
+        &quot;dim&quot;: &quot;hypothesis.falsifiable&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 0 的推翻条件没有阈值/可测口径&quot;,
+        &quot;dim&quot;: &quot;hypothesis.falsifiable&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 0 缺少验证方式（test）&quot;,
+        &quot;dim&quot;: &quot;hypothesis.test&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 1 缺少 statement&quot;,
+        &quot;dim&quot;: &quot;hypothesis.statement&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 1 只是「用户想要」，不可证伪&quot;,
+        &quot;dim&quot;: &quot;hypothesis.falsifiable&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 1 缺少 disproof（推翻条件）&quot;,
+        &quot;dim&quot;: &quot;hypothesis.falsifiable&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 1 的推翻条件没有阈值/可测口径&quot;,
+        &quot;dim&quot;: &quot;hypothesis.falsifiable&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设 1 缺少验证方式（test）&quot;,
+        &quot;dim&quot;: &quot;hypothesis.test&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;POC 缺少范围（scope）&quot;,
+        &quot;dim&quot;: &quot;poc.scope&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;POC 周期 14 不在 1~30 天&quot;,
+        &quot;dim&quot;: &quot;poc.duration&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;POC 缺少成功指标（success_metric）&quot;,
+        &quot;dim&quot;: &quot;poc.metric&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;POC 缺少判定阈值（threshold）&quot;,
+        &quot;dim&quot;: &quot;poc.metric&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;POC 缺少回滚方案（rollback_plan）&quot;,
+        &quot;dim&quot;: &quot;poc.rollback&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      }
+    ],
+    &quot;errors&quot;: [],
+    &quot;blockers&quot;: [],
+    &quot;warnings&quot;: []
+  }
+}</pre></details>
+  </div>
+</section><section>
+  <div class="sec-head"><div><h2>prd_pack</h2>
+  <div class="sub">prd_pack.json · stage=prd</div></div>
+  <span class="badge ok">PASS</span></div>
+  <div class="body"><table><thead><tr><th>结果</th><th>门禁维度</th><th>说明</th></tr></thead><tbody><tr><td>PASS</td><td><code>context.background</code></td><td>缺少上下文背景（context.background）</td></tr><tr><td>PASS</td><td><code>context.evidence</code></td><td>缺少证据回链（context.evidence_links）</td></tr><tr><td>PASS</td><td><code>context.target_users</code></td><td>上下文缺少目标用户（context.target_users）</td></tr><tr><td>PASS</td><td><code>eight.problem</code></td><td>缺少问题与场景（problem_statement）</td></tr><tr><td>PASS</td><td><code>eight.problem</code></td><td>问题描述过短（40 &lt; 10 字符）</td></tr><tr><td>PASS</td><td><code>eight.problem</code></td><td>问题描述含模糊措辞</td></tr><tr><td>PASS</td><td><code>eight.user</code></td><td>缺少目标用户（users）</td></tr><tr><td>PASS</td><td><code>eight.user</code></td><td>用户缺少 segment 分层</td></tr><tr><td>PASS</td><td><code>eight.user</code></td><td>用户缺少 scenario 使用场景</td></tr><tr><td>PASS</td><td><code>eight.value</code></td><td>价值主张缺 before/how/after 三段对比</td></tr><tr><td>PASS</td><td><code>eight.scope</code></td><td>P0 范围为空（scope.p0）</td></tr><tr><td>PASS</td><td><code>eight.scope</code></td><td>缺少不做清单（scope.non_goals）</td></tr><tr><td>PASS</td><td><code>eight.metric</code></td><td>缺少北极星指标（metrics.north_star）</td></tr><tr><td>PASS</td><td><code>eight.metric</code></td><td>缺少基线与目标口径（baseline / target）</td></tr><tr><td>PASS</td><td><code>eight.metric</code></td><td>缺少护栏指标（metrics.guardrail）</td></tr><tr><td>PASS</td><td><code>eight.acceptance</code></td><td>缺少验收标准（acceptance_criteria）</td></tr><tr><td>PASS</td><td><code>eight.acceptance</code></td><td>验收标准未按 Given/When/Then 结构化</td></tr><tr><td>PASS</td><td><code>eight.risk</code></td><td>承重假设 3 条 &lt; 3 条硬底线</td></tr><tr><td>PASS</td><td><code>eight.risk</code></td><td>假设缺少 hypothesis</td></tr><tr><td>PASS</td><td><code>eight.risk</code></td><td>假设缺少 validation 验证方式</td></tr><tr><td>PASS</td><td><code>eight.read</code></td><td>缺少结论摘要（executive_summary）</td></tr><tr><td>PASS</td><td><code>eight.read</code></td><td>结论摘要过短，不具可读性</td></tr><tr><td>PASS</td><td><code>eight.summary</code></td><td>PRD 八门禁通过 8/8，未达全通过</td></tr><tr><td>PASS</td><td><code>eight.summary</code></td><td>PRD 八门禁仅通过 8/8</td></tr><tr><td>PASS</td><td><code>story</code></td><td>缺少用户故事（user_stories）</td></tr><tr><td>PASS</td><td><code>story</code></td><td>用户故事 0 缺少 as_a</td></tr><tr><td>PASS</td><td><code>story</code></td><td>用户故事 0 缺少 i_want</td></tr><tr><td>PASS</td><td><code>story</code></td><td>用户故事 0 缺少 so_that</td></tr><tr><td>PASS</td><td><code>story.acceptance</code></td><td>用户故事 0 验收条目 4 条不在 4~6 区间</td></tr><tr><td>PASS</td><td><code>scope.non_goals</code></td><td>缺少不在范围（non_goals）</td></tr><tr><td>PASS</td><td><code>scope.non_goals</code></td><td>顶层 non_goals 与 PRD scope.non_goals 不一致</td></tr><tr><td>PASS</td><td><code>premortem.count</code></td><td>premortem 失败原因 5 条 &lt; 5 条</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 0 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 0 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 0 条缺少责任人（owner）</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 1 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 1 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 1 条缺少责任人（owner）</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 2 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 2 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 2 条缺少责任人（owner）</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 3 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 3 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 3 条缺少责任人（owner）</td></tr><tr><td>PASS</td><td><code>premortem.reason</code></td><td>premortem 第 4 条缺少失败原因（reason）</td></tr><tr><td>PASS</td><td><code>premortem.mitigation</code></td><td>premortem 第 4 条缺少缓解措施（mitigation）</td></tr><tr><td>PASS</td><td><code>premortem.owner</code></td><td>premortem 第 4 条缺少责任人（owner）</td></tr></tbody></table>
+  <details><summary>展开工件 JSON</summary><pre>{
+  &quot;artifact&quot;: &quot;prd_pack&quot;,
+  &quot;stage&quot;: &quot;prd&quot;,
+  &quot;context&quot;: {
+    &quot;background&quot;: &quot;自由职业者月底开票需要跨聊天记录、邮箱与表格手工拼接金额，耗时长且易漏单。&quot;,
+    &quot;evidence_links&quot;: [
+      &quot;discovery_pack.json#opp1&quot;,
+      &quot;discovery_pack.json#h1&quot;
+    ],
+    &quot;target_users&quot;: [
+      &quot;自由职业者&quot;,
+      &quot;一人公司经营者&quot;
+    ]
+  },
+  &quot;prd&quot;: {
+    &quot;problem_statement&quot;: &quot;自由职业者月底开票需要手工翻找项目金额与聊天记录，平均每张 25 分钟，容易漏单&quot;,
+    &quot;users&quot;: [
+      {
+        &quot;segment&quot;: &quot;自由职业者&quot;,
+        &quot;scenario&quot;: &quot;月底集中开票&quot;,
+        &quot;alternative&quot;: &quot;Excel + 聊天记录手工拼接&quot;,
+        &quot;action_cost&quot;: &quot;高&quot;
+      }
+    ],
+    &quot;value_proposition&quot;: {
+      &quot;before&quot;: &quot;手工翻记录拼金额，单张 25 分钟&quot;,
+      &quot;how&quot;: &quot;从项目记录自动生成发票草稿&quot;,
+      &quot;after&quot;: &quot;单张准备 10 分钟内完成&quot;,
+      &quot;alternatives&quot;: &quot;Excel 模板 / 代账公司&quot;
+    },
+    &quot;scope&quot;: {
+      &quot;p0&quot;: [
+        &quot;从项目记录生成发票草稿&quot;
+      ],
+      &quot;p1&quot;: [
+        &quot;草稿导出 PDF&quot;
+      ],
+      &quot;p2&quot;: [],
+      &quot;non_goals&quot;: [
+        &quot;不做自动催款&quot;,
+        &quot;不对接税务系统&quot;
+      ]
+    },
+    &quot;metrics&quot;: {
+      &quot;north_star&quot;: &quot;单张开票准备时间&quot;,
+      &quot;input_metrics&quot;: [
+        &quot;自动带出字段比例&quot;
+      ],
+      &quot;guardrail&quot;: [
+        &quot;草稿错误率&quot;
+      ],
+      &quot;baseline&quot;: &quot;25 分钟&quot;,
+      &quot;target&quot;: &quot;10 分钟&quot;,
+      &quot;data_source&quot;: &quot;内测用户计时&quot;
+    },
+    &quot;acceptance_criteria&quot;: [
+      {
+        &quot;given&quot;: &quot;已有一个含客户与金额的项目&quot;,
+        &quot;when&quot;: &quot;点击生成发票草稿&quot;,
+        &quot;then&quot;: &quot;草稿自动带出客户与金额&quot;
+      }
+    ],
+    &quot;risks&quot;: [
+      {
+        &quot;hypothesis&quot;: &quot;项目记录字段足够生成草稿&quot;,
+        &quot;validation&quot;: &quot;抽样 20 个项目核对&quot;
+      },
+      {
+        &quot;hypothesis&quot;: &quot;用户愿意先补项目记录&quot;,
+        &quot;validation&quot;: &quot;可用性测试 6 人&quot;
+      },
+      {
+        &quot;hypothesis&quot;: &quot;自动带出能降低准备时间&quot;,
+        &quot;validation&quot;: &quot;前后对比实验&quot;
+      }
+    ],
+    &quot;executive_summary&quot;: &quot;把发票信息从项目记录自动带入草稿，把单张开票准备时间从 25 分钟降到 10 分钟&quot;
+  },
+  &quot;user_stories&quot;: [
+    {
+      &quot;id&quot;: &quot;us1&quot;,
+      &quot;as_a&quot;: &quot;自由职业者&quot;,
+      &quot;i_want&quot;: &quot;从项目记录直接生成发票草稿&quot;,
+      &quot;so_that&quot;: &quot;不用再翻聊天记录拼金额&quot;,
+      &quot;acceptance_criteria&quot;: [
+        &quot;project 存在客户与金额时草稿自动带出&quot;,
+        &quot;缺少金额时提示补全&quot;,
+        &quot;草稿可一键丢弃&quot;,
+        &quot;生成后保留手工修改入口&quot;
+      ]
+    }
+  ],
+  &quot;non_goals&quot;: [
+    &quot;不做自动催款&quot;,
+    &quot;不对接税务系统&quot;
+  ],
+  &quot;premortem&quot;: {
+    &quot;failure_reasons&quot;: [
+      {
+        &quot;reason&quot;: &quot;项目记录字段不全，草稿大量缺项&quot;,
+        &quot;mitigation&quot;: &quot;上线前做字段完整度扫描并提供补全引导&quot;,
+        &quot;owner&quot;: &quot;r07&quot;
+      },
+      {
+        &quot;reason&quot;: &quot;用户不愿维护项目记录&quot;,
+        &quot;mitigation&quot;: &quot;允许从聊天记录粘贴快速建项目&quot;,
+        &quot;owner&quot;: &quot;r09&quot;
+      },
+      {
+        &quot;reason&quot;: &quot;税率与发票字段不符合当地规则&quot;,
+        &quot;mitigation&quot;: &quot;先限定单一票种并在草稿页标注&quot;,
+        &quot;owner&quot;: &quot;r07&quot;
+      },
+      {
+        &quot;reason&quot;: &quot;导出 PDF 与现有工具不兼容&quot;,
+        &quot;mitigation&quot;: &quot;P0 只做草稿，PDF 放 P1 并做兼容测试&quot;,
+        &quot;owner&quot;: &quot;r09&quot;
+      },
+      {
+        &quot;reason&quot;: &quot;用户不信任自动带出的金额&quot;,
+        &quot;mitigation&quot;: &quot;展示金额来源并在保存前二次确认&quot;,
+        &quot;owner&quot;: &quot;r11&quot;
+      }
+    ]
+  },
+  &quot;eight_gates&quot;: {
+    &quot;passed&quot;: 8,
+    &quot;gate_ok&quot;: {
+      &quot;problem&quot;: true,
+      &quot;user&quot;: true,
+      &quot;value&quot;: true,
+      &quot;scope&quot;: true,
+      &quot;metric&quot;: true,
+      &quot;acceptance&quot;: true,
+      &quot;risk&quot;: true,
+      &quot;read&quot;: true
+    }
+  },
+  &quot;gate&quot;: {
+    &quot;ok&quot;: true,
+    &quot;grade&quot;: &quot;PASS&quot;,
+    &quot;stage&quot;: &quot;prd&quot;,
+    &quot;checks&quot;: [
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少上下文背景（context.background）&quot;,
+        &quot;dim&quot;: &quot;context.background&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少证据回链（context.evidence_links）&quot;,
+        &quot;dim&quot;: &quot;context.evidence&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;上下文缺少目标用户（context.target_users）&quot;,
+        &quot;dim&quot;: &quot;context.target_users&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少问题与场景（problem_statement）&quot;,
+        &quot;dim&quot;: &quot;eight.problem&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;问题描述过短（40 &lt; 10 字符）&quot;,
+        &quot;dim&quot;: &quot;eight.problem&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;问题描述含模糊措辞&quot;,
+        &quot;dim&quot;: &quot;eight.problem&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少目标用户（users）&quot;,
+        &quot;dim&quot;: &quot;eight.user&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户缺少 segment 分层&quot;,
+        &quot;dim&quot;: &quot;eight.user&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户缺少 scenario 使用场景&quot;,
+        &quot;dim&quot;: &quot;eight.user&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;价值主张缺 before/how/after 三段对比&quot;,
+        &quot;dim&quot;: &quot;eight.value&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;P0 范围为空（scope.p0）&quot;,
+        &quot;dim&quot;: &quot;eight.scope&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少不做清单（scope.non_goals）&quot;,
+        &quot;dim&quot;: &quot;eight.scope&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少北极星指标（metrics.north_star）&quot;,
+        &quot;dim&quot;: &quot;eight.metric&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少基线与目标口径（baseline / target）&quot;,
+        &quot;dim&quot;: &quot;eight.metric&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少护栏指标（metrics.guardrail）&quot;,
+        &quot;dim&quot;: &quot;eight.metric&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少验收标准（acceptance_criteria）&quot;,
+        &quot;dim&quot;: &quot;eight.acceptance&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;验收标准未按 Given/When/Then 结构化&quot;,
+        &quot;dim&quot;: &quot;eight.acceptance&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;承重假设 3 条 &lt; 3 条硬底线&quot;,
+        &quot;dim&quot;: &quot;eight.risk&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设缺少 hypothesis&quot;,
+        &quot;dim&quot;: &quot;eight.risk&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;假设缺少 validation 验证方式&quot;,
+        &quot;dim&quot;: &quot;eight.risk&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少结论摘要（executive_summary）&quot;,
+        &quot;dim&quot;: &quot;eight.read&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;结论摘要过短，不具可读性&quot;,
+        &quot;dim&quot;: &quot;eight.read&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;PRD 八门禁通过 8/8，未达全通过&quot;,
+        &quot;dim&quot;: &quot;eight.summary&quot;,
+        &quot;sev&quot;: &quot;OK&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;PRD 八门禁仅通过 8/8&quot;,
+        &quot;dim&quot;: &quot;eight.summary&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少用户故事（user_stories）&quot;,
+        &quot;dim&quot;: &quot;story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户故事 0 缺少 as_a&quot;,
+        &quot;dim&quot;: &quot;story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户故事 0 缺少 i_want&quot;,
+        &quot;dim&quot;: &quot;story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户故事 0 缺少 so_that&quot;,
+        &quot;dim&quot;: &quot;story&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;用户故事 0 验收条目 4 条不在 4~6 区间&quot;,
+        &quot;dim&quot;: &quot;story.acceptance&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;缺少不在范围（non_goals）&quot;,
+        &quot;dim&quot;: &quot;scope.non_goals&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;顶层 non_goals 与 PRD scope.non_goals 不一致&quot;,
+        &quot;dim&quot;: &quot;scope.non_goals&quot;,
+        &quot;sev&quot;: &quot;MAJOR&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 失败原因 5 条 &lt; 5 条&quot;,
+        &quot;dim&quot;: &quot;premortem.count&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 0 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 0 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 0 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 1 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 1 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 1 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 2 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 2 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 2 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 3 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 3 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 3 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 4 条缺少失败原因（reason）&quot;,
+        &quot;dim&quot;: &quot;premortem.reason&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 4 条缺少缓解措施（mitigation）&quot;,
+        &quot;dim&quot;: &quot;premortem.mitigation&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      },
+      {
+        &quot;ok&quot;: true,
+        &quot;msg&quot;: &quot;premortem 第 4 条缺少责任人（owner）&quot;,
+        &quot;dim&quot;: &quot;premortem.owner&quot;,
+        &quot;sev&quot;: &quot;BLOCKER&quot;
+      }
+    ],
+    &quot;errors&quot;: [],
+    &quot;blockers&quot;: [],
+    &quot;warnings&quot;: []
+  }
+}</pre></details>
+  </div>
+</section></main>
+<footer>R07 蛙得明 · 产品工作流黄金样本 · 由 pm_workflows 确定性渲染（无时间戳，可复算）</footer>
+</body></html>

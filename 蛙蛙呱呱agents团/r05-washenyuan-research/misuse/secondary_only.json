@@ -1,0 +1,33 @@
+{
+  "misuse_id": "misuse-secondary-only",
+  "expected_gate": "source:type_diversity",
+  "why": "源地图 12 个候选全部是二手转述，没有一手数据/官网/访谈，也没有三手交叉；结论无法回到原始口径。",
+  "artifact": "source_map",
+  "entries": [
+    {"subquestion_id": "SQ1", "candidates": [
+      {"id": "M01", "title": "二手转述 A", "type": "secondary", "carrier": "行业报告", "accessibility": "open", "url": "https://example.com/a1", "date": "2025-01-01", "publisher": "转述机构", "subquestion_id": "SQ1"},
+      {"id": "M02", "title": "二手转述 B", "type": "secondary", "carrier": "新闻", "accessibility": "open", "url": "https://example.com/a2", "date": "2025-01-02", "publisher": "转述媒体", "subquestion_id": "SQ1"}
+    ]},
+    {"subquestion_id": "SQ2", "candidates": [
+      {"id": "M03", "title": "二手转述 C", "type": "secondary", "carrier": "行业报告", "accessibility": "open", "url": "https://example.com/a3", "date": "2025-01-03", "publisher": "转述机构", "subquestion_id": "SQ2"},
+      {"id": "M04", "title": "二手转述 D", "type": "secondary", "carrier": "新闻", "accessibility": "open", "url": "https://example.com/a4", "date": "2025-01-04", "publisher": "转述媒体", "subquestion_id": "SQ2"}
+    ]},
+    {"subquestion_id": "SQ3", "candidates": [
+      {"id": "M05", "title": "二手转述 E", "type": "secondary", "carrier": "行业报告", "accessibility": "open", "url": "https://example.com/a5", "date": "2025-01-05", "publisher": "转述机构", "subquestion_id": "SQ3"},
+      {"id": "M06", "title": "二手转述 F", "type": "secondary", "carrier": "新闻", "accessibility": "open", "url": "https://example.com/a6", "date": "2025-01-06", "publisher": "转述媒体", "subquestion_id": "SQ3"}
+    ]},
+    {"subquestion_id": "SQ4", "candidates": [
+      {"id": "M07", "title": "二手转述 G", "type": "secondary", "carrier": "行业报告", "accessibility": "open", "url": "https://example.com/a7", "date": "2025-01-07", "publisher": "转述机构", "subquestion_id": "SQ4"},
+      {"id": "M08", "title": "二手转述 H", "type": "secondary", "carrier": "新闻", "accessibility": "open", "url": "https://example.com/a8", "date": "2025-01-08", "publisher": "转述媒体", "subquestion_id": "SQ4"}
+    ]},
+    {"subquestion_id": "SQ5", "candidates": [
+      {"id": "M09", "title": "二手转述 I", "type": "secondary", "carrier": "行业报告", "accessibility": "open", "url": "https://example.com/a9", "date": "2025-01-09", "publisher": "转述机构", "subquestion_id": "SQ5"},
+      {"id": "M10", "title": "二手转述 J", "type": "secondary", "carrier": "新闻", "accessibility": "open", "url": "https://example.com/a10", "date": "2025-01-10", "publisher": "转述媒体", "subquestion_id": "SQ5"}
+    ]},
+    {"subquestion_id": "SQ6", "candidates": [
+      {"id": "M11", "title": "二手转述 K", "type": "secondary", "carrier": "行业报告", "accessibility": "open", "url": "https://example.com/a11", "date": "2025-01-11", "publisher": "转述机构", "subquestion_id": "SQ6"},
+      {"id": "M12", "title": "二手转述 L", "type": "secondary", "carrier": "新闻", "accessibility": "open", "url": "https://example.com/a12", "date": "2025-01-12", "publisher": "转述媒体", "subquestion_id": "SQ6"}
+    ]}
+  ],
+  "summary": {"candidate_count": 12, "type_count": 1, "types": ["secondary"]}
+}

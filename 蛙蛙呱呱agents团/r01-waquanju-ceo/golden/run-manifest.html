@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>运行账本 · Q4 预算再平衡决策包</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; --accent:#0f766e; --accent-soft:#f0fdfa; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>运行账本 · Q4 预算再平衡决策包</h1>
+<p class="meta">run_id R01-20261127-Q4BUDGET ｜ 角色 r01 ｜ 账本日期 2026-11-27 ｜
+门禁 <span class="tag">PASS</span> ｜ 阶段 8 ｜ 工件 9</p>
+<h2>1. 账本结论</h2>
+<div class="block">每条阶段都登记了输入、工件 sha256、阶段决策与签名位；任一项缺失即拒绝出包。
+本账本校验结果：PASS，违规 0 条。</div>
+<h2>2. 逐步追踪</h2>
+<table>
+<thead><tr><th>序号</th><th>阶段</th><th>输入</th><th>工件（sha256 前 12 位）</th><th>阶段决策</th><th>签名</th></tr></thead>
+<tbody><tr><td>1</td><td>intent</td><td>（起点）</td><td><div>artifacts/brief.json · <code>7b812586879c</code></div></td><td>确认问题：毛利率连续两季下滑 3.1pt，决策用途是预算再平衡</td><td>未要求</td></tr><tr><td>2</td><td>decompose</td><td>artifacts/brief.json</td><td><div>artifacts/taskcard.json · <code>4f7165cd3a2e</code></div></td><td>拆 4 张任务卡：定价 / 投放 / 供应链 / 人效，单一 owner</td><td>未要求</td></tr><tr><td>3</td><td>decide</td><td>artifacts/taskcard.json</td><td><div>artifacts/decision_card.json · <code>0ef18987f479</code></div></td><td>维持 99 元档 + 削减 12% 投放；可逆性=难逆，需灰度回滚计划</td><td>未要求</td></tr><tr><td>4</td><td>redteam</td><td>artifacts/decision_card.json</td><td><div>artifacts/redteam.json · <code>f36cbdc4c672</code></div></td><td>三评委 2 GO 1 PAUSE：补 6 周灰度对照后再全量</td><td>未要求</td></tr><tr><td>5</td><td>companyos</td><td>artifacts/redteam.json</td><td><div>artifacts/companyos.json · <code>b27afc0b1410</code></div></td><td>回补目标写进 Rocks，周会用红黄绿追踪</td><td>未要求</td></tr><tr><td>6</td><td>decisionlog</td><td>artifacts/companyos.json</td><td><div>artifacts/decisionlog.json · <code>99e8ee4955c1</code></div></td><td>决策留痕并锁 60 天冷却，禁止重提旧方案</td><td>未要求</td></tr><tr><td>7</td><td>boardroom</td><td>artifacts/decisionlog.json</td><td><div>artifacts/board.json · <code>c0fc76bafe9a</code></div></td><td>上报董事会：请求 6 周灰度授权（不可逆动资金）</td><td>已签</td></tr><tr><td>8</td><td>deliver</td><td>artifacts/board.json</td><td><div>decision-pack.html · <code>5c4a8e5cadcd</code></div><div>artifacts/交付回执.txt · <code>fe1ac8809d7c</code></div></td><td>打包交付：决策包 + 账本 + 回执，交 R04 复核</td><td>未要求</td></tr></tbody>
+</table>
+<h2>3. 门禁明细</h2>
+<table>
+<thead><tr><th>错误码</th><th>含义</th><th>后果</th></tr></thead>
+<tbody>
+<tr><td>M02_MISSING_SHA256</td><td>工件缺哈希</td><td>拒绝签收</td></tr>
+<tr><td>M04_UNTRACEABLE_INPUT</td><td>输入早于产出或不存在</td><td>拒绝签收</td></tr>
+<tr><td>M05_HASH_MISMATCH</td><td>磁盘工件被手改</td><td>拒绝签收并回滚</td></tr>
+<tr><td>M06_MISSING_SIGNOFF</td><td>不可逆动作未签字</td><td>升级创始人</td></tr>
+</tbody>
+</table>
+<h3>3.1 复核方式</h3>
+<p>运行 <code>python run_manifest.py verify --file golden/run-manifest.json --dir golden/artifacts</code>，
+会重算每个工件 sha256；任何文件被改动都会以 M05 失败。</p>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>订单状态机报告</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; --accent:#be123c; --accent-soft:#fff1f2; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>订单状态机报告 · 三条交易链</h1>
+<p class="meta">出具 R14 蛙交易 ｜ 复核 R04 ｜ 状态机 6 态 ｜ 门禁 T01–T04 ｜
+三链结果 全通过</p>
+<h2>1. 结论先行</h2>
+<div class="block">三条链分别覆盖正常成交、全额退款（含部分退款）、超时重放；
+未支付就发货被 T01 拒绝，同键换金额的重复扣款企图被 T03 拒绝，超时重放被幂等吸收，最终三单均可关闭。</div>
+<h2>2. 状态迁移表</h2>
+<table>
+<thead><tr><th>前置状态</th><th>事件</th><th>目标状态</th></tr></thead>
+<tbody><tr><td>created</td><td>pay</td><td>paid</td></tr><tr><td>created</td><td>cancel</td><td>cancelled</td></tr><tr><td>paid</td><td>fulfill</td><td>fulfilled</td></tr><tr><td>paid</td><td>refund</td><td>refunded</td></tr><tr><td>fulfilled</td><td>refund</td><td>refunded</td></tr><tr><td>fulfilled</td><td>close</td><td>closed</td></tr><tr><td>refunded</td><td>close</td><td>closed</td></tr></tbody>
+</table>
+<p>未列出的迁移一律拒绝（T01）；资金动作必须有幂等键（T02）。</p>
+<h2>3. 三条交易链</h2>
+<table>
+<thead><tr><th>链</th><th>订单</th><th>终态</th><th>步数</th><th>触发门禁</th><th>结果</th></tr></thead>
+<tbody><tr><td>正常成交</td><td>SO-2001</td><td>closed</td><td>4</td><td>—</td><td>通过</td></tr><tr><td>全额退款</td><td>SO-2002</td><td>closed</td><td>5</td><td>—</td><td>通过</td></tr><tr><td>超时重放 + 非法企图</td><td>SO-2003</td><td>closed</td><td>7</td><td>T01_ILLEGAL_TRANSITION、T03_DUPLICATE_CHARGE</td><td>通过</td></tr></tbody>
+</table>
+<h2>4. 逐步明细</h2>
+<table>
+<thead><tr><th>链</th><th>步</th><th>事件/目标</th><th>结果</th></tr></thead>
+<tbody><tr><td>正常成交</td><td>1</td><td>—</td><td>成功</td></tr><tr><td>正常成交</td><td>2</td><td>pay</td><td>成功</td></tr><tr><td>正常成交</td><td>3</td><td>fulfill</td><td>成功</td></tr><tr><td>正常成交</td><td>4</td><td>close</td><td>成功</td></tr><tr><td>全额退款</td><td>1</td><td>—</td><td>成功</td></tr><tr><td>全额退款</td><td>2</td><td>pay</td><td>成功</td></tr><tr><td>全额退款</td><td>3</td><td>refund</td><td>成功</td></tr><tr><td>全额退款</td><td>4</td><td>refund</td><td>成功</td></tr><tr><td>全额退款</td><td>5</td><td>close</td><td>成功</td></tr><tr><td>超时重放 + 非法企图</td><td>1</td><td>—</td><td>成功</td></tr><tr><td>超时重放 + 非法企图</td><td>2</td><td>—</td><td>拒绝</td></tr><tr><td>超时重放 + 非法企图</td><td>3</td><td>pay</td><td>成功</td></tr><tr><td>超时重放 + 非法企图</td><td>4</td><td>—</td><td>幂等跳过</td></tr><tr><td>超时重放 + 非法企图</td><td>5</td><td>—</td><td>拒绝</td></tr><tr><td>超时重放 + 非法企图</td><td>6</td><td>fulfill</td><td>成功</td></tr><tr><td>超时重放 + 非法企图</td><td>7</td><td>close</td><td>成功</td></tr></tbody>
+</table>
+<figure class="fig-card">
+  <figcaption class="fig-sub">图 1：三条链的步数与门禁触发数（T01×1、T03×1，其余 0）</figcaption>
+  <table>
+    <thead><tr><th>链</th><th>步数</th></tr></thead>
+    <tbody><tr><td>正常成交</td><td>4</td></tr><tr><td>全额退款</td><td>5</td></tr><tr><td>超时重放 + 非法企图</td><td>7</td></tr></tbody>
+  </table>
+  <div class="fig-src">来源：commerce_fsm.demo_chains（确定性账本）</div>
+  <div class="fig-unit">单位：步；参考线为三条链步数均值（5.33 步）</div>
+</figure>
+<h2>5. 幂等与防重复扣款</h2>
+<p>同一幂等键重复请求只返回既有结果（<code>deduplicated=true</code>），账本不新增流水；
+同键换金额直接判 T03，杜绝“同一次付款被扣两次”。</p>
+<h3>5.1 边界</h3>
+<p>本报告只覆盖单订单内状态与幂等，不涉及跨订单合并支付与分账。</p>
+
+</main>
+</body>
+</html>

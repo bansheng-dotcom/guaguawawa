@@ -552,10 +552,43 @@ def build_parser() -> argparse.ArgumentParser:
     _register_case(sp)
     _register_review(sp)
     _register_evolution(sp)
+    _register_runmanifest(sp)
 
     for m in SKILLS:
         m.add_parser(sp)
     return p
+
+
+def _register_runmanifest(sp) -> None:
+    rm = sp.add_parser("runmanifest", help="报告级运行账本：build 由 run_manifest.py 生成 / verify / trace / check")
+    ra = rm.add_subparsers(dest="rmcmd", required=True)
+    v = ra.add_parser("verify", help="逐条核对账本（含磁盘 sha256 重算）")
+    v.add_argument("--file", required=True)
+    v.add_argument("--dir", default=None)
+    t = ra.add_parser("trace", help="摊平为逐步追踪")
+    t.add_argument("--file", required=True)
+    c = ra.add_parser("check", help="跑一个误用样本（篡改账本）")
+    c.add_argument("--case", required=True)
+    g = ra.add_parser("goldens", help="重建 golden 决策包与账本")
+    g.add_argument("--dir", default=None)
+
+
+def _run_runmanifest(args) -> Dict[str, Any]:
+    import run_manifest as rm
+    if args.rmcmd == "goldens":
+        out = rm.build_goldens(args.dir)
+        return {"ok": out["verify"]["ok"],
+                "decision_pack": out["decision_pack"],
+                "run_manifest": out["run_manifest"],
+                "violations": out["verify"]["violations"]}
+    if args.rmcmd == "verify":
+        return rm.verify_manifest(rm.load_json(args.file), root=args.dir)
+    if args.rmcmd == "trace":
+        steps = rm.trace_steps(rm.load_json(args.file))
+        return {"ok": True, "steps": steps, "count": len(steps)}
+    out = rm.check_case(args.case)
+    out["ok"] = bool(out.get("as_expected"))  # 误用被如期拒绝即视为通过
+    return out
 
 
 def _register_harness(sp) -> None:
@@ -877,6 +910,10 @@ def main() -> int:
         return 0 if out["verdict"] == "PASS" else 1
     if args.skill == "evolution":
         out = _run_evolution(args)
+        emit_result(out)
+        return 0 if out.get("ok", True) else 1
+    if args.skill == "runmanifest":
+        out = _run_runmanifest(args)
         emit_result(out)
         return 0 if out.get("ok", True) else 1
 

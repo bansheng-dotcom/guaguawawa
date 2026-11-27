@@ -544,6 +544,36 @@ def main() -> int:
        and vl.get("review_pass") == 21,
        f"exit={p.returncode} vl={ {k: vl.get(k) for k in ('run_pass', 'contract_pass', 'review_pass')} }")
 
+    print("== 16. 机制：工作流重试 / 退避 / 死信 / 幂等（T12） ==")
+    import workflow_engine as wf
+    r = run_agent(["wf", "goldens"])
+    ok("wf goldens 重建 PASS", r["code"] == 0 and r["data"].get("ok") is True,
+       str(r["data"].get("dir")))
+    r = run_agent(["wf", "run", "--input", w("wfrun", {
+        "policy": wf.DEMO_POLICY, "tasks": wf.DEMO_TASKS})])
+    run = r["data"]
+    ok("首轮：2 次重试成功 + 1 进死信 + 1 阻塞",
+       run.get("outcome") == "failed"
+       and [d["task_id"] for d in run.get("dead_letters", [])] == ["t05-publish"]
+       and run.get("blocked") == ["t06-notify"], str(run.get("states")))
+    delays = [a.get("delays") for a in run.get("attempts", []) if a["task_id"] == "t04-verify"]
+    ok("指数退避 2/4/8s", delays and delays[0] == [2.0, 4.0, 8.0], str(delays))
+    r = run_agent(["wf", "replay", "--input", w("wfreplay", {"run": run})])
+    rep = r["data"]
+    ok("重放死信后全链成功（含阻塞恢复）",
+       rep.get("outcome") == "replayed" and rep.get("dead_letters_open") == []
+       and rep.get("resumed") == ["t06-notify"]
+       and all(s == "succeeded" for s in rep.get("states", {}).values()), str(rep))
+    for case in ("unbounded-retry.json", "lost-dead-letter.json"):
+        r = run_agent(["wf", "check", "--case", os.path.join(AGENT_DIR, "misuse", case)])
+        ok(f"误用 {case} 被拒", r["code"] == 0 and r["data"].get("rejected") is True
+           and r["data"].get("as_expected") is True, str(r["data"].get("hit")))
+    for name in ("coo-retry-dlq.html", "coo-process-retro.html"):
+        html = open(os.path.join(AGENT_DIR, "golden", name), encoding="utf-8").read()
+        ok(f"黄金 {name}：A4/单主题/单 h1/表头齐",
+           "@page" in html and 'data-theme="light"' in html
+           and html.count("<h1") == 1 and "<thead" in html)
+
     print(f"\n通过 {passed} 项，失败 {failed} 项")
     return 0 if failed == 0 else 1
 

@@ -11,6 +11,7 @@
  "cards/card_upgrade.py",
  "cards/pipeline.py",
  "charts/__init__.py",
+ "charts/audit.py",
  "charts/chart_candidates.py",
  "charts/chart_capabilities.py",
  "charts/chart_chooser.py",

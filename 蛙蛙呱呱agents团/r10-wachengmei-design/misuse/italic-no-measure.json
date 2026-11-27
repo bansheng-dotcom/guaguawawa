@@ -1,0 +1,8 @@
+{
+  "case_id": "italic-no-measure",
+  "intent": "中文伪斜体 + 去掉版心宽度：PDF 会糊、一行 80+ 字，必须拒绝",
+  "style": "editorial-evidence-report",
+  "drop": ["measure"],
+  "inject_css": "p{font-style:italic}",
+  "expect": ["P1_italic", "P7_measure"]
+}

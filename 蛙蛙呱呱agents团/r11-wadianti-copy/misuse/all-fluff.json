@@ -1,0 +1,16 @@
+{
+  "sample": "all-fluff",
+  "stage": "final",
+  "expected_gate": "final.ai_fluff",
+  "brief": {
+    "title": "套话样张",
+    "industry": "内容营销",
+    "audience": "读者",
+    "goal": "测试套话密度门禁",
+    "constraints": {"min_chars": 0, "max_chars": 9999},
+    "entities": []
+  },
+  "outline": {"sections": []},
+  "research": {"claims": []},
+  "markdown": "综上所述，值得注意的是，不难发现，众所周知，毫无疑问，显而易见，简单来说，说白了，换个角度看，可以这样理解。综上所述，值得注意的是，不难发现，众所周知，毫无疑问，显而易见，简单来说，说白了，换个角度看，可以这样理解。综上所述，值得注意的是，不难发现，众所周知，毫无疑问，显而易见，简单来说，说白了，换个角度看，可以这样理解。"
+}

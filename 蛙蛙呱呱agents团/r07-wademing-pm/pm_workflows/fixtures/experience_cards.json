@@ -1,0 +1,58 @@
+{
+  "level": "L2",
+  "query": "新手引导 激活率",
+  "as_of": "2026-11-27",
+  "index": [
+    {"id": "exp-onboarding-1", "title": "引导步骤不超过 3 步", "scope": "新手引导", "updated_at": "2026-08-01", "credibility": "high"},
+    {"id": "exp-onboarding-2", "title": "允许跳过并稍后继续", "scope": "新手引导", "updated_at": "2026-09-10", "credibility": "medium"}
+  ],
+  "cards": [
+    {
+      "id": "exp-onboarding-1",
+      "trigger": "新手引导设计",
+      "scope": "新手引导",
+      "rule": "首屏引导不超过 3 步，每步只做一件事",
+      "boundary": "仅适用于首次进入工作台的新用户",
+      "evidence": "2026Q2 A/B 实验 n=1200，3 步组完成率 68% vs 5 步组 51%",
+      "credibility": "high",
+      "updated_at": "2026-08-01",
+      "status": "validated"
+    },
+    {
+      "id": "exp-onboarding-2",
+      "trigger": "新手引导设计",
+      "scope": "新手引导",
+      "rule": "允许随时跳过并在下次登录继续",
+      "boundary": "适用于移动端短会话场景",
+      "evidence": "可用性测试 6 人，4 人主动跳过但 3 人次日回访继续",
+      "credibility": "medium",
+      "updated_at": "2026-09-10",
+      "status": "observed"
+    },
+    {
+      "id": "exp-onboarding-3",
+      "trigger": "新手引导设计",
+      "scope": "新手引导",
+      "rule": "完成引导后展示下一步入口",
+      "boundary": "仅覆盖首个项目创建完成",
+      "evidence": "客服工单抽样 30 单，12 单询问下一步做什么",
+      "credibility": "medium",
+      "updated_at": "2026-10-01",
+      "status": "candidate"
+    },
+    {
+      "id": "exp-activation-1",
+      "trigger": "激活指标定义",
+      "scope": "激活率",
+      "rule": "7 日激活率以完成首个项目为口径，分母为注册且验证邮箱用户",
+      "boundary": "不适用于邀请制内测账号",
+      "evidence": "数据口径评审纪要 2026-07",
+      "credibility": "high",
+      "updated_at": "2026-07-15",
+      "status": "validated"
+    }
+  ],
+  "writeback": [
+    {"card_id": "exp-onboarding-1", "from": "validated", "to": "observed"}
+  ]
+}

@@ -152,6 +152,15 @@ def run_cli(argv: List[str]) -> int:
     h_sub.add_argument("--input")
     run_sub = sub.add_parser("run", help="处理路由给我的任务")
     run_sub.add_argument("--task")
+    wf_sub = sub.add_parser("wf", help="工作流引擎：run / replay / check / goldens")
+    wfa = wf_sub.add_subparsers(dest="wfcmd", required=True)
+    wr = wfa.add_parser("run", help="按策略执行工作流")
+    wr.add_argument("--input", required=True)
+    wp = wfa.add_parser("replay", help="从死信重放")
+    wp.add_argument("--input", required=True)
+    wc = wfa.add_parser("check", help="跑一个误用样本")
+    wc.add_argument("--case", required=True)
+    wfa.add_parser("goldens", help="重建 golden 重试/死信与流程复盘")
     add_clarify_parser(sub)
     args = ap.parse_args(argv)
 
@@ -169,6 +178,29 @@ def run_cli(argv: List[str]) -> int:
         return 0
     if args.cmd == "run":
         return run_task(args, ws)
+    if args.cmd == "wf":
+        import workflow_engine as wf
+        if args.wfcmd == "goldens":
+            out = wf.build_goldens()
+            print("__AGENT_RESULT__ " + json.dumps(
+                {"ok": out["ok"], "outcome": out["run"]["outcome"],
+                 "replay": out["replay"]["outcome"], "dir": out["dir"]},
+                ensure_ascii=False))
+            return 0 if out["ok"] else 1
+        if args.wfcmd == "run":
+            spec = json.load(open(args.input, encoding="utf-8-sig"))
+            out = wf.run_workflow(spec.get("policy") or wf.default_policy(),
+                                  spec.get("tasks") or [])
+        elif args.wfcmd == "replay":
+            spec = json.load(open(args.input, encoding="utf-8-sig"))
+            out = wf.replay(spec.get("run") or spec)
+        else:
+            out = wf.check_case(args.case)
+            out["ok"] = bool(out.get("as_expected"))
+            print("__AGENT_RESULT__ " + json.dumps(out, ensure_ascii=False))
+            return 0 if out["ok"] else 1
+        print("__AGENT_RESULT__ " + json.dumps(out, ensure_ascii=False))
+        return 0 if out.get("ok") else 1
     if args.cmd == "clarify":
         return clarify_cli(ROLE, args.intent)
     for s in SKILLS:

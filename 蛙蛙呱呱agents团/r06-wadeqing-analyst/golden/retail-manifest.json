@@ -1,0 +1,116 @@
+{
+  "artifact": "report_manifest",
+  "version": "1.0",
+  "generated_at": "2026-11-27T10:55:24+00:00",
+  "producer": "r06",
+  "author_role": "r01",
+  "requires_signoff": true,
+  "publishable": false,
+  "notice": "R06 分析链产出的报告草稿；签发与对外口径归 R01。",
+  "metric": "profit",
+  "window": "近90天",
+  "claims": 7,
+  "bounded_modules": [],
+  "charts": [
+    "CH1",
+    "CH2",
+    "CH3"
+  ],
+  "units": [
+    "U1",
+    "U2",
+    "U3",
+    "U4",
+    "U5",
+    "U6"
+  ],
+  "quality": {
+    "ok": true,
+    "score": 100.0,
+    "profile": "research",
+    "failed": []
+  },
+  "trace": {
+    "ok": true,
+    "rate": 1.0,
+    "untraced": []
+  },
+  "presentation": {
+    "ok": true,
+    "errors": [],
+    "font_sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      21,
+      30
+    ]
+  },
+  "files": {
+    "report.html": "619ad9265587f5a5ecfff5f033a52da247dfcbb2f4ac3ffdb9d774fa1ee40e47",
+    "analysis_material_pack.json": "d19bff298a720a64695ff8bb97541da83fadeb4d5266f064a51289de6c465e9d",
+    "verification.json": "41ba9dd421131fe3ab5380040559563a5441f6a28c8a4d8283f1641bc00de302",
+    "chart_spec_pack.json": "16cfd80b3ff6689f45f80145caf35aac8a5a133af4328b9ad9d7407432f88ca9",
+    "report_text_pack.json": "a969fccbcd9de4add97ac8f2d57f2064d484041a787383ec99d2f10fe5f94d10"
+  },
+  "gate": {
+    "ok": true,
+    "grade": "PASS",
+    "stage": "deliver",
+    "checks": [
+      {
+        "ok": true,
+        "msg": "图表渲染 3/3",
+        "dim": "render",
+        "sev": "OK",
+        "errors": []
+      },
+      {
+        "ok": true,
+        "msg": "图表数=3（≥2）",
+        "dim": "chart",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "业务单元=6",
+        "dim": "structure",
+        "sev": "OK"
+      },
+      {
+        "ok": true,
+        "msg": "结论可追率=100%",
+        "dim": "traceability",
+        "sev": "OK",
+        "untraced": []
+      },
+      {
+        "ok": true,
+        "msg": "报告质检 100.0 分（research）",
+        "dim": "quality",
+        "sev": "OK",
+        "failed": []
+      },
+      {
+        "ok": true,
+        "msg": "呈现层自检",
+        "dim": "presentation",
+        "sev": "OK",
+        "errors": []
+      },
+      {
+        "ok": true,
+        "msg": "bounded 模块未混入正文",
+        "dim": "boundary",
+        "sev": "CRITICAL"
+      }
+    ],
+    "errors": [],
+    "blockers": [],
+    "warnings": []
+  },
+  "ok": true,
+  "grade": "PASS"
+}

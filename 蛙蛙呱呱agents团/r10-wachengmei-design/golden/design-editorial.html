@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>设计交付说明 · editorial-evidence-report</title>
+<style>
+@page { size: A4; margin: 18mm; }
+:root { --paper:#ffffff; --ink:#111827; --muted:#4b5563; --faint:#6b7280; --line:#d1d5db; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.7; font-size:15px; }
+.sheet { max-width:920px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 6px; }
+h2 { font-size:20px; line-height:1.4; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); }
+h3 { font-size:16px; line-height:1.45; margin:18px 0 8px; color:var(--accent); }
+p, li, td, th { font-size:14px; }
+.meta { font-size:12px; color:var(--muted); margin:0 0 18px; }
+.tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:4px; background:var(--accent-soft); color:var(--accent); }
+table { width:100%; border-collapse:collapse; margin:10px 0 16px; }
+thead th { background:var(--accent-soft); color:var(--ink); text-align:left; font-size:12.5px; }
+th, td { border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+code { font-size:12px; color:var(--muted); word-break:break-all; }
+.block { background:#f9fafb; border-left:4px solid var(--accent); padding:10px 14px; margin:12px 0; border-radius:4px; }
+figure, .block, section, tr { break-inside: avoid; }
+.fig-card { border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.fig-sub { font-size:13px; color:var(--ink); margin:0 0 4px; }
+.fig-src, .fig-unit { font-size:12px; color:var(--muted); }
+
+:root { --accent:#0f766e; --accent-soft:#f0fdfa; }
+h1 { letter-spacing:0.2px; }
+.sheet { padding:6px 0; }
+</style>
+</head>
+<body data-theme="light">
+<main class="sheet">
+
+<h1>设计交付说明 · editorial-evidence-report</h1>
+<p class="meta">出具 R10 蛙橙美 ｜ 风格包 <code>styles/editorial-evidence-report</code> ｜
+契约 <code>docs/REPORT-DESIGN-CONTRACT.md</code> ｜ 人读清单 <code>docs/REPORT-VISUAL-REVIEW.md</code> ｜
+门禁 <span class="tag">PASS</span></p>
+<h2>1. 交付结论</h2>
+<div class="block">研究/诊断类长报告：证据优先、编辑式版面。先给结论与代价，再给证据与边界；强调色只用于需要行动或异常的位置。</div>
+<p>本版式直接引用风格包 <code>styles/editorial-evidence-report/page_style.yaml</code> 与
+<code>styles/editorial-evidence-report/sample.html</code>；设计契约 12 条逐条自检，视觉评审 V1–V10 由 R04 签字。</p>
+<h2>2. 版式规则</h2>
+<table>
+<thead><tr><th>规则</th><th>取值</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td>版心</td><td>920px，A4 18mm 边距</td><td>一行 38–42 字，打印不溢出</td></tr>
+<tr><td>字阶</td><td>28 / 20 / 16 / 14 / 12.5 / 12px</td><td>标题、正文、注释四层可分</td></tr>
+<tr><td>行高</td><td>正文 1.7，注释 1.6</td><td>中文长文不挤不散</td></tr>
+<tr><td>色彩</td><td>纸白底 + 深墨正文 + 单一强调色</td><td>强调色只给行动/异常</td></tr>
+<tr><td>密度</td><td>每屏 1 个论点 + 1 张证据图；表格用于并列事实，不堆指标。</td><td>版式服务于阅读路径</td></tr>
+</tbody>
+</table>
+<h2>3. 设计契约 12 条自检</h2>
+<table>
+<thead><tr><th>#</th><th>规则</th><th>门禁码</th><th>结果</th></tr></thead>
+<tbody><tr><td>P1</td><td>无斜体</td><td>P1_italic</td><td>通过</td></tr><tr><td>P2</td><td>打印就绪（@page A4 + 分页保护）</td><td>P2_print</td><td>通过</td></tr><tr><td>P3</td><td>对比度 ≥4.5:1</td><td>P3_contrast</td><td>通过</td></tr><tr><td>P4</td><td>字阶 ≥4 档</td><td>P4_type_scale</td><td>通过</td></tr><tr><td>P5</td><td>图四件套（来源/单位/口径）</td><td>P5_figure</td><td>通过</td></tr><tr><td>P6</td><td>单一主题 + body data-theme</td><td>P6_theme</td><td>通过</td></tr><tr><td>P7</td><td>版心 680–1040px、行高 1.0–2.0</td><td>P7_measure</td><td>通过</td></tr><tr><td>P8</td><td>圆角 ≤6 档</td><td>P8_container</td><td>通过</td></tr><tr><td>P9</td><td>段落/标题不用 <br></td><td>P9_linebreak</td><td>通过</td></tr><tr><td>P10</td><td>表格有 thead 与 th</td><td>P10_table</td><td>通过</td></tr><tr><td>P11</td><td>无居中正文/微小字号/滥用渐变</td><td>P11_antipattern</td><td>通过</td></tr><tr><td>P12</td><td>恰好一个 h1、标题不跳级</td><td>P12_heading</td><td>通过</td></tr></tbody>
+</table>
+<figure class="fig-card">
+  <figcaption class="fig-sub">图 1：两套风格包在 12 条契约下的通过数（均 12/12）</figcaption>
+  <table>
+    <thead><tr><th>风格包</th><th>通过规则数</th></tr></thead>
+    <tbody><tr><td>editorial-evidence-report</td><td>12</td></tr>
+    <tr><td>internet-reporting</td><td>12</td></tr></tbody>
+  </table>
+  <div class="fig-src">来源：design_contract.check_html（确定性检查）</div>
+  <div class="fig-unit">单位：条；参考线为 12 条全过的满分线（均值 12）</div>
+</figure>
+<h2>4. 视觉评审（人读 V1–V10）</h2>
+<table>
+<thead><tr><th>项</th><th>判断</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>V1 阅读路径</td><td>过</td><td>h1 → 结论 → 证据 → 边界，无跳回</td></tr>
+<tr><td>V2 结论先行</td><td>过</td><td>首屏给结论与代价</td></tr>
+<tr><td>V3 强调克制</td><td>过</td><td>强调色仅用于异常与待办</td></tr>
+<tr><td>V4 图文互证</td><td>过</td><td>图在正文被解释，不是“见图 1”</td></tr>
+<tr><td>V5 数字可读</td><td>过</td><td>数字带单位与对比基准</td></tr>
+<tr><td>V6 边界诚实</td><td>过</td><td>写明不能回答什么</td></tr>
+<tr><td>V7 表格可扫</td><td>过</td><td>表头语义固定、空值显式</td></tr>
+<tr><td>V8 风格一致</td><td>过</td><td>与 sample 的版心/字阶/色彩一致</td></tr>
+<tr><td>V9 打印预览</td><td>过</td><td>A4 无孤行、图表不跨页</td></tr>
+<tr><td>V10 删减测试</td><td>过</td><td>删装饰不影响信息</td></tr>
+</tbody>
+</table>
+<h3>4.1 复核命令</h3>
+<p><code>python design_contract.py check --input golden/design-editorial.html</code>
+必须 0 违规；风格包齐套由 <code>python design_contract.py packs</code> 检查。</p>
+
+</main>
+</body>
+</html>

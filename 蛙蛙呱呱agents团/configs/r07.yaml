@@ -41,6 +41,10 @@ knowledge_map:
   - references/08-experience-decision.md
   charter:
   - references/00-capability-charter.md
+  workflow:
+  - references/09-workflow-discovery.md
+  - references/10-workflow-prd-redteam.md
+  - references/11-experience-rag-rules.md
 keyword_map:
   discover:
   - jtbd
@@ -87,3 +91,13 @@ keyword_map:
   - 经验卡
   - 产品决策
   - 需求管理
+  workflow:
+  - 工作流
+  - workflows
+  - discovery
+  - 红队
+  - premortem
+  - 经验门
+  - 经验检索
+  - rag
+  - 端到端

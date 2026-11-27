@@ -1,0 +1,23 @@
+{
+  "case_id": "deploy-no-rollback",
+  "intent": "没有回滚计划就发布 v1.2.0：出了事只能干等，必须拒绝",
+  "seed": {
+    "version": "mvp-1.1.0",
+    "files": {
+      "index.html": "<h1>MVP v1.1.0</h1>",
+      "app.js": "console.log('v1.1.0')"
+    }
+  },
+  "manifest": {
+    "version": "mvp-1.2.0",
+    "files": {
+      "index.html": "<h1>MVP v1.2.0</h1>",
+      "app.js": "console.log('v1.2.0')"
+    },
+    "healthchecks": [
+      {"name": "首页可达", "expect": "200", "actual": "200"}
+    ],
+    "rollback": {}
+  },
+  "expect": ["D01_NO_ROLLBACK_PLAN"]
+}
