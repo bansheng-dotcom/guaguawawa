@@ -22,7 +22,7 @@
 > 拆卡 SOP 见 [`docs/archive/交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/docs/archive/交付/拆卡升级-SOP-2026-11-21.md)，
 > 预检实现见 [`scripts/preflight.py`](蛙蛙呱呱agents团/scripts/preflight.py)。
 
-**统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) ｜ **更新日志：** [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)
+**统一入口：** [`guagua.py`](蛙蛙呱呱agents团/guagua.py) ｜ **完整命令手册：** [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) ｜ **更新日志：** [`CHANGELOG.md`](蛙蛙呱呱agents团/docs/_entry/CHANGELOG.md)
 
 ---
 
@@ -45,9 +45,9 @@
 
 蛙蛙呱呱是一套**可本地运行、可审计、可编排**的 AI 公司操作系统。它把一家公司拆成 20 个职责清晰的角色，并用三层机制把它们连接起来：
 
-1. **组织语义层**：谁负责什么、向谁汇报、与谁交接、什么不能做。权威文件是 [`ORG.md`](蛙蛙呱呱agents团/ORG.md)。
-2. **协同协议层**：任务卡怎么开、失败怎么移交、多角色怎么按波次执行。权威文件是 [`PROTOCOL.md`](蛙蛙呱呱agents团/PROTOCOL.md)。
-3. **确定性执行层**：每个角色都有可执行的 `agent.py`、输入/输出契约、门禁（harness）、案例库和回归测试。入口在 [`core/registry.py`](蛙蛙呱呱agents团/core/registry.py)。
+1. **组织语义层**：谁负责什么、向谁汇报、与谁交接、什么不能做。权威文件是 [`ORG.md`](蛙蛙呱呱agents团/docs/_entry/ORG.md)。
+2. **协同协议层**：任务卡怎么开、失败怎么移交、多角色怎么按波次执行。权威文件是 [`PROTOCOL.md`](蛙蛙呱呱agents团/docs/_entry/PROTOCOL.md)。
+3. **确定性执行层**：每个角色都有可执行的 `agent.py`、输入/输出契约、门禁（harness）、案例库和回归测试。入口在 [`core/registry.py`](蛙蛙呱呱agents团/core/base/registry.py)。
 
 它适合这些场景：
 
@@ -66,7 +66,7 @@
 - **门禁与测试**：新增 27 条合并后 pipeline 直连回归 + card-line 回归；数据线样例三意图过 CI。
 - **WorkBuddy 同步**：镜像改为严格对齐源，`source/` 与源零漂移。
 
-> 详细变更见 [十、版本与更新记录](#十版本与更新记录) 与 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)。
+> 详细变更见 [十、版本与更新记录](#十版本与更新记录) 与 [`CHANGELOG.md`](蛙蛙呱呱agents团/docs/_entry/CHANGELOG.md)。
 
 ---
 
@@ -130,10 +130,10 @@ python guagua.py dispatch --all
 ### 第 6 步：生成知识注入 Prompt
 
 ```bash
-python guagua.py chat --role r06 --intent "分析订单漏斗、留存和渠道归因"
+python guagua.py prompt --role r06 --intent "分析订单漏斗、留存和渠道归因"
 ```
 
-`chat` 会把该角色的知识域、案例、规则和你的意图组装成一份可直接交给 LLM 的 Prompt。
+`prompt` 会把该角色的知识域、案例、规则和你的意图组装成一份可直接交给 LLM 的 Prompt（`chat` 已废弃）。
 
 ### 第 7 步：出一条报告（拆卡线，唯一默认）
 
@@ -173,7 +173,7 @@ python guagua.py report check --html <项目>/out/report/report.html
 仓库只放工具，不放项目交付物：样例报告（含客户数据与遮蔽后的竞品名）属于项目资产，
 2026-11-25 起不再随工具仓库分发；需要时用拆卡线在你自己的项目根里重新生成。
 
-能力变化按日期记在 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)：新增能力、门禁变化、
+能力变化按日期记在 [`CHANGELOG.md`](蛙蛙呱呱agents团/docs/_entry/CHANGELOG.md)：新增能力、门禁变化、
 迁移与不兼容点、已知遗留。渲染器的验收样张约定不变：封面取 `meta.title/subtitle/metrics`，
 每节 11 字段，图带来源与单位，最后一节是「口径与分数」。
 
@@ -210,29 +210,26 @@ python guagua.py report check --html <项目>/out/report/report.html
 
 20 个角色怎么协作成一家公司，见下面的组织全景：
 
-```text
-                              ┌─────────────────────────┐
-                              │      创始人（用户）       │
-                              │  最终裁决 · 不可逆签字   │
-                              └────────────┬────────────┘
-                         ┌─────────────────┴─────────────────┐
-                         │  R01 蛙全局 · CEO 主理人 / 编排器  │←─ 汇总汇报
-                         │  意图分级 · 拆解 · 决策 · 收口     │
-                         └─────────────────┬─────────────────┘
-                                           │ 下发 task_cards
-        ┌──────────┬──────────┬────────────┼────────────┬──────────┬──────────┐
-        ▼          ▼          ▼            ▼            ▼          ▼          ▼
-   ┌────────┐ ┌────────┐ ┌────────┐  ┌────────┐  ┌────────┐ ┌────────┐ ┌────────┐
-   │决策治理 │ │战略数据 │ │产品技术 │  │市场客户 │  │交易组织 │ │自动化可 │ │  R04   │
-   │ R02 COO│ │ R05 研究│ │ R07 产品│  │ R11 内容│  │ R14 交易│ │ R17 自动│ │蛙挑刺  │
-   │ R03 CFO│ │ R06 分析│ │ R08 MVP │  │ R12 增长│  │ R15 供应│ │ R20 值守│ │独立评审│
-   │        │ │ R18 数仓│ │ R09 工程│  │ R13 客成│  │ R16 人事│ │        │ │(旁路)  │
-   │        │ │ R19 智模│ │ R10 设计│  │        │  │        │ │        │ │        │
-   └────────┘ └────────┘ └────────┘  └────────┘  └────────┘ └────────┘ └────┬───┘
-                                                                             │
-                    ┌────────────────────────────────────────────────────────┘
-                    │  R04 拥有旁路通道，不经 R01 拦截，独立向创始人汇报 pass/fail
-                    ▼
+```mermaid
+graph TD
+    F["创始人（用户）<br/>最终裁决 · 不可逆签字"]
+    R01["R01 蛙全局 · CEO 主理人 / 编排器<br/>意图分级 · 拆解 · 决策 · 收口"]
+    R04["R04 蛙挑刺 · 独立评审（旁路）"]
+
+    subgraph EXEC["执行线 · R02～R20"]
+        G1["决策与治理<br/>R02 COO · R03 CFO"]
+        G2["战略 · 数据 · 智能<br/>R05 · R06 · R18 · R19"]
+        G3["产品与技术<br/>R07 · R08 · R09 · R10"]
+        G4["市场与客户<br/>R11 · R12 · R13"]
+        G5["交易与组织运营<br/>R14 · R15 · R16"]
+        G6["自动化与可靠性<br/>R17 · R20"]
+    end
+
+    F --> R01
+    R01 --> G1 & G2 & G3 & G4 & G5 & G6
+    G1 & G2 & G3 & G4 & G5 & G6 -. 交付成品 .-> R04
+    R01 -. 汇总汇报 .-> F
+    R04 -. pass/fail 旁路直通 .-> F
 ```
 
 ### 两条汇报线
@@ -297,8 +294,9 @@ python guagua.py call r04 artifact inventory --input examples/artifact_inventory
 
 R01 按 **GSD 五相环**组织：
 
-```text
-Discuss 澄清 → Plan 拆卡 → Execute 按波次执行 → Verify 独立复核 → Ship 收口归档
+```mermaid
+flowchart LR
+    D["Discuss 澄清"] --> P["Plan 拆卡"] --> E["Execute 按波次执行"] --> V["Verify 独立复核"] --> S["Ship 收口归档"]
 ```
 
 一张合格的任务卡包含六段：
@@ -819,6 +817,19 @@ python guagua.py call r20 postmortem postmortem --input examples/postmortem.json
 | 5 | 交易履约 | R14 交易 → R15 供应链 → R03 财务复核 → R04 验收 | 订单、收款、交付 | `call r14` → `call r15` |
 | 6 | 可靠性值守 | R09 拓扑 → R20 监控/备份 → R02 事故流程 → R01 收口 | 上线后运维、事故复盘 | `call r20` + `call r02` |
 
+### 默认报告线（拆卡线，唯一默认）
+
+```mermaid
+flowchart LR
+    C["clarify<br/>出 12 问"] --> I["intake<br/>回答 ≥10"]
+    I --> C2["clarify --confirm<br/>--user-said"]
+    C2 --> B["brief --plan<br/>卡片清单给用户看"]
+    B --> B2["--confirm --ack-cards<br/>nonce + HMAC 签发"]
+    B2 --> PF["preflight<br/>九项预检 P1–P9"]
+    PF --> CO["collect<br/>50 唯一 URL + 回抓"]
+    CO --> RL["run-line --claims<br/>渲染 + 门禁"]
+```
+
 ### 示例：数据驱动经营（已验证的最小闭环）
 
 ```bash
@@ -866,7 +877,7 @@ python guagua.py call r03 financial rollforward --input examples/financial_rollf
 | `roles` | 列出 20 个角色 | `python guagua.py roles` |
 | `info <role>` | 查看角色能力、契约、入口 | `python guagua.py info r06` |
 | `call <role> ...` | 调用角色任意子命令 | `python guagua.py call r06 --help` |
-| `chat --role ... --intent ...` | 生成知识注入 Prompt | `python guagua.py chat --role r06 --intent "分析留存"` |
+| `prompt --role ... --intent ...` | 生成知识注入 Prompt（唯一提示词入口） | `python guagua.py prompt --role r06 --intent "分析留存"` |
 | `plan "<意图>"` | R01 拆任务卡 | `python guagua.py plan "营收最大化"` |
 | `status` | 查看任务状态 | `python guagua.py status` |
 | `dispatch --all` | R01 执行并验收 | `python guagua.py dispatch --all` |
@@ -911,8 +922,8 @@ python guagua.py call r06 explore funnel \
 
 1. 本 README（组织与角色全貌）
 2. [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md)（逐角色命令、流水线、排错）
-3. [`ORG.md`](蛙蛙呱呱agents团/ORG.md)（组织章程与红线）
-4. [`PROTOCOL.md`](蛙蛙呱呱agents团/PROTOCOL.md)（任务卡与移交协议）
+3. [`ORG.md`](蛙蛙呱呱agents团/docs/_entry/ORG.md)（组织章程与红线）
+4. [`PROTOCOL.md`](蛙蛙呱呱agents团/docs/_entry/PROTOCOL.md)（任务卡与移交协议）
 5. [`REPORT-STANDARD.md`](蛙蛙呱呱agents团/REPORT-STANDARD.md)（汇报格式）
 6. [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md)（报告产线地图与门禁）
 
@@ -926,20 +937,25 @@ python guagua.py call r06 explore funnel \
 ├─ 蛙蛙呱呱agents团/             # ★ 智能体公司本体（20 角色）
 │  ├─ guagua.py                  # 统一入口（project / prompt / plan / report / run）
 │  ├─ chat.py                    # [已废弃] 兼容壳；提示词入口是 guagua.py prompt
-│  ├─ CHANGELOG.md               # 智能体更新日志（按日期记录能力与迁移）
 │  ├─ SKILL.md                   # Trae 技能入口（拆卡线默认 + 人环门禁）
-│  ├─ ORG.md / PROTOCOL.md       # 组织章程 / 协同协议
 │  ├─ REPORT-STANDARD.md         # 汇报标准（唯一产线：R01 出具）
-│  ├─ REPORT-BRIDGE-GUIDE.md     # 接入唯一产线（角色只交 result）
-│  ├─ core/                      # paths / project / dispatch / card_bundle / card_issue / report_cli…
+│  ├─ 使用指南.md / AGENTS.md     # 使用手册 / 提交前自检清单
+│  ├─ core/                      # 机器契约与内核（P4 分包）
+│  │  ├─ base/                   # registry / protocol / paths / project（注册、端口、三根守卫）
+│  │  ├─ cards/                  # pipeline（拆卡唯一编排）/ card_upgrade / dor / brief
+│  │  ├─ claims/                 # contract（ClaimCard v4 单一出处）
+│  │  ├─ prose/                  # prose_contract + prose_render（正文契约与渲染）
+│  │  ├─ report/ · report_kernel/  # report_line 门面、flow 渲染、图表
+│  │  └─ data/ · sources/ · charts/ · collectors/ · ingest/ · methods/ · prompt_kernel/ · report_theme/
 │  ├─ configs/                   # 卡片契约 / 流程 / 覆盖阈值 / core_files 登记
 │  ├─ r01-… r20-…                # 20 个角色（agent.py + skills/ + harness + tests + references）
 │  ├─ agent-packs/               # 宿主可直接加载的角色包
 │  ├─ shared/                    # 共享能力（运行时、治理、方法、knowledge/brief）
-│  ├─ docs/                      # 产线地图、版式、门禁契约（索引见 docs/README.md）
+│  ├─ docs/                      # 产线地图、门禁、导航（索引见 docs/README.md）
+│  │  └─ _entry/                 # ORG / PROTOCOL / CHANGELOG / TEAM / REPORT-BRIDGE-GUIDE / 人设
 │  ├─ 交付/                      # 仅剩 generic_semantics_v1.yaml（运行时依赖，勿删）
 │  ├─ tests/                     # pytest 单测 + 回归 + prompt 回归（不是缓存）
-│  └─ scripts/                   # CI 门禁、preflight、生成器、Trae 镜像同步
+│  └─ scripts/                   # CI 门禁、preflight、生成器、镜像同步
 ├─ projects/                     # ★ 项目资产根（数据/brief/卡/claims/报告；不入库）
 ├─ workspace/                    # 运行物根（events/lock/runlog/traces；不入库）
 ├─ traeskills/                   # Trae 侧其它技能镜像（3 个）
@@ -954,29 +970,29 @@ python guagua.py call r06 explore funnel \
 
 > **产物分两类，都不写进 `蛙蛙呱呱agents团/`**：运行物（事件/锁/trace/runlog）在
 > `<仓库根>/workspace`；项目资产（数据/brief/卡/claims/报告）在 `<项目根>`，
-> 默认 `<仓库根>/projects/<slug>`。写团内会被 [`core/paths.py`](蛙蛙呱呱agents团/core/paths.py)
+> 默认 `<仓库根>/projects/<slug>`。写团内会被 [`core/paths.py`](蛙蛙呱呱agents团/core/base/paths.py)
 > 拒绝（退出码 2）。说明见 [`使用指南.md`](蛙蛙呱呱agents团/使用指南.md) §2.7/§6.2.1。
 
 ### 关键文档
 
 | 文档 | 作用 |
 |---|---|
-| [`ORG.md`](蛙蛙呱呱agents团/ORG.md) | 组织架构、汇报线、权力与红线、角色边界 |
-| [`PROTOCOL.md`](蛙蛙呱呱agents团/PROTOCOL.md) | 单角色五步、失败移交、多角色 GSD 编排、验收协议 |
-| [`TEAM.md`](蛙蛙呱呱agents团/TEAM.md) | 「营收最大化」编排实例 |
+| [`ORG.md`](蛙蛙呱呱agents团/docs/_entry/ORG.md) | 组织架构、汇报线、权力与红线、角色边界 |
+| [`PROTOCOL.md`](蛙蛙呱呱agents团/docs/_entry/PROTOCOL.md) | 单角色五步、失败移交、多角色 GSD 编排、验收协议 |
+| [`TEAM.md`](蛙蛙呱呱agents团/docs/_entry/TEAM.md) | 「营收最大化」编排实例 |
 | [`REPORT-STANDARD.md`](蛙蛙呱呱agents团/REPORT-STANDARD.md) | 交付报告的统一结构与文风 |
-| [`REPORT-BRIDGE-GUIDE.md`](蛙蛙呱呱agents团/REPORT-BRIDGE-GUIDE.md) | 报告桥接指南 |
+| [`REPORT-BRIDGE-GUIDE.md`](蛙蛙呱呱agents团/docs/_entry/REPORT-BRIDGE-GUIDE.md) | 报告桥接指南 |
 | [`SKILL.md`](蛙蛙呱呱agents团/SKILL.md) | Trae 技能入口：唯一的拆卡默认线、人环规则、能力边界 |
 | [`docs/REPORT-LINES.md`](蛙蛙呱呱agents团/docs/REPORT-LINES.md) | 报告产线地图：拆卡默认 / A 数据 / B 应急，门禁与保留零件 |
-| [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md) | 专家团（智能体）更新日志：按日期记录能力、门禁、迁移与不兼容 |
-| [`docs/REPORT-DISPATCH.md`](蛙蛙呱呱agents团/docs/REPORT-DISPATCH.md) | 拆卡与防代写：nonce、签名、收卡校验 |
-| [`docs/REPORT-FLOW.md`](蛙蛙呱呱agents团/docs/REPORT-FLOW.md) | flow 版式规范：一条内容流、PDF 分页、摘要必填、文笔门禁 |
+| [`CHANGELOG.md`](蛙蛙呱呱agents团/docs/_entry/CHANGELOG.md) | 专家团（智能体）更新日志：按日期记录能力、门禁、迁移与不兼容 |
+| [`docs/REPORT-DISPATCH.md`](蛙蛙呱呱agents团/docs/archive/REPORT-DISPATCH.md) | 拆卡与防代写：nonce、签名、收卡校验 |
+| [`docs/REPORT-FLOW.md`](蛙蛙呱呱agents团/docs/archive/REPORT-FLOW.md) | flow 版式规范：一条内容流、PDF 分页、摘要必填、文笔门禁 |
 | [`docs/archive/交付/拆卡升级-SOP-2026-11-21.md`](蛙蛙呱呱agents团/docs/archive/交付/拆卡升级-SOP-2026-11-21.md) | 拆卡五个 SOP 版本与卡片契约（历史，被 docs 引用） |
 | [`docs/archive/交付/协作层-SOP-2026-11-21.md`](蛙蛙呱呱agents团/docs/archive/交付/协作层-SOP-2026-11-21.md) | 卡间协商、R02 交接包与波次（历史） |
 | [`scripts/preflight.py`](蛙蛙呱呱agents团/scripts/preflight.py) | 九项预检 P1–P9（唯一可执行判据） |
 | [`docs/actions_catalog.json`](蛙蛙呱呱agents团/docs/actions_catalog.json) | 全角色动作目录（机器可读） |
-| [`core/registry.py`](蛙蛙呱呱agents团/core/registry.py) | 20 角色能力与端口注册表 |
-| [`core/protocol.py`](蛙蛙呱呱agents团/core/protocol.py) | 任务卡、事件、端口字段契约 |
+| [`core/registry.py`](蛙蛙呱呱agents团/core/base/registry.py) | 20 角色能力与端口注册表 |
+| [`core/protocol.py`](蛙蛙呱呱agents团/core/base/protocol.py) | 任务卡、事件、端口字段契约 |
 
 ### `交付/` 与归档引用关系（2026-11-25 核查）
 
@@ -984,7 +1000,7 @@ python guagua.py call r06 explore funnel \
 
 | 文件 | 状态 | 被谁引用 |
 |---|---|---|
-| `交付/generic_semantics_v1.yaml` | **代码依赖（勿删）** | [`core/card_upgrade.py`](蛙蛙呱呱agents团/core/card_upgrade.py#L160) 读取；`semantic_layer.template.yaml` 继承 |
+| `交付/generic_semantics_v1.yaml` | **代码依赖（勿删）** | [`core/card_upgrade.py`](蛙蛙呱呱agents团/core/cards/card_upgrade.py#L160) 读取；`semantic_layer.template.yaml` 继承 |
 | `docs/archive/交付/semantic_layer.template.yaml` | 模板 | `card_issue.py` 内置同名模板并写入项目；归档副本供参考 |
 | `docs/archive/交付/perspectives.template.yaml` | 模板 | `docs/archive/交付/拆卡升级-SOP-2026-11-21.md` |
 | `docs/archive/交付/agent_card.template.yaml` | 模板 | 暂无引用（保留作交付样例） |
@@ -997,7 +1013,7 @@ python guagua.py call r06 explore funnel \
 | 调研结论 / 系统升级执行报告 / 验收报告 / 修复设计 html | 过程记录 | 无引用 |
 
 > 结论：**团内只有 `交付/generic_semantics_v1.yaml` 是运行时依赖**，其余是归档模板与过程文档。
-> 要删任何一份，先按上表改引用；`tests/` 不是缓存，是 547 个 pytest 用例与 evals 夹具，必须保留。
+> 要删任何一份，先按上表改引用；`tests/` 不是缓存，是 678 个 pytest 用例与 evals 夹具，必须保留。
 
 ---
 
@@ -1019,7 +1035,7 @@ cd "D:\蛙蛙呱呱\蛙蛙呱呱agents团"
 python guagua.py doctor
 python guagua.py check
 
-# 2) 单测（当前基线：547 passed / 3 skipped）
+# 2) 单测（当前约 678 个用例；以实际输出为准）
 python -m pytest tests -q -p no:cacheprovider
 
 # 3) 拆卡线项目预检（项目根在团外，默认 projects/<slug>）
@@ -1050,7 +1066,7 @@ python verify_loop.py
 - **项目资产**（数据、知识快照、brief、卡、claims、报告）：`<PROJECT_ROOT>`，
   默认 `projects/<slug>`，可用 `--project` 或 `GUAGUA_PROJECT` 覆盖
 - **任务账本**：带 `--project` 时落 `<项目>/runs/tasks/`，否则落 `workspace/tasks/`
-- **写团内一律被拒**：越界返回退出码 2（守门在 [`core/paths.py`](蛙蛙呱呱agents团/core/paths.py)）
+- **写团内一律被拒**：越界返回退出码 2（守门在 [`core/paths.py`](蛙蛙呱呱agents团/core/base/paths.py)）
 
 ```bash
 python guagua.py project init ../projects/<slug> --industry "你的行业"
@@ -1094,12 +1110,12 @@ python guagua.py plan "你的经营目标" --project ../projects/<slug>
 - **门禁与测试**：F12 结构检查只作用于作者草稿；导航入口锁定、退役死 smoke 脚本；
   新增 27 条合并后 pipeline 直连回归 + card-line 回归（`CI_CARDS_SAMPLE` 门禁）；数据线样例三意图过 CI。
 - **WorkBuddy 同步**：镜像改为严格对齐源（清理 337 个已删残留，`source/` 与源零漂移）。
-- 全量条目见 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)。
+- 全量条目见 [`CHANGELOG.md`](蛙蛙呱呱agents团/docs/_entry/CHANGELOG.md)。
 
 ### v2.8（2026-11-25）· 项目边界 + expert_brief v2
 
-- **工具与资产分离**：新增 [`core/paths.py`](蛙蛙呱呱agents团/core/paths.py)（团/项目/运行三个根 + 写入守卫）
-  与 [`core/project.py`](蛙蛙呱呱agents团/core/project.py)（`project.yaml` + 10 个标准子目录）；
+- **工具与资产分离**：新增 [`core/paths.py`](蛙蛙呱呱agents团/core/base/paths.py)（团/项目/运行三个根 + 写入守卫）
+  与 [`core/project.py`](蛙蛙呱呱agents团/core/base/project.py)（`project.yaml` + 10 个标准子目录）；
   写团内、写运行根一律拒绝（退出码 2）。
 - **卡 = bundle**：每张卡下发时带 `expert_brief`（v2 七层：决策语境 / 定义口径 / 结构分解 /
   机制归因 / 判断情景 / 行动可逆 / 反证不确定）；每条必答过五道门槛
@@ -1113,7 +1129,7 @@ python guagua.py plan "你的经营目标" --project ../projects/<slug>
   `check_brief_contract`（七层/五门槛/18 条不回退）、`check_report_isolation`（报告层不读知识库与 brief）。
 - **迁移**：历史项目产物（如 `projects/consulting`）移出工具仓库；未带 `--project` 的 `plan`
   仍可运行但会提示迁移，下一版本项目根必填；老卡仍可 `--allow-legacy` 收，但不再享受 brief 契约校验。
-- 全量条目见 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)。
+- 全量条目见 [`CHANGELOG.md`](蛙蛙呱呱agents团/docs/_entry/CHANGELOG.md)。
 
 ### v2.7（2026-11-24）· 统一入口路由器（D+）与报告线收口
 
@@ -1155,15 +1171,15 @@ python guagua.py plan "你的经营目标" --project ../projects/<slug>
 | v2.1 | 2026-11-12 | 仓库瘦身（删除 11736 个历史文件）；固化 `make_package.py` 打包入口 |
 | v2.0 | 2026-11-10 | 重写 README；新增 `guagua.py` 统一入口与 20 角色介绍 |
 
-> 全量、按日期的智能体更新记录见 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)；
+> 全量、按日期的智能体更新记录见 [`CHANGELOG.md`](蛙蛙呱呱agents团/docs/_entry/CHANGELOG.md)；
 > 本节只保留仍影响当前使用的版本，逐条提交历史用 `git log` 查。
 > 已被后续版本推翻的口径（如 `--layout paper`、A/B 双路）不再在正文重复。
 
 ### 维护约定
 
-- 新增角色：先更新 [`core/registry.py`](蛙蛙呱呱agents团/core/registry.py)，再建角色目录、`agent.py`、`SKILL.md`、测试，最后同步本 README 与使用指南。
+- 新增角色：先更新 [`core/registry.py`](蛙蛙呱呱agents团/core/base/registry.py)，再建角色目录、`agent.py`、`SKILL.md`、测试，最后同步本 README 与使用指南。
 - 新增技能：更新角色 `SKILL.md` 与 `contracts.py`，并补一条可复现的测试或夹具。
-- 修改协作规则：以 [`ORG.md`](蛙蛙呱呱agents团/ORG.md) 和 [`PROTOCOL.md`](蛙蛙呱呱agents团/PROTOCOL.md) 为准，不要在 README 里另造一套规则。
+- 修改协作规则：以 [`ORG.md`](蛙蛙呱呱agents团/docs/_entry/ORG.md) 和 [`PROTOCOL.md`](蛙蛙呱呱agents团/docs/_entry/PROTOCOL.md) 为准，不要在 README 里另造一套规则。
 - 分发打包：统一用 `python 蛙蛙呱呱agents团/scripts/make_package.py`，不要手工压 zip，也不要把 zip 提交进仓库。
 
 ---
