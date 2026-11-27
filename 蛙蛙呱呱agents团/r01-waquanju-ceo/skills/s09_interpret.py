@@ -684,6 +684,15 @@ def _check_sections(draft: Dict[str, Any], pack: Dict[str, Any]) -> List[Dict[st
                 # 按数据形状选图：形状不匹配就拒，避免「两个数也画柱状图」。
                 _t = str(ch.get("type") or "")
                 _n = len(pts)
+                # grouped / stacked 的「数据点」是 categories × series[].values，
+                # 不是 series 的条数（series 通常只有 1—2 条）。
+                if _t in ("grouped_bar", "grouped", "stacked_bar", "stacked",
+                          "pct_stacked"):
+                    _cats = len(ch.get("categories") or [])
+                    _vals = max((len(x.get("values") or [])
+                                 for x in (ch.get("series") or [])
+                                 if isinstance(x, dict)), default=0)
+                    _n = max(_cats, _vals)
                 _need = {
                     "hbar": (2, 12), "vbar": (2, 12), "bar": (2, 12),
                     "line": (2, 24), "area": (2, 24),

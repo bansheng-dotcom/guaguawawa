@@ -8,6 +8,24 @@
 
 ---
 
+## 2026-11-27（第二十八轮）· 配好数据线样本，修通 3 个意图的端到端回归
+
+一句话：**`workspace/_ci_report_sample` 现在能跑通调研/经营/止损三个意图，CI 的 [2][3][3a][14] 由 SKIP 转为真实 PASS；v7 仍 SKIP（原因见末尾）。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 样本 | `workspace/_ci_report_sample/`（默认路径，不入库） | `method_params.yaml` 声明 metric_roles；`data/facts.json`（规模/份额/成本/销售额）+ 终端/集散/分市场/产地四张价格表 + 评价与 RICE 表 |
+| 集中度 | `core/methods/research.py` | CR2 不再二次除以 100；HHI 派生公式改成可由包内 id 计算的式子（derived_ok 恢复） |
+| 结构校验 | `r01-waquanju-ceo/skills/s09_interpret.py` | grouped/stacked 的数据点按 categories×series 计数，不再把 series 条数当点数 |
+| RICE | `core/methods/generic.py` | 修复 chart 标题 `Num.__format__` 崩溃；每个需求分数登记为数字，图/表可逐条回溯；去掉未登记的相对百分比 |
+| 机理 | `core/report/report_assembly.py` | growth / concentration / reviews / priority 补「一种解释 + 判别方法」，每节都过 Q9 |
+| 选型 | `core/decision.py` | reviews 问句的对照类型改为 composition（方法出的是好评/中评/差评三段构成） |
+| 建议数字 | `core/decision_report.py` | 动作与「所以」里的数字统一转中文（模块级 `_plain`）；manifest 的 gate 合并 report_flow 的 `flow` 结论 |
+| CLI | `core/report/report_cli.py` | 数据线分支缺 `_P` 导入导致成功后被判错，已修 |
+| 样本配置 | `scripts/ci_report_checks.py` | 默认 `../workspace/_ci_report_sample` 即可用；v7 默认 `_ci_v7_sample` 仍缺 |
+
+诚实边界：`CI_V7_SAMPLE` 仍 SKIP。v7 要求每节正文 ≥800 字（prose 硬门禁），确定性数据线只能写到 441–609 字；不注水就过不了，注水就是假绿。要启用 v7，需要一份真实的研究级稿（agent 写稿路径），不是再补几张表。
+
 ## 2026-11-27（第二十七轮）· F12 结构同构收窄：只判作者稿，不再拦确定性编译
 
 一句话：**真实项目重编译暴露 F12 会误杀拆卡线——每节骨架本就由编译器固定。现在 F12 只对作者稿生效。**

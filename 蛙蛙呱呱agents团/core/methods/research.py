@@ -206,13 +206,16 @@ def m_concentration(ctx) -> Optional[Finding]:
     nums = [c.n(nm, float(f["value"]) / 100, "%",
                 str(f.get("period") or ""), str(f.get("source_id") or ""))
             for nm, f in zip(labels, rows)]
-    top2 = sum(n.value for n in nums[:2]) / 100
+    top2 = sum(n.value for n in nums[:2])  # n.value 已是比例（份额% / 100）
     cr = c.n("CR2", top2, "%")
     obs = sum((float(f["value"])) ** 2 for f in rows)
     rest = max(0.0, 100.0 - sum(float(f["value"]) for f in rows))
-    hhi_lo = c.d("R10", "sum(share_i^2)", obs, "HHI 下界（未列主体视为无限分散）")
-    hhi_hi = c.d("R11", "sum(share_i^2)+rest^2", obs + rest ** 2,
-                 "HHI 上界（未列主体视为一家）")
+    # 派生量公式必须可由包内数字算出（derived_ok）：份额存的是比例，
+    # 平方后 ×10000 还原成百分点的 HHI 口径（0—10000）。
+    inner = "+".join(f"(({n.id}*{n.id})*10000)" for n in nums)
+    hhi_lo = c.d("R10", inner, obs, "HHI 下界（未列主体视为无限分散）")
+    hhi_hi = c.d("R11", inner + f"+(({rest:.4f}*{rest:.4f}))",
+                 obs + rest ** 2, "HHI 上界（未列主体视为一家）")
     title = (f"集中度：CR2 {cr.p()}，HHI 在 {hhi_lo}—{hhi_hi} 之间")
     f = _finding("concentration", title, "头部有多强？还能挤进去吗？", c, mark)
     f.add("已列主体合计 " + "、".join(f"{k} {v.p()}" for k, v in zip(labels, nums))

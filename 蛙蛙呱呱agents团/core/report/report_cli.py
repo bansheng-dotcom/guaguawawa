@@ -585,6 +585,7 @@ def cmd_run_line(args) -> int:
         return 2
     # S5: gate (4 gates). block mode fails report; warn mode records only.
     if res.get("ok") and getattr(args, "dir", None):
+        from pathlib import Path as _P  # noqa: PLC0415  数据线没有 claims 分支，这里必须自带
         _contract = _P(args.out) / "contract.json"
         if _contract.exists():
             import subprocess as _sp

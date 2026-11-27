@@ -39,6 +39,54 @@ def _json(path: str, obj: Any) -> None:
         json.dump(obj, f, ensure_ascii=False, indent=2)
 
 
+# --------------------------------------------------------------------------- #
+# 建议类文字（动作 / 所以）里的阿拉伯数字：没有 refs，会被逐节过账拦下。
+# 建议是「做什么」，不是「证据数字」：统一转成中文，保留可执行性，
+# 正文数字仍然只来自证据（2026-11-27）。
+# --------------------------------------------------------------------------- #
+_DIGITS = "零一二三四五六七八九"
+
+
+def _cn_int(n: int) -> str:
+    if n < 0:
+        return "负" + _cn_int(-n)
+    if n < 10:
+        return _DIGITS[n]
+    if n < 20:
+        return "十" + (_DIGITS[n % 10] if n % 10 else "")
+    if n < 100:
+        return _DIGITS[n // 10] + "十" + (_DIGITS[n % 10] if n % 10 else "")
+    if n < 1000:
+        h, r = divmod(n, 100)
+        out = _DIGITS[h] + "百"
+        if r == 0:
+            return out
+        return out + ("零" + _DIGITS[r] if r < 10 else _cn_int(r))
+    if n < 10000:
+        t, r = divmod(n, 1000)
+        out = _DIGITS[t] + "千"
+        if r == 0:
+            return out
+        return out + ("零" + _cn_int(r) if r < 100 else _cn_int(r))
+    w, r = divmod(n, 10000)
+    out = _cn_int(w) + "万"
+    if r == 0:
+        return out
+    return out + ("零" + _cn_int(r) if r < 1000 else _cn_int(r))
+
+
+def _plain(s: str) -> str:
+    """把建议文字里的阿拉伯数字换成中文，避免被当成未登记的证据数字。"""
+    t = str(s or "")
+
+    def _dec(m: re.Match) -> str:
+        frac = "".join(_DIGITS[int(c)] for c in m.group(2) if c.isdigit())
+        return _cn_int(int(m.group(1))) + "点" + frac
+
+    t = re.sub(r"(\d+)\.(\d+)", _dec, t)
+    return re.sub(r"\d+", lambda m: _cn_int(int(m.group(0))), t)
+
+
 def build(intent: str, project_dir: str, out_dir: str,
           decision_path: Optional[str] = None, min_binding: float = 0.8,
           theme: str = "paper", pdf: bool = False,
@@ -155,7 +203,7 @@ def build(intent: str, project_dir: str, out_dir: str,
         if f.so_what and not has_implication:
             refs = list(dict.fromkeys(sec.get("refs") or []))[:6]
             sec.setdefault("reading", []).append(
-                {"text": f"所以：{f.so_what}", "refs": refs})
+                {"text": f"所以：{_plain(f.so_what)}", "refs": refs})
         # 只对方法真出的图做「对照选型」；没有图就明记缺口，不从表格凑数（凑出来的点不可回溯）
         base = sec.get("chart")
         chart = decision.choose_chart(base, q) if base else None
@@ -219,23 +267,6 @@ def build(intent: str, project_dir: str, out_dir: str,
         })
         if len(acts) >= 5:
             break
-    # 动作文字里如果带阿拉伯数字，那些数字没有 refs，会被逐节过账拦下。
-    # 动作是「做什么」，不是「证据数字」：这里把动作文本里的数字改成中文/口语，
-    # 保留可执行性（「一周」「三成」），同时让正文数字仍然只来自证据。
-    _NUM_WORDS = {"12": "十二", "15": "十五", "20": "二十", "30": "三十",
-                  "60": "六十", "90": "九十", "1": "一", "2": "两", "3": "三",
-                  "4": "四", "5": "五", "6": "六", "7": "七", "8": "八",
-                  "9": "九", "10": "十"}
-
-    def _plain(s: str) -> str:
-        t = str(s or "")
-        # 小数先处理（1.5 → 一点五），否则会被整数规则拆成「一.五」
-        t = re.sub(r"(\d+)\.(\d+)",
-                   lambda m: f"{_NUM_WORDS.get(m.group(1), m.group(1))}点{_NUM_WORDS.get(m.group(2), m.group(2))}",
-                   t)
-        for k, v in sorted(_NUM_WORDS.items(), key=lambda kv: -len(kv[0])):
-            t = re.sub(rf"(?<![\d.]){k}(?![\d.])", v, t)
-        return t
 
     if acts:
         rows = [[_plain(a["do"]), _plain(a["condition"]), _plain(a["stop"])]
@@ -433,6 +464,9 @@ def build(intent: str, project_dir: str, out_dir: str,
             "gate": {
                 "pre": _plan_gate("pre_issue_gates.json"),
                 "post": _plan_gate("post_gates.json"),
+                # 九条流程门禁的结论来自 report_flow：并进同一个 gate，
+                # 数据线也要能回答「成品过没过 F1–F12」（2026-11-27）
+                **(res.get("gate") or {}),
             },
             "quality_gate": gate,
             "ok": ok,

@@ -171,8 +171,10 @@ _BANK_LEGACY: List[Dict[str, Any]] = [
      "falsifier": "若依赖关系变化，排序作废。"},
     {"id": "q.reviews", "finding": "reviews", "priority": 170,
      "text": "口碑风险集中在哪？", "decision": "改产品还是改预期",
-     "comparison": {"kind": "distribution", "left": "评价维度", "right": "均值",
-                    "metric": "评分", "unit": "分"},
+     # reviews 方法出的是「好评/中评/差评」三段构成，按 composition 选型；
+     # 用 distribution 会把 pct_stacked 判成不允许，图被清空（2026-11-27）。
+     "comparison": {"kind": "composition", "left": "评分段", "right": "全部评价",
+                    "metric": "评价占比", "unit": "%"},
      "falsifier": "若差评集中在少数异常订单，本节作废。"},
     {"id": "q.headcount", "finding": "headcount", "priority": 180,
      "text": "编制与产出是否匹配？", "decision": "招人 / 缩编",

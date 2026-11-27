@@ -346,6 +346,14 @@ def test_f12_skipped_for_machine_compiled_html():
     assert "F12_structure_repeat" not in ids2
 
 
+def test_plain_converts_digits_to_chinese():
+    """建议类文字（动作/所以）里的数字没有 refs，必须转成中文再进正文。"""
+    from core import decision_report as dr  # noqa: PLC0415
+
+    assert dr._plain("差评超过 10%，低于 5%") == "差评超过 十%，低于 五%"
+    assert dr._plain("CR2 0.31 与 4167.46") == "CR二 零点三一 与 四千一百六十七点四六"
+
+
 # ====================================================================
 # P5-4 收敛守卫：映射层并入 claims、契约统一 v4、严格门禁覆盖历史版本
 # ====================================================================

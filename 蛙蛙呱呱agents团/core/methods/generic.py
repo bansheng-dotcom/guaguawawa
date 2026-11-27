@@ -604,31 +604,31 @@ def m_priority(ctx) -> Optional[Finding]:
     if len(rows) < 3:
         return None
     rows.sort(key=lambda x: x["rice"], reverse=True)
+    # 每个需求的分都要登记：图与表里的数字必须能逐条回溯（否则逐节过账会拦）。
+    nums = [c.n(f"{r['name']} RICE", r["rice"], "分") for r in rows]
     n = c.n("需求数", len(rows), "条", digits=0)
     top = rows[0]
-    n_top = c.n("最高 RICE", top["rice"], "分")
-    cut = rows[max(0, len(rows) // 2)]
-    n_cut = c.n("中位 RICE", cut["rice"], "分")
+    n_top = nums[0]
+    cut_i = max(0, len(rows) // 2)
+    n_cut = nums[cut_i]
     title = (f"优先级：{n} 条需求里 {top['name']} 的 RICE 最高（{n_top} 分），"
              f"中位 {n_cut} 分")
     f = _finding("priority", title, "先做哪一条？依据是什么？", c, mark)
     f.add(f"{int(len(rows))} 条需求按 RICE 排序，最高 {top['name']} {n_top} 分，"
           f"中位 {n_cut} 分；中位以下的需求不是不能做，是要排在验证之后。",
-          _ids(n, n_top, n_cut))
+          _ids(n, *nums))
     f.add("RICE 的分母是工作量：分数高但工作量也高的需求，要拆成可验证的小片，"
           "否则会长期占着资源不出结果。", _ids(n_top))
-    f.table = _table("需求 RICE 排序", ["需求", "RICE 分", "相对最高"],
-                     [[r["name"], f"{r['rice']:.1f}",
-                       f"{r['rice'] / top['rice'] * 100 if top['rice'] else 0:.0f}%"]
-                      for r in rows])
-    f.chart = {"type": "hbar", "title": f"{top['name']} {n_top:.1f} 分居首",
-               "subtitle": f"{len(rows)} 条需求 · RICE 排序（显示前 8 条）",
+    f.table = _table("需求 RICE 排序", ["需求", "RICE 分"],
+                     [[r["name"], f"{r['rice']:.1f}"] for r in rows])
+    f.chart = {"type": "hbar", "title": f"{top['name']} {n_top} 分居首",
+               "subtitle": f"{len(rows)} 条需求 · RICE 排序",
                "note": "四个输入为主观打分，只在同批需求内可比",
                "unit_meta": "RICE 分", "source": f"{t.file} Reach×Impact×Confidence÷Effort",
-               "refs": _ids(n_top),
+               "refs": _ids(*nums),
                "bars": [{"label": r["name"], "value": round(r["rice"], 1)}
                         for r in rows[:8]]}
-    f.so_what = "按 RICE 排序做排期，前 30% 进本迭代，其余进验证队列。"
+    f.so_what = "按 RICE 排序做排期，前三分之一进本迭代，其余进验证队列。"
     f.boundary = "RICE 的四个输入是主观打分；没有打分校准记录时，只用于同批需求内比较。"
     return f
 
