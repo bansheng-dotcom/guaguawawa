@@ -14,7 +14,7 @@ P4 之后 `core/` 已按关注点物理分包：`base` / `data` / `sources` / `c
 ```python
 from core.report import report_flow
 from core.data import fact_table
-from core.cards import card_issue
+from core.cards import pipeline      # 发卡/验卡/收卡/探源的唯一入口
 from core.charts import chart_grammar
 from core.report_theme import report_theme
 ```

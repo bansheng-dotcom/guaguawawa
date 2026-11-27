@@ -291,6 +291,27 @@ def test_card_pipeline_forwards(tmp_path, monkeypatch):
     assert seen == {"out": str(tmp_path), "kw": {"intent": "t"}}
 
 
+def test_card_pipeline_is_only_external_entry():
+    """P5-3 转正：core/cards 之外不许直接 import 三个实现模块。"""
+    import re
+    pat = re.compile(
+        r"(?:from\s+core\.cards\s+import\s+[^\n]*\b(?:card_issue|report_dispatch|dispatch)\b"
+        r"|from\s+core\.cards\.(?:card_issue|report_dispatch|dispatch)\s+import"
+        r"|import\s+core\.cards\.(?:card_issue|report_dispatch|dispatch)\b)")
+    roots = [p for p in (TEAM / "core").rglob("*.py")
+             if "cards" not in p.relative_to(TEAM / "core").parts]
+    roots += list((TEAM / "scripts").rglob("*.py"))
+    roots += [TEAM / "guagua.py"] + sorted(TEAM.glob("r*/agent.py"))
+    hits = []
+    for p in roots:
+        if not p.is_file():
+            continue
+        for i, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
+            if pat.search(line):
+                hits.append(f"{p.relative_to(TEAM).as_posix()}:{i}")
+    assert hits == [], hits
+
+
 # ====================================================================
 # P5-4 收敛守卫：映射层并入 claims、契约统一 v4、严格门禁覆盖历史版本
 # ====================================================================
