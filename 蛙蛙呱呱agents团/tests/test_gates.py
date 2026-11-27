@@ -213,13 +213,16 @@ def test_wiring_truth_state_is_registered():
 # P5 收敛守卫：契约单一出处（P5-1）+ 文笔兜底 fail-closed（P5-2）
 # ====================================================================
 def test_claims_schema_declared_once():
-    """合并后 claims 的 schema 只许在 claims/contract.py 里写一次。"""
+    """合并后 claims / 判断格的 schema 只许在 claims/contract.py 里写一次。"""
+    lits = ('"dsh.agent.claims/v1"', '"dsh.claims/v2"', '"dsh.cell_claim/v1"')
     hits = []
     for p in (TEAM / "core").rglob("*.py"):
         if p.parent.name == "claims" and p.name == "contract.py":
             continue
-        if '"dsh.agent.claims/v1"' in p.read_text(encoding="utf-8"):
-            hits.append(p.relative_to(TEAM).as_posix())
+        text = p.read_text(encoding="utf-8")
+        for lit in lits:
+            if lit in text:
+                hits.append(f"{p.relative_to(TEAM).as_posix()}::{lit}")
     assert hits == [], hits
 
 

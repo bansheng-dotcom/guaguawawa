@@ -8,7 +8,7 @@
 | 指标 | 数量 |
 |---|---:|
 | core 模块 | 166 |
-| 内部 import 边 | 421 |
+| 内部 import 边 | 423 |
 | 跨包边 | 289 |
 | 循环（SCC>1） | 4 |
 
@@ -187,17 +187,17 @@
 | `core.data` | 18 |
 | `core.report` | 14 |
 | `core.base` | 12 |
+| `core.claims` | 10 |
 | `core.base.paths` | 9 |
 | `core.charts` | 9 |
-| `core.claims` | 9 |
 | `core.report_theme.charts_pro` | 9 |
 | `core.report_theme.charts_pro.prokit_helpers` | 9 |
 | `core.cards` | 8 |
 | `core.analysis_methods` | 7 |
 | `core.report_theme.charts_pro.spec` | 7 |
 | `core.sources.source_profile` | 7 |
+| `core.claims.contract` | 5 |
 | `core.cards.card_upgrade` | 4 |
-| `core.claims.contract` | 4 |
 | `core.collectors` | 4 |
 | `core.collectors.base` | 4 |
 | `core.data.analysis_desk` | 4 |

@@ -19,6 +19,12 @@ from typing import Any, Dict, List
 #: 合并后 claims 文档的 schema（cells_claims / report_flow 共用）
 SCHEMA = "dsh.agent.claims/v1"
 
+#: 历史卡片的落盘 schema（v2 按卡交）：只做读入识别，新写盘不再产出
+LEGACY_SCHEMA = "dsh.claims/v2"
+
+#: 判断格 schema（cell_claim）：与 claims 文档同一处声明，防止两处漂移
+CELL_SCHEMA = "dsh.cell_claim/v1"
+
 #: 两条产出路径的契约版本：v2 = card_spec 按卡交；v3 = 按格交
 #: P5-4（2026-11-27）：统一发 v4；v2/v3 只作为历史卡片的读入版本。
 CONTRACT = "v4"
@@ -30,7 +36,7 @@ STRICT_CONTRACTS = LEGACY_CONTRACTS + (CONTRACT,)
 
 def is_strict(doc: Dict[str, Any]) -> bool:
     """这张卡是否按新结构契约收：v2/v3/v4 都要，旧的无版本卡不追溯。"""
-    return (str(doc.get("schema") or "") == "dsh.claims/v2"
+    return (str(doc.get("schema") or "") == LEGACY_SCHEMA
             or str(doc.get("contract") or "") in STRICT_CONTRACTS)
 
 #: 顶层键（报告产线读的只有这些）

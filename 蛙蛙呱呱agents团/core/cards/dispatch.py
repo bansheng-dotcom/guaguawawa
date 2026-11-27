@@ -278,7 +278,7 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None,
             "",
             "## 交什么（v2 结构契约，缺一条整卡拒收）",
             "",
-            f"写到 `{d.as_posix()}/claims.json`，并在文件里声明 `\"schema\": \"dsh.claims/v2\"`。",
+            f"写到 `{d.as_posix()}/claims.json`，并在文件里声明 `\"schema\": \"{_claim_contract.LEGACY_SCHEMA}\"`。",
             "",
             "- **每条解读必须带 `refs`**（指向本卡 numbers）——没有 refs 的数字视为编的",
             "- **每条解读 ≤400 字**：长论证拆成多条解读，别写成一堵墙",
@@ -322,7 +322,7 @@ def write_cards(intent: str, out_dir: str, only: List[str] | None = None,
         lines += [f"- {c}" for c in eb["acceptance_checks"]]
         (d / "TASK.md").write_text("\n".join(lines), encoding="utf-8")
         (d / "claims.template.json").write_text(json.dumps({
-            "schema": "dsh.claims/v2",
+            "schema": _claim_contract.LEGACY_SCHEMA,
             "role": rid,
             "numbers": [{"id": "N1", "name": "", "value": 0, "unit": "",
                          "period": "", "source_file": "S1"}],

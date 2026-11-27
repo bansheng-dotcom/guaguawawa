@@ -21,9 +21,10 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
+from core.claims import contract as _contract
 from core.data import dataset as _ds
 
-SCHEMA = "dsh.cell_claim/v1"
+SCHEMA = _contract.CELL_SCHEMA
 CAUSAL_LEVELS = ("A", "I", "C")
 # 一张图至少 3 个点才画（与 chart_units 的门槛一致）
 MIN_POINTS = 3
