@@ -103,6 +103,27 @@ def _load(p: Path, default=None):
         return default
 
 
+def _same_shape(doc: Dict[str, Any], layer: str,
+                value_from: str) -> Dict[str, Any]:
+    """P5-4：两种交付形态（按格交 / 按卡交）落盘成同一份字段形状。
+
+    只补「报告产线会读、但两种输入不一定都有」的键，不覆盖已有值：
+    `cells` / `datasets` / `claims` 这些出处字段各留各的，不加空壳。
+    """
+    doc.setdefault("layer", layer)
+    doc.setdefault("explore", [])
+    doc.setdefault("unanswered", [])
+    doc.setdefault("boundaries", [])
+    for n in doc.get("numbers") or []:
+        n.setdefault("entity", "")
+        n.setdefault("measure_id", "")
+        n.setdefault("grain_id", "")
+        n.setdefault("caliber", {})
+        n.setdefault("value_from", value_from)
+        n.setdefault("grade", "")
+    return doc
+
+
 def _pick_sources(project: Path) -> Dict[str, Dict[str, Any]]:
     merged = _load(project / "out" / "claims_merged.json", {}) or {}
     out = {}
@@ -183,6 +204,10 @@ def _section_from_claim(project: Path, c: Dict[str, Any],
             "value": v, "unit": unit,
             "entity": label,
             "period": period,
+            "measure_id": metric,
+            "grain_id": str(ds.get("grain") or ""),
+            "caliber": dict(ds.get("caliber") or {}),
+            "value_from": "dataset",
             "source_file": sid,
             "grade": str((ds.get("quality") or {}).get("source_grade") or "B"),
         })
@@ -434,7 +459,7 @@ def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any
                         "dataset": c.get("dataset"),
                         "why": "数据集未到位（data/datasets/ 下没有该表）",
                     })
-        claims = {
+        claims = _same_shape({
             "schema": _contract.SCHEMA, "contract": _contract.CONTRACT,
             "layer": "claim_dataset",
             "role": role,
@@ -450,7 +475,7 @@ def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any
             "claims": b["claims"],
             "unanswered": unanswered,
             "boundaries": ["v2：判断挂在数据集上，图从数据集现算；格子不再存标量。"],
-        }
+        }, "claim_dataset", "dataset")
         out = project / "cards" / role / "claims.json"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(claims, ensure_ascii=False, indent=2),
@@ -602,12 +627,15 @@ def build(project: Path, cells_path: Optional[Path] = None,
                 n = {"id": f"N{nid:02d}",
                      "name": f"{c.get('entity')}·{c.get('measure')}",
                      "value": c.get("value"), "unit": c.get("unit") or "",
+                     "entity": c.get("entity") or "",
                      "period": c.get("period") or "",
                      "measure_id": c.get("measure_id") or c.get("measure"),
                      "grain_id": c.get("grain_id") or c.get("grain"),
                      "caliber": c.get("caliber") or {},
                      "value_from": c.get("value_from") or "cell",
-                     "source_file": src_ids.get(str(c.get("source_file")), "")}
+                     "source_file": src_ids.get(str(c.get("source_file")), ""),
+                     "grade": str((source_pool.get(str(c.get("source_file")))
+                                   or {}).get("grade") or "")}
                 if c.get("needs_human"):
                     n["needs_human"] = True
                 numbers.append(n)
@@ -665,7 +693,7 @@ def build(project: Path, cells_path: Optional[Path] = None,
                 "falsifier": f"若 {top.get('entity')} 下期反向变化，本条作废。",
             })
 
-        claims = {
+        claims = _same_shape({
             "schema": _contract.SCHEMA, "contract": _contract.CONTRACT,
             "card_spec": True,
             "role": role, "dispatch": dispatch_block,
@@ -678,7 +706,7 @@ def build(project: Path, cells_path: Optional[Path] = None,
             "boundaries": ["按格交编译：只写已填格，未填格进未答清单。",
                            "比率格不求和；跨口径不合并。",
                            "未过交付契约（度量/grain/口径）的格进 contract_gaps，不进正文。"],
-        }
+        }, "card_spec", "cell")
         out = project / "cards" / role / "claims.json"
         out.write_text(json.dumps(claims, ensure_ascii=False, indent=2), encoding="utf-8")
         written.append({"role": role, "sections": len(sections),

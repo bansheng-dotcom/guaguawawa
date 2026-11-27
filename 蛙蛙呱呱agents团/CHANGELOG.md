@@ -8,6 +8,24 @@
 
 ---
 
+## 2026-11-27（第二十四轮）· P5-4 收尾：两种交付形态落盘成同一份字段形状
+
+一句话：**「按格交」与「按卡交」不再各写一套数字字段；两张卡用同一套 `CARD_KEYS` / `NUMBER_KEYS` 收。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 形状常量 | `core/claims/contract.py` | 新增 `CARD_KEYS`（每张卡必有的顶层键）与 `NUMBER_KEYS`（每条数字必有的字段）；`NUMBER_FIELDS` 由未使用的旧集合改为实际在用的 `NUMBER_KEYS` |
+| 同形 | `core/claims/cells_claims.py`：`_same_shape()` | 两个产出路径写盘前都过一遍：补 `layer` / `explore` / `unanswered` / `boundaries` 与数字的 `entity` / `measure_id` / `grain_id` / `caliber` / `value_from` / `grade`；层专属字段（`cells` / `datasets` / `claims`）各留各的 |
+| 按卡交 | `_section_from_claim()` | 数字补 `measure_id`（metric）、`grain_id`（数据集 grain）、`caliber`、`value_from="dataset"` |
+| 按格交 | `build()` | 数字补 `entity` 与 `grade`（来源等级从来源账本取），不再只靠 `name` 拼实体 |
+| 新守卫 | `tests/test_claims.py` 1 条 | 同一自测项目分别跑两条路径，断言两张卡的顶层键、数字字段、节字段都覆盖 contract 的形状 |
+
+验收：`pytest` **642 passed** / 3 skipped；`ci_report_checks` ALL PASS（含 `[22] flow-project`）；`guagua.py check` 20/20；wiring_truth / dead_code / project_boundary 全 PASS；真实项目 `projects/nm-vegetable` 的按卡交产物经形状检查无缺键。
+
+> 说明：人写的历史卡（r03/r14）不在两条编译路径内，collect 仍按 `_need` 收；要求它们也满足 `NUMBER_KEYS` 会改变历史项目行为，留待真实样本统一后再收紧。
+
+---
+
 ## 2026-11-27（第二十三轮）· P5-5：cells 三套读数收敛为唯一读数
 
 一句话：**同一格只认一份读数（raw.json 优先、其次 plan/mart.json）；对账差异、重复键、统一读数失败都必须可见，不许静默。**

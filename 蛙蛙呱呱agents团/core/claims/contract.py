@@ -37,9 +37,16 @@ def is_strict(doc: Dict[str, Any]) -> bool:
 TOP_KEYS = ("numbers", "sources", "sections", "standfirst",
             "boundaries", "conflicts")
 
-#: 数字条目必读字段（派生量另走 derived，不在此列）
-NUMBER_FIELDS = ("id", "name", "value", "unit", "period",
-                 "source_file", "quote", "grade", "falsifier", "boundary")
+#: 每张卡都必须有的顶层键（P5-4：两种交付形态同一形状）
+#: 层专属字段（cells / datasets / claims / contract_gaps）不在此列，按输入可有可无。
+CARD_KEYS = ("schema", "contract", "layer", "role", "dispatch", "meta",
+             "numbers", "sources", "sections", "unanswered", "boundaries",
+             "explore")
+
+#: 每条数字必须有的字段（P5-4：按格交与按卡交出同一套）
+NUMBER_KEYS = ("id", "name", "value", "unit", "entity", "period",
+               "measure_id", "grain_id", "caliber", "value_from",
+               "source_file", "grade")
 
 #: 来源条目必读字段
 SOURCE_FIELDS = ("file", "grade")

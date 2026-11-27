@@ -26,6 +26,7 @@ import tempfile
 from core.claims import cells_claims
 from core.cards import dispatch
 from core.claims import cells_claims, cells_unified
+from core.claims import contract as claim_contract
 
 from core.claims import claims as c4  # P5-4：映射层已并入 claims
 
@@ -424,6 +425,70 @@ def test_mart_rows_are_read_as_observations(tmp_path):
     rows = cells_unified.observations(base)
     assert {r["entity"] for r in rows} == {"甲", "乙"}
     assert all(r["period"] == "2025-01" for r in rows)
+
+
+# ====================================================================
+# P5-4：两种交付形态（按格交 / 按卡交）落盘成同一份字段形状
+# ====================================================================
+def _drill_project():
+    """在自测项目上补 plan/drill.json + plan/mart.json，走「按卡交」路径。"""
+    base = _project()
+    ds = {"schema": "dsh.dataset/v1", "id": "DS-x", "title": "测试数据集",
+          "source": {"kind": "数据集"}, "grain": "brand × month",
+          "time_grain": "month",
+          "columns": [
+              {"name": "brand", "type": "string", "semantic": "dimension"},
+              {"name": "month", "type": "date", "semantic": "dimension"},
+              {"name": "asp", "type": "number", "unit": "元",
+               "semantic": "metric"}],
+          "quality": {"source_grade": "A"}}
+    drill = {"schema": "dsh.drill_plan/v1", "drills": [{
+        "schema": "dsh.drill_plan/v1", "category": "测试品类",
+        "datasets": [ds],
+        "claims": [{"claim_id": "C1", "claim": "测试判断：甲最高",
+                    "dataset": "DS-x", "qid": "Q1",
+                    "query": {"metrics": ["asp"],
+                              "group_by": ["brand", "month"]},
+                    "chart": {"type": "hbar", "x": "brand"},
+                    "falsifier": "若口径变化则本节作废"}]}]}
+    (base / "plan" / "drill.json").write_text(
+        json.dumps(drill, ensure_ascii=False), encoding="utf-8")
+    (base / "plan" / "mart.json").write_text(json.dumps({"x": [
+        {"brand": "甲", "month": "2025-01", "asp": 10.0},
+        {"brand": "乙", "month": "2025-01", "asp": 20.0},
+        {"brand": "丙", "month": "2025-01", "asp": 30.0}]},
+        ensure_ascii=False), encoding="utf-8")
+    return base
+
+
+def _load_card(base: Path, role: str) -> dict:
+    return json.loads((base / "cards" / role / "claims.json")
+                      .read_text(encoding="utf-8"))
+
+
+def test_two_delivery_forms_share_one_shape():
+    """按格交与按卡交必须发出同一套 CARD_KEYS / NUMBER_KEYS / SECTION_FIELDS。"""
+    b1 = _project()
+    assert cells_claims.build(b1)["ok"]
+    v1 = _load_card(b1, "r05")
+    b2 = _drill_project()
+    assert cells_claims.from_drill(b2)["ok"]
+    v2 = _load_card(b2, "r05")
+
+    for doc, layer in ((v1, "card_spec"), (v2, "claim_dataset")):
+        assert doc["layer"] == layer
+        assert set(claim_contract.CARD_KEYS) <= set(doc), \
+            (layer, set(claim_contract.CARD_KEYS) - set(doc))
+        assert doc["numbers"] and doc["sections"]
+        for n in doc["numbers"]:
+            assert set(claim_contract.NUMBER_KEYS) <= set(n), \
+                (layer, n.get("id"), set(claim_contract.NUMBER_KEYS) - set(n))
+        for s in doc["sections"]:
+            assert set(claim_contract.SECTION_FIELDS) <= set(s), \
+                (layer, s.get("title"),
+                 set(claim_contract.SECTION_FIELDS) - set(s))
+    assert v1["numbers"][0]["value_from"] in ("cell", "observation")
+    assert v2["numbers"][0]["value_from"] == "dataset"
 
 
 # ====================================================================
