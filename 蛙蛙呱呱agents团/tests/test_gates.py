@@ -286,3 +286,25 @@ def test_card_pipeline_forwards(tmp_path, monkeypatch):
     monkeypatch.setattr(dispatch, "collect", fake_collect)
     assert pipeline.collect(str(tmp_path), intent="t") == ({}, [])
     assert seen == {"out": str(tmp_path), "kw": {"intent": "t"}}
+
+
+# ====================================================================
+# P5-4 收敛守卫：映射层并入 claims、契约统一 v4、严格门禁覆盖历史版本
+# ====================================================================
+def test_claim_mapping_layer_merged_into_claims():
+    from core.claims import claims
+
+    for fn in ("detect", "validate_v4", "build_sections", "build_decision",
+               "claim_to_section", "encoding_to_chart"):
+        assert callable(getattr(claims, fn)), fn
+    assert not (TEAM / "core/claims/claims_v4.py").exists()
+
+
+def test_claim_contract_v4_and_strict_versions():
+    from core.claims import contract
+
+    assert contract.CONTRACT == "v4"
+    for ver in ("v2", "v3", "v4"):
+        assert contract.is_strict({"contract": ver}), ver
+    assert not contract.is_strict({})
+    assert contract.is_strict({"schema": "dsh.claims/v2"})

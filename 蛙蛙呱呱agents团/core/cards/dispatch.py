@@ -26,6 +26,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 from core.base import paths
+from core.claims import contract as _claim_contract
 from core.sources.source_verify import normalize_url
 
 CARD_SCHEMA = "dsh.task_card/v1"
@@ -166,9 +167,8 @@ def _need(claims: Dict[str, Any]) -> List[str]:
         for j, rd in enumerate(s.get("reading") or [], 1):
             if len(str(rd.get("text") or "")) > limit:
                 miss.append(f"节「{t}」解读{j} 超 {limit} 字，请拆成多条")
-        # v2 结构契约：声明了 schema 的卡按新标准收（老卡不追溯）
-        if (str(claims.get("schema") or "") == "dsh.claims/v2"
-                or str(claims.get("contract") or "") == "v2"):
+        # 结构契约：声明了版本（v2/v3/v4）的卡按同一套标准收（老卡不追溯）
+        if _claim_contract.is_strict(claims):
             for j, rd in enumerate(s.get("reading") or [], 1):
                 if not rd.get("refs"):
                     miss.append(f"节「{t}」解读{j} 缺 refs（数字必须可回溯）")

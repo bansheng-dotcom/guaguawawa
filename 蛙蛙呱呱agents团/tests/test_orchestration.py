@@ -838,11 +838,12 @@ def test_group_attributes_exist():
 
 
 def test_group_resolves_to_same_module():
+    from importlib import import_module
     assert core.gates.quality_gate is core.quality_gate
     assert core.pipeline.report_flow is core.report.report_flow
     assert core.semantic.report_ir is core.report.report_ir
-    assert core.cards.card_issue is core.cards.card_issue
-    assert core.narrative.claims_v4 is core.claims.claims_v4
+    assert core.cards.card_issue is import_module("core.cards.card_issue")
+    assert core.narrative.claims is import_module("core.claims.claims")
 
 
 def test_group_member_is_lazy_then_cached():

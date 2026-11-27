@@ -8,6 +8,27 @@
 
 ---
 
+## 2026-11-27（第二十二轮）· P5-4：契约统一 v4 + 映射层并入 claims
+
+一句话：**claims.json 只发一个契约版本 `v4`；`claims_v4.py` 并入 `claims.py`；收卡严格门禁覆盖 v2/v3/v4。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 契约统一 | `core/claims/contract.py` | `CONTRACT = "v4"`；`LEGACY_CONTRACTS = ("v2","v3")`；新增 `is_strict()`（v2/v3/v4 与 `dsh.claims/v2` 都走严格门禁） |
+| 产出统一 | `cells_claims` 两条路径 + `report_dispatch` claims 模板 | 统一发 `v4`；两种交付形态（按格交 / 按卡交）保留，字段集不变 |
+| 收卡门禁 | `core/cards/dispatch.py` | 从“只有 v2 走严格检查”改为 `is_strict()`，历史 v3 卡不再绕过结构门禁 |
+| 映射层合并 | `core/claims/claims.py` | `detect / encoding_to_chart / validate_v4 / claim_to_section / build_decision / build_sections` 迁入；`claims_v4.py` 删除 |
+| 调用方 | `report_flow`、`scripts/migrate_claims_v4.py`、测试 | 改从 `core.claims.claims` 取映射层 |
+| 修假测试 | `tests/test_orchestration.py` | 分组断言 `core.cards.card_issue is core.cards.card_issue` 是恒真；改为与 `import_module` 结果比对 |
+| 新守卫 | `tests/test_gates.py` 2 条 | 映射层必须在 claims 里、`claims_v4.py` 不得复现；`CONTRACT == v4` 且 v2/v3/v4 都判严格 |
+| 白名单 | `configs/core_files.json` | 169 → **168** |
+
+验收：`pytest` **638 passed** / 3 skipped；`ci_report_checks` ALL PASS（含 `[22] flow-project`）；r06 端到端 155/155、r04 126/126；`guagua.py check` 20/20；wiring_truth / dead_code / project_boundary / doc_consistency / gen_agent_packs / role_packs / move_cards 全 PASS。
+
+> 说明：两种交付形态（按格交 `from_collection` / 按卡交 `card_spec`）的字段形状本轮未合并——它们是不同输入下的两种产物，合并需要真实项目样本验证。契约版本与收卡门禁已统一。
+
+---
+
 ## 2026-11-27（第二十一轮）· P5-3：cards 单一编排入口（字段不变）
 
 一句话：**发卡/验卡/收卡只从 `core/cards/pipeline.py` 进；三个实现模块不动，产物不变。**

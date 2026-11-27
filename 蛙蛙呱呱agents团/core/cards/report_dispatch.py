@@ -529,7 +529,7 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
             {"answers": []}, ensure_ascii=False, indent=2), encoding="utf-8")
         (d / "claims.template.json").write_text(json.dumps({
             "schema": _claim_contract.SCHEMA,
-            "contract": _claim_contract.CONTRACT_CARD,
+            "contract": _claim_contract.CONTRACT,
             "card_spec": True,
             "role": rid,
             "dispatch": {"nonce": nonce, "role": rid, "by": "", "questions": qids},

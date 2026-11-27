@@ -39,7 +39,6 @@
  "claims/cells_unified.py",
  "claims/claim_consistency.py",
  "claims/claims.py",
- "claims/claims_v4.py",
  "claims/contract.py",
  "collab.py",
  "collect_schema.py",

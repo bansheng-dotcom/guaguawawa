@@ -68,7 +68,7 @@ _GROUPS = {
         "report_ir", "ir_adapters", "semantic_pipeline", "ir_to_contract",
     ],
     "narrative": [
-        "claims", "claims_v4", "claim_consistency",
+        "claims", "claim_consistency",
         "report_assembly", "report_editorial", "synthesis",
     ],
     "render": ["report_theme"],

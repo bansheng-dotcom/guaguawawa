@@ -27,7 +27,7 @@ from core.claims import cells_claims
 from core.cards import dispatch
 from core.claims import cells_claims, cells_unified
 
-from core.claims import claims_v4 as c4
+from core.claims import claims as c4  # P5-4：映射层已并入 claims
 
 
 # ====================================================================

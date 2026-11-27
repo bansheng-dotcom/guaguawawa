@@ -853,10 +853,10 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
     """把「模型写的章节稿」变成报告契约（记录层与口径节由产线补）。"""
     # v4：数据优先——有 claims 就先过映射层（slice→encoding→findings→五块）
     if draft.get("claims") and not draft.get("sections"):
-        from core.claims import claims_v4
-        draft = {**draft, "sections": claims_v4.build_sections(draft)}
+        from core.claims import claims as claims_model
+        draft = {**draft, "sections": claims_model.build_sections(draft)}
         if not draft.get("decision"):
-            draft = {**draft, "decision": claims_v4.build_decision(draft)}
+            draft = {**draft, "decision": claims_model.build_decision(draft)}
     secs_out: List[Dict[str, Any]] = []
     from core.charts import chart_chooser, chart_grammar
     # 2026-11-23（SOP S3）：先转 IR + resolve，图表意图以语义管道为单一来源。

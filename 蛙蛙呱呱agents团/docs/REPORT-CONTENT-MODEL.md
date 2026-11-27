@@ -25,7 +25,7 @@ claim → slice → encoding → blocks → renderer
 - 拆段后**每段继承块标签**，避免全部落进“事实”；
 - 旧稿不强行改写成 claims，只在渲染前补 `slice / encoding` 的缺省值。
 
-### 新稿（claims_v4）
+### 新稿（claims 映射层，原 claims_v4 已并入）
 
 - `claim` + `rows` + `encoding` + `findings` + `warrant` + `action` + `falsifier`；
 - 主判断 ≤7；第 8 条起 `tier=support`；

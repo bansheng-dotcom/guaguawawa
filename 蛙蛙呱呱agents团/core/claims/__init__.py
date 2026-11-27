@@ -10,7 +10,7 @@ from __future__ import annotations
 import importlib
 
 __all__ = [
-    "claims", "claims_v4", "claim_consistency",
+    "claims", "claim_consistency",
     "cell_claim", "cells_claims", "cells_unified",
 ]
 

@@ -1,8 +1,9 @@
 # 决策级报告定义（REPORT-DECISION-GRADE.md）
 
 > status: ARCHIVED · 2026-11-26
-> 说明：`core/claim_card.py` 已于 2026-11-26 删除；当前断言模型为 `claims.py` /
-> `claims_v4.py`，来源等级由 `claim_consistency` C2/C3 检查。
+> 说明：`core/claim_card.py` 已于 2026-11-26 删除；当前断言模型为
+> `core/claims/claims.py`（含映射层，原 `claims_v4` 已并入），来源等级由
+> `claim_consistency` C2/C3 检查。
 
 > 版本：v0.1 · 2026-11-17
 > 这是升级 SOP 的 P1 产物，也是后续所有报告门禁的**唯一判据**。

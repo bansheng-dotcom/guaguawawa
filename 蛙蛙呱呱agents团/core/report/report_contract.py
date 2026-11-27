@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """core.report.report_contract —— 报告契约的单一读取入口。
 
-所有产线模块（卡片、收卡、文笔、版式、门禁、claims_v4）只从这里读阈值，
+所有产线模块（卡片、收卡、文笔、版式、门禁、claims 映射层）只从这里读阈值，
 禁止在代码里再写第二套「每节多少字 / 最多几条判断 / 图几点」。
 """
 from __future__ import annotations

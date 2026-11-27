@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """core.claims.contract —— 合并后 claims 文档的契约单一出处（P5-1）。
 
-为什么集中：`claims_v4`（映射层）、`cells_claims`（按格交）、
-`claim_consistency`（交叉质询）各自写过一遍字段名与契约版本。
+为什么集中：`claims`（论证层 + 映射层，原 `claims_v4` 已并入）、
+`cells_claims`（按格交）、`claim_consistency`（交叉质询）各自写过一遍
+字段名与契约版本。
 字段一改，三处就会悄悄错位；这里只放**常量与纯读法**，不放业务逻辑。
 
 约定：
@@ -19,8 +20,18 @@ from typing import Any, Dict, List
 SCHEMA = "dsh.agent.claims/v1"
 
 #: 两条产出路径的契约版本：v2 = card_spec 按卡交；v3 = 按格交
-CONTRACT_CARD = "v2"
-CONTRACT_CELLS = "v3"
+#: P5-4（2026-11-27）：统一发 v4；v2/v3 只作为历史卡片的读入版本。
+CONTRACT = "v4"
+LEGACY_CONTRACTS = ("v2", "v3")
+
+#: 需要走严格结构门禁的版本（缺省/未知版本不追溯）
+STRICT_CONTRACTS = LEGACY_CONTRACTS + (CONTRACT,)
+
+
+def is_strict(doc: Dict[str, Any]) -> bool:
+    """这张卡是否按新结构契约收：v2/v3/v4 都要，旧的无版本卡不追溯。"""
+    return (str(doc.get("schema") or "") == "dsh.claims/v2"
+            or str(doc.get("contract") or "") in STRICT_CONTRACTS)
 
 #: 顶层键（报告产线读的只有这些）
 TOP_KEYS = ("numbers", "sources", "sections", "standfirst",

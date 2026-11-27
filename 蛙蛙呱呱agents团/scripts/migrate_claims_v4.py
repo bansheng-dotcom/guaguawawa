@@ -2,9 +2,9 @@
 """把旧 claims（sections 长文）迁移成 v4 判断单元，再交给 flow 渲染。
 
 用法：
-    python scripts/migrate_claims_v4.py --project <项目> [--claims <旧合并稿>]
+    python scripts/migrate_claims_map.py --project <项目> [--claims <旧合并稿>]
 
-产出：<项目>/out/claims_v4.json（含 claims + 由映射层生成的 sections）
+产出：<项目>/out/claims_map.json（含 claims + 由映射层生成的 sections）
 """
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from core.claims import claims_v4  # noqa: E402
+from core.claims import claims as claims_map  # noqa: E402  P5-4：映射层已并入 claims
 
 
 def _load(p: Path, default=None):
@@ -126,7 +126,7 @@ def migrate(project: Path, claims_path: Path) -> dict:
             if m:
                 answers = [m.group(1)]
         tier = "main" if (set(answers) & must) else "support"
-        findings = claims_v4.detect(rows, str(ch.get("unit_meta") or ""))
+        findings = claims_map.detect(rows, str(ch.get("unit_meta") or ""))
         claim_text = _first_sentence(fact or sec.get("title") or "")
         if not re.search(r"\d", claim_text):
             claim_text = _first_sentence(sec.get("title") or claim_text)
@@ -154,7 +154,7 @@ def migrate(project: Path, claims_path: Path) -> dict:
            "meta": old.get("meta") or {}, "claims": claims, "standfirst": stand,
            "boundaries": [f"{c['id']}: {c['qualifier']}" for c in claims if c.get("qualifier")]
            or ["旧稿迁移：边界待补"]}
-    secs = claims_v4.build_sections(doc)
+    secs = claims_map.build_sections(doc)
     # 第二遍：跨节去重（门禁按归一化句子算重复，这里同口径处理）
     seen2: set = set()
     for sec in secs:
@@ -180,9 +180,9 @@ def main() -> int:
     project = Path(a.project)
     src = Path(a.claims) if a.claims else (project / "out" / "claims_merged.json")
     doc = migrate(project, src)
-    out = project / "out" / "claims_v4.json"
+    out = project / "out" / "claims_map.json"
     out.write_text(json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
-    errs = claims_v4.validate_v4(doc["claims"])
+    errs = claims_map.validate_v4(doc["claims"])
     print(json.dumps({"ok": True, "claims": len(doc["claims"]),
                       "main": sum(1 for c in doc["claims"] if c["tier"] == "main"),
                       "support": sum(1 for c in doc["claims"] if c["tier"] == "support"),

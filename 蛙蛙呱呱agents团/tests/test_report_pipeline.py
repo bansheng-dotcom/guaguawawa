@@ -23,7 +23,7 @@ if str(TEAM) not in sys.path:
 
 import json
 from core.charts import chart_units
-from core.claims import claims_v4
+from core.claims import claims as claims_model  # P5-4：映射层已并入 claims
 from core.report import report_contract
 from scripts.audit_report_contract import audit as audit_contract
 from core.report import report_flow
@@ -96,7 +96,7 @@ def test_claims_section_count_is_adaptive():
             "warrant": "w", "action": "a", "falsifier": "f",
             "table": {"columns": ["a"], "rows": [["1"]]},
         })
-    secs = claims_v4.build_sections({"claims": claims})
+    secs = claims_model.build_sections({"claims": claims})
     assert sum(1 for s in secs if not s.get("appendix")) == 9
     assert sum(1 for s in secs if s.get("appendix")) == 0
 
@@ -111,7 +111,7 @@ def test_validate_rejects_mixed_unit_and_missing_table():
         "findings": [{"type": "extreme", "text": "x"}],
         "warrant": "w", "action": "a", "falsifier": "f",
     }
-    errs = claims_v4.validate_v4([c])
+    errs = claims_model.validate_v4([c])
     assert any("混单位" in e for e in errs)
     assert any("缺 table" in e for e in errs)
 
@@ -207,7 +207,7 @@ def _mk_claim(i: int, rank: int, headline: str = "") -> dict:
 
 def test_decision_rank_controls_order_and_cap():
     claims = [_mk_claim(i, rank=i) for i in range(1, 10)]
-    secs = claims_v4.build_sections({"claims": claims})
+    secs = claims_model.build_sections({"claims": claims})
     assert [s["title"] for s in secs[:3]] == ["判断1", "判断2", "判断3"]
     assert sum(1 for s in secs if not s.get("appendix")) == 9
 
@@ -215,7 +215,7 @@ def test_decision_rank_controls_order_and_cap():
 def test_headline_is_authored_not_guessed():
     c = _mk_claim(1, 1)
     c["headline"] = "5.85 万元/月（模型值）"
-    dec = claims_v4.build_decision({"claims": [c]})
+    dec = claims_model.build_decision({"claims": [c]})
     assert dec["items"][0]["number"] == "5.85 万元/月（模型值）"
 
 

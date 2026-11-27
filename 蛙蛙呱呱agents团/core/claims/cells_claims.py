@@ -435,7 +435,7 @@ def from_drill(project: Path, only_roles: Optional[set] = None) -> Dict[str, Any
                         "why": "数据集未到位（data/datasets/ 下没有该表）",
                     })
         claims = {
-            "schema": _contract.SCHEMA, "contract": _contract.CONTRACT_CELLS,
+            "schema": _contract.SCHEMA, "contract": _contract.CONTRACT,
             "layer": "claim_dataset",
             "role": role,
             "dispatch": disp,
@@ -660,7 +660,7 @@ def build(project: Path, cells_path: Optional[Path] = None,
             })
 
         claims = {
-            "schema": _contract.SCHEMA, "contract": _contract.CONTRACT_CARD,
+            "schema": _contract.SCHEMA, "contract": _contract.CONTRACT,
             "card_spec": True,
             "role": role, "dispatch": dispatch_block,
             "meta": (tpl.get("meta") or {"title": "按格交报告", "intent": "按格交报告",

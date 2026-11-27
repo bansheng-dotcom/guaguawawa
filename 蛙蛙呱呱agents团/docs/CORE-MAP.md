@@ -21,7 +21,7 @@ gates.quality_gate          # == core.quality_gate
 pipeline.report_flow        # == core.report.report_flow
 cards.card_issue            # == core.cards.card_issue
 semantic.report_ir          # == core.report.report_ir
-narrative.claims_v4         # == core.claims.claims_v4
+narrative.claims            # == core.claims.claims
 charts.chart_grammar        # == core.charts.chart_grammar
 render.report_theme         # == core.report_theme
 ```
@@ -169,8 +169,7 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 
 | 文件 | 行 | 干什么 | 角色 |
 |---|---|---|---|
-| `claims.py` | 471 | 论证层：数字 → 可检验判断 | 【S4】 |
-| `claims_v4.py` | 240 | claim → slice → encoding → findings → 五块 | 【S4】 |
+| `claims.py` | 708 | 论证层 + 映射层：数字 → 可检验判断；claim → slice → encoding → findings → 五块（P5-4 并入） | 【S4】 |
 | `claim_consistency.py` | 156 | 交叉质询：同一个数两个说法 | 【S6】 |
 | `report_assembly.py` | 397 | finding → 节/指标/计数 | 【S4】 |
 | `report_editorial.py` | 342 | 编辑层：verdict/kicker 等契约 | 【S4】 |
