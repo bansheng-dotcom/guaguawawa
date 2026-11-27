@@ -7,9 +7,9 @@
 
 | 状态 | 数量 |
 |---|---:|
-| CI | 15 |
+| CI | 16 |
 | GATES | 1 |
-| INDIRECT | 11 |
+| INDIRECT | 10 |
 | MANUAL | 1 |
 | 未登记 | 0 |
 
@@ -23,6 +23,7 @@
 | `check_conclusions.py` | CI | ci_report_checks / ci_upgrade_checks | 结论层审计：跑评测集里的技能，检查每个结果都有 conclusion（或明确 blocked）。 |
 | `check_convergence.py` | CI | ci_report_checks / ci_upgrade_checks | 收敛门禁：同一件事不许被第二次新建。 |
 | `check_dead_code.py` | CI | ci_report_checks / ci_upgrade_checks | 「每个文件都要能说清谁在用」的可执行版本。 |
+| `check_doc_consistency.py` | CI | ci_report_checks / ci_upgrade_checks | 文档一致性检查：报告的产线版本与步骤在多个入口文档里必须一致。 |
 | `check_gate_lock.py` | CI | ci_report_checks / ci_upgrade_checks | 门禁脚本锁：改门禁必须是显式动作，且留下提交痕迹。 |
 | `check_move_cards.py` | CI | ci_report_checks / ci_upgrade_checks | 校验 Move 卡片：让「学习」有可判定的入口。 |
 | `check_r04_inputs.py` | CI | ci_report_checks / ci_upgrade_checks | R04 验收输入派生校验：三份输入必须由产物派生（sha 对得上）。 |
@@ -35,7 +36,6 @@
 | `check_content.py` | GATES | configs/gates.yaml | 内容哈希（变更台账的底层工具）。 |
 | `check_brief_contract.py` | INDIRECT | 被 gen_agent_packs.py 调用 | brief 契约门禁：expert_brief v2 的七层 / 五门槛 / 18 条上限不许回退。 |
 | `check_charts_pro.py` | INDIRECT | 被 check_chart_edges.py 调用 | charts_pro 门禁：每型都有样例、都能渲染、别名可解析。 |
-| `check_doc_consistency.py` | INDIRECT | 被 audit_dod.py 调用 | 文档一致性检查：报告的产线版本与步骤在多个入口文档里必须一致。 |
 | `check_project_boundary.py` | INDIRECT | 被 check_report_privacy.py、gen_agent_packs.py 调用 | 项目边界门禁：专家团里不许出现项目资产。 |
 | `check_prompt_system.py` | INDIRECT | 被 gen_agent_packs.py 调用 | P2.2 统一门禁：一条命令跑完提示词系统的全部 CI 检查。 |
 | `check_report_isolation.py` | INDIRECT | 被 gen_agent_packs.py 调用 | 报告层隔离门禁：报告层只读证据，不读知识库、不读 expert_brief。 |

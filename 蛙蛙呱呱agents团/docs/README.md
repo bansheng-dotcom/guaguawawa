@@ -15,6 +15,9 @@
 | `PROJECT-RULES.md` | 项目规则（13 条，每条绑定一个自动检查；违反即返工） |
 | `../REPORT-BRIDGE-GUIDE.md` | 新角色/新能力怎么接入唯一产线 |
 | `REPORT-LINES.md` | 报告产线地图（一条线、四种输入、保留零件、项目根与 brief） |
+| `GLOSSARY.md` | 术语口径：任务卡 / ClaimCard / 格子 / 门禁编号 / 职责键的唯一解释 |
+| `ENTRYPOINTS.md` | 入口清单：对外只承诺 `guagua.py report`，其余为内部或诊断 |
+| `GATES.md` | 门禁索引：每个 `check_*.py` 的消费者与触发方式（由 `gates_index.py` 生成） |
 | `../使用指南.md` §2.7 | 工具 vs 项目资产：项目根、写入守卫、CardBundle 与 expert_brief 契约 |
 | `../CHANGELOG.md` | 专家团（智能体）更新日志：按日期记录能力、门禁、迁移与不兼容 |
 | `REPORT-PROSE-STYLE.md` | 文笔与深度 Style Guide：三问/三动作/PART I–III/论证五段/rubric |

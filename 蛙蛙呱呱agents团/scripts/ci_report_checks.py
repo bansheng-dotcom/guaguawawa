@@ -131,6 +131,20 @@ def main() -> int:
     if rc:
         fails.append("gates-index")
 
+    # [0f] 核心路径审计：core 包结构与 docs/_migration/couplings.md 一致（P5 收口后）。
+    rc, out = run([sys.executable, "scripts/audit_core_paths.py", "--check"])
+    first = out.strip().splitlines()[0] if out.strip() else ""
+    print(f"[0f] core-paths rc={rc} :: {first}")
+    if rc:
+        fails.append("core-paths")
+
+    # [0g] 文档一致性：入口文档的产线版本 / 步骤 / 废弃词必须同版。
+    rc, out = run([sys.executable, "scripts/check_doc_consistency.py"])
+    first = out.strip().splitlines()[0] if out.strip() else ""
+    print(f"[0g] doc-consistency rc={rc} :: {first}")
+    if rc:
+        fails.append("doc-consistency")
+
     # [2][3][3a] 依赖报告样本；样本未就绪时只跳过、不判红
     if not sample_ok:
         print("[2][3][3a][3b] SKIP(report-sample) :: 缺样本，run-line 与门禁不执行")

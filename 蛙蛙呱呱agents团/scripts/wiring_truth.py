@@ -56,6 +56,15 @@ DEFAULT_DEBT: Dict[str, str] = {
     "gate_chain": "待决：让 audit_dod 真跑，或连文本检查一起删",
 }
 
+#: F7 职责键 → 唯一模块（点路径）。一个职责只许一个出处，一个模块只许承担一个职责；
+#: 指向不存在的模块、或同一模块被两个职责占用，--check 即失败。
+RESPONSIBILITY: Dict[str, str] = {
+    "正文契约": "core.prose.prose_contract",
+    "正文生成": "core.prose.prose_render",
+    "拆卡": "core.cards.pipeline",
+    "ClaimCard 契约": "core.claims.contract",
+}
+
 
 def _py_files() -> List[Path]:
     out = []
@@ -309,12 +318,32 @@ def _render(data: Dict[str, object]) -> str:
     else:
         lines.append("无。")
     lines.append("")
+    lines.append("## 职责登记（F7）")
+    lines.append("")
+    lines.append("| 职责 | 唯一模块 |")
+    lines.append("|---|---|")
+    for key, dotted in RESPONSIBILITY.items():
+        lines.append(f"| {key} | `{dotted}` |")
+    lines.append("")
     return "\n".join(lines)
+
+
+def _check_responsibility(files: Dict[str, Path]) -> List[str]:
+    problems: List[str] = []
+    seen: Dict[str, str] = {}
+    for key, dotted in RESPONSIBILITY.items():
+        rel = dotted.replace(".", "/") + ".py"
+        if rel not in files:
+            problems.append(f"职责登记指向不存在的模块：{key} → {dotted}")
+        if dotted in seen:
+            problems.append(f"职责重复声明同一模块：{key} / {seen[dotted]} → {dotted}")
+        seen[dotted] = key
+    return problems
 
 
 def _check(data: Dict[str, object]) -> List[str]:
     debt = _debt()
-    problems: List[str] = []
+    problems: List[str] = _check_responsibility(_core_files())
     unwired = [r for r in data["rows"].values()
                if r["status"] in ("UNWIRED", "TEST_ONLY", "DOC_ONLY")]
     for r in unwired:

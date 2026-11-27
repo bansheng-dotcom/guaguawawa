@@ -28,3 +28,12 @@
 ## 文档死链（0）
 
 无。
+
+## 职责登记（F7）
+
+| 职责 | 唯一模块 |
+|---|---|
+| 正文契约 | `core.prose.prose_contract` |
+| 正文生成 | `core.prose.prose_render` |
+| 拆卡 | `core.cards.pipeline` |
+| ClaimCard 契约 | `core.claims.contract` |
