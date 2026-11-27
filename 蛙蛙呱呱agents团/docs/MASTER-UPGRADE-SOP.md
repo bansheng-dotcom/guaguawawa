@@ -88,7 +88,7 @@
   acceptance_checks）。验收只由 brief 派生，卡里不再写 acceptance 明细。
 - **expert_brief v2**：七层、每条五道门槛（answerable_by/evidence/owner/
   failure_impact/check）、单卡上限 18 条、超出进 `parking_lot`；
-  生成器在 `shared/knowledge/brief.py`，拆卡时由 `core/cards/card_bundle.py` 组装。
+  生成器在 `shared/knowledge/brief.py`，拆卡时由 `core/cards/pipeline.py` 组装。
 - **三道门禁**：`check_project_boundary.py` / `check_brief_contract.py` /
   `check_report_isolation.py`，已并入 `guagua.py audit`（快检 15 项）。
 - **唯一提示词入口**：`guagua.py prompt`；`chat.py` / `guagua.py chat` 标废弃，

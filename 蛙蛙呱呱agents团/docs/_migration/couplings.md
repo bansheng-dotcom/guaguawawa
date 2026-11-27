@@ -7,9 +7,9 @@
 
 | 指标 | 数量 |
 |---|---:|
-| core 模块 | 166 |
-| 内部 import 边 | 424 |
-| 跨包边 | 289 |
+| core 模块 | 163 |
+| 内部 import 边 | 420 |
+| 跨包边 | 288 |
 | 循环（SCC>1） | 4 |
 
 ## 包间耦合
@@ -26,7 +26,7 @@
 | `core.cards` | `core.claims` | 5 | core.cards.dispatch → core.claims |
 | `core.report` | `core.prose` | 5 | core.report.flow_report → core.prose |
 | `core.cards` | `core` | 4 | core.cards.card_issue → core |
-| `core.cards` | `core.base` | 4 | core.cards.card_bundle → core.base |
+| `core.cards` | `core.base` | 4 | core.cards.dispatch → core.base |
 | `core.charts` | `core.report_theme` | 4 | core.charts.chart_candidates → core.report_theme.charts_pro.spec |
 | `core.claims` | `core.data` | 4 | core.claims.cell_claim → core.data |
 | `core.decision_report` | `core.report` | 4 | core.decision_report → core.report |
@@ -42,7 +42,6 @@
 | `core.decision` | `core.charts` | 3 | core.decision → core.charts |
 | `core.decision_report` | `core.data` | 3 | core.decision_report → core.data |
 | `core.methods` | `core.analysis_methods` | 3 | core.methods → core.analysis_methods |
-| `core.report` | `core.cards` | 3 | core.report.report_cli → core.cards |
 | `core.report` | `core.report_kernel` | 3 | core.report.report_flow → core.report_kernel |
 | `core.report_theme` | `core.charts` | 3 | core.report_theme.pages → core.charts |
 | `core.cards` | `core.charts` | 2 | core.cards.card_upgrade → core.charts |
@@ -70,6 +69,7 @@
 | `core.orchestrator` | `core.data` | 2 | core.orchestrator → core.data |
 | `core.r04_audit` | `core.prose` | 2 | core.r04_audit → core.prose |
 | `core.r04_audit` | `core.sources` | 2 | core.r04_audit → core.sources |
+| `core.report` | `core.cards` | 2 | core.report.report_cli → core.cards |
 | `core.report_kernel` | `core` | 2 | core.report_kernel → core |
 | `core.runner` | `core.base` | 2 | core.runner → core.base |
 | `core.semantic_pipeline` | `core.charts` | 2 | core.semantic_pipeline → core.charts |
@@ -89,7 +89,7 @@
 | `core.analysis_methods` | `core.method_params` | 1 | core.analysis_methods → core.method_params |
 | `core.analysis_methods` | `core.runner` | 1 | core.analysis_methods → core.runner |
 | `core.cards` | `core.collab` | 1 | core.cards.card_issue → core.collab |
-| `core.cards` | `core.demand` | 1 | core.cards.card_probe → core.demand |
+| `core.cards` | `core.demand` | 1 | core.cards.pipeline → core.demand |
 | `core.cards` | `core.dor` | 1 | core.cards.card_issue → core.dor |
 | `core.cards` | `core.drill` | 1 | core.cards.card_issue → core.drill |
 | `core.cards` | `core.intake` | 1 | core.cards.card_issue → core.intake |
@@ -159,12 +159,12 @@
 |---|---:|
 | `core.report.report_flow` | 37 |
 | `core.cards.dispatch` | 25 |
-| `core.report.report_cli` | 25 |
-| `core.cards.card_issue` | 18 |
+| `core.report.report_cli` | 24 |
+| `core.cards.card_issue` | 17 |
+| `core.cards.pipeline` | 17 |
 | `core.decision_report` | 16 |
 | `core.ingest.runner` | 11 |
 | `core.report.flow_report` | 11 |
-| `core.cards.card_probe` | 10 |
 | `core.cards.report_dispatch` | 10 |
 | `core.report_theme.pages` | 10 |
 | `core.claims.cells_claims` | 9 |
@@ -192,20 +192,20 @@
 | `core.charts` | 9 |
 | `core.report_theme.charts_pro` | 9 |
 | `core.report_theme.charts_pro.prokit_helpers` | 9 |
-| `core.cards` | 8 |
 | `core.analysis_methods` | 7 |
+| `core.cards` | 7 |
 | `core.report_theme.charts_pro.spec` | 7 |
 | `core.sources.source_profile` | 7 |
 | `core.claims.contract` | 5 |
 | `core.cards.card_upgrade` | 4 |
+| `core.cards.pipeline` | 4 |
 | `core.collectors` | 4 |
 | `core.collectors.base` | 4 |
 | `core.data.analysis_desk` | 4 |
-| `core.data.data_model` | 4 |
 
 ## 循环依赖（SCC > 1）
 
-- `core.cards.card_issue` ↔ `core.cards.report_dispatch`
+- `core.cards.card_issue` ↔ `core.cards.dispatch` ↔ `core.cards.pipeline` ↔ `core.cards.report_dispatch`
 - `core.collectors` ↔ `core.collectors.csv_manual` ↔ `core.collectors.openfoodfacts` ↔ `core.collectors.web_search`
 - `core.quality_gate` ↔ `core.report.report_flow`
 - `core.report_theme.charts_pro.layout` ↔ `core.report_theme.charts_pro.spec`

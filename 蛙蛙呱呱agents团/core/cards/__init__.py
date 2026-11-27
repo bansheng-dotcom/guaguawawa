@@ -15,8 +15,7 @@ from __future__ import annotations
 import importlib
 
 __all__ = [
-    "pipeline", "card_plan", "card_issue", "card_probe", "card_bundle",
-    "card_upgrade", "dispatch", "report_dispatch",
+    "pipeline", "card_issue", "card_upgrade", "dispatch", "report_dispatch",
 ]
 
 #: 拆卡线里仍平铺在 core/ 的成员：保持 `core.cards.X` 与 `core.X` 同一对象。

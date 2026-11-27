@@ -36,7 +36,7 @@ from core.report import report_flow, report_editorial
 import core
 
 from core import intake, panel, dor, synthesis
-from core.cards import card_plan
+from core.cards import pipeline as card_plan
 
 
 

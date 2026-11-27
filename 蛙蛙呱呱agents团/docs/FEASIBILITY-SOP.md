@@ -175,7 +175,7 @@
 ① 拆卡   plan/grid.json          ← 不动
 ② 发卡   cards/*/TASK.md         ← 不动
               ↓
-③ 测试   core/cards/card_probe.py      ★ 新
+③ 测试   core/cards/pipeline.py        ★ 新
          ├── demand.demand_of(grid, sem)
          ├── source_match.match_all(demands, sources)
          ├── collection_spec.preview/quality（有 spec 时）

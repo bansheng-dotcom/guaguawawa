@@ -487,10 +487,10 @@ def collect(out_dir: str, require_all: bool = False,
     # 默认 report（只记录，不改格子）；GUAGUA_PROBE=degrade 时把 none 标 unavailable。
     probe_res: Dict[str, Any] = {}
     try:
-        from core.cards import card_probe
+        from core.cards import pipeline as _pl
         _pmode = str(os.environ.get("GUAGUA_PROBE") or "report")
         if _pmode != "off":
-            probe_res = card_probe.probe(out_dir, mode=_pmode)
+            probe_res = _pl.probe(out_dir, mode=_pmode)
     except Exception as exc:  # noqa: BLE001 探测失败不能阻断采集
         probe_res = {"ok": False, "why": str(exc)}
     merged: Dict[str, Any] = {"numbers": [], "sources": [], "sections": [],
@@ -501,7 +501,7 @@ def collect(out_dir: str, require_all: bool = False,
         merged["probe"] = probe_res
         if probe_res.get("ok"):
             try:
-                from core.cards import card_probe as _cp
+                from core.cards import pipeline as _cp
                 merged["degraded_cells"] = _cp.degraded_cells(out_dir)
             except Exception:  # noqa: BLE001
                 merged["degraded_cells"] = []

@@ -311,7 +311,7 @@ def cmd_probe(args) -> int:
         report probe --dir <项目>             → 跑探测，生成 plan/supply.json
         report probe --dir <项目> --degrade   → 探测 + 把无数据的格子标 unavailable
     """
-    from core.cards import card_probe, pipeline
+    from core.cards import pipeline
 
     base = str(args.dir)
     if getattr(args, "issue", False):
@@ -320,7 +320,7 @@ def cmd_probe(args) -> int:
         return 0 if res.get("ok") else 1
 
     mode = "degrade" if getattr(args, "degrade", False) else "report"
-    res = card_probe.probe(base, mode=mode)
+    res = pipeline.probe(base, mode=mode)
     slim = {k: v for k, v in (res or {}).items()
             if k not in ("cell_state", "gates", "draft", "unavailable_demands",
                          "supply_demands")}

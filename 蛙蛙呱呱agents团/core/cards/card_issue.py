@@ -161,8 +161,8 @@ def prepare_probe_cards(project: Path) -> Dict[str, Any]:
     # B1（方案 §3.5）：探源卡也是 bundle，任务类型=探源型（L0/L1/L2 必答）
     problems: List[str] = []
     try:
-        from core.cards import card_bundle as _cb
-        res = _cb.issue(d, PROBE_ROLE, "probe-" + str(project.name),
+        from core.cards import pipeline as _pl
+        res = _pl.issue_bundle(d, PROBE_ROLE, "probe-" + str(project.name),
                         "查清这个业务有哪些可用数据源、各给什么字段与口径",
                         root=project, task_type="探源型",
                         skills=["s06_catalog"],
@@ -264,10 +264,10 @@ def prepare(project: Path, intent: str = "") -> Dict[str, Any]:
 
     cards = cu.agent_cards(roster.build())
     # SOP v5：按问题簇自适应分卡（卡数是算出来的，不是写死）
-    from core.cards import card_plan
-    clusters = card_plan.cluster(grid["cells"])
-    clusters, gaps = card_plan.assign(clusters, cards)
-    rows = [r for r in card_plan.apply_to_cells(clusters, grid["cells"])
+    from core.cards import pipeline as _pl
+    clusters = _pl.cluster(grid["cells"])
+    clusters, gaps = _pl.assign(clusters, cards)
+    rows = [r for r in _pl.apply_to_cells(clusters, grid["cells"])
             if r.get("owner")]
     cu._w(plan / "cards.json", {"cards": [
         {"card_id": cl["card_id"], "qid": cl["qid"], "owner": cl.get("owner"),

@@ -178,8 +178,8 @@ transform_version      解析/转换逻辑版本
 
 | 改动 | 实现/测试同步 | 文档同步 |
 |---|---|---|
-| 共用合规前置门与 YAML 错误分类 | `core/sources/collection_spec.py`；`tests/test_derivation.py`、`tests/test_collection_contract.py`、`tests/test_card_probe.py` | 本文、`COLLECTION-SOP.md`、`UPGRADE-PLAN.md` WP5 |
-| preview/quality/run 单快照 | `core/cards/card_probe.py`、collection/fetch 实现；增加请求次数和 fetch_id 断言 | 本文第四、五节 |
+| 共用合规前置门与 YAML 错误分类 | `core/sources/collection_spec.py`；`tests/test_derivation.py`、`tests/test_collection_contract.py`、`tests/test_cards.py` | 本文、`COLLECTION-SOP.md`、`UPGRADE-PLAN.md` WP5 |
+| preview/quality/run 单快照 | `core/cards/pipeline.py`、collection/fetch 实现；增加请求次数和 fetch_id 断言 | 本文第四、五节 |
 | 合规字段与审核版本 | `configs/collections/_template.yaml` 及真实逐源规格（未来实施时） | 本文检查单；不得只改模板不接校验 |
 | 撤销与下游失效 | 资产 manifest、缓存键、mart/claims/report 血缘及相关测试 | 本文第六节、能力降级规则 |
 | 活跃技能副本 | 经授权使用 `scripts/sync_trae_skill.py`，先 `--check` | D 盘文档保存不等于活跃技能已更新 |

@@ -28,7 +28,7 @@ from core.cards import dispatch
 from core.cards import card_upgrade as cu
 from core.cards import card_issue, report_dispatch
 from core.report import report_clarify
-from core.cards import card_probe
+from core.cards import pipeline as card_probe
 
 
 

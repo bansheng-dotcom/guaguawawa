@@ -349,7 +349,7 @@ def test_load_catalog_missing_returns_empty(tmp_path):
 
 def test_probe_uses_r18_catalog_as_sources(tmp_path):
     """探源产物优先于 configs/sources 兜底。"""
-    from core.cards import card_probe
+    from core.cards import pipeline as card_probe
     (tmp_path / "plan").mkdir()
     (tmp_path / "plan" / "grid.json").write_text(json.dumps({
         "cells": [{"cell_id": "c1", "measure": "asp",

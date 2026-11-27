@@ -10,7 +10,7 @@
 | **任务卡（Task）** | R01 拆解意图后下发给执行角色的最小单元：`owner / inputs / outputs / deps / status`。卡是信封，不写验收明细。 | `core/base/protocol.py` |
 | **CardBundle** | 任务卡 + `expert_brief` 的合成体。验收只由 brief 派生（`brief_version` + `acceptance_checks`）；卡里出现 acceptance 明细即拒收。 | `core/cards/report_dispatch.py` |
 | **expert_brief** | 七层内容：决策语境 / 定义口径 / 结构分解 / 机制归因 / 判断情景 / 行动可逆 / 反证不确定。 | `docs/REPORT-LINES.md` |
-| **探测卡（probe）** | 收卡前的可行性测试：每个格子「要采什么 / 有没有源 / 质量够不够」，三态 none/partial/full。schema `dsh.probe/v1`。 | `core/cards/card_probe.py` |
+| **探测卡（probe）** | 收卡前的可行性测试：每个格子「要采什么 / 有没有源 / 质量够不够」，三态 none/partial/full。schema `dsh.probe/v1`。 | `core/cards/pipeline.py` |
 | **ClaimCard** | 一张卡的规范形状：顶层 `CARD_KEYS`、每条数字 `NUMBER_KEYS`。按卡交（v2）与按格交（v3）历史版共存，现统一发 v4；schema 字符串只在 `core/claims/contract.py` 声明一次。 | `core/claims/contract.py` |
 | **ExperienceCard（经验卡）** | 「上次错法 → 正确做法」的可检索记忆：`trigger / wrong_once / do_instead / boundary / last_verified`。缺 boundary 或 last_verified 拒收。 | `shared/experience_cards.py` |
 | **SkillCard（技能卡）** | 一个技能包 = 一个目录：L1 `SKILL.md`（按需触发）+ L2 `references/`（按需加载）+ L3 `scripts/`（确定性校验）。有 scripts 必须有 tests。 | `docs/SKILL-LAYER-SPEC.md` |

@@ -120,7 +120,7 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | `demand.py` | 网格 → 采集需求（度量 × 粒度 × 维度） | 【拆卡→S3】 |
 | `source_match.py` | 需求 × 源 匹配（DERIVE/MEASURE 目录，三态 full/partial/none） | 【拆卡→S3】 |
 | `supply_plan.py` | **拆卡前**数据供给方案（A/B/C 源 + 计划 L1/L2 + 补采条件） | 【S0】 |
-| `card_probe.py` | **拆卡后**可行性测试 + 降级（三态 + tried/why） | 【拆卡→S3】 |
+| `pipeline.py` | 拆卡线唯一入口：分卡 / 卡信封 / 探源 / 发卡 / 验卡 / 收卡 | 【拆卡】 |
 | `collectors/base.py` | 采集器协议与注册表 | 【S3】采集 |
 | `collectors/csv_manual.py` | 手工 CSV 采集器 | 【S3】采集 |
 | `collectors/web_search.py` | 网页采集器（urllib + XPath，0 行必报错） | 【S3】采集 |
@@ -135,7 +135,7 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 
 | 文件 | 行 | 干什么 | 角色 |
 |---|---|---|---|
-| `card_plan.py` | 86 | 发卡计划规则 | 【拆卡】 |
+| `card_issue.py` | 拆卡五轴 + 发卡前门禁（S1–S12） | 【拆卡】 |
 | `card_issue.py` | 422 | 拆卡五轴 + S1–S12 发卡前门禁 | 【拆卡】发卡 |
 | `card_upgrade.py` | 1118 | 五轴 builders + G1–G25 收卡后门禁 + `post_collect` | 【拆卡】收卡 |
 | `grid_attach.py` | 135 | 把六维网格追加到每张 TASK.md | 【拆卡】 |

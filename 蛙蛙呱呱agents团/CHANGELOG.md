@@ -675,7 +675,7 @@
 | 三个根与写入守卫 | `core/base/paths.py` | `TEAM_ROOT`（工具）/ `PROJECT_ROOT`（资产）/ `RUNTIME_ROOT`（事件·锁·trace）；写团内抛 `BoundaryError`，CLI 退出码 2 |
 | 项目资产根 | `core/base/project.py` | `Project` / `load` / `init` / `ensure`；10 个标准子目录；`project.yaml` 不覆盖已存在 |
 | expert_brief v2 | `shared/knowledge/brief.py` | 七层（决策语境→定义口径→结构分解→机制归因→判断情景→行动可逆→反证不确定）；每条五门槛（answerable_by / evidence / owner / failure_impact / check）；单卡上限 18 条，超出进 `parking_lot` |
-| CardBundle 组装 | `core/cards/card_bundle.py` | 卡是信封、brief 是内容；让报告拆卡线在不 import 知识库的前提下拿到 bundle |
+| CardBundle 组装 | `core/cards/pipeline.py`（原 `card_bundle.py`，2026-11-27 并入） | 卡是信封、brief 是内容；让报告拆卡线在不 import 知识库的前提下拿到 bundle |
 | 三道新门禁 | `scripts/check_project_boundary.py`、`check_brief_contract.py`、`check_report_isolation.py` | 依次守：团内无项目资产、brief 契约不回退、报告层不读知识库/brief |
 | 新入口 | `guagua.py project init/show`、`guagua.py prompt` | `prompt` 是接入大模型的唯一提示词入口 |
 

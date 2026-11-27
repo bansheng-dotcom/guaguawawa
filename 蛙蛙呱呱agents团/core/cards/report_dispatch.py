@@ -513,9 +513,9 @@ def issue(base: str, only: Optional[List[str]] = None) -> Dict[str, Any]:
         # 验收只由 brief 派生；卡里不再出现 acceptance 明细。
         brief_issue = ""
         try:
-            from core.cards import card_bundle
+            from core.cards import pipeline as _pl
             task_id = str(ct.get("task_id") or f"{root.name}-{rid}")
-            res_b = card_bundle.issue(
+            res_b = _pl.issue_bundle(
                 d, rid, task_id, str(plan.get("intent") or ""),
                 root=root, non_goals=card.get("must_not") or [])
             brief_issue = "；".join(res_b.get("problems") or [])
