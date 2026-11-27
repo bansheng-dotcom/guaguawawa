@@ -12,12 +12,12 @@
 
 | 想知道 | 读 |
 |---|---|
-| 谁负责什么、向谁汇报、边界 | [`ORG.md`](ORG.md) |
-| 任务怎么展开、移交、编排 | [`PROTOCOL.md`](PROTOCOL.md) |
+| 谁负责什么、向谁汇报、边界 | [`docs/_entry/ORG.md`](docs/_entry/ORG.md) |
+| 任务怎么展开、移交、编排 | [`docs/_entry/PROTOCOL.md`](docs/_entry/PROTOCOL.md) |
 | 报告写什么、怎么判合格 | [`REPORT-STANDARD.md`](REPORT-STANDARD.md) |
 | 报告产线地图（拆卡默认 / A 数据 / B 应急） | [`docs/REPORT-LINES.md`](docs/REPORT-LINES.md) |
 | 拆卡与防代写（nonce / 签名 / 收卡校验） | [`docs/REPORT-DISPATCH.md`](docs/REPORT-DISPATCH.md) |
-| 新角色怎么接入报告产线 | [`REPORT-BRIDGE-GUIDE.md`](REPORT-BRIDGE-GUIDE.md) |
+| 新角色怎么接入报告产线 | [`docs/_entry/REPORT-BRIDGE-GUIDE.md`](docs/_entry/REPORT-BRIDGE-GUIDE.md) |
 | 跨宿主入口（agents.md 标准） | [`AGENTS.md`](AGENTS.md) |
 | 20 个角色的完整定义（宿主直接加载） | [`agent-packs/agents/`](agent-packs/agents/) |
 | 技能层规格 / 升级路线 | [`docs/SKILL-LAYER-SPEC.md`](docs/SKILL-LAYER-SPEC.md) · [`docs/SKILL-MD-UPGRADE-PLAN.md`](docs/SKILL-MD-UPGRADE-PLAN.md) |

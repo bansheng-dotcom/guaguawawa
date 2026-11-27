@@ -20,8 +20,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DOCS = ("SKILL.md", "README.md", "REPORT-BRIDGE-GUIDE.md", "REPORT-STANDARD.md",
-        "docs/REPORT-LINES.md", "使用指南.md")
+DOCS = ("SKILL.md", "README.md", "docs/_entry/REPORT-BRIDGE-GUIDE.md",
+        "REPORT-STANDARD.md", "docs/REPORT-LINES.md", "使用指南.md")
 REQUIRED_STEPS = ("report probe", "--issue", "plan/supply.json",
                   "report collect", "report run-line")
 BANNED = ("面板优先",)

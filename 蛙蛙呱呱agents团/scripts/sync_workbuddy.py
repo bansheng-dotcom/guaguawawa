@@ -45,6 +45,16 @@ REF_FILES = ("AGENTS.md", "ORG.md", "PROTOCOL.md", "README.md",
              "TEAM.md", "使用指南.md")
 
 
+def _ref_src(fn: str) -> str:
+    """根文档 2026-11-27 收口后，辅助文档移到 docs/_entry/；按候选目录查找。"""
+    for d in (ROOT, os.path.join(ROOT, "docs", "_entry"),
+              os.path.join(ROOT, "docs")):
+        p = os.path.join(d, fn)
+        if os.path.isfile(p):
+            return p
+    return ""
+
+
 def excluded(rel: str) -> bool:
     parts = rel.replace("\\", "/").split("/")
     if any(p in EXCLUDE_DIRS for p in parts[:-1]):
@@ -156,8 +166,8 @@ def main(argv=None) -> int:
     # ② references/ ← 根文档
     ref_dir = os.path.join(dest, "skills", SKILL, "references")
     for fn in REF_FILES:
-        src = os.path.join(ROOT, fn)
-        if not os.path.isfile(src):
+        src = _ref_src(fn)
+        if not src:
             continue
         tgt = os.path.join(ref_dir, fn)
         if os.path.isfile(tgt) and digest(tgt) == digest(src):
@@ -167,7 +177,7 @@ def main(argv=None) -> int:
             os.makedirs(ref_dir, exist_ok=True)
             shutil.copy2(src, tgt)
     extra_ref = _prune(ref_dir, {fn for fn in REF_FILES
-                                 if os.path.isfile(os.path.join(ROOT, fn))}, args.check)
+                                 if _ref_src(fn)}, args.check)
     drifts += ["EXTRA references/" + x for x in extra_ref]
 
     # ③ agents/ + avatars/ ← agent-packs（同样以源为准删多余）

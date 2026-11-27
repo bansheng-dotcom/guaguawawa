@@ -1,7 +1,7 @@
 # 蛙蛙呱呱agents团 · 专家团包（agent-packs）
 
 > 由 `scripts/gen_agent_packs.py` 从 `core/base/registry.py`、`configs/*.yaml`、
-> `*/prompt_profile.json`、`ORG.md` 单向渲染生成。**不要手改。**
+> `*/prompt_profile.json`、`docs/_entry/ORG.md` 单向渲染生成。**不要手改。**
 
 ## 内容
 
@@ -51,4 +51,4 @@ python scripts/gen_agent_packs.py --check    # 只校验是否与源漂移（CI 
 | `r19-wazhimo-ml` | 蛙智模 | 模型工程与 AI 评估官 | 模型监控接口归 R20 |
 | `r20-washouzhi-sre` | 蛙值守 | 可靠性与恢复官 | 不做应用实现（R09） |
 
-> 边界与升级路径的权威说明见 `ORG.md` §三 编制表。
+> 边界与升级路径的权威说明见 `docs/_entry/ORG.md` §三 编制表。

@@ -84,8 +84,8 @@ report run-line --intent "…" --claims <项目>/out/claims_merged.json --out <�
 ## 权威文档
 
 - `AGENTS.md`：入口指引与提交前自检清单。
-- `ORG.md`：谁负责什么、汇报线、权力与红线、角色边界。
-- `PROTOCOL.md`：单角色五步、失败移交、多角色 GSD 编排、验收协议。
+- `docs/_entry/ORG.md`：谁负责什么、汇报线、权力与红线、角色边界。
+- `docs/_entry/PROTOCOL.md`：单角色五步、失败移交、多角色 GSD 编排、验收协议。
 - `REPORT-STANDARD.md`：交付报告结构与文风。
 - `agent-packs/agents/*.md`：20 个角色的完整定义（宿主可直接加载）。
 - `docs/SKILL-LAYER-SPEC.md`：技能层 L1/L2/L3 规格。

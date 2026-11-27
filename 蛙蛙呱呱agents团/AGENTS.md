@@ -11,16 +11,16 @@
 
 | 想知道 | 读 |
 |---|---|
-| 谁负责什么、向谁汇报、与谁交接 | `ORG.md` |
-| 任务怎样展开、下发、移交、编排 | `PROTOCOL.md` |
+| 谁负责什么、向谁汇报、与谁交接 | `docs/_entry/ORG.md` |
+| 任务怎样展开、下发、移交、编排 | `docs/_entry/PROTOCOL.md` |
 | 汇报写什么、什么文笔、什么排版 | `REPORT-STANDARD.md` |
-| 报告产线（唯一出具人 R01） | `REPORT-BRIDGE-GUIDE.md` · `docs/REPORT-LINES.md` |
+| 报告产线（唯一出具人 R01） | `docs/_entry/REPORT-BRIDGE-GUIDE.md` · `docs/REPORT-LINES.md` |
 | 项目边界（工具 vs 项目资产）、brief 契约 | `docs/REPORT-LINES.md` · `使用指南.md` |
-| 专家团改了什么、什么时候改的 | `CHANGELOG.md` |
+| 专家团改了什么、什么时候改的 | `docs/_entry/CHANGELOG.md` |
 | 每个角色的完整定义（宿主可直接加载） | `agent-packs/agents/*.md` |
 | 专家团清单 / 成员与头像 | `agent-packs/plugin.json` |
 | 技能层规格（怎么写出合格 SKILL.md） | `docs/SKILL-LAYER-SPEC.md` |
-| 技能层升级路线 | `docs/SKILL-MD-UPGRADE-PLAN.md` |
+| 技能层升级路线 | `docs/archive/SKILL-MD-UPGRADE-PLAN.md` |
 | 术语口径（任务卡 / ClaimCard / 格子 / 职责键） | `docs/GLOSSARY.md` |
 | 入口清单（对外一个入口，其余内部） | `docs/ENTRYPOINTS.md` |
 | 门禁索引（每个 check 的消费者） | `docs/GATES.md` |
@@ -97,7 +97,7 @@ python -m pytest tests -q -p no:cacheprovider   # 根目录单测
 ## 改这份文件之前
 
 不要手改。它由 `scripts/gen_agent_packs.py` 从 `core/base/registry.py`、`configs/*.yaml`、
-`*/prompt_profile.json`、`ORG.md` 渲染生成；改源，再跑：
+`*/prompt_profile.json`、`docs/_entry/ORG.md` 渲染生成；改源，再跑：
 
 ```bash
 python scripts/gen_agent_packs.py

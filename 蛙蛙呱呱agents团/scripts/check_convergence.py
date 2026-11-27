@@ -214,7 +214,7 @@ RETIRED = [
     (r"--thesis\b", "已删除的参数 --thesis"),
     (r"report\s+run\s+--results", "已删除的 --results 用法"),
 ]
-DOCS = ["README.md", "REPORT-STANDARD.md", "REPORT-BRIDGE-GUIDE.md",
+DOCS = ["README.md", "REPORT-STANDARD.md", "docs/_entry/REPORT-BRIDGE-GUIDE.md",
         "docs/REPORT-LINES.md", "AGENTS.md", "使用指南.md"]
 
 
