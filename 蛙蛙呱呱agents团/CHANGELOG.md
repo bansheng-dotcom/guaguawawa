@@ -20,8 +20,9 @@
 | 回归用例 | `tests/test_structure_guard.py` · `tests/test_gates.py` | 作者稿同构必报；确定性编译不报；HTML 带 `data-compiled` 时 F12 不出现 |
 | 留痕 | `configs/report_gate.lock.json` | 改了 `check_report_flow.py`，已 `check_gate_lock --write` |
 | 真实样本 | `projects/nm-vegetable/out/claims_merged.json` | 重编译恢复：10 节 / 81 个数字 / 53 个来源，flow 门禁 PASS（此前 `INTENT_UNBOUND` 与 F12 双重阻断） |
+| CI | `scripts/ci_report_checks.py` | 新增 `[3c]` 拆卡线：`CI_CARDS_SAMPLE` 指向合并 claims 时跑 `run-line --source cards`，断言门禁 PASS 且 HTML 带 `data-compiled="cells"`；未就绪 SKIP |
 
-诚实边界：本轮只证「能重编译且过门禁」，没有比对旧报告的逐字节 SHA（旧报告生成于 F12 引入之前，口径不可直接复用）。
+诚实边界：本轮只证「能重编译且过门禁」，没有比对旧报告的逐字节 SHA（旧报告生成于 F12 引入之前，口径不可直接复用）。`[3c]` 默认 SKIP——CI 不绑定任何项目，需要显式设置 `CI_CARDS_SAMPLE`。
 
 ## 2026-11-27（第二十六轮）· P5-7：正文五合一为 prose_contract + prose_render
 

@@ -17,7 +17,8 @@
 真正的代码回归会被噪音淹没。
 
 系统级 CI 不绑定任何历史项目：报告样本由 CI_REPORT_SAMPLE 指定（v7 样本由
-CI_V7_SAMPLE 指定），未指定或未就绪时 [2][3][3a][3b][13][14][17][21] 一律 SKIP。
+CI_V7_SAMPLE 指定），拆卡线样本由 CI_CARDS_SAMPLE 指向合并后的 claims.json；
+未指定或未就绪时 [2][3][3a][3b][3c][13][14][17][21] 一律 SKIP。
 自带 fixture 覆盖的是模板与渲染（[22][23]）与单测（[12][15]）。
 
 旧的 [1] spec/[2][3] contract/[4] legacy/[7] substance 五项已随产线一起删除。
@@ -37,6 +38,10 @@ OUT = ROOT.parent / "workspace" / "_ci_report_flow"
 # 用 CI_REPORT_SAMPLE 指定；未指定/未就绪时相关用例一律 SKIP，不计失败。
 PIPE = Path(os.environ.get("CI_REPORT_SAMPLE",
                            str(ROOT.parent / "workspace" / "_ci_report_sample")))
+# 拆卡线样本：项目合并后的 claims.json（如 out/claims_merged.json）。
+# 用 CI_CARDS_SAMPLE 指定；未指定/文件不存在时 [3c] SKIP，不计失败。
+CARDS = (Path(os.environ["CI_CARDS_SAMPLE"]).expanduser()
+         if os.environ.get("CI_CARDS_SAMPLE") else None)
 
 DEAD_MODULES = (
     "report_pipeline", "report_engine", "report_generator",
@@ -245,6 +250,42 @@ def main() -> int:
         fails.append("manifest")
     else:
         print("[3b] SKIP(report-sample)")
+
+    # [3c] 拆卡线：项目自带的合并 claims → 一份报告且过门禁。
+    #      2026-11-27：F12 曾把确定性编译的固定骨架误判为模板稿；
+    #      这条用例钉死「拆卡线能在真实 claims 上重编译、过门禁、且带来源标记」。
+    out_d = OUT / "d"
+    if not CARDS or not CARDS.is_file():
+        print("[3c] SKIP(cards-sample) :: 未就绪；"
+              "可用 CI_CARDS_SAMPLE 指向合并后的 claims.json")
+        env.append("cards-sample-missing")
+    else:
+        intent = os.environ.get("CI_CARDS_INTENT", "区域市场经营分析")
+        rc, out = run([sys.executable, "guagua.py", "report", "run-line",
+                       "--intent", intent, "--source", "cards",
+                       "--claims", str(CARDS), "--out", str(out_d),
+                       "--quote-mode", "off", "--no-prose-hard"])
+        print(f"[3c] run-line(cards) rc={rc}")
+        if rc:
+            fails.append("flow-cards")
+            print("   ", out.strip()[:200])
+        man_d = out_d / "manifest.json"
+        if man_d.exists():
+            m = json.loads(man_d.read_text(encoding="utf-8"))
+            gf = (m.get("gate") or {}).get("flow") or {}
+            html_d = out_d / "report.html"
+            compiled = (html_d.is_file()
+                        and 'data-compiled="cells"' in
+                        html_d.read_text(encoding="utf-8", errors="replace"))
+            print(f"[3c] gate(cards) = {gf.get('verdict')} ok={m.get('ok')} "
+                  f"compiled={compiled}")
+            if gf.get("verdict") != "PASS" or not m.get("ok"):
+                fails.append("gate-cards")
+            if not compiled:
+                fails.append("cards-provenance")
+        else:
+            print("[3c] manifest 缺失")
+            fails.append("manifest-cards")
 
     # [4] 角色侧无报告引擎
     pat = re.compile(r"^\s*(?:from|import)\s+\S*(?:" +
