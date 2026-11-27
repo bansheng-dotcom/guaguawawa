@@ -166,11 +166,13 @@ def check_11_fields(claims: Dict[str, Any]) -> List[str]:
         missing = [k for k, ok in checks.items() if not ok]
         if missing:
             issues.append(f"{tag}: 缺 {', '.join(missing)}")
-    # 结构同构：连续多节「标签序列 + 段数」完全一致 → 模板稿，编译前就退回
+    # 结构同构：连续多节「标签序列 + 段数」完全一致 → 模板稿，编译前就退回。
+    # 只判作者稿：拆卡/收卡/看板合成线每节骨架由编译器固定，不适用本判据（2026-11-27）。
     try:
         from core import structure_guard  # noqa: PLC0415
-        paras, titles = structure_guard.paragraphs_from_claims(claims)
-        issues.extend(structure_guard.audit(paras, titles))
+        if not structure_guard.is_machine_compiled(claims):
+            paras, titles = structure_guard.paragraphs_from_claims(claims)
+            issues.extend(structure_guard.audit(paras, titles))
     except Exception:  # noqa: BLE001  结构检查不可用不阻断编译
         pass
     return issues
@@ -211,8 +213,11 @@ def build_draft(claims: Dict[str, Any]) -> Dict[str, Any]:
     # 标题：卡里没写就退到 intent。以前退到「研究报告」，被编辑层当成
     # 占位标题替换成「首节结论」，于是报告 H1 变成了半句话（2026-11-20）。
     title0 = meta.get("title") or meta.get("intent") or ""
+    from core import structure_guard as _sg  # noqa: PLC0415
     return {
         "profile": meta.get("profile") or "research",
+        # 来源标记：渲染器与 HTML 门禁据此决定是否判结构同构（F12 只判作者稿）
+        "machine_compiled": bool(_sg.is_machine_compiled(claims)),
         "schema": "dsh.agent.draft/v1",
         "intent": meta.get("intent") or "",
         "doc_type": meta.get("doc_type") or "研究报告",

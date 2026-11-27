@@ -281,12 +281,17 @@ def check_html(path) -> dict:
 
     # F12 结构同构：连续多节段首标签序列 + 段数完全一致 → 模板稿
     #     阈值唯一出处：configs/report_prose.yaml 的 structure_gate
-    try:
-        from core import structure_guard  # noqa: PLC0415
-        for msg in structure_guard.audit_html(html):
-            v.append({"id": "F12_structure_repeat", "msg": msg})
-    except Exception as exc:  # noqa: BLE001
-        v.append({"id": "F12_structure_repeat", "msg": f"结构同构检查不可用: {exc}"})
+    #     只判作者稿：确定性编译线（拆卡/收卡/看板合成）的骨架由编译器固定，
+    #     渲染时带 data-compiled="cells"，不再用本判据拦自己（2026-11-27 收窄）。
+    if 'data-compiled="cells"' in html:
+        pass
+    else:
+        try:
+            from core import structure_guard  # noqa: PLC0415
+            for msg in structure_guard.audit_html(html):
+                v.append({"id": "F12_structure_repeat", "msg": msg})
+        except Exception as exc:  # noqa: BLE001
+            v.append({"id": "F12_structure_repeat", "msg": f"结构同构检查不可用: {exc}"})
 
     return {"file": str(path), "ok": not v, "violations": v, "stats": stats,
             "depth": ({"profile": depth["profile"], "ok": depth["ok"],

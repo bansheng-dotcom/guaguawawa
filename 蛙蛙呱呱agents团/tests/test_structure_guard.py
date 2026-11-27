@@ -65,3 +65,34 @@ def test_html_helper_extracts_paragraphs():
     paras, titles = structure_guard.paragraphs_from_html(html)
     assert len(paras) == 3
     assert structure_guard.audit(paras, titles, _pol())
+
+
+# --------------------------------------------------------------------------- #
+# F12 收窄（2026-11-27）：确定性编译线不判结构同构，作者稿照旧要判
+# --------------------------------------------------------------------------- #
+def _claims(machine: bool) -> dict:
+    secs = [{
+        "title": f"第{i}节", "question": "Q", "refs": ["N01"],
+        "reading": [{"strong": s, "text": f"{s}文本", "refs": ["N01"]}
+                    for s in ("事实　", "机理　", "反例　", "判别方法　", "所以　")],
+        "falsifier": "若反转则作废", "boundary": "口径见来源",
+    } for i in range(4)]
+    doc = {"sections": secs}
+    if machine:
+        doc["cells_bridge"] = {}
+    return doc
+
+
+def test_machine_compiled_marker_detected():
+    assert structure_guard.is_machine_compiled(_claims(True)) is True
+    assert structure_guard.is_machine_compiled({"card_spec": True, "sections": []}) is True
+    assert structure_guard.is_machine_compiled(_claims(False)) is False
+
+
+def test_compile_skips_structure_for_machine_compiled():
+    sys.path.insert(0, str(TEAM / "scripts"))
+    from compile_agent_report import check_11_fields  # noqa: PLC0415
+
+    author = check_11_fields(_claims(False))
+    assert any("完全同构" in x for x in author), author
+    assert check_11_fields(_claims(True)) == []

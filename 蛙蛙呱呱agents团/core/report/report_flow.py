@@ -1252,6 +1252,8 @@ def build_sections_contract(draft: Dict[str, Any], pack: Dict[str, Any],
         ],
         "theme": theme,
         "layout": layout,
+        # 来源标记：确定性编译线（拆卡/收卡/看板合成）不适用 F12 结构同构判据
+        "machine_compiled": bool(draft.get("machine_compiled")),
     }
     from core.report import report_editorial
     return report_editorial.enrich(contract, pack)

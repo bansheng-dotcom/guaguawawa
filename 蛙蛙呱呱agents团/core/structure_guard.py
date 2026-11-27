@@ -102,6 +102,25 @@ def _fmt(run: Dict[str, Any]) -> str:
             f"至少改掉其中一半的论证顺序、段数或切分方式")
 
 
+def is_machine_compiled(claims: Dict[str, Any]) -> bool:
+    """确定性编译产物不判结构同构。
+
+    F12 抓的是「作者把多节写成同一副骨架」；拆卡/收卡/面板合成线的骨架
+    由编译器固定，同构是设计而非缺陷（2026-11-27 收窄判据）。
+
+    判据用产物自带的来源标记，不看措辞：
+        card_spec        cells_claims 编出的单角色 claims
+        cells_bridge     收卡合并后的 claims
+        cells            按格交编译后的格清单
+        machine_compiled 显式标记（新增字段，只加不删）
+    """
+    if claims.get("machine_compiled") is True:
+        return True
+    if str(claims.get("card_spec") or "").strip().lower() in ("true", "1"):
+        return True
+    return claims.get("cells_bridge") is not None or claims.get("cells") is not None
+
+
 def audit(paragraphs_by_section: Sequence[Sequence[str]],
           titles: Sequence[str] | None = None,
           policy: Dict[str, Any] | None = None) -> List[str]:

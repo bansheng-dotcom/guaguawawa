@@ -99,7 +99,7 @@ def _footer(inner: str) -> str:
 
 
 def flowify(html: str, sources: List[Any] | None = None,
-            title: str = "") -> str:
+            title: str = "", compiled: bool = False) -> str:
     """把 pages.render_contract 的 A4 页 HTML 变成一条 flow。"""
     cover = ""
     # 封面里套了两层 div，正则非贪婪会在内层 </div> 处截断；用切片取到下一个 section 之前
@@ -142,11 +142,14 @@ def flowify(html: str, sources: List[Any] | None = None,
     # 保留被转页面自带的 <style>（kit/pages 主题），否则 flow 只有 FLOW_CSS，版式会塌
     sm = re.search(r"<style>(.*?)</style>", html, re.S)
     base_css = sm.group(1) if sm else ""
+    # 来源标记：确定性编译产物带 data-compiled，HTML 门禁据此跳过 F12 结构同构
+    compiled_attr = ' data-compiled="cells"' if compiled else ""
     out = ('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
            '<meta name="viewport" content="width=device-width, initial-scale=1">'
            '<meta name="report-serif-titles" content="allow">'
            f'<title>{_html.escape(title) if title else "报告"}</title>'
-           f'<style>{base_css}{FLOW_CSS}</style></head><body class="flow-all" data-theme="paper">'
+           f'<style>{base_css}{FLOW_CSS}</style></head>'
+           f'<body class="flow-all" data-theme="paper"{compiled_attr}>'
            f'<main class="flow-paper">{cover}{body}{footer}</main></body></html>')
     return out
 
@@ -158,4 +161,5 @@ def render_flow(c: Dict[str, Any]) -> str:
     title = str(lines[0]) if lines else str(c.get("short_title") or "")
     # 附录已由 pages.render_contract 收成一页（支撑判断+来源+口径），
     # 这里不再传 sources，否则 flowify 会把附录页丢掉、再拼一个纯来源页。
-    return flowify(render_contract(c), [], title=title)
+    return flowify(render_contract(c), [], title=title,
+                   compiled=bool(c.get("machine_compiled")))

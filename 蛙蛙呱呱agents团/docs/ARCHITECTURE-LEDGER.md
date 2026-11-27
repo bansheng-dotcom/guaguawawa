@@ -20,7 +20,7 @@
 | 报告正文 | `core/prose/`：prose_contract（11 字段 + 文笔门禁）/ prose_render（受约束合成 + 候选淘汰）（P5-7，2026-11-27 五合一）；阈值兜底见 `report_contract.PROSE_DEFAULTS` | `prose_spec` / `prose_style` / `prose_candidates` / `report_prose_gen`（2026-11-27 合并后删除）；旧平铺 `core/prose_*.py`（2026-11-26 已删除）；`prose_critic`（已删除） | 阈值只许配置 + 一处兜底；新增正文能力只进这两个模块 |
 | 图表 | 14 个 `chart_*` + `core/charts` + `report_theme` | `chart_fit`（2026-11-26 已删除） | 选型只保留 `report_flow.chart_fitness_errors` 一份 |
 | 覆盖矩阵 | `coverage_plan` / `coverage_confirm` / `coverage_policy` / `coverage_wire` | `coverage_cli` / `task_frame` / `task_research`（2026-11-26 已删除） | `dispatch` 内联产出 `task_frame.json`，不再有独立 CLI |
-| 门禁 | `check_report_flow` F1–F12 + `check_gates` + `ci_report_checks` | `gate_chain`（2026-11-26 已删除） | 以 F 编号为唯一索引；新增门禁先登记 |
+| 门禁 | `check_report_flow` F1–F12 + `check_gates` + `ci_report_checks` | `gate_chain`（2026-11-26 已删除） | 以 F 编号为唯一索引；新增门禁先登记。F12 只判作者稿：确定性编译线（`card_spec` / `cells_bridge` / `cells` / `machine_compiled`）由编译器固定骨架，不算同构（2026-11-27 收窄） |
 | 知识注入 | `experience_cards` + `knowledge_base` + `expert_brief` | `core/__init__` 的 10 个懒加载分组（2026-11-27 P5-6 已删除） | 零实际 import，只挡真子包路径；要模块写全路径 |
 | 文档入口 | `AGENTS.md` / `REPORT-LINES.md` / `CORE-MAP.md` | 6 份 `status: ARCHIVED` 的历史 SOP | 归档保留，不再作为接入依据 |
 | 包导出 | `core/__init__`：8 个真子包 + runner（分组入口已删，P5-6） | 旧的 100+ 平铺导出（2026-11-26 随 shim 删除）；8 个懒加载分组（2026-11-27 删除） | 保持 ≤20 个常用入口 |

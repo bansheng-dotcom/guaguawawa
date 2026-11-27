@@ -8,6 +8,21 @@
 
 ---
 
+## 2026-11-27（第二十七轮）· F12 结构同构收窄：只判作者稿，不再拦确定性编译
+
+一句话：**真实项目重编译暴露 F12 会误杀拆卡线——每节骨架本就由编译器固定。现在 F12 只对作者稿生效。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 判据 | `core/structure_guard.py` | 新增 `is_machine_compiled(claims)`：`card_spec` / `cells_bridge` / `cells` / `machine_compiled` 任一存在即视为确定性编译 |
+| 编译前 | `scripts/compile_agent_report.py` | `check_11_fields` 对确定性编译跳过结构同构，11 字段校验照旧；`build_draft` 透传 `machine_compiled` |
+| 成品门禁 | `core/report/report_flow.py` · `core/report_theme/flow.py` · `scripts/check_report_flow.py` | contract 透传来源标记 → `<body data-compiled="cells">` → F12 跳过 |
+| 回归用例 | `tests/test_structure_guard.py` · `tests/test_gates.py` | 作者稿同构必报；确定性编译不报；HTML 带 `data-compiled` 时 F12 不出现 |
+| 留痕 | `configs/report_gate.lock.json` | 改了 `check_report_flow.py`，已 `check_gate_lock --write` |
+| 真实样本 | `projects/nm-vegetable/out/claims_merged.json` | 重编译恢复：10 节 / 81 个数字 / 53 个来源，flow 门禁 PASS（此前 `INTENT_UNBOUND` 与 F12 双重阻断） |
+
+诚实边界：本轮只证「能重编译且过门禁」，没有比对旧报告的逐字节 SHA（旧报告生成于 F12 引入之前，口径不可直接复用）。
+
 ## 2026-11-27（第二十六轮）· P5-7：正文五合一为 prose_contract + prose_render
 
 一句话：**正文契约/文笔/候选/生成从 4 个文件收成 2 个——字段、阈值、判据、产物 JSON 键都不变。**

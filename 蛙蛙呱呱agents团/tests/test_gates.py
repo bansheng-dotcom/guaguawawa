@@ -331,6 +331,21 @@ def test_report_cli_enters_through_report_line():
     assert "from core.report import report_line" in src
 
 
+def test_f12_skipped_for_machine_compiled_html():
+    """F12 只判作者稿：确定性编译产物带 data-compiled 时不再拦自己。"""
+    secs = "".join(
+        f"<section class='sec'><h2>第{i}节</h2>"
+        "<p>结论：A</p><p>事实：B</p><p>机理：C</p><p>反例：D</p><p>所以：E</p>"
+        "</section>"
+        for i in range(3))
+    author = _base_html(secs)
+    ids = {v["id"] for v in _gate(_tmp(), author)["violations"]}
+    assert "F12_structure_repeat" in ids
+    cells = author.replace("<body>", '<body data-compiled="cells">')
+    ids2 = {v["id"] for v in _gate(_tmp(), cells)["violations"]}
+    assert "F12_structure_repeat" not in ids2
+
+
 # ====================================================================
 # P5-4 收敛守卫：映射层并入 claims、契约统一 v4、严格门禁覆盖历史版本
 # ====================================================================
