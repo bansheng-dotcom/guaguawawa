@@ -121,8 +121,8 @@ def layout_audit(html: str, min_pages: int = 21,
 
 
 def prose_audit(html: str) -> Dict[str, Any]:
-    from core.prose import prose_style
-    res = prose_style.audit_html(html)
+    from core.prose import prose_contract
+    res = prose_contract.audit_html(html)
     return {"layer": "prose", "ok": bool(res.get("ok")), "hard": False,
             "detail": {k: res.get(k) for k in ("sections", "avg_chars", "score",
                                                "hard_fail", "markers_total",

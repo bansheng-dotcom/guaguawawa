@@ -2,7 +2,7 @@
 
 > **2026-11-19 起：默认版式已切 flow（一条内容流 + PDF 自动分页），见 [`REPORT-FLOW.md`](REPORT-FLOW.md)。**
 > 默认值在 `configs/report_flow.yaml` 的 `flow.default_layout`；`--layout paper` 已于 2026-11-21 下线。
-> flow 版按 `prose_style` 记文笔分（默认只记录不拦），页式版仍走下面的三层质检。
+> flow 版按 `prose_contract` 记文笔分（默认只记录不拦），页式版仍走下面的三层质检。
 >
 > 2026-11-18 重构完成（P1–P5）。**一条线、四种输入、一个入口、三层质检。**
 > 旧版地图与过程稿已于 2026-11-22 清理（`_attic/` 不再保留），现行口径以本文件为准。

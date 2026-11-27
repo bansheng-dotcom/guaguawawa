@@ -10,8 +10,8 @@
     test_decision_frontend.py —— test_decision_frontend —— S3 decision→IR 前端单测。
     test_flow_renderer.py —— flow renderer：HTML 一条流，页脚小签名。
     test_design_systems.py —— 设计系统库集成测试（R10 ↔ R08）。
-    test_prose_gen.py —— report_prose_gen：结构化证据 -> 论证体。
-    test_prose_style.py —— prose_style：字数/段块/禁用词/数字密度门禁。
+    test_prose_gen.py —— prose_render.compose：结构化证据 -> 论证体。
+    test_prose_style.py —— prose_contract：字数/段块/禁用词/数字密度门禁。
     test_shape_gate.py —— test_shape_gate —— 数据形状门禁（SOP §2.5）。
 """
 from __future__ import annotations
@@ -40,8 +40,8 @@ from core.report_theme.flow import flowify
 import os
 import subprocess
 from shared import design_systems as ds
-from core.report.report_prose_gen import compose
-from core.prose import prose_style
+from core.prose.prose_render import compose
+from core.prose import prose_contract
 from core import shape_gate
 
 
@@ -584,7 +584,7 @@ def test_r08_from_md_bridge(tmp_path):
 
 
 # ====================================================================
-# 合并自 test_prose_gen.py：report_prose_gen：结构化证据 -> 论证体。
+# 合并自 test_prose_gen.py：prose_render.compose：结构化证据 -> 论证体。
 # ====================================================================
 # -*- coding: utf-8 -*-
 
@@ -616,7 +616,7 @@ def test_compose_no_new_numbers():
 
 def test_prose_spec_requires_11_fields():
     """固定 11 字段：facts 的 verdict/question + spec 的 9 个字段。"""
-    from core.prose import prose_spec
+    from core.prose import prose_contract as prose_spec
 
     section = {"id": "s1", "verdict": "判断：先做酱油。", "question": "先做哪个品类？"}
     good = {f: "x" * 8 for f in prose_spec.FIELDS}
@@ -633,7 +633,7 @@ def test_prose_spec_requires_11_fields():
 
 
 # ====================================================================
-# 合并自 test_prose_style.py：prose_style：字数/段块/禁用词/数字密度门禁。
+# 合并自 test_prose_style.py：prose_contract：字数/段块/禁用词/数字密度门禁。
 # ====================================================================
 # -*- coding: utf-8 -*-
 
@@ -654,26 +654,26 @@ def _good() -> str:
 
 
 def test_good_section_passes():
-    r = prose_style.audit_section(_good())
+    r = prose_contract.audit_section(_good())
     assert r["score"] >= 85
     assert r["hard"] is False
 
 
 def test_short_section_fails():
-    r = prose_style.audit_section("事实：很短。解释：没有。所以：没有。")
+    r = prose_contract.audit_section("事实：很短。解释：没有。所以：没有。")
     assert r["hard"] is True
     assert r["score"] < 85
 
 
 def test_banned_phrase_hard_fails():
-    r = prose_style.audit_section(_good() + "这张表回答一切。")
+    r = prose_contract.audit_section(_good() + "这张表回答一切。")
     assert r["hard"] is True
 
 
 def test_audit_html_sections():
     html = ('<section class="page sec" id="s1">' + _good() + "</section>"
             '<section class="page sec" id="s2">' + _good() + "</section>")
-    out = prose_style.audit_html(html)
+    out = prose_contract.audit_html(html)
     assert out["sections"] == 2
     assert out["ok"] is True
 

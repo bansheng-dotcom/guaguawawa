@@ -238,9 +238,9 @@ def test_claim_consistency_reads_through_contract():
 def test_prose_defaults_match_config():
     """代码兜底值必须与 configs/report_prose.yaml 逐键一致，防止双写漂移。"""
     from core.report.report_contract import PROSE_DEFAULTS
-    from core.prose import prose_style
+    from core.prose import prose_contract
 
-    pol = prose_style.load_policy()
+    pol = prose_contract.load_policy()
     for key, val in PROSE_DEFAULTS.items():
         if key == "banned_phrases":      # 禁用词表本来就只写在配置里
             continue
@@ -253,9 +253,9 @@ def test_prose_defaults_match_config():
 
 def test_prose_fallback_is_fail_closed():
     """配置缺失时不能用宽松默认值放行薄稿。"""
-    from core.prose import prose_style
+    from core.prose import prose_contract
 
-    pol = prose_style.load_policy(TEAM / "configs" / "__no_such__.yaml")
+    pol = prose_contract.load_policy(TEAM / "configs" / "__no_such__.yaml")
     assert pol["chars_hard_min"] >= 800
     assert pol["numbers_per_1000_chars_min"] >= 15
 

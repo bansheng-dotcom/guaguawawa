@@ -20,7 +20,7 @@ python guagua.py report flow --project workspace/<项目> --out workspace/<项�
 
 - `facts.py`：META / KPI / SUMMARY / SECTIONS / ACTIONS / SOURCES / FILES；
 - `charts.py`：`section["chart"]` 对应的函数，用 `core.report_theme.chartkit`（hbar/grouped_bar/range_bar/share_bar + SVG 基元）；
-- `prose_specs.py`：可选。默认交给 `core.report.report_prose_gen` 合成 1,000 字正文；
+- `prose_specs.py`：可选。默认交给 `core.prose.prose_render` 合成 1,000 字正文；
   加 `--author-first` 时只校验 11 字段，保留 `facts.SECTIONS` 里的人工正文；
 - 模板：`templates/flow-report/`（复制即用）；内核：`core/report/flow_report.py` + `core/report_theme/{kit,chartkit}.py`。
 
@@ -28,7 +28,7 @@ python guagua.py report flow --project workspace/<项目> --out workspace/<项�
 
 `--author-first`：人工正文优先。仍然加载并校验 `prose_specs.py` 的 9 字段
 （缺字段照样记入 `prose_spec.issues`，`--prose-hard` 时 BLOCK），但不调用
-`report_prose_gen`，页面正文直接用 `facts.SECTIONS[i]["body"]`。
+`prose_render`，页面正文直接用 `facts.SECTIONS[i]["body"]`。
 适合“R01 已经写成稿、specs 只作底稿”的项目；`flow_manifest.json` 会写
 `prose_mode: "author-first"`。
 
@@ -74,8 +74,8 @@ python guagua.py report collect --dir workspace/<项目> --out workspace/<项目
 `prose_specs.SPECS` 必填 9 个：`fact / evidence / mechanism / alternative /
 signal / implication / action / stop / boundary`。
 
-校验器：`core/prose/prose_spec.py`。少一个字段记问题；`--prose-hard` 时直接 BLOCK。
-两种成稿路径：默认把 11 个字段写死，再让 `report_prose_gen` 扩写成 1,000+ 字；
+校验器：`core/prose/prose_contract.py`。少一个字段记问题；`--prose-hard` 时直接 BLOCK。
+两种成稿路径：默认把 11 个字段写死，再让 `prose_render` 扩写成 1,000+ 字；
 `--author-first` 则只校验字段，正文由 R01 直接写成稿，避免模板腔。
 
 CI 的 `[22] flow-project` 会用模板跑两遍（软/硬），验「软过、硬拦」两态都成立。
@@ -123,7 +123,7 @@ CI 的 `[22] flow-project` 会用模板跑两遍（软/硬），验「软过、�
 
 ## 5. 门禁
 
-- `prose_style`：每节 1,000–1,600 字，事实/解释/所以/边界，数字密度；
+- `prose_contract`：每节 1,000–1,600 字，事实/解释/所以/边界，数字密度；
 - `coverage_plan.pre_gate`：来源/饱和/矩阵/双地图/G10；
 - `r04_audit --prose-hard`：文笔纳入 BLOCK。
 

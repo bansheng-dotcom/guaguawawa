@@ -217,9 +217,8 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 |---|---|---|---|
 | `quality_gate.py` | 214 | 三层质检：证据/编辑/呈现 | 【S6】 |
 | `report_quality.py` | 372 | "像不像咨询稿"可判定门禁 Q1–Q9 | 【S6】 |
-| `prose_style.py` | 132 | 只量页内正文 | 【S6】 |
-| `prose_spec.py` | 48 | 固定 11 字段 | 【S6】 |
-| `report_prose_gen.py` | 90 | 受约束生成正文 | 【S4/S6】 |
+| `prose_contract.py` | 180 | 固定 11 字段 + 只量页内正文（P5-7 合并） | 【S6】 |
+| `prose_render.py` | 570 | 受约束生成正文 + 多候选淘汰（P5-7 合并） | 【S4/S6】 |
 | `report_marks.py` | 44 | 标记字面量单一出处 | 【S6】 |
 | `r04_audit.py` | 175 | R04 审计 | 【S6】 |
 | `r04_derive.py` | 158 | R04 派生（事故后修复） | 【S6】 |

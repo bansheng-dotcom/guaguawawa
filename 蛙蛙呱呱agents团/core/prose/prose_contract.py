@@ -1,8 +1,21 @@
 # -*- coding: utf-8 -*-
-"""core.prose.prose_style —— 文笔/深度门禁（R04 用）。
+"""core.prose.prose_contract —— 正文契约（11 字段）+ 文笔/深度门禁。
 
-只量页内正文；阈值见 configs/report_prose.yaml。
-设计原则：水果样板必须能过（它不是完美，但它是当前下限），v3 这种 500 字摘要必须被拦。
+P5-7（2026-11-27）五合一：原 `prose_spec` 与 `prose_style` 合并到本模块。
+产物语义不变：字段名、阈值、判据、JSON 键都不改，只是不再分两个文件。
+
+契约（spec）：
+    每节 11 字段固定写死，少一个字段就会退回三段套话。
+    facts.SECTIONS 必填：verdict、question
+    prose_specs     必填：fact、evidence、mechanism、alternative、signal、
+                          implication、action、stop、boundary
+
+门禁（style）：
+    只量页内正文；阈值见 configs/report_prose.yaml，兜底只来自
+    `report_contract.prose_defaults()`（P5-2 单一出处）。
+
+CLI：
+    python -m core.prose.prose_contract --html <report.html>
 """
 from __future__ import annotations
 
@@ -10,10 +23,52 @@ import argparse
 import json
 import re
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, Iterable, List
 
 from core.report.report_contract import prose_defaults
 
+# --------------------------------------------------------------------------- #
+# 1. 11 字段契约
+# --------------------------------------------------------------------------- #
+FIELDS = ("fact", "evidence", "mechanism", "alternative", "signal",
+          "implication", "action", "stop", "boundary")
+SECTION_FIELDS = ("verdict", "question")
+LABELS = {
+    "verdict": "判断", "question": "这一节回答谁的问题",
+    "fact": "事实", "evidence": "证据", "mechanism": "机理",
+    "alternative": "替代解释", "signal": "判别信号", "implication": "含义",
+    "action": "动作", "stop": "停止线", "boundary": "边界",
+}
+MIN_TEXT = 4
+
+
+def validate(specs: Dict[str, Dict[str, Any]],
+             sections: Iterable[Dict[str, Any]]) -> List[str]:
+    """返回问题清单；空列表才算 11 字段齐。"""
+    errs: List[str] = []
+    secs = list(sections)
+    ids = {str(s.get("id") or "") for s in secs}
+    unknown = sorted(set(specs) - ids)
+    if unknown:
+        errs.append("spec 有 facts 里不存在的节：" + "、".join(unknown))
+    for s in secs:
+        sid = str(s.get("id") or "")
+        for f in SECTION_FIELDS:
+            if len(str(s.get(f) or "").strip()) < MIN_TEXT:
+                errs.append(f"{sid}: facts 缺 {f}（{LABELS[f]}）")
+        sp = specs.get(sid)
+        if sp is None:
+            errs.append(f"{sid}: 缺 spec")
+            continue
+        for f in FIELDS:
+            if len(str(sp.get(f) or "").strip()) < MIN_TEXT:
+                errs.append(f"{sid}: spec 缺 {f}（{LABELS[f]}）")
+    return errs
+
+
+# --------------------------------------------------------------------------- #
+# 2. 文笔 / 深度门禁
+# --------------------------------------------------------------------------- #
 # 兜底值与 configs/report_prose.yaml 对齐（P5-2：阈值只在一个地方写死）。
 DEFAULTS = prose_defaults()
 
@@ -107,7 +162,7 @@ def audit_html(html: str, policy: Dict[str, Any] | None = None,
 
 
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(prog="prose_style")
+    ap = argparse.ArgumentParser(prog="prose_contract")
     ap.add_argument("--html", required=True)
     ap.add_argument("--config")
     ap.add_argument("--json")

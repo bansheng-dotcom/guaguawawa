@@ -8,6 +8,18 @@
 
 ---
 
+## 2026-11-27（第二十六轮）· P5-7：正文五合一为 prose_contract + prose_render
+
+一句话：**正文契约/文笔/候选/生成从 4 个文件收成 2 个——字段、阈值、判据、产物 JSON 键都不变。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 契约 | `core/prose/prose_contract.py` | 并入 `prose_spec`（11 字段 / validate）与 `prose_style`（DEFAULTS / load_policy / audit_html）；CLI 改为 `python -m core.prose.prose_contract` |
+| 生成 | `core/prose/prose_render.py` | 并入 `prose_candidates`（候选/评分/淘汰）与 `core/report/report_prose_gen`（compose/generate）；CLI 同时支持 `--unit` 与 `--facts/--specs/--out` |
+| 删除 | `core/prose/prose_spec.py`、`prose_style.py`、`prose_candidates.py`、`core/report/report_prose_gen.py` | 引用全部改到新模块；`core/report/__init__` 不再导出 `report_prose_gen` |
+| 调用方 | `core/report/flow_report.py`、`core/report/report_flow.py`、`core/r04_audit.py` | 只改 import，门禁判据与产物语义不变 |
+| 登记 | `configs/core_files.json`、`docs/CORE-MAP.md`、`docs/ARCHITECTURE-LEDGER.md`、`docs/REPORT-FLOW.md`、`docs/报告产线现状.md` | 文件清单与地图同步；F10/F12 回归通过 |
+
 ## 2026-11-27（第二十五轮）· P5-6：删掉 core 的 8 个懒加载分组入口
 
 一句话：**`core.gates` / `core.pipeline` / `core.semantic` 这类「按层访问」壳删了——零实际 import，只挡真子包路径。**
@@ -339,7 +351,7 @@
 
 | 件 | 落点 | 说明 |
 |---|---|---|
-| 候选器 | `core/prose/prose_candidates.py` | 数字多重集一致（硬判据）+ trigram Jaccard + 七项权重（20/20/15/15/10/10/10）+ <85 淘汰 + ≤3 轮 + 固定种子 |
+| 候选器 | `core/prose/prose_candidates.py`（2026-11-27 已删除） | 数字多重集一致（硬判据）+ trigram Jaccard + 七项权重（20/20/15/15/10/10/10）+ <85 淘汰 + ≤3 轮 + 固定种子 |
 | 双模如实标注 | 同上 | 无模型 → `mode=rule`，只出确定性单稿并标 `no_model_single_variant`（实测三份相似度 0.9，不假装是 3 个候选）；有模型 → `mode=llm`，diversity ≥0.6 的候选硬淘汰 |
 | 接入 | `core/report_prose_gen.generate()` | `compose()` 行为不变；`candidates` 可传 dict 覆盖配置，`record_path` 落盘候选集便于逐字复跑 |
 | 配置 | `configs/report_prose.yaml#candidates` | enabled / n / max_rounds / pass / diversity_max / budget_ms_per_section |
@@ -370,7 +382,7 @@
 | 能力 | 落点 | 判据 |
 |---|---|---|
 | 结构同构门禁 F12 | `core/structure_guard.py` · `scripts/check_report_flow.py` · `scripts/compile_agent_report.py` | 连续 ≥3 节「标签序列 + 段数」完全一致 → FAIL；阈值唯一出处 `configs/report_prose.yaml#structure_gate` |
-| 写作结构轮换 | `core/report/report_prose_gen.py` | 4 套论证顺序按节 id 稳定轮换，连续两节同序自动换序，避免自动生成的稿子被 F12 判死 |
+| 写作结构轮换 | `core/report/report_prose_gen.py`（2026-11-27 已删除） | 4 套论证顺序按节 id 稳定轮换，连续两节同序自动换序，避免自动生成的稿子被 F12 判死 |
 | 图表收卡契约 | `core/cards/dispatch.py#_chart_contract` | 图上的点必须能由本卡数字/派生量解释；`chart.refs` 必须在本卡命名空间；构成图合计 95–105% 或显式 `partial` |
 | 来源回抓硬化 | `core/sources/source_verify.py` | 浏览器级请求头 + 3 次退避重试；`GUAGUA_FETCH_FALLBACK=1` 时才启用 Playwright 兜底 |
 | 来源时效度量 | `core/sources/source_freshness.py` | 18 个月窗口统计 stale_ratio；>60% 旧源时写降级标记与边界，不硬拦年报口径 |

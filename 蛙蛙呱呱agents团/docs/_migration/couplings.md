@@ -7,9 +7,9 @@
 
 | 指标 | 数量 |
 |---|---:|
-| core 模块 | 168 |
-| 内部 import 边 | 425 |
-| 跨包边 | 291 |
+| core 模块 | 166 |
+| 内部 import 边 | 421 |
+| 跨包边 | 289 |
 | 循环（SCC>1） | 4 |
 
 ## 包间耦合
@@ -22,9 +22,9 @@
 | `core.report` | `core.sources` | 9 | core.report.report_cli → core.sources |
 | `core.cards` | `core.data` | 8 | core.cards.card_issue → core.data |
 | `core.cards` | `core.report` | 8 | core.cards.card_issue → core.report |
-| `core.report` | `core.prose` | 7 | core.report.flow_report → core.prose |
 | `core.report` | `core` | 6 | core.report.flow_report → core |
 | `core.cards` | `core.claims` | 5 | core.cards.dispatch → core.claims |
+| `core.report` | `core.prose` | 5 | core.report.flow_report → core.prose |
 | `core.cards` | `core` | 4 | core.cards.card_issue → core |
 | `core.cards` | `core.base` | 4 | core.cards.card_bundle → core.base |
 | `core.charts` | `core.report_theme` | 4 | core.charts.chart_candidates → core.report_theme.charts_pro.spec |
@@ -124,7 +124,7 @@
 | `core.orchestrator` | `core` | 1 | core.orchestrator → core |
 | `core.orchestrator` | `core.analysis_methods` | 1 | core.orchestrator → core.analysis_methods |
 | `core.orchestrator` | `core.methods` | 1 | core.orchestrator → core.methods |
-| `core.prose` | `core.report` | 1 | core.prose.prose_style → core.report.report_contract |
+| `core.prose` | `core.report` | 1 | core.prose.prose_contract → core.report.report_contract |
 | `core.quality_gate` | `core` | 1 | core.quality_gate → core |
 | `core.quality_gate` | `core.r04_audit` | 1 | core.quality_gate → core.r04_audit |
 | `core.r04_audit` | `core.data` | 1 | core.r04_audit → core.data.data_shape |
@@ -162,8 +162,8 @@
 | `core.cards.dispatch` | 25 |
 | `core.cards.card_issue` | 18 |
 | `core.decision_report` | 16 |
-| `core.report.flow_report` | 13 |
 | `core.ingest.runner` | 11 |
+| `core.report.flow_report` | 11 |
 | `core.cards.card_probe` | 10 |
 | `core.cards.report_dispatch` | 10 |
 | `core.report_theme.pages` | 10 |
@@ -185,7 +185,7 @@
 | `core` | 30 |
 | `core.sources` | 21 |
 | `core.data` | 18 |
-| `core.report` | 15 |
+| `core.report` | 14 |
 | `core.base` | 12 |
 | `core.base.paths` | 9 |
 | `core.charts` | 9 |
@@ -196,12 +196,12 @@
 | `core.analysis_methods` | 7 |
 | `core.report_theme.charts_pro.spec` | 7 |
 | `core.sources.source_profile` | 7 |
-| `core.prose` | 5 |
 | `core.cards.card_upgrade` | 4 |
 | `core.claims.contract` | 4 |
 | `core.collectors` | 4 |
 | `core.collectors.base` | 4 |
 | `core.data.analysis_desk` | 4 |
+| `core.data.data_model` | 4 |
 
 ## 循环依赖（SCC > 1）
 

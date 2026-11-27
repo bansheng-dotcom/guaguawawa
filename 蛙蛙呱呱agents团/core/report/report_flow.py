@@ -1455,11 +1455,11 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
         if ok:  # 章节级校验不过就不落盘，避免半份报告
             files = render(contract, out_dir, md_name=md_name, pdf=pdf)
             if layout == "flow" and files.get("html"):
-                from core.prose import prose_style
+                from core.prose import prose_contract
                 skip_titles = tuple(
                     str(s.get("title") or "") for s in (contract.get("sections") or [])
                     if str(s.get("title") or "").startswith(("延伸发现", "记录层", "口径与分数")))
-                flow_gate = prose_style.audit_html(
+                flow_gate = prose_contract.audit_html(
                     Path(files["html"]).read_text(encoding="utf-8", errors="replace"),
                     skip_titles=skip_titles)
                 if prose_hard:

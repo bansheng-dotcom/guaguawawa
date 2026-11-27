@@ -1,29 +1,27 @@
 # -*- coding: utf-8 -*-
-"""core.prose.prose_candidates —— 一次生成多个候选，用机器判据淘汰。
+"""core.prose.prose_render —— 正文生成：受约束合成 + 多候选淘汰。
 
-为什么不是「提示词约束」：
-    只写「请生成 3 个候选再选最好」是模型自觉，模型可以不听。
-    本模块把选稿变成三条确定性判据：
-      1. 候选之间的数字多重集必须完全一致（事实保全的机器判据）；
-      2. 字符 trigram Jaccard ≥ diversity_max 视为「换壳同文」；
-      3. 七项加权分 < pass 淘汰，可用候选 < 2 时重生成，最多 max_rounds 轮。
+P5-7（2026-11-27）五合一：原 `prose_candidates` 与
+`core/report/report_prose_gen` 合并到本模块。产物语义不变：
+渲染结果、候选评分、降级标记、落盘 JSON 键都不改。
+
+两条路径：
+    compose / generate   结构化证据 → 1,000+ 字/节的论证体（受约束生成）
+    unit_from_spec / select  多候选 → 数字一致 → 去重 → 七项加权分 → 选稿
 
 口径说明（不粉饰）：
-    无模型时只能做「措辞骨架 + 段落顺序」级变化，trigram 相似度天然偏高
-    （实测 0.9 左右，就是三份一样的话）。所以规则模式只出「确定性单稿」，
-    并在结果里标 degraded_reasons=["no_model_single_variant"]；
-    只有接上模型（client）时才真正做 3 候选，并对 LLM 候选执行
-    diversity 硬淘汰。结构层面的差异另由 structure_guard（F12）判定。
+    无模型时只能做「措辞骨架 + 段落顺序」级变化，trigram 相似度天然偏高。
+    所以规则模式只出「确定性单稿」，并标 degraded_reasons=["no_model_single_variant"]；
+    只有接上模型（client）时才真正做 3 候选并执行 diversity 硬淘汰。
 
-对外：
-    unit_from_spec(section, spec)        结构化证据 → 候选单元
-    render(unit, variant, order)         确定性渲染（无 LLM 也能跑）
-    select(unit, ...)                    生成 + 打分 + 淘汰，返回选中的正文
-    load_policy()                        读 configs/report_prose.yaml#candidates
+CLI：
+    python -m core.prose.prose_render --unit <unit.json> [--rounds 3] [--json]
+    python -m core.prose.prose_render --facts facts.py --specs prose_specs.py --out bodies.json
 """
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import os
 import re
@@ -90,6 +88,126 @@ _SCENE = ("上周", "今年", "下个月", "客户", "供应商", "渠道", "仓
 _REVIEW_FALLBACK = ("判断", "机理", "边界")
 
 
+# --------------------------------------------------------------------------- #
+# 1. 受约束合成（原 report_prose_gen）
+# --------------------------------------------------------------------------- #
+def _p(*xs: str) -> str:
+    return "\n\n".join(x.strip() for x in xs if x and x.strip())
+
+
+def compose(s: Dict[str, Any], spec: Dict[str, str]) -> str:
+    """s: facts.SECTIONS 的一项；spec: 结构化证据。"""
+    verdict = spec.get("verdict") or s.get("verdict", "")
+    fact = spec.get("fact") or s.get("body", "")
+    evidence = spec.get("evidence", "")
+    mechanism = spec.get("mechanism", "")
+    alternative = spec.get("alternative", "")
+    signal = spec.get("signal", "")
+    action = spec.get("action", "")
+    stop = spec.get("stop", "")
+    boundary = spec.get("boundary", "")
+    implication = spec.get("implication", "")
+    kicker = s.get("kicker", "这一节")
+    method = spec.get("method") or f"放到「{kicker}」里看：{signal}。"
+    method2 = spec.get("method2") or f"若「{signal}」未出现，「{kicker}」作废；{alternative}。"
+    method3 = spec.get("method3") or f"先做「{action}」；停：{stop or '不设'}。"
+    check = f"「{signal}」核不出，「{kicker}」不批。"
+    base_body = s.get("body", "")
+    # 段落块先分好，再按「节」轮换顺序：同一套写作机如果永远用同一种顺序，
+    # 十节就会变成同一副骨架（structure_guard 会直接判 FAIL）。
+    blocks = {
+        "判断": verdict,
+        "事实": f"先看「{kicker}」的事实：" + fact + ("。" if fact and not fact.endswith("。") else ""),
+        "证据": _p((f"「{kicker}」原始口径：" + base_body) if base_body and base_body not in fact else "",
+                 (f"{kicker}：" + (s.get("fig_src") or s.get("table_title") or ""))
+                 if (s.get("fig_src") or s.get("table_title")) else "",
+                 evidence),
+        "机理": "为什么？" + mechanism,
+        "反例": f"对「{kicker}」，{alternative.rstrip('；;。')}；{signal}。{signal}继续则「{kicker}」成立；{signal}反转则作废。",
+        "含义": implication,
+        "动作": _p(method, method2, method3,
+                 "所以，" + action + ("停止线是" + stop + "。" if stop else "")),
+        "边界": "边界：" + boundary,
+    }
+    order = ORDERS[int(spec.get("_variant", _variant(s))) % len(ORDERS)]
+    out = _p(*(blocks[k] for k in order))
+    return (out.replace("这张表回答", "这一节回答")
+               .replace("对进入者的含义", "对你的含义"))
+
+
+def _variant(s: Dict[str, Any]) -> int:
+    """按节 id/标题取稳定变体号：同一节每次生成同一个顺序，便于复现。"""
+    import hashlib  # noqa: PLC0415
+    key = str(s.get("id") or s.get("title") or "")
+    return int(hashlib.sha1(key.encode("utf-8")).hexdigest()[:8], 16)
+
+
+def generate(sections: Iterable[Dict[str, Any]], specs: Dict[str, Dict[str, str]],
+             candidates: Any = None, record_path: str = "",
+             client: Any = None) -> Dict[str, str]:
+    """生成各节正文。
+
+    candidates 传 None 走配置（configs/report_prose.yaml#candidates）；
+    传 {"enabled": False} 可强制单候选（调试/对比用）。
+    record_path 非空时把候选集落盘，保证同一项目重跑可逐字比对。
+    """
+    policy = candidates if isinstance(candidates, dict) else load_policy()
+    out = {}
+    recent: List[int] = []
+    prev_text = ""
+    records: Dict[str, Any] = {}
+    for s in sections:
+        if s["id"] not in specs:
+            continue
+        spec = specs[s["id"]]
+        v = _variant(s) % 4
+        # 连续两节同序就把这节推到下一个变体，保证不出现「三连同构」
+        if len(recent) >= 2 and recent[-1] == recent[-2] == v:
+            v = (v + 1) % 4
+        text = compose(s, {**spec, "_variant": v})
+        if policy.get("enabled"):
+            unit = unit_from_spec(s, spec)
+            res = select(
+                unit, client=client, n=int(policy.get("n", 3)),
+                max_rounds=int(policy.get("max_rounds", 3)),
+                pass_score=float(policy.get("pass", PASS_SCORE)),
+                diversity_max=float(policy.get("diversity_max", DIVERSITY_MAX)),
+                prev_text=prev_text or None,
+                ban_orders=tuple(recent[-2:]),
+                budget_ms=policy.get("budget_ms"))
+            text = res["text"]
+            order = (res.get("chosen") or {}).get("order")
+            if isinstance(order, int) and order >= 0:
+                recent.append(order)
+            else:
+                recent.append(v)
+            records[s["id"]] = {
+                "mode": res.get("mode"),
+                "chosen": (res.get("chosen") or {}).get("id"),
+                "score": (res.get("chosen") or {}).get("score"),
+                "order": order,
+                "rounds": res.get("rounds"),
+                "similarity_median": res.get("similarity_median"),
+                "degraded_reasons": res.get("degraded_reasons"),
+                "candidates": [{"id": c.get("id"), "score": c.get("score"),
+                                "similarity": c.get("similarity")}
+                               for c in res.get("candidates") or []],
+                "rejected": res.get("rejected"),
+            }
+        else:
+            recent.append(v)
+        prev_text = text
+        out[s["id"]] = text
+    if record_path:
+        Path(record_path).parent.mkdir(parents=True, exist_ok=True)
+        Path(record_path).write_text(
+            json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
+    return out
+
+
+# --------------------------------------------------------------------------- #
+# 2. 候选与淘汰（原 prose_candidates）
+# --------------------------------------------------------------------------- #
 def norm_numbers(text: str) -> List[str]:
     """数字多重集：去掉千分位后按字典序排列。用于「候选间数字必须一致」。"""
     s = str(text or "").replace(",", "").replace("，", "")
@@ -407,22 +525,45 @@ def dump(result: Dict[str, Any], path: str | Path) -> str:
     return str(p)
 
 
+def _load(path: str, name: str):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
 def main(argv: Optional[Sequence[str]] = None) -> int:
-    ap = argparse.ArgumentParser(prog="prose_candidates")
-    ap.add_argument("--unit", required=True, help="候选单元 JSON（verdict/fact/…）")
+    ap = argparse.ArgumentParser(prog="prose_render")
+    ap.add_argument("--unit", help="候选单元 JSON（verdict/fact/…）")
     ap.add_argument("--rounds", type=int, default=MAX_ROUNDS)
+    ap.add_argument("--facts", help="facts.py（含 SECTIONS）")
+    ap.add_argument("--specs", help="prose_specs.py（含 SPECS）")
+    ap.add_argument("--out", help="输出 bodies.json（与 --facts/--specs 一起用）")
+    ap.add_argument("--record", default="", help="候选集落盘路径（JSON）")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
-    unit = json.loads(Path(a.unit).read_text(encoding="utf-8"))
-    res = select(unit, max_rounds=a.rounds)
-    if a.json:
-        print(json.dumps(res, ensure_ascii=False, indent=2))
-    else:
-        print(f"[{res['mode']}] {res['chosen']['id']} 分 {res['chosen']['score']} "
-              f"轮次 {res['rounds']} 相似度中位数 {res['similarity_median']} "
-              f"降级 {res['degraded_reasons']}")
-        print(res["text"])
-    return 0
+    if a.unit:
+        unit = json.loads(Path(a.unit).read_text(encoding="utf-8"))
+        res = select(unit, max_rounds=a.rounds)
+        if a.json:
+            print(json.dumps(res, ensure_ascii=False, indent=2))
+        else:
+            print(f"[{res['mode']}] {res['chosen']['id']} 分 {res['chosen']['score']} "
+                  f"轮次 {res['rounds']} 相似度中位数 {res['similarity_median']} "
+                  f"降级 {res['degraded_reasons']}")
+            print(res["text"])
+        return 0
+    if a.facts and a.specs and a.out:
+        facts = _load(a.facts, "facts_gen")
+        specs = _load(a.specs, "specs_gen").SPECS
+        bodies = generate(facts.SECTIONS, specs, record_path=a.record)
+        Path(a.out).write_text(json.dumps(bodies, ensure_ascii=False, indent=2),
+                               encoding="utf-8")
+        print(json.dumps({k: len(v) for k, v in bodies.items()},
+                         ensure_ascii=False, indent=2))
+        return 0
+    ap.error("需要 --unit，或 --facts + --specs + --out")
+    return 2
 
 
 if __name__ == "__main__":

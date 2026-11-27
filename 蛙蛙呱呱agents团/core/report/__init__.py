@@ -17,7 +17,7 @@ __all__ = [
     "report_assembly", "report_bridge", "report_clarify", "report_cli",
     "report_contract", "report_editorial", "report_exchange", "report_flow",
     "report_ir", "report_layout", "report_line", "report_marks",
-    "report_model", "report_prose_gen", "report_quality", "report_renderer",
+    "report_model", "report_quality", "report_renderer",
     "report_roles", "report_structure", "report_thesis", "flow_report",
 ]
 

@@ -4,7 +4,7 @@
 一个项目目录三件套：
     facts.py        META / KPI / SUMMARY / SECTIONS / ACTIONS / SOURCES / FILES
     charts.py       每个 section 的 chart 字段对应一个返回 SVG 的函数
-    prose_specs.py  可选：SECTIONS 每节的十段证据，走 core.report.report_prose_gen 生成 1,000 字正文
+    prose_specs.py  可选：SECTIONS 每节的十段证据，走 core.prose.prose_render 生成 1,000 字正文
 
 用法：
     from core.report import flow_report
@@ -160,16 +160,15 @@ def build(project_dir: str, out_dir: str, pdf: bool = True,
         if not has_specs:
             spec_issues.append("author-first 需要 prose_specs.py 做 11 字段校验")
         else:
-            from core.prose import prose_spec
+            from core.prose import prose_contract
             specs = _load(proj / "prose_specs.py", "flow_specs").SPECS
-            spec_issues = prose_spec.validate(specs, facts.SECTIONS)
+            spec_issues = prose_contract.validate(specs, facts.SECTIONS)
     elif use_specs and has_specs:
         prose_mode = "specs"
-        from core.prose import prose_spec
-        from core.report import report_prose_gen
+        from core.prose import prose_contract, prose_render
         specs = _load(proj / "prose_specs.py", "flow_specs").SPECS
-        spec_issues = prose_spec.validate(specs, facts.SECTIONS)
-        bodies = report_prose_gen.generate(facts.SECTIONS, specs)
+        spec_issues = prose_contract.validate(specs, facts.SECTIONS)
+        bodies = prose_render.generate(facts.SECTIONS, specs)
         for s in facts.SECTIONS:
             if s["id"] in bodies:
                 s["body"] = bodies[s["id"]]
@@ -212,8 +211,8 @@ def build(project_dir: str, out_dir: str, pdf: bool = True,
         else:
             files["pdf_status"] = r.get("error") or "failed"
 
-    from core.prose import prose_style
-    prose = prose_style.audit_html(html)
+    from core.prose import prose_contract
+    prose = prose_contract.audit_html(html)
     files["prose"] = {k: prose.get(k) for k in
                       ("ok", "sections", "avg_chars", "score", "hard_fail")}
     files["prose_spec"] = {"ok": not spec_issues, "issues": spec_issues[:20]}
