@@ -265,7 +265,7 @@ def test_no_supply_does_not_pretend_a_plan():
 
 def test_probe_card_is_not_a_collection_card(tmp_path):
     """探源卡要写给探测层，且明确说「不是采集卡」。"""
-    from core.cards import card_issue
+    from core.cards import pipeline as card_issue
     (tmp_path / "plan").mkdir()
     (tmp_path / "plan" / "grid.json").write_text(json.dumps({
         "cells": [{"cell_id": "c1", "measure": "asp",
@@ -280,7 +280,7 @@ def test_probe_card_is_not_a_collection_card(tmp_path):
 
 
 def test_probe_card_requires_grid(tmp_path):
-    from core.cards import card_issue
+    from core.cards import pipeline as card_issue
     r = card_issue.prepare_probe_cards(tmp_path)
     assert r["ok"] is False
 
@@ -365,7 +365,7 @@ def test_probe_uses_r18_catalog_as_sources(tmp_path):
 
 
 def test_probe_card_goes_to_r18(tmp_path):
-    from core.cards import card_issue
+    from core.cards import pipeline as card_issue
     (tmp_path / "plan").mkdir()
     (tmp_path / "plan" / "grid.json").write_text(json.dumps({
         "cells": [{"cell_id": "c1", "measure": "asp",

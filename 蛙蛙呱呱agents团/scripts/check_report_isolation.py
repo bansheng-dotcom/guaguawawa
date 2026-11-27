@@ -29,8 +29,7 @@ CORE = TEAM / "core"
 #: 报告层路径：平铺模块 + 已成型/将来成型的子包都要覆盖，
 #: 否则文件一挪进 core/report/ 或 core/cards/ 就会“扫不到 = 永远 PASS”。
 REPORT_GLOBS = ("report_*.py", "report/**/*.py",
-                "report_kernel/**/*.py", "report_theme/**/*.py",
-                "cards/report_dispatch.py")
+                "report_kernel/**/*.py", "report_theme/**/*.py")
 
 PATTERNS = [
     (re.compile(r"\bshared\.knowledge\b"), "import shared.knowledge"),

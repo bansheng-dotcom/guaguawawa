@@ -41,7 +41,7 @@ raw.json（130 行 / 129 指标）            ❌ 断点B：忠实记录成"事�
 
 | 断点 | 位置 | 说明 |
 |---|---|---|
-| A | `core/cards/dispatch.py:199-205` | 卡片写"≥3 可比点（不同规格/地区/期次/主体）"，但**没规定"同一 metric_id 重复"** |
+| A | `core/cards/pipeline.py` | 卡片写"≥3 可比点（不同规格/地区/期次/主体）"，但**没规定"同一 metric_id 重复"** |
 | B | `core/data/data_model.py` / `scripts/compile_agent_report.py` | claims numbers → raw rows，逐条记，不校验同指标重复度 |
 | C | `core/synthesis.py:93` + `theses` | `synthesis.sections` 只在 `theses` 非空时跑 |
 | D | `core/charts/chart_query.py:52` | `chart_query.build` 只被 `synthesis.sections` 调用（`synthesis.py:99`），**主报告出图路径不调用** |

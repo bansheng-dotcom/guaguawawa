@@ -19,7 +19,7 @@ v2.0 的钻取把「品类」当输入、把品牌/价格带写死在代码里�
 CLI：
     python -m core.data.analysis_unit --sem <语义层> [--measure asp]
 
-接线：card_issue.bootstrap 在 prepare 成功后调用 plan_units()，把单元清单
+接线：pipeline.bootstrap 在 prepare 成功后调用 plan_units()，把单元清单
     挂到返回值的 prepare.analysis_units（解析失败只记录，不阻断发卡）。
 """
 from __future__ import annotations

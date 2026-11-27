@@ -24,7 +24,7 @@ import types
 import json
 import tempfile
 from core.claims import cells_claims
-from core.cards import dispatch
+from core.cards import pipeline as dispatch
 from core.claims import cells_claims, cells_unified
 from core.claims import contract as claim_contract
 

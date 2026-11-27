@@ -112,7 +112,7 @@
 |---|---|---|
 | 契约统一 | `core/claims/contract.py` | `CONTRACT = "v4"`；`LEGACY_CONTRACTS = ("v2","v3")`；新增 `is_strict()`（v2/v3/v4 与 `dsh.claims/v2` 都走严格门禁） |
 | 产出统一 | `cells_claims` 两条路径 + `report_dispatch` claims 模板 | 统一发 `v4`；两种交付形态（按格交 / 按卡交）保留，字段集不变 |
-| 收卡门禁 | `core/cards/dispatch.py` | 从“只有 v2 走严格检查”改为 `is_strict()`，历史 v3 卡不再绕过结构门禁 |
+| 收卡门禁 | `core/cards/pipeline.py` | 从“只有 v2 走严格检查”改为 `is_strict()`，历史 v3 卡不再绕过结构门禁 |
 | 映射层合并 | `core/claims/claims.py` | `detect / encoding_to_chart / validate_v4 / claim_to_section / build_decision / build_sections` 迁入；`claims_v4.py` 删除 |
 | 调用方 | `report_flow`、`scripts/migrate_claims_v4.py`、测试 | 改从 `core.claims.claims` 取映射层 |
 | 修假测试 | `tests/test_orchestration.py` | 分组断言 `core.cards.card_issue is core.cards.card_issue` 是恒真；改为与 `import_module` 结果比对 |
@@ -417,7 +417,7 @@
 |---|---|---|
 | 结构同构门禁 F12 | `core/structure_guard.py` · `scripts/check_report_flow.py` · `scripts/compile_agent_report.py` | 连续 ≥3 节「标签序列 + 段数」完全一致 → FAIL；阈值唯一出处 `configs/report_prose.yaml#structure_gate` |
 | 写作结构轮换 | `core/report/report_prose_gen.py`（2026-11-27 已删除） | 4 套论证顺序按节 id 稳定轮换，连续两节同序自动换序，避免自动生成的稿子被 F12 判死 |
-| 图表收卡契约 | `core/cards/dispatch.py#_chart_contract` | 图上的点必须能由本卡数字/派生量解释；`chart.refs` 必须在本卡命名空间；构成图合计 95–105% 或显式 `partial` |
+| 图表收卡契约 | `core/cards/pipeline.py#_chart_contract` | 图上的点必须能由本卡数字/派生量解释；`chart.refs` 必须在本卡命名空间；构成图合计 95–105% 或显式 `partial` |
 | 来源回抓硬化 | `core/sources/source_verify.py` | 浏览器级请求头 + 3 次退避重试；`GUAGUA_FETCH_FALLBACK=1` 时才启用 Playwright 兜底 |
 | 来源时效度量 | `core/sources/source_freshness.py` | 18 个月窗口统计 stale_ratio；>60% 旧源时写降级标记与边界，不硬拦年报口径 |
 | 报告隐私扫描 | `scripts/check_report_privacy.py` | 只扫报告资产（claims/报告/manifest），密钥前缀/键值对/手机号/身份证；占位符放行 |

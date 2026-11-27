@@ -11,7 +11,7 @@
 
 | # | 事实 | 出处 |
 |---|---|---|
-| P1 | 纵向钻取**只对前 2 个对象**跑，不是每格、也不是每问 | `core/cards/card_issue.py:228` `drills = [_drill.plan(cat) for cat in cats[:2]]`；本项目 143 格 → 2 格 |
+| P1 | 纵向钻取**只对前 2 个对象**跑，不是每格、也不是每问 | `core/cards/pipeline.py` `drills = [_drill.plan(cat) for cat in cats[:2]]`；本项目 143 格 → 2 格 |
 | P2 | 钻取模板**写死了电商维度**：品牌 A–E、低价/中价/高价带、`gmv` | `core/drill.py` `DEFAULT_BRANDS` / `PRICE_BANDS`；本项目产出 `DS-全国产量规模-品牌month`（蔬菜没有品牌维度） |
 | P3 | **"数据不够"没人判**：探测早就算出 1/6 可答，但它是软门禁，既不阻断也不转补采 | `plan/derivation.json`：`G-ROLLUP "需求有源：1/6 可答（全无源 5）"`，`hard: false`；`manifest.capability.actual_rows: null` |
 

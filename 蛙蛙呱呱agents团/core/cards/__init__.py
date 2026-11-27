@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 """core.cards —— 拆卡 / 发卡 / 收卡（P4 第五阶段：已物理归位，shim 已退场）。
 
-7 个卡模块在本包内；拆卡线其余成员已分散到 core/claims、core/sources 等包，
-这里只给同一入口，不复制实现：
+拆卡线对外只有一个模块：`pipeline`（分卡/发卡/验卡/收卡/探源六合一）。
+其余成员已分散到 core/claims、core/sources 等包，这里只做同一入口，不复制实现。
 
-    from core.cards import card_issue
-    from core.cards import dispatch
-    from core.cards import pipeline      # 发卡 / 验卡 / 收卡的唯一编排入口
+    from core.cards import pipeline      # 发卡 / 验卡 / 收卡的唯一实现与入口
 
 不 import 任何子模块直到被访问（懒加载），避免卡模块之间的循环依赖。
 """
@@ -15,7 +13,7 @@ from __future__ import annotations
 import importlib
 
 __all__ = [
-    "pipeline", "card_issue", "card_upgrade", "dispatch", "report_dispatch",
+    "pipeline", "card_upgrade",
 ]
 
 #: 拆卡线里仍平铺在 core/ 的成员：保持 `core.cards.X` 与 `core.X` 同一对象。

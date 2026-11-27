@@ -19,7 +19,7 @@ if str(TEAM) not in sys.path:
 import json
 import argparse
 import tempfile
-from core.cards import dispatch
+from core.cards import pipeline as dispatch
 from core.report import report_marks
 from core import r04_derive
 from core.report_theme import pages
@@ -274,21 +274,14 @@ def test_card_orchestration_has_single_entry():
     assert "from core.cards import pipeline" in cli
 
 
-def test_card_pipeline_forwards(tmp_path, monkeypatch):
-    """pipeline 只转发：收卡参数原样传给实现，验卡/发卡的读法不变。"""
-    from core.cards import dispatch, pipeline
+def test_card_pipeline_collect_runs(tmp_path):
+    """六合一后 collect 就是 pipeline 本体：空目录也要返回合并稿与问题清单。"""
+    from core.cards import pipeline
 
     assert pipeline.load_issued(str(tmp_path)) is None
-
-    seen = {}
-
-    def fake_collect(out_dir, **kw):
-        seen.update({"out": out_dir, "kw": kw})
-        return {}, []
-
-    monkeypatch.setattr(dispatch, "collect", fake_collect)
-    assert pipeline.collect(str(tmp_path), intent="t") == ({}, [])
-    assert seen == {"out": str(tmp_path), "kw": {"intent": "t"}}
+    merged, problems = pipeline.collect(str(tmp_path))
+    assert isinstance(merged, dict)
+    assert isinstance(problems, list)
 
 
 def test_card_pipeline_is_only_external_entry():

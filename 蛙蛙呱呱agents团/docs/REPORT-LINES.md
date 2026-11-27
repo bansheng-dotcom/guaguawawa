@@ -148,7 +148,7 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
   六维均有格、契约覆盖全部 owner、每问 ≥3 条 stop
 - **门禁不过 → 不发卡**，返回 `plan/pre_issue_gates.json` 的失败项
 - 卡里直接带「你负责的格子」表与 **R02 任务契约**（task_id / 验收门禁 / 截止 / 升级）
-- 实现：`core/cards/card_issue.py`；回归：`tests/test_cards.py`
+- 实现：`core/cards/pipeline.py`；回归：`tests/test_cards.py`
 
 ### 全入口统一 + 协作层接线（2026-11-21 晚）
 
@@ -169,7 +169,7 @@ S7 交付          report.html + report.md + report.pdf + manifest.json
 |---|---|
 | `core/report/report_line.py` | 唯一入口与输入形态识别 |
 | `core/report/report_clarify.py` | 接任务先对齐意图：意图/问句/假设/待确认项（clarify.json） |
-| `core/cards/report_dispatch.py` | 问题→角色映射、发卡 nonce、收卡校验（防代写） |
+| `core/cards/pipeline.py` | 问题→角色映射、发卡 nonce、收卡校验（防代写） |
 | `core/orchestrator.py` | 专家编排：意图 → 域 → 名单（BLOCKED 硬规矩） |
 | `core/report/report_assembly.py` | finding → 节/指标/计数 + 机理/落点/证伪 + 判断型标题 |
 | `core/report/report_flow.py` | 逐节过账（R01 s09）+ 渲染编排 + manifest |

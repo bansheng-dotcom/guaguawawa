@@ -16,7 +16,7 @@ TEAM = Path(__file__).resolve().parent.parent
 if str(TEAM) not in sys.path:
     sys.path.insert(0, str(TEAM))
 
-from core.cards import dispatch  # noqa: E402
+from core.cards import pipeline as dispatch  # noqa: E402
 
 
 def _claims(chart, numbers=None):

@@ -303,11 +303,11 @@ preview()/quality() ↑                5. 进入报告构建与渲染
 
 | 主题 | 实现/接线 | 必改或补反例的现有测试 | 文档/其他同步 |
 |---|---|---|---|
-| 桥接有效性、角色范围、原子发布 | `core/cards/dispatch.py`、`core/claims/cells_claims.py` | `tests/test_cells_claims.py`；必要时补 dispatch 集成用例 | 本文、MASTER；旧 DATA-LAYER/SYSTEM v3 的状态描述 |
-| 实际资产与能力级别 | `core/cards/dispatch.py`、`core/sources/supply_plan.py`、`core/data/dataset_gates.py`、现有 dataset/drill 模块 | `tests/test_supply_plan.py`、`tests/test_dataset_layer.py` | `docs/COORDINATION-SOP.md` 的 L1/L2 口径、报告口径节规则 |
+| 桥接有效性、角色范围、原子发布 | `core/cards/pipeline.py`、`core/claims/cells_claims.py` | `tests/test_cells_claims.py`；必要时补 dispatch 集成用例 | 本文、MASTER；旧 DATA-LAYER/SYSTEM v3 的状态描述 |
+| 实际资产与能力级别 | `core/cards/pipeline.py`、`core/sources/supply_plan.py`、`core/data/dataset_gates.py`、现有 dataset/drill 模块 | `tests/test_supply_plan.py`、`tests/test_dataset_layer.py` | `docs/COORDINATION-SOP.md` 的 L1/L2 口径、报告口径节规则 |
 | collection 共用前置门、YAML 错误 | `core/sources/collection_spec.py`、相关 collector 接口 | `tests/test_derivation.py`、`tests/test_collection_contract.py`、`tests/test_cards.py` | `docs/COLLECTION-COMPLIANCE.md`、`docs/COLLECTION-SOP.md`、模板字段说明 |
 | 单快照 preview/quality/run | `core/cards/pipeline.py`、`core/sources/collection_spec.py`、fetch/collector 实现 | `tests/test_derivation.py`、`tests/test_cards.py`；增加请求次数与 fetch_id 断言 | 合规留痕、频控、留存与撤销规则 |
-| 格网与双覆盖率 | `core/cards/card_issue.py`、`core/claims/cell_claim.py`、现有 coverage/grid 模块 | 对应 card/cell/coverage 测试；增加论点格、unavailable、同计划版本反例 | MASTER 的 D1/D2、项目口径页；不得沿用固定格数作为通用门槛 |
+| 格网与双覆盖率 | `core/cards/pipeline.py`、`core/claims/cell_claim.py`、现有 coverage/grid 模块 | 对应 card/cell/coverage 测试；增加论点格、unavailable、同计划版本反例 | MASTER 的 D1/D2、项目口径页；不得沿用固定格数作为通用门槛 |
 | 图型映射与 donut | `core/report_theme/charts_pro/compat.py`、`core/report_theme/charts_pro/spec.py` | `tests/test_chart_contract.py`、`tests/test_report_contract_v4.py` 及相关渲染测试 | `docs/archive/CHART-UPGRADE-SOP.md`、图表可访问性说明 |
 | 图状态、阻断与血缘 | `core/report/report_flow.py`、`core/report_theme/pages.py`、`core/data/dataset_query.py` | `tests/test_report_flow.py`、`tests/test_flow_renderer.py`、`tests/test_report_contract_v4.py` | MASTER 的 D3、`REPORT-STANDARD.md` 的图成功定义 |
 | 合规 schema 与证据版本 | `core/sources/collection_spec.py`、`configs/collections/_template.yaml`（未来实施时） | collection/derivation 测试 | COLLECTION-COMPLIANCE；真实源逐源规格，不得 blanket claim |

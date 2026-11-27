@@ -51,7 +51,6 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 |---|---|---|---|
 | `report_cli.py` | 904 | CLI 唯一入口：clarify/brief/collect/run-line/check/flow… | 【S0】所有命令的入口 |
 | `report_line.py` | 190 | 唯一报告门面：`detect_mode` + `build` + `build_project` | 【S0】CLI 只从这里进，转发到 decision_report / report_flow / flow_report |
-| `report_dispatch.py` | 616 | 三段可审文件：brief → collect → report | 【S2/S3】拆卡线的调度 |
 | `report_flow.py` | 1484 | **唯一报告产线**：契约装配 + 渲染 + 门禁 | 【S4/S5】核心，`build_sections_contract` 在这 |
 | `report_bridge.py` | 243 | 共享渲染桥：contract → HTML/MD/PDF | 【S5/S7】产物出口 |
 | `report_renderer.py` | 1599 | 确定性 HTML 渲染器（70 型 + 8 主题） | 【S5】`validate_contract` + `render` |
@@ -135,13 +134,11 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 
 | 文件 | 行 | 干什么 | 角色 |
 |---|---|---|---|
-| `card_issue.py` | 422 | 拆卡五轴 + S1–S12 发卡前门禁 | 【拆卡】发卡 |
-| `report_dispatch.py` | 624 | 意图 → 问题→角色计划、发卡（nonce + 签名）、验卡 | 【拆卡】发卡 |
+| `pipeline.py` | 2520 | **拆卡线唯一实现**：分卡/卡信封/探源 + 拆卡五轴 + 发卡验卡 + 收卡合并（原 6 模块已并入） | 【拆卡】发卡/验卡/收卡 |
 | `card_upgrade.py` | 1118 | 五轴 builders + G1–G25 收卡后门禁 + `post_collect` | 【拆卡】收卡 |
 | `grid_attach.py` | 135 | 把六维网格追加到每张 TASK.md | 【拆卡】 |
 | `cells_claims.py` | 304 | 拆卡格子 → 报告 claims 的桥 | 【拆卡→S4】 |
 | `collection_contract.py` | 128 | 采集契约（dsh.collection/v1） | 【拆卡】 |
-| `dispatch.py` | 856 | 按 brief 发卡、收 claims、合并 | 【拆卡】 |
 | `report_exchange.py` | 120 | 卡间协商（needs → INBOX） | 【拆卡】 |
 | `collab.py` | 138 | 真的调用 R02 的 agent | 【拆卡】 |
 | `protocol.py` | 89 | 交接协议：端口/任务卡/事件 | 【拆卡/协作】 |
@@ -254,7 +251,7 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 ## 13. 一句话总结
 
 - **主线只用到约 30 个文件**：`report_cli → report_line → decision_report / report_flow / flow_report → report_bridge → report_renderer → charts_pro`。
-- **拆卡线**是另一组：`pipeline / card_issue / card_upgrade / dispatch / report_dispatch / grid_attach / cells_claims`。
+- **拆卡线**是另一组：`pipeline / card_upgrade / grid_attach / cells_claims`（发卡/验卡/收卡全在 pipeline）。
 - **图表库**最大：`charts/`(3) + `charts_pro/`(10) + `samples_data/`(10) = **23 个图表文件**，S5 专用；另有 `report_theme/`(6) 页面/基元。
 - **`flow_report.py` 是项目代码宿主**，不在主线里，但它是"项目代码不进 core/"的关键。
 - **139 个文件全部有内容**（之前我说"两个空文件"是抽取脚本的 bug，已更正）。

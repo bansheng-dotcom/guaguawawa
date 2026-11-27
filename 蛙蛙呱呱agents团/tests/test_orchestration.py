@@ -23,10 +23,10 @@ if str(TEAM) not in sys.path:
 
 import json
 import tempfile
-from core.cards import dispatch, report_dispatch, card_issue
+from core.cards import pipeline
 from core.report import report_clarify
 import shutil
-from core.cards import dispatch
+from core.cards import pipeline as dispatch
 from core import roster
 from core import orchestrator as O
 from core.methods.spec import Caps
@@ -37,6 +37,8 @@ import core
 
 from core import intake, panel, dor, synthesis
 from core.cards import pipeline as card_plan
+
+card_issue = report_dispatch = pipeline
 
 
 

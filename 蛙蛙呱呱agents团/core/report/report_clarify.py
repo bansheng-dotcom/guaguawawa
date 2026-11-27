@@ -9,7 +9,7 @@
 
 本模块只做第一段：把一句话变成一张**可审的澄清卡**——
 我理解成什么、我准备答哪几问、我默认假设了什么、哪 3–5 件事需要你拍。
-不拆卡、不发卡；拆卡在 `core.cards.report_dispatch`。
+不拆卡、不发卡；拆卡在 `core.cards.pipeline`。
 
 产物：`<项目>/clarify.json` + `<项目>/clarify.md`
 确认：人改 json（或直接接受默认）后 `report clarify --dir <项目> --confirm`

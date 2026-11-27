@@ -35,7 +35,7 @@ from core import demand
 from core.sources import source_match as sm
 import json
 import tempfile
-from core.cards import card_issue
+from core.cards import pipeline as card_issue
 from core.report import report_clarify
 from core import method_params, analysis_methods
 from core.data import analysis_desk

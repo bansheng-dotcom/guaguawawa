@@ -176,7 +176,7 @@ Web 界的同一件事叫 **Progressive Enhancement**：
 | `core/cards/card_upgrade.py` | 格子加 `needs` 字段（默认 `point`，兼容老格） | 改 |
 | `core/cards/pipeline.py` | 判定从 `full/partial/none` 改成 `L2/L1/L0` | 改 |
 | `core/sources/source_match.py` | `match` 增加 `can_series` 判定 | 改 |
-| `core/cards/dispatch.py` | `collect` 算 `capability_level`，写进 merged | 改 |
+| `core/cards/pipeline.py` | `collect` 算 `capability_level`，写进 merged | 改 |
 | `core/sources/collection_contract.py` | 加 `capability_level` 枚举 | 改 |
 | `core/report/report_flow.py` | 首页能力级别 + 缺口补采条件 | 改 |
 | `core/data/dataset_gates.py` | 加 G-CAPABILITY（软） | 改 |

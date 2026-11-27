@@ -21,14 +21,14 @@ if str(TEAM) not in sys.path:
 
 import json
 import tempfile
-from core.cards import dispatch
+from core.cards import pipeline
 from core.base import project as project_mod
 import shutil
-from core.cards import dispatch
 from core.cards import card_upgrade as cu
-from core.cards import card_issue, report_dispatch
 from core.report import report_clarify
-from core.cards import pipeline as card_probe
+
+dispatch = card_issue = report_dispatch = pipeline
+card_probe = pipeline
 
 
 

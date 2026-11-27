@@ -65,7 +65,7 @@ ck(1, "G1–G25 → manifest.gate.post",
    "decision_report 写 manifest.gate.post")
 
 # 2 cells_filled 闭环（格子→claims）
-disp = _txt("dispatch.py")
+disp = _txt("pipeline.py")
 ck(2, "cells_filled 闭环（格子→claims）",
    "_bridge_cells_to_claims" in disp and "cells_claims.build" in disp,
    "dispatch.collect 读卡前调 cells_claims.build")
@@ -132,7 +132,7 @@ try:
     _sp = _txt("supply_plan.py")
     _plan_ok = all(k in _sp for k in ("planned_level", "planned_rows",
                                       "capability_of", "def gate"))
-    _disp = _txt("dispatch.py")
+    _disp = _txt("pipeline.py")
     _wired = "capability_of" in _disp and "capability_gate" in _disp
     _cc = _txt("collection_contract.py")
     _rows_ok = "rows_expected_source" in _cc
