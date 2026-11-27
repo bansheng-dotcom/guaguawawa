@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-"""core/report_thesis —— 报告纲领（v11：只保留 analysis 一条）。
+"""core/report_thesis —— 报告纲领（只保留 analysis 一条）。
 
 历史：v5 曾有 22 个业务纲领（research / operations / remediation / chain / forecast /
 growth / product / support / people / sre / marketing / sku / store / market_entry /
 market / cheese_* × 6 / analysis），每个纲领自带 order/opening/actions，
-导致「同一批证据出 22 种报告」。v10 起 `THESES` 只剩 `analysis`，
+导致「同一批证据出 22 种报告」。此后 `THESES` 只剩 `analysis`，
 但那 21 个纲领的字典与分支仍留在文件里（约 600 行不可达代码）。
 
-v11（P1）按 `交付/报告产线重构-SOP-2026-11-18.md` 把它们删干净：
+按 `交付/报告产线重构-SOP-2026-11-18.md` 把它们删干净：
 
 - 只保留 `analysis` 的 order（方法清单）与 ask（报告要回答什么）；
 - `infer()` 恒返回 `"analysis"`：**报告类型不再是入口参数，域判定交给编排器**；
@@ -51,7 +51,7 @@ DEFAULT_THESIS = "analysis"
 
 
 def infer(intent: str, profile: Optional[Dict[str, Any]] = None) -> str:
-    """意图 → 纲领。v11 恒为 analysis：业务域由编排器判定，不再由纲领承载。
+    """意图 → 纲领。现恒为 analysis：业务域由编排器判定，不再由纲领承载。
 
     保留函数签名，因为 `report plan` 与旧调用方仍会传入 intent/profile；
     参数故意不用，避免调用方以为「换个词就能换报告类型」。

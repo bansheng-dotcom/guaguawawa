@@ -30,7 +30,7 @@ CONFIG = ROOT / "configs"
 
 
 def _chart_config() -> Dict[str, Any]:
-    """v11 / P4：选图配置已换成按「数据关系」组织的 chart_by_relation.yaml。
+    """P4：选图配置已换成按「数据关系」组织的 chart_by_relation.yaml。
 
     旧的 chart_type_by_question.json（84 条「问题→图型」）已归档到 _attic/：
     它与决策契约的对照类型不同构，属于第 6 套词汇表。
@@ -75,7 +75,7 @@ def build() -> Dict[str, Any]:
         "chart_config": len(chart_cfg),
     }
 
-    # v12：静态维度层与静态题库已退场。调研要查什么由 core/research_protocol
+    # 当前：静态维度层与静态题库已退场。调研要查什么由 core/research_protocol
     # 按任务动态生成，不再有一份固定清单可以「悬空」或「漏挂」。
     # 4) 图型配置：是否真的被选图代码读取（P4：decision 已读 chart_by_relation.yaml）
     from core import decision as _decision

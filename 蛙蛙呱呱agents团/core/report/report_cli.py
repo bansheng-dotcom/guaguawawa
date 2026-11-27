@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
-"""report CLI —— 唯一报告产线入口（v10）。
+"""report CLI —— 命令行参数解析与子命令分发。
 
-主入口：
-    report build   问题树 → coverage → v9 → 报告（唯一出报告入口）
+对外报告入口只有一条：`guagua.py report run-line`（`report "指令"` 等价），
+最终都进入 core.report.report_line；本模块只负责解析参数与分发。
+
+其余子命令是诊断/维护工具：
     report check   验一份成品报告
     report gaps    看项目的 quote 缺口
     report charts  48 型图表能力盘点
     report capabilities / plan  诊断
-
-v11 起已删除 run / build / decide / produce / pack 过渡别名；
-`report "指令" …` 与 `report run-line …` 都走同一条主链。
 """
 from __future__ import annotations
 
@@ -484,9 +483,9 @@ def cmd_research(args) -> int:
 
 
 def cmd_run_line(args) -> int:
-    """v11 唯一入口（P1：转发实现）：一条命令 + 四种输入。"""
+    """run-line：一条命令 + 四种输入（进入 report_line）。"""
     from core.report import report_line
-    # v12：--claims 一步到位：编译（含交叉质询）→ 过闸 → 渲染。
+    # --claims 一步到位：编译（含交叉质询）→ 过闸 → 渲染。
     # 这样「智能体交一份 claims.json」就是完整交付动作，不用记两个命令。
     claims_path = getattr(args, "claims", None)
     source = getattr(args, "source", None)
@@ -718,10 +717,10 @@ def cmd_attest(args) -> int:
 def main(argv=None) -> int:
     from core.report.report_flow import THEMES, DEFAULT_THEME
     ap = argparse.ArgumentParser(prog="guagua report",
-                                 description="唯一报告产线：一条命令 + 四种输入（v11）")
+                                 description="报告产线入口：一条命令 + 四种输入")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    rl = sub.add_parser("run-line", help="v11 唯一入口（P1 转发）：一条命令 + 四种输入")
+    rl = sub.add_parser("run-line", help="一条命令 + 四种输入（转发到 report_line）")
     rl.add_argument("--intent", required=True, help="你的指令/问题")
     rl.add_argument("--dir", default=None, help="数据项目目录（数据型）")
     rl.add_argument("--input", default=None, help="单份文档（评审型，P2 接入）")
@@ -760,7 +759,7 @@ def main(argv=None) -> int:
                     help="决策契约 JSON；缺省读 <dir>/data/decision.json，再缺省按出场专家起草")
     rl.set_defaults(func=cmd_run_line)
 
-    # v11 / P5：build / decide / produce / pack / research / run 六个名字全部删除。
+    # build / decide / produce / pack / research / run 六个过渡名已删除。
     # 唯一入口 = `report "指令" --dir … --out …`（也接受 `report run-line …` 写法）。
 
     fl = sub.add_parser("flow", help="项目化 flow 报告：facts + charts（+ 可选 prose_specs）")
@@ -810,7 +809,7 @@ def main(argv=None) -> int:
                          "product / support / people / sre / marketing / sku / store")
     pl.set_defaults(func=cmd_plan)
 
-    # v12：一句话 → 专业研究方案。这一步替代「让用户自己定义研究问题」。
+    # 一句话 → 专业研究方案。这一步替代「让用户自己定义研究问题」。
     rp = sub.add_parser("research-plan",
                         help="一句话 → 专业研究方案（8 个模块 / 专家 / 数据通道），不产报告")
     rp.add_argument("--intent", required=True)
@@ -929,7 +928,7 @@ def main(argv=None) -> int:
     rs.set_defaults(func=cmd_research)
 
     argv = list(sys.argv[1:] if argv is None else argv)
-    # v11 唯一入口：`report "指令" --dir …` 等价于 `report run-line --intent "指令" …`
+    # run-line 等价写法：`report "指令" --dir …` 等价于 `report run-line --intent "指令" …`
     # 判断依据是「第一个 token 不是已注册子命令」——这样不用记子命令名。
     known = {"run-line", "check", "charts", "capabilities", "plan", "gaps",
              "research-plan", "brief", "collect", "research", "flow", "attest",

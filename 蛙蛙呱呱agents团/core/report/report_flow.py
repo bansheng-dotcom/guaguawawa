@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core/report_flow —— 唯一的报告产线（2026-11-15 收敛后）。
+"""core/report_flow —— 报告内部引擎（对外入口见 core.report.report_line）。
 
 只有一条线，两个分支：
 
@@ -21,9 +21,9 @@
 3. 判断不合规（结论无数字/来源缺失/禁用词）→ 不渲染，返回非 0，不留半份报告。
 4. 渲染只走 core/report_renderer，禁止手写一次性 HTML。
 
-用法（v11）：
-    唯一入口:  python guagua.py report run-line --intent "…" --dir <项目> --out <目录>
-    本模块是被调用的渲染/过账层，不再直接面向用户；命令行入口见 core/report/report_cli.py。
+用法：
+    对外入口:  python guagua.py report run-line --intent "…" --dir <项目> --out <目录>
+    本模块是被调用的渲染/过账层，不直接面向用户；命令行入口见 core/report/report_cli.py。
     验成品:    python guagua.py report check --html out/report.html
 """
 from __future__ import annotations
@@ -1403,8 +1403,8 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
 
     if not (evidence and draft and draft.get("sections")):
         raise FlowError(
-            "v10 只支持 evidence + draft sections；A/B 分支已删除。"
-            "请用 python guagua.py report build --intent … --dir … --out …")
+            "只支持 evidence + draft sections；A/B 分支已删除。"
+            "请用 python guagua.py report run-line --intent … --dir … --out …")
 
     # 调研级：模型写章节稿 + 证据包逐节过账（家居百货 / 肉禽蛋那种报告）
     if evidence and draft and draft.get("sections"):
@@ -1549,7 +1549,7 @@ def run(intent: str, results: Optional[List[str]] = None, out_dir: str = "out",
                 "layout": layout,
                 "quotes": {k: v for k, v in qgate.items() if k != "items"}}
 
-    raise FlowError("v10 sections 路径未返回；这是内部错误")
+    raise FlowError("sections 路径未返回；这是内部错误")
 
 
 

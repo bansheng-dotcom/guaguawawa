@@ -41,3 +41,6 @@ claims_*.json
 
 # 头像拼版预览（avatars/ 才是唯一源）
 头像预览联系表.png
+
+# handover baseline（PR0）：记录冻结时的提交，不入库
+.baseline_commit

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core/claim_consistency —— 交叉质询：把「同一个数两个说法」逼出来（v12）。
+"""core/claim_consistency —— 交叉质询：把「同一个数两个说法」逼出来。
 
 这是 R04 蛙挑刺在报告产线里的可执行版本。它不评价文笔，只抓四类硬伤：
 

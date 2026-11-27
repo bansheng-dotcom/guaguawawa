@@ -7,7 +7,7 @@
     ② 采集    项目目录里的 data/sources.json（每条带 url + quote）
     ③ 校验    回抓原文，quote 必须能在正文里找到；找不到就标 unverified，不许当证据
     ④ 台账    claims.json + sources.json → r05 research ledger（覆盖率/悬空引用/类型白名单）
-    ⑤ 成稿    交给唯一入口 report run-line → 同一套过账与渲染（v11 起）
+    ⑤ 成稿    交给对外入口 report run-line → 同一套过账与渲染
 
 采集本身仍由 agent/人完成（找来源、写 quote），本模块只负责「不信你，回抓核对」。
 """
@@ -345,7 +345,7 @@ def run(topic: str, project: str, out_dir: str, thesis: str = "market_entry",
         skip_ledger: bool = False) -> Dict[str, Any]:
     """[已下线] 旧「采集 → 校验 → 台账 → 成稿」入口。
 
-    v11：成稿这一步不再由本模块调 report_compose（已删除），改为走唯一入口
+    成稿这一步不再由本模块调 report_compose（已删除），改为走对外入口
     `report run-line --research`。采集/校验/台账三件事保留为独立子命令，
     供 P3 的采集型专家复用。
     """

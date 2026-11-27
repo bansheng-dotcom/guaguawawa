@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""core/dispatch —— 按 brief 发任务卡、收 claims、合并出报告（v12.2）。
+"""core/cards/dispatch —— 按 brief 发任务卡、收 claims、合并出报告。
 
 这一步补的是「专家按 brief 自动跑」的骨架：
     之前：brief 有了、闸有了，中间是我手工开子智能体、手工拼 claims。

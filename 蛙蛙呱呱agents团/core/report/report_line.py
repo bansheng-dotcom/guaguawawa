@@ -90,7 +90,7 @@ def build(intent: str, project_dir: Optional[str] = None,
         return {"ok": False, "mode": mode,
                 "error": "评审型输入（--input）将在 P2 实现；P1 请用 --dir 提供数据目录"}
 
-    # 智能体写稿路径（v12）：给了证据包 + 章节稿就不再跑方法库。
+    # 智能体写稿路径：给了证据包 + 章节稿就不再跑方法库。
     # 这条路才是「能力在模型、规则只管验」的落点：
     #   谁写：R01 与领域专家（模型 + 工具）→ evidence_pack.json + draft_sections.json
     #   谁验：core/report_flow 逐节过账 + core/quality_gate 三层闸

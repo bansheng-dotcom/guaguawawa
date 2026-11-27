@@ -30,7 +30,7 @@ import sys
 from typing import Any, Dict, List, Optional
 
 # 图表解析目录。
-# v12.3：默认指向仓内 core/charts（48 型 RENDERERS 都在这里）。
+# 当前：默认指向仓内 core/charts（48 型 RENDERERS 都在这里）。
 # 之前默认 None，只有旧 report_bridge 会传 --chart-dir，
 # 于是新产线出报告时 48 型全部不可用、退回内建 hbar/vbar —— 这就是「图表系统没接入」。
 _CHART_DIR: Optional[str] = os.path.join(

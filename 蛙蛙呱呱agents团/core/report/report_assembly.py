@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """core/report_assembly —— finding → 节/指标/计数（从 report_compose 拆出的唯一实现）。
 
-为什么单独成模块（v11 / P1.4）：
+为什么单独成模块（P1.4）：
 
 `core/report_compose.py` 曾是 v9 的「装配器 + 22 纲领」大杂烩。
-v10 起 `decision_report` 只用到它的四个私有函数：
+`decision_report` 只用到它的四个私有函数：
 
     _section_of(f)                        finding → 节
     _metrics(picked, label_of)            指标带
@@ -68,7 +68,7 @@ def _section_of(f) -> Dict[str, Any]:
     """方法带 Claim 的，走论证层装配（观察→机理→落点→证伪）；
     老方法没有 Claim，仍按原来的方式装配，两条路共用同一个渲染器与同一套门禁。
 
-    v11 / P3：价格类 finding 没有 Claim 对象，这里补一条**机理 + 判别方法**、
+    P3：价格类 finding 没有 Claim 对象，这里补一条**机理 + 判别方法**、
     一条**落点**与一条**证伪**，让每一节都走完五段链，而不是只有第一节有判断。
     只从 finding 已有的数字与 meta 里读，不新造数。
     """
