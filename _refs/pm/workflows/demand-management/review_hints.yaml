@@ -1,0 +1,31 @@
+purpose: >
+  给需求管理与协作复核生成可选复核提醒，不自动触发任何本地 agent。
+
+optional_reviews:
+  - when: 需求包含页面、交互或用户体验
+    reviewer_type: UI/前端能力
+    focus:
+      - 页面入口
+      - 状态
+      - 验收标准
+  - when: 需求包含 API、数据库、权限、后台任务
+    reviewer_type: 后端/架构能力
+    focus:
+      - 数据对象
+      - 权限边界
+      - 失败恢复
+  - when: 需求包含 Agent 或自动化
+    reviewer_type: Agent/架构/测试能力
+    focus:
+      - 输入输出
+      - 工具边界
+      - 审批门禁
+  - when: 准备提交测试或发布
+    reviewer_type: 测试能力
+    focus:
+      - 验收标准
+      - 主路径、边界、失败态
+
+rules:
+  - 只生成复核提醒和记录字段，不假设具体触发机制。
+  - 未复核不能写成已通过。

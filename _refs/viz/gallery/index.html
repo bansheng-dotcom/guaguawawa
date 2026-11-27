@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="48 个数据可视化提示词的三列参考画廊，使用统一虚拟数据检查图形、标注和视觉规范。"
+    />
+    <meta name="curation-origin" content="不知渭河" />
+    <title>AI 数据可视化提示词图鉴｜48 图参考画廊</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__inner">
+        <p class="eyebrow">PROMPT VISUAL STANDARD · 48 CHARTS</p>
+        <h1>AI 数据可视化<span class="mobile-break"><br /></span>提示词图鉴</h1>
+        <p class="hero__lead">
+          每张图均按对应提示词的视觉合同制作。当前使用统一的虚拟业务数据，方便只判断图形选择、专业美化、数据标注和解释边界。
+        </p>
+        <div class="hero__stats" aria-label="画廊统计">
+          <span><strong id="rendered-count">0</strong> / 48 已渲染</span>
+          <span>桌面端每行 3 图</span>
+          <span>悬停或轻触图表查看工具提示</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="review-guide" aria-labelledby="guide-title">
+        <div>
+          <p class="section-kicker">查看方法</p>
+          <h2 id="guide-title">每张图都可以从四个角度检查</h2>
+        </div>
+        <ol>
+          <li>图形是否适合表达这个问题</li>
+          <li>结论标题和数据标注是否准确</li>
+          <li>颜色、比例尺或双轴是否可能误导</li>
+          <li>三列宽度下是否仍然清楚</li>
+        </ol>
+      </section>
+
+      <nav class="filters" aria-label="图表分组筛选">
+        <button class="filter is-active" type="button" data-filter="all">全部 48</button>
+        <button class="filter" type="button" data-filter="basic">基础比较与趋势</button>
+        <button class="filter" type="button" data-filter="stat">分布与统计</button>
+        <button class="filter" type="button" data-filter="business">业务过程与贡献</button>
+        <button class="filter" type="button" data-filter="advanced">层级、空间与关系</button>
+        <button class="filter" type="button" data-filter="composite">组合图</button>
+      </nav>
+
+      <section id="gallery" class="gallery" aria-live="polite"></section>
+    </main>
+
+    <footer>
+      <p>参考样张 · 数据为虚拟示例 · 2026-07-24</p>
+    </footer>
+
+    <script src="./vendor/echarts.min.js"></script>
+    <script src="./gallery.js"></script>
+  </body>
+</html>

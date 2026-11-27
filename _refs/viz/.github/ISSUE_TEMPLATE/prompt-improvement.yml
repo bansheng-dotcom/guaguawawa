@@ -1,0 +1,53 @@
+name: 提示词改进建议
+description: 提交真实做图问题、复现证据和可复用规则
+title: "[Prompt] "
+labels:
+  - prompt-improvement
+body:
+  - type: input
+    id: chart
+    attributes:
+      label: 图表名称与编号
+      placeholder: 例如：29 漏斗图
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: 想回答的业务问题
+      description: 说明这张图原本要帮助读者看懂什么。
+    validations:
+      required: true
+  - type: textarea
+    id: data_shape
+    attributes:
+      label: 数据结构与口径
+      description: 提供脱敏字段、单位、粒度、分母或必要统计口径。
+    validations:
+      required: true
+  - type: textarea
+    id: current_problem
+    attributes:
+      label: 当前结果的问题
+      description: 说明错误、遮挡、歧义或误导发生在哪里。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议修改的规则
+      description: 尽量写成可以被多个场景复用的规则。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏截图或复现步骤
+      description: 不要上传个人信息、公司机密、客户数据或访问凭据。
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 数据安全确认
+      options:
+        - label: 我确认提交内容已经脱敏，不包含真实机密或个人信息。
+          required: true

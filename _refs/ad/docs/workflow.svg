@@ -1,0 +1,79 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F8FAFC"/>
+  <text x="64" y="70" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="32" font-weight="700" fill="#0F172A">Article Director Workflow</text>
+  <text x="64" y="104" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" fill="#475569">当前默认 lean-v1：topic-first planning, candidate writing, review absorption, rewrite design, deterministic gates.</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#64748B"/>
+    </marker>
+  </defs>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect x="64" y="156" width="210" height="78" rx="10" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+    <text x="169" y="187" font-size="17" font-weight="700" fill="#1E3A8A" text-anchor="middle">topic-architect</text>
+    <text x="169" y="212" font-size="13" fill="#1D4ED8" text-anchor="middle">大纲 / 细纲 / 读者卡点</text>
+
+    <line x1="274" y1="195" x2="337" y2="195" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="352" y="156" width="210" height="78" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="457" y="187" font-size="17" font-weight="700" fill="#92400E" text-anchor="middle">human gate 1</text>
+    <text x="457" y="212" font-size="13" fill="#B45309" text-anchor="middle">确认大纲后写作</text>
+
+    <line x1="562" y1="195" x2="625" y2="195" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="640" y="156" width="230" height="78" rx="10" fill="#CCFBF1" stroke="#0F766E" stroke-width="2"/>
+    <text x="755" y="187" font-size="17" font-weight="700" fill="#134E4A" text-anchor="middle">section-writer</text>
+    <text x="755" y="212" font-size="13" fill="#0F766E" text-anchor="middle">候选生成 / 删除 / 评分</text>
+
+    <line x1="870" y1="195" x2="933" y2="195" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="948" y="156" width="248" height="78" rx="10" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+    <text x="1072" y="187" font-size="17" font-weight="700" fill="#4C1D95" text-anchor="middle">review fan-out</text>
+    <text x="1072" y="212" font-size="13" fill="#6D28D9" text-anchor="middle">AI味 / 文风 / 逻辑 / 结构 / 简化</text>
+
+    <line x1="1072" y1="234" x2="1072" y2="302" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="924" y="318" width="296" height="86" rx="10" fill="#FCE7F3" stroke="#DB2777" stroke-width="2"/>
+    <text x="1072" y="350" font-size="17" font-weight="700" fill="#831843" text-anchor="middle">paragraph-rewrite-designer</text>
+    <text x="1072" y="375" font-size="13" fill="#BE185D" text-anchor="middle">200-400字重构单元 · 2-4 候选 · 评分选稿</text>
+
+    <line x1="924" y1="361" x2="861" y2="361" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="640" y="318" width="230" height="86" rx="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+    <text x="755" y="350" font-size="17" font-weight="700" fill="#14532D" text-anchor="middle">section-rewriter</text>
+    <text x="755" y="375" font-size="13" fill="#15803D" text-anchor="middle">合稿 / 顺句 / 段间连接</text>
+
+    <line x1="640" y1="361" x2="577" y2="361" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="320" y="318" width="242" height="86" rx="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+    <text x="441" y="350" font-size="17" font-weight="700" fill="#0C4A6E" text-anchor="middle">section gates</text>
+    <text x="441" y="375" font-size="13" fill="#0369A1" text-anchor="middle">rewrite coverage / AI-tone regression</text>
+
+    <line x1="320" y1="361" x2="257" y2="361" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="64" y="318" width="210" height="86" rx="10" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/>
+    <text x="169" y="350" font-size="17" font-weight="700" fill="#334155" text-anchor="middle">draft-assembler</text>
+    <text x="169" y="375" font-size="13" fill="#475569" text-anchor="middle">组装各 section</text>
+
+    <line x1="169" y1="404" x2="169" y2="474" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="64" y="490" width="260" height="86" rx="10" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/>
+    <text x="194" y="522" font-size="17" font-weight="700" fill="#334155" text-anchor="middle">final-integrator</text>
+    <text x="194" y="547" font-size="13" fill="#475569" text-anchor="middle">全文连贯性和风格统一</text>
+
+    <line x1="324" y1="533" x2="386" y2="533" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="402" y="490" width="318" height="86" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="561" y="522" font-size="17" font-weight="700" fill="#92400E" text-anchor="middle">deterministic gates</text>
+    <text x="561" y="547" font-size="13" fill="#B45309" text-anchor="middle">integrity / argument-flow / code-check</text>
+
+    <line x1="720" y1="533" x2="782" y2="533" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="798" y="490" width="260" height="86" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="928" y="522" font-size="17" font-weight="700" fill="#92400E" text-anchor="middle">human gate 2</text>
+    <text x="928" y="547" font-size="13" fill="#B45309" text-anchor="middle">人工终审，不自动发布</text>
+  </g>
+
+  <text x="64" y="666" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#64748B">Temporary outputs, drafts, state logs, and platform copies are ignored by Git. The repository stores reusable workflow code and configuration.</text>
+</svg>

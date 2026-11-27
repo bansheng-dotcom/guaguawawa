@@ -1,0 +1,70 @@
+workflow_id: competitive-analysis
+display_name: 竞品分析报告工作流
+status: draft
+owner: 产品管理
+priority: P1
+purpose: >
+  围绕明确产品决策制作竞品分析报告。这个 workflow 负责定义比较问题、竞品范围、
+  对照维度、可借鉴点、差异化和风险；不负责无边界收集资料，也不把竞品功能照搬成需求。
+
+trigger_signals:
+  - 竞品分析
+  - 对比竞品
+  - 市场怎么做
+  - 学习竞品
+  - 竞品报告
+  - 差异化
+
+entry_policy:
+  before_entering:
+    - 这是报告类重任务，先读 `workflows/HEAVY_TASK_RAG_RULES.md`
+    - 先执行 `workflows/experience-rag/workflow.yaml` 的 `heavy-task` 模式；内部追问默认复用 `experience_brief`，关键维度变化才执行 `pre-question` L1
+    - 先明确竞品分析服务哪个决策
+    - 涉及时效信息时必须现查并标注日期
+    - 如果只是内部需求判断，先走 requirement-report
+  can_start_when:
+    - 有比较对象、产品问题或决策目标
+    - 能说明为什么现在要看竞品
+  must_not_start_when:
+    - 没有决策问题，只想泛泛收集竞品资料
+
+required_inputs:
+  - decision_needed
+  - competitor_scope
+  - product_context
+  - comparison_dimensions
+
+outputs:
+  - competitive_analysis_report
+  - comparison_matrix
+  - insight_and_implication
+  - differentiation_options
+  - risk_and_followup_questions
+  - optional_review_hints
+  - next_workflow_suggestion
+
+managed_files:
+  topology: workflows/competitive-analysis/topology.md
+  quality_guide: workflows/competitive-analysis/references/competitive-analysis-guide.md
+  review_hints: workflows/competitive-analysis/review_hints.yaml
+  runner: workflows/competitive-analysis/runner.md
+  prompt_current: workflows/competitive-analysis/prompts/current.md
+  prompt_changelog: workflows/competitive-analysis/prompts/CHANGELOG.md
+  heavy_task_rules: workflows/HEAVY_TASK_RAG_RULES.md
+
+validation_gates:
+  - gate: decision_gate
+    pass_standard: 报告明确支持哪个产品决策
+  - gate: source_gate
+    pass_standard: 竞品事实有来源、日期和适用范围
+  - gate: comparison_gate
+    pass_standard: 对照维度一致，不把信息罗列当分析
+  - gate: implication_gate
+    pass_standard: 每个洞察都写对我们意味着什么
+  - gate: copy_risk_gate
+    pass_standard: 不把竞品功能直接照搬为需求
+
+version:
+  prompt: "0.3"
+  workflow: "0.3"
+  updated_at: "2026-07-01"

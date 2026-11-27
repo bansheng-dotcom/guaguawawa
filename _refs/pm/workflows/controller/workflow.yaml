@@ -1,0 +1,50 @@
+id: controller
+display_name: PM 总控与轻量反应
+status: draft
+priority: P0
+purpose: >
+  作为产品管理 person 的总控入口，先理解用户真正想解决的问题，再判断是否需要追问、
+  进入哪条 workflow，以及本轮最轻可验证产物是什么。
+
+triggers:
+  - 用户输入任何产品、需求、报告、项目理解、协作或文件管理任务
+  - 用户表达不清楚、只给想法、要求判断下一步
+  - 需要在多个 PM workflow 之间做路由
+
+inputs:
+  required:
+    - user_request
+  optional:
+    - project_files
+    - prior_decisions
+    - user_preferences
+
+outputs:
+  - understood_problem
+  - pre_question_experience_basis
+  - rag_gate_decision
+  - experience_brief_if_heavy_task
+  - missing_information_if_direction_blocked
+  - task_weight
+  - heavy_thinking_package_if_needed
+  - selected_workflow
+  - minimum_next_artifact
+  - optional_review_reminder
+
+owned_references:
+  - references/light-reaction-guide.md
+  - references/pm-routing-guide.md
+  - ../experience-rag/workflow.yaml
+  - ../HEAVY_TASK_RAG_RULES.md
+
+prompt:
+  current: prompts/current.md
+
+runner: runner.md
+topology: topology.md
+review_hints: review_hints.yaml
+
+version:
+  current: 0.3
+  updated_at: 2026-07-01
+  notes: 将经验检索收敛为 RAG Gate；轻任务 L1，重任务 L2 生成 experience_brief 并复用。

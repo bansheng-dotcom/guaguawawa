@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛙蛙呱呱专家团 · 架构断链审计与升级方案 v2</title>
+<style>
+  :root{
+    --ink:#17181a; --muted:#5f646b; --line:#e3e5e8; --bg:#f7f6f3; --paper:#fff;
+    --accent:#7a3b12; --accent-soft:#f8efe7; --accent-deep:#4d2409;
+    --warn:#8a4b12; --warn-soft:#fbf0e4; --danger:#8c2f2f; --danger-soft:#faeceb;
+    --ok:#1d6b4f; --ok-soft:#e7f3ee;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px 96px}
+  header.hero{background:linear-gradient(155deg,#1d1208 0%,#7a3b12 58%,#a55620 100%);
+    color:#faf4ee;padding:62px 28px 54px;margin-bottom:38px}
+  header.hero .inner{max-width:1124px;margin:0 auto}
+  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin-bottom:16px}
+  h1{font-size:37px;line-height:1.24;margin:0 0 14px;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:17px;line-height:1.8;max-width:800px;opacity:.93;margin:0}
+  .hero-meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;font-size:13px;opacity:.85}
+  .layout{display:grid;grid-template-columns:238px 1fr;gap:42px;align-items:start}
+  nav.toc{position:sticky;top:22px;font-size:13.5px;line-height:1.55}
+  nav.toc .t{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 0 5px 12px;border-left:2px solid transparent}
+  nav.toc a:hover{color:var(--accent);border-left-color:var(--accent)}
+  main{min-width:0}
+  section{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:32px 34px;margin-bottom:24px}
+  h2{font-size:23px;margin:0 0 8px;letter-spacing:-.01em}
+  h2 .num{color:var(--accent);font-variant-numeric:tabular-nums;margin-right:10px;font-size:16px}
+  h3{font-size:16.5px;margin:26px 0 8px}
+  h4{font-size:14px;margin:18px 0 6px;color:var(--muted);letter-spacing:.02em}
+  p{margin:0 0 13px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:20px}
+  code{font-family:var(--mono);font-size:.89em;background:#f0f1ef;padding:1px 5px;border-radius:4px;word-break:break-word}
+  pre{background:#1a1410;color:#efe5dc;padding:16px 18px;border-radius:8px;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;margin:12px 0 16px}
+  pre code{background:none;padding:0;color:inherit;font-size:inherit;word-break:normal}
+  pre .c{color:#a08a76}
+  table{width:100%;border-collapse:collapse;margin:14px 0 10px;font-size:13.4px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#fafaf8;font-weight:600;font-size:12.4px;letter-spacing:.03em;color:var(--muted);white-space:nowrap}
+  tbody tr:hover{background:#fcfcfb}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:.04em;vertical-align:2px}
+  .b0{background:var(--danger-soft);color:var(--danger)}
+  .b1{background:var(--warn-soft);color:var(--warn)}
+  .b2{background:var(--accent-soft);color:var(--accent)}
+  .bok{background:var(--ok-soft);color:var(--ok)}
+  .callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px}
+  .callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+  .callout.danger{border-left-color:var(--danger);background:var(--danger-soft)}
+  .callout.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+  ul,ol{margin:9px 0 15px;padding-left:22px}
+  li{margin:4px 0}
+  .muted{color:var(--muted)}
+  .small{font-size:12.8px}
+  .steps{list-style:none;padding:0;counter-reset:s}
+  .steps>li{position:relative;padding:12px 0 12px 46px;border-bottom:1px dashed var(--line);counter-increment:s}
+  .steps>li:last-child{border-bottom:none}
+  .steps>li::before{content:counter(s);position:absolute;left:0;top:13px;width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .steps b{display:block;margin-bottom:3px}
+  .check{list-style:none;padding:0;margin:8px 0}
+  .check li{position:relative;padding-left:26px;margin:6px 0;font-size:13.6px}
+  .check li::before{content:"";position:absolute;left:0;top:3px;width:14px;height:14px;border:1.5px solid #b9c2c7;border-radius:3px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .score{display:grid;grid-template-columns:1fr 120px;gap:10px;align-items:center;margin:8px 0}
+  .bar{height:9px;background:#eceff1;border-radius:6px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,#a55620,#7a3b12)}
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr}
+    nav.toc{position:static;border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:var(--paper)}
+    .grid2{grid-template-columns:1fr}
+    header.hero{padding:44px 20px 38px}
+    h1{font-size:28px}
+    section{padding:22px 18px}
+    .wrap{padding:0 14px 64px}
+  }
+  @media print{
+    body{background:#fff;font-size:11.4px}
+    header.hero{background:#7a3b12 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:26px 22px}
+    nav.toc{display:none}
+    .layout{display:block}
+    section{break-inside:avoid;border:none;padding:0 0 16px;margin-bottom:16px;border-bottom:1px solid var(--line);border-radius:0}
+    pre{white-space:pre-wrap}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <div class="kicker">Architecture Audit · Plan v2 · 2026-11-26</div>
+    <h1>架构断链审计<br>与升级方案 v2</h1>
+    <p class="lede">这一版回答一个更难的问题：上一版方案到底解决了什么、没解决什么。结论是——它只覆盖了约 25–30%。真正的痛点不是“层太多”，而是<b>代码删了、说法没删</b>：文档说在跑的功能，产线里可能一行都没调用。</p>
+    <div class="hero-meta">
+      <span>依据 <b>141 次提交 / 12 天 / AST 真实 import 图</b></span>
+      <span>发现 <b>13 个未接线模块 / 9 个文档死链</b></span>
+      <span>顺序修正 <b>先接线真相，后分包</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="layout">
+
+<nav class="toc">
+  <div class="t">目录</div>
+  <a href="#s0">0 · 结论与记分卡</a>
+  <a href="#s1">1 · 方法与边界</a>
+  <a href="#s2">2 · 五代同堂</a>
+  <a href="#s3">3 · 三类判定</a>
+  <a href="#s4">4 · 断链证据</a>
+  <a href="#s5">5 · 可移除清单</a>
+  <a href="#s6">6 · 认知成本重估</a>
+  <a href="#s7">7 · 升级方案 v2</a>
+  <a href="#s8">8 · 验收与棘轮</a>
+  <a href="#s9">9 · 与上一版的差异</a>
+  <a href="#s10">10 · 附：口径与复现</a>
+</nav>
+
+<main>
+
+<!-- 0 -->
+<section id="s0">
+  <h2><span class="num">00</span>结论与记分卡</h2>
+  <p class="sub">先承认：上一版没有打到核心。</p>
+  <table>
+    <thead><tr><th>核心痛点</th><th>上一版方案</th><th>实际结果</th><th class="num">覆盖</th></tr></thead>
+    <tbody>
+      <tr><td>五套“唯一入口”</td><td>改文档与命名</td><td>代码里仍是五套</td><td class="num">20%</td></tr>
+      <tr><td>门禁假绿</td><td>修 <code>check_report_isolation</code> 的 glob</td><td>只修一类；<code>check_dead_code</code> 仍把文档当“有人使用”</td><td class="num">50%</td></tr>
+      <tr><td>孤儿模块（写了没接线）</td><td>未涉及</td><td>仍有约 1,800 行未接线代码</td><td class="num">0%</td></tr>
+      <tr><td>文档说“已接入”</td><td>未涉及</td><td>9 个文档模块死链，1 个核心门禁静默消失</td><td class="num">0%</td></tr>
+      <tr><td>12 天叠五代</td><td>提了“分包”，排第一批</td><td>顺序错：分包应最后做</td><td class="num">10%</td></tr>
+      <tr><td>同内容重复实现</td><td>未涉及</td><td><code>chart_fit</code> 与 <code>report_flow</code> 各一份</td><td class="num">0%</td></tr>
+    </tbody>
+  </table>
+  <div class="callout danger">
+    <b>一句话：</b>上一版让新人“找得到路”，没让新人“知道哪条路是假的”。这个仓库最大的成本不是“不知道”，而是“知道错的”。
+  </div>
+</section>
+
+<!-- 1 -->
+<section id="s1">
+  <h2><span class="num">01</span>方法与边界</h2>
+  <p class="sub">先讲清楚证据是怎么来的，避免又一份“听起来专业”的判断。</p>
+  <table>
+    <thead><tr><th>证据类型</th><th>做法</th><th>能回答什么</th></tr></thead>
+    <tbody>
+      <tr><td>Git 史</td><td><code>git log</code> 141 条、churn、删除记录、tag、每日提交量</td><td>层是怎么长出来的、什么时候删过东西</td></tr>
+      <tr><td>真实 import 图</td><td>AST 解析全部 <code>.py</code>，识别 <code>import core.x</code> / <code>from core import (a, b)</code> 多行写法</td><td>哪些模块真的被调用，哪些只被测试引用</td></tr>
+      <tr><td>入口可达性</td><td>从 <code>guagua.py</code>、<code>r*/agent.py</code>、<code>scripts/*.py</code> 出发做 BFS</td><td>哪些模块从任何生产入口都不可达</td></tr>
+      <tr><td>文档对账</td><td>扫描文档里的 <code>core/X.py</code> 与 <code>python -m core.X</code></td><td>文档是否指向已删除模块</td></tr>
+      <tr><td>真实产物</td><td>读 <code>projects/nm-vegetable</code> 的 claims 与 manifest</td><td>legacy / paper / echo 等分支是否真的被走过</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn">
+    <b>边界说明：</b>首次提交 <code>c4a073d init</code> 是一次 squash，2026-11-13 之前的演进不可考。v1–v8 的痕迹只存在于 docstring 与文档中，因此“历史遗留”只能在当前代码里按证据判定，不能按作者意图判定。
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <h2><span class="num">02</span>五代同堂：12 天里发生了什么</h2>
+  <p class="sub">141 次提交、单日最高 33 次；每次升级都是“上层加壳”，很少同时退休下层。</p>
+  <table>
+    <thead><tr><th>日期</th><th>世代</th><th>关键提交</th><th>留下的东西</th></tr></thead>
+    <tbody>
+      <tr><td>11-13</td><td>初始化</td><td><code>c4a073d</code></td><td>20 角色 + 报告体系 + 数据端口</td></tr>
+      <tr><td>11-15</td><td>题库 → 数据推导</td><td><code>436f36d</code> 删题库</td><td>题库没了，<code>decision._BANK_LEGACY</code> 还在</td></tr>
+      <tr><td>11-17</td><td>v9 / v10 报告线</td><td><code>9cf4bd7</code>、<code>bd7fa38</code>、P9–P13</td><td><code>claim_card</code> / <code>claim_gate</code>（接在当时还没删的 <code>report_compose</code>）</td></tr>
+      <tr><td>11-18</td><td>v11 单入口 + v12 清理</td><td><code>a92d832</code>、<code>1874648</code>（删 52 个死模块）、<code>f84ca8e</code>（删 v9 语义层）</td><td><code>report_line</code> 作为“转发实现”留下；v12.2 又起 <code>dispatch</code></td></tr>
+      <tr><td>11-19</td><td>prose / flow</td><td><code>d0de7a4</code>、<code>0000453</code></td><td><code>prose_critic</code>、<code>evidence_graph</code>、<code>argument_plan</code></td></tr>
+      <tr><td>11-20</td><td>charts_pro</td><td><code>ac7aae2</code></td><td><code>core/charts/v2</code> 下线</td></tr>
+      <tr><td>11-21</td><td>拆卡闭环</td><td><code>73250a6</code>、<code>1b570f1</code></td><td><code>card_*</code> 五个模块</td></tr>
+      <tr><td>11-23</td><td>一天五个 SOP 版本</td><td>数据 v2、采集 v3、推导 v4、可行性 v5、供给 v7.2</td><td><code>data_*</code>、<code>collection_*</code>、<code>coverage_*</code>、<code>task_*</code></td></tr>
+      <tr><td>11-23</td><td>一次失败的简化</td><td><code>8ce7af0</code> “逻辑分组入口，文件物理不动”</td><td>10 个懒加载组，<b>全仓仅 docstring 示例在用</b></td></tr>
+      <tr><td>11-25</td><td>项目边界 + brief v2</td><td><code>f355fe5</code>、<code>e0aa12f</code>、<code>39cfc06</code></td><td>少数“设计清楚且真落地”的改动</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <b>关键判断：</b>这个团队删代码很勤快（一次删 52 个模块、45 个脚本、36 个死资产），但<b>不删“说法”</b>。代码删了，文档、测试、docstring、<code>__init__</code> 导出、白名单还留着，于是长出一批“幽灵”。
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <h2><span class="num">03</span>三类判定</h2>
+  <p class="sub">有意为之 / 历史遗留 / 为已不存在的问题而存在。</p>
+
+  <h3>3.1 有意为之，且应保留</h3>
+  <table>
+    <thead><tr><th>设计</th><th>证据</th></tr></thead>
+    <tbody>
+      <tr><td>项目边界（项目资产出团）</td><td><code>f355fe5</code> + <code>b0c05f6</code>；门禁 PASS；真实项目在 <code>projects/</code> 外</td></tr>
+      <tr><td>门禁锁（改门禁必须留痕）</td><td><code>check_gate_lock</code> 常绿，哈希变化可见</td></tr>
+      <tr><td>nonce + 50 唯一 URL + 降级显式</td><td>nm-vegetable 的 <code>claims_merged.json</code> 带 dispatch/coverage 与三条 degraded</td></tr>
+      <tr><td><code>expert_brief</code> v2（卡=信封）</td><td><code>e0aa12f</code>；七层 / 五门槛 / 18 条上限门禁</td></tr>
+      <tr><td><code>role_runtime</code></td><td>20/20 角色的 <code>agent.py</code> 都接入，是唯一成功的共享抽象</td></tr>
+      <tr><td>图表契约 / 结构同构 F12 / 隐私扫描</td><td>都抓到过真问题，属于护城河</td></tr>
+      <tr><td><code>core_files.json</code> 白名单</td><td>有意为之但过重：12 天被改 15 次</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.2 历史遗留，可以收口</h3>
+  <table>
+    <thead><tr><th>遗留物</th><th class="num">体量</th><th>为什么是遗留</th></tr></thead>
+    <tbody>
+      <tr><td><code>report_line</code> 转发层</td><td class="num">202 行</td><td>迁移期的“转发实现”，迁移完成后没折叠</td></tr>
+      <tr><td><code>dispatch</code> + <code>report_dispatch</code></td><td class="num">1,545 行</td><td>一个发卡收卡、一个拆卡发卡；按历史切，不按概念切</td></tr>
+      <tr><td><code>report_thesis</code> 侧线</td><td class="num">137 行</td><td>主线已清 lens/thesis，只有 <code>report plan</code> 侧命令还在用</td></tr>
+      <tr><td><code>flow_report</code> 的 legacy 引擎</td><td class="num">约 30 行</td><td>真实 manifest：<code>legacy=0</code>，从没走过</td></tr>
+      <tr><td><code>chat</code> / <code>paper</code> / <code>--allow-legacy</code></td><td class="num">约 90 行</td><td>已废弃仍注册；真实项目无老卡</td></tr>
+      <tr><td><code>decision._BANK_LEGACY</code></td><td class="num">约 40 行</td><td>题库 11-15 已删，遗留列表还在</td></tr>
+      <tr><td>10 个懒加载分组</td><td class="num">105 行</td><td><code>8ce7af0</code> 的尝试，零实际 import，只增加第二套词汇</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.3 为“已不存在的问题”而存在（最危险）</h3>
+  <table>
+    <thead><tr><th>模块</th><th class="num">体量</th><th>证据</th></tr></thead>
+    <tbody>
+      <tr><td><code>claim_card</code> + <code>claim_gate</code></td><td class="num">512</td><td>文档写“接入 <code>report_compose</code>”，而该模块 11-18 已删除；全仓无产线调用</td></tr>
+      <tr><td><code>chart_fit</code></td><td class="num">96</td><td>无 import；<code>report_flow</code> 内有重复实现 <code>chart_fitness_errors</code></td></tr>
+      <tr><td><code>prose_critic</code></td><td class="num">68</td><td>只有 tests 引用；正文门禁实际走 <code>prose_style</code> + F10/F12</td></tr>
+      <tr><td><code>evidence_graph</code> / <code>argument_plan</code> / <code>spec_extract</code></td><td class="num">180</td><td>只有 tests 引用；11-19 那一批“证据图/论证计划”未接线</td></tr>
+      <tr><td><code>coverage_cli</code> + <code>task_frame</code> + <code>task_research</code></td><td class="num">263</td><td>互相成环、无外部入口；文档却让你跑 <code>python -m core.coverage</code>（已删除）</td></tr>
+      <tr><td><code>analysis_lab</code></td><td class="num">557</td><td>只在 <code>domain_pack</code> 的 help 文本出现，主链不调用</td></tr>
+      <tr><td><code>gate_chain</code></td><td class="num">131</td><td><code>audit_dod</code> 只读源码文本做检查，从不执行</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">合计约 1,807 行。它们让“测试全绿”失去意义：绿的是孤儿，不是产线。</p>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2><span class="num">04</span>断链证据：四个可复现的案例</h2>
+  <p class="sub">每条都能用命令复核，不靠印象。</p>
+
+  <h3>4.1 ClaimCard 门禁静默消失</h3>
+  <pre><code><span class="c"># docs/REPORT-CLAIM-GATE.md 开头</span>
+实现：core/claim_gate.py，接入 core/report_compose.py。
+
+<span class="c"># 现实</span>
+core/report_compose.py      <span class="c"># 已在 a17641c（11-18）删除</span>
+core/claim_gate.py          <span class="c"># 全仓无 import，仅 __init__ / docs / tests 提及</span></code></pre>
+  <p>结果：文档承诺的“头条必须有 falsifier、来源 grade ≤ B”<b>没有在跑</b>；测试之所以绿，是因为它单测的是孤儿本身。</p>
+
+  <h3>4.2 同一功能两份实现</h3>
+  <pre><code>core/chart_fit.py                     <span class="c"># 96 行，无 import</span>
+core/report_flow.py:1360              <span class="c"># chart_fitness_errors()，产线真正在用的那份</span></code></pre>
+  <p>结果：新人改 <code>chart_fit</code> 不会生效；读代码会误以为选型逻辑有两套规范。</p>
+
+  <h3>4.3 文档指向已删除模块</h3>
+  <pre><code>docs/REPORT-CAPABILITY-GRAPH.md:126
+python -m core.coverage ...           <span class="c"># core/coverage.py 已删除，现为 coverage_cli.py（也无人调用）</span></code></pre>
+  <p>文档死链共 <b>9 个模块</b>：<code>question_bank</code>、<code>report_compose</code>、<code>report_build</code>、<code>focus_contract</code>、<code>capability_graph</code>、<code>coverage</code>、<code>fulfil</code>、<code>gate</code>、<code>question_library</code>。其中 <code>REPORT-LINES.md</code> 是主要入口文档。</p>
+
+  <h3>4.4 死代码门禁把“文档提及”当“有人使用”</h3>
+  <pre><code>scripts/check_dead_code.py
+elif real_men:
+    verdict, why = "SCRIPT", "被脚本/CI/文档调用"   <span class="c"># ← 文档也算</span></code></pre>
+  <p>结果：<code>report_assembly</code> 因文档提及被归为 SCRIPT；真正的孤儿也能靠一句文档描述“续命”。</p>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2><span class="num">05</span>可移除清单（按风险分层）</h2>
+  <p class="sub">A 现在就能删；B 先改文档；C 需要产品决定；D 是分支级清理。</p>
+
+  <table>
+    <thead><tr><th>层</th><th>文件</th><th class="num">行数</th><th>动作 / 前提</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="badge bok">A 零影响</span></td>
+        <td><code>chart_fit</code>、<code>argument_plan</code>、<code>spec_extract</code>、<code>evidence_graph</code>、<code>prose_critic</code></td>
+        <td class="num">344</td>
+        <td>确认 <code>report_flow</code> / <code>prose_style</code> 已覆盖同判据后删除；同步删对应测试与 <code>__init__</code> 导出</td>
+      </tr>
+      <tr>
+        <td><span class="badge b1">B 先改文档</span></td>
+        <td><code>coverage_cli</code> + <code>task_frame</code> + <code>task_research</code>；<code>analysis_lab</code>；<code>gate_chain</code></td>
+        <td class="num">951</td>
+        <td>要么收成一个正式命令 / 真跑的门禁，要么删除；<code>REPORT-CAPABILITY-GRAPH.md</code> 必须同步</td>
+      </tr>
+      <tr>
+        <td><span class="badge b0">C 产品决定</span></td>
+        <td><code>claim_card</code> + <code>claim_gate</code></td>
+        <td class="num">512</td>
+        <td>接回 <code>report_flow</code>（恢复头条门禁），或明确归档并改掉“唯一 schema”的说法；不能悬着</td>
+      </tr>
+      <tr>
+        <td><span class="badge b1">D 分支清理</span></td>
+        <td>legacy 引擎、<code>chat</code>、<code>paper</code>、<code>--allow-legacy</code>、<code>_BANK_LEGACY</code></td>
+        <td class="num">约 200</td>
+        <td>真实产物 <code>legacy=0</code>、无老卡项目；按弃用协议一版后删除</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout warn">
+    <b>删除顺序很重要：</b>先删 A，再处理 B/C，最后动 D。反过来会把“还在被真实分支使用”的东西误删——仓库里已有先例：<code>flow --project</code> 被删后又在 <code>2da93ba</code> 恢复。
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <h2><span class="num">06</span>认知成本重估</h2>
+  <p class="sub">上一版算“读多少行”，这一版算“有多少错误信念要纠正”。</p>
+  <table>
+    <thead><tr><th>陷阱</th><th>新人的典型错误</th><th>代价</th></tr></thead>
+    <tbody>
+      <tr><td>文档指向已删模块</td><td>按 <code>REPORT-LINES</code> 找 <code>report_build</code>，怀疑环境坏了</td><td>半天起</td></tr>
+      <tr><td>测试保护孤儿</td><td>以为 ClaimCard 门禁在跑</td><td>上线后才发现头条无保护</td></tr>
+      <tr><td>同一功能两份实现</td><td>改 <code>chart_fit</code> 不生效</td><td>返工 + 误判</td></tr>
+      <tr><td>两个“唯一 schema”</td><td><code>claim_card</code> 与 <code>claims.py</code> 都自称唯一</td><td>选错模型</td></tr>
+      <tr><td>懒加载组无人用</td><td>按 <code>core.gates</code> 写代码，发现没人这么写</td><td>风格分裂</td></tr>
+      <tr><td>五套“唯一入口”</td><td>排障从错误层级开始</td><td>定位成本翻倍</td></tr>
+    </tbody>
+  </table>
+
+  <h4>“可信度”记分（文档声明 vs 实际接线）</h4>
+  <div class="score"><span>入口叙事（5 个“唯一”，真的 1 个）</span><div class="bar"><i style="width:20%"></i></div></div>
+  <div class="score"><span>ClaimCard 门禁（文档说在跑，实际未接）</span><div class="bar"><i style="width:0%"></i></div></div>
+  <div class="score"><span>图表选型（两份实现，产线只用一份）</span><div class="bar"><i style="width:50%"></i></div></div>
+  <div class="score"><span>文档模块链接（存在率）</span><div class="bar"><i style="width:78%"></i></div></div>
+  <div class="score"><span>core 模块接线率（125 个中约 112 个可达）</span><div class="bar"><i style="width:90%"></i></div></div>
+
+  <div class="callout danger">
+    最贵的一课：<b>“测试全绿”不等于“功能在跑”。</b>当测试只覆盖孤儿时，绿灯会制造虚假安全感，这比红灯更危险。
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <h2><span class="num">07</span>升级方案 v2</h2>
+  <p class="sub">顺序修正：先建“接线真相”，再删幽灵，再谈分包与合并。</p>
+
+  <ol class="steps">
+    <li><b>P0 · 接线真相表（不改代码）</b>
+      <p class="small">自动生成：<code>功能 → 生产入口 → 模块 → 非测试 import → 文档声明</code>。规则：从 <code>guagua.py</code>、<code>r*/agent.py</code>、<code>scripts/*.py</code> 出发做可达性；<code>python -m core.X</code> 也算入口；只有测试引用标 <code>UNWIRED</code>；文档提及但文件不存在标 <code>DOC_DEAD</code>；环境变量只在死代码里被读标 <code>ENV_DEAD</code>。</p>
+    </li>
+    <li><b>P1 · 修第二类假绿（半天）</b>
+      <p class="small"><code>check_dead_code</code> 改成“只有非文档、非测试的代码引用才算 LIVE/SCRIPT”；纯文档提及必须进显式 allowlist 并写理由。新增 <code>check_doc_code_links</code>：文档里的 <code>core/X.py</code>、<code>python -m core.X</code> 必须存在。保留上一版的 isolation glob 修复。</p>
+    </li>
+    <li><b>P2 · 断舍离 A / B（约 1,300 行）</b>
+      <p class="small">先删零影响孤儿，再处理 coverage / analysis_lab / gate_chain 并同步文档。验收：<code>UNWIRED ≤ 5</code>（allowlist 内）、<code>DOC_DEAD = 0</code>。</p>
+    </li>
+    <li><b>P3 · 世代台账 + 弃用协议</b>
+      <p class="small">每个关注点一行 <code>CURRENT / LEGACY / REMOVAL_CONDITION</code>；新增层 PR 必须写“替代谁、何时删、删前保留什么读路径”；<code>UNWIRED</code>、<code>DOC_DEAD</code>、<code>唯一入口</code> 三个计数只许下降（棘轮）。</p>
+    </li>
+    <li><b>P4 · 再谈物理分包</b>
+      <p class="small">上一版的 PR 2–6 放到这里。否则只是把 1,800 行死代码搬进 8 个更整齐的包。注意：仓库已有一次“只做逻辑分组、不动文件”的失败尝试（<code>8ce7af0</code>），零 import 使用——分包必须落到 import 规范，不能只写文档。</p>
+    </li>
+    <li><b>P5 · 最后才是模型收敛</b>
+      <p class="small">先决定 ClaimCard 是“接回”还是“归档”，再做 claim / cells / prose / card 四合一；否则会把孤儿合并进主模型，等于给死代码续命。</p>
+    </li>
+  </ol>
+
+  <h3>7.1 决策点（需要拍板）</h3>
+  <table>
+    <thead><tr><th>决策</th><th>选项</th><th>建议</th></tr></thead>
+    <tbody>
+      <tr><td>ClaimCard 头条门禁</td><td>A 接回 <code>report_flow</code>；B 明确归档</td><td>A。它是真需求（决策级断言必须有 falsifier），且代码已写好，接回成本低于重写</td></tr>
+      <tr><td>coverage 工具链</td><td>A 收成一个 <code>guagua coverage</code>；B 删除</td><td>看是否还有人手工用；没有就删，别留“文档里有、代码里没有”</td></tr>
+      <tr><td>analysis_lab</td><td>A 保留为手工工具并补入口；B 删除</td><td>557 行且无产线调用；若无日常使用，删</td></tr>
+      <tr><td>分包范围</td><td>A 只分 8 包；B 分 8 包 + 删懒加载组</td><td>B。懒加载组是失败尝试，留着只会增加第二套词汇</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <h2><span class="num">08</span>验收与棘轮</h2>
+  <p class="sub">不看“感觉清爽了”，看计数。</p>
+  <table>
+    <thead><tr><th>指标</th><th class="num">当前</th><th class="num">目标</th><th>检查方式</th></tr></thead>
+    <tbody>
+      <tr><td>未接线 core 模块（UNWIRED）</td><td class="num">13</td><td class="num">≤ 5</td><td><code>wiring_truth --check</code></td></tr>
+      <tr><td>文档死链模块（DOC_DEAD）</td><td class="num">9</td><td class="num">0</td><td><code>check_doc_code_links</code></td></tr>
+      <tr><td>“唯一入口”声明</td><td class="num">5</td><td class="num">1</td><td>全仓 grep + allowlist</td></tr>
+      <tr><td>claim 模型</td><td class="num">4 套</td><td class="num">1 套 + 1 编译器</td><td>schema 字符串计数</td></tr>
+      <tr><td>core 平铺模块</td><td class="num">125</td><td class="num">8 包 / ≤60</td><td>目录扫描</td></tr>
+      <tr><td>core 导出</td><td class="num">114</td><td class="num">≤20</td><td><code>__all__</code> 长度</td></tr>
+      <tr><td>改正文必读</td><td class="num">10 文件 / 4,913 行</td><td class="num">5 文件 / ≤2,000 行</td><td>文档化必读清单</td></tr>
+    </tbody>
+  </table>
+  <div class="callout ok">
+    <b>棘轮规则：</b>以上六个数字，每个 PR 只允许下降或持平；任何上升必须在 PR 描述里写明理由。这是防止“再叠一层”的唯一机械手段。
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <h2><span class="num">09</span>与上一版方案的差异</h2>
+  <table>
+    <thead><tr><th>项</th><th>上一版</th><th>v2</th><th>为什么改</th></tr></thead>
+    <tbody>
+      <tr><td>第一批做什么</td><td>文档 + 术语 + 门禁索引</td><td>接线真相表 + 两类假绿</td><td>先知道哪些功能是真的，再写文档</td></tr>
+      <tr><td>分包位置</td><td>第一批（PR 2–6）</td><td>倒数第二步</td><td>搬孤儿是浪费；已有懒加载尝试失败的先例</td></tr>
+      <tr><td>模型收敛</td><td>第三批</td><td>最后一步</td><td>先决定孤儿归属，再合并，否则给死代码续命</td></tr>
+      <tr><td>ClaimCard</td><td>未识别</td><td>列为 P2 决策点</td><td>文档说在跑、实际未接线，是最贵的一类缺陷</td></tr>
+      <tr><td>死代码门禁</td><td>只修 isolation</td><td>同时修 dead-code 的“文档即使用”</td><td>否则删完仍会被文档“复活”</td></tr>
+      <tr><td>认知成本口径</td><td>必读行数</td><td>必读行数 + 错误信念数</td><td>“知道错的”比“不知道”更贵</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <h2><span class="num">10</span>附：口径与复现</h2>
+  <p class="sub">所有数字都可以重跑，不依赖本文档。</p>
+  <pre><code><span class="c"># 1) 历史体量</span>
+git log --oneline | wc -l
+git log --date=short --pretty="%ad" | sort | uniq -c
+git log --diff-filter=D --name-only --pretty=format: -- core
+
+<span class="c"># 2) 改动最频繁的文件</span>
+git log --name-only --pretty=format: | grep . | sort | uniq -c | sort -rn | head -30
+
+<span class="c"># 3) 接线真相（要点）</span>
+<span class="c">#    用 AST 读 import，而不是 grep：多行 from core import (a, b) 会漏</span>
+<span class="c">#    roots = guagua.py + r*/agent.py + scripts/*.py</span>
+<span class="c">#    仅被 tests/ 引用 → UNWIRED；文档提及但文件不存在 → DOC_DEAD</span>
+
+<span class="c"># 4) 真实产物用了哪些分支</span>
+cat ../projects/nm-vegetable/out/report/manifest.json
+<span class="c"># chart_engine: {"pro": 8, "legacy": 0, "table": 10}</span></code></pre>
+  <div class="callout">
+    <b>这份文档的用途：</b>它替代 <code>修复执行手册</code> 里的顺序（不是替代内容）。执行时以本文第 07 节的 P0–P5 为准，原手册的六步搬迁法仍然适用于 P4。
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+</body>
+</html>

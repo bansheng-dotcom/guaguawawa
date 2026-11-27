@@ -1,0 +1,48 @@
+{
+  "article_count": 44,
+  "total_chars": 310369,
+  "sentence_length": {
+    "mean": 41.4669214361371,
+    "median": 37
+  },
+  "paragraph_length": {
+    "mean_sentences": 5.599866915149499
+  },
+  "punctuation": {
+    "comma_per_sentence": 1.932175812515147,
+    "question_per_paragraph": 0.6377222416018181
+  },
+  "top_transitions": {
+    "而": 514,
+    "但是": 332,
+    "所以": 324,
+    "例如": 315,
+    "比如": 313,
+    "那么": 255,
+    "对于": 232,
+    "其实": 155,
+    "同时": 70,
+    "你会发现": 59,
+    "本质": 37,
+    "因此": 35,
+    "在实际": 32,
+    "不过": 30,
+    "问题是": 20,
+    "如果说": 13,
+    "也就是说": 11,
+    "另外": 8,
+    "答案是": 7,
+    "总的来说": 5
+  },
+  "opening_patterns": {
+    "starts_with_data": 18,
+    "starts_with_question": 3
+  },
+  "pronouns": {
+    "first_person_per_1000": 5.572809982200958,
+    "second_person_per_1000": 3.9817834857016097
+  },
+  "question_density": 0.06999874870383815,
+  "four_char_phrase_density": 7.356673929534511,
+  "colloquial_density": 0.03227027402591696
+}

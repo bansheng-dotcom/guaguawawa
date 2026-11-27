@@ -1,0 +1,55 @@
+workflow_id: requirement-report
+version: "0.2"
+type: optional_review_hints
+
+purpose: >
+  给需求分析报告作者生成“后续可能需要谁补证据或复核”的提醒。这里不是触发图，
+  不写死本地 agent 路径，也不自动分派任务。
+
+rules:
+  - 需求分析报告本身不依赖这些提醒才能完成。
+  - 只在报告的“下一步”里提示可能需要的角色或能力。
+  - 提醒使用角色类型，不使用本机路径。
+
+review_hints:
+  user_research_reviewer:
+    remind_when:
+      - 需求成立依赖用户访谈、行为观察或问卷
+    ask_them_to_check:
+      - 用户原话是否代表真实场景
+      - 是否只听了高声量用户
+      - 是否需要补访谈或样本分层
+
+  data_reviewer:
+    remind_when:
+      - 报告引用指标、频次、流失、转化、使用行为
+      - 无数据但报告会影响高成本开发、资源排期或战略取舍
+    ask_them_to_check:
+      - 指标口径是否清楚
+      - 样本量和分组是否足够
+      - 是否存在平均数、比例或渠道误导
+      - 是否必须先补证据层再进入 PRD
+
+  ui_reviewer:
+    remind_when:
+      - 需求核心是体验、页面、流程、可用性或信息架构
+    ask_them_to_check:
+      - 问题是否来自体验路径
+      - 是否能用低保真原型验证
+      - 是否存在更低成本交互方案
+
+  technical_reviewer:
+    remind_when:
+      - 需求判断依赖技术可行性、系统约束、自动化或 AI 能力
+    ask_them_to_check:
+      - 技术约束是否会改变需求范围
+      - 是否有更低成本的实现或验证方式
+      - 失败、权限、成本和人工兜底是否影响需求强度
+
+  prd_next_step:
+    remind_when:
+      - 需求强度高、范围初步清楚、用户确认继续
+    ask_them_to_check:
+      - 是否应转入 prd-report
+      - 是否先建需求卡
+      - 是否还有阻止写 PRD 的关键缺口

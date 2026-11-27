@@ -88,3 +88,6 @@ examples/*/out/
 
 # 2026-11-20 调研测试复盘用的临时证据目录（share 会话快照 / 探针脚本）
 _trae_audit/
+
+# ---- 嵌套外部 clone（自带 .git，不能作为普通文件纳入，避免坏 gitlink）----
+_compare/dar/

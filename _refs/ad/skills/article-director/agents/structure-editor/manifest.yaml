@@ -1,0 +1,24 @@
+﻿# manifest.yaml — 后期结构编辑
+name: "structure-editor"
+version: "1.0"
+status: "active"
+description: "后期结构编辑"
+
+io:
+  inputs:
+    - "drafted section"
+  outputs:
+    - "revised section Markdown"
+
+execution:
+  temperature: 0.0
+  node_type: "agent"
+  parallel: false
+
+prompt_ref: "prompts.yaml#agents.structure-editor"
+
+dependencies:
+  agents: []
+  scripts: []
+  references: []
+

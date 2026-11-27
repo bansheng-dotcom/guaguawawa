@@ -1,0 +1,33 @@
+workflow_id: mvp-validation
+version: "0.1"
+type: optional_review_hints
+
+purpose: >
+  给 MVP 验证计划生成可选复核提醒。这里不是触发图，不写死本地 agent 路径。
+
+rules:
+  - 只提醒角色类型。
+  - 不自动执行实验。
+
+review_hints:
+  data_reviewer:
+    remind_when:
+      - 实验依赖行为数据、转化、留存或成本
+    ask_them_to_check:
+      - 指标是否能判断假设
+      - 样本和时间窗是否足够
+      - 是否需要埋点或数据源确认
+
+  ui_reviewer:
+    remind_when:
+      - 实验依赖原型、页面理解或交互路径
+    ask_them_to_check:
+      - 原型是否足以验证任务
+      - 是否有更低成本表达方式
+
+  technical_reviewer:
+    remind_when:
+      - 实验依赖自动化、AI、系统集成或后台任务
+    ask_them_to_check:
+      - 是否能用人工方式先验证
+      - 技术约束是否改变实验范围

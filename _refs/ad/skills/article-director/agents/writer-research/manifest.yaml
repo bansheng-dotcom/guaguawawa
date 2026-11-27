@@ -1,0 +1,25 @@
+﻿# manifest.yaml — 证据填充与段落写作
+name: "writer-research"
+version: "2.1"
+status: "active"
+description: "证据填充与段落写作"
+
+io:
+  inputs:
+    - "detailed outline"
+    - "article-packages.json"
+  outputs:
+    - "package output path"
+
+execution:
+  temperature: 0.35
+  node_type: "agent"
+  parallel: true
+
+prompt_ref: "prompts.yaml#agents.writer-research"
+
+dependencies:
+  agents: []
+  scripts: ['scripts/check_article.py']
+  references: []
+

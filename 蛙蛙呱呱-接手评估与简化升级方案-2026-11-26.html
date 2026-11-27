@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛙蛙呱呱专家团 · 接手评估与简化升级方案</title>
+<style>
+  :root{
+    --ink:#17181a; --muted:#5f646b; --line:#e3e5e8; --bg:#f7f6f3;
+    --paper:#ffffff; --accent:#0f5c4b; --accent-soft:#e6f1ee;
+    --warn:#8a4b12; --warn-soft:#fbf0e4; --danger:#8c2f2f; --danger-soft:#faeceb;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px 96px}
+  header.hero{
+    background:linear-gradient(160deg,#10241f 0%,#0f5c4b 62%,#177a63 100%);
+    color:#f3f7f5;padding:64px 28px 56px;margin-bottom:40px;
+  }
+  header.hero .inner{max-width:1124px;margin:0 auto}
+  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.72;margin-bottom:18px}
+  h1{font-size:38px;line-height:1.24;margin:0 0 16px;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:17px;line-height:1.8;max-width:760px;opacity:.9;margin:0}
+  .hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:32px;font-size:13px;opacity:.82}
+  .hero-meta b{font-weight:600}
+
+  .layout{display:grid;grid-template-columns:230px 1fr;gap:44px;align-items:start}
+  nav.toc{position:sticky;top:24px;font-size:13.5px;line-height:1.6}
+  nav.toc .t{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 0;border-left:2px solid transparent;padding-left:12px}
+  nav.toc a:hover{color:var(--accent);border-left-color:var(--accent)}
+  nav.toc a.sub{padding-left:26px;font-size:12.5px}
+
+  main{min-width:0}
+  section{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:34px 36px;margin-bottom:26px}
+  h2{font-size:24px;margin:0 0 8px;letter-spacing:-.01em}
+  h2 .num{color:var(--accent);font-variant-numeric:tabular-nums;margin-right:10px;font-size:17px}
+  h3{font-size:17px;margin:30px 0 10px}
+  h4{font-size:14.5px;margin:20px 0 8px;color:var(--muted);letter-spacing:.02em}
+  p{margin:0 0 14px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+  a{color:var(--accent)}
+  code{font-family:var(--mono);font-size:.9em;background:#f1f2f0;padding:1px 5px;border-radius:4px}
+  pre{background:#12181a;color:#dfe7e4;padding:18px 20px;border-radius:8px;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+  pre code{background:none;padding:0;color:inherit;font-size:inherit}
+  table{width:100%;border-collapse:collapse;margin:16px 0 8px;font-size:13.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#fafaf8;font-weight:600;font-size:12.5px;letter-spacing:.03em;color:var(--muted);white-space:nowrap}
+  tbody tr:hover{background:#fcfcfa}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:12px;margin:20px 0 6px}
+  .card{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:#fdfdfb}
+  .card .q{font-size:11.5px;color:var(--muted);letter-spacing:.06em;margin-bottom:6px}
+  .card .v{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+  .card .u{font-size:11.5px;color:var(--muted);margin-top:4px}
+
+  .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:.04em;vertical-align:2px}
+  .b0{background:var(--danger-soft);color:var(--danger)}
+  .b1{background:var(--warn-soft);color:var(--warn)}
+  .b2{background:var(--accent-soft);color:var(--accent)}
+
+  .callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 6px 6px 0;margin:18px 0;font-size:14px}
+  .callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+  .callout.danger{border-left-color:var(--danger);background:var(--danger-soft)}
+  .callout b{font-weight:650}
+
+  ul,ol{margin:10px 0 16px;padding-left:22px}
+  li{margin:5px 0}
+  ul.tight li{margin:3px 0}
+  .muted{color:var(--muted)}
+  .small{font-size:12.8px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr}
+    nav.toc{position:static;border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:var(--paper)}
+    .grid2{grid-template-columns:1fr}
+    header.hero{padding:44px 20px 40px}
+    h1{font-size:29px}
+    section{padding:24px 20px}
+    .wrap{padding:0 14px 64px}
+  }
+  @media print{
+    body{background:#fff;font-size:11.5px}
+    header.hero{background:#0f5c4b !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:28px 24px}
+    nav.toc{display:none}
+    .layout{display:block}
+    section{break-inside:avoid;border:none;padding:0 0 18px;margin-bottom:18px;border-bottom:1px solid var(--line);border-radius:0}
+    pre{white-space:pre-wrap}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <div class="kicker">Handover Review · 2026-11-26</div>
+    <h1>接手认知成本评估<br>与简化升级方案</h1>
+    <p class="lede">假设明天来一位能力很强、但完全不了解项目的工程师。这份文档回答三件事：他要付出多少理解成本、这些成本具体产生在哪里、以及怎样分三批把它降下来而不破坏现有门禁。</p>
+    <div class="hero-meta">
+      <span>范围 <b>d:\蛙蛙呱呱\蛙蛙呱呱agents团</b></span>
+      <span>结论 <b>成本在术语与并行叙事，不在代码量</b></span>
+      <span>原则 <b>先导航，后外壳，最后动模型</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="layout">
+
+<nav class="toc">
+  <div class="t">目录</div>
+  <a href="#s1">1 · 一句话结论</a>
+  <a href="#s2">2 · 现状基线</a>
+  <a href="#s3">3 · 认知成本测算</a>
+  <a href="#s4">4 · 六类高成本问题</a>
+  <a href="#s5">5 · 升级方案总览</a>
+  <a href="#s6" class="sub">批次一 · 导航</a>
+  <a href="#s7" class="sub">批次二 · 外壳</a>
+  <a href="#s8" class="sub">批次三 · 模型</a>
+  <a href="#s9">6 · 不做清单</a>
+  <a href="#s10">7 · 目标形态</a>
+  <a href="#s11">8 · 新人上手路线</a>
+  <a href="#s12">9 · 风险与回滚</a>
+  <a href="#s13">10 · 需要拍板的事</a>
+</nav>
+
+<main>
+
+<!-- 1 -->
+<section id="s1">
+  <h2><span class="num">01</span>一句话结论</h2>
+  <p class="sub">先给判断，再给证据。</p>
+  <div class="callout">
+    <b>真正的门槛不是读代码，是同时握住几套互相矛盾的叙事。</b><br>
+    新人读代码的速度不会是瓶颈；他会在“五套唯一入口、四套 claim 模型、六种 card、三层知识注入”之间反复确认“哪个才是真的”，这才是成本。
+  </div>
+  <p>这个仓库的工程质量并不差：673 条单测、20 角色端到端全绿、门禁真跑且抓到过真问题（结构同构、图表契约、隐私扫描）。问题集中在<b>命名过载</b>与<b>历史层叠</b>——它们是“演进的副产品”，不是“水平不够”。所以方案也不应该是重写，而是<b>收口</b>。</p>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <h2><span class="num">02</span>现状基线</h2>
+  <p class="sub">先量化，避免“感觉很大”。</p>
+  <div class="cards">
+    <div class="card"><div class="q">PYTHON</div><div class="v">217,877</div><div class="u">行 / 1,162 文件</div></div>
+    <div class="card"><div class="q">CORE</div><div class="v">125</div><div class="u">个平铺模块 + 8 子包</div></div>
+    <div class="card"><div class="q">DOCS</div><div class="v">875</div><div class="u">个 md / 78,716 行</div></div>
+    <div class="card"><div class="q">GATES</div><div class="v">43</div><div class="u">个 check/audit/sync/gen</div></div>
+    <div class="card"><div class="q">ROLES</div><div class="v">2,990</div><div class="u">文件 / 20 个角色</div></div>
+    <div class="card"><div class="q">TESTS</div><div class="v">673</div><div class="u">条用例 / 29 文件</div></div>
+  </div>
+  <table>
+    <thead><tr><th>维度</th><th>现状</th><th>含义</th></tr></thead>
+    <tbody>
+      <tr><td>入口</td><td>guagua.py 22 个命令；report 下 17 个子命令</td><td>新人先要判断“从哪进”</td></tr>
+      <tr><td>门禁</td><td>28 个 <code>check_*</code>，但 <code>configs/gates.yaml</code> 只登记 3 条</td><td>门禁没有单一索引</td></tr>
+      <tr><td>角色代码</td><td>786 个 py 在角色目录内；run_tests 合计 11,001 行</td><td>大部分代码量在角色侧，不在核心</td></tr>
+      <tr><td>版本词汇</td><td>代码 v10/v11/v12，文档 v14</td><td>同一件事有多个版本号</td></tr>
+      <tr><td>文档</td><td>docs/ 46 份，含多份“升级 SOP / 现状”</td><td>不知道哪份是当前有效</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <h2><span class="num">03</span>认知成本测算</h2>
+  <p class="sub">用“必须同时读懂多少文件/行”来衡量，而不是用主观感受。</p>
+  <table>
+    <thead><tr><th>任务</th><th class="num">必读文件</th><th class="num">必读行数</th><th>还必须理解的隐形规则</th></tr></thead>
+    <tbody>
+      <tr><td>跑通一条报告线</td><td class="num">8</td><td class="num">3,929</td><td>4 个“唯一入口”谁是主、<code>--solo-claims</code> 降级、gate lock</td></tr>
+      <tr><td>改一次正文写法</td><td class="num">10</td><td class="num">4,913</td><td>F10 字数 / F12 同构、prose 五个模块的分工</td></tr>
+      <tr><td>改拆卡 / 收卡</td><td class="num">10</td><td class="num">3,929</td><td>nonce、coverage 对账、dispatch 与 report_dispatch 边界</td></tr>
+      <tr><td>改一张图</td><td class="num">15</td><td class="num">3,455</td><td>14 个 <code>chart_*</code>、48/70 型注册表、图表契约、字段契约</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn">
+    <b>最刺眼的一条：改一行正文，要先读近 5,000 行、分布在 10 个文件里。</b>
+    这不是“代码写得差”，而是职责被切得太碎、且命名分辨不出边界。
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2><span class="num">04</span>六类高成本问题</h2>
+  <p class="sub">每条都给证据与“为什么贵”。</p>
+
+  <h3>4.1 五套“唯一入口”叙事</h3>
+  <table>
+    <thead><tr><th>文件</th><th>自称</th></tr></thead>
+    <tbody>
+      <tr><td><code>core/report_cli.py:2</code></td><td>唯一报告产线入口（v10）</td></tr>
+      <tr><td><code>core/report_cli.py:484</code></td><td>v11 唯一入口（P1：转发实现）</td></tr>
+      <tr><td><code>core/report_flow.py:2</code></td><td>唯一的报告产线</td></tr>
+      <tr><td><code>core/report_line.py:2</code></td><td>唯一报告生产线（v11，转发实现）</td></tr>
+      <tr><td><code>core/dispatch.py:1</code></td><td>发卡、收 claims、合并出报告（v12.2）</td></tr>
+    </tbody>
+  </table>
+  <p>再加 <code>flow_report.py</code>（项目模板线）与 <code>report_dispatch.py</code>（拆卡发卡）。“哪条才是真的”要看 <code>cmd_run_line</code> 里 170 行内联逻辑才知道。<b>为什么贵：</b>入口决定排障起点，选错叙事就会在错误的层级找 bug。</p>
+
+  <h3>4.2 一个词六个意思</h3>
+  <table>
+    <thead><tr><th>词</th><th class="num">含义数</th><th>例子</th></tr></thead>
+    <tbody>
+      <tr><td><code>card</code></td><td class="num">≥6</td><td>任务卡、探源卡、判断格、ClaimCard、经验卡、技能卡</td></tr>
+      <tr><td><code>brief</code></td><td class="num">4</td><td>expert_brief v2、<code>report brief</code> 命令、签字、<code>brief_ref</code></td></tr>
+      <tr><td><code>claim(s)</code></td><td class="num">4 套模型</td><td><code>claims.Claim</code>、<code>claims_v4</code>、<code>ClaimCard</code>、<code>cell_claim</code></td></tr>
+      <tr><td><code>profile</code></td><td class="num">4</td><td>prompt_profile.json、role_profiles.py、configs/rNN.yaml、用户画像</td></tr>
+      <tr><td><code>line / flow / chain / pipeline</code></td><td class="num">6</td><td>report_line、report_flow、flow_report、gate_chain、analysis_pipeline、semantic_pipeline</td></tr>
+      <tr><td><code>pack</code></td><td class="num">4</td><td>prompt_pack、agent-packs、evidence_pack、claims 包</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 同一概念四套模型，且各自都“唯一”</h3>
+  <ul class="tight">
+    <li><code>claims.py</code> —— <code>class Claim</code>，论证层；</li>
+    <li><code>claims_v4.py</code> —— claim → slice → encoding → findings；</li>
+    <li><code>claim_card.py</code> —— 自称“决策级断言的唯一 schema”；</li>
+    <li><code>cell_claim.py</code> —— 判断格 schema；</li>
+    <li>再叠加 <code>cells_claims.py</code>（格子→claims）与 <code>cells_unified.py</code>（承认“同一格可能得到三个数”）。</li>
+  </ul>
+  <p><b>为什么贵：</b>“三套读数”写进了注释，说明这是已知债务。新人会以为自己理解错了，反复重读。</p>
+
+  <h3>4.4 抽象过度：空壳层与重复导出</h3>
+  <table>
+    <thead><tr><th>证据</th><th>成本</th></tr></thead>
+    <tbody>
+      <tr><td><code>card_bundle.py</code> 27 行，纯转发给 brief</td><td>读一条链路要开三个文件</td></tr>
+      <tr><td><code>shared/knowledge/</code> 整个包只有 <code>brief.py</code></td><td>包层级不承载信息</td></tr>
+      <tr><td><code>core/__init__.py</code> 114 个导出，15 个重复</td><td>看不出公共 API 边界</td></tr>
+      <tr><td>prose 五个模块（spec / candidates / gen / style / critic）</td><td>契约、生成、门禁、盲评四种职责，名字分不出</td></tr>
+      <tr><td>三层知识注入（knowledge_base / experience_cards / knowledge/brief）</td><td>改一处要同步三处</td></tr>
+      <tr><td>两套 prompt 层（prompt_pack / prompt_gateway / role_runtime）</td><td>边界靠读代码才知道</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.5 上帝函数：一次吃满上下文</h3>
+  <table>
+    <thead><tr><th>函数</th><th class="num">行数</th><th>同时在做</th></tr></thead>
+    <tbody>
+      <tr><td><code>dispatch.collect</code></td><td class="num">446</td><td>收卡、校验、覆盖门禁、证据门禁、降级标记、缺口清单</td></tr>
+      <tr><td><code>decision_report.build</code></td><td class="num">434</td><td>数据扫描、画像、方法视图、形状门禁、契约组装</td></tr>
+      <tr><td><code>report_flow.build_sections_contract</code></td><td class="num">408</td><td>claims 映射、IR 解析、图表意图、契约生成</td></tr>
+      <tr><td><code>report_cli.main</code></td><td class="num">246</td><td>17 个子命令分发</td></tr>
+      <tr><td><code>cells_claims.build</code></td><td class="num">225</td><td>格子读取、单位换算、章节组装</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.6 上下文重：门禁与文档</h3>
+  <ul class="tight">
+    <li><code>check_report_flow.py</code> 327 行里塞了 <b>F1–F12</b>；28 个 <code>check_*</code> 却只有 3 条登记在 <code>configs/gates.yaml</code>。</li>
+    <li>AGENTS.md 的自检清单有 21 条命令，新人只能照抄，不知道失败意味着什么。</li>
+    <li>docs/ 46 份里，<code>REPORT-SYSTEM-UPGRADE-SOP</code>、<code>MASTER-UPGRADE-SOP</code>、<code>UPGRADE-PLAN</code>、<code>报告产线现状</code> 并存，没有 CURRENT/ARCHIVED 标记。</li>
+    <li>版本词汇：代码 v10/v11/v12，文档 v14；同一件事三套说法。</li>
+  </ul>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2><span class="num">05</span>升级方案总览</h2>
+  <p class="sub">三批，每批可独立上线、独立回滚。先导航，后外壳，最后动模型。</p>
+  <table>
+    <thead><tr><th>批次</th><th>主题</th><th>动什么</th><th>不动什么</th><th>风险</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="badge b2">批次一</span></td>
+        <td>导航与索引</td>
+        <td>文档、术语表、门禁索引</td>
+        <td>任何 .py 行为</td>
+        <td>零</td>
+      </tr>
+      <tr>
+        <td><span class="badge b1">批次二</span></td>
+        <td>外壳收敛</td>
+        <td>目录结构、唯一门面、导出表</td>
+        <td>业务逻辑与产物格式</td>
+        <td>中：import 断裂，用 shim 兜</td>
+      </tr>
+      <tr>
+        <td><span class="badge b0">批次三</span></td>
+        <td>模型收敛</td>
+        <td>claim / cells / prose / card</td>
+        <td>门禁判据、schema 版本号</td>
+        <td>高：需要兼容期</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <h2><span class="num">06</span>批次一 · 导航与索引 <span class="badge b2">零行为变更</span></h2>
+  <p class="sub">目标：让新人在 90 分钟内建立正确地图，而不是靠猜。</p>
+  <table>
+    <thead><tr><th>动作</th><th>产出</th><th>验收</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>写术语表</td>
+        <td><code>docs/GLOSSARY.md</code>（≤120 行）</td>
+        <td>定义 task card / probe card / ClaimCard / cell / Observation / ExperienceCard / SkillCard；声明“裸 card 禁止用于新代码”</td>
+      </tr>
+      <tr>
+        <td>重画核心地图</td>
+        <td><code>docs/CORE-MAP.md</code></td>
+        <td>一张图：入口 → 产线 → 拆卡 → 收卡 → 证据；每个模块只出现一次</td>
+      </tr>
+      <tr>
+        <td>门禁索引</td>
+        <td><code>scripts/gates_index.py</code> → <code>docs/GATES.md</code></td>
+        <td>从 <code>configs/gates.yaml</code> + 所有 <code>check_*</code> 生成：ID / 触发 / 失败含义 / 修复入口；28 个脚本 100% 登记</td>
+      </tr>
+      <tr>
+        <td>文档归档</td>
+        <td><code>docs/_archive/</code> + 每份头部 status 标记</td>
+        <td><code>docs/</code> 当前有效 ≤10 份；根目录 5 份入口文档</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <b>为什么先做这批：</b>它是后面两批的“施工图”。没有术语表和入口图，分包与合并会被反复质疑“这到底是哪个 card”。
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <h2><span class="num">07</span>批次二 · 外壳收敛 <span class="badge b1">不动业务逻辑</span></h2>
+  <p class="sub">目标：把 125 个平铺模块变成 8 个能自解释的包，只留一个报告门面。</p>
+
+  <h3>7.1 core 物理分包</h3>
+  <table>
+    <thead><tr><th>新包</th><th>吸收现有模块</th><th class="num">约计</th></tr></thead>
+    <tbody>
+      <tr><td><code>core/report/</code></td><td>report_*（20 个）、flow_report、report_kernel、report_theme</td><td class="num">30</td></tr>
+      <tr><td><code>core/cards/</code></td><td>card_plan / issue / probe / bundle / upgrade、dispatch、report_dispatch、task_frame</td><td class="num">9</td></tr>
+      <tr><td><code>core/claims/</code></td><td>claims、claims_v4、claim_card、claim_gate、cell_claim、cells_claims、cells_unified</td><td class="num">7</td></tr>
+      <tr><td><code>core/data/</code></td><td>analysis_desk / unit / pipeline、data_model / profile / shape / standard、dataset*、ingest</td><td class="num">12</td></tr>
+      <tr><td><code>core/charts/</code></td><td>chart_*（14 个）+ 现有 charts 子包</td><td class="num">18</td></tr>
+      <tr><td><code>core/sources/</code></td><td>source_*、collection_*、coverage_*、supply_plan、research_*</td><td class="num">12</td></tr>
+      <tr><td><code>core/prose/</code></td><td>prose_spec、prose_candidates、report_prose_gen、prose_style、prose_critic</td><td class="num">5</td></tr>
+      <tr><td><code>core/platform/</code></td><td>paths、workspace、project、registry、protocol、quality_gate、gate_chain、memory_guard</td><td class="num">12</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">目标：≤60 个模块、8 个包。移动时保留 5–10 行兼容 shim（如 <code>core/report_flow.py</code> 变成 <code>from core.report.flow import *</code>），117 处 import 不用改。</p>
+
+  <h3>7.2 单一报告门面</h3>
+  <ul class="tight">
+    <li>只留 <code>core/report/build.py</code>（现 <code>report_line.build</code>）作为唯一入口；<code>report_cli</code> 只解析参数。</li>
+    <li><code>report_flow</code> 降为内部引擎 <code>report/engine.py</code>；</li>
+    <li><code>flow_report</code> 改名 <code>report/template.py</code>（项目模板线，明确是“另一种输入”，不是另一条产线）；</li>
+    <li><code>dispatch</code> 改名 <code>cards/pipeline.py</code>；</li>
+    <li>全仓“唯一入口”声明从 5 处降到 1 处。</li>
+  </ul>
+
+  <h3>7.3 导出表与空壳清理</h3>
+  <ul class="tight">
+    <li><code>core/__init__.py</code>：114 个导出 → ≤20 个（paths / workspace / project / registry / report.build）。</li>
+    <li><code>shared/knowledge/</code> 拍平为 <code>shared/expert_brief.py</code>。</li>
+    <li><code>card_bundle.py</code> 合并进 <code>cards/issue.py</code>。</li>
+    <li>删除空目录 <code>agents/</code>，把 <code>交付/generic_semantics_v1.yaml</code> 移到 <code>configs/</code>。</li>
+  </ul>
+
+  <h3>7.4 验收（必须全绿才合并）</h3>
+  <pre><code>python -m pytest tests -q -p no:cacheprovider      # 用例数不得减少
+python scripts/ci_report_checks.py                  # ALL PASS
+python scripts/check_role_packs.py                  # 20/20
+python scripts/gen_agent_packs.py --check           # 无漂移
+python scripts/check_gate_lock.py                   # 门禁脚本变更已留痕
+python scripts/check_project_boundary.py            # 团内无项目资产
+python guagua.py check                              # 20 角色入口不回归</code></pre>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <h2><span class="num">08</span>批次三 · 模型收敛 <span class="badge b0">需要兼容期</span></h2>
+  <p class="sub">目标：同一件事只有一套模型、一个 schema、一个 validate。</p>
+  <table>
+    <thead><tr><th>收敛</th><th>做法</th><th>判据</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>claim 四合一</td>
+        <td><code>ClaimCard</code> 为唯一内存模型；<code>cells_claims</code> 只做“格子 → ClaimCard”编译器；<code>claims.py</code> / <code>claims_v4.py</code> 标 deprecated，一版后删除</td>
+        <td>全仓只剩一个 SCHEMA 字符串、一个 <code>validate</code></td>
+      </tr>
+      <tr>
+        <td>cells 三读数</td>
+        <td><code>cells_unified.observations()</code> 为唯一读数；v1/v2/v3 入口从 CLI 移除，保留只读适配器</td>
+        <td>同一格不可能出三个数</td>
+      </tr>
+      <tr>
+        <td>prose 五合一</td>
+        <td><code>prose_contract</code>（spec + style）+ <code>prose_render</code>（candidates + gen）；<code>prose_critic</code> 归 r04</td>
+        <td>改正文只需读 2 个文件</td>
+      </tr>
+      <tr>
+        <td>card 六合一</td>
+        <td><code>cards/pipeline.py</code> = plan + issue + probe + bundle；<code>task_frame</code> 并入 <code>card_plan</code></td>
+        <td>新增卡类型只改 1 处</td>
+      </tr>
+      <tr>
+        <td>版本词汇</td>
+        <td>代码里不再写 v10–v14；只保留 schema 版本（<code>dsh.*/vN</code>）</td>
+        <td>全仓“唯一入口”≤1 处</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout warn">
+    <b>兼容期规则：</b>旧 JSON 读取器至少保留一版；所有新写盘只产出新 schema；<code>check_convergence</code> 的违规数只许下降。禁止“一次删干净”。
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <h2><span class="num">09</span>不做清单（明确不简化）</h2>
+  <table>
+    <thead><tr><th>不动的部分</th><th>原因</th></tr></thead>
+    <tbody>
+      <tr><td>43 个门禁脚本</td><td>它们是真护城河：F12 结构同构、图表契约、隐私扫描都抓到过真问题。要简化的是索引，不是检查。</td></tr>
+      <tr><td>20 个角色的 references/</td><td>那是产品知识，不是代码债。先统一骨架，再逐步上收通用方法。</td></tr>
+      <tr><td>brief 七层契约 / 项目边界 / gate lock</td><td>防的是“听起来专业但没出处”的报告，属于产品底线。</td></tr>
+      <tr><td>schema 版本号</td><td>跨项目资产要可追溯；删除版本号会让旧报告无法复算。</td></tr>
+      <tr><td><code>role_runtime</code> 这个抽象</td><td>20/20 角色都接入了，是“共享层 + 薄 agent”的成功样板，后续收敛应复制它。</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <h2><span class="num">10</span>目标形态</h2>
+  <p class="sub">用数字约束，避免“越改越多”。</p>
+  <table>
+    <thead><tr><th>指标</th><th class="num">现在</th><th class="num">目标</th><th>变化</th></tr></thead>
+    <tbody>
+      <tr><td>core 模块</td><td class="num">125 平铺 + 8 包</td><td class="num">8 包 / ≤60</td><td>−50%</td></tr>
+      <tr><td>“唯一入口”声明</td><td class="num">5</td><td class="num">1</td><td>−80%</td></tr>
+      <tr><td>claim 模型</td><td class="num">4 套</td><td class="num">1 套 + 1 编译器</td><td>唯一</td></tr>
+      <tr><td>prose 模块</td><td class="num">5</td><td class="num">2</td><td>−60%</td></tr>
+      <tr><td>card 模块</td><td class="num">6</td><td class="num">1 条 pipeline</td><td>唯一</td></tr>
+      <tr><td>core 导出</td><td class="num">114（15 重复）</td><td class="num">≤20</td><td>−82%</td></tr>
+      <tr><td>当前有效文档</td><td class="num">12 + 46</td><td class="num">5 + 8</td><td>−77%</td></tr>
+      <tr><td>改正文必读</td><td class="num">10 文件 / 4,913 行</td><td class="num">5 文件 / ≤2,000 行</td><td>−60%</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 11 -->
+<section id="s11">
+  <h2><span class="num">11</span>新人上手路线</h2>
+  <p class="sub">给接手的工程师：按这个顺序，不要自由探索。</p>
+  <div class="grid2">
+    <div>
+      <h4>前 90 分钟</h4>
+      <ol class="tight small">
+        <li><code>README.md</code> → <code>使用指南.md</code> → <code>AGENTS.md</code>（只看项目边界与四条铁律）</li>
+        <li><code>python guagua.py roles</code> → <code>info r06</code> → <code>call r06 --help</code></li>
+        <li><code>python guagua.py report flow --project templates/flow-report --out &lt;tmp&gt;</code></li>
+        <li><code>python guagua.py check</code> + <code>python -m pytest tests -q</code></li>
+      </ol>
+    </div>
+    <div>
+      <h4>之后按依赖顺序读</h4>
+      <ol class="tight small">
+        <li><code>report_cli.py</code>（只读 484–625，看入口转发）</li>
+        <li><code>report_line.py</code>（202 行，看门面）</li>
+        <li><code>report_flow.build_sections_contract</code>（看契约怎么长出来）</li>
+        <li>最后才碰 <code>dispatch.py</code> / <code>card_issue.py</code> / <code>claims*</code></li>
+      </ol>
+    </div>
+  </div>
+  <h4>第一周不要碰</h4>
+  <p class="small">
+    <code>card_upgrade.py</code>（1,281 行）、<code>analysis_methods.py</code>（1,564）、
+    <code>chart_renderers_ext.py</code>（1,936）、<code>decision_report.py</code>（434 行 god function）、
+    <code>configs/report_gate.lock.json</code>（改门禁必须 <code>--write</code>）。
+  </p>
+</section>
+
+<!-- 12 -->
+<section id="s12">
+  <h2><span class="num">12</span>风险与回滚</h2>
+  <table>
+    <thead><tr><th>风险</th><th>触发场景</th><th>缓解 / 回滚</th></tr></thead>
+    <tbody>
+      <tr><td>import 断裂</td><td>批次二移动文件</td><td>旧路径保留 shim；先跑 <code>guagua.py check</code> 再跑全量 pytest；按包分批提交</td></tr>
+      <tr><td>门禁锁变红</td><td>改了 <code>scripts/check_*.py</code></td><td><code>check_gate_lock.py --write</code> 留痕，diff 里必须能看到哈希变化</td></tr>
+      <tr><td>产物格式变化</td><td>批次三换 schema</td><td>新写盘只产新 schema，旧读器保留一版；<code>check_convergence</code> 违规只许下降</td></tr>
+      <tr><td>文档再次漂移</td><td>入口文档改版</td><td><code>check_doc_consistency.py</code> 进 CI；GLOSSARY 作为术语唯一出处</td></tr>
+      <tr><td>角色知识被误合并</td><td>批次二顺手清理 references</td><td>本方案明确不动角色知识；只允许新增骨架模板，不删内容</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 13 -->
+<section id="s13">
+  <h2><span class="num">13</span>需要拍板的事</h2>
+  <table>
+    <thead><tr><th>决策</th><th>选项</th><th>建议</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>是否接受 core 物理分包</td>
+        <td>A. 只做文档（成本低，收益有限）<br>B. 分包 + shim（成本中，收益最大）</td>
+        <td>B。125 个平铺模块是新人最大的导航负担，且 shim 可保证零破坏。</td>
+      </tr>
+      <tr>
+        <td>claims 合并的兼容期</td>
+        <td>A. 一次删干净<br>B. 一版兼容 + 删除</td>
+        <td>B。旧报告要能复算，一次删除会让历史项目全部失效。</td>
+      </tr>
+      <tr>
+        <td>文档归档范围</td>
+        <td>A. 全部保留<br>B. 只留 8 份 CURRENT，其余进 _archive</td>
+        <td>B。但每份归档文档头加 <code>status: ARCHIVED</code> 与替代文档链接。</td>
+      </tr>
+      <tr>
+        <td>是否把门禁索引生成进 CI</td>
+        <td>A. 手工维护<br>B. 生成 + 校验</td>
+        <td>B。否则新增第 29 个 <code>check_*</code> 时索引必然漏。</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout danger">
+    <b>一句话给接手的工程师：</b>先信 <code>report_line</code> 这一条线，把其余四个“唯一”当历史包袱；读懂 <code>ClaimCard</code> 之前不要碰 <code>cells_*</code>；改任何正文前先跑 <code>check_report_flow</code>，它会告诉你 F10/F12 卡在哪。
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+</body>
+</html>

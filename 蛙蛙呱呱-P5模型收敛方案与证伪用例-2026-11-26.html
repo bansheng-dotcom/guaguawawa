@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P5 模型收敛方案与证伪用例 · 蛙蛙呱呱</title>
+<style>
+  :root{
+    --ink:#1d232b; --muted:#5f6b7a; --line:#dfe4ea; --bg:#f7f8fa;
+    --card:#ffffff; --accent:#1f6f5c; --accent-2:#b4552d; --danger:#a33a3a;
+    --mono:"Cascadia Mono","JetBrains Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+       line-height:1.75;font-size:15px}
+  header{background:linear-gradient(135deg,#123c33,#1f6f5c 55%,#2c8a72);color:#fff;
+         padding:56px 24px 40px}
+  .wrap{max-width:980px;margin:0 auto}
+  header h1{margin:0 0 10px;font-size:30px;letter-spacing:.5px}
+  header p{margin:0;opacity:.92}
+  header .meta{margin-top:18px;font-size:13px;opacity:.8;font-family:var(--mono)}
+  main{max-width:980px;margin:0 auto;padding:34px 24px 70px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:10px;
+          padding:26px 28px;margin:0 0 22px}
+  h2{margin:0 0 14px;font-size:21px;color:#123c33;border-left:4px solid var(--accent);
+     padding-left:12px}
+  h3{margin:22px 0 8px;font-size:16px;color:#243b36}
+  p{margin:8px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f0f4f2;font-weight:600}
+  code{font-family:var(--mono);font-size:13px;background:#eef2f0;padding:1px 5px;border-radius:4px}
+  pre{background:#111a17;color:#dfe9e5;padding:14px 16px;border-radius:8px;overflow:auto;
+      font-family:var(--mono);font-size:12.5px;line-height:1.6}
+  ul,ol{margin:8px 0 8px 20px;padding:0}
+  li{margin:5px 0}
+  .tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;
+       border:1px solid var(--line);background:#f3f6f4;color:var(--muted);margin-right:6px}
+  .ok{color:var(--accent);font-weight:700}
+  .warn{color:var(--accent-2);font-weight:700}
+  .bad{color:var(--danger);font-weight:700}
+  .note{background:#f5f9f7;border-left:4px solid var(--accent);padding:10px 14px;
+        border-radius:6px;margin:12px 0}
+  .risk{background:#fdf6f2;border-left:4px solid var(--accent-2);padding:10px 14px;
+        border-radius:6px;margin:12px 0}
+  footer{max-width:980px;margin:0 auto;padding:0 24px 50px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>P5 模型收敛方案与证伪用例</h1>
+    <p>把 claim / cells / prose / card 四组组件收敛为可解释的单一模型：先证伪，再动代码。</p>
+    <div class="meta">2026-11-26 · 分支 refactor/wiring-truth · 前置：P4 七包归位 + 81 shim 退场（99a58ae）</div>
+  </div>
+</header>
+<main>
+
+<section>
+  <h2>0. 结论先行</h2>
+  <p>审计 13 个模块（合计 5,438 行）后，结论和原来的假设不同：</p>
+  <ul>
+    <li><b>四组不是四份重复实现，而是四条链</b>：claim 是文本机理、cells 是读数、prose 是正文、card 是任务信封。它们的“重复”主要在<b>入口与契约声明</b>，不在算数。</li>
+    <li>真正需要收敛的只有 <b>4 个点</b>（下表）。其中 <span class="ok">P5-5（cells 统一读数）已经在跑，且默认开启</span>。</li>
+    <li>其余三片都会<b>改变产物</b>（claims.json 的 contract 版本、sections 结构、卡的字段集）。按“不改业务行为”的既有约束，这三片必须逐片放行，不能一把梭。</li>
+  </ul>
+  <table>
+    <tr><th>收敛点</th><th>现状</th><th>改产物？</th><th>建议</th></tr>
+    <tr><td>cells 读数</td><td><code>cells_unified.observations()</code> 已是唯一读数；<code>cells_claims.build(unified=True)</code> 默认对账并覆盖格子标量</td><td class="ok">否</td><td>P5 已完成，补一条“禁止并行读数”的门禁即可</td></tr>
+    <tr><td>claim 契约</td><td><code>claims.py</code>（机理文案 471 行）+ <code>claims_v4.py</code>（数据→图→文 240 行）分层清晰；<code>claim_consistency</code> 另读一份字段</td><td class="warn">是（字段/版本）</td><td>P5-1：先集中契约常量，不动产物</td></tr>
+    <tr><td>prose 契约</td><td><code>prose_spec</code>（11 字段）、<code>prose_style</code>（文笔门禁）、<code>prose_candidates</code>（候选淘汰）、<code>report_prose_gen</code>（生成）</td><td class="warn">是（阈值）</td><td>P5-2：阈值单一出处，产物不动</td></tr>
+    <tr><td>card 流水线</td><td><code>card_issue</code>（发卡前门禁）、<code>report_dispatch</code>（发/验）、<code>dispatch.collect</code>（收卡合并）、<code>card_upgrade</code>（24 条收卡门禁）</td><td class="bad">是（卡字段）</td><td>P5-3：只做单一编排入口，字段不动</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>1. 目标模型</h2>
+  <pre>
+Card（任务信封）        owner / deps / inputs / outputs / non_goals
+  └─ brief             must_answer / standards / evidence_rules / acceptance_checks
+  └─ Cell[]            (qid, dim, entity, measure, grain) → 可寻址
+        └─ Claim       value + unit + period + source_ref + quote + grade
+              └─ Section   判断 → 事实 → 机理 → 反例 → 判别 → 所以 → 边界
+                    └─ Prose 11 字段（spec 9 + facts 2），文笔门禁只量正文
+  </pre>
+  <p>四条链共用同一套标识：<code>qid / dim / entity / measure / grain / period</code>。
+   收敛的本质是<b>把这六个键变成唯一寻址方式</b>，而不是把四个模块塞进一个文件。</p>
+  <div class="note">判断标准：任何一条结论都能从 Section 反查到 Claim → Cell → 数据观测。<br>
+    反查断链，就是模型没收敛；文件多少不是指标。</div>
+</section>
+
+<section>
+  <h2>2. 分片计划</h2>
+
+  <h3>P5-1 claim 契约集中（不改产物）</h3>
+  <ul>
+    <li>新增 <code>core/claims/contract.py</code>：只放常量与纯函数（必填字段、契约版本、<code>iter_numbers()</code>）。</li>
+    <li><code>claims_v4</code>、<code>cells_claims</code>、<code>claim_consistency</code> 改为从这里取字段名；输出的 JSON 保持<strong>逐字节不变</strong>。</li>
+    <li>删除条件：三处不再各写字段名，且 <code>claims_v4</code> 的 sections 结构被 <code>report_assembly</code> 完全吸收。</li>
+  </ul>
+
+  <h3>P5-2 prose 阈值单一出处（不改产物）</h3>
+  <ul>
+    <li>把 <code>prose_style.DEFAULTS</code> 与 <code>configs/report_prose.yaml</code> 的重合键收敛为“配置为准、代码只留兜底”，兜底值由 <code>report_contract</code> 统一导出。</li>
+    <li>删除条件：<code>prose_style</code> 不再自带一份完整默认值。</li>
+  </ul>
+
+  <h3>P5-3 card 单一编排入口（字段不动）</h3>
+  <ul>
+    <li>新增 <code>core/cards/pipeline.py</code>：<code>issue()</code> / <code>verify()</code> / <code>collect()</code> 三个函数，内部只做转发。</li>
+    <li>调用方（<code>report_cli</code>、<code>report_flow</code>）改走 pipeline；四个实现模块保留。</li>
+    <li>删除条件：四个模块里不再有“第二套发卡/收卡顺序”。</li>
+  </ul>
+
+  <h3>P5-4 模型收敛（唯一会改产物的一片）</h3>
+  <ul>
+    <li>新 <code>ClaimCard</code> 落盘 schema；<code>claims_v4</code> 的映射层并入 claims；<code>cells_claims</code> 的 v2 / v3 双契约合并为一版。</li>
+    <li class="risk">这一片会改变 claims.json 的 <code>contract</code> 字段与 sections 形状，必须单独放行、单独回归真实项目。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>3. 证伪用例（先写测试，再改代码）</h2>
+  <p>每条都是“如果收敛做错了，这条会红”。已写成可执行断言的形式，分片时直接落进 <code>tests/</code>。</p>
+  <table>
+    <tr><th>#</th><th>断言</th><th>被打破说明什么</th></tr>
+    <tr><td>F1</td><td>同一 <code>(qid,dim,entity,measure,period)</code> 在 <code>cells_filled</code>、<code>raw.json</code>、<code>mart.json</code> 三处的值经 <code>cells_unified.observations()</code> 后只剩一个，且 <code>diff.json</code> 为 0</td><td>统一读数没生效，或有人绕过它直接读格子</td></tr>
+    <tr><td>F2</td><td>对同一 claims，<code>claim_consistency.check()</code> 在收敛前后返回的 issues 完全一致</td><td>契约集中改变了判据（这是行为变化，不允许混在 P5-1）</td></tr>
+    <tr><td>F3</td><td>同一项目跑 <code>run-line</code>，P5-1/P5-2 前后 <code>claims.json</code> 与 <code>report.html</code> 的 SHA256 不变</td><td>声称“不改产物”却改了</td></tr>
+    <tr><td>F4</td><td>删掉 <code>prose_style.DEFAULTS</code> 后，缺配置时门禁仍用 <code>report_contract</code> 的兜底值，且结论不变</td><td>兜底没接上，删默认值会造成门禁静默放宽</td></tr>
+    <tr><td>F5</td><td>card pipeline 转发前后，同一 brief 产出的 <code>bundle.json</code> 字段集完全一致（含 brief_ref / brief_version）</td><td>编排入口偷偷改了卡字段</td></tr>
+    <tr><td>F6</td><td>任取一条报告结论，能沿 Section → Claim → Cell → 观测 反查到源文件与 quote</td><td>模型没收敛，只是搬了文件</td></tr>
+    <tr><td>F7</td><td><code>wiring_truth --check</code> 对“同一职责两个入口”给出 FAIL（新增规则：职责键 → 唯一模块）</td><td>收敛后又被重新拆开</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>4. 与现有门禁的关系</h2>
+  <ul>
+    <li><b>不改</b> <code>check_report_flow</code> F1–F12、<code>ci_report_checks</code>、<code>check_move_cards</code>；它们是产物级门禁，收敛不得绕过。</li>
+    <li><b>新增</b>的只有两类：契约常量一致性测试（F2/F4）、反查链测试（F6）。都进 <code>tests/test_gates.py</code> 或 <code>tests/regression</code>。</li>
+    <li>P5-1/P5-2/P5-3 的验收口径统一为：<code>pytest</code> 630+/630、<code>ci_report_checks</code> ALL PASS、同一项目产物 SHA 不变。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>5. 风险与回滚</h2>
+  <table>
+    <tr><th>风险</th><th>触发条件</th><th>回滚</th></tr>
+    <tr><td>产物漂移</td><td>F3 红</td><td>该片单独 revert；P5 各片按 commit 隔离</td></tr>
+    <tr><td>门禁假绿</td><td>F2/F4 红</td><td>禁止删除旧默认值，先补兜底再删</td></tr>
+    <tr><td>入口回潮</td><td>F7 红</td><td>wiring_truth 债务登记，不允许直接改门禁</td></tr>
+    <tr><td>真实项目回归</td><td>claims/report 结构变化</td><td>P5-4 单独分支，先在 <code>workspace/_ci_report_sample</code> 上跑通再合</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>6. 当前状态</h2>
+  <table>
+    <tr><th>片</th><th>状态</th><th>证据</th></tr>
+    <tr><td>P5-5 cells 统一读数</td><td class="ok">已完成（2026-11-27）</td><td><code>cells_claims.build(unified=True)</code> 默认走 <code>cells_unified.observations()</code>；<code>compare()</code> 落 <code>out/cells_claims_diff.json</code>（含重复键）；<code>apply_to_cells()</code> 标 <code>needs_human</code>；统一读数异常写入 <code>out/cells_unified.json</code> 与返回值 <code>unified.error</code></td></tr>
+    <tr><td>P5-1 claim 契约集中</td><td class="ok">已完成（2026-11-27）</td><td><code>core/claims/contract.py</code> 是 schema/契约版本/字段的唯一出处</td></tr>
+    <tr><td>P5-2 prose 阈值单一出处</td><td class="ok">已完成（2026-11-27）</td><td><code>report_contract.PROSE_DEFAULTS</code> 为唯一兜底，缺配置 fail-closed</td></tr>
+    <tr><td>P5-3 card 单一编排入口</td><td class="ok">已完成（2026-11-27）</td><td><code>core/cards/pipeline.py</code> 转发 8 个入口；report_cli 8 处、preflight 2 处改走它；字段与产物不变</td></tr>
+    <tr><td>P5-4 模型合并</td><td class="ok">已完成（2026-11-27）</td><td>契约统一 v4；claims_v4 并入 claims；收卡严格门禁覆盖 v2/v3/v4；两种交付形态经 <code>_same_shape()</code> 落盘同一份 <code>CARD_KEYS</code> / <code>NUMBER_KEYS</code>，层专属字段（cells / datasets / claims）各留各的</td></tr>
+  </table>
+  <div class="risk">P5-4 不是一个重构，是换模型。没有真实项目样本（<code>CI_REPORT_SAMPLE</code>）跑通前，不建议动。</div>
+</section>
+
+</main>
+<footer>
+  口径：本方案以 <code>docs/ARCHITECTURE-LEDGER.md</code> 的“删除条件”为准；机器可核部分见
+  <code>docs/_migration/wiring-truth.md</code>。
+</footer>
+</body>
+</html>

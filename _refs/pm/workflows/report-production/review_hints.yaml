@@ -1,0 +1,24 @@
+purpose: >
+  给 PM 报告生产生成可选复核提醒，不自动触发外部 agent。
+
+optional_reviews:
+  - when: 报告依赖真实数据、归因、指标或图表
+    reviewer_type: 数据分析报告能力
+    focus:
+      - 指标口径
+      - 数据质量
+      - 图表表达
+  - when: 报告要公开发布或强风格写作
+    reviewer_type: 写作/内容能力
+    focus:
+      - 读者理解
+      - 叙事节奏
+      - AI 味
+  - when: 报告需要高保真页面或视觉方案
+    reviewer_type: UI/视觉能力
+    focus:
+      - 信息层级
+      - 视觉一致性
+
+rules:
+  - PM 可以规划报告，不冒充专业数据或视觉最终判断。

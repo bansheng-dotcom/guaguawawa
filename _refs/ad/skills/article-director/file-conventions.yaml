@@ -1,0 +1,526 @@
+# file-conventions.yaml — 文件生成与管理规范
+# 唯一真相源：工作流产出的所有文件的路径、类型、生命周期、可见性
+# 其他 agent 引用此文件时，使用 import 或读取
+#
+# 设计原则：
+#   1. 人类可读：每个文件有中文说明，一眼看出用途
+#   2. 可修改：改此文件即可调整文件管理策略
+#   3. 机器可解析：workflow_runner.py 和 init_workflow.py 读取此文件确定路径
+
+_version: "1.0"
+_updated: "2026-06-10"
+
+# ══════════════════════════════════════════════════════════════
+# 目录结构总览
+# ══════════════════════════════════════════════════════════════
+
+directories:
+  tmp:
+    path: "tmp/"
+    owner: "project-level"
+    purpose: "临时工作区：大纲、细纲等中间产物，workflow 结束后可清理"
+    visibility: "workflow-internal"       # 只有工作流节点读写
+    cleanup: "workflow-end"               # 工作流结束后清理
+
+  outputs:
+    path: "outputs/{topic_id}/"
+    owner: "article-director"
+    purpose: "正式输出区：所有节点产物的归档目录"
+    visibility: "search-only"             # ⚠️ 不能批量读取，只能按需搜索
+    cleanup: "archive-after-approval"     # 人工审批后归档
+
+  run_memory:
+    path: "outputs/{topic_id}/memory/"
+    owner: "article-director"
+    purpose: "当前运行记忆：term registry、source map、interaction journal 等，只允许同一 topic/run 读取"
+    visibility: "workflow-internal"
+    cleanup: "archive-after-approval"
+
+  run_ledger:
+    path: "outputs/{topic_id}/"
+    owner: "agent-runtime"
+    purpose: "统一运行账本：run-manifest、node-events、artifact-manifest、version-lock、requirement-log、memory-scope"
+    visibility: "workflow-internal"
+    cleanup: "archive-after-approval"
+
+  section_outputs:
+    path: "outputs/{topic_id}/sections/{section_id}/"
+    owner: "article-director"
+    purpose: "段落闭环输出区：每个二级章节的写作、审查、修改和最终段落"
+    visibility: "search-only"
+    cleanup: "archive-after-approval"
+
+  state:
+    path: "state/"
+    owner: "workflow-runner"
+    purpose: "运行时状态：workflow-state.json、reviews/、topic-requirements/"
+    visibility: "workflow-internal"
+    cleanup: "keep-30-days"               # 保留 30 天，过期清理
+
+  global_memory:
+    path: "memory/"
+    owner: "article-director"
+    purpose: "全局写作经验库。只有可复用且已确认的经验可影响后续运行；topic 批注先进入当前运行 memory"
+    visibility: "workflow-internal"
+    cleanup: "manual-only"
+
+  knowledge_docs_archive:
+    path: "D:/知识库/knowledge/docs/知识星球-ai数据分析社区/"
+    owner: "knowledge-base"
+    purpose: "人工审批后的正式文章存稿目录，优先于旧 platforms/知识星球"
+    visibility: "reader-facing"
+    cleanup: "manual-only"
+
+# ══════════════════════════════════════════════════════════════
+# 阶段一：Bootstrap 产出文件
+# 路径模板：outputs/{topic_id}/ 或 tmp/
+# ══════════════════════════════════════════════════════════════
+
+bootstrap_outputs:
+
+  # ── 主链产物 ──
+  - node: "topic-architect-01-plan"
+    path: "outputs/{topic_id}/topic-architect-01-plan/output.md"
+    type: markdown
+    content: "选题规划：读者画像、知识结构、大纲骨架"
+    lifecycle: permanent                 # 永久保留，是文章的源头记录
+
+  - node: "topic-architect-01-exec"
+    path: "tmp/{topic_id}-detailed-outline.md"
+    type: markdown
+    content: "细纲展开：论点/解释/引用/案例/待研究"
+    lifecycle: permanent                 # 细纲是后续所有节点的参考
+
+  - node: "normalize-detailed-outline-01"
+    path: "tmp/{topic_id}-detailed-outline.md"
+    type: markdown
+    content: "标准化后的细纲（覆盖写入）"
+    lifecycle: permanent
+    note: "覆盖 topic-architect-01-exec 的输出"
+
+  - node: "derive-outline-01"
+    path: "tmp/{topic_id}-outline.md"
+    type: markdown
+    content: "从细纲反推的大纲"
+    lifecycle: permanent
+
+  - node: "director-inspect-01"
+    path: "outputs/{topic_id}/director-inspect-01/output.md"
+    type: markdown
+    content: "大纲审查报告：完整性、边界、缺口分析"
+    lifecycle: permanent
+
+  - node: "outline-confirmation-01"
+    path: "outputs/{topic_id}/outline-confirmation-01/output.json"
+    type: json
+    content: "人工确认结果（approved/rejected + 意见）"
+    lifecycle: permanent                 # 审计记录
+
+  - node: "prepare-article-requirements-01"
+    path: "outputs/{topic_id}/article-requirements.json"
+    type: json
+    content: "人工期望模板：字数、篇幅、重点段落、新增需求、个人文风、认知/逻辑偏好"
+    lifecycle: permanent
+
+  - node: "article-requirements-confirmation-01"
+    path: "outputs/{topic_id}/article-requirements-confirmation-01/output.json"
+    type: json
+    content: "人工确认文章期望结果"
+    lifecycle: permanent
+
+  - node: "build-section-manifest-01"
+    path: "outputs/{topic_id}/section-manifest.json"
+    type: json
+    content: "分节清单：每个 section 的 heading、target_word_count、presentation_mode"
+    lifecycle: permanent                 # 后续所有节点的结构参考
+
+  - node: "validate-strategy-manifest-rules-01"
+    path: "outputs/{topic_id}/validate-strategy-manifest-rules-01/output.json"
+    type: json
+    content: "策略规则校验结果"
+    lifecycle: transient                 # 校验通过后可清理
+
+  - node: "score-article-workload-01"
+    path: "outputs/{topic_id}/section-manifest.json"
+    type: json
+    content: "带评分的分节清单（覆盖写入）"
+    lifecycle: permanent
+    note: "覆盖 build-section-manifest-01 的输出"
+
+  - node: "balance-article-packages-01"
+    path: "outputs/{topic_id}/article-packages.json"
+    type: json
+    content: "分包配置：每个 package 包含哪些 section_ids、package_score、risk_tier"
+    lifecycle: permanent
+
+  - node: "compile-expanded-workflow-01"
+    path: "outputs/{topic_id}/run_{topic_id}_expanded.py"
+    type: python
+    content: "Phase 2 自动生成的执行脚本"
+    lifecycle: transient                 # 执行后可清理
+
+  # ── 条件分支：教程门控 ──
+  - node: "tutorial-research-gate-01"
+    path: "outputs/{topic_id}/tutorial-research-gate-01/output.json"
+    type: json
+    content: "教程类文章事实核查结果"
+    lifecycle: transient
+    condition: "strategy == 'teaching-playbook'"
+
+  # ── 条件分支：图片链 ──
+  - node: "build-image-manifest-01"
+    path: "outputs/{topic_id}/image-manifest-source.json"
+    type: json
+    content: "图片需求清单（原始）"
+    lifecycle: permanent
+    condition: "config.include_images == true"
+
+  - node: "build-image-components-01"
+    path: "outputs/{topic_id}/image-component-manifest.json"
+    type: json
+    content: "图片组件拆解"
+    lifecycle: permanent
+    condition: "config.include_images == true"
+
+  - node: "balance-image-packages-01"
+    path: "outputs/{topic_id}/image-packages.json"
+    type: json
+    content: "图片分包配置"
+    lifecycle: permanent
+    condition: "config.include_images == true"
+
+  # ── 条件分支：实验链 ──
+  - node: "prepare-experiment-manifest-01"
+    path: "tmp/multi_model_experiment/rebuilt/experiment_manifest.json"
+    type: json
+    content: "实验配置"
+    lifecycle: transient
+    condition: "config.include_experiments == true"
+
+  - node: "run-cost-analysis-experiment-01"
+    path: "tmp/multi_model_experiment/rebuilt/runs/normalized_runs.json"
+    type: json
+    content: "实验运行结果"
+    lifecycle: transient
+    condition: "config.include_experiments == true"
+
+  - node: "summarize-experiment-results-01"
+    path: "tmp/multi_model_experiment/rebuilt/summary_table.json"
+    type: json
+    content: "实验汇总表"
+    lifecycle: transient
+    condition: "config.include_experiments == true"
+
+# ══════════════════════════════════════════════════════════════
+# 阶段二：Expanded 产出文件
+# 路径模板：outputs/{topic_id}/
+# ══════════════════════════════════════════════════════════════
+
+expanded_outputs:
+
+  # ── 初始化 ──
+  - node: "build-node-micro-plans-01"
+    path: "outputs/{topic_id}/micro-plan/node-micro-plans.json"
+    type: json
+    content: "每个节点的微计划（验证标准、修订路径）"
+    lifecycle: permanent
+
+  - node: "seed-longform-memory-01"
+    path: "outputs/{topic_id}/memory/term-registry.json"
+    type: json
+    content: "术语注册表（全文统一用词）"
+    lifecycle: permanent
+
+  # ── 每个 section 的固定闭环产物 ──
+  - node: "section-writer-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/draft.md"
+    type: markdown
+    content: "当前二级章节初稿"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "prepare-section-review-source-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/review-source.md"
+    type: markdown
+    content: "剥离 writer-contract HTML 注释后的正文源；供 paragraph tag、AI 味扫描、review fan-out 和 section-rewriter 使用"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "prepare-ai-tone-call-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/ai-tone-context-pack.json"
+    type: json
+    content: "基于 review-source.md 的 ai-tone-director 独立调用上下文，包含 idempotency_key、source_hash、日志路径和审查输出契约"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "prepare-ai-tone-call-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/ai-tone-scan.json"
+    type: json
+    content: "ai-tone-director 确定性扫描证据，只作为审查证据，不替代语义判断"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "review-ai-tone-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/review-ai-tone-findings.json"
+    type: json
+    content: "fan-out AI 味审查发现；必须包含 ai_tone_invocation；只供 section-edit-brief 消费，不是 canonical audit"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "review-style-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/review-style.json"
+    type: json
+    content: "fan-out 文风审查结果；只提意见，不改正文"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "validate-ai-tone-audit-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/ai-tone-audit-gate.json"
+    type: json
+    content: "AI 味审查调用门禁，校验 audit 是否匹配本节 context 和日志"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "build-ai-tone-repair-plan-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/ai-tone-repair-plan.md"
+    type: markdown
+    content: "从 materializer 产出的 canonical review-ai-tone.json 生成 AI 味修订计划，供 regression 和日志消费"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "review-logic-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/review-logic.json"
+    type: json
+    content: "逻辑审查结果"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "review-structure-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/review-structure.json"
+    type: json
+    content: "分段分点审查结果"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "review-simplify-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/review-simplify.json"
+    type: json
+    content: "简化审查结果；识别抽象 filler、低信息桥接句和过度解释"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "merge-edit-brief-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/section-edit-brief.json"
+    type: json
+    content: "五类审查意见的确定性汇总；供 section-editor 集中修改"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "paragraph-rewrite-designer-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/paragraph-rewrite-design.json"
+    type: json
+    content: "review fan-out 后的 v2 改写设计；覆盖所有正文段落的 micro_polish，并对需要重构的 200-400 字语义单元生成候选、评分和选中草稿，供 section-rewriter 合稿微调"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "section-editor-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/section-editor-output.json"
+    type: json
+    content: "集中修改后的 section-editor-result JSON；保持 materializer 旧下游契约"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "section-rewrite-gate-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/section-rewrite-gate.json"
+    type: json
+    content: "集中修改门禁；校验 brief 消费、AI-tone invocation 和 writer-contract 移除"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "ai-tone-regression-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/ai-tone-regression.json"
+    type: json
+    content: "从 review-source.md 到 final.md 的 AI 味回归检查；使用 canonical review-ai-tone.json"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "section-complete-{section_id}"
+    path: "outputs/{topic_id}/sections/{section_id}/final.md"
+    type: markdown
+    content: "当前二级章节最终段落"
+    lifecycle: permanent
+    parallel: true
+
+  # ── 每包产物（fan-out）──
+  - node: "writer-{package_id}"
+    path: "outputs/{topic_id}/writer-{package_id}/output.md"
+    type: markdown
+    content: "写作包输出：证据填充 + 段落写作"
+    lifecycle: permanent
+    parallel: true
+
+  - node: "adversarial-reviewer-{package_id}"
+    path: "outputs/{topic_id}/adversarial-reviewer-{package_id}/output.md"
+    type: markdown
+    content: "对抗审查后的修订稿（直接输出修订后 Markdown）"
+    lifecycle: permanent
+    parallel: true
+
+  # ── 收敛链（fan-in）──
+  - node: "draft-assembler-01"
+    path: "outputs/{topic_id}/draft-assembler-01/output.json"
+    type: json
+    content: "草稿组装结果"
+    lifecycle: transient
+
+  - node: "style-harmonizer-01"
+    path: "outputs/{topic_id}/style-harmonizer-01/output.md"
+    type: markdown
+    content: "风格统一后的草稿；AI 味修订只来自 ai-tone-director repair plan"
+    lifecycle: permanent
+
+  - node: "source-map-repair-01"
+    path: "outputs/{topic_id}/memory/source-map.json"
+    type: json
+    content: "来源映射（每段引用的出处）"
+    lifecycle: permanent
+
+  - node: "appendix-agent-01"
+    path: "outputs/{topic_id}/appendix-agent-01/output.md"
+    type: markdown
+    content: "附录（术语速查、参考资料、延伸阅读）"
+    lifecycle: permanent
+
+  - node: "finalize-draft-01"
+    path: "outputs/{topic_id}/finalize-draft-01/output.md"
+    type: markdown
+    content: "终稿（含附录）"
+    lifecycle: permanent
+
+  # ── 双审（fan-out）──
+  - node: "article-review-a-01"
+    path: "outputs/{topic_id}/article-review-a-01/output.json"
+    type: json
+    content: "双审-A 结果（temperature=0.00，严格审查）"
+    lifecycle: permanent
+
+  - node: "article-review-b-01"
+    path: "outputs/{topic_id}/article-review-b-01/output.json"
+    type: json
+    content: "双审-B 结果（temperature=0.15，读者体验视角）"
+    lifecycle: permanent
+
+  # ── 终审链 ──
+  - node: "review-diff-01"
+    path: "outputs/{topic_id}/review-diff-01/output.json"
+    type: json
+    content: "双审共识结果：pass/consensus/rollback_target/blocking_issues"
+    lifecycle: permanent
+
+  - node: "code-check-01"
+    path: "outputs/{topic_id}/code-check-01/output.json"
+    type: json
+    content: "确定性代码检查结果（ai-tone-director 证据词 + 结构 + 字数）"
+    lifecycle: permanent
+
+  - node: "human-approval-01"
+    path: "outputs/{topic_id}/human-approval-01/output.json"
+    type: json
+    content: "人工终审结果"
+    lifecycle: permanent
+
+  # ── 运行状态 ──
+  - node: "workflow-state"
+    path: "outputs/{topic_id}/workflow-state.json"
+    type: json
+    content: "工作流运行状态（completed_nodes、failed_nodes、retry_counts）"
+    lifecycle: permanent
+
+  - node: "workflow-index"
+    path: "outputs/{topic_id}/workflow-index.json"
+    type: json
+    content: "工作流索引（topic_id、strategy、status、timestamps）"
+    lifecycle: permanent
+
+  - node: "agent-runtime"
+    path: "outputs/{topic_id}/run-manifest.json"
+    type: json
+    content: "统一运行身份、状态、当前节点和 runtime 文件索引"
+    lifecycle: permanent
+
+  - node: "agent-runtime"
+    path: "outputs/{topic_id}/node-events.jsonl"
+    type: jsonl
+    content: "统一追加式节点事件日志"
+    lifecycle: permanent
+
+  - node: "agent-runtime"
+    path: "outputs/{topic_id}/artifact-manifest.json"
+    type: json
+    content: "统一产物清单：路径、角色、大小、hash、预览类型"
+    lifecycle: permanent
+
+  - node: "agent-runtime"
+    path: "outputs/{topic_id}/memory-scope.json"
+    type: json
+    content: "当前运行的记忆隔离策略；默认只能读同 run_id 下的 memory"
+    lifecycle: permanent
+
+  - node: "agent-runtime"
+    path: "outputs/{topic_id}/review/memory-scope-gate.json"
+    type: json
+    content: "记忆隔离策略验证结果"
+    lifecycle: permanent
+
+# ══════════════════════════════════════════════════════════════
+# 生命周期定义
+# ══════════════════════════════════════════════════════════════
+
+lifecycle:
+  permanent:
+    description: "永久保留，是文章生产记录的一部分"
+    cleanup: "不自动清理"
+
+  transient:
+    description: "中间产物，工作流完成后可清理"
+    cleanup: "workflow-end 或 archive-after-approval"
+
+  cleanup_rules:
+    - trigger: "workflow-end"
+      action: "删除 tmp/ 下所有文件"
+      reason: "临时工作区不再需要"
+
+    - trigger: "archive-after-approval"
+      action: "将正式文章存稿到知识库 docs；workflow outputs 继续保留为审计记录"
+      target: "D:/知识库/knowledge/docs/知识星球-ai数据分析社区/大模型工作流系列/{topic_id}.md"
+      reason: "文章已审批，优先进入读者可用的知识库正式存稿目录"
+
+    - trigger: "keep-30-days"
+      action: "删除 30 天前的 state/ 文件"
+      reason: "运行时状态过期"
+
+# ══════════════════════════════════════════════════════════════
+# 可见性规则（防止 agent 批量读取 outputs/）
+# ══════════════════════════════════════════════════════════════
+
+visibility:
+  # outputs/ 目录的访问规则
+  outputs_dir:
+    rule: "search-only"
+    description: "outputs/ 下的文件只能按需搜索读取，不能批量扫描"
+    reason: "一个 topic 的 outputs 可能有 100+ 文件，批量读取会撑爆上下文"
+    correct_usage:
+      - "用 Glob 搜索特定文件：outputs/{topic_id}/finalize-draft-01/output.md"
+      - "用 Grep 搜索内容：在 outputs/{topic_id}/ 下搜索关键词"
+    forbidden_usage:
+      - "读取 outputs/ 根目录下的所有文件"
+      - "递归读取 outputs/{topic_id}/ 下的所有文件"
+
+  # tmp/ 目录的访问规则
+  tmp_dir:
+    rule: "workflow-internal"
+    description: "tmp/ 是工作流内部临时区，其他 agent 不应直接访问"
+    correct_usage:
+      - "只在工作流节点执行时读写"
+    forbidden_usage:
+      - "其他 agent 直接读取 tmp/ 内容"

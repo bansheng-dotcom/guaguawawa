@@ -1,0 +1,24 @@
+﻿# manifest.yaml — 入门导引写作
+name: "primer-writer"
+version: "1.0"
+status: "active"
+description: "入门导引写作"
+
+io:
+  inputs:
+    - "current package sections"
+  outputs:
+    - "revised section Markdown"
+
+execution:
+  temperature: null
+  node_type: "agent"
+  parallel: false
+
+prompt_ref: "prompts.yaml#agents.primer-writer"
+
+dependencies:
+  agents: []
+  scripts: []
+  references: []
+

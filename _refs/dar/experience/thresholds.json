@@ -1,0 +1,8 @@
+{
+  "_comment": "通用阈值只记录跨案例可复用的分析控制规则；具体业务指标阈值放入 cases/<case_id>/experience/thresholds.json。",
+  "impact_min_pct": 3.0,
+  "impact_min_pct_desc": "维度下钻发现的影响小于该比例时，默认停止该分支。",
+  "overlap_threshold": 0.8,
+  "overlap_threshold_desc": "新洞察与已有洞察高度重复时，默认收敛而不是继续扩展。",
+  "case_specific_rule": "禁止在根 experience 写利润率、GMV、SKU、品类等具体业务阈值。"
+}

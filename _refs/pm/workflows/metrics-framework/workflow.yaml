@@ -1,0 +1,77 @@
+workflow_id: metrics-framework
+display_name: 指标与数据验证工作流
+status: draft
+owner: 产品管理
+priority: P0
+purpose: >
+  为需求、PRD、MVP 或产品方案定义可验证的指标框架。这个 workflow 负责写清
+  北极星指标、输入指标、护栏指标、数据来源、口径、基线缺口和 Go/No-Go 标准；
+  不负责真实取数、归因计算或图表渲染。
+
+trigger_signals:
+  - 指标怎么定
+  - 怎么用数据验证
+  - 成功指标
+  - Go/No-Go
+  - 北极星指标
+  - 数据支撑
+  - PRD 指标
+
+entry_policy:
+  before_entering:
+    - 这是报告/文档类重任务，先读 `workflows/HEAVY_TASK_RAG_RULES.md`
+    - 先执行 `workflows/experience-rag/workflow.yaml` 的 `heavy-task` 模式；内部追问默认复用 `experience_brief`，关键维度变化才执行 `pre-question` L1
+    - 先确认这次指标服务哪个决策
+    - 如果需求本身不清楚，先回 requirement-report
+    - 如果用户要真实取数，先产出 PM 本地分析 brief，再给可选数据分析能力提醒
+  can_start_when:
+    - 已有需求、PRD 草稿、实验目标或产品问题
+    - 能说清这组指标要支持的决策
+  must_not_start_when:
+    - 只是要执行 SQL、跑报表或做真实归因
+    - 没有任何产品目标或用户行为假设
+
+required_inputs:
+  - product_goal
+  - decision_needed
+  - target_user_or_scenario
+  - available_evidence_or_data_context
+
+outputs:
+  - metric_framework_report
+  - north_star_metric
+  - input_metrics
+  - guardrail_metrics
+  - data_source_and_definition_map
+  - baseline_gap_list
+  - go_no_go_standard
+  - optional_review_hints
+  - next_workflow_suggestion
+
+managed_files:
+  topology: workflows/metrics-framework/topology.md
+  quality_guide: workflows/metrics-framework/references/metrics-framework-guide.md
+  review_hints: workflows/metrics-framework/review_hints.yaml
+  runner: workflows/metrics-framework/runner.md
+  prompt_current: workflows/metrics-framework/prompts/current.md
+  prompt_changelog: workflows/metrics-framework/prompts/CHANGELOG.md
+  heavy_task_rules: workflows/HEAVY_TASK_RAG_RULES.md
+
+validation_gates:
+  - gate: decision_gate
+    pass_standard: 每个指标都能说明它服务哪个产品决策
+  - gate: definition_gate
+    pass_standard: 指标有口径、单位、粒度、时间窗、排除项
+  - gate: data_gate
+    pass_standard: 数据源、当前是否可得、缺口和替代证据已标注
+  - gate: balance_gate
+    pass_standard: 同时包含结果指标、输入指标和护栏指标
+  - gate: go_no_go_gate
+    pass_standard: 写清继续、调整、停止或补证据的判断标准
+  - gate: handoff_hint_gate
+    pass_standard: 只给可选数据复核提醒，不自动触发数据 agent
+
+version:
+  prompt: "0.4"
+  workflow: "0.4"
+  updated_at: "2026-07-01"

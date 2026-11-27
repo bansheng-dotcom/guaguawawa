@@ -1,0 +1,37 @@
+﻿# manifest.yaml — 整稿风格统一
+name: "style-harmonizer"
+version: "1.0"
+status: "active"
+description: "整稿风格统一与作者认知路径对齐；AI 味修订只消费 ai-tone-director repair plan"
+
+io:
+  inputs:
+    - "assembled full draft"
+    - "ai-tone-repair-plan.md when available"
+  outputs:
+    - "complete Markdown"
+
+execution:
+  temperature: 0.0
+  node_type: "agent"
+  parallel: false
+
+prompt_ref: "prompts.yaml#agents.style-harmonizer"
+
+dependencies:
+  agents: []
+  scripts: []
+  references:
+    - 'style-profiles/style-guide.md'
+    - 'style-profiles/cognitive-style-guide.md'
+    - 'style-profiles/author-soul.md'
+    - 'style-profiles/anti-patterns.json'
+    - 'D:\知识库\skills\内容生产\ai-tone-director\SKILL.md'
+    - 'D:\知识库\skills\内容生产\ai-tone-director\agents\director\SKILL.md'
+    - 'D:\知识库\skills\内容生产\ai-tone-director\workflows\article-director-integration.md'
+    - 'skills/report-style-analyzer/references/weihestyle-profile.md'
+    - 'skills/report-style-analyzer/references/weihestyle-language-bank.md'
+    - 'skills/report-style-analyzer/references/weihestyle-paragraph-rhythm.md'
+    - 'skills/report-style-analyzer/references/weihestyle-review-rubric.md'
+    - 'skills/report-style-analyzer/references/paragraph-tagging-review-protocol.md'
+

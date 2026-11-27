@@ -1,0 +1,91 @@
+workflow_id: requirement-report
+display_name: 需求分析报告工作流
+status: draft
+owner: 产品管理
+purpose: >
+  将用户想法、功能诉求、客户反馈或一批 feature requests 整理成可确认的需求分析报告。
+  这个 workflow 负责判断“这是不是需求、强不强、先验证什么、下一步是否进入 PRD”，
+  不直接生成正式开发输入，也不自动触发其他 agent。进入正式分析前先做轻量 intake，
+  判断数据是否存在、需求细节是否足够，以及没有数据时是否仍可继续分析。
+
+trigger_signals:
+  - 整理需求
+  - 分析这个需求
+  - 判断这个想法是否值得做
+  - 需求优先级
+  - feature request triage
+  - 用户反馈怎么处理
+  - 这个需求强不强
+
+entry_policy:
+  before_entering:
+    - 先经过 `workflows/controller/workflow.yaml`
+    - 如果本轮要产出完整需求分析报告或需求文档，按重任务处理，先读 `workflows/HEAVY_TASK_RAG_RULES.md`
+    - 重任务先执行 `workflows/experience-rag/workflow.yaml` 的 `heavy-task` 模式；内部追问默认复用 `experience_brief`，关键维度变化才执行 `pre-question` L1
+    - 进入需求分析前先执行轻量 intake 与数据门禁
+    - 只在缺口会改变方向时问 1 个关键问题
+    - 如果用户已经明确要求写 PRD，优先进入 prd-report
+    - 如果用户只想要方向判断，不要求完整报告，可以输出轻量版
+  can_start_when:
+    - 至少有一个用户诉求、想法、反馈、功能请求或问题描述
+    - 能识别需求来源或标注为“来源待补”
+  must_not_start_when:
+    - 需求已经确认且用户明确要求开发说明或 PRD
+    - 任务本质是技术解释、项目状态汇报或竞品分析
+    - 完全没有用户诉求或业务目标
+
+required_inputs:
+  - user_request_or_feedback
+  - available_context
+  - decision_needed
+
+outputs:
+  - intake_decision
+  - data_availability_assessment
+  - detail_gap_assessment
+  - requirement_analysis_report
+  - real_problem_statement
+  - demand_strength_assessment
+  - opportunity_or_theme_map
+  - prioritization_recommendation
+  - validation_plan
+  - evidence_update_plan
+  - optional_review_hints
+  - next_workflow_suggestion
+
+managed_files:
+  topology: workflows/requirement-report/topology.md
+  quality_guide: workflows/requirement-report/references/requirement-report-guide.md
+  intake_gate: workflows/requirement-report/references/light-intake-and-data-gate.md
+  review_hints: workflows/requirement-report/review_hints.yaml
+  runner: workflows/requirement-report/runner.md
+  prompt_current: workflows/requirement-report/prompts/current.md
+  prompt_changelog: workflows/requirement-report/prompts/CHANGELOG.md
+  heavy_task_rules: workflows/HEAVY_TASK_RAG_RULES.md
+
+validation_gates:
+  - gate: intake_gate
+    pass_standard: 已判断数据状态、细节状态、本轮报告深度和路由结果
+  - gate: data_gate
+    pass_standard: 有数据则记录来源；无数据则标注假设，并说明本轮是否可行或需先补证据
+  - gate: detail_gate
+    pass_standard: 用户、场景、行动、成本、期望结果的关键缺口已标注；如需追问只问 1 个问题
+  - gate: source_gate
+    pass_standard: 需求来源、用户原话或反馈证据已记录；缺失时标注“待补来源”
+  - gate: problem_gate
+    pass_standard: 表层诉求和真实问题分开写，不把功能请求直接当需求
+  - gate: demand_gate
+    pass_standard: 需求成立用“需要、行动、成本可承受”判断
+  - gate: strength_gate
+    pass_standard: 说明体验提升、成本降低、新增成本和产品强度
+  - gate: priority_gate
+    pass_standard: 优先级有依据，至少考虑影响、战略匹配、证据强度、成本、风险
+  - gate: validation_gate
+    pass_standard: 下一步给出最低成本验证，不直接跳到完整开发
+  - gate: user_readability_gate
+    pass_standard: 先讲结论和建议，再讲分析过程
+
+version:
+  prompt: "0.4"
+  workflow: "0.4"
+  updated_at: "2026-07-01"

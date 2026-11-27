@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛙蛙呱呱专家团 · 修复执行手册</title>
+<style>
+  :root{
+    --ink:#17181a; --muted:#5f646b; --line:#e3e5e8; --bg:#f7f6f3; --paper:#fff;
+    --accent:#12507a; --accent-soft:#e8f1f7; --accent-deep:#0d3d5e;
+    --warn:#8a4b12; --warn-soft:#fbf0e4; --danger:#8c2f2f; --danger-soft:#faeceb;
+    --ok:#1d6b4f; --ok-soft:#e7f3ee;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px 96px}
+  header.hero{background:linear-gradient(155deg,#0b1c2a 0%,#12507a 58%,#1a6f9e 100%);
+    color:#f2f7fa;padding:62px 28px 54px;margin-bottom:38px}
+  header.hero .inner{max-width:1124px;margin:0 auto}
+  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.72;margin-bottom:16px}
+  h1{font-size:37px;line-height:1.24;margin:0 0 14px;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:17px;line-height:1.8;max-width:780px;opacity:.92;margin:0}
+  .hero-meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;font-size:13px;opacity:.84}
+  .layout{display:grid;grid-template-columns:236px 1fr;gap:42px;align-items:start}
+  nav.toc{position:sticky;top:22px;font-size:13.5px;line-height:1.55}
+  nav.toc .t{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 0 5px 12px;border-left:2px solid transparent}
+  nav.toc a:hover{color:var(--accent);border-left-color:var(--accent)}
+  main{min-width:0}
+  section{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:32px 34px;margin-bottom:24px}
+  h2{font-size:23px;margin:0 0 8px;letter-spacing:-.01em}
+  h2 .num{color:var(--accent);font-variant-numeric:tabular-nums;margin-right:10px;font-size:16px}
+  h3{font-size:16.5px;margin:26px 0 8px}
+  h4{font-size:14px;margin:18px 0 6px;color:var(--muted);letter-spacing:.02em}
+  p{margin:0 0 13px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:20px}
+  a{color:var(--accent)}
+  code{font-family:var(--mono);font-size:.89em;background:#f0f1ef;padding:1px 5px;border-radius:4px;word-break:break-word}
+  pre{background:#101a21;color:#dde8ee;padding:16px 18px;border-radius:8px;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;margin:12px 0 16px}
+  pre code{background:none;padding:0;color:inherit;font-size:inherit;word-break:normal}
+  pre .c{color:#7d9aa8}
+  table{width:100%;border-collapse:collapse;margin:14px 0 10px;font-size:13.4px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#fafaf8;font-weight:600;font-size:12.4px;letter-spacing:.03em;color:var(--muted);white-space:nowrap}
+  tbody tr:hover{background:#fcfcfb}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:.04em;vertical-align:2px}
+  .b0{background:var(--danger-soft);color:var(--danger)}
+  .b1{background:var(--warn-soft);color:var(--warn)}
+  .b2{background:var(--accent-soft);color:var(--accent)}
+  .bok{background:var(--ok-soft);color:var(--ok)}
+  .callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px}
+  .callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+  .callout.danger{border-left-color:var(--danger);background:var(--danger-soft)}
+  .callout.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+  ul,ol{margin:9px 0 15px;padding-left:22px}
+  li{margin:4px 0}
+  .muted{color:var(--muted)}
+  .small{font-size:12.8px}
+  .steps{list-style:none;padding:0;counter-reset:s}
+  .steps>li{position:relative;padding:12px 0 12px 46px;border-bottom:1px dashed var(--line);counter-increment:s}
+  .steps>li:last-child{border-bottom:none}
+  .steps>li::before{content:counter(s);position:absolute;left:0;top:13px;width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .steps b{display:block;margin-bottom:3px}
+  .check{list-style:none;padding:0;margin:8px 0}
+  .check li{position:relative;padding-left:26px;margin:6px 0;font-size:13.6px}
+  .check li::before{content:"";position:absolute;left:0;top:3px;width:14px;height:14px;border:1.5px solid #b9c2c7;border-radius:3px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .pill{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:12px;background:#f0f2f3;color:var(--muted);margin-right:6px}
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr}
+    nav.toc{position:static;border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:var(--paper)}
+    .grid2{grid-template-columns:1fr}
+    header.hero{padding:44px 20px 38px}
+    h1{font-size:28px}
+    section{padding:22px 18px}
+    .wrap{padding:0 14px 64px}
+  }
+  @media print{
+    body{background:#fff;font-size:11.4px}
+    header.hero{background:#12507a !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:26px 22px}
+    nav.toc{display:none}
+    .layout{display:block}
+    section{break-inside:avoid;border:none;padding:0 0 16px;margin-bottom:16px;border-bottom:1px solid var(--line);border-radius:0}
+    pre{white-space:pre-wrap}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <div class="kicker">Remediation Playbook · 2026-11-26</div>
+    <h1>修复执行手册<br>从「知道问题」到「安全改完」</h1>
+    <p class="lede">这份文档不讲理念，只讲顺序：先冻结基线，再修会假绿的门禁，然后生成路径耦合清单，最后按包搬迁、按模型收敛。每一步都有命令、验收标准与回滚方式。</p>
+    <div class="hero-meta">
+      <span>原则 <b>先修门禁，再搬结构</b></span>
+      <span>粒度 <b>一个包一个 PR，一个收敛一个 PR</b></span>
+      <span>底线 <b>673 条用例不许少，20 角色不许掉</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="layout">
+
+<nav class="toc">
+  <div class="t">目录</div>
+  <a href="#s0">0 · 两条路线</a>
+  <a href="#s1">1 · 冻结基线</a>
+  <a href="#s2">2 · 修门禁假绿</a>
+  <a href="#s3">3 · 路径耦合清单</a>
+  <a href="#s4">4 · PR 1 导航</a>
+  <a href="#s5">5 · PR 2–6 分包</a>
+  <a href="#s6">6 · PR 7+ 模型收敛</a>
+  <a href="#s7">7 · 验收总表</a>
+  <a href="#s8">8 · 最小修复</a>
+  <a href="#s9">9 · 风险与回滚</a>
+  <a href="#s10">10 · 提交清单</a>
+</nav>
+
+<main>
+
+<!-- 0 -->
+<section id="s0">
+  <h2><span class="num">00</span>两条路线，先选一条</h2>
+  <p class="sub">不要一上来就搬 125 个文件。</p>
+  <table>
+    <thead><tr><th>路线</th><th>包含</th><th>风险</th><th>适用</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="badge b2">A 最小修复</span></td>
+        <td>术语表 + 入口图 + 修门禁假绿 + 四个入口标 deprecated</td>
+        <td>接近零，不动 .py 结构</td>
+        <td>只想让新人能接手</td>
+      </tr>
+      <tr>
+        <td><span class="badge b1">B 完整收口</span></td>
+        <td>A + core 分包 + claim / prose / card 收敛</td>
+        <td>中到高，需要兼容期</td>
+        <td>准备长期维护、持续加功能</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <b>建议：</b>先按 A 做一遍（第 2–4 节），把“会假绿的门禁”修掉；再按包推进 B。A 是 B 的安全带，跳过 A 直接搬，等于蒙眼改产线。
+  </div>
+</section>
+
+<!-- 1 -->
+<section id="s1">
+  <h2><span class="num">01</span>冻结基线</h2>
+  <p class="sub">动手前先记录“健康状态”，否则后面分不清是新坏还是旧坏。</p>
+  <pre><code>git switch -c refactor/handover-slim
+git tag pre-slim-2026-11-26
+
+python -m pytest tests -q -p no:cacheprovider   <span class="c"># 记下 673 passed / 3 skipped</span>
+python scripts/ci_report_checks.py              <span class="c"># 记下 ALL PASS</span>
+python scripts/check_role_tests.py              <span class="c"># 记下 20/20</span>
+python scripts/check_gate_lock.py               <span class="c"># 记下锁文件哈希</span>
+git rev-parse HEAD &gt; .baseline_commit</code></pre>
+  <table>
+    <thead><tr><th>基线项</th><th>当前值</th><th>之后每个 PR 都要比</th></tr></thead>
+    <tbody>
+      <tr><td>单测</td><td>673 passed / 3 skipped</td><td>用例数不许减少</td></tr>
+      <tr><td>报告 CI</td><td>ALL PASS</td><td>不许新增 FAIL</td></tr>
+      <tr><td>角色端到端</td><td>20/20</td><td>不许掉角色</td></tr>
+      <tr><td>门禁锁</td><td>PASS + 哈希</td><td>变更必须在 diff 里可见</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <h2><span class="num">02</span>先修“会假绿”的门禁 <span class="badge b0">最高优先级</span></h2>
+  <p class="sub">搬文件时，只有一类门禁会静默通过——那比报错更危险。</p>
+
+  <h3>2.1 唯一会假绿的地方</h3>
+  <table>
+    <thead><tr><th>文件</th><th>问题</th><th>后果</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>scripts/check_report_isolation.py:41</code></td>
+        <td><code>CORE.glob("report_*.py")</code>，文件一进 <code>core/report/</code> 就扫不到</td>
+        <td><b>永远 PASS</b>，报告层读了知识库也没人知道</td>
+      </tr>
+      <tr>
+        <td><code>scripts/check_convergence.py</code></td>
+        <td>16 处 <code>_read("core/xxx.py")</code> 硬编码</td>
+        <td>文件缺失直接抛错（响，但会挡住搬迁）</td>
+      </tr>
+      <tr>
+        <td><code>scripts/ci_report_checks.py</code></td>
+        <td>5 处 <code>python -m core.report_quality</code> 等</td>
+        <td>路径失效后步骤红（响，可修）</td>
+      </tr>
+      <tr>
+        <td><code>configs/core_files.json</code></td>
+        <td><code>core/</code> 下相对路径白名单</td>
+        <td>搬动后全部变“新文件”（响，需重生成）</td>
+      </tr>
+      <tr>
+        <td><code>configs/gates.yaml</code></td>
+        <td><code>impl: core.cells_claims.audit_cards</code> 等 2 处</td>
+        <td>靠 shim 兼容，或同步改字符串</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 隔离门禁怎么改</h3>
+  <pre><code><span class="c"># scripts/check_report_isolation.py</span>
+paths = sorted(CORE.glob("report_*.py"))
+new_pkg = CORE / "report"
+if new_pkg.is_dir():
+    paths += sorted(new_pkg.rglob("*.py"))
+
+for p in paths:
+    ...  <span class="c"># 原扫描逻辑不变</span></code></pre>
+
+  <h3>2.3 必须补的证伪测试</h3>
+  <p>门禁修完不等于有效。加一条单测：在 <code>core/report/</code> 下写临时文件，内容含 <code>import shared.knowledge</code>，断言门禁返回 FAIL；删掉后断言 PASS。</p>
+  <div class="callout danger">
+    <b>验收动作（人工做一次）：</b>故意违规必须红。做过这一步，后面搬文件才可信；不做，搬家就是在赌。
+  </div>
+
+  <h3>2.4 收敛门禁怎么改</h3>
+  <pre><code><span class="c"># scripts/check_convergence.py</span>
+WATCHED = {
+    "registry":     "core/platform/registry.py",
+    "roster":       "core/platform/roster.py",
+    "decision":     "core/report/decision_report.py",
+    "methods":      "core/report/analysis_methods.py",
+    "orchestrator": "core/report/orchestrator.py",
+}
+
+def _read(key: str) -&gt; str:
+    p = ROOT / WATCHED[key]
+    if not p.exists():
+        raise FileNotFoundError(f"收敛门禁监视的文件不存在：{p}")
+    return p.read_text(encoding="utf-8", errors="replace")</code></pre>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <h2><span class="num">03</span>生成路径耦合清单</h2>
+  <p class="sub">搬之前先知道“哪些地方按字符串引用了模块”。</p>
+  <p>写一个一次性脚本 <code>scripts/audit_core_paths.py</code>，扫描 <code>configs/ scripts/ pipelines/ knowledge/ shared/</code> 中的 <code>core.xxx</code> 与 <code>core/xxx.py</code>，输出 <code>docs/_migration/couplings.md</code>。</p>
+
+  <h3>已知必须处理的 8 处</h3>
+  <table>
+    <thead><tr><th>位置</th><th class="num">引用数</th><th>处理方式</th></tr></thead>
+    <tbody>
+      <tr><td><code>configs/gates.yaml</code></td><td class="num">2</td><td>shim 兼容，或改字符串</td></tr>
+      <tr><td><code>configs/chart_by_relation.yaml</code></td><td class="num">5</td><td>改字符串</td></tr>
+      <tr><td><code>configs/experts.yaml</code> / <code>skill_graph.json</code></td><td class="num">2 / 2</td><td>改字符串</td></tr>
+      <tr><td><code>scripts/check_convergence.py</code></td><td class="num">16</td><td>抽 <code>WATCHED</code> 常量</td></tr>
+      <tr><td><code>scripts/ci_report_checks.py</code></td><td class="num">5</td><td>改 <code>-m</code> 路径，或 shim 转发 main</td></tr>
+      <tr><td><code>scripts/gen_agent_packs.py</code></td><td class="num">8</td><td>改 import（L197 <code>from core.registry import ROLES</code>）</td></tr>
+      <tr><td><code>scripts/check_report_flow.py</code></td><td class="num">4</td><td>改 <code>from core.report_marks import ...</code></td></tr>
+      <tr><td><code>knowledge/moves/*.json</code> · <code>pipelines/*.json</code></td><td class="num">9 · 2</td><td>改命令字符串</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <b>别忽略 <code>core_files.json</code>：</b>它是 <code>core/</code> 下的相对路径白名单。搬完必须跑
+    <code>python scripts/scan_business_terms.py --write-whitelist</code>，并逐条看 diff——它会混进真实的路径变化与误加文件。
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2><span class="num">04</span>PR 1：只做导航 <span class="badge b2">零行为变更</span></h2>
+  <p class="sub">目标：新人 90 分钟能建立正确地图。</p>
+  <table>
+    <thead><tr><th>交付</th><th>内容</th><th>验收</th></tr></thead>
+    <tbody>
+      <tr><td><code>docs/GLOSSARY.md</code></td><td>task card / probe card / ClaimCard / cell / Observation / ExperienceCard / SkillCard</td><td>声明“裸 card 禁止用于新代码”</td></tr>
+      <tr><td><code>docs/CORE-MAP.md</code></td><td>入口 → 产线 → 拆卡 → 收卡 → 证据，一张图</td><td>每个模块只出现一次</td></tr>
+      <tr><td><code>docs/ENTRYPOINTS.md</code></td><td>只承认 <code>report run-line</code> 是对外入口，其余四个标内部实现</td><td>“唯一入口”声明从 5 处降到 1 处</td></tr>
+      <tr><td><code>scripts/gates_index.py</code> → <code>docs/GATES.md</code></td><td>28 个 check 的 ID / 触发 / 失败含义 / 修复入口</td><td>覆盖 28/28；新增脚本未登记则 CI 红</td></tr>
+      <tr><td><code>docs/_archive/</code></td><td>归档过期 SOP，头部加 <code>status: ARCHIVED</code></td><td>当前有效文档 ≤10 份</td></tr>
+    </tbody>
+  </table>
+  <pre><code>python scripts/gates_index.py --write   <span class="c"># 生成 docs/GATES.md</span>
+python scripts/gates_index.py --check   <span class="c"># CI 用：缺登记即失败</span>
+python scripts/check_doc_consistency.py</code></pre>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2><span class="num">05</span>PR 2–6：core 分包</h2>
+  <p class="sub">一个包一个 PR。先搬被依赖的，再搬依赖别人的。</p>
+
+  <h3>5.1 顺序</h3>
+  <pre><code>platform → data / sources → charts → claims → cards → report → prose</code></pre>
+  <p class="small muted">理由：<code>paths / workspace / project / registry / protocol</code> 几乎被所有模块引用，先搬它们，后面的包才有稳定地基。</p>
+
+  <h3>5.2 每个包的固定六步</h3>
+  <ol class="steps">
+    <li><b>只移动，不改名、不改逻辑</b>
+      <pre><code>git mv core/registry.py core/platform/registry.py
+git mv core/paths.py    core/platform/paths.py</code></pre>
+    </li>
+    <li><b>旧路径写 shim，保留一个版本</b>
+      <pre><code><span class="c"># core/registry.py（兼容层）</span>
+from core.platform.registry import *  <span class="c"># noqa: F401,F403</span></code></pre>
+    </li>
+    <li><b>修包内相对导入与 core.xxx 引用</b>
+      <p class="small">用 codemod 或 IDE 重构；不要手工改 117 处 import。</p>
+    </li>
+    <li><b>更新耦合清单</b>
+      <pre><code>python scripts/scan_business_terms.py --write-whitelist
+<span class="c"># 同步 configs/gates.yaml / check_convergence WATCHED / ci_report_checks 的 -m 路径</span></code></pre>
+    </li>
+    <li><b>先跑子集，再跑全量</b>
+      <pre><code>python -m pytest tests/test_orchestration.py tests/test_gates.py -q
+python scripts/ci_report_checks.py</code></pre>
+    </li>
+    <li><b>一个包一个 commit</b>
+      <pre><code>git commit -m "refactor(core): move platform modules into core/platform (shims kept)"</code></pre>
+    </li>
+  </ol>
+
+  <h3>5.3 四条硬规则</h3>
+  <table>
+    <thead><tr><th>规则</th><th>原因</th></tr></thead>
+    <tbody>
+      <tr><td>移动与改名分开</td><td>一个 PR 同时改路径和名字，diff 无法审，回滚也无法只回滚一半</td></tr>
+      <tr><td>CLI 模块的 shim 必须转发 main</td><td>否则 <code>python -m core.report_quality</code> 会静默空跑</td></tr>
+      <tr><td>包的 <code>__init__.py</code> 保持空</td><td>import 时加载重模块会引入循环依赖</td></tr>
+      <tr><td>shim 不删，最后一轮单独删</td><td>删 shim 是破坏性变更，必须独立 PR + 全量回归</td></tr>
+    </tbody>
+  </table>
+
+  <h4>CLI 模块的 shim 模板</h4>
+  <pre><code><span class="c"># core/report_quality.py（兼容层）</span>
+from core.report.quality import *        <span class="c"># noqa: F401,F403</span>
+from core.report.quality import main
+
+if __name__ == "__main__":
+    raise SystemExit(main())</code></pre>
+
+  <h3>5.4 分包目标</h3>
+  <table>
+    <thead><tr><th>包</th><th>吸收</th><th class="num">约计</th></tr></thead>
+    <tbody>
+      <tr><td><code>core/platform/</code></td><td>paths / workspace / project / registry / protocol / quality_gate / gate_chain / memory_guard</td><td class="num">12</td></tr>
+      <tr><td><code>core/data/</code></td><td>analysis_desk / unit / pipeline、data_*、dataset*、ingest</td><td class="num">12</td></tr>
+      <tr><td><code>core/sources/</code></td><td>source_*、collection_*、coverage_*、supply_plan、research_*</td><td class="num">12</td></tr>
+      <tr><td><code>core/charts/</code></td><td>chart_*（14）+ 现有 charts 子包</td><td class="num">18</td></tr>
+      <tr><td><code>core/claims/</code></td><td>claims / claims_v4 / claim_card / claim_gate / cell_claim / cells_claims / cells_unified</td><td class="num">7</td></tr>
+      <tr><td><code>core/cards/</code></td><td>card_*、dispatch、report_dispatch、task_frame</td><td class="num">9</td></tr>
+      <tr><td><code>core/report/</code></td><td>report_*（20）、flow_report、report_kernel、report_theme</td><td class="num">30</td></tr>
+      <tr><td><code>core/prose/</code></td><td>prose_spec / candidates / gen / style / critic</td><td class="num">5</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <h2><span class="num">06</span>PR 7+：模型收敛</h2>
+  <p class="sub">每个收敛独立 PR，带兼容层，不做“一次删干净”。</p>
+  <table>
+    <thead><tr><th>收敛</th><th>做法</th><th>删除条件</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>claim 四合一</td>
+        <td><code>ClaimCard</code> 为唯一内存模型；<code>cells_claims</code> 只做“格子 → ClaimCard”编译器；<code>claims.py</code> / <code>claims_v4.py</code> 标 deprecated</td>
+        <td>旧报告逐份重编译通过 + golden corpus 通过</td>
+      </tr>
+      <tr>
+        <td>cells 三读数</td>
+        <td><code>cells_unified.observations()</code> 唯一读数；v1/v2/v3 入口从 CLI 移除，保留只读适配器</td>
+        <td>runlog 统计三个月无调用</td>
+      </tr>
+      <tr>
+        <td>prose 五合一</td>
+        <td><code>prose_contract</code>（spec + style）+ <code>prose_render</code>（candidates + gen）；critic 归 r04</td>
+        <td>F10 / F12 不回归</td>
+      </tr>
+      <tr>
+        <td>card 六合一</td>
+        <td><code>cards/pipeline.py</code> = plan + issue + probe + bundle；<code>task_frame</code> 并入 <code>card_plan</code></td>
+        <td>拆卡链路端到端通过</td>
+      </tr>
+      <tr>
+        <td>版本词汇</td>
+        <td>代码不写 v10–v14，只保留 schema 版本 <code>dsh.*/vN</code></td>
+        <td>“唯一入口”≤1 处</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout warn">
+    <b>兼容期规则：</b>旧 JSON 读器至少保留一版；新写盘只产新 schema；<code>check_convergence</code> 违规数只许下降。违反任意一条，不许删旧模块。
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <h2><span class="num">07</span>验收总表</h2>
+  <p class="sub">每个 PR 合并前逐项打勾，缺一项不合。</p>
+  <div class="grid2">
+    <div>
+      <h4>自动门禁</h4>
+      <ul class="check">
+        <li><code>pytest tests</code> ≥ 673，全绿</li>
+        <li><code>ci_report_checks</code> ALL PASS</li>
+        <li><code>check_role_tests</code> 20/20</li>
+        <li><code>check_gate_lock</code> PASS 且变更可见</li>
+        <li><code>scan_business_terms --check</code> 0/0/0</li>
+        <li><code>gen_agent_packs --check</code> 无漂移</li>
+        <li><code>check_project_boundary</code> PASS</li>
+        <li><code>check_doc_consistency</code> PASS</li>
+      </ul>
+    </div>
+    <div>
+      <h4>人工证伪</h4>
+      <ul class="check">
+        <li>隔离门禁：故意违规必须 FAIL</li>
+        <li>收敛门禁：删一个被监视文件必须报错</li>
+        <li>新增 <code>check_*</code> 必须在 GATES.md 出现</li>
+        <li>shim 删除前跑过一次全量回归</li>
+        <li>旧报告能重新编译（抽一份样本）</li>
+        <li>“唯一入口”声明数量未增加</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <h2><span class="num">08</span>如果只做最小修复</h2>
+  <p class="sub">三件事，不动任何 .py 结构，风险接近零。</p>
+  <table>
+    <thead><tr><th class="num">#</th><th>动作</th><th>产出</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>写术语表与入口说明</td><td><code>docs/GLOSSARY.md</code> + <code>docs/ENTRYPOINTS.md</code></td></tr>
+      <tr><td class="num">2</td><td>修隔离门禁的 glob + 加证伪单测</td><td>唯一会假绿的门禁被堵上</td></tr>
+      <tr><td class="num">3</td><td>把四个入口的 docstring “唯一”改成“内部实现，入口见 ENTRYPOINTS”</td><td>新人不再被五套叙事绕晕</td></tr>
+    </tbody>
+  </table>
+  <div class="callout ok">
+    这三步做完，新人上手成本能降一半以上；分包与否可以之后再决定。
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <h2><span class="num">09</span>风险与回滚</h2>
+  <table>
+    <thead><tr><th>风险</th><th>触发</th><th>回滚 / 缓解</th></tr></thead>
+    <tbody>
+      <tr><td>import 断裂</td><td>分包移动文件</td><td>旧路径保留 shim；按包分批提交，单包可单独 revert</td></tr>
+      <tr><td>门禁假绿</td><td>glob 没覆盖新目录</td><td>先做第 2 节；加证伪测试</td></tr>
+      <tr><td>白名单漂移</td><td><code>core_files.json</code> 忘记重生成</td><td><code>--write-whitelist</code> 后逐条 review diff</td></tr>
+      <tr><td>CLI 空跑</td><td>shim 没转发 <code>main()</code></td><td>用 5.3 的模板；CI 保留 <code>python -m</code> 步骤</td></tr>
+      <tr><td>产物不兼容</td><td>批次三换 schema</td><td>旧读器保留一版；新写盘只产新 schema</td></tr>
+      <tr><td>文档再次漂移</td><td>入口文档改版</td><td>GLOSSARY 为术语唯一出处；<code>check_doc_consistency</code> 进 CI</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <h2><span class="num">10</span>提交清单（照着勾）</h2>
+  <ul class="check">
+    <li>PR 0：基线快照 + tag（不改代码）</li>
+    <li>PR 1：修隔离门禁 + 加证伪测试 + 收敛门禁 WATCHED 常量</li>
+    <li>PR 2：路径耦合清单脚本 + <code>docs/_migration/couplings.md</code></li>
+    <li>PR 3：GLOSSARY / CORE-MAP / ENTRYPOINTS / GATES.md / 文档归档</li>
+    <li>PR 4：platform 分包（shim 保留）</li>
+    <li>PR 5：data + sources 分包</li>
+    <li>PR 6：charts 分包</li>
+    <li>PR 7：claims 分包</li>
+    <li>PR 8：cards 分包</li>
+    <li>PR 9：report 分包</li>
+    <li>PR 10：prose 分包 + <code>core/__init__.py</code> 缩表</li>
+    <li>PR 11+：claim / cells / prose / card 各自收敛</li>
+    <li>PR 最后：删除 shim + 全量回归 + 更新 CHANGELOG</li>
+  </ul>
+  <div class="callout">
+    <b>现在就能开始的第一步：</b>PR 0–2。它们不改业务行为，做完你就有“可信的门禁 + 完整耦合表”，再决定要不要往下搬包。
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+workflow_id: prd-report
+version: "0.2"
+type: optional_review_hints
+
+purpose: >
+  给 PRD 报告作者生成“后续可能需要谁复核”的提醒。这里不是触发图，
+  不写死本地 agent 路径，也不代表自动分派任务。实际调用谁，由使用者在自己的
+  agent 注册表或团队分工里映射。
+
+rules:
+  - PRD 报告本身不依赖这些提醒才能完成。
+  - 只有当 PRD 要进入正式开发、投放、发布或跨角色执行时，才把提醒放进“下一步”。
+  - 提醒使用角色类型，不使用本机路径。
+  - 审查者只复核自己的专业边界，不改写产品目标。
+
+review_hints:
+  frontend_reviewer:
+    remind_when:
+      - PRD 包含页面、路由、交互或前端状态
+    ask_them_to_check:
+      - 页面入口和用户动作是否清楚
+      - 空态、加载、错误、权限、成功状态是否覆盖
+      - 前后端责任边界是否清楚
+
+  ui_reviewer:
+    remind_when:
+      - PRD 包含页面体验、信息架构、图表或报告视觉要求
+    ask_them_to_check:
+      - 第一眼是否能看懂页面目的
+      - 信息层级是否服务用户任务
+      - 是否需要高保真设计或设计系统
+
+  backend_reviewer:
+    remind_when:
+      - PRD 包含数据、接口、权限、后台任务、日志或恢复路径
+    ask_them_to_check:
+      - 数据从哪里来
+      - 谁能看、谁能改、谁能触发
+      - 失败如何恢复
+      - 操作员如何检查、调整和人工兜底
+
+  architecture_reviewer:
+    remind_when:
+      - PRD 跨多个系统、跨前后端、跨 Agent，或涉及公共接口和长期架构
+    ask_them_to_check:
+      - 模块边界是否清楚
+      - 接口契约是否需要先定
+      - 是否需要 ADR 或架构决策记录
+
+  agent_reviewer:
+    remind_when:
+      - PRD 包含 Agent、模型、工具调用、记忆或自动化
+    ask_them_to_check:
+      - Agent 能做什么、不能做什么
+      - 什么时候必须问人
+      - 输出契约是否可验收
+      - 审计、限流和失败处理是否清楚
+
+  test_reviewer:
+    remind_when:
+      - PRD 准备进入开发、验收或回归
+    ask_them_to_check:
+      - 验收是否可复现
+      - 主路径是否完整
+      - 边界和失败态是否覆盖
+      - 是否需要回归范围

@@ -1,0 +1,52 @@
+# Secrets and local environment
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+auth/
+state.json
+cookies.json
+credentials.json
+
+# Local caches
+.cache/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+node_modules/
+.venv/
+venv/
+
+# Build and export artifacts
+dist/
+build/
+outputs/
+tmp/
+temp/
+
+# Product-manager runtime reports
+reports/*
+!reports/README.md
+!reports/.gitkeep
+
+# Personal runtime memory for public installations
+user/profile.md
+user/*.local.md
+experience/projects/
+experience/inbox/*
+!experience/inbox/README.md
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Logs
+*.log
+logs/

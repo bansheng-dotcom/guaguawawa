@@ -1,0 +1,30 @@
+﻿# manifest.yaml — 叙事连贯性修复
+name: "narrative-smoother"
+version: "1.0"
+status: "active"
+description: "叙事连贯性修复；AI 味修订只消费 ai-tone-director audit/repair-plan"
+
+io:
+  inputs:
+    - "structure-editor output"
+    - "section-review-context.json"
+    - "ai-tone-audit.json or ai-tone-repair-plan.md when available"
+  outputs:
+    - "revised section Markdown"
+
+execution:
+  temperature: null
+  node_type: "agent"
+  parallel: false
+
+prompt_ref: "prompts.yaml#agents.narrative-smoother"
+
+dependencies:
+  agents: ['structure-editor']
+  scripts: []
+  references:
+    - 'D:\知识库\skills\内容生产\ai-tone-director\SKILL.md'
+    - 'D:\知识库\skills\内容生产\ai-tone-director\agents\director\SKILL.md'
+    - 'D:\知识库\skills\内容生产\ai-tone-director\workflows\article-director-integration.md'
+    - 'style-profiles/cognitive-style-guide.md'
+
