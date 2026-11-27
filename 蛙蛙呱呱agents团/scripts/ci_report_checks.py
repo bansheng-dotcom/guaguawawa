@@ -123,6 +123,14 @@ def main() -> int:
         print("[0d] SKIP(privacy) :: 无 projects 目录")
         env.append("projects-missing")
 
+    # [0e] 门禁索引：每个 check_*.py 必须有消费者（CI / gates.yaml / 其它脚本 / MANUAL）。
+    #      2026-11-27：新增门禁不再允许悄悄变成孤儿脚本，docs/GATES.md 必须最新。
+    rc, out = run([sys.executable, "scripts/gates_index.py", "--check"])
+    first = out.strip().splitlines()[0] if out.strip() else ""
+    print(f"[0e] gates-index rc={rc} :: {first}")
+    if rc:
+        fails.append("gates-index")
+
     # [2][3][3a] 依赖报告样本；样本未就绪时只跳过、不判红
     if not sample_ok:
         print("[2][3][3a][3b] SKIP(report-sample) :: 缺样本，run-line 与门禁不执行")

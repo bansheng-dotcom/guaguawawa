@@ -30,14 +30,14 @@ if hasattr(_sys.stderr, "reconfigure"):
     _sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 
-from agents.shared import role_runtime
+from shared import role_runtime
 import argparse  # 统一元命令/报告
 import json
 import os
 from core.base.workspace import role_workspace  # noqa: E402
 
 import sys
-from agents.shared.chat_cli import add_chat_parser, handle_chat
+from shared.chat_cli import add_chat_parser, handle_chat
 from typing import Any, Dict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

@@ -2,7 +2,7 @@
 """DSH 深度集成：在 DSH 主 Agent 中通过 subagent 调用 r01，自动完成知识注入。
 
 使用方式：
-    from agents.shared.dsh_integration import DSHKnowledgeInjector
+    from shared.dsh_integration import DSHKnowledgeInjector
 
     injector = DSHKnowledgeInjector()
     result = injector.inject_and_call(
@@ -17,7 +17,7 @@ import json
 import os
 from typing import Any, Dict, List, Optional
 
-from agents.shared.knowledge_base import KnowledgeBase, create_r01_knowledge_base
+from shared.knowledge_base import KnowledgeBase, create_r01_knowledge_base
 
 
 class DSHKnowledgeInjector:
@@ -158,7 +158,7 @@ def quick_inject_r01(
     """
     kb = create_r01_knowledge_base("agents/r01-waquanju-ceo")
     if domains is None:
-        from agents.shared.knowledge_base import R01_CONFIG
+        from shared.knowledge_base import R01_CONFIG
         domains = kb.get_domain_for_intent(intent, R01_CONFIG["keyword_map"])
     prompt = kb.build_system_prompt(domains=domains, task_context=intent)
     response = llm_client.chat(system=prompt, user=intent)

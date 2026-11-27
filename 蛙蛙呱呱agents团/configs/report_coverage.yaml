@@ -1,5 +1,5 @@
 # 报告覆盖标准（唯一阈值出处）
-# 口径见 docs/REPORT-COVERAGE-UPGRADE-SOP.md
+# 口径见 docs/archive/REPORT-COVERAGE-UPGRADE-SOP.md
 coverage:
   cited_sources_min: 50
   saturation_no_new: 15

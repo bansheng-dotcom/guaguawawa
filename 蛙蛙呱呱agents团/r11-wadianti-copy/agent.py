@@ -36,7 +36,7 @@ import json
 import os
 import sys
 try:
-    from agents.shared.chat_cli import add_chat_parser, handle_chat
+    from shared.chat_cli import add_chat_parser, handle_chat
 except ImportError:
     try:
         from shared.chat_cli import add_chat_parser, handle_chat
@@ -44,7 +44,7 @@ except ImportError:
         def add_chat_parser(p): pass
         def handle_chat(args): pass
 try:
-    from agents.shared import role_runtime
+    from shared import role_runtime
 except ImportError:
     try:
         from shared import role_runtime

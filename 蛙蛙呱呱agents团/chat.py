@@ -20,7 +20,7 @@ if _WORKSPACE not in sys.path:
 if _HERE not in sys.path:
     sys.path.insert(0, _HERE)
 
-from agents.shared.chat_cli import handle_chat
+from shared.chat_cli import handle_chat
 
 
 def main() -> int:

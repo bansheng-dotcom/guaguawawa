@@ -10,7 +10,7 @@
 > | `docs/UPGRADE-PLAN.md` | **本轮唯一执行分册**：2026-11-24 静态审查、源码接线、问题矩阵、WP0–WP5、同步文件与外部依据 |
 > | `docs/COLLECTION-COMPLIANCE.md` | 采集合规现行分册；所有 preview/quality/run 同门、默认拒绝 |
 > | `docs/COORDINATION-SOP.md` | 能力级别与协同分册；须与本文的实际资产、显式降级和双覆盖率口径一致 |
-> | `docs/CHART-UPGRADE-SOP.md` | L3 图表层细节分册 |
+> | `docs/archive/CHART-UPGRADE-SOP.md` | L3 图表层细节分册（已归档） |
 > | `docs/AUTHORING-CONTRACT-SOP.md` | L2 语义层细节分册 |
 > | `docs/DATA-SHAPE-SOP.md` | L1 数据形状分册 |
 > | `docs/archive/DATA-LAYER-SOP*.md`、`docs/archive/SYSTEM-UPGRADE-SOP-v3.md` | 历史方案/专项背景；其中 `fulfil`、固定实际行数状态、`GUAGUA_PIPELINE=v2` 等不得当作已接线的现行事实 |

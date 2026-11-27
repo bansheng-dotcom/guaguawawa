@@ -39,13 +39,13 @@ import hashlib
 import json
 import os
 import sys
-from agents.shared.chat_cli import add_chat_parser, handle_chat
+from shared.chat_cli import add_chat_parser, handle_chat
 import time
 from typing import Any, Dict, List, Optional
 
 from core.base import protocol, registry, workspace  # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
-from agents.shared import role_runtime  # noqa: E402
+from shared import role_runtime  # noqa: E402
 from skills import SKILLS, _common as c  # noqa: E402
 import cases  # noqa: E402
 import contracts  # noqa: E402

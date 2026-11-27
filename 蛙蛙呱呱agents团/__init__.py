@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
-"""一人公司 · 20 角色智能体专家团（agents 包）。
+"""一人公司 · 20 角色智能体专家团（仓库根包）。
 
-本文件存在的唯一目的：把 `agents` 变成**真正的 Python 包**，
-从而让 20 个角色目录里的 `from agents.shared.xxx import ...` 在
-「任意 cwd / 任意入口」下都能解析。
+本文件只做一件事：把仓库父目录注入 `sys.path`，供从任意 cwd 启动角色时复用。
 
-历史故障（Stage 1 体检记录）：
-    r02~r20 在角色目录内直接 `python agent.py manifest` 时抛
-        ModuleNotFoundError: No module named 'agents'
-    根因：仓库根目录没有 `agents/__init__.py`，`agents` 不是包；
-    在 `D:\\一人公司\\agents\\` 这类旧布局下运行时，`import agents` 永远失败，
-    必须手工设置 PYTHONPATH 才能跑通。
-    修复：补本文件 + 各 agent.py 用 `__file__` 把仓库根注入 sys.path。
+历史（Stage 1 体检 → 2026-11-27 收敛）：
+    曾有 `agents/` 兼容别名包，让角色里的 `from agents.shared.xxx import ...`
+    在「任意 cwd / 任意入口」下都能解析。
+    2026-11-27 起 20 个角色统一 `from shared.xxx import ...`，别名包已删除；
+    直接用仓库根即可，不再需要多层 `agents.shared` 路径。
 """
 from __future__ import annotations
 

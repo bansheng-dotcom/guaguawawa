@@ -51,7 +51,7 @@ for _p in (_HERE, _AGENTS, _ROOT, CHART_DIR):
         sys.path.insert(0, _p)
 
 try:
-    from agents.shared.chat_cli import add_chat_parser, handle_chat
+    from shared.chat_cli import add_chat_parser, handle_chat
 except ImportError:
     try:
         from shared.chat_cli import add_chat_parser, handle_chat
@@ -65,7 +65,7 @@ import cases  # noqa: E402
 import contracts  # noqa: E402
 import harness  # noqa: E402
 import review  # noqa: E402
-from agents.shared import role_runtime  # noqa: E402
+from shared import role_runtime  # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
 
 ROLE = "r06"
@@ -816,7 +816,7 @@ def main() -> int:
         try:
             from shared import conclusions as _concl
         except Exception:  # noqa: BLE001
-            from agents.shared import conclusions as _concl
+            from shared import conclusions as _concl
         result = _concl.enrich(result, args.skill, getattr(args, "action", None))
     except Exception:  # noqa: BLE001
         pass

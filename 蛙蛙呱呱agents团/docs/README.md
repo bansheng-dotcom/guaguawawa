@@ -17,22 +17,18 @@
 | `REPORT-LINES.md` | 报告产线地图（一条线、四种输入、保留零件、项目根与 brief） |
 | `../使用指南.md` §2.7 | 工具 vs 项目资产：项目根、写入守卫、CardBundle 与 expert_brief 契约 |
 | `../CHANGELOG.md` | 专家团（智能体）更新日志：按日期记录能力、门禁、迁移与不兼容 |
-| `REPORT-COVERAGE-UPGRADE-SOP.md` | 覆盖升级 SOP：50 源/饱和/矩阵/确认/双门禁/R04 全审 |
 | `REPORT-PROSE-STYLE.md` | 文笔与深度 Style Guide：三问/三动作/PART I–III/论证五段/rubric |
 | `REPORT-FLOW.md` | Flow 报告：HTML 一条流、PDF 自动分页、摘要必填、小页脚 |
 | `REPORT-LAYOUTS.md` | consulting 主题：A/B 两种页式 + 13 型图表（core 可选出口） |
-| `REPORT-DECISION-GRADE.md` | 决策级报告的目标形态（问题→断言→证据→图） |
-| `REPORT-CLAIM-GATE.md` | 断言门禁（头条资格、可比较性） |
 | `REPORT-DATA-INTAKE.md` | 数据 intake：来源、quote 回抓、缺口 |
 | `REPORT-SOURCE-GAP-POLICY.md` | 缺口政策（缺就是缺，不许补形容词） |
 | `REPORT-OUTCOME-LEDGER.md` · `REPORT-OUTCOME-CALIBRATION.md` | 结果台账与校准 |
-| `REPORT-CAPABILITY-GRAPH.md` · `REPORT-CAPABILITY-DECISIONS.md` | 角色×问题×能力图 |
+| `REPORT-CAPABILITY-DECISIONS.md` | 角色×问题×能力图（决策记录） |
 | `REPORT-FEATURE-FLAGS.md` | 降级开关（哪些还生效、哪些已随 P1 删除） |
 | `SKILL-LAYER-SPEC.md` | 一份合格 `SKILL.md` 的硬标准（六字段 + 十节 + 100 分口径） |
 | `SKILL-MD-UPGRADE-PLAN.md` | 技能层升级路线 |
 | `SOP_AGENT_META_UPGRADE.md` | 智能体能力升级方法论（体检→对标→硬化→注入→闭环→沉淀） |
 | `CHART_CRAFT_STUDY.md` | 图表工艺沉淀（48 型图纪律） |
-| `DOMAIN-EXPERT-LAYER.md` | 业务线 → 领域编队 |
 | `REPORT_REFERENCE_LIBRARY.md` | 报告参考库（案例与写法） |
 
 ## 历史 / 限定使用（文件可能仍在 docs/）
@@ -41,6 +37,7 @@
 |---|---|
 | `docs/archive/DATA-LAYER-SOP.md`、`DATA-LAYER-SOP-v3.md` | 历史方案/专项背景。`actual_rows=null`、collect 收尾调 `fulfil` 等旧表述不得当作当前源码事实或既定实施路线。 |
 | `docs/archive/SYSTEM-UPGRADE-SOP-v3.md` | 历史方案/专项背景。staging→mart、Expand-Contract 等设计可参考；`GUAGUA_PIPELINE=v2` 未核实到当前消费者，不得当作现存回滚开关。 |
+| `docs/archive/` 下 2026-11-27 归档的 8 份 `status: ARCHIVED` 文档（CHART-UPGRADE-SOP、DOMAIN-EXPERT-LAYER、REPORT-CAPABILITY-GRAPH、REPORT-CLAIM-GATE、REPORT-COVERAGE-UPGRADE-SOP、REPORT-DECISION-GRADE、REPORT-PRODUCTION-LINE-SPEC、REPORT-SYSTEM-UPGRADE-SOP） | 只作历史证据，不得直接作为施工依据；冲突以 `MASTER-UPGRADE-SOP.md` 与 `UPGRADE-PLAN.md` 为准。 |
 | 未在上方列为现行的 `REPORT-*-UPGRADE-SOP.md`、早期升级 SOP 与过程稿 | 按各自主题参考；状态、优先级和验收与总纲冲突时，以总纲和 `UPGRADE-PLAN.md` 为准。 |
 | 其他未列入“现行”的学习笔记、复盘和版本稿 | 只作历史证据，不直接施工；需要追溯时同时查 git 历史与当前源码。 |
 

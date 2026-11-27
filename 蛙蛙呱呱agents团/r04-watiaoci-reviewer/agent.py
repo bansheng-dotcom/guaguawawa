@@ -28,7 +28,7 @@ import argparse
 import json
 import os
 import sys
-from agents.shared.chat_cli import add_chat_parser, handle_chat
+from shared.chat_cli import add_chat_parser, handle_chat
 from typing import Any, Dict, List, Optional, Tuple
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
@@ -46,7 +46,7 @@ import harness as harness_lib                                       # noqa: E402
 
 from core.base import protocol, workspace                 # noqa: E402
 from core.prompt_kernel import add_clarify_parser, clarify_cli, fallback_route  # noqa: E402
-from agents.shared import role_runtime  # REP-001 报告引擎
+from shared import role_runtime  # REP-001 报告引擎
 
 ws = workspace.Workspace(os.path.join(_ROOT, "workspace"))
 

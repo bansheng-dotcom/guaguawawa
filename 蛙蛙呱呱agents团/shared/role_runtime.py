@@ -202,7 +202,7 @@ def handle_meta_command(argv: List[str], role: str) -> Optional[int]:
     if cmd not in ("report", "test", "logs"):
         return None
 
-    from agents.shared.role_profiles import get as get_profile
+    from shared.role_profiles import get as get_profile
     profile = get_profile(role)
     role_dir = _role_dir(role)
     if role_dir not in sys.path:

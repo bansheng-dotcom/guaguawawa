@@ -308,7 +308,7 @@ preview()/quality() ↑                5. 进入报告构建与渲染
 | collection 共用前置门、YAML 错误 | `core/sources/collection_spec.py`、相关 collector 接口 | `tests/test_derivation.py`、`tests/test_collection_contract.py`、`tests/test_card_probe.py` | `docs/COLLECTION-COMPLIANCE.md`、`docs/COLLECTION-SOP.md`、模板字段说明 |
 | 单快照 preview/quality/run | `core/cards/card_probe.py`、`core/sources/collection_spec.py`、fetch/collector 实现 | `tests/test_derivation.py`、`tests/test_card_probe.py`；增加请求次数与 fetch_id 断言 | 合规留痕、频控、留存与撤销规则 |
 | 格网与双覆盖率 | `core/cards/card_issue.py`、`core/claims/cell_claim.py`、现有 coverage/grid 模块 | 对应 card/cell/coverage 测试；增加论点格、unavailable、同计划版本反例 | MASTER 的 D1/D2、项目口径页；不得沿用固定格数作为通用门槛 |
-| 图型映射与 donut | `core/report_theme/charts_pro/compat.py`、`core/report_theme/charts_pro/spec.py` | `tests/test_chart_contract.py`、`tests/test_report_contract_v4.py` 及相关渲染测试 | `docs/CHART-UPGRADE-SOP.md`、图表可访问性说明 |
+| 图型映射与 donut | `core/report_theme/charts_pro/compat.py`、`core/report_theme/charts_pro/spec.py` | `tests/test_chart_contract.py`、`tests/test_report_contract_v4.py` 及相关渲染测试 | `docs/archive/CHART-UPGRADE-SOP.md`、图表可访问性说明 |
 | 图状态、阻断与血缘 | `core/report/report_flow.py`、`core/report_theme/pages.py`、`core/data/dataset_query.py` | `tests/test_report_flow.py`、`tests/test_flow_renderer.py`、`tests/test_report_contract_v4.py` | MASTER 的 D3、`REPORT-STANDARD.md` 的图成功定义 |
 | 合规 schema 与证据版本 | `core/sources/collection_spec.py`、`configs/collections/_template.yaml`（未来实施时） | collection/derivation 测试 | COLLECTION-COMPLIANCE；真实源逐源规格，不得 blanket claim |
 | 文档权威与历史分册 | 无业务代码 | 文档链接/引用检查（若已有） | `docs/README.md`、MASTER、本文；旧分册标历史或限定范围 |

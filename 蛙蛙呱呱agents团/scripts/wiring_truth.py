@@ -43,7 +43,7 @@ DEBT_FILE = ROOT / "docs" / "_migration" / "wiring-debt.json"
 #: 模块名 → 为什么暂时允许未接线（必须写清「接回还是删除」的待决事项）
 DEFAULT_DEBT: Dict[str, str] = {
     "claim_card": "待决：接回 report_flow 恢复头条门禁，或归档",
-    "claim_gate": "待决：同上；文档 REPORT-CLAIM-GATE.md 需要同步",
+    "claim_gate": "待决：同上；归档文档 docs/archive/REPORT-CLAIM-GATE.md 需要同步",
     "chart_fit": "待删：report_flow.chart_fitness_errors 已覆盖同判据",
     "prose_critic": "待删：prose_style + F10/F12 已覆盖正文门禁",
     "evidence_graph": "待删：证据图未接入任何产线路径",

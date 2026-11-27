@@ -20,7 +20,7 @@ for _p in (_REPO, _AGENTS):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from agents.shared.dsh_integration import DSHKnowledgeInjector
+from shared.dsh_integration import DSHKnowledgeInjector
 
 
 def add_chat_parser(subparsers: Any) -> Any:
