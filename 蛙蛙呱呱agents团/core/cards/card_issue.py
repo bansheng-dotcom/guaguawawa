@@ -58,7 +58,7 @@ def prepare_probe_cards(project: Path) -> Dict[str, Any]:
     第一次发卡不是给执行层，是给探测层：去查这个业务有哪些源、
     每个源给什么字段、什么口径、多少钱、多久更新。
 
-    回来后跑 `card_probe`，由它生成 `plan/supply.json`（供给方案），
+    回来后跑 `pipeline.probe`，由它生成 `plan/supply.json`（供给方案），
     再发采集卡给执行层——卡里带着"这格能采到 L1 还是 L2"。
     """
     project = Path(project)
@@ -173,7 +173,7 @@ def prepare_probe_cards(project: Path) -> Dict[str, Any]:
     return {"ok": True, "role": PROBE_ROLE, "dir": str(d),
             "measures": measures, "dims": dims, "cells": len(cells),
             "bundle_problems": problems,
-            "next": "探测层交回 cards/probe/sources.json 后跑 card_probe，生成 plan/supply.json"}
+            "next": "探测层交回 cards/probe/sources.json 后跑 pipeline.probe，生成 plan/supply.json"}
 
 
 def prepare(project: Path, intent: str = "") -> Dict[str, Any]:

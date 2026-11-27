@@ -110,7 +110,7 @@ def route(intent: str) -> List[str]:
 
 def _attach_brief(task: protocol.Task, project: str | None = None) -> None:
     """v2：给任务卡挂 expert_brief。验收只由 brief 派生，卡里不再写明细。"""
-    from core.cards import card_bundle
+    from core.cards import pipeline
     from core.base import project as project_mod
     if project:
         proj = project_mod.load(project)
@@ -118,8 +118,8 @@ def _attach_brief(task: protocol.Task, project: str | None = None) -> None:
         card_dir = str(proj.path("cards", task.owner))
     else:
         card_dir = os.path.join(WORKSPACE_ROOT, "cards", task.owner)
-    res = card_bundle.issue(card_dir, task.owner, task.task_id, task.intent,
-                            root=project)
+    res = pipeline.issue_bundle(card_dir, task.owner, task.task_id, task.intent,
+                                root=project)
     env = res["bundle"]["card"]
     task.brief_ref = env["brief_ref"]
     task.brief_version = env["brief_version"]

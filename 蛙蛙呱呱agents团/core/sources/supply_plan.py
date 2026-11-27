@@ -59,7 +59,7 @@ def from_probe(probe_res: Dict[str, Any], project: Optional[Path] = None
     这是本模块最重要的函数：供给方案不是手写的口号清单，
     它是「格子需求 × 源匹配」的产物——每一条都有出处、覆盖数和缺口原因。
 
-    probe_res 来自 `card_probe.probe()`，含：
+    probe_res 来自 `pipeline.probe()`，含：
         plan_demands / match matrix(per demand) / unavailable_demands
     """
     pr = probe_res or {}

@@ -153,7 +153,7 @@ def main() -> int:
     # [2][3][3a] 依赖报告样本；样本未就绪时只跳过、不判红
     if not sample_ok:
         print("[2][3][3a][3b] SKIP(report-sample) :: 缺样本，run-line 与门禁不执行")
-    # [2] run-line：v11 唯一入口（一条命令）；下面两个只差意图，用来证明同一数据不同问题
+    # [2] run-line：报告唯一入口（一条命令）；下面两个只差意图，用来证明同一数据不同问题
     out_a = OUT / "a"
     if not sample_ok:
         rc, out = 0, ""

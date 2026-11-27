@@ -518,7 +518,7 @@ def build_agents_md(roles: list) -> str:
         "python guagua.py prompt --role r06 --intent \"你的问题\"   # 唯一提示词入口（chat 已废弃）",
         "python guagua.py project init ../projects/<slug> --industry \"你的行业\"   # 项目资产建在团外",
         "python guagua.py plan \"你的经营目标\"         # 让 R01 拆任务卡",
-        "python guagua.py report \"你的问题\" --dir <项目> --out <目录>   # v11 唯一入口：一条命令出报告（可加 --pdf）",
+        "python guagua.py report \"你的问题\" --dir <项目> --out <目录>   # 一条命令出报告（可加 --pdf）",
         "python guagua.py report check --html <报告>                    # 验收成品（三层质检）",
         "python guagua.py run --intent \"你的经营目标\"                    # 不确定走哪条？先让路由器给建议（--execute 才执行）",
         "# 旧 run / pack / produce / research / --thesis 已退役；诊断用 capabilities / plan",
