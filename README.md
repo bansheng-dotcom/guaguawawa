@@ -3,7 +3,7 @@
 > 专为**一人公司**打造的全栈商业与技术智能体协作系统。
 > 用「组织语义 + 契约化端口 + 生成与校验分离」把 20 个专业角色组织成一家可运行的公司，而不是 20 个互不相干的聊天机器人。
 
-**版本：v2.6 · 2026-11-22**（报告产线 v13：拆卡线唯一默认 / 人环门禁 / 50 源唯一 URL / preflight 九项）
+**版本：v2.9 · 2026-11-27**（20 角色厚度升级 + 五条生产线；P4 物理分包 / P5 逻辑收敛；报告产线 v14）
 
 > **默认只走拆卡线**（2026-11-22 起为硬门）：
 > `clarify → intake → clarify --confirm --user-said → brief --plan（把卡摊给用户看）→
@@ -1050,6 +1050,25 @@ python guagua.py plan "你的经营目标" --project ../projects/<slug>
 ---
 
 ## 十、版本与更新记录
+
+### v2.9（2026-11-27）· 20 角色厚度升级 + 五条生产线 + 架构收敛
+
+- **能力厚度**：完成 20 角色能力升级，五条业务生产线全部打通（决策/研究、产品/工程、
+  内容/增长、交易/供应链、数据/模型/SRE）；角色的 `SKILL.md`、引擎、经验层与验收同步加厚。
+- **P4 物理分包**：`core/` 按域迁入 `core/base`、`core/data`、`core/sources`、`core/charts`、
+  `core/claims`、`core/cards`、`core/report`、`core/prose`，退役兼容 shim。
+- **P5 逻辑收敛**（同类只留一个实现）：
+  - claims 契约单一出处，契约版本统一 `v4`，mapping 层并入 claims；两套交付形态统一字段形状；
+  - prose 五合一：`prose_spec/style/candidates/report_prose_gen` → `prose_contract` + `prose_render`；
+  - cards 唯一编排入口 `core/cards/pipeline.py`（合并 plan/bundle/probe/card_issue/report_dispatch/dispatch）；
+  - `report` CLI 后端统一走 `report_line` 门面；移除 `core` 零使用懒加载分组。
+- **接线与索引**：`wiring_truth` 接线真相表（LIVE 31 / 未接线 0 / 文档死链 0）；新增导航层
+  `GLOSSARY` / `ENTRYPOINTS` / `GATES` / `couplings`，文档收敛为 10 篇现行 + 5 篇根入口，其余归档 `docs/archive/`；
+  断舍离 12 个未接模块。
+- **门禁与测试**：F12 结构检查只作用于作者草稿；导航入口锁定、退役死 smoke 脚本；
+  新增 27 条合并后 pipeline 直连回归 + card-line 回归（`CI_CARDS_SAMPLE` 门禁）；数据线样例三意图过 CI。
+- **WorkBuddy 同步**：镜像改为严格对齐源（清理 337 个已删残留，`source/` 与源零漂移）。
+- 全量条目见 [`CHANGELOG.md`](蛙蛙呱呱agents团/CHANGELOG.md)。
 
 ### v2.8（2026-11-25）· 项目边界 + expert_brief v2
 
