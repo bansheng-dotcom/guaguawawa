@@ -8,6 +8,23 @@
 
 ---
 
+## 2026-11-27（第二十三轮）· P5-5：cells 三套读数收敛为唯一读数
+
+一句话：**同一格只认一份读数（raw.json 优先、其次 plan/mart.json）；对账差异、重复键、统一读数失败都必须可见，不许静默。**
+
+| 件 | 落点 | 说明 |
+|---|---|---|
+| 唯一读数 | `core/claims/cells_unified.py`：`observations()` / `index()` / `key_of()` | 按 `(measure, entity, period)` 归一；raw 优先、mart 兜底 |
+| 对账 | `compare()` | 写 `out/cells_claims_diff.json`；新增 `duplicates`（raw/mart 同键多值 → `ok=False`；cells 侧同键多值只作提示） |
+| 覆盖 | `apply_to_cells()` | 用统一读数覆盖 `value`，记录 `value_from=observation` / `unified_path`；不一致标 `needs_human` |
+| 失败留痕 | `cells_claims.build()` | 统一读数异常不再只写局部字典：`out/cells_unified.json` 与返回值 `unified.error` 都带 error，且退出前必落盘 |
+| 新守卫 | `tests/test_claims.py` 3 条 | 冲突重复键必须 ok=False；同值重复不算冲突；统一读数崩溃必须出现在返回值与落盘文件 |
+| 白名单 | `configs/core_files.json` | 168（`claims/cells_unified.py` 已在册，无增删） |
+
+验收：`pytest` **641 passed** / 3 skipped；`ci_report_checks` ALL PASS（含 `[22] flow-project`）；`guagua.py check` 20/20；wiring_truth / dead_code / project_boundary 全 PASS。
+
+---
+
 ## 2026-11-27（第二十二轮）· P5-4：契约统一 v4 + 映射层并入 claims
 
 一句话：**claims.json 只发一个契约版本 `v4`；`claims_v4.py` 并入 `claims.py`；收卡严格门禁覆盖 v2/v3/v4。**

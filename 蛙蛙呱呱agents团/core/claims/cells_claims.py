@@ -486,17 +486,23 @@ def build(project: Path, cells_path: Optional[Path] = None,
             from core.claims import cells_unified as _cu
             _diff = _cu.compare(project, write=True)
             _uni = _cu.apply_to_cells(project, cells)
+        except Exception as exc:  # noqa: BLE001 统一读数失败时退回格子原值
+            _uni["error"] = "%s: %s" % (type(exc).__name__, exc)
+        # 失败也要留痕：cells_unified.json 记录 error，不静默放行。
+        try:
             (project / "out").mkdir(parents=True, exist_ok=True)
             (project / "out" / "cells_unified.json").write_text(
                 json.dumps({"schema": "dsh.cells_unified/v1",
+                            "error": _uni.get("error"),
                             "diff": {k: _diff.get(k) for k in
-                                     ("ok", "matched", "diffs", "missing_in_unified")},
+                                     ("ok", "matched", "diffs", "duplicates",
+                                      "missing_in_unified")},
                             "applied": {"matched": _uni["matched"],
                                         "mismatched": len(_uni["mismatched"]),
                                         "unified_rows": _uni["unified_rows"]}},
                            ensure_ascii=False, indent=1), encoding="utf-8")
-        except Exception as exc:  # noqa: BLE001 统一读数失败时退回格子原值
-            _uni["error"] = "%s: %s" % (type(exc).__name__, exc)
+        except OSError:
+            pass
 
     cell_meta = {str(c.get("cell_id")): c for c in grid.get("cells") or []}
     owner_of = {str(a.get("cell_id")): str(a.get("owner"))
@@ -685,5 +691,8 @@ def build(project: Path, cells_path: Optional[Path] = None,
             "unified": {"diff_ok": _diff.get("ok"),
                         "diff_matched": _diff.get("matched", 0),
                         "diff_count": len(_diff.get("diffs") or []),
+                        "duplicates": len((_diff.get("duplicates") or {}).get("cells") or [])
+                        + len((_diff.get("duplicates") or {}).get("unified") or []),
                         "value_from_observation": _uni.get("matched", 0),
-                        "needs_human": len(_uni.get("mismatched") or [])}}
+                        "needs_human": len(_uni.get("mismatched") or []),
+                        "error": _uni.get("error")}}

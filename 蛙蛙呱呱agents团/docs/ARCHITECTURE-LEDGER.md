@@ -16,7 +16,7 @@
 | 报告入口 | `report run-line` → `report_line` → `decision_report` → `report_flow` | `report_cli` 的 v10/v11 说法、`flow_report` 模板线 | `report_line` 目前是转发层；统一门面后合并 |
 | 拆卡 / 收卡 | 外部只走 `core/cards/pipeline.py`（P5-3，2026-11-27）；实现仍在 `report_dispatch`（发/验）+ `card_issue`（拆/探）+ `dispatch.collect`（收） | `dispatch` v12.2 的旧叙事 | 合并为 `cards/pipeline` 单一实现后，三个模块退场 |
 | 断言模型 | `core/claims/claims.py`（论证层 + 映射层，P5-4 合并）；字段与契约版本见 `core/claims/contract.py`（P5-1） | `claims_v4.py`（2026-11-27 并入 claims）；`claim_card` / `claim_gate`（2026-11-26 已删除） | 统一 schema 为 ClaimCard 后动；在此之前字段只许从 contract 读 |
-| 格子读数 | `cells_unified.observations()` | `cells_claims` 的 v1/v2/v3 三入口 | 单一读数稳定后下线旧入口 |
+| 格子读数 | `cells_unified.observations()`（P5-5，2026-11-27）：raw.json 优先、其次 plan/mart.json；`compare()` 对账（含重复键）写 `out/cells_claims_diff.json`，`apply_to_cells()` 覆盖格子并标 `needs_human` | `cells_claims` 的 v1/v2/v3 三入口 | 单一读数已接入 `build()` 默认路径；旧入口待真实样本验证后下线 |
 | 报告正文 | `core/prose/`：prose_spec / prose_candidates / prose_style；`report_prose_gen` 随报告线在 `core/report/`；阈值兜底见 `report_contract.PROSE_DEFAULTS`（P5-2，2026-11-27） | 旧平铺 `core/prose_*.py`（2026-11-26 已删除）；`prose_critic`（已删除） | 合并为 `prose_contract` + `prose_render` 时动；阈值只许配置 + 一处兜底 |
 | 图表 | 14 个 `chart_*` + `core/charts` + `report_theme` | `chart_fit`（2026-11-26 已删除） | 选型只保留 `report_flow.chart_fitness_errors` 一份 |
 | 覆盖矩阵 | `coverage_plan` / `coverage_confirm` / `coverage_policy` / `coverage_wire` | `coverage_cli` / `task_frame` / `task_research`（2026-11-26 已删除） | `dispatch` 内联产出 `task_frame.json`，不再有独立 CLI |

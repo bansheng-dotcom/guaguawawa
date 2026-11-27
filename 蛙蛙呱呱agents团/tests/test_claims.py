@@ -353,6 +353,59 @@ def test_build_without_raw_keeps_cell_values():
     res = cells_claims.build(base)
     assert res["ok"] and res["unified"]["value_from_observation"] == 0
     assert res["unified"]["diff_ok"] is True
+    assert res["unified"].get("error") is None
+
+
+def test_compare_flags_conflicting_duplicate_observations():
+    """统一读数同键多值 = 没收敛：必须报 duplicates 且 ok=False。"""
+    base = _project()
+    _, filled = _filled(base)
+    a = filled[0]
+    row = {"metric_id": a["measure_id"], "entity": a["entity"],
+           "period": a["period"], "unit": "亿元"}
+    (base / "out" / "raw.json").write_text(json.dumps({"rows": [
+        {**row, "value": a["value"], "source_id": "S1"},
+        {**row, "value": a["value"] + 5, "source_id": "S2"},
+    ]}, ensure_ascii=False), encoding="utf-8")
+    d = cells_unified.compare(base)
+    assert d["ok"] is False
+    dups = d["duplicates"]["unified"]
+    assert len(dups) == 1
+    assert dups[0]["key"] == cells_unified.key_of(
+        a["measure_id"], a["entity"], a["period"])
+    assert sorted(dups[0]["values"]) == sorted([float(a["value"]),
+                                               float(a["value"]) + 5])
+
+
+def test_compare_tolerates_identical_duplicate_observations():
+    """同值重复（多来源抄了同一个数）不算冲突。"""
+    base = _project()
+    _, filled = _filled(base)
+    a = filled[0]
+    row = {"metric_id": a["measure_id"], "entity": a["entity"],
+           "period": a["period"], "value": a["value"], "unit": "亿元"}
+    (base / "out" / "raw.json").write_text(json.dumps({"rows": [
+        {**row, "source_id": "S1"}, {**row, "source_id": "S2"},
+    ]}, ensure_ascii=False), encoding="utf-8")
+    d = cells_unified.compare(base)
+    assert d["duplicates"]["unified"] == []
+    assert d["ok"] is True
+
+
+def test_build_surfaces_unified_error(monkeypatch):
+    """统一读数崩溃不许静默放行：返回值与落盘文件都要带 error。"""
+    base = _project()
+
+    def _boom(*_a, **_k):
+        raise RuntimeError("raw 读取失败")
+
+    monkeypatch.setattr(cells_unified, "compare", _boom)
+    res = cells_claims.build(base)
+    assert res["ok"], res
+    assert "raw 读取失败" in str(res["unified"].get("error"))
+    doc = json.loads((base / "out" / "cells_unified.json")
+                     .read_text(encoding="utf-8"))
+    assert "raw 读取失败" in str(doc.get("error"))
 
 
 def test_mart_rows_are_read_as_observations(tmp_path):

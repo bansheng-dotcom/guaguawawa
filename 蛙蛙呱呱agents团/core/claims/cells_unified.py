@@ -121,7 +121,26 @@ def observations(project: Path | str) -> List[Dict[str, Any]]:
 def index(rows: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
     out: Dict[str, Dict[str, Any]] = {}
     for r in rows:
-        out.setdefault(r["key"], r)      # 同键取第一条（冲突另有 raw.conflicts 记录）
+        out.setdefault(r["key"], r)      # 同键取第一条；值冲突由 duplicates() 报出
+    return out
+
+
+def duplicates(rows: List[Dict[str, Any]],
+               tol: float = 1e-6) -> List[Dict[str, Any]]:
+    """同键多值：一个读数只有一份，值不同的重复键就是没收敛，必须报出来。"""
+    seen: Dict[str, List[Dict[str, Any]]] = {}
+    for r in rows:
+        seen.setdefault(r["key"], []).append(r)
+    out = []
+    for k, rs in seen.items():
+        if len(rs) < 2:
+            continue
+        vals = [float(r["value"]) for r in rs]
+        if max(vals) - min(vals) <= tol:
+            continue                     # 同值重复无害（多来源抄了同一个数）
+        out.append({"key": k, "values": vals,
+                    "paths": [str(r.get("path") or "") for r in rs],
+                    "sources": [str(r.get("source") or "") for r in rs]})
     return out
 
 
@@ -143,10 +162,19 @@ def from_cells(project: Path | str) -> List[Dict[str, Any]]:
 
 def compare(project: Path | str, tol: float = 1e-6,
             write: bool = True) -> Dict[str, Any]:
-    """双写对账：cells（v1） vs 统一读数（raw/mart）。"""
+    """双写对账：cells（v1） vs 统一读数（raw/mart）。
+
+    统一读数必须「一个键一个值」：raw/mart 内同键多值记入
+    `duplicates.unified` 且 ok=False；cells 侧的同键多值只作提示
+    （同一格网里不同 qid 可能共用实体标签），记入 `duplicates.cells`。
+    """
     project = Path(project)
-    cells = index(from_cells(project))
-    uniq = index(observations(project))
+    cell_rows = from_cells(project)
+    obs_rows = observations(project)
+    cells = index(cell_rows)
+    uniq = index(obs_rows)
+    dup_cells = duplicates(cell_rows, tol)
+    dup_obs = duplicates(obs_rows, tol)
     diffs: List[Dict[str, Any]] = []
     matched = 0
     for k, c in cells.items():
@@ -159,9 +187,11 @@ def compare(project: Path | str, tol: float = 1e-6,
                           "entity": c["entity"], "period": c["period"],
                           "cells_value": c["value"], "unified_value": u["value"],
                           "unified_path": u["path"]})
-    res = {"schema": "dsh.cells_diff/v1", "ok": not diffs,
+    res = {"schema": "dsh.cells_diff/v1",
+           "ok": not diffs and not dup_obs,
            "cells": len(cells), "unified": len(uniq), "matched": matched,
            "diffs": diffs,
+           "duplicates": {"cells": dup_cells, "unified": dup_obs},
            "missing_in_unified": sorted({k for k in cells if k not in uniq})[:50]}
     if write:
         out = project / "out"
