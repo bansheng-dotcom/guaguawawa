@@ -312,6 +312,25 @@ def test_card_pipeline_is_only_external_entry():
     assert hits == [], hits
 
 
+def test_report_cli_enters_through_report_line():
+    """报告门面：CLI 只许经 report_line 进后端，不许直连三个实现。"""
+    import re
+    src = (TEAM / "core/report/report_cli.py").read_text(encoding="utf-8")
+    pat = re.compile(
+        r"(?:from\s+core\.report\s+import\s+[^\n]*\b(?:decision_report|report_flow|flow_report)\b"
+        r"|from\s+core\s+import\s+[^\n]*\bdecision_report\b"
+        r"|from\s+core\.report\.(?:decision_report|report_flow|flow_report)\s+import)")
+    hits = []
+    for line in src.splitlines():
+        if not pat.search(line):
+            continue
+        if set(re.findall(r"\b[A-Z_]+\b", line)) <= {"THEMES", "DEFAULT_THEME"}:
+            continue      # 展示用常量，不是报告产出
+        hits.append(line)
+    assert hits == [], hits
+    assert "from core.report import report_line" in src
+
+
 # ====================================================================
 # P5-4 收敛守卫：映射层并入 claims、契约统一 v4、严格门禁覆盖历史版本
 # ====================================================================

@@ -158,8 +158,8 @@
 | 模块 | 扇出 |
 |---|---:|
 | `core.report.report_flow` | 37 |
-| `core.report.report_cli` | 26 |
 | `core.cards.dispatch` | 25 |
+| `core.report.report_cli` | 25 |
 | `core.cards.card_issue` | 18 |
 | `core.decision_report` | 16 |
 | `core.ingest.runner` | 11 |
@@ -175,8 +175,8 @@
 | `core.decision` | 8 |
 | `core.drill` | 8 |
 | `core.methods` | 7 |
+| `core.report.report_line` | 7 |
 | `core.cards.card_upgrade` | 6 |
-| `core.collectors.csv_manual` | 6 |
 
 ## 扇入 Top 20（有多少模块依赖它）
 

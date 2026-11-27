@@ -610,11 +610,12 @@ def cmd_flow(args) -> int:
     core/ 只提供引擎，不含任何项目内容。之前误判为「重复渲染器」并删除，
     导致项目代码没有家、只能往 core/ 塞；已恢复。
     """
-    from core.report import flow_report
+    from core.report import report_line
     from core.report.report_layout import default_layout
     layout = "paper" if getattr(args, "paper", False) else (args.layout or default_layout())
     try:
-        res = flow_report.build(args.project, args.out, pdf=args.pdf,
+        res = report_line.build_project(
+                                args.project, args.out, pdf=args.pdf,
                                 layout=layout,
                                 use_specs=not getattr(args, "no_specs", False),
                                 author_first=bool(getattr(args, "author_first", False)),

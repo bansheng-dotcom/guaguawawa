@@ -1,27 +1,23 @@
 # -*- coding: utf-8 -*-
-"""core/report_line —— 唯一报告生产线（v11，P1 阶段：转发实现）。
+"""core/report_line —— 唯一报告门面（2026-11-27 收口）。
 
-设计目标（见 交付/报告产线重构-SOP-2026-11-18.md）：
+对外只承诺一条链：
 
-    一条命令、四种输入、一条后端。
+    report_cli.run-line ─┐
+    report_cli.flow     ─┴→ report_line ─→ decision_report（数据线）
+                                        ├→ report_flow（智能体写稿：evidence + draft）
+                                        └→ flow_report（项目自带 facts/charts 旁路）
 
-    S0 输入识别 → S1 意图→域 → S2 专家编排 → S3 专家作答 →
-    S4 叙事装配 → S5 排版出图 → S6 三层质检 → S7 交付
+`report_cli` 不再直接 import 三个后端；所有报告产出都从这里进。
+S0–S7 的输入识别、显式拒绝与落盘口径保持原样，产物不变。
 
-**P1 阶段只做一件事**：把「一个入口、四种输入」的壳立起来，
-内部原样转发给 `core.decision_report.build()`，保证产物与改造前一致
-（回归判据：report.md 的 SHA256 必须等于基线 A0357882…）。
-
-P2 起替换中间三段：专家编排 / 专家作答 / 叙事装配。
-P4 起替换排版出图。P5 起替换三层质检并把本模块提升为 `report` 正式入口。
-
-输入形态判定（P1 只做识别与记录，不做分支）：
+输入形态判定（只识别与记录，不分支）：
     data           --dir 指向有 csv/json 的项目目录
     document       --input 指向单份文件（评审型）
     research       --research（采集型）
     instruction    只有一句话（假设型）
 
-P1 的诚实边界：除 data 与「--evidence + --draft」外，其余三种形态一律显式
+诚实边界：除 data 与「--evidence + --draft」外，其余三种形态一律显式
 返回 ok=false，不静默落到数据线——否则会拿错误口径产出报告。
 """
 from __future__ import annotations
@@ -73,7 +69,7 @@ def build(intent: str, project_dir: Optional[str] = None,
           min_binding: float = 0.8, evidence_path: Optional[str] = None,
           draft_path: Optional[str] = None, layout: str = "flow",
           prose_hard: bool = False, gate_hard: bool = True) -> Dict[str, Any]:
-    """唯一入口。P1：识别输入形态后转发 decision_report（产物不变）。"""
+    """唯一入口。识别输入形态后转发 decision_report（数据线）或 report_flow（写稿线）。"""
     mode = detect_mode(project_dir, input_path, research)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -165,6 +161,19 @@ def build(intent: str, project_dir: Optional[str] = None,
             pass
     res["generated_by"] = "core/report/report_line.py"
     return res
+
+
+def build_project(project_dir: str, out_dir: str, *, pdf: bool = True,
+                  layout: str = "flow", use_specs: bool = True,
+                  author_first: bool = False, md: bool = True,
+                  prose_hard: bool = False,
+                  gate_hard: bool = False) -> Dict[str, Any]:
+    """项目自带 facts/charts 的 flow 旁路：仍从本门面进，CLI 不直连后端。"""
+    from core.report import flow_report
+    return flow_report.build(project_dir, out_dir, pdf=pdf, layout=layout,
+                             use_specs=use_specs, author_first=author_first,
+                             md=md, prose_hard=prose_hard,
+                             gate_hard=gate_hard)
 
 
 def main(argv: Optional[list] = None) -> int:

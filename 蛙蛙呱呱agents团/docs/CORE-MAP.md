@@ -50,13 +50,13 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 | 文件 | 行 | 干什么 | flow 线角色 |
 |---|---|---|---|
 | `report_cli.py` | 904 | CLI 唯一入口：clarify/brief/collect/run-line/check/flow… | 【S0】所有命令的入口 |
-| `report_line.py` | 183 | 唯一报告生产线：`detect_mode` + `build` | 【S0】判输入模式，转发到 decision_report 或 claims |
+| `report_line.py` | 190 | 唯一报告门面：`detect_mode` + `build` + `build_project` | 【S0】CLI 只从这里进，转发到 decision_report / report_flow / flow_report |
 | `report_dispatch.py` | 616 | 三段可审文件：brief → collect → report | 【S2/S3】拆卡线的调度 |
 | `report_flow.py` | 1484 | **唯一报告产线**：契约装配 + 渲染 + 门禁 | 【S4/S5】核心，`build_sections_contract` 在这 |
 | `report_bridge.py` | 243 | 共享渲染桥：contract → HTML/MD/PDF | 【S5/S7】产物出口 |
 | `report_renderer.py` | 1599 | 确定性 HTML 渲染器（70 型 + 8 主题） | 【S5】`validate_contract` + `render` |
 | `decision_report.py` | 431 | 决策优先的报告装配（report decide） | 【S4】数据分支的装配器 |
-| `flow_report.py` | 245 | **项目代码宿主**：从项目目录加载 facts/charts/prose_specs | 【S5 旁路】项目自带代码时用 |
+| `flow_report.py` | 245 | **项目代码宿主**：从项目目录加载 facts/charts/prose_specs；CLI 经 `report_line.build_project` 调用 | 【S5 旁路】项目自带代码时用 |
 | `report_layout.py` | 36 | 版式默认值（flow/paper） | 【S5】读 configs |
 | `report_contract.py` | 73 | 所有阈值只从这里读 | 【S6】阈值单一出处 |
 
@@ -253,7 +253,7 @@ S7 交付       report.html + report.md + report.pdf + manifest.json
 
 ## 13. 一句话总结
 
-- **主线只用到约 30 个文件**：`report_cli → report_line → decision_report/report_flow → report_bridge → report_renderer → charts_pro`。
+- **主线只用到约 30 个文件**：`report_cli → report_line → decision_report / report_flow / flow_report → report_bridge → report_renderer → charts_pro`。
 - **拆卡线**是另一组：`card_issue / card_upgrade / dispatch / report_dispatch / grid_attach / cells_claims`。
 - **图表库**最大：`charts/`(3) + `charts_pro/`(10) + `samples_data/`(10) = **23 个图表文件**，S5 专用；另有 `report_theme/`(6) 页面/基元。
 - **`flow_report.py` 是项目代码宿主**，不在主线里，但它是"项目代码不进 core/"的关键。
